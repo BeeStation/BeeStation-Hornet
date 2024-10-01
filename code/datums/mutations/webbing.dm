@@ -1,5 +1,5 @@
 //spider webs
-/datum/mutation/human/webbing
+/datum/mutation/webbing
 	name = "Webbing Production"
 	desc = "Allows the user to lay webbing, and travel through it."
 	quality = POSITIVE

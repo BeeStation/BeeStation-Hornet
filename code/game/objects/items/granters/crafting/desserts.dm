@@ -4,7 +4,6 @@
 	crafting_recipe_types = list(
 		/datum/crafting_recipe/food/mimetart,
 		/datum/crafting_recipe/food/berrytart,
-		/datum/crafting_recipe/food/cocolavatart,
 		/datum/crafting_recipe/food/clowncake,
 		/datum/crafting_recipe/food/vanillacake
 	)

@@ -243,7 +243,7 @@
 		var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
 		if(!jaunt)
 			return
-
+		var/mob/living/L = target
 		var/total_refund = 0 SECONDS
 		// they're dead, and you killed them - full refund
 		if(QDELETED(L) || (L.stat == DEAD && prev_stat != DEAD))

@@ -102,7 +102,3 @@
 	laws.clear_zeroth_law(force)
 	post_lawchange(announce)
 
-/mob/living/silicon/proc/clear_law_sixsixsix(force, announce = TRUE)
-	laws_sanity_check()
-	laws.clear_law_sixsixsix(force)
-	post_lawchange(announce)

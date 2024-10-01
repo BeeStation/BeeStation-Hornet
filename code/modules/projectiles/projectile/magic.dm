@@ -7,6 +7,19 @@
 	armour_penetration = 100
 	armor_flag = NONE
 	martial_arts_no_deflect = TRUE
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags = MAGIC_RESISTANCE
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost = 1
+
+/obj/projectile/magic/prehit_pierce(atom/target)
+	. = ..()
+
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.anti_magic_check(antimagic_flags))
+			visible_message(span_warning("[src] fizzles on contact with [victim]!"))
+			return PROJECTILE_DELETE_WITHOUT_HITTING
 
 /obj/projectile/magic/death
 	name = "bolt of death"

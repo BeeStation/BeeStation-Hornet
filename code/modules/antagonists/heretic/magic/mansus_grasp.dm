@@ -37,12 +37,12 @@
 	living_hit.apply_damage(10, BRUTE)
 	if(iscarbon(victim))
 		var/mob/living/carbon/carbon_hit = victim
-		//carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+		carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
-
+/*
 /datum/action/cooldown/spell/touch/mansus_grasp/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(isliving(victim)) // if it's a living mob, go with our normal afterattack
 		return SECONDARY_ATTACK_CALL_NORMAL
@@ -51,7 +51,7 @@
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
+*/
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
 	desc = "A sinister looking aura that distorts the flow of reality around it. \

@@ -54,7 +54,6 @@
 		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash/long,
 		/datum/action/cooldown/spell/list_target/telepathy/eldritch,
 		/datum/action/cooldown/spell/pointed/blind/eldritch,
-		/datum/action/innate/expand_sight,
 	)
 
 	/// A assoc list of [mob/living ref] to [datum/action ref] - all the mobs linked to our mansus network.
@@ -65,7 +64,6 @@
 	linked_mobs = list()
 	var/datum/action/innate/hereticmob/change_sight_range/C = new()
 	C.Grant(src)
-	link_mob(src)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Login()
 	. = ..()
@@ -88,57 +86,6 @@
 	else
 		usr.client.view_size.setTo(10)
 
-/**
- * Link [linked_mob] to our mansus link, if possible.
- * Creates a mansus speech action and grants it to the linked mob,
- * storing it in our linked_mobs list.
- */
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/link_mob(mob/living/mob_linked)
-	if(QDELETED(mob_linked) || mob_linked.stat == DEAD)
-		return FALSE
-	if(HAS_TRAIT(mob_linked, TRAIT_MINDSHIELD)) //mindshield implant, no dice
-		return FALSE
-	if(mob_linked.anti_magic_check(FALSE, FALSE, TRUE, 0))
-		return FALSE
-	if(linked_mobs[mob_linked])
-		return FALSE
-
-	to_chat(mob_linked, "<span class='notice'>You feel something new enter your sphere of mind... \
-		You hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link.</span>")
-
-	var/datum/action/innate/mansus_speech/action = new(src)
-	linked_mobs[mob_linked] = action
-	action.Grant(mob_linked)
-
-	RegisterSignals(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_MINDSHIELD)), PROC_REF(unlink_mob))
-
-	return TRUE
-
-/**
- * Signal proc that handles removing mobs from our mansus link.
- *
- * Remove the [mob_linked] from our list of linked mobs, and delete the associated action.
- */
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/unlink_mob(mob/living/mob_linked)
-	SIGNAL_HANDLER
-
-	if(QDELETED(linked_mobs[mob_linked]))
-		return
-	UnregisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_MINDSHIELD)))
-	var/datum/action/innate/mansus_speech/action = linked_mobs[mob_linked]
-	action.Remove(mob_linked)
-	qdel(action)
-
-	to_chat(mob_linked, "<span class='notice'>Your mind shatters as [src]'s Mansus Link leaves your mind.</span>")
-	INVOKE_ASYNC(mob_linked, TYPE_PROC_REF(/mob, emote), "scream")
-	mob_linked.AdjustParalyzed(0.5 SECONDS) //micro stun
-
-	linked_mobs -= mob_linked
-
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Destroy()
-	for(var/linked_mob in linked_mobs)
-		unlink_mob(linked_mob)
-	return ..()
 
 // What if we took a linked list... But made it a mob?
 /// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles

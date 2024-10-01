@@ -202,7 +202,6 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()

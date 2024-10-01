@@ -77,12 +77,6 @@
 
 	var/atom/movable/screen/click_catcher/void
 
-	//These two vars are used to make a special mouse cursor, with a unique icon for clicking
-	/// Mouse icon while not clicking
-	var/mouse_up_icon = null
-	/// Mouse icon while clicking
-	var/mouse_down_icon = null
-
 	var/ip_intel = "Disabled"
 
 	/// Datum that controls the displaying and hiding of tooltips
@@ -136,16 +130,12 @@
 
 ///Autoclick list of two elements, first being the clicked thing, second being the parameters.
 	var/list/atom/selected_target[2]
-	///Autoclick variable referencing the associated item.
-	var/obj/item/active_mousedown_item = null
 	///Used in MouseDrag to preserve the original mouse click parameters
 	var/mouseParams = ""
 	///Used in MouseDrag to preserve the last mouse-entered location. Weakref
 	var/datum/weakref/mouse_location_ref = null
 	///Used in MouseDrag to preserve the last mouse-entered object. Weakref
 	var/datum/weakref/mouse_object_ref
-	//Middle-mouse-button click dragtime control for aimbot exploit detection.
-	var/middragtime = 0
 	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
 	var/datum/weakref/middle_drag_atom_ref
 

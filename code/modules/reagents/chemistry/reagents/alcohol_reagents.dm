@@ -990,7 +990,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	. = COMPONENT_STOP_CONSUMPTION
 
 	to_chat(jaunter, span_boldwarning("AAH! THEIR FLESH! IT BURNS!"))
-	jaunter.apply_damage(25, BRUTE, wound_bonus = CANT_WOUND)
+	jaunter.apply_damage(25, BRUTE)
 
 	for(var/obj/effect/decal/cleanable/nearby_blood in range(1, get_turf(source)))
 		if(!nearby_blood.can_bloodcrawl_in())
@@ -2511,7 +2511,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "sarsaparilliansunset"
 	glass_name = "Sarsaparillian Sunset"
 	glass_desc = "The view of a sunset over an irradiated wasteland. Calms your burns, but don't drink too much."
-	var/power = /obj/effect/proc_holder/spell/aimed/firebreath/weak
+	var/datum/action/cooldown/spell/power = /datum/action/cooldown/spell/basic_projectile/weak
 	overdose_threshold = 50
 	metabolization_rate = 0.5
 
@@ -2522,7 +2522,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_start(mob/living/M)
 	to_chat(M, "<span class='warning'>You feel a heat from your abdomen, burning you from the inside!</span>")
 	power = new power()
-	M.AddSpell(power)
+	power.Grant(M)
 	. = ..()
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_process(mob/living/M)
@@ -2531,14 +2531,14 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_end_metabolize(mob/living/M)
 	to_chat(M, "<span class='notice'>The fire inside of you calms down.</span>")
-	M.RemoveSpell(power)
+	power.Remove(M)
 	return ..()
 
-/obj/effect/proc_holder/spell/aimed/firebreath/weak
+/datum/action/cooldown/spell/basic_projectile/weak
 	name = "Fire Upchuck"
 	desc = "You can feel heat rising from your stomach"
-	range = 20
-	charge_max = 300
+	projectile_range = 20
+	cooldown_time = 300
 	projectile_type = /obj/projectile/magic/fireball/firebreath/weak
 
 /obj/projectile/magic/fireball/firebreath/weak

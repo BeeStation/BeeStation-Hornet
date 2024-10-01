@@ -1,5 +1,5 @@
 
-/datum/mutation/human/self_amputation
+/datum/mutation/self_amputation
 	name = "Autotomy"
 	desc = "Allows a creature to voluntary discard a random appendage."
 	quality = POSITIVE

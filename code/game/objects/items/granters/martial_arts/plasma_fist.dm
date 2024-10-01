@@ -30,6 +30,3 @@
 		name = initial(name)
 		desc = initial(desc)
 		icon_state = initial(icon_state)
-
-/obj/item/book/granter/martial/plasma_fist/nobomb
-	martial = /datum/martial_art/plasma_fist/nobomb

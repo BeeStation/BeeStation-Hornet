@@ -670,7 +670,6 @@
 		src.connected_ai = null
 	lawupdate = FALSE
 	set_lockcharge(FALSE)
-	scrambledcodes = TRUE_DEVIL
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
 		QDEL_NULL(builtInCamera)

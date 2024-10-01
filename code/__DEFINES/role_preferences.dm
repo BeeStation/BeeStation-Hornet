@@ -53,6 +53,7 @@
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
 #define ROLE_PRISONER			"Prisoner"
+#define ROLE_WIZARD_APPRENTICE "apprentice"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(

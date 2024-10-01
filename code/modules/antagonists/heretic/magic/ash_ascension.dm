@@ -135,7 +135,3 @@
 		T = check
 	return (get_line(user, T) - get_turf(user))
 
-/datum/action/cooldown/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
-	var/list/hit_list = list()
-	for(var/turf/T in turfs)
-		if(istype(T, /turf/closed))

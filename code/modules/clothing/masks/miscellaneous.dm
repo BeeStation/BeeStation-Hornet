@@ -368,3 +368,10 @@
 			message = replacetextEx(message,regex(capitalize(key),"g"), "[capitalize(value)]")
 			message = replacetextEx(message,regex(key,"g"), "[value]")
 	speech_args[SPEECH_MESSAGE] = trim(message)
+
+GLOBAL_LIST_INIT(cursed_animal_masks, list(
+		/obj/item/clothing/mask/pig/cursed,
+		/obj/item/clothing/mask/frog/cursed,
+		/obj/item/clothing/mask/cowmask/cursed,
+		/obj/item/clothing/mask/horsehead/cursed,
+	))

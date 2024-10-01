@@ -110,3 +110,7 @@
 	item_target.layer = old_layer
 	item_target.plane = old_plane
 	current_button.appearance_cache = item_target.appearance
+
+
+/datum/action/item_action/equip_unequip_TED_Gun
+	name = "Activate/Deactivate TED Gun"

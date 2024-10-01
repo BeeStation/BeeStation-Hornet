@@ -68,10 +68,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 	var/special_target_valid = FALSE
-	if(special_target)
-		var/turf/T = get_turf(special_target)
-		if(T.z == z_original)
-			special_target_valid = TRUE_THRESHOLD
 	if(special_target_valid)
 		SSmove_manager.home_onto(src, special_target)
 		previous_distance = get_dist(src, special_target)

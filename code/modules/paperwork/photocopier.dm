@@ -402,15 +402,10 @@
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper))
 		if(copier_empty())
-			if(istype(O, /obj/item/paper/contract/infernal))
-				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
-				resistance_flags |= FLAMMABLE
-				fire_act()
-			else
-				if(!user.temporarilyRemoveItemFromInventory(O))
-					return
-				paper_copy = O
-				do_insertion(O, user)
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
+			paper_copy = O
+			do_insertion(O, user)
 		else
 			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
 

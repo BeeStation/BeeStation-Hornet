@@ -1,4 +1,4 @@
-/datum/mutation/human/tongue_spike
+/datum/mutation/tongue_spike
 	name = "Tongue Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as a deadly weapon."
 	quality = POSITIVE
@@ -81,7 +81,7 @@
 
 	qdel(src)
 
-/datum/mutation/human/tongue_spike/chem
+/datum/mutation/tongue_spike/chem
 	name = "Chem Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as biomass, allowing a long range transfer of chemicals."
 	quality = POSITIVE

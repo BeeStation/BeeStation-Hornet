@@ -238,7 +238,6 @@
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
-	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
 /obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
 	if(usr.incapacitated())

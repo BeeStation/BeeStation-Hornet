@@ -90,6 +90,7 @@
 		// chance to alert the read-ee
 		to_chat(cast_on, span_danger("You feel something foreign enter your mind."))
 
+	/* Uhhhh idk what to put here :3
 	var/list/recent_speech = list()
 	var/list/say_log = list()
 	var/log_source = cast_on.logging
@@ -97,3 +98,4 @@
 	for(var/log_type in log_source)
 		var/nlog_type = text2num(log_type)
 		if(nlog_type & LOG_SAY)
+*/

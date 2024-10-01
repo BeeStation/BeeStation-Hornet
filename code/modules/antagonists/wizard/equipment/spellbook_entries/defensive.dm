@@ -77,15 +77,7 @@
 	spell_type = /datum/action/cooldown/spell/conjure/bee
 	category = "Defensive"
 
-/datum/spellbook_entry/duffelbag
-	name = "Bestow Cursed Duffel Bag"
-	desc = "A curse that firmly attaches a demonic duffel bag to the target's back. \
-		The duffel bag will make the person it's attached to take periodical damage \
-		if it is not fed regularly, and regardless of whether or not it's been fed, \
-		it will slow the person wearing it down significantly."
-	spell_type = /datum/action/cooldown/spell/touch/duffelbag
-	category = "Defensive"
-	cost = 1
+//There was supposed to be a cursed duffelbag that eats you but it requires code beyond the scope of this pr
 
 /datum/spellbook_entry/item/staffhealing
 	name = "Staff of Healing"
@@ -123,7 +115,7 @@
 	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
 	category = "Defensive"
 
-/datum/spellbook_entry/item/armor/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
+/datum/spellbook_entry/item/armor/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
 	new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
 	new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
 	new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.

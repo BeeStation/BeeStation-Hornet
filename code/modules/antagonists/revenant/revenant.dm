@@ -100,11 +100,12 @@
 	check_rev_teleport()
 
 /mob/living/simple_animal/revenant/proc/check_rev_teleport()
-	var/obj/effect/proc_holder/spell/self/rev_teleport/revtele = locate() in mob_spell_list
+	var/datum/action/cooldown/spell/teleport/area_teleport/wizard/revtele = locate() in actions
 	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
-		AddSpell(new /obj/effect/proc_holder/spell/self/rev_teleport(null))
+		revtele = new /datum/action/cooldown/spell/teleport/area_teleport/wizard
+		revtele.Grant()
 	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
-		RemoveSpell(revtele)
+		revtele.Remove()
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()

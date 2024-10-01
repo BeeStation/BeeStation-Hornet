@@ -1119,7 +1119,7 @@
 	attack_verb_continuous = list("clubs", "beats", "pummels")
 	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
-	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
+	actions_types = list(/datum/action/item_action/vortex_recall)
 	var/power = 15 //Damage of the magic tiles
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is

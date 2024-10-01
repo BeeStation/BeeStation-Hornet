@@ -466,11 +466,11 @@
 	new /obj/item/razor(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/blood_filter(src)
-	
+
 /obj/item/storage/backpack/duffelbag/med/implant
 	name = "surplus implants duffel bag"
 	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various implants."
-	
+
 /obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
 	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
 						/obj/item/organ/cyberimp/arm/botany,
@@ -722,3 +722,4 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/implanter/sad_trombone(src)
+

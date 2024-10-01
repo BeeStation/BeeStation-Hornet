@@ -216,4 +216,4 @@
 	return things
 
 /datum/action/cooldown/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
-	victim.blind_eyes(4)
+	victim.set_blindness(4)

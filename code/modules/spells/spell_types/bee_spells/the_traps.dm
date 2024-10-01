@@ -17,7 +17,7 @@
 	button_icon_state = "the_traps"
 
 /datum/action/cooldown/spell/aoe/area_conversion/the_traps/cast_on_thing_in_aoe(turf/victim, mob/caster)
-	var/obj/randomed_trap = pick(summon_type)
-	var/obj/structure/trap/T = new(victim.loc)
+	var/obj/structure/trap/T = pick(summon_type)
+	T.New(victim.loc)
 	T.immune_minds += caster.mind
 	T.charges = 1

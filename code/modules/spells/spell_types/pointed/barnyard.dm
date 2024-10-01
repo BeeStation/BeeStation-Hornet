@@ -39,11 +39,11 @@
 		return FALSE
 
 	var/chosen_type = pick(GLOB.cursed_animal_masks)
-	var/obj/item/clothing/mask/animal/cursed_mask = new chosen_type(get_turf(target))
+	var/obj/item/clothing/mask/cursed_mask = new chosen_type(get_turf(target))
 
 	cast_on.visible_message(
 		span_danger("[target]'s face bursts into flames, and a barnyard animal's head takes its place!"),
-		span_userdanger("Your face burns up, and shortly after the fire you realise you have the face of a [cursed_mask.animal_type]!"),
+		span_userdanger("Your face burns up, and shortly after the fire you realise you have the [cursed_mask.name]!"),
 	)
 
 	// Can't drop? Nuke it

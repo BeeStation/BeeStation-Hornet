@@ -43,7 +43,6 @@
 	if(deconvert)
 		M.visible_message("<span class='notice'>[user] reminds [M] that [M]'s soul was already purchased by Nanotrasen!</span>")
 		to_chat(M, "<span class='boldnotice'>You feel that your soul has returned to its rightful owner, Nanotrasen.</span>")
-		M.return_soul()
 	else
 		M.visible_message("<span class='danger'>[user] beats [M] over the head with [src]!</span>", \
 			"<span class='userdanger'>[user] beats [M] over the head with [src]!</span>")

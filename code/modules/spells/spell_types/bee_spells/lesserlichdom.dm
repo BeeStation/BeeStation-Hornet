@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/lesserlichdom
+/datum/action/cooldown/spell/lesserlichdom
 	name = "Lesser Bind Soul"
 	desc = "A weak version of the dark necromantic pact that can forever bind your soul to an \
 	item of your choosing. So long as both your body and the item remain \
@@ -7,20 +7,16 @@
 	that the new skeleton body will experience upon 'birth'. Note that \
 	becoming a lesser lich destroys all internal organs except the brain."
 	school = "necromancy"
-	charge_max = 10
-	clothes_req = FALSE
-	centcom_cancast = FALSE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = "MINUS POTENS NECREM IMORTIUM!"
 	invocation_type = INVOCATION_SHOUT
-	range = -1
-	level_max = 0 //cannot be improved
-	cooldown_min = 10
-	include_user = TRUE
+	cooldown_time = 10 SECONDS
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
-	action_icon_state = "skeleton"
+	button_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon_state = "skeleton"
 
-/obj/effect/proc_holder/spell/targeted/lesserlichdom/cast(list/targets,mob/user = usr)
+/datum/action/cooldown/spell/lesserlichdom/cast(list/targets,mob/user = usr)
+	. = ..()
 	for(var/mob/M in targets)
 		var/list/hand_items = list()
 		if(iscarbon(M))
@@ -70,7 +66,7 @@
 		M.set_species(/datum/species/skeleton)
 		// no robes spawn for a lesser spell
 		// you only get one phylactery.
-		M.mind.RemoveSpell(src)
+		src.Remove(M)
 
 
 /obj/item/lesserphylactery

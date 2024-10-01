@@ -1243,14 +1243,15 @@
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/capitialism.ogg'))
-	C.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock ())
+	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	K.Grant(C)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/capitalist/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_SAY)
-	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
-		C.RemoveSpell(spell)
+	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	K.Remove(C)
 
 /datum/species/golem/capitalist/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	..()
@@ -1286,13 +1287,14 @@
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/Russian_Anthem_chorus.ogg'))
-	C.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock ())
+	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	K.Grant(C)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/soviet/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
-		C.RemoveSpell(spell)
+	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	K.Remove(C)
 	UnregisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/soviet/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
