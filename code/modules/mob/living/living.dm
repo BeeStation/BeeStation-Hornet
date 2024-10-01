@@ -1287,8 +1287,10 @@
 		unbuckle_all_mobs(force = TRUE)
 	. = ..()
 	if(.)
-		if(client)
+		if(isturf(destination))
 			reset_perspective()
+		else
+			reset_perspective(destination)
 
 
 /mob/living/set_stat(new_stat)
@@ -1459,10 +1461,12 @@
 	return result
 
 /mob/living/reset_perspective(atom/new_eye)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
+
 	update_sight()
-	if(client.eye && client.eye != src)
+	if(client && client.eye != src)
 		var/atom/AT = client.eye
 		AT.get_remote_view_fullscreens(src)
 	else

@@ -191,6 +191,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	///////////
 
 /client/New(TopicData)
+	perspective = EYE_PERSPECTIVE // We always use EYE_PERSPECTIVE.
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -978,6 +979,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/set_eye(atom/new_eye, atom/old_eye = src.eye)
 	if(new_eye == old_eye)
 		return
+
+	if(old_eye == CLIENT_OLD_EYE_NULL)
+		old_eye = null
 
 	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
 		LAZYREMOVE(old_eye.eye_users, src)

@@ -4,8 +4,7 @@
 	H?.move_hologram(eye_user, loc)
 
 /obj/machinery/holopad/remove_eye_control(mob/living/user)
-	if(user.client)
-		user.reset_perspective(null)
+	user.reset_perspective()
 	user.remote_control = null
 
 //this datum manages it's own references
@@ -152,7 +151,7 @@
 	eye.name = "Camera Eye ([user.name])"
 	user.remote_control = eye
 	user.reset_perspective(eye)
-	eye.setLoc(answering_holopad.loc)
+	eye.setLoc(get_turf(answering_holopad))
 
 	hangup = new(eye, src)
 	hangup.Grant(user)
