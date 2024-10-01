@@ -1051,19 +1051,50 @@
 	description = "Encourages coagulation to stop wounds from bleeding."
 	color = "#FA7DB5"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "A roll of gauze"
-	overdose_threshold = 10
+	taste_description = "a roll of gauze"
+	metabolization_rate = 0.3 * REAGENTS_METABOLISM
+	overdose_threshold = 20
 
 /datum/reagent/medicine/quickclot/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-0.3/METABOLITE_PENALTY(metabolite), 0)
-	do/var/(M, stop_bleeding FAST_REF(src))
-	ADD_TRAIT(M, TRAIT_NO_BLEEDING FAST_REF(src))
+	M.adjustBruteLoss(-0.3)
+	ADD_TRAIT(M, TRAIT_NO_BLEEDING, FAST_REF(src))
+	M.suppress_bloodloss(0.3)
+	. = ..()
 
 /datum/reagent/medicine/quickclot/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(M, TRAIT_NO_BLEEDING type)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
 	. = ..()
-	. =
 
+/datum/reagent/medicine/quickclot/overdose_process(mob/living/M)
+	M.adjustBruteLoss(0.3)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 0.2)
+	. = ..()
+
+/datum/reagent/medicine/quickclotp
+	name = "Quick Clot Plus"
+	description = "Encourages coagulation to stop wounds from bleeding, as a side effect it also increases blood toxicity."
+	color = "#82405D"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "a roll of gauze with a hint of toxin"
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	overdose_threshold = 5
+
+/datum/reagent/medicine/quickclotp/on_mob_life(mob/living/carbon/M)
+	M.suppress_bloodloss(1)
+	M.adjustBruteLoss(-0.6)
+	ADD_TRAIT(M, TRAIT_NO_BLEEDING, FAST_REF(src))
+	M.adjustToxLoss(3)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 1)
+	. = ..()
+
+/datum/reagent/medicine/quickclotp/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
+	. = ..()
+
+/datum/reagent/medicine/quickclotp/overdose_process(mob/living/M)
+	M.adjustToxLoss(1.3)
+	M.blur_eyes(1)
+	. = ..()
 
 //Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/amphetamine
