@@ -4663,11 +4663,12 @@
 /turf/open/floor/iron/freezer,
 /area/mine/laborcamp)
 "IS" = (
-/obj/machinery/door/airlock{
-	name = "Closet"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Mining Station Gateway Maintenance";
+	req_one_access_txt = "54;64;12"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/gateway)
