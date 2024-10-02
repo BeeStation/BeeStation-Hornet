@@ -14,6 +14,7 @@
 					/obj/item/stack/medical/gauze = 8,
 					/obj/item/reagent_containers/hypospray/medipen = 8,
 					/obj/item/reagent_containers/hypospray/medipen/dexalin = 8,
+					/obj/item/reagent_containers/hypospray/medipen/clotagen = 4,
 					/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
 					/obj/item/reagent_containers/glass/bottle/salglu_solution = 4,

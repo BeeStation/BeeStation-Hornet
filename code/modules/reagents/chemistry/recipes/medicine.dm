@@ -225,7 +225,7 @@
 	name = "Quick Clot Plus"
 	id = /datum/reagent/medicine/clotagenp
 	results = list(/datum/reagent/medicine/clotagenp = 10)
-	required_reagents = list(/datum/reagent/medicine/clotagen = 1, /datum/reagent/toxin/formaldehyde = 2, /datum/reagent/medicine/sal_acid = 1, /datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/medicine/clotagen = 1, /datum/reagent/toxin/formaldehyde = 2, /datum/reagent/medicine/bicaridine = 1, /datum/reagent/toxin/plasma = 1)
 
 /datum/chemical_reaction/dexalin
 	name = "Dexalin"
