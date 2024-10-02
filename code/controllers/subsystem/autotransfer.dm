@@ -42,5 +42,5 @@ SUBSYSTEM_DEF(autotransfer)
 	if(REALTIMEOFDAY > reminder_time)
 		decay_start = TRUE
 		sound_to_playing_players('sound/misc/server-ready.ogg')
-		to_chat(world, "\n<font color='purple'>Don't forget to adjust your vote to leave if you're ready for the round to end!</font>")
+		to_chat(world, "\n<font color='purple'>Don't forget you can vote to leave in the OOC tab if you're ready for the round to end!</font>")
 		reminder_time = reminder_time + CONFIG_GET(number/autotransfer_decay_start)
