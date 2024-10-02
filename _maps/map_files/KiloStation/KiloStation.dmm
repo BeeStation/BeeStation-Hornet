@@ -6179,12 +6179,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"aJb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "aJc" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/radio/intercom{
@@ -7677,6 +7671,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "aYZ" = (
@@ -8030,6 +8027,7 @@
 	name = "Mech Bay"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "baX" = (
@@ -19591,6 +19589,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "cvR" = (
@@ -54670,9 +54669,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ooU" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
@@ -74440,9 +74436,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/chemistry)
 "vIM" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/machinery/button/door{
 	id = "Skynet_launch";
 	name = "Mech Bay Door Control";
@@ -116067,7 +116060,7 @@ aBE
 aZJ
 iNm
 baW
-aJb
+cgX
 mrO
 mcO
 aGh
@@ -116324,7 +116317,7 @@ aBI
 aCS
 wJN
 baW
-aJb
+cgX
 mod
 dxP
 bsc
@@ -116581,7 +116574,7 @@ eog
 iPw
 rjR
 baW
-aJb
+cgX
 rKa
 dxP
 bna
