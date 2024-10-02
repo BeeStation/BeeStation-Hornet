@@ -3385,6 +3385,7 @@
 	id_tag = "ViroA";
 	name = "Quarantine Cell"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "asx" = (
@@ -23749,6 +23750,9 @@
 	name = "Monkey Pen Entrance";
 	req_access_txt = "39"
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "cRf" = (
@@ -24810,9 +24814,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "dkj" = (
@@ -25262,9 +25263,11 @@
 /area/hydroponics)
 "drQ" = (
 /obj/machinery/chem_master,
-/obj/effect/turf_decal/delivery,
 /obj/structure/sign/departments/minsky/medical/virology/virology1{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/medical/virology)
@@ -27187,9 +27190,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
@@ -29817,6 +29817,9 @@
 	name = "medical camera"
 	},
 /obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "fcM" = (
@@ -30090,9 +30093,6 @@
 	color = "#439C1E"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -42477,9 +42477,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "jLI" = (
@@ -48376,9 +48373,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 4
@@ -50303,7 +50297,7 @@
 /area/quartermaster/warehouse)
 "mFS" = (
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/plating,
 /area/medical/virology)
 "mGg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -60669,6 +60663,9 @@
 /area/maintenance/central)
 "qyz" = (
 /obj/machinery/computer/pandemic,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "qyC" = (
@@ -63277,7 +63274,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/pandemic,
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "ruI" = (
@@ -63577,9 +63576,6 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/bed/dogbed/runtime{
@@ -68743,6 +68739,9 @@
 	dir = 4;
 	nightshift_light_color = "#22bfa2"
 	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "tyN" = (
@@ -70630,10 +70629,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "uoA" = (
@@ -72547,9 +72542,6 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
 "vbt" = (
@@ -75128,9 +75120,6 @@
 	color = "#439C1E"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "vUg" = (
@@ -76204,9 +76193,6 @@
 /obj/machinery/light{
 	dir = 4;
 	light_color = "#c1caff"
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/showroomfloor,
@@ -80775,9 +80761,6 @@
 /obj/machinery/camera/directional/north{
 	c_tag = "Virology - Testing pens";
 	name = "virology camera"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
