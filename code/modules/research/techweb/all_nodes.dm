@@ -246,6 +246,7 @@
 		"medipen_atropine",
 		"medipen_dex",
 		"medipen_epi",
+		"medipen_clot",
 		"medspray",
 		"minor_botanical_dispenser",
 		"operating",

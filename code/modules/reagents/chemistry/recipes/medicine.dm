@@ -219,7 +219,7 @@
 	name = "Clotagen"
 	id = /datum/reagent/medicine/clotagen
 	results = list(/datum/reagent/medicine/clotagen = 5)
-	required_reagents = list(/datum/reagent/medicine/bicaridine = 1, /datum/reagent/stable_plasma = 2, /datum/reagent/medicine/salglu_solution = 1)
+	required_reagents = list(/datum/reagent/medicine/bicaridine = 1, /datum/reagent/hydrogen = 2, /datum/reagent/medicine/salglu_solution = 1)
 
 /datum/chemical_reaction/clotagenp
 	name = "Quick Clot Plus"

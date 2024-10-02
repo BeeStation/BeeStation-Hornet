@@ -1086,7 +1086,7 @@
 	..()
 
 /datum/reagent/medicine/clotagenp/overdose_process(mob/living/M)
-	M.adjustToxLoss(4)
+	M.adjustToxLoss(2)
 	M.blur_eyes(1)
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
 	..()

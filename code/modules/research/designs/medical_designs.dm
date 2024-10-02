@@ -213,6 +213,16 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/medipen_clot
+	name = "Clotagen Medipen"
+	desc = "A autoinjector containing Clotagen, used to cause blood clots heal cuts quickly."
+	build_path = /obj/item/reagent_containers/hypospray/medipen/clotagen
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/clotagen = 10)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/medipen_dex
 	name = "Dexalin Medipen"
 	desc = "An autoinjector containing dexalin, used to heal oxygen damage quickly."
