@@ -1072,7 +1072,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "a roll of gauze with a hint of toxin"
 	metabolization_rate = 1 * REAGENTS_METABOLISM
-	overdose_threshold = 5
+	overdose_threshold = 10
 
 /datum/reagent/medicine/clotagenp/on_mob_life(mob/living/carbon/M)
 	M.suppress_bloodloss(0.7)
