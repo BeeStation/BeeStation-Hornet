@@ -1058,12 +1058,12 @@
 /datum/reagent/medicine/clotagen/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-0.3)
 	M.suppress_bloodloss(0.3)
-	. = ..()
+	..()
 
 /datum/reagent/medicine/clotagen/overdose_process(mob/living/M)
 	M.adjustBruteLoss(0.3)
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 1)
-	. = ..()
+	..()
 
 /datum/reagent/medicine/clotagenp
 	name = "Clotagen Plus"
@@ -1079,17 +1079,17 @@
 	M.adjustBruteLoss(-0.6)
 	ADD_TRAIT(M, TRAIT_NO_BLEEDING, FAST_REF(src))
 	M.adjustToxLoss(1.5)
-	. = ..()
+	..()
 
 /datum/reagent/medicine/clotagenp/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
-	. = ..()
+	..()
 
 /datum/reagent/medicine/clotagenp/overdose_process(mob/living/M)
 	M.adjustToxLoss(4)
 	M.blur_eyes(1)
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
-	. = ..()
+	..()
 
 //Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/amphetamine
