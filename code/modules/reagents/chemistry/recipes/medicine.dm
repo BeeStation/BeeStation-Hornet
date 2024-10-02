@@ -215,17 +215,17 @@
 	results = list(/datum/reagent/medicine/bicaridine = 3)
 	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
 
-/datum/chemical_reaction/quickclot
-	name = "Quick Clot"
-	id = /datum/reagent/medicine/quickclot
-	results = list(/datum/reagent/medicine/quickclot = 5)
+/datum/chemical_reaction/clotagen
+	name = "Clotagen"
+	id = /datum/reagent/medicine/clotagen
+	results = list(/datum/reagent/medicine/clotagen = 5)
 	required_reagents = list(/datum/reagent/medicine/bicaridine = 1, /datum/reagent/stable_plasma = 2, /datum/reagent/medicine/salglu_solution = 1)
 
-/datum/chemical_reaction/quickclotp
+/datum/chemical_reaction/clotagenp
 	name = "Quick Clot Plus"
-	id = /datum/reagent/medicine/quickclotp
-	results = list(/datum/reagent/medicine/quickclot = 10)
-	required_reagents = list(/datum/reagent/medicine/quickclot = 1, /datum/reagent/toxin/formaldehyde = 2, /datum/reagent/medicine/sal_acid = 1)
+	id = /datum/reagent/medicine/clotagenp
+	results = list(/datum/reagent/medicine/clotagenp = 10)
+	required_reagents = list(/datum/reagent/medicine/clotagen = 1, /datum/reagent/toxin/formaldehyde = 2, /datum/reagent/medicine/sal_acid = 1, /datum/reagent/toxin/plasma = 1)
 
 /datum/chemical_reaction/dexalin
 	name = "Dexalin"
