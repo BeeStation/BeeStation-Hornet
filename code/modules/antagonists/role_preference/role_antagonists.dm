@@ -171,23 +171,6 @@
 	head = /obj/item/clothing/head/helmet/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
-/datum/role_preference/antagonist/devil
-	name = "Devil"
-	description = "Sign deals with crewmembers, turn them to the side of the Devil."
-	antag_datum = /datum/antagonist/devil
-	preview_outfit = /datum/outfit/devil_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/devil_preview
-	name = "Devil (Preview only)"
-	uniform = /obj/item/clothing/under/rank/civilian/lawyer/black
-	r_hand = /obj/item/storage/briefcase
-
-/datum/outfit/devil_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.dna.features["mcolor"] = "511"
-	H.dna.features["horns"] = "Simple"
-	H.set_species(/datum/species/lizard)
-
 /datum/role_preference/antagonist/revolutionary
 	name = "Head Revolutionary"
 	description = "Armed with a flash, convert as many people to the revolution as you can.\n\
