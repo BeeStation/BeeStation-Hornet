@@ -3797,6 +3797,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/fore)
 "avc" = (
@@ -4171,19 +4174,6 @@
 /obj/item/assembly/health,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"awR" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "awV" = (
 /turf/closed/wall/r_wall/rust,
 /area/crew_quarters/heads/chief)
@@ -4280,9 +4270,6 @@
 /obj/structure/closet/crate,
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "axt" = (
@@ -4946,8 +4933,8 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "aBe" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)
 "aBf" = (
@@ -10193,9 +10180,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -28958,10 +28942,10 @@
 /area/science/shuttledock)
 "eLw" = (
 /obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "eLS" = (
@@ -32768,10 +32752,10 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "gjd" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/holopad,
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)
 "gjg" = (
@@ -39840,12 +39824,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)
 "iSJ" = (
@@ -50928,9 +50910,6 @@
 /area/maintenance/starboard/fore)
 "mRW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -51797,9 +51776,6 @@
 /area/maintenance/starboard/fore)
 "nlM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/item/kirbyplants{
 	icon_state = "plant-03"
 	},
@@ -55828,7 +55804,6 @@
 /area/medical/medbay/central)
 "oKp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -58207,12 +58182,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/robotics/lab)
@@ -72695,9 +72672,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "vdz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74630,9 +74604,6 @@
 /area/hallway/primary/fore)
 "vKw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -79817,6 +79788,9 @@
 	name = "Science Aft";
 	req_access_txt = "47"
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/science/aft)
 "xtd" = (
@@ -80783,6 +80757,9 @@
 	req_access_txt = "12"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -115282,7 +115259,7 @@ baH
 hlk
 oKp
 vKw
-awR
+agi
 txo
 htR
 agi
