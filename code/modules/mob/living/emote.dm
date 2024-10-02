@@ -103,7 +103,7 @@
 	. = ..()
 	message_simple = initial(message_simple)
 	var/mob/living/living_user = user
-	if(!. && !living_user.can_speak() || living_user.getOxyLoss() >= 50)
+	if(!. && !living_user.can_speak_vocal() || living_user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
 	var/mob/living/carbon/carbon_user = user
 	// For masks that give unique death sounds
