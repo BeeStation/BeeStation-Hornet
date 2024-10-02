@@ -216,6 +216,7 @@
 /datum/design/medipen_clot
 	name = "Clotagen Medipen"
 	desc = "A autoinjector containing Clotagen, used to cause blood clots heal cuts quickly."
+	id = "medipen_clot"
 	build_path = /obj/item/reagent_containers/hypospray/medipen/clotagen
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 200)
