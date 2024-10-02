@@ -8,11 +8,13 @@
 	throwforce = 3 //good luck hitting someone with the pointy end of the arrow
 	throw_speed = 3
 
-/obj/item/ammo_casing/caseless/arrow/attackby(obj/item/I, mob/user, params)
-	var/obj/item/gun/ballistic/bow/B = I
-	if(istype(B, /obj/item/gun/ballistic/bow))
+/obj/item/ammo_casing/caseless/arrow/attackby(obj/item/I, mob/user, params) //not currently working for some reason
+	if(istype(I, /obj/item/gun/ballistic/bow))
+		var/obj/item/gun/ballistic/bow/B = I
 		B.magazine.attackby(src, user, 0, 1)
 		to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
+	else
+		to_chat(user, "<span class='notice'>SOMETHING IS BROKEN.</span>")
 
 ///WOOD ARROWS///
 
@@ -43,12 +45,14 @@
 			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/glass(get_turf(src))
 			qdel(src)
+			qdel(I)
 			return TRUE
 	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/bottle(get_turf(src))
 			qdel(src)
+			qdel(I)
 			return TRUE
 	if(istype(I, /obj/item/stack/sheet/bone))
 		var/obj/item/stack/sheet/bone/bone = I
@@ -59,6 +63,17 @@
 			bone.use(2) //Remove two bones from the stack.
 			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/hollowpoint(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/stack/sheet/bamboo))
+		var/obj/item/stack/sheet/bamboo/bamboo = I
+		if(bamboo.amount < 2) //Is there less than two sheets of bamboo?
+			user.show_message("<span class='notice'>You need at least [2 - bamboo.amount] bone to create a bamboo point arrow.</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			bamboo.use(2) //Remove two bones from the stack.
+			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint(get_turf(src))
 			qdel(src)
 			return TRUE
 	if(I.is_sharp())
@@ -289,7 +304,7 @@
 
 /obj/item/ammo_casing/caseless/arrow/bone
 	name = "bone arrow shaft"
-	desc = "An arrow shaft carved out of bone. Arrows made with this material will generally hurt more but cause less bleeding."
+	desc = "An arrow shaft carved out of bone. Arrows made with this material will generally be more painful but cause less bleeding."
 	icon_state = "arrow_bone"
 	force = 4
 	armour_penetration = -10
@@ -313,12 +328,14 @@
 			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/glass/bone(get_turf(src))
 			qdel(src)
+			qdel(I)
 			return TRUE
 	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/bottle/bone(get_turf(src))
 			qdel(src)
+			qdel(I)
 			return TRUE
 	if(istype(I, /obj/item/stack/sheet/bone))
 		var/obj/item/stack/sheet/bone/bone = I
@@ -329,6 +346,17 @@
 			bone.use(2) //Remove two bones from the stack.
 			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/stack/sheet/bamboo))
+		var/obj/item/stack/sheet/bamboo/bamboo = I
+		if(bamboo.amount < 2) //Is there less than two sheets of bone?
+			user.show_message("<span class='notice'>You need at least [2 - bamboo.amount] bone to create a bamboo point arrow.</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			bamboo.use(2) //Remove two bones from the stack.
+			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bone(get_turf(src))
 			qdel(src)
 			return TRUE
 	if(I.is_sharp())
@@ -386,18 +414,18 @@
 	force = 7
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
 
-/obj/item/ammo_casing/caseless/arrow/hollowpoint/bone/bamboopoint
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bone
 	name = "bamboo point bone arrow"
 	icon_state = "bonearrow_bamboopoint"
 	force = 6
-	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone/bamboopoint
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bone
 
 ///BAMBOO ARROWS///
 
 /obj/item/ammo_casing/caseless/arrow/bamboo
 	name = "bamboo arrow shaft"
 	desc = "An arrow shaft made out of bamboo. It is suitable to make lighter arrows that pierce their target better than other materials at the cost of damage."
-	icon_state = "arrow_wood"
+	icon_state = "arrow_bamboo"
 	force = 2
 	armour_penetration = -20
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo
@@ -420,12 +448,14 @@
 			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/glass/bamboo(get_turf(src))
 			qdel(src)
+			qdel(I)
 			return TRUE
 	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/bottle/bamboo(get_turf(src))
 			qdel(src)
+			qdel(I)
 			return TRUE
 	if(istype(I, /obj/item/stack/sheet/bone))
 		var/obj/item/stack/sheet/bone/bone = I
@@ -436,6 +466,17 @@
 			bone.use(2) //Remove two bones from the stack.
 			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
 			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo(get_turf(src))
+			qdel(src)
+			return TRUE
+	if(istype(I, /obj/item/stack/sheet/bamboo))
+		var/obj/item/stack/sheet/bamboo/bamboo = I
+		if(bamboo.amount < 2) //Is there less than two sheets of bone?
+			user.show_message("<span class='notice'>You need at least [2 - bamboo.amount] bone to create a bamboo point arrow.</span>", MSG_VISUAL)
+			return FALSE
+		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			bamboo.use(2) //Remove two bamboo from the stack.
+			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
+			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bamboo(get_turf(src))
 			qdel(src)
 			return TRUE
 	if(I.is_sharp())
@@ -464,7 +505,7 @@
 
 /obj/item/ammo_casing/caseless/arrow/cloth/bamboo
 	name = "cloth bamboo arrow"
-	icon_state = "bambooearrow_cloth"
+	icon_state = "bambooarrow_cloth"
 	force = 4
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bamboo
 
@@ -503,11 +544,11 @@
 	rip_time = 1)
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
 
-/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo/bamboopoint
+/obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bamboo
 	name = "bamboo point arrow"
 	icon_state = "bambooarrow_bamboopoint"
 	force = 4
-	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo/bamboopoint
+	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bamboo
 
 /obj/item/ammo_casing/caseless/arrow/sm
 	name = "SM arrow"
@@ -555,12 +596,6 @@
 	desc = "An arrow made from wood, hardened by fire"
 	icon_state = "ashenarrow"
 	projectile_type = /obj/projectile/bullet/reusable/arrow/ash
-
-/obj/item/ammo_casing/caseless/arrow/bone
-	name = "bone arrow"
-	desc = "An arrow made of bone and sinew. The tip is sharp enough to pierce goliath hide."
-	icon_state = "bonearrow"
-	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 
 /obj/item/ammo_casing/caseless/arrow/bronze
 	name = "bronze arrow"

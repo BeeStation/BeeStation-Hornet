@@ -202,14 +202,14 @@
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone
 
-/obj/projectile/bullet/reusable/arrow/hollowpoint/bone/bamboopoint
-	name = "bamboo point wooden arrow"
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bone
+	name = "bamboo point bone arrow"
 	damage = 12
 	armour_penetration = 10
 	embedds = TRUE
 	bleed_force = BLEED_SURFACE
-	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone/bamboopoint
-	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone/bamboopoint
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bone
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bone
 
 ///BAMBOO ARROWS///
 
@@ -264,14 +264,14 @@
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
 
-/obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo/bamboopoint
+/obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bamboo
 	name = "bamboo point arrow"
 	damage = 8
 	armour_penetration = 15
 	embedds = TRUE
 	bleed_force = BLEED_CUT
-	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboo/bamboopoint
-	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo/bamboopoint
+	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bamboo
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bamboo
 
 /obj/projectile/bullet/reusable/arrow/sm
 	name = "SM arrow"

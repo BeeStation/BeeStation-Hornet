@@ -69,8 +69,6 @@
 		if(!is_wielded)
 			balloon_alert(user, "You need both hands free to fire [src]!")
 			return TRUE
-		else if (!chambered)
-			return TRUE
 		else if(do_after(user, drawtime SECONDS, I, IGNORE_USER_LOC_CHANGE) && !chambered)
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
@@ -80,13 +78,13 @@
 /obj/item/gun/ballistic/bow/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weaponcrafting/attachment/secondary) && !attachment)
 		var/obj/item/weaponcrafting/attachment/secondary/A = I
-		attachment = I
+		attachment = A
 		force += A.force
 		spread += A.spread
 		sharpness = A.sharpness
 		bleed_force = A.bleed_force
 		update_icon()
-		qdel(I)
+		qdel(A) //THIS IS CAUSING A RUNTIME, LETS FIND A WAY
 		return TRUE
 	if(string_cut)
 		if(istype(I, /obj/item/ammo_casing/caseless/arrow))
@@ -94,11 +92,11 @@
 			return TRUE
 		if(istype(I, /obj/item/weaponcrafting/attachment/primary))
 			var/obj/item/weaponcrafting/attachment/primary/S = I
-			bowstring = I
+			user.transferItemToLoc(S, src) //NOT WORKING AAAAAAAAA
+			bowstring = S
 			damage_multiplier = S.damage_multiplier
 			speed_multiplier = S.speed_multiplier
 			update_icon()
-			qdel(I)
 			string_cut = FALSE
 			return TRUE
 	if((istype(I, /obj/item/wirecutters) || I.sharpness) && !istype(I, /obj/item/ammo_casing/caseless/arrow))
@@ -112,15 +110,19 @@
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 			update_icon()
 			return TRUE
-		if(bowstring && !get_ammo())
-			new bowstring(get_turf(src),1)
-			bowstring = null
-			string_cut = TRUE
-			damage_multiplier = 0
-			speed_multiplier = 0
-			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
-			update_icon()
-			return TRUE
+		if(bowstring)
+			if(get_ammo())
+				to_chat(user, "<span class='notice'>Release the arrow before trying to cut the string!</span>")
+				return TRUE
+			else
+				new bowstring(get_turf(src),1)
+				bowstring = null
+				string_cut = TRUE
+				damage_multiplier = 0
+				speed_multiplier = 0
+				playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
+				update_icon()
+				return TRUE
 	if(magazine.attackby(I, user, params, 1))
 		to_chat(user, "<span class='notice'>You notch the arrow.</span>")
 		update_icon()
@@ -134,7 +136,7 @@
 /obj/item/gun/ballistic/bow/update_icon()
 	cut_overlays()
 	if(bowstring)
-		add_overlay("[bowstring.icon_state][get_ammo() ? (chambered ? "_firing" : "") : ""]")
+		add_overlay("[initial(bowstring.icon_state)][get_ammo() ? (chambered ? "_firing" : "") : ""]")
 	if(get_ammo())
 		var/obj/item/ammo_casing/AC = magazine.get_round(1)
 		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
@@ -152,18 +154,18 @@
 		else
 			add_overlay("arrow_[(chambered ? "firing" : "loaded")]") //if all else fails
 	if(attachment)
-		add_overlay("bow_[attachment.icon_state]")
+		add_overlay("bow_[initial(attachment.icon_state)]")
 	else
 		return
 
 /obj/item/gun/ballistic/bow/examine(mob/user)
 	. = ..()
 	if(bowstring)
-		. += bowstring.added_description
+		. += initial(bowstring.added_description)
 	if(!bowstring)
 		. += "<span class='info'>This bow has no drawstring. Not much of a bow, is it.</span>"
 	if(attachment)
-		. += attachment.added_description
+		. += initial(attachment.added_description)
 
 /obj/item/gun/ballistic/bow/can_shoot()
 	return chambered
@@ -172,7 +174,7 @@
 	name = "bone bow"
 	desc = "A bow carved out of bone. Well suited for melee combat, althought its robustness causes a slight delay in drawing."
 	icon_state = "ashenbow"
-	bowstring = "sinew"
+	bowstring = /obj/item/weaponcrafting/attachment/primary/sinewstring
 	force = 7
 	drawtime = 1.2
 
@@ -183,7 +185,7 @@
 	name = "bamboo bow"
 	desc = "A bow made out of bamboo. Easy to draw, can be fitted into a backpack when without a string. However, it is extremely weak at melee combat."
 	icon_state = "bamboobow"
-	bowstring = "bamboo"
+	bowstring = /obj/item/weaponcrafting/attachment/primary/bamboostring
 	force = 2
 	drawtime = 0.8
 
@@ -202,7 +204,7 @@
 	name = "pvc bow"
 	desc = "A bow crafted with PVC piping. It's rather innacurate and it requires more effort to draw than is usual."
 	icon_state = "pvcbow"
-	bowstring = "cable"
+	bowstring = /obj/item/weaponcrafting/attachment/primary/cablestring
 	drawtime = 1.5
 	force = 6
 	spread = 10
