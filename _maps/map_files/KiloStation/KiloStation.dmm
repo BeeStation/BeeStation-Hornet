@@ -5132,7 +5132,7 @@
 /obj/structure/sign/departments/security{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "aCa" = (
@@ -15070,10 +15070,10 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Security Hallway"
 	},
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "bSU" = (
@@ -15662,9 +15662,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "bXJ" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/yellow{
@@ -15746,13 +15743,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/exit/departure_lounge)
-"bYj" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "bYl" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -15764,17 +15754,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/storage/primary)
-"bYo" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Security Hallway"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/hallway/primary/aft)
 "bYu" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
@@ -26496,16 +26475,6 @@
 	broken = 1
 	},
 /area/maintenance/central)
-"dKX" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "dLt" = (
 /obj/item/flashlight/lantern,
 /turf/open/floor/plating/asteroid/airless{
@@ -33731,7 +33700,6 @@
 /turf/open/floor/iron/dark,
 /area/gateway)
 "gwn" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -43766,9 +43734,6 @@
 /obj/structure/sign/directions/command{
 	dir = 1;
 	pixel_y = -24
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -62764,9 +62729,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "rem" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -68993,7 +68955,6 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -73527,7 +73488,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "viZ" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -110505,9 +110465,9 @@ asF
 asF
 kjJ
 sVy
-bYj
-bYo
-dKX
+vlD
+tvw
+sGC
 sGC
 jEr
 sGC
