@@ -1,2 +1,3 @@
 GLOBAL_LIST_EMPTY(keybindings_by_name)
 GLOBAL_LIST_EMPTY(keybindings_by_name_to_key)
+GLOBAL_LIST_EMPTY(total_votes_to_leave)

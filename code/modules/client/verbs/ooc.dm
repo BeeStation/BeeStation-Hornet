@@ -338,3 +338,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 
 	to_chat(usr, "<span class='notice'>[message]</span>")
+
+/client/verb/vote_to_leave()
+	set name = "Vote to leave"
+	set category = "OOC"
+	set desc = "Votes to end the round"
+
+	if(!(ckey in GLOB.total_votes_to_leave))
+		GLOB.total_votes_to_leave += ckey
+
+	else
+		GLOB.total_votes_to_leave -= ckey
+
+	to_chat(src, "You are [(ckey in GLOB.total_votes_to_leave) ? "now" : "no longer"] voting for the current round to end.")
