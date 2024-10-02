@@ -3010,7 +3010,6 @@
 /area/science/xenobiology)
 "apU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -5296,9 +5295,6 @@
 /area/crew_quarters/heads/hor)
 "aDf" = (
 /obj/structure/sign/warning/securearea,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /turf/closed/wall,
 /area/hallway/primary/fore)
 "aDj" = (
@@ -72083,6 +72079,9 @@
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "uQm" = (
@@ -73477,6 +73476,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "vrs" = (
