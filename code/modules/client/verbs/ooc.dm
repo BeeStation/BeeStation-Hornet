@@ -344,10 +344,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set category = "OOC"
 	set desc = "Votes to end the round"
 
-	if(!(ckey in GLOB.total_votes_to_leave))
-		GLOB.total_votes_to_leave += ckey
-
-	else
+	if(ckey in GLOB.total_votes_to_leave)
 		GLOB.total_votes_to_leave -= ckey
-
-	to_chat(src, "You are [(ckey in GLOB.total_votes_to_leave) ? "now" : "no longer"] voting for the current round to end.")
+		to_chat(src, "You are no longer voting for the current round to end.")
+	else
+		GLOB.total_votes_to_leave += ckey
+		to_chat(src, "You are now voting for the current round to end.")
