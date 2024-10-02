@@ -120,7 +120,7 @@
 		return message
 	if(is_banned_from(ckey, "Emote"))
 		return copytext(message, customsaypos + 1)
-	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(LOWER_TEXT(copytext_char(message, 1, customsaypos)))
+	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(copytext(message, 1, customsaypos))
 	message = trim_left(copytext(message, customsaypos + 1))
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE

@@ -354,7 +354,7 @@
 /datum/emote/living/tremble
 	key = "tremble"
 	key_third_person = "trembles"
-	message = "trembles in fear"
+	message = "trembles"
 
 /datum/emote/living/twitch
 	key = "twitch"

@@ -141,6 +141,12 @@
 	icon_state = icon_living
 	density = initial(density)
 
+/mob/living/basic/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_TRAIT(user.mind, TRAIT_NAIVE) ? "asleep" : "dead"].")
+
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
 	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
