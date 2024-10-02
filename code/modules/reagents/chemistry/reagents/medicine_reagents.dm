@@ -1061,7 +1061,7 @@
 	..()
 
 /datum/reagent/medicine/clotagen/overdose_process(mob/living/M)
-	M.adjustBruteLoss(0.3)
+	M.adjustBruteLoss(1)
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 1)
 	..()
 
