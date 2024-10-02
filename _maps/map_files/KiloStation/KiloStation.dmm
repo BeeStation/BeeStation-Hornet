@@ -11167,16 +11167,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
-"buJ" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/maintenance/central)
 "buM" = (
 /obj/effect/turf_decal/siding/wood/end,
 /turf/open/floor/wood,
@@ -11427,9 +11417,6 @@
 "bwk" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/central)
 "bwn" = (
@@ -11604,9 +11591,6 @@
 /turf/closed/wall/r_wall/rust,
 /area/crew_quarters/heads/captain)
 "bxA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -24475,7 +24459,7 @@
 /area/security/brig)
 "dcu" = (
 /obj/machinery/smartfridge,
-/turf/open/floor/iron,
+/turf/open/floor/plating,
 /area/hydroponics)
 "dcE" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
@@ -37667,6 +37651,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/central)
@@ -71647,12 +71634,12 @@
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light/small,
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
 "uHp" = (
@@ -115600,7 +115587,7 @@ mwT
 bip
 txO
 vns
-buJ
+pFr
 bxA
 bwk
 asx
