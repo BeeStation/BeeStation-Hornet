@@ -593,11 +593,6 @@
 
 /datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
 
-/datum/config_entry/number/autotransfer_interval //How often does the autotransfer system check for votes, every 10 intervals a reminder will be sent as well (default 5 minutes)
-	config_entry_value = 3000
-	integer = FALSE
-	min_val = 0
-
 /datum/config_entry/number/autotransfer_percentage //What percentage of players are required to vote before transfer happens (default 75%)
 	config_entry_value = 0.75
 	integer = FALSE

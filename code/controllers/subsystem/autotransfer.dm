@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(autotransfer)
 
 /datum/controller/subsystem/autotransfer/Initialize()
 	reminder_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_decay_start)
-	checkvotes_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_interval)
+	checkvotes_time = REALTIMEOFDAY + 5 MINUTES
 
 	if(!CONFIG_GET(flag/vote_autotransfer_enabled))
 		can_fire = FALSE
@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(autotransfer)
 			return
 
 	//Reset the next vote check
-	checkvotes_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_interval)
+	checkvotes_time = REALTIMEOFDAY + 5 MINUTES
 
 	if(REALTIMEOFDAY > reminder_time)
 		decay_start = TRUE
