@@ -18459,7 +18459,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/item/analyzer,
 /turf/open/floor/iron,
 /area/science/mixing)
 "fZm" = (
@@ -52032,7 +52031,6 @@
 /obj/item/transfer_valve,
 /obj/item/transfer_valve,
 /obj/item/transfer_valve,
-/obj/item/pipe_dispenser,
 /turf/open/floor/iron,
 /area/science/mixing)
 "qQB" = (
@@ -71671,7 +71669,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/suit_storage_unit/rd,
+/obj/structure/table/reinforced,
+/obj/item/pipe_dispenser,
+/obj/item/analyzer,
 /turf/open/floor/iron,
 /area/science/mixing)
 "xpd" = (
