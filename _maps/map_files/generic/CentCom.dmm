@@ -1155,17 +1155,13 @@
 /area/centcom/ferry)
 "cZ" = (
 /obj/effect/turf_decal/weather/dirt,
-/obj/structure/closet/crate/large{
-	pixel_x = -6
-	},
-/obj/structure/closet/crate/large{
-	pixel_x = -15;
-	pixel_y = 18
-	},
 /obj/effect/spawner/lootdrop/donkpockets,
 /obj/effect/spawner/lootdrop/donkpockets,
 /obj/structure/sign/poster/contraband/cc64k_ad{
 	pixel_y = -32
+	},
+/obj/structure/closet/crate/large{
+	pixel_x = -6
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
@@ -4274,10 +4270,6 @@
 /turf/open/floor/plating/dirt/jungle/dark,
 /area/syndicate_mothership/control)
 "lx" = (
-/obj/structure/closet/crate/large{
-	pixel_y = -3;
-	pixel_x = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
@@ -7770,15 +7762,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
-"uL" = (
-/obj/effect/turf_decal/box/corners,
-/obj/structure/closet/crate/large{
-	pixel_y = 13;
-	pixel_x = -2
-	},
-/obj/effect/turf_decal/trimline/neutral/warning,
-/turf/open/floor/monotile/dark,
-/area/syndicate_mothership/control)
 "uM" = (
 /obj/machinery/computer/operating,
 /obj/effect/turf_decal/stripes/line,
@@ -10854,7 +10837,6 @@
 	dir = 4;
 	icon_state = "box_corners"
 	},
-/obj/structure/closet/crate/large,
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
 	},
@@ -15277,13 +15259,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/supplypod)
 "OE" = (
-/obj/structure/closet/crate/large{
-	pixel_x = -4
-	},
-/obj/structure/closet/crate/large{
-	pixel_y = 19;
-	pixel_x = -2
-	},
+/obj/structure/closet/crate/large,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
@@ -16588,10 +16564,6 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "RU" = (
-/obj/structure/closet/crate/large{
-	pixel_x = 4;
-	pixel_y = 6
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
@@ -35901,7 +35873,7 @@ aa
 oA
 fG
 Dg
-uL
+Ik
 Xz
 GG
 Ik
