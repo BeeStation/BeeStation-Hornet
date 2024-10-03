@@ -17,7 +17,7 @@ Contents:
 	else
 		var/datum/action/item_action/ninja_stealth/stealth_action = locate() in actions
 		if (!stealth_action.IsAvailable())
-			U.balloon_alert("Stealth not ready.")
+			U.balloon_alert(U, "Stealth not ready.")
 			return
 		if(cell.charge <= 0)
 			to_chat(U, "<span class='warning'>You don't have enough power to enable Stealth!</span>")
@@ -47,3 +47,5 @@ Contents:
 		toggle_stealth()
 	else
 		to_chat(affecting, "<span class='danger'>Stealth does not appear to work!</span>")
+
+#undef STEALTH_COOLDOWN
