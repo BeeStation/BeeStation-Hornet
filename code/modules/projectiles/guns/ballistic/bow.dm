@@ -33,7 +33,7 @@
 	ammo_count_visible = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL //so ashwalkers can use it
 
-/obj/item/gun/ballistic/bow/Initialize()
+/obj/item/gun/ballistic/bow/Initialize(mapload)
 	. = ..()
 	if(initial_bowstring)
 		bowstring = new initial_bowstring()

@@ -50,11 +50,15 @@
 			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
 			new shard_result(get_turf(src))
 			qdel(I)
+			qdel(src)
+			return TRUE
 	else if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
 		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
 			new bottle_result(get_turf(src))
 			qdel(I)
+			qdel(src)
+			return TRUE
 	else if(istype(I, /obj/item/stack/sheet/bone))
 		var/obj/item/stack/sheet/bone/bone = I
 		if(bone.amount < 2)
@@ -161,6 +165,7 @@
 		attack_verb_continuous = list("burnt","singed")
 		set_light_on(lit)
 	update_overlays()
+	arrow.update_overlays()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/proc/burnout()
 	var/obj/projectile/bullet/reusable/arrow/cloth/arrow = BB
