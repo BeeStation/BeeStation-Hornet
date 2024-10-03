@@ -5,10 +5,19 @@
 	caliber = "arrow"
 	icon_state = "arrow"
 	w_class = WEIGHT_CLASS_NORMAL
+	force = 4
 	throwforce = 3 //good luck hitting someone with the pointy end of the arrow
 	throw_speed = 3
+	//Is this an arrow shaft that can be turned into other arrows?
+	var/shaft_crafting = FALSE
+	var/cloth_result = null
+	var/shard_result = null
+	var/bottle_result = null
+	var/bone_result = null
+	var/bamboo_result = null
+	var/sharp_result = null
 
-/obj/item/ammo_casing/caseless/arrow/attackby(obj/item/I, mob/user, params) //not currently working for some reason
+/obj/item/ammo_casing/caseless/arrow/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/gun/ballistic/bow))
 		var/obj/item/gun/ballistic/bow/B = I
@@ -20,20 +29,13 @@
 			to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
 			I.update_icon()
 			return TRUE
+	if(shaft_crafting)
+		if(user.do_afters)
+			return TRUE
+		else
+			arrow_craft(I, user, params)
 
-///WOOD ARROWS///
-
-/obj/item/ammo_casing/caseless/arrow/wood
-	name = "wooden arrow shaft"
-	desc = "An arrow shaft made out of wood. It can be fired as is, but not to great effect."
-	icon_state = "arrow_wood"
-	force = 3
-	armour_penetration = -20
-	projectile_type = /obj/item/ammo_casing/caseless/arrow/wood
-	embedding = list(embed_chance=0)
-
-/obj/item/ammo_casing/caseless/arrow/wood/attackby(obj/item/I, mob/user, params)
-	. = ..()
+/obj/item/ammo_casing/caseless/arrow/proc/arrow_craft(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
 		var/obj/item/stack/sheet/cotton/cloth/cloth = I
 		if(cloth.amount < 2) //Is there less than two sheets of cotton?
@@ -42,59 +44,65 @@
 		if(do_after(user, 1 SECONDS, I)) //Short do_after.
 			cloth.use(2) //Remove two cotton from the stack.
 			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/cloth(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(istype(I, /obj/item/shard))
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			new cloth_result(get_turf(src))
+	else if(istype(I, /obj/item/shard))
+		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/glass(get_turf(src))
-			qdel(src)
+			new shard_result(get_turf(src))
 			qdel(I)
-			return TRUE
-	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+	else if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
+		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/bottle(get_turf(src))
-			qdel(src)
+			new bottle_result(get_turf(src))
 			qdel(I)
-			return TRUE
-	if(istype(I, /obj/item/stack/sheet/bone))
+	else if(istype(I, /obj/item/stack/sheet/bone))
 		var/obj/item/stack/sheet/bone/bone = I
-		if(bone.amount < 2) //Is there less than two sheets of bone?
+		if(bone.amount < 2)
 			user.show_message("<span class='notice'>You need at least [2 - bone.amount] bone to create a bone point arrow.</span>", MSG_VISUAL)
 			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			bone.use(2) //Remove two bones from the stack.
+		if(do_after(user, 1 SECONDS, I))
+			bone.use(2)
 			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/hollowpoint(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(istype(I, /obj/item/stack/sheet/bamboo))
+			new bone_result(get_turf(src))
+	else if(istype(I, /obj/item/stack/sheet/bamboo))
 		var/obj/item/stack/sheet/bamboo/bamboo = I
-		if(bamboo.amount < 2) //Is there less than two sheets of bamboo?
+		if(bamboo.amount < 2)
 			user.show_message("<span class='notice'>You need at least [2 - bamboo.amount] bone to create a bamboo point arrow.</span>", MSG_VISUAL)
 			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			bamboo.use(2) //Remove two bones from the stack.
+		if(do_after(user, 1 SECONDS, I))
+			bamboo.use(2)
 			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(I.is_sharp())
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
+			new bamboo_result(get_turf(src))
+	else if(I.is_sharp())
+		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/wood/sharp(get_turf(src))
-			qdel(src)
-			return TRUE
+			new sharp_result(get_turf(src))
+			playsound(src, 'sound/effects/footstep/hardclaw1.ogg', 50, 1)
+		qdel(src)
+		return TRUE
+
+
+///WOOD ARROWS///
+
+/obj/item/ammo_casing/caseless/arrow/wood
+	name = "wooden arrow shaft"
+	desc = "An arrow shaft made out of wood. It can be fired as is, but not to great effect."
+	icon_state = "arrow_wood"
+	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
+	shaft_crafting = TRUE
+	cloth_result = /obj/item/ammo_casing/caseless/arrow/cloth
+	shard_result = /obj/item/ammo_casing/caseless/arrow/glass
+	bottle_result = /obj/item/ammo_casing/caseless/arrow/bottle
+	bone_result = /obj/item/ammo_casing/caseless/arrow/hollowpoint
+	bamboo_result = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint
+	sharp_result = /obj/item/ammo_casing/caseless/arrow/wood/sharp
 
 /obj/item/ammo_casing/caseless/arrow/wood/sharp
 	name = "sharp wooden arrow shaft"
 	desc = "An arrow shaft made out of wood that has been sharpened to be used as an improvised arrow."
-	force = 5
 	bleed_force = BLEED_SCRATCH
 	armour_penetration = 0
-	projectile_type = /obj/projectile/bullet/reusable/arrow/wood
+	projectile_type = /obj/projectile/bullet/reusable/arrow/wood/sharp
 	embedding = list(embed_chance=100,
 	fall_chance = 1,
 	jostle_chance = 10,
@@ -109,8 +117,6 @@
 	name = "cloth arrow"
 	desc = "An arrow with a 'tip' wrapped in cloth. Being hit with this is like being hit with a high velocity pillow."
 	icon_state = "arrow_cloth"
-	force = 5
-	armour_penetration = 0
 	heat = 1500
 	light_system = MOVABLE_LIGHT
 	light_range = 2
@@ -148,7 +154,7 @@
 		lit = TRUE
 		damtype = BURN
 		arrow.lit = TRUE
-		force = 10
+		force += 2
 		hitsound = 'sound/items/welder.ogg'
 		name = "lit [initial(name)]"
 		desc = "An arrow with a 'tip' wrapped in cloth. Being hit with this is like being hit with a high velocity pillow. Except its on fire. Fear the pillow."
@@ -169,7 +175,6 @@
 		desc = "An arrow with a 'tip' wrapped in burnt cloth. Being hit with this is like being hit with a high velocity pillow. Full of ash."
 		set_light_on(lit)
 	update_overlays()
-	arrow.update_overlays()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/update_overlays()
 	. = .. ()
@@ -183,8 +188,6 @@
 	name = "burnt cloth arrow"
 	desc = "An arrow with a 'tip' wrapped in burnt cloth. Being hit with this is like being hit with a high velocity pillow. Full of ash."
 	icon_state = "arrow_cloth_burnt"
-	force = 5
-	armour_penetration = 0
 	burnt = TRUE
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt
 
@@ -203,7 +206,7 @@
 	if(do_after(user, 1 SECONDS, I)) //Short do_after.
 		I.use(2) //Remove two cotton from the stack.
 		user.show_message("<span class='notice'>You wrap \the [I.name] onto the [src].</span>", MSG_VISUAL)
-		new /obj/item/ammo_casing/caseless/arrow/cloth(get_turf(src)) //New arrow.
+		new cloth_result(get_turf(src)) //New arrow.
 		qdel(src) //Delete the old, burnt arrow.
 		return TRUE
 	return FALSE
@@ -212,8 +215,6 @@
 	name = "glass arrow"
 	desc = "A crude 'arrow' with a glass shard for a tip. Upon impact, the glass will inevitably fall out of the shaft and remain lodged on the targets flesh."
 	icon_state = "arrow_glass"
-	force = 7
-	armour_penetration = 0
 	sharpness = IS_SHARP
 	bleed_force = BLEED_SURFACE
 	attack_verb_continuous = list("stabbed", "slashed", "sliced", "cut")
@@ -233,8 +234,6 @@
 	name = "bottle arrow"
 	desc = "A tiny bottle tied with string to an arrow shaft. Cute, if not filled with acid."
 	icon_state = "arrow_bottle"
-	force = 5
-	armour_penetration = 0
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bottle
 	var/reagent_amount = 30
 
@@ -262,8 +261,6 @@
 	name = "bone point wooden arrow"
 	desc = "An arrow with an hollow bone point. Able to inject its contects onto its target."
 	icon_state = "arrow_bonepoint"
-	force = 6
-	armour_penetration = 0
 	embedding = list(embed_chance=100,
 	fall_chance = 5,
 	jostle_chance = 10,
@@ -294,7 +291,6 @@
 	name = "bamboo point wooden arrow"
 	desc = "An arrow with an hollow bamboo point. Able to inject its contects onto its target."
 	icon_state = "arrow_bamboopoint"
-	force = 5
 	embedding = list(embed_chance=100,
 	fall_chance = 5,
 	jostle_chance = 10,
@@ -313,73 +309,19 @@
 	name = "bone arrow shaft"
 	desc = "An arrow shaft carved out of bone. Arrows made with this material will generally be more painful but cause less bleeding."
 	icon_state = "bonearrow"
-	force = 4
-	armour_penetration = -10
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
-	embedding = list(embed_chance=0)
-
-/obj/item/ammo_casing/caseless/arrow/bone/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
-		var/obj/item/stack/sheet/cotton/cloth/cloth = I
-		if(cloth.amount < 2) //Is there less than two sheets of cotton?
-			user.show_message("<span class='notice'>You need at least [2 - cloth.amount] unit\s of cloth before you can wrap it onto \the [src].</span>", MSG_VISUAL)
-			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			cloth.use(2) //Remove two cotton from the stack.
-			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/cloth/bone(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(istype(I, /obj/item/shard))
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/glass/bone(get_turf(src))
-			qdel(src)
-			qdel(I)
-			return TRUE
-	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/bottle/bone(get_turf(src))
-			qdel(src)
-			qdel(I)
-			return TRUE
-	if(istype(I, /obj/item/stack/sheet/bone))
-		var/obj/item/stack/sheet/bone/bone = I
-		if(bone.amount < 2) //Is there less than two sheets of bone?
-			user.show_message("<span class='notice'>You need at least [2 - bone.amount] bone to create a bone point arrow.</span>", MSG_VISUAL)
-			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			bone.use(2) //Remove two bones from the stack.
-			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(istype(I, /obj/item/stack/sheet/bamboo))
-		var/obj/item/stack/sheet/bamboo/bamboo = I
-		if(bamboo.amount < 2) //Is there less than two sheets of bone?
-			user.show_message("<span class='notice'>You need at least [2 - bamboo.amount] bone to create a bamboo point arrow.</span>", MSG_VISUAL)
-			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			bamboo.use(2) //Remove two bones from the stack.
-			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bone(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(I.is_sharp())
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/bone/sharp(get_turf(src))
-			qdel(src)
-			return TRUE
+	shaft_crafting = TRUE
+	cloth_result = /obj/item/ammo_casing/caseless/arrow/cloth/bone
+	shard_result = /obj/item/ammo_casing/caseless/arrow/glass/bone
+	bottle_result = /obj/item/ammo_casing/caseless/arrow/bottle/bone
+	bone_result = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone
+	bamboo_result = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bone
+	sharp_result = /obj/item/ammo_casing/caseless/arrow/bone/sharp
 
 /obj/item/ammo_casing/caseless/arrow/bone/sharp
 	name = "sharp bone arrow shaft"
 	desc = "A sharpened bone arrow shaft. Able to piece flesh and remain lodged, causing pain until removed."
-	force = 6
 	bleed_force = BLEED_TINY
-	armour_penetration = 10
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone/sharp
 	embedding = list(embed_chance=100,
 	fall_chance = 5,
@@ -394,38 +336,32 @@
 /obj/item/ammo_casing/caseless/arrow/cloth/bone
 	name = "cloth bone arrow"
 	icon_state = "bonearrow_cloth"
-	force = 6
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bone
 
 /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
 	name = "burnt cloth bone arrow"
 	icon_state = "bonearrow_cloth_burnt"
-	force = 6
 	burnt = TRUE
-	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt
+	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt/bone
 
 /obj/item/ammo_casing/caseless/arrow/glass/bone
 	name = "bone glass arrow"
 	icon_state = "bonearrow_glass"
-	force = 8
 	projectile_type = /obj/projectile/bullet/reusable/arrow/glass/bone
 
 /obj/item/ammo_casing/caseless/arrow/bottle/bone
 	name = "bone bottle arrow"
 	icon_state = "bonearrow_bottle"
-	force = 6
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bottle/bone
 
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/bone
 	name = "bone point arrow"
 	icon_state = "bonearrow_bonepoint"
-	force = 7
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bone
 
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bone
 	name = "bamboo point bone arrow"
 	icon_state = "bonearrow_bamboopoint"
-	force = 6
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bone
 
 ///BAMBOO ARROWS///
@@ -434,73 +370,19 @@
 	name = "bamboo arrow shaft"
 	desc = "An arrow shaft made out of bamboo. It is suitable to make lighter arrows that pierce their target better than other materials at the cost of damage."
 	icon_state = "bambooarrow"
-	force = 2
-	armour_penetration = -20
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo
-	embedding = list(embed_chance=0)
-
-/obj/item/ammo_casing/caseless/arrow/bamboo/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
-		var/obj/item/stack/sheet/cotton/cloth/cloth = I
-		if(cloth.amount < 2) //Is there less than two sheets of cotton?
-			user.show_message("<span class='notice'>You need at least [2 - cloth.amount] unit\s of cloth before you can wrap it onto \the [src].</span>", MSG_VISUAL)
-			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			cloth.use(2) //Remove two cotton from the stack.
-			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/cloth/bamboo(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(istype(I, /obj/item/shard))
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/glass/bamboo(get_turf(src))
-			qdel(src)
-			qdel(I)
-			return TRUE
-	if(istype(I, /obj/item/reagent_containers/food/drinks/bottle))
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			user.show_message("<span class='notice'>You create a bottle arrow with \the [I.name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/bottle/bamboo(get_turf(src))
-			qdel(src)
-			qdel(I)
-			return TRUE
-	if(istype(I, /obj/item/stack/sheet/bone))
-		var/obj/item/stack/sheet/bone/bone = I
-		if(bone.amount < 2) //Is there less than two sheets of bone?
-			user.show_message("<span class='notice'>You need at least [2 - bone.amount] bone to create a bone point arrow.</span>", MSG_VISUAL)
-			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			bone.use(2) //Remove two bones from the stack.
-			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(istype(I, /obj/item/stack/sheet/bamboo))
-		var/obj/item/stack/sheet/bamboo/bamboo = I
-		if(bamboo.amount < 2) //Is there less than two sheets of bone?
-			user.show_message("<span class='notice'>You need at least [2 - bamboo.amount] bone to create a bamboo point arrow.</span>", MSG_VISUAL)
-			return FALSE
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			bamboo.use(2) //Remove two bamboo from the stack.
-			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bamboo(get_turf(src))
-			qdel(src)
-			return TRUE
-	if(I.is_sharp())
-		if(do_after(user, 1 SECONDS, I)) //Short do_after.
-			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
-			new /obj/item/ammo_casing/caseless/arrow/bamboo/sharp(get_turf(src))
-			qdel(src)
-			return TRUE
+	shaft_crafting = TRUE
+	cloth_result = /obj/item/ammo_casing/caseless/arrow/cloth/bamboo
+	shard_result = /obj/item/ammo_casing/caseless/arrow/glass/bamboo
+	bottle_result = /obj/item/ammo_casing/caseless/arrow/bottle/bamboo
+	bone_result = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
+	bamboo_result = /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bamboo/
+	sharp_result = /obj/item/ammo_casing/caseless/arrow/bamboo/sharp
 
 /obj/item/ammo_casing/caseless/arrow/bamboo/sharp
 	name = "sharp bamboo arrow shaft"
 	desc = "A sharpened bamboo arrow shaft. Able to piece flesh and remain lodged, causing pain until removed."
-	force = 4
 	bleed_force = BLEED_SURFACE
-	armour_penetration = 15
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo/sharp
 	embedding = list(embed_chance=100,
 	fall_chance = 0,
@@ -515,33 +397,27 @@
 /obj/item/ammo_casing/caseless/arrow/cloth/bamboo
 	name = "cloth bamboo arrow"
 	icon_state = "bambooarrow_cloth"
-	force = 4
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bamboo
 
 /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bamboo
 	name = "burnt cloth bamboo arrow"
 	icon_state = "bambooarrow_cloth_burnt"
-	force = 4
 	burnt = TRUE
-	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/bamboo
+	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt/bamboo
 
 /obj/item/ammo_casing/caseless/arrow/glass/bamboo
 	name = "glass bamboo arrow"
 	icon_state = "bambooarrow_glass"
-	force = 6
 	projectile_type = /obj/projectile/bullet/reusable/arrow/glass/bamboo
 
 /obj/item/ammo_casing/caseless/arrow/bottle/bamboo
 	name = "bamboo bottle arrow"
 	icon_state = "bambooarrow_bottle"
-	force = 4
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bottle/bamboo
 
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboo
 	name = "bamboo point arrow"
 	icon_state = "bambooarrow_bonepoint"
-	force = 5
-	armour_penetration = 5
 	embedding = list(embed_chance=100,
 	fall_chance = 0,
 	jostle_chance = 10,
@@ -556,22 +432,20 @@
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint/bamboo
 	name = "bamboo point arrow"
 	icon_state = "bambooarrow_bamboopoint"
-	force = 4
 	projectile_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint/bamboo
 
-/obj/item/ammo_casing/caseless/arrow/sm
+/obj/item/ammo_casing/caseless/arrow/sm //Adminbus for now
 	name = "SM arrow"
 	desc = "Weaponized SM. Fear it."
 	icon_state = "arrow_sm"
 	force = 0
 	throwforce = 0
-	armour_penetration = 0
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	light_power = 0.8
 	light_on = TRUE
 	light_color = LIGHT_COLOR_HOLY_MAGIC
-	var/shard = TRUE //This was meant to be craftable, using the shard but it isnt for now
+	var/shard = new /obj/machinery/power/supermatter_crystal/shard //This was meant to be craftable, using the shard but it isnt for now
 	projectile_type = /obj/projectile/bullet/reusable/arrow/sm
 
 /obj/item/ammo_casing/caseless/arrow/sm/update_icon()
@@ -580,7 +454,7 @@
 	if(shard)
 		add_overlay("arrow_sm_shard")
 
-/obj/structure/closet/arrows
+/obj/structure/closet/arrows //Test closet
 
 /obj/structure/closet/arrows/PopulateContents()
 	new /obj/item/gun/ballistic/bow/syndicate(src)

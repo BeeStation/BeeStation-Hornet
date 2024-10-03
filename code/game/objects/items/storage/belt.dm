@@ -738,11 +738,7 @@
 	STR.max_items = 15
 	STR.display_numerical_stacking = TRUE
 	var/static/list/can_hold = typecacheof(list(
-		/obj/item/ammo_casing/caseless/arrow/wood,
-		/obj/item/ammo_casing/caseless/arrow/ash,
-		/obj/item/ammo_casing/caseless/arrow/bone,
-		/obj/item/ammo_casing/caseless/arrow/bronze
-		))
+		/obj/item/ammo_casing/caseless/arrow))
 	STR.can_hold = can_hold
 
 /obj/item/storage/belt/fannypack
