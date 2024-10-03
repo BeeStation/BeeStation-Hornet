@@ -1,6 +1,0 @@
-author: h42
-delete-after: true
-changes:
-  - bugfix: Nostalgic winter coats have the correct color hoods
-  - imageadd: Re-added some sprites for the nostalgic winter coat hoods
-  - spellcheck: renamed the old cargo coat to "nostalgic cargo winter coat"
