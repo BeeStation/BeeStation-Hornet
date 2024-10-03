@@ -2403,6 +2403,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	//Check to make sure legs are working
+	var/obj/item/bodypart/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
+	//Catrobatics only if we have the legs for it.
+	if(left_leg || right_leg || !left_leg.bodypart_disabled || !right_leg.bodypart_disabled)
+		if(H.getorgan(/obj/item/organ/tail/cat))
+			if(levels == 1)
+				//Nailed it!
+				H.visible_message("<span class='notice'>[H] lands elegantly on [H.p_their()] feet!</span>",
+					"<span class='warning'>You fall [levels] level\s into [T], perfecting the landing!</span>")
+				H.Stun(35)
+				return //Go no further, we have landed and will take no damage!
 	H.apply_general_zimpact_damage(T, levels)
 	if(levels < 2)
 		return
