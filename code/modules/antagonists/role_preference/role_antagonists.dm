@@ -171,7 +171,7 @@
 	head = /obj/item/clothing/head/helmet/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
-/datum/role_preference/antagonist/revolutionary a
+/datum/role_preference/antagonist/revolutionary
 	name = "Head Revolutionary"
 	description = "Armed with a flash, convert as many people to the revolution as you can.\n\
 	Kill or exile all heads of staff on the station."
