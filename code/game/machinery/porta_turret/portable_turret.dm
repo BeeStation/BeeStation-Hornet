@@ -628,7 +628,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_toggle
 	name = "Toggle Mode"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/turret_toggle/Trigger()
@@ -639,7 +639,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_quit
 	name = "Release Control"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
 /datum/action/turret_quit/Trigger()
@@ -941,13 +941,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	locked = FALSE
 
-/obj/machinery/turretid/attack_robot(mob/user)
-	if(!ailock)
-		return attack_hand(user)
-	else
-		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-
-/obj/machinery/turretid/attack_ai(mob/user)
+/obj/machinery/turretid/attack_silicon(mob/user)
 	if(!ailock || IsAdminGhost(user))
 		return attack_hand(user)
 	else

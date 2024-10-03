@@ -105,7 +105,7 @@
 	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
-/obj/machinery/clonepod/attack_ai(mob/user)
+/obj/machinery/clonepod/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/clonepod/examine(mob/user)
@@ -178,9 +178,6 @@
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
-
-/obj/machinery/clonepod/attack_ai(mob/user)
-	return examine(user)
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
@@ -278,8 +275,6 @@
 
 	if(H)
 		H.faction |= factions
-		remove_hivemember(H)
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()

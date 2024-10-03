@@ -315,47 +315,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			to_check_turfs |= adjacent_turf
 	return null
 
-/mob/living/simple_animal/bot/atmosbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<tt><b>Atmospheric Stabilizer Controls v1.1</b></tt><br><br>"
-	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<br>"
-	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Breach Pressure: <a href='?src=[REF(src)];set_breach_pressure=1'>[breached_pressure]</a><br>"
-		dat += "Temperature Control: <a href='?src=[REF(src)];toggle_temp_control=1'>[temperature_control?"Enabled":"Disabled"]</a><br>"
-		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]K</a><br>"
-		dat += "Gas Scrubbing Controls<br>"
-		for(var/gas_id in gasses)
-			var/gas_enabled = gasses[gas_id]
-			dat += "[GLOB.gas_data.names[gas_id]]: <a href='?src=[REF(src)];toggle_gas=[gas_id]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-	return dat
+/mob/living/simple_animal/bot/atmosbot/ui_data(mob/user)
+	var/list/data = ..()
+	if (!locked || issilicon(user) || IsAdminGhost(user))
+		data["custom_controls"]["breach_pressure"] = breached_pressure
+		data["custom_controls"]["temperature_control"] = temperature_control
+		data["custom_controls"]["ideal_temperature"] = ideal_temperature
+		data["custom_controls"]["scrub_gasses"] = gasses
+	return data
 
-/mob/living/simple_animal/bot/atmosbot/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(href_list["set_breach_pressure"])
-		var/new_breach_pressure = input(usr, "Pressure to scan for breaches at? (0 to 100)", "Breach Pressure") as num
-		if(!isnum(new_breach_pressure) || new_breach_pressure < 0 || new_breach_pressure > 100)
-			return
-		breached_pressure = new_breach_pressure
-	else if(href_list["toggle_temp_control"])
-		temperature_control = temperature_control ? FALSE : TRUE
-	else if(href_list["toggle_gas"])
-		var/gas_id = href_list["toggle_gas"]
-		for(var/G in gasses)
-			if("[G]" == gas_id)
-				gasses[G] = gasses[G] ? FALSE : TRUE
-	else if(href_list["set_ideal_temperature"])
-		var/new_temp = input(usr, "Set Target Temperature ([T0C]K to [T20C + 20]K)", "Target Temperature") as num
-		if(!isnum(new_temp) || new_temp < T0C || new_temp > T20C + 20)
-			return
-		ideal_temperature = new_temp
-
-	update_controls()
+/mob/living/simple_animal/bot/atmosbot/ui_act(action, params)
+	. = ..()
+	if(. || (locked && !usr.has_unlimited_silicon_privilege))
+		return
+	switch(action)
+		if("breach_pressure")
+			var/adjust_num = round(text2num(params["pressure"]))
+			adjust_num = clamp(adjust_num, 0, 100)
+			breached_pressure = adjust_num
+		if("temperature_control")
+			temperature_control = !temperature_control
+		if("ideal_temperature")
+			var/adjust_num = round(text2num(params["temperature"]))
+			adjust_num = clamp(adjust_num, T0C, T20C + 20)
+			ideal_temperature = adjust_num
+		if("scrub_gasses")
+			var/id = params["id"]
+			for(var/gas_id in gasses)
+				if (gas_id == id)
+					gasses[id] = !gasses[id]
 	update_icon()
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()

@@ -400,7 +400,6 @@
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/holoparasite_creator/wizard
 	category = "Assistance"
-	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"

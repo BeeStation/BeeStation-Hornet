@@ -8,11 +8,6 @@
 /obj/item/pen,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
-"bW" = (
-/obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/secbot/derelict,
-/turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
 "cw" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -91,6 +86,11 @@
 	pixel_y = 10
 	},
 /turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"oe" = (
+/mob/living/silicon/robot/derelict,
+/obj/machinery/recharge_station,
+/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "py" = (
 /obj/structure/sign/warning/electricshock,
@@ -198,11 +198,33 @@
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
-"Co" = (
-/obj/machinery/door/airlock/grunge{
-	name = "AI Research Room"
+"Bp" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6
 	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"BF" = (
+/obj/effect/turf_decal/bot_red,
+/mob/living/simple_animal/bot/secbot/derelict,
 /turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
+"BT" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutters"
+	},
+/turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "CO" = (
 /obj/structure/table/reinforced,
@@ -224,11 +246,6 @@
 	dir = 4
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
-"GD" = (
-/mob/living/silicon/robot/derelict,
-/obj/machinery/recharge_station,
-/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "GZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
@@ -271,21 +288,6 @@
 "KU" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Lx" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 6;
-	network = list("ss13","tcomms")
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
@@ -338,15 +340,6 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"WB" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutters"
-	},
-/turf/open/floor/circuit/red,
-/area/ruin/unpowered)
 "WV" = (
 /obj/machinery/light{
 	dir = 4
@@ -362,6 +355,12 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"WX" = (
+/obj/machinery/door/airlock/grunge{
+	name = "AI Research Room"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Xd" = (
 /obj/effect/turf_decal/caution/stand_clear,
@@ -410,11 +409,11 @@ JS
 eH
 tj
 er
-GD
+oe
 MV
 JS
 hB
-bW
+BF
 JG
 Os
 hB
@@ -427,7 +426,7 @@ SV
 SV
 SV
 SV
-Co
+WX
 RT
 SV
 tV
@@ -502,7 +501,7 @@ NP
 Ib
 Xd
 tO
-WB
+BT
 qg
 SV
 iT
@@ -536,7 +535,7 @@ KU
 za
 SV
 WV
-Lx
+Bp
 nN
 JS
 "}

@@ -93,7 +93,7 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(istype(H.dna.species, /datum/species/pod))
+		if(isdiona(H))
 			var/obj/item/bodypart/NB = pick(H.bodyparts)
 			H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", \
 									"<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")

@@ -103,7 +103,7 @@
 	if(active_overlays[target_atom])
 		QDEL_NULL(active_overlays[target_atom])
 
-	var/image/cool_overlay = image(icon = 'icons/mob/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
+	var/image/cool_overlay = image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
 
 	if(image_pixel_x.value)
 		cool_overlay.pixel_x = image_pixel_x.value
