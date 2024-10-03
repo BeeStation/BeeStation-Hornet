@@ -435,8 +435,9 @@ BLIND     // can't see anything
 
 /proc/generate_female_clothing(index,t_color,icon,type)
 	var/icon/female_clothing_icon = icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s = icon("icon"='icons/mob/clothing/under/masking_helpers.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
-	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
+	var/female_icon_state = "female[type == FEMALE_UNIFORM_FULL ? "_full" : ((!type || type & FEMALE_UNIFORM_TOP_ONLY) ? "_top" : "")][type & FEMALE_UNIFORM_NO_BREASTS ? "_no_breasts" : ""]"
+	var/icon/female_cropping_mask = icon("icon" = 'icons/mob/clothing/under/masking_helpers.dmi', "icon_state" = female_icon_state)
+	female_clothing_icon.Blend(female_cropping_mask, ICON_MULTIPLY)
 	female_clothing_icon = fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
@@ -498,73 +499,6 @@ BLIND     // can't see anything
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
-
-/obj/item/clothing/under/verb/toggle()
-	set name = "Adjust Suit Sensors"
-	set category = "Object"
-	set src in usr
-	set_sensors(usr)
-
-/obj/item/clothing/under/attack_hand(mob/user)
-	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
-		attached_accessory.attack_hand(user)
-		return
-	..()
-
-/obj/item/clothing/under/AltClick(mob/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-	else
-		if(attached_accessory)
-			remove_accessory(user)
-		else
-			rolldown()
-
-/obj/item/clothing/under/verb/jumpsuit_adjust()
-	set name = "Adjust Jumpsuit Style"
-	set category = null
-	set src in usr
-	rolldown()
-
-/obj/item/clothing/under/proc/rolldown()
-	if(!can_use(usr))
-		return
-	if(!can_adjust)
-		to_chat(usr, "<span class='warning'>You cannot wear this suit any differently!</span>")
-		return
-	if(toggle_jumpsuit_adjust())
-		to_chat(usr, "<span class='notice'>You adjust the suit to wear it more casually.</span>")
-	else
-		to_chat(usr, "<span class='notice'>You adjust the suit back to normal.</span>")
-	if(ishuman(usr))
-		var/mob/living/carbon/human/H = usr
-		H.update_inv_w_uniform()
-		H.update_body()
-
-/obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
-	if(adjusted == DIGITIGRADE_STYLE)
-		return
-	adjusted = !adjusted
-	if(adjusted)
-		envirosealed = FALSE
-		if(fitted != FEMALE_UNIFORM_TOP)
-			fitted = NO_FEMALE_UNIFORM
-		if(!alt_covers_chest) // for the special snowflake suits that expose the chest when adjusted
-			body_parts_covered &= ~CHEST
-			body_parts_covered &= ~ARMS
-	else
-		fitted = initial(fitted)
-		envirosealed = initial(envirosealed)
-		if(!alt_covers_chest)
-			body_parts_covered |= CHEST
-			body_parts_covered |= ARMS
-			if(!LAZYLEN(damage_by_parts))
-				return adjusted
-			for(var/zone in list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // ugly check to make sure we don't reenable protection on a disabled part
-				if(damage_by_parts[zone] > limb_integrity)
-					for(var/part in body_zone2cover_flags(zone))
-						body_parts_covered &= part
-	return adjusted
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))

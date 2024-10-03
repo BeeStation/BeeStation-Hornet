@@ -1,4 +1,4 @@
-///Ok foodstuffs act kinda in a funky way, as their category is pre-defined in here as you can see, sononly the subcategory needs to be defined!
+///Ok foodstuffs act kinda in a funky way, as their category is pre-defined in here as you can see, so nonly the subcategory needs to be defined!
 
 /datum/crafting_recipe/food
 	var/real_parts

@@ -67,7 +67,7 @@ Contents:
 	var/a_boost = 3//Number of adrenaline boosters.
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
-	. = .()
+	. = ..()
 	if(s_initialized)
 		if(user == affecting)
 			. += "All systems operational. Current energy capacity: <B>[display_energy(cell.charge)]</B>.\n"+\
