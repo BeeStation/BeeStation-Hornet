@@ -634,8 +634,7 @@
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
-	for(var/i in GLOB.silicon_mobs)
-		var/mob/living/silicon/S = i
+	for(var/mob/living/silicon/S as anything in GLOB.silicon_mobs)
 		ai_number++
 		var/message = ""
 		if(isAI(S))
@@ -659,22 +658,6 @@
 
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>" )
-
-/datum/admins/proc/output_all_devil_info()
-	var/devil_number = 0
-	for(var/datum/mind/D in SSticker.mode.devils)
-		devil_number++
-		var/datum/antagonist/devil/devil = D.has_antag_datum(/datum/antagonist/devil)
-		to_chat(usr, "Devil #[devil_number]:<br><br>" + devil.printdevilinfo())
-	if(!devil_number)
-		to_chat(usr, "<b>No Devils located</b>" )
-
-/datum/admins/proc/output_devil_info(mob/living/M)
-	if(is_devil(M))
-		var/datum/antagonist/devil/devil = M.mind.has_antag_datum(/datum/antagonist/devil)
-		to_chat(usr, devil.printdevilinfo())
-	else
-		to_chat(usr, "<b>[M] is not a devil.")
 
 /datum/admins/proc/manage_free_slots()
 	if(!check_rights())

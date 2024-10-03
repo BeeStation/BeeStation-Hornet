@@ -275,8 +275,6 @@
 
 	if(H)
 		H.faction |= factions
-		remove_hivemember(H)
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
