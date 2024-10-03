@@ -246,7 +246,7 @@
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
 	if (!isnewplayer(src) && SSautotransfer.can_fire)
-		if (SSautotransfer.required_votes_to_leave)
+		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac())
 			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
 		else
 			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
