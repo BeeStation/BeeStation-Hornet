@@ -15432,14 +15432,8 @@
 	},
 /area/asteroid/nearstation)
 "dYQ" = (
-/obj/machinery/camera/autoname/directional/east,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/east,
 /turf/open/floor/catwalk_floor,
@@ -47032,13 +47026,13 @@
 /turf/open/floor/engine,
 /area/science/storage)
 "lSE" = (
-/obj/machinery/camera/autoname/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -49805,15 +49799,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/camera/directional/east,
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
