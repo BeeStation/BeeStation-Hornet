@@ -50011,6 +50011,10 @@
 	pixel_x = 5;
 	pixel_y = -4
 	},
+/obj/machinery/computer/security/telescreen/toxins{
+	dir = 1;
+	pixel_y = -32
+	},
 /turf/open/floor/iron,
 /area/science/mixing)
 "qkp" = (

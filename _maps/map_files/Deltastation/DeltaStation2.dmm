@@ -27212,6 +27212,12 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
+/obj/machinery/requests_console{
+	department = "Toxins Lab";
+	name = "Toxins RC";
+	pixel_x = -32;
+	receive_ore_updates = 1
+	},
 /turf/open/floor/iron,
 /area/science/mixing)
 "dzu" = (
@@ -27931,13 +27937,11 @@
 	pixel_x = 5
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/requests_console{
-	department = "Toxins Lab";
-	name = "Toxins RC";
-	pixel_x = -32;
-	receive_ore_updates = 1
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/computer/security/telescreen/toxins{
+	dir = 4;
+	pixel_x = -30
+	},
 /turf/open/floor/iron,
 /area/science/mixing)
 "dEr" = (

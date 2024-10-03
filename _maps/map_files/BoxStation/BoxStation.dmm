@@ -62631,6 +62631,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/computer/security/telescreen/toxins{
+	dir = 8;
+	pixel_x = 30
+	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "vPI" = (
