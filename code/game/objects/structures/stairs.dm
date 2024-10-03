@@ -138,3 +138,7 @@
 
 /obj/structure/stairs/attack_ghost(mob/user)
 	stair_ascend(user)
+
+#undef STAIR_TERMINATOR_AUTOMATIC
+#undef STAIR_TERMINATOR_NO
+#undef STAIR_TERMINATOR_YES

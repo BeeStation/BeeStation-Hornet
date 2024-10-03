@@ -121,9 +121,6 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
-	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
-	var/list/targeted_by
-
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
@@ -149,6 +146,9 @@
 	VAR_PRIVATE/base_luminosity = 0
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
+
+	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -209,6 +209,8 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
+CREATION_TEST_IGNORE_SUBTYPES(/atom)
+
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -271,6 +273,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
   * * clears the orbiters list
@@ -278,6 +281,14 @@
   * * clears the light object
   */
 /atom/Destroy()
+	for(var/client/each_client as anything in eye_users)
+		eye_users -= each_client
+		if(isnull(each_client.mob))
+			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+			continue
+		each_client.mob.reset_perspective()
+	eye_users = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -295,12 +306,6 @@
 
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
-
-	for(var/i in targeted_by)
-		var/mob/M = i
-		LAZYREMOVE(M.do_afters, src)
-
-	targeted_by = null
 
 	return ..()
 
@@ -598,7 +603,11 @@
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	var/examine_string = get_examine_string(user, thats = TRUE)
+	if(examine_string)
+		. = list("[examine_string].")
+	else
+		. = list()
 
 	if(desc)
 		. += desc
@@ -779,7 +788,7 @@
   * Default behaviour is to send a warning that the user can't move while buckled as long
   * as the buckle_message_cooldown has expired (50 ticks)
   */
-/atom/proc/relaymove(mob/user)
+/atom/proc/relaymove(mob/living/user, direction)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
@@ -997,6 +1006,27 @@
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
 /**
+ * Intercept our atom being teleported if we need to
+ *
+ * return COMPONENT_BLOCK_TELEPORT to explicity block teleportation
+ */
+/atom/proc/intercept_teleport(channel, turf/origin, turf/destination)
+	. = SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, origin, destination)
+
+	if(. == COMPONENT_BLOCK_TELEPORT)
+		return
+
+	// Recursively check contents by default. This can be overriden if we want different behavior.
+	for(var/atom/thing in contents)
+		// For the purposes of intercepting teleports, mobs on the turf don't count.
+		// We're already doing logic for intercepting teleports on the teleatom-level
+		if(isturf(src) && ismob(thing))
+			continue
+		var/result = thing.intercept_teleport(channel, origin, destination)
+		if(result == COMPONENT_BLOCK_TELEPORT)
+			return result
+
+/**
   * Respond to our atom being checked by a virus extrapolator.
   *
   * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return an empty list (which may be populated by the signal)
@@ -1084,7 +1114,6 @@
   */
 /atom/proc/update_remote_sight(mob/living/user)
 	return
-
 
 /**
   * Hook for running code when a dir change occurs
@@ -1720,7 +1749,7 @@
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
-			custom_material.on_removed(src, material_flags) //Remove the current materials
+			custom_material.on_removed(src, custom_materials[i], material_flags) //Remove the current materials
 
 	if(!length(materials))
 		custom_materials = null
@@ -1732,6 +1761,25 @@
 			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
 	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
+
+/**Returns the material composition of the atom.
+  *
+  * Used when recycling items, specifically to turn alloys back into their component mats.
+  *
+  * Exists because I'd need to add a way to un-alloy alloys or otherwise deal
+  * with people converting the entire stations material supply into alloys.
+  *
+  * Arguments:
+  * - flags: A set of flags determining how exactly the materials are broken down.
+  */
+/atom/proc/get_material_composition(breakdown_flags=NONE)
+	. = list()
+	var/list/cached_materials = custom_materials
+	for(var/mat in cached_materials)
+		var/datum/material/material = SSmaterials.GetMaterialRef(mat)
+		var/list/material_comp = material.return_composition(cached_materials[material], breakdown_flags)
+		for(var/comp_mat in material_comp)
+			.[comp_mat] += material_comp[comp_mat]
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.

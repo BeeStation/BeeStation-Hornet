@@ -56,17 +56,19 @@
 
 /obj/item/clothing/suit/hooded/wintercoat/security
 	name = "security winter coat"
+	desc = "A thick jacket made from a light, fire-resistant kevlar-like material which provides some protection to the user. It is particularly effective against energy-based threats due to its thickness and insulation."
 	icon_state = "coatsecurity"
 	item_state = "coatsecurity"
-	armor = list(MELEE = 25,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
-	slowdown = 0.05
+	armor = list(MELEE = 15,  BULLET = 15, LASER = 40, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 45, STAMINA = 40)
+	slowdown = 0.04
 
 /obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/security
+	armor = list(MELEE = 15,  BULLET = 15, LASER = 40, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 45, STAMINA = 40)
 	icon_state = "winterhood_security"
 
 /obj/item/clothing/suit/hooded/wintercoat/detective
@@ -398,11 +400,12 @@
 	name = "nostalgic winter coat"
 	desc = "A well-worn heavy jacket made from 'synthetic' animal furs."
 	icon_state = "old_coatwinter"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/old
 
 /obj/item/clothing/head/hooded/winterhood/old
 	name = "winter hood"
 	desc = "An old hood attached to a well-worn heavy winter jacket."
-	icon_state = "old_winterhood_cargo"
+	icon_state = "old_winterhood"
 
 /obj/item/clothing/suit/hooded/wintercoat/security/old
 	name = "nostalgic security winter coat"
@@ -414,7 +417,7 @@
 	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/security/old
-	icon_state = "old_winterhood_cargo"
+	icon_state = "old_winterhood_security"
 
 /obj/item/clothing/suit/hooded/wintercoat/medical/old
 	name = "nostalgic medical winter coat"
@@ -422,7 +425,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/old
 
 /obj/item/clothing/head/hooded/winterhood/medical/old
-	icon_state = "old_winterhood_cargo"
+	icon_state = "old_winterhood_medical"
 
 /obj/item/clothing/suit/hooded/wintercoat/science/old
 	name = "nostalgic science winter coat"
@@ -430,7 +433,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/old
 
 /obj/item/clothing/head/hooded/winterhood/science/old
-	icon_state = "old_winterhood_miner"
+	icon_state = "old_winterhood_science"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering/old
 	name = "nostalgic engineering winter coat"
@@ -438,7 +441,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/old
 
 /obj/item/clothing/head/hooded/winterhood/engineering/old
-	icon_state = "old_winterhood_cargo"
+	icon_state = "old_winterhood_engineer"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
 	name = "nostalgic atmospherics winter coat"
@@ -446,7 +449,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
 
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
-	icon_state = "old_winterhood_cargo"
+	icon_state = "old_winterhood_atmos"
 
 /obj/item/clothing/suit/hooded/wintercoat/hydro/old
 	name = "nostalgic hydroponics winter coat"
@@ -454,14 +457,31 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro/old
 
 /obj/item/clothing/head/hooded/winterhood/hydro/old
-	icon_state = "old_winterhood_cargo"
+	icon_state = "old_winterhood_hydro"
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo/old
-	name = "cargo winter coat"
+	name = "nostalgic cargo winter coat"
 	icon_state = "old_coatcargo"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo/old
 
 /obj/item/clothing/head/hooded/winterhood/cargo/old
 	icon_state = "old_winterhood_cargo"
 
-//end of winter coats
+//end of winter coats //uhhh... nuh uh
+
+// CentCom
+/obj/item/clothing/suit/hooded/wintercoat/centcom
+	name = "centcom winter coat"
+	desc = "A luxurious winter coat woven in the bright green and gold colours of Central Command. It has a small pin in the shape of the Nanotrasen logo for a zipper."
+	icon_state = "coatcentcom"
+	item_state = "coatcentcom"
+	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60)
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/centcom
+
+/obj/item/clothing/suit/hooded/wintercoat/centcom/Initialize(mapload)
+	. = ..()
+	allowed += GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/head/hooded/winterhood/centcom
+	icon_state = "hood_centcom"
+	armor = list(MELEE = 35, BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 10, RAD = 10, FIRE = 10, ACID = 60)

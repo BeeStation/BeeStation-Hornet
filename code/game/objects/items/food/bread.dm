@@ -31,7 +31,7 @@
 	eat_time = 0.5 SECONDS
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/breadslice/Initialize()
+/obj/item/food/breadslice/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
@@ -286,7 +286,8 @@
 	bite_consumption = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	attack_verb = list("touche")
+	attack_verb_continuous = list("touche's")
+	attack_verb_simple = list("touche")
 	tastes = list("bread" = 1)
 	foodtypes = GRAIN
 

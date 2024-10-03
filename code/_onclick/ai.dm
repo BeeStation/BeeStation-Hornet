@@ -74,7 +74,7 @@
 
 	if(aicamera.in_camera_mode)
 		aicamera.camera_mode_off()
-		aicamera.captureimage(pixel_turf, usr)
+		aicamera.captureimage(pixel_turf, usr, null, aicamera.picture_size_x - 1, aicamera.picture_size_y - 1)
 		return
 	if(waypoint_mode)
 		waypoint_mode = 0
@@ -95,7 +95,11 @@
 	A.attack_ai(src)
 
 /atom/proc/attack_ai(mob/user)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_AI, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(attack_silicon(user))
+		return TRUE
+	return FALSE
 
 /*
 	Since the AI handles shift, ctrl, and alt-click differently

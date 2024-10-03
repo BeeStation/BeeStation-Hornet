@@ -6,7 +6,7 @@
 /// Returns the number of ticks slept
 /proc/stoplag(initial_delay)
 	//No master controller active, sleep for the tick lag to allow other things to run
-	if (!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
+	if (!Master || Master.init_stage_completed < INITSTAGE_MAX)
 		sleep(world.tick_lag)
 		return 1
 	//Set the default initial delay, if one isn't provided

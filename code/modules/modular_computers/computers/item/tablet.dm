@@ -274,7 +274,7 @@
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)
 				self_monitoring = null
-				CRASH("Cyborg [borgo]'s tablet hard drive rejected recieving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
+				CRASH("Cyborg [borgo]'s tablet hard drive rejected receiving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
 	return self_monitoring
 
 //Makes the light settings reflect the borg's headlamp settings
@@ -323,7 +323,7 @@
 	theme_locked = TRUE
 
 
-/obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
+/obj/item/modular_computer/tablet/integrated/syndicate/Initialize(mapload)
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
@@ -384,7 +384,7 @@
 		add_overlay(mutable_appearance(init_icon, "light_overlay"))
 
 
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
+/obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 

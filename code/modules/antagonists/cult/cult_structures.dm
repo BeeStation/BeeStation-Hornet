@@ -97,7 +97,7 @@
 		if("Construct Shell")
 			pickedtype += /obj/structure/constructshell
 		if("Flask of Unholy Water")
-			pickedtype += /obj/item/reagent_containers/glass/beaker/unholywater
+			pickedtype += /obj/item/reagent_containers/food/drinks/bottle/unholywater
 		else
 			return
 	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
@@ -188,11 +188,13 @@
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 			if(ishuman(L))
+				var/mob/living/carbon/C = L
 				L.adjustBruteLoss(-5*delta_time, 0)
 				L.adjustFireLoss(-5*delta_time, 0)
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+					L.blood_volume += 20
+				C.cauterise_wounds(1.4)
 			else if(isshade(L) || isconstruct(L))
 				var/mob/living/simple_animal/M = L
 				M.adjustHealth(-15*delta_time)

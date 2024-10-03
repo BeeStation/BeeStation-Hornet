@@ -8,10 +8,17 @@
 
 /obj/structure/disposalpipe/sorting/nextdir(obj/structure/disposalholder/H)
 	var/sortdir = dpdir & ~(dir | turn(dir, 180))
-	if(H.dir != sortdir)		// probably came from the negdir
-		if(check_sorting(H))	// if destination matches filtered type...
-			return sortdir		// exit through sortdirection
-
+	var/input_direction = dir
+	// probably came from the negdir
+	if(H.dir == input_direction)
+		// if destination matches filtered type...
+		if(check_sorting(H))
+			H.unsorted = FALSE
+			// exit through sortdirection
+			return sortdir
+	// If we are entering backwards, continue onwards
+	if (H.dir == turn(input_direction, 180))
+		return H.dir
 	// go with the flow to positive direction
 	return dir
 
@@ -23,7 +30,7 @@
 
 // Mail sorting junction, uses package tags to sort objects.
 /obj/structure/disposalpipe/sorting/mail
-	desc = "An underfloor disposal pipe that sorts wrapped objects based on their destination tags."
+	desc = "An underfloor disposal pipe that sorts wrapped objects based on their destination tags. Objects passing through it become sorted."
 	flip_type = /obj/structure/disposalpipe/sorting/mail/flip
 	var/sortType = 0
 	// sortType is to be set in map editor.
@@ -82,7 +89,7 @@
 // Wrap sorting junction, sorts objects destined for the mail office mail table (tomail = 1)
 /obj/structure/disposalpipe/sorting/wrap
 	name = "package sorting disposal pipe"
-	desc = "An underfloor disposal pipe which sorts wrapped and unwrapped objects."
+	desc = "An underfloor disposal pipe which sorts wrapped and unwrapped objects. Objects passing through it become sorted."
 	flip_type = /obj/structure/disposalpipe/sorting/wrap/flip
 	initialize_dirs = DISP_DIR_RIGHT | DISP_DIR_FLIP
 
@@ -93,3 +100,19 @@
 	icon_state = "pipe-j2s"
 	flip_type = /obj/structure/disposalpipe/sorting/wrap
 	initialize_dirs = DISP_DIR_LEFT | DISP_DIR_FLIP
+
+// Unsorted junction, will divert things based on whether or not they have been sorted.
+/obj/structure/disposalpipe/sorting/unsorted
+	name = "unsorted sorting disposal pipe"
+	desc = "An underfloor disposal pipe which sorts sorted and unsorted objects. Objects passing through it become sorted."
+	flip_type = /obj/structure/disposalpipe/sorting/unsorted/flip
+	initialize_dirs = DISP_DIR_RIGHT | DISP_DIR_FLIP
+
+/obj/structure/disposalpipe/sorting/unsorted/check_sorting(obj/structure/disposalholder/H)
+	return H.unsorted && (H.destinationTag > 1 || H.tomail)
+
+/obj/structure/disposalpipe/sorting/unsorted/flip
+	icon_state = "pipe-j2s"
+	flip_type = /obj/structure/disposalpipe/sorting/unsorted
+	initialize_dirs = DISP_DIR_LEFT | DISP_DIR_FLIP
+

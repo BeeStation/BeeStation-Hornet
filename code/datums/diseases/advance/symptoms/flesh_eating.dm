@@ -33,7 +33,7 @@ Bonus
 	var/bleed = FALSE
 	var/damage = FALSE
 	threshold_desc = "<b>Resistance 10:</b> The host takes brute damage as their flesh is burst open<br>\
-					  <b>Transmission 8:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
+						<b>Transmission 8:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
 
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
 	if(!..())
@@ -63,8 +63,7 @@ Bonus
 	if(!ishuman(M))
 		return
 	var/mob/living/carbon/human/H = M
-	H.bleed_rate += 2 * power //bleeding is quite strong. this is more than enough
-	H.bleed(max(10*power, H.bleed_rate))//having power actually up the bleed rate on this puts it into a pretty dangerous territory. this should be more managable
+	H.add_bleeding(BLEED_SURFACE)
 	H.add_splatter_floor(H.loc)
 	if(bleed) // this is really, really messy
 		var/geysers = rand(2, 6)
@@ -73,7 +72,7 @@ Bonus
 		var/turf/T = H.loc
 		playsound(T, 'sound/effects/splat.ogg', 50, 1)
 		H.visible_message("<span class='danger'>Blood bursts from [H]'s flesh!</span>", \
-  "<span class='userdanger'>Blood spews forth from your flesh! It hurts!</span>")
+	"<span class='userdanger'>Blood spews forth from your flesh! It hurts!</span>")
 		for(var/i in 0 to geysers)
 			var/geyserdir = pick_n_take(geyserdirs)
 			var/geyserdist = rand(1, max(1,bloodsplatters))
@@ -120,7 +119,7 @@ Bonus
 	var/chems = FALSE
 	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
-					  <b>Stealth 5:</b> The symptom remains hidden until active."
+						<b>Stealth 5:</b> The symptom remains hidden until active."
 
 
 /datum/symptom/flesh_death/severityset(datum/disease/advance/A)

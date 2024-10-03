@@ -1,8 +1,3 @@
-#define POWER_RESTORATION_OFF 0
-#define POWER_RESTORATION_START 1
-#define POWER_RESTORATION_SEARCH_APC 2
-#define POWER_RESTORATION_APC_FOUND 3
-
 /mob/living/silicon/ai/Life(delta_time)
 	if (stat == DEAD)
 		return
@@ -112,7 +107,7 @@
 	T = get_turf(src)
 	if(isspaceturf(T))
 		to_chat(src, "Unable to verify! No power connection detected!")
-		aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
+		setAiRestorePowerRoutine(POWER_RESTORATION_SEARCH_APC)
 		return
 	to_chat(src, "Connection verified. Searching for APC in power network.")
 	sleep(5 SECONDS)
@@ -130,7 +125,7 @@
 					to_chat(src, "Unable to locate APC!")
 				else
 					to_chat(src, "Lost connection with the APC!")
-			aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
+			setAiRestorePowerRoutine(POWER_RESTORATION_SEARCH_APC)
 			return
 		if(AIarea.power_equip)
 			if(!isspaceturf(T))
@@ -151,7 +146,7 @@
 				to_chat(src, "<A HREF=?src=[REF(src)];emergencyAPC=[TRUE]>APC ready for connection.</A>")
 				apc_override = theAPC
 				theAPC.ui_interact(src)
-				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
+				setAiRestorePowerRoutine(POWER_RESTORATION_APC_FOUND)
 		sleep(5 SECONDS)
 		theAPC = null
 
@@ -163,20 +158,15 @@
 				to_chat(src, "<span class='notice'>APC Backdoor has been closed.</span>") //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
 		else
 			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored without our assistance.</span>")
-		aiRestorePowerRoutine = POWER_RESTORATION_OFF
+		setAiRestorePowerRoutine(POWER_RESTORATION_OFF)
 		set_blindness(0)
 		apc_override = null
 		update_sight()
 
 /mob/living/silicon/ai/proc/ai_lose_power()
 	disconnect_shell()
-	aiRestorePowerRoutine = POWER_RESTORATION_START
+	setAiRestorePowerRoutine(POWER_RESTORATION_START)
 	adjust_blindness(1)
 	update_sight()
 	to_chat(src, "<span class='alert'>You've lost power!</span>")
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)
-
-#undef POWER_RESTORATION_OFF
-#undef POWER_RESTORATION_START
-#undef POWER_RESTORATION_SEARCH_APC
-#undef POWER_RESTORATION_APC_FOUND

@@ -1,7 +1,3 @@
-#define ALCOHOL_THRESHOLD_MODIFIER 1 //Greater numbers mean that less alcohol has greater intoxication potential
-#define ALCOHOL_RATE 0.005 //The rate at which alcohol affects you
-#define ALCOHOL_EXPONENT 1.6 //The exponent applied to boozepwr to make higher volume alcohol at least a little bit damaging to the liver
-
 ////////////// I don't know who made this header before I refactored alcohols but I'm going to fucking strangle them because it was so ugly, holy Christ
 // ALCOHOLS //
 //////////////
@@ -162,7 +158,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/M)
 	M.dizziness = max(0,M.dizziness-5)
 	M.drowsyness = max(0,M.drowsyness-3)
-	M.AdjustSleeping(-40, FALSE)
+	M.AdjustSleeping(-40)
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
 		M.Jitter(5)
 	..()
@@ -1352,10 +1348,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.slurring += 3
 	switch(current_cycle)
 		if(51 to 200)
-			M.Sleeping(100, FALSE)
+			M.Sleeping(100)
 			. = 1
 		if(201 to INFINITY)
-			M.AdjustSleeping(40, FALSE)
+			M.AdjustSleeping(40)
 			M.adjustToxLoss(2, 0)
 			. = 1
 	..()
@@ -1650,7 +1646,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		L.adjustToxLoss(-1)
 		L.adjustOxyLoss(-1)
 		L.adjustStaminaLoss(-1)
-	L.visible_message("<span class='warning'>[L] shivers with renewed vigor!</span>", "<span class='notice'>One taste of [lowertext(name)] fills you with energy!</span>")
+	L.visible_message("<span class='warning'>[L] shivers with renewed vigor!</span>", "<span class='notice'>One taste of [LOWER_TEXT(name)] fills you with energy!</span>")
 	if(!L.stat && heal_points == 20) //brought us out of softcrit
 		L.visible_message("<span class='danger'>[L] lurches to [L.p_their()] feet!</span>", "<span class='boldnotice'>Up and at 'em, kid.</span>")
 
@@ -2111,12 +2107,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/M)
 //Bugs should not drink Bug spray.
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.adjustToxLoss(1,0)
 	return ..()
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
 
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.emote("scream")
 	return ..()
 
@@ -2487,7 +2483,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Bee's Knees"
 	description = "This has way too much honey."
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
-	chem_flags = NONE
 	boozepwr = 35
 	quality = 0
 	taste_description = "sweeter mead"
@@ -2510,22 +2505,4 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjustBruteLoss(-1.5, 0)
 		M.adjustFireLoss(-1.5, 0)
 		M.adjustToxLoss(-1, 0)
-	. = ..()
-
-/datum/reagent/consumable/ethanol/beeffizz
-	name = "Beef Fizz"
-	description = "This is beef fizz, BEEF FIZZ, THERE IS NO GOD"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
-	boozepwr = 15
-	quality = DRINK_BAD
-	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
-	glass_icon_state = "beef_fizz"
-	glass_name = "Beef Fizz"
-	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
-
-
-/datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
-	M.adjust_disgust(30)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()

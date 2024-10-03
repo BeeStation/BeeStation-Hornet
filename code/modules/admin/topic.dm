@@ -1139,12 +1139,6 @@
 			return
 		output_ai_laws()
 
-	else if(href_list["admincheckdevilinfo"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/mob/M = locate(href_list["admincheckdevilinfo"])
-		output_devil_info(M)
-
 	else if(href_list["adminmoreinfo"])
 		admin_more_info(locate(href_list["adminmoreinfo"]) in GLOB.mob_list)
 
@@ -1652,7 +1646,7 @@
 			if(response.body == "[]")
 				dat += "<center><b>0 bans detected for [ckey]</b></center>"
 			else
-				bans = json_decode(response["body"])
+				bans = json_decode(response.body)
 				dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
 				for(var/list/ban in bans)
 					dat += "<b>Server: </b> [sanitize(ban["sourceName"])]<br>"

@@ -6,13 +6,13 @@
 
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, list(
-	"Midnight" = 'icons/mob/screen_midnight.dmi',
-	"Plasmafire" = 'icons/mob/screen_plasmafire.dmi',
-	"Slimecore" = 'icons/mob/screen_slimecore.dmi',
-	"Operative" = 'icons/mob/screen_operative.dmi',
-	"Clockwork" = 'icons/mob/screen_clockwork.dmi',
-	"Trasen-Knox" = 'icons/mob/screen_trasenknox.dmi',
-	"Retro" = 'icons/mob/screen_retro.dmi'
+	"Midnight" = 'icons/hud/style/screen_midnight.dmi',
+	"Plasmafire" = 'icons/hud/style/screen_plasmafire.dmi',
+	"Slimecore" = 'icons/hud/style/screen_slimecore.dmi',
+	"Operative" = 'icons/hud/style/screen_operative.dmi',
+	"Clockwork" = 'icons/hud/style/screen_clockwork.dmi',
+	"Trasen-Knox" = 'icons/hud/style/screen_trasenknox.dmi',
+	"Retro" = 'icons/hud/style/screen_retro.dmi'
 ))
 
 /proc/ui_style2icon(ui_style)
@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/hud_version = HUD_STYLE_STANDARD	//Current displayed version of the HUD
 	var/inventory_shown = FALSE		//Equipped item inventory
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	/// Should the mob be able to see in the darkness immediately surrounding their mob?
 
 	var/atom/movable/screen/ling/chems/lingchemdisplay
 	var/atom/movable/screen/ling/sting/lingstingdisplay
@@ -61,8 +62,10 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/action_buttons_hidden = FALSE
 
 	var/atom/movable/screen/healths
+	var/atom/movable/screen/stamina
 	var/atom/movable/screen/healthdoll
 	var/atom/movable/screen/internals
+	var/atom/movable/screen/spacesuit
 
 	// subtypes can override this to force a specific UI style
 	var/ui_style
@@ -90,7 +93,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
-
 /datum/hud/Destroy()
 	if(mymob?.hud_used == src)
 		mymob.hud_used = null
@@ -111,6 +113,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	QDEL_LIST(infodisplay)
 
 	healths = null
+	stamina = null
 	healthdoll = null
 	internals = null
 	lingchemdisplay = null
@@ -127,8 +130,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	return ..()
 
-/mob
-	var/hud_type = /datum/hud
+/mob/var/hud_type = /datum/hud
 
 /mob/proc/create_mob_hud()
 	if(!client || hud_used)

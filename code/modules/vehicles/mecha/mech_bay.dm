@@ -46,14 +46,14 @@
 	var/MC
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		MC += C.rating
-	recharge_power = MC * 25
+	recharge_power = MC * 12.5
 
 /obj/machinery/mech_bay_recharge_port/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Base recharge rate at <b>[siunit(recharge_power, "W", 1)]</b>.</span>"
+		. += "<span class='notice'>The status display reads: Recharge power <b>[siunit(recharge_power, "W", 1)]</b>.</span>"
 
-/obj/machinery/mech_bay_recharge_port/process()
+/obj/machinery/mech_bay_recharge_port/process(delta_time)
 	if(machine_stat & NOPOWER || !recharge_console)
 		return
 	if(!recharging_mech)
@@ -63,7 +63,7 @@
 			recharge_console.ui_update()
 	if(recharging_mech && recharging_mech.cell)
 		if(recharging_mech.cell.charge < recharging_mech.cell.maxcharge)
-			var/delta = min(recharge_power, recharging_mech.cell.maxcharge - recharging_mech.cell.charge)
+			var/delta = min(recharge_power * delta_time, recharging_mech.cell.maxcharge - recharging_mech.cell.charge)
 			recharging_mech.give_power(delta)
 			use_power(delta*150)
 		else
@@ -127,7 +127,7 @@
 	if(recharge_port && !QDELETED(recharge_port))
 		data["recharge_port"] = list("mech" = null)
 		if(recharge_port.recharging_mech && !QDELETED(recharge_port.recharging_mech))
-			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mech.obj_integrity, "maxhealth" = recharge_port.recharging_mech.max_integrity, "cell" = null, "name" = recharge_port.recharging_mech.name,)
+			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mech.get_integrity(), "maxhealth" = recharge_port.recharging_mech.max_integrity, "cell" = null, "name" = recharge_port.recharging_mech.name,)
 			if(recharge_port.recharging_mech.cell && !QDELETED(recharge_port.recharging_mech.cell))
 				data["recharge_port"]["mech"]["cell"] = list(
 				"charge" = recharge_port.recharging_mech.cell.charge,

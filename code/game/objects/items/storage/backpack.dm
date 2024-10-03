@@ -45,7 +45,7 @@
 	item_state = "holdingpack"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0, BLEED = 0)
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
 /obj/item/storage/backpack/holding/clown
@@ -81,7 +81,7 @@
 	worn_icon_state = "baguette"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
 /obj/item/storage/backpack/hammerspace/ComponentInitialize()
@@ -466,11 +466,11 @@
 	new /obj/item/razor(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/blood_filter(src)
-	
+
 /obj/item/storage/backpack/duffelbag/med/implant
 	name = "surplus implants duffel bag"
 	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various implants."
-	
+
 /obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
 	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
 						/obj/item/organ/cyberimp/arm/botany,
@@ -695,18 +695,20 @@
 		new /obj/item/grenade/plastic/x4(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/firestarter
-	desc = "A large duffel bag containing a New Russian pyro backpack sprayer, Elite hardsuit, a Stechkin APS pistol, minibomb, ammo, and other equipment."
+	desc = "A large duffel bag containing a Flamethrower, Elite hardsuit, a Stechkin APS pistol, tactical medkit, ammo, and other equipment."
 
 /obj/item/storage/backpack/duffelbag/syndie/firestarter/PopulateContents()
 	new /obj/item/clothing/under/syndicate/soviet(src)
-	new /obj/item/watertank/op(src)
+	new /obj/item/flamethrower/full/tank(src)
+	new /obj/item/tank/internals/plasma(src)
+	new /obj/item/tank/internals/plasma(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
 	new /obj/item/gun/ballistic/automatic/pistol/APS(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
 	new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
-	new /obj/item/grenade/syndieminibomb(src)
+	new /obj/item/storage/firstaid/tactical(src)
 
 // For ClownOps.
 /obj/item/storage/backpack/duffelbag/clown/syndie/ComponentInitialize()

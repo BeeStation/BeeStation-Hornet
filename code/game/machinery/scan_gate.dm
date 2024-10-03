@@ -14,7 +14,7 @@
 #define SCANGATE_PLASMAMAN		"plasma"
 #define SCANGATE_MOTH			"moth"
 #define SCANGATE_OOZE			"oozeling"
-#define SCANGATE_POD			"pod"
+#define SCANGATE_DIONA			"diona"
 #define SCANGATE_GOLEM			"golem"
 #define SCANGATE_ZOMBIE			"zombie"
 
@@ -145,8 +145,8 @@
 						scan_species = /datum/species/moth
 					if(SCANGATE_OOZE)
 						scan_species = /datum/species/oozeling
-					if(SCANGATE_POD)
-						scan_species = /datum/species/pod
+					if(SCANGATE_DIONA)
+						scan_species = /datum/species/diona
 					if(SCANGATE_GOLEM)
 						scan_species = /datum/species/golem
 					if(SCANGATE_ZOMBIE)
@@ -242,7 +242,7 @@
 			var/new_nutrition = params["new_nutrition"]
 			var/nutrition_list = list(
 				"Starving",
-  				"Obese"
+					"Obese"
 			)
 			if(new_nutrition && (new_nutrition in nutrition_list))
 				switch(new_nutrition)
@@ -268,6 +268,6 @@
 #undef SCANGATE_PLASMAMAN
 #undef SCANGATE_MOTH
 #undef SCANGATE_OOZE
-#undef SCANGATE_POD
+#undef SCANGATE_DIONA
 #undef SCANGATE_GOLEM
 #undef SCANGATE_ZOMBIE
