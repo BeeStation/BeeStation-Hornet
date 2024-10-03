@@ -22969,7 +22969,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window{
@@ -22977,7 +22976,7 @@
 	dir = 4;
 	icon_state = "rightsecure";
 	name = "Primary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /obj/machinery/camera/directional/north{
