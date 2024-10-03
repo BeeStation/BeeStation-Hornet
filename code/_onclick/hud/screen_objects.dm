@@ -101,10 +101,13 @@
 	H.open_language_menu(usr)
 
 /atom/movable/screen/inventory
-	var/slot_id	// The indentifier for the slot. It has nothing to do with ID cards.
-	var/icon_empty // Icon when empty. For now used only by humans.
-	var/icon_full  // Icon when contains an item. For now used only by humans.
-	var/list/object_overlays = list()
+	var/slot_id
+	/// Icon when empty. For now used only by humans.
+	var/icon_empty
+	/// Icon when contains an item. For now used only by humans.
+	var/icon_full
+	/// The overlay when hovering over with an item in your hand
+	var/image/object_overlay
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
@@ -127,8 +130,8 @@
 
 /atom/movable/screen/inventory/MouseExited()
 	..()
-	cut_overlay(object_overlays)
-	object_overlays.Cut()
+	cut_overlay(object_overlay)
+	QDEL_NULL(object_overlay)
 	remove_stored_outline()
 
 /atom/movable/screen/inventory/proc/add_stored_outline()
@@ -173,8 +176,9 @@
 	else
 		item_overlay.color = "#00ff00"
 
-	object_overlays += item_overlay
-	add_overlay(object_overlays)
+	cut_overlay(object_overlay)
+	object_overlay = item_overlay
+	add_overlay(object_overlay)
 
 /atom/movable/screen/inventory/hand
 	var/mutable_appearance/handcuff_overlay
@@ -760,3 +764,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/stamina
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina
