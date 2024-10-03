@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	name = "AI Action"
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	/// The owner AI, so we don't have to typecast every time
 	var/mob/living/silicon/ai/owner_AI
 	/// If we have multiple uses of the same power
@@ -357,8 +357,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	STOP_PROCESSING(SSfastprocess, src)
 	SSshuttle.clearHostileEnvironment(src)
 	SSmapping.remove_nuke_threat(src)
-	for(var/A in GLOB.ai_list)
-		var/mob/living/silicon/ai/AI = A
+	for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 		if(AI.doomsday_device == src)
 			AI.doomsday_device = null
 	return ..()

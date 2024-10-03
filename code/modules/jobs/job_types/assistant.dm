@@ -4,7 +4,7 @@ Assistant
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
 	description = "Help out around the station or ask the Head of Personnel for an assignment. As the lowest-level position, expect to be treated like an intern most of the time."
-	department_for_prefs = DEPT_BITFLAG_ASSISTANT
+	department_for_prefs = DEPT_NAME_ASSISTANT
 	supervisors = "absolutely everyone"
 	faction = "Station"
 	total_positions = 5

@@ -137,6 +137,9 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
+	/// What networks should cameras in this area belong to?
+	var/list/camera_networks = list()
+
 /**
   * A list of teleport locations
   *
@@ -232,6 +235,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+
+/area/vv_edit_var(var_name, var_value)
+	// Reference type, so please don't touch
+	if (var_name == NAMEOF(src, camera_networks))
+		return FALSE
+	return ..()
 
 /**
  * Performs initial setup of the lighting overlays.

@@ -10,7 +10,7 @@
 	range = -1
 	include_user = TRUE
 	charge_max = 600
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "smoke"
 
 /obj/effect/proc_holder/spell/targeted/fiery_rebirth/cast(list/targets, mob/living/carbon/human/user)

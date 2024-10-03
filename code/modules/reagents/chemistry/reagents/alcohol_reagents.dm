@@ -2107,12 +2107,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/M)
 //Bugs should not drink Bug spray.
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.adjustToxLoss(1,0)
 	return ..()
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
 
-	if(ismoth(M) || isflyperson(M))
+	if(ismoth(M) || isflyperson(M) || isdiona(M))
 		M.emote("scream")
 	return ..()
 
@@ -2483,7 +2483,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Bee's Knees"
 	description = "This has way too much honey."
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
-	chem_flags = NONE
 	boozepwr = 35
 	quality = 0
 	taste_description = "sweeter mead"
@@ -2506,22 +2505,4 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjustBruteLoss(-1.5, 0)
 		M.adjustFireLoss(-1.5, 0)
 		M.adjustToxLoss(-1, 0)
-	. = ..()
-
-/datum/reagent/consumable/ethanol/beeffizz
-	name = "Beef Fizz"
-	description = "This is beef fizz, BEEF FIZZ, THERE IS NO GOD"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
-	boozepwr = 15
-	quality = DRINK_BAD
-	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
-	glass_icon_state = "beef_fizz"
-	glass_name = "Beef Fizz"
-	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
-
-
-/datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
-	M.adjust_disgust(30)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
