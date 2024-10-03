@@ -37,30 +37,39 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 	frequency = department_freq
 
 /obj/item/radio/intercom/department/medbay
+	name = "medbay intercom"
 	department_freq = FREQ_MEDICAL
 
 /obj/item/radio/intercom/department/security
+	name = "security intercom"
 	department_freq = FREQ_SECURITY
 
 /obj/item/radio/intercom/department/engineering
+	name = "engineering intercom"
 	department_freq = FREQ_ENGINEERING
 
 /obj/item/radio/intercom/department/supply
+	name = "supply intercom"
 	department_freq = FREQ_SUPPLY
 
 /obj/item/radio/intercom/department/service
+	name = "service intercom"
 	department_freq = FREQ_SERVICE
 
 /obj/item/radio/intercom/department/science
+	name = "science intercom"
 	department_freq = FREQ_SCIENCE
 
 /obj/item/radio/intercom/department/exploration
+	name = "exploration intercom"
 	department_freq = FREQ_EXPLORATION
 
 /obj/item/radio/intercom/department/syndicate
+	name = "syndicate intercom"
 	department_freq = FREQ_SYNDICATE
 
 /obj/item/radio/intercom/department/centcom
+	name = "centcom intercom"
 	department_freq = FREQ_CENTCOM
 
 /obj/item/radio/intercom/examine(mob/user)
