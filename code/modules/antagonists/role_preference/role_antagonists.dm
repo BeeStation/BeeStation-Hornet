@@ -177,7 +177,6 @@
 	Kill or exile all heads of staff on the station."
 	antag_datum = /datum/antagonist/rev/head
 	preview_outfit = /datum/outfit/revolutionary
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
 
 /datum/outfit/revolutionary
 	name = "Revolutionary (Preview only)"
