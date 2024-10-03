@@ -190,17 +190,9 @@
 	if(!(locate(/datum/action/change_psychic_auto) in owner.actions))
 		auto_action = new(src)
 		auto_action.Grant(M)
-	///Start auto timer
-	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
-
-/datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
-	if(has_cooldown_timer)
-		return FALSE
-	return ..()
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
-	. = ..()
-	if(has_cooldown_timer || !owner || !check_head())
+	if(!..() || !owner || !check_head())
 		return
 	//Reveal larger area of sense
 	dim_overlay()
@@ -209,14 +201,8 @@
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
-	has_cooldown_timer = TRUE
-	UpdateButtonIcon()
-	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
-
-/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
-	. = ..()
-	if(!IsAvailable())
-		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
+	set_cooldown(cooldown + sense_time)
+	return TRUE
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")
@@ -231,14 +217,11 @@
 	if(!QDELETED(auto_action))
 		qdel(auto_action)
 
-/datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
+/datum/action/item_action/organ_action/psychic_highlight/finish_cooldown()
+	. = ..()
+	// Auto-retrigger
 	if(auto_sense)
 		Trigger()
-	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
-
-/datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
-	has_cooldown_timer = FALSE
-	UpdateButtonIcon()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -464,6 +447,7 @@
 /datum/action/change_psychic_auto/Trigger()
 	. = ..()
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
+	psychic_action?.Trigger()
 	UpdateButtonIcon()
 
 /datum/action/change_psychic_auto/IsAvailable()

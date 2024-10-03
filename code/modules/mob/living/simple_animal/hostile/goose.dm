@@ -57,7 +57,7 @@
 	var/vomiting = FALSE
 	var/vomitCoefficient = 1
 	var/vomitTimeBonus = 0
-	var/datum/action/cooldown/vomit/goosevomit
+	var/datum/action/vomit/goosevomit
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/Initialize(mapload)
 	. = ..()
@@ -178,14 +178,13 @@
 	if (tasty)
 		feed(tasty)
 
-/datum/action/cooldown/vomit
+/datum/action/vomit
 	name = "Vomit"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "vomit"
 	icon_icon = 'icons/mob/animal.dmi'
-	cooldown_time = 250
 
-/datum/action/cooldown/vomit/Trigger()
+/datum/action/vomit/Trigger()
 	if(!..())
 		return FALSE
 	if(!istype(owner, /mob/living/simple_animal/hostile/retaliate/goose/vomit))
@@ -195,6 +194,7 @@
 		vomit.vomit_prestart(vomit.vomitTimeBonus + 25)
 		vomit.vomitCoefficient = 1
 		vomit.vomitTimeBonus = 0
+	set_cooldown(25 SECONDS)
 	return TRUE
 
 #undef GOOSE_SATIATED

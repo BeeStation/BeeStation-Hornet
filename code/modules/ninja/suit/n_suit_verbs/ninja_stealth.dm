@@ -6,6 +6,7 @@ Contents:
 
 */
 
+#define STEALTH_COOLDOWN 1 MINUTES
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_stealth()
 	var/mob/living/carbon/human/U = affecting
@@ -14,6 +15,10 @@ Contents:
 	if(stealth)
 		cancel_stealth()
 	else
+		var/datum/action/item_action/ninja_stealth/stealth_action = locate() in actions
+		if (!stealth_action.IsAvailable())
+			U.balloon_alert("Stealth not ready.")
+			return
 		if(cell.charge <= 0)
 			to_chat(U, "<span class='warning'>You don't have enough power to enable Stealth!</span>")
 			return
@@ -32,9 +37,10 @@ Contents:
 		animate(U, alpha = 255, time = 15)
 		U.visible_message("<span class='warning'>[U.name] appears from thin air!</span>", \
 						"<span class='notice'>You are now visible.</span>")
+		var/datum/action/item_action/ninja_stealth/stealth_action = locate() in actions
+		stealth_action.set_cooldown(STEALTH_COOLDOWN)
 		return 1
 	return 0
-
 
 /obj/item/clothing/suit/space/space_ninja/proc/stealth()
 	if(!s_busy)

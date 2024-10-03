@@ -15,7 +15,19 @@
 	var/button_icon_state = "default" //And this is the state for the action icon
 	var/mob/owner
 
-	var/has_cooldown_timer = FALSE
+	/// The time at which the cooldown timer will end
+	VAR_PRIVATE/cooldown_timer_end = 0
+	/// Overlay currently applied to this action
+	VAR_PRIVATE/mutable_appearance/timer_overlay
+
+	/// Timer icon file
+	VAR_PROTECTED/timer_icon = 'icons/effects/cooldown.dmi'
+	/// Icon state for the timer icon
+	VAR_PROTECTED/timer_icon_state_active = "second"
+
+	/// Set this to disable auto-processing on cooldown for things that add custom behaviours like spells.
+	/// Avoid this if possible.
+	var/override_cooldown_behaviour = FALSE
 
 /datum/action/New(Target)
 	link_to(Target)
@@ -66,9 +78,6 @@
 			M.client.screen += button
 			button.locked = M.client.prefs.read_player_preference(/datum/preference/toggle/buttons_locked) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
-			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
-			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
-				M.client.images += spell_proc_holder.text_overlay
 		M.update_action_buttons()
 	else
 		Remove(owner)
@@ -101,6 +110,8 @@
 /datum/action/proc/IsAvailable()
 	if(!owner)
 		return FALSE
+	if (cooldown_timer_end && world.time < cooldown_timer_end)
+		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
@@ -112,6 +123,9 @@
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
 		return FALSE
 	return TRUE
+
+/datum/action/process(delta_time)
+	UpdateButtonIcon(TRUE, FALSE)
 
 /datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	if(!button)
@@ -132,8 +146,13 @@
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
 		ApplyIcon(button, force)
+	if(cooldown_timer_end)
+		if (cooldown_timer_end >= world.time)
+			update_cooldown_icon()
+		else
+			finish_cooldown()
 	if(!IsAvailable())
-		button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+		button.color = cooldown_timer_end ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
 	else
 		button.color = rgb(255,255,255,255)
 		return TRUE
@@ -143,10 +162,52 @@
 		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
+		update_cooldown_icon(TRUE)
 
 /datum/action/proc/OnUpdatedIcon()
 	SIGNAL_HANDLER
 	UpdateButtonIcon()
+
+//===Timer animation===
+
+/datum/action/proc/set_cooldown(duration)
+	if(!button || cooldown_timer_end)
+		return
+
+	cooldown_timer_end = world.time + duration
+	if (!timer_overlay)
+		timer_overlay = mutable_appearance(timer_icon, timer_icon_state_active)
+		timer_overlay.alpha = 180
+		timer_overlay.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		timer_overlay.maptext_width = 64
+		timer_overlay.maptext_height = 64
+		timer_overlay.maptext_x = -8
+		timer_overlay.maptext_y = -6
+
+	UpdateButtonIcon(TRUE, FALSE)
+
+	if (!override_cooldown_behaviour)
+		START_PROCESSING(SSprocessing, src)
+
+/datum/action/proc/update_cooldown_icon(force = FALSE)
+	if(!button || !timer_overlay)
+		return
+	var/new_maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((cooldown_timer_end - world.time)/10, 1)]</span></center>"
+	if (new_maptext != timer_overlay.maptext || force)
+		button.cut_overlay(timer_overlay)
+		timer_overlay.maptext = new_maptext
+		button.add_overlay(timer_overlay)
+
+/datum/action/proc/finish_cooldown()
+	if(!button || !cooldown_timer_end)
+		return
+	button.overlays -= timer_overlay
+	QDEL_NULL(timer_overlay)
+	cooldown_timer_end = null
+	UpdateButtonIcon(TRUE, FALSE)
+
+	if (!override_cooldown_behaviour)
+		STOP_PROCESSING(SSprocessing, src)
 
 //Presets for item actions
 /datum/action/item_action
@@ -189,6 +250,7 @@
 		I.plane = FLOAT_PLANE //^ what that guy said
 		current_button.cut_overlays()
 		current_button.add_overlay(I)
+		update_cooldown_icon(TRUE)
 		I.layer = old_layer
 		I.plane = old_plane
 		current_button.appearance_cache = I.appearance
@@ -587,6 +649,7 @@
 /datum/action/spell_action
 	check_flags = NONE
 	background_icon_state = "bg_spell"
+	override_cooldown_behaviour = TRUE
 
 /datum/action/spell_action/New(Target)
 	..()
@@ -658,51 +721,6 @@
 
 /datum/action/innate/proc/Deactivate()
 	return
-
-//Preset for an action with a cooldown
-
-/datum/action/cooldown
-	check_flags = NONE
-	transparent_when_unavailable = FALSE
-	var/cooldown_time = 0
-	var/next_use_time = 0
-
-/datum/action/cooldown/New()
-	..()
-	button.maptext = ""
-	button.maptext_x = 8
-	button.maptext_y = 0
-	button.maptext_width = 24
-	button.maptext_height = 12
-
-/datum/action/cooldown/IsAvailable()
-	return next_use_time <= world.time
-
-/datum/action/cooldown/proc/StartCooldown()
-	next_use_time = world.time + cooldown_time
-	button.maptext = MAPTEXT("<b>[round(cooldown_time/10, 0.1)]</b>")
-	UpdateButtonIcon()
-	START_PROCESSING(SSfastprocess, src)
-
-/datum/action/cooldown/process()
-	if(!owner)
-		button.maptext = ""
-		return PROCESS_KILL
-	var/timeleft = max(next_use_time - world.time, 0)
-	if(timeleft == 0)
-		button.maptext = ""
-		UpdateButtonIcon()
-		return PROCESS_KILL
-	else
-		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
-
-/datum/action/cooldown/Grant(mob/M)
-	..()
-	if(owner)
-		UpdateButtonIcon()
-		if(next_use_time > world.time)
-			START_PROCESSING(SSfastprocess, src)
-
 
 //Stickmemes
 /datum/action/item_action/stickmen
@@ -816,6 +834,7 @@
 	target.plane = FLOAT_PLANE //^ what that guy said
 	current_button.cut_overlays()
 	current_button.add_overlay(target)
+	update_cooldown_icon(TRUE)
 	target.layer = old_layer
 	target.plane = old_plane
 	current_button.appearance_cache = target.appearance
