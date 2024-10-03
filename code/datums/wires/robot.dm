@@ -23,7 +23,7 @@
 	status += "The intelligence link display shows [R.connected_ai ? R.connected_ai.name : "NULL"]."
 	status += "The camera light is [!isnull(R.builtInCamera) && R.builtInCamera.status ? "on" : "off"]."
 	status += "The lockdown indicator is [R.lockcharge ? "on" : "off"]."
-	status += "There is a star symbol above the [get_color_of_wire(WIRE_RESET_MODULE)] wire."
+	status += "The [get_color_of_wire(WIRE_RESET_MODULE)] wire is marked 'reset'."
 	return status
 
 /datum/wires/robot/on_pulse(wire, user)
@@ -60,10 +60,11 @@
 		if(WIRE_LOCKDOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
 			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse", important = FALSE)
-
 		if(WIRE_RESET_MODULE)
 			if(R.has_module())
-				R.visible_message("[R]'s module servos twitch.", "Your module display flickers.")
+				R.ResetModule()
+				if (user)
+					log_combat(user, R, "reset the cyborg module via wire", important = FALSE)
 	ui_update()
 
 /datum/wires/robot/on_cut(wire, mob/user, mend)

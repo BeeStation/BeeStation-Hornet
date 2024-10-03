@@ -337,3 +337,31 @@
 /datum/emote/living/carbon/human/robot_tongue/clown/sad/run_emote(mob/user, params)
 	if(..())
 		playsound(user.loc, 'sound/misc/sadtrombone.ogg', 50)
+
+/datum/emote/living/carbon/human/diona
+	// allow mothroach as well as human base mob - species check is done in can_run_emote
+	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/hostile/retaliate/nymph)
+
+/datum/emote/living/carbon/human/diona/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	if(ishuman(user))
+		return isdiona(user)
+	return istype(user, /mob/living/simple_animal/hostile/retaliate/nymph)
+
+/datum/emote/living/carbon/human/diona/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/emotes/diona/chitter.ogg'
+
+/datum/emote/living/carbon/human/diona/cricket
+	key = "cricket"
+	key_third_person = "chirps"
+	message = "chirps"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/emotes/diona/cricket.ogg'
+	sound_volume = 30

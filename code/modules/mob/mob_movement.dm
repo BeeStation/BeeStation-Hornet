@@ -304,7 +304,8 @@
   * You can move in space if you have a spacewalk ability
   */
 /mob/Process_Spacemove(movement_dir = 0)
-	if(spacewalk || ..())
+	. = ..()
+	if(. ||spacewalk)
 		return TRUE
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
