@@ -85,7 +85,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "v" = (
