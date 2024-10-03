@@ -310,6 +310,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	recharging = TRUE
 	action.set_cooldown(charge_max)
+	START_PROCESSING(SSfastprocessing, src)
 
 /obj/effect/proc_holder/spell/process(delta_time)
 	if(recharging && charge_type == "recharge" && (charge_counter < charge_max))
@@ -319,10 +320,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			action.finish_cooldown()
 			charge_counter = charge_max
 			recharging = FALSE
+			return PROCESS_KILL
 	else
 		action.finish_cooldown()
 		charge_counter = charge_max
 		recharging = FALSE
+		return PROCESS_KILL
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	if(!cast_check())
