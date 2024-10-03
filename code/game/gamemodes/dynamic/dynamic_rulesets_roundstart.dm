@@ -630,32 +630,3 @@
 		SSticker.mode_result = "win - incursion win"
 	else
 		SSticker.mode_result = "loss - staff stopped the incursion"
-
-//////////////////////////////////////////////
-//                                          //
-//             ASSIMILATION                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/hivemind
-	name = "Assimilation"
-	role_preference = /datum/role_preference/antagonist/hivemind_host
-	antag_datum = /datum/antagonist/hivemind
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	required_candidates = 3
-	weight = 3
-	cost = 30
-	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-
-/datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
-	. = ..()
-	var/num_hosts = max( 3 , rand(0,1) + min(8, round(population / 8) ) )
-	for (var/i = 1 to num_hosts)
-		var/mob/M = antag_pick_n_take(candidates)
-		assigned += M.mind
-		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = ROLE_HIVE
-		GLOB.pre_setup_antags += M.mind
-	return TRUE
