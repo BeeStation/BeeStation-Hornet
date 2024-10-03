@@ -201,7 +201,7 @@
 /datum/action/proc/finish_cooldown()
 	if(!button || !cooldown_timer_end)
 		return
-	button.overlays -= timer_overlay
+	button.cut_overlay(timer_overlay)
 	QDEL_NULL(timer_overlay)
 	cooldown_timer_end = null
 	UpdateButtonIcon(TRUE, FALSE)

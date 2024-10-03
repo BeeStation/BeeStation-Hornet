@@ -6,7 +6,7 @@ Contents:
 
 */
 
-#define STEALTH_COOLDOWN 1 MINUTES
+#define STEALTH_COOLDOWN 30 SECONDS
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_stealth()
 	var/mob/living/carbon/human/U = affecting
