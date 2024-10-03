@@ -319,7 +319,7 @@
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "aV" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "aW" = (
@@ -2042,7 +2042,7 @@
 "gN" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 "gO" = (
@@ -2173,7 +2173,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "hf" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/remains/robot,
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
@@ -3088,7 +3088,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "jM" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "jN" = (

@@ -39,7 +39,7 @@
 	var/settable_temperature_median = 30 + T0C
 	///Range of temperatures above and below the median that we can set our target temperature (increase by upgrading the capacitors)
 	var/settable_temperature_range = 30
-	///Should we add an overlay for open spaceheaters
+	///Should we add an overlay for open portable thermomachines
 	var/display_panel = TRUE
 
 /obj/machinery/portable_thermomachine/get_cell()
@@ -214,7 +214,7 @@
 /obj/machinery/portable_thermomachine/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "SpaceHeater")
+		ui = new(user, src, "PortableThermomachine")
 		ui.set_autoupdate(TRUE) // Displays temperature
 		ui.open()
 
@@ -223,7 +223,7 @@
 	data["open"] = panel_open
 	data["on"] = on
 	data["mode"] = set_mode
-	data["hasPowercell"] = !!cell
+	data["hasPowercell"] = cell
 	data["chemHacked"] = FALSE
 	if(cell)
 		data["powerLevel"] = round(cell.percent(), 1)

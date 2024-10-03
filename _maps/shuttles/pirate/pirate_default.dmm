@@ -1242,7 +1242,7 @@
 	},
 /area/shuttle/pirate)
 "FZ" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/structure/railing,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,

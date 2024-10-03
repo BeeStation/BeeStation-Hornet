@@ -2591,7 +2591,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "amC" = (
@@ -4148,7 +4148,7 @@
 "avp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "avq" = (
@@ -12318,7 +12318,7 @@
 /turf/closed/wall/rust,
 /area/crew_quarters/kitchen)
 "bwk" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -21461,7 +21461,7 @@
 "cwC" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -23381,7 +23381,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "cFm" = (
@@ -30240,7 +30240,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -32965,7 +32965,7 @@
 	dir = 8;
 	pixel_x = 26
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -34230,7 +34230,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/engine,
 /area/tcommsat/computer)
 "fCo" = (
@@ -35838,7 +35838,7 @@
 /area/hallway/primary/starboard)
 "ggl" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
@@ -51144,7 +51144,7 @@
 /area/engine/atmos)
 "lfn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -57873,7 +57873,7 @@
 /area/ai_monitored/security/armory)
 "nun" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -57889,7 +57889,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/light,
 /turf/open/floor/iron/dark,
@@ -66885,7 +66885,7 @@
 /area/quartermaster/warehouse)
 "qlg" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/stripes/corner{
@@ -71161,7 +71161,7 @@
 /area/hallway/primary/fore)
 "rHI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -74654,7 +74654,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -85209,7 +85209,7 @@
 /area/security/brig)
 "woL" = (
 /obj/structure/grille/broken,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},

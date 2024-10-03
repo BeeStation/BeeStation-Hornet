@@ -1361,7 +1361,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "atJ" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "atR" = (
@@ -1994,7 +1994,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "aBF" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aBH" = (
@@ -3702,7 +3702,7 @@
 /turf/open/floor/plating,
 /area/storage/emergency/port)
 "aTI" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/storage/emergency/port)
 "aTJ" = (
@@ -8385,7 +8385,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "bOt" = (
@@ -10745,14 +10745,14 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cbB" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cbC" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -11328,7 +11328,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "ceW" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "ceY" = (
@@ -26010,7 +26010,7 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -55289,7 +55289,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "sNT" = (
@@ -67954,7 +67954,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "xTN" = (
