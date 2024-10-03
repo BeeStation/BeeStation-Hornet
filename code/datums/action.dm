@@ -171,7 +171,7 @@
 //===Timer animation===
 
 /datum/action/proc/set_cooldown(duration)
-	if(!button || cooldown_timer_end)
+	if(!button)
 		return
 
 	cooldown_timer_end = world.time + duration
