@@ -1,0 +1,5 @@
+author: Therealdoooc
+delete-after: true
+changes:
+  - bugfix: gluttony's blessing disease no longer shows a entire code string as its
+      cure
