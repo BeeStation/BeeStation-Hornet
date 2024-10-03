@@ -1066,6 +1066,10 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
+"hr" = (
+/obj/item/beacon,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
 "ht" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -64386,7 +64390,7 @@ IC
 IC
 Cn
 Am
-Am
+hr
 Am
 Cn
 IC
