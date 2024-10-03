@@ -9,12 +9,17 @@
 	throw_speed = 3
 
 /obj/item/ammo_casing/caseless/arrow/attackby(obj/item/I, mob/user, params) //not currently working for some reason
+	. = ..()
 	if(istype(I, /obj/item/gun/ballistic/bow))
 		var/obj/item/gun/ballistic/bow/B = I
-		B.magazine.attackby(src, user, 0, 1)
-		to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
-	else
-		to_chat(user, "<span class='notice'>SOMETHING IS BROKEN.</span>")
+		if(B.bowstring == null)
+			to_chat(user, "<span class='notice'>That bow has no bowstring!</span>")
+			return TRUE
+		else
+			B.magazine.attackby(src, user, params, 1)
+			to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
+			I.update_icon()
+			return TRUE
 
 ///WOOD ARROWS///
 
@@ -24,7 +29,7 @@
 	icon_state = "arrow_wood"
 	force = 3
 	armour_penetration = -20
-	projectile_type = /obj/projectile/bullet/reusable/arrow
+	projectile_type = /obj/item/ammo_casing/caseless/arrow/wood
 	embedding = list(embed_chance=0)
 
 /obj/item/ammo_casing/caseless/arrow/wood/attackby(obj/item/I, mob/user, params)
@@ -125,6 +130,7 @@
 	ignite()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/attackby(obj/item/I, mob/user, params)
+	. = ..()
 	if(I.is_hot() > 900)
 		ignite()
 
@@ -169,9 +175,9 @@
 	. = .. ()
 	cut_overlays()
 	if(lit)
-		add_overlay("arrow_cloth_lit")
+		add_overlay("[initial(icon_state)]_lit")
 	if(burnt)
-		add_overlay("arrow_cloth_burnt")
+		add_overlay("[initial(icon_state)]_burnt")
 
 /obj/item/ammo_casing/caseless/arrow/cloth/burnt
 	name = "burnt cloth arrow"
@@ -183,6 +189,7 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt
 
 /obj/item/ammo_casing/caseless/arrow/cloth/burnt/attackby(obj/item/I, mob/user)
+	. = ..()
 	if(replace(I, user))
 		return
 	return ..()
@@ -220,7 +227,7 @@
 	pain_mult = 0.25,
 	jostle_pain_mult = 2,
 	remove_pain_mult = 0.5,
-	rip_time = 5) //the small shard will be lodged in your chest cavity hurting you with every 3 steps untill it falls off
+	rip_time = 5) //the small shard will be lodged in your chest cavity hurting you with every 3 steps until it falls off
 
 /obj/item/ammo_casing/caseless/arrow/bottle
 	name = "bottle arrow"
@@ -305,13 +312,14 @@
 /obj/item/ammo_casing/caseless/arrow/bone
 	name = "bone arrow shaft"
 	desc = "An arrow shaft carved out of bone. Arrows made with this material will generally be more painful but cause less bleeding."
-	icon_state = "arrow_bone"
+	icon_state = "bonearrow"
 	force = 4
 	armour_penetration = -10
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 	embedding = list(embed_chance=0)
 
 /obj/item/ammo_casing/caseless/arrow/bone/attackby(obj/item/I, mob/user, params)
+	. = ..()
 	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
 		var/obj/item/stack/sheet/cotton/cloth/cloth = I
 		if(cloth.amount < 2) //Is there less than two sheets of cotton?
@@ -425,13 +433,14 @@
 /obj/item/ammo_casing/caseless/arrow/bamboo
 	name = "bamboo arrow shaft"
 	desc = "An arrow shaft made out of bamboo. It is suitable to make lighter arrows that pierce their target better than other materials at the cost of damage."
-	icon_state = "arrow_bamboo"
+	icon_state = "bambooarrow"
 	force = 2
 	armour_penetration = -20
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo
 	embedding = list(embed_chance=0)
 
 /obj/item/ammo_casing/caseless/arrow/bamboo/attackby(obj/item/I, mob/user, params)
+	. = ..()
 	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
 		var/obj/item/stack/sheet/cotton/cloth/cloth = I
 		if(cloth.amount < 2) //Is there less than two sheets of cotton?
@@ -562,7 +571,7 @@
 	light_power = 0.8
 	light_on = TRUE
 	light_color = LIGHT_COLOR_HOLY_MAGIC
-	var/shard = TRUE
+	var/shard = TRUE //This was meant to be craftable, using the shard but it isnt for now
 	projectile_type = /obj/projectile/bullet/reusable/arrow/sm
 
 /obj/item/ammo_casing/caseless/arrow/sm/update_icon()
@@ -574,21 +583,16 @@
 /obj/structure/closet/arrows
 
 /obj/structure/closet/arrows/PopulateContents()
+	new /obj/item/gun/ballistic/bow/syndicate(src)
 	new /obj/item/gun/ballistic/bow/pvc(src)
 	new /obj/item/gun/ballistic/bow(src)
 	new /obj/item/ammo_casing/caseless/arrow/cloth(src)
-	new /obj/item/ammo_casing/caseless/arrow/cloth/bone(src)
 	new /obj/item/ammo_casing/caseless/arrow/cloth/bamboo(src)
 	new /obj/item/ammo_casing/caseless/arrow/glass(src)
 	new /obj/item/ammo_casing/caseless/arrow/glass/bone(src)
-	new /obj/item/ammo_casing/caseless/arrow/glass/bamboo(src)
-	new /obj/item/ammo_casing/caseless/arrow/wood(src)
-	new /obj/item/ammo_casing/caseless/arrow/wood(src)
-	new /obj/item/ammo_casing/caseless/arrow/wood(src)
-	new /obj/item/ammo_casing/caseless/arrow/bone(src)
-	new /obj/item/ammo_casing/caseless/arrow/bamboo(src)
 	new /obj/item/lighter(src)
 	new /obj/item/stack/sheet/cotton/cloth/fifty(src)
+	new /obj/item/stack/sheet/wood/fifty(src)
 	..()
 
 /obj/item/ammo_casing/caseless/arrow/ash

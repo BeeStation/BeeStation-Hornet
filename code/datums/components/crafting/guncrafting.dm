@@ -25,6 +25,10 @@
 	bleed_force = 0
 	//if this changes the fire sound of the weapon, put it here
 	var/fire_sound = null
+	//If we can attach this to a bow
+	var/bow_suitable = TRUE
+	//If we can attach this to a standard gun, currently a useless var but will be important later
+	var/gun_suitable = TRUE
 	var/spread = 0
 	var/damage_multiplier = 0
 	var/speed_multiplier = 0
@@ -40,8 +44,9 @@
 	icon_state = "cablestring"
 	damage_multiplier = 0.5
 	speed_multiplier = 2
+	gun_suitable = FALSE
 	//Half damage and Half speed
-	added_description = "<span class='info'>The drawstring is improvised out of cable. It looks rather weak.</span>"
+	added_description = "<span class='info'>The bowstring is improvised out of cable. It looks rather weak.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/bamboostring
 	name = "bamboo fiber string"
@@ -49,8 +54,9 @@
 	icon_state = "bamboostring"
 	damage_multiplier = 0.8
 	speed_multiplier = 0.8
+	gun_suitable = FALSE
 	//A bit weak and a bit fast
-	added_description = "<span class='info'>The drawstring is made of bamboo fiber. Close to standard strength.</span>"
+	added_description = "<span class='info'>The bowstring is made of bamboo fiber. Close to standard strength.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/silkstring
 	name = "silkstring"
@@ -58,8 +64,9 @@
 	icon_state = "silkstring"
 	damage_multiplier = 1
 	speed_multiplier = 1
+	gun_suitable = FALSE
 	//Standard stuff, no debuffs
-	added_description = "<span class='info'>The drawstring is made of silkstring. Standard strength.</span>"
+	added_description = "<span class='info'>The bowstring is made of silkstring. Standard strength.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/leatherstring
 	name = "leather string"
@@ -67,8 +74,9 @@
 	icon_state = "leatherstring"
 	damage_multiplier = 1
 	speed_multiplier = 1.2
+	gun_suitable = FALSE
 	//Slight debuff to speed
-	added_description = "<span class='info'>The drawstring is made of leather. Standard strength.</span>"
+	added_description = "<span class='info'>The bowstring is made of leather. Standard strength.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/sinewstring
 	name = "sinew string"
@@ -76,8 +84,9 @@
 	icon_state = "sinewstring"
 	damage_multiplier = 1.2
 	speed_multiplier = 1.2
+	gun_suitable = FALSE
 	//Buff to damage, debuff to speed
-	added_description = "<span class='info'>The drawstring is made of sinew. It looks pretty strong.</span>"
+	added_description = "<span class='info'>The bowstring is made of sinew. It looks pretty strong.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/energy_crystal //Not aviable ingame yet
 	name = "energy crystal"
@@ -89,7 +98,7 @@
 	speed_multiplier = 0.6
 	fire_sound = 'sound/weapons/edagger.ogg'
 	//Stronger, faster
-	added_description = "<span class='info'>The drawstring is made of pure energy. As robust as it gets.</span>"
+	added_description = "<span class='info'>The bowstring is made of pure energy. As robust as it gets.</span>"
 
 // SECONDARY //
 // Secondary attachments, think of attachments as having slots they fit in, these fit into the "second" slot
@@ -102,6 +111,7 @@
 	spread = 2
 	sharpness = IS_SHARP_ACCURATE
 	bleed_force = BLEED_CUT
+	gun_suitable = FALSE
 	added_description = "<span class='info'>Iron Fangs have been attached to it, making it dangerous in melee combat.</span>"
 
 /obj/item/weaponcrafting/attachment/secondary/bowfangs/bone
@@ -112,6 +122,7 @@
 	spread = 3
 	sharpness = IS_BLUNT
 	bleed_force = BLEED_SCRATCH
+	gun_suitable = FALSE
 	added_description = "<span class='info'>Bone fangs have been attached to it, making it dangerous in melee combat.</span>"
 
 /obj/item/weaponcrafting/attachment/secondary/scope
@@ -128,7 +139,7 @@
 	spread = 0 //This does fuckall
 	added_description = "<span class='info'>Whoever attached this likes to have useless baubles on their weapons.</span>"
 
-/obj/item/weaponcrafting/attachment/secondary/glassless/attackby(obj/item/I, mob/living/user, params)
+/obj/item/weaponcrafting/attachment/secondary/scope/glassless/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.use(1))

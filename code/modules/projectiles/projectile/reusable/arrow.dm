@@ -70,6 +70,8 @@
 			ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt
 		else if(name == "bone cloth arrow")
 			ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bone
+		else if(name == "bamboo cloth arrow")
+			ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt/bamboo
 	. = ..()
 
 /obj/projectile/bullet/reusable/arrow/cloth/update_overlays()
@@ -90,9 +92,9 @@
 	name = "glass arrow"
 	icon_state = "arrow_glass"
 	damage = 5
-	embedds = TRUE
+	embedds = FALSE
 	armour_penetration = 5
-	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/wood //The glass breaks on impact
 	shrapnel_type = /obj/item/shard
 	hitsound = 'sound/effects/glass_step.ogg'
 
@@ -186,7 +188,6 @@
 	damage = 7
 	bleed_force = BLEED_SURFACE
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone
-	shrapnel_type = /obj/item/shard
 
 /obj/projectile/bullet/reusable/arrow/bottle/bone
 	name = "bone bottle arrow"
@@ -248,7 +249,6 @@
 	damage = 3
 	bleed_force = BLEED_DEEP_WOUND
 	ammo_type = /obj/projectile/bullet/reusable/arrow/bamboo
-	shrapnel_type = /obj/item/shard
 
 /obj/projectile/bullet/reusable/arrow/bottle/bamboo
 	name = "bone bottle arrow"
@@ -291,15 +291,12 @@
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/T = target
 		if(!blocked)
-			if(T.check_limb_hit(def_zone) == (BODY_ZONE_CHEST || BODY_ZONE_HEAD))
-				consume(T)
+			consume(T)
 			//else
 			//	var/obj/item/bodypart/limbhit = T.check_limb_hit(def_zone)   THIS BITCH STILL BROKEN RAHHHHHHHH
 			//	limbhit.dismember()
 			//	playsound(src, 'sound/effects/supermatter.ogg', 75, 1)
 			//	radiation_pulse(src, 500, 2)
-			else
-				handle_drop()	//THIS EHRE BECAUSE THE AFORMENTIONED BITCH IS BROKEN
 		else
 			handle_drop()
 
