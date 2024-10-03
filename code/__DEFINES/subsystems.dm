@@ -93,11 +93,11 @@
 
 ///type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags_1 & INITIALIZED_1)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, FALSE, args);\
-    }\
+	..();\
+	if(!(flags_1 & INITIALIZED_1)) {\
+		args[1] = TRUE;\
+		SSatoms.InitAtom(src, FALSE, args);\
+	}\
 }
 
 //! ### SS initialization hints
@@ -141,9 +141,10 @@
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
 #define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_QUIRKS			72
-#define INIT_ORDER_JOBS				71 //Must initialize before events for holidays
-#define INIT_ORDER_EVENTS			70
+#define INIT_ORDER_DEPARTMENT		72 //This is important: it has access distributing code, so should be initialized quickly
+#define INIT_ORDER_QUIRKS			71
+#define INIT_ORDER_JOBS				70 //Must initialize before events for holidays
+#define INIT_ORDER_EVENTS			69
 #define INIT_ORDER_AI_MOVEMENT 		56 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
@@ -169,7 +170,7 @@
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
-#define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_SHUTTLE			-21 // After atoms have been initialised to prevent mix-ups
 #define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50

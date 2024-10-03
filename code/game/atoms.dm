@@ -121,9 +121,6 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
-	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
-	var/list/targeted_by
-
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
@@ -212,6 +209,8 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
+CREATION_TEST_IGNORE_SUBTYPES(/atom)
+
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -307,12 +306,6 @@
 
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
-
-	for(var/i in targeted_by)
-		var/mob/M = i
-		LAZYREMOVE(M.do_afters, src)
-
-	targeted_by = null
 
 	return ..()
 
@@ -610,7 +603,11 @@
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	var/examine_string = get_examine_string(user, thats = TRUE)
+	if(examine_string)
+		. = list("[examine_string].")
+	else
+		. = list()
 
 	if(desc)
 		. += desc
@@ -1007,6 +1004,27 @@
   */
 /atom/proc/teleport_act()
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
+
+/**
+ * Intercept our atom being teleported if we need to
+ *
+ * return COMPONENT_BLOCK_TELEPORT to explicity block teleportation
+ */
+/atom/proc/intercept_teleport(channel, turf/origin, turf/destination)
+	. = SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, origin, destination)
+
+	if(. == COMPONENT_BLOCK_TELEPORT)
+		return
+
+	// Recursively check contents by default. This can be overriden if we want different behavior.
+	for(var/atom/thing in contents)
+		// For the purposes of intercepting teleports, mobs on the turf don't count.
+		// We're already doing logic for intercepting teleports on the teleatom-level
+		if(isturf(src) && ismob(thing))
+			continue
+		var/result = thing.intercept_teleport(channel, origin, destination)
+		if(result == COMPONENT_BLOCK_TELEPORT)
+			return result
 
 /**
   * Respond to our atom being checked by a virus extrapolator.

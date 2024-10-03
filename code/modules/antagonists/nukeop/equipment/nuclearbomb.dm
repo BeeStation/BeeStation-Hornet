@@ -133,7 +133,7 @@
 			if(istype(I, /obj/item/nuke_core_container))
 				var/obj/item/nuke_core_container/core_box = I
 				to_chat(user, "<span class='notice'>You start loading the plutonium core into [core_box]...</span>")
-				if(do_after(user,50,target=src))
+				if(do_after(user, 5 SECONDS, target = src, hidden = TRUE))
 					if(core_box.load(core, user))
 						to_chat(user, "<span class='notice'>You load the plutonium core into [core_box].</span>")
 						deconstruction_state = NUKESTATE_CORE_REMOVED
@@ -755,3 +755,6 @@ This is here to make the tiles around the station mininuke change when it's arme
 /obj/item/disk/nuclear/fake/obvious
 	name = "cheap plastic imitation of the nuclear authentication disk"
 	desc = "How anyone could mistake this for the real thing is beyond you."
+
+#undef ARM_ACTION_COOLDOWN
+#undef NUKERANGE

@@ -31,6 +31,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, 26)
 	light_range = FLASH_LIGHT_RANGE
 	light_on = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
+
 /obj/machinery/flasher/Initialize(mapload, ndir = 0, built = 0)
 	. = ..() // ..() is EXTREMELY IMPORTANT, never forget to add it
 	if(!built)
@@ -88,7 +90,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, 26)
 		return ..()
 
 //Let the AI trigger them directly.
-/obj/machinery/flasher/attack_ai()
+/obj/machinery/flasher/attack_silicon()
 	if (anchored)
 		return flash()
 

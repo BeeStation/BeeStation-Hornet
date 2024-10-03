@@ -231,13 +231,12 @@ SUBSYSTEM_DEF(traumas)
 						)
 
 	phobia_species = list("lizards" = typecacheof(list(/datum/species/lizard)),
-						  "skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
-						  "conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
-						  "robots" = typecacheof(list(/datum/species/android)),
-						  "the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
-						  "aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
-						  /datum/species/shadow)),
-						  "anime" = typecacheof(list(/datum/species/human/felinid))
-						 )
+							"skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
+							"conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
+							"robots" = typecacheof(list(/datum/species/android)),
+							"the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
+							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/diona, /datum/species/shadow)),
+							"anime" = typecacheof(list(/datum/species/human/felinid))
+						)
 
 	return SS_INIT_SUCCESS

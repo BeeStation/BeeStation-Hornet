@@ -57,6 +57,8 @@
 
 // No movement while seen code.
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
+
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells

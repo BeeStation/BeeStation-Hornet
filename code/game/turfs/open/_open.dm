@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/turf/open)
+
 /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
@@ -26,9 +28,6 @@
 
 	//Refs to filters, for later removal
 	var/list/damage_overlays
-
-	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
-	var/list/variants
 
 	///Is this floor no-slip?
 	var/traction = FALSE

@@ -105,7 +105,7 @@
 	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
-/obj/machinery/clonepod/attack_ai(mob/user)
+/obj/machinery/clonepod/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/clonepod/examine(mob/user)
@@ -178,9 +178,6 @@
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
-
-/obj/machinery/clonepod/attack_ai(mob/user)
-	return examine(user)
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
@@ -278,8 +275,6 @@
 
 	if(H)
 		H.faction |= factions
-		remove_hivemember(H)
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
@@ -354,7 +349,7 @@
 		else if(mob_occupant && mob_occupant.cloneloss > (100 - heal_level))
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult), TRUE, TRUE)
 			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 				reagents.remove_reagent(/datum/reagent/medicine/synthflesh, fleshamnt)
@@ -421,7 +416,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else
 		return NONE
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)

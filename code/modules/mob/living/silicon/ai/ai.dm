@@ -4,8 +4,7 @@
 /proc/AutoUpdateAI(obj/subject)
 	var/is_in_use = 0
 	if (subject!=null)
-		for(var/A in GLOB.ai_list)
-			var/mob/living/silicon/ai/M = A
+		for(var/mob/living/silicon/ai/M in GLOB.ai_list)
 			if ((M.client && M.machine == subject))
 				is_in_use = 1
 				subject.attack_ai(M)
@@ -31,7 +30,7 @@
 	radio = /obj/item/radio/headset/silicon/ai
 	can_buckle_to = FALSE
 	var/battery = 200 //emergency power if the AI's APC is off
-	var/list/network = list("ss13")
+	var/list/network = list(CAMERA_NETWORK_STATION)
 	var/list/connected_robots = list()
 
 	/// Station alert datum for showing alerts UI
@@ -107,6 +106,8 @@
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
 	var/obj/machinery/holopad/current_holopad
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
+
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
@@ -176,7 +177,7 @@
 	GLOB.shuttle_caller_list += src
 
 	builtInCamera = new (src)
-	builtInCamera.network = list("ss13")
+	builtInCamera.network = list(CAMERA_NETWORK_STATION)
 
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, ROUNDSTART_TRAIT)
@@ -583,16 +584,15 @@
 	var/mob/living/silicon/ai/U = usr
 
 	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		var/list/tempnetwork = C.network
-		if(!(is_station_level(C.z) || is_mining_level(C.z) || ("ss13" in tempnetwork)))
+		if(!(is_station_level(C.z) || is_mining_level(C.z)))
 			continue
 		if(!C.can_use())
 			continue
 
-		tempnetwork.Remove("rd", "toxins", "prison")
-		if(tempnetwork.len)
-			for(var/i in C.network)
-				cameralist[i] = i
+		for(var/i in C.network)
+			if (i == CAMERA_NETWORK_RESEARCH || i == CAMERA_NETWORK_TOXINS_TEST || i == CAMERA_NETWORK_PRISON)
+				continue
+			cameralist[i] = i
 	var/old_network = network
 	network = input(U, "Which network would you like to view?") as null|anything in sort_list(cameralist)
 	if(ai_tracking_target)
@@ -1004,7 +1004,7 @@
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/Trigger()
@@ -1016,7 +1016,7 @@
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
@@ -1037,6 +1037,8 @@
 
 /mob/living/silicon/ai/resist()
 	return
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/ai/spawned/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	if(!target_ai)
@@ -1085,3 +1087,5 @@
 		return
 
 	aicamera.adjust_zoom(src)
+
+#undef CALL_BOT_COOLDOWN

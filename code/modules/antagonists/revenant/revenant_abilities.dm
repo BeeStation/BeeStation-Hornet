@@ -155,7 +155,7 @@
 	charge_max = 0
 	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
@@ -165,7 +165,7 @@
 	desc = "Teleport to the station."
 	charge_max = 0
 	panel = "Revenant Abilities"
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_icon_state = "r_teleport"
 	action_background_icon_state = "bg_revenant"
 	clothes_req = FALSE
@@ -187,7 +187,7 @@
 			if(QDELETED(src)) // it's bad when someone spams this...
 				return
 			var/turf/targetturf = get_random_station_turf()
-			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, forced=TRUE))
+			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, bypass_area_restriction=TRUE))
 				to_chat(user,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
 			else
 				user.reveal(80)
@@ -197,7 +197,7 @@
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant
 	name = "Revenant Transmit"
 	panel = "Revenant Abilities"
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
 	notice = "revennotice"
@@ -241,7 +241,7 @@
 	name = "Phase Shift"
 	desc = "Shift in and out of your corporeal form"
 	panel = "Revenant Abilities"
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_icon_state = "r_phase"
 	action_background_icon_state = "bg_revenant"
 	clothes_req = FALSE
@@ -273,7 +273,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
-	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon = 'icons/hud/actions/actions_revenant.dmi'
 	action_background_icon_state = "bg_revenant"
 	panel = "Revenant Abilities (Locked)"
 	name = "Report this to a coder"

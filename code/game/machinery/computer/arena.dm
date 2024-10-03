@@ -62,6 +62,8 @@
 	var/start_sound = 'sound/items/airhorn2.ogg'
 	var/start_sound_volume = 50
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
+
 /obj/machinery/computer/arena/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	LoadDefaultArenas()

@@ -66,7 +66,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	icon_icon = 'icons/mob/actions/actions_elites.dmi'
+	icon_icon = 'icons/hud/actions/actions_elites.dmi'
 	button_icon_state = ""
 	background_icon_state = "bg_default"
 	var/chosen_message
@@ -357,6 +357,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/mob/living/carbon/human/activator = null
 	var/mob/living/simple_animal/hostile/asteroid/elite/ourelite = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/elite_tumor_wall)
+
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
@@ -372,3 +374,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	. = ..()
 	if(mover == ourelite || mover == activator)
 		return FALSE
+
+#undef TUMOR_INACTIVE
+#undef TUMOR_ACTIVE
+#undef TUMOR_PASSIVE

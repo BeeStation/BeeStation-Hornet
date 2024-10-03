@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/mob)
+
 /**
   * The mob, usually meant to be a creature of some type
   *
@@ -200,7 +202,7 @@
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
 
-	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
+	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 
 	///Allows a datum to intercept all click calls this mob is the source of

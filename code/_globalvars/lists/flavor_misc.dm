@@ -57,6 +57,15 @@ GLOBAL_LIST_EMPTY(apid_antenna_list)
 GLOBAL_LIST_EMPTY(apid_stripes_list)
 GLOBAL_LIST_EMPTY(apid_headstripes_list)
 GLOBAL_LIST_EMPTY(psyphoza_cap_list)
+GLOBAL_LIST_EMPTY(diona_leaves_list)
+GLOBAL_LIST_EMPTY(diona_thorns_list)
+GLOBAL_LIST_EMPTY(diona_flowers_list)
+GLOBAL_LIST_EMPTY(diona_moss_list)
+GLOBAL_LIST_EMPTY(diona_mushroom_list)
+GLOBAL_LIST_EMPTY(diona_antennae_list)
+GLOBAL_LIST_EMPTY(diona_eyes_list)
+GLOBAL_LIST_EMPTY(diona_pbody_list)
+
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Cyan" = "00ffff",
@@ -160,7 +169,7 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	else
 		if(input == "Random")
 			input = pick(GLOB.ai_core_display_screens - "Random")
-		return "ai-[lowertext(input)]"
+		return "ai-[LOWER_TEXT(input)]"
 
 /proc/resolve_ai_icon(input)
 	if (input == "Portrait")
@@ -278,7 +287,12 @@ GLOBAL_LIST_INIT(status_display_approved_pictures, list(
 	"default",
 	"biohazard",
 	"lockdown",
+	"greenalert",
+	"bluealert",
 	"redalert",
+	"deltaalert",
+	"radiation",
+	"currentalert",
 ))
 
 // Members of status_display_approved_pictures that are actually states and not alert values
