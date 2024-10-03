@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	recharging = TRUE
 	action.set_cooldown(charge_max)
-	START_PROCESSING(SSfastprocessing, src)
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/effect/proc_holder/spell/process(delta_time)
 	if(recharging && charge_type == "recharge" && (charge_counter < charge_max))
