@@ -71124,10 +71124,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/mixing)
 "rHm" = (
@@ -72428,10 +72424,6 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/airalarm/mixingchamber{
-	pixel_y = 22;
-	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/mixing/chamber)
@@ -84305,9 +84297,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/mixing)
 "wbz" = (
@@ -88326,22 +88315,14 @@
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "xhV" = (
-/obj/item/target,
-/obj/item/target/syndicate,
-/obj/item/target/alien,
-/obj/item/target/clown,
-/obj/structure/closet/crate/secure{
-	desc = "A secure crate containing various materials for building a customised test-site.";
-	name = "Test Site Materials Crate";
-	req_access_txt = "8"
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/mixing)
