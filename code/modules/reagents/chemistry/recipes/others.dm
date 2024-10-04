@@ -13,6 +13,12 @@
 	results = list(/datum/reagent/consumable/cooking_oil = 4)
 	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
 
+/datum/chemical_reaction/chlorophyll
+	name = "Liquid Chlorophyll"
+	id = /datum/reagent/consumable/chlorophyll
+	results = list(/datum/reagent/consumable/chlorophyll = 5)
+	required_reagents = list(/datum/reagent/nitrogen = 2, /datum/reagent/chlorine = 1, /datum/reagent/carbon = 1)
+
 /datum/chemical_reaction/lube
 	name = "Space Lube"
 	id = /datum/reagent/lube
