@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Improves compilation times by ~2.3 seconds by removing unnecessary build
-      process overhead.
