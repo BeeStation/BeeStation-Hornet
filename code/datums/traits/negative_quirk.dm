@@ -428,10 +428,10 @@
 			prosthetic = new/obj/item/bodypart/r_arm/robot/surplus(quirk_target)
 			slot_string = "right arm"
 		if(BODY_ZONE_L_LEG)
-			prosthetic = new/obj/item/bodypart/l_leg/robot/surplus(quirk_target)
+			prosthetic = new/obj/item/bodypart/leg/left/robot/surplus(quirk_target)
 			slot_string = "left leg"
 		if(BODY_ZONE_R_LEG)
-			prosthetic = new/obj/item/bodypart/r_leg/robot/surplus(quirk_target)
+			prosthetic = new/obj/item/bodypart/leg/right/robot/surplus(quirk_target)
 			slot_string = "right leg"
 	prosthetic.replace_limb(H)
 	qdel(old_part)

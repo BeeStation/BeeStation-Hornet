@@ -25,8 +25,8 @@
 	species_head = /obj/item/bodypart/head/oozeling
 	species_l_arm = /obj/item/bodypart/l_arm/oozeling
 	species_r_arm = /obj/item/bodypart/r_arm/oozeling
-	species_l_leg = /obj/item/bodypart/l_leg/oozeling
-	species_r_leg = /obj/item/bodypart/r_leg/oozeling
+	species_l_leg = /obj/item/bodypart/leg/left/oozeling
+	species_r_leg = /obj/item/bodypart/leg/right/oozeling
 
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.oozeling_first_names)]"

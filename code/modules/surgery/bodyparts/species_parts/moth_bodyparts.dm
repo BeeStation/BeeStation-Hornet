@@ -17,12 +17,12 @@
 	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
-/obj/item/bodypart/l_leg/moth
+/obj/item/bodypart/leg/left/moth
 	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/r_leg/moth
+/obj/item/bodypart/leg/right/moth
 	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE

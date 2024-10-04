@@ -14,8 +14,8 @@
 	species_head = /obj/item/bodypart/head/monkey
 	species_l_arm = /obj/item/bodypart/l_arm/monkey
 	species_r_arm = /obj/item/bodypart/r_arm/monkey
-	species_l_leg = /obj/item/bodypart/l_leg/monkey
-	species_r_leg = /obj/item/bodypart/r_leg/monkey
+	species_l_leg = /obj/item/bodypart/leg/left/monkey
+	species_r_leg = /obj/item/bodypart/leg/right/monkey
 
 /datum/species/monkey/get_species_description()
 	return "Monkeys are a type of primate that exist between humans and animals on the evolutionary chain. \

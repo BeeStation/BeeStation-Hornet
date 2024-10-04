@@ -30,14 +30,14 @@
 	uses_mutcolor = TRUE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/l_leg/diona
+/obj/item/bodypart/leg/left/diona
 	static_icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	limb_id = SPECIES_DIONA
 	uses_mutcolor = TRUE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/r_leg/diona
+/obj/item/bodypart/leg/right/diona
 	static_icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	limb_id = SPECIES_DIONA

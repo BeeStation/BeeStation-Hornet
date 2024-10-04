@@ -64,7 +64,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-/obj/item/bodypart/l_leg/robot
+/obj/item/bodypart/leg/left/robot
 	name = "cyborg left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
@@ -91,7 +91,7 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
-/obj/item/bodypart/r_leg/robot
+/obj/item/bodypart/leg/right/robot
 	name = "cyborg right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
@@ -343,7 +343,7 @@
 	burn_reduction = 0
 	max_damage = 20
 
-/obj/item/bodypart/l_leg/robot/surplus
+/obj/item/bodypart/leg/left/robot/surplus
 	name = "surplus prosthetic left leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
@@ -351,7 +351,7 @@
 	burn_reduction = 0
 	max_damage = 20
 
-/obj/item/bodypart/r_leg/robot/surplus
+/obj/item/bodypart/leg/right/robot/surplus
 	name = "surplus prosthetic right leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'

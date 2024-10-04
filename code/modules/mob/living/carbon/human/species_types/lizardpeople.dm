@@ -33,8 +33,8 @@
 	species_head = /obj/item/bodypart/head/lizard
 	species_l_arm = /obj/item/bodypart/l_arm/lizard
 	species_r_arm = /obj/item/bodypart/r_arm/lizard
-	species_l_leg = /obj/item/bodypart/l_leg/lizard
-	species_r_leg = /obj/item/bodypart/r_leg/lizard
+	species_l_leg = /obj/item/bodypart/leg/left/lizard
+	species_r_leg = /obj/item/bodypart/leg/right/lizard
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
 /datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi)

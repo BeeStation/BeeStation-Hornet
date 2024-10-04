@@ -19,8 +19,8 @@
 	species_head = /obj/item/bodypart/head/slime
 	species_l_arm = /obj/item/bodypart/l_arm/slime
 	species_r_arm = /obj/item/bodypart/r_arm/slime
-	species_l_leg = /obj/item/bodypart/l_leg/slime
-	species_r_leg = /obj/item/bodypart/r_leg/slime
+	species_l_leg = /obj/item/bodypart/leg/left/slime
+	species_r_leg = /obj/item/bodypart/leg/right/slime
 
 
 /datum/species/oozeling/slime/on_species_loss(mob/living/carbon/C)

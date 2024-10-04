@@ -10,8 +10,8 @@
 	icon_state = "robo_suit"
 	var/obj/item/bodypart/l_arm/robot/l_arm = null
 	var/obj/item/bodypart/r_arm/robot/r_arm = null
-	var/obj/item/bodypart/l_leg/robot/l_leg = null
-	var/obj/item/bodypart/r_leg/robot/r_leg = null
+	var/obj/item/bodypart/leg/left/robot/l_leg = null
+	var/obj/item/bodypart/leg/right/robot/r_leg = null
 	var/obj/item/bodypart/chest/robot/chest = null
 	var/obj/item/bodypart/head/robot/head = null
 
@@ -153,7 +153,7 @@
 			else
 				to_chat(user, "<span class='warning'>You need one sheet of iron to start building ED-209!</span>")
 				return
-	else if(istype(W, /obj/item/bodypart/l_leg/robot))
+	else if(istype(W, /obj/item/bodypart/leg/left/robot))
 		if(l_leg)
 			return
 		if(!user.transferItemToLoc(W, src))
@@ -163,7 +163,7 @@
 		l_leg = W
 		update_icon()
 
-	else if(istype(W, /obj/item/bodypart/r_leg/robot))
+	else if(istype(W, /obj/item/bodypart/leg/right/robot))
 		if(src.r_leg)
 			return
 		if(!user.transferItemToLoc(W, src))

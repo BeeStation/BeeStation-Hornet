@@ -43,8 +43,8 @@
 	species_head = /obj/item/bodypart/head/diona
 	species_l_arm = /obj/item/bodypart/l_arm/diona
 	species_r_arm = /obj/item/bodypart/r_arm/diona
-	species_l_leg = /obj/item/bodypart/l_leg/diona
-	species_r_leg = /obj/item/bodypart/r_leg/diona
+	species_l_leg = /obj/item/bodypart/leg/left/diona
+	species_r_leg = /obj/item/bodypart/leg/right/diona
 
 	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
 	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.

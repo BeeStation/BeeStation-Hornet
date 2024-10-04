@@ -31,8 +31,8 @@
 	species_head = /obj/item/bodypart/head/moth
 	species_l_arm = /obj/item/bodypart/l_arm/moth
 	species_r_arm = /obj/item/bodypart/r_arm/moth
-	species_l_leg = /obj/item/bodypart/l_leg/moth
-	species_r_leg = /obj/item/bodypart/r_leg/moth
+	species_l_leg = /obj/item/bodypart/leg/left/moth
+	species_r_leg = /obj/item/bodypart/leg/right/moth
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 

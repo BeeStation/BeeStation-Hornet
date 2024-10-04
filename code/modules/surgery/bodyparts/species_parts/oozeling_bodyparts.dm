@@ -20,12 +20,12 @@
 	limb_id = SPECIES_OOZELING
 	uses_mutcolor = TRUE
 
-/obj/item/bodypart/l_leg/oozeling
+/obj/item/bodypart/leg/left/oozeling
 	icon = 'icons/mob/species/oozeling/bodyparts.dmi'
 	limb_id = SPECIES_OOZELING
 	uses_mutcolor = TRUE
 
-/obj/item/bodypart/r_leg/oozeling
+/obj/item/bodypart/leg/right/oozeling
 	icon = 'icons/mob/species/oozeling/bodyparts.dmi'
 	limb_id = SPECIES_OOZELING
 	uses_mutcolor = TRUE

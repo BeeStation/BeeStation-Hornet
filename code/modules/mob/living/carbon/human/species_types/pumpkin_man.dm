@@ -26,8 +26,8 @@
 	species_head = /obj/item/bodypart/head/pumpkin_man
 	species_l_arm = /obj/item/bodypart/l_arm/pumpkin_man
 	species_r_arm = /obj/item/bodypart/r_arm/pumpkin_man
-	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
-	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
+	species_l_leg = /obj/item/bodypart/leg/left/pumpkin_man
+	species_r_leg = /obj/item/bodypart/leg/right/pumpkin_man
 
 //Only allow race roundstart on Halloween
 /datum/species/pumpkin_man/check_roundstart_eligible()
