@@ -310,6 +310,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
 		/obj/item/melee/classic_baton/police,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/peppercloud_deployer,

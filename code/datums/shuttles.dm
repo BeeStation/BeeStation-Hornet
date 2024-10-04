@@ -327,14 +327,6 @@
 	credit_cost = 2000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
-/datum/map_template/shuttle/emergency/honkco
-	suffix = "honkco"
-	name = "Honk.Co shuttle"
-	description = "From the creators of Snappop(tm)!, the signature Honk.Co shuttle is now avaiable to purchase, with no usable chairs and filled with bananas, clown artifacts and all types of clowns."
-	admin_notes = "Bananium shuttle full of clowns and cluwnes that turn hostile if attacked, 4 staffs of the honk mother, bananas everywhere, clown food and space suits and no usable chairs."
-	credit_cost = 5000
-	danger_level = SHUTTLE_DANGER_HIGH
-
 /datum/map_template/shuttle/emergency/discoinferno
 	suffix = "discoinferno"
 	name = "Disco Inferno"
