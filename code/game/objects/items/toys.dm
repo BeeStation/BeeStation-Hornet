@@ -303,7 +303,6 @@
 	if(istype(W, /obj/item/toy/sword))
 		if(HAS_TRAIT(W, TRAIT_NODROP) || HAS_TRAIT(src, TRAIT_NODROP))
 			to_chat(user, "<span class='warning'>\the [HAS_TRAIT(src, TRAIT_NODROP) ? src : W] is stuck to your hand, you can't attach it to \the [HAS_TRAIT(src, TRAIT_NODROP) ? W : src]!</span>")
-			return
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			var/obj/item/dualsaber/toy/newSaber = new /obj/item/dualsaber/toy(user.loc)
@@ -312,6 +311,7 @@
 				newSaber.saber_color = "rainbow"
 			qdel(W)
 			qdel(src)
+		return TRUE
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE
@@ -323,6 +323,7 @@
 				user.update_inv_hands()
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+		return TRUE
 	else
 		return ..()
 

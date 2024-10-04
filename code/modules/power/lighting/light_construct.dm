@@ -70,10 +70,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell_connectors)
 			to_chat(user, "<span class='warning'>This [name] can't support a power cell!</span>")
-			return
+			return TRUE
 		if(HAS_TRAIT(W, TRAIT_NODROP))
 			to_chat(user, "<span class='warning'>[W] is stuck to your hand!</span>")
-			return
+			return TRUE
 		if(cell)
 			to_chat(user, "<span class='warning'>There is a power cell already installed!</span>")
 		else if(user.temporarilyRemoveItemFromInventory(W))
@@ -83,13 +83,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 			W.forceMove(src)
 			store_cell(W)
 			add_fingerprint(user)
-		return
+		return TRUE
 	switch(stage)
 		if(1)
 			if(W.tool_behaviour == TOOL_WRENCH)
 				if(cell)
 					to_chat(user, "<span class='warning'>You have to remove the cell first!</span>")
-					return
+					return TRUE
 				else
 					to_chat(user, "<span class='notice'>You begin deconstructing [src]...</span>")
 					if (W.use_tool(src, user, 30, volume=50))
@@ -98,7 +98,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 							"<span class='notice'>You deconstruct [src].</span>", "<span class='italics'>You hear a ratchet.</span>")
 						playsound(src, 'sound/items/deconstruct.ogg', 75, 1)
 						qdel(src)
-					return
+					return TRUE
 
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = W
@@ -109,11 +109,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 						"<span class='notice'>You add wires to [src].</span>")
 				else
 					to_chat(user, "<span class='warning'>You need one length of cable to wire [src]!</span>")
-				return
+				return TRUE
 		if(2)
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(usr, "<span class='warning'>You have to remove the wires first!</span>")
-				return
+				return TRUE
 
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				stage = 1
@@ -122,7 +122,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 				user.visible_message("[user.name] removes the wiring from [src].", \
 					"<span class='notice'>You remove the wiring from [src].</span>", "<span class='italics'>You hear clicking.</span>")
 				W.play_tool_sound(src, 100)
-				return
+				return TRUE
 
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				user.visible_message("[user.name] closes [src]'s casing.", \
@@ -140,7 +140,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 					cell.forceMove(newlight)
 					remove_cell()
 				qdel(src)
-				return
+				return TRUE
 	return ..()
 
 /obj/structure/light_construct/blob_act(obj/structure/blob/B)

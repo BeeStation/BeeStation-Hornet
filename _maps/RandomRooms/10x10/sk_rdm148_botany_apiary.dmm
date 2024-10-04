@@ -137,7 +137,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "K" = (
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (

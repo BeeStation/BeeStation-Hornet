@@ -115,7 +115,7 @@
 	return
 
 /turf/open/space/attackby(obj/item/C, mob/user, params)
-	..()
+	. = ..()
 	if(!CanBuildHere())
 		return
 	if(istype(C, /obj/item/stack/rods))

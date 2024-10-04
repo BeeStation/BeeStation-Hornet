@@ -30,9 +30,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "ai" = (
@@ -232,9 +230,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "jB" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -294,9 +290,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "JE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "KJ" = (

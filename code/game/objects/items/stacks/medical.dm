@@ -214,12 +214,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
-			return
+			return TRUE
 		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
 					"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
 					"<span class='italics'>You hear cutting.</span>")
 		use(2)
+		return TRUE
 	else
 		return ..()
 

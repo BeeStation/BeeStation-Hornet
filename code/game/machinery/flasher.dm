@@ -67,6 +67,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 				bulb.forceMove(loc)
 				bulb = null
 				power_change()
+		return TRUE
 
 	else if (istype(W, /obj/item/assembly/flash/handheld))
 		if (!bulb)
@@ -77,6 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 			power_change()
 		else
 			to_chat(user, "<span class='warning'>A flashbulb is already installed in [src]!</span>")
+		return TRUE
 
 	else if (W.tool_behaviour == TOOL_WRENCH)
 		if(!bulb)
@@ -86,6 +88,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 				deconstruct(TRUE)
 		else
 			to_chat(user, "<span class='warning'>Remove a flashbulb from [src] first!</span>")
+		return  TRUE
 	else
 		return ..()
 

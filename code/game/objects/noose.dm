@@ -1,10 +1,3 @@
-/obj/item/stack/cable_coil/building_checks(datum/stack_recipe/R, multiplier)
-	if(R.result_type == /obj/structure/chair/noose)
-		if(!(locate(/obj/structure/chair) in get_turf(usr)))
-			to_chat(usr, "<span class='warning'>You have to be standing on top of a chair to make a noose!</span>")
-			return FALSE
-	return ..()
-
 /obj/structure/chair/noose //It's a "chair".
 	name = "noose"
 	desc = "Well this just got a whole lot more morbid."
@@ -27,8 +20,8 @@
 		var/obj/item/stack/cable_coil/C = new(get_turf(src))
 		C.amount = 25
 		qdel(src)
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/structure/chair/noose/Initialize(mapload)
 	. = ..()

@@ -202,5 +202,6 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+		return TRUE
 	else
 		return ..()

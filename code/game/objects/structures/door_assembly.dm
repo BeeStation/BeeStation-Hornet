@@ -54,14 +54,14 @@
 	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
 		if(!t)
-			return
+			return TRUE
 		if(!in_range(src, usr) && loc != usr)
-			return
+			return TRUE
 		created_name = t
 
 	else if((W.tool_behaviour == TOOL_WELDER) && (mineral || glass || !anchored ))
 		if(!W.tool_start_check(user, amount=0))
-			return
+			return TRUE
 
 		if(mineral)
 			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
@@ -104,7 +104,7 @@
 
 				if(W.use_tool(src, user, 40, volume=100))
 					if(anchored)
-						return
+						return TRUE
 					to_chat(user, "<span class='notice'>You secure the airlock assembly.</span>")
 					name = "secured airlock assembly"
 					set_anchored(TRUE)
@@ -117,20 +117,20 @@
 								"<span class='italics'>You hear wrenching.</span>")
 			if(W.use_tool(src, user, 40, volume=100))
 				if(!anchored)
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You unsecure the airlock assembly.</span>")
 				name = "airlock assembly"
 				set_anchored(FALSE)
 
 	else if(istype(W, /obj/item/stack/cable_coil) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored )
 		if(!W.tool_start_check(user, amount=1))
-			return
+			return TRUE
 
 		user.visible_message("[user] wires the airlock assembly.", \
 							"<span class='notice'>You start to wire the airlock assembly...</span>")
 		if(W.use_tool(src, user, 40, amount=1))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
-				return
+				return TRUE
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
 			name = "wired airlock assembly"
@@ -141,7 +141,7 @@
 
 		if(W.use_tool(src, user, 40, volume=100))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
 			new/obj/item/stack/cable_coil(get_turf(user), 1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
@@ -153,9 +153,9 @@
 							"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
 		if(do_after(user, 40, target = src))
 			if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-				return
+				return TRUE
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
@@ -175,10 +175,10 @@
 			if(do_after(user, 40, target = src))
 				if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
 					qdel(AE)
-					return
+					return TRUE
 				if(!user.transferItemToLoc(AE, src))
 					qdel(AE)
-					return
+					return TRUE
 
 				to_chat(user, "<span class='notice'>You install the electroadaptive pseudocircuit.</span>")
 				state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
@@ -194,7 +194,7 @@
 
 		if(W.use_tool(src, user, 40, volume=100))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			name = "wired airlock assembly"
@@ -218,7 +218,7 @@
 												"<span class='notice'>You start to install [G.name] into the airlock assembly...</span>")
 							if(do_after(user, 40, target = src))
 								if(G.get_amount() < 1 || glass)
-									return
+									return TRUE
 								if(G.type == /obj/item/stack/sheet/rglass)
 									to_chat(user, "<span class='notice'>You install [G.name] windows into the airlock assembly.</span>")
 									heat_proof_finished = 1 //reinforced glass makes the airlock heat-proof
@@ -237,7 +237,7 @@
 												"<span class='notice'>You start to install [G.name] into the airlock assembly...</span>")
 								if(do_after(user, 40, target = src))
 									if(G.get_amount() < 2 || mineral)
-										return
+										return TRUE
 									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")
 									G.use(2)
 									var/mineralassembly = text2path("/obj/structure/door_assembly/door_assembly_[M]")
@@ -289,6 +289,7 @@
 		return ..()
 	update_name()
 	update_icon()
+	return TRUE
 
 /obj/structure/door_assembly/update_icon()
 	cut_overlays()
