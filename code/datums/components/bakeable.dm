@@ -68,7 +68,8 @@
 	used_tray.AddToPlate(baked_result)
 
 	if(positive_result)
-		used_oven.visible_message("<span class='notice'>You smell something great coming from [used_oven].</span>", blind_message = "<span class='notice'>You smell something great...</span>")
+		used_oven.visible_message("<span class='notice'>You smell something great coming from [used_oven].</span>",
+		blind_message = "<span class='notice'>You smell something great...</span>")
 	else
 		used_oven.visible_message("<span class='warning'>You smell a burnt smell coming from [used_oven].</span>", blind_message = "<span class='warning'>You smell a burnt smell...</span>")
 	SEND_SIGNAL(parent, COMSIG_BAKE_COMPLETED, baked_result)
@@ -80,7 +81,10 @@
 
 	if(!current_bake_time) //Not baked yet
 		if(positive_result)
-			examine_list += "<span class='notice'>[parent] can be <b>baked</b> into \a [initial(bake_result.name)].</span>"
+			if(initial(bake_result.gender) == PLURAL)
+				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>baked</span>"] into some [initial(bake_result.name)].</span>"
+			else
+				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>baked</span>"] into \a [initial(bake_result.name)].</span>"
 		return
 
 	if(positive_result)
