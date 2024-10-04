@@ -254,3 +254,44 @@
 	name = "zombie"
 	mob_species = /datum/species/zombie
 	brute_damage = 100
+
+/obj/effect/mob_spawn/human/corpse/sniper
+	name = "Sniper"
+	outfit = /datum/outfit/sniper
+	skin_tone = "caucasian1"
+	hair_style = "Bald"
+	facial_hair_style = "Full beard"
+	id_job = JOB_NAME_WARDEN
+	mob_gender = MALE
+
+/datum/outfit/sniper
+	name = "Sniper"
+	uniform = /obj/item/clothing/under/syndicate/camo
+	suit = /obj/item/clothing/suit/armor/bulletproof
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/military/assault
+	mask = /obj/item/clothing/mask/cigarette/cigar
+	head = /obj/item/clothing/head/beret/corpwarden
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
+	back = /obj/item/storage/backpack/satchel/sec
+	id = /obj/item/card/id/job/warden
+
+/obj/effect/mob_spawn/human/corpse/heavy
+	name = "Heavy gunner"
+	brute_damage = 300
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+	mob_gender = MALE
+	skin_tone = "caucasian1"
+	outfit = /datum/outfit/minigunheavy
+
+/datum/outfit/minigunheavy
+	name = "Heavy gunner"
+	uniform = /obj/item/clothing/under/rank/security/head_of_security/alt
+	shoes = /obj/item/clothing/shoes/combat/swat
+	gloves = /obj/item/clothing/gloves/combat
+	mask = /obj/item/clothing/mask/gas/sechailer/swat/emagged
+	suit = /obj/item/clothing/suit/armor/heavy
+	//back = /obj/item/minigunpack - you REALLY wish you could snag a minigun backpack off them don't you?
+	head = /obj/item/clothing/head/helmet/swat
