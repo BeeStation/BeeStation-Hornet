@@ -13,8 +13,8 @@
 	var/message_insect = "" //Message to display if the user is a moth, apid or flyperson
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
-	/// Emote flags (EMOTE_AUDIBLE and EMOTE_ANIMATED)
-	var/emote_type = 0
+	/// Whether the emote is visible and/or audible bitflag
+	var/emote_type = NONE
 	/// Checks if the mob can use its hands before performing the emote.
 	var/hands_use_check = FALSE
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
@@ -104,10 +104,14 @@
 			else
 				M.show_message("[dchatmsg]")
 
-	if(emote_type & EMOTE_AUDIBLE)
+	if(emote_type & (EMOTE_AUDIBLE | EMOTE_VISIBLE)) //emote is audible and visible
 		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
-	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+	else if(emote_type & EMOTE_VISIBLE)	//emote is only visible
+		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+	if(emote_type & EMOTE_IMPORTANT)
+		for(var/mob/living/viewer in viewers())
+			if(viewer.is_blind() && !viewer.can_hear())
+				to_chat(viewer, msg)
 	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)

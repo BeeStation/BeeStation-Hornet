@@ -2585,6 +2585,7 @@
 #include "code\modules\elevator\elevator_interface.dm"
 #include "code\modules\elevator\elevator_segment.dm"
 #include "code\modules\emoji\emoji_parse.dm"
+#include "code\modules\emote_panel\emote_panel.dm"
 #include "code\modules\error_handler\error_handler.dm"
 #include "code\modules\error_handler\error_viewer.dm"
 #include "code\modules\events\_event.dm"
