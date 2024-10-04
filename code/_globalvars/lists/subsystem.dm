@@ -1,1 +1,0 @@
-GLOBAL_LIST_EMPTY(total_votes_to_leave)
