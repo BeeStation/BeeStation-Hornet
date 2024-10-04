@@ -528,7 +528,7 @@
 		return FALSE
 
 	//you can only queue up one examine on something at a time
-	if(examined_thing in do_afters)
+	if(DOING_INTERACTION_WITH_TARGET(src, examined_thing))
 		return FALSE
 
 	to_chat(src, "<span class='notice'>You start feeling around for something...</span>")
@@ -1078,6 +1078,10 @@
 	return
 
 /mob/proc/update_health_hud()
+	return
+
+/// Changes the stamina HUD based on new information
+/mob/proc/update_stamina_hud()
 	return
 
 ///Update the lighting plane and sight of this mob (sends COMSIG_MOB_UPDATE_SIGHT)
