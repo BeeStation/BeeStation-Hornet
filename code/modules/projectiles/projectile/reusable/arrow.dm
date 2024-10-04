@@ -122,6 +122,7 @@
 	icon_state = "arrow_bonepoint"
 	damage = 15
 	armour_penetration = 5
+	var/reagent_amount = 5 //This has to match the ammo casing value
 	embedds = TRUE
 	bleed_force = BLEED_CUT
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint
@@ -129,23 +130,22 @@
 
 /obj/projectile/bullet/reusable/arrow/hollowpoint/Initialize(mapload)
 	. = ..()
-	create_reagents(5, NO_REACT)
+	create_reagents(5, AMOUNT_VISIBLE)
 
 /obj/projectile/bullet/reusable/arrow/hollowpoint/on_hit(atom/target, blocked)
-	. = ..()
 	var/mob/living/L
 	if(!istype(target, L))
-		return
-	//if(!target.can_inject(user, 1))
-	//	amount_inject = 5
-	reagents.reaction(target,INJECT,5)
-	reagents.trans_to(target,5)
+		return ..()
+	reagents.reaction(target,INJECT,reagent_amount)
+	reagents.trans_to(target,reagent_amount, 1, FALSE)
+	return ..()
 
 /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint
 	name = "bamboo point wooden arrow"
 	icon_state = "arrow_bamboopoint"
 	damage = 10
 	armour_penetration = 5
+	reagent_amount = 7
 	embedds = TRUE
 	bleed_force = BLEED_CUT
 	ammo_type = /obj/projectile/bullet/reusable/arrow/hollowpoint/bamboopoint
@@ -292,11 +292,6 @@
 		var/mob/living/carbon/T = target
 		if(!blocked)
 			consume(T)
-			//else
-			//	var/obj/item/bodypart/limbhit = T.check_limb_hit(def_zone)   THIS BITCH STILL BROKEN RAHHHHHHHH
-			//	limbhit.dismember()
-			//	playsound(src, 'sound/effects/supermatter.ogg', 75, 1)
-			//	radiation_pulse(src, 500, 2)
 		else
 			handle_drop()
 

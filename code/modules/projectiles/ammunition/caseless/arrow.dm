@@ -34,6 +34,7 @@
 			return TRUE
 		else
 			arrow_craft(I, user, params)
+			return TRUE
 
 /obj/item/ammo_casing/caseless/arrow/proc/arrow_craft(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
@@ -45,6 +46,8 @@
 			cloth.use(2) //Remove two cotton from the stack.
 			user.show_message("<span class='notice'>You wrap \the [cloth.name] onto the [src].</span>", MSG_VISUAL)
 			new cloth_result(get_turf(src))
+			qdel(src)
+			return TRUE
 	else if(istype(I, /obj/item/shard))
 		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You create a glass arrow with \the [I.name].</span>", MSG_VISUAL)
@@ -68,6 +71,8 @@
 			bone.use(2)
 			user.show_message("<span class='notice'>You create a bone point arrow.</span>", MSG_VISUAL)
 			new bone_result(get_turf(src))
+			qdel(src)
+			return TRUE
 	else if(istype(I, /obj/item/stack/sheet/bamboo))
 		var/obj/item/stack/sheet/bamboo/bamboo = I
 		if(bamboo.amount < 2)
@@ -77,13 +82,15 @@
 			bamboo.use(2)
 			user.show_message("<span class='notice'>You create a bamboo point arrow.</span>", MSG_VISUAL)
 			new bamboo_result(get_turf(src))
+			qdel(src)
+			return TRUE
 	else if(I.is_sharp())
 		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You sharpen \the [name].</span>", MSG_VISUAL)
 			new sharp_result(get_turf(src))
 			playsound(src, 'sound/effects/footstep/hardclaw1.ogg', 50, 1)
-		qdel(src)
-		return TRUE
+			qdel(src)
+			return TRUE
 
 
 ///WOOD ARROWS///
@@ -290,7 +297,8 @@
 	. = ..()
 	cut_overlays()
 	if(reagents)
-		add_overlay("hollowpoint_full")
+		if(reagents.total_volume)
+			add_overlay("hollowpoint_full")
 
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint
 	name = "bamboo point wooden arrow"
