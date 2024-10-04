@@ -324,7 +324,8 @@
 	maxHealth = 250
 	melee_damage = 20
 	rapid_melee = 3
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	projectilesound = 'sound/weapons/sniper_shot.ogg'
 	speak_chance = 2
@@ -335,13 +336,14 @@
 					/obj/item/ammo_box/magazine/sniper_rounds,
 					/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 					/obj/item/ammo_box/magazine/sniper_rounds/soporific)
+	backup_nosound = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/sniper/Aggro()
 	..()
 	ranged_cooldown = 30
 	if (cooldown < world.time)
 		cooldown = world.time + 150
-		summon_backup_nosound(10)
+		summon_backup(10)
 		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, TRUE)
 		say("I've got you in my scope.")
 
@@ -371,7 +373,8 @@
 	speak_chance = 0
 	speak = null
 	aggro_vision_range = 9
-	attacktext = "hits"
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	retreat_distance = 2
 	melee_queue_distance = 1
