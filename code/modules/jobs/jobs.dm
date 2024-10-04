@@ -81,8 +81,8 @@ GLOBAL_PROTECT(exp_removed_jobs)
 
 /// Put any removed jobs here so they can still show in playtime listings.
 GLOBAL_LIST_INIT(exp_removed_jobsmap, list(
-//	EXP_TYPE_CREW = list("titles" = list("Virologist")),
-//	EXP_TYPE_MEDICAL = list("titles" = list("Virologist")),
+//	EXP_TYPE_CREW = list("Virologist"),
+//	EXP_TYPE_MEDICAL = list("Virologist"),
 ))
 GLOBAL_PROTECT(exp_removed_jobsmap)
 

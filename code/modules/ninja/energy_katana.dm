@@ -6,7 +6,7 @@
 	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 40
+	force = 25
 	throwforce = 20
 	block_power = 50
 	block_level = 1

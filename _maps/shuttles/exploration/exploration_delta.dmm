@@ -332,7 +332,7 @@
 "NT" = (
 /obj/structure/table,
 /obj/item/trash/pistachios,
-/obj/item/trash/can/food/beans{
+/obj/item/trash/canned/beans{
 	pixel_y = 10
 	},
 /turf/open/floor/mineral/titanium,

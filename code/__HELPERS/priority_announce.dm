@@ -18,6 +18,9 @@
 	else if(type == JOB_NAME_CAPTAIN)
 		announcement += "<h1 class='alert'>[JOB_NAME_CAPTAIN] Announces</h1>"
 		GLOB.news_network.submit_article(html_encode(text), "[JOB_NAME_CAPTAIN]'s Announcement", "Station Announcements", null)
+	else if(type == "Syndicate")
+		announcement += "<h1 class='alert'>Syndicate Announces</h1>"
+		GLOB.news_network.submit_article(html_encode(text), "Syndicate Announcement", "Station Announcements", null)
 
 	else
 		if(!sender_override)
