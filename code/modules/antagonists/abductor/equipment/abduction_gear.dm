@@ -19,6 +19,7 @@
 		/obj/item/abductor,
 		/obj/item/abductor/baton,
 		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)

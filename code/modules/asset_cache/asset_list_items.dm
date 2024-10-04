@@ -459,7 +459,7 @@
 		"cultivator" = uni_icon('icons/obj/items_and_weapons.dmi', "cultivator"),
 		"spade" = uni_icon('icons/obj/mining.dmi', "spade"),
 		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
-		TOOL_ROLLINGPIN = uni_icon('icons/obj/kitchen.dmi', "rolling_pin"),
+		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
 		TOOL_BIKEHORN = uni_icon('icons/obj/items_and_weapons.dmi', "bike_horn"),
 		"debug_placeholder" = uni_icon('icons/obj/device.dmi', "hypertool")
 	)

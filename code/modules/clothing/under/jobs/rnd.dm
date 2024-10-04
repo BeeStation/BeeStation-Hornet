@@ -18,7 +18,7 @@
 	item_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -38,7 +38,7 @@
 	item_state = "rdwhimsy"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -58,7 +58,7 @@
 	item_state = "p_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -85,7 +85,7 @@
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -103,7 +103,7 @@
 	item_state = "robotics"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -113,6 +113,6 @@
 	icon_state = "robotics_retro"
 	item_state = "robotics"
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	fitted = NO_FEMALE_UNIFORM
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	alternate_worn_layer = GLOVES_LAYER
 	can_adjust = FALSE
