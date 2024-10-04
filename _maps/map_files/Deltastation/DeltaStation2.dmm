@@ -60863,8 +60863,7 @@
 "nxE" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Telecomms - Chamber Starboard";
-	name = "telecomms camera";
-	
+	name = "telecomms camera"
 	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
@@ -85858,8 +85857,7 @@
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Telecomms - Chamber Port";
-	name = "telecomms camera";
-	
+	name = "telecomms camera"
 	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
