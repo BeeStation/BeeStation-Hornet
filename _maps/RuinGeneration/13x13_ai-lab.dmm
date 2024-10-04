@@ -273,8 +273,7 @@
 /obj/effect/decal/cleanable/robot_debris/old,
 /obj/machinery/camera{
 	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 6;
-	network = list("ss13","tcomms")
+	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/item/ammo_casing/c9mm{
