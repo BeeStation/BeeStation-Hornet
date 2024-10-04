@@ -100,6 +100,16 @@
 	//Stronger, faster
 	added_description = "<span class='info'>The bowstring is made of pure energy. As robust as it gets.</span>"
 
+/obj/item/weaponcrafting/attachment/primary/energy_crystal/clockwork //Made specially for clockcult, unretreaveable for now
+	name = "clockwork magic crystal"
+	desc = "An energy crystal made out of magic!"
+	custom_materials = null
+	icon_state = "clock_crystal"
+	damage_multiplier = 1
+	speed_multiplier = 1
+	added_description = "<span class='info'>The bowstring is made of pure energy. Able to create its own arrows.</span>"
+	//Ideally this stupid thing would create the arrows on its own, but for now thats tied to the bow itself
+
 // SECONDARY //
 // Secondary attachments, think of attachments as having slots they fit in, these fit into the "second" slot
 

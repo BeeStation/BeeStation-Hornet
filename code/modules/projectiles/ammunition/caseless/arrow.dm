@@ -297,7 +297,7 @@
 	. = ..()
 	cut_overlays()
 	if(reagents)
-		if(reagents.total_volume)
+		if(reagents.total_volume > 0)
 			add_overlay("hollowpoint_full")
 
 /obj/item/ammo_casing/caseless/arrow/hollowpoint/bamboopoint
