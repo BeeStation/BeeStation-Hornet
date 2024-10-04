@@ -4832,7 +4832,7 @@
 /area/awaymission/cabin/caves/mountain)
 "zP" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/knife/carrotshiv,
+/obj/item/knife/shiv/carrot,
 /obj/effect/decal/cleanable/glitter/blue{
 	desc = "It looks like fancy glitter to me.";
 	name = "icy wind"
