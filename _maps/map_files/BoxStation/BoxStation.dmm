@@ -18096,7 +18096,7 @@
 /area/crew_quarters/locker)
 "dTM" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/machinery/door/poddoor/preopen{
 	id = "quarantineshutters";
 	name = "Quarantine Shutters"
@@ -20365,7 +20365,7 @@
 /area/security/prison)
 "eNw" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -20502,7 +20502,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "eQj" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4;
 	pixel_y = -3
 	},
@@ -21402,7 +21402,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "fiq" = (
@@ -30614,7 +30614,7 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "iTP" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -33233,7 +33233,7 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/aft)
 "jTo" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/requests_console{
 	department = "Security";
 	departmentType = 5;
@@ -36361,7 +36361,7 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "laL" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen{
@@ -40356,7 +40356,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "mRi" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen/engine{
@@ -45797,7 +45797,7 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "phr" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "outerbrig";
@@ -48441,7 +48441,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "qiD" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/effect/turf_decal/tile/dark_blue,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
@@ -53072,7 +53072,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/maintenance/disposal/incinerator)
 "rVA" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/east,
@@ -53098,7 +53098,7 @@
 /area/maintenance/solars/starboard/aft)
 "rWC" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_x = -2;
 	pixel_y = 3;
 	dir = 8
@@ -61456,7 +61456,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "vnR" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
@@ -63488,7 +63488,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "wbI" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/item/storage/secure/safe/caps_spare{
 	pixel_x = 6;
 	pixel_y = 28
@@ -63805,7 +63805,7 @@
 /turf/open/floor/iron/tech,
 /area/crew_quarters/fitness)
 "whi" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/machinery/requests_console{
@@ -68345,7 +68345,7 @@
 	dir = 4;
 	pixel_x = 27
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
