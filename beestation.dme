@@ -714,6 +714,7 @@
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\stationloving.dm"
 #include "code\datums\components\swarming.dm"
+#include "code\datums\components\tactical.dm"
 #include "code\datums\components\tamed_command.dm"
 #include "code\datums\components\team_monitor.dm"
 #include "code\datums\components\tether.dm"
