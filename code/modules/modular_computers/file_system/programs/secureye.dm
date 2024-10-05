@@ -13,7 +13,7 @@
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"
 
-	var/list/network = list("ss13")
+	var/list/network = list(CAMERA_NETWORK_STATION)
 	var/obj/machinery/camera/active_camera
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
