@@ -4,7 +4,7 @@
 //#define DATUMVAR_DEBUGGING_MODE	//Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
 
 //global pragmas go here
-#ifndef OPENDREAM //Opendream does not support these pragmas
+#if !defined(OPENDREAM) && !defined(SPACEMAN_DMM) //Neither Opendream nor SpacemanDMM support these pragmas
 #pragma error unused_var
 #endif
 
