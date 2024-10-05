@@ -465,7 +465,7 @@
 "bN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bar)
 "bO" = (
@@ -680,7 +680,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},

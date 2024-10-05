@@ -97,8 +97,8 @@
 	name = "Sausage"
 	result = /obj/item/food/raw_sausage
 	reqs = list(
-		/obj/item/food/meatball = 1,
-		/obj/item/food/meat/cutlet = 2
+		/obj/item/food/raw_meatball = 1,
+		/obj/item/food/meat/rawcutlet = 2
 	)
 	subcategory = CAT_MEAT
 
