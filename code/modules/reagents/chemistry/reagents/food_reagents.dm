@@ -121,7 +121,6 @@
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
-	default_container = /obj/item/reagent_containers/food/condiment/cooking_oil
 
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/exposed_obj, reac_volume)
 	if(!holder || (holder.chem_temp <= fry_temperature))
@@ -466,7 +465,6 @@
 	color = "#302000" // rgb: 48, 32, 0
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "slime"
-	default_container = /obj/item/reagent_containers/food/condiment/cooking_oil
 
 /datum/reagent/consumable/cornoil/reaction_turf(turf/open/T, reac_volume)
 	if (!istype(T))
