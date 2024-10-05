@@ -14,7 +14,9 @@
 	cogs_required = 0
 	category = SPELLTYPE_SERVITUDE
 
-/datum/clockcult/scripture/slab/hateful_manacles/apply_effects(atom/A)
+/datum/action/cooldown/spell/slab/hateful_manacles
+
+/datum/action/cooldown/spell/slab/hateful_manacles/cast(atom/A)
 	. = ..()
 	var/mob/living/carbon/M = A
 	if(!istype(M))
@@ -22,19 +24,20 @@
 	if(is_servant_of_ratvar(M))
 		return FALSE
 	if(M.handcuffed)
-		to_chat(invoker, "<span class='brass'>[M] is already restrained!</span>")
+		to_chat(scripture.invoker, "<span class='brass'>[M] is already restrained!</span>")
 		return FALSE
 	playsound(M, 'sound/weapons/handcuffs.ogg', 30, TRUE, -2)
-	M.visible_message("<span class='danger'>[invoker] forms a well of energy around [M], brass appearing at their wrists!</span>",\
-						"<span class='userdanger'>[invoker] is trying to restrain you!</span>")
-	if(do_after(invoker, 30, target=M))
+	M.visible_message("<span class='danger'>[scripture.invoker] forms a well of energy around [M], brass appearing at their wrists!</span>",\
+						"<span class='userdanger'>[scripture.invoker] is trying to restrain you!</span>")
+	if(do_after(scripture.invoker, 30, target=M))
 		if(M.handcuffed)
 			return FALSE
 		M.handcuffed = new /obj/item/restraints/handcuffs/clockwork(M)
 		M.update_handcuffed()
-		log_combat(invoker, M, "handcuffed", src)
+		log_combat(scripture.invoker, M, "handcuffed", src)
 		return TRUE
 	return FALSE
+
 
 /obj/item/restraints/handcuffs/clockwork
 	name = "replicant manacles"

@@ -1,6 +1,6 @@
 //////////////////The Monster
 
-/mob/living/simple_animal/slaughter
+/mob/living/simple_animal/hostile/imp/slaughter/
 	name = "slaughter demon"
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales."
@@ -124,7 +124,7 @@
 /obj/item/organ/heart/demon/Stop()
 	return 0 // Always beating.
 
-/mob/living/simple_animal/slaughter/laughter
+/mob/living/simple_animal/hostile/imp/slaughter/laughter
 	// The laughter demon! It's everyone's best friend! It just wants to hug
 	// them so much, it wants to hug everyone at once!
 	name = "laughter demon"
@@ -164,7 +164,7 @@
 	released and fully healed, because in the end it's just a jape, \
 	sibling!</B>"
 
-/mob/living/simple_animal/slaughter/laughter/ex_act(severity)
+/mob/living/simple_animal/hostile/imp/slaughter/laughter/ex_act(severity)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			investigate_log("has died from a devastating explosion.", INVESTIGATE_DEATHS)

@@ -138,6 +138,7 @@
 		A.throw_at(T, 1, 1)
 	. = ..()
 
+/*
 /obj/item/reagent_containers/food/snacks/pie/cream/body/on_consume(mob/living/M) // :shrug:
 	if(!reagents.total_volume) //so that it happens on the last bite
 		if(iscarbon(M) && contents.len)
@@ -149,3 +150,4 @@
 			M.emote("scream")
 			M.Knockdown(40)
 			M.adjustBruteLoss(60)
+*/

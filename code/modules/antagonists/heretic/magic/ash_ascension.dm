@@ -135,3 +135,25 @@
 		T = check
 	return (get_line(user, T) - get_turf(user))
 
+/datum/action/cooldown/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
+	var/list/hit_list = list()
+	for(var/turf/T in turfs)
+		if(istype(T, /turf/closed))
+			break
+		for(var/mob/living/L in T.contents)
+			if(L.anti_magic_check())
+				L.visible_message(span_danger("The spell bounces off of [L]!"), span_danger("The spell bounces off of you!"))
+				continue
+			if(L in hit_list || L == source)
+				continue
+			hit_list += L
+			L.adjustFireLoss(20)
+			to_chat(L, span_userdanger("You're hit by [source]'s eldritch flames!"))
+		new /obj/effect/hotspot(T)
+		T.hotspot_expose(700,50,1)
+		// deals damage to mechs
+		for(var/obj/vehicle/sealed/mecha/M in T.contents)
+			if(M in hit_list)
+				continue
+			hit_list += M
+			M.take_damage(45, BURN, MELEE, 1)

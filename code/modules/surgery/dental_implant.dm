@@ -39,8 +39,9 @@
 		return FALSE
 	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted pill!</span>")
 	log_combat(owner, null, "swallowed an implanted pill", target)
-	if(target.reagents.total_volume)
-		target.reagents.reaction(owner, INGEST)
-		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner)
+	var/obj/item/item_target = target
+	if(item_target.reagents.total_volume)
+		item_target.reagents.reaction(owner, INGEST)
+		item_target.reagents.trans_to(owner, item_target.reagents.total_volume, transfered_by = owner)
 	qdel(target)
 	return TRUE

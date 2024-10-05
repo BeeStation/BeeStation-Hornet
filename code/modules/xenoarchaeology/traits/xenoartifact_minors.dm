@@ -166,18 +166,13 @@
 /datum/action/cooldown/spell/list_target/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
 	desc = "Select a target to activate your traits on."
-	target_radius = 1
 	cooldown_time = 0 SECONDS
 	spell_requirements = null
 	button_icon = 'icons/mob/actions/actions_revenant.dmi'
 	button_icon_state = "r_transmit"
 	background_icon_state = "bg_spell"
 	var/obj/item/xenoartifact/xeno
-
-/datum/action/cooldown/spell/list_target/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
-	//. = ..()
-	xeno = Z
-	target_radius = Z.max_range+1
+	target_radius = 1
 
 /datum/action/cooldown/spell/list_target/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	. = ..()

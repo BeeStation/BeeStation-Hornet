@@ -54,7 +54,11 @@
 	if(is_type_in_typecache(cast_on, blacklisted_mobs))
 		to_chat(owner, span_warning("This creature is too [pick("powerful", "strange", "arcane", "obscene")] to control!"))
 		return FALSE
-
+	if(isholopara(cast_on))
+		var/mob/living/simple_animal/hostile/holoparasite/stand = cast_on
+		if(stand.summoner && stand.summoner == owner)
+			to_chat(owner, span_warning("Swapping minds with your own guardian would just put you back into your own head!"))
+			return FALSE
 	var/mob/living/living_target = cast_on
 	if(living_target.stat == DEAD)
 		to_chat(owner, span_warning("You don't particularly want to be dead!"))
@@ -76,7 +80,10 @@
 /datum/action/cooldown/spell/pointed/mind_transfer/proc/swap_minds(mob/living/caster, mob/living/cast_on)
 
 	var/mob/living/to_swap = cast_on
-
+	if(isholopara(cast_on))
+		var/mob/living/simple_animal/hostile/holoparasite/stand = cast_on
+		if(stand.summoner)
+			to_swap = stand.summoner
 	var/datum/mind/mind_to_swap = to_swap.mind
 	if(to_swap.anti_magic_check() \
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/wizard) \

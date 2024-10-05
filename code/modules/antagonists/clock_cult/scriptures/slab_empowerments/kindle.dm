@@ -16,12 +16,17 @@
 	cogs_required = 1
 	category = SPELLTYPE_SERVITUDE
 
-/datum/clockcult/scripture/slab/kindle/apply_effects(atom/A)
+/datum/action/cooldown/spell/slab/kindle
+	name = "Kindle"
+	// I hate how this is done
+
+/datum/action/cooldown/spell/slab/kindle/cast(atom/A)
+	. = ..()
 	var/mob/living/M = A
 	if(!istype(M))
 		return FALSE
-	if(!is_servant_of_ratvar(invoker))
-		M = invoker
+	if(!is_servant_of_ratvar(scripture.invoker))
+		M = scripture.invoker
 	if(is_servant_of_ratvar(M))
 		return FALSE
 	//Anti magic abilities
@@ -33,7 +38,7 @@
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 		M.visible_message("<span class='warning'>[M] stares blankly, as a field of energy flows around them.</span>", \
 									   "<span class='userdanger'>You feel a slight shock as a wave of energy flows past you.</span>")
-		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
+		playsound(scripture.invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
 		return TRUE
 	//Blood Cultist Effect
 	if(iscultist(M))
@@ -44,16 +49,16 @@
 		M.color = LIGHT_COLOR_BLOOD_MAGIC
 		animate(M, color = mob_color, time = 300)
 		M.say("Fwebar uloft'gib mirlig yro'fara!")
-		to_chat(invoker, "<span class='brass'>You fail to stun [M]!</span>")
-		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
+		to_chat(scripture.invoker, "<span class='brass'>You fail to stun [M]!</span>")
+		playsound(scripture.invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
 		return TRUE
 	//Successful Invokation
-	invoker.mob_light(color = LIGHT_COLOR_CLOCKWORK, range = 2, duration = 10)
-	if(!is_reebe(invoker.z))
+	scripture.invoker.mob_light(color = LIGHT_COLOR_CLOCKWORK, range = 2, duration = 10)
+	if(!is_reebe(scripture.invoker.z))
 		if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
 			M.Paralyze(150)
 		else
-			to_chat(invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
+			to_chat(scripture.invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
 			M.confused = clamp(M.confused, 50, INFINITY)
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
@@ -67,5 +72,5 @@
 		var/client_color = M.client.color
 		M.client.color = "#BE8700"
 		animate(M.client, color = client_color, time = 25)
-	playsound(invoker, 'sound/magic/staff_animation.ogg', 50, TRUE)
+	playsound(scripture.invoker, 'sound/magic/staff_animation.ogg', 50, TRUE)
 	return TRUE

@@ -230,7 +230,7 @@
 
 	var/shatter_msg = "<span class='notice'>You shatter the bottle, no turning back now!</span>"
 	var/veil_msg = "<span class='warning'>You sense a dark presence lurking just beyond the veil...</span>"
-	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
+	var/mob/living/demon_type = /mob/living/simple_animal/hostile/imp/slaughter
 	var/antag_type = /datum/antagonist/slaughter
 
 
@@ -273,7 +273,7 @@
 	color = "#FF69B4" // HOT PINK
 
 	veil_msg = "<span class='warning'>You sense an adorable presence lurking just beyond the veil...</span>"
-	demon_type = /mob/living/simple_animal/slaughter/laughter
+	demon_type = /mob/living/simple_animal/hostile/imp/slaughter/laughter
 	antag_type = /datum/antagonist/slaughter/laughter
 
 ///////////GANGSTER REINFORCEMENT SPAWNER

@@ -544,14 +544,14 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	vision_correction = 1  // why should the eye of a god have bad vision?
-	var/datum/action/cooldown/scan/scan_ability
+	//var/datum/action/cooldown/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
-	scan_ability = new(src)
+	//scan_ability = new(src)
 
 /obj/item/clothing/glasses/godeye/Destroy()
-	QDEL_NULL(scan_ability)
+	//QDEL_NULL(scan_ability)
 	return ..()
 
 
@@ -560,14 +560,14 @@
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
 		pain(user)
-		scan_ability.Grant(user)
+		//scan_ability.Grant(user)
 
 /obj/item/clothing/glasses/godeye/dropped(mob/living/user)
 	. = ..()
 	// Behead someone, their "glasses" drop on the floor
 	// and thus, the god eye should no longer be sticky
 	REMOVE_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
-	scan_ability.Remove(user)
+	//scan_ability.Remove(user)
 
 /obj/item/clothing/glasses/godeye/proc/pain(mob/living/victim)
 	to_chat(victim, span_userdanger("You experience blinding pain, as [src] burrows into your skull."))
@@ -587,8 +587,8 @@
 			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
 	..()
-
-/datum/action/cooldown/scan
+/*
+/datum/action/cooldown/scan Given that the eye did nuffin previously I am leaving this bit of code in in case someone wants to change that
 	name = "Scan"
 	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
 	background_icon_state = "bg_clock"
@@ -615,9 +615,7 @@
 	var/mob/living/living_scanned = scanned
 	living_scanned.apply_status_effect(/datum/status_effect/stagger)
 	var/datum/status_effect/agent_pinpointer/scan_pinpointer = living_owner.apply_status_effect(/datum/status_effect/agent_pinpointer/scan)
-	scan_pinpointer.scan_target = living_scanned
-
-	living_scanned.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+	living_scanned.Jitter(100 SECONDS)
 	to_chat(living_scanned, span_warning("You've been staggered!"))
 	living_scanned.add_filter("scan", 2, list("type" = "outline", "color" = COLOR_YELLOW, "size" = 1))
 	addtimer(CALLBACK(living_scanned, /atom/.proc/remove_filter, "scan"), 30 SECONDS)
@@ -628,7 +626,7 @@
 
 	StartCooldown()
 	return TRUE
-
+*/
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return

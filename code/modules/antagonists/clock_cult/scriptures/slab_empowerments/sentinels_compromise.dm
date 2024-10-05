@@ -10,26 +10,21 @@
 	cogs_required = 1
 	power_cost = 80
 
-/datum/clockcult/scripture/slab/sentinelscompromise/click_on(atom/A)
-	if(!(invoker in viewers(7, get_turf(A))))
-		return
-	if(!ishuman(invoker))
-		to_chat(invoker, "<span class='warning'>Non humanoid servants can't use this power!</span>")
-		return
-	var/mob/living/M = A
-	if(!istype(M))
-		return
-	if(!is_servant_of_ratvar(M))
-		return
-	if(apply_effects(A))
-		uses_left --
-		if(uses_left <= 0)
-			if(after_use_text)
-				clockwork_say(invoker, text2ratvar(after_use_text), TRUE)
-			end_invokation()
+/datum/action/cooldown/spell/slab/sentinelscompromise
+	name = "Sentinel's Compromies"
+	// Deadline 2030 port yogs clockies
 
-/datum/clockcult/scripture/slab/sentinelscompromise/apply_effects(mob/living/M)
-	if(M.stat == DEAD)
+/datum/action/cooldown/spell/slab/sentinelscompromise/can_cast_spell(feedback)
+	. = ..()
+	if(!ishuman(scripture.invoker))
+		to_chat(scripture.invoker, "<span class='warning'>Non humanoid servants can't use this power!</span>")
+		return
+
+
+/datum/action/cooldown/spell/slab/sentinelscompromise/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/M = cast_on
+	if(M.stat == DEAD || !is_servant_of_ratvar(M))
 		return FALSE
 	var/total_damage = (M.getBruteLoss() + M.getFireLoss() + M.getOxyLoss() + M.getCloneLoss()) * 0.6
 	M.adjustBruteLoss(-M.getBruteLoss() * 0.6, FALSE)
@@ -49,6 +44,6 @@
 	M.hallucination = 0
 	new /obj/effect/temp_visual/heal(get_turf(M), "#f8d984")
 	playsound(M, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	playsound(invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	invoker.adjustToxLoss(min(total_damage/2, 80), TRUE, TRUE)
+	playsound(scripture.invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
+	scripture.invoker.adjustToxLoss(min(total_damage/2, 80), TRUE, TRUE)
 	return TRUE

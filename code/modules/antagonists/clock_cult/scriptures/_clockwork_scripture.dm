@@ -157,24 +157,24 @@
 	var/after_use_text = ""
 	end_on_invokation = FALSE
 
-	var/obj/effect/proc_holder/slab/PH
-
+	var/datum/action/cooldown/spell/slab/PH
 	var/uses_left
 	var/time_left = 0
 	var/loop_timer_id
 
+
 /datum/clockcult/scripture/slab/New()
 	PH = new
-	PH.parent_scripture = src
+	PH.scripture = src
 	..()
 
 /datum/clockcult/scripture/slab/Destroy()
 	if(progress)
 		QDEL_NULL(progress)
 	if(!QDELETED(PH))
-		PH.remove_ranged_ability()
 		QDEL_NULL(PH)
 	return ..()
+
 
 /datum/clockcult/scripture/slab/invoke()
 	progress = new(invoker, use_time)
@@ -183,7 +183,7 @@
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	PH.add_ranged_ability
+	PH.set_click_ability(invoker)
 	to_chat(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
 	count_down()
 	invoke_success()
@@ -199,16 +199,6 @@
 	else
 		end_invokation()
 
-/datum/clockcult/scripture/slab/proc/click_on(atom/A)
-	if(!invoker.can_interact_with(A))
-		return
-	if(apply_effects(A))
-		uses_left --
-		if(uses_left <= 0)
-			if(after_use_text)
-				clockwork_say(invoker, text2ratvar(after_use_text), TRUE)
-			end_invokation()
-
 /datum/clockcult/scripture/slab/proc/end_invokation()
 	//Remove the timer if there is one currently active
 	if(loop_timer_id)
@@ -216,20 +206,31 @@
 		loop_timer_id = null
 	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
 	progress.end_progress()
-	PH.remove_ranged_ability()
+	PH.unset_click_ability(invoker)
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = null
 	end_invoke()
 
-/datum/clockcult/scripture/slab/proc/apply_effects(atom/A)
-	return TRUE
-
+/*
 /obj/effect/proc_holder/slab
 	var/datum/clockcult/scripture/slab/parent_scripture
 
 /obj/effect/proc_holder/slab/InterceptClickOn(mob/living/caller, params, atom/A)
 	parent_scripture?.click_on(A)
+*/
+
+/datum/action/cooldown/spell/slab
+	var/datum/clockcult/scripture/slab/scripture
+
+/datum/action/cooldown/spell/slab/after_cast(atom/cast_on)
+	. = ..()
+	scripture.uses_left --
+	if(scripture.uses_left <= 0)
+		if(scripture.after_use_text)
+			clockwork_say(scripture.invoker, text2ratvar(scripture.after_use_text), TRUE)
+		scripture.end_invokation()
+
 
 //==================================//
 // !       Quick bind spell       ! //

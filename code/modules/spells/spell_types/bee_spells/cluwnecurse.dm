@@ -11,7 +11,7 @@
 	choose_target_message = "Choose your victim"
 
 /// Get a list of living targets in radius of the center to put in the target list.
-/datum/action/cooldown/spell/list_target/get_list_targets(atom/center, target_radius = 7)
+/datum/action/cooldown/spell/list_target/cluwnecurse/get_list_targets(atom/center, target_radius = 7)
 	var/list/things = list()
 	for(var/mob/living/carbon/nearby_living_carbon in view(target_radius, center))
 		if(nearby_living_carbon == owner || nearby_living_carbon == center)

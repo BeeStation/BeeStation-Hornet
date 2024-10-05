@@ -12,8 +12,7 @@
 	var/last_recorded_stam_dam = 0
 	var/total_stamina_damage = 0
 
-/datum/clockcult/scripture/slab/vanguard/click_on(atom/A)
-	return FALSE
+//Only you are safe :)
 
 /datum/clockcult/scripture/slab/vanguard/invoke_success()
 	ADD_TRAIT(invoker, TRAIT_STUNIMMUNE, VANGUARD_TRAIT)

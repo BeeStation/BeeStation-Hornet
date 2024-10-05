@@ -235,6 +235,7 @@
 	button_icon_state = "Spatial Gateway"
 
 /datum/action/cooldown/spell/eminence/mass_recall/cast(mob/living/cast_on)
+	. = ..()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/C = GLOB.celestial_gateway
 	if(!C)
 		return
@@ -242,38 +243,40 @@
 	Remove(cast_on)
 
 //=====Linked Abscond=====
-/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond
+/datum/action/cooldown/spell/eminence/linked_abscond
 	name = "Linked Abscond"
 	desc = "Warps a target to Reebe if they are still for 7 seconds. Costs 1 cog."
-	action_icon_state = "Linked Abscond"
-	charge_max = 1800
+	button_icon_state = "Linked Abscond"
+	cooldown_time = 600 SECONDS
 	cog_cost = 1
 
-/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/can_cast(mob/user)
+/datum/action/cooldown/spell/eminence/linked_abscond/can_cast_spell(feedback)
+	. = ..()
 	if(!..())
 		return FALSE
-	var/mob/living/simple_animal/eminence/E = user
+	var/mob/living/simple_animal/eminence/E = owner
 	if(!istype(E))
 		return FALSE
 	if(E.selected_mob && is_servant_of_ratvar(E.selected_mob))
 		return TRUE
 	return FALSE
 
-/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/cast(list/targets, mob/living/user)
+/datum/action/cooldown/spell/eminence/linked_abscond/cast(list/targets, mob/living/user)
+	. = ..()
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
 		to_chat(E, "<span class='brass'>You are not the Eminence! (This is a bug)</span>")
-		revert_cast(user)
+		reset_spell_cooldown()
 		return FALSE
 	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
 		E.selected_mob = null
 		to_chat(user, "<span class='neovgre'>You need to select a valid target by clicking on them.</span>")
-		revert_cast(user)
+		reset_spell_cooldown()
 		return FALSE
 	var/mob/living/L = E.selected_mob
 	if(!istype(L))
 		to_chat(E, "<span class='brass'>You cannot do that on this mob!</span>")
-		revert_cast(user)
+		reset_spell_cooldown()
 		return FALSE
 	to_chat(E, "<span class='brass'>You begin recalling [L]...</span>")
 	to_chat(L, "<span class='brass'>The Eminence is summoning you...</span>")
@@ -286,18 +289,19 @@
 		return TRUE
 	else
 		to_chat(E, "<span class='brass'>You fail to recall [L].</span>")
-		revert_cast(user)
+		reset_spell_cooldown()
 		return FALSE
 
 //Trigger event
-/obj/effect/proc_holder/spell/targeted/eminence/trigger_event
+/datum/action/cooldown/spell/eminence/trigger_event
 	name = "Manipulate Reality"
 	desc = "Manipulate reality causing global events to occur. Costs 5 cogs"
-	action_icon_state = "Geis"
-	charge_max = 3000
+	button_icon_state = "Geis"
+	cooldown_time = 600 SECONDS
 	cog_cost = 5
 
-/obj/effect/proc_holder/spell/targeted/eminence/trigger_event/cast(list/targets, mob/user)
+/datum/action/cooldown/spell/eminence/trigger_event/cast(list/targets, mob/user)
+	. = ..()
 	var/picked_event = input(user, "Pick an event to run", "Manipulate Reality", null) in list(
 		"Anomaly",
 		"Brand Intelligence",
@@ -311,7 +315,7 @@
 		"Processor Overload"
 	)
 	if(!picked_event)
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 	if(picked_event == "Anomaly")
 		picked_event = pick("Anomaly: Energetic Flux", "Anomaly: Pyroclastic", "Anomaly: Gravitational", "Anomaly: Bluespace")
@@ -323,7 +327,7 @@
 			INVOKE_ASYNC(eminence, TYPE_PROC_REF(/mob/living/simple_animal/eminence, run_global_event), E)
 			consume_cogs(user)
 			return
-	revert_cast(user)
+	reset_spell_cooldown()
 
 //Internal Radio
 /obj/item/radio/borg/eminence
