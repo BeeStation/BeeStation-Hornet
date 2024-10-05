@@ -826,7 +826,7 @@
 /obj/item/nullrod/rainbow_knife
 	name = "rainbow knife"
 	desc = "A strange, transparent knife which constantly shifts color. This one glitters with a holy aura."
-	icon = 'icons/obj/slimecrossing.dmi'
+	icon = 'icons/obj/knives.dmi'
 	icon_state = "rainbowknife"
 	item_state = "rainbowknife"
 	force = 15

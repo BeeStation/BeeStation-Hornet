@@ -99,7 +99,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
