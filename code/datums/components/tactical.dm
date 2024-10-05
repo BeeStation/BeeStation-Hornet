@@ -1,4 +1,4 @@
-///A simple component that replacess the user's appearance with that of the parent item when equipped.
+///A simple component that replaces the user's appearance with that of the parent item when equipped.
 /datum/component/tactical
 	///The allowed slots for the effect.
 	var/allowed_slots
