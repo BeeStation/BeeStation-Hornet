@@ -35802,6 +35802,14 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"kQw" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12;
+	pixel_y = 3
+	},
+/turf/open/floor/iron/checker,
+/area/crew_quarters/kitchen)
 "kQF" = (
 /obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -108235,7 +108243,7 @@ lzP
 aEY
 dZF
 sZa
-psd
+kQw
 eSw
 vqg
 rzF
