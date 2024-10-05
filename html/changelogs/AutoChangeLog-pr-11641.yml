@@ -1,0 +1,9 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - bugfix: Fixes security locker in medbay outpost being the science one
+  - bugfix: Fixes missplaced chem storage fridge on medbay protolathe room and replaces
+      it for a preloaded one.
+  - rscadd: Adds the missing preloaded chem storage fridge for the public in chemistry
+  - bugfix: Fixes service maintenance door problems
+  - bugfix: Fixes the detective not having access to the morgue
