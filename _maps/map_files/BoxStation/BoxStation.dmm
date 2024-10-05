@@ -12438,6 +12438,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/chem_heater,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "coU" = (
@@ -30289,7 +30290,6 @@
 /area/vacant_room/office)
 "iNK" = (
 /obj/machinery/chem_master,
-/obj/machinery/light,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "iNO" = (
@@ -38861,6 +38861,12 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
+"mhA" = (
+/obj/machinery/chem_dispenser,
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron/white,
+/area/medical/apothecary)
 "mia" = (
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/engine/light,
@@ -106450,7 +106456,7 @@ tHI
 umv
 cfC
 pti
-eMk
+mhA
 bok
 vdG
 iGU
