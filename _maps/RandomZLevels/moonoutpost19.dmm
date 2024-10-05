@@ -1034,7 +1034,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/awaymission/moonoutpost19/arrivals)
 "le" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -4393,7 +4393,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "Oa" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/generic,
 /obj/structure/window,
 /turf/open/floor/plating,
@@ -5481,7 +5481,7 @@
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
 "WX" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4

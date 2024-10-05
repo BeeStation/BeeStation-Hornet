@@ -3493,7 +3493,7 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "bek" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bel" = (
@@ -5373,7 +5373,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "bJv" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
 "bJz" = (
@@ -13493,7 +13493,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -25494,7 +25494,7 @@
 /turf/closed/wall/mineral/wood,
 /area/hallway/primary/central)
 "hYo" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "hYv" = (
@@ -29492,7 +29492,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/security)
 "jsp" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "jst" = (
@@ -36206,7 +36206,7 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "lBr" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -36858,7 +36858,7 @@
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "lOv" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "lOx" = (
@@ -48539,7 +48539,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "pqP" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -51463,7 +51463,7 @@
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "qoc" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/yellow/anticorner,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
@@ -51972,7 +51972,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 5
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -53720,7 +53720,7 @@
 "qZJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
 "qZM" = (
@@ -59669,7 +59669,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "sXu" = (
@@ -61033,7 +61033,7 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "trw" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "trS" = (
@@ -72978,7 +72978,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "xpx" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "xpz" = (
