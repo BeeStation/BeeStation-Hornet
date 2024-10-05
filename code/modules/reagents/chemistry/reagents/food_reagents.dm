@@ -341,7 +341,6 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
-
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
 		return
@@ -371,8 +370,6 @@
 	if(iscatperson(M))
 		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
 		M.vomit(20)
-
-
 
 /datum/reagent/consumable/cocoa/hot_cocoa
 	name = "Hot Chocolate"
@@ -689,28 +686,37 @@
 	taste_description = "processed goodness"
 	nutriment_factor = 0
 	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
+	overdose_threshold = 5
 
 /datum/reagent/consumable/maltodextrin/on_mob_life(mob/living/carbon/M)
 	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
 	..()
 
-/datum/reagent/consumable/maltodextrin/microplastics
-name = "Microplastics"
-description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"
-Color = "#dbd6cb"
-taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
-taste_description = "Plastic"
-nutriment_factor = 0.1 // it's plastic after all, it taste really good and it's real special!
-metabolization_rate = 0.01 * REAGENTS_METABOLISM //Each unit will last 100 ticks
-overdose_threshold = 50
-
-/datum/reagent/consumable/maltodextrin/microplastics/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(1.5*REM, 0) //the more plastic in your body, the more it will amplify tox damage!
-	..()
-
-/datum/reagent/consumable/maltodextrin/microplastics/overdose_start(mob/living/M)
+/datum/reagent/consumable/maltodextrin/overdose_start(mob/living/M)
 	to_chat(M, "<span class='notice'>Something in your guts feels off...</span>")
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/guts_sickness, name)
+
+/datum/reagent/consumable/maltodextrin/microplastics
+	name = "Microplastics"
+	description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"
+	color = "#dbd6cb"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // The funny
+	taste_description = "Plastic"
+	nutriment_factor = 0.1 // it's plastic after all, it taste really good and it's real special!
+	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin5
+	overdose_threshold = 2.5 //really low OD treshold, but it's a half glass shot of microplastics, what do you expect it's gonna happen?
+
+/datum/reagent/consumable/maltodextrin/microplastics/on_mob_metabolize(mob/living/carbon/human/H)
+	. = ..()
+	if(!istype(H))
+		return
+	H.physiology.tox_mod *= 2
+
+/datum/reagent/consumable/maltodextrin/microplastics/on_mob_end_metabolize(mob/living/carbon/human/H)
+	. = ..()
+	if(!istype(H))
+		return
+	H.physiology.tox_mod *= 0.5
 
 ////Lavaland Flora Reagents////
 
@@ -869,3 +875,16 @@ overdose_threshold = 50
 	if(prob(10))
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
+
+/datum/reagent/consumable/nutriment/cloth
+	name = "Cloth"
+	description = "The finest fabric in the universe..."
+	reagent_state = SOLID
+	color = "#c2bbb7"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	taste_description = "a roll of gauze"
+	metabolization_rate = 4 * REAGENTS_METABOLISM //speedy metabolization (per tick)
+
+/datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/M)
+	holder.add_reagent(/datum/reagent/consumable/nutriment, 0.7)
+	holder.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 0.3)
