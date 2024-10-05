@@ -157,13 +157,19 @@
 	proj_pass_rate = 65
 	pickup_delay = 8 SECONDS
 
+/obj/structure/barricade/wooden/make_debris()
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
+
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
 	max_integrity = 75
 
-/obj/structure/barricade/wooden/make_debris()
-	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
+/obj/structure/barricade/wooden/snowed
+	name = "crude plank barricade"
+	desc = "This space is blocked off by a wooden barricade. It seems to be covered in a layer of snow."
+	icon_state = "woodenbarricade-snow"
+	max_integrity = 125
 
 /obj/structure/barricade/sandbags
 	name = "sandbag barricade"

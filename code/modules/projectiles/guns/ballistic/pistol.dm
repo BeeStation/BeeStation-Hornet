@@ -77,6 +77,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
+	rack_sound = "sound/weapons/deaglerack.ogg"
+	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
+	lock_back_sound = "sound/weapons/deaglelock.ogg"
+	fire_sound = "sound/weapons/deagleshot.ogg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."

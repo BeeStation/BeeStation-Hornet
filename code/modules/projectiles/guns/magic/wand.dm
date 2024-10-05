@@ -111,6 +111,11 @@
 	can_charge = TRUE
 	recharge_rate = 1
 
+/obj/item/gun/magic/wand/resurrection/inert
+	name = "weakened wand of healing"
+	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
+	max_charges = 5
+
 /////////////////////////////////////
 //WAND OF POLYMORPH
 /////////////////////////////////////
@@ -211,3 +216,9 @@
 	..()
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, magic = TRUE)
 	charges--
+
+/obj/item/gun/magic/wand/fireball/inert
+	name = "weakened wand of fireball"
+	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
+	max_charges = 4
+
