@@ -151,7 +151,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 25,
 		/datum/reagent/consumable/tomatojuice = 6,
-		/datum/reagent/medicine/oculine = 12,
 		/datum/reagent/consumable/nutriment/vitamin = 5
 	)
 	tastes = list("crust" = 1, "tomato" = 2, "cheese" = 1, "carrot" = 1)
