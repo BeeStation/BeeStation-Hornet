@@ -40,6 +40,8 @@ AI MODULES
 		to_chat(user, "<B>Programmed Law[(laws.len > 1) ? "s" : ""]:</B>")
 		for(var/law in laws)
 			to_chat(user, "\"[law]\"")
+		if(key_override)
+			 to_chat("\nInput upload code 666 to override the upload restriction. This is a single use override.")
 
 //The proc other things should be calling
 /obj/item/aiModule/proc/install(datum/ai_laws/law_datum, mob/user)
@@ -494,7 +496,7 @@ AI MODULES
 
 /obj/item/aiModule/syndicate // This one doesn't inherit from ion boards because it doesn't call ..() in transmitInstructions. ~Miauw
 	name = "Hacked AI Module"
-	desc = "An AI Module for hacking additional laws to an AI. \nInput upload code 666 to override upload restriction."
+	desc = "An AI Module for hacking additional laws to an AI."
 	laws = list("")
 	key_override = TRUE
 
@@ -607,7 +609,7 @@ AI MODULES
 
 /obj/item/aiModule/core/full/damaged
 	name = "damaged Core AI Module"
-	desc = "An AI Module for programming laws to an AI. It looks slightly damaged. \nInput upload code 666 to override upload restriction."
+	desc = "An AI Module for programming laws to an AI. It looks slightly damaged."
 	key_override = TRUE
 
 /obj/item/aiModule/core/full/damaged/install(datum/ai_laws/law_datum, mob/user)
@@ -633,7 +635,7 @@ AI MODULES
 /******************** ERT Override ******************/
 /obj/item/aiModule/core/full/ert // Applies ERT laws
 	name = "ERT override AI module"
-	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.' \nInput upload code 666 to override upload restriction."
+	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ert"
 	key_override = TRUE
 	law_override = TRUE
@@ -641,7 +643,7 @@ AI MODULES
 /******************** Deathsquad Override ******************/
 /obj/item/aiModule/core/full/deathsquad // Applies Deathsquad laws
 	name = "Deathsquad override AI module"
-	desc = "A Deathsquad override AI module: 'Reconfigures the AI's core laws.' \nInput upload code 666 to override upload restriction."
+	desc = "A Deathsquad override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ds"
 	key_override = TRUE
 	law_override = TRUE
@@ -649,7 +651,7 @@ AI MODULES
 /******************** Clownsquad Override ******************/
 /obj/item/aiModule/core/full/clownsquad // Applies clown squad laws
 	name = "Clownsquad override AI module"
-	desc = "A Clownsquad override AI module: 'Reconfigures the AI's core laws.' \nInput upload code 666 to override upload restriction."
+	desc = "A Clownsquad override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "cs"
 	key_override = TRUE
 	law_override = TRUE
