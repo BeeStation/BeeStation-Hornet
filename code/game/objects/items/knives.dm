@@ -1,7 +1,7 @@
 // Knife Template, should not appear in game normally //
 /obj/item/knife
 	name = "knife"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
@@ -77,11 +77,13 @@
 	desc = "Despite its name, it's mainly used for cutting meat from dead prey rather than actual hunting."
 	item_state = "huntingknife"
 	icon_state = "huntingknife"
+	icon = 'icons/obj/knives.dmi'
 	force = 12
 
 /obj/item/knife/poison
 	name = "venom knife"
 	icon_state = "poisonknife"
+	icon = 'icons/obj/knives.dmi'
 	force = 12
 	throwforce = 15
 	throw_speed = 5
@@ -113,6 +115,7 @@
 /obj/item/knife/combat
 	name = "combat knife"
 	icon_state = "buckknife"
+	icon = 'icons/obj/knives.dmi'
 	desc = "A military combat utility survival knife."
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
 	force = 20
@@ -123,6 +126,7 @@
 
 /obj/item/knife/combat/survival
 	name = "survival knife"
+	icon = 'icons/obj/knives.dmi'
 	icon_state = "survivalknife"
 	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10, "armour_block" = 40)
 	desc = "A hunting grade survival knife."
@@ -134,6 +138,7 @@
 	name = "bone dagger"
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
+	icon = 'icons/obj/knives.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
@@ -148,7 +153,28 @@
 	icon_state = "knife_cyborg"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 
-/obj/item/knife/carrotshiv
+/obj/item/knife/shiv
+	name = "glass shiv"
+	desc = "A crude knife fashioned by wrapping some cable around a glass shard. It looks like it could be thrown with some force.. and stick. Good to throw at someone chasing you"
+	icon = 'icons/obj/knives.dmi'
+	icon_state = "shank"
+	item_state = "shank"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	force = 8 // 3 more than base glass shard
+	throwforce = 8
+	throw_speed = 5 //yeets
+	armour_penetration = 10 //spear has 10 armour pen, I think its fitting another glass tipped item should have it too
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
+	attack_verb_continuous = list("sticks", "shanks")
+	attack_verb_simple = list("stuck", "shank")
+	custom_materials = list(/datum/material/glass=400)
+
+/obj/item/knife/shiv/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	return BRUTELOSS
+
+/obj/item/knife/shiv/carrot
 	name = "carrot shiv"
 	icon_state = "carrotshiv"
 	item_state = "carrotshiv"
@@ -161,24 +187,3 @@
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
-
-// Shank - Makeshift weapon that can embed on throw
-/obj/item/knife/shank
-	name = "Shank"
-	desc = "A crude knife fashioned by wrapping some cable around a glass shard. It looks like it could be thrown with some force.. and stick. Good to throw at someone chasing you"
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "shank"
-	item_state = "shank"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 8 // 3 more than base glass shard
-	throwforce = 8
-	throw_speed = 5 //yeets
-	armour_penetration = 10 //spear has 10 armour pen, I think its fitting another glass tipped item should have it too
-	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
-	attack_verb_continuous = list("sticks", "shanks")
-	attack_verb_simple = list("stuck", "shank")
-
-/obj/item/knife/shank/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return BRUTELOSS

@@ -2,52 +2,12 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/abandonedzoo)
 "ac" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/abandonedzoo)
-"ad" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/abandonedzoo)
-"ae" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/abandonedzoo)
-"af" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
 "ag" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -167,16 +127,6 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
-"aE" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/abandonedzoo)
 "aG" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/floragun,
@@ -189,16 +139,6 @@
 	pixel_y = 1
 	},
 /turf/open/floor/iron/dark/side,
-/area/ruin/space/has_grav/abandonedzoo)
-"aJ" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)
 "aK" = (
 /obj/structure/window/reinforced{
@@ -390,16 +330,6 @@
 /obj/item/food/carrotfries,
 /turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
-"bo" = (
-/obj/machinery/power/shieldwallgen/anchored,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/abandonedzoo)
 "bp" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -410,26 +340,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/microwave,
 /turf/open/floor/iron/dark/side,
-/area/ruin/space/has_grav/abandonedzoo)
-"bs" = (
-/obj/machinery/power/shieldwallgen,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/abandonedzoo)
-"bt" = (
-/obj/machinery/power/shieldwallgen,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
 "bu" = (
 /obj/structure/flora/ausbushes/sunnybush,
@@ -454,16 +364,6 @@
 	dir = 6
 	},
 /turf/closed/wall/r_wall,
-/area/ruin/space/has_grav/abandonedzoo)
-"bz" = (
-/obj/machinery/space_heater,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
 "bA" = (
 /obj/structure/table/reinforced,
@@ -534,16 +434,6 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"bS" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/power/shieldwallgen,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/abandonedzoo)
 "bT" = (
 /obj/structure/grille,
 /obj/item/shard{
@@ -555,16 +445,22 @@
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
-"bV" = (
-/obj/machinery/power/shieldwallgen,
-/turf/template_noop,
-/area/template_noop)
 "bW" = (
 /obj/item/shard,
 /turf/template_noop,
 /area/template_noop)
 "bX" = (
 /turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/abandonedzoo)
+"cQ" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)
 "dC" = (
 /obj/machinery/light/small{
@@ -573,12 +469,42 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/abandonedzoo)
+"dE" = (
+/obj/machinery/power/shieldwallgen,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/abandonedzoo)
+"dT" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/abandonedzoo)
 "em" = (
 /obj/structure/chair/office/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/abandonedzoo)
+"eG" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
 "eY" = (
 /obj/structure/cable/yellow{
@@ -589,15 +515,25 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
-"jz" = (
-/obj/machinery/power/shieldwallgen/anchored,
+"fd" = (
+/obj/machinery/power/shieldwallgen,
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "0-8"
 	},
 /turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/abandonedzoo)
+"fo" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)
 "kj" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -606,13 +542,23 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)
-"nQ" = (
+"ny" = (
 /obj/machinery/power/shieldwallgen/anchored,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/abandonedzoo)
+"nP" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
@@ -631,6 +577,16 @@
 	},
 /obj/item/wirecutters,
 /turf/open/floor/plating,
+/area/ruin/space/has_grav/abandonedzoo)
+"rZ" = (
+/obj/machinery/portable_thermomachine,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
 "sC" = (
 /obj/structure/cable/yellow{
@@ -659,6 +615,16 @@
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/abandonedzoo)
+"xs" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
 "zd" = (
 /obj/machinery/door/airlock/hatch{
@@ -690,6 +656,16 @@
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/abandonedzoo)
+"EA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/power/shieldwallgen,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
 "FJ" = (
 /obj/structure/cable/yellow{
@@ -724,13 +700,13 @@
 "KN" = (
 /turf/template_noop,
 /area/space/nearstation)
-"Ld" = (
+"NV" = (
 /obj/machinery/power/shieldwallgen/anchored,
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "0-4"
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
@@ -739,6 +715,20 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/abandonedzoo)
+"QY" = (
+/obj/machinery/power/shieldwallgen,
+/turf/template_noop,
+/area/template_noop)
+"Rn" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)
 "VW" = (
 /obj/machinery/door/airlock/highsecurity{
@@ -760,6 +750,16 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/abandonedzoo)
+"Xh" = (
+/obj/machinery/power/shieldwallgen/anchored,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/abandonedzoo)
 "XP" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -769,24 +769,24 @@
 /area/ruin/space/has_grav/abandonedzoo)
 
 (1,1,1) = {"
-ab
+dT
 kj
 kj
 kj
 kj
-jz
+nP
 aa
 aa
 aa
 aa
 aa
 aa
-ae
+NV
 kj
 kj
 kj
 kj
-nQ
+ny
 aa
 "}
 (2,1,1) = {"
@@ -874,24 +874,24 @@ ac
 aa
 "}
 (6,1,1) = {"
-ad
+eG
 kj
 kj
 kj
 kj
-aE
+Rn
 at
 aT
 ov
 uc
 bf
 at
-bo
+fo
 kj
 kj
 kj
 kj
-Ld
+xs
 aa
 "}
 (7,1,1) = {"
@@ -929,7 +929,7 @@ FJ
 bh
 bm
 bp
-bz
+rZ
 at
 at
 at
@@ -1021,24 +1021,24 @@ aa
 aa
 "}
 (13,1,1) = {"
-ae
+NV
 kj
 kj
 kj
 kj
-aJ
+cQ
 at
 aY
 ov
 FJ
 bk
 at
-bs
+dE
 kj
 kj
 kj
 kj
-bS
+EA
 aa
 "}
 (14,1,1) = {"
@@ -1126,19 +1126,19 @@ bP
 aa
 "}
 (18,1,1) = {"
-af
+Xh
 kj
 kj
 kj
 kj
-Ld
+xs
 aa
 aa
 aa
 aa
 aa
 aa
-bt
+fd
 kj
 kj
 bN
@@ -1164,6 +1164,6 @@ aa
 aa
 aa
 aa
-bV
+QY
 aa
 "}

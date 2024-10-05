@@ -106,11 +106,11 @@
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/space_heater
-	name = "Machine Design (Space Heater Board)"
-	desc = "The circuit board for a space heater."
-	id = "space_heater"
-	build_path = /obj/item/circuitboard/machine/space_heater
+/datum/design/board/portable_thermomachine
+	name = "Machine Design (Portable Thermomachine Board)"
+	desc = "The circuit board for a portable thermomachine."
+	id = "portable_thermomachine"
+	build_path = /obj/item/circuitboard/machine/portable_thermomachine
 	category = list ("Engineering Machinery")
 	departmental_flags = ALL
 
@@ -568,6 +568,14 @@
 	desc = "The circuit board for a Griddle."
 	id = "griddle"
 	build_path = /obj/item/circuitboard/machine/griddle
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/board/oven
+	name = "Machine Design (Oven)"
+	desc = "The circuit board for a Oven."
+	id = "oven"
+	build_path = /obj/item/circuitboard/machine/oven
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 

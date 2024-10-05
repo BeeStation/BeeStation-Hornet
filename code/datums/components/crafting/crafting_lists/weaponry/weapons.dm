@@ -372,7 +372,7 @@
 // Shank - Makeshift weapon that can embed on throw
 /datum/crafting_recipe/shank
 	name = "Shank"
-	result = /obj/item/knife/shank
+	result = /obj/item/knife/shiv
 	time = 2 SECONDS
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(
