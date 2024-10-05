@@ -274,14 +274,16 @@
 	icon_state = "vinegar"
 	list_reagents = list(/datum/reagent/consumable/vinegar = 50)
 	fill_icon_thresholds = null
+*/
 
-/obj/item/reagent_containers/condiment/vegetable_oil
+/obj/item/reagent_containers/food/condiment/cooking_oil
 	name = "cooking oil"
 	desc = "For all your deep-frying needs."
 	icon_state = "cooking_oil"
-	list_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = 50)
+	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
 	fill_icon_thresholds = null
 
+/*
 /obj/item/reagent_containers/condiment/olive_oil
 	name = "quality oil"
 	desc = "For the fancy chef inside everyone."
@@ -357,7 +359,7 @@
 		/datum/reagent/consumable/capsaicin = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
 		/datum/reagent/consumable/soysauce = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
 		/datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in its passage"),
-		/datum/reagent/consumable/salt = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
+		/datum/reagent/consumable/sodiumchloride = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
 		/datum/reagent/consumable/blackpepper = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
 		/datum/reagent/consumable/cornoil = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
 		/datum/reagent/consumable/sugar = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
