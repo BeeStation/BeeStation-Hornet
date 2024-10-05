@@ -9,7 +9,7 @@
 	name = "condiment bottle"
 	desc = "Just your average condiment bottle."
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "emptycondiment"
+	icon_state = "bottle"
 	item_state = "beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
@@ -235,6 +235,24 @@
 	list_reagents = list(/datum/reagent/consumable/rice = 50)
 	fill_icon_thresholds = null
 
+/*
+/obj/item/reagent_containers/condiment/cornmeal
+	name = "cornmeal box"
+	desc = "A big box of cornmeal. Great for southern style cooking."
+	icon_state = "cornmeal"
+	inhand_icon_state = "carton"
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
+	list_reagents = list(/datum/reagent/consumable/cornmeal = 30)
+	fill_icon_thresholds = null
+*/
+
+/obj/item/reagent_containers/food/condiment/bbqsauce
+	name = "bbq sauce"
+	desc = "Hand wipes not included."
+	icon_state = "bbqsauce"
+	list_reagents = list(/datum/reagent/consumable/bbqsauce = 50)
+
 /obj/item/reagent_containers/food/condiment/soysauce
 	name = "soy sauce"
 	desc = "A salty soy-based flavoring."
@@ -249,6 +267,77 @@
 	list_reagents = list(/datum/reagent/consumable/mayonnaise = 50)
 	fill_icon_thresholds = null
 
+/*
+/obj/item/reagent_containers/condiment/vinegar
+	name = "vinegar"
+	desc = "Perfect for chips, if you're feeling Space British."
+	icon_state = "vinegar"
+	list_reagents = list(/datum/reagent/consumable/vinegar = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/vegetable_oil
+	name = "cooking oil"
+	desc = "For all your deep-frying needs."
+	icon_state = "cooking_oil"
+	list_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/olive_oil
+	name = "quality oil"
+	desc = "For the fancy chef inside everyone."
+	icon_state = "oliveoil"
+	list_reagents = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/yoghurt
+	name = "yoghurt carton"
+	desc = "Creamy and smooth."
+	icon_state = "yoghurt"
+	list_reagents = list(/datum/reagent/consumable/yoghurt = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/peanut_butter
+	name = "peanut butter"
+	desc = "Tasty, fattening processed peanuts in a jar."
+	icon_state = "peanutbutter"
+	list_reagents = list(/datum/reagent/consumable/peanut_butter = 50)
+	fill_icon_thresholds = null
+*/
+
+/obj/item/reagent_containers/food/condiment/cherryjelly
+	name = "cherry jelly"
+	desc = "A jar of super-sweet cherry jelly."
+	icon_state = "cherryjelly"
+	list_reagents = list(/datum/reagent/consumable/cherryjelly = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/food/condiment/honey
+	name = "honey"
+	desc = "A jar of sweet and viscous honey."
+	icon_state = "honey"
+	list_reagents = list(/datum/reagent/consumable/honey = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/food/condiment/ketchup
+	name = "ketchup"
+	// At time of writing, "ketchup" mechanically, is just ground tomatoes,
+	// rather than // tomatoes plus vinegar plus sugar.
+	desc = "A tomato slurry in a tall plastic bottle. Somehow still vaguely American."
+	icon_state = "ketchup"
+	list_reagents = list(/datum/reagent/consumable/ketchup = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/food/condiment/hotsauce
+	name = "hotsauce bottle"
+	desc= "You can almost TASTE the stomach ulcers!"
+	icon_state = "hotsauce"
+	list_reagents = list(/datum/reagent/consumable/capsaicin = 50)
+
+/obj/item/reagent_containers/food/condiment/coldsauce
+	name = "coldsauce bottle"
+	desc= "Leaves the tongue numb from its passage."
+	icon_state = "coldsauce"
+	list_reagents = list(/datum/reagent/consumable/frostoil = 50)
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
@@ -267,14 +356,17 @@
 		/datum/reagent/consumable/ketchup = list("condi_ketchup", "Ketchup", "You feel more American already."),
 		/datum/reagent/consumable/capsaicin = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
 		/datum/reagent/consumable/soysauce = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
-		/datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
-		/datum/reagent/consumable/sodiumchloride = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
+		/datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in its passage"),
+		/datum/reagent/consumable/salt = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
 		/datum/reagent/consumable/blackpepper = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
 		/datum/reagent/consumable/cornoil = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
 		/datum/reagent/consumable/sugar = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
 		/datum/reagent/consumable/astrotame = list("condi_astrotame", "Astrotame", "The sweetness of a thousand sugars but none of the calories."),
 		/datum/reagent/consumable/bbqsauce = list("condi_bbq", "BBQ sauce", "Hand wipes not included."),
-		)
+		//datum/reagent/consumable/peanut_butter = list("condi_peanutbutter", "Peanut Butter", "A creamy paste made from ground peanuts."),
+		/datum/reagent/consumable/cherryjelly = list("condi_cherryjelly", "Cherry Jelly", "A jar of super-sweet cherry jelly."),
+		/datum/reagent/consumable/mayonnaise = list("condi_mayo", "Mayonnaise", "Not an instrument."),
+	)
 	/// Can't use initial(name) for this. This stores the name set by condimasters.
 	var/originalname = "condiment"
 
