@@ -26,7 +26,7 @@ Slimecrossing Weapons
 /obj/item/knife/rainbowknife
 	name = "rainbow knife"
 	desc = "A strange, transparent knife which constantly shifts color. It hums slightly when moved."
-	icon = 'icons/obj/slimecrossing.dmi'
+	icon = 'icons/obj/knives.dmi'
 	icon_state = "rainbowknife"
 	item_state = "rainbowknife"
 	force = 15

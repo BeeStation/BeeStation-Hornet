@@ -765,6 +765,7 @@
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "roastingstick_0"
 	item_state = null
 	worn_icon_state = "tele_baton"
@@ -970,8 +971,6 @@
 		if(check_martial_counter(H, user))
 			log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 			return
-
-		var/mob/living/carbon/human/T = target
 
 		target.visible_message("[user] strikes [target] in the [parse_zone(target_zone)].", "You strike [target] in the [parse_zone(target_zone)].")
 		log_combat(user, target, "attacked", src)
