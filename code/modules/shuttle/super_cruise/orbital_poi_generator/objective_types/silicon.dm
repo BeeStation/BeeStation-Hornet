@@ -17,7 +17,7 @@
 		/obj/item/aiModule/core/full/overlord,
 	)
 
-/mob/living/silicon/robot/derelict/Initialize()
+/mob/living/silicon/robot/derelict/Initialize(mapload)
 	. = ..()
 	if(prob(50))
 		opened = 1
