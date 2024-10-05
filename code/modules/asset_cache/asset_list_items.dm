@@ -60,9 +60,9 @@
 
 /datum/asset/simple/radar_assets
 	assets = list(
-		"ntosradarbackground.png"	= 'icons/UI_Icons/tgui/ntosradar_background.png',
-		"ntosradarpointer.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer.png',
-		"ntosradarpointerS.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer_S.png'
+		"ntosradarbackground.png"	= 'icons/ui_icons/tgui/ntosradar_background.png',
+		"ntosradarpointer.png"		= 'icons/ui_icons/tgui/ntosradar_pointer.png',
+		"ntosradarpointerS.png"		= 'icons/ui_icons/tgui/ntosradar_pointer_S.png'
 	)
 
 /datum/asset/spritesheet/simple/pda
@@ -226,18 +226,39 @@
 
 /datum/asset/simple/arcade
 	assets = list(
-		"boss1.gif" = 'icons/UI_Icons/Arcade/boss1.gif',
-		"boss2.gif" = 'icons/UI_Icons/Arcade/boss2.gif',
-		"boss3.gif" = 'icons/UI_Icons/Arcade/boss3.gif',
-		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
-		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
-		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
+		"boss1.gif" = 'icons/ui_icons/Arcade/boss1.gif',
+		"boss2.gif" = 'icons/ui_icons/Arcade/boss2.gif',
+		"boss3.gif" = 'icons/ui_icons/Arcade/boss3.gif',
+		"boss4.gif" = 'icons/ui_icons/Arcade/boss4.gif',
+		"boss5.gif" = 'icons/ui_icons/Arcade/boss5.gif',
+		"boss6.gif" = 'icons/ui_icons/Arcade/boss6.gif',
 		)
 
 /datum/asset/spritesheet/simple/achievements
 	name ="achievements"
 	assets = list(
-		"default" = 'icons/UI_Icons/Achievements/default.png'
+		"default" = 'icons/ui_icons/Achievements/default.png'
+	)
+
+/datum/asset/spritesheet/simple/condiments
+	name = "condiments"
+	assets = list(
+		CONDIMASTER_STYLE_FALLBACK = 'icons/ui_icons/condiments/emptycondiment.png',
+		"enzyme" = 'icons/ui_icons/condiments/enzyme.png',
+		"flour" = 'icons/ui_icons/condiments/flour.png',
+		"mayonnaise" = 'icons/ui_icons/condiments/mayonnaise.png',
+		"milk" = 'icons/ui_icons/condiments/milk.png',
+		"blackpepper" = 'icons/ui_icons/condiments/peppermillsmall.png',
+		"rice" = 'icons/ui_icons/condiments/rice.png',
+		"sodiumchloride" = 'icons/ui_icons/condiments/saltshakersmall.png',
+		"soymilk" = 'icons/ui_icons/condiments/soymilk.png',
+		"soysauce" = 'icons/ui_icons/condiments/soysauce.png',
+		"sugar" = 'icons/ui_icons/condiments/sugar.png',
+		"ketchup" = 'icons/ui_icons/condiments/ketchup.png',
+		"capsaicin" = 'icons/ui_icons/condiments/hotsauce.png',
+		"frostoil" = 'icons/ui_icons/condiments/coldsauce.png',
+		"bbqsauce" = 'icons/ui_icons/condiments/bbqsauce.png',
+		"cornoil" = 'icons/ui_icons/condiments/oliveoil.png',
 	)
 
 /datum/asset/spritesheet_batched/medicine_containers
