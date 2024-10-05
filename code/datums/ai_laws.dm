@@ -463,6 +463,7 @@
 	for(var/law in printable_laws)
 		to_chat(who,law)
 
+
 /datum/ai_laws/proc/clear_zeroth_law(force) //only removes zeroth from antag ai if force is 1
 	if(force)
 		zeroth = null

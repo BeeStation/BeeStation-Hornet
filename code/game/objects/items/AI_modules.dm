@@ -41,7 +41,7 @@ AI MODULES
 		for(var/law in laws)
 			to_chat(user, "\"[law]\"")
 		if(key_override)
-			 to_chat("\nInput upload code 666 to override the upload restriction. This is a single use override.")
+			to_chat("\nInput upload code 666 to override the upload restriction. This is a single use override.")
 
 //The proc other things should be calling
 /obj/item/aiModule/proc/install(datum/ai_laws/law_datum, mob/user)
