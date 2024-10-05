@@ -693,8 +693,11 @@
 	..()
 
 /datum/reagent/consumable/maltodextrin/overdose_start(mob/living/M)
-	to_chat(M, "<span class='notice'>Something in your guts feels off...</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/guts_sickness, name)
+	if(!HAS_TRAIT(M, TRAIT_VORACIOUS))
+		to_chat(M, "<span class='notice'>Something in your guts feels off...</span>")
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/guts_sickness, name)
+	else
+		to_chat(M, "<span class='notice'>Maybe I should have more junk foods today...</span>")
 
 /datum/reagent/consumable/maltodextrin/microplastics
 	name = "Microplastics"
