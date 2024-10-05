@@ -20,7 +20,7 @@
 
 /obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/aiModule))
-		var/obj/item/aiModule/M = O
+		var/obj/item/aiModule/upload_module = O
 		if(machine_stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)
@@ -30,7 +30,7 @@
 		if(!GLOB.upload_code)
 			GLOB.upload_code = random_code(4)
 		var/use_key_override = FALSE
-		if(input == "666" && M.key_override)
+		if(input == "666" && upload_module.key_override)
 			use_key_override = TRUE
 			input = GLOB.upload_code
 		if(input != GLOB.upload_code)
@@ -46,9 +46,9 @@
 			to_chat(user, "<span class='warning'>Upload failed! Unable to establish a connection to [current.name]. You're too far away!</span>")
 			current = null
 			return
-		M.install(current.laws, user)
+		upload_module.install(current.laws, user)
 		if(use_key_override)
-			M.key_override = FALSE
+			upload_module.key_override = FALSE
 		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") != "Yes")
 			return
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")
