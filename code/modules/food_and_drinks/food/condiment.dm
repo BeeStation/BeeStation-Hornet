@@ -285,7 +285,6 @@
 	return
 
 /obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user , proximity)
-	. = ..()
 	if(!proximity)
 		return
 
@@ -303,6 +302,8 @@
 			to_chat(user, "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>")
 			src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 			qdel(src)
+			return
+	. = ..()
 
 /obj/item/reagent_containers/food/condiment/pack/on_reagent_change(changetype)
 	if(reagents.reagent_list.len > 0)
