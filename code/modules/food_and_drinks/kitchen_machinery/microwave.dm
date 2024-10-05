@@ -3,7 +3,7 @@
 /obj/machinery/microwave
 	name = "microwave oven"
 	desc = "Cooks and boils stuff."
-	icon = 'icons/obj/machines/kitchenmachines.dmi'
+	icon = 'icons/obj/machines/microwave.dmi'
 	icon_state = "map_icon"
 	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
 	layer = BELOW_OBJ_LAYER
