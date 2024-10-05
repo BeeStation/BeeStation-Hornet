@@ -4,7 +4,9 @@
 //#define DATUMVAR_DEBUGGING_MODE	//Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
 
 //global pragmas go here
+#ifndef OPENDREAM //Opendream does not support these pragmas
 #pragma error unused_var
+#endif
 
 // Comment this out if you are debugging problems that might be obscured by custom error handling in world/Error
 #ifdef DEBUG
