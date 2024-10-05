@@ -347,8 +347,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(player_details.voted_to_leave)
 		player_details.voted_to_leave = FALSE
 		SSautotransfer.connected_votes_to_leave--
-		to_chat(src, "You are no longer voting for the current round to end.")
+		to_chat(src, "<font color='purple'>You are no longer voting for the current round to end.</font>")
 	else
 		player_details.voted_to_leave = TRUE
 		SSautotransfer.connected_votes_to_leave++
-		to_chat(src, "You are now voting for the current round to end.")
+		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
