@@ -19,6 +19,7 @@
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
+	liver_traits = list(TRAIT_CULINARY_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_COOK
 	rpg_title = "Tavern Chef"

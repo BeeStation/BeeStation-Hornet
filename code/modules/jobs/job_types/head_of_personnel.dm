@@ -34,6 +34,8 @@
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
+	liver_traits = list(TRAIT_ROYAL_METABOLISM)
+
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
 	rpg_title = "Guild Questgiver"
 

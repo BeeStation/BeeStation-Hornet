@@ -21,7 +21,9 @@
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+
+	mind_traits = list(TRAIT_DONUT_LOVER)
+	liver_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	show_in_prefs = FALSE
 

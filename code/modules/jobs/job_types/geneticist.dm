@@ -20,7 +20,7 @@
 	payment_per_department = list(
 		ACCOUNT_MED_ID = PAYCHECK_MEDIUM
 	)
-	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
+	liver_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	rpg_title = "Genemancer"

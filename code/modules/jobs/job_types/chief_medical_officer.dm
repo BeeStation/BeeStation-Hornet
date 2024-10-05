@@ -30,7 +30,7 @@
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_MED_ID = PAYCHECK_COMMAND_DEPT)
-	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
+	liver_traits = list(TRAIT_MEDICAL_METABOLISM, TRAIT_ROYAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
 	rpg_title = "High Cleric"

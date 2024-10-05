@@ -21,6 +21,8 @@
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_MEDIUM)
 
+	liver_traits = list(TRAIT_PRETENDER_ROYAL_METABOLISM)
+
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
 	rpg_title = "Steward"
 

@@ -20,7 +20,7 @@
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
-	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
+	liver_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	rpg_title = "Battle Cleric"
