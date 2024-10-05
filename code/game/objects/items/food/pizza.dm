@@ -14,6 +14,8 @@
 	foodtypes = GRAIN | DAIRY | VEGETABLES
 	/// type is spawned 6 at a time and replaces this pizza when processed by cutting tool
 	var/obj/item/food/pizzaslice/slice_type
+	///What label pizza boxes use if this pizza spawns in them.
+	var/boxtag = ""
 
 /obj/item/food/pizza/raw
 	foodtypes =  GRAIN | DAIRY | VEGETABLES | RAW
@@ -51,6 +53,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/margherita
+	boxtag = "Margherita Deluxe"
 
 /obj/item/food/pizza/margherita/raw
 	name = "raw pizza margherita"
@@ -93,6 +96,7 @@
 	)
 	foodtypes = GRAIN | VEGETABLES| DAIRY | MEAT
 	slice_type = /obj/item/food/pizzaslice/meat
+	boxtag = "Meatlovers' Supreme"
 
 /obj/item/food/pizza/meat/raw
 	name = "raw meatpizza"
@@ -122,6 +126,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/mushroom
+	boxtag = "Mushroom Special"
 
 /obj/item/food/pizza/mushroom/raw
 	name = "raw mushroom pizza"
@@ -152,6 +157,7 @@
 	tastes = list("crust" = 1, "tomato" = 2, "cheese" = 1, "carrot" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/vegetable
+	boxtag = "Gourmet Vegetable"
 
 /obj/item/food/pizza/vegetable/raw
 	name = "raw vegetable pizza"
@@ -183,6 +189,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1, "laziness" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | JUNKFOOD
 	slice_type = /obj/item/food/pizzaslice/donkpocket
+	boxtag = "Bangin' Donk"
 
 /obj/item/food/pizza/donkpocket/raw
 	name = "raw donkpocket pizza"
@@ -213,6 +220,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/dank
+	boxtag = "Fresh Herb"
 
 /obj/item/food/pizza/dank/raw
 	name = "raw dank pizza"
@@ -232,7 +240,7 @@
 
 /obj/item/food/pizza/sassysage
 	name = "sassysage pizza"
-	desc = "You can really smell the sassiness."
+	desc = "You can almost taste the sassiness."
 	icon_state = "sassysagepizza"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
@@ -243,6 +251,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/sassysage
+	boxtag = "Sausage Lovers"
 
 /obj/item/food/pizza/sassysage/raw
 	name = "raw sassysage pizza"
@@ -274,6 +283,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 2, "ham" = 2)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE
 	slice_type = /obj/item/food/pizzaslice/pineapple
+	boxtag = "Honolulu Chew"
 
 /obj/item/food/pizza/pineapple/raw
 	name = "raw Hawaiian pizza"
@@ -304,6 +314,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pepperoni" = 2, "9 millimeter bullets" = 2)
 	slice_type = /obj/item/food/pizzaslice/arnold
+	boxtag = "9mm Pepperoni"
 
 /obj/item/food/pizza/arnold/raw
 	name = "raw Arnold pizza"
