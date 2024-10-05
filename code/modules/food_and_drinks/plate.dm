@@ -1,7 +1,7 @@
 /obj/item/plate
 	name = "plate"
 	desc = "Holds food. Powerful. Good for morale when you're not eating your spaghetti off of a desk."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "plate"
 	w_class = WEIGHT_CLASS_BULKY //No backpack.
 	///How many things fit on this plate?
@@ -37,7 +37,6 @@
 		I.pixel_y = min(text2num(LAZYACCESS(modifiers, ICON_Y)) + placement_offset, max_height_offset)
 		to_chat(user, "<span class='notice'>You place [I] on [src].</span>")
 		AddToPlate(I, user)
-		update_appearance()
 	else
 		return ..()
 
@@ -51,13 +50,12 @@
 	return TRUE //No normal attack
 
 ///This proc adds the food to viscontents and makes sure it can deregister if this changes.
-/obj/item/plate/proc/AddToPlate(obj/item/item_to_plate, mob/user)
+/obj/item/plate/proc/AddToPlate(obj/item/item_to_plate)
 	vis_contents += item_to_plate
 	item_to_plate.flags_1 |= IS_ONTOP_1
 	RegisterSignal(item_to_plate, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_plate, COMSIG_PARENT_QDELETING, PROC_REF(ItemMoved))
-	///ovens update
-	//update_appearance()
+	update_appearance()
 
 ///This proc cleans up any signals on the item when it is removed from a plate, and ensures it has the correct state again.
 /obj/item/plate/proc/ItemRemovedFromPlate(obj/item/removed_item)
@@ -88,7 +86,7 @@
 
 /obj/item/plate_shard
 	name = "ceramic shard"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "plate_shard1"
 	base_icon_state = "plate_shard"
 	force = 5

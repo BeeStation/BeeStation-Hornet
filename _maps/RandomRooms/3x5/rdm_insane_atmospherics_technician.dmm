@@ -175,7 +175,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/visible/layer2{
 	dir = 5
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},

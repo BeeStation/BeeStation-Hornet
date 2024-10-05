@@ -318,10 +318,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"aV" = (
-/obj/machinery/space_heater,
-/turf/open/floor/wood,
-/area/awaymission/cabin)
 "aW" = (
 /obj/structure/fireplace,
 /obj/machinery/door/window/eastleft{
@@ -1993,12 +1989,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"gN" = (
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
-/turf/open/floor/plating,
-/area/awaymission/cabin)
 "gO" = (
 /obj/structure/fence/door{
 	dir = 4
@@ -2125,15 +2115,6 @@
 "he" = (
 /obj/effect/landmark/awaystart,
 /turf/open/floor/wood,
-/area/awaymission/cabin)
-"hf" = (
-/obj/machinery/space_heater,
-/obj/effect/decal/remains/robot,
-/obj/structure/sign/warning/fire{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
 /area/awaymission/cabin)
 "hg" = (
 /obj/machinery/door/airlock/maintenance{
@@ -2270,12 +2251,6 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/awaymission/cabin)
-"hC" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/wood,
 /area/awaymission/cabin)
 "hD" = (
 /obj/structure/cable/yellow{
@@ -3038,10 +3013,6 @@
 	name = "tree DNA manipulator";
 	pixel_y = 5
 	},
-/turf/open/floor/wood/cold,
-/area/awaymission/cabin/lumbermill)
-"jM" = (
-/obj/machinery/space_heater,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "jN" = (
@@ -4688,6 +4659,15 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"sa" = (
+/obj/machinery/portable_thermomachine,
+/obj/effect/decal/remains/robot,
+/obj/structure/sign/warning/fire{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/awaymission/cabin)
 "sU" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -4697,6 +4677,12 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"ut" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "ww" = (
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = 32
@@ -4783,15 +4769,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
-"zP" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/knife/carrotshiv,
-/obj/effect/decal/cleanable/glitter/blue{
-	desc = "It looks like fancy glitter to me.";
-	name = "icy wind"
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
 "Bk" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
@@ -4905,6 +4882,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"Hb" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/knife/shiv/carrot,
+/obj/effect/decal/cleanable/glitter/blue{
+	desc = "It looks like fancy glitter to me.";
+	name = "icy wind"
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/caves)
 "HW" = (
 /obj/item/shovel,
 /turf/open/floor/plating{
@@ -5063,6 +5049,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"Sq" = (
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/awaymission/cabin)
 "SH" = (
 /obj/structure/filingcabinet/security,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -5095,6 +5087,10 @@
 	burnt = 1
 	},
 /area/awaymission/cabin)
+"VM" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/wood/cold,
+/area/awaymission/cabin/lumbermill)
 "VU" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
@@ -5157,6 +5153,10 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"WL" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "Xa" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
@@ -25146,7 +25146,7 @@ dB
 an
 an
 aq
-aV
+WL
 jr
 au
 jk
@@ -26452,7 +26452,7 @@ an
 cU
 HW
 aL
-gN
+Sq
 an
 dB
 ac
@@ -27718,7 +27718,7 @@ an
 aq
 au
 jt
-aV
+WL
 aq
 an
 bs
@@ -29258,7 +29258,7 @@ dB
 an
 an
 aq
-aV
+WL
 ju
 au
 ji
@@ -31060,7 +31060,7 @@ an
 an
 an
 an
-hf
+sa
 hy
 aq
 aq
@@ -31830,7 +31830,7 @@ an
 aq
 au
 jv
-aV
+WL
 aq
 an
 bs
@@ -33370,7 +33370,7 @@ dB
 an
 an
 aq
-aV
+WL
 jw
 au
 jh
@@ -35695,7 +35695,7 @@ an
 an
 aq
 aq
-hC
+ut
 cI
 cI
 hH
@@ -37185,7 +37185,7 @@ ac
 ac
 ac
 ad
-jM
+VM
 af
 af
 af
@@ -37193,7 +37193,7 @@ jV
 af
 af
 af
-jM
+VM
 ad
 ac
 ac
@@ -38470,7 +38470,7 @@ ac
 ac
 ac
 ad
-jM
+VM
 af
 kb
 gZ
@@ -38478,7 +38478,7 @@ af
 af
 jS
 af
-jM
+VM
 ad
 ac
 ac
@@ -51895,7 +51895,7 @@ gx
 lf
 li
 le
-zP
+Hb
 le
 ld
 gx
