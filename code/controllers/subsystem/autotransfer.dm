@@ -41,8 +41,8 @@ SUBSYSTEM_DEF(autotransfer)
 				can_fire = FALSE //The only way out of this shuttle call is admin override. They probably don't care about democracy anymore.
 			return
 
-	//Reset the next vote check
-	checkvotes_time = REALTIMEOFDAY + 5 MINUTES
+		//Reset the next vote check
+		checkvotes_time = REALTIMEOFDAY + 5 MINUTES
 
 	if(REALTIMEOFDAY > reminder_time)
 		decay_start = TRUE
