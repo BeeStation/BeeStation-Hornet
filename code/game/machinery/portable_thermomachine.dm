@@ -3,18 +3,18 @@
 #define HEATER_MODE_COOL "cool"
 #define HEATER_MODE_AUTO "auto"
 
-/obj/machinery/space_heater
+/obj/machinery/portable_thermomachine
 	anchored = FALSE
 	density = TRUE
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN
 	icon = 'icons/obj/atmos.dmi'
-	icon_state = "sheater-off"
-	base_icon_state = "sheater"
-	name = "space heater"
-	desc = "Made by Space Amish using traditional space techniques, this heater/cooler is guaranteed not to set the station on fire. Warranty void if used in engines."
+	icon_state = "pthermomachine-off"
+	base_icon_state = "pthermomachine"
+	name = "portable thermomachine"
+	desc = "Made by Space Amish using traditional space techniques, this thermomachine is guaranteed not to set the station on fire. Warranty void if used in engines."
 	max_integrity = 250
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 10, STAMINA = 0, BLEED = 0)
-	circuit = /obj/item/circuitboard/machine/space_heater
+	circuit = /obj/item/circuitboard/machine/portable_thermomachine
 	//We don't use area power, we always use the cell
 	use_power = NO_POWER_USE
 	interacts_with_air = TRUE
@@ -39,25 +39,25 @@
 	var/settable_temperature_median = 30 + T0C
 	///Range of temperatures above and below the median that we can set our target temperature (increase by upgrading the capacitors)
 	var/settable_temperature_range = 30
-	///Should we add an overlay for open spaceheaters
+	///Should we add an overlay for open portable thermomachines
 	var/display_panel = TRUE
 
-/obj/machinery/space_heater/get_cell()
+/obj/machinery/portable_thermomachine/get_cell()
 	return cell
 
-/obj/machinery/space_heater/Initialize(mapload)
+/obj/machinery/portable_thermomachine/Initialize(mapload)
 	. = ..()
 	update_appearance()
 	SSair.start_processing_machine(src)
 
-/obj/machinery/space_heater/Destroy()
+/obj/machinery/portable_thermomachine/Destroy()
 	SSair.stop_processing_machine(src)
 	return..()
 
-/obj/machinery/space_heater/on_deconstruction()
+/obj/machinery/portable_thermomachine/on_deconstruction()
 	return ..()
 
-/obj/machinery/space_heater/examine(mob/user)
+/obj/machinery/portable_thermomachine/examine(mob/user)
 	. = ..()
 	. += "\The [src] is [on ? "on" : "off"], and the hatch is [panel_open ? "open" : "closed"]."
 	if(cell)
@@ -67,16 +67,16 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Temperature range at <b>[settable_temperature_range]°C</b>.<br>Heating power at <b>[siunit(heating_power, "W", 1)]</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
 
-/obj/machinery/space_heater/update_icon_state()
+/obj/machinery/portable_thermomachine/update_icon_state()
 	. = ..()
 	icon_state = "[base_icon_state]-[on ? mode : "off"]"
 
-/obj/machinery/space_heater/update_overlays()
+/obj/machinery/portable_thermomachine/update_overlays()
 	. = ..()
 	if(panel_open && display_panel)
 		. += "[base_icon_state]-open"
 
-/obj/machinery/space_heater/process_atmos()
+/obj/machinery/portable_thermomachine/process_atmos()
 	if(!on || !is_operational)
 		if(on) // If it's broken, turn it off too
 			on = FALSE
@@ -124,7 +124,7 @@
 		air_update_turf()
 	cell.use(required_energy / efficiency)
 
-/obj/machinery/space_heater/RefreshParts()
+/obj/machinery/portable_thermomachine/RefreshParts()
 	. = ..()
 	cell = null
 	var/laser = 0
@@ -144,19 +144,19 @@
 		max(settable_temperature_median - settable_temperature_range, TCMB),
 		settable_temperature_median + settable_temperature_range)
 
-/obj/machinery/space_heater/emp_act(severity)
+/obj/machinery/portable_thermomachine/emp_act(severity)
 	. = ..()
 	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_CONTENTS)
 		return
 	if(cell)
 		cell.emp_act(severity)
 
-/obj/machinery/space_heater/wrench_act(mob/living/user, obj/item/tool)
+/obj/machinery/portable_thermomachine/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/portable_thermomachine/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
@@ -184,7 +184,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/space_heater/AltClick(mob/user)
+/obj/machinery/portable_thermomachine/AltClick(mob/user)
 	if(!can_interact(user))
 		return
 	if(mode == HEATER_MODE_COOL)
@@ -197,7 +197,7 @@
 		return
 	balloon_alert(user, "You set the target temperature to [target_temperature] C.")
 
-/obj/machinery/space_heater/proc/toggle_power()
+/obj/machinery/portable_thermomachine/proc/toggle_power()
 	on = !on
 	mode = HEATER_MODE_STANDBY
 	balloon_alert(usr, "[on ? "on" : "off"]")
@@ -208,22 +208,22 @@
 	else
 		SSair.stop_processing_machine(src)
 
-/obj/machinery/space_heater/ui_state(mob/user)
+/obj/machinery/portable_thermomachine/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/space_heater/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/portable_thermomachine/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "SpaceHeater")
+		ui = new(user, src, "PortableThermomachine")
 		ui.set_autoupdate(TRUE) // Displays temperature
 		ui.open()
 
-/obj/machinery/space_heater/ui_data()
+/obj/machinery/portable_thermomachine/ui_data()
 	var/list/data = list()
 	data["open"] = panel_open
 	data["on"] = on
 	data["mode"] = set_mode
-	data["hasPowercell"] = !!cell
+	data["hasPowercell"] = cell
 	data["chemHacked"] = FALSE
 	if(cell)
 		data["powerLevel"] = round(cell.percent(), 1)
@@ -244,7 +244,7 @@
 		data["currentTemp"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/space_heater/ui_act(action, params)
+/obj/machinery/portable_thermomachine/ui_act(action, params)
 	. = ..()
 	if(.)
 		return
@@ -275,19 +275,19 @@
 					component_parts.Remove(M)
 				. = TRUE
 
-//Space Heaters without a cell
-/obj/machinery/space_heater/no_cell
+//Portable thermomachines without a cell
+/obj/machinery/portable_thermomachine/no_cell
 	cell = null
 
-/obj/machinery/space_heater/no_cell/Initialize(mapload)
+/obj/machinery/portable_thermomachine/no_cell/Initialize(mapload)
 	. = ..()
 	panel_open = TRUE
 	update_appearance()
 
-//Atmos Space Heaters
-/obj/machinery/space_heater/atmos
+//Atmos portable thermomachines
+/obj/machinery/portable_thermomachine/atmos
 
-/obj/machinery/space_heater/atmos/Initialize(mapload)
+/obj/machinery/portable_thermomachine/atmos/Initialize(mapload)
 	for(var/obj/item/stock_parts/cell/M in component_parts)
 		QDEL_NULL(M)
 		component_parts.Add(/obj/item/stock_parts/cell/hyper)

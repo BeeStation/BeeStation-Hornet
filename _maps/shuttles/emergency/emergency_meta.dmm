@@ -660,7 +660,7 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "ca" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/shuttle/escape)
