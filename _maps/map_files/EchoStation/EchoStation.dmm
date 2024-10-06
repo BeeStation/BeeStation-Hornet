@@ -40555,30 +40555,11 @@
 "ueS" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","engine")
-	},
-/obj/structure/closet/secure_closet/atmospherics{
-	anchored = 1;
-	req_access = null;
-	req_access_txt = "11"
-	},
-/obj/item/radio/intercom{
-	pixel_x = -1;
-	pixel_y = 29
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/bot,
 /obj/machinery/camera/directional/north,
 /obj/structure/closet/secure_closet/atmospherics{
 	anchored = 1;
 	req_access = null;
-	req_one_access_txt = "11"
+	req_access_txt = "11"
 	},
 /obj/item/radio/intercom{
 	pixel_x = -1;
@@ -48061,24 +48042,6 @@
 /obj/structure/closet/secure_closet/brig{
 	name = "Storage Locker";
 	req_access_txt = "1;4"
-	},
-/obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","security")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/bot,
-/obj/item/pushbroom,
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/closet/secure_closet/brig{
-	name = "Storage Locker";
-	req_one_access_txt = "1;4"
 	},
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
