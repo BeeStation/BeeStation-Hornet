@@ -287,7 +287,7 @@
 		message += "\nSent from my PDA"
 
 	// Filter
-	if(CHAT_FILTER_CHECK(message))
+	if(OOC_FILTER_CHECK(message))
 		to_chat(user, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 		return
 
