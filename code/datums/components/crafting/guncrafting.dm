@@ -45,7 +45,7 @@
 	damage_multiplier = 0.7
 	speed_multiplier = 1.35
 	gun_suitable = FALSE
-	//Half damage and Half speed
+	//Debuff to damage and speed
 	added_description = "<span class='info'>The bowstring is improvised out of cable. It looks rather weak.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/bamboostring
@@ -83,9 +83,9 @@
 	desc = "A bow string made out of sinew to be used in weapon crafting."
 	icon_state = "sinewstring"
 	damage_multiplier = 1.2
-	speed_multiplier = 1.2
+	speed_multiplier = 1
 	gun_suitable = FALSE
-	//Buff to damage, debuff to speed
+	//Buff to damage
 	added_description = "<span class='info'>The bowstring is made of sinew. It looks pretty strong.</span>"
 
 /obj/item/weaponcrafting/attachment/primary/energy_crystal //Not aviable ingame yet
