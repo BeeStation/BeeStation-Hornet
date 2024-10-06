@@ -579,7 +579,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		UpdateButtons()
 
 	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
-	addtimer(CALLBACK(src, .proc/detonate_machine, caller, clicked_machine), 5 SECONDS) //kaboom!
+	addtimer(CALLBACK(src, PROC_REF(detonate_machine), caller, clicked_machine), 5 SECONDS) //kaboom!
 	unset_ranged_ability(caller, span_danger("Overcharging machine..."))
 	return TRUE
 
@@ -627,7 +627,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		UpdateButtons()
 
 	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
-	addtimer(CALLBACK(src, .proc/animate_machine, caller, clicked_machine), 5 SECONDS) //kabeep!
+	addtimer(CALLBACK(src, PROC_REF(animate_machine), caller, clicked_machine), 5 SECONDS) //kabeep!
 	unset_ranged_ability(caller, span_danger("Sending override signal..."))
 	return TRUE
 

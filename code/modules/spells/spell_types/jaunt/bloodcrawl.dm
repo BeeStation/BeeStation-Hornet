@@ -128,7 +128,7 @@
 
 	exited.add_atom_colour(new_color, TEMPORARY_COLOUR_PRIORITY)
 	// ...but only for a few seconds
-	addtimer(CALLBACK(exited, /atom/.proc/remove_atom_colour, TEMPORARY_COLOUR_PRIORITY, new_color), 6 SECONDS)
+	addtimer(CALLBACK(exited, TYPE_PROC_REF(/atom, remove_atom_colour), TEMPORARY_COLOUR_PRIORITY, new_color), 6 SECONDS)
 
 /**
  * Slaughter demon's blood crawl
@@ -238,7 +238,7 @@
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Grant(mob/grant_to)
 	. = ..()
 	if(owner)
-		RegisterSignal(owner, COMSIG_LIVING_DEATH, .proc/on_death)
+		RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Remove(mob/living/remove_from)
 	UnregisterSignal(remove_from, COMSIG_LIVING_DEATH)
@@ -250,8 +250,8 @@
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_consumed(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, span_clown("[victim] joins your party! Your health is fully restored."))
 	consumed_mobs += victim
-	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, .proc/on_victim_statchange)
-	RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/on_victim_deleted)
+	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, PROC_REF(on_victim_statchange))
+	RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(on_victim_deleted))
 
 /**
  * Signal proc for COMSIG_LIVING_DEATH and COMSIG_PARENT_QDELETING
