@@ -12111,7 +12111,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Service Maintenance";
-	req_one_access_txt = "25;26;35;28;22;37;46;38"
+	req_access_txt = "25;26;35;28;22;37;46;38"
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -22568,7 +22568,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Service Maintenance";
-	req_one_access_txt = "25;26;35;28;22;37;46;38"
+	req_access_txt = "25;26;35;28;22;37;46;38"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -33152,7 +33152,7 @@
 	},
 /obj/machinery/door/airlock/grunge{
 	name = "Morgue";
-	req_one_access_txt = "4,5"
+	req_access_txt = "4,5"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
@@ -51767,7 +51767,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/maintenance{
 	name = "Service Maintenance";
-	req_one_access_txt = "25;26;35;28;22;37;46;38"
+	req_access_txt = "25;26;35;28;22;37;46;38"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)

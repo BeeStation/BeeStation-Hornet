@@ -5932,7 +5932,7 @@
 	name = "Emergancy Escape Shutters";
 	pixel_x = -27;
 	pixel_y = 26;
-	req_one_access_txt = "32"
+	req_access_txt = "32"
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/engine/engineering)
@@ -10118,7 +10118,7 @@
 	emergency = 1;
 	id_tag = "MedbayFoyer";
 	name = "Medbay";
-	req_one_access_txt = "5"
+	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -33957,7 +33957,7 @@
 	emergency = 1;
 	id_tag = "MedbayFoyer";
 	name = "Medbay";
-	req_one_access_txt = "5"
+	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -37936,7 +37936,7 @@
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/structure/closet/crate/secure/engineering{
 	name = "extended shuttle construction kit";
-	req_one_access_txt = "19;32"
+	req_access_txt = "19;32"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -42547,7 +42547,7 @@
 "vbw" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Foyer";
-	req_one_access_txt = "32"
+	req_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
