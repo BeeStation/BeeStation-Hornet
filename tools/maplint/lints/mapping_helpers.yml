@@ -5,3 +5,9 @@
 /obj/effect/mapping_helpers/apc:
   required_neighbors:
   - /obj/machinery/power/apc
+
+/obj/machinery/door/airlock:
+  when:
+  - req_access_txt is set
+  banned_neighbors:
+  - /obj/effect/mapping_helper/airlock/access
