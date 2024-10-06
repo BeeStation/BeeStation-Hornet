@@ -597,6 +597,7 @@
 	config_entry_value = 0.75
 	integer = FALSE
 	min_val = 0
+	max_val = 1
 
 /datum/config_entry/number/autotransfer_decay_start //How long before the autotransfer decay starts to set in, also how often to remind players to vote (default 60 minutes)
 	config_entry_value = 36000
@@ -607,6 +608,7 @@
 	config_entry_value = 0.025
 	integer = FALSE
 	min_val = 0
+	max_val = 1
 
 /datum/config_entry/flag/respect_upstream_bans
 
