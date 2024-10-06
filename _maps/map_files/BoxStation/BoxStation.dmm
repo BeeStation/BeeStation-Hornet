@@ -4478,10 +4478,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/library)
-"bbF" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/chapel/main)
 "bbG" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -8689,10 +8685,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bQy" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall,
-/area/chapel/main)
 "bQA" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating/airless,
@@ -13161,6 +13153,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
+"csW" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/fore/secondary)
 "ctc" = (
 /obj/machinery/light{
 	dir = 1
@@ -16305,7 +16308,8 @@
 /obj/machinery/button/door{
 	id = "evashutter";
 	name = "EVA Shutter Control";
-	pixel_y = -26
+	pixel_y = -26;
+	req_access_txt = "18"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -16875,7 +16879,9 @@
 	},
 /obj/machinery/button/door/directional/north{
 	id = "Toilet1";
-	name = "Toilet Lock Button"
+	name = "Toilet Lock Button";
+	normaldoorcontrol = 1;
+	specialfunctions = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
@@ -19400,13 +19406,6 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
-"evY" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/turf/open/floor/plating,
-/area/maintenance/fore/secondary)
 "ewc" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
@@ -19899,9 +19898,6 @@
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "eFM" = (
@@ -22625,9 +22621,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "fJy" = (
@@ -23686,9 +23679,6 @@
 	},
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_y = -32
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -28963,18 +28953,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"ikP" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore/secondary)
 "ilh" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -32369,7 +32347,7 @@
 "jBp" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Office";
-	req_access_txt = "50"
+	req_one_access_txt = "50;48"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -37091,12 +37069,6 @@
 /obj/structure/table/glass,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
-"loR" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore/secondary)
 "loU" = (
 /obj/structure/table/glass,
 /obj/item/hatchet,
@@ -39339,7 +39311,9 @@
 	},
 /obj/machinery/button/door/directional/north{
 	id = "Toilet2";
-	name = "Toilet Lock Button"
+	name = "Toilet Lock Button";
+	normaldoorcontrol = 1;
+	specialfunctions = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
@@ -41196,9 +41170,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "njy" = (
@@ -43428,6 +43399,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"obO" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating,
+/area/maintenance/fore/secondary)
 "obR" = (
 /obj/structure/chair/stool/directional/south,
 /turf/open/floor/prison,
@@ -56419,18 +56400,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/warden)
-"tku" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore/secondary)
 "tkF" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -63421,9 +63390,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "waJ" = (
@@ -65408,24 +65374,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"wQa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "wQj" = (
 /turf/closed/wall/r_wall,
 /area/security/detectives_office)
@@ -94866,9 +94814,9 @@ kOu
 mpK
 jTP
 ajo
-eYx
-mkJ
-wQa
+aqR
+aqR
+gfW
 ayE
 aaa
 aaa
@@ -101791,10 +101739,10 @@ aoJ
 aoJ
 aoJ
 eFJ
-spg
-spg
+obO
+obO
 fJx
-qrt
+csW
 waz
 qrt
 spg
@@ -102304,7 +102252,7 @@ anF
 dwH
 ahn
 eMP
-tku
+riU
 ahn
 anF
 anF
@@ -102561,7 +102509,7 @@ anF
 anF
 eTS
 anF
-tku
+riU
 xEr
 anF
 anF
@@ -102818,7 +102766,7 @@ anF
 anF
 ahn
 vUB
-tku
+riU
 ahn
 anF
 anF
@@ -103332,8 +103280,8 @@ gXs
 gXs
 ahn
 gEO
-ikP
-loR
+riU
+anF
 anF
 jdh
 fBN
@@ -103590,7 +103538,7 @@ aaa
 ahn
 tkF
 riU
-evY
+anF
 anF
 ahn
 ahJ
@@ -114936,7 +114884,7 @@ aTg
 aRS
 aRS
 aFz
-bbF
+vke
 aYV
 aXq
 bez
@@ -115193,7 +115141,7 @@ pMj
 aRS
 aRS
 aRS
-bbF
+vke
 aYV
 aXq
 sYn
@@ -115450,7 +115398,7 @@ mCH
 aRS
 aRS
 aRS
-bbF
+vke
 aYV
 aXq
 sYn
@@ -115707,7 +115655,7 @@ sNm
 sNm
 cUE
 aRS
-bbF
+vke
 aYV
 aXq
 sYn
@@ -115964,7 +115912,7 @@ rmh
 aRS
 kXl
 aRS
-bbF
+vke
 aYV
 aXq
 sYn
@@ -116221,7 +116169,7 @@ nnx
 aRS
 kXl
 aRS
-bbF
+vke
 aYV
 bdv
 sYn
@@ -116478,7 +116426,7 @@ aTf
 aRS
 kXl
 aFz
-bbF
+vke
 aYV
 aXq
 sYn
@@ -116988,7 +116936,7 @@ aEk
 aCR
 aCR
 aCR
-bQy
+aCR
 ijs
 mrj
 aCR

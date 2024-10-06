@@ -5360,11 +5360,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bmB" = (
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -5372,8 +5367,13 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "xeno5";
-	name = "Creature Cell #5"
+	id = "xeno1";
+	name = "Creature Cell #1"
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	name = "Creature Pen";
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/xenobiology)
@@ -7490,7 +7490,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology Lab";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -9438,8 +9438,8 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo Maintenance";
-	req_one_access_txt = "31;48;47"
+	name = "Cargo Maintenance";
+	req_one_access_txt = "31;48;47;12"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -24039,7 +24039,8 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300
+	obj_integrity = 300;
+	req_one_access_txt = "55"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -25567,7 +25568,7 @@
 	icon_state = "leftsecure";
 	name = "Secure Creature Pen Shield Holder";
 	obj_integrity = 300;
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/sign/warning/electricshock{
 	pixel_x = -32
@@ -28294,7 +28295,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Apothecary";
-	req_access_txt = "5;33"
+	req_access_txt = "33"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/grid,
@@ -31726,17 +31727,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"idG" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 4;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/techmaint,
-/area/science/xenobiology)
 "idZ" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "emmd";
@@ -33024,7 +33014,7 @@
 "iuM" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Xenobiology Kill Room";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
@@ -34787,6 +34777,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "iQv" = (
@@ -49601,24 +49592,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"mFv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno1";
-	name = "Creature Cell #1"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/ridged/steel,
-/area/science/xenobiology)
 "mFB" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -54856,7 +54829,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -57706,7 +57679,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Apothecary Maintenance";
-	req_access_txt = "5;33"
+	req_access_txt = "33"
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/medical)
@@ -60317,7 +60290,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
@@ -70330,7 +70303,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology Lab";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72187,13 +72160,13 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "xeno6";
-	name = "Creature Cell #6"
+	id = "xeno4";
+	name = "Creature Cell #4"
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/xenobiology)
@@ -73520,7 +73493,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/xenobiology)
@@ -74737,7 +74710,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/space/basic,
-/area/space/nearstation)
+/area/engine/engine_room)
 "tjv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -76120,7 +76093,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Secure Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -76191,7 +76164,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Secure Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -84831,24 +84804,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"vDh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno3";
-	name = "Creature Cell #3"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/ridged/steel,
-/area/science/xenobiology)
 "vDn" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/canister,
@@ -85558,13 +85513,13 @@
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
 "vMR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
@@ -94308,7 +94263,6 @@
 /turf/open/floor/carpet/red,
 /area/library)
 "xIK" = (
-/obj/effect/landmark/start/roboticist,
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
@@ -94754,24 +94708,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/carpet/royalblack,
 /area/bridge/showroom/corporate)
-"xMg" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno4";
-	name = "Creature Cell #4"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 4;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/ridged/steel,
-/area/science/xenobiology)
 "xMi" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -130900,11 +130836,11 @@ ide
 gzm
 siW
 qTo
-mFv
+bmB
 awe
 xDt
 xVZ
-vDh
+bmB
 lYK
 xDt
 oMm
@@ -131157,11 +131093,11 @@ vIp
 vfS
 siW
 kgC
-idG
+vMR
 oPf
 xDt
 cTH
-idG
+vMR
 oPf
 xDt
 aRg
@@ -132446,7 +132382,7 @@ sTr
 xKR
 xDt
 aFf
-xMg
+sBz
 rWr
 xDt
 eHT

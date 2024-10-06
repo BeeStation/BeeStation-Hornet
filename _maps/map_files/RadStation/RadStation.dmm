@@ -14693,7 +14693,7 @@
 	id = "securestorage";
 	name = "Secure Storage Toggle";
 	pixel_x = -32;
-	req_access_txt = "11"
+	req_access_txt = "10"
 	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
@@ -16086,7 +16086,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	req_one_access_txt = "32;63"
+	req_one_access_txt = "32"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
@@ -18111,7 +18111,7 @@
 "fFg" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Storage";
-	req_access_txt = "32"
+	req_access_txt = "10"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -36496,7 +36496,7 @@
 	req_access_txt = "24"
 	},
 /turf/open/floor/plating,
-/area/engine/atmos)
+/area/maintenance/starboard/aft)
 "lFE" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -40519,7 +40519,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "10;13"
+	req_one_access_txt = "10"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
@@ -51169,7 +51169,7 @@
 "qhN" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Emergency Access";
-	req_one_access_txt = "24;10"
+	req_one_access_txt = "10"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -51178,7 +51178,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
-/area/engine/engine_room)
+/area/maintenance/department/engine)
 "qie" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hor)
@@ -56157,7 +56157,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "10;13"
+	req_one_access_txt = "10"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -59492,7 +59492,7 @@
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "sTA" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/storage)
 "sUd" = (
@@ -61294,7 +61294,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
-/area/engine/engineering)
+/area/maintenance/department/engine)
 "tvU" = (
 /obj/machinery/computer/security,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -62336,13 +62336,13 @@
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "tKh" = (
-/obj/effect/spawner/structure/window,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/storage)
 "tKm" = (
@@ -62360,13 +62360,13 @@
 "tKB" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Emergency Access";
-	req_access_txt = "32"
+	req_access_txt = "10"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
 /turf/open/floor/plating,
-/area/engine/engine_room)
+/area/maintenance/department/engine)
 "tKJ" = (
 /turf/closed/wall,
 /area/maintenance/department/bridge)
@@ -64980,7 +64980,7 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_one_access_txt = "12;7;29"
+	req_one_access_txt = "12"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -67280,7 +67280,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/engine/atmos)
+/area/maintenance/starboard/aft)
 "vvd" = (
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/shower{
@@ -71105,7 +71105,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Storage";
-	req_access_txt = "32"
+	req_access_txt = "10"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
