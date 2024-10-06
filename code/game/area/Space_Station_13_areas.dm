@@ -537,7 +537,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
-
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
@@ -1422,7 +1421,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Quartermaster's Office"
 	icon_state = "quart_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
-
 /area/quartermaster/qm_bedroom
 	name = "Quartermaster's Bedroom"
 	icon_state = "quart_private"

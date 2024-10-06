@@ -39,7 +39,7 @@
 	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
 	. = ..()
 	update_icon()
-	req_one_access = get_all_accesses() + get_all_centcom_access()
+	req_access = get_all_accesses() + get_all_centcom_access()
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0

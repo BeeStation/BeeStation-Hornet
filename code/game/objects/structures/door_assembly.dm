@@ -264,14 +264,11 @@
 					door = new airlock_type( loc )
 				door.setDir(dir)
 				door.unres_sides = electronics.unres_sides
-				//door.req_access = req_access
 				door.electronics = electronics
 				door.heat_proof = heat_proof_finished
 				door.security_level = AIRLOCK_SECURITY_NONE
-				if(electronics.one_access)
-					door.req_one_access = electronics.accesses
-				else
-					door.req_access = electronics.accesses
+				door.req_access = electronics.accesses
+				door.one_access = electronics.one_access
 				if(created_name)
 					door.name = created_name
 				else if(electronics.passed_name)

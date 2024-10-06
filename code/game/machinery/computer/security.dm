@@ -3,7 +3,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_screen = "security"
 	icon_keyboard = "security_key"
-	req_one_access = list(ACCESS_SEC_RECORDS)
+	req_access = list(ACCESS_SEC_RECORDS)
 	circuit = /obj/item/circuitboard/computer/secure_data
 	var/rank = null
 	var/screen = null

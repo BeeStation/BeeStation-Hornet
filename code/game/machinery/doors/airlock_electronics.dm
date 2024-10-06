@@ -4,8 +4,6 @@
 	custom_price = 5
 	/// A list of all granted accesses
 	var/list/accesses = list()
-	/// If the airlock should require ALL or only ONE of the listed accesses
-	var/one_access = 0
 	/// Unrestricted sides, or sides of the airlock that will open regardless of access
 	var/unres_sides = 0
 	///what name are we passing to the finished airlock
@@ -65,7 +63,6 @@
 	switch(action)
 		if("clear_all")
 			accesses = list()
-			one_access = 0
 			. = TRUE
 		if("grant_all")
 			accesses = get_all_accesses()

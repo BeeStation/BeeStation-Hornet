@@ -1091,13 +1091,13 @@
 /////////////////////////
 
 /obj/vehicle/sealed/mecha/proc/operation_allowed(mob/M)
-	req_access = list()
-	req_one_access = operation_req_access
+	req_access = operation_req_access
+	one_access = TRUE
 	return allowed(M)
 
 /obj/vehicle/sealed/mecha/proc/internals_access_allowed(mob/M)
-	req_one_access = internals_req_access
-	req_access = list()
+	req_access = internals_req_access
+	one_access = TRUE
 	return allowed(M)
 
 ///////////////////////

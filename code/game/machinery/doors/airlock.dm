@@ -50,7 +50,7 @@
 	var/allow_repaint = TRUE //Set to FALSE if the airlock should not be allowed to be repainted.
 
 	FASTDMM_PROP(\
-		pinned_vars = list("req_access_txt", "req_one_access_txt", "name")\
+		pinned_vars = list("req_access_txt", "one_access", "name")\
 	)
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
@@ -111,9 +111,9 @@
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 
+	var/area/A = get_area(src)
 	//Get the area hack difficulty
 	if (mapload)
-		var/area/A = get_area(src)
 		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
 
 	wires = set_wires(wire_security_level)
@@ -1461,11 +1461,8 @@
 			if(!electronics)
 				ae = new/obj/item/electronics/airlock(loc)
 				gen_access()
-				if(req_one_access.len)
-					ae.one_access = 1
-					ae.accesses = req_one_access
-				else
-					ae.accesses = req_access
+				ae.one_access = one_access
+				ae.accesses = req_access
 			else
 				ae = electronics
 				electronics = null
