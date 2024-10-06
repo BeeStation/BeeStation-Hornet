@@ -54,7 +54,7 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"space_heater",
+		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",

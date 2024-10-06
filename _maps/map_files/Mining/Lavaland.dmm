@@ -1664,7 +1664,7 @@
 /turf/open/floor/iron/dark,
 /area/mine/storage)
 "kU" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/small{
@@ -6276,7 +6276,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Va" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/mine/production)
 "Vb" = (

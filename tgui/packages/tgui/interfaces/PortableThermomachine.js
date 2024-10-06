@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SpaceHeater = (props, context) => {
+export const PortableThermomachine = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window width={400} height={305}>

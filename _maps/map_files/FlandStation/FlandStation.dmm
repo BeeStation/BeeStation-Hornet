@@ -4927,7 +4927,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "bgZ" = (
@@ -6486,7 +6486,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "bDD" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "bDQ" = (
@@ -9009,7 +9009,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/maintenance/department/security/brig)
 "cpE" = (
@@ -41652,7 +41652,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "kEV" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -59699,7 +59699,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "puT" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "puV" = (
@@ -61223,7 +61223,7 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "pOi" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
 "pOk" = (
@@ -62999,7 +62999,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/misc_lab/range)
 "qmT" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "qmU" = (
@@ -72996,7 +72996,7 @@
 	},
 /area/maintenance/department/science)
 "sMN" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
@@ -89129,7 +89129,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/engine_room)
 "wGC" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wGL" = (
@@ -89558,7 +89558,7 @@
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "wLV" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "wMa" = (

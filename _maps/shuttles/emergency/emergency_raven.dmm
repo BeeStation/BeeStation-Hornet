@@ -835,7 +835,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "dk" = (
@@ -1116,7 +1116,7 @@
 "ee" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ef" = (
