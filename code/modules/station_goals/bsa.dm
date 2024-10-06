@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src, 5000000)
+	cell = new /obj/item/stock_parts/cell(src, 20 MEGAWATT)
 	cell.charge = 0
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
@@ -377,7 +377,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
 	if(target_ref?.resolve())
-		data["target"] = list(target_ref?.resolve(), get_target_name())
+		data["target"] = list(REF(target_ref?.resolve()), get_target_name())
 	else
 		data["target"] = null
 		target_ref = null
@@ -394,7 +394,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 			fire(usr)
 			. = TRUE
 		if("set_target")
-			target_ref = WEAKREF(locate(params["target"]))
+			var/datum/component/gps/target = locate(params["target"])
+			target_ref = WEAKREF(target)
 			. = TRUE
 	if(.)
 		update_icon()
@@ -428,7 +429,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
 	var/target = target_ref?.resolve()
-	if(QDELETED(target))
+	if(!target)
 		notice = "Target lost!"
 		return
 	if(!cannon)

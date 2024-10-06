@@ -67,6 +67,7 @@ export const BluespaceArtillery = (props, context) => {
                         content={value}
                         onClick={() => act('set_target', { target: key })}
                       />
+                      {`${key} - ${value} - ${index}`}
                     </Box>
                   ))}
                 </Box>
