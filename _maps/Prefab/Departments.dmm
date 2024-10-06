@@ -1065,6 +1065,14 @@
 	},
 /turf/open/floor/iron/tech,
 /area/space)
+"Cj" = (
+/obj/effect/mapping_helpers/airlock/all_codes/one_code,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/iron,
+/area/space)
 "Co" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light/small{
@@ -1359,6 +1367,14 @@
 /obj/machinery/suit_storage_unit/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"Kt" = (
+/obj/effect/mapping_helpers/airlock/all_codes,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/iron,
+/area/space)
 "Ky" = (
 /obj/effect/landmark/start/bartender,
 /turf/open/floor/iron/cafeteria_red,
@@ -2516,7 +2532,7 @@ Qk
 bD
 Wu
 RA
-Qk
+Kt
 Qk
 JZ
 "}
@@ -2536,7 +2552,7 @@ Qk
 Ov
 hs
 Uo
-Qk
+Cj
 Qk
 Jo
 "}

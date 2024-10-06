@@ -165,6 +165,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	else
 		airlock.abandoned = TRUE
 
+/obj/effect/mapping_helpers/airlock/all_codes
+	name = "Require All Codes"
+	icon_state = "all_codes"
+
+/obj/effect/mapping_helpers/airlock/all_codes/payload(obj/machinery/door/airlock/airlock)
+	airlock.one_access = FALSE
+
+/obj/effect/mapping_helpers/airlock/all_codes/one_code
+	name = "Require One Code"
+	icon_state = "one_code"
+
+/obj/effect/mapping_helpers/airlock/all_codes/one_code/payload(obj/machinery/door/airlock/airlock)
+	airlock.one_access = TRUE
+	icon_state = "one_code"
+
 /obj/effect/mapping_helpers/airlock/access
 	icon_state = "access_helper"
 	var/list/access = list()
