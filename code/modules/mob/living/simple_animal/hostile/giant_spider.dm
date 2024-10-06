@@ -733,6 +733,59 @@
 	else
 		clear_alert("temp")
 
+
+// Net casters are the balanced generalist of the spider family: Moderate stats all around, and a ranged knockdown to assist others
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster
+	name = "net caster"
+	obj_damage = 35
+	speed = 0.5
+	onweb_speed = 0
+	var/datum/action/cooldown/spell/basic_projectile/throw_web/spidernet
+
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
+	. = ..()
+	spidernet = new
+	spidernet.Grant()
+
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
+	. = ..()
+	spidernet.Remove()
+
+/datum/action/cooldown/spell/basic_projectile/throw_web
+	name = "Throw web"
+	panel = "Spider"
+	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
+	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon_state = "throw_web_0"
+	background_icon_state = "bg_alien"
+	cooldown_time = 2 SECONDS
+	projectile_range = 20 // Proc holder had no range :shrug:
+	projectile_type = /obj/projectile/bullet/spidernet
+
+/datum/action/cooldown/spell/basic_projectile/throw_web/can_cast_spell(feedback)
+	. = ..()
+	var/mob/living/user = owner
+	var/message
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		spider.busy = SPINNING_WEB
+		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+		spider.stop_automated_movement = TRUE
+		if(do_after(spider, 40 * spider.web_speed, spider))
+			message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
+			to_chat(spider, message)
+			return TRUE
+		spider.busy = SPIDER_IDLE
+		spider.stop_automated_movement = FALSE
+	else
+		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+		return FALSE
+
+
+
 #undef SPIDER_IDLE
 #undef SPINNING_WEB
 #undef LAYING_EGGS
