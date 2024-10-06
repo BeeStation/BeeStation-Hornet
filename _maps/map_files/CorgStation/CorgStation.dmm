@@ -4258,7 +4258,7 @@
 /turf/open/floor/plating/asteroid,
 /area/maintenance/starboard/secondary)
 "baK" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -11004,7 +11004,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "dtD" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/requests_console{
 	pixel_y = 32
 	},
@@ -22659,7 +22659,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "hlq" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -51395,7 +51395,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/engine/storage)
 "qCV" = (

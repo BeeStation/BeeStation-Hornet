@@ -489,10 +489,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	. += "<span class='info'>[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.</span>"
 
 
-/obj/item/circuitboard/machine/space_heater
-	name = "space heater (Machine Board)"
+/obj/item/circuitboard/machine/portable_thermomachine
+	name = "portable thermomachine (Machine Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/space_heater
+	build_path = /obj/machinery/portable_thermomachine
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,

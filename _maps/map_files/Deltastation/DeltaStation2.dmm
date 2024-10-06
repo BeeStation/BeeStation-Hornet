@@ -7668,7 +7668,7 @@
 /area/engine/atmos)
 "aYr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aYu" = (
@@ -10627,7 +10627,7 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bsj" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -17390,7 +17390,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/tcommsat/server)
 "cok" = (
@@ -25329,7 +25329,7 @@
 /area/science/lab)
 "dkO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dle" = (
@@ -34472,7 +34472,7 @@
 /area/hallway/secondary/entry)
 "feS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
@@ -45046,7 +45046,7 @@
 /area/hallway/primary/fore)
 "ioz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -48381,7 +48381,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
@@ -84002,7 +84002,7 @@
 /area/science/robotics/mechbay)
 "uQd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
@@ -87115,7 +87115,7 @@
 /area/maintenance/aft)
 "vOI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
@@ -94337,7 +94337,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "xWa" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "xWc" = (

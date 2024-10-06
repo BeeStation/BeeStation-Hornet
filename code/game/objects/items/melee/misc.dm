@@ -972,8 +972,6 @@
 			log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 			return
 
-		var/mob/living/carbon/human/T = target
-
 		target.visible_message("[user] strikes [target] in the [parse_zone(target_zone)].", "You strike [target] in the [parse_zone(target_zone)].")
 		log_combat(user, target, "attacked", src)
 
