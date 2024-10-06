@@ -16712,6 +16712,22 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"fpA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/security/brig)
 "fpB" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -25602,6 +25618,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/security/brig)
@@ -42202,6 +42221,19 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"nzf" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/security/brig)
 "nzh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49708,19 +49740,8 @@
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "pZU" = (
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/security/brig)
 "pZW" = (
@@ -52973,24 +52994,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"rfO" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 2
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "rfS" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
@@ -67542,7 +67545,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction/flip{
+	dir = 2
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "vLG" = (
@@ -114932,8 +114937,8 @@ glJ
 wBm
 fEX
 tXi
+fpA
 sSB
-rfO
 mLz
 bkx
 nPz
@@ -115189,7 +115194,7 @@ cGv
 omT
 uSd
 uSd
-uSd
+nzf
 pZU
 nOR
 nLU
