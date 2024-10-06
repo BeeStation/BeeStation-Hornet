@@ -259,8 +259,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /obj/machinery/camera/directional/north{
-	c_tag = "Xenobiology Containment North";
-	network = list("mo19x")
+	c_tag = "Xenobiology Containment North"
 	},
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
@@ -428,8 +427,7 @@
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/camera/directional/east{
-	c_tag = "Xenobiology Containment East";
-	network = list("mo19x")
+	c_tag = "Xenobiology Containment East"
 	},
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
@@ -593,8 +591,7 @@
 /obj/machinery/light/broken,
 /obj/structure/alien/weeds,
 /obj/machinery/camera/directional/south{
-	c_tag = "Xenobiology Containment South";
-	network = list("mo19x")
+	c_tag = "Xenobiology Containment South"
 	},
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
@@ -738,11 +735,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring the research division and the labs within.";
-	name = "research monitor";
-	network = list("mo19x","mo19r")
-	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -809,8 +801,7 @@
 	},
 /obj/machinery/light/small/broken,
 /obj/machinery/camera/directional/south{
-	c_tag = "Research Director's Office";
-	network = list("mo19","mo19r")
+	c_tag = "Research Director's Office"
 	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
@@ -1030,8 +1021,7 @@
 	pixel_x = 26
 	},
 /obj/machinery/camera/directional/east{
-	c_tag = "Kitchen";
-	network = list("mo19")
+	c_tag = "Kitchen"
 	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
@@ -1044,7 +1034,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/awaymission/moonoutpost19/arrivals)
 "le" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2939,8 +2929,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/west{
-	c_tag = "Xenobiology";
-	network = list("mo19","mo19r")
+	c_tag = "Xenobiology"
 	},
 /turf/open/floor/iron/white/side{
 	dir = 6
@@ -3402,8 +3391,7 @@
 /obj/machinery/light/small/broken,
 /obj/item/paper/fluff/awaymissions/moonoutpost19/research/evacuation,
 /obj/machinery/camera/directional/south{
-	c_tag = "Research Division";
-	network = list("mo19","mo19r")
+	c_tag = "Research Division"
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -3686,8 +3674,7 @@
 	icon_state = "ltrails_2"
 	},
 /obj/machinery/camera/directional/west{
-	c_tag = "Dormitories";
-	network = list("mo19")
+	c_tag = "Dormitories"
 	},
 /turf/open/floor/iron{
 	dir = 8;
@@ -3906,12 +3893,6 @@
 "Ks" = (
 /obj/structure/table/reinforced,
 /obj/structure/alien/weeds,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the contents of the xenobiology containment pen.";
-	dir = 8;
-	name = "xenobiology monitor";
-	network = list("mo19x")
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -4412,7 +4393,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "Oa" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/generic,
 /obj/structure/window,
 /turf/open/floor/plating,
@@ -4601,8 +4582,7 @@
 	},
 /obj/item/paper/fluff/awaymissions/moonoutpost19/welcome,
 /obj/machinery/camera/directional/east{
-	c_tag = "Arrivals South";
-	network = list("mo19")
+	c_tag = "Arrivals South"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4747,8 +4727,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/east{
-	c_tag = "Bar";
-	network = list("mo19")
+	c_tag = "Bar"
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
@@ -5273,11 +5252,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/computer/security{
-	desc = "Used to access the various cameras on the outpost.";
-	dir = 4;
-	network = list("mo19r","mo19")
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -5507,7 +5481,7 @@
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
 "WX" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -5735,8 +5709,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera/directional/south{
-	c_tag = "Arrivals North";
-	network = list("mo19")
+	c_tag = "Arrivals North"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8

@@ -170,19 +170,6 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/abandonedzoo)
-"aD" = (
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_access_txt = "47"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/iron/dark/side,
-/area/ruin/space/has_grav/abandonedzoo)
 "aE" = (
 /obj/machinery/shieldwallgen{
 	active = 2;
@@ -483,16 +470,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/abandonedzoo)
-"bz" = (
-/obj/machinery/space_heater,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/side,
-/area/ruin/space/has_grav/abandonedzoo)
 "bA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
@@ -617,6 +594,19 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
+"fm" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "Bio Containment";
+	req_access_txt = "47"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron/dark/side,
+/area/ruin/space/has_grav/abandonedzoo)
 "jz" = (
 /obj/machinery/shieldwallgen{
 	active = 2;
@@ -652,6 +642,19 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
+"nV" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "Bio Containment";
+	req_access_txt = "47"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark/side,
+/area/ruin/space/has_grav/abandonedzoo)
 "ov" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -682,6 +685,16 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/abandonedzoo)
+"uk" = (
+/obj/machinery/portable_thermomachine,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/side,
+/area/ruin/space/has_grav/abandonedzoo)
 "vm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -706,16 +719,16 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/abandonedzoo)
-"AX" = (
+"Cn" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
 	req_access_txt = "47"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
@@ -727,14 +740,7 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/abandonedzoo)
-"FJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/abandonedzoo)
-"Hx" = (
+"Eg" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
 	req_access_txt = "47"
@@ -746,6 +752,13 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron/dark/side,
+/area/ruin/space/has_grav/abandonedzoo)
+"FJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/abandonedzoo)
 "HN" = (
 /obj/structure/cable/yellow{
@@ -779,19 +792,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/abandonedzoo)
-"VW" = (
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_access_txt = "47"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
 "WP" = (
 /obj/machinery/light/small{
@@ -856,14 +856,14 @@ ah
 ap
 ai
 ai
-aD
+fm
 aL
 aR
 aL
 eY
 aR
 aL
-VW
+Cn
 bv
 bv
 bJ
@@ -969,7 +969,7 @@ FJ
 bh
 bm
 bp
-bz
+uk
 at
 at
 at
@@ -1129,14 +1129,14 @@ an
 aq
 au
 am
-Hx
+Eg
 aL
 ba
 aL
 sC
 rY
 aL
-AX
+nV
 bD
 bB
 bX

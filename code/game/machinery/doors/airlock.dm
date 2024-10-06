@@ -769,7 +769,7 @@
 		. += "<span class='notice'>Alt-click [src] to [ secondsElectrified ? "un-electrify" : "permanently electrify"] it.</span>"
 		. += "<span class='notice'>Ctrl-Shift-click [src] to [ emergency ? "disable" : "enable"] emergency access.</span>"
 
-/obj/machinery/door/airlock/attack_ai(mob/user)
+/obj/machinery/door/airlock/attack_silicon(mob/user)
 	if(!canAIControl(user))
 		if(canAIHack())
 			hack(user)
@@ -784,6 +784,7 @@
 		return
 
 	ui_interact(user)
+	return TRUE
 
 /obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0

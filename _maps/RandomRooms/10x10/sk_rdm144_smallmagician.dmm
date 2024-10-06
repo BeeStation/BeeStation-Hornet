@@ -83,7 +83,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
-/obj/item/trash/can/food/peaches/maint,
+/obj/item/trash/canned/peaches/maint,
 /obj/machinery/light/small{
 	dir = 8
 	},

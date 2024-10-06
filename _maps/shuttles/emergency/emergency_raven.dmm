@@ -830,14 +830,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"dj" = (
-/obj/effect/turf_decal/box/white/corners{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "dk" = (
 /obj/effect/turf_decal/box/white/corners,
 /turf/open/floor/iron/dark,
@@ -1113,12 +1105,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"ee" = (
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/bot,
-/obj/machinery/space_heater,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ef" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/bot,
@@ -1356,6 +1342,12 @@
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"rd" = (
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "rD" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1859,6 +1851,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"Qr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	req_access_txt = "2;19"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "Qz" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 10
@@ -1919,6 +1921,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"Sk" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	req_access_txt = "2;19"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "SK" = (
 /obj/machinery/light,
 /obj/machinery/status_display/evac{
@@ -1935,15 +1946,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"Vw" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "2;19"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "VM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1990,6 +1992,14 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"XW" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "Yo" = (
 /obj/machinery/turretid{
 	desc = "Used to the Raven's automated defenses.";
@@ -2018,16 +2028,6 @@
 "Zg" = (
 /obj/effect/turf_decal/stripes/white/corner,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"ZJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "2;19"
-	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -2327,7 +2327,7 @@ Zg
 ax
 cW
 db
-dj
+XW
 vc
 ax
 dC
@@ -2348,7 +2348,7 @@ aJ
 kr
 bb
 lr
-Vw
+Sk
 RS
 vc
 vc
@@ -2416,7 +2416,7 @@ aL
 kr
 bc
 vE
-Vw
+Sk
 th
 Yy
 vc
@@ -2449,7 +2449,7 @@ aE
 uO
 ax
 ax
-ZJ
+Qr
 ax
 ax
 bR
@@ -2503,7 +2503,7 @@ ax
 ax
 Nk
 dJ
-ee
+rd
 ek
 em
 aa

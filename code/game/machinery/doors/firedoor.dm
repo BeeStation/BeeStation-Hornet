@@ -229,7 +229,7 @@
 	return ..()
 
 
-/obj/machinery/door/firedoor/attack_ai(mob/user)
+/obj/machinery/door/firedoor/attack_silicon(mob/user)
 	add_fingerprint(user)
 	if(welded || operating || machine_stat & NOPOWER)
 		return TRUE
@@ -238,9 +238,6 @@
 	else
 		close()
 	return TRUE
-
-/obj/machinery/door/firedoor/attack_robot(mob/user)
-	return attack_ai(user)
 
 /obj/machinery/door/firedoor/attack_alien(mob/user)
 	add_fingerprint(user)

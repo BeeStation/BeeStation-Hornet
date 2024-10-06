@@ -202,7 +202,6 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
@@ -664,7 +663,7 @@
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !SSjob.GetJob(candidate.mind.assigned_role) \
-			|| (candidate.mind.assigned_role in GLOB.nonhuman_positions) \
+			|| (candidate.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)) \
 		)
 			candidates -= candidate
 
