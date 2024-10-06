@@ -30,6 +30,8 @@ AI MODULES
 	. = ..()
 	if(Adjacent(user))
 		show_laws(user)
+	if(key_override)
+		. += "\nInput upload code 666 to override the upload restriction. This is a single use override."
 
 /obj/item/aiModule/attack_self(var/mob/user as mob)
 	..()
@@ -40,8 +42,6 @@ AI MODULES
 		to_chat(user, "<B>Programmed Law[(laws.len > 1) ? "s" : ""]:</B>")
 		for(var/law in laws)
 			to_chat(user, "\"[law]\"")
-	if(key_override == 1)
-		to_chat(user, "\nInput upload code 666 to override the upload restriction. This is a single use override.")
 
 //The proc other things should be calling
 /obj/item/aiModule/proc/install(datum/ai_laws/law_datum, mob/user)
