@@ -42,8 +42,8 @@
 	name = "cable coil string"
 	desc = "A cable coil string to be used in weapon crafting."
 	icon_state = "cablestring"
-	damage_multiplier = 0.5
-	speed_multiplier = 2
+	damage_multiplier = 0.7
+	speed_multiplier = 1.35
 	gun_suitable = FALSE
 	//Half damage and Half speed
 	added_description = "<span class='info'>The bowstring is improvised out of cable. It looks rather weak.</span>"
@@ -52,7 +52,7 @@
 	name = "bamboo fiber string"
 	desc = "A string made out of bamboo fiber to be used in weapon crafting."
 	icon_state = "bamboostring"
-	damage_multiplier = 0.8
+	damage_multiplier = 0.9
 	speed_multiplier = 0.8
 	gun_suitable = FALSE
 	//A bit weak and a bit fast
@@ -117,7 +117,7 @@
 	name = "bow fangs"
 	desc = "Fangs that can be attached to a bow to make it more suitable for hand to hand combat. It decreases accuracy, however."
 	icon_state = "fangs"
-	force = 2
+	force = 5
 	spread = 2
 	sharpness = IS_SHARP_ACCURATE
 	bleed_force = BLEED_CUT
@@ -128,7 +128,7 @@
 	name = "bone bow fangs"
 	desc = "Fangs made out of bone that can be attached to a bow to make it more suitable for hand to hand combat. It decreases accuracy, however."
 	icon_state = "fangs_bone"
-	force = 3
+	force = 7
 	spread = 3
 	sharpness = IS_BLUNT
 	bleed_force = BLEED_SCRATCH
@@ -139,7 +139,7 @@
 	name = "scope"
 	desc = "A scope that can be added to a weapon or bow to improve accuracy."
 	icon_state = "scope" //These need a more talented spriter than me
-	spread = -5 //Its a good thing when these and multipliers are negative, this represents how much spread it decreases
+	spread = -5 //Its a good thing when these and multipliers are negative, this represents how much spread it reduces
 	added_description = "<span class='info'>A scope has been attached, improving accuracy.</span>"
 
 /obj/item/weaponcrafting/attachment/secondary/scope/glassless
@@ -161,5 +161,5 @@
 	name = "accelerators"
 	desc = "Cogs meant to accelerate the velocity of a weapons projectiles."
 	icon_state = "accelerators"
-	speed_multiplier = -0.3 //this represents aa decrease in slowdown if that makes sense
+	speed_multiplier = -0.2 //this represents a decrease in slowdown since its negative
 	added_description = "<span class='info'>Couple of accelerators have been added to this weapon, increasing its projectile speeds.</span>"

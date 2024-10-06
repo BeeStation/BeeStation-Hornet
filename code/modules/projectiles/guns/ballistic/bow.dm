@@ -7,7 +7,7 @@
 	worn_icon_state = "baguette"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY //need both hands to fire
-	force = 5
+	force = 7
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	load_sound = null
 	fire_sound = 'sound/weapons/bowfire.ogg'
@@ -197,10 +197,10 @@
 
 /obj/item/gun/ballistic/bow/ashen
 	name = "bone bow"
-	desc = "A bow carved out of bone. Well suited for melee combat, althought its robustness causes a slight delay in drawing."
+	desc = "A bow carved out of bone. Well suited for melee combat, althought its robustness causes slight dificulty in drawing."
 	icon_state = "ashenbow"
 	initial_bowstring = /obj/item/weaponcrafting/attachment/primary/sinewstring
-	force = 7
+	force = 9
 	drawtime = 1.2
 
 /obj/item/gun/ballistic/bow/ashen/stringless
@@ -212,7 +212,7 @@
 	desc = "A bow made out of bamboo. Easy to draw, can be fitted into a backpack when without a string. However, it is extremely weak at melee combat."
 	icon_state = "bamboobow"
 	initial_bowstring = /obj/item/weaponcrafting/attachment/primary/bamboostring
-	force = 2
+	force = 5
 	drawtime = 0.8
 
 /obj/item/gun/ballistic/bow/bamboo/stringless
