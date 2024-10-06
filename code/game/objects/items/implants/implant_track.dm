@@ -17,7 +17,7 @@
 
 /obj/item/implant/tracking/c38/Initialize(mapload)
 	. = ..()
-	timerid = QDEL_IN(src, lifespan)
+	timerid = QDEL_IN_STOPPABLE(src, lifespan)
 
 /obj/item/implant/tracking/c38/Destroy()
 	deltimer(timerid)

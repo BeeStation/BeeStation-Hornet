@@ -344,6 +344,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "carpspawn"
 	icon_state = "carp_spawn"
 
+/obj/effect/landmark/loneops
+	name = "lone ops"
+	icon_state = "lone_ops"
+
 //observer start
 /obj/effect/landmark/observer_start
 	name = "Observer-Start"
@@ -483,6 +487,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 
 /obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
 	. = ..()

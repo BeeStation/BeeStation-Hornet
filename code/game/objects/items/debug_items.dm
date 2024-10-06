@@ -390,7 +390,7 @@
 	mappath = '_maps/map_files/debug/multidir_sprite_debug.dmm'
 
 // friendly warning setter
-/obj/item/map_template_diver/Initialize()
+/obj/item/map_template_diver/Initialize(mapload)
 	. = ..()
 #ifndef DEBUG
 	live_server_warning = TRUE

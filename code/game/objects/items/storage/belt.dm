@@ -310,6 +310,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
 		/obj/item/melee/classic_baton/police,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/peppercloud_deployer,
@@ -385,6 +386,7 @@
 		/obj/item/resonator,
 		/obj/item/mining_scanner,
 		/obj/item/pickaxe,
+		/obj/item/shovel,
 		/obj/item/stack/sheet/animalhide,
 		/obj/item/stack/sheet/sinew,
 		/obj/item/stack/sheet/bone,
@@ -392,7 +394,8 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/reagent_containers/food/drinks/bottle,
 		/obj/item/stack/medical,
-		/obj/item/knife/kitchen,
+		/obj/item/knife/combat/survival,
+		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/gps,
 		/obj/item/storage/bag/ore,
@@ -411,6 +414,8 @@
 		/obj/item/skeleton_key,
 		/obj/item/discovery_scanner,
 		/obj/item/gun/energy/e_gun/mini/exploration,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,
 		/obj/item/research_disk_pinpointer

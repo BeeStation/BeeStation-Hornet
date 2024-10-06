@@ -22,11 +22,6 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "law_change"), 0.2 SECONDS)
 		last_lawchange_announce = world.time
 
-/mob/living/silicon/proc/set_law_sixsixsix(law, announce = TRUE)
-	laws_sanity_check()
-	laws.set_law_sixsixsix(law)
-	post_lawchange(announce)
-
 /mob/living/silicon/proc/set_zeroth_law(law, law_borg, announce = TRUE)
 	laws_sanity_check()
 	laws.set_zeroth_law(law, law_borg)

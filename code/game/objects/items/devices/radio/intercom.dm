@@ -12,6 +12,8 @@
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
+
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()
 	var/area/current_area = get_area(src)
@@ -54,7 +56,7 @@
 		return
 	return ..()
 
-/obj/item/radio/intercom/attack_ai(mob/user)
+/obj/item/radio/intercom/attack_silicon(mob/user)
 	interact(user)
 
 /obj/item/radio/intercom/attack_paw(mob/user)
@@ -76,17 +78,11 @@
 
 	return GLOB.physical_state // But monkeys can't use default state, and they can already use hotkeys
 
-/obj/item/radio/intercom/can_receive(freq, level)
-	if(!on)
-		return FALSE
-	if(wires.is_cut(WIRE_RX))
-		return FALSE
-	if(!(0 in level))
+/obj/item/radio/intercom/can_receive(freq, list/levels)
+	if(levels != RADIO_NO_Z_LEVEL_RESTRICTION)
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.get_virtual_z_level() in level))
+		if(isnull(position) || !(position.get_virtual_z_level() in levels))
 			return FALSE
-	if(!listening)
-		return FALSE
 	if(freq == FREQ_SYNDICATE)
 		if(!(syndie))
 			return FALSE//Prevents broadcast of messages over devices lacking the encryption
@@ -143,9 +139,9 @@
 
 	var/area/current_area = get_area(src)
 	if(!current_area)
-		on = FALSE
+		set_on(FALSE)
 	else
-		on = current_area.powered(AREA_USAGE_EQUIP) // set "on" to the equipment power status of our area.
+		set_on(current_area.powered(AREA_USAGE_EQUIP)) // set "on" to the equipment power status of our area.
 	update_icon()
 
 /obj/item/radio/intercom/add_blood_DNA(list/blood_dna)
@@ -165,8 +161,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 26)
 /obj/item/radio/intercom/chapel
 	name = "Confessional intercom"
 	anonymize = TRUE
-	frequency = 1481
-	broadcasting = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom/chapel)
+
+/obj/item/radio/intercom/chapel/Initialize(mapload, ndir, building)
+	. = ..()
+	set_frequency(1481)
+	set_broadcasting(TRUE)
 
 //MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/prison, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/chapel, 26)

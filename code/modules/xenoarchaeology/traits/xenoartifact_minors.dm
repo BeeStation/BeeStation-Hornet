@@ -198,6 +198,8 @@
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
+
 /obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	if(!Z)
 		qdel(src)
@@ -403,11 +405,11 @@
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
 	controller = X._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(src, PROC_REF(haunted_step), X, NORTH),
-			 "down" = CALLBACK(src, PROC_REF(haunted_step), X, SOUTH),
-			 "left" = CALLBACK(src, PROC_REF(haunted_step), X, WEST),
-			 "right" = CALLBACK(src, PROC_REF(haunted_step), X, EAST),
-			 "activate" = CALLBACK(src, PROC_REF(activate_parent), X)), 10 SECONDS))
+			"up" = CALLBACK(src, PROC_REF(haunted_step), X, NORTH),
+			"down" = CALLBACK(src, PROC_REF(haunted_step), X, SOUTH),
+			"left" = CALLBACK(src, PROC_REF(haunted_step), X, WEST),
+			"right" = CALLBACK(src, PROC_REF(haunted_step), X, EAST),
+			"activate" = CALLBACK(src, PROC_REF(activate_parent), X)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
 	if(isliving(ref.loc)) //Make any mobs drop this before it moves

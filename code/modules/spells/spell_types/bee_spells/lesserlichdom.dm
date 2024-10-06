@@ -11,10 +11,8 @@
 	invocation = "MINUS POTENS NECREM IMORTIUM!"
 	invocation_type = INVOCATION_SHOUT
 	cooldown_time = 10 SECONDS
-
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "skeleton"
-
 /datum/action/cooldown/spell/lesserlichdom/cast(list/targets,mob/user = usr)
 	. = ..()
 	for(var/mob/M in targets)
@@ -45,7 +43,7 @@
 
 		playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
-		if(!do_after(M, 50, target=marked_item, timed_action_flags = IGNORE_HELD_ITEM))
+		if(!do_after(M, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(M, "<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>")
 			return
 
@@ -84,6 +82,8 @@
 	var/respawn_time = 3600  //Double the time of a regular phylactery
 
 	var/static/active_phylacteries = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 
 /obj/item/lesserphylactery/Initialize(mapload, datum/mind/newmind)
 	. = ..()

@@ -634,8 +634,7 @@
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
-	for(var/i in GLOB.silicon_mobs)
-		var/mob/living/silicon/S = i
+	for(var/mob/living/silicon/S as anything in GLOB.silicon_mobs)
 		ai_number++
 		var/message = ""
 		if(isAI(S))

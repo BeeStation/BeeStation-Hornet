@@ -510,7 +510,7 @@
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "jaunt"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	var/cooldown = 150
 	var/last_teleport = 0
 
@@ -870,6 +870,8 @@
 	var/revive_time = 900
 	var/mob/living/carbon/human/cloth_golem
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
+
 /obj/structure/cloth_pile/Initialize(mapload, mob/living/carbon/human/H)
 	. = ..()
 	if(!QDELETED(H) && is_species(H, /datum/species/golem/cloth))
@@ -1139,7 +1141,7 @@
 	name = "Bone Chill"
 	desc = "Rattle your bones and strike fear into your enemies!"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "bonechill"
 	var/cooldown = 600
 	var/last_use
@@ -1147,7 +1149,7 @@
 
 /datum/action/innate/bonechill/Activate()
 	if(world.time < last_use + cooldown)
-		to_chat("<span class='notice'>You aren't ready yet to rattle your bones again.</span>")
+		to_chat(owner, "<span class='notice'>You aren't ready yet to rattle your bones again.</span>")
 		return
 	owner.visible_message("<span class='warning'>[owner] rattles [owner.p_their()] bones harrowingly.</span>", "<span class='notice'>You rattle your bones.</span>")
 	last_use = world.time

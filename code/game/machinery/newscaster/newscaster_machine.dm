@@ -59,6 +59,8 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
+
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
 	GLOB.allCasters += src

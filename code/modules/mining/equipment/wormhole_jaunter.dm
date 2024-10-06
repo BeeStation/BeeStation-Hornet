@@ -50,7 +50,7 @@
 		try_move_adjacent(J)
 	else
 		user.Paralyze(2 SECONDS, TRUE, TRUE) //Ignore stun immunity here, for their own good
-		user.setMovetype(user.movement_type | FLOATING) //Prevents falling into chasm during delay, automatically removed upon movement
+		ADD_TRAIT(user, TRAIT_MOVE_FLOATING, "jaunter") //Prevents falling into chasm during delay, automatically removed upon movement
 		addtimer(CALLBACK(J, TYPE_PROC_REF(/atom, attackby), null, user), 1 SECONDS) //Forcibly teleport them away from the chasm after a brief dramatic delay
 	playsound(src,'sound/effects/sparks4.ogg',50,1)
 	qdel(src)

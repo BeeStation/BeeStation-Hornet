@@ -59,7 +59,6 @@
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
 // Very much byond logic, but I want nice behavior, so we fake it with drag
 /atom/movable/screen/movable/action_button/MouseDrag(atom/over_object, src_location, over_location, src_control, over_control, params)
-	. = ..()
 	if(!can_use(usr))
 		return
 	if(IS_WEAKREF_OF(over_object, last_hovored_ref))
@@ -74,6 +73,23 @@
 
 	if(old_object)
 		old_object.MouseExited(over_location, over_control, params)
+
+	last_hovored_ref = WEAKREF(over_object)
+	over_object.MouseEntered(over_location, over_control, params)
+//Hide/Show Action Buttons ... Button
+/atom/movable/screen/movable/action_button/hide_toggle
+	name = "Hide Buttons"
+	desc = "Shift-click any button to reset its position, and Control-click it to lock it in place. Alt-click this button to reset all buttons to their default positions."
+	icon = 'icons/hud/actions/action_generic.dmi'
+	icon_state = "bg_default"
+	var/hidden = FALSE
+	var/hide_icon = 'icons/hud/actions/action_generic.dmi'
+	var/hide_state = "hide"
+	var/show_state = "show"
+	var/mutable_appearance/hide_appearance
+	var/mutable_appearance/show_appearance
+
+/atom/movable/screen/movable/action_button/hide_toggle/Initialize(mapload)
 
 	last_hovored_ref = WEAKREF(over_object)
 	over_object.MouseEntered(over_location, over_control, params)
@@ -149,6 +165,11 @@
 	.["bg_icon"] = ui_style
 	.["bg_state"] = "template"
 
+	//TODO : Make these fit theme
+	.["toggle_icon"] = 'icons/hud/actions/action_generic.dmi'
+	.["toggle_hide"] = "hide"
+	.["toggle_show"] = "show"
+
 //see human and alien hud for specific implementations.
 
 /mob/proc/update_action_buttons_icon(status_only = FALSE)
@@ -219,6 +240,7 @@
 	var/ui_name = ui_paths[length(ui_paths)]
 
 	icon_state = "[ui_name]_palette"
+
 
 /atom/movable/screen/button_palette/MouseEntered(location, control, params)
 	. = ..()
@@ -404,3 +426,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /atom/movable/screen/action_landing/proc/hit_by(atom/movable/screen/movable/action_button/button)
 	var/datum/hud/our_hud = owner.owner
 	our_hud.position_action(button, owner.location)
+	var/matrix/M = matrix()
+	M.Translate(x_offset,y_offset)
+	button.transform = M
+
+#undef AB_MAX_COLUMNS

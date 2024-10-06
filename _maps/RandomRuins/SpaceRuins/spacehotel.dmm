@@ -2211,8 +2211,8 @@
 /obj/item/food/meat/slab/xeno,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/plant,
-/obj/item/food/meat/slab/human/mutant/plant,
+/obj/item/food/meat/slab/human/mutant/diona,
+/obj/item/food/meat/slab/human/mutant/diona,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "hv" = (
@@ -2230,8 +2230,8 @@
 /obj/item/food/meat/slab/xeno,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/plant,
-/obj/item/food/meat/slab/human/mutant/plant,
+/obj/item/food/meat/slab/human/mutant/diona,
+/obj/item/food/meat/slab/human/mutant/diona,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "hw" = (
@@ -3794,8 +3794,7 @@
 "yD" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
@@ -3917,8 +3916,7 @@
 "CQ" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -4030,8 +4028,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/gps{
 	gpstag = "Twin-Nexus Hotel Retreat";

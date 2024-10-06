@@ -284,6 +284,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 #define NICE_SHOT_RICOCHET_BONUS	10			//if the shooter has the NICE_SHOT trait and they fire a ricocheting projectile, add this to the ricochet chance and auto aim angle
 
+
 /// Alternate attack defines. Return these at the end of procs like afterattack_secondary.
 /// Calls the normal attack proc. For example, if returned in afterattack_secondary, will call afterattack.
 /// Will continue the chain depending on the return value of the non-alternate proc, like with normal attacks.
@@ -294,3 +295,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 /// Proceed with the attack chain, but don't call the normal methods.
 #define SECONDARY_ATTACK_CONTINUE_CHAIN 3
+
+// Flags for energy shields
+/// Energy shields will block projectiles
+#define ENERGY_SHEILD_BLOCK_PROJECTILES (1 << 0)
+/// Energy shields will block melee attacks
+#define ENERGY_SHEILD_BLOCK_MELEE (1 << 1)
+

@@ -53,7 +53,7 @@
 "al" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
@@ -641,8 +641,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Salvage Ship Bridge APC";
-	pixel_y = 24;
-	req_access = null
+	pixel_y = 24
 	},
 /obj/item/camera{
 	pixel_x = 12;
@@ -719,7 +718,7 @@
 "cl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/engine)
 "cq" = (
@@ -844,8 +843,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Salvage Ship Cargo APC";
-	pixel_x = -24;
-	req_access = null
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -1152,8 +1150,7 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	name = "Salvage Ship Engineering APC";
-	pixel_y = -24;
-	req_access = null
+	pixel_y = -24
 	},
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/twenty,
@@ -1238,7 +1235,7 @@
 /area/shuttle/abandoned/bar)
 "dS" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall/mineral/titanium/nodiagonal,
+/turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "dT" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1353,7 +1350,6 @@
 	pixel_y = 14
 	},
 /obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5;
 	pixel_x = -5;
 	pixel_y = 6
 	},
@@ -1462,22 +1458,22 @@
 "fb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table,
-/obj/item/trash/plate{
+/obj/item/plate{
 	pixel_x = -6;
 	pixel_y = -2
 	},
-/obj/item/trash/plate{
+/obj/item/plate{
 	pixel_x = -6
 	},
-/obj/item/trash/plate{
+/obj/item/plate{
 	pixel_x = -6;
 	pixel_y = 2
 	},
-/obj/item/trash/plate{
+/obj/item/plate{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/trash/plate{
+/obj/item/plate{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -1496,8 +1492,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Salvage Ship Bar APC";
-	pixel_y = 24;
-	req_access = null
+	pixel_y = 24
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
@@ -1888,8 +1883,7 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	name = "Salvage Ship Crew Quarters APC";
-	pixel_y = -24;
-	req_access = null
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1

@@ -448,7 +448,7 @@
 // SPIDER ACTIONS/PROCS
 
 /datum/action/innate/spider
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 	background_icon_state = "bg_alien"
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -548,7 +548,7 @@
 	desc = "Wrap something or someone in a cocoon. If it's a human or similar species, \
 		you'll also consume them, allowing you to lay enriched eggs."
 	background_icon_state = "bg_alien"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "wrap_0"
 	check_flags = AB_CHECK_CONSCIOUS
 	click_to_activate = TRUE

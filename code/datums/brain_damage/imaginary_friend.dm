@@ -94,6 +94,8 @@
 	to_chat(src, "<span class='notice'>You are absolutely loyal to your friend, no matter what.</span>")
 	to_chat(src, "<span class='notice'>You cannot directly influence the world around you, but you can see what [owner] cannot.</span>")
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
+
 /mob/camera/imaginary_friend/Initialize(mapload, _trauma)
 	. = ..()
 
@@ -245,7 +247,7 @@
 
 	var/turf/our_tile = get_turf(src)
 	var/turf/tile = get_turf(A)
-	var/image/arrow = image(icon = 'icons/mob/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
+	var/image/arrow = image(icon = 'icons/hud/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
 	arrow.plane = POINT_PLANE
 	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
@@ -261,7 +263,7 @@
 /datum/action/innate/imaginary_join
 	name = "Join"
 	desc = "Join your owner, following them from inside their mind."
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
@@ -272,7 +274,7 @@
 /datum/action/innate/imaginary_hide
 	name = "Hide"
 	desc = "Hide yourself from your owner's sight."
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 

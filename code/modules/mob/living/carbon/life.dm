@@ -29,12 +29,6 @@
 		if(.) //not dead
 			handle_blood()
 
-		if(stat != DEAD)
-			var/bprv = handle_bodyparts()
-			if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
-				update_stamina() //needs to go before updatehealth to remove stamcrit
-				updatehealth()
-
 		if(stat != DEAD) //Handle brain damage
 			for(var/T in get_traumas())
 				var/datum/brain_trauma/BT = T
@@ -49,6 +43,11 @@
 
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
+	else
+		var/bprv = handle_bodyparts()
+		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
+			update_stamina() //needs to go before updatehealth to remove stamcrit
+			updatehealth()
 
 	//Updates the number of stored chemicals for changeling powers
 	if(hud_used?.lingchemdisplay && !isalien(src) && mind)
@@ -751,3 +750,5 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 
 	heart.beating = !status
+
+#undef BALLMER_POINTS

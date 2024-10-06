@@ -9,7 +9,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Alien Power"
 	panel = "Alien"
 	background_icon_state = "bg_alien"
-	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
+	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "spell_default"
 	check_flags = AB_CHECK_CONSCIOUS
 	/// How much plasma this action uses.

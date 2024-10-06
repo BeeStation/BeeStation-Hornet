@@ -3,7 +3,7 @@
 
 /obj/structure/kitchenspike_frame
 	name = "meatspike frame"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "spikeframe"
 	desc = "The frame of a meat spike."
 	density = TRUE
@@ -38,7 +38,7 @@
 
 /obj/structure/kitchenspike
 	name = "meat spike"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "spike"
 	desc = "A spike for collecting meat from animals."
 	density = TRUE
@@ -116,7 +116,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 1200, target = src, timed_action_flags = IGNORE_RESTRAINED))
+			if(!do_after(M, 1200, target = src, hidden = TRUE))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return

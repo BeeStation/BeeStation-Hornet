@@ -130,10 +130,6 @@
 				if(istype(paper_copy, /obj/item/paper))
 					do_copy_loop(CALLBACK(src, PROC_REF(make_paper_copy)), usr)
 					return TRUE
-				// Devil contract paper.
-				if(istype(paper_copy, /obj/item/paper/contract/employment))
-					do_copy_loop(CALLBACK(src, PROC_REF(make_devil_paper_copy)), usr)
-					return TRUE
 			// Copying photo.
 			if(photo_copy)
 				do_copy_loop(CALLBACK(src, PROC_REF(make_photo_copy)), usr)
@@ -269,20 +265,6 @@
 /obj/machinery/photocopier/proc/give_pixel_offset(obj/item/copied_item)
 	copied_item.pixel_x = copied_item.base_pixel_x + rand(-10, 10)
 	copied_item.pixel_y = copied_item.base_pixel_y + rand(-10, 10)
-
-/**
- * Handles the copying of devil contract paper. Transfers all the text, stamps and so on from the old paper, to the copy.
- *
- * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
- * Does not check if it has enough toner because devil contracts cost no toner to print.
- */
-/obj/machinery/photocopier/proc/make_devil_paper_copy()
-	if(!paper_copy)
-		return
-
-	var/obj/item/paper/contract/employment/E = paper_copy
-	var/obj/item/paper/contract/employment/C = new(loc, E.target.current)
-	give_pixel_offset(C)
 
 /**
  * Handles the copying of paper. Transfers all the text, stamps and so on from the old paper, to the copy.
@@ -531,7 +513,7 @@
  */
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "A small, lightweight cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A small, lightweight cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
@@ -544,7 +526,7 @@
 
 /obj/item/toner/large
 	name = "large toner cartridge"
-	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A hefty cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	grind_results = list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
 	charges = 25
 	max_charges = 25

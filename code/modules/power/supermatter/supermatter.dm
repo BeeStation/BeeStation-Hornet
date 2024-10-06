@@ -149,7 +149,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	AddElement(/datum/element/point_of_interest)
 	radio = new(src)
 	radio.keyslot = new radio_key
-	radio.listening = 0
+	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 	distort = new(src)
 	add_emitter(/obj/emitter/sparkle, "supermatter_sparkle")
@@ -997,3 +997,5 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return TRUE
 
 #undef HALLUCINATION_RANGE
+
+#undef CRITICAL_TEMPERATURE

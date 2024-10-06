@@ -300,12 +300,12 @@
 	else if(isnull(departments))
 		departments = list(
 			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
-			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
-			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
-			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
-			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
-			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
+			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
+			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
+			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
+			CARDCON_DEPARTMENT_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
+			CARDCON_DEPARTMENT_SUPPLY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
+			CARDCON_DEPARTMENT_CIVILIAN = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)
 		)
 	data["jobs"] = list()
 	for(var/department in departments)

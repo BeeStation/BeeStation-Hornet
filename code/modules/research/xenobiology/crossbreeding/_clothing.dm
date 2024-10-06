@@ -54,6 +54,8 @@ Slimecrossing Armor
 	anchored = TRUE
 	max_integrity = 10
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
+
 /obj/structure/light_prism/Initialize(mapload, var/newcolor)
 	. = ..()
 	color = newcolor
@@ -152,7 +154,7 @@ Slimecrossing Armor
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/admantine_armor)
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
-	if(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) && prob(hit_reflect_chance))
+	if((def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)) && prob(hit_reflect_chance))
 		return TRUE
 	else
 		return FALSE

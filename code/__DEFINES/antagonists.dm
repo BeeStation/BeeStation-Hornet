@@ -125,6 +125,9 @@
 /// TC to charge someone if they get a free implant through choice or
 /// because they have nothing else that supports an implant.
 #define UPLINK_IMPLANT_TELECRYSTAL_COST 3
+// Traitor types
+#define TRAITOR_HUMAN "human"
+#define TRAITOR_AI	  "AI"
 
 /// Checks if the given mob is a wizard
 #define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
@@ -154,6 +157,7 @@
 #define ANTAGONIST_PREVIEW_ICON_SIZE 96
 
 
+
 /// The Classic Wizard wizard loadout.
 #define WIZARD_LOADOUT_CLASSIC "loadout_classic"
 /// Mjolnir's Power wizard loadout.
@@ -170,3 +174,22 @@
 	WIZARD_LOADOUT_WIZARMY, \
 	WIZARD_LOADOUT_SOULTAP, \
 )
+
+// Changelings
+// ------------------------------------
+
+#define LING_FAKEDEATH_TIME					600 //1 minute.
+#define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
+#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
+
+// Clockcult
+// ------------------------------------
+
+#define SIGIL_TRANSMISSION_RANGE 4
+/// Clockcult drone
+#define CLOCKDRONE	"drone_clock"
+
+// Abductors
+// ------------------------------------
+
+#define ABDUCTOR_MAX_TEAMS 4

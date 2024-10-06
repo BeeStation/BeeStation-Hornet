@@ -177,10 +177,10 @@
 	info_text = "Sword Saint, Wandering Vagabond - 1600's. \n<span class='notice'>Comes with a replica katana</span>"
 
 /obj/item/storage/box/hero/ronin/PopulateContents()
-    new /obj/item/clothing/under/costume/kamishimo(src)
-    new /obj/item/clothing/head/costume/rice_hat(src)
-    new /obj/item/katana/weak/curator(src)
-    new /obj/item/clothing/shoes/sandal(src)
+	new /obj/item/clothing/under/costume/kamishimo(src)
+	new /obj/item/clothing/head/costume/rice_hat(src)
+	new /obj/item/katana/weak/curator(src)
+	new /obj/item/clothing/shoes/sandal(src)
 
 /obj/item/choice_beacon/augments
 	name = "augment beacon"
@@ -359,7 +359,7 @@
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
 	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
-	if(!do_after(user, 100, target = src))
+	if(!do_after(user, 10 SECONDS, src, timed_action_flags = (IGNORE_TARGET_LOC_CHANGE|IGNORE_HELD_ITEM)))
 		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
 		return
 	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")

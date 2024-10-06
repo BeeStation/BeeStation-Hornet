@@ -52,3 +52,8 @@
 		qdel(src)
 	return TRUE
 
+	if(do_teleport(user, pick(L), channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE))
+		smoke.start()
+		uses--
+	else
+		to_chat(user, "The spell matrix was disrupted by something near the destination.")

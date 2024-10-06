@@ -233,3 +233,7 @@
 		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
 			stored_research.add_design(D)
 	to_chat(user, "<span class='warning'>A warning flashes onto the screen, stating that safety overrides have been deactivated!</span>")
+
+#undef LIMBGROWER_MAIN_MENU
+#undef LIMBGROWER_CATEGORY_MENU
+#undef LIMBGROWER_CHEMICAL_MENU

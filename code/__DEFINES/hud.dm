@@ -211,3 +211,5 @@
 #define SCRN_OBJ_IN_LIST "list"
 /// In the collapseable palette
 #define SCRN_OBJ_IN_PALETTE "palette"
+
+#define ACTION_BUTTON_DEFAULT_BACKGROUND "default" // Is this redundant?????

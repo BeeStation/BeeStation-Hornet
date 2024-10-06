@@ -36,8 +36,7 @@
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
-		for(var/M in observers)
-			var/mob/dead/observe = M
+		for(var/mob/dead/observe as anything in observers)
 			observe.reset_perspective(null)
 	qdel(hud_used)
 	for(var/cc in client_colours)
@@ -447,18 +446,24 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
+	/*
+	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
+	*No issues atm, but if one occurs, try that solution first
+	*/
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
 	if(new_eye)
 		if(ismovable(new_eye))
-			//Set the the thing unless it's us
+			//Set the new eye unless it's us
 			if(new_eye != src)
 				client.perspective = EYE_PERSPECTIVE
 				client.set_eye(new_eye)
 			else
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
+
 		else if(isturf(new_eye))
 			//Set to the turf unless it's our current turf
 			if(new_eye != loc)
@@ -468,7 +473,7 @@
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
 		else
-			//Do nothing
+			return TRUE //no setting eye to stupid things like areas or whatever
 	else
 		//Reset to common defaults: mob if on turf, otherwise current loc
 		if(isturf(loc))
@@ -525,7 +530,7 @@
 		return FALSE
 
 	//you can only queue up one examine on something at a time
-	if(examined_thing in do_afters)
+	if(DOING_INTERACTION_WITH_TARGET(src, examined_thing))
 		return FALSE
 
 	to_chat(src, "<span class='notice'>You start feeling around for something...</span>")
@@ -1064,6 +1069,10 @@
 /mob/proc/update_health_hud()
 	return
 
+/// Changes the stamina HUD based on new information
+/mob/proc/update_stamina_hud()
+	return
+
 ///Update the lighting plane and sight of this mob (sends COMSIG_MOB_UPDATE_SIGHT)
 /mob/proc/update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
@@ -1233,12 +1242,6 @@
 /mob/proc/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
-/mob/setMovetype(newval) //Set the movement type of the mob and update it's movespeed
-	. = ..()
-	if(isnull(.))
-		return
-	update_movespeed(FALSE)
-
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()
 	if(!speedies)
@@ -1275,3 +1278,5 @@
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_active_storage(null)
+
+#undef MOB_FACE_DIRECTION_DELAY

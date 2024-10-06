@@ -185,5 +185,15 @@
 			new /obj/item/assembly/prox_sensor(loc)
 			build_step = PTURRET_GUN_EQUIPPED
 
-/obj/machinery/porta_turret_construct/attack_ai()
-	return
+/obj/machinery/porta_turret_construct/attack_silicon()
+	return TRUE
+
+#undef PTURRET_UNSECURED
+#undef PTURRET_BOLTED
+#undef PTURRET_START_INTERNAL_ARMOUR
+#undef PTURRET_INTERNAL_ARMOUR_ON
+#undef PTURRET_GUN_EQUIPPED
+#undef PTURRET_SENSORS_ON
+#undef PTURRET_CLOSED
+#undef PTURRET_START_EXTERNAL_ARMOUR
+#undef PTURRET_EXTERNAL_ARMOUR_ON

@@ -1,23 +1,6 @@
 /*
 April 3rd, 2014 marks the day this machine changed the face of the kitchen on NTStation13
 God bless America.
-          ___----------___
-        _--                ----__
-       -                         ---_
-      -___    ____---_              --_
-  __---_ .-_--   _ O _-                -
- -      -_-       ---                   -
--   __---------___                       -
-- _----                                  -
- -     -_                                 _
- `      _-                                 _
-       _                           _-_  _-_ _
-      _-                   ____    -_  -   --
-      -   _-__   _    __---    -------       -
-     _- _-   -_-- -_--                        _
-     -_-                                       _
-    _-                                          _
-    -
 */
 
 /// The deep fryer pings after this long, letting people know it's "perfect"
@@ -37,7 +20,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 /obj/machinery/deepfryer
 	name = "deep fryer"
 	desc = "Deep fried <i>everything</i>."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "fryer_off"
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -216,8 +199,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flame_range = 7)
 	deconstruct(FALSE)
 
-/obj/machinery/deepfryer/attack_ai(mob/user)
-	return
+/obj/machinery/deepfryer/attack_silicon(mob/user)
+	return TRUE
 
 /obj/machinery/deepfryer/attack_hand(mob/user)
 	if(frying)

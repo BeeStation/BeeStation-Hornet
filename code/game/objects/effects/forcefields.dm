@@ -10,6 +10,8 @@
 	/// If set, how long the force field lasts after it's created. Set to 0 to have infinite duration forcefields.
 	var/initial_duration = 30 SECONDS
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/forcefield)
+
 /obj/effect/forcefield/Initialize(mapload, ntimeleft)
 	. = ..()
 	if(initial_duration > 0 SECONDS)
@@ -60,6 +62,8 @@
 	name = "invisible blockade"
 	desc = "You're gonna be here awhile."
 	initial_duration = 1 MINUTES
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/forcefield/mime)
 
 /obj/effect/forcefield/mime/Initialize(mapload, ntimeleft)
 	. = ..()

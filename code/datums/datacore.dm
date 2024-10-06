@@ -187,31 +187,38 @@
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/get_manifest()
+	/// assoc-ing to head names, so that we give their name an officer mark on crew manifest
+	var/static/list/heads
+	if(!heads) // do not do this in pre-runtime.
+		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+	/// Takes a result of each crew data in a format
 	var/list/manifest_out = list()
-	var/static/list/heads = make_associative(GLOB.command_positions)
 
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
 		var/hud = t.fields["hud"]
 		var/dept_bitflags = t.fields["active_dept"]
-		var/has_department = FALSE
 		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
-		for(var/department in get_job_departments(dept_bitflags))
-			var/list/department_manifest = manifest_out[department]
-			if(!department_manifest)
-				manifest_out[department] = department_manifest = list()
-			// Append to beginning of list if captain or department head
-			var/put_at_top = hud == JOB_HUD_CAPTAIN || hud == JOB_HUD_ACTINGCAPTAIN || (department != DEPT_COMMAND && heads[rank])
-			department_manifest.Insert(put_at_top, list(entry))
-			has_department = TRUE
-		if(!has_department)
-			LAZYADDASSOCLIST(manifest_out, "Misc", entry)
-	//Sort the list by 'departments' primarily so command is on top.
+		if(dept_bitflags)
+			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
+				LAZYINITLIST(manifest_out[department.dept_id])
+				// Append to beginning of list if captain or department head
+				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
+				var/list/_internal = manifest_out[department.dept_id]
+				_internal.Insert(put_at_top, list(entry))
+		else
+			LAZYINITLIST(manifest_out["Misc"])
+			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
+			var/list/_internal = manifest_out["Misc"]
+			_internal.Insert(put_at_top, list(entry))
+
+	// 'manifest_out' is not sorted.
 	var/list/sorted_out = list()
-	for(var/department in (assoc_to_keys(GLOB.departments) + "Misc"))
-		if(!isnull(manifest_out[department]))
-			sorted_out[department] = manifest_out[department]
+	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
+		if(isnull(manifest_out[department.dept_id]))
+			continue
+		sorted_out[department.manifest_category_name] = manifest_out[department.dept_id] // this also changes a department name.
 	return sorted_out
 
 /datum/datacore/proc/get_manifest_html(monochrome = FALSE)

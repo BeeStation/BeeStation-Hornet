@@ -15,7 +15,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "af" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ag" = (
@@ -196,7 +196,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -204,10 +204,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -278,10 +278,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window/westleft{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -439,10 +439,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window/northleft{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,

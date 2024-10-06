@@ -56,6 +56,7 @@
 
 /mob/living/simple_animal/revenant/orbit(atom/target)
 	setDir(SOUTH) // reset dir so the right directional sprites show up
+	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	return ..()
 
 
@@ -154,7 +155,7 @@
 	name = "Toggle Darkvision"
 	panel = "Revenant Abilities"
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/mob/actions/actions_revenant.dmi'
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_nightvision"
 	toggle_span = "revennotice"
 
@@ -172,7 +173,7 @@
 /datum/action/cooldown/spell/aoe/revenant
 	panel = "Revenant Abilities (Locked)"
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/mob/actions/actions_revenant.dmi'
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
 
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	spell_requirements = NONE

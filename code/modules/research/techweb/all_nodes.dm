@@ -32,6 +32,7 @@
 		"light_replacer",
 		"mechfab",
 		"micro_mani",
+		"oven_tray",
 		"package_wrap",
 		"paystand",
 		"plasmaglass",
@@ -53,7 +54,7 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"space_heater",
+		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
@@ -252,6 +253,7 @@
 		"pandemic",
 		"sleeper",
 		"soda_dispenser",
+		"blood_pack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -290,6 +292,7 @@
 		"griddle",
 		"microwave",
 		"monkey_recycler",
+		"oven",
 		"processor",
 		"reagentgrinder",
 		"smartfridge",
@@ -626,7 +629,7 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
-    "bluespace_capsule",
+	"bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",
@@ -986,6 +989,7 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
+		"maintain_module",
 		"default_module",
 		"freeform_module",
 		"freeformcore_module",
@@ -1232,6 +1236,7 @@
 		"night_visision_goggles",
 		"nvgmesons",
 		"security_hud_night",
+		"scigoggles_night",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -2265,7 +2270,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
-	
+
 /datum/techweb_node/nanite_cc
 	id = "nanite_cc"
 	tech_tier = 5

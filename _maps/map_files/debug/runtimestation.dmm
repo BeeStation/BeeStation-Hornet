@@ -223,9 +223,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
 	},
-/turf/open/floor/iron{
-	dir = 2
-	},
+/turf/open/floor/iron,
 /area/engine/atmos)
 "aO" = (
 /obj/machinery/atmospherics/components/binary/pump/on,
@@ -328,9 +326,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bc" = (
@@ -338,9 +334,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bd" = (
@@ -1107,7 +1101,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1117,12 +1111,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/construction)
 "ea" = (
 /obj/structure/table,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /obj/item/gun/magic/wand/resurrection/debug,
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -1259,7 +1253,6 @@
 /turf/closed/wall,
 /area/quartermaster/storage)
 "ez" = (
-/obj/machinery/camera/autoname/directional/east,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1437,7 +1430,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "cargounload";
-	name = "supply dock unloading door"
+	name = "supply Dock Unloading Door"
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
@@ -1466,7 +1459,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "cargoload";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
@@ -1478,16 +1471,13 @@
 /area/hallway/primary/central)
 "fe" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "cargounload";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 24;
 	pixel_y = 8
 	},
 /obj/machinery/button/door{
 	id = "cargoload";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 24;
 	pixel_y = -8
@@ -1518,7 +1508,6 @@
 /area/quartermaster/storage)
 "fi" = (
 /obj/docking_port/stationary{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
@@ -1559,7 +1548,6 @@
 /area/quartermaster/storage)
 "fp" = (
 /obj/docking_port/stationary{
-	dheight = 0;
 	dir = 2;
 	dwidth = 9;
 	height = 25;
@@ -1570,7 +1558,7 @@
 /turf/open/space/basic,
 /area/space)
 "fq" = (
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/directional/west,
 /obj/machinery/computer/bounty{
 	dir = 4
 	},
@@ -1701,9 +1689,7 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "fF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1922,15 +1908,11 @@
 	pixel_x = 32;
 	pixel_y = -7
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/plating,
 /area/storage/primary)
 "gh" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 2
-	},
+/obj/machinery/computer/shuttle_flight/mining,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "gi" = (
@@ -2076,7 +2058,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gD" = (
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "gE" = (
@@ -2085,7 +2067,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gF" = (
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gG" = (
@@ -2138,6 +2120,14 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"hP" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron,
+/area/quartermaster/miningoffice)
 "ii" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2248,6 +2238,13 @@
 /obj/item/storage/toolbox/syndicate,
 /turf/open/floor/iron,
 /area/storage/primary)
+"nA" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "nG" = (
 /obj/structure/closet/secure_closet/RD{
 	locked = 0
@@ -2274,6 +2271,16 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"pv" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "pC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -2544,6 +2551,13 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"El" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "EG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2553,6 +2567,24 @@
 	},
 /turf/open/floor/iron,
 /area/construction)
+"EM" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/power/apc{
+	dir = 1;
+	pixel_y = 23
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
+"EP" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "ES" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2761,6 +2793,13 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/iron,
 /area/engine/engineering)
+"VC" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "VF" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/machinery/camera/directional/north,
@@ -2852,6 +2891,14 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"YU" = (
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "ZD" = (
 /obj/machinery/suit_storage_unit/ce,
 /turf/open/floor/iron,
@@ -4541,7 +4588,7 @@ aa
 aa
 em
 gi
-go
+hP
 go
 gp
 ei
@@ -5932,18 +5979,18 @@ ei
 ei
 ei
 ei
-eB
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
-eL
+pv
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+VC
+EP
 eL
 eL
 ge
@@ -6035,7 +6082,7 @@ eh
 eh
 eh
 eh
-eL
+El
 eh
 eh
 ge
@@ -6127,7 +6174,7 @@ cN
 cN
 cN
 cN
-fI
+YU
 ge
 ge
 ge
@@ -6219,7 +6266,7 @@ dy
 dm
 dM
 cN
-Tt
+nA
 vm
 fg
 aa
@@ -6311,7 +6358,7 @@ dn
 dn
 dL
 cN
-Tt
+nA
 vm
 fg
 aa
@@ -6403,7 +6450,7 @@ dn
 dn
 dL
 ef
-Tt
+nA
 vm
 fg
 aa
@@ -6495,7 +6542,7 @@ dn
 dn
 dL
 ef
-Tt
+nA
 vm
 fg
 aa
@@ -6587,7 +6634,7 @@ dn
 dn
 dL
 cN
-Tt
+nA
 vm
 fg
 aa
@@ -6679,7 +6726,7 @@ dn
 dn
 dL
 cN
-Tt
+EM
 vm
 fg
 aa

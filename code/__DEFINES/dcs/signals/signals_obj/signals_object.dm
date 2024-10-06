@@ -34,3 +34,6 @@
 
 /// called once a mindshield is implanted: (mob/user)
 #define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
+
+///from /obj/item/assembly/proc/pulsed(mob/pulser)
+#define COMSIG_ASSEMBLY_PULSED "assembly_pulsed"

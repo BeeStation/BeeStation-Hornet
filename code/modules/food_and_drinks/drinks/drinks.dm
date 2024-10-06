@@ -38,7 +38,7 @@
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
-			if(!do_after(user, target = M))
+			if(!do_after(user, 3 SECONDS, target = M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -55,7 +55,7 @@
 	else
 		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
-		if(!do_after(user, target = M))
+		if(!do_after(user, 3 SECONDS, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The drink might be empty after the delay, such as by spam-feeding

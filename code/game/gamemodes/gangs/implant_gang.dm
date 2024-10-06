@@ -3,6 +3,8 @@
 	desc = "Makes you a gangster or such."
 	var/datum/team/gang/gang
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/gang)
+
 /obj/item/implant/gang/Initialize(mapload, loc, setgang)
 	..()
 	gang = setgang
@@ -37,6 +39,8 @@
 
 /obj/item/implanter/gang
 	name = "implanter (gang)"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implanter/gang)
 
 /obj/item/implanter/gang/Initialize(mapload, loc, gang)
 	if(!gang)
