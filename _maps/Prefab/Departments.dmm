@@ -607,10 +607,6 @@
 /obj/structure/janitorialcart,
 /turf/open/floor/iron,
 /area/janitor)
-"oU" = (
-/obj/effect/mapping_helpers/airlock/all_codes,
-/turf/open/floor/iron,
-/area/space)
 "pd" = (
 /obj/effect/turf_decal/edges/techfloor_orange,
 /turf/open/floor/iron/grid/steel,
@@ -710,10 +706,6 @@
 "rs" = (
 /obj/item/toy/plush/moth/moonfly,
 /turf/open/floor/iron/dark,
-/area/space)
-"rC" = (
-/obj/effect/mapping_helpers/airlock/all_codes/one_code,
-/turf/open/floor/iron,
 /area/space)
 "rN" = (
 /obj/structure/closet/bombcloset,
@@ -2524,7 +2516,7 @@ Qk
 bD
 Wu
 RA
-oU
+Qk
 Qk
 JZ
 "}
@@ -2544,7 +2536,7 @@ Qk
 Ov
 hs
 Uo
-rC
+Qk
 Qk
 Jo
 "}
