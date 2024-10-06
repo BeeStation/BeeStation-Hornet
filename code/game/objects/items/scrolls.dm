@@ -51,9 +51,10 @@
 		to_chat(user, span_warning("[src] runs out of uses and crumbles to dust!"))
 		qdel(src)
 	return TRUE
-
+/* stale merge upstream moment
 	if(do_teleport(user, pick(L), channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE))
 		smoke.start()
 		uses--
 	else
 		to_chat(user, "The spell matrix was disrupted by something near the destination.")
+*/

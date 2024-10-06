@@ -63,25 +63,8 @@
 #define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts
 
 //Lower right, persistent menu
-#define ui_drop_throw "EAST-1:28,SOUTH+1:7"
-#define ui_above_movement "EAST-2:26,SOUTH+1:7"
-#define ui_above_intent "EAST-3:24, SOUTH+1:7"
-#define ui_movi "EAST-2:26,SOUTH:5"
-#define ui_acti "EAST-3:24,SOUTH:5"
 #define ui_combat_toggle "EAST-3:24,SOUTH:5"
-#define ui_zonesel "EAST-1:28,SOUTH:5"
-#define ui_acti_alt "EAST-1:28,SOUTH:5" //alternative intent switcher for when the interface is hidden (F12)
-#define ui_crafting "EAST-4:22,SOUTH:5"
-#define ui_building "EAST-4:22,SOUTH:21"
-#define ui_language_menu "EAST-4:6,SOUTH:21"
 #define ui_skill_menu "EAST-4:22,SOUTH:5"
-
-//Upper-middle right (alerts)
-#define ui_alert1 "EAST-1:28,CENTER+5:27"
-#define ui_alert2 "EAST-1:28,CENTER+4:25"
-#define ui_alert3 "EAST-1:28,CENTER+3:23"
-#define ui_alert4 "EAST-1:28,CENTER+2:21"
-#define ui_alert5 "EAST-1:28,CENTER+1:19"
 
 //Upper left (action buttons)
 #define ui_action_palette "WEST+0:23,NORTH-1:5"
@@ -89,14 +72,6 @@
 
 #define ui_palette_scroll "WEST+1:8,NORTH-6:28"
 #define ui_palette_scroll_offset(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:28")
-
-//Middle right (status indicators)
-#define ui_healthdoll "EAST-1:28,CENTER-2:13"
-#define ui_health "EAST-1:28,CENTER-1:15"
-#define ui_internal "EAST-1:28,CENTER+1:17"
-#define ui_mood "EAST-1:28,CENTER:17"
-#define ui_spacesuit "EAST-1:28,CENTER-4:10"
-#define ui_stamina "EAST-1:28,CENTER-3:10"
 
 //Pop-up inventory
 #define ui_shoes "WEST+1:8,SOUTH:5"
@@ -113,23 +88,7 @@
 #define ui_living_pull "EAST-1:28,CENTER-3:15"
 #define ui_living_healthdoll "EAST-1:28,CENTER-1:15"
 
-//Monkeys
-#define ui_monkey_head "CENTER-5:13,SOUTH:5"
-#define ui_monkey_mask "CENTER-4:14,SOUTH:5"
-#define ui_monkey_neck "CENTER-3:15,SOUTH:5"
-#define ui_monkey_back "CENTER-2:16,SOUTH:5"
-
-//Drones
-#define ui_drone_drop "CENTER+1:18,SOUTH:5"
-#define ui_drone_pull "CENTER+2:2,SOUTH:5"
-#define ui_drone_storage "CENTER-2:14,SOUTH:5"
-#define ui_drone_head "CENTER-3:14,SOUTH:5"
-
 //Cyborgs
-#define ui_borg_health "EAST-1:28,CENTER-1:15"
-#define ui_borg_pull "EAST-2:26,SOUTH+1:7"
-#define ui_borg_radio "EAST-1:28,SOUTH+1:7"
-#define ui_borg_intents "EAST-2:26,SOUTH:5"
 #define ui_borg_lamp "CENTER-3:16, SOUTH:5"
 #define ui_borg_tablet "CENTER-4:16, SOUTH:5"
 #define ui_inv1 "CENTER-2:16,SOUTH:5"
@@ -140,13 +99,6 @@
 #define ui_borg_camera "CENTER+3:21,SOUTH:5"
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"
 #define ui_borg_language_menu "CENTER+4:19,SOUTH+1:6"
-
-//Aliens
-#define ui_alien_health "EAST,CENTER-1:15"
-#define ui_alienplasmadisplay "EAST,CENTER-2:15"
-#define ui_alien_queen_finder "EAST,CENTER-3:15"
-#define ui_alien_storage_r "CENTER+1:18,SOUTH:5"
-#define ui_alien_language_menu "EAST-4:20,SOUTH:5"
 
 //AI
 #define ui_ai_core "SOUTH:6,WEST"
@@ -211,5 +163,3 @@
 #define SCRN_OBJ_IN_LIST "list"
 /// In the collapseable palette
 #define SCRN_OBJ_IN_PALETTE "palette"
-
-#define ACTION_BUTTON_DEFAULT_BACKGROUND "default" // Is this redundant?????

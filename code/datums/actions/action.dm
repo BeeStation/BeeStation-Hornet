@@ -23,7 +23,7 @@
 	/// Whether the button becomes transparent when it can't be used or just reddened
 	var/transparent_when_unavailable = TRUE
 	/// This is the file for the BACKGROUND icon of the button
-	var/button_icon = 'icons/mob/actions/backgrounds.dmi'
+	var/button_icon = 'icons/hud/actions/backgrounds.dmi'
 	/// This is the icon state state for the BACKGROUND icon of the button
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	/// This is the file for the icon that appears OVER the button background

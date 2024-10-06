@@ -3,7 +3,7 @@
 	name = "Oath of Flame"
 	desc = "For a minute, you will passively create a ring of fire around you."
 	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "fire_ring"
 
 	school = SCHOOL_FORBIDDEN
@@ -62,7 +62,7 @@
 	name = "Lesser Fire Cascade"
 	desc = "Heats the air around you."
 	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "fire_ring"
 	sound = 'sound/items/welder.ogg'
 
@@ -100,7 +100,7 @@
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases five streams of eldritch fire towards the target."
 	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "flames"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
@@ -133,7 +133,7 @@
 		if(!check)
 			break
 		T = check
-	return (get_line(user, T) - get_turf(user))
+	return (getline(user, T) - get_turf(user))
 
 /datum/action/cooldown/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
 	var/list/hit_list = list()

@@ -15,7 +15,7 @@
 	/// A callback invoked after an unlink is done. Optional.
 	var/datum/callback/post_unlink_callback
 	/// The icon file given to the speech action handed out.
-	var/speech_action_icon = 'icons/mob/actions/actions_slime.dmi'
+	var/speech_action_icon = 'icons/hud/actions/actions_slime.dmi'
 	/// The icon state applied to the speech action handed out.
 	var/speech_action_icon_state = "link_speech"
 	/// The icon background for the speech action handed out.
@@ -31,7 +31,7 @@
 	// Customization related settings
 	network_name = "Mind Link",
 	chat_color = "#008CA2",
-	speech_action_icon = 'icons/mob/actions/actions_slime.dmi',
+	speech_action_icon = 'icons/hud/actions/actions_slime.dmi',
 	speech_action_icon_state = "link_speech",
 	speech_action_background_icon_state = "bg_alien",
 	speech_action_overlay_state = "bg_alien_border",
@@ -149,7 +149,7 @@
 	// Customization related settings
 	network_name = "Mind Link",
 	chat_color = "#008CA2",
-	speech_action_icon = 'icons/mob/actions/actions_slime.dmi',
+	speech_action_icon = 'icons/hud/actions/actions_slime.dmi',
 	speech_action_icon_state = "link_speech",
 	speech_action_background_icon_state = "bg_alien",
 	speech_action_overlay_state = "bg_alien_border",
@@ -217,7 +217,7 @@
 	name = "Mind Link Speech"
 	desc = "Send a psychic message to everyone connected to your Link."
 	button_icon_state = "link_speech"
-	button_icon = 'icons/mob/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	//overlay_icon_state = "bg_alien_border"
 

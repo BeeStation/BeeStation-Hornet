@@ -2,8 +2,8 @@
 	name = "Manse Link"
 	desc = "This spell allows you to pierce through reality and connect minds to one another \
 		via your Mansus Link. All minds connected to your Mansus Link will be able to communicate discreetly across great distances."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "mansus_link"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
@@ -12,7 +12,7 @@
 
 	invocation = "PI'RC' TH' M'ND."
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION | SPELL_REQUIRES_NO_ANTIMAGIC
 
 	cast_range = 7
 
@@ -29,7 +29,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-
 	return isliving(cast_on)
 
 /datum/action/cooldown/spell/pointed/manse_link/before_cast(mob/living/cast_on)
@@ -42,8 +41,8 @@
 		return . | SPELL_CANCEL_CAST
 
 /**
- * The actual process of linking [linkee] to our network.
- */
+* The actual process of linking [linkee] to our network.
+*/
 /datum/action/cooldown/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
 	var/datum/component/mind_linker/linker = target
 	if(linkee.stat == DEAD)
@@ -62,23 +61,6 @@
 		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
 		return FALSE
 	return TRUE
-
-/datum/action/cooldown/spell/pointed/manse_link/cast(mob/target)
-	. = ..()
-	var/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/originator = owner
-
-	to_chat(originator, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
-	to_chat(target, "<span class='warning'>You feel your mind being pulled... connected... intertwined with the very fabric of reality...</span>")
-	if(!do_after(originator, 6 SECONDS, target = target, hidden = TRUE))
-		revert_cast()
-		return
-	if(!originator.link_mob(target))
-		revert_cast()
-		to_chat(originator, "<span class='warning'>You can't seem to link [target]'s mind...</span>")
-		to_chat(target, "<span class='warning'>The foreign presence leaves your mind.</span>")
-		return
-	to_chat(originator, "<span class='notice'>You connect [target]'s mind to your mansus link!</span>")
-
 
 /datum/action/innate/mansus_speech
 	name = "Mansus Link"

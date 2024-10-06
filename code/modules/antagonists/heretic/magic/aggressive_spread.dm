@@ -2,7 +2,7 @@
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby surfaces."
 	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "corrode"
 	sound = 'sound/items/welder.ogg'
 

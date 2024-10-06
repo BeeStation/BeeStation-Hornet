@@ -76,23 +76,6 @@
 
 	last_hovored_ref = WEAKREF(over_object)
 	over_object.MouseEntered(over_location, over_control, params)
-//Hide/Show Action Buttons ... Button
-/atom/movable/screen/movable/action_button/hide_toggle
-	name = "Hide Buttons"
-	desc = "Shift-click any button to reset its position, and Control-click it to lock it in place. Alt-click this button to reset all buttons to their default positions."
-	icon = 'icons/hud/actions/action_generic.dmi'
-	icon_state = "bg_default"
-	var/hidden = FALSE
-	var/hide_icon = 'icons/hud/actions/action_generic.dmi'
-	var/hide_state = "hide"
-	var/show_state = "show"
-	var/mutable_appearance/hide_appearance
-	var/mutable_appearance/show_appearance
-
-/atom/movable/screen/movable/action_button/hide_toggle/Initialize(mapload)
-
-	last_hovored_ref = WEAKREF(over_object)
-	over_object.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
@@ -426,8 +409,3 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /atom/movable/screen/action_landing/proc/hit_by(atom/movable/screen/movable/action_button/button)
 	var/datum/hud/our_hud = owner.owner
 	our_hud.position_action(button, owner.location)
-	var/matrix/M = matrix()
-	M.Translate(x_offset,y_offset)
-	button.transform = M
-
-#undef AB_MAX_COLUMNS

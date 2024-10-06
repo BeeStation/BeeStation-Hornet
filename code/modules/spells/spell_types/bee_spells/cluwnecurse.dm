@@ -6,7 +6,7 @@
 	invocation = "CLU WO'NIS CA'TE'BEST'IS MAXIMUS!"
 	invocation_type = INVOCATION_SHOUT
 	target_radius = 3
-	button_icon = 'icons/mob/actions.dmi'
+	button_icon = 'icons/hud/actions.dmi'
 	button_icon_state = "cluwne"
 	choose_target_message = "Choose your victim"
 

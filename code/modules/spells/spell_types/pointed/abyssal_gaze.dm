@@ -6,7 +6,7 @@
 	button_icon_state = "bg_demon_border"
 
 
-	button_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "abyssal_gaze"
 
 	school = SCHOOL_EVOCATION

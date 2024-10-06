@@ -168,7 +168,7 @@
 	desc = "Select a target to activate your traits on."
 	cooldown_time = 0 SECONDS
 	spell_requirements = null
-	button_icon = 'icons/mob/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_transmit"
 	background_icon_state = "bg_spell"
 	var/obj/item/xenoartifact/xeno

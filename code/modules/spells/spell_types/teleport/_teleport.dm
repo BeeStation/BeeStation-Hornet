@@ -23,7 +23,7 @@
 	if(!length(destinations))
 		CRASH("[type] failed to find a teleport destination.")
 
-	do_teleport(cast_on, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, forced = force_teleport)
+	do_teleport(cast_on, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel)
 
 /// Gets a list of destinations that are valid
 /datum/action/cooldown/spell/teleport/proc/get_destinations(atom/center)
