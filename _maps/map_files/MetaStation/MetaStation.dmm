@@ -768,9 +768,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"agA" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/solars/port/fore)
 "agH" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -57523,9 +57520,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"qxC" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/port/fore)
 "qxD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -98883,10 +98877,10 @@ aaf
 aaf
 aaf
 aee
-agA
-agA
-agA
-agA
+bbo
+bbo
+bbo
+bbo
 dne
 dne
 dne
@@ -99911,19 +99905,19 @@ aaa
 lMJ
 aaa
 lMJ
-qxC
-qxC
-qxC
-qxC
-qxC
-qxC
-qxC
-qxC
-qxC
-qxC
 dne
-qxC
-qxC
+dne
+dne
+dne
+dne
+dne
+dne
+dne
+dne
+dne
+dne
+dne
+dne
 aaa
 aaa
 aaf
