@@ -25165,15 +25165,10 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/blobstart,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/item/radio/intercom{
-	pixel_y = -29
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Experimentation Lab";
-	network = list("ss13","rd")
-	},
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/light,
+/obj/item/radio/intercom/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "ewj" = (
@@ -56038,12 +56033,10 @@
 /turf/open/floor/plating,
 /area/medical/morgue)
 "pWG" = (
-/obj/item/radio/intercom{
-	pixel_x = 29
-	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
+/obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "pXf" = (
