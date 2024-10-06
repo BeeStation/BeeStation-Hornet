@@ -22729,11 +22729,7 @@
 /obj/item/multitool,
 /obj/structure/table/reinforced,
 /obj/item/geiger_counter,
-/obj/machinery/camera/directional/north{
-	c_tag = "Science - Experimentation Lab";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "fNc" = (
