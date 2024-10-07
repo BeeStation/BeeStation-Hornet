@@ -20778,11 +20778,13 @@
 	},
 /area/science/research)
 "eWt" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/machinery/door/window/northleft{
 	name = "Kitchen Delivery";
 	req_access_txt = "28";
-	dir = 8
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -38559,16 +38561,17 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "lZN" = (
-/obj/structure/window/reinforced,
-/obj/machinery/door/window/northleft{
-	name = "Kitchen Delivery";
-	req_access_txt = "28";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/plasticflaps/opaque,
+/obj/machinery/door/window/eastleft{
+	dir = 2;
+	name = "Bar Door";
+	req_access_txt = "25"
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "lZR" = (
@@ -45615,6 +45618,12 @@
 /area/maintenance/aft)
 "pdm" = (
 /obj/effect/turf_decal/bot,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=2";
+	freq = 1400;
+	location = "Bar"
+	},
+/obj/structure/plasticflaps/opaque,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "pdt" = (
@@ -66206,13 +66215,13 @@
 /area/storage/tech)
 "xgj" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
 	dir = 8;
 	freq = 1400;
 	location = "Kitchen"
 	},
+/obj/structure/plasticflaps/opaque,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen/coldroom)
 "xgE" = (
