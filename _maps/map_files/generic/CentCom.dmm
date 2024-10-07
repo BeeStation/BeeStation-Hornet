@@ -7483,7 +7483,6 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "CN" = (
-/obj/item/gun/energy/pulse/carbine/loyalpin,
 /obj/item/flashlight/seclite,
 /obj/structure/table/reinforced,
 /obj/machinery/airalarm/directional/south{
@@ -7492,6 +7491,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/gun/energy/pulse/carbine,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "CQ" = (
