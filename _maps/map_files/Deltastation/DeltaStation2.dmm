@@ -36805,7 +36805,7 @@
 	req_one_access_txt = "47"
 	},
 /turf/open/floor/iron,
-/area/science/shuttledock)
+/area/maintenance/department/science)
 "fPA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -74267,7 +74267,7 @@
 	name = "Research Testing Range"
 	},
 /turf/open/floor/iron,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "rLT" = (
 /obj/machinery/button/door{
 	id = "geneticslab";
