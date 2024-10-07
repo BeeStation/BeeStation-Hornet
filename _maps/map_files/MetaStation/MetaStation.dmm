@@ -34528,7 +34528,6 @@
 /area/crew_quarters/locker)
 "hUB" = (
 /obj/machinery/airalarm/mixingchamber{
-	dir = 1;
 	pixel_y = -22
 	},
 /obj/structure/cable/yellow{
