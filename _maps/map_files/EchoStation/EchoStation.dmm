@@ -31698,12 +31698,10 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/directional/north,
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_4{
-	piping_layer = 2
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2,
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/central)
 "pHp" = (
