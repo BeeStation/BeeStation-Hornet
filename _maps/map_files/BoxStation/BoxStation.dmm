@@ -13589,7 +13589,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "czI" = (
-/obj/structure/closet/secure_closet/personal/patient,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/white,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -13598,6 +13597,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "czJ" = (
@@ -26559,8 +26560,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "hsH" = (
@@ -34190,12 +34190,13 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/locker)
 "knU" = (
-/obj/structure/closet/secure_closet/personal/patient,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "koe" = (
@@ -47486,8 +47487,8 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 8
 	},
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "pLE" = (
