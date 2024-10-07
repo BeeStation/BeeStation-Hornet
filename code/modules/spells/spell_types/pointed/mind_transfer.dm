@@ -108,7 +108,10 @@
 	// Just in case the swappee's key wasn't grabbed by transfer_to...
 	if(to_swap_key)
 		caster.key = to_swap_key
-
+	// Transfers all the spells
+	for(var/datum/action/cooldown/spell/X in caster.actions)
+		X.Remove(caster)
+		X.Grant(to_swap)
 	// MIND TRANSFER END
 
 	// Now we knock both mobs out for a time.

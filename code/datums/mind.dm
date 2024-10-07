@@ -130,11 +130,12 @@
 	else
 		key = new_character.key
 
-	if(new_character.mind)								//disassociate any mind currently in our new body's mind variable
+	if(new_character.mind)								//disassociate any mind curently in our new body's mind variable
 		new_character.mind.set_current(null)
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
+	transfer_martial_arts(new_character)
 	if(current)
 		current.transfer_observers_to(new_character, TRUE)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
@@ -145,7 +146,6 @@
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
-
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
