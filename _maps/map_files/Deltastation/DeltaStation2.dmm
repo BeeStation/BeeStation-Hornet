@@ -6403,8 +6403,8 @@
 "aOM" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
@@ -13338,6 +13338,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
@@ -20761,7 +20764,7 @@
 	name = "Armory Shutter";
 	pixel_x = 6;
 	pixel_y = 24;
-	req_access_txt = "3"
+	req_access_txt = "58"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/button/door{
@@ -20769,7 +20772,7 @@
 	name = "Privacy Shutters";
 	pixel_x = -6;
 	pixel_y = 24;
-	req_access_txt = "3"
+	req_access_txt = "58"
 	},
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
@@ -32038,7 +32041,7 @@
 	name = "Flash Control";
 	pixel_x = -6;
 	pixel_y = 8;
-	req_access_txt = "63"
+	req_access_txt = "3"
 	},
 /obj/machinery/button/door{
 	id = "armory";
@@ -32052,14 +32055,14 @@
 	name = "Brig Access Control";
 	pixel_x = 6;
 	pixel_y = -2;
-	req_access_txt = "63"
+	req_access_txt = "3"
 	},
 /obj/machinery/button/door{
 	id = "Prisongate";
 	name = "Prison Lockdown";
 	pixel_x = -6;
 	pixel_y = -2;
-	req_access_txt = "63"
+	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
@@ -42772,9 +42775,6 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "hGJ" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -42784,6 +42784,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
 "hGU" = (
@@ -43275,23 +43276,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"hNU" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Medical Outpost";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron/white/side{
-	dir = 8
-	},
-/area/security/brig/medbay)
 "hNX" = (
 /obj/effect/landmark/start/chaplain,
 /obj/structure/chair/wood/wings{
@@ -55168,7 +55152,9 @@
 /area/medical/genetics/cloning)
 "lKh" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "lKj" = (
@@ -56633,9 +56619,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/security/main)
@@ -58183,9 +58166,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/security/main)
@@ -59192,7 +59172,7 @@
 "mZr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Medical Outpost";
-	req_one_access_txt = "1;34"
+	req_one_access_txt = "34"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
@@ -67761,7 +67741,7 @@
 	name = "Armory Shutters";
 	pixel_x = -6;
 	pixel_y = -24;
-	req_access_txt = "3"
+	req_access_txt = "58"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -71706,7 +71686,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = -34;
-	req_access_txt = "63"
+	req_access_txt = "3"
 	},
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
@@ -71715,11 +71695,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 6;
 	pixel_y = -34;
-	req_access_txt = "63"
-	},
-/obj/machinery/button/flasher{
-	id = "brigentry";
-	pixel_y = -24
+	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/machinery/camera/directional/south,
@@ -73163,9 +73139,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /turf/open/floor/iron/dark,
 /area/security/main)
 "ruB" = (
@@ -73780,6 +73753,9 @@
 "rEq" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/landmark/start/brig_physician,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "rED" = (
@@ -75116,9 +75092,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 1
@@ -77740,7 +77713,7 @@
 "sMU" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Medical Outpost";
-	req_access_txt = "63"
+	req_access_txt = "34"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -77752,6 +77725,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
 	},
 /turf/open/floor/iron/white/side{
 	dir = 8
@@ -78314,6 +78290,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
@@ -80482,6 +80461,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "tHk" = (
@@ -80665,7 +80647,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "tKX" = (
@@ -86507,7 +86491,7 @@
 	name = "Detective's Privacy shutters";
 	pixel_x = -24;
 	pixel_y = 6;
-	req_access_txt = "3"
+	req_access_txt = "4"
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -89878,7 +89862,7 @@
 	name = "Testimony Access";
 	pixel_x = 26;
 	pixel_y = -6;
-	req_access_txt = "3"
+	req_access_txt = "1"
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
@@ -90741,9 +90725,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_edge,
@@ -92803,7 +92784,9 @@
 	name = "Interrogation Access";
 	pixel_x = -24;
 	pixel_y = -6;
-	req_access_txt = "3"
+	req_access_txt = "1;4";
+	specialfunctions = 4;
+	normaldoorcontrol = 1
 	},
 /obj/structure/chair/foldable{
 	dir = 4
@@ -93448,7 +93431,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Interrogation";
-	req_access_txt = "63"
+	req_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -94413,7 +94396,6 @@
 /area/engine/atmos)
 "xWq" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
 /obj/machinery/light_switch{
 	pixel_x = 23;
 	pixel_y = 6
@@ -94421,6 +94403,15 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/stamp/denied{
+	pixel_x = 7;
+	pixel_y = 9
+	},
+/obj/item/stamp/hos{
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "xWv" = (
@@ -94520,10 +94511,11 @@
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor/westright{
 	name = "Armory Desk";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	dir = 4
 	},
 /obj/machinery/door/window/southright{
-	dir = 4;
+	dir = 8;
 	name = "Armory Desk"
 	},
 /obj/machinery/door/poddoor/shutters{
@@ -149218,7 +149210,7 @@ eIA
 gpR
 tNF
 tNF
-hNU
+igR
 igR
 vgz
 bpa

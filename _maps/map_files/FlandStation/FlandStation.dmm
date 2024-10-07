@@ -356,7 +356,7 @@
 	req_access_txt = "12"
 	},
 /turf/open/floor/iron/techmaint,
-/area/crew_quarters/cryopods)
+/area/maintenance/starboard/fore)
 "aeV" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -3516,7 +3516,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
-/area/science/misc_lab)
+/area/maintenance/department/science)
 "aPK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -3643,7 +3643,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal)
+/area/maintenance/starboard/aft)
 "aQS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -7504,7 +7504,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
-/area/science/xenobiology)
+/area/maintenance/department/science)
 "bTl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -8826,7 +8826,7 @@
 	req_one_access_txt = "8;24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/storage)
+/area/maintenance/aft)
 "cny" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -11991,7 +11991,7 @@
 	req_access_txt = "49"
 	},
 /turf/open/floor/iron/techmaint,
-/area/quartermaster/exploration_prep)
+/area/maintenance/department/science)
 "dcZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup,
@@ -22091,7 +22091,7 @@
 "fGF" = (
 /obj/machinery/door/airlock/research{
 	name = "Experimentation Lab";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -26687,7 +26687,7 @@
 	req_access_txt = "24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/department/engine)
 "gNg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -26960,7 +26960,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal/incinerator)
+/area/maintenance/department/engine)
 "gQx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -35201,7 +35201,7 @@
 	req_one_access_txt = "8;47"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/misc_lab)
+/area/maintenance/department/science)
 "iWb" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -35837,14 +35837,14 @@
 /obj/item/clothing/glasses/welding,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/stack/sheet/glass/ten,
-/obj/item/stack/sheet/mineral/copper/five,
 /obj/machinery/requests_console{
 	department = "Research Lab";
 	name = "Research RC";
 	pixel_x = 32;
 	receive_ore_updates = 1
 	},
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/mineral/copper/five,
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "jfR" = (
@@ -39131,7 +39131,7 @@
 	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal/incinerator)
+/area/maintenance/aft)
 "jYk" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -41587,7 +41587,7 @@
 	req_access_txt = "24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/aft)
 "kEc" = (
 /obj/effect/turf_decal/guideline/guideline_out_arrow_con/blue{
 	dir = 6
@@ -49208,7 +49208,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/aft)
 "mBP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -51626,7 +51626,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/techmaint,
-/area/engine/gravity_generator)
+/area/maintenance/department/engine)
 "nix" = (
 /obj/machinery/telecomms/bus/preset_one,
 /obj/effect/turf_decal/stripes/end{
@@ -51944,7 +51944,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/storage)
+/area/maintenance/department/science)
 "nnx" = (
 /turf/open/space/basic,
 /area/space)
@@ -54838,7 +54838,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/xenobiology)
+/area/maintenance/department/science)
 "obK" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/closed/wall/r_wall,
@@ -58289,7 +58289,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/research)
+/area/maintenance/aft)
 "pam" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 8
@@ -58905,7 +58905,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/vacant_room/office)
+/area/maintenance/starboard/central)
 "pik" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67405,7 +67405,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/lawoffice)
+/area/maintenance/starboard/central)
 "ruK" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/machinery/atmospherics/components/binary/pump{
@@ -69862,7 +69862,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/techmaint,
-/area/crew_quarters/locker)
+/area/maintenance/starboard/fore)
 "rXc" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -81868,7 +81868,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal)
+/area/maintenance/starboard/aft)
 "uYt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -84953,7 +84953,7 @@
 	req_access_txt = "47"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/research)
+/area/maintenance/department/science)
 "vFA" = (
 /obj/structure/rack,
 /obj/item/electronics/apc,
@@ -85479,7 +85479,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/department/engine)
 "vMJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -87366,7 +87366,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/engine_room)
+/area/maintenance/department/engine)
 "wjP" = (
 /obj/structure/chair/foldable,
 /obj/effect/turf_decal/tile/purple,
@@ -89561,7 +89561,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/science/shuttledock)
+/area/maintenance/department/science)
 "wMs" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22

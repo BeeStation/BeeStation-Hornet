@@ -23713,7 +23713,13 @@
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
 	},
-/obj/machinery/requests_console/directional/north,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Chief Medical Officer's Desk";
+	departmentType = 5;
+	name = "Chief Medical Officer's RC";
+	pixel_y = 30
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "gfU" = (
