@@ -4476,7 +4476,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bbD" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/library)
 "bbG" = (
@@ -20684,10 +20684,6 @@
 /obj/machinery/vending/cola,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"eTp" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/crew_quarters/kitchen)
 "eTq" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -22597,8 +22593,8 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "fIL" = (
-/obj/effect/spawner/structure/window,
 /obj/structure/curtain,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/cryo)
 "fIX" = (
@@ -57089,10 +57085,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"tyw" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/crew_quarters/bar/atrium)
 "tyx" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -61961,6 +61953,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/engine/break_room)
+"vzd" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "quarantineshutters";
+	name = "Quarantine Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/medbay/lobby)
 "vzi" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -104399,11 +104399,11 @@ fkY
 trK
 fyT
 hnc
-tyw
+ukb
 aYV
 mNB
 rpN
-iQT
+vzd
 vBZ
 vmZ
 tAl
@@ -105431,7 +105431,7 @@ gzd
 aYV
 cuf
 rpN
-iQT
+vzd
 ipn
 vmZ
 qjW
@@ -107226,7 +107226,7 @@ nGC
 aVz
 efR
 qmy
-eTp
+myB
 qSd
 aYV
 aYV
@@ -107997,7 +107997,7 @@ qgf
 aVz
 tff
 rOP
-eTp
+myB
 dYi
 aYV
 aYV
