@@ -46606,7 +46606,6 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
-/obj/item/storage/box/firingpins/alert,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "oMT" = (

@@ -3236,7 +3236,6 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/item/storage/box/firingpins/alert,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "bnY" = (

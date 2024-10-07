@@ -19739,7 +19739,6 @@
 /obj/structure/rack,
 /obj/item/storage/box/firingpins,
 /obj/effect/turf_decal/delivery,
-/obj/item/storage/box/firingpins/alert,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "goj" = (
