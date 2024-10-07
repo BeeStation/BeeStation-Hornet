@@ -83152,6 +83152,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/door/airlock/command{
+	name = "Research Director's Quarters";
+	req_access_txt = "30"
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hor)
 "uCN" = (

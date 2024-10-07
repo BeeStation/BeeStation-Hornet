@@ -23475,7 +23475,7 @@
 	req_one_access_txt = "48;32;29"
 	},
 /turf/open/floor/plating,
-/area/construction/mining/aux_base)
+/area/maintenance/department/science)
 "hqd" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
 	alpha = 200;
@@ -37024,7 +37024,7 @@
 	req_access_txt = "31"
 	},
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/department/security)
 "lSp" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 4
@@ -61433,7 +61433,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
-/area/quartermaster/qm)
+/area/maintenance/department/security)
 "txq" = (
 /obj/structure/sign/departments/medbay/alt2,
 /turf/closed/wall,
@@ -75259,7 +75259,7 @@
 	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
-/area/vacant_room/commissary/commissary1)
+/area/maintenance/department/security)
 "ybl" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	id_tag = "commissarydoor1";

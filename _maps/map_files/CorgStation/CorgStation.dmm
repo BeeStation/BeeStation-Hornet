@@ -74719,7 +74719,6 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/rnd/production/protolathe/department/cargo,
 /obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
@@ -74727,6 +74726,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/machinery/rnd/production/techfab/department/cargo,
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "yho" = (
