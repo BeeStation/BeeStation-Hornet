@@ -18658,7 +18658,7 @@
 "eeW" = (
 /obj/machinery/door/airlock/security{
 	name = "Equipment Room";
-	req_one_access_txt = "1;4"
+	req_one_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -22168,7 +22168,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
-/area/security/main)
+/area/maintenance/fore/secondary)
 "fBe" = (
 /obj/machinery/door/window/westleft{
 	name = "Delivery Desk";
@@ -30114,7 +30114,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood,
-/area/security/detectives_office)
+/area/maintenance/fore/secondary)
 "iJB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -55044,7 +55044,7 @@
 "sJJ" = (
 /obj/machinery/door/airlock/security{
 	name = "Equipment Room";
-	req_one_access_txt = "1;4"
+	req_one_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -63192,7 +63192,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Medical Outpost";
-	req_one_access_txt = "1;34"
+	req_one_access_txt = "4;34"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
