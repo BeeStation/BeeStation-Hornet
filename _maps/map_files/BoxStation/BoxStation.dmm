@@ -6717,6 +6717,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "byU" = (
@@ -17262,8 +17263,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
-/obj/machinery/camera/directional/north,
-/obj/machinery/vending/wardrobe/bar_wardrobe,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "dFp" = (
@@ -27027,10 +27027,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
-"hCa" = (
-/obj/effect/spawner/lootdrop/glowstick,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "hCs" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -30667,6 +30663,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "iVN" = (
@@ -34077,20 +34074,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"kmG" = (
-/obj/machinery/requests_console{
-	department = "Kitchen";
-	departmentType = 2;
-	pixel_y = 30
-	},
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/chem_master/condimaster{
-	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe";
-	pixel_x = -4
-	},
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "kmL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -38575,6 +38558,19 @@
 /obj/item/multitool,
 /turf/open/floor/iron/dark,
 /area/security/warden)
+"lZN" = (
+/obj/structure/window/reinforced,
+/obj/machinery/door/window/northleft{
+	name = "Kitchen Delivery";
+	req_access_txt = "28";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/plasticflaps/opaque,
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "lZR" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -41437,6 +41433,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/checker,
 /area/maintenance/starboard/fore)
 "noN" = (
@@ -42404,6 +42402,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
+"nGS" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=4";
+	dir = 4;
+	freq = 1400;
+	location = "Medbay"
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "nHi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
@@ -42849,6 +42857,19 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
+"nQM" = (
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe";
+	pixel_x = -4
+	},
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	pixel_y = 30
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "nQW" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/misc/burial,
@@ -45592,6 +45613,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"pdm" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "pdt" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -45665,11 +45690,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/execution/transfer)
-"pet" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "peP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -51091,6 +51111,11 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
+"rkH" = (
+/obj/machinery/vending/wardrobe/bar_wardrobe,
+/obj/machinery/camera/directional/north,
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "rkQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -59843,14 +59868,15 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "uDZ" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=2";
+	codes_txt = "delivery;dir=8";
+	dir = 8;
 	freq = 1400;
 	location = "Hydroponics"
 	},
 /obj/structure/plasticflaps/opaque,
-/obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hydroponics)
 "uEw" = (
@@ -62600,10 +62626,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=EVA2";
-	location = "Dorm"
-	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "vJt" = (
@@ -66183,13 +66205,14 @@
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "xgj" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=2";
-	freq = 1400;
-	location = "Bar"
-	},
-/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/bot,
+/obj/structure/plasticflaps/opaque,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=8";
+	dir = 8;
+	freq = 1400;
+	location = "Kitchen"
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen/coldroom)
 "xgE" = (
@@ -104966,7 +104989,7 @@ iKc
 jQJ
 vJp
 byO
-qjW
+nGS
 dxW
 bKZ
 wxs
@@ -105714,9 +105737,9 @@ rmj
 pDz
 kPQ
 gOt
-aJC
-aJC
-kmG
+pdm
+lZN
+jVH
 jUv
 iss
 kjj
@@ -105971,9 +105994,9 @@ usc
 bQm
 uvw
 noM
-hCa
 aJC
-pet
+nQM
+jVH
 jUv
 deN
 aJC
@@ -106228,8 +106251,8 @@ eBo
 kcQ
 ofK
 iUM
-aoP
 aJC
+rkH
 dES
 rGK
 tAr
@@ -106485,7 +106508,7 @@ awG
 jxG
 dZF
 dZF
-dZF
+aJC
 aJC
 aJC
 aJC
