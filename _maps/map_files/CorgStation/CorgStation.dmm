@@ -8924,7 +8924,7 @@
 "cHz" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "63"
+	req_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15590,7 +15590,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/maintenance/port)
+/area/maintenance/port/central)
 "eYQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -16334,7 +16334,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Medbay";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -17043,7 +17043,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Engineering";
-	req_access_txt = "63"
+	req_access_txt = "1;56"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -17262,10 +17262,6 @@
 /area/engine/atmospherics_engine)
 "fyp" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -23213,11 +23209,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "htW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
@@ -30360,7 +30352,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/maintenance/port)
+/area/maintenance/port/central)
 "jJM" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -34374,7 +34366,7 @@
 "laT" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "63"
+	req_access_txt = "1;30"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -62509,7 +62501,7 @@
 "ujG" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "63"
+	req_access_txt = "1;57"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -66109,7 +66101,7 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "medbay_lockdown";
@@ -69163,7 +69155,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/eastleft{
 	dir = 1;
-	req_access_txt = "1"
+	req_access_txt = "1;40"
 	},
 /obj/machinery/door/window/westright{
 	dir = 2
@@ -69668,11 +69660,7 @@
 /turf/open/floor/iron,
 /area/bridge)
 "wyw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},

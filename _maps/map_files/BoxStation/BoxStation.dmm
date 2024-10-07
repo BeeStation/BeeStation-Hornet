@@ -2583,6 +2583,7 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hydroponics)
 "aIQ" = (
@@ -3027,7 +3028,7 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "aNQ" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/hydroponics)
 "aNS" = (
@@ -6928,6 +6929,7 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/hydroponics)
 "bBu" = (
@@ -19865,6 +19867,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
+"eFj" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=1";
+	dir = 8;
+	freq = 1400;
+	location = "Bar"
+	},
+/obj/structure/plasticflaps/opaque,
+/turf/open/floor/plating,
+/area/crew_quarters/bar)
 "eFx" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -20825,7 +20837,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/iron/freezer,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
 /area/crew_quarters/kitchen/coldroom)
 "eWv" = (
 /obj/structure/disposalpipe/segment{
@@ -23067,9 +23080,6 @@
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "fUm" = (
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
 /obj/machinery/door/window/eastright{
 	name = "Hydroponics Delivery";
 	req_access_txt = "35"
@@ -23078,6 +23088,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/hydroponics)
 "fUp" = (
@@ -33970,7 +33981,7 @@
 "kjp" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "1;56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39475,6 +39486,10 @@
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/iron,
 /area/maintenance/aft)
+"myB" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/kitchen)
 "myF" = (
 /obj/structure/closet/secure_closet/genpop,
 /obj/structure/cable/yellow{
@@ -45663,9 +45678,18 @@
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "pet" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/wood/big,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/southleft{
+	req_access_txt = "25";
+	name = "Bar Delivery"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
 /area/crew_quarters/bar)
 "peP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -46053,12 +46077,15 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "pno" = (
-/obj/machinery/light,
-/obj/structure/chair{
-	dir = 8
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron/dark,
+/obj/machinery/door/window/northleft{
+	req_access_txt = "5";
+	name = "Medbay Delivery"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
 /area/medical/surgery)
 "pnq" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -46452,6 +46479,11 @@
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"ptx" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/medical/surgery)
 "puf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -47118,7 +47150,7 @@
 "pGd" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Medbay Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -50893,6 +50925,7 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "rgY" = (
@@ -52290,6 +52323,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/east,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "rGN" = (
@@ -54326,7 +54360,7 @@
 "syU" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "1;57"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -56623,7 +56657,7 @@
 "tpM" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -59804,6 +59838,11 @@
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=8";
+	freq = 1400;
+	location = "Hydroponics"
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "uEw" = (
@@ -64565,7 +64604,8 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/turf/closed/wall,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "wyb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -66095,13 +66135,13 @@
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "xgj" = (
+/obj/effect/turf_decal/bot,
 /obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=2";
+	codes_txt = "delivery;dir=8";
 	freq = 1400;
-	location = "Bar"
+	location = "Kitchen"
 	},
 /obj/structure/plasticflaps/opaque,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen/coldroom)
 "xgE" = (
@@ -66355,6 +66395,16 @@
 	},
 /turf/open/floor/iron/tech,
 /area/crew_quarters/fitness)
+"xlR" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=4";
+	dir = 4;
+	freq = 1400;
+	location = "Medbay"
+	},
+/obj/structure/plasticflaps/opaque,
+/turf/open/floor/plating,
+/area/medical/surgery)
 "xmd" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
@@ -105881,7 +105931,7 @@ bQm
 uvw
 noM
 hCa
-aJC
+eFj
 pet
 jUv
 deN
@@ -105920,7 +105970,7 @@ gWM
 gWM
 gYB
 gYB
-gYB
+gWM
 gWM
 xdc
 bzs
@@ -106178,7 +106228,7 @@ ceP
 nWY
 qqh
 pno
-gWM
+xlR
 vId
 ruM
 bgL
@@ -106434,7 +106484,7 @@ gEH
 foG
 vkx
 jWo
-ioB
+ptx
 gWM
 cXE
 cXE
@@ -108461,7 +108511,7 @@ aLu
 aSP
 aJI
 aJI
-eTp
+myB
 wxN
 rgU
 aJI

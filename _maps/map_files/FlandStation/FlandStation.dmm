@@ -782,7 +782,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "63"
+	req_access_txt = "1;57"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -38268,7 +38268,7 @@
 "jOt" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Post - Research Division";
-	req_access_txt = "63"
+	req_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -39333,7 +39333,7 @@
 	dir = 1;
 	id = "medcell";
 	name = "Medical Cell";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable/yellow{
@@ -42201,7 +42201,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Medical";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -42464,7 +42464,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Engineering";
-	req_access_txt = "63"
+	req_access_txt = "1;56"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -42704,7 +42704,7 @@
 	dir = 8;
 	id = "arrdoor";
 	name = "Arrival Cell";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
@@ -79899,7 +79899,7 @@
 "uzz" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Checkpoint";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -81717,7 +81717,7 @@
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 1;
 	name = "Security Desk";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"

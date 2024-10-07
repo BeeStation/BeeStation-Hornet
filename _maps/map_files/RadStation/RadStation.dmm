@@ -3283,7 +3283,7 @@
 "aZJ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "1;56"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -10234,13 +10234,13 @@
 "dli" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Sec Maintenance Hatch";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/security/checkpoint/auxiliary)
+/area/maintenance/department/medical/morgue)
 "dlk" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -23696,7 +23696,7 @@
 "hvd" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_one_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -26068,6 +26068,10 @@
 	pixel_y = 2
 	},
 /obj/machinery/firealarm/directional/east,
+/obj/item/taperecorder{
+	pixel_x = 6;
+	pixel_y = 5
+	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ijU" = (
@@ -50984,7 +50988,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54555,6 +54559,10 @@
 	},
 /obj/item/pen/fountain{
 	pixel_y = 5
+	},
+/obj/item/camera/detective{
+	pixel_x = 3;
+	pixel_y = 7
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -68863,7 +68871,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Medbay Security Post";
-	req_access_txt = "63"
+	req_one_access_txt = "1;40"
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
@@ -72899,13 +72907,9 @@
 	pixel_x = -6;
 	pixel_y = 14
 	},
-/obj/item/camera/detective{
-	pixel_x = 3;
-	pixel_y = 7
-	},
-/obj/item/taperecorder{
-	pixel_x = 6;
-	pixel_y = 5
+/obj/machinery/computer/med_data/laptop{
+	dir = 8;
+	pixel_x = 2
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
