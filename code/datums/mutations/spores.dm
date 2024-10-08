@@ -19,6 +19,7 @@
 	cooldown_time = 300 SECONDS
 	invocation_type = INVOCATION_NONE
 	button_icon_state = "smoke"
+	mindbound = FALSE
 
 /datum/action/cooldown/spell/spores/cast(mob/user = usr)
 	. = ..()

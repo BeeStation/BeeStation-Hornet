@@ -26,7 +26,7 @@
 	name = "Convoke Void" //magic the gathering joke here
 	desc = "A rare genome that attracts odd forces not usually observed. May sometimes pull you in randomly."
 	button_icon_state = "void_magnet"
-
+	mindbound = FALSE
 	school = SCHOOL_EVOCATION
 	cooldown_time = 1 MINUTES
 

@@ -51273,7 +51273,7 @@
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/item/book/granter/spell/smoke/lesser,
+/obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/cult,
 /area/chapel/office)
 "ndM" = (

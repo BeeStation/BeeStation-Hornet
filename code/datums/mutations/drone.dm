@@ -20,6 +20,7 @@
 	cooldown_time = 60 SECONDS
 	invocation_type = INVOCATION_NONE
 	button_icon_state = "control"
+	mindbound = FALSE
 	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
 	var/datum/weakref/drone_ref
 

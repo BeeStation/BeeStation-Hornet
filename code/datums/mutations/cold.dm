@@ -14,7 +14,7 @@
 
 	cooldown_time = 5 SECONDS
 	spell_requirements = NONE
-
+	mindbound = FALSE
 	item_type = /obj/item/stack/sheet/snow
 	delete_old = FALSE
 
@@ -35,6 +35,7 @@
 	cooldown_time = 5 SECONDS
 	delete_old = FALSE
 	button_icon_state = "honey"
+	mindbound = FALSE
 
 /datum/mutation/cryokinesis
 	name = "Cryokinesis"
@@ -53,7 +54,7 @@
 	cooldown_time = 15 SECONDS
 	spell_requirements = NONE
 	antimagic_flags = NONE
-
+	mindbound = FALSE
 	base_icon_state = "icebeam"
 	active_msg = "You focus your cryokinesis!"
 	deactive_msg = "You relax."

@@ -14,7 +14,7 @@
 	desc = "Shoot your tongue out in the direction you're facing, embedding it and dealing damage until they remove it."
 	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spike"
-
+	mindbound = FALSE
 	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_HUMAN
 

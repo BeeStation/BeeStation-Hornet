@@ -14,6 +14,7 @@
 	spell_requirements = null
 	cooldown_time = 60 SECONDS
 	button_icon_state = "blind"
+	mindbound = FALSE
 	var/max_distance = 4
 
 /datum/action/cooldown/spell/overload/cast(mob/user = usr)

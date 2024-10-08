@@ -23,7 +23,7 @@
 	desc = "Drops a web. Only you will be able to traverse your web easily, making it pretty good for keeping you safe."
 	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "lay_web"
-
+	mindbound = FALSE
 	cooldown_time = 4 SECONDS //the same time to lay a web
 	spell_requirements = NONE
 

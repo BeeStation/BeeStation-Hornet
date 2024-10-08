@@ -70,7 +70,7 @@
 
 	cooldown_time = 25 SECONDS
 	spell_requirements = NONE
-
+	mindbound = FALSE
 	/// How much eye damage is given on cast
 	var/eye_damage = 10
 	/// The duration of the thermal vision

@@ -13,6 +13,7 @@
 	cooldown_time = 10 SECONDS
 	spell_requirements = null
 	button_icon_state = "nose"
+	mindbound = FALSE
 	var/mob/living/carbon/tracking_target
 	var/list/mob/living/carbon/possible = list()
 

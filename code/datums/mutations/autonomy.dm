@@ -14,7 +14,7 @@
 	name = "Drop a limb"
 	desc = "Concentrate to make a random limb pop right off your body."
 	button_icon_state = "autotomy"
-
+	mindbound = FALSE
 	cooldown_time = 10 SECONDS
 	spell_requirements = NONE
 

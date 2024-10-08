@@ -15335,10 +15335,6 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "htj" = (
-/obj/item/book/granter/spell/smoke/lesser{
-	pixel_x = -4;
-	pixel_y = 5
-	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
 	pixel_x = 8;
 	pixel_y = 4
@@ -15356,6 +15352,7 @@
 	pixel_x = -5;
 	pixel_y = -1
 	},
+/obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/wood,
 /area/chapel/office)
 "htm" = (
@@ -36631,6 +36628,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
+"sii" = (
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/closed/mineral/random/air,
+/area/asteroid/paradise)
 "sik" = (
 /obj/item/toy/plush/flushed,
 /obj/machinery/button/door{
@@ -57561,7 +57562,7 @@ pDi
 eXB
 eXB
 eXB
-vqI
+sii
 vqI
 vqI
 vqI

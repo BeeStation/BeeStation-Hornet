@@ -149,6 +149,10 @@
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
+	for(var/datum/action/cooldown/spell/X in old_current.actions)
+		if(X.mindbound)
+			X.Grant(new_character)
+			X.Remove(old_current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_martial_arts(new_character)
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))

@@ -81,6 +81,8 @@
 	var/smoke_type
 	/// The amount of smoke to create on cast. This is a range, so a value of 5 will create enough smoke to cover everything within 5 steps.
 	var/smoke_amt = 0
+	//Whether the spell is bound to our minds or is a result of hacky coding
+	var/mindbound = TRUE
 
 /datum/action/cooldown/spell/Grant(mob/grant_to)
 	// If our spell is mind-bound, we only wanna grant it to our mind
@@ -98,7 +100,7 @@
 		RegisterSignal(owner, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(update_icon_on_signal))
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
-	RegisterSignal(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
+	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
 	//owner.client?.stat_panel.send_message("check_spells") we are missing this from code
 /datum/action/cooldown/spell/Remove(mob/living/remove_from)
 

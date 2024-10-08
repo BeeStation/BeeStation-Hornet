@@ -17,6 +17,7 @@
 	cooldown_time = 10 SECONDS
 	button_icon_state = "summons"
 	hand_path = /obj/item/melee/touch_attack/mutation/acidooze
+	mindbound = FALSE
 
 /obj/item/melee/touch_attack/mutation/acidooze
 	name = "\improper acidic hand"

@@ -28,7 +28,7 @@
 	desc = "You breathe a cone of fire directly in front of you."
 	button_icon_state = "fireball0"
 	sound = 'sound/magic/demon_dies.ogg' //horrifying lizard noises
-
+	mindbound = FALSE
 	school = SCHOOL_EVOCATION
 	cooldown_time = 40 SECONDS
 	invocation_type = INVOCATION_NONE
