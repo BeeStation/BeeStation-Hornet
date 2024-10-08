@@ -135,7 +135,7 @@
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
-	for(var/datum/action/cooldown/spell/X in old_current.actions)
+	for(var/datum/action/cooldown/spell/X in current.actions)
 		if(X.mindbound)
 			X.Grant(new_character)
 			X.Remove(old_current)
