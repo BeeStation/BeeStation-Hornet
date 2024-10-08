@@ -137,9 +137,12 @@
 	feedback_details += "Type: [message]"
 	switch(message)
 		if("blob alert")
-			to_chat(target, "<h1 class='alert'>Biohazard Alert</h1>")
-			to_chat(target, "<br><br><span class='alert'>Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.</span><br><br>")
-			SEND_SOUND(target,  SSstation.announcer.event_sounds[ANNOUNCER_OUTBREAK5])
+			priority_announce(
+				text = "Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.",
+				title = "Biohazard Alert",
+				sound = ANNOUNCER_OUTBREAK5,
+				players = list(target),
+			)
 		if("ratvar")
 			target.playsound_local(target, 'sound/machines/clockcult/ark_deathrattle.ogg', 50, FALSE, pressure_affected = FALSE)
 			target.playsound_local(target, 'sound/effects/clockcult_gateway_disrupted.ogg', 50, FALSE, pressure_affected = FALSE)
@@ -156,17 +159,28 @@
 				/* pressure_affected = */ FALSE
 			), 27)
 		if("shuttle dock")
-			to_chat(target, "<h1 class='alert'>Priority Announcement</h1>")
-			to_chat(target, "<br><br><span class='alert'>The Emergency Shuttle has docked with the station. You have 3 minutes to board the Emergency Shuttle.</span><br><br>")
-			SEND_SOUND(target, SSstation.announcer.event_sounds[ANNOUNCER_SHUTTLEDOCK])
+			priority_announce(
+				text = "[SSshuttle.emergency] has docked with the station. You have [DisplayTimeText(SSshuttle.emergencyDockTime)] to board the emergency shuttle.",
+				title = "Emergency Shuttle Arrival",
+				sound = ANNOUNCER_SHUTTLEDOCK,
+				sender_override = "Emergency Shuttle Uplink Alert",
+				players = list(target),
+				color_override = "orange",
+			)
 		if("malf ai") //AI is doomsdaying!
-			to_chat(target, "<h1 class='alert'>Anomaly Alert</h1>")
-			to_chat(target, "<br><br><span class='alert'>Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.</span><br><br>")
-			SEND_SOUND(target, SSstation.announcer.event_sounds[ANNOUNCER_AIMALF])
+			priority_announce(
+				text = "Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.",
+				title = "Anomaly Alert",
+				sound = ANNOUNCER_AIMALF,
+				players = list(target),
+			)
 		if("meteors") //Meteors inbound!
-			to_chat(target, "<h1 class='alert'>Meteor Alert</h1>")
-			to_chat(target, "<br><br><span class='alert'>Meteors have been detected on collision course with the station.</span><br><br>")
-			SEND_SOUND(target, SSstation.announcer.event_sounds[ANNOUNCER_METEORS])
+			priority_announce(
+				text = "Meteors have been detected on collision course with the station.",
+				title = "Meteor Alert",
+				sound = ANNOUNCER_METEORS,
+				players = list(target),
+			)
 		if("supermatter")
 			SEND_SOUND(target, 'sound/magic/charge.ogg')
 			to_chat(target, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
