@@ -9,41 +9,55 @@
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 1
 	power_cost = 80
+	empowerment = "compromise"
 
-/datum/action/cooldown/spell/slab/sentinelscompromise
-	name = "Sentinel's Compromies"
-	// Deadline 2030 port yogs clockies
+//For the Sentinel's Compromise scripture; heals a clicked_on servant.
 
-/datum/action/cooldown/spell/slab/sentinelscompromise/can_cast_spell(feedback)
-	. = ..()
-	if(!ishuman(scripture.invoker))
-		to_chat(scripture.invoker, "<span class='warning'>Non humanoid servants can't use this power!</span>")
-		return
-
-
-/datum/action/cooldown/spell/slab/sentinelscompromise/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/carbon/M = cast_on
-	if(M.stat == DEAD || !is_servant_of_ratvar(M))
+/obj/item/clockwork/clockwork_slab/proc/sentinels_compromise(mob/living/caller, atom/clicked_on)
+	empowerment = null
+	var/turf/T = caller.loc
+	if(!isturf(T))
 		return FALSE
-	var/total_damage = (M.getBruteLoss() + M.getFireLoss() + M.getOxyLoss() + M.getCloneLoss()) * 0.6
-	M.adjustBruteLoss(-M.getBruteLoss() * 0.6, FALSE)
-	M.adjustFireLoss(-M.getFireLoss() * 0.6, FALSE)
-	M.adjustOxyLoss(-M.getOxyLoss() * 0.6, FALSE)
-	M.adjustCloneLoss(-M.getCloneLoss() * 0.6, TRUE)
-	M.blood_volume = BLOOD_VOLUME_NORMAL
-	M.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
-	M.set_nutrition(NUTRITION_LEVEL_FULL)
-	M.bodytemperature = BODYTEMP_NORMAL
-	M.set_blindness(0)
-	M.set_blurriness(0)
-	M.set_dizziness(0)
-	M.cure_nearsighted()
-	M.cure_blind()
-	M.cure_husk()
-	M.hallucination = 0
-	new /obj/effect/temp_visual/heal(get_turf(M), "#f8d984")
-	playsound(M, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	playsound(scripture.invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	scripture.invoker.adjustToxLoss(min(total_damage/2, 80), TRUE, TRUE)
+
+	if(isliving(clicked_on) && (clicked_on in view(7, get_turf(caller))))
+		var/mob/living/L = clicked_on
+		if(!is_servant_of_ratvar(L))
+			to_chat(caller, span_inathneq("\"[L] does not yet serve Ratvar.\""))
+			return TRUE
+		if(L.stat == DEAD)
+			to_chat(caller, span_inathneq("\"[L.p_theyre(TRUE)] dead. [text2ratvar("Oh, child. To have your life cut short...")]\""))
+			return TRUE
+
+		var/brutedamage = L.getBruteLoss()
+		var/burndamage = L.getFireLoss()
+		var/oxydamage = L.getOxyLoss()
+		var/totaldamage = brutedamage + burndamage + oxydamage
+		if(!totaldamage && (!L.reagents || !L.reagents.has_reagent(/datum/reagent/water/holywater)))
+			to_chat(caller, span_inathneq("\"[L] is unhurt and untainted.\""))
+			return TRUE
+		to_chat(caller, span_brass("You bathe [L == caller ? "yourself":"[L]"] in Inath-neq's power!"))
+		var/clicked_onturf = get_turf(L)
+		var/has_holy_water = (L.reagents && L.reagents.has_reagent(/datum/reagent/water/holywater))
+		var/healseverity = max(round(totaldamage*0.05, 1), 1) //shows the general severity of the damage you just healed, 1 glow per 20
+		for(var/i in 1 to healseverity)
+			new /obj/effect/temp_visual/heal(clicked_onturf, "#1E8CE1")
+		if(totaldamage)
+			L.adjustBruteLoss(-brutedamage, TRUE, FALSE)
+			L.adjustFireLoss(-burndamage, TRUE, FALSE)
+			L.adjustOxyLoss(-oxydamage)
+			L.adjustToxLoss(totaldamage * 0.5, TRUE, TRUE)
+			clockwork_say(caller, text2ratvar("[has_holy_water ? "Heal tainted" : "Mend wounded"] flesh!"))
+			log_combat(caller, L, "healed with Sentinel's Compromise")
+			L.visible_message(span_warning("A blue light washes over [L], [has_holy_water ? "causing [L.p_them()] to briefly glow as it mends" : " mending"] [L.p_their()] bruises and burns!"), \
+			"[span_heavy_brass("You feel Inath-neq's power healing your wounds[has_holy_water ? " and purging the darkness within you" : ""], but a deep nausea overcomes you!")]")
+		else
+			clockwork_say(caller, text2ratvar("Purge foul darkness!"))
+			log_combat(caller, L, "purged of holy water with Sentinel's Compromise")
+			L.visible_message(span_warning("A blue light washes over [L], causing [L.p_them()] to briefly glow!"), \
+			"[span_heavy_brass("You feel Inath-neq's power purging the darkness within you!")]")
+		playsound(clicked_onturf, 'sound/magic/staff_healing.ogg', 50, 1)
+
+		if(has_holy_water)
+			L.reagents.remove_reagent(/datum/reagent/water/holywater, 1000)
+
 	return TRUE

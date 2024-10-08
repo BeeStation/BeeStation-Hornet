@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 
 	var/holder_class
 	var/list/scriptures = list()
-
+	var/empowerment
 	var/charge_overlay
 
 	var/calculated_cogs = 0
@@ -92,6 +92,18 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		var/difference = GLOB.installed_integration_cogs - calculated_cogs
 		calculated_cogs += difference
 		cogs += difference
+
+/obj/item/clockwork/clockwork_slab/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	switch(empowerment)
+		if("kindle")
+			kindle(user, target)
+		if("manacles")
+			hateful_manacles(user, target)
+		if("compromise")
+			sentinels_compromise(user, target)
+	if(active_scripture)
+		active_scripture.end_invokation()
 
 //==================================//
 // !   Quick bind spell handling  ! //

@@ -82,3 +82,5 @@
 	if(removed_from.click_intercept == src)
 		unset_ranged_ability(removed_from)
 	return ..()
+
+

@@ -14,62 +14,32 @@
 	use_time = 150
 	cogs_required = 1
 	category = SPELLTYPE_SERVITUDE
+	empowerment = "kindle"
 
-/datum/action/cooldown/spell/slab/kindle
-	name = "Kindle"
-	// I hate how this is done
+//For the Kindle scripture; stuns and mutes a clicked_on non-servant.
 
-/datum/action/cooldown/spell/slab/kindle/cast(atom/A)
-	. = ..()
-	var/mob/living/M = A
-	if(!istype(M))
-		return FALSE
-	if(!is_servant_of_ratvar(scripture.invoker))
-		M = scripture.invoker
-	if(is_servant_of_ratvar(M))
-		return FALSE
-	//Anti magic abilities
-	var/anti_magic_source = M.anti_magic_check(holy = TRUE)
-	if(anti_magic_source)
-		M.mob_light(color = LIGHT_COLOR_HOLY_MAGIC, range = 2, duration = 100)
-		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
-		M.add_overlay(forbearance)
-		addtimer(CALLBACK(M, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
-		M.visible_message("<span class='warning'>[M] stares blankly, as a field of energy flows around them.</span>", \
-									   "<span class='userdanger'>You feel a slight shock as a wave of energy flows past you.</span>")
-		playsound(scripture.invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
-		return TRUE
-	//Blood Cultist Effect
-	if(iscultist(M))
-		M.mob_light(color = LIGHT_COLOR_BLOOD_MAGIC, range = 2, duration = 300)
-		M.stuttering += 15
-		M.Jitter(15)
-		var/mob_color = M.color
-		M.color = LIGHT_COLOR_BLOOD_MAGIC
-		animate(M, color = mob_color, time = 300)
-		M.say("Fwebar uloft'gib mirlig yro'fara!")
-		to_chat(scripture.invoker, "<span class='brass'>You fail to stun [M]!</span>")
-		playsound(scripture.invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
-		return TRUE
-	//Successful Invokation
-	scripture.invoker.mob_light(color = LIGHT_COLOR_CLOCKWORK, range = 2, duration = 10)
-	if(!is_reebe(scripture.invoker.z))
-		if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
-			M.Paralyze(150)
+/obj/item/clockwork/clockwork_slab/proc/kindle(mob/living/caller, mob/living/clicked_on)
+	empowerment = null
+	to_chat(caller, span_brass("You release the light of Ratvar!"))
+	clockwork_say(caller, text2ratvar("Purge all untruths and honor Engine!"))
+	if(isliving(clicked_on))
+		var/mob/living/L = clicked_on
+		if(is_servant_of_ratvar(L) || L.stat)
+			return BULLET_ACT_HIT
+		var/atom/O = L.anti_magic_check()
+		playsound(L, 'sound/magic/fireball.ogg', 50, TRUE, frequency = 1.25)
+		if(O)
+			if(isitem(O))
+				L.visible_message(span_warning("[L]'s eyes flare with dim light!"), \
+				span_userdanger("Your [O] glows white-hot against you as it absorbs [src]'s power!"))
+			else if(ismob(O))
+				L.visible_message(span_warning("[L]'s eyes flare with dim light!"))
+			playsound(L, 'sound/weapons/sear.ogg', 50, TRUE)
 		else
-			to_chat(scripture.invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
-			M.confused = clamp(M.confused, 50, INFINITY)
-	if(issilicon(M))
-		var/mob/living/silicon/S = M
-		S.emp_act(EMP_HEAVY)
-	else if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		C.silent += 6
-		C.stuttering += 15
-		C.Jitter(15)
-	if(M.client)
-		var/client_color = M.client.color
-		M.client.color = "#BE8700"
-		animate(M.client, color = client_color, time = 25)
-	playsound(scripture.invoker, 'sound/magic/staff_animation.ogg', 50, TRUE)
+			L.visible_message(span_warning("[L]'s eyes blaze with brilliant light!"), \
+			span_userdanger("Your vision suddenly screams with white-hot light!"))
+			L.Paralyze(5 SECONDS)
+			L.flash_act(1, 1)
+			if(iscultist(L))
+				L.adjustFireLoss(15)
 	return TRUE

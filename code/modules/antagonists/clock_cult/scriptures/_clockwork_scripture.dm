@@ -156,23 +156,18 @@
 	var/uses = 1
 	var/after_use_text = ""
 	end_on_invokation = FALSE
+	var/timeout_time = 0
+	var/allow_mobility = TRUE //if moving and swapping hands is allowed during the while
 
-	var/datum/action/cooldown/spell/slab/PH
 	var/uses_left
 	var/time_left = 0
 	var/loop_timer_id
+	var/empowerment
 
-
-/datum/clockcult/scripture/slab/New()
-	PH = new
-	PH.scripture = src
-	..()
 
 /datum/clockcult/scripture/slab/Destroy()
 	if(progress)
 		QDEL_NULL(progress)
-	if(!QDELETED(PH))
-		QDEL_NULL(PH)
 	return ..()
 
 
@@ -183,7 +178,7 @@
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	PH.set_click_ability(invoker)
+	invoking_slab.empowerment = empowerment
 	to_chat(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
 	count_down()
 	invoke_success()
@@ -206,30 +201,11 @@
 		loop_timer_id = null
 	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
 	progress.end_progress()
-	PH.unset_click_ability(invoker)
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = null
+	empowerment = null
 	end_invoke()
-
-/*
-/obj/effect/proc_holder/slab
-	var/datum/clockcult/scripture/slab/parent_scripture
-
-/obj/effect/proc_holder/slab/InterceptClickOn(mob/living/caller, params, atom/A)
-	parent_scripture?.click_on(A)
-*/
-
-/datum/action/cooldown/spell/slab
-	var/datum/clockcult/scripture/slab/scripture
-
-/datum/action/cooldown/spell/slab/after_cast(atom/cast_on)
-	. = ..()
-	scripture.uses_left --
-	if(scripture.uses_left <= 0)
-		if(scripture.after_use_text)
-			clockwork_say(scripture.invoker, text2ratvar(scripture.after_use_text), TRUE)
-		scripture.end_invokation()
 
 
 //==================================//
