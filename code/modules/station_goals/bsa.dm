@@ -377,7 +377,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
 	if(target_ref?.resolve())
-		data["target"] = list(REF(target_ref?.resolve()), get_target_name())
+		data["target"] = list(FAST_REF(target_ref?.resolve()), get_target_name())
 	else
 		data["target"] = null
 		target_ref = null
