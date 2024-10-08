@@ -7784,6 +7784,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/portable_atmospherics/canister/bz,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "bLe" = (
@@ -28980,7 +28982,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/chair/fancy/bench,
+/obj/structure/chair/fancy/bench{
+	dir = 1
+	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -37111,8 +37115,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 9
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
@@ -45792,10 +45796,12 @@
 /turf/open/floor/plating,
 /area/bridge/meeting_room)
 "pgW" = (
-/obj/structure/chair/fancy/bench/right,
 /obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
+	},
+/obj/structure/chair/fancy/bench/left{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
@@ -47561,9 +47567,11 @@
 /area/quartermaster/miningdock)
 "pNh" = (
 /obj/structure/railing,
-/obj/structure/chair/fancy/bench/left,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
+	},
+/obj/structure/chair/fancy/bench/right{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
@@ -61335,9 +61343,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -61690,10 +61695,9 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/science)
 "vrh" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8
 	},
-/obj/machinery/meter,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "vrl" = (
@@ -63636,6 +63640,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "weE" = (

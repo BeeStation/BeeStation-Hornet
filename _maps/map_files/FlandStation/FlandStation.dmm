@@ -34676,9 +34676,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/chair/fancy/bench/right{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/left{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -51403,9 +51402,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/chair/fancy/bench/left{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -69145,9 +69143,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/fancy/bench/left{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -77714,9 +77711,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/fancy/bench/right{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/left{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
