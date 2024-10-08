@@ -1,0 +1,5 @@
+author: rkz, Trigg, Stylemistake, Arkatos
+delete-after: true
+changes:
+  - admin: made the Select Equipment context menu command have a TGUI menu
+  - admin: TGUIs custom outfit creator
