@@ -405,7 +405,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	// Find all active GPS
 	for(var/datum/component/gps/G in GLOB.GPS_list)
 		if(G.tracking)
-			targets[REF(G)] = G.gpstag
+			targets[FAST_REF(G)] = G.gpstag
 	return targets
 
 
