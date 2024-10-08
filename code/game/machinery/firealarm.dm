@@ -66,36 +66,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if(machine_stat & NOPOWER)
 		return
 
-	. += "fire_overlay"
+	. += mutable_appearance(icon, "fire_overlay")
 	if(is_station_level(z))
-		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
 		. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
 		. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
-		. += "fire_[SEC_LEVEL_GREEN]"
 		. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
 		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 	if(obj_flags & EMAGGED)
-		. += "fire_emagged"
 		. += mutable_appearance(icon, "fire_emagged")
 		. += emissive_appearance(icon, "fire_emagged", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 		return //If it's emagged, don't do anything else for overlays.
 	if(locked)
-		. += "fire_locked"
 		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
 		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	if(detecting && A.fire)
-		. += "fire_on"
 		. += mutable_appearance(icon, "fire_on", layer + 2) //If we are locked and there is a fire, overlay the fire detection overlay ontop of the locked one.
 		. += emissive_appearance(icon, "fire_on", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
-		. += "fire_off"
 		. += mutable_appearance(icon, "fire_off")
 		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)

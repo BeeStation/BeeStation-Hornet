@@ -37,6 +37,7 @@
 	name = "syndicate assault pod control"
 	desc = "Controls the drop pod's launch system."
 	icon = 'icons/obj/terminals.dmi'
+	icon_keyboard = null
 
 	base_icon_state = null
 	smoothing_flags = NONE
