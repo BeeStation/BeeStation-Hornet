@@ -1766,6 +1766,14 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
+"gw" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/capture_the_flag/red,
+/turf/open/floor/iron/white/textured,
+/area/ctf)
 "gx" = (
 /obj/machinery/computer/security{
 	dir = 8
@@ -1964,7 +1972,6 @@
 /turf/open/floor/iron,
 /area/centcom/supply)
 "hk" = (
-/obj/machinery/capture_the_flag/blue,
 /obj/effect/turf_decal/siding/blue{
 	dir = 9
 	},
@@ -2045,6 +2052,9 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/control)
+"hP" = (
+/turf/open/floor/iron,
+/area/ctf)
 "hR" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
@@ -2721,6 +2731,12 @@
 /obj/item/food/meat/slab/human/mutant/slime,
 /turf/open/floor/grass,
 /area/wizard_station)
+"ke" = (
+/obj/effect/turf_decal/siding/blue,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/capture_the_flag/blue,
+/turf/open/floor/iron/white/textured,
+/area/ctf)
 "ki" = (
 /obj/docking_port/stationary{
 	dwidth = 25;
@@ -2795,7 +2811,6 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "kz" = (
-/obj/machinery/capture_the_flag/red,
 /obj/effect/turf_decal/siding/red{
 	dir = 6
 	},
@@ -6180,6 +6195,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
+"wU" = (
+/obj/effect/turf_decal/siding/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/structure/closet/secure_closet/medical3,
+/turf/open/floor/iron/white/textured,
+/area/ctf)
 "wV" = (
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/wood,
@@ -6482,11 +6505,6 @@
 	},
 /turf/open/floor/engine/cult,
 /area/wizard_station)
-"yc" = (
-/obj/structure/barricade/wooden,
-/obj/structure/barricade/wooden/crude,
-/turf/open/floor/iron/dark,
-/area/ctf)
 "yd" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -6624,6 +6642,17 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/blue,
 /turf/open/floor/iron/dark,
+/area/ctf)
+"yx" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/chair/fancy/bench/left{
+	dir = 8;
+	pixel_x = -13
+	},
+/turf/open/floor/iron/white/textured,
 /area/ctf)
 "yy" = (
 /obj/machinery/light{
@@ -6910,6 +6939,10 @@
 /obj/effect/landmark/ert_spawn,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
+"zE" = (
+/obj/machinery/telecomms/allinone,
+/turf/open/floor/iron,
+/area/ctf)
 "zF" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -7502,6 +7535,10 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/chair/fancy/bench/right{
+	dir = 8;
+	pixel_x = -13
+	},
 /turf/open/floor/iron/white/textured,
 /area/ctf)
 "BV" = (
@@ -9178,11 +9215,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
-"HT" = (
-/obj/machinery/jukebox/disco/indestructible,
-/obj/item/wrench,
-/turf/open/floor/iron/dark,
-/area/ctf)
 "HV" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -10750,6 +10782,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
+"NI" = (
+/obj/effect/turf_decal/siding/red,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/closet/secure_closet/medical3,
+/turf/open/floor/iron/white/textured,
+/area/ctf)
 "NJ" = (
 /obj/item/food/meat/slab/xeno,
 /turf/open/floor/grass,
@@ -10882,6 +10920,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/centcom/control)
+"Oe" = (
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/ctf)
 "Of" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -11624,6 +11666,10 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/structure/chair/fancy/bench/right{
+	dir = 4;
+	pixel_x = 13
+	},
 /turf/open/floor/iron/white/textured,
 /area/ctf)
 "QT" = (
@@ -12180,6 +12226,9 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"SQ" = (
+/turf/closed/indestructible/fakeglass,
+/area/ctf)
 "SR" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -12776,6 +12825,17 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/four)
+"Vk" = (
+/obj/effect/turf_decal/siding/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/structure/chair/fancy/bench/left{
+	dir = 4;
+	pixel_x = 13
+	},
+/turf/open/floor/iron/white/textured,
+/area/ctf)
 "Vm" = (
 /obj/machinery/gibber,
 /obj/machinery/light{
@@ -12975,6 +13035,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
+"VV" = (
+/obj/machinery/telecomms/bus/preset_exploration,
+/turf/open/floor/iron,
+/area/ctf)
 "VX" = (
 /obj/effect/landmark/shuttle_import,
 /turf/open/space/basic,
@@ -65227,7 +65291,7 @@ aa
 aa
 fZ
 mJ
-dQ
+ke
 fZ
 kX
 hs
@@ -66511,7 +66575,7 @@ aa
 aa
 aa
 fZ
-mJ
+wU
 vY
 XO
 Uy
@@ -66769,7 +66833,7 @@ aa
 aa
 fZ
 QR
-cH
+Vk
 eN
 Uy
 Uy
@@ -68325,10 +68389,10 @@ gl
 fZ
 Gg
 fZ
-Uy
-Uy
-Uy
-Uy
+SQ
+fZ
+SQ
+fZ
 Uy
 Uy
 Uy
@@ -68582,9 +68646,9 @@ aa
 fZ
 Gg
 fZ
-gl
-ab
-gl
+Oe
+hP
+zE
 fZ
 Uy
 Uy
@@ -68839,9 +68903,9 @@ aa
 gl
 Gg
 fZ
-aa
-aa
-aa
+Oe
+hP
+VV
 fZ
 Uy
 Uy
@@ -69096,9 +69160,9 @@ aa
 fZ
 Gg
 fZ
-gl
-ab
-gl
+SQ
+fZ
+SQ
 fZ
 Uy
 Uy
@@ -71908,8 +71972,8 @@ aa
 aa
 aa
 aa
-fZ
-fZ
+aa
+aa
 fZ
 gh
 gh
@@ -72165,9 +72229,9 @@ aa
 aa
 aa
 aa
+aa
+aa
 fZ
-gh
-yc
 gh
 gh
 re
@@ -72422,8 +72486,8 @@ aa
 aa
 aa
 aa
-fZ
-HT
+aa
+aa
 fZ
 gh
 gh
@@ -72679,8 +72743,8 @@ aa
 aa
 aa
 aa
-fZ
-fZ
+aa
+aa
 fZ
 gh
 gh
@@ -74738,9 +74802,9 @@ PI
 ZZ
 ZZ
 fZ
-gl
-ab
-gl
+SQ
+fZ
+SQ
 fZ
 Gg
 fZ
@@ -74995,9 +75059,9 @@ ZZ
 ZZ
 ZZ
 fZ
-aa
-aa
-aa
+zE
+hP
+Oe
 fZ
 Gg
 gl
@@ -75252,9 +75316,9 @@ ZZ
 ZZ
 ZZ
 fZ
-gl
-ab
-gl
+VV
+hP
+Oe
 fZ
 Gg
 fZ
@@ -75508,10 +75572,10 @@ ZZ
 ZZ
 ZZ
 ZZ
-ZZ
-ZZ
-ZZ
-ZZ
+fZ
+SQ
+fZ
+SQ
 fZ
 Gg
 fZ
@@ -77067,7 +77131,7 @@ ZZ
 ZZ
 ZZ
 EL
-QY
+yx
 BU
 fZ
 aa
@@ -77325,7 +77389,7 @@ ZZ
 ZZ
 Fy
 TG
-kE
+NI
 fZ
 aa
 aa
@@ -78609,7 +78673,7 @@ EL
 On
 Ut
 fZ
-ok
+gw
 kE
 fZ
 aa
