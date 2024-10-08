@@ -135,11 +135,6 @@
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
-	for(var/datum/action/cooldown/spell/X in current.actions)
-		if(X.mindbound)
-			X.Grant(new_character)
-			X.Remove(old_current)
-	transfer_martial_arts(new_character)
 	if(current)
 		current.transfer_observers_to(new_character, TRUE)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
@@ -159,6 +154,7 @@
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	current.update_atom_languages()
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSFERRED, old_current)
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 	// Update SSD indicators
 	if(isliving(old_current))
@@ -716,7 +712,6 @@
 			martial_art.remove(new_character)
 		else
 			martial_art.teach(new_character)
-
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))
 		if(G.mind == src)
