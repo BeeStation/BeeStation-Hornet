@@ -410,20 +410,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-    var/target = target_ref?.resolve()
-    if(istype(target, /area))
-        return get_area_name(target, TRUE)
-    else if(istype(target, /datum/component/gps))
-        var/datum/component/gps/G = target
-        return G.gpstag
+	var/target = target_ref?.resolve()
+	if(istype(target, /area))
+		return get_area_name(target, TRUE)
+	else if(istype(target, /datum/component/gps))
+		var/datum/component/gps/G = target
+		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-    var/target = target_ref?.resolve()
-    if(istype(target, /area))
-        return pick(get_area_turfs(target))
-    else if(istype(target, /datum/component/gps))
-        var/datum/component/gps/G = target
-        return get_turf(G.parent)
+	var/target = target_ref?.resolve()
+	if(istype(target, /area))
+		return pick(get_area_turfs(target))
+	else if(istype(target, /datum/component/gps))
+		var/datum/component/gps/G = target
+		return get_turf(G.parent)
 
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
