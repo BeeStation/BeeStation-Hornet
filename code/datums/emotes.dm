@@ -92,86 +92,26 @@
 	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
 	msg = punctuate(msg)
 
-	var/is_important = emote_type & EMOTE_IMPORTANT
-	var/is_visual = emote_type & EMOTE_VISIBLE
-	var/is_audible = emote_type & EMOTE_AUDIBLE
+	var/dchatmsg = "<b>[user]</b>[space][msg]"
 
-	// Emote doesn't get printed to chat, runechat only
-	if(emote_type & EMOTE_RUNECHAT)
-		for(var/mob/viewer as anything in viewers(user))
-			if(isnull(viewer.client))
-				continue
-			if(!is_important && viewer != user && (!is_visual || !is_audible))
-				if(is_audible && !viewer.can_hear())
-					continue
-				if(is_visual && viewer.is_blind())
-					continue
-			if(user.runechat_prefs_check(viewer, EMOTE_MESSAGE))
-				create_chat_message(
-					speaker = user,
-					raw_message = msg,
-					message_mods = EMOTE_MESSAGE,
-				)
-			else if(is_important)
-				to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
-			else if(is_audible && is_visual)
-				viewer.show_message(
-					"<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE,
-					"<span class='emote'>You see how <b>[user]</b> [msg]</span>", MSG_VISUAL,
-				)
-			else if(is_audible)
-				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE)
-			else if(is_visual)
-				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_VISUAL)
-		return TRUE // Early exit so no dchat message
+	for(var/mob/M in GLOB.dead_mob_list)
+		if(!M.client || isnewplayer(M))
+			continue
+		var/T = get_turf(user)
+		if(M.stat == DEAD && M?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
+			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
+				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
+			else
+				M.show_message("[dchatmsg]")
 
-	// The emote has some important information, and should always be shown to the user
-	else if(is_important)
-		for(var/mob/viewer as anything in viewers(user))
-			to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
-			if(user.runechat_prefs_check(viewer, EMOTE_MESSAGE))
-				create_chat_message(
-					speaker = user,
-					raw_message = msg,
-					message_mods = EMOTE_MESSAGE,
-				)
-	// Emotes has both an audible and visible component
-	// Prioritize audible, and provide a visible message if the user is deaf
-	else if(is_visual && is_audible)
-		user.audible_message(
-			message = msg,
-			deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>",
-			self_message = msg,
-			audible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE,
-			separation = space
-		)
-	// Emote is entirely audible, no visible component
-	else if(is_audible)
-		user.audible_message(
-			message = msg,
-			self_message = msg,
-			audible_message_flags = EMOTE_MESSAGE,
-			separation = space
-		)
-	// Emote is entirely visible, no audible component
-	else if(is_visual)
-		user.visible_message(
-			message = msg,
-			self_message = msg,
-			visible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE,
-		)
-	else
-		CRASH("Emote [type] has no valid emote type set!")
-
-	if(!isnull(user.client))
-		var/dchatmsg = "<b>[user]</b> [msg]"
-		for(var/mob/ghost as anything in GLOB.dead_mob_list - viewers(get_turf(user)))
-			if(isnull(ghost.client) || isnewplayer(ghost))
-				continue
-			if(!ghost?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight))
-				continue
-			to_chat(ghost, "<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
-
+	if(emote_type & (EMOTE_AUDIBLE | EMOTE_VISIBLE)) //emote is audible and visible
+		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+	else if(emote_type & EMOTE_VISIBLE)	//emote is only visible
+		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+	if(emote_type & EMOTE_IMPORTANT)
+		for(var/mob/living/viewer in viewers())
+			if(viewer.is_blind() && !viewer.can_hear())
+				to_chat(viewer, msg)
 	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)
@@ -264,7 +204,7 @@
 				else
 					ghost.show_message("[ghost_text]")
 
-	visible_message(text, visible_message_flags = list(EMOTE_MESSAGE = TRUE))
+	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
 /**
  * Returns a boolean based on whether or not the string contains a comma or an apostrophe,

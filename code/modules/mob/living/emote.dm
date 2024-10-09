@@ -516,14 +516,9 @@
 	else if(!params)
 		var/custom_emote = stripped_input(usr, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))
-			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable", "Both")
-			switch(type)
-				if("Hearable")
-					emote_type |= EMOTE_AUDIBLE
-				if("Visible")
-					emote_type |= EMOTE_VISIBLE
-				if("Both")
-					emote_type |= EMOTE_VISIBLE | EMOTE_AUDIBLE
+			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
+			if(type == "Hearable")
+				emote_type |= EMOTE_AUDIBLE
 			message = user.say_emphasis(custom_emote)
 	else
 		message = params
