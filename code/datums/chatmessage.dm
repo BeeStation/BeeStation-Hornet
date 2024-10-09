@@ -328,8 +328,8 @@
 	var/handled_message = raw_message
 
 	// Message language override, if no language was spoken emote 'makes a strange noise'
-	if(!message_language && !message_mods[CHATMESSAGE_EMOTE])
-		message_mods[CHATMESSAGE_EMOTE] = TRUE
+	if(!message_language && !message_mods[EMOTE_MESSAGE])
+		message_mods[EMOTE_MESSAGE] = TRUE
 		handled_message = "makes a strange sound."
 
 	// Check for virtual speakers (aka hearing a message through a radio)
@@ -346,7 +346,7 @@
 		spans -= "italics"
 
 	// Display visual above source
-	if(message_mods.Find(CHATMESSAGE_EMOTE))
+	if(message_mods.Find(EMOTE_MESSAGE))
 		var/list/clients = list()
 		for(var/mob/M as() in hearers)
 			if(M?.should_show_chat_message(speaker, message_language, TRUE))
