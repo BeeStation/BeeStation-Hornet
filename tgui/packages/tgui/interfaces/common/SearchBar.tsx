@@ -24,7 +24,7 @@ type Props = RequiredProps & OptionalProps;
  * Simple component for searching.
  * This component does not accept box props - just recreate it if needed
  */
-export function SearchBar(props: Props) {
+export const SearchBar = (props: Props, content) => {
   const { autoFocus, noIcon = false, onSearch, placeholder = 'Search...', query = '', style } = props;
 
   return (
@@ -35,4 +35,4 @@ export function SearchBar(props: Props) {
       </Stack.Item>
     </Stack>
   );
-}
+};
