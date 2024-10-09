@@ -3099,6 +3099,7 @@
 #include "code\modules\mob\living\carbon\human\human_helpers.dm"
 #include "code\modules\mob\living\carbon\human\human_movement.dm"
 #include "code\modules\mob\living\carbon\human\human_stripping.dm"
+#include "code\modules\mob\living\carbon\human\init_signals.dm"
 #include "code\modules\mob\living\carbon\human\inventory.dm"
 #include "code\modules\mob\living\carbon\human\life.dm"
 #include "code\modules\mob\living\carbon\human\physiology.dm"

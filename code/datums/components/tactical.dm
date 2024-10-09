@@ -79,11 +79,11 @@
 		identity[VISIBLE_NAME_FORCED] = tactical_disguise_power
 
 	var/obj/item/flawless_disguise = parent
-	var/wielded = ISWIELDED(src)
+	var/wielded = ISWIELDED(parent)
 	if(wielded)
 		var/no_more_wielded_name = findtext(flawless_disguise.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
-		identity[VISIBLE_NAME_FACE] = flawless_disguise.no_more_wielded_name
-		identity[VISIBLE_NAME_ID] = flawless_disguise.no_more_wielded_name
+		identity[VISIBLE_NAME_FACE] = no_more_wielded_name
+		identity[VISIBLE_NAME_ID] = no_more_wielded_name
 	else
 		identity[VISIBLE_NAME_FACE] = flawless_disguise.name
 		identity[VISIBLE_NAME_ID] = flawless_disguise.name // for Unknown (as 'potted plant') says

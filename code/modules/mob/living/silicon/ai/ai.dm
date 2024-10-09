@@ -818,12 +818,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if (ishuman(speaker))
-		var/mob/living/carbon/human/S = speaker
-		if(S.wear_id)
-			var/obj/item/card/id/I = S.wear_id.GetID()
-			if(I)
-				jobpart = "[I.assignment]"
+	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
+		if(iscarbon(speaker))
+			var/mob/living/carbon/human/living_speaker = speaker
+			if(living_speaker.wear_id)
+				var/obj/item/card/id/has_id = living_speaker.wear_id.GetID()
+				if(has_id)
+					jobpart = "[has_id.assignment]"
+		if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
+			var/obj/effect/overlay/holo_pad_hologram/holo = speaker
+			if(holo.Impersonation?.job)
+				jobpart = "[holo.Impersonation.job]"
+			else if(usr?.job) // not great, but AI holograms have no other usable ref
+				jobpart = "[usr.job]"
 
 	// duplication part from `game/say.dm` to make a language icon
 	var/language_icon = ""
