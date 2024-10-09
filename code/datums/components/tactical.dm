@@ -20,7 +20,7 @@
 	var/obj/item/item = parent
 	if(ismob(item.loc))
 		var/mob/holder = item.loc
-		modify(item, holder, holder.get_slot_by_item(item))
+		modify(item, holder, current_slot)
 
 /datum/component/tactical/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -79,8 +79,14 @@
 		identity[VISIBLE_NAME_FORCED] = tactical_disguise_power
 
 	var/obj/item/flawless_disguise = parent
-	identity[VISIBLE_NAME_FACE] = flawless_disguise.name
-	identity[VISIBLE_NAME_ID] = flawless_disguise.name // for Unknown (as 'potted plant') says
+	var/wielded = ISWIELDED(src)
+	if(wielded)
+		var/no_more_wielded_name = findtext(flawless_disguise.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
+		identity[VISIBLE_NAME_FACE] = flawless_disguise.no_more_wielded_name
+		identity[VISIBLE_NAME_ID] = flawless_disguise.no_more_wielded_name
+	else
+		identity[VISIBLE_NAME_FACE] = flawless_disguise.name
+		identity[VISIBLE_NAME_ID] = flawless_disguise.name // for Unknown (as 'potted plant') says
 
 
 /datum/component/tactical/proc/unmodify(obj/item/source, mob/user)
