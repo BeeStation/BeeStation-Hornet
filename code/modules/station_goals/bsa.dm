@@ -367,6 +367,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
+	var/datum/component/gps/target = target_ref?.resolve()
 	var/list/data = list()
 	data["ready"] = cannon ? cannon.ready : FALSE
 	data["connected"] = cannon
@@ -377,7 +378,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
 	if(target_ref?.resolve())
-		data["target"] = list(FAST_REF(target_ref?.resolve()), get_target_name())
+		data["target"] = list(FAST_REF(target), get_target_name())
 	else
 		data["target"] = null
 		target_ref = null
