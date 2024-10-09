@@ -28,6 +28,7 @@
 /mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
+	set desc = "Perform a custom emote. Leave blank to pick between an audible or a visible emote (Defaults to visible)."
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
@@ -35,7 +36,7 @@
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
-	usr.emote("me",1,message,TRUE)
+	usr.emote("me",EMOTE_VISIBLE|EMOTE_AUDIBLE,message,TRUE)
 
 ///Speak as a dead person (ghost etc)
 /mob/proc/say_dead(var/message)
