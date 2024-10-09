@@ -8392,10 +8392,6 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
 "wg" = (
-/obj/structure/sign/poster/official/no_erp{
-	desc = "This poster reminds the crew that Eroticism, Reproduction and Pornography are banned on Nanotrasen stations. You feel as if this poster reminds you of an event that happened here... and that it's a placeholder for another poster?";
-	pixel_y = 32
-	},
 /obj/structure/sign/poster/official/no_erp,
 /turf/open/floor/plating/asteroid/airless,
 /area/asteroid/nearstation)
@@ -9770,6 +9766,7 @@
 /area/security/main)
 "zS" = (
 /obj/structure/flora/rock,
+/turf/closed/mineral/random,
 /area/asteroid/nearstation)
 "zT" = (
 /turf/open/floor/iron/chapel{
@@ -11893,6 +11890,7 @@
 /area/storage/tools)
 "FF" = (
 /obj/structure/flora/rock/pile,
+/turf/closed/mineral/random,
 /area/asteroid/nearstation)
 "FG" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
@@ -15039,6 +15037,7 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/patients_rooms)
 "NO" = (
+/turf/closed/mineral/random,
 /area/asteroid/nearstation)
 "NP" = (
 /obj/structure/cable/yellow{
@@ -16043,12 +16042,6 @@
 /obj/effect/turf_decal/siding/purple,
 /turf/open/floor/iron/white/textured,
 /area/science/research)
-"Qu" = (
-/obj/structure/sign/poster/official/no_erp{
-	desc = "This poster reminds the crew that Eroticism, Reproduction and Pornography are banned on Nanotrasen stations. You feel as if this poster reminds you of an event that happened here... and that it's a placeholder for another poster?";
-	pixel_y = 32
-	},
-/area/asteroid/nearstation)
 "Qv" = (
 /obj/machinery/light/directional/west,
 /obj/machinery/suit_storage_unit/mining/eva,
@@ -17940,8 +17933,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/tech,
 /area/crew_quarters/heads/hop)
-"Vs" = (
-/area/space)
 "Vt" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopqueue";
@@ -30726,7 +30717,7 @@ NO
 NO
 NO
 NO
-Qu
+NO
 NO
 NO
 NO
@@ -33799,7 +33790,7 @@ NO
 NO
 NO
 NO
-FF
+NO
 NO
 NO
 NO
@@ -36121,10 +36112,6 @@ NO
 NO
 NO
 NO
-zS
-NO
-NO
-FF
 NO
 NO
 NO
@@ -36133,10 +36120,14 @@ NO
 NO
 NO
 NO
-zS
 NO
 NO
-FF
+NO
+NO
+NO
+NO
+NO
+NO
 NO
 NO
 NO
@@ -37970,7 +37961,7 @@ NO
 NO
 NO
 NO
-zS
+NO
 NO
 NO
 Ov
@@ -57665,7 +57656,7 @@ bM
 Ov
 Ov
 NO
-Vs
+NO
 NW
 Ek
 Ab
