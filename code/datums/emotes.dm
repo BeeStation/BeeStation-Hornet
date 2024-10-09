@@ -110,7 +110,7 @@
 				create_chat_message(
 					speaker = user,
 					raw_message = msg,
-					message_mods = EMOTE_MESSAGE,
+					message_mods = list(EMOTE_MESSAGE),
 				)
 			else if(is_important)
 				to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
@@ -133,7 +133,7 @@
 				create_chat_message(
 					speaker = user,
 					raw_message = msg,
-					message_mods = EMOTE_MESSAGE,
+					message_mods = list(EMOTE_MESSAGE),
 				)
 	// Emotes has both an audible and visible component
 	// Prioritize audible, and provide a visible message if the user is deaf
@@ -142,7 +142,7 @@
 			message = msg,
 			deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>",
 			self_message = msg,
-			audible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE,
+			audible_message_flags = list(EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE),
 			separation = space
 		)
 	// Emote is entirely audible, no visible component
@@ -150,7 +150,7 @@
 		user.audible_message(
 			message = msg,
 			self_message = msg,
-			audible_message_flags = EMOTE_MESSAGE,
+			audible_message_flags = list(EMOTE_MESSAGE),
 			separation = space
 		)
 	// Emote is entirely visible, no audible component
@@ -158,7 +158,7 @@
 		user.visible_message(
 			message = msg,
 			self_message = msg,
-			visible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE,
+			visible_message_flags = list(EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE),
 		)
 	else
 		CRASH("Emote [type] has no valid emote type set!")
