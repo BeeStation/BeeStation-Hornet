@@ -209,7 +209,6 @@
 		/datum/species/oozeling,
 		/datum/species/ethereal,
 		/datum/species/apid,
-		/datum/species/diona,
 	)
 
 /obj/machinery/capture_the_flag/Initialize(mapload)
