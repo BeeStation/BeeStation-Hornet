@@ -165,6 +165,7 @@
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
 	icon_state = "bow_clockwork"
 	force = 10
+	initial_bowstring = /obj/item/weaponcrafting/attachment/primary/energy_crystal/clockwork
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15
 
@@ -201,7 +202,7 @@
 /obj/item/ammo_casing/caseless/arrow/clockbolt
 	name = "energy bolt"
 	desc = "An arrow made from a strange energy."
-	icon_state = "arrow_redlight"
+	icon_state = "clockbolt"
 	projectile_type = /obj/projectile/energy/clockbolt
 
 /obj/projectile/energy/clockbolt
