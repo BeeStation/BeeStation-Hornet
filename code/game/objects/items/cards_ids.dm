@@ -201,6 +201,18 @@
 		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
 	add_fingerprint(user)
 
+/// Used in ID card access adding procs. Will try to add all accesses and utilises free wildcards, skipping over any accesses it can't add.
+#define TRY_ADD_ALL 0
+/// Used in ID card access adding procs. Will try to add all accesses and does not utilise wildcards, skipping anything requiring a wildcard.
+#define TRY_ADD_ALL_NO_WILDCARD 1
+/// Used in ID card access adding procs. Will forcefully add all accesses.
+#define FORCE_ADD_ALL 2
+/// Used in ID card access adding procs. Will stack trace on fail.
+#define ERROR_ON_FAIL 3
+
+/obj/item/card/id/proc/set_access(list/new_access_list, mode = ERROR_ON_FAIL)
+	return
+
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(.)
