@@ -39,6 +39,16 @@
 
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if (ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(istype(human_user.wear_suit, /obj/item/clothing/suit/space/space_ninja))
+			var/obj/item/clothing/suit/space/space_ninja/ninja_suit = human_user.wear_suit
+			if (ninja_suit.stealth)
+				ninja_suit.cancel_stealth()
+		else
+			return
+	else
+		return
 	if(dash_toggled)
 		jaunt.Teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))
