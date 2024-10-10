@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	if(color_timer_id)
 		return
 	add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY) //We unfortunately cannot animate matrix colors. Curse you lummy it would be ~~non~~trivial to interpolate between the two valuessssssssss
-	color_timer_id = addtimer(CALLBACK(src, PROC_REF(emove_color, color)), 2 SECONDS)
+	color_timer_id = addtimer(CALLBACK(src, PROC_REF(remove_color), color), 2 SECONDS)
 
 /atom/movable/screen/button_palette/proc/remove_color(list/to_remove)
 	color_timer_id = null
