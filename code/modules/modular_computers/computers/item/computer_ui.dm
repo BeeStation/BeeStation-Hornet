@@ -1,6 +1,6 @@
 /obj/item/modular_computer/interact(mob/user)
 	if(enabled)
-		ui_interact(user)
+		return ..()
 	else
 		turn_on(user)
 

@@ -31,3 +31,6 @@
 #define COMSIG_ATOM_ATTACK_ROBOT "atom_attack_robot"
 ///from base of atom/attack_silicon(): (mob/user)
 #define COMSIG_ATOM_ATTACK_SILICON "atom_attack_silicon"
+
+///from base of atom/interact(): (mob/user)
+#define COMSIG_ATOM_INTERACT "atom_interact"
