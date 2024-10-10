@@ -641,7 +641,8 @@
 /obj/structure/trap/ctf
 	name = "Spawn protection"
 	desc = "Stay outta the enemy spawn!"
-	icon_state = "trap"
+	icon = 'icons/effects/landmarks_static.dmi'
+	icon_state = "redteamspawn"
 	resistance_flags = INDESTRUCTIBLE
 	var/team = WHITE_TEAM
 	time_between_triggers = 1
@@ -661,11 +662,11 @@
 
 /obj/structure/trap/ctf/red
 	team = RED_TEAM
-	icon_state = "trap-fire"
+	icon_state = "redteamspawn"
 
 /obj/structure/trap/ctf/blue
 	team = BLUE_TEAM
-	icon_state = "trap-frost"
+	icon_state = "blueteamspawn"
 
 /obj/structure/barricade/security/ctf
 	name = "barrier"
