@@ -6132,7 +6132,7 @@
 	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/iron,
-/area/security/brig/dock)
+/area/security/brig)
 "bIX" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -7903,7 +7903,7 @@
 	req_access_txt = "58"
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/crew_quarters/heads/hos)
 "cnx" = (
 /obj/effect/landmark/start/medical_doctor,
 /obj/structure/cable/yellow{
@@ -16712,6 +16712,22 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"fpA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/security/brig)
 "fpB" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -25603,6 +25619,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "igE" = (
@@ -26626,7 +26645,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/brig)
+/area/crew_quarters/heads/hos)
 "iwo" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Port Bow Solar Maintenance";
@@ -28851,7 +28870,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
-/area/security/brig/dock)
+/area/security/brig)
 "jhq" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -39320,17 +39339,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
-"mAc" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosoffice";
-	name = "Head Of Security Blast Door"
-	},
-/turf/open/floor/plating,
-/area/crew_quarters/heads/hos)
 "mAf" = (
 /obj/machinery/atmospherics/pipe/simple/dark{
 	dir = 9
@@ -39606,11 +39614,6 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"mDq" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
-/area/security/brig)
 "mDG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -42218,6 +42221,19 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"nzf" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/security/brig)
 "nzh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -45060,11 +45076,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "hosoffice";
+	id = "hosroom";
 	name = "Head Of Security Blast Door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "oui" = (
@@ -49724,19 +49740,8 @@
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "pZU" = (
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/security/brig)
 "pZW" = (
@@ -52989,24 +52994,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"rfO" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 2
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "rfS" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
@@ -56272,7 +56259,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/brig)
+/area/crew_quarters/heads/hos)
 "siV" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light,
@@ -58050,15 +58037,6 @@
 	},
 /turf/closed/wall,
 /area/engine/atmospherics_engine)
-"sLg" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosoffice";
-	name = "Head Of Security Blast Door"
-	},
-/turf/open/floor/plating,
-/area/crew_quarters/heads/hos)
 "sLm" = (
 /turf/closed/wall,
 /area/science/storage)
@@ -62399,7 +62377,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
-/area/security/brig/dock)
+/area/security/brig)
 "uir" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -67567,7 +67545,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction/flip{
+	dir = 2
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "vLG" = (
@@ -114957,7 +114937,7 @@ glJ
 wBm
 fEX
 tXi
-rfO
+fpA
 sSB
 mLz
 bkx
@@ -115214,8 +115194,8 @@ cGv
 omT
 uSd
 uSd
+nzf
 pZU
-mDq
 nOR
 nLU
 xCy
@@ -115462,25 +115442,25 @@ eGC
 sEA
 ezb
 eZq
-eZq
+iRh
 iwk
 cnn
 siu
-duF
-duF
-cik
-ydy
-iwy
-iYt
-fnF
-cik
-oXI
+iRh
+iRh
 oXI
 tHb
 mSG
 amr
 bZW
 hYr
+oXI
+cik
+ydy
+iwy
+iYt
+fnF
+cik
 oXI
 orT
 fOv
@@ -115725,19 +115705,19 @@ wmQ
 wuN
 opd
 iRh
-bca
-dDf
-dDf
-urS
-duV
-qoX
-oXI
 irm
 iIF
 iIF
 pNW
 iIF
 gVA
+oXI
+bca
+dDf
+dDf
+urS
+duV
+qoX
 oXI
 rvh
 fOv
@@ -115982,19 +115962,19 @@ gCn
 ejx
 mgo
 iRh
-pwX
-fFX
-tVK
-xna
-lUJ
-blK
-oXI
 xHi
 suN
 qwN
 kzZ
 mJP
 mQv
+oXI
+pwX
+fFX
+tVK
+xna
+lUJ
+blK
 oXI
 cfP
 fOv
@@ -116239,19 +116219,19 @@ lrz
 jRh
 hnK
 iRh
-dqf
-ovz
-ijU
-jfp
-hdW
-eLt
-oXI
 snJ
 ipZ
 hzm
 pqi
 ipZ
 ayh
+oXI
+dqf
+ovz
+ijU
+jfp
+hdW
+eLt
 oXI
 cfP
 fOv
@@ -116496,19 +116476,19 @@ wTg
 oQE
 bWX
 iRh
-whL
-obA
-oba
-mgZ
-ceJ
-mFx
-oXI
 dcp
 ipZ
 vTi
 tkw
 ipZ
 lnz
+oXI
+whL
+obA
+oba
+mgZ
+ceJ
+mFx
 oXI
 cfP
 fOv
@@ -116753,19 +116733,19 @@ tSj
 wSK
 xUv
 iRh
-eAl
-nqY
-nqY
-rYN
-sNd
-hSZ
-oXI
 hwK
 ipZ
 scm
 pCK
 tXd
 goa
+oXI
+eAl
+nqY
+nqY
+rYN
+sNd
+hSZ
 oXI
 cfP
 fOv
@@ -117010,19 +116990,19 @@ thw
 oCl
 iRh
 iRh
-anT
-aMT
-aMT
-aMT
-aMT
-aMT
-oXI
 cby
 lSx
 hrA
 mmh
 muP
 jFZ
+oXI
+aMT
+aMT
+aMT
+aMT
+aMT
+aMT
 oXI
 cfP
 fOv
@@ -117267,19 +117247,19 @@ gPG
 aPP
 pHj
 iRh
-anT
-aMT
-aMT
-aMT
-aMT
-aMT
-oXI
 mJQ
 unX
 uiO
 bOC
 fTd
 bGf
+oXI
+aMT
+aMT
+aMT
+aMT
+aMT
+aMT
 oXI
 cfP
 fOv
@@ -117524,19 +117504,19 @@ vHs
 uSv
 xKT
 iRh
-anT
+oXI
+oXI
+oXI
+oXI
+oXI
+oXI
+oXI
 aMT
 aMT
 aMT
 aMT
 aMT
-oXI
-oXI
-oXI
-oXI
-oXI
-oXI
-oXI
+aMT
 oXI
 cfP
 fOv
@@ -118033,9 +118013,9 @@ fpM
 ajU
 naL
 iRh
-mAc
+iTp
 oud
-sLg
+oCl
 iRh
 iRh
 anT
