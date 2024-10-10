@@ -2131,8 +2131,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/gun/energy/pulse/pistol/loyalpin,
-/obj/item/gun/energy/pulse/pistol/loyalpin,
+/obj/item/gun/energy/pulse/pistol,
+/obj/item/gun/energy/pulse/pistol,
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "jY" = (
