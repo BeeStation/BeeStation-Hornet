@@ -7483,7 +7483,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Research Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -10031,7 +10031,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Research Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;30"
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/science/research)
@@ -13251,7 +13251,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Cargo Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;57"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/cable/yellow{
@@ -13432,7 +13432,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Cargo Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;57"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -14713,7 +14713,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Cargo Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;57"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -14886,7 +14886,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Engineering Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;56"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -19230,7 +19230,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Engineering Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -25973,6 +25973,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/item/clothing/mask/muzzle,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "cTp" = (
@@ -70964,7 +70965,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Medbay Security Post";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/medical)
@@ -76879,6 +76880,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/clothing/suit/jacket/straight_jacket,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/mask/muzzle,
+/obj/structure/table/glass,
+/obj/item/restraints/handcuffs,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "tDw" = (
@@ -89692,6 +89698,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/stack/medical/gauze,
+/obj/item/clothing/suit/jacket/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/restraints/handcuffs,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "xEQ" = (
