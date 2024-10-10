@@ -58,9 +58,6 @@
 			user.balloon_alert(user, "You start scraping off the rust...")
 			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source))
 				return
-			if(istype(item, /obj/item/wirebrush/advanced))
-				var/obj/item/wirebrush/advanced/brush = item
-				brush.irradiate(user)
 			else
 				user.balloon_alert(user, "Sucessfully scraped off the rust!")
 			Detach(source)

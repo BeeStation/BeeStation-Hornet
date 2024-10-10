@@ -74,7 +74,6 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -224,8 +223,6 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
-
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/obj/item/implant/IMP as anything in implants)
@@ -371,7 +368,6 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)

@@ -38,16 +38,19 @@
 
 #define MATTER_POWER_CONVERSION 10         //Crystal converts 1/this value of stored matter into energy.
 
-//These would be what you would get at point blank, decreases with distance
-#define DETONATION_RADS 200
 #define DETONATION_HALLUCINATION 600
 
+/// All humans within this range will be irradiated
+#define DETONATION_RADIATION_RANGE 20
 
 #define WARNING_DELAY 60
 
 #define HALLUCINATION_RANGE(P) (min(7, round(P ** 0.25)))
 
 
+#define DEFAULT_ZAP_ICON_STATE "sm_arc"
+#define SLIGHTLY_CHARGED_ZAP_ICON_STATE "sm_arc_supercharged"
+#define OVER_9000_ZAP_ICON_STATE "sm_arc_dbz_referance" //Witty I know
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5

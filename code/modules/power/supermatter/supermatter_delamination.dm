@@ -47,8 +47,6 @@
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
-			var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(L, src) + 1) )
-			L.rad_act(rads)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == supermatter_z)
@@ -71,7 +69,7 @@
 /datum/supermatter_delamination/proc/call_singulo()
 	var/obj/anomaly/singularity/created_singularity = new(supermatter_turf)
 	created_singularity.energy = 800
-	created_singularity.consume(src)
+	created_singularity.consume(supermatter_turf)
 	should_spawn_anomalies = FALSE
 	message_admins("The Supermatter Crystal has created a singularity [ADMIN_JMP(created_singularity)].")
 

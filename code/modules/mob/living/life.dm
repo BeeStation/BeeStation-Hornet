@@ -16,7 +16,7 @@
 
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations_and_radiation()
+			handle_mutations(delta_time, times_fired)
 
 		if(stat != DEAD)
 			//Breathing, if applicable
@@ -62,8 +62,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired) //Bee edit: Holy shit I do not want to port delta time Life() refactor just for my mothroach behavior to be better
 	return
 
-/mob/living/proc/handle_mutations_and_radiation()
-	radiation = 0 //so radiation don't accumulate in simple animals
+/mob/living/proc/handle_mutations(delta_time, times_fired)
 	return
 
 /mob/living/proc/handle_diseases()

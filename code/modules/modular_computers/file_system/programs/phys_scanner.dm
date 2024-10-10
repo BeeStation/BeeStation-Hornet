@@ -24,8 +24,6 @@
 		reads += "Reagent"
 	if(mode_holder & DISK_MED)
 		reads += "Health"
-	if(mode_holder & DISK_POWER)
-		reads += "Radiation"
 	if(mode_holder & DISK_ATMOS)
 		reads += "Gas"
 	if(!length(reads))
@@ -64,16 +62,6 @@
 				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
 				last_record = healthscan(user, carbon, 1, to_chat = FALSE)
 				return FALSE
-		if(DISK_POWER)
-			var/mob/living/carbon/carbon = target
-			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s radiation levels.</span>", "<span class='notice'>You analyze [carbon]'s radiation levels.</span>")
-				last_record = "Analyzing Results for [carbon]:\n"
-				if(carbon.radiation)
-					last_record += "Radiation Level: [carbon.radiation]%"
-				else
-					last_record += "No radiation detected."
-				return FALSE
 	return ..()
 
 /datum/computer_file/program/phys_scanner/attack_obj(obj/target, mob/living/user)
@@ -98,8 +86,6 @@
 					current_mode = DISK_CHEM
 				if("Health")
 					current_mode = DISK_MED
-				if("Radiation")
-					current_mode = DISK_POWER
 				if("Gas")
 					current_mode = DISK_ATMOS
 
