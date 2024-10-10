@@ -183,6 +183,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Maintenance - Departmental
 
+/area/maintenance/department/service
+	name = "Service Maintenance"
+	icon_state = "service_maintenance"
+
 /area/maintenance/department/chapel
 	name = "Chapel Maintenance"
 	icon_state = "maint_chapel"
