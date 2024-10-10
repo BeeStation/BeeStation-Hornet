@@ -2,7 +2,7 @@
 	name = "Unknown"
 	real_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	COOLDOWN_DECLARE(special_emote_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
