@@ -1,0 +1,5 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: MULEbots can now have their wires hacked again when using wire-related
+      tools
