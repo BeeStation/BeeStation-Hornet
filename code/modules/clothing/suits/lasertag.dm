@@ -9,6 +9,9 @@
 	body_parts_covered = CHEST
 	allowed = list (/obj/item/gun/energy/laser/bluetag)
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_material = /obj/item/stack/cable_coil
+	secondary_salvage_amount = 15
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armor"
@@ -21,3 +24,6 @@
 	body_parts_covered = CHEST
 	allowed = list (/obj/item/gun/energy/laser/redtag)
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_material = /obj/item/stack/cable_coil
+	secondary_salvage_amount = 15

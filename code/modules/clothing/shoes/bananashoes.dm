@@ -7,6 +7,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on = FALSE
 	var/always_noslip = FALSE
+	salvage_material = null  //The only reasonable thing to make happen when someone tries to destroy this is blow up in their face and I can't code that rn
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/Initialize(mapload)
 	. = ..()

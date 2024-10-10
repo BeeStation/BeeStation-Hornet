@@ -8,6 +8,7 @@
 	alt_covers_chest = TRUE
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/under/syndicate/tacticool
 	name = "tacticool turtleneck"
@@ -15,6 +16,7 @@
 	icon_state = "tactifool"
 	item_state = "bl_suit"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40, STAMINA = 0, BLEED = 10)
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/under/syndicate/sniper
 	name = "Tactical turtleneck suit"

@@ -11,6 +11,8 @@
 	var/wheelToggle = FALSE
 	///The vehicle associated with the shoes
 	var/obj/vehicle/ridden/scooter/wheelys/W
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plastic
+	secondary_salvage_material = 5
 
 /obj/item/clothing/shoes/wheelys/Initialize(mapload)
 	. = ..()

@@ -9,6 +9,7 @@
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
+	salvage_material = null
 
 /obj/item/clothing/head/helmet/monkey_sentience_helmet/update_icon()
 	. = ..()

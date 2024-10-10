@@ -11,6 +11,7 @@
 	var/datum/component/storage/detached_pockets
 	var/attachment_slot = CHEST
 	appearance_flags = TILE_BOUND | RESET_COLOR
+	salvage_material = null //For now I won't touch accessories
 
 /obj/item/clothing/accessory/Destroy()
 	set_detached_pockets(null)

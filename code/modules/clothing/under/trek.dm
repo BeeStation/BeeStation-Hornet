@@ -20,6 +20,7 @@
 	item_state = "r_suit"
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10) //more sec than eng, but w/e.
 	strip_delay = 50
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/under/trek/medsci
 	name = "medsci uniform"

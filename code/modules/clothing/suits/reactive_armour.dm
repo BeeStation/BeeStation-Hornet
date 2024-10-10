@@ -50,6 +50,7 @@
 	///The cooldown itself of the reactive armor for when it can activate again.
 	COOLDOWN_DECLARE(reactivearmor_cooldown)
 	pocket_storage_component_path = FALSE
+	salvage_material = null //indestructible
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)

@@ -8,6 +8,7 @@
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
 	var/obj/item/clothing/head/wig/attached_wig
+	salvage_amount = 2
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()

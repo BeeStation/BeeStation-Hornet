@@ -8,6 +8,7 @@
 	random_sensor = FALSE
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/under/rank/captain/skirt
 	name = "captain's jumpskirt"

@@ -8,6 +8,7 @@
 	slowdown = SHOES_SLOWDOWN+1
 	var/footstep = 1
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
+	salvage_material = null
 
 /obj/item/clothing/shoes/cluwne/Initialize(mapload)
 	.=..()
