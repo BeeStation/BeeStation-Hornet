@@ -899,6 +899,19 @@
 	dir = 5
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"jH" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/awaymission/moonoutpost19/research)
 "jP" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/barman_recipes{
@@ -1033,16 +1046,6 @@
 "ld" = (
 /turf/closed/wall/mineral/titanium,
 /area/awaymission/moonoutpost19/arrivals)
-"le" = (
-/obj/machinery/portable_thermomachine,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/sign/poster/official/build{
-	pixel_y = 32
-	},
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/research)
 "lr" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
@@ -1594,6 +1597,14 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
+/area/awaymission/moonoutpost19/syndicate)
+"qJ" = (
+/obj/machinery/portable_thermomachine,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/syndicate)
 "qK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2518,6 +2529,12 @@
 /obj/item/trash/can,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
+"yX" = (
+/obj/machinery/portable_thermomachine,
+/obj/effect/decal/cleanable/generic,
+/obj/structure/window,
+/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
 "yZ" = (
 /obj/structure/cable{
@@ -3686,6 +3703,16 @@
 "IA" = (
 /turf/open/floor/wood,
 /area/awaymission/moonoutpost19/syndicate)
+"IB" = (
+/obj/machinery/portable_thermomachine,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/build{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/awaymission/moonoutpost19/research)
 "IF" = (
 /obj/structure/shuttle/engine/propulsion/burst/left{
 	dir = 4
@@ -4195,6 +4222,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
+"MU" = (
+/obj/machinery/power/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/awaymission/moonoutpost19/research)
 "MV" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -4392,12 +4427,6 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"Oa" = (
-/obj/machinery/portable_thermomachine,
-/obj/effect/decal/cleanable/generic,
-/obj/structure/window,
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/arrivals)
 "Od" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -5338,14 +5367,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"Vw" = (
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/research)
 "Vy" = (
 /obj/structure/alien/weeds,
 /obj/effect/turf_decal/tile/purple{
@@ -5372,19 +5393,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/awaymission/moonoutpost19/research)
-"VE" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
 "VM" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -5480,14 +5488,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/arrivals)
-"WX" = (
-/obj/machinery/portable_thermomachine,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/syndicate)
 "WY" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -32679,7 +32679,7 @@ tn
 tn
 tn
 eJ
-le
+IB
 bM
 wz
 wz
@@ -38073,7 +38073,7 @@ tn
 tn
 tn
 dZ
-VE
+jH
 uU
 uU
 HI
@@ -38081,7 +38081,7 @@ Lj
 KR
 vx
 PP
-Vw
+MU
 ea
 tn
 tn
@@ -40413,7 +40413,7 @@ wh
 Xh
 rv
 wW
-Oa
+yX
 zc
 PD
 Sm
@@ -42931,7 +42931,7 @@ ac
 at
 zj
 Hq
-WX
+qJ
 uZ
 at
 ac
