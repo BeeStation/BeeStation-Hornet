@@ -60,6 +60,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SLEEPIMMUNE		"sleep_immunity"
 #define TRAIT_PUSHIMMUNE		"push_immunity"
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
+#define TRAIT_HOLY				"holy"
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+/// Can weave webs into cloth
+#define TRAIT_WEB_WEAVER "web_weaver"
 #define TRAIT_STABLEHEART		"stable_heart"
 #define TRAIT_STABLELIVER		"stable_liver"
 #define TRAIT_NOVOMIT			"no_vomit"
@@ -166,6 +172,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BLEEDING		"no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
 #define TRAIT_BLOOD_COOLANT		"blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
 
+/// This mob has no soul
+#define TRAIT_NO_SOUL "no_soul"
+/// Immune to being afflicted by time stop (spell)
+#define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
+/// Whether a spider's consumed this mob
+#define TRAIT_SPIDER_CONSUMED "spider_consumed"
+/// Whether we're sneaking, from the alien sneak ability.
+/// Maybe worth generalizing into a general "is sneaky" / "is stealth" trait in the future.
+#define TRAIT_ALIEN_SNEAK "sneaking_alien"
+/// This mob is phased out of reality from magic, either a jaunt or rod form
+#define TRAIT_MAGICALLY_PHASED "magically_phased"
+
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
 // through force of will, or equipment.
@@ -225,6 +243,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
+/// Climbable trait, given and taken by the climbable element when added or removed. Exists to be easily checked via HAS_TRAIT().
+#define TRAIT_CLIMBABLE "trait_climbable"
+
 /// Allows heretics to cast their spells.
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
 /// Designates a heart as a living heart for a heretic.
@@ -274,7 +295,132 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FROZEN "frozen"
 ///Turf trait for when a turf is transparent
 #define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
+// common trait sources
+#define TRAIT_GENERIC "generic"
+#define GENERIC_ITEM_TRAIT "generic_item"
+#define UNCONSCIOUS_TRAIT "unconscious"
+#define EYE_DAMAGE "eye_damage"
+#define GENETIC_MUTATION "genetic"
+#define OBESITY "obesity"
+#define MAGIC_TRAIT "magic"
+#define TRAUMA_TRAIT "trauma"
+#define DISEASE_TRAIT "disease"
+#define SPECIES_TRAIT "species"
+#define ORGAN_TRAIT "organ"
+#define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
+#define JOB_TRAIT "job"
+#define CYBORG_ITEM_TRAIT "cyborg-item"
+#define ADMIN_TRAIT "admin" // (B)admins only.
+#define CHANGELING_TRAIT "changeling"
+#define CULT_TRAIT "cult"
+#define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
+#define ABSTRACT_ITEM_TRAIT "abstract-item"
+#define STATUS_EFFECT_TRAIT "status-effect"
+#define CLOTHING_TRAIT "clothing"
+#define CLOTHING_FEET_TRAIT "feet"
+#define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
+#define INNATE_TRAIT "innate"
+#define CRIT_HEALTH_TRAIT "crit_health"
+#define OXYLOSS_TRAIT "oxyloss"
+//trait associated to being buckled
+#define BUCKLED_TRAIT "buckled"
+//trait associated to being held in a chokehold
+#define CHOKEHOLD_TRAIT "chokehold"
+//trait associated to resting
+#define RESTING_TRAIT "resting"
+//trait associated to a stat value or range of
+#define STAT_TRAIT "stat"
+/// Trait associated to wearing a suit
+#define SUIT_TRAIT "suit"
+/// Trait associated to lying down (having a [lying_angle] of a different value than zero).
+#define LYING_DOWN_TRAIT "lying-down"
+/// Trait associated to lacking electrical power.
+#define POWER_LACK_TRAIT "power-lack"
+#define GLASSES_TRAIT "glasses"
+#define CURSE_TRAIT "eldritch"
+#define STATION_TRAIT "station-trait"
+#define TRAIT_RUSTY "rust_trait"
+#define ACTION_TRAIT "action_trait"
+#define TURF_TRAIT "turf"
+#define LICH_TRAIT "lich"
 
+// unique trait sources, still defines
+#define CLONING_POD_TRAIT "cloning-pod"
+#define STATUE_MUTE "statue"
+#define CHANGELING_DRAIN "drain"
+#define MAGIC_BLIND "magic_blind"
+#define HIGHLANDER "highlander"
+#define TRAIT_HULK "hulk"
+#define STASIS_MUTE "stasis"
+#define GENETICS_SPELL "genetics_spell"
+#define EYES_COVERED "eyes_covered"
+#define CULT_EYES "cult_eyes"
+#define TRAIT_SANTA "santa"
+#define SCRYING_ORB "scrying-orb"
+#define ABDUCTOR_ANTAGONIST "abductor-antagonist"
+#define NUKEOP_TRAIT "nuke-op"
+#define DEATHSQUAD_TRAIT "deathsquad"
+#define MEGAFAUNA_TRAIT "megafauna"
+#define CLOWN_NUKE_TRAIT "clown-nuke"
+#define STICKY_MOUSTACHE_TRAIT "sticky-moustache"
+#define CHAINSAW_FRENZY_TRAIT "chainsaw-frenzy"
+#define CHRONO_GUN_TRAIT "chrono-gun"
+#define REVERSE_BEAR_TRAP_TRAIT "reverse-bear-trap"
+#define CURSED_MASK_TRAIT "cursed-mask"
+#define HIS_GRACE_TRAIT "his-grace"
+#define HAND_REPLACEMENT_TRAIT "magic-hand"
+#define HOT_POTATO_TRAIT "hot-potato"
+#define SABRE_SUICIDE_TRAIT "sabre-suicide"
+#define ABDUCTOR_VEST_TRAIT "abductor-vest"
+#define CAPTURE_THE_FLAG_TRAIT "capture-the-flag"
+#define EYE_OF_GOD_TRAIT "eye-of-god"
+#define SHAMEBRERO_TRAIT "shamebrero"
+#define JAUNT_TRAIT "jaunt"
+#define CHRONOSUIT_TRAIT "chronosuit"
+#define LOCKED_HELMET_TRAIT "locked-helmet"
+#define NINJA_SUIT_TRAIT "ninja-suit"
+#define ANTI_DROP_IMPLANT_TRAIT "anti-drop-implant"
+#define HIVEMIND_TRAIT "hivemind-trait"
+#define VR_ZONE_TRAIT "vr_zone_trait"
+#define GLUED_ITEM_TRAIT "glued-item"
+#define LEGION_CORE_TRAIT "legion_core_trait"
+#define MIRROR_TRAIT "mirror_trait"
+#define CRAYON_TRAIT "crayon_trait"
+#define HOLYWATER_TRAIT "holywater"
+#define VANGUARD_TRAIT "vanguard"
+#define STARGAZER_TRAIT "stargazer"
+#define HOLOPARASITE_CLOAK_TRAIT	"holopara_cloak_trait"
+#define HOLOPARASITE_SCOUT_TRAIT	"holopara_scout_trait"
+#define HOLOPARASITE_STAT_TRAIT		"holopara_stat_trait"
+#define PARRY_TRAIT	"parry_trait"
+#define LIGHTPINK_TRAIT "lightpinktrait"
+#define BATTLE_ROYALE_TRAIT "battleroyale_trait"
+#define MADE_UNCLONEABLE "made-uncloneable"
+#define TRAIT_JAWS_OF_LIFE "jaws-of-life"
+#define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a good soundcloud rapper's name
+//#define SKILLCHIP_TRAIT "skillchip"
+#define BUSY_FLOORBOT_TRAIT "busy-floorbot"
+#define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
+#define LOCKED_BORG_TRAIT "locked-borg"
+#define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades" //trait associated to not having locomotion appendages nor the ability to fly or float
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
+#define HANDCUFFED_TRAIT "handcuffed"
+/// Trait granted by [/obj/item/warpwhistle]
+#define WARPWHISTLE_TRAIT "warpwhistle"
+/// Trait applied by by [/datum/component/soulstoned]
+#define SOULSTONE_TRAIT "soulstone"
+/// Trait applied to slimes by low temperature
+#define SLIME_COLD "slime-cold"
+/// Trait applied to bots by being tipped over
+#define BOT_TIPPED_OVER "bot-tipped-over"
+/// Trait applied to PAIs by being folded
+#define PAI_FOLDED "pai-folded"
+/// Trait applied to brain mobs when they lack external aid for locomotion, such as being inside a mech.
+#define BRAIN_UNAIDED "brain-unaided"
+#define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
+#define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
+#define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
+#define TABLE_TRAIT "table_trait"
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
 #define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
@@ -300,5 +446,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
-
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 // END TRAIT DEFINES

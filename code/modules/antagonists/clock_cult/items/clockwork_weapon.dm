@@ -23,17 +23,17 @@
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
-	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
+	var/datum/action/cooldown/spell/summon_spear/SS
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
 	if(!user.mind)
 		return
-	user.mind.RemoveSpell(SS)
+	SS.Remove(user)
 	if(is_servant_of_ratvar(user))
 		SS = new
 		SS.marked_item = src
-		user.mind.AddSpell(SS)
+		SS.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()

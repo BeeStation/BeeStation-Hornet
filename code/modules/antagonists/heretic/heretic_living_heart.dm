@@ -39,7 +39,7 @@
 
 	organ_parent.icon = 'icons/obj/heretic.dmi'
 	organ_parent.icon_state = "living_heart"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /datum/component/living_heart/Destroy(force, silent)
 	QDEL_NULL(action)

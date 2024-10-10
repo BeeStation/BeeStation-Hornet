@@ -1,7 +1,6 @@
 /obj/item/implant/gang
 	name = "gang implant"
 	desc = "Makes you a gangster or such."
-	activated = 0
 	var/datum/team/gang/gang
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/gang)

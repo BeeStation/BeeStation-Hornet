@@ -71,7 +71,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	icon_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "prismcolor"
 
-/datum/action/item_action/change_prism_colour/Trigger()
+/datum/action/item_action/change_prism_colour/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	icon_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "lightprism"
 
-/datum/action/item_action/place_light_prism/Trigger()
+/datum/action/item_action/place_light_prism/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
