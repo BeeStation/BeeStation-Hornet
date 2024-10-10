@@ -13,12 +13,12 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
 	var/bleed_force = 0
 
+	/*
 	var/datum/armor/armor
-	/// The integrity the object starts at. Defaults to max_integrity.
-	VAR_PRIVATE/obj_integrity //defaults to max_integrity
+	VAR_PRIVATE/atom_integrity //defaults to max_integrity
 	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
+	/// The object will break once atom_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
 	var/integrity_failure = 0
 	/// Damage under this value will be completely ignored
 	var/damage_deflection = 0
@@ -27,6 +27,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
+	*/
 
 	/// How much acid is on that obj
 	var/acid_level = 0
@@ -58,6 +59,8 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// broadcasted to as long as the other guys network is on the same branch or above.
 	var/network_id = null
 
+	uses_integrity = TRUE
+
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
 	/// If the emag behavior should be toggleable
@@ -70,13 +73,13 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	return ..()
 
 /obj/Initialize(mapload)
-	if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!armor)
-		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	obj_integrity = max_integrity
+	//if (islist(armor))
+	//	armor = getArmor(arglist(armor))
+	//else if (!armor)
+	//	armor = getArmor()
+	//else if (!istype(armor, /datum/armor))
+	//	stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	//atom_integrity = max_integrity
 
 	. = ..() //Do this after, else mat datums is mad.
 

@@ -124,6 +124,20 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
+	///any atom that uses integrity and can be damaged must set this to true, otherwise the integrity procs will throw an error
+	var/uses_integrity = FALSE
+
+	var/datum/armor/armor
+	VAR_PRIVATE/atom_integrity //defaults to max_integrity
+	var/max_integrity = 500
+	var/integrity_failure = 0 //0 if we have no special broken behavior, otherwise is a percentage of at what point the atom breaks. 0.5 being 50%
+	///Damage under this value will be completely ignored
+	var/damage_deflection = 0
+	/// Maximum damage that can be taken in a single hit
+	var/max_hit_damage = null
+
+	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
 
@@ -231,6 +245,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	// apply materials properly from the default custom_materials value
 	set_custom_materials(custom_materials)
+
+	if(uses_integrity)
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+		else if (!istype(armor, /datum/armor))
+			stack_trace("Invalid type [armor.type] found in .armor during /atom Initialize()")
+		atom_integrity = max_integrity
 
 	ComponentInitialize()
 	InitializeAIController()

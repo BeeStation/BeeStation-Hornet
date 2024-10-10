@@ -392,7 +392,7 @@
 /obj/machinery/door/airlock/clockwork/hasPower()
 	return TRUE //yes we do have power
 
-/obj/machinery/door/airlock/clockwork/obj_break(damage_flag)
+/obj/machinery/door/airlock/clockwork/atom_break(damage_flag)
 	. = ..()
 	if(!.) //not a clue if this will work out propely...
 		return
@@ -496,12 +496,12 @@
 /obj/structure/grille/ratvar/ratvar_act()
 	return
 
-/obj/structure/grille/ratvar/obj_break()
+/obj/structure/grille/ratvar/atom_break()
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		icon_state = "brokenratvargrille"
-		density = FALSE
-		obj_integrity = 20
+		set_density(FALSE)
+		atom_integrity = 20
 		broken = TRUE
 		rods_amount = 1
 		rods_broken = FALSE
@@ -515,8 +515,8 @@
 /obj/structure/grille/ratvar/repair_grille()
 	if(broken)
 		icon_state = "ratvargrille"
-		density = TRUE
-		obj_integrity = max_integrity
+		set_density(TRUE)
+		atom_integrity = max_integrity
 		broken = FALSE
 		rods_amount = 2
 		rods_broken = TRUE

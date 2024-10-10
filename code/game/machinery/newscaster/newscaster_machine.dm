@@ -95,7 +95,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			. += emissive_appearance(icon, "[base_icon_state]_alert", layer, alpha = src.alpha)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-	var/hp_percent = (obj_integrity * 100) / max_integrity
+	var/hp_percent = (atom_integrity * 100) / max_integrity
 	switch(hp_percent)
 		if(75 to 100)
 			return
@@ -551,7 +551,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				set_machine_stat(machine_stat & ~BROKEN)
 				update_icon()
 		else
@@ -585,7 +585,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		new /obj/item/shard(loc)
 	qdel(src)
 
-/obj/machinery/newscaster/obj_break(damage_flag)
+/obj/machinery/newscaster/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)

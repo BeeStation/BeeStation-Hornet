@@ -557,7 +557,7 @@ Class Procs:
 		new_frame.update_integrity(new_frame.max_integrity * 0.5) //the frame is already half broken
 	transfer_fingerprints_to(new_frame)
 
-/obj/machinery/obj_break(damage_flag)
+/obj/machinery/atom_break(damage_flag)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
@@ -585,7 +585,7 @@ Class Procs:
 		deconstruct(FALSE)
 	return ..()
 
-/obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
+/obj/machinery/run_atom_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	return ..()
@@ -739,7 +739,7 @@ Class Procs:
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
 			. += "<span class='warning'>It's on fire!</span>"
-		var/healthpercent = (obj_integrity/max_integrity) * 100
+		var/healthpercent = (atom_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
 				. += "It looks slightly damaged."

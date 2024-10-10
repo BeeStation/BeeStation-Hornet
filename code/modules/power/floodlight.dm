@@ -109,7 +109,7 @@
 	change_setting(current, user)
 	..()
 
-/obj/machinery/power/floodlight/obj_break(damage_flag)
+/obj/machinery/power/floodlight/atom_break(damage_flag)
 	. = ..()
 	if(!.)
 		return

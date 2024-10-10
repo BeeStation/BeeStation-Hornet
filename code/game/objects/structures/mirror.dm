@@ -19,7 +19,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)
-		obj_break(null, mapload)
+		atom_break(null, mapload)
 
 /obj/structure/mirror/attack_hand(mob/user)
 	. = ..()
@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 		return list()// no message spam
 	return ..()
 
-/obj/structure/mirror/obj_break(damage_flag, mapload)
+/obj/structure/mirror/atom_break(damage_flag, mapload)
 	. = ..()
 	if(broken || (flags_1 & NODECONSTRUCT_1))
 		return

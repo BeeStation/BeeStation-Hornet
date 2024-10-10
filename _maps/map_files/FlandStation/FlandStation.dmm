@@ -4920,16 +4920,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
-"bgS" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/dark,
-/area/tcommsat/computer)
 "bgZ" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
@@ -6485,10 +6475,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main)
-"bDD" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "bDQ" = (
 /obj/effect/turf_decal/trimline/red/filled/warning,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -9004,14 +8990,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"cpw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron,
-/area/maintenance/department/security/brig)
 "cpE" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating/asteroid/airless,
@@ -13737,6 +13715,28 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"dDr" = (
+/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 4;
+	icon_state = "leftsecure";
+	name = "Secure Creature Pen Shield Holder";
+	atom_integrity = 300;
+	req_access_txt = "47"
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
+	},
+/obj/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/science/xenobiology)
 "dDv" = (
 /obj/structure/lattice/catwalk/over,
 /obj/item/stack/marker_beacon{
@@ -19486,6 +19486,29 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
+"eYy" = (
+/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 4;
+	icon_state = "right";
+	name = "Secure Creature Pen Shield Holder";
+	atom_integrity = 300
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/science/xenobiology)
 "eYA" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -20476,6 +20499,10 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"fnf" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "fnz" = (
 /obj/machinery/light{
 	dir = 4
@@ -23172,38 +23199,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
-"fTU" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_y = 24
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_y = -28
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 8;
-	icon_state = "rightsecure";
-	name = "Secondary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "fTX" = (
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
@@ -24032,29 +24027,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
-"geN" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/science/xenobiology)
 "gfc" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/chair/fancy/comfy{
@@ -24729,22 +24701,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"gnN" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "aicoredoor";
-	name = "AI Core Shutter"
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "gnX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -25559,28 +25515,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/library/lounge)
-"gzm" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	dir = 4;
-	icon_state = "leftsecure";
-	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300;
-	req_access_txt = "47"
-	},
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
-/obj/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plating,
-/area/science/xenobiology)
 "gzo" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -26960,6 +26894,22 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/disposal/incinerator)
+"gQr" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aicoredoor";
+	name = "AI Core Shutter"
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "gQx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -28137,21 +28087,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
-"hih" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "aicoredoor";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "hij" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -32149,38 +32084,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hydroponics)
-"iki" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_y = 24
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	frequency = 1447;
-	name = "Private Channel";
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 28
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 8;
-	icon_state = "rightsecure";
-	name = "Secondary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
-	},
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "ikr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -41651,12 +41554,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
-"kEV" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/maintenance/port)
 "kEW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -46547,6 +46444,10 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"lOd" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron/dark,
+/area/maintenance/department/science)
 "lOm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -46696,6 +46597,38 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/iron,
 /area/construction)
+"lQV" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_y = 24
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_y = -28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 28
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 8;
+	icon_state = "rightsecure";
+	name = "Secondary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "lQY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/table,
@@ -48250,6 +48183,10 @@
 	},
 /turf/open/floor/iron/checker,
 /area/quartermaster/storage)
+"mnW" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "moh" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/bot_white,
@@ -48630,6 +48567,38 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hydroponics)
+"mtW" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel";
+	pixel_y = 24
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	frequency = 1447;
+	name = "Private Channel";
+	pixel_y = -28
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 8;
+	icon_state = "rightsecure";
+	name = "Secondary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "mub" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52227,6 +52196,10 @@
 /obj/structure/table/wood,
 /turf/open/floor/cult,
 /area/library)
+"nrB" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "nrL" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
@@ -53795,6 +53768,21 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"nKq" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aicoredoor";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "nKt" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -59698,10 +59686,6 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"puT" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "puV" = (
 /turf/closed/wall,
 /area/medical/genetics)
@@ -61222,10 +61206,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/exit/departure_lounge)
-"pOi" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/dark,
-/area/maintenance/department/science)
 "pOk" = (
 /obj/machinery/light/small,
 /turf/open/floor/iron/dark,
@@ -62998,10 +62978,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/misc_lab/range)
-"qmT" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "qmU" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/red/corner,
@@ -71819,6 +71795,12 @@
 	burnt = 1
 	},
 /area/maintenance/aft)
+"sxe" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/maintenance/port)
 "sxk" = (
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
@@ -72995,11 +72977,6 @@
 	burnt = 1
 	},
 /area/maintenance/department/science)
-"sMN" = (
-/obj/machinery/portable_thermomachine,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/starboard/central)
 "sMR" = (
 /obj/machinery/light{
 	dir = 4
@@ -82611,6 +82588,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
+"vgm" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "vgt" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 8;
@@ -84483,6 +84464,11 @@
 /obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary1)
+"vzb" = (
+/obj/machinery/portable_thermomachine,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/starboard/central)
 "vzm" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -85021,6 +85007,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"vFM" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron/dark,
+/area/tcommsat/computer)
 "vFP" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
@@ -89017,6 +89013,14 @@
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
+"wFn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron,
+/area/maintenance/department/security/brig)
 "wFo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -89128,10 +89132,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/engine/engine_room)
-"wGC" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "wGL" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/vending/wallmed{
@@ -89557,10 +89557,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/lab)
-"wLV" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "wMa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -91990,6 +91986,10 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
+"xkt" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "xkx" = (
 /turf/open/floor/wood,
 /area/library)
@@ -112331,7 +112331,7 @@ xfd
 xfd
 xfd
 wxd
-kEV
+sxe
 jEp
 ueE
 wxd
@@ -112849,7 +112849,7 @@ wXd
 ltZ
 ueE
 mwK
-wLV
+nrB
 gSm
 qGJ
 xTE
@@ -113349,7 +113349,7 @@ lPO
 jYF
 jYF
 wxd
-wLV
+nrB
 xMa
 jYF
 lqK
@@ -116696,7 +116696,7 @@ wOH
 iCg
 xBE
 qvN
-wLV
+nrB
 jYF
 ucO
 wxd
@@ -116919,7 +116919,7 @@ gFf
 aWs
 jhD
 wxd
-wLV
+nrB
 rGT
 qCS
 jYF
@@ -118243,7 +118243,7 @@ wxd
 wTk
 rtM
 ueE
-wLV
+nrB
 xTE
 xUw
 ska
@@ -124338,7 +124338,7 @@ jID
 lLM
 lLM
 cNt
-bDD
+mnW
 aeJ
 cVH
 dlL
@@ -126453,7 +126453,7 @@ xIt
 qQj
 cSg
 iHT
-cpw
+wFn
 iFS
 lYb
 rJO
@@ -130891,13 +130891,13 @@ eNp
 ozc
 oYg
 dlC
-geN
+eYy
 rxv
 lis
 tCO
 lis
 ide
-gzm
+dDr
 siW
 qTo
 mFv
@@ -133589,7 +133589,7 @@ nnx
 abN
 abN
 jID
-bDD
+mnW
 dlt
 jID
 lLM
@@ -133860,7 +133860,7 @@ lLM
 lLM
 lLM
 jID
-bDD
+mnW
 lLM
 jID
 wDk
@@ -135676,7 +135676,7 @@ jID
 jID
 jID
 vzU
-bDD
+mnW
 jID
 pqA
 mwS
@@ -136541,7 +136541,7 @@ oqW
 ktD
 eUi
 pwm
-pOi
+lOd
 fWL
 kVs
 uLD
@@ -139066,7 +139066,7 @@ wHw
 sCc
 sCc
 sIe
-wGC
+xkt
 xRi
 bVW
 kaA
@@ -139108,7 +139108,7 @@ vXB
 lbx
 mgO
 hkq
-puT
+fnf
 rab
 vXB
 vXB
@@ -141096,7 +141096,7 @@ taN
 taN
 rQi
 taN
-sMN
+vzb
 tjF
 xzx
 jtf
@@ -144425,7 +144425,7 @@ iph
 xTa
 rrL
 gnX
-bgS
+vFM
 jpH
 grv
 oEv
@@ -144508,7 +144508,7 @@ uUs
 xWY
 uwt
 ylJ
-puT
+fnf
 vXB
 pnp
 ylJ
@@ -145462,7 +145462,7 @@ kWc
 qtg
 aTX
 qlJ
-qmT
+vgm
 wDO
 rOW
 mSg
@@ -146512,7 +146512,7 @@ xYy
 wDO
 aTa
 sCc
-wGC
+xkt
 wWM
 uuS
 uRk
@@ -148794,7 +148794,7 @@ ioX
 joS
 aiL
 qlJ
-qmT
+vgm
 joS
 kGA
 eWa
@@ -149081,7 +149081,7 @@ wFo
 oGf
 wDO
 wCr
-wGC
+xkt
 wWM
 xUO
 xQF
@@ -149338,7 +149338,7 @@ duI
 xcT
 wDO
 wCr
-wGC
+xkt
 wWM
 xUO
 xQF
@@ -153404,9 +153404,9 @@ flv
 gLC
 eYA
 bti
-gnN
+gQr
 fLF
-hih
+nKq
 bti
 ifi
 rPA
@@ -154687,13 +154687,13 @@ aYu
 aYu
 kOu
 kOu
-fTU
+mtW
 kOu
 goB
 gQS
 hnr
 kOu
-iki
+lQV
 kOu
 kOu
 aYu
