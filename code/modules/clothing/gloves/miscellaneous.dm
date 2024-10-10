@@ -143,4 +143,9 @@
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
+		UpdateButtons()
+
+/datum/action/item_action/artifact_pincher_mode/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
+	if(istype(pinchy))
 		button.icon_state = (pinchy.safety ? "template_active" : "template")

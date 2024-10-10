@@ -292,7 +292,7 @@
 		action.name = "[initial(name)][cast_amount ? " ([cast_amount]E to cast)" : ""]"
 	else
 		action.name = "[initial(name)][unlock_amount ? " ([unlock_amount]SE to learn)" : ""]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr)
 	if(charge_counter < charge_max)
@@ -315,7 +315,7 @@
 			locked = FALSE
 			panel = "Revenant Abilities"
 			action.name = "[initial(name)]"
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 		return TRUE
 
 	// actual revenant check

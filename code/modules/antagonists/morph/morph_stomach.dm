@@ -185,7 +185,6 @@
 
 /datum/action/innate/morph_stomach/New(our_target)
 	. = ..()
-	button.name = name
 	if(istype(our_target, /datum/morph_stomach))
 		morph_stomach = our_target
 	else

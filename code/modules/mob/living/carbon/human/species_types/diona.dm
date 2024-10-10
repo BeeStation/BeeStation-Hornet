@@ -66,7 +66,7 @@
 		informed_nymph = TRUE
 		to_chat(H, "<span class='warning'>You feel sufficiently satiated to allow a nymph to split off from your gestalt!")
 	if(partition_ability)
-		partition_ability.UpdateButtonIcon()
+		partition_ability.UpdateButtons()
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing

@@ -366,7 +366,7 @@
 	if(..())
 		UpdateButtons()
 
-/datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon(status_only = FALSE, force)
+/datum/action/item_action/toggle_unfriendly_fire/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
 	if(istype(target, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = target
 		if(H.friendly_fire_check)
@@ -689,12 +689,12 @@
 
 /datum/action/innate/Trigger()
 	if(!..())
-		return 0
+		return FALSE
 	if(!active)
 		Activate()
 	else
 		Deactivate()
-	return 1
+	return TRUE
 
 /datum/action/innate/proc/Activate()
 	return
@@ -707,8 +707,16 @@
 /datum/action/cooldown
 	check_flags = NONE
 	transparent_when_unavailable = FALSE
+	// The default cooldown applied when StartCooldown() is called
 	var/cooldown_time = 0
+	// The actual next time this ability can be used
 	var/next_use_time = 0
+	// Whether or not you want the cooldown for the ability to display in text form
+	var/text_cooldown = TRUE
+	// Setting for intercepting clicks before activating the ability
+	var/click_to_activate = FALSE
+	// Shares cooldowns with other cooldown abilities of the same value, not active if null
+	var/shared_cooldown
 
 /datum/action/cooldown/CreateButton()
 	var/atom/movable/screen/movable/action_button/button = ..()
@@ -739,7 +747,7 @@
 		next_use_time = world.time + override_cooldown_time
 	else
 		next_use_time = world.time + cooldown_time
-	UpdateButtonIcon()
+	UpdateButtons()
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/action/cooldown/Trigger(atom/target)

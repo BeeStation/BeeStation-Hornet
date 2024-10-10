@@ -210,10 +210,10 @@
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
 	has_cooldown_timer = TRUE
-	UpdateButtonIcon()
+	UpdateButtons()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
 
-/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
+/datum/action/item_action/organ_action/psychic_highlight/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
 	. = ..()
 	if(!IsAvailable())
 		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
@@ -238,7 +238,7 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
-	UpdateButtonIcon()
+	UpdateButtons()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -464,7 +464,7 @@
 /datum/action/change_psychic_auto/Trigger()
 	. = ..()
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/change_psychic_auto/IsAvailable()
 	. = ..()

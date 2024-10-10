@@ -520,7 +520,7 @@
 		button_icon_state = "trayson-meson"
 	user.sync_lighting_plane_alpha()
 	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /// Toggles a minebot's inbuilt light.
 /datum/action/innate/minedrone/toggle_light
@@ -532,7 +532,7 @@
 	user.set_light_on(!user.light_on)
 	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
 	button_icon_state = "mech_lights_[user.light_on ? "on" : "off"]"
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /// Toggles the minebot's mode from combat to mining mode, effectively switching between the minebot's plasma cutter and PKA.
 /datum/action/innate/minedrone/toggle_mode
@@ -543,7 +543,7 @@
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.toggle_mode()
 	button_icon_state = "mech_zoom_[user.mode == MODE_COMBAT ? "on" : "off"]"
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /// Allows a minebot to manually dump its own ore.
 /datum/action/innate/minedrone/dump_ore
@@ -564,7 +564,7 @@
 	user.stored_scanner.toggle_on()
 	to_chat(user, "<span class='notice'>You toggle your mining scanner [user.stored_scanner.on ? "on" : "off"].</span>")
 	button_icon_state = "mech_cycle_equip_[user.stored_scanner.on ? "on" : "off"]"
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /**********************Minebot Upgrades**********************/
 // Similar to PKA upgrades, except for minebots. Each upgrade can only be installed once and is stored in the minebot when installed.

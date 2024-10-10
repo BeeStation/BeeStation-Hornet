@@ -22,21 +22,19 @@
 /atom/proc/MouseDrop_T(atom/dropping, mob/user, params)
 	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user, params)
 
-/client
-	var/obj/item/active_mousedown_item = null
-	//Middle-mouse-button click dragtime control for aimbot exploit detection.
-	var/middragtime = 0
-	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
-	var/datum/weakref/middle_drag_atom_ref
-
 /client/MouseDown(object, location, control, params)
-	if (mouse_down_icon)
+	//if(QDELETED(object))
+	//	return
+	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDOWN, object, location, control, params)
+	if(mouse_down_icon)
 		mouse_pointer_icon = mouse_down_icon
 	active_mousedown_item = mob.canMobMousedown(object, location, params)
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDown(object, location, params, mob)
 
 /client/MouseUp(object, location, control, params)
+	if(SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEUP, object, location, control, params) & COMPONENT_CLIENT_MOUSEUP_INTERCEPT)
+		click_intercept_time = world.time
 	if (mouse_up_icon)
 		mouse_pointer_icon = mouse_up_icon
 	if(active_mousedown_item)

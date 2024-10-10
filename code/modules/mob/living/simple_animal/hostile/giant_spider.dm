@@ -199,7 +199,7 @@
 						else
 							fed++ //it is not a humanoid, but still has nourishment
 						if(lay_eggs)
-							lay_eggs.UpdateButtonIcon(TRUE)
+							lay_eggs.UpdateButtons(TRUE)
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
 					else
 						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
@@ -713,7 +713,7 @@
 	if(new_directive)
 		spider_antag.spider_team.update_directives(new_directive)
 		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
-		S.lay_eggs.UpdateButtonIcon(TRUE)
+		S.lay_eggs.UpdateButtons(TRUE)
 
 // Spider command ability for broodmothers
 /datum/action/innate/spider/comm

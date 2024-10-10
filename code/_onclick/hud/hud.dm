@@ -69,8 +69,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/list/floating_actions
 
 	var/atom/movable/screen/healths
-
-	var/atom/movable/screen/healths
 	var/atom/movable/screen/stamina
 	var/atom/movable/screen/healthdoll
 	var/atom/movable/screen/internals
@@ -134,7 +132,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	healthdoll = null
 	internals = null
 	lingchemdisplay = null
-	devilsouldisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null
 	alien_plasma_display = null

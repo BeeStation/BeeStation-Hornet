@@ -22,7 +22,6 @@
 /datum/action/antag_info/traitor_menu/New(datum/H)
 	. = ..()
 	name = "Traitor Info and Backstory"
-	button.name = name
 
 /datum/antagonist/traitor/ui_data(mob/user)
 

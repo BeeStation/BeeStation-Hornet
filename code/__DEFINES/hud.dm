@@ -116,6 +116,7 @@
 #define ui_living_healthdoll "EAST-1:28,CENTER-1:15"
 
 //Monkeys
+#define ui_monkey_body "CENTER-6:12,SOUTH:5"
 #define ui_monkey_head "CENTER-5:13,SOUTH:5"
 #define ui_monkey_mask "CENTER-4:14,SOUTH:5"
 #define ui_monkey_neck "CENTER-3:15,SOUTH:5"
@@ -141,6 +142,7 @@
 #define ui_borg_store "CENTER+2:16,SOUTH:5"
 #define ui_borg_camera "CENTER+3:21,SOUTH:5"
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"
+#define ui_borg_crew_manifest "CENTER+5:21,SOUTH:5"
 #define ui_borg_language_menu "CENTER+4:19,SOUTH+1:6"
 
 //Aliens
@@ -149,6 +151,13 @@
 #define ui_alien_queen_finder "EAST,CENTER-3:15"
 #define ui_alien_storage_r "CENTER+1:18,SOUTH:5"
 #define ui_alien_language_menu "EAST-4:20,SOUTH:5"
+
+//constructs
+#define ui_construct_pull "EAST,CENTER-2:15"
+#define ui_construct_health "EAST,CENTER:15"  //same as borgs and humans
+
+//slimes
+#define ui_slime_health "EAST,CENTER:15"
 
 //AI
 #define ui_ai_core "SOUTH:6,WEST"
@@ -161,6 +170,7 @@
 #define ui_ai_announcement "SOUTH:6,WEST+7"
 #define ui_ai_shuttle "SOUTH:6,WEST+8"
 #define ui_ai_state_laws "SOUTH:6,WEST+9"
+#define ui_ai_mod_int "SOUTH:6,WEST+10"
 #define ui_ai_pda_send "SOUTH:6,WEST+10"
 #define ui_ai_pda_log "SOUTH:6,WEST+11"
 #define ui_ai_take_picture "SOUTH:6,WEST+12"
@@ -168,6 +178,8 @@
 #define ui_ai_sensor "SOUTH:6,WEST+14"
 #define ui_ai_multicam "SOUTH+1:6,WEST+13"
 #define ui_ai_add_multicam "SOUTH+1:6,WEST+14"
+#define ui_ai_move_up "SOUTH:6,WEST+14"
+#define ui_ai_move_down "SOUTH:6,WEST+15"
 #define ui_ai_language_menu "SOUTH+1:8,WEST+11:30"
 
 //pAI
@@ -187,15 +199,31 @@
 #define ui_pai_view_images "SOUTH:6,WEST+13"
 #define ui_pai_radio "SOUTH:6,WEST+14"
 #define ui_pai_language_menu "SOUTH+1:8,WEST+13:31"
+#define ui_pai_mod_int "SOUTH:6,WEST+12"
 
 //Ghosts
 #define ui_ghost_spawners_menu "SOUTH:6,CENTER-3:24"
+#define ui_ghost_jumptomob "SOUTH:6,CENTER-3:24"
 #define ui_ghost_orbit "SOUTH:6,CENTER-2:24"
 #define ui_ghost_reenter_corpse "SOUTH:6,CENTER-1:24"
 #define ui_ghost_teleport "SOUTH:6,CENTER:24"
 #define ui_ghost_pai "SOUTH: 6, CENTER+1:24"
 #define ui_ghost_minigames "SOUTH: 6, CENTER+2:24"
 #define ui_ghost_language_menu "SOUTH: 22, CENTER+3:8"
+
+//Team finder
+
+#define ui_team_finder "CENTER,CENTER"
+
+// Holoparasites
+#define ui_holopara_l_hand "CENTER:8,SOUTH+1:4"
+#define ui_holopara_r_hand "CENTER+1:8,SOUTH+1:4"
+#define ui_holopara_pull "CENTER:24,SOUTH:20"
+#define ui_holopara_pull_dex "CENTER-1:9,SOUTH+1:2"
+#define ui_holopara_swap_l "CENTER:8,SOUTH+2:4"
+#define ui_holopara_swap_r "CENTER+1:8,SOUTH+2:4"
+#define ui_holopara_button(pos) "CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH:5"
+#define ui_holopara_hand(pos) "CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH+1:4"
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"

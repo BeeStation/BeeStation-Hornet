@@ -38,20 +38,12 @@
 	if(observers?.len)
 		for(var/mob/dead/observe as anything in observers)
 			observe.reset_perspective(null)
+
 	qdel(hud_used)
-	for(var/cc in client_colours)
-		qdel(cc)
-	client_colours = null
+	QDEL_LIST(client_colours)
 	ghostize()
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
-	QDEL_LIST(mob_spell_list)
-	for(var/datum/action/A as() in actions)
-		if(istype(A.target, /obj/effect/proc_holder))
-			A.Remove(src) // Mind's spells' actions should only be removed
-		else
-			qdel(A) // Other actions can be safely deleted
-	actions.Cut()
 	return ..()
 
 /**
