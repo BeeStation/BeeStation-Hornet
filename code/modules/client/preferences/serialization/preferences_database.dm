@@ -89,6 +89,14 @@
 	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	READPREF_JSONDEC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
 
+	READPREF_JSONDEC(favorite_outfits, PREFERENCE_TAG_FAVORITE_OUTFITS)
+	var/list/parsed_favs = list()
+	for(var/typetext in favorite_outfits)
+		var/datum/outfit/path = text2path(typetext)
+		if(ispath(path)) //whatever typepath fails this check probably doesn't exist anymore
+			parsed_favs += path
+	favorite_outfits = unique_list(parsed_favs)
+
 	// Custom hotkeys
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 
@@ -181,6 +189,7 @@
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	PREP_WRITEPREF_JSONENC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
+	PREP_WRITEPREF_JSONENC(favorite_outfits, PREFERENCE_TAG_FAVORITE_OUTFITS)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)

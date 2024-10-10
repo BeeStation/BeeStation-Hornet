@@ -1,0 +1,4 @@
+author: ktlwjec
+delete-after: true
+changes:
+  - bugfix: You can see food placed in microwaves again.
