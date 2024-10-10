@@ -7309,9 +7309,6 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Storage";
 	req_access_txt = "5"
@@ -7477,10 +7474,10 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "bIT" = (
-/obj/effect/spawner/structure/window,
 /obj/structure/sign/departments/minsky/research/xenobiology{
 	pixel_y = -32
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "bIW" = (
@@ -7940,10 +7937,6 @@
 /obj/item/extinguisher,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
-/area/science/xenobiology)
-"bMr" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
 /area/science/xenobiology)
 "bMs" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -15639,9 +15632,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
-"cTd" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/starboard)
 "cTf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white,
@@ -20396,16 +20386,19 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "CloningDoor";
-	name = "Genetics Lab";
-	req_access_txt = "9"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "quarantineshutters";
+	name = "Quarantine Shutters"
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "9";
+	name = "Genetics Lab"
+	},
 /turf/open/floor/plating,
-/area/medical/genetics)
+/area/maintenance/aft)
 "eOa" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -21761,6 +21754,14 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar/atrium)
+"fqJ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "quarantineshutters";
+	name = "Quarantine Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/apothecary)
 "fqQ" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -31227,6 +31228,10 @@
 	name = "Plumbing Factory";
 	req_access_txt = "5; 33"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "quarantineshutters";
+	name = "Quarantine Shutters"
+	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "jhe" = (
@@ -35406,7 +35411,7 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "kJe" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "kJk" = (
@@ -44339,11 +44344,11 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "oyc" = (
-/obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "psypriv";
 	name = "Psycology Shutters"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/exam_room)
 "oyg" = (
@@ -45993,9 +45998,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = -27
 	},
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
@@ -51627,7 +51629,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/captain)
 "rte" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
 "rtv" = (
@@ -106721,7 +106723,7 @@ eTm
 aYV
 aYV
 aYV
-cOv
+fqJ
 jqO
 vJC
 jhL
@@ -107492,7 +107494,7 @@ cUX
 lzr
 cBm
 aYV
-cOv
+fqJ
 eMk
 wtW
 cfC
@@ -114455,7 +114457,7 @@ eaC
 bDc
 bDc
 bLe
-bMr
+tGp
 doR
 bIT
 bJN
@@ -119579,7 +119581,7 @@ aaf
 bky
 jtd
 kch
-cTd
+kch
 kch
 jnE
 rWR
