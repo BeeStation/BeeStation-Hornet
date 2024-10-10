@@ -46048,7 +46048,7 @@
 /turf/closed/wall,
 /area/janitor/custodian)
 "iGk" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "iGD" = (
@@ -70718,7 +70718,7 @@
 /area/security/courtroom)
 "qIO" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "qIZ" = (
@@ -85055,7 +85055,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/end,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "vgQ" = (
@@ -89008,7 +89008,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "wqz" = (
@@ -91376,7 +91376,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "xad" = (

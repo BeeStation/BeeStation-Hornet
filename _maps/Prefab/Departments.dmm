@@ -402,15 +402,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"jF" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "jK" = (
 /obj/effect/landmark/start/detective,
 /turf/open/floor/wood,
@@ -679,6 +670,15 @@
 	},
 /turf/open/floor/iron,
 /area/space)
+"qr" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/mob/living/simple_animal/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "qx" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/door/airlock/virology/glass{
@@ -804,6 +804,16 @@
 /obj/structure/closet/wardrobe/orange,
 /turf/open/floor/iron/dark,
 /area/space)
+"tI" = (
+/obj/item/radio/intercom,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/camera{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/space)
 "tK" = (
 /obj/machinery/door/window/eastleft{
 	dir = 8;
@@ -871,6 +881,11 @@
 /obj/structure/closet/wardrobe/red,
 /turf/open/floor/iron/dark,
 /area/space)
+"vM" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/genetics)
 "vW" = (
 /obj/item/toy/plush/moth/gothic,
 /turf/open/floor/iron/tech,
@@ -879,16 +894,6 @@
 /obj/machinery/vending/wardrobe/cargo_wardrobe,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"wc" = (
-/obj/item/radio/intercom,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/camera{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/space)
 "wn" = (
 /obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 1
@@ -1197,11 +1202,6 @@
 /obj/machinery/light_switch,
 /turf/open/floor/iron,
 /area/space)
-"Fa" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/carbon/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/genetics)
 "Fh" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
@@ -2299,7 +2299,7 @@ QG
 ew
 To
 pY
-Fa
+vM
 oa
 qL
 oa
@@ -2359,7 +2359,7 @@ ee
 cc
 TS
 eL
-jF
+qr
 Qk
 ff
 Qk
@@ -2543,7 +2543,7 @@ Qk
 XF
 rs
 XF
-wc
+tI
 fK
 RC
 Td

@@ -1,57 +1,57 @@
 //These are all minor mutations that affect your speech somehow.
 //Individual ones aren't commented since their functions should be evident at a glance
 
-/datum/mutation/nervousness
+/datum/mutation/human/nervousness
 	name = "Nervousness"
 	desc = "A hereditary mutation characterized by its signature speech disorder."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/nervousness/on_life()
+/datum/mutation/human/nervousness/on_life()
 	if(prob(10))
 		owner.stuttering = max(10, owner.stuttering)
 
-/datum/mutation/wacky
+/datum/mutation/human/wacky
 	name = "Wacky"
 	desc = "Effects not tested..."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/wacky/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/wacky/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/wacky/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/wacky/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/wacky/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/human/wacky/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	speech_args[SPEECH_SPANS] |= SPAN_SANS
 
-/datum/mutation/mute
+/datum/mutation/human/mute
 	name = "Mute"
 	desc = "Inherited mutation that completely inhibits the vocal section of the brain."
 	quality = NEGATIVE
 	traits = TRAIT_MUTE
 
-/datum/mutation/smile
+/datum/mutation/human/smile
 	name = "Smile"
 	desc = "Hereditary mutation reminiscent of Bipolar Disorder. Characterized by a near constant state of mania and an apathy towards negative stimuli."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/smile/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/smile/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/smile/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/smile/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/smile/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/human/smile/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = " [message] "
@@ -101,28 +101,28 @@
 		speech_args[SPEECH_MESSAGE] = trim(message)
 
 
-/datum/mutation/unintelligible
+/datum/mutation/human/unintelligible
 	name = "Unintelligible"
 	desc = "Hereditary mutation that partially inhibits the vocal center of the brain, resulting in a severe speech disorder."
 	quality = NEGATIVE
 	traits = TRAIT_UNINTELLIGIBLE_SPEECH
 
-/datum/mutation/swedish
+/datum/mutation/human/swedish
 	name = "Swedish"
 	desc = "A horrible mutation originating from the distant past. Thought to be eradicated after the incident in 2037."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/swedish/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/swedish/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/swedish/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/swedish/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/swedish/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/human/swedish/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -136,22 +136,22 @@
 			message += " Bork[pick("",", bork",", bork, bork")]!"
 		speech_args[SPEECH_MESSAGE] = trim(message)
 
-/datum/mutation/chav
+/datum/mutation/human/chav
 	name = "Chav"
 	desc = "Unknown"
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/chav/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/chav/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/chav/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/chav/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/chav/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/human/chav/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -184,13 +184,13 @@
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
 
-/datum/mutation/elvis
+/datum/mutation/human/elvis
 	name = "Elvis"
 	desc = "A terrifying mutation named after its 'patient-zero'."
 	quality = MINOR_NEGATIVE
 	locked = TRUE
 
-/datum/mutation/elvis/on_life()
+/datum/mutation/human/elvis/on_life()
 	switch(pick(1,2))
 		if(1)
 			if(prob(15))
@@ -201,17 +201,17 @@
 			if(prob(15))
 				owner.visible_message("<b>[owner]</b> [pick("jiggles their hips", "rotates their hips", "gyrates their hips", "taps their foot", "dances to an imaginary song", "jiggles their legs", "snaps their fingers")]!")
 
-/datum/mutation/elvis/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/elvis/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/elvis/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/elvis/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/elvis/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/human/elvis/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -229,38 +229,38 @@
 		speech_args[SPEECH_MESSAGE] = trim(message)
 
 
-/datum/mutation/stoner
+/datum/mutation/human/stoner
 	name = "Stoner"
 	desc = "A common mutation that severely decreases intelligence."
 	quality = NEGATIVE
 	locked = TRUE
 
-/datum/mutation/stoner/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/stoner/on_acquiring(mob/living/carbon/owner)
 	..()
 	owner.grant_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_STONER)
 	owner.add_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)
 
-/datum/mutation/stoner/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/stoner/on_losing(mob/living/carbon/owner)
 	..()
 	owner.remove_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_STONER)
 	owner.remove_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)
 
-/datum/mutation/medieval
+/datum/mutation/human/medieval
 	name = "Medieval"
 	desc = "A horrific genetic condition suffered in ancient times."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/medieval/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/medieval/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/medieval/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/medieval/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/medieval/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/human/medieval/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]

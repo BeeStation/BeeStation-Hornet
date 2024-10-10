@@ -197,7 +197,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack)
 
 /obj/item/melee/touch_attack/mutation
 	catchphrase = null
-	var/datum/mutation/parent_mutation
+	var/datum/mutation/human/parent_mutation
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mutation)
 

@@ -653,7 +653,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return FALSE
 	if (!patient.resting)
 		return FALSE
-	if(ishuman(patient) || ismonkey(patient))
+	if(ishuman(patient))
 		return TRUE
 	return FALSE
 
