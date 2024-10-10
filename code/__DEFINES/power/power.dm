@@ -1,3 +1,7 @@
+#define KILOWATT *1000
+#define MEGAWATT KILOWATT *1000
+#define GIGAWATT MEGAWATT *1000
+
 ///conversion ratio from joules to watts
 #define WATTS / 0.002
 ///conversion ratio from watts to joules
