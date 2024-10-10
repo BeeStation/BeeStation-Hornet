@@ -50,7 +50,7 @@
 //add the disease with no checks
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/D = make_copy ? Copy() : src
-	infectee.diseases += D
+	LAZYADD(infectee.diseases, D)
 	D.affected_mob = infectee
 	SSdisease.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
@@ -142,7 +142,7 @@
 /datum/disease/proc/cure(add_resistance = TRUE)
 	if(affected_mob)
 		if(add_resistance && (disease_flags & CAN_RESIST))
-			affected_mob.disease_resistances |= GetDiseaseID()
+			LAZYOR(affected_mob.disease_resistances, GetDiseaseID())
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
@@ -175,7 +175,7 @@
 	return "[type]"
 
 /datum/disease/proc/remove_disease()
-	affected_mob.diseases -= src		//remove the datum from the list
+	LAZYREMOVE(affected_mob.diseases, src) //remove the datum from the list
 	affected_mob.med_hud_set_status()
 	affected_mob = null
 

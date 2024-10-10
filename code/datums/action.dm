@@ -4,9 +4,10 @@
 	var/obj/target = null
 	var/check_flags = NONE
 	var/processing = FALSE
-	var/atom/movable/screen/movable/action_button/button = null
 	var/buttontooltipstyle = ""
 	var/transparent_when_unavailable = TRUE
+	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
+	var/default_button_position = SCRN_OBJ_IN_LIST
 
 	var/button_icon = 'icons/hud/actions/backgrounds.dmi' //This is the file for the BACKGROUND icon
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND //And this is the state for the background icon
@@ -14,19 +15,13 @@
 	var/icon_icon = 'icons/hud/actions/action_generic.dmi' //This is the file for the ACTION icon
 	var/button_icon_state = "default" //And this is the state for the action icon
 	var/mob/owner
-	///All mobs that are sharing our action button.
-	var/list/sharers = list()
+	///List of all mobs that are viewing our action button -> A unique movable for them to view.
+	var/list/viewers = list()
 
 	var/has_cooldown_timer = FALSE
 
 /datum/action/New(Target)
 	link_to(Target)
-	button = new
-	button.linked_action = src
-	button.name = name
-	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
 
 /datum/action/proc/link_to(Target)
 	target = Target
@@ -36,68 +31,42 @@
 	if(owner)
 		Remove(owner)
 	target = null
-	QDEL_NULL(button)
+	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
 /datum/action/proc/Grant(mob/M)
-	if(M)
-		if(owner)
-			if(owner == M)
-				return
-			Remove(owner)
-		owner = M
-		RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
-
-		//button id generation
-		var/counter = 0
-		var/bitfield = 0
-		for(var/datum/action/A in M.actions)
-			if(A.name == name && A.button.id)
-				counter += 1
-				bitfield |= A.button.id
-		bitfield = ~bitfield
-		var/bitflag = 1
-		for(var/i in 1 to (counter + 1))
-			if(bitfield & bitflag)
-				button.id = bitflag
-				break
-			bitflag *= 2
-
-		M.actions += src
-		if(M.client)
-			M.client.screen += button
-			button.locked = M.client.prefs.read_player_preference(/datum/preference/toggle/buttons_locked) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
-			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
-			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
-			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
-				M.client.images += spell_proc_holder.text_overlay
-		M.update_action_buttons()
-	else
+	if(!M)
 		Remove(owner)
+		return
+	if(owner)
+		if(owner == M)
+			return
+		Remove(owner)
+	owner = M
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
-/datum/action/proc/owner_deleted(datum/source)
+	GiveAction(M)
+
+/datum/action/proc/clear_ref(datum/ref)
 	SIGNAL_HANDLER
-
-	Remove(owner)
+	if(ref == owner)
+		Remove(owner)
+	if(ref == target)
+		qdel(src)
 
 /datum/action/proc/Remove(mob/M)
-	for(var/datum/weakref/reference as anything in sharers)
-		var/mob/freeloader = reference.resolve()
-		if(!freeloader)
+	for(var/datum/hud/hud in viewers)
+		if(!hud.mymob)
 			continue
-		Unshare(freeloader)
-	sharers = null
-	if(M)
-		if(M.client)
-			M.client.screen -= button
-		M.actions -= src
-		M.update_action_buttons()
+		HideFrom(hud.mymob)
+	LAZYREMOVE(M.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	viewers = list()
+
 	if(owner)
 		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		if(target == owner)
+			RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
 		owner = null
-	button.moved = FALSE //so the button appears in its normal position when given to another owner.
-	button.locked = FALSE
-	button.id = null
 
 /datum/action/proc/Trigger()
 	if(!IsAvailable())
@@ -121,10 +90,14 @@
 		return FALSE
 	return TRUE
 
-/datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
-	if(!button)
-		return FALSE
+/datum/action/proc/UpdateButtons(status_only, force)
+	for(var/datum/hud/hud in viewers)
+		var/atom/movable/screen/movable/button = viewers[hud]
+		UpdateButton(button, status_only, force)
 
+/datum/action/proc/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	if(!button)
+		return
 	if(!status_only)
 		button.name = name
 		button.desc = desc
@@ -139,7 +112,9 @@
 				button.icon = button_icon
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
+
 		ApplyIcon(button, force)
+
 	if(!IsAvailable())
 		button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
 	else
@@ -154,26 +129,67 @@
 
 /datum/action/proc/OnUpdatedIcon()
 	SIGNAL_HANDLER
-	UpdateButtonIcon()
+	UpdateButtons()
 
-//Adds our action button to the screen of another player
-/datum/action/proc/Share(mob/freeloader)
-	if(!freeloader.client)
+//Give our action button to the player
+/datum/action/proc/GiveAction(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(viewers[our_hud]) // Already have a copy of us? go away
 		return
-	sharers += WEAKREF(freeloader)
-	freeloader.client.screen += button
-	freeloader.update_action_buttons()
 
-//Removes our action button from the screen of another player
-/datum/action/proc/Unshare(mob/freeloader)
-	if(!freeloader.client)
+	LAZYOR(viewer.actions, src) // Move this in
+	ShowTo(viewer)
+
+//Adds our action button to the screen of a player
+/datum/action/proc/ShowTo(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
 		return
-	for(var/freeloader_reference in sharers)
-		if(IS_WEAKREF_OF(freeloader, freeloader_reference))
-			sharers -= freeloader_reference
-			break
-	freeloader.client.screen -= button
-	freeloader.update_action_buttons()
+
+	var/atom/movable/screen/movable/action_button/button = CreateButton()
+	SetId(button, viewer)
+
+	button.our_hud = our_hud
+	viewers[our_hud] = button
+	if(viewer.client)
+		viewer.client.screen += button
+
+	button.load_position(viewer)
+	viewer.update_action_buttons()
+
+//Removes our action button from the screen of a player
+/datum/action/proc/HideFrom(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
+	LAZYREMOVE(viewer.actions, src)
+	if(button)
+		qdel(button)
+
+/datum/action/proc/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = new()
+	button.linked_action = src
+	button.name = name
+	button.actiontooltipstyle = buttontooltipstyle
+	if(desc)
+		button.desc = desc
+	return button
+
+/datum/action/proc/SetId(atom/movable/screen/movable/action_button/our_button, mob/owner)
+	//button id generation
+	var/bitfield = 0
+	for(var/datum/action/action in owner.actions)
+		if(action == src) // This could be us, which is dumb
+			continue
+		var/atom/movable/screen/movable/action_button/button = action.viewers[owner.hud_used]
+		if(action.name == name && button.id)
+			bitfield |= button.id
+
+	bitfield = ~bitfield // Flip our possible ids, so we can check if we've found a unique one
+	for(var/i in 0 to 23) // We get 24 possible bitflags in dm
+		var/bitflag = 1 << i // Shift us over one
+		if(bitfield & bitflag)
+			our_button.id = bitflag
+			return
 
 //Presets for item actions
 /datum/action/item_action
@@ -270,12 +286,14 @@
 /datum/action/item_action/set_internals
 	name = "Set Internals"
 
-/datum/action/item_action/set_internals/UpdateButtonIcon(status_only = FALSE, force)
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon_state = "template_active"
+/datum/action/item_action/set_internals/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+	if(!..()) // no button available
+		return
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	if(target == C.internal)
+		button.icon_state = "template_active"
 
 /datum/action/item_action/pick_color
 	name = "Choose A Color"
@@ -336,7 +354,7 @@
 /// Toggle the action icon for the space suit thermal regulator
 /datum/action/item_action/toggle_spacesuit/proc/toggle(obj/item/clothing/suit/space/suit)
 	button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
@@ -346,7 +364,7 @@
 
 /datum/action/item_action/toggle_unfriendly_fire/Trigger()
 	if(..())
-		UpdateButtonIcon()
+		UpdateButtons()
 
 /datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon(status_only = FALSE, force)
 	if(istype(target, /obj/item/hierophant_club))
@@ -413,8 +431,8 @@
 
 /datum/action/item_action/toggle/New(Target)
 	..()
-	name = "Toggle [target.name]"
-	button.name = name
+	var/obj/item/item_target = target
+	name = "Toggle [item_target.name]"
 
 /datum/action/item_action/halt
 	name = "HALT!"
@@ -438,8 +456,8 @@
 
 /datum/action/item_action/adjust/New(Target)
 	..()
-	name = "Adjust [target.name]"
-	button.name = name
+	var/obj/item/item_target = target
+	name = "Adjust [item_target.name]"
 
 /datum/action/item_action/switch_hud
 	name = "Switch HUD"
@@ -526,13 +544,13 @@
 
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
-	name = "Toggle [target.name]"
-	button.name = name
+	var/obj/item/organ/organ_target = target
+	name = "Toggle [organ_target.name]"
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
-	name = "Use [target.name]"
-	button.name = name
+	var/obj/item/organ/organ_target = target
+	name = "Use [organ_target.name]"
 
 /datum/action/item_action/cult_dagger
 	name = "Draw Blood Rune"
@@ -541,14 +559,13 @@
 	button_icon_state = "draw"
 	buttontooltipstyle = "cult"
 	background_icon_state = "bg_demon"
+	default_button_position = "6:157,4:-2"
 
 /datum/action/item_action/cult_dagger/Grant(mob/M)
 	if(!IS_CULTIST(M))
 		Remove(owner)
 		return
-	. = ..()
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
+	return ..()
 
 /datum/action/item_action/cult_dagger/Trigger()
 	for(var/obj/item/melee/cultblade/dagger/held_item in owner.held_items) // In case we were already holding a dagger
@@ -624,7 +641,6 @@
 	icon_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state
-	button.name = name
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/S = target
@@ -694,55 +710,116 @@
 	var/cooldown_time = 0
 	var/next_use_time = 0
 
-/datum/action/cooldown/New()
-	..()
+/datum/action/cooldown/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
 	button.maptext_y = 0
 	button.maptext_width = 24
 	button.maptext_height = 12
+	return button
 
 /datum/action/cooldown/IsAvailable()
-	return next_use_time <= world.time
+	return ..() && (next_use_time <= world.time)
 
-/datum/action/cooldown/proc/StartCooldown()
-	next_use_time = world.time + cooldown_time
-	button.maptext = MAPTEXT("<b>[round(cooldown_time/10, 0.1)]</b>")
+/// Starts a cooldown time to be shared with similar abilities, will use default cooldown time if an override is not specified
+/datum/action/cooldown/proc/StartCooldown(override_cooldown_time)
+	if(shared_cooldown)
+		for(var/datum/action/cooldown/shared_ability in owner.actions - src)
+			if(shared_cooldown == shared_ability.shared_cooldown)
+				if(isnum(override_cooldown_time))
+					shared_ability.StartCooldownSelf(override_cooldown_time)
+				else
+					shared_ability.StartCooldownSelf(cooldown_time)
+	StartCooldownSelf(override_cooldown_time)
+
+/// Starts a cooldown time for this ability only, will use default cooldown time if an override is not specified
+/datum/action/cooldown/proc/StartCooldownSelf(override_cooldown_time)
+	if(isnum(override_cooldown_time))
+		next_use_time = world.time + override_cooldown_time
+	else
+		next_use_time = world.time + cooldown_time
 	UpdateButtonIcon()
 	START_PROCESSING(SSfastprocess, src)
 
-/datum/action/cooldown/process()
+/datum/action/cooldown/Trigger(atom/target)
+	. = ..()
+	if(!.)
+		return
 	if(!owner)
+		return FALSE
+	if(click_to_activate)
+		if(target)
+			// For automatic / mob handling
+			return InterceptClickOn(owner, null, target)
+		if(owner.click_intercept == src)
+			owner.click_intercept = null
+		else
+			owner.click_intercept = src
+		for(var/datum/action/cooldown/ability in owner.actions)
+			ability.UpdateButtons()
+		return TRUE
+	return PreActivate(owner)
+
+/// Intercepts client owner clicks to activate the ability
+/datum/action/cooldown/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+	if(!IsAvailable())
+		return FALSE
+	if(!target)
+		return FALSE
+	PreActivate(target)
+	caller.click_intercept = null
+	return TRUE
+
+/// For signal calling
+/datum/action/cooldown/proc/PreActivate(atom/target)
+	if(SEND_SIGNAL(owner, COMSIG_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
+		return
+	. = Activate(target)
+	SEND_SIGNAL(owner, COMSIG_ABILITY_FINISHED, src)
+
+/// To be implemented by subtypes
+/datum/action/cooldown/proc/Activate(atom/target)
+	return
+
+/datum/action/cooldown/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	. = ..()
+	if(!button)
+		return
+	var/time_left = max(next_use_time - world.time, 0)
+	if(text_cooldown)
+		button.maptext = MAPTEXT("<b>[round(time_left/10, 0.1)]</b>")
+	if(!owner || time_left == 0)
 		button.maptext = ""
-		return PROCESS_KILL
-	var/timeleft = max(next_use_time - world.time, 0)
-	if(timeleft == 0)
-		button.maptext = ""
-		UpdateButtonIcon()
-		return PROCESS_KILL
-	else
-		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
+	if(IsAvailable() && owner.click_intercept == src)
+		button.color = COLOR_GREEN
+
+/datum/action/cooldown/process()
+	var/time_left = max(next_use_time - world.time, 0)
+	if(!owner || time_left == 0)
+		STOP_PROCESSING(SSfastprocess, src)
+	UpdateButtons()
 
 /datum/action/cooldown/Grant(mob/M)
 	..()
-	if(owner)
-		UpdateButtonIcon()
-		if(next_use_time > world.time)
-			START_PROCESSING(SSfastprocess, src)
+	if(!owner)
+		return
+	UpdateButtons()
+	if(next_use_time > world.time)
+		START_PROCESSING(SSfastprocess, src)
 
 ///Like a cooldown action, but with an associated proc holder.
 /datum/action/cooldown/spell_like
 
 /datum/action/cooldown/spell_like/New(Target)
 	..()
-	var/obj/effect/proc_holder/our_proc_holder = target
+	var/obj/effect/proc_holder/our_proc_holder = Target
 	our_proc_holder.action = src
 	name = our_proc_holder.name
 	desc = our_proc_holder.desc
 	icon_icon = our_proc_holder.action_icon
 	button_icon_state = our_proc_holder.action_icon_state
 	background_icon_state = our_proc_holder.action_background_icon_state
-	button.name = name
 
 /datum/action/cooldown/spell_like/Trigger()
 	if(!..())

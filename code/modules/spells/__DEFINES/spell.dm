@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
 			return FALSE
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 	return TRUE
 
 /obj/effect/proc_holder/spell/proc/use_charge(mob/user)
@@ -324,12 +324,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		update_timer_animation()
 		if(charge_counter >= charge_max)
 			end_timer_animation()
-			action.UpdateButtonIcon()
+			action.UpdateButtons()
 			charge_counter = charge_max
 			recharging = FALSE
 	else
 		end_timer_animation()
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 		charge_counter = charge_max
 		recharging = FALSE
 
@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	cast(targets,user=user)
 	after_cast(targets)
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets)
 	if(overlay)
@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			adjust_var(user, holder_var_type, -holder_var_amount)
 	end_timer_animation()
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	if (!istype(target))
@@ -561,8 +561,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	perform(targets,user=user)
 
-/obj/effect/proc_holder/spell/proc/updateButtonIcon(status_only, force)
-	action.UpdateButtonIcon(status_only, force)
+/obj/effect/proc_holder/spell/proc/updateButtons(status_only, force)
+	action.UpdateButtons(status_only, force)
 
 /obj/effect/proc_holder/spell/proc/can_be_cast_by(mob/caster)
 	if((human_req || clothes_req) && !ishuman(caster))
@@ -619,7 +619,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(timer_overlay_active && !recharging)
 		end_timer_animation()
 		if(action)
-			action.UpdateButtonIcon()
+			action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/proc/begin_timer_animation()
 	if(!(action?.button) || timer_overlay_active)

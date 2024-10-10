@@ -543,7 +543,8 @@
 
 /obj/effect/proc_holder/spider/wrap/update_icon()
 	action.button_icon_state = "wrap_[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
+	return ..()
 
 /obj/effect/proc_holder/spider/wrap/activate(mob/living/user)
 	var/message
@@ -605,7 +606,7 @@
 
 /obj/effect/proc_holder/spider/throw_web/update_icon()
 	action.button_icon_state = "throw_web_[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spider/throw_web/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
@@ -682,7 +683,7 @@
 						spider.spider_team = spiders					//lets make sure her potentially sentient children are all on the same team
 						new_cluster.spider_team = spider.spider_team
 					new_cluster.faction = spider.faction.Copy()
-					UpdateButtonIcon(TRUE)
+					UpdateButtons(TRUE)
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 

@@ -37,7 +37,7 @@
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
 	chassis.balloon_alert(owner, "Now taking air from the [chassis.use_internal_tank ? "internal airtank" : "environment"].")
 	chassis.log_message("Now taking air from [chassis.use_internal_tank?"internal airtank":"environment"].", LOG_MECHA)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_cycle_equip
 	name = "Cycle Equipment"
@@ -61,7 +61,7 @@
 		chassis.balloon_alert(owner, "[chassis.selected] selected.")
 		send_byjax(chassis.occupants,"exosuit.browser","eq_list",chassis.get_equipment_list())
 		button_icon_state = "mech_cycle_equip_on"
-		UpdateButtonIcon()
+		UpdateButtons()
 		return
 	var/number = 0
 	for(var/equipment in available_equipment)
@@ -77,7 +77,7 @@
 			chassis.balloon_alert(owner, "Switched to [chassis.selected].")
 			button_icon_state = "mech_cycle_equip_on"
 		send_byjax(chassis.occupants,"exosuit.browser","eq_list",chassis.get_equipment_list())
-		UpdateButtonIcon()
+		UpdateButtons()
 		return
 
 
@@ -99,7 +99,7 @@
 	chassis.set_light_on(chassis.mecha_flags & LIGHTS_ON)
 	chassis.balloon_alert(owner, "Toggled lights [(chassis.mecha_flags & LIGHTS_ON) ? "on" : "off"].")
 	chassis.log_message("Toggled lights [(chassis.mecha_flags & LIGHTS_ON)?"on":"off"].", LOG_MECHA)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_view_stats
 	name = "View Stats"
@@ -138,7 +138,7 @@
 
 	for(var/occupant in occupants)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/strafe)
-		action?.UpdateButtonIcon()
+		action?.UpdateButtons()
 
 //////////////////////////////////////// Specific Ability Actions  ///////////////////////////////////////////////
 //Need to be granted by the mech type, Not default abilities.
@@ -171,7 +171,7 @@
 		chassis.movedelay = initial(chassis.movedelay)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
 		chassis.balloon_alert(owner, "Disabled leg actuators overload.")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_smoke
 	name = "Smoke"
@@ -191,19 +191,19 @@
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/vehicle/sealed/mecha/mech_zoom/Trigger()
-	if(!owner || !chassis || !(owner in chassis.occupants))
+	if(!owner?.client || !chassis || !(owner in chassis.occupants))
 		return
-	if(owner.client)
-		chassis.zoom_mode = !chassis.zoom_mode
-		button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
-		chassis.log_message("Toggled zoom mode.", LOG_MECHA)
-		chassis.balloon_alert(owner, "Zoom mode has been [chassis.zoom_mode ? "enabled" : "disabled"].")
-		if(chassis.zoom_mode)
-			owner.client.view_size.setTo(4.5)
-			SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))
-		else
-			owner.client.view_size.resetToDefault() //Let's not let this stack shall we?
-		UpdateButtonIcon()
+
+	chassis.zoom_mode = !chassis.zoom_mode
+	button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
+	chassis.log_message("Toggled zoom mode.", LOG_MECHA)
+	chassis.balloon_alert(owner, "Zoom mode has been [chassis.zoom_mode ? "enabled" : "disabled"].")
+	if(chassis.zoom_mode)
+		owner.client.view_size.setTo(4.5)
+		SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))
+	else
+		owner.client.view_size.resetToDefault() //Let's not let this stack shall we?
+	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_switch_damtype
 	name = "Reconfigure arm microtool arrays"
@@ -226,7 +226,7 @@
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(chassis, 'sound/mecha/mechmove01.ogg', 50, TRUE)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_toggle_phasing
 	name = "Toggle Phasing"
@@ -238,4 +238,4 @@
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.balloon_alert(owner, "[chassis.phasing ? "Enabled" : "Disabled"] phasing")
-	UpdateButtonIcon()
+	UpdateButtons()

@@ -24,8 +24,10 @@
 
 /client
 	var/obj/item/active_mousedown_item = null
+	//Middle-mouse-button click dragtime control for aimbot exploit detection.
 	var/middragtime = 0
-	var/atom/middragatom
+	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
+	var/datum/weakref/middle_drag_atom_ref
 
 /client/MouseDown(object, location, control, params)
 	if (mouse_down_icon)
