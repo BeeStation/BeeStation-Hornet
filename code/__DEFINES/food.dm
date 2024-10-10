@@ -15,9 +15,10 @@
 #define CLOTH (1<<14)
 /*#define NUTS (1<<15)
 #define SEAFOOD (1<<16)
-#define ORANGES (1<<17)
+#define CITRUS (1<<17)
 #define BUGS (1<<18)*/
 #define GORE (1<<19)
+#define POLYMER (1<<20)
 
 DEFINE_BITFIELD(foodtypes, list(
 	"MEAT" = MEAT,
@@ -36,6 +37,7 @@ DEFINE_BITFIELD(foodtypes, list(
 	"BREAKFAST" = BREAKFAST,
 	"CLOTH" = CLOTH,
 	"GORE" = GORE,
+	"POLYMER" = POLYMER,
 ))
 
 /// A list of food type names, in order of their flags
@@ -56,6 +58,7 @@ DEFINE_BITFIELD(foodtypes, list(
 	"BREAKFAST", \
 	"CLOTH", \
 	"GORE", \
+	"POLYMER", \
 )
 
 #define DRINK_BAD   1
