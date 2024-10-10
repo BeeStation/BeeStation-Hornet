@@ -52,12 +52,18 @@
 	if(usr.next_click > world.time)
 		return
 	usr.next_click = world.time + 1
-	linked_action.Trigger()
+	var/trigger_flags
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		trigger_flags |= TRIGGER_SECONDARY_ACTION
+	linked_action.Trigger(trigger_flags = trigger_flags)
 	SEND_SOUND(usr, 'sound/effects/pop.ogg')
+	return TRUE
+
+	/*
 	transform = turn(matrix() * 0.9, pick(-8, 8))
 	alpha = 200
 	animate(src, transform = matrix(), time=4, alpha=255)
-	return TRUE
+	*/
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
 // Very much byond logic, but I want nice behavior, so we fake it with drag

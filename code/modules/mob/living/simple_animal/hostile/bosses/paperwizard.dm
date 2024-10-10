@@ -38,7 +38,7 @@
 	say_when_triggered = "Rise, my creations! Jump off your pages and into this realm!"
 	var/static/summoned_minions = 0
 
-/datum/action/boss/wizard_summon_minions/Trigger()
+/datum/action/boss/wizard_summon_minions/Trigger(trigger_flags)
 	if(summoned_minions <= 6 && ..())
 		var/list/minions = list(
 		/mob/living/simple_animal/hostile/stickman,
@@ -64,7 +64,7 @@
 	boss_type = /mob/living/simple_animal/hostile/boss/paper_wizard
 	say_when_triggered = ""
 
-/datum/action/boss/wizard_mimic/Trigger()
+/datum/action/boss/wizard_mimic/Trigger(trigger_flags)
 	if(..())
 		var/mob/living/target
 		if(!boss.client) //AI's target

@@ -5,7 +5,7 @@
 	desc = "Stabby stabby"
 	var/stealthy = FALSE
 
-/datum/action/changeling/sting/Trigger()
+/datum/action/changeling/sting/Trigger(trigger_flags)
 	var/mob/user = owner
 	if(!user || !user.mind)
 		return
@@ -77,7 +77,7 @@
 	var/datum/changelingprofile/selected_dna = null
 	COOLDOWN_DECLARE(next_sting)
 
-/datum/action/changeling/sting/transformation/Trigger()
+/datum/action/changeling/sting/transformation/Trigger(trigger_flags)
 	var/mob/user = usr
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling.chosen_sting)

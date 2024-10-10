@@ -53,23 +53,24 @@
 	var/needs_target = TRUE //Does the boss need to have a target? (Only matters for the AI)
 	var/say_when_triggered = "" //What does the boss Say() when the ability triggers?
 
-/datum/action/boss/Trigger()
+/datum/action/boss/Trigger(trigger_flags)
 	. = ..()
-	if(.)
-		if(!istype(boss, boss_type))
-			return 0
-		if(!boss.atb)
-			return 0
-		if(boss.atb.points < boss_cost)
-			return 0
-		if(!boss.client)
-			if(needs_target && !boss.target)
-				return 0
-		if(boss)
-			if(say_when_triggered)
-				boss.say(say_when_triggered, forced = "boss action")
-			if(!boss.atb.spend(boss_cost))
-				return 0
+	if(!.)
+		return
+	if(!istype(boss, boss_type))
+		return
+	if(!boss.atb)
+		return
+	if(boss.atb.points < boss_cost)
+		return
+	if(!boss.client)
+		if(needs_target && !boss.target)
+			return
+	if(boss)
+		if(say_when_triggered)
+			boss.say(say_when_triggered, forced = "boss action")
+		if(!boss.atb.spend(boss_cost))
+			return
 
 //Example:
 /*
