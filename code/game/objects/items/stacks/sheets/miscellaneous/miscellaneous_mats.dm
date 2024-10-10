@@ -89,6 +89,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	throwforce = 7
 	merge_type = /obj/item/stack/sheet/plastic
 	material_type = /datum/material/plastic
+	walltype = /turf/closed/wall/mineral/plastic
 
 /obj/item/stack/sheet/plastic/get_recipes()
 	return GLOB.plastic_recipes
