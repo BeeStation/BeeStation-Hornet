@@ -1,13 +1,30 @@
 /atom/movable/screen/movable/action_button
 	var/datum/action/linked_action
+	var/datum/hud/our_hud
 	var/actiontooltipstyle = ""
 	screen_loc = null
 
 	var/button_icon_state
 	var/appearance_cache
 
+	/// Where we are currently placed on the hud. SCRN_OBJ_DEFAULT asks the linked action what it thinks
+	var/location = SCRN_OBJ_DEFAULT
+	/// A unique bitflag, combined with the name of our linked action this lets us persistently remember any user changes to our position
 	var/id
-	var/ordered = TRUE //If the button gets placed into the default bar.
+	/// A weakref of the last thing we hovered over
+	/// God I hate how dragging works
+	var/datum/weakref/last_hovored_ref
+
+/atom/movable/screen/movable/action_button/Destroy()
+	if(our_hud)
+		var/mob/viewer = our_hud.mymob
+		our_hud.hide_action(src)
+		viewer?.client?.screen -= src
+		linked_action.viewers -= our_hud
+		viewer.update_action_buttons()
+		our_hud = null
+	linked_action = null
+	return ..()
 
 /atom/movable/screen/movable/action_button/Destroy()
 	. = ..()
