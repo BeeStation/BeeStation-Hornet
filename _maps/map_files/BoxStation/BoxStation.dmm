@@ -4912,10 +4912,6 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics";
-	name = "robotics lab shutters"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell{
 	pixel_x = 8
@@ -4923,6 +4919,10 @@
 /obj/item/pen{
 	pixel_x = -4;
 	pixel_y = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "robotics";
+	name = "Robotics Lab Shutters"
 	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
@@ -5403,7 +5403,7 @@
 "blA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/science/robotics/lab)
+/area/science/robotics/mechbay)
 "blB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -7938,7 +7938,7 @@
 "bPT" = (
 /obj/structure/sign/departments/minsky/research/robotics,
 /turf/closed/wall,
-/area/science/robotics/lab)
+/area/science/robotics/mechbay)
 "bPV" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Maint Bar Access";
@@ -10096,7 +10096,7 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
-/area/science/robotics/lab)
+/area/science/robotics/mechbay)
 "ceD" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -37513,9 +37513,6 @@
 /obj/item/canvas/twentythree_twentythree,
 /turf/open/floor/wood,
 /area/library)
-"mYY" = (
-/turf/open/floor/plating,
-/area/quartermaster/exploration_prep)
 "mYZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -38514,6 +38511,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
+"nxA" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "robotics";
+	name = "Robotics Lab Shutters"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/science/robotics/lab)
 "nxR" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -48514,11 +48519,11 @@
 /turf/open/floor/catwalk_floor,
 /area/quartermaster/storage)
 "rLd" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics";
-	name = "robotics lab shutters"
+	name = "Robotics Lab Shutters"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/robotics/lab)
 "rLe" = (
@@ -52404,7 +52409,7 @@
 	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
-/area/quartermaster/exploration_prep)
+/area/maintenance/starboard)
 "tqF" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/fore/secondary)
@@ -107280,12 +107285,12 @@ aYV
 sGq
 beE
 bPT
-box
+bfT
 cex
-box
+bfT
 blA
-box
-box
+bfT
+bfT
 bsQ
 bsQ
 eLH
@@ -109079,7 +109084,7 @@ bcs
 aXq
 aYV
 eZA
-rLd
+nxA
 fqw
 gea
 bnj
@@ -113459,11 +113464,11 @@ uvN
 wlD
 nkq
 dWn
-rWR
-rWR
-rWR
-rWR
-rWR
+bky
+bky
+bky
+bky
+bky
 wzg
 wtK
 nad
@@ -113716,11 +113721,11 @@ wlD
 wlD
 nkq
 cTd
-rWR
-mYY
-mYY
-mYY
-rWR
+bky
+btp
+btp
+btp
+bky
 dZT
 btp
 bky
@@ -113973,10 +113978,10 @@ wlD
 wlD
 nkq
 wlD
-rWR
-mYY
-mYY
-mYY
+bky
+btp
+btp
+btp
 tqm
 dZT
 bEs
@@ -114230,11 +114235,11 @@ rWR
 rWR
 jxw
 rWR
-rWR
-rWR
-rWR
-rWR
-rWR
+bky
+bky
+bky
+bky
+bky
 dZT
 bEs
 uKN
