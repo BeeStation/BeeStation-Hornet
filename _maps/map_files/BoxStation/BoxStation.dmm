@@ -7895,7 +7895,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/smartfridge/extract/preloaded,
-/turf/open/floor/iron/dark,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bPD" = (
 /obj/machinery/computer/camera_advanced/xenobio{
@@ -29499,7 +29499,7 @@
 /area/vacant_room/office)
 "jAs" = (
 /obj/machinery/smartfridge/chemistry,
-/turf/open/floor/iron/white,
+/turf/open/floor/plating,
 /area/medical/apothecary)
 "jAB" = (
 /obj/structure/sink{
@@ -29660,7 +29660,6 @@
 /turf/open/floor/iron/goonplaque,
 /area/security/brig)
 "jCR" = (
-/obj/machinery/airalarm/directional/west,
 /obj/machinery/camera/directional/west,
 /mob/living/carbon/monkey,
 /turf/open/floor/grass/no_border,
@@ -53921,6 +53920,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "tZg" = (
