@@ -19,8 +19,8 @@
 
 /datum/status_effect/exercised/on_creation(mob/living/new_owner, exercise_amount)
 	src.exercise_amount = exercise_amount * EXERCISE_INCREMENT
-	. = ..()
 	update_exercise()
+	return ..()
 
 /datum/status_effect/exercised/merge(exercise_amount)
 	src.exercise_amount = min(src.exercise_amount + exercise_amount * EXERCISE_INCREMENT, EXERCISE_LIMIT)
@@ -50,14 +50,16 @@
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology.stun_add -= delta
 		applied_amount = exercise_amount
-	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 	switch (exercise_amount)
 		if (0.3 to 0.5)
-			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seem exceptionally strong!</span>"
+			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seems exceptionally strong!</span>"
 		if (0.1 to 0.3)
-			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seem very strong!</span>"
+			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seems very strong!</span>"
 		else
-			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seem strong!</span>"
+			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seems strong!</span>"
+
+/datum/status_effect/exercised/update_icon()
+	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 
 /atom/movable/screen/alert/status_effect/exercised
 	name = "Exercised"
