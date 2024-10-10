@@ -74,7 +74,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/list/candidates = poll_ghost_candidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE, /datum/role_preference/midround_ghost/space_pirate, 15 SECONDS)
 	shuffle_inplace(candidates)
 
-	var/datum/map_template/shuttle/pirate/default/ship = new
+	var/datum/map_template/shuttle/pirate/ship = new (pick(/datum/map_template/shuttle/pirate/default, /datum/map_template/shuttle/pirate/prehistoric))
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
 	var/z = SSmapping.empty_space.z_value

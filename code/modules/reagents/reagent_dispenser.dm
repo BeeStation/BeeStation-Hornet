@@ -180,6 +180,17 @@
 	reagent_id = /datum/reagent/fuel
 	accepts_rig = TRUE
 
+/obj/structure/reagent_dispensers/fueltank/black_powder
+	name = "black powder barrel"
+	desc = "A tank full of homemade black powder. Do consume at your own risk."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "barrel"
+	reagent_id = /datum/reagent/blackpowder
+	accepts_rig = TRUE
+
+/obj/structure/reagent_dispensers/fueltank/black_powder/attackby(obj/item/I, mob/living/user, params)
+	return
+
 /obj/structure/reagent_dispensers/fueltank/blob_act(obj/structure/blob/B)
 	boom()
 
