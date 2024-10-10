@@ -489,12 +489,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 		gamers[gamer] = -1
 
-		if(!isnull(GLOB.data_core.general))
-			for(var/datum/data/record/R in GLOB.data_core.general)
-				if(R.fields["name"] == gamer.name)
-					R.fields["m_stat"] = "*Unstable*"
-					return
-
 
 /obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user)
 	. = ..()

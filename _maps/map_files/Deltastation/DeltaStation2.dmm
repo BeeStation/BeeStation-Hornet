@@ -2712,7 +2712,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -18556,7 +18556,7 @@
 /area/hallway/primary/aft)
 "cuy" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_y = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
@@ -24462,7 +24462,7 @@
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "dcy" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/status_display/ai{
@@ -26195,7 +26195,7 @@
 /turf/open/floor/iron/white/corner,
 /area/hallway/secondary/entry)
 "dsR" = (
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -26539,7 +26539,7 @@
 /turf/open/floor/carpet/grimy,
 /area/bridge/showroom/corporate)
 "dvE" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -29468,7 +29468,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "dRF" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 4
 	},
@@ -34227,7 +34227,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/sign/nanotrasen{
 	pixel_x = -32
 	},
@@ -36228,7 +36228,7 @@
 /turf/open/floor/iron,
 /area/medical/virology)
 "fHN" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -37585,7 +37585,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -45421,7 +45421,7 @@
 /turf/open/floor/plating,
 /area/security/brig)
 "ivC" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/computer/security/telescreen/cmo{
@@ -45639,7 +45639,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "iyr" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -48212,7 +48212,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "juT" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -48916,7 +48916,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "jGA" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -49142,7 +49142,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "jME" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -54059,7 +54059,7 @@
 	},
 /area/hallway/secondary/entry)
 "ltq" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
@@ -57608,7 +57608,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "mAd" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -58895,7 +58895,7 @@
 	pixel_x = 26;
 	pixel_y = 26
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
@@ -60784,7 +60784,7 @@
 /area/science/research)
 "nwF" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -74208,7 +74208,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "rLs" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -76127,7 +76127,7 @@
 /turf/open/floor/plating,
 /area/medical/patients_rooms)
 "spm" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -80106,7 +80106,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "tAd" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -88584,7 +88584,7 @@
 /area/security/prison)
 "wkS" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -89671,7 +89671,7 @@
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "wyY" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -92314,7 +92314,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "xqG" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,

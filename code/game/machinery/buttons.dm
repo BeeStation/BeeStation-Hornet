@@ -5,7 +5,6 @@
 	icon_state = "doorctrl"
 	var/skin = "doorctrl"
 	layer = ABOVE_WINDOW_LAYER
-	power_channel = AREA_USAGE_ENVIRON
 	var/obj/item/assembly/device
 	var/obj/item/electronics/airlock/board
 	var/device_type = null
