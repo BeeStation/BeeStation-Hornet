@@ -1,0 +1,9 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - rscadd: Added a new voting system. Players will find a new button in their status
+      tab for voting to end the current round which they can use at any time instead
+      of needing to wait. The required percentage of players for the vote to succeed
+      decays as the round goes on, and the button first becomes visible only after
+      the shuttle is available.
+  - tweak: Dead players can now vote to end a round
