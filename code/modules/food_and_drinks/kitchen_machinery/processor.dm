@@ -31,7 +31,10 @@
 	if (recipe.output && loc && !QDELETED(src))
 		var/cached_multiplier = (recipe.food_multiplier * rating_amount)
 		for(var/i in 1 to cached_multiplier)
-			new recipe.output(drop_location())
+			var/atom/processed_food = new recipe.output(drop_location())
+			if(processed_food.reagents && what.reagents)
+				processed_food.reagents.clear_reagents()
+				what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
 
 	if (ismob(what))
 		var/mob/themob = what
