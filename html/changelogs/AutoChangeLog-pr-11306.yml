@@ -1,4 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - code_imp: Added signal handlers for attack_ai(), attack_robot(), and interact()
