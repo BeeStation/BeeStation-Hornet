@@ -24382,13 +24382,11 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching output from station security cameras.";
-	name = "Security Camera Monitor";
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 1
+	},
+/obj/machinery/computer/security/telescreen/station{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/smooth_corner,
 /area/hallway/secondary/exit/departure_lounge)

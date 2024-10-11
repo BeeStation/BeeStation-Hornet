@@ -34618,14 +34618,14 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "iOM" = (
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/security/telescreen/station{
+	dir = 8;
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "iON" = (
@@ -39794,9 +39794,9 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/station{
 	dir = 1;
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)

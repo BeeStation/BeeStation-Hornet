@@ -6972,6 +6972,15 @@
 	},
 /turf/open/floor/circuit/green,
 /area/centcom/ferry)
+"AO" = (
+/obj/structure/chair,
+/obj/effect/landmark/thunderdome/observe,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "AP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -8568,6 +8577,9 @@
 "GH" = (
 /obj/machinery/processor,
 /obj/effect/turf_decal/stripes/end,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "GJ" = (
@@ -10931,7 +10943,6 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "PD" = (
-/obj/machinery/computer/security/telescreen,
 /obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 1
@@ -11067,6 +11078,9 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
 "Qg" = (
@@ -11305,7 +11319,6 @@
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "QZ" = (
-/obj/machinery/computer/security/telescreen,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -56586,7 +56599,7 @@ Ev
 Ev
 Ev
 Ep
-Lx
+AO
 uf
 Lx
 Il
@@ -57614,7 +57627,7 @@ Ev
 Ev
 Ev
 Ep
-Lx
+AO
 uf
 Lx
 Il
