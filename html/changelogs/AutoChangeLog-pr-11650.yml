@@ -1,0 +1,5 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - tweak: Standardized all Security Outposts to use Security access along with the
+      related Head of Staff for the department they are in.
