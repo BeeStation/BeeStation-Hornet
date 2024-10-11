@@ -57970,8 +57970,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/secure_data,
-/obj/machinery/computer/security/telescreen{
-	pixel_y = 31
+/obj/machinery/computer/security/telescreen/medical{
+	pixel_y = 32
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)

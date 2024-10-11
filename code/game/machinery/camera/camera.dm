@@ -80,7 +80,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
 		if (get_area(src) != camera_area)
 			c_tag = "[c_tag] (External)"
-	network = camera_area.camera_networks
+	if (!islist(network))
+		network = camera_area.camera_networks
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
