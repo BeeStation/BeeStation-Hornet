@@ -1276,7 +1276,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "ath" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -1967,7 +1967,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "aBC" = (
 /obj/machinery/vending/cigarette,
@@ -4663,7 +4663,7 @@
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "bfj" = (
 /obj/structure/disposaloutlet{
@@ -13412,7 +13412,7 @@
 	dir = 4
 	},
 /obj/structure/chair,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "dgI" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -15809,7 +15809,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "ejx" = (
 /obj/machinery/button/door{
@@ -19195,7 +19195,7 @@
 /area/maintenance/starboard/fore)
 "fCY" = (
 /obj/effect/landmark/start/chemist,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "fCZ" = (
 /obj/effect/turf_decal/bot,
@@ -20291,7 +20291,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "fZk" = (
 /obj/machinery/light/small{
@@ -21846,7 +21846,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "gEk" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
@@ -24658,7 +24658,7 @@
 	pixel_y = 8;
 	pixel_x = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "hVd" = (
 /obj/structure/extinguisher_cabinet/directional/south,
@@ -25709,7 +25709,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "ipZ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -27614,7 +27614,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/south,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "jfd" = (
 /obj/item/beacon,
@@ -28124,7 +28124,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "jpS" = (
 /obj/machinery/camera/directional/south,
@@ -28207,7 +28207,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "jsG" = (
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "jtE" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -32295,7 +32295,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/west,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "kZO" = (
 /obj/machinery/door/airlock/command{
@@ -34871,7 +34871,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "mgd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -35677,7 +35677,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "mzV" = (
 /obj/effect/turf_decal/trimline/white/line,
@@ -38026,7 +38026,7 @@
 	pixel_y = 16
 	},
 /obj/item/book/manual/wiki/plumbing,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "nyM" = (
 /obj/structure/cable/yellow{
@@ -39471,7 +39471,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "oct" = (
 /obj/structure/cable/yellow{
@@ -40146,7 +40146,7 @@
 /area/security/checkpoint/auxiliary)
 "orl" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "orQ" = (
 /obj/machinery/power/smes{
@@ -41561,7 +41561,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "pbz" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -41731,7 +41731,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "pfK" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -43953,7 +43953,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/west,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "qbL" = (
 /obj/structure/cable{
@@ -44075,7 +44075,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "qfA" = (
 /obj/structure/cable/yellow{
@@ -46600,7 +46600,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/south,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "rmv" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
@@ -47751,7 +47751,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "rKz" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -49844,7 +49844,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "szM" = (
 /obj/effect/turf_decal/delivery,
@@ -49986,7 +49986,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "sCh" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -50286,7 +50286,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/firealarm/directional/south,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "sGB" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -53699,7 +53699,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "tTU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -56240,7 +56240,7 @@
 /area/science/xenobiology)
 "vgs" = (
 /obj/machinery/holopad,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "vgA" = (
 /obj/structure/rack,
@@ -57945,7 +57945,7 @@
 /obj/machinery/cell_charger,
 /obj/structure/table,
 /obj/item/stock_parts/cell/high/plus,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "vOO" = (
 /obj/effect/turf_decal/bot,
@@ -58691,7 +58691,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "wfV" = (
 /obj/structure/table,
@@ -59458,7 +59458,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "wtY" = (
 /obj/item/wrench,
@@ -60700,7 +60700,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/east,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "wVm" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
@@ -60872,7 +60872,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "xaE" = (
 /obj/item/radio/intercom{
@@ -61820,7 +61820,7 @@
 	dir = 8
 	},
 /obj/machinery/light,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white,
 /area/medical/chemistry)
 "xwR" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/co2{
