@@ -47,7 +47,7 @@
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_x = 6;
 	pixel_y = 5
 	},
