@@ -111,10 +111,6 @@ effective or pretty fucking useless.
 /obj/item/healthanalyzer/rad_laser/attack_self(mob/user)
 	interact(user)
 
-/obj/item/healthanalyzer/rad_laser/interact(mob/user)
-	ui_interact(user)
-
-
 /obj/item/healthanalyzer/rad_laser/ui_state(mob/user)
 	return GLOB.hands_state
 

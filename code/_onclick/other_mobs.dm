@@ -78,12 +78,15 @@
 		return FALSE
 
 /atom/proc/interact(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
+		return TRUE
 	if(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_INTERACT)
 		add_hiddenprint(user)
 	else
 		add_fingerprint(user)
 	if(interaction_flags_atom & INTERACT_ATOM_UI_INTERACT)
-		return ui_interact(user)
+		ui_interact(user)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/RangedAttack(atom/A, mouseparams)
