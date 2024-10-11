@@ -421,6 +421,32 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
+/obj/item/book/granter/martial/living_fist
+	martial = /datum/martial_art/living_fist
+	name = "cloth scroll"
+	martialname = "living nymph fist"
+	desc = "An aged and grayed scrap of cloth, scrawled on with shifting ink. There are illustrations of Diona, punching people."
+	greet = "<span class='boldannounce'>You have learned the ancient Living Nymph Fist technique. Your combos are difficult to pull off, especially with your slow speed, but they allow you to strike \
+	with great ferocity. Your strongest strike, the Nymph Blast, will reduce someone to a pile of diona nymphs."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scroll2"
+	remarks = list("Balance...", "Power...", "Control...", "Mastery...", "Vigilance...", "Skill...")
+
+/obj/item/book/granter/martial/living_fist/onlearned(mob/living/carbon/user)
+	..()
+	if(oneuse == TRUE)
+		desc = "It's completely blank."
+		name = "empty scroll"
+		icon_state = "blankscroll"
+
+
+/obj/item/book/granter/martial/tribal_claw/already_known(mob/user)
+	if(isdiona(user))
+		return FALSE
+	else
+		to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
+		return TRUE
+
 /obj/item/book/granter/martial/karate
 	martial = /datum/martial_art/karate
 	name = "dusty scroll"

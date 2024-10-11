@@ -2118,6 +2118,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
+/datum/uplink_item/race_restricted/living_fist
+	name = "Old Fabric Scroll"
+	desc = "We stole this scroll from a diona gestalt floating in space. \
+			It teaches you how to blow people up into nymphs with your fists, \
+			but only Diona can perform the techniques properly. Don't buy this if you aren't one."
+	item = /obj/item/book/granter/martial/living_fist
+	cost = 10
+	surplus = 0
+	restricted_species = list(SPECIES_DIONA)
+
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
