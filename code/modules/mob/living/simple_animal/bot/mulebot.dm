@@ -172,7 +172,10 @@
 						"<span class='notice'>You pry [cell] out of [src].</span>")
 		cell = null
 	else if(is_wire_tool(I) && open)
-		return attack_hand(user)
+		if (user.a_intent == INTENT_HELP)
+			return interact(user)
+		else
+			return ..()
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
