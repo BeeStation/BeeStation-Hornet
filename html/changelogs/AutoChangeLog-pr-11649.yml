@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Removes hard-stun from Mjolnir every time you take a hit from it.
