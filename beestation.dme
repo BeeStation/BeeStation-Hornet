@@ -1806,6 +1806,7 @@
 #include "code\modules\admin\smites\give_cookie.dm"
 #include "code\modules\admin\smites\immerse.dm"
 #include "code\modules\admin\smites\lightning.dm"
+#include "code\modules\admin\smites\manup.dm"
 #include "code\modules\admin\smites\nugget.dm"
 #include "code\modules\admin\smites\pacifism.dm"
 #include "code\modules\admin\smites\puzzle.dm"
