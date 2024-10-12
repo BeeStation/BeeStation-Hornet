@@ -187,6 +187,7 @@
 	key = "wing"
 	key_third_person = "wings"
 	message = "their wings"
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -214,6 +215,7 @@
 			if(istype(wings))
 				if(wings.flight_level >= WINGS_FLYING)
 					return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
