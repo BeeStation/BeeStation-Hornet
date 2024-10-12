@@ -3283,7 +3283,7 @@
 "aZJ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -7869,7 +7869,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Security Desk";
-	req_access_txt = "1"
+	req_one_access_txt = "1;40"
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
@@ -11424,7 +11424,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "63"
+	req_access_txt = "2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -16452,7 +16452,7 @@
 	dir = 8;
 	name = "Arrivals Security Checkpoint";
 	pixel_y = 1;
-	req_access_txt = "1"
+	req_one_access_txt = "1;56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -36123,7 +36123,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "63"
+	req_access_txt = "2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
