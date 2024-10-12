@@ -296,7 +296,7 @@
 /obj/item/pizzabox/bomb/armed
 	bomb_timer = 5
 	bomb_defused = FALSE
-	boxtag = "Meat Explosion"
+	boxtag = "Meatlovers' Supreme"
 	boxtag_set = TRUE
 	pizza = /obj/item/food/pizza/meat
 
