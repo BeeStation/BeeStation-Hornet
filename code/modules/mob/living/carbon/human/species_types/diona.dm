@@ -127,6 +127,13 @@
 		return
 	split_ability.Trigger(TRUE)
 
+/datum/species/diona/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	H.unequip_everything()
+	H.gib_animation()
+	H.spawn_gibs()
+	QDEL_NULL(H)
+	return
+
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/organ/appendix/appendix = H.getorganslot("appendix") //No appendixes for plant people
