@@ -43,7 +43,7 @@
 							You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
 							Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
 							You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. \
-							<span class='warning'>You cannot re-enter the living world until you've rested for fifteen seconds in the sea of blood.</span> \ </B>"
+							<span class='warning'>You cannot re-enter the living world until you've rested for five seconds in the sea of blood.</span> \ </B>"
 
 	mobchatspan = "cultmobsay"
 
@@ -177,7 +177,7 @@
 	desire: <span class='clowntext'>To hug and tickle.</span><BR>\
 	You may use the \"Blood Crawl\" ability near blood pools to travel \
 	through them, appearing and disappearing from the station at will. \
-	<span class='warning'>You cannot re-enter the living world until you've rested for fifteen seconds in the sea of blood.</span> \
+	<span class='warning'>You cannot re-enter the living world until you've rested for five seconds in the sea of blood.</span> \
 	Pulling a dead or unconscious mob while you enter a pool will pull \
 	them in with you, allowing you to hug them and regain your health.<BR> \
 	You move quickly upon leaving a pool of blood, but the material world \
