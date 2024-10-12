@@ -195,6 +195,10 @@
 			to_chat(user, "[src]-[W] interface initialization failed.")
 		return
 
+	if(istype(W, /obj/item/mecha_ammo))
+		ammo_resupply(W, user)
+		return
+
 	if(W.GetID())
 		if((mecha_flags & ADDING_ACCESS_POSSIBLE) || (mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE))
 			if(internals_access_allowed(user))
