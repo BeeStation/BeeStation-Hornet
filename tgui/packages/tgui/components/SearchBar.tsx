@@ -1,4 +1,4 @@
-import { Icon, Input, Stack } from 'tgui/components';
+import { Icon, Input, Stack } from '.';
 
 type RequiredProps = {
   /** The state variable. */
