@@ -2450,6 +2450,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_sniff_sound(mob/living/carbon/user)
 	return
 
+/datum/species/proc/get_giggle_sound(mob/living/carbon/user)
+	return
+
 /datum/species/proc/get_clear_sound(mob/living/carbon/user)
 	return
 

@@ -153,7 +153,7 @@
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 		// play moth flutter noise if moth wing
 		if(istype(wings, /obj/item/organ/wings/moth))
-			playsound(H, 'sound/voice/moth/moth_flutter.ogg', 50, TRUE)
+			playsound(H, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -182,6 +182,12 @@
 	message = "giggles"
 	message_mime = "giggles silently"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/giggle/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_giggle_sound(H)
 
 /datum/emote/living/glare
 	key = "glare"
@@ -724,7 +730,7 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/whistle/get_sound(mob/living/user)
-	return 'sound/items/megaphone.ogg'
+	return 'sound/emotes/whistle1.ogg'
 
 /// Breathing required + audible emotes
 
