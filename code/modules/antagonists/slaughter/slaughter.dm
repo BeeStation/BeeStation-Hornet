@@ -67,7 +67,21 @@
 		bloodspell.phased = TRUE
 
 /mob/living/simple_animal/slaughter/Destroy()
-	release_friends()
+	var/turf/cur_loc = get_turf(src)
+	playsound(cur_loc, feast_sound, 50, 1, -1)
+	for(var/mob/living/stored_mob in consumed_mobs)
+		stored_mob.forceMove(cur_loc)
+
+		if(!revive_eject)
+			continue
+		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
+			continue
+		stored_mob.grab_ghost(force = TRUE)
+		to_chat(stored_mob, "<span class='clowntext'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
+
+	consumed_mobs.Cut()
+	consumed_mobs = null
+
 	return ..()
 
 /obj/effect/decal/cleanable/blood/innards
@@ -95,20 +109,6 @@
 
 
 /mob/living/simple_animal/slaughter/proc/release_friends()
-	if(!consumed_mobs)
-		return
-
-	var/turf/cur_loc = get_turf(src)
-	playsound(cur_loc, feast_sound, 50, 1, -1)
-	for(var/mob/living/stored_mob in consumed_mobs)
-		stored_mob.forceMove(cur_loc)
-
-		if(!revive_eject)
-			continue
-		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
-			continue
-		stored_mob.grab_ghost(force = TRUE)
-		to_chat(stored_mob, "<span class='clowntext'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/organ/heart/demon

@@ -126,8 +126,7 @@
 	to_chat(src, "<span class='danger'>You devour [victim]. Your health is fully restored.</span>")
 	src.revive(full_heal = 1)
 
-	// No defib possible after laughter
-	victim.apply_damage(1000, BRUTE)
+	victim.apply_damage(200, BRUTE)
 	if(victim.stat != DEAD)
 		victim.investigate_log("has been killed by being consumed by a slaugter demon.", INVESTIGATE_DEATHS)
 	victim.death()
