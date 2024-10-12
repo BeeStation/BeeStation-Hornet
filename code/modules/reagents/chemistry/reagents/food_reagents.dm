@@ -684,20 +684,15 @@
 	chem_flags = CHEMICAL_RNG_GENERAL
 	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
 	taste_description = "processed goodness"
-	nutriment_factor = 0
+	nutriment_factor = -0.3
 	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
-	overdose_threshold = 5
-
-/datum/reagent/consumable/maltodextrin/on_mob_life(mob/living/carbon/M)
-	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
-	..()
 
 /datum/reagent/consumable/maltodextrin/overdose_start(mob/living/M)
 	if(!HAS_TRAIT(M, TRAIT_VORACIOUS))
 		to_chat(M, "<span class='notice'>Something in your guts feels off...</span>")
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/guts_sickness, name)
 	else
-		to_chat(M, "<span class='notice'>Maybe I should have more junk foods today...</span>")
+		to_chat(M, "<span class='notice'>Maybe I should have more junk foods...</span>")
 
 /datum/reagent/consumable/maltodextrin/microplastics
 	name = "Microplastics"
@@ -705,9 +700,8 @@
 	color = "#dbd6cb"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // The funny
 	taste_description = "Plastic"
-	nutriment_factor = 0.1 // it's plastic after all, it taste really good and it's real special!
-	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin5
-	overdose_threshold = 2.5 //really low OD treshold, but it's a half glass shot of microplastics, what do you expect it's gonna happen?
+	nutriment_factor = -0.1 // it's plastic after all, it taste really good and it's real special!
+	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin
 
 /datum/reagent/consumable/maltodextrin/microplastics/on_mob_metabolize(mob/living/carbon/human/H)
 	. = ..()

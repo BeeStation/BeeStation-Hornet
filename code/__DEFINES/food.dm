@@ -18,7 +18,7 @@
 #define CITRUS (1<<17)
 #define BUGS (1<<18)*/
 #define GORE (1<<19)
-#define POLYMER (1<<20)
+//#define POLYMER (1<<20)
 
 DEFINE_BITFIELD(foodtypes, list(
 	"MEAT" = MEAT,
