@@ -1,10 +1,4 @@
 /mob/living/gib(no_brain, no_organs, no_bodyparts)
-
-	if(ishuman(src)) //Called this before any of the other variables due to diona shitcode.
-		var/mob/living/carbon/human/human = src
-		human.dna.species.spec_gib(no_brain, no_organs, no_bodyparts, src)
-		return
-
 	var/prev_lying = lying_angle
 	if(stat != DEAD)
 		death(TRUE)
