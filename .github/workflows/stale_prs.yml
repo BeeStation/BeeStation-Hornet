@@ -8,7 +8,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v9
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-pr-message: "This PR has been marked as stale due to being in an unmergable state for 7 days. Please resolve any conflicts and add testing evidence, then contact a project maintainer to have the stale label removed."
