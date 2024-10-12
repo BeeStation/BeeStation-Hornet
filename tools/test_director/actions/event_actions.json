@@ -1,0 +1,12 @@
+{
+	"patterns": [
+	  {
+		"match": "player clicks (\\w+)",
+		"code": "player.ClickOn($1)"
+	  },
+	  {
+		"match": "player uses (\\w+)",
+		"code": "if (player.get_active_held_item() != $1)\n\tTEST_FAIL(\"The player was not holding the $1 and thus could not use it.\")\nplayer.ClickOn($1)"
+	  }
+	]
+  }

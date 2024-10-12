@@ -1,0 +1,12 @@
+{
+	"patterns": [
+	  {
+		"match": "(\\w+) (\\w+) should be (\\S+|\".*\")",
+		"code": "TEST_ASSERT_EQUAL($3, $1.$2, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "tgui window should open",
+		"code": "CRASH(\"Instruction 'tgui window should open' is not currently supported\")"
+	  }
+	]
+  }

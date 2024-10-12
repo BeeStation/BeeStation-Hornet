@@ -1,0 +1,20 @@
+{
+	"patterns": [
+	  {
+		"match": "(\\w+) is defined as new ((?:/\\w+)+)",
+		"code": "var/$1 = allocate($2)"
+	  },
+	  {
+		"match": "player is next to (\\w+)",
+		"code": "player.forceMove($1.loc)"
+	  },
+	  {
+		"match": "(\\w+)(?:'s)? (\\w+) is set to (\\S+|\".*\")",
+		"code": "$1.$2 = $3"
+	  },
+	  {
+		"match": "player is holding (\\w+)",
+		"code": "player.put_in_active_hand($1, TRUE)"
+	  }
+	]
+  }

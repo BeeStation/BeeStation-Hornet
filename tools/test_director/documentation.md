@@ -38,15 +38,15 @@ Given the player is next to {variable_name}
 
 ### Set variable of atom
 ```gherkin
-Given the {variable_name} device is set to {variable_name}
+Given the {variable_name} {dm_variable} is set to {variable_name}
 ```
 
 ### Ensure player holding item
 ```gherkin
-Given the player is holding {type}
+Given the player is holding {variable_name}
 ```
 
-## Test Actions
+## Event Actions
 
 ### Player click input
 ```gherkin
@@ -55,14 +55,14 @@ When the player clicks the {variable_name}
 
 ### Player use item in hand
 ```gherkin
-When the human uses {variable_name}
+When the player uses {variable_name}
 ```
 
 ## Assertions
 
 ### Assert variable status
 ```gherkin
-Then {variable_name} pressed should be {value}
+Then {variable_name} {dm_variable} should be {value}
 ```
 
 ### Verify UI window was opened

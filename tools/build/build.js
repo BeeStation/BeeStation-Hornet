@@ -12,6 +12,8 @@ import { env } from 'process';
 import Juke from './juke/index.js';
 import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond.js';
 import { yarn } from './lib/yarn.js';
+import { parse_features } from './modules/test_director/parse_test.js';
+import { compile_tests } from './modules/test_director/test_director.js';
 
 const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
 
@@ -50,7 +52,9 @@ export const DmVersionParameter = new Juke.Parameter({
   type: 'string',
 });
 
-export const CiParameter = new Juke.Parameter({ type: 'boolean' });
+export const CiParameter = new Juke.Parameter({
+  type: 'boolean',
+});
 
 export const ForceRecutParameter = new Juke.Parameter({
   type: 'boolean',
@@ -102,6 +106,7 @@ export const DmTarget = new Juke.Target({
 export const DmTestTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    TestDirectorTarget,
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
@@ -131,6 +136,12 @@ export const DmTestTarget = new Juke.Target({
       Juke.logger.error('Test run was not clean, exiting');
       throw new Juke.ExitCode(1);
     }
+  },
+});
+
+export const TestDirectorTarget = new Juke.Target({
+  executes: async ({ get }) => {
+    compile_tests('code/modules/unit_tests/generated', 'tools/test_director/actions', 'tools/test_director/tests');
   },
 });
 
@@ -285,7 +296,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTarget, TguiTarget],
+  dependsOn: [DmTestTarget, TguiTarget],
 });
 
 export const ServerTarget = new Juke.Target({
