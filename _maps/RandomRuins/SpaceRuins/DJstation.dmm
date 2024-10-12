@@ -262,7 +262,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bd" = (
