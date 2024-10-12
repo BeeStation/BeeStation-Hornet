@@ -13,7 +13,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-pr-message: "This PR has been marked as stale due to being in an unmergable state for 7 days. Please resolve any conflicts and add testing evidence, then contact a project maintainer to have the stale label removed."
         stale-pr-label: 'Stale'
-        only-pr-labels: 'Stale,Needs Testing Evidence,Merge Conflict'
+        any-of-pr-labels: 'Needs Testing Evidence,Merge Conflict'
         days-before-stale: 7
         days-before-close: 5
         remove-pr-stale-when-updated: true
