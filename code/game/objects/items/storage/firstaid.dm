@@ -429,7 +429,7 @@
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/synthflesh = 2,
 		/obj/item/storage/pill_bottle/kelotane = 1,
-		/obj/item/storage/pill_bottle/bicardine = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
 		/obj/item/storage/pill_bottle/charcoal = 1,
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/healthanalyzer = 1)
