@@ -1921,6 +1921,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
+/datum/uplink_item/device_tools/medkit_infiltration
+	name = "Syndicate Infiltrator's Medical Kit"
+	desc = "This first aid kit, filled with supplies stolen from Nanotrasen forces, is intended to be \
+			used by infiltrators on enemy stations. It contains some basic first-aid tools for self-treatment \
+			in dire situations. Fits in your bag, but is visually obvious as non-Nanotrasen."
+	item = /obj/item/storage/firstaid/infiltrator
+	cost = 2
+
 /datum/uplink_item/device_tools/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. \
