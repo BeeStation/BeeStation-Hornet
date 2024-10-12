@@ -38,6 +38,6 @@
 	else
 		if(user.phaseout(target))
 			phased = TRUE
-			COOLDOWN_START(src, resurface_cooldown, 15 SECONDS)
+			COOLDOWN_START(src, resurface_cooldown, 5 SECONDS)
 	start_recharge()
 

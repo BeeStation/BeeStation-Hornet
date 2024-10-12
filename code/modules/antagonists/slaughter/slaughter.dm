@@ -77,7 +77,7 @@
 		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
 			continue
 		stored_mob.grab_ghost(force = TRUE)
-		to_chat(stored_mob, "<span class='clowntext'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
+		to_chat(stored_mob, "<span class='clowntext'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
 
 	consumed_mobs.Cut()
 	consumed_mobs = null
