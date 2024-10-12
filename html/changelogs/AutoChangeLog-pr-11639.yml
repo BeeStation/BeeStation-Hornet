@@ -1,0 +1,13 @@
+author: rkz, cacogen, Vladoricious, MrMelbert, jacklecroy
+delete-after: true
+changes:
+  - tweak: Cargo pizza crate now picks randomly from a list of most pizzas (non-repeating)
+  - bugfix: Cargo pizza crate pizza boxes now display their tags correctly
+  - rscadd: New box tags for pizzas that previously lacked them
+  - rscadd: Pizza bomb variant that starts armed (look for the "Meat Explosion" box
+      tag)
+  - bugfix: The food processor no longer strips chemicals from the things you put
+      inside
+  - bugfix: A bun will no longer disappear if you add an ingredient to it while it
+      is in your hand.
+  - bugfix: Custom burgers will no longer disappear from adding too many ingredients.
