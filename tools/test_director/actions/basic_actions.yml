@@ -1,0 +1,15 @@
+patterns:
+  - match: Define (\w+) as new (\w+)
+    code: |
+      var/$1 = allocate($2)
+  - match: When (\w+) (\w+) is set to (\w+)
+    code: |
+      $1.$2 = $3
+  - match: When human is next to (\w+)
+    code: |
+      var/mob/living/carbon/human/test_mob = new($1.loc)
+  - match: (\w+) (\w+) should be (\w+)
+    code: |
+      if ($1.$2 == $3)
+        return
+      DEFAULT_TEST_FAIL
