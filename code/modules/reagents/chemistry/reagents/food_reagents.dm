@@ -687,13 +687,6 @@
 	nutriment_factor = -0.3
 	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
 
-/datum/reagent/consumable/maltodextrin/overdose_start(mob/living/M)
-	if(!HAS_TRAIT(M, TRAIT_VORACIOUS))
-		to_chat(M, "<span class='notice'>Something in your guts feels off...</span>")
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/guts_sickness, name)
-	else
-		to_chat(M, "<span class='notice'>Maybe I should have more junk foods...</span>")
-
 /datum/reagent/consumable/maltodextrin/microplastics
 	name = "Microplastics"
 	description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"

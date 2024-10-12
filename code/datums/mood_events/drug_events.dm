@@ -58,6 +58,3 @@
 	mood_change = -100
 	timeout = 30 SECONDS
 	special_screen_obj = "mood_happiness_bad"
-
-/datum/mood_event/guts_sickness
-	mood_change = -2
