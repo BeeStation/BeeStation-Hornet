@@ -2306,6 +2306,7 @@
 #include "code\modules\cargo\bounties\engineering.dm"
 #include "code\modules\cargo\bounties\item.dm"
 #include "code\modules\cargo\bounties\mech.dm"
+#include "code\modules\cargo\bounties\core.dm"
 #include "code\modules\cargo\bounties\medical.dm"
 #include "code\modules\cargo\bounties\mining.dm"
 #include "code\modules\cargo\bounties\reagent.dm"
