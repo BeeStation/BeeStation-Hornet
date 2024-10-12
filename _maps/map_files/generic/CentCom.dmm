@@ -1028,7 +1028,6 @@
 /turf/open/floor/sepia,
 /area/centcom/evac)
 "dX" = (
-/obj/machinery/computer/security/telescreen,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
