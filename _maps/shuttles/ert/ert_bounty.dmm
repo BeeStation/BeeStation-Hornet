@@ -244,6 +244,16 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
+"xS" = (
+/obj/effect/turf_decal/edges/techfloor_orange{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
 "xY" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -281,6 +291,31 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
+/area/shuttle/hunter)
+"Ac" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/docking_port/stationary{
+	dwidth = 11;
+	height = 16;
+	name = "Deep Space";
+	shuttle_id = "pirate_home";
+	width = 17
+	},
+/obj/docking_port/mobile{
+	dheight = 3;
+	dwidth = 3;
+	height = 13;
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "hunter shuttle";
+	rechargeTime = 1800;
+	shuttle_id = "huntership";
+	width = 15
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "Az" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -320,16 +355,6 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
-"Fa" = (
-/obj/effect/turf_decal/edges/techfloor_orange{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
 "Gf" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/mineral/plastitanium,
@@ -337,6 +362,14 @@
 "Gu" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating,
+/area/shuttle/hunter)
+"JT" = (
+/obj/effect/turf_decal/edges/techfloor_orange,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "JU" = (
 /obj/machinery/computer/camera_advanced{
@@ -405,14 +438,6 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
-"Qh" = (
-/obj/effect/turf_decal/edges/techfloor_orange,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
 "QA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/corner{
@@ -459,31 +484,6 @@
 	},
 /obj/effect/landmark/ert_shuttle_spawn,
 /turf/open/floor/iron/techmaint,
-/area/shuttle/hunter)
-"Xe" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/docking_port/stationary{
-	dwidth = 11;
-	height = 16;
-	name = "Deep Space";
-	id = "huntership_home";
-	width = 17
-	},
-/obj/docking_port/mobile{
-	dheight = 3;
-	dwidth = 3;
-	height = 13;
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "hunter shuttle";
-	rechargeTime = 1800;
-	id = "huntership";
-	width = 15
-	},
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/turf/open/floor/plating,
 /area/shuttle/hunter)
 "Xn" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -653,7 +653,7 @@ Do
 Xn
 ak
 xs
-Xe
+Ac
 "}
 (8,1,1) = {"
 mP
@@ -751,9 +751,9 @@ SR
 SR
 Gu
 QA
-Fa
+xS
 lY
-Qh
+JT
 EK
 Gu
 SR
