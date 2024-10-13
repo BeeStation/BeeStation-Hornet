@@ -1,0 +1,5 @@
+author: RDS88-beeman
+delete-after: true
+changes:
+  - rscadd: Syndicate Traitors can now purchase a medkit at the low low cost of 2
+      telecrystals. Contains medicine for emergency healing.
