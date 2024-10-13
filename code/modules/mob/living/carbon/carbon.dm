@@ -140,9 +140,11 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!target || !isturf(loc))
 		return FALSE
 	if(istype(target, /atom/movable/screen))
-		var/atom/movable/screen/S = target
-		if(!S.can_throw_target)
-			return FALSE
+		return
+
+	var/atom/movable/screen/S = target
+	if(!S.can_throw_target)
+		return FALSE
 
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()
@@ -155,24 +157,17 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				stop_pulling()
 				if(HAS_TRAIT(src, TRAIT_PACIFISM))
 					to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
-				var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-				var/turf/end_T = get_turf(target)
-				if(start_T && end_T)
-					log_combat(src, throwable_mob, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
-
-	else if(!CHECK_BITFIELD(I.item_flags, ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
-		thrown_thing = I
-		var/pacifist = FALSE
-		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			pacifist = TRUE
-		else
-			I.item_flags |= WAS_THROWN
-		dropItemToGround(I, silent = TRUE)
-		if(pacifist)
-			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
-			return TRUE
+					return
+	else
+		thrown_thing = I.on_thrown(src, target)
 
 	if(thrown_thing)
+
+		if(isliving(thrown_thing))
+			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+			var/turf/end_T = get_turf(target)
+			if(start_T && end_T)
+				log_combat(src, thrown_thing, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
 		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
 						"<span class='danger'>You throw [thrown_thing].</span>")
 		log_message("has thrown [thrown_thing]", LOG_ATTACK)

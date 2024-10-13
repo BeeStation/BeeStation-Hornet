@@ -13,6 +13,8 @@
 	///tick delay between movements, lower = faster, higher = slower
 	var/vehicle_move_delay = 2
 
+	var/vehicle_move_multiplier
+
 	/**
 	 * If the driver needs a certain item in hand (or inserted, for vehicles) to drive this. For vehicles, this must be duplicated on the actual vehicle object in their
 	 * [/obj/vehicle/var/key_type] variable because the vehicle objects still have a few special checks/functions of their own I'm not porting over to the riding component
@@ -47,7 +49,7 @@
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 	handle_specials()
-	riding_mob.updating_glide_size = FALSE
+	//riding_mob.updating_glide_size = FALSE
 	ride_check_flags |= buckle_mob_flags
 
 	if(potion_boost)
@@ -62,7 +64,6 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(vehicle_bump))
-	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 
 /**
  * This proc handles all of the proc calls to things like set_vehicle_dir_layer() that a type of riding datum needs to call on creation
@@ -81,7 +82,7 @@
 	var/atom/movable/movable_parent = parent
 	restore_position(rider)
 	unequip_buckle_inhands(rider)
-	rider.updating_glide_size = TRUE
+	//rider.updating_glide_size = TRUE
 	if(!movable_parent.has_buckled_mobs())
 		qdel(src)
 
@@ -106,7 +107,7 @@
 	var/atom/movable/movable_parent = parent
 	if (isnull(dir))
 		dir = movable_parent.dir
-	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
+	//movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
 	for (var/m in movable_parent.buckled_mobs)
 		var/mob/buckled_mob = m
 		ride_check(buckled_mob)
@@ -238,241 +239,3 @@
 		else
 			qdel(O)
 	return TRUE
-
-/datum/component/riding/proc/handle_ride(mob/user, direction)
-	var/atom/movable/AM = parent
-	if(user.incapacitated())
-		Unbuckle(user)
-		return
-
-	if(world.time < last_vehicle_move + ((last_move_diagonal? sqrt(2) : 1) * vehicle_move_delay * vehicle_move_multiplier))
-		return
-	last_vehicle_move = world.time
-
-	if(emped && empable)
-		to_chat(user, "<span class='notice'>\The [AM]'s controls aren't responding!</span>")
-		return
-	if(keycheck(user))
-		var/turf/next = get_step(AM, direction)
-		var/turf/current = get_turf(AM)
-		if(!istype(next) || !istype(current))
-			return	//not happening.
-		if(!turf_check(next, current))
-			to_chat(user, "<span class='warning'>Your \the [AM] can not go onto [next]!</span>")
-			return
-		if(!Process_Spacemove(direction) || !isturf(AM.loc))
-			return
-		if(isliving(AM) && respect_mob_mobility)
-			var/mob/living/M = AM
-			if(!(M.mobility_flags & MOBILITY_MOVE))
-				return
-		if(!(direction & UP) && !(direction & DOWN))
-			step(AM, direction)
-		else if(ismob(AM))
-			var/mob/M = AM
-			var/old_dir = M.dir
-			M.zMove((direction & UP) ? UP : DOWN, feedback = TRUE, feedback_to = user)
-			M.setDir(old_dir)
-
-		if((direction & (direction - 1)) && (AM.loc == next))		//moved diagonally
-			last_move_diagonal = TRUE
-		else
-			last_move_diagonal = FALSE
-
-		handle_vehicle_layer(AM.dir)
-		handle_vehicle_offsets(AM.dir)
-	else
-		to_chat(user, "<span class='warning'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
-
-/datum/component/riding/proc/account_limbs(mob/living/M)
-	if(M.usable_legs < 2 && !slowed)
-		vehicle_move_delay = vehicle_move_delay + slowvalue
-		slowed = TRUE
-	else if(slowed)
-		vehicle_move_delay = vehicle_move_delay - slowvalue
-		slowed = FALSE
-
-///////Yes, I said humans. No, this won't end well...//////////
-/datum/component/riding/human
-	del_on_unbuckle_all = TRUE
-
-/datum/component/riding/human/Initialize()
-	. = ..()
-	RegisterSignal(parent, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_host_unarmed_melee))
-
-/datum/component/riding/human/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
-	var/mob/living/carbon/human/H = parent
-	H.remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
-	. = ..()
-
-/datum/component/riding/human/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
-	. = ..()
-	var/mob/living/carbon/human/H = parent
-	H.add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
-
-/datum/component/riding/human/proc/on_host_unarmed_melee(atom/target)
-	SIGNAL_HANDLER
-
-	var/mob/living/carbon/human/H = parent
-	if(H.a_intent == INTENT_DISARM && (target in H.buckled_mobs))
-		force_dismount(target)
-
-/datum/component/riding/human/handle_vehicle_layer(dir)
-	var/atom/movable/AM = parent
-	if(AM.buckled_mobs?.len)
-		for(var/mob/M in AM.buckled_mobs) //ensure proper layering of piggyback and carry, sometimes weird offsets get applied
-			M.layer = MOB_LAYER
-		if(!AM.buckle_lying)
-			if(dir == SOUTH)
-				AM.layer = ABOVE_MOB_LAYER
-			else
-				AM.layer = OBJ_LAYER
-		else
-			if(dir == NORTH)
-				AM.layer = OBJ_LAYER
-			else
-				AM.layer = ABOVE_MOB_LAYER
-	else
-		AM.layer = MOB_LAYER
-
-/datum/component/riding/human/get_offsets(pass_index)
-	var/mob/living/carbon/human/H = parent
-	if(H.buckle_lying)
-		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(0, 6), TEXT_WEST = list(0, 6))
-	else
-		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-6, 4), TEXT_WEST = list( 6, 4))
-
-
-/datum/component/riding/human/force_dismount(mob/living/user)
-	var/atom/movable/AM = parent
-	AM.unbuckle_mob(user)
-	user.Paralyze(60)
-	user.visible_message("<span class='warning'>[AM] pushes [user] off of [AM.p_them()]!</span>", \
-						"<span class='warning'>[AM] pushes you off of [AM.p_them()]!</span>")
-
-/datum/component/riding/cyborg
-	del_on_unbuckle_all = TRUE
-
-/datum/component/riding/cyborg/ride_check(mob/user)
-	var/atom/movable/AM = parent
-	if(user.incapacitated())
-		var/kick = TRUE
-		if(iscyborg(AM))
-			var/mob/living/silicon/robot/R = AM
-			if(R.module && R.module.ride_allow_incapacitated)
-				kick = FALSE
-		if(kick)
-			to_chat(user, "<span class='userdanger'>You fall off of [AM]!</span>")
-			Unbuckle(user)
-			return
-	if(iscarbon(user))
-		var/mob/living/carbon/carbonuser = user
-		if(!carbonuser.usable_hands)
-			Unbuckle(user)
-			to_chat(user, "<span class='warning'>You can't grab onto [AM] with no hands!</span>")
-			return
-
-/datum/component/riding/cyborg/handle_vehicle_layer(dir)
-	var/atom/movable/AM = parent
-	if(AM.buckled_mobs && AM.buckled_mobs.len)
-		if(dir == SOUTH)
-			AM.layer = ABOVE_MOB_LAYER
-		else
-			AM.layer = OBJ_LAYER
-	else
-		AM.layer = MOB_LAYER
-
-/datum/component/riding/cyborg/get_offsets(pass_index) // list(dir = x, y, layer)
-	return list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list( 6, 3))
-
-/datum/component/riding/cyborg/handle_vehicle_offsets(dir)
-	var/atom/movable/AM = parent
-	if(AM.has_buckled_mobs())
-		for(var/mob/living/M in AM.buckled_mobs)
-			M.setDir(dir)
-			if(iscyborg(AM))
-				var/mob/living/silicon/robot/R = AM
-				if(istype(R.module))
-					M.pixel_x = R.module.ride_offset_x[dir2text(dir)]
-					M.pixel_y = R.module.ride_offset_y[dir2text(dir)]
-			else
-				..()
-
-/datum/component/riding/cyborg/force_dismount(mob/living/M)
-	var/atom/movable/AM = parent
-	AM.unbuckle_mob(M)
-	var/turf/target = get_edge_target_turf(AM, AM.dir)
-	var/turf/targetm = get_step(get_turf(AM), AM.dir)
-	M.Move(targetm)
-	M.visible_message("<span class='warning'>[M] is thrown clear of [AM]!</span>", \
-					"<span class='warning'>You're thrown clear of [AM]!</span>")
-	M.throw_at(target, 14, 5, AM)
-	M.Knockdown(60)
-
-/obj/item/riding_offhand
-	name = "offhand"
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "offhand"
-	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/mob/living/carbon/rider
-	var/mob/living/parent
-	var/selfdeleting = FALSE
-
-/obj/item/riding_offhand/dropped()
-	selfdeleting = TRUE
-	..()
-
-/obj/item/riding_offhand/equipped()
-	if(loc != rider && loc != parent)
-		selfdeleting = TRUE
-		qdel(src)
-	. = ..()
-
-/obj/item/riding_offhand/Destroy()
-	var/atom/movable/AM = parent
-	if(selfdeleting)
-		if(rider in AM.buckled_mobs)
-			AM.unbuckle_mob(rider)
-	. = ..()
-
-//tamed riding
-/datum/component/riding/tamed/Initialize()
-	. = ..()
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		override_allow_spacemove = S.spacewalk
-		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(handle_mortality))
-
-/datum/component/riding/tamed/proc/handle_mortality()
-	qdel(src)
-
-/datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		M.spacewalk = S.spacewalk
-		S.toggle_ai(AI_OFF)
-	..()
-
-/datum/component/riding/tamed/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
-	M.spacewalk = FALSE
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		S.toggle_ai(AI_ON)
-	..()
-
-/datum/component/riding/proc/on_emp_act(datum/source, severity)
-	SIGNAL_HANDLER
-
-	if(!empable)
-		return
-	emped = TRUE
-	var/atom/movable/AM = parent
-	AM.add_emitter(/obj/emitter/fire_smoke, "smoke")
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 300 / severity, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
-
-/datum/component/riding/proc/reboot()
-	emped = FALSE
-	var/atom/movable/AM = parent
-	AM.remove_emitter("smoke")

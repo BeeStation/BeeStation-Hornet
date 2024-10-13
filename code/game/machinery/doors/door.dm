@@ -112,7 +112,6 @@
 			open()
 		else
 			do_animate("deny")
-		return
 
 /obj/machinery/door/Move()
 	var/turf/T = loc
