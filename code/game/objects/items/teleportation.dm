@@ -338,50 +338,26 @@
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 
-	var/turf/current_location = get_turf(user)
-	var/area/current_area = current_location.loc
-	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
-		return
+	var/turf/original_location = get_turf(user)
 
-	var/mob/living/carbon/C = user
 	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
 	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 	var/direction = (EMP_D || length(bagholding)) ? pick(GLOB.cardinals) : user.dir
+	var/turf/destination = get_ranged_target_turf(user, direction, teleport_distance)
 
-	for (var/i in 1 to teleport_distance)
-		// Step forward
-		var/turf/previous = current_location
-		current_location = get_step(current_location, direction)
+	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
+	if(isnull(new_location))
+		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
+		return
 
-		// Check if we can move here
-		current_area = current_location.loc
-		if(!check_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-			current_location = previous
-			break
-		// If it contains objects, try to break it
-		for (var/obj/object in current_location.contents)
-			if (object.density)
-				object.take_damage(150)
-		if (current_location.is_blocked_turf(TRUE))
-			current_location = previous
-			break
-
-		// Telefrag this location
-		if (!telefrag(current_location, user))
-			current_location = previous
-			break
-
-	do_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK)
-
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(user))
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(original_location)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_location)
 	charges--
 	check_charges()
-	playsound(current_location, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(current_location, "sparks", 50, 1)
+	playsound(new_location, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(new_location, "sparks", 50, 1)
 
-/obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
+/obj/item/teleporter/proc/telefrag(mob/user, turf/fragging_location)
 	for(var/mob/living/target in fragging_location)//Hit everything in the turf
 		// Skip any mobs that aren't standing, or aren't dense
 		if ((target.body_position == LYING_DOWN) || !target.density || user == target)

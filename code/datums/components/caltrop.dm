@@ -67,7 +67,7 @@
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
-			if(!H.incapacitated(ignore_restraints = TRUE))
+			if(!H.incapacitated(IGNORE_RESTRAINTS))
 				H.visible_message("<span class='danger'>[H] steps on [A].</span>", \
 						"<span class='userdanger'>You step on [A]!</span>")
 			else
