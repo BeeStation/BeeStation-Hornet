@@ -52,11 +52,10 @@
 	//riding_mob.updating_glide_size = FALSE
 	ride_check_flags |= buckle_mob_flags
 
+	//Calculate the move multiplier speed, to be proportional to mob speed
+	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 	if(potion_boost)
 		vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
-	else
-		//Calculate the move multiplier speed, to be proportional to mob speed
-		vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
 /datum/component/riding/RegisterWithParent()
 	. = ..()
