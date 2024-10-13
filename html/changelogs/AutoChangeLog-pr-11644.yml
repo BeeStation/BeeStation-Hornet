@@ -1,5 +1,0 @@
-author: ClownMoff
-delete-after: true
-changes:
-  - tweak: 'CorgStation: Swaps the position of brig medbay and armory'
-  - tweak: 'CorgStation: Gives the HoS room the proper shutters'

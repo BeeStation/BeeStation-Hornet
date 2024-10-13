@@ -1,5 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - rscadd: Cyborgs can now harvest plants from the hydroponics bin.
-  - rscadd: AI and Cyborgs can now toggle floodlights.
