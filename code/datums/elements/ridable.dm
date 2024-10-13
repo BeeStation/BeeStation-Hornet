@@ -27,9 +27,9 @@
 	riding_component_type = component_type
 	potion_boosted = potion_boost
 
-	RegisterSignal(target, COMSIG_MOVABLE_PREBUCKLE, .proc/check_mounting)
+	RegisterSignal(target, COMSIG_MOVABLE_PREBUCKLE, PROC_REF(check_mounting))
 	if(isvehicle(target))
-		RegisterSignal(target, COMSIG_PARENT_ATTACKBY, .proc/check_potion)
+		RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(check_potion))
 
 /datum/element/ridable/Detach(datum/target, force)
 	UnregisterSignal(target, list(COMSIG_MOVABLE_PREBUCKLE, COMSIG_PARENT_ATTACKBY))
