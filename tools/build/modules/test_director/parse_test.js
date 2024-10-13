@@ -105,7 +105,13 @@ function parse_scenario(block) {
     .filter(x => !is_line_empty_or_comment(x))
     .map(x => x.replace(/^(\s*(?:given|when|then|and|but|\*)\s*)/igm, '').replaceAll(/(\b(?:the|an|a)\b\s*)/igm, ''))
     .forEach(x => {
-      const step = new Step(x.split('\n')[0]);
+      const split_lines = x.split('\n');
+      // Remove the semi-colons for parameters
+      const step = new Step(split_lines[0].replaceAll(':', ''));
+      // Add the parameter
+      if (split_lines.length > 1) {
+        step.set_parameter(split_lines.slice(1).map(x => decrement_indentation(x)).filter(x => !/^\s*"""\s*$/gmi.test(x)).join('\n'));
+      }
       createdScenario.addStep(step);
     });
   return createdScenario;

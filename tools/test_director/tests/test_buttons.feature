@@ -5,7 +5,7 @@ Feature: Button Interaction
 
 	Background:
 		# Inject code necessary for the test to run
-		Given the following code is injected:
+	  Given the following code is injected:
 			"""
       /obj/item/assembly/unit_test
         var/pressed = FALSE
