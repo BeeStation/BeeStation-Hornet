@@ -89734,15 +89734,15 @@
 /turf/open/floor/iron/dark,
 /area/security/brig/aft)
 "xFp" = (
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/hand_labeler,
 /obj/item/taperecorder,
 /obj/item/camera/detective,
+/obj/machinery/computer/security/telescreen/station{
+	dir = 8;
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "xFB" = (
