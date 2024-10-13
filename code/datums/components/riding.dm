@@ -22,6 +22,10 @@
 	var/ride_check_ridden_restrained = FALSE
 
 	var/del_on_unbuckle_all = FALSE
+
+	/// If the "vehicle" is a mob, respect MOBILITY_MOVE on said mob.
+	var/respect_mob_mobility = TRUE
+
 	var/emped = FALSE
 	var/empable = FALSE
 
@@ -189,10 +193,14 @@ var/atom/movable/movable_parent = parent
 		if(!istype(next) || !istype(current))
 			return	//not happening.
 		if(!turf_check(next, current))
-			to_chat(user, "\The [AM] cannot go onto [next]!")
+			to_chat(user, "<span class='warning'>Your \the [AM] can not go onto [next]!</span>")
 			return
 		if(!Process_Spacemove(direction) || !isturf(AM.loc))
 			return
+		if(isliving(AM) && respect_mob_mobility)
+			var/mob/living/M = AM
+			if(!(M.mobility_flags & MOBILITY_MOVE))
+				return
 		if(!(direction & UP) && !(direction & DOWN))
 			step(AM, direction)
 		else if(ismob(AM))
@@ -209,7 +217,7 @@ var/atom/movable/movable_parent = parent
 		handle_vehicle_layer(AM.dir)
 		handle_vehicle_offsets(AM.dir)
 	else
-		to_chat(user, "<span class='notice'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
+		to_chat(user, "<span class='warning'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
 
 /datum/component/riding/proc/Unbuckle(atom/movable/M)
 	addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), M), 0, TIMER_UNIQUE)
@@ -303,7 +311,7 @@ var/atom/movable/movable_parent = parent
 		var/mob/living/carbon/carbonuser = user
 		if(!carbonuser.usable_hands)
 			Unbuckle(user)
-			to_chat(user, "<span class='userdanger'>You can't grab onto [AM] with no hands!</span>")
+			to_chat(user, "<span class='warning'>You can't grab onto [AM] with no hands!</span>")
 			return
 
 /datum/component/riding/cyborg/handle_vehicle_layer(dir)
