@@ -1,8 +1,8 @@
 {
 	"patterns": [
 	  {
-		"match": "(\\w+) is defined as new ((?:/\\w+)+)",
-		"code": "var/$1 = allocate($2)"
+		"match": "(\\w+) is defined as new ((?:\\/(?:\\w|\\_)+)+)",
+		"code": "var$2/$1 = allocate($2)"
 	  },
 	  {
 		"match": "player is next to (\\w+)",
@@ -15,6 +15,10 @@
 	  {
 		"match": "player is holding (\\w+)",
 		"code": "player.put_in_active_hand($1, TRUE)"
+	  },
+	  {
+		"match": "following code is injected",
+		"code_injection": true
 	  }
 	]
   }

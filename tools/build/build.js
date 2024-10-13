@@ -110,7 +110,6 @@ export const DmTestTarget = new Juke.Target({
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
-    fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
     await DreamMaker(`${DME_NAME}.test.dme`, {
       defines: ['CBT', 'CIBUILDING', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
@@ -128,6 +127,7 @@ export const DmTestTarget = new Juke.Target({
       '-params', 'log-directory=ci'
     );
     Juke.rm('*.test.*');
+    Juke.rm('code/modules/unit_tests/generated_tests.dm');
     try {
       const cleanRun = fs.readFileSync('data/logs/ci/clean_run.lk', 'utf-8');
       console.log(cleanRun);
@@ -141,7 +141,23 @@ export const DmTestTarget = new Juke.Target({
 
 export const TestDirectorTarget = new Juke.Target({
   executes: async ({ get }) => {
-    compile_tests('code/modules/unit_tests/generated', 'tools/test_director/actions', 'tools/test_director/tests');
+    try {
+      compile_tests(
+        'code/modules/unit_tests/generated_tests.dm',
+        'tools/test_director/actions',
+        'tools/test_director/tests',
+        'tools/test_director/test_template.dm'
+      );
+    }
+    catch (err) {
+      Juke.logger.error('Failed to generate test director tests.');
+      Juke.logger.error(err);
+      throw new Juke.ExitCode(1);
+    }
+    // Include the generated tests at the end of the DME so it has access to defines
+    fs.writeFileSync(`${DME_NAME}.test.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
+      encoding: 'utf8'
+    });
   },
 });
 

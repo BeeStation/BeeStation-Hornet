@@ -1,3 +1,5 @@
+// @ts-check
+
 import { Rule } from "./rule.js";
 
 export class Feature extends Rule {

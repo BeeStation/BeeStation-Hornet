@@ -1,3 +1,5 @@
+// @ts-check
+
 import fs from 'fs';
 import { Feature } from "./classes/feature.js";
 import { Scenario } from "./classes/scenario.js";
@@ -5,6 +7,7 @@ import { ScenarioOutline } from "./classes/scenario_outline.js";
 import Juke from '../../juke/index.js';
 import { Step } from './classes/step.js';
 import { Examples } from './classes/examples.js';
+import { Rule } from './classes/rule.js';
 
 /**
  * Compile a single test and return the .dm file created
@@ -92,16 +95,18 @@ function parse_feature(parse_text) {
  * @returns {Scenario} - The constructed Scenario object.
  */
 function parse_scenario(block) {
-  const block_name = block.split('\n').slice(0, 1)[0].trim();
+  const block_name = block.split('\n')[0].trim();
   const createdScenario = new Scenario(block_name);
   // Complicated regex ensures we only move to a new line when that next line is a new step
-  block.split(/^(.+$(?:\n\s+.+)*)/gm)
-    .slice(1)
+  block
+    .slice(block.indexOf('\n') + 1)
+    .split(/^(.+$(?:\n\s+.+)*)/gm)
     .map(x => x.trim())
     .filter(x => !is_line_empty_or_comment(x))
-    .map(x => x.replace(/^\s+(?:given|when|then|and|but|\*)\s+/igm, ''))
+    .map(x => x.replace(/^(\s*(?:given|when|then|and|but|\*)\s*)/igm, '').replaceAll(/(\b(?:the|an|a)\b\s*)/igm, ''))
     .forEach(x => {
-      createdScenario.addStep(new Step(x));
+      const step = new Step(x.split('\n')[0]);
+      createdScenario.addStep(step);
     });
   return createdScenario;
 }
@@ -133,7 +138,7 @@ function parse_scenario_outline(block) {
     .slice(1)
     .map(x => x.trim())
     .filter(x => !is_line_empty_or_comment(x))
-    .map(x => x.replace(/^\s+(?:given|when|then|and|but|\*)\s+/igm, ''))
+    .map(x => x.replace(/^(\s*(?:given|when|then|and|but|\*)\s*)/igm, '').replaceAll(/(\b(?:the|an|a)\b\s*)/igm, ''))
     .forEach(x => {
       createdScenario.addStep(new Step(x));
     });
@@ -185,6 +190,8 @@ function read_next_block(input) {
 
   if (match) {
     const firstMatchIndex = match.index; // Get the index of the first match
+    if (firstMatchIndex == null)
+      throw new Error('null assertion failed in parse_test');
     const keyword = match[1].trim(); // Get the matched keyword
     const codeBlock = input.slice(0, firstMatchIndex); // Extract the code block
     const remainingText = input.slice(firstMatchIndex + match[0].length); // Get the remaining text
@@ -226,7 +233,7 @@ function decrement_indentation(input) {
 class CodeBlockInfo {
   /**
    * @param {string} codeBlock - The code block string.
-   * @param {string} keyword - The matched keyword string.
+   * @param {string|null} keyword - The matched keyword string.
    * @param {string} remainingText - The remaining text outside of the block.
    */
   constructor(codeBlock, keyword, remainingText) {

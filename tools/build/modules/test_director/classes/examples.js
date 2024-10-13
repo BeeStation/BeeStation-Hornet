@@ -1,3 +1,5 @@
+// @ts-check
+
 export class Examples {
   /**
    * The name of the table.

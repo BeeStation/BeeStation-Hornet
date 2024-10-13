@@ -7,12 +7,12 @@ Feature: Button Interaction
 		# Inject code necessary for the test to run
 		Given the following code is injected:
 			"""
-			/obj/item/assembly/unit_test
-			var/pressed = FALSE
+      /obj/item/assembly/unit_test
+        var/pressed = FALSE
 
-			/obj/item/assembly/unit_test/pulsed(mob/pulser)
-			. = ..()
-			pressed = TRUE
+      /obj/item/assembly/unit_test/pulsed(mob/pulser)
+        . = ..()
+        pressed = TRUE
 			"""
 
 	Scenario: Button click interaction test

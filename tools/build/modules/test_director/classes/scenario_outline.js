@@ -1,4 +1,7 @@
+// @ts-check
+
 import { Scenario } from "./scenario.js";
+import { Examples } from "./examples.js";
 
 export class ScenarioOutline extends Scenario {
 
@@ -15,7 +18,7 @@ export class ScenarioOutline extends Scenario {
 
   /**
    * Adds an example to the scenario outline.
-   * @param {Examples[]} example - An object representing an example.
+   * @param {Examples} example - An object representing an example.
    */
   addExamples(example) {
     this.examples.push(example);

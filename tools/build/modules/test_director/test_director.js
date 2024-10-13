@@ -1,3 +1,4 @@
+// @ts-check
 
 import fs from 'fs';
 import Juke from '../../juke/index.js';
@@ -5,16 +6,52 @@ import { parse_features } from './parse_test.js';
 
 /**
  * Compile the test config files and generate DM files
+ * @param {string} dm_path
+ * @param {string} config_directory
+ * @param {string} test_directory
+ * @param {string} template_path
  */
-export function compile_tests(dm_directory, config_directory, test_directory) {
+export function compile_tests(dm_path, config_directory, test_directory, template_path) {
   // Generate test director files
-  const directories = Juke.glob(`${test_directory}/**/*`);
+  const test_directories = Juke.glob(`${test_directory}/**/*`);
   // Get all the features that we wish to build code for
-  const results = directories.flatMap(test_file => parse_features(test_file));
+  const results = test_directories.flatMap(test_file => parse_features(test_file));
   // Get all the actions
+  const action_directories = Juke.glob(`${config_directory}/**/*.json`);
+  const actions = action_directories.flatMap(file => parse_actions(file));
+  // Load up the template file
+  const test_template = fs.readFileSync(template_path, 'utf-8');
+  fs.writeFileSync(dm_path, '', {
+    encoding: 'utf-8'
+  });
+  // Create the tests
+  for (const test of results) {
+    const indent_match = /^(\s*).*TEST_CODE/gmi.exec(test_template);
+    if (indent_match === null)
+      throw new Error(`${template_path} does not contain TEST_CODE, meaning that no test code is being injected.`);
+    const code_indentation = indent_match[1];
+    const test_code = test.generate_code(actions, test_template).split('\n').map(x => `${code_indentation}${x}`).join('\n');
+    const test_file = test_template
+      .replaceAll(/[\t ]*TEST_CODE/gm, test_code)
+      .replaceAll('TEST_NAME', test.name.toLowerCase().replace(/\W/gmi, '').replace(' ', '_'));
+    fs.appendFileSync(dm_path, test_file, {
+      encoding: 'utf-8'
+    });
+  }
 }
 
-function parse_actions() {
+/**
+ * Parses the provided actions file
+ * @param {string} file_path
+ * @returns {{match: RegExp, code: string, code_injection: boolean}[]}
+ */
+function parse_actions(file_path) {
+  const action_file = fs.readFileSync(file_path, 'utf-8');
+  const action_object = JSON.parse(action_file);
 
+  // Convert the 'match' pattern strings to regular expressions
+  return action_object.patterns.map(pattern => ({
+    match: new RegExp('^' + pattern.match.replace(/\b(?:a|an|the)\b/gi, '') + '$', 'gi'),
+    code: pattern.code
+  }));
 }
-
