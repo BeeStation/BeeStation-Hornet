@@ -15713,7 +15713,7 @@
 	name = "Central Access"
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "cVb" = (
 /turf/closed/wall,
 /area/hallway/secondary/service)
@@ -16143,11 +16143,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/northleft{
@@ -18640,7 +18635,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 5
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "egz" = (
 /obj/structure/table,
 /obj/machinery/airalarm/directional/south{
@@ -22808,7 +22803,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "fRr" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -23574,7 +23569,7 @@
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "gfW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -24511,7 +24506,7 @@
 "gzG" = (
 /obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/white/side,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "gzH" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -26382,7 +26377,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "hqX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -29776,7 +29771,7 @@
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "iEP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -32356,6 +32351,12 @@
 /mob/living/carbon/monkey/punpun,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
+"jDr" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/bar/atrium)
 "jDS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -32818,7 +32819,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "jND" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/newscaster/directional/south,
@@ -33069,12 +33070,6 @@
 	dir = 8;
 	freq = 1400;
 	location = "Kitchen"
-	},
-/obj/structure/plasticflaps/opaque,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/navbeacon{
@@ -39567,18 +39562,12 @@
 "mAp" = (
 /obj/machinery/chem_master/condimaster{
 	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe";
-	pixel_x = -4
+	name = "HoochMaster Deluxe"
 	},
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
 	pixel_y = 30
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
@@ -39586,8 +39575,6 @@
 	freq = 1400;
 	location = "Bar"
 	},
-/obj/structure/plasticflaps/opaque,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "mAq" = (
@@ -40398,7 +40385,7 @@
 	location = "Bar"
 	},
 /obj/structure/plasticflaps/opaque,
-/turf/open/floor/wood/big,
+/turf/open/floor/iron,
 /area/crew_quarters/bar)
 "mSM" = (
 /obj/machinery/status_display/evac{
@@ -41136,7 +41123,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "nhK" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -43533,7 +43520,7 @@
 	location = "Dorm"
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "ofI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -43790,12 +43777,6 @@
 	dir = 8;
 	freq = 1400;
 	location = "Hydroponics"
-	},
-/obj/structure/plasticflaps/opaque,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
@@ -45310,7 +45291,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "oTT" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet,
@@ -45738,11 +45719,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/execution/transfer)
-"pet" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "peP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -47256,26 +47232,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"pHJ" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/southleft{
-	req_access_txt = "25";
-	name = "Bar Delivery"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/crew_quarters/bar)
 "pHK" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -47638,7 +47594,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "pPb" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -47656,7 +47612,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "pPy" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
@@ -48257,6 +48213,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
+"qcl" = (
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/bar/atrium)
 "qcu" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -48355,7 +48314,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "qgs" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -48621,7 +48580,7 @@
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "qmD" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Storage";
@@ -49395,7 +49354,7 @@
 	},
 /obj/structure/chair/stool/bar/directional/north,
 /turf/open/floor/iron/white/corner,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "qBF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -50458,10 +50417,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
-"qYj" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/crew_quarters/kitchen)
 "qYK" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -52194,7 +52149,7 @@
 /turf/open/floor/iron/white/corner{
 	dir = 8
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "rDe" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
@@ -52882,7 +52837,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "rOW" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -56287,7 +56242,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "tfu" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 1
@@ -56462,7 +56417,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "thW" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -57442,7 +57397,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "tBb" = (
 /obj/structure/table/reinforced,
 /obj/item/computer_hardware/hard_drive/role/engineering{
@@ -57672,7 +57627,7 @@
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "tFh" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
@@ -63849,7 +63804,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
+/area/crew_quarters/bar/atrium)
 "wfq" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
@@ -105554,7 +105509,7 @@ eKZ
 fZM
 aJC
 vqN
-pet
+jVH
 nup
 aHJ
 idb
@@ -106068,7 +106023,7 @@ uvw
 pVj
 aJC
 mAp
-pHJ
+jVH
 jUv
 deN
 aJC
@@ -106851,7 +106806,7 @@ qBE
 tAZ
 tAZ
 iEM
-aJI
+hUm
 eTm
 aYV
 aYV
@@ -107106,10 +107061,10 @@ psd
 eML
 gzG
 fRe
-aVz
+qcl
 pOB
-aJI
-aJI
+hUm
+hUm
 aYV
 aYV
 aYV
@@ -107362,11 +107317,11 @@ nnw
 psd
 eML
 gzG
-nGC
-aVz
+jDr
+qcl
 efR
 qmy
-qYj
+ukb
 qSd
 aYV
 aYV
@@ -107877,7 +107832,7 @@ bfX
 dOI
 gzG
 qgf
-aVz
+qcl
 weH
 hqT
 cUX
@@ -108134,10 +108089,10 @@ bfX
 eML
 gzG
 qgf
-aVz
+qcl
 tff
 rOP
-qYj
+ukb
 dYi
 aYV
 aYV
@@ -108394,7 +108349,7 @@ pPl
 tFf
 tFf
 gfU
-aJI
+hUm
 aYV
 aYV
 aYV
@@ -108646,12 +108601,12 @@ aJI
 aLu
 aSP
 aJI
-aJI
-qYj
+hUm
+ukb
 oTw
 nhh
-aJI
-aJI
+hUm
+hUm
 mkg
 mkg
 mkg
