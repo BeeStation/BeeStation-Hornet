@@ -15206,7 +15206,7 @@
 	dir = 8;
 	id = "medcell";
 	name = "Medical Cell";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -18616,7 +18616,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Post - Cargo";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -28127,7 +28127,7 @@
 "fCE" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Post - Research Division";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -32274,7 +32274,7 @@
 "hiA" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Departure Lounge Security Post";
-	req_access_txt = "63"
+	req_one_access_txt = "1"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -36124,7 +36124,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "meddoor";
 	name = "Medical Cell";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
@@ -55834,7 +55834,7 @@
 "pST" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Engineering Security Post";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"

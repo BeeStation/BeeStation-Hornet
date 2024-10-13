@@ -8920,7 +8920,7 @@
 "cHz" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -16329,7 +16329,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Medbay";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -17038,7 +17038,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Engineering";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -34363,7 +34363,7 @@
 "laT" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -62480,7 +62480,7 @@
 "ujG" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -66080,7 +66080,7 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "medbay_lockdown";
@@ -69138,7 +69138,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/eastleft{
 	dir = 1;
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/machinery/door/window/westright{
 	dir = 2
