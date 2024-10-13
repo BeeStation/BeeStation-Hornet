@@ -1006,6 +1006,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
 /**
+ * Intercept our atom being teleported if we need to
+ *
+ * return COMPONENT_BLOCK_TELEPORT to explicity block teleportation
+ */
+/atom/proc/intercept_teleport(channel, turf/origin, turf/destination)
+	. = SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, origin, destination)
+
+	if(. == COMPONENT_BLOCK_TELEPORT)
+		return
+
+	// Recursively check contents by default. This can be overriden if we want different behavior.
+	for(var/atom/thing in contents)
+		// For the purposes of intercepting teleports, mobs on the turf don't count.
+		// We're already doing logic for intercepting teleports on the teleatom-level
+		if(isturf(src) && ismob(thing))
+			continue
+		var/result = thing.intercept_teleport(channel, origin, destination)
+		if(result == COMPONENT_BLOCK_TELEPORT)
+			return result
+
+/**
   * Respond to our atom being checked by a virus extrapolator.
   *
   * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return an empty list (which may be populated by the signal)

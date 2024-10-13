@@ -175,6 +175,9 @@
 // paintings
 #define VV_HK_REMOVE_PAINTING "remove_painting"
 
+//outfits
+#define VV_HK_TO_OUTFIT_EDITOR "outfit_editor"
+
 // Flags for debug_variable() that do little things to what we end up rendering
 
 /// ALWAYS render a reduced list, useful for fuckoff big datums that need to be condensed for the sake of client load

@@ -79,14 +79,8 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define TELEPORT_ALLOW_CLOCKWORK 2
 /// Everyone but abductors is restricted
 #define TELEPORT_ALLOW_ABDUCTORS 3
-
-//Teleport modes
-/// Default teleport mode
-#define TELEPORT_MODE_DEFAULT 0
-/// A clockwork teleport
-#define TELEPORT_MODE_CLOCKWORK 2
-/// An abductor teleport
-#define TELEPORT_MODE_ABDUCTORS 3
+/// Everyone but wizards is restricted
+#define TELEPORT_ALLOW_WIZARD 4
 
 // Jetpack Thrust
 /// Thrust needed with gravity

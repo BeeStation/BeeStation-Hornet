@@ -8,7 +8,7 @@
 /area/tdome/arena)
 "b" = (
 /obj/structure/table,
-/obj/item/trash/can/food,
+/obj/item/trash/canned,
 /turf/open/floor/iron/yellowsiding,
 /area/tdome/arena)
 "c" = (
@@ -214,7 +214,7 @@
 /area/tdome/arena)
 "M" = (
 /obj/structure/table,
-/obj/item/trash/can/food,
+/obj/item/trash/canned,
 /turf/open/floor/iron/yellowsiding{
 	dir = 1
 	},

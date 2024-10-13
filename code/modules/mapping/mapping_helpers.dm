@@ -313,6 +313,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/list/possible_alt_species = GLOB.roundstart_races.Copy() - list(SPECIES_HUMAN, SPECIES_IPC, SPECIES_DIONA)
 	if(prob(15) && length(possible_alt_species))
 		corpse.set_species(GLOB.species_list[pick(possible_alt_species)])
+	corpse.regenerate_organs()
 	corpse.give_random_dormant_disease(25, min_symptoms = 1, max_symptoms = 5) // slightly more likely that an average stationgoer to have a dormant disease, bc who KNOWS how they died?
 	corpse.death()
 	for (var/obj/item/organ/organ in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis

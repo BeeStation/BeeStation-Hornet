@@ -1137,6 +1137,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
 
+/datum/species/proc/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	var/prev_lying = H.lying_prev
+	if(H.stat != DEAD)
+		H.death(TRUE)
+
+	if(!prev_lying)
+		H.gib_animation()
+
+	H.spill_organs(no_brain, no_organs, no_bodyparts)
+
+	if(!no_bodyparts)
+		H.spread_bodyparts(no_brain, no_organs)
+
+	H.spawn_gibs(no_bodyparts)
+	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
+	return
+
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
 	// handles the equipping of species-specific gear
 	return
@@ -1745,9 +1762,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-
-	var/weakness = H.check_weakness(I, user)
-	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
+	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
