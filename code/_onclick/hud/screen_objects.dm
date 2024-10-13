@@ -60,7 +60,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated())
+	if(usr.incapacitated(IGNORE_STASIS))
 		return 1
 
 	if(ismob(usr))
