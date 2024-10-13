@@ -1,0 +1,8 @@
+author: BeeLover66
+delete-after: true
+changes:
+  - bugfix: Uplink failsafe code no longer has a chance of being the same as the unlock
+      code
+  - bugfix: Uplink failsafe code is now shown properly on the traitor UI panel
+  - bugfix: Uplink unlock and failsafe codes are formatted properly for the pen uplink
+  - bugfix: Buying a failsafe for an implant uplink now shows an error message
