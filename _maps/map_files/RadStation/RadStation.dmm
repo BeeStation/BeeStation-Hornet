@@ -3283,7 +3283,7 @@
 "aZJ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -7869,7 +7869,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Security Desk";
-	req_access_txt = "1"
+	req_one_access_txt = "1;40"
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
@@ -11424,7 +11424,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "63"
+	req_access_txt = "2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -16452,7 +16452,7 @@
 	dir = 8;
 	name = "Arrivals Security Checkpoint";
 	pixel_y = 1;
-	req_access_txt = "1"
+	req_one_access_txt = "1;56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18675,7 +18675,7 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "fOw" = (
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -20995,7 +20995,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -20
 	},
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -23831,11 +23831,11 @@
 	pixel_y = -3
 	},
 /obj/machinery/camera/directional/north,
-/obj/machinery/computer/security/telescreen{
-	pixel_y = 25
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/machinery/computer/security/telescreen/station{
+	pixel_y = 32
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -30692,7 +30692,7 @@
 /area/maintenance/port/central)
 "jNG" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/records/medical/laptop{
+/obj/machinery/computer/med_data/laptop{
 	dir = 1;
 	pixel_y = 6;
 	req_one_access = null;
@@ -34376,7 +34376,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -34460,7 +34460,7 @@
 	dir = 1;
 	pixel_y = 25
 	},
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	pixel_y = -3
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -36123,7 +36123,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "63"
+	req_access_txt = "2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -37456,7 +37456,7 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
-/obj/machinery/computer/records/medical/laptop{
+/obj/machinery/computer/med_data/laptop{
 	dir = 1;
 	pixel_y = 5
 	},
@@ -37796,7 +37796,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "mev" = (
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/white/line{
@@ -38168,7 +38168,7 @@
 	pixel_x = 32;
 	pixel_y = -2
 	},
-/obj/machinery/computer/records/medical{
+/obj/machinery/computer/med_data{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
@@ -42323,7 +42323,7 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "nvc" = (
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -50215,10 +50215,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	pixel_y = 31
-	},
 /obj/structure/chair,
+/obj/machinery/computer/security/telescreen/station{
+	pixel_y = 32
+	},
 /turf/open/floor/iron,
 /area/security/checkpoint/science)
 "pTh" = (
@@ -51542,7 +51542,7 @@
 /area/engine/storage)
 "qoI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/records/medical/laptop{
+/obj/machinery/computer/med_data/laptop{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -54331,7 +54331,7 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -56113,7 +56113,7 @@
 /area/medical/exam_room)
 "rKH" = (
 /obj/machinery/light,
-/obj/machinery/computer/records/medical{
+/obj/machinery/computer/med_data{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -57970,9 +57970,9 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/records/security,
-/obj/machinery/computer/security/telescreen{
-	pixel_y = 31
+/obj/machinery/computer/secure_data,
+/obj/machinery/computer/security/telescreen/medical{
+	pixel_y = 32
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
@@ -58073,7 +58073,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "suI" = (
-/obj/machinery/computer/records/security{
+/obj/machinery/computer/secure_data{
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -64470,7 +64470,7 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/machinery/computer/records/security,
+/obj/machinery/computer/secure_data,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
@@ -72907,7 +72907,7 @@
 	pixel_x = -6;
 	pixel_y = 14
 	},
-/obj/machinery/computer/records/medical/laptop{
+/obj/machinery/computer/med_data/laptop{
 	dir = 8;
 	pixel_x = 2
 	},

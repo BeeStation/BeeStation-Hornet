@@ -257,8 +257,7 @@
 /obj/machinery/door/poddoor{
 	icon_state = "pdoor1";
 	id = "spacebattlepod3";
-	name = "Front Hull Door";
-	opacity = 1
+	name = "Front Hull Door"
 	},
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/syndicate2)
@@ -538,49 +537,35 @@
 "cC" = (
 /obj/structure/table/reinforced,
 /obj/item/food/sausage,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cD" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/enzyme,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cE" = (
 /obj/structure/table/reinforced,
 /obj/item/knife/kitchen,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cF" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/rollingpin,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cG" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cH" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/microwave,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cJ" = (
 /obj/machinery/door/unpowered/shuttle,
@@ -608,9 +593,7 @@
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "cP" = (
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cQ" = (
 /obj/item/stack/sheet/iron,
@@ -626,29 +609,21 @@
 /area/awaymission/spacebattle/cruiser)
 "cT" = (
 /obj/machinery/door/unpowered/shuttle,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cU" = (
 /obj/structure/table/reinforced,
 /obj/item/food/fries,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cV" = (
 /obj/structure/table/reinforced,
 /obj/item/food/soup/stew,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cW" = (
 /obj/structure/table/reinforced,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "cY" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
@@ -1030,7 +1005,6 @@
 /area/awaymission/spacebattle/cruiser)
 "ff" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "spacebattlestorage";
 	name = "Secure Storage";
 	pixel_x = 32
@@ -1056,7 +1030,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/cruiser)
 "fj" = (
-/obj/machinery/computer/security/telescreen,
+/obj/machinery/computer/security/telescreen/station,
 /turf/closed/wall/mineral/titanium,
 /area/awaymission/spacebattle/cruiser)
 "fl" = (
@@ -1178,9 +1152,7 @@
 /area/awaymission/spacebattle/cruiser)
 "fI" = (
 /obj/effect/landmark/awaystart,
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "fL" = (
 /obj/item/stack/sheet/iron,
@@ -1361,7 +1333,6 @@
 /area/awaymission/spacebattle/cruiser)
 "gr" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "spacebattlestorage";
 	name = "Secure Storage";
 	pixel_x = 24
@@ -1370,38 +1341,28 @@
 /area/awaymission/spacebattle/cruiser)
 "gs" = (
 /obj/machinery/computer/operating,
-/turf/open/floor/iron/white/side{
-	dir = 2
-	},
+/turf/open/floor/iron/white/side,
 /area/awaymission/spacebattle/cruiser)
 "gt" = (
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
 /obj/item/circular_saw,
-/turf/open/floor/iron/white/side{
-	dir = 2
-	},
+/turf/open/floor/iron/white/side,
 /area/awaymission/spacebattle/cruiser)
 "gu" = (
 /obj/structure/table/reinforced,
 /obj/item/retractor,
-/turf/open/floor/iron/white/side{
-	dir = 2
-	},
+/turf/open/floor/iron/white/side,
 /area/awaymission/spacebattle/cruiser)
 "gv" = (
 /obj/structure/table/reinforced,
 /obj/item/hemostat,
-/turf/open/floor/iron/white/side{
-	dir = 2
-	},
+/turf/open/floor/iron/white/side,
 /area/awaymission/spacebattle/cruiser)
 "gw" = (
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
-/turf/open/floor/iron/white/side{
-	dir = 2
-	},
+/turf/open/floor/iron/white/side,
 /area/awaymission/spacebattle/cruiser)
 "gx" = (
 /obj/machinery/vending/cigarette,
@@ -2366,7 +2327,6 @@
 "nQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
-	dir = 2;
 	id = "spacebattlearmory2";
 	name = "Weapon Cache"
 	},
@@ -2385,7 +2345,6 @@
 "ow" = (
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
-	dir = 2;
 	id = "spacebattlearmory1";
 	name = "Weapon Cache"
 	},
@@ -2695,7 +2654,6 @@
 "XU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
-	dir = 2;
 	id = "spacebattlearmory";
 	name = "Weapon Cache"
 	},
