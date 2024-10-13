@@ -1,0 +1,6 @@
+author: ClownMoff, EOBGames,CoiledLamb
+delete-after: true
+changes:
+  - rscadd: Adds a new CTF map!
+  - rscadd: Ports containers from /TG/
+  - imageadd: Adds a custom sprite for red/team spawn icons
