@@ -429,3 +429,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 		"down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
 		"left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
 		"right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))
+
+/// The immobile, close pulling singularity
+/obj/anomaly/singularity/stationary
+	move_self = FALSE
+
+/obj/anomaly/singularity/stationary/Initialize(mapload)
+	. = ..()
+	var/datum/component/singularity/singularity = singularity_component.resolve()
+	singularity?.grav_pull = TRUE
+
+/obj/anomaly/singularity/stationary/process(delta_time)
+	if(DT_PROB(0.5, delta_time))
+		mezzer()

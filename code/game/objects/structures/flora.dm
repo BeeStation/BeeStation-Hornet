@@ -383,6 +383,7 @@
 
 //a rock is flora according to where the icon file is
 //and now these defines
+//ah yes, a rock is in fact a plant, sure coders...
 
 /obj/structure/flora/rock
 	icon_state = "basalt"
@@ -466,3 +467,11 @@
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
+
+/obj/structure/flora/rock/icy
+	name = "icy rock"
+	color = rgb(204,233,235)
+
+/obj/structure/flora/rock/pile/icy
+	name = "icey rocks"
+	color = rgb(204,233,235)
