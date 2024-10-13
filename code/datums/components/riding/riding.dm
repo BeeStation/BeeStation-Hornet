@@ -7,63 +7,85 @@
 
 
 /datum/component/riding
-	var/last_vehicle_move = 0 //used for move delays
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
+
 	var/last_move_diagonal = FALSE
-	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
+	///tick delay between movements, lower = faster, higher = slower
+	var/vehicle_move_delay = 2
+
+	/**
+	 * If the driver needs a certain item in hand (or inserted, for vehicles) to drive this. For vehicles, this must be duplicated on the actual vehicle object in their
+	 * [/obj/vehicle/var/key_type] variable because the vehicle objects still have a few special checks/functions of their own I'm not porting over to the riding component
+	 * quite yet. Make sure if you define it on the vehicle, you define it here too.
+	 */
 	var/keytype
-	var/vehicle_move_multiplier = 1
 
-	var/slowed = FALSE
-	var/slowvalue = 1
-
-	var/list/riding_offsets = list()	//position_of_user = list(dir = list(px, py)), or RIDING_OFFSET_ALL for a generic one.
-	var/list/directional_vehicle_layers = list()	//["[DIRECTION]"] = layer. Don't set it for a direction for default, set a direction to null for no change.
-	var/list/directional_vehicle_offsets = list()	//same as above but instead of layer you have a list(px, py)
+	/// position_of_user = list(dir = list(px, py)), or RIDING_OFFSET_ALL for a generic one.
+	var/list/riding_offsets = list()
+	/// ["[DIRECTION]"] = layer. Don't set it for a direction for default, set a direction to null for no change.
+	var/list/directional_vehicle_layers = list()
+	/// same as above but instead of layer you have a list(px, py)
+	var/list/directional_vehicle_offsets = list()
+	/// allow typecache for only certain turfs, forbid to allow all but those. allow only certain turfs will take precedence.
 	var/list/allowed_turf_typecache
-	var/list/forbid_turf_typecache					//allow typecache for only certain turfs, forbid to allow all but those. allow only certain turfs will take precedence.
-	var/allow_one_away_from_valid_turf = TRUE		//allow moving one tile away from a valid turf but not more.
+	/// allow typecache for only certain turfs, forbid to allow all but those. allow only certain turfs will take precedence.
+	var/list/forbid_turf_typecache
+	/// We don't need roads where we're going if this is TRUE, allow normal movement in space tiles
 	var/override_allow_spacemove = FALSE
-	var/drive_verb = "drive"
-	var/ride_check_rider_incapacitated = FALSE
-	var/ride_check_rider_restrained = FALSE
-	var/ride_check_ridden_incapacitated = FALSE
-	var/ride_check_ridden_restrained = FALSE
 
-	var/del_on_unbuckle_all = FALSE
+	/**
+	 * Ride check flags defined for the specific riding component types, so we know if we need arms, legs, or whatever.
+	 * Takes additional flags from the ridable element and the buckle proc (buckle_mob_flags) for riding cyborgs/humans in case we need to reserve arms
+	 */
+	var/ride_check_flags = NONE
+	/// For telling someone they can't drive
+	COOLDOWN_DECLARE(message_cooldown)
+	/// For telling someone they can't drive
+	COOLDOWN_DECLARE(vehicle_move_cooldown)
 
-	/// If the "vehicle" is a mob, respect MOBILITY_MOVE on said mob.
-	var/respect_mob_mobility = TRUE
-
-	var/emped = FALSE
-	var/empable = FALSE
-
-/datum/component/riding/Initialize()
+/datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
+	handle_specials()
+	riding_mob.updating_glide_size = FALSE
+	ride_check_flags |= buckle_mob_flags
+
+	if(potion_boost)
+		vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
+	else
+		//Calculate the move multiplier speed, to be proportional to mob speed
+		vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
+
+/datum/component/riding/RegisterWithParent()
+	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, .proc/vehicle_turned)
-	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
+	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(vehicle_bump))
 	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-	//Calculate the move multiplier speed, to be proportional to mob speed
-	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
-/datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
-	SIGNAL_HANDLER
+/**
+ * This proc handles all of the proc calls to things like set_vehicle_dir_layer() that a type of riding datum needs to call on creation
+ *
+ * The original riding component had these procs all called from the ridden object itself through the use of GetComponent() and LoadComponent()
+ * This was obviously problematic for componentization, but while lots of the variables being set were able to be moved to component variables,
+ * the proc calls couldn't be. Thus, anything that has to do an initial proc call should be handled here.
+ */
+/datum/component/riding/proc/handle_specials()
+	return
 
-	unequip_buckle_inhands(parent)
-	var/atom/movable/AM = parent
-	restore_position(M)
-	unequip_buckle_inhands(M)
-	if(del_on_unbuckle_all && !AM.has_buckled_mobs())
-		qdel(src)
-
-/datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+/// This proc is called when a rider unbuckles, whether they chose to or not. If there's no more riders, this will be the riding component's death knell.
+/datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/rider, force = FALSE)
 	SIGNAL_HANDLER
 
 	var/atom/movable/movable_parent = parent
-	handle_vehicle_offsets(movable_parent.dir)
+	restore_position(rider)
+	unequip_buckle_inhands(rider)
+	rider.updating_glide_size = TRUE
+	if(!movable_parent.has_buckled_mobs())
+		qdel(src)
 
+/// Some ridable atoms may want to only show on top of the rider in certain directions, like wheelchairs
 /datum/component/riding/proc/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
 	var/static/list/defaults = list(TEXT_NORTH = OBJ_LAYER, TEXT_SOUTH = ABOVE_MOB_LAYER, TEXT_EAST = ABOVE_MOB_LAYER, TEXT_WEST = ABOVE_MOB_LAYER)
@@ -77,62 +99,54 @@
 /datum/component/riding/proc/set_vehicle_dir_layer(dir, layer)
 	directional_vehicle_layers["[dir]"] = layer
 
+/// This is called after the ridden atom is successfully moved and is used to handle icon stuff
 /datum/component/riding/proc/vehicle_moved(datum/source, dir)
 	SIGNAL_HANDLER
 
-	var/atom/movable/AM = parent
-	for(var/i in AM.buckled_mobs)
-		ride_check(i)
-	handle_vehicle_offsets()
-	handle_vehicle_layer()
-
-var/atom/movable/movable_parent = parent
+	var/atom/movable/movable_parent = parent
 	if (isnull(dir))
 		dir = movable_parent.dir
-	for (var/buckled_mob in movable_parent.buckled_mobs)
+	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
+	for (var/m in movable_parent.buckled_mobs)
+		var/mob/buckled_mob = m
 		ride_check(buckled_mob)
+	if(QDELETED(src))
+		return // runtimed with piggy's without this, look into this more
 	handle_vehicle_offsets(dir)
 	handle_vehicle_layer(dir)
 
+/// Turning is like moving
 /datum/component/riding/proc/vehicle_turned(datum/source, _old_dir, new_dir)
+	SIGNAL_HANDLER
+
 	vehicle_moved(source, new_dir)
 
-/datum/component/riding/proc/ride_check(mob/living/M)
-	var/atom/movable/AM = parent
-	var/mob/AMM = AM
-	var/kick_us_off
-	if((ride_check_rider_restrained && HAS_TRAIT(M, TRAIT_RESTRAINED)) || (ride_check_rider_incapacitated && M.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
-		kick_us_off = TRUE
-	if(kick_us_off || (istype(AMM) && ((ride_check_ridden_restrained && HAS_TRAIT(AMM, TRAIT_RESTRAINED)) || (ride_check_ridden_incapacitated && AMM.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))))
-		M.visible_message("<span class='warning'>[M] falls off of [AM]!</span>", \
-						"<span class='warning'>You fall off of [AM]!</span>")
-		AM.unbuckle_mob(M)
-	return TRUE
-
-/datum/component/riding/proc/force_dismount(mob/living/M)
-	var/atom/movable/AM = parent
-	AM.unbuckle_mob(M)
+/// Check to see if we have all of the necessary bodyparts and not-falling-over statuses we need to stay onboard
+/datum/component/riding/proc/ride_check(mob/living/rider)
+	return
 
 /datum/component/riding/proc/handle_vehicle_offsets(dir)
 	var/atom/movable/AM = parent
 	var/AM_dir = "[dir]"
 	var/passindex = 0
-	if(AM.has_buckled_mobs())
-		for(var/m in AM.buckled_mobs)
-			passindex++
-			var/mob/living/buckled_mob = m
-			var/list/offsets = get_offsets(passindex)
-			buckled_mob.setDir(dir)
-			dir_loop:
-				for(var/offsetdir in offsets)
-					if(offsetdir == AM_dir)
-						var/list/diroffsets = offsets[offsetdir]
-						buckled_mob.pixel_x = diroffsets[1]
-						if(diroffsets.len >= 2)
-							buckled_mob.pixel_y = diroffsets[2]
-						if(diroffsets.len == 3)
-							buckled_mob.layer = diroffsets[3]
-						break dir_loop
+	if(!AM.has_buckled_mobs())
+		return
+
+	for(var/m in AM.buckled_mobs)
+		passindex++
+		var/mob/living/buckled_mob = m
+		var/list/offsets = get_offsets(passindex)
+		buckled_mob.setDir(dir)
+		dir_loop:
+			for(var/offsetdir in offsets)
+				if(offsetdir == AM_dir)
+					var/list/diroffsets = offsets[offsetdir]
+					buckled_mob.pixel_x = diroffsets[1]
+					if(diroffsets.len >= 2)
+						buckled_mob.pixel_y = diroffsets[2]
+					if(diroffsets.len == 3)
+						buckled_mob.layer = diroffsets[3]
+					break dir_loop
 	var/list/static/default_vehicle_pixel_offsets = list(TEXT_NORTH = list(0, 0), TEXT_SOUTH = list(0, 0), TEXT_EAST = list(0, 0), TEXT_WEST = list(0, 0))
 	var/px = default_vehicle_pixel_offsets[AM_dir]
 	var/py = default_vehicle_pixel_offsets[AM_dir]
@@ -162,9 +176,20 @@ var/atom/movable/movable_parent = parent
 		return FALSE
 	riding_offsets["[index]"] = offsets
 
-//KEYS
+/**
+ * This proc is used to see if we have the appropriate key to drive this atom, if such a key is needed. Returns FALSE if we don't have what we need to drive.
+ *
+ * Still needs to be neatened up and spruced up with proper OOP, as a result of vehicles having their own key handling from other ridable atoms
+ */
 /datum/component/riding/proc/keycheck(mob/user)
-	return !keytype || user.is_holding_item_of_type(keytype)
+	if(!keytype)
+		return TRUE
+
+	if(isvehicle(parent))
+		var/obj/vehicle/vehicle_parent = parent
+		return istype(vehicle_parent.inserted_key, keytype)
+
+	return user.is_holding_item_of_type(keytype)
 
 //BUCKLE HOOKS
 /datum/component/riding/proc/restore_position(mob/living/buckled_mob)
@@ -177,9 +202,41 @@ var/atom/movable/movable_parent = parent
 //MOVEMENT
 /datum/component/riding/proc/turf_check(turf/next, turf/current)
 	if(allowed_turf_typecache && !allowed_turf_typecache[next.type])
-		return (allow_one_away_from_valid_turf && allowed_turf_typecache[current.type])
+		return allowed_turf_typecache[current.type]
 	else if(forbid_turf_typecache && forbid_turf_typecache[next.type])
-		return (allow_one_away_from_valid_turf && !forbid_turf_typecache[current.type])
+		return !forbid_turf_typecache[current.type]
+	return TRUE
+
+/// Every time the driver tries to move, this is called to see if they can actually drive and move the vehicle (via relaymove)
+/datum/component/riding/proc/driver_move(atom/movable/movable_parent, mob/living/user, direction)
+	SIGNAL_HANDLER
+	return
+
+/// So we can check all occupants when we bump a door to see if anyone has access
+/datum/component/riding/proc/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)
+	SIGNAL_HANDLER
+	if(!istype(possible_bumped_door))
+		return
+	for(var/occupant in movable_parent.buckled_mobs)
+		INVOKE_ASYNC(possible_bumped_door, TYPE_PROC_REF(/obj/machinery/door, bumpopen), occupant)
+
+/datum/component/riding/proc/Unbuckle(atom/movable/M)
+	addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), M), 0, TIMER_UNIQUE)
+
+/datum/component/riding/proc/Process_Spacemove(direction)
+	var/atom/movable/AM = parent
+	return override_allow_spacemove || AM.has_gravity()
+
+/// currently replicated from ridable because we need this behavior here too, see if we can deal with that
+/datum/component/riding/proc/unequip_buckle_inhands(mob/living/carbon/user)
+	var/atom/movable/AM = parent
+	for(var/obj/item/riding_offhand/O in user.contents)
+		if(O.parent != AM)
+			CRASH("RIDING OFFHAND ON WRONG MOB")
+		if(O.selfdeleting)
+			continue
+		else
+			qdel(O)
 	return TRUE
 
 /datum/component/riding/proc/handle_ride(mob/user, direction)
@@ -226,13 +283,6 @@ var/atom/movable/movable_parent = parent
 		handle_vehicle_offsets(AM.dir)
 	else
 		to_chat(user, "<span class='warning'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
-
-/datum/component/riding/proc/Unbuckle(atom/movable/M)
-	addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), M), 0, TIMER_UNIQUE)
-
-/datum/component/riding/proc/Process_Spacemove(direction)
-	var/atom/movable/AM = parent
-	return override_allow_spacemove || AM.has_gravity()
 
 /datum/component/riding/proc/account_limbs(mob/living/M)
 	if(M.usable_legs < 2 && !slowed)
@@ -358,37 +408,6 @@ var/atom/movable/movable_parent = parent
 					"<span class='warning'>You're thrown clear of [AM]!</span>")
 	M.throw_at(target, 14, 5, AM)
 	M.Knockdown(60)
-
-/datum/component/riding/proc/equip_buckle_inhands(mob/living/carbon/human/user, amount_required = 1, riding_target_override = null)
-	var/atom/movable/AM = parent
-	var/amount_equipped = 0
-	for(var/amount_needed = amount_required, amount_needed > 0, amount_needed--)
-		var/obj/item/riding_offhand/inhand = new /obj/item/riding_offhand(user)
-		if(!riding_target_override)
-			inhand.rider = user
-		else
-			inhand.rider = riding_target_override
-		inhand.parent = AM
-		if(user.put_in_hands(inhand, TRUE))
-			amount_equipped++
-		else
-			break
-	if(amount_equipped >= amount_required)
-		return TRUE
-	else
-		unequip_buckle_inhands(user)
-		return FALSE
-
-/datum/component/riding/proc/unequip_buckle_inhands(mob/living/carbon/user)
-	var/atom/movable/AM = parent
-	for(var/obj/item/riding_offhand/O in user.contents)
-		if(O.parent != AM)
-			CRASH("RIDING OFFHAND ON WRONG MOB")
-		if(O.selfdeleting)
-			continue
-		else
-			qdel(O)
-	return TRUE
 
 /obj/item/riding_offhand
 	name = "offhand"
