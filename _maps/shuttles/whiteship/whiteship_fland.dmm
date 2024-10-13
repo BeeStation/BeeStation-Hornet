@@ -831,7 +831,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)

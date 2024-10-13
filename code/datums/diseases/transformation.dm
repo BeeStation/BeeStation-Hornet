@@ -213,7 +213,7 @@
 
 /datum/disease/transformation/morph
 	name = "Gluttony's Blessing"
-	cure_text = /datum/reagent/consumable/nothing
+	cure_text = "Nothing"
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."

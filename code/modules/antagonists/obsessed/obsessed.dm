@@ -3,6 +3,7 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	banning_key = ROLE_OBSESSED
+	required_living_playtime = 4
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE

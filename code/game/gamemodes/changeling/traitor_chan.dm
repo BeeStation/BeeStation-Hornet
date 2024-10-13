@@ -35,7 +35,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 

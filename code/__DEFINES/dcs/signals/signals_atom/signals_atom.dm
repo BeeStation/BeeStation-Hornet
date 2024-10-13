@@ -115,7 +115,7 @@
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
 ///when an atom is processed (mob/living/user, obj/item/I, list/atom/results)
 #define COMSIG_ATOM_PROCESSED "atom_processed"
-///! called when teleporting into a protected turf: (channel, turf/origin)
+///! from the base of atom/intercept_teleport: (channel, turf/origin, turf/destination)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
 ///called when an atom starts orbiting another atom: (atom)
@@ -126,6 +126,8 @@
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
 ///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
+///signal sent out by an atom upon onZImpact : (turf/impacted_turf, levels)
+#define COMSIG_ATOM_ON_Z_IMPACT "movable_on_z_impact"
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
