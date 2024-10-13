@@ -63,8 +63,15 @@
 	if((interaction_flags_atom & INTERACT_ATOM_REQUIRES_DEXTERITY) && !user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
-	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED) && user.incapacitated((interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED), !(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB)))
-		return FALSE
+	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
+		var/ignore_flags = NONE
+		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
+			ignore_flags |= IGNORE_RESTRAINTS
+		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+			ignore_flags |= IGNORE_GRAB
+
+		if(user.incapacitated(ignore_flags))
+			return FALSE
 	return TRUE
 
 /atom/ui_status(mob/user)
@@ -81,6 +88,8 @@
 		return FALSE
 
 /atom/proc/interact(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
+		return TRUE
 	if(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_INTERACT)
 		add_hiddenprint(user)
 	else

@@ -1144,6 +1144,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
 
+/datum/species/proc/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	var/prev_lying = H.lying_prev
+	if(H.stat != DEAD)
+		H.death(TRUE)
+
+	if(!prev_lying)
+		H.gib_animation()
+
+	H.spill_organs(no_brain, no_organs, no_bodyparts)
+
+	if(!no_bodyparts)
+		H.spread_bodyparts(no_brain, no_organs)
+
+	H.spawn_gibs(no_bodyparts)
+	qdel(src)
+	return
+
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
 	// handles the equipping of species-specific gear
 	return
