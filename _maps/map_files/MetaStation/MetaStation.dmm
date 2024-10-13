@@ -7326,14 +7326,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"bbb" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/stairs{
-	dir = 1
-	},
-/area/science/explab)
 "bbk" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/AI,
@@ -114963,7 +114955,7 @@ doM
 cXd
 rye
 iQA
-bbb
+yej
 eIO
 xjS
 muB
