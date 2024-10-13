@@ -4,6 +4,7 @@
 	desc = "It's not very colourful."
 	icon_state = "mime"
 	item_state = null
+	//Regarding salvaging I'll let someone with a cooler idea touch it, for now its cloth
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"

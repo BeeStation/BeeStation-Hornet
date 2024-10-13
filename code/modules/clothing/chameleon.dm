@@ -357,6 +357,7 @@
 	resistance_flags = NONE
 	can_adjust = FALSE
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	salvage_material = null //These things need some interesting way to handle salvage in a way that doesn't totally destruct them, I thought of cloth and telecrystals but thats for the future
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -434,6 +435,7 @@
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -478,6 +480,7 @@
 	item_state = "meson"
 	resistance_flags = NONE
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -528,9 +531,9 @@
 	icon_state = "yellow"
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
-
 	resistance_flags = NONE
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -582,6 +585,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	salvage_material = null
 
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
@@ -592,6 +596,7 @@
 	icon_state = "greysoft"
 	resistance_flags = NONE
 	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -715,6 +720,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	salvage_material = null
 
 	voice_change = TRUE
 
@@ -805,6 +811,7 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+	salvage_material = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -1044,6 +1051,7 @@
 	icon_state = "blacktie"
 	resistance_flags = NONE
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	salvage_material = null
 
 /obj/item/clothing/neck/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action

@@ -102,11 +102,13 @@
 	soft_color = "sec"
 	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 10)
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/soft/sec/brig_physician
 	name = "security medic cap"
 	icon_state = "secmedsoft"
 	soft_color = "secmed"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/head/soft/paramedic
 	name = "paramedic cap"

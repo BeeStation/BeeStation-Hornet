@@ -14,6 +14,7 @@
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 5
 	envirosealed = TRUE
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
 
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)

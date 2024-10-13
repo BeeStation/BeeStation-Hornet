@@ -17,6 +17,7 @@
 	var/footstep = 0
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
+	salvage_amount = 5
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()

@@ -12,6 +12,7 @@
 	icon_state = "trayson-meson"
 	item_state = "trayson-meson"
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	secondary_salvage_amount = 1
 
 	vision_flags = NONE
 	darkness_view = 2

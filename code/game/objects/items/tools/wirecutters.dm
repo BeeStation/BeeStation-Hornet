@@ -93,3 +93,33 @@
 	icon_state = "wirecutters_cyborg"
 	toolspeed = 0.5
 	random_color = FALSE
+
+//This has similar stats to knife
+/obj/item/wirecutters/scissors
+	name = "tailoring scissors"
+	desc = "Scissors for cutting clothing into usable pieces of material and preforming other arts and crafts."
+	icon_state = "scrap_scissors"
+	item_state = "scrap_scissors"
+	toolspeed = 2 //I know a faster tool should be 0.5, but I dont want this to be as good as wirecutters at "wirecutting" so this is calculated different for scissors
+	random_color = FALSE
+	force = 8
+	throwforce = 8
+	custom_price = 50
+	w_class = WEIGHT_CLASS_SMALL
+	custom_materials = list(/datum/material/iron=1000)
+	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+
+/obj/item/wirecutters/scissors/scavenger
+	name = "scavenger scissors"
+	desc = "A scavengers best friend to accquire all types of textiles in the post apocalyptic world."
+	icon_state = "scrap_scissors_svg"
+	item_state = "scrap_scissors_svg"
+	toolspeed = 1 //not as fast as the normal scissors
+	force = 10 //its more dangerous than the normal scissors because they are made from sharp blades meant to cut actual skin
+	throwforce = 10
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) //ouchie ouch ouch my boo boo

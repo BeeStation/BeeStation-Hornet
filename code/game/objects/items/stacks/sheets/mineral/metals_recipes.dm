@@ -1,8 +1,10 @@
 /* Iron */
+//Expect scissors to be moved away from here to a more interesting and balanced place
 
 GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("stool",										/obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("bar stool",									/obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+	new/datum/stack_recipe("scavenger scissors",						/obj/item/wirecutters/scissors/scavenger, 5, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 
 	null, \
 	new/datum/stack_recipe_list("office chairs", list( \

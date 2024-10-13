@@ -7,6 +7,8 @@
 	dynamic_hair_suffix = ""
 	attack_verb_continuous = list("crowns")
 	attack_verb_simple = list("crown")
+	salvage_material = null
+	salvage_amount = 5
 
 /obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
 	. = ..()
@@ -24,6 +26,7 @@
 	name = "rainbow flower crown"
 	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
 	icon_state_preview = "rainbow_bunch_crown_1"
+	salvage_material = /obj/item/food/grown/flower/rainbow
 
 /obj/item/clothing/head/flowercrown/rainbowbunch/Initialize(mapload)
 	. = ..()
@@ -46,13 +49,16 @@
 	name = "sunflower crown"
 	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
 	icon_state = "sunflower_crown"
+	salvage_material = /obj/item/grown/sunflower
 
 /obj/item/clothing/head/flowercrown/poppy
 	name = "poppy crown"
 	desc = "A flower crown made out of a string of bright red poppies."
 	icon_state = "poppy_crown"
+	salvage_material = /obj/item/food/grown/flower/poppy
 
 /obj/item/clothing/head/flowercrown/lily
 	name = "lily crown"
 	desc = "A leafy flower crown with a cluster of large white lilies at at the front."
 	icon_state = "lily_crown"
+	salvage_material = /obj/item/food/grown/flower/lily

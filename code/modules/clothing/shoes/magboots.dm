@@ -11,7 +11,10 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
-
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 9
+	secondary_salvage_material = /obj/item/stack/rods/scrap/gold
+	secondary_salvage_amount = 5
 
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"

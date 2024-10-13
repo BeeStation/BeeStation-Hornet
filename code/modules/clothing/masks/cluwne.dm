@@ -11,6 +11,7 @@
 	var/voicechange = TRUE
 	var/last_sound = 0
 	var/delay = 15
+	salvage_material = null //As I understand it, if this is indestructible it should also be unsalvageable
 
 /obj/item/clothing/mask/cluwne/Initialize(mapload)
 	.=..()
