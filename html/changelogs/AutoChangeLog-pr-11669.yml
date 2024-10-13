@@ -1,9 +1,0 @@
-author: rkv, LemonInTheDark, kriskog
-delete-after: true
-changes:
-  - bugfix: fix stasis bed bucklecuff escaping
-  - bugfix: fix chair bucklecuff escaping
-  - code_imp: potentially addresses some hardeletes in progressbar code
-  - code_imp: stoplag no longer stops lag in unit tests (it can hardelete)
-  - code_imp: Refactored the incapacitated proc to skip optional arguments and use
-      the named arguments properly to improve readability.
