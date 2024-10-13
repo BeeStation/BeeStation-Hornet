@@ -1151,7 +1151,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		H.spread_bodyparts(no_brain, no_organs)
 
 	H.spawn_gibs(no_bodyparts)
-	qdel(src)
+	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
 	return
 
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
