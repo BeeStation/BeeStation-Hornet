@@ -18675,7 +18675,7 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "fOw" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -20995,7 +20995,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -20
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -30692,7 +30692,7 @@
 /area/maintenance/port/central)
 "jNG" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 6;
 	req_one_access = null;
@@ -34376,7 +34376,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -34460,7 +34460,7 @@
 	dir = 1;
 	pixel_y = 25
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	pixel_y = -3
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -37456,7 +37456,7 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 5
 	},
@@ -37796,7 +37796,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "mev" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/white/line{
@@ -38168,7 +38168,7 @@
 	pixel_x = 32;
 	pixel_y = -2
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
@@ -42323,7 +42323,7 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "nvc" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -51542,7 +51542,7 @@
 /area/engine/storage)
 "qoI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -54331,7 +54331,7 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -56113,7 +56113,7 @@
 /area/medical/exam_room)
 "rKH" = (
 /obj/machinery/light,
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -57970,7 +57970,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/computer/security/telescreen/medical{
 	pixel_y = 32
 	},
@@ -58073,7 +58073,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "suI" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -64470,7 +64470,7 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
@@ -72907,7 +72907,7 @@
 	pixel_x = -6;
 	pixel_y = 14
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 8;
 	pixel_x = 2
 	},
