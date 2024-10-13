@@ -133,6 +133,33 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
+"cv" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/leaper_sludge{
+	color = "#808080"
+	},
+/obj/item/trash/energybar{
+	color = "#808080";
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/cigbutt{
+	anchored = 1;
+	color = "#808080";
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/plasma,
+/obj/structure/lattice{
+	color = "#808080"
+	},
+/turf/open/floor/plating/elevatorshaft{
+	color = "#808080"
+	},
+/area/shuttle/hunter)
 "dH" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/stripes/line{
@@ -209,21 +236,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"js" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/structure/railing{
-	dir = 2
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "jw" = (
@@ -313,41 +325,6 @@
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/shuttle/hunter)
-"mn" = (
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/item/trash/sosjerky{
-	anchored = 1;
-	color = "#808080";
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/effect/decal/cleanable/greenglow{
-	color = "#808080"
-	},
-/obj/item/cigbutt{
-	anchored = 1;
-	color = "#808080";
-	pixel_x = -4;
-	pixel_y = 11
-	},
-/obj/structure/lattice{
-	color = "#808080"
-	},
-/turf/open/floor/plating/elevatorshaft{
-	color = "#808080"
-	},
-/area/shuttle/hunter)
-"ms" = (
-/obj/structure/railing{
-	dir = 2
-	},
-/turf/open/floor/iron/stairs{
-	icon = 'icons/obj/stairs.dmi';
-	dir = 4
-	},
-/area/shuttle/hunter)
 "nb" = (
 /obj/machinery/door/airlock/highsecurity{
 	req_access_txt = "181"
@@ -362,16 +339,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"nY" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden,
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/shuttle/hunter)
 "oH" = (
 /obj/structure/tank_dispenser/oxygen,
@@ -505,19 +472,26 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"sS" = (
+"sh" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/structure/railing{
+	dir = 8
+	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
-/obj/structure/reagent_dispensers/fueltank,
-/obj/structure/railing{
-	dir = 2
+/obj/item/flashlight/lamp{
+	pixel_x = -4;
+	pixel_y = 7
 	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/nosmoking{
-	pixel_x = 32
+/obj/item/binoculars{
+	pixel_x = 3
 	},
-/obj/machinery/light/small,
+/obj/item/gps{
+	pixel_x = 7
+	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "sZ" = (
@@ -615,6 +589,15 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/hunter)
+"zP" = (
+/obj/structure/railing{
+	dir = 2
+	},
+/turf/open/floor/iron/stairs{
+	icon = 'icons/obj/stairs.dmi';
+	dir = 4
+	},
+/area/shuttle/hunter)
 "BE" = (
 /obj/structure/fluff/empty_sleeper{
 	dir = 8
@@ -655,33 +638,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/shuttle/hunter)
-"Gx" = (
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/leaper_sludge{
-	color = "#808080"
-	},
-/obj/item/trash/energybar{
-	color = "#808080";
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/cigbutt{
-	anchored = 1;
-	color = "#808080";
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/effect/decal/cleanable/plasma,
-/obj/structure/lattice{
-	color = "#808080"
-	},
-/turf/open/floor/plating/elevatorshaft{
-	color = "#808080"
-	},
 /area/shuttle/hunter)
 "GA" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -898,6 +854,21 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
+"Or" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/railing{
+	dir = 2
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = 32
+	},
+/obj/machinery/light/small,
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
 "Pl" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -948,6 +919,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
+"Sw" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/shuttle/hunter)
 "TB" = (
 /obj/structure/lattice/catwalk/over,
 /obj/item/trash/semki,
@@ -955,6 +935,32 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
+/area/shuttle/hunter)
+"TL" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/item/trash/sosjerky{
+	anchored = 1;
+	color = "#808080";
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/greenglow{
+	color = "#808080"
+	},
+/obj/item/cigbutt{
+	anchored = 1;
+	color = "#808080";
+	pixel_x = -4;
+	pixel_y = 11
+	},
+/obj/structure/lattice{
+	color = "#808080"
+	},
+/turf/open/floor/plating/elevatorshaft{
+	color = "#808080"
+	},
 /area/shuttle/hunter)
 "Uw" = (
 /obj/machinery/computer/crew{
@@ -1014,32 +1020,25 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
+"WE" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/structure/railing{
+	dir = 2
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
 "XH" = (
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"XM" = (
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/obj/item/flashlight/lamp{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/binoculars{
-	pixel_x = 3
-	},
-/obj/item/gps{
-	pixel_x = 7
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
@@ -1206,7 +1205,7 @@ GG
 xf
 GA
 az
-nY
+Sw
 GA
 Fv
 qS
@@ -1218,7 +1217,7 @@ nn
 Lo
 nn
 aw
-sS
+Or
 nn
 jl
 jl
@@ -1252,7 +1251,7 @@ ab
 sc
 ri
 nn
-mn
+TL
 fp
 lw
 nn
@@ -1294,10 +1293,10 @@ UI
 UI
 nn
 Hl
-js
-ms
+WE
+zP
 nn
-Gx
+cv
 BE
 Ly
 nn
@@ -1355,7 +1354,7 @@ UI
 UI
 Lo
 nn
-XM
+sh
 YJ
 ca
 nn
