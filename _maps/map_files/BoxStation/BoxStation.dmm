@@ -7540,9 +7540,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "bJp" = (
-/obj/machinery/computer/crew{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/white{
 	dir = 1
 	},
@@ -7550,6 +7547,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "bJu" = (
@@ -18044,11 +18044,11 @@
 /area/crew_quarters/locker)
 "dTM" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop,
 /obj/machinery/door/poddoor/preopen{
 	id = "quarantineshutters";
 	name = "Quarantine Shutters"
 	},
+/obj/item/folder/blue,
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "dTU" = (
@@ -52794,6 +52794,10 @@
 /obj/item/taperecorder{
 	pixel_x = -5;
 	pixel_y = 5
+	},
+/obj/item/folder/blue{
+	pixel_x = 9;
+	pixel_y = -1
 	},
 /turf/open/floor/carpet/green,
 /area/medical/exam_room)
