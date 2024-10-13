@@ -1,0 +1,5 @@
+author: RDS88-beeman
+delete-after: true
+changes:
+  - bugfix: Doctor's bags are no longer invisible on your belt. Now you can see the
+      cool sprite that someone made!
