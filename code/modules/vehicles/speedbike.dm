@@ -48,7 +48,7 @@
 	if(isnull(overlay))
 		overlay = mutable_appearance(icon, "speedwagon_cover", ABOVE_MOB_LAYER)
 	add_overlay(overlay)
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/car/speedwagon)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedwagon)
 
 /obj/vehicle/ridden/space/speedwagon/Bump(atom/movable/A)
 	. = ..()

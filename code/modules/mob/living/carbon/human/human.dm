@@ -957,19 +957,6 @@
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].</span>")
 
-
-/mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
-		return ..()
-
-	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
-	if(user == target)
-		if(can_piggyback(target))
-			piggyback(target)
-	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
-	else if(can_be_firemanned(target))
-		fireman_carry(target)
-
 /mob/living/carbon/human/MouseDrop(mob/over)
 	. = ..()
 	if(ishuman(over))
@@ -1051,6 +1038,20 @@
 		arm.attack_self(src)
 	return ..()
 
+/mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(pulling != M || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+		return ..()
+
+	//If they dragged themselves to you and you're currently aggressively grabbing them try to piggyback
+	if(user == M && can_piggyback(M))
+		piggyback(M)
+		return TRUE
+
+	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
+	if(can_be_firemanned(M))
+		fireman_carry(M)
+		return TRUE
+
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
@@ -1086,7 +1087,7 @@
 		target.visible_message("<span class='warning'>[target] can't hang on to [src]!</span>")
 		return
 
-	buckle_mob(target, TRUE, TRUE, 90, 1, 0)
+	return buckle_mob(target, TRUE, TRUE, CARRIER_NEEDS_ARM)
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
 	if(!can_piggyback(target))
@@ -1102,7 +1103,7 @@
 		target.visible_message("<span class='warning'>[target] can't hang onto [src]!</span>")
 		return
 
-	buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
+	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
 
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
