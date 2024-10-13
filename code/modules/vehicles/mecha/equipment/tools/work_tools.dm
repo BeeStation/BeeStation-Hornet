@@ -42,6 +42,18 @@
 		return
 	if(!cargo_holder)
 		return
+	if(ismecha(target))
+		var/obj/vehicle/sealed/mecha/M = target
+		var/have_ammo
+		for(var/obj/item/mecha_ammo/box in cargo_holder.cargo)
+			if(istype(box, /obj/item/mecha_ammo) && box.rounds)
+				have_ammo = TRUE
+				if(M.ammo_resupply(box, source, TRUE))
+					return
+		if(have_ammo)
+			to_chat(source, "No further supplies can be provided to [M].")
+		else
+			to_chat(source, "No providable supplies found in cargo hold")
 
 	else if(isobj(target))
 		var/obj/clamptarget = target

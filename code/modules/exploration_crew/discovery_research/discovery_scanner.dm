@@ -34,5 +34,5 @@
 
 /obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
 	to_chat(user, "<span class='notice'>You begin scanning [discoverable.parent]...</span>")
-	if(do_after(user, 50, target=get_turf(user)))
+	if(do_after(user, 50, target=get_turf(user), interaction_key = REF(discoverable.parent)))
 		discoverable.discovery_scan(linked_techweb, user)
