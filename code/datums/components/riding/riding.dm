@@ -1,3 +1,11 @@
+/**
+ * This is the riding component, which is applied to a movable atom by the [ridable element][/datum/element/ridable] when a mob is successfully buckled to said movable.
+ *
+ * This component lives for as long as at least one mob is buckled to the parent. Once all mobs are unbuckled, the component is deleted, until another mob is buckled in
+ * and we make a new riding component, so on and so forth until the sun explodes.
+ */
+
+
 /datum/component/riding
 	var/last_vehicle_move = 0 //used for move delays
 	var/last_move_diagonal = FALSE
