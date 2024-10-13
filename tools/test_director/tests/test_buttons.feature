@@ -19,6 +19,6 @@ Feature: Button Interaction
 		Given button is defined as new /obj/machinery/button
 		And device is defined as new /obj/item/assembly/unit_test
 		And the player is next to button
-		When the button device is set to device
-		And the player clicks the button
+		And the button device is set to device
+		When the player clicks the button
 		Then device pressed should be 1
