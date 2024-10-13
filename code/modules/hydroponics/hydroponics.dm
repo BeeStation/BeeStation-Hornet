@@ -886,6 +886,10 @@
 		return
 	harvest_plant(user)
 
+/obj/machinery/hydroponics/attack_robot(mob/living/user) // robots have little manipulator bits
+	if(Adjacent(user))
+		return harvest_plant(user)
+
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)

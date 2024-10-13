@@ -6159,19 +6159,6 @@
 /obj/machinery/telecomms/processor/preset_two,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
-"cKR" = (
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium,
-/area/asteroid/paradise/surface/grass)
 "cKT" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/hallway/primary/fore)
@@ -15251,11 +15238,6 @@
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"hrY" = (
-/obj/machinery/gateway,
-/obj/effect/turf_decal/box,
-/turf/open/floor/iron/dark,
-/area/gateway)
 "hse" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -15768,28 +15750,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
-"hDU" = (
-/obj/structure/closet/secure_closet/detective,
-/obj/item/storage/box/evidence{
-	pixel_y = 5
-	},
-/obj/item/flashlight/seclite,
-/obj/item/restraints/handcuffs,
-/obj/item/taperecorder,
-/obj/machinery/requests_console{
-	department = "Detective's office";
-	name = "Detective RC";
-	pixel_y = 30
-	},
-/obj/item/camera/detective,
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/machinery/camera/directional/north,
-/obj/item/holosign_creator/security,
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "hDY" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -23394,6 +23354,11 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"lzS" = (
+/obj/machinery/gateway,
+/obj/effect/turf_decal/box,
+/turf/open/floor/iron/dark,
+/area/gateway)
 "lAn" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/girder,
@@ -31697,6 +31662,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
+"pGC" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/vending/wallmed{
+	pixel_x = -32
+	},
+/obj/machinery/camera/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2,
+/turf/open/floor/iron/grid/steel,
+/area/medical/medbay/central)
 "pHp" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -33073,26 +33058,6 @@
 "qpS" = (
 /turf/closed/mineral/random/air,
 /area/maintenance/disposal)
-"qqa" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/vending/wallmed{
-	pixel_x = -32
-	},
-/obj/machinery/camera/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2,
-/turf/open/floor/iron/grid/steel,
-/area/medical/medbay/central)
 "qqB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/lawyer,
@@ -35188,6 +35153,28 @@
 	slowdown = 0
 	},
 /area/asteroid/paradise/surface)
+"rvo" = (
+/obj/structure/closet/secure_closet/detective,
+/obj/item/storage/box/evidence{
+	pixel_y = 5
+	},
+/obj/item/flashlight/seclite,
+/obj/item/restraints/handcuffs,
+/obj/item/taperecorder,
+/obj/machinery/requests_console{
+	department = "Detective's office";
+	name = "Detective RC";
+	pixel_y = 30
+	},
+/obj/item/camera/detective,
+/obj/machinery/camera/directional/north,
+/obj/item/holosign_creator/security,
+/obj/machinery/computer/security/telescreen/station{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "rvJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -40095,6 +40082,19 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
+"tPO" = (
+/mob/living/simple_animal/chicken/turkey{
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
+/area/asteroid/paradise/surface/grass)
 "tQO" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Morgue";
@@ -62183,7 +62183,7 @@ sBt
 nHi
 eiO
 kYW
-hrY
+lzS
 oKy
 cpL
 fJT
@@ -125931,7 +125931,7 @@ rSE
 bDD
 fWF
 ttY
-qqa
+pGC
 sAD
 jLG
 xPe
@@ -128009,7 +128009,7 @@ aoM
 pHI
 aoM
 oEl
-hDU
+rvo
 lii
 xlw
 oEl
@@ -256772,7 +256772,7 @@ bty
 ofC
 ial
 ial
-cKR
+tPO
 rxi
 pcm
 vuq
