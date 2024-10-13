@@ -112,12 +112,6 @@
 /obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
-"cb" = (
-/obj/effect/turf_decal/tile/steelgrid{
-	dir = 9
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
 "cc" = (
 /mob/living/simple_animal/slime,
 /turf/open/floor/iron/grid/steel,
@@ -648,18 +642,6 @@
 	},
 /turf/open/floor/iron,
 /area/space)
-"pD" = (
-/obj/effect/turf_decal/tile/steelgrid/anticorner{
-	dir = 8
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
-"pF" = (
-/obj/effect/turf_decal/tile/steelgrid{
-	dir = 6
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
 "pG" = (
 /obj/machinery/requests_console,
 /turf/open/floor/iron/dark,
@@ -846,12 +828,6 @@
 /obj/structure/disposalpipe/sorting/mail/destination/qm_office,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
-"vy" = (
-/obj/effect/turf_decal/tile/steelgrid{
-	dir = 10
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
 "vD" = (
 /obj/structure/disposalpipe/sorting/mail/destination/ce_office,
 /turf/open/floor/carpet/royalblue,
@@ -898,7 +874,7 @@
 /area/crew_quarters/heads/hos)
 "wM" = (
 /obj/item/toy/plush/moth/brown,
-/turf/open/floor/iron/tech/grid,
+/turf/open/floor/iron,
 /area/space)
 "wQ" = (
 /obj/machinery/sparker,
@@ -1213,12 +1189,6 @@
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
-"EH" = (
-/obj/effect/turf_decal/tile/steelgrid/anticorner{
-	dir = 1
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
 "EI" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/landmark/start/depsec/science,
@@ -1380,10 +1350,6 @@
 "Jk" = (
 /obj/structure/sign/warning/pods,
 /turf/open/floor/iron/dark,
-/area/space)
-"Jr" = (
-/obj/effect/turf_decal/tile/steelgrid/anticorner,
-/turf/open/floor/iron/tech/grid,
 /area/space)
 "Ju" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -2020,12 +1986,6 @@
 /obj/item/dest_tagger,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
-"Xo" = (
-/obj/effect/turf_decal/tile/steelgrid/anticorner{
-	dir = 4
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
 "Xs" = (
 /obj/machinery/button/ignition,
 /turf/open/floor/iron,
@@ -2094,12 +2054,6 @@
 /obj/effect/landmark/start/head_of_personnel,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"Zb" = (
-/obj/effect/turf_decal/tile/steelgrid{
-	dir = 5
-	},
-/turf/open/floor/iron/tech/grid,
-/area/space)
 "Zj" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/reagent_dispensers/watertank,
@@ -2554,9 +2508,9 @@ SQ
 PY
 Em
 BJ
-EH
-cb
-pD
+Qk
+Qk
+Qk
 XF
 XF
 XF
@@ -2574,9 +2528,9 @@ SQ
 uy
 Ow
 xY
-Zb
+Qk
 wM
-vy
+Qk
 XF
 rs
 XF
@@ -2594,9 +2548,9 @@ NH
 Hj
 UA
 kF
-Xo
-pF
-Jr
+Qk
+Qk
+Qk
 XF
 XF
 XF
