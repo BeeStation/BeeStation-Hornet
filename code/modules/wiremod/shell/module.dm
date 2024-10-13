@@ -54,7 +54,7 @@
 			action_name += " ([repeat_name_counts[action_name]])"
 		display_names[action_name] = REF(action_component)
 		var/option_icon_state = "bci_[replacetextEx(lowertext(action_component.icon_options.value), " ", "_")]"
-		radial_options += list("[action_name]" = image('icons/mob/actions/actions_items.dmi', option_icon_state))
+		radial_options += list("[action_name]" = image('icons/hud/actions/actions_items.dmi', option_icon_state))
 	radial_options += list("Access Circuit" = image(shell.attached_circuit))
 	var/selected_option = show_radial_menu(mod.wearer, src, radial_options, custom_check = FALSE, require_near = TRUE)
 	if(!selected_option)

@@ -99,7 +99,7 @@
 	/// Whether or not this shield can lose multiple charges.
 	var/lose_multiple_charges = FALSE
 	/// The item path to recharge this shielkd.
-	var/recharge_path = null
+	var/recharge_path
 	/// The icon file of the shield.
 	var/shield_icon_file = 'icons/effects/effects.dmi'
 	/// The icon_state of the shield.
@@ -118,7 +118,7 @@
 
 /obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
-	charges = shield.current_charges
+	charges = shield.current_integrity
 	qdel(shield)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 

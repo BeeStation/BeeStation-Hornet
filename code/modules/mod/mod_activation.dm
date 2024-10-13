@@ -10,7 +10,7 @@
 		display_names[piece.name] = REF(piece)
 		var/image/piece_image = image(icon = piece.icon, icon_state = piece.icon_state)
 		if(piece.loc != src)
-			piece_image.underlays += image(icon = 'icons/mob/radial.dmi', icon_state = "module_active")
+			piece_image.underlays += image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_active")
 		items += list(piece.name = piece_image)
 	var/pick = show_radial_menu(user, src, items, custom_check = FALSE, require_near = TRUE, tooltips = TRUE)
 	if(!pick)

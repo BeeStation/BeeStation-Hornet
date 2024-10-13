@@ -25,6 +25,8 @@
 	var/shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE
 	/// Energy shield alpha
 	var/shield_alpha = 180
+	/// The item we use for recharging
+	var/recharge_path
 	/// The cooldown tracking when we were last hit
 	COOLDOWN_DECLARE(recently_hit_cd)
 	/// The cooldown tracking when we last replenished a charge
@@ -42,6 +44,7 @@
 		shield_inhand = FALSE,
 		shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE,
 		shield_alpha = 160,
+		rechage_path = null,
 		run_hit_callback
 		)
 	if(!isitem(parent) || max_integrity <= 0)
@@ -56,6 +59,7 @@
 	src.shield_inhand = shield_inhand
 	src.shield_flags = shield_flags
 	src.shield_alpha = shield_alpha
+	src.recharge_path = recharge_path
 	src.on_hit_effects = run_hit_callback || CALLBACK(src, PROC_REF(default_run_hit_callback))
 
 	current_integrity = max_integrity
@@ -68,7 +72,7 @@
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
-	QDEL_NULL(on_hit_effects)
+	on_hit_effects = null
 	return ..()
 
 /datum/component/shielded/RegisterWithParent()
@@ -141,7 +145,7 @@
 	wearer = user
 	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
 	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
-	if(current_charges)
+	if(current_integrity)
 		wearer.update_appearance(UPDATE_ICON)
 
 /// Used to draw the shield overlay on the wearer

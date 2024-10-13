@@ -1,6 +1,6 @@
 /datum/action/item_action/mod
 	background_icon_state = "bg_tech_blue"
-	icon_icon = 'icons/mob/actions/actions_mod.dmi'
+	icon_icon = 'icons/hud/actions/actions_mod.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	/// Whether this action is intended for the AI. Stuff breaks a lot if this is done differently.
 	var/ai_action = FALSE
@@ -168,11 +168,11 @@
 		return
 	var/obj/item/mod/control/mod = target
 	if(module == mod.selected_module)
-		current_button.add_overlay(image(icon = 'icons/mob/radial.dmi', icon_state = "module_selected", layer = FLOAT_LAYER-0.1))
+		current_button.add_overlay(image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_selected", layer = FLOAT_LAYER-0.1))
 	else if(module.active)
-		current_button.add_overlay(image(icon = 'icons/mob/radial.dmi', icon_state = "module_active", layer = FLOAT_LAYER-0.1))
+		current_button.add_overlay(image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_active", layer = FLOAT_LAYER-0.1))
 	if(!COOLDOWN_FINISHED(module, cooldown_timer))
-		var/image/cooldown_image = image(icon = 'icons/mob/radial.dmi', icon_state = "module_cooldown")
+		var/image/cooldown_image = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_cooldown")
 		current_button.add_overlay(cooldown_image)
 		addtimer(CALLBACK(current_button, TYPE_PROC_REF(/image, cut_overlay), cooldown_image), COOLDOWN_TIMELEFT(module, cooldown_timer))
 
