@@ -159,7 +159,7 @@
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
-						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
+										"<span class='notice'>You sharpen the large blade of the guillotine.</span>")
 					blade_sharpness += 1
 					playsound(src, 'sound/items/unsheath.ogg', 100, 1)
 					return
@@ -175,7 +175,7 @@
 	else
 		return ..()
 
-/obj/structure/guillotine/buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+/obj/structure/guillotine/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if (!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
 		return FALSE

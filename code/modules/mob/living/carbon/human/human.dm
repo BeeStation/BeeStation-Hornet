@@ -1052,7 +1052,6 @@
 		fireman_carry(M)
 		return TRUE
 
-
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
 	return (istype(target) && target.stat == CONSCIOUS && target.body_position == STANDING_UP)
