@@ -89,8 +89,9 @@ export const DmMapsIncludeTarget = new Juke.Target({
 });
 
 export const DmTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
+  parameters: [CiParameter, DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    get(CiParameter) && TestDirectorTargetBuild,
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
@@ -136,6 +137,28 @@ export const DmTestTarget = new Juke.Target({
       Juke.logger.error('Test run was not clean, exiting');
       throw new Juke.ExitCode(1);
     }
+  },
+});
+
+export const TestDirectorTargetBuild = new Juke.Target({
+  executes: async ({ get }) => {
+    try {
+      compile_tests(
+        'code/modules/unit_tests/generated_tests.dm',
+        'tools/test_director/actions',
+        'tools/test_director/tests',
+        'tools/test_director/test_template.dm'
+      );
+    }
+    catch (err) {
+      Juke.logger.error('Failed to generate test director tests.');
+      Juke.logger.error(err);
+      throw new Juke.ExitCode(1);
+    }
+    // Include the generated tests at the end of the DME so it has access to defines
+    fs.writeFileSync(`${DME_NAME}.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
+      encoding: 'utf8'
+    });
   },
 });
 
@@ -312,7 +335,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTestTarget, TguiTarget],
+  dependsOn: [DmTarget, TguiTarget],
 });
 
 export const ServerTarget = new Juke.Target({
