@@ -119,11 +119,11 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -30
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/beer{
 	pixel_x = -4;
 	pixel_y = 14
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/beer{
 	pixel_x = 3;
 	pixel_y = 11
 	},
