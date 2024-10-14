@@ -141,18 +141,8 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/heirloom_type
 
-	if(prob(33)) //Generic heirloom
-		heirloom_type = pick(/obj/item/coin/random, /obj/item/key)
-
-	if(prob(33)) //racial heirlooms
-		if(islizard(H))
-			heirloom_type = /obj/item/heirloom_skull
-		if((ismoth(H)))
-			heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
-		if(isipc(H))
-			heirloom_type = /obj/item/disk/tech_disk
-
-	if(!heirloom_type) //Safety catch to ensure heirlooms still work if the above probability passes, but nothing was generated.
+	//33% chance for job related heirloom
+	if(prob(33))
 		switch(quirk_holder.assigned_role)
 			//Service jobs
 			if(JOB_NAME_CLOWN)
@@ -227,11 +217,24 @@
 			if(JOB_NAME_SHAFTMINER)
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
+	//When compounded with the above this makes a 33% chance for racial heirloom, even though this says prob(50)
+	if(prob(50))
+		if(islizard(H))
+			heirloom_type = /obj/item/heirloom_skull
+		if((ismoth(H)))
+			heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
+		if(isipc(H))
+			heirloom_type = /obj/item/disk/tech_disk
+
+
+	//Generic heirloom, anywhere from 33% chance to 100% chance depending on race/job combination.
+	// Functions as a failsafe in the event that no other heirlooms were available, that's why this isn't a switch.
 	if(!heirloom_type)
 		heirloom_type = pick(
-		/obj/item/toy/cards/deck,
-		/obj/item/lighter,
-		/obj/item/dice/d20)
+			pick(subtypesof(/obj/item/coin)),
+			/obj/item/key,
+			/obj/item/lighter)
+
 	heirloom = new heirloom_type(get_turf(quirk_target))
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
@@ -285,6 +288,7 @@
 /obj/item/heirloom_skull
 	name = "trophy skull"
 	desc = "A trophy taken from something felled many generations ago."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "legion_skull"
 
 //Moth heirloom
