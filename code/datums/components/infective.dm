@@ -33,6 +33,8 @@
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(try_infect_equipped))
 		RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
+		//if(istype(parent, /obj/item/reagent_containers/cup))
+		//	RegisterSignal(parent, COMSIG_GLASS_DRANK, .proc/try_infect_drink)
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 

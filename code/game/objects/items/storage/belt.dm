@@ -228,8 +228,8 @@
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -404,7 +404,8 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/cup/glass/bottle,
 		/obj/item/organ/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -544,7 +545,7 @@
 		/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
 		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,
 		/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
-		/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola
+		/obj/item/reagent_containers/cup/glass/drinkingglass/filled/nuka_cola,
 		))
 		new rig_snacks(src)
 
@@ -600,7 +601,7 @@
 		/obj/item/screwdriver,
 		/obj/item/lighter,
 		/obj/item/multitool,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+		/obj/item/reagent_containers/cup/glass/bottle/molotov,
 		/obj/item/grenade/plastic/c4,
 		/obj/item/food/grown/cherry_bomb,
 		/obj/item/food/grown/firelemon

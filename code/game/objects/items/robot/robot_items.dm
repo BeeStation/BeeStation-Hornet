@@ -1038,16 +1038,18 @@
 /obj/item/borg/apparatus/container/service
 	name = "versatile service grasper"
 	desc = "Specially designed for carrying glasses, food and seeds. It can also synthesize glasses for drinks!"
-	storable = list(/obj/item/reagent_containers/food,
-	/obj/item/reagent_containers/glass,
+	storable = list(
+	/obj/item/food,
+	/obj/item/reagent_containers/condiment,
+	/obj/item/reagent_containers/cup,
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
 	/obj/item/clothing/mask/cigarette,
 	/obj/item/storage/fancy/cigarettes,
-	/obj/item/reagent_containers/glass/beaker,
-	/obj/item/reagent_containers/glass/bottle,
-	/obj/item/reagent_containers/glass/bucket
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/cup/bucket
 	)
 	defaultcontainer = /obj/item/reagent_containers/food/drinks/drinkingglass
 
