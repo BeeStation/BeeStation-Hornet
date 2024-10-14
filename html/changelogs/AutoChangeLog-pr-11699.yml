@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Github issues will correctly be marked as stale after 30 days instead
-      of 7
