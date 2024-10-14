@@ -1,7 +1,7 @@
 {
 	"patterns": [
 	  {
-		"match": "(\\w+) (\\w+) should be (\\S+|\".*\")",
+		"match": "([\\w_]+) ([\\w_]+) should be (\\S+|\".*\")",
 		"code": "TEST_ASSERT_EQUAL($3, $1:$2, \"Incorrect value.\")"
 	  },
 	  {

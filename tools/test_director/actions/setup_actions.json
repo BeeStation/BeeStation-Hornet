@@ -1,24 +1,28 @@
 {
 	"patterns": [
 	  {
-		"match": "(\\w+) is defined as new ((?:\\/(?:\\w|\\_)+)+)",
+		"match": "([\\w_]+) is defined as new ((?:\\/(?:\\w|\\_)+)+)",
 		"code": "var$2/$1 = allocate($2)"
 	  },
 	  {
-		"match": "player is next to (\\w+)",
+		"match": "player is next to ([\\w_]+)",
 		"code": "player.forceMove($1.loc)"
 	  },
 	  {
-		"match": "(\\w+)(?:'s)? (\\w+) is set to (\\S+|\".*\")",
+		"match": "([\\w_]+)(?:'s)? ([\\w_]+) is(?: set to)? (\\S+|\".*\")",
 		"code": "$1.$2 = $3"
 	  },
 	  {
-		"match": "player is holding (\\w+)",
+		"match": "player is holding ([\\w_]+)",
 		"code": "player.put_in_active_hand($1, TRUE)"
 	  },
 	  {
 		"match": "following code is injected",
 		"code_injection": true
+	  },
+	  {
+		"match": "(\\w+\\(.*\\)) is called on ([\\w_]+)",
+		"code": "$2.$1"
 	  }
 	]
   }

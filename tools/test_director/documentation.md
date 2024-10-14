@@ -39,6 +39,7 @@ Given the player is next to {variable_name}
 ### Set variable of atom
 ```gherkin
 Given the {variable_name} {dm_variable} is set to {variable_name}
+Given the {variable_name} {dm_variable} is {variable_name}
 ```
 
 ### Ensure player holding item
