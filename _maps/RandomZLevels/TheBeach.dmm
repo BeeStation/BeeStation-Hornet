@@ -888,7 +888,7 @@
 /area/awaymission/beach)
 "cB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/ale,
+/obj/item/reagent_containers/cup/glass/bottle/ale,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cC" = (

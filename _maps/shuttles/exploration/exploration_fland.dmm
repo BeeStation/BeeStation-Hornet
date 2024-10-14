@@ -39,7 +39,7 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/glass/syndicatebeer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -8;
 	pixel_y = 2
 	},
