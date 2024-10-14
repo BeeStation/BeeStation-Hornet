@@ -1,7 +1,7 @@
 Feature: Signal Tests
 
   Background:
-    Given the following code is injected
+    Given the following code is injected:
       """
       /obj/item/assembly/signaler/debug
         var/passed = FALSE
