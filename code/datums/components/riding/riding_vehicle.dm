@@ -78,6 +78,10 @@
 	if(!Process_Spacemove(direction) || !isturf(movable_parent.loc))
 		return
 
+	if(emped && empable)
+		to_chat(user, "<span class='notice'>\The [movable_parent]'s controls aren't responding!</span>")
+		return
+
 	step(movable_parent, direction)
 	last_move_diagonal = ((direction & (direction - 1)) && (movable_parent.loc == next))
 	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal? sqrt(2) : 1) * vehicle_move_delay * vehicle_move_multiplier)
