@@ -30,8 +30,11 @@ export function compile_tests(dm_path, config_directory, test_directory, templat
     if (indent_match === null)
       throw new Error(`${template_path} does not contain TEST_CODE, meaning that no test code is being injected.`);
     const code_indentation = indent_match[1];
-    const test_code = test.generate_code(actions, test_template).split('\n').map(x => `${code_indentation}${x}`).join('\n');
+    const desired_code = test.generate_code(actions, test_template);
+    const test_code = desired_code.inline_text.map(x => `${code_indentation}${x}`).join('\n');
+    const pre_text = desired_code.pre_text.join('\n');
     const test_file = test_template
+      .replaceAll(/[\t ]*TEST_INJECTION/gm, pre_text)
       .replaceAll(/[\t ]*TEST_CODE/gm, test_code)
       .replaceAll('TEST_NAME', test.name.toLowerCase().replace(/\W/gmi, '').replace(' ', '_'));
     fs.appendFileSync(dm_path, test_file, {
@@ -52,6 +55,7 @@ function parse_actions(file_path) {
   // Convert the 'match' pattern strings to regular expressions
   return action_object.patterns.map(pattern => ({
     match: new RegExp('^' + pattern.match.replace(/\b(?:a|an|the)\b/gi, '') + '$', 'gi'),
-    code: pattern.code
+    code: pattern.code,
+    code_injection: pattern.code_injection,
   }));
 }

@@ -1,5 +1,6 @@
 // @ts-check
 
+import { CodeInjection } from "./injected_code.js";
 import { Scenario } from "./scenario.js";
 
 export class Rule {
@@ -53,17 +54,17 @@ export class Rule {
   /**
    * @param {{match: RegExp, code: string, code_injection: boolean}[]} actions
    * @param {string} test_template
-   * @returns {string}
+   * @returns {CodeInjection}
    */
   generate_code(actions, test_template) {
-    let lines = [];
+    let lines = new CodeInjection();
     if (this.background !== null) {
-      lines.push(this.background.generate_code(actions));
+      lines.merge(this.background.generate_code(actions));
     }
     for (const step of this.scenarios) {
-      lines.push(step.generate_code(actions));
+      lines.merge(step.generate_code(actions));
     }
-    return lines.join('\n');
+    return lines;
   }
 
 }

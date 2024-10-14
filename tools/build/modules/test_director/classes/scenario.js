@@ -1,5 +1,6 @@
 // @ts-check
 
+import { CodeInjection } from "./injected_code.js";
 import { Step } from "./step.js";
 
 export class Scenario {
@@ -30,10 +31,10 @@ export class Scenario {
 
   /**
    * @param {{match: RegExp, code: string, code_injection: boolean}[]} actions
-   * @returns {string}
+   * @returns {CodeInjection}
    */
   generate_code(actions) {
-    let output_lines = [];
+    let output = new CodeInjection();
     for (const step of this.steps) {
       const valid_matches = actions
         .map(action => {
@@ -47,19 +48,31 @@ export class Scenario {
       const match = valid_matches[0];
       if (match.mapped_action.code_injection) {
         // Handle code injection
-        
+        if (step.parameter === null) {
+          throw new Error(`Step '${step.text}' belonging to scenario '${this.name}' requires an action but none was provided.`);
+        }
+        if (match.mapped_action.code) {
+          throw new Error(`Step '${step.text}' belonging to scenario '${this.name}' is marked as code injecting action but has code defined which will be ignored.`);
+        }
+        output.pre_text.push(step.parameter)
       } else {
         // Handle normal code generation
         let line = match.mapped_action.code;
+        if (!line) {
+          throw new Error(`Step '${step.text}' belonging to scenario '${this.name}' is invalidly setup, it has no code provided but is also not a code injection block.`);
+        }
         if (match.regex_match !== null && match.regex_match.groups !== null) {
-          for (let i = 1; i <= match.regex_match.length; i++) {
+          for (let i = 1; i < match.regex_match.length; i++) {
             line = line.replaceAll(`$${i}`, match.regex_match[i]);
           }
         }
-        output_lines.push(line);
+        if (!line) {
+          throw new Error(`Step '${step.text}' belonging to scenario '${this.name}' failed to produce valid code.`);
+        }
+        output.inline_text.push(line);
       }
     }
-    return output_lines.join('\n');
+    return output;
   }
 
 }
