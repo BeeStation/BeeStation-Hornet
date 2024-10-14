@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/queued_p_flipped = p_flipped
 
 	//Unwrench pipe before we build one over/paint it, but only if we're not already running a do_after on it already to prevent a potential runtime.
-	if((mode & DESTROY_MODE) && (upgrade_flags & RPD_UPGRADE_UNWRENCH) && istype(attack_target, /obj/machinery/atmospherics) && !(attack_target in user.do_afters))
+	if((mode & DESTROY_MODE) && (upgrade_flags & RPD_UPGRADE_UNWRENCH) && istype(attack_target, /obj/machinery/atmospherics) && !(DOING_INTERACTION_WITH_TARGET(user, attack_target)))
 		attack_target.wrench_act(user, src)
 		return
 
@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		UnregisterSignal(source, COMSIG_MOB_MOUSE_SCROLL_ON)
 		return
 
-	if(source.incapacitated(ignore_restraints = TRUE))
+	if(source.incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
 		return
 
 	if(delta_y < 0)

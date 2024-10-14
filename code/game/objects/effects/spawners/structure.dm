@@ -456,3 +456,9 @@ again.
 		if(NORTHWEST)
 			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/west)
 	. = ..()
+
+/obj/effect/spawner/structure/shipping_container
+	name = "shipping container spawner"
+	icon = 'icons/obj/containers.dmi'
+	icon_state = "random_container"
+	spawn_list = list(/obj/structure/shipping_container/conarex = 3,/obj/structure/shipping_container/deforest = 3,/obj/structure/shipping_container/kahraman = 3,/obj/structure/shipping_container/kahraman/alt = 3,/obj/structure/shipping_container/kosmologistika = 3,/obj/structure/shipping_container/interdyne = 3,/obj/structure/shipping_container/nakamura = 3,/obj/structure/shipping_container/nanotrasen = 3,/obj/structure/shipping_container/nthi = 3,/obj/structure/shipping_container/vitezstvi = 3,/obj/structure/shipping_container/cybersun = 2,/obj/structure/shipping_container/donk_co = 2,/obj/structure/shipping_container/gorlex = 1,/obj/structure/shipping_container/gorlex/red = 1)

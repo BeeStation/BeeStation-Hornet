@@ -3,7 +3,7 @@
 	desc = "A culinary marvel that uses matter-to-energy conversion to store dishes and shards. Convenient! \
 	Additional features include a vacuum function to suck in nearby dishes, and an automatic transfer beam that empties its contents into nearby disposal bins every now and then. \
 	Or you can just drop your plates on the floor, like civilized folk."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "synthesizer"
 	idle_power_usage = 8 //5 with default parts
 	active_power_usage = 13 //10 with default parts
@@ -102,11 +102,12 @@
 			else
 				step_towards(I, src)
 
-/obj/machinery/dish_drive/attack_ai(mob/living/user)
+/obj/machinery/dish_drive/attack_silicon(mob/living/user)
 	if(machine_stat)
 		return
 	to_chat(user, "<span class='notice'>You send a disposal transmission signal to [src].</span>")
 	do_the_dishes(TRUE)
+	return TRUE
 
 /obj/machinery/dish_drive/AltClick(mob/living/user)
 	if(user.canUseTopic(src, !issilicon(user)))

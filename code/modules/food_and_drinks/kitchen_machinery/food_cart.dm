@@ -5,7 +5,7 @@
 /obj/machinery/food_cart
 	name = "food cart"
 	desc = "New generation hot dog stand."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "foodcart"
 	density = TRUE
 	anchored = FALSE

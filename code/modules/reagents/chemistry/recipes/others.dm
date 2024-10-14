@@ -859,12 +859,6 @@
 	results = list(/datum/reagent/mutationtoxin/apid = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/honey = 20) // beeeeeeeeeeeeeeeeeeeeees
 
-/datum/chemical_reaction/mutationtoxin/pod
-	name = /datum/reagent/mutationtoxin/pod
-	id = /datum/reagent/mutationtoxin/pod
-	results = list(/datum/reagent/mutationtoxin/pod = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/plantnutriment/eznutriment = 10)
-
 /datum/chemical_reaction/mutationtoxin/golem
 	name = /datum/reagent/mutationtoxin/golem
 	id = /datum/reagent/mutationtoxin/golem

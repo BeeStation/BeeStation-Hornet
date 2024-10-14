@@ -73,10 +73,11 @@
 /obj/item/food/meat/slab/human/mutant/lizard/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/lizard, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
 
-/obj/item/food/meat/slab/human/mutant/plant
+/obj/item/food/meat/slab/human/mutant/diona
+	name = "diona meat"
 	icon_state = "plantmeat"
 	desc = "All the joys of healthy eating with all the fun of cannibalism."
-	tastes = list("salad" = 1, "wood" = 1)
+	tastes = list("salad" = 1, "wood" = 1, "bitterness" = 1)
 	foodtypes = VEGETABLES
 
 /obj/item/food/meat/slab/human/mutant/shadow
