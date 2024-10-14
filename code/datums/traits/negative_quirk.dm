@@ -218,7 +218,7 @@
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
 	//When compounded with the above this makes a 33% chance for racial heirloom, even though this says prob(50)
-	if(prob(50))
+	else if(prob(50))
 		if(islizard(H))
 			heirloom_type = /obj/item/heirloom_skull
 		if((ismoth(H)))
