@@ -96,13 +96,13 @@
 		return
 
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target_mob, user, params)
-	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
+	SEND_SIGNAL(target_mob, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
 
 	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
 		nonharmfulhit = TRUE
-	for(var/datum/surgery/S in M.surgeries)
+	for(var/datum/surgery/S in target_mob.surgeries)
 		if(S.failed_step)
 			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
 			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step

@@ -459,12 +459,12 @@
 /area/shuttle/escape)
 "bH" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bI" = (

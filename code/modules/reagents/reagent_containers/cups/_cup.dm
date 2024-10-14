@@ -24,7 +24,7 @@
 	. = ..()
 	if(drink_type)
 		var/list/types = bitfield_to_list(drink_type, FOOD_FLAGS)
-		. += span_notice("It is [lowertext(english_list(types))].")
+		. += "<span class='notice'>It is [lowertext(english_list(types))].</span>"
 
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/M)
 	if(last_check_time + 50 >= world.time)
@@ -32,27 +32,32 @@
 	if(!ishuman(M))
 		return
 	var/mob/living/carbon/human/H = M
-	if(HAS_TRAIT(H, TRAIT_AGEUSIA))
-		if(drink_type & H.dna.species.toxic_food)
-			to_chat(H, span_warning("You don't feel so good..."))
-			H.adjust_disgust(25 + 30 * fraction)
-	else
-		if(drink_type & H.dna.species.toxic_food)
-			to_chat(H,span_warning("What the hell was that thing?!"))
-			H.adjust_disgust(25 + 30 * fraction)
-			H.add_mood_event("toxic_food", /datum/mood_event/disgusting_food)
-		else if(drink_type & H.dna.species.disliked_food)
-			to_chat(H,span_notice("That didn't taste very good..."))
-			H.adjust_disgust(11 + 15 * fraction)
-			H.add_mood_event("gross_food", /datum/mood_event/gross_food)
-		else if(drink_type & H.dna.species.liked_food)
-			to_chat(H,span_notice("I love this taste!"))
-			H.adjust_disgust(-5 + -2.5 * fraction)
-			H.add_mood_event("fav_food", /datum/mood_event/favorite_food)
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 
 	if((drink_type & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
-		H.add_mood_event("breakfast", /datum/mood_event/breakfast)
+		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 	last_check_time = world.time
+
+	if(!T) //if you don't have a tongue you don't taste..
+		return
+
+	if(HAS_TRAIT(H, TRAIT_AGEUSIA))
+		if(drink_type & T.toxic_food)
+			to_chat(H, "<span class='warning'>You don't feel so good...</span>")
+			H.adjust_disgust(25 + 30 * fraction)
+	else
+		if(drink_type & T.toxic_food)
+			to_chat(H, "<span class='warning'>What the hell was that thing?!</span>")
+			H.adjust_disgust(25 + 30 * fraction)
+			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
+		else if(drink_type & T.disliked_food)
+			to_chat(H, "<span class='notice'>That didn't taste very good...</span>")
+			H.adjust_disgust(11 + 15 * fraction)
+			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
+		else if(drink_type & T.liked_food)
+			to_chat(H, "<span class='notice'>I love this taste!</span>")
+			H.adjust_disgust(-5 + -2.5 * fraction)
+			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
 
 /obj/item/reagent_containers/cup/attack(mob/living/target_mob, mob/living/user, obj/target)
 	if(!canconsume(target_mob, user))
@@ -66,6 +71,10 @@
 		return
 
 	if(!istype(target_mob))
+		return
+
+	if(user.a_intent == INTENT_HARM)
+		//Early terminate, move to afterattack where we splash
 		return
 
 	if(target_mob != user)
@@ -83,7 +92,7 @@
 
 	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target_mob, user)
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
-	reagents.trans_to(target_mob, gulp_size, transfered_by = user, methods = INGEST)
+	reagents.trans_to(target_mob, gulp_size, transfered_by = user, method = INGEST)
 	checkLiked(fraction, target_mob)
 	playsound(target_mob.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	if(!iscarbon(target_mob))
@@ -162,7 +171,7 @@
 
 /obj/item/reagent_containers/cup/beaker
 	name = "beaker"
-	desc = "A beaker. It can hold up to [volume] units."
+	desc = "A beaker. It can hold up to 50 units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"

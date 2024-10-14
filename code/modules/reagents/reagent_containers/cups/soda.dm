@@ -1,5 +1,10 @@
+
 //////////////////////////soda_cans//
 //These are in their own group to be used as IED's in /obj/item/grenade/ghettobomb.dm
+/// How much fizziness is added to the can of soda by throwing it, in percentage points
+#define SODA_FIZZINESS_THROWN 15
+/// How much fizziness is added to the can of soda by shaking it, in percentage points
+#define SODA_FIZZINESS_SHAKE 5
 
 /obj/item/reagent_containers/cup/soda_cans
 	name = "soda can"
@@ -88,17 +93,17 @@
 
 	if(ismob(target))
 		var/mob/living/target_mob = target
-		target_mob.add_mood_event("soda_spill", /datum/mood_event/soda_spill, src)
+		SEND_SIGNAL(target_mob, COMSIG_ADD_MOOD_EVENT, "soda_spill", /datum/mood_event/soda_spill, src)
 		for(var/mob/living/iter_mob in view(src, 7))
 			if(iter_mob != target)
-				iter_mob.add_mood_event("observed_soda_spill", /datum/mood_event/observed_soda_spill, target, src)
+				SEND_SIGNAL(iter_mob, COMSIG_ADD_MOOD_EVENT, "observed_soda_spill", /datum/mood_event/observed_soda_spill, target, src)
 
 	playsound(src, 'sound/effects/can_pop.ogg', 80, TRUE)
 	if(!hide_message)
-		visible_message(span_danger("[src] spills over, fizzing its contents all over [target]!"))
+		visible_message("<span class='danger'>[src] spills over, fizzing its contents all over [target]!</span>")
 	spillable = TRUE
 	reagents.flags |= OPENCONTAINER
-	reagents.expose(target, TOUCH)
+	reagents.reaction(target, TOUCH)
 	reagents.clear_reagents()
 	throwforce = 0
 
@@ -112,7 +117,7 @@
 		return
 
 	burst_soda(hit_atom, hide_message = TRUE)
-	visible_message(span_danger("[src]'s impact with [hit_atom] causes it to rupture, spilling everywhere!"))
+	visible_message("<span class='danger'>[src]'s impact with [hit_atom] causes it to rupture, spilling everywhere!</span>")
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(src.loc)
 	crushed_can.icon_state = icon_state
 	moveToNullspace()
@@ -129,8 +134,8 @@
 	if(!in_range(user, src))
 		return
 	if(fizziness > 30 && prob(fizziness * 2))
-		. += span_notice("<i>You examine [src] closer, and note the following...</i>")
-		. += "\t[span_warning("You get a menacing aura of fizziness from it...")]"
+		. += "<span class='notice'><i>You examine [src] closer, and note the following...</i></span>"
+		. += "\t["<span class='warning'>You get a menacing aura of fizziness from it...</span>"]"
 
 #undef SODA_FIZZINESS_THROWN
 #undef SODA_FIZZINESS_SHAKE
@@ -147,7 +152,7 @@
 	desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 	icon_state = "tonic"
 	list_reagents = list(/datum/reagent/consumable/tonic = 50)
-	foodtype = ALCOHOL
+	drink_type = ALCOHOL
 
 /obj/item/reagent_containers/cup/soda_cans/sodawater
 	name = "soda water"
@@ -160,50 +165,57 @@
 	desc = "You wanted ORANGE. It gave you Lemon Lime."
 	icon_state = "lemon-lime"
 	list_reagents = list(/datum/reagent/consumable/lemon_lime = 30)
-	foodtype = FRUIT
+	drink_type = FRUIT
 
 /obj/item/reagent_containers/cup/soda_cans/lemon_lime/Initialize(mapload)
 	. = ..()
 	name = "lemon-lime soda"
+
+/obj/item/reagent_containers/cup/soda_cans/sol_dry
+	name = "Sol Dry"
+	desc = "Maybe this will help your tummy feel better. Maybe not."
+	icon_state = "sol_dry"
+	list_reagents = list(/datum/reagent/consumable/sol_dry = 30)
+	drink_type = SUGAR
 
 /obj/item/reagent_containers/cup/soda_cans/space_up
 	name = "Space-Up!"
 	desc = "Tastes like a hull breach in your mouth."
 	icon_state = "space-up"
 	list_reagents = list(/datum/reagent/consumable/space_up = 30)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/starkist
 	name = "Star-kist"
 	desc = "The taste of a star in liquid form. And, a bit of tuna...?"
 	icon_state = "starkist"
 	list_reagents = list(/datum/reagent/consumable/space_cola = 15, /datum/reagent/consumable/orangejuice = 15)
-	foodtype = SUGAR | FRUIT | JUNKFOOD
+	drink_type = SUGAR | FRUIT | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/space_mountain_wind
 	name = "Space Mountain Wind"
 	desc = "Blows right through you like a space wind."
 	icon_state = "space_mountain_wind"
 	list_reagents = list(/datum/reagent/consumable/spacemountainwind = 30)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/thirteenloko
 	name = "Thirteen Loko"
 	desc = "The CMO has advised crew members that consumption of Thirteen Loko may result in seizures, blindness, drunkenness, or even death. Please Drink Responsibly."
 	icon_state = "thirteen_loko"
 	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko = 30)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/dr_gibb
 	name = "Dr. Gibb"
 	desc = "A delicious mixture of 42 different flavors."
 	icon_state = "dr_gibb"
 	list_reagents = list(/datum/reagent/consumable/dr_gibb = 30)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/pwr_game
 	name = "Pwr Game"
-	desc = "The only drink with the PWR that true gamers crave."
+	desc = "The only drink with the PWR that true gamers crave. When a gamer talks about gamerfuel, this is what they're literally referring to."
 	icon_state = "purple_can"
 	list_reagents = list(/datum/reagent/consumable/pwr_game = 30)
 
@@ -212,21 +224,22 @@
 	desc = "~Shake me up some of that Shambler's Juice!~"
 	icon_state = "shamblers"
 	list_reagents = list(/datum/reagent/consumable/shamblers = 30)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/grey_bull
 	name = "Grey Bull"
 	desc = "Grey Bull, it gives you gloves!"
 	icon_state = "energy_drink"
 	list_reagents = list(/datum/reagent/consumable/grey_bull = 20)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/monkey_energy
 	name = "Monkey Energy"
 	desc = "Unleash the ape!"
 	icon_state = "monkey_energy"
+	item_state = "monkey_energy"
 	list_reagents = list(/datum/reagent/consumable/monkey_energy = 50)
-	foodtype = SUGAR | JUNKFOOD
+	drink_type = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/cup/soda_cans/air
 	name = "canned air"

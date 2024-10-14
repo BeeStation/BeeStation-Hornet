@@ -10,7 +10,7 @@
 
 
 	var/processing = FALSE
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/points = 0
 	var/efficiency = 0
 	var/productivity = 0

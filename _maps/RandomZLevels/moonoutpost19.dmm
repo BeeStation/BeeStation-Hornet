@@ -4911,7 +4911,7 @@
 /obj/item/reagent_containers/peppercloud_deployer,
 /obj/item/grenade/flashbang,
 /obj/item/storage/belt/security,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -3;
 	pixel_y = -2
 	},

@@ -6118,7 +6118,7 @@
 /area/awaymission/undergroundoutpost45/engineering)
 "KM" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)

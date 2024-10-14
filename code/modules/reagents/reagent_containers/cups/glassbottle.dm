@@ -16,9 +16,9 @@
 	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
-	var/broken_inhand_icon_state = "broken_beer"
-	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
+	var/broken_item_state = "broken_beer"
+	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	drink_type = ALCOHOL
 	item_flags = ISWEAPON
 	///Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
@@ -29,7 +29,7 @@
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to its contents."
 	icon_state = "glassbottlesmall"
 	volume = 50
-	custom_price = PAYCHECK_CREW * 0.9
+	custom_price = PAYCHECK_MEDIUM * 0.9
 
 /obj/item/reagent_containers/cup/glass/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
 	if(bartender_check(target) && ranged)
@@ -52,11 +52,10 @@
 		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("You don't want to harm [target]!"))
+		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
 
 	var/mob/living/living_target = target
-	var/obj/item/bodypart/affecting = user.zone_selected //Find what the player is aiming at
 
 	var/armor_block = 0 //Get the target's armor values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
@@ -121,8 +120,8 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "broken_beer"
-	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("stabs", "slashes", "attacks")
 	attack_verb_simple = list("stab", "slash", "attack")
@@ -132,7 +131,7 @@
 
 /obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, min_damage = force)
+	AddComponent(/datum/component/caltrop, _min_damage = force)
 	AddComponent(/datum/component/butchering, 200, 55)
 
 /// Mimics the appearance and properties of the passed in bottle.
@@ -152,7 +151,7 @@
 		if(prob(33))
 			var/obj/item/shard/stab_with = new(to_mimic.drop_location())
 			target.Bumped(stab_with)
-		playsound(src, SFX_SHATTER, 70, TRUE)
+		playsound(src, "shatter", 70, TRUE)
 	name = "broken [to_mimic.name]"
 	to_mimic.transfer_fingerprints_to(src)
 
@@ -163,10 +162,21 @@
 	volume = 30
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 30)
 	drink_type = GRAIN | ALCOHOL
-	custom_price = PAYCHECK_CREW
+	custom_price = PAYCHECK_MEDIUM
 
 /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 1)
+
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate
+	name = "syndicate beer"
+	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
+	icon_state = "syndicatebeer"
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
+
+/obj/item/reagent_containers/cup/glass/bottle/beer/light
+	name = "Carp Lite"
+	desc = "Brewed with \"Pure Ice Asteroid Spring Water\"."
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer/light = 30)
 
 /obj/item/reagent_containers/cup/glass/bottle/ale
 	name = "Magm-Ale"
@@ -175,7 +185,7 @@
 	volume = 30
 	list_reagents = list(/datum/reagent/consumable/ethanol/ale = 30)
 	drink_type = GRAIN | ALCOHOL
-	custom_price = PAYCHECK_CREW
+	custom_price = PAYCHECK_MEDIUM
 
 /obj/item/reagent_containers/cup/glass/bottle/gin
 	name = "Griffeater gin"
@@ -238,7 +248,7 @@
 	desc = "Toxic to nonbelievers, reinvigorating to the faithful."
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/fuel/unholywater = 100)
-	foodtype = NONE
+	drink_type = NONE
 
 /obj/item/reagent_containers/cup/glass/bottle/hellwater
 	name = "flask of holy water?"
@@ -389,7 +399,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/grenadine
 	name = "Jester Grenadine"
 	desc = "Contains 0% real cherries!"
-	custom_price = PAYCHECK_CREW
+	custom_price = PAYCHECK_MEDIUM
 	icon_state = "grenadine"
 	list_reagents = list(/datum/reagent/consumable/grenadine = 100)
 	drink_type = FRUIT
@@ -413,7 +423,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/applejack
 	name = "Buckin' Bronco's Applejack"
 	desc = "Kicks like a horse, tastes like an apple!"
-	custom_price = PAYCHECK_CREW
+	custom_price = PAYCHECK_MEDIUM
 	icon_state = "applejack_bottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/applejack = 100)
 	drink_type = FRUIT
@@ -452,17 +462,17 @@
 	icon_state = "moonshinebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/moonshine = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
+/obj/item/reagent_containers/cup/glass/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
 	name = "glass bottle"
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to it's contents."
 	icon_state = "glassbottle"
 	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
 
-/obj/item/reagent_containers/food/drinks/bottle/blank/update_icon()
+/obj/item/reagent_containers/cup/glass/bottle/blank/update_icon()
 	..()
 	add_overlay("[initial(icon_state)]shine")
 
-/obj/item/reagent_containers/food/drinks/bottle/blank/small
+/obj/item/reagent_containers/cup/glass/bottle/blank/small
 	name = "small glass bottle"
 	desc = "This small bottle is unyieldingly anonymous, offering no clues to it's contents."
 	icon_state = "glassbottlesmall"
@@ -531,7 +541,7 @@
 		target.fire_act()
 	qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/attack_self(mob/user)
 	if(active)
 		if(!isGlass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
@@ -548,8 +558,8 @@
  * Meant to be a subtype for use in Molotovs
  */
 /obj/item/reagent_containers/cup/glass/bottle/juice
-	custom_price = PAYCHECK_CREW
-	inhand_icon_state = "carton"
+	custom_price = PAYCHECK_MEDIUM
+	item_state = "carton"
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice

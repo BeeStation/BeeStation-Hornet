@@ -240,9 +240,9 @@
 	name = "cornmeal box"
 	desc = "A big box of cornmeal. Great for southern style cooking."
 	icon_state = "cornmeal"
-	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
+	item_state = "carton"
+	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/cornmeal = 30)
 	fill_icon_thresholds = null
 */

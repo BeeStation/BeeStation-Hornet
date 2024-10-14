@@ -2075,7 +2075,7 @@
 /area/tdome/tdomeobserve)
 "hT" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -10309,12 +10309,12 @@
 "LJ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -5
 	},
 /turf/open/floor/iron/dark,
@@ -11478,14 +11478,14 @@
 "PO" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -8;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 6
 	},
 /turf/open/floor/iron/dark,

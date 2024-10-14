@@ -13777,7 +13777,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 2;
 	pixel_y = 3
 	},
@@ -30451,11 +30451,11 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 6;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/item/toy/cards/deck{
 	pixel_x = -10;
 	pixel_y = 6
@@ -55782,7 +55782,7 @@
 "sYk" = (
 /obj/structure/table,
 /obj/item/gps/mining/exploration,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -8
 	},
 /obj/item/reagent_containers/cup/glass/britcup{
@@ -64000,7 +64000,7 @@
 "wlD" = (
 /obj/structure/table,
 /obj/machinery/light,
-/obj/item/reagent_containers/cup/glass/beer/almost_empty{
+/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
 	pixel_x = -6;
 	pixel_y = 2
 	},

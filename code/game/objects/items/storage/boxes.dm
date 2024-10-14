@@ -521,7 +521,7 @@
 
 /obj/item/storage/box/cups/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup( src )
+		new /obj/item/reagent_containers/cup/glass/sillycup( src )
 
 /obj/item/storage/box/donkpockets
 
@@ -1018,7 +1018,7 @@
 	for(var/i in 1 to 3)
 		new /obj/item/food/grown/tomato(src)
 		new /obj/item/food/meatball(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/wine(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
 
 /obj/item/storage/box/ingredients/vegetarian
 	theme_name = "vegetarian"
@@ -1083,7 +1083,7 @@
 		new /obj/item/food/grown/oat(src)
 	new /obj/item/food/grown/wheat(src)
 	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/reagent_containers/honeycomb(src)
+	new /obj/item/reagent_containers/cup/glass/honeycomb(src)
 	new /obj/item/seeds/flower/poppy(src)
 
 /obj/item/storage/box/ingredients/carnivore

@@ -214,7 +214,7 @@
 /turf/open/floor/plating/beach/water,
 /area/awaymission/beach)
 "aJ" = (
-/obj/item/reagent_containers/cup/glass/beer/light{
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
 	pixel_x = -14;
 	pixel_y = 15
 	},
@@ -794,8 +794,8 @@
 "cm" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/sunglasses,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cn" = (
@@ -937,12 +937,12 @@
 /area/awaymission/beach)
 "cK" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "cL" = (

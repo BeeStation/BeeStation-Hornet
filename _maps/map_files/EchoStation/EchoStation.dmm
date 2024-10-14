@@ -22249,15 +22249,15 @@
 /area/maintenance/department/science/central)
 "kUF" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/beer/light{
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
 	pixel_x = -8;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/cup/glass/beer/light{
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/cup/glass/beer/light{
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
 	pixel_y = 3
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -43246,11 +43246,11 @@
 /obj/structure/chair/fancy/plastic{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -8;
 	pixel_y = 17
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -12;
 	pixel_y = 11
 	},

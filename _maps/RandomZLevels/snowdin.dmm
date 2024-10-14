@@ -7625,7 +7625,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -7685,7 +7685,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -7895,7 +7895,7 @@
 /turf/open/floor/iron/dark/snowdin,
 /area/awaymission/snowdin/cave)
 "Ea" = (
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/iron/dark,
@@ -7981,7 +7981,7 @@
 /area/awaymission/snowdin/cave)
 "Eo" = (
 /obj/effect/turf_decal/weather/snow,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/iron/dark/snowdin,
@@ -8007,7 +8007,7 @@
 /area/awaymission/snowdin/post/hydro)
 "Eu" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/iron/dark,
@@ -8017,7 +8017,7 @@
 	dir = 4
 	},
 /obj/item/stack/rods,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -8050,7 +8050,7 @@
 	dir = 10
 	},
 /obj/item/shard,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -10056,7 +10056,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/dorm)
 "Lg" = (
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -10371,7 +10371,7 @@
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/messhall)
 "Md" = (
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -11910,7 +11910,7 @@
 /area/awaymission/snowdin/post/garage)
 "RW" = (
 /obj/item/stack/rods,
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	list_reagents = null
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,

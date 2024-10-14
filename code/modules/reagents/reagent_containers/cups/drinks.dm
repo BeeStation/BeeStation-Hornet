@@ -102,10 +102,19 @@
 	isGlass = FALSE
 	drink_type = BREAKFAST
 
+/obj/item/reagent_containers/cup/glass/bubble_tea
+	name = "Bubble tea"
+	desc = "Refreshing! You aren't sure what those things in the bottom are."
+	icon_state = "bubble_tea"
+	list_reagents = list(/datum/reagent/consumable/bubble_tea = 50)
+	drink_type = SUGAR
+	spillable = TRUE
+	isGlass = FALSE
+
 /obj/item/reagent_containers/cup/glass/ice
 	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
-	custom_price = PAYCHECK_LOWER * 0.6
+	custom_price = PAYCHECK_EASY * 0.6
 	icon_state = "icecup"
 	list_reagents = list(/datum/reagent/consumable/ice = 30)
 	spillable = TRUE
@@ -120,7 +129,7 @@
 	name = "mug"
 	desc = "A drink served in a classy mug."
 	icon_state = "tea"
-	inhand_icon_state = "coffee"
+	item_state = "coffee"
 	spillable = TRUE
 
 /obj/item/reagent_containers/cup/glass/mug/update_icon_state()
@@ -132,30 +141,30 @@
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	list_reagents = list(/datum/reagent/consumable/tea = 30)
 
-/obj/item/reagent_containers/cup/glass/mug/coco
+/obj/item/reagent_containers/cup/glass/mug/cocoa
 	name = "Dutch hot coco"
 	desc = "Made in Space South America."
 	list_reagents = list(/datum/reagent/consumable/hot_coco = 15, /datum/reagent/consumable/sugar = 5)
 	drink_type = SUGAR
 	resistance_flags = FREEZE_PROOF
-	custom_price = PAYCHECK_CREW * 1.2
+	custom_price = PAYCHECK_MEDIUM * 1.2
 
 
 /obj/item/reagent_containers/cup/glass/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
 	icon_state = "ramen"
-	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/salt = 3)
+	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3)
 	drink_type = GRAIN
 	isGlass = FALSE
-	custom_price = PAYCHECK_CREW * 0.9
+	custom_price = PAYCHECK_MEDIUM * 0.9
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
-	inhand_icon_state = "bottle"
+	item_state = "bottle"
 	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
 	custom_materials = list(/datum/material/plastic=1000)
 	volume = 50
@@ -168,7 +177,7 @@
 	var/cap_lost = FALSE
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
-	custom_price = PAYCHECK_LOWER * 0.8
+	custom_price = PAYCHECK_EASY * 0.8
 
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()
@@ -185,16 +194,16 @@
 /obj/item/reagent_containers/cup/glass/waterbottle/examine(mob/user)
 	. = ..()
 	if(cap_lost)
-		. += span_notice("The cap seems to be missing.")
+		. += "<span class='notice'>The cap seems to be missing.</span>"
 	else if(cap_on)
-		. += span_notice("The cap is firmly on to prevent spilling. Alt-click to remove the cap.")
+		. += "<span class='notice'>The cap is firmly on to prevent spilling. Alt-click to remove the cap.</span>"
 	else
-		. += span_notice("The cap has been taken off. Alt-click to put a cap on.")
+		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
 
 /obj/item/reagent_containers/cup/glass/waterbottle/AltClick(mob/user)
 	. = ..()
 	if(cap_lost)
-		to_chat(user, span_warning("The cap seems to be missing! Where did it go?"))
+		to_chat(user, "<span class='warning'>The cap seems to be missing! Where did it go?</span>")
 		return
 
 	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
@@ -203,14 +212,14 @@
 		spillable = TRUE
 		animate(src, transform = null, time = 2, loop = 0)
 		if(fumbled)
-			to_chat(user, span_warning("You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?"))
+			to_chat(user, "<span class='warning'>You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?</span>")
 			cap_lost = TRUE
 		else
-			to_chat(user, span_notice("You remove the cap from [src]."))
+			to_chat(user, "<span class='notice'>You remove the cap from [src].</span>")
 	else
 		cap_on = TRUE
 		spillable = FALSE
-		to_chat(user, span_notice("You put the cap on [src]."))
+		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
 	update_appearance()
 
 /obj/item/reagent_containers/cup/glass/waterbottle/is_refillable()
@@ -228,20 +237,20 @@
 		return
 
 	if(cap_on && reagents.total_volume && istype(target))
-		to_chat(user, span_warning("You must remove the cap before you can do that!"))
+		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
 		return
 
 	return ..()
 
 /obj/item/reagent_containers/cup/glass/waterbottle/afterattack(obj/target, mob/living/user, proximity)
-	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.combat_mode)))
-		to_chat(user, span_warning("You must remove the cap before you can do that!"))
+	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.a_intent == INTENT_HARM)))
+		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
 		return
 
 	else if(istype(target, /obj/item/reagent_containers/cup/glass/waterbottle))
 		var/obj/item/reagent_containers/cup/glass/waterbottle/other_bottle = target
 		if(other_bottle.cap_on)
-			to_chat(user, span_warning("[other_bottle] has a cap firmly twisted on!"))
+			to_chat(user, "<span class='warning'>[other_bottle] has a cap firmly twisted on!</span>")
 			return
 
 	return ..()
@@ -254,10 +263,10 @@
 	if(!cap_on || !reagents.total_volume)
 		return
 	if(prob(flip_chance)) // landed upright
-		src.visible_message(span_notice("[src] lands upright!"))
+		src.visible_message("<span class='notice'>[src] lands upright!</span>")
 		if(throwingdatum.thrower)
 			var/mob/living/living_thrower = throwingdatum.thrower
-			living_thrower.add_mood_event("bottle_flip", /datum/mood_event/bottle_flip)
+			SEND_SIGNAL(living_thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
 	else // landed on it's side
 		animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
@@ -294,7 +303,7 @@
 	var/datum/reagent/random_reagent = new reagent_id
 	list_reagents = list(random_reagent.type = 50)
 	. = ..()
-	desc += span_notice("The writing reads '[random_reagent.name]'.")
+	desc += "<span class='notice'>The writing reads '[random_reagent.name]'.</span>"
 	update_appearance()
 
 
@@ -423,7 +432,7 @@
 	desc = "A cheap, mass produced style of cup, typically used at parties. They never seem to come out red, for some reason..."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "colocup"
-	inhand_icon_state = "colocup"
+	item_state = "colocup"
 	custom_materials = list(/datum/material/plastic = 1000)
 	possible_transfer_amounts = list(5, 10, 15, 20)
 	volume = 20

@@ -76,7 +76,7 @@
 /obj/structure/closet/crate/freezer{
 	name = "refreshment cooler"
 	},
-/obj/item/reagent_containers/cup/glass/beer/light,
+/obj/item/reagent_containers/cup/glass/bottle/beer/light,
 /obj/item/reagent_containers/cup/soda_cans/sodawater,
 /obj/item/reagent_containers/cup/soda_cans/shamblers,
 /obj/item/reagent_containers/cup/soda_cans/shamblers,

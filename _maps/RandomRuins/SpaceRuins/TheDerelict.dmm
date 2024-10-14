@@ -1019,7 +1019,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
 "dq" = (
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -1241,7 +1241,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/derelict/bridge/access)
 "dZ" = (
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
 "ea" = (
@@ -1489,7 +1489,7 @@
 /area/ruin/space/derelict/bridge)
 "eU" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

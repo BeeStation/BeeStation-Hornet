@@ -420,7 +420,7 @@
 		/obj/item/mail,
 		/obj/item/small_delivery,
 		/obj/item/paper,
-		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/reagent_containers/condiment/milk,
 		/obj/item/food/bread/plain
 		)
 	)

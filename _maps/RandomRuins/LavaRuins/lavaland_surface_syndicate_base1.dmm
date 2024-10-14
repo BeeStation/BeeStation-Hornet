@@ -3018,7 +3018,7 @@
 	pixel_x = -4;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/cup/glass/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -4103,7 +4103,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "qa" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

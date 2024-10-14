@@ -932,7 +932,7 @@
 	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
 	storable = list(/obj/item/reagent_containers/glass)
-	var/defaultcontainer = /obj/item/reagent_containers/glass/beaker
+	var/defaultcontainer = /obj/item/reagent_containers/cup/beaker
 
 /obj/item/borg/apparatus/container/Destroy()
 	if(stored)
@@ -962,7 +962,7 @@
 		stored.pixel_x = 0
 		stored.pixel_y = 0
 		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
-		if(istype(stored, /obj/item/reagent_containers/glass/beaker))
+		if(istype(stored, /obj/item/reagent_containers/cup/beaker))
 			arm.pixel_y = arm.pixel_y - 3
 		stored_copy.layer = FLOAT_LAYER
 		stored_copy.plane = FLOAT_PLANE
@@ -1051,7 +1051,7 @@
 	/obj/item/reagent_containers/cup/bottle,
 	/obj/item/reagent_containers/cup/bucket
 	)
-	defaultcontainer = /obj/item/reagent_containers/food/drinks/drinkingglass
+	defaultcontainer = /obj/item/reagent_containers/cup/glass/drinkingglass
 
 
 /obj/item/borg/apparatus/container/service/examine()
