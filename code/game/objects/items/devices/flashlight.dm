@@ -369,11 +369,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	light_range = 6			// luminosity when on
 	light_system = MOVABLE_LIGHT
 
-/obj/item/flashlight/lantern/heirloom_moth
-	name = "old lantern"
-	desc = "An old lantern that has seen plenty of use."
-	light_range = 4
-
 /obj/item/flashlight/lantern/syndicate
 	name = "suspicious lantern"
 	desc = "A suspicious looking lantern."

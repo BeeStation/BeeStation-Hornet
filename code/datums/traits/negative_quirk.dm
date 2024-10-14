@@ -141,10 +141,18 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/heirloom_type
 
-	if((ismoth(H)) && prob(10))
-		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
+	if(prob(33)) //Generic heirloom
+		heirloom_type = pick(/obj/item/coin/random, /obj/item/key)
 
-	else
+	if(prob(33)) //racial heirlooms
+		if(islizard(H))
+			heirloom_type = /obj/item/heirloom_skull
+		if((ismoth(H)))
+			heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
+		if(isipc(H))
+			heirloom_type = /obj/item/disk/tech_disk
+
+	if(!heirloom_type) //Safety catch to ensure heirlooms still work if the above probability passes, but nothing was generated.
 		switch(quirk_holder.assigned_role)
 			//Service jobs
 			if(JOB_NAME_CLOWN)
@@ -254,6 +262,36 @@
 	else
 		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "family_heirloom")
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "family_heirloom_missing", /datum/mood_event/family_heirloom_missing)
+
+//Items that exist only as heirlooms because the flavor of an original item was good, but we don't want the heirloom to be too functional
+
+//Assistant heirloom toolbox, so they don't have an oversized heirloom but also don't have a functional toolbox that fits in their bag.
+/obj/item/heirloomtoolbox //Not actually a toolbox at all
+	name = "family toolbox"
+	icon = 'icons/obj/storage/toolbox.dmi'
+	icon_state = "toolbox_blue_old"
+	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
+	flags_1 = CONDUCT_1
+	desc = "It may be rusted shut, but it's still an important keepsake."
+	force = 5
+	throw_speed = 2
+	throw_range = 7
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
+	hitsound = 'sound/weapons/smash.ogg'
+
+//Lizard heirloom skull
+/obj/item/heirloom_skull
+	name = "trophy skull"
+	desc = "A trophy taken from something felled many generations ago."
+	icon_state = "legion_skull"
+
+//Moth heirloom
+/obj/item/flashlight/lantern/heirloom_moth
+	name = "old lantern"
+	desc = "An old lantern that has seen plenty of use."
+	light_range = 4
 
 /datum/quirk/frail
 	name = "Frail"

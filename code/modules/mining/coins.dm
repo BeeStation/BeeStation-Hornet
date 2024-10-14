@@ -176,3 +176,14 @@
 	value = 0
 
 /obj/item/coin/iron
+	name = "iron coin"
+	desc = "A hefty coin made of iron"
+
+/obj/item/coin/random
+	name = "random coin"
+	desc = "You should really never see this"
+
+/obj/item/coin/random/Initialize(mapload)
+	var/coin_type = pick(subtypesof(/obj/item/coin) - /obj/item/coin/random)
+	new coin_type (loc)
+	return INITIALIZE_HINT_QDEL
