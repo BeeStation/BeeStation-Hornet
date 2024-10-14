@@ -9,7 +9,7 @@
 		"code": "player.forceMove($1.loc)"
 	  },
 	  {
-		"match": "([\\w_]+)(?:'s)? ([\\w_]+) is(?: set to)? (\\S+|\".*\")",
+		"match": "([\\w_]+)(?:'s)? ([\\w_]+) is(?: set to|(?! injected)) (\\S+|\".*\")",
 		"code": "$1.$2 = $3"
 	  },
 	  {
