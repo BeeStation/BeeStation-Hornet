@@ -901,7 +901,7 @@
 	glass_name = "glass of chocolate milk"
 	glass_desc = "Brown and delicious goodness!"
 
-/datum/reagent/consumable/hot_coco
+/datum/reagent/consumable/hot_cocoa
 	name = "Hot Coco"
 	description = "Made with love! And coco beans."
 	nutriment_factor = 4 * REAGENTS_METABOLISM
@@ -912,7 +912,7 @@
 	glass_desc = "A favorite winter drink to warm you up."
 	chem_flags = CHEMICAL_RNG_BOTANY
 
-/datum/reagent/consumable/hot_coco/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/M)
 	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	if(M.getBruteLoss() && prob(20))
 		M.heal_bodypart_damage(1,0, 0)

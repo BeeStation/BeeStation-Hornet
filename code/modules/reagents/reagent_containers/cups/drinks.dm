@@ -144,7 +144,7 @@
 /obj/item/reagent_containers/cup/glass/mug/cocoa
 	name = "Dutch hot coco"
 	desc = "Made in Space South America."
-	list_reagents = list(/datum/reagent/consumable/hot_coco = 15, /datum/reagent/consumable/sugar = 5)
+	list_reagents = list(/datum/reagent/consumable/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
 	drink_type = SUGAR
 	resistance_flags = FREEZE_PROOF
 	custom_price = PAYCHECK_MEDIUM * 1.2
