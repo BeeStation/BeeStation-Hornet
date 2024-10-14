@@ -143,6 +143,7 @@
 
 	if((ismoth(H)) && prob(10))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
+
 	else
 		switch(quirk_holder.assigned_role)
 			//Service jobs
@@ -151,11 +152,11 @@
 			if(JOB_NAME_MIME)
 				heirloom_type = /obj/item/food/baguette/mime
 			if(JOB_NAME_JANITOR)
-				heirloom_type = pick(/obj/item/mop, /obj/item/reagent_containers/glass/bucket)
+				heirloom_type = /obj/item/reagent_containers/spray/cleaner
 			if(JOB_NAME_COOK)
 				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin)
 			if(JOB_NAME_BOTANIST)
-				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/toy/plush/beeplushie)
+				heirloom_type = pick(/obj/item/cultivator, /obj/item/toy/plush/beeplushie)
 			if(JOB_NAME_BARTENDER)
 				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/reagent_containers/food/drinks/shaker)
 			if(JOB_NAME_CURATOR)
@@ -163,7 +164,7 @@
 			if(JOB_NAME_CHAPLAIN)
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
 			if(JOB_NAME_ASSISTANT)
-				heirloom_type = pick(/obj/item/heirloomtoolbox)
+				heirloom_type = /obj/item/heirloomtoolbox
 			if(JOB_NAME_BARBER)
 				heirloom_type = /obj/item/handmirror
 			if(JOB_NAME_STAGEMAGICIAN)
@@ -176,13 +177,13 @@
 			if(JOB_NAME_WARDEN)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
 			if(JOB_NAME_SECURITYOFFICER)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law)
+				heirloom_type = /obj/item/book/manual/wiki/security_space_law
 			if(JOB_NAME_DETECTIVE)
 				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
 			if(JOB_NAME_LAWYER)
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
 			if(JOB_NAME_BRIGPHYSICIAN)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law)
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/sensor_device)
 			//RnD
 			if(JOB_NAME_RESEARCHDIRECTOR)
 				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
@@ -192,9 +193,9 @@
 				heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
+				heirloom_type = /obj/item/flashlight/pen
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
+				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/scalpel)
 			if(JOB_NAME_PARAMEDIC)
 				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
@@ -207,9 +208,9 @@
 			if(JOB_NAME_CHIEFENGINEER)
 				heirloom_type = pick(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			if(JOB_NAME_STATIONENGINEER)
-				heirloom_type = pick(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/multitool, /obj/item/geiger_counter, /obj/item/t_scanner)
 			if(JOB_NAME_ATMOSPHERICTECHNICIAN)
-				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
+				heirloom_type = pick(/obj/item/lighter, /obj/item/analyzer, /obj/item/t_scanner)
 			//Supply
 			if(JOB_NAME_QUARTERMASTER)
 				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
