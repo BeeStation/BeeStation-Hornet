@@ -27116,7 +27116,7 @@
 	},
 /obj/machinery/door/airlock/grunge{
 	name = "Morgue";
-	req_one_access_txt = "4;5;6"
+	req_one_access_txt = "5;6"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
@@ -33533,7 +33533,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/grunge{
 	name = "Morgue";
-	req_one_access_txt = "4;5;6"
+	req_one_access_txt = "5;6"
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
