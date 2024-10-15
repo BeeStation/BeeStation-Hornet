@@ -51,6 +51,7 @@ export class ScenarioOutline extends Scenario {
         generated.inline_text.unshift(`${'\t'.repeat(indentation)}for (var/_${example_name} in list() + ${this.example.values.map(x => x.get(example_name)).join(' + ')})`);
         indentation ++;
       }
+      generated.inline_text.unshift(`${'\t'.repeat(this.example ? this.example.names.length : 0)}log_test("Testing ${this.example.names.map(name => `<${name}>: [_${name}]`).join(', ')}")`);
     }
     // Return generated code
     return generated;
