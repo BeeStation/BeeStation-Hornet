@@ -13,7 +13,7 @@
 	max_integrity = 100
 	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
-	var/list/network = list(CAMERA_NETWORK_STATION)
+	var/list/network
 	var/c_tag = null
 	var/status = TRUE
 	var/current_state = TRUE
@@ -80,7 +80,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
 		if (get_area(src) != camera_area)
 			c_tag = "[c_tag] (External)"
-	network = camera_area.camera_networks
+	if (!islist(network))
+		if (camera_area.camera_networks)
+			network = camera_area.camera_networks
+		else if (is_station_level(z))
+			network = list(CAMERA_NETWORK_STATION)
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
