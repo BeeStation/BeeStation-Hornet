@@ -198,7 +198,7 @@
 			if(JOB_NAME_PARAMEDIC)
 				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
-				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
+				heirloom_type = /obj/item/reagent_containers/cup/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if(JOB_NAME_GENETICIST)
@@ -242,8 +242,8 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder, family_name)
-	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
-		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+	if(istype(heirloom, /obj/item/reagent_containers/cup/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/cup/chem_heirloom/H = heirloom
 		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()

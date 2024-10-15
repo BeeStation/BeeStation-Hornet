@@ -931,7 +931,7 @@
 	name = "container storage apparatus"
 	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
-	storable = list(/obj/item/reagent_containers/glass)
+	storable = list(/obj/item/reagent_containers/cup)
 	var/defaultcontainer = /obj/item/reagent_containers/cup/beaker
 
 /obj/item/borg/apparatus/container/Destroy()
@@ -944,7 +944,7 @@
 /obj/item/borg/apparatus/container/examine()
 	. = ..()
 	//apparatus/container/service means this will not always be true.
-	if(istype(stored, /obj/item/reagent_containers/glass))
+	if(istype(stored, /obj/item/reagent_containers/cup))
 		var/obj/item/reagent_containers/C = stored
 		. += "The apparatus currently has [C] secured, which contains:"
 		if(length(C.reagents.reagent_list))
@@ -1057,7 +1057,7 @@
 /obj/item/borg/apparatus/container/service/examine()
 	. = ..()
 	//Parent type handles this type. All other objects held are handled here.
-	if(!istype(stored, /obj/item/reagent_containers/glass))
+	if(!istype(stored, /obj/item/reagent_containers/cup))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
 

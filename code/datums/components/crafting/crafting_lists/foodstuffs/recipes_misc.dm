@@ -131,7 +131,7 @@
 	name = "Rice pudding"
 	result = /obj/item/food/salad/ricepudding
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/datum/reagent/consumable/milk = 5,
 		/datum/reagent/consumable/sugar = 5,
 		/obj/item/food/boiledrice = 1

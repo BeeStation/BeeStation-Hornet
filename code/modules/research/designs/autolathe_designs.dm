@@ -390,7 +390,7 @@
 	id = "bowl"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 500)
-	build_path = /obj/item/reagent_containers/glass/bowl
+	build_path = /obj/item/reagent_containers/cup/bowl
 	category = list("initial","Dinnerware")
 
 /datum/design/drinking_glass

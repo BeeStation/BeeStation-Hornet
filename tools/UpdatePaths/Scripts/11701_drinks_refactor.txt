@@ -1,5 +1,5 @@
 # Glasses to cups
-/obj/item/reagent_containers/glass/@SUBTYPES : /obj/item/reagent_containers/cup/@SUBTYPES {@OLD}
+/obj/item/reagent_containers/cup/@SUBTYPES : /obj/item/reagent_containers/cup/@SUBTYPES {@OLD}
 
 # Foods
 /obj/item/reagent_containers/food/drinks/@SUBTYPES : /obj/item/reagent_containers/cup/glass/@SUBTYPES {@OLD}
