@@ -272,9 +272,7 @@ const Randomize = (props, context) => {
   return (
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
-      <Stack.Item grow mt={10}>
-        Semi-Randomize will ensure you at least get some mobility and lethality.
-      </Stack.Item>
+      <Stack.Item>Semi-Randomize will ensure you at least get some mobility and lethality.</Stack.Item>
       <Stack.Item>
         <Button.Confirm
           confirmContent="Cowabunga it is?"
