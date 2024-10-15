@@ -181,6 +181,7 @@ export const CheckTestDirectorTarget = new Juke.Target({
     catch (err) {
       Juke.logger.error('Failed to generate test director tests.');
       Juke.logger.error(err);
+      throw err;
       throw new Juke.ExitCode(1);
     }
   },

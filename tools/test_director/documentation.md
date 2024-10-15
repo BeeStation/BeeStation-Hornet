@@ -31,6 +31,11 @@ Given the following code is injected:
 Given {variable_name} is defined as new {typepath}
 ```
 
+### Allocate type from variable
+```gherkin
+Given {variable_name} is defined as {typepath} from {variable_name}
+```
+
 ### Move player in-range
 ```gherkin
 Given the player is next to {variable_name}
@@ -70,3 +75,30 @@ Then {variable_name} {dm_variable} should be {value}
 ```gherkin
 Then a TGUI window should open
 ```
+
+# Writing Actions
+
+The action files are json files consisting of the following format:
+
+```json
+{
+	"patterns": [
+	  {
+		"match": "regex pattern",
+		"code": "player.ClickOn($1)"
+	  },
+	  {
+		"match": "regex pattern",
+		"code_injection": true
+	  },
+	]
+  }
+
+```
+
+Certain variables may be injected into the matches.
+
+`%TYPE%` will be replaced with a regex statement that matches typepaths. Example Match: `/datum/example`
+`%NAME%` will be replaced with a regex statement that matches valid names. Example Match: `valid_variable_name`
+`%PROC%` will be replaced with a regex statement that matches valid proc calls. Example Match: `call_function(1, 2, 3)`
+`%VALUE%` will be replaced with a regex statement that matches any valid value. Example match: `"hello"`, `5`, `TRUE`, `a.b`

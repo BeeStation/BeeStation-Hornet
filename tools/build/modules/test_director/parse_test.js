@@ -140,8 +140,8 @@ function parse_scenario_outline(block) {
   let split = block.split(/^(?:examples|scenarios):/igm);
   // Parse the scenario as normal
   split[0]
-    .split('\n')
-    .slice(1)
+    .slice(block.indexOf('\n') + 1)
+    .split(/^(.+$(?:\n\s+.+)*)/gm)
     .map(x => x.trim())
     .filter(x => !is_line_empty_or_comment(x))
     .map(x => x.replace(/^(\s*(?:given|when|then|and|but|\*)\s*)/igm, '').replaceAll(/(\b(?:the|an|a)\b\s*)/igm, ''))

@@ -4,9 +4,9 @@ Feature: Crafting Test
   a user interface window opens for crafting
 
   Scenario Outline: Crafting test for different materials
-    #Given item is defined as new <item>
-    #And the player is holding item
-    #When the player uses the item
+    Given item is defined as new <item>
+    And the player is holding item
+    When the player uses the item
     #Then a TGUI window should open
 
     Examples:

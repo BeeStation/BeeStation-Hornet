@@ -1,7 +1,7 @@
 {
 	"patterns": [
 	  {
-		"match": "([\\w_]+) ([\\w_]+) should be (\\S+|\".*\")",
+		"match": "(%NAME%) (%NAME%) should be (%VALUE%)",
 		"code": "TEST_ASSERT_EQUAL($3, $1:$2, \"Incorrect value.\")"
 	  },
 	  {

@@ -28,6 +28,14 @@ export class Examples {
 
   /**
    *
+   * @param {Map<string, string>} row
+   */
+  add_row_direct(row) {
+    this.values.push(row);
+  }
+
+  /**
+   *
    * @param {string[]} row
    */
   add_row(row) {

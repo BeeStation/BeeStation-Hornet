@@ -74,7 +74,13 @@ function parse_actions(file_path) {
 
   // Convert the 'match' pattern strings to regular expressions
   return action_object.patterns.map(pattern => ({
-    match: new RegExp('^' + pattern.match.replace(/\b(?:a|an|the)\b/gi, '') + '$', 'gi'),
+    match: new RegExp('^' + pattern.match
+      .replaceAll(/\b(?:a|an|the)\b/gi, '')
+      .replaceAll('%NAME%', '(?:[\\w_]+)')
+      .replaceAll('%TYPE%', '(?:(?:\\/(?:\\w|\\_)+)+)')
+      .replaceAll('%PROC%', '(?:[\\w_]+\\(.*\\))')
+      .replaceAll('%VALUE%', '(?:\\S+|".*")')
+      + '$', 'gi'),
     code: pattern.code,
     code_injection: pattern.code_injection,
   }));
