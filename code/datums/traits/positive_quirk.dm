@@ -1,14 +1,16 @@
 //predominantly positive traits
 //this file is named weirdly so that positive traits are listed above negative ones
 
-/datum/quirk/alcohol_tolerance
-	name = "Alcohol Tolerance"
-	desc = "You become drunk more slowly and suffer fewer drawbacks from alcohol."
+/datum/quirk/alcohol_enjoyer
+	name = "Alcohol Enjoyer"
+	desc = "Nothing like a good drink to make you feel on top of the world. You become drunk more slowly, suffer fewer drawbacks from alcohol and whenever you're drunk, you slowly recover from injuries."
 	icon = "beer"
-	value = 1
-	mob_trait = TRAIT_ALCOHOL_TOLERANCE
+	value = 3
+	mob_trait = TRAIT_ALCOHOL_ENJOYER
 	gain_text = "<span class='notice'>You feel like you could drink a whole keg!</span>"
 	lose_text = "<span class='danger'>You don't feel as resistant to alcohol anymore. Somehow.</span>"
+	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
+
 
 /datum/quirk/apathetic
 	name = "Apathetic"
@@ -16,16 +18,6 @@
 	icon = "meh"
 	value = 1
 	mood_quirk = TRUE
-
-/datum/quirk/drunkhealing
-	name = "Drunken Resilience"
-	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
-	icon = "wine-bottle"
-	value = 2
-	mob_trait = TRAIT_DRUNK_HEALING
-	gain_text = "<span class='notice'>You feel like a drink would do you good.</span>"
-	lose_text = "<span class='danger'>You no longer feel like drinking would ease your pain.</span>"
-	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
 /datum/quirk/empath
 	name = "Empath"
@@ -76,16 +68,6 @@
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = "<span class='notice'>You walk with a little more litheness.</span>"
 	lose_text = "<span class='danger'>You start tromping around like a barbarian.</span>"
-
-
-/datum/quirk/linguist
-	name = "Linguist"
-	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
-	icon = "language"
-	value = 1
-	mob_trait = TRAIT_LINGUIST
-	gain_text = "<span class='notice'>You can recognise the linguistic features of every language.</span>"
-	lose_text = "<span class='danger'>You can no longer recognise linguistic features for each language.</span>"
 
 /datum/quirk/multilingual
 	name = "Multilingual"

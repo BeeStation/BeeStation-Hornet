@@ -34,7 +34,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/C)
 	if(C.drunkenness < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER)
 		var/booze_power = boozepwr
-		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE)) //we're an accomplished drinker
+		if(HAS_TRAIT(C, TRAIT_ALCOHOL_ENJOYER)) //we're an accomplished drinker
 			booze_power *= 0.7
 		if(HAS_TRAIT(C, TRAIT_LIGHT_DRINKER))
 			if(booze_power < 0)
@@ -46,7 +46,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			C.client?.give_award(/datum/award/achievement/misc/drunk, C)
 		var/obj/item/organ/liver/L = C.getorganslot(ORGAN_SLOT_LIVER)
 		if (istype(L))
-			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance, 0))/150))
+			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_enjoyer, 0))/150))
 	return ..()
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, reac_volume)
@@ -159,7 +159,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.dizziness = max(0,M.dizziness-5)
 	M.drowsyness = max(0,M.drowsyness-3)
 	M.AdjustSleeping(-40)
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_ENJOYER))
 		M.Jitter(5)
 	..()
 	. = 1
@@ -195,7 +195,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.drowsyness = max(0,M.drowsyness-7)
 	M.AdjustSleeping(-40)
 	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_ENJOYER))
 		M.Jitter(5)
 	return ..()
 
@@ -394,7 +394,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	shot_glass_icon_state = "shotglassgreen"
 
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/carbon/M)
-	if(prob(10) && !HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+	if(prob(10) && !HAS_TRAIT(M, TRAIT_ALCOHOL_ENJOYER))
 		M.hallucination += 4 //Reference to the urban myth
 	..()
 
@@ -678,7 +678,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/datum/brain_trauma/special/beepsky/B
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_metabolize(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+	if(HAS_TRAIT(M, TRAIT_ALCOHOL_ENJOYER))
 		metabolization_rate = 0.8
 	if(M.mind && !HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		B = new()
@@ -736,7 +736,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/manly_dorf/on_mob_metabolize(mob/living/M)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || (C.has_dna() && C.dna.check_mutation(DWARFISM)))
+		if(HAS_TRAIT(C, TRAIT_ALCOHOL_ENJOYER) || (C.has_dna() && C.dna.check_mutation(DWARFISM)))
 			to_chat(C, "<span class='notice'>Now THAT is MANLY!</span>")
 			boozepwr = 5 //We've had worse in the mines
 			dorf_mode = TRUE
@@ -1340,7 +1340,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/M)
 	M.set_drugginess(50)
-	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_ENJOYER))
 		M.confused = max(M.confused+2,0)
 		M.Dizzy(10)
 	if (!M.slurring)
