@@ -366,13 +366,13 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.sound_played = FALSE
 		priority_announce("Hostile environment detected. \
 			Departure has been postponed indefinitely pending \
-			conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
+			conflict resolution.", null, 'sound/misc/notice1.ogg', ANNOUNCEMENT_TYPE_PRIORITY)
 	if(!emergencyNoEscape && (emergency.mode == SHUTTLE_STRANDED))
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.setTimer(emergencyDockTime)
 		priority_announce("Hostile environment resolved. \
 			You have 3 minutes to board the Emergency Shuttle.",
-			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
+			null, ANNOUNCER_SHUTTLEDOCK, ANNOUNCEMENT_TYPE_PRIORITY)
 
 /datum/controller/subsystem/shuttle/proc/checkInfestedEnvironment()
 	for(var/mob/d in infestedEnvironments)
