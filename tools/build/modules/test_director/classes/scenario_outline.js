@@ -46,12 +46,13 @@ export class ScenarioOutline extends Scenario {
     // Add the for loops
     if (this.example) {
       generated.inline_text = generated.inline_text.map(original_line => `${'\t'.repeat(this.example ? this.example.names.length : 0)}${original_line}`);
+      generated.inline_text.unshift(`${'\t'.repeat(this.example ? this.example.names.length : 0)}log_test("Testing ${this.example.names.map(name => `<${name}>: [_${name}]`).join(', ')}")`);
       let indentation = 0;
       for (const example_name of this.example.names) {
         generated.inline_text.unshift(`${'\t'.repeat(indentation)}for (var/_${example_name} in list() + ${this.example.values.map(x => x.get(example_name)).join(' + ')})`);
         indentation ++;
       }
-      generated.inline_text.unshift(`${'\t'.repeat(this.example ? this.example.names.length : 0)}log_test("Testing ${this.example.names.map(name => `<${name}>: [_${name}]`).join(', ')}")`);
+      generated.inline_text.push(`${'\t'.repeat(this.example ? this.example.names.length : 0)}log_test("[TEST_OUTPUT_GREEN("PASS")] Testing ${this.example.names.map(name => `<${name}>: [_${name}]`).join(', ')}")`);
     }
     // Return generated code
     return generated;
