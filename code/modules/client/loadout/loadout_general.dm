@@ -1,4 +1,4 @@
-//MISC TRINKETS LIKE D20s AND CIGS, ETC...
+//MISC TRINKETS LIKE D20s AND CIGS, ETC... (The beacons from the positive quirks go here now)
 
 /datum/gear/misc
 	subtype_path = /datum/gear/misc
@@ -27,6 +27,18 @@
 	description = "Says \"Made in China\" on the back. Seems fishy."
 	path = /obj/item/coin/antagtoken
 	cost = 10000
+
+/datum/gear/misc/plushie_beacon
+	display_name = "Plushie beacon"
+	description = "Summon your new friend!"
+	path = /obj/item/choice_beacon/radial/plushie
+	cost = 2500
+
+/datum/gear/misc/instrument_beacon
+	display_name = "Instrument beacon"
+	description = "Summon your tool of art!"
+	path = /obj/item/choice_beacon/radial/music
+	cost = 2500
 
 //LIGHTERS & CIGARETTES
 

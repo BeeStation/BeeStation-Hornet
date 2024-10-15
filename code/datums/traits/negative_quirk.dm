@@ -101,16 +101,6 @@
 	else
 		to_chat(quirk_target, "<span class='boldnotice'>You dropped your bottle of mannitol on the floor. Better pick it up, you are going to need it.</span>")
 
-/datum/quirk/deafness
-	name = "Deaf"
-	desc = "You are incurably deaf."
-	icon = "deaf"
-	value = -2
-	mob_trait = TRAIT_DEAF
-	gain_text = "<span class='danger'>You can't hear anything.</span>"
-	lose_text = "<span class='notice'>You're able to hear again!</span>"
-	medical_record_text = "Subject's cochlear nerve is incurably damaged."
-
 /datum/quirk/depression
 	name = "Depression"
 	desc = "You sometimes just hate life."
@@ -268,7 +258,7 @@
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
 	icon = "question-circle"
-	value = -1
+	value = -2
 	gain_text = "<span class='notice'>The words being spoken around you don't make any sense."
 	lose_text = "<span class='notice'>You've developed fluency in Galactic Common."
 	medical_record_text = "Patient does not speak Galactic Common and may require an interpreter."
@@ -368,7 +358,7 @@
 	name = "Paraplegic"
 	desc = "Your legs do not function. Nothing will ever fix this. But hey, free wheelchair!"
 	icon = "wheelchair"
-	value = -3
+	value = -4
 	medical_record_text = "Patient has an untreatable impairment in motor function in the lower extremities."
 	trauma_type = /datum/brain_trauma/severe/paralysis/paraplegic/
 
@@ -396,7 +386,7 @@
 	name = "Poor Aim"
 	desc = "You're terrible with guns and can't line up a straight shot to save your life. Dual-wielding is right out."
 	icon = "bullseye"
-	value = -1
+	value = -2
 	mob_trait = TRAIT_POOR_AIM
 	medical_record_text = "Patient possesses a strong tremor in both hands."
 
@@ -617,7 +607,7 @@
 	name = "Alcoholic"
 	desc = "You can't stand being sober."
 	icon = "angry"
-	value = -1
+	value = -2
 	gain_text = "<span class='danger'>You could really go for a drink right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit drinking.</span>"
 	medical_record_text = "Patient is an alcohol abuser."
@@ -690,7 +680,7 @@
 	name = "Phobia"
 	desc = "Because of a traumatic event in your past you have developed a strong phobia."
 	icon = "spider"
-	value = -2
+	value = -3
 	gain_text = null // these are handled by the trauma itself
 	lose_text = null
 	medical_record_text = "Patient suffers from a deeply-rooted phobia."
@@ -705,3 +695,13 @@
 /datum/quirk/trauma/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	H.cure_trauma_type(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/mute //only one point so mimes can't abuse it, but it's such a game changer it doesn't make sense having it as neutral
+	name = "Mute"
+	desc = "You are unable to speak."
+	icon = "volume-mute"
+	value = -1
+	mob_trait = TRAIT_MUTE
+	gain_text = "<span class='danger'>You feel unable to talk.</span>"
+	lose_text = "<span class='notice'>You feel able to talk again.</span>"
+	medical_record_text = "Patient is unable to speak."
