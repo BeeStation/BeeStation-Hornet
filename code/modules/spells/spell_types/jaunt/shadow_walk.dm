@@ -16,11 +16,11 @@
 
 	var/turf/cast_turf = get_turf(cast_on)
 	if(cast_turf.get_lumcount() >= SHADOW_SPECIES_LIGHT_THRESHOLD)
-		to_chat(cast_on, span_warning("It isn't dark enough here!"))
+		to_chat(cast_on, ("<span class='warning'>It isn't dark enough here!</span>"))
 		return
 
 	playsound(cast_turf, 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
-	cast_on.visible_message(span_boldwarning("[cast_on] melts into the shadows!"))
+	cast_on.visible_message(("<span class='boldwarning'>[cast_on] melts into the shadows!</span>"))
 	cast_on.SetAllImmobility(0)
 	cast_on.setStaminaLoss(0, FALSE)
 	enter_jaunt(cast_on)
@@ -60,7 +60,7 @@
 /obj/effect/dummy/phased_mob/shadow/phased_check(mob/living/user, direction)
 	. = ..()
 	if(. && isspaceturf(.))
-		to_chat(user, span_warning("It really would not be wise to go into space."))
+		to_chat(user, ("<span class='warning'>It really would not be wise to go into space."))
 		return FALSE
 
 /obj/effect/dummy/phased_mob/shadow/proc/check_light_level()
@@ -74,9 +74,9 @@
 
 	if(istype(reveal_turf))
 		if(forced_out)
-			reveal_turf.visible_message(span_boldwarning("[jaunter] is revealed by the light!"))
+			reveal_turf.visible_message(("<span class='boldwarning'>[jaunter] is revealed by the light!</span>"))
 		else
-			reveal_turf.visible_message(span_boldwarning("[jaunter] emerges from the darkness!"))
+			reveal_turf.visible_message(("<span class='boldwarning'>[jaunter] emerges from the darkness!</span>"))
 		playsound(reveal_turf, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 
 	return ..()

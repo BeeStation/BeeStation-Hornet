@@ -43,7 +43,7 @@
 		// to try to land in a NOTELEPORT zone after it is created, AKA trying to exploit.
 		if(isliving(jaunter))
 			var/mob/living/living_cheaterson = jaunter
-			to_chat(living_cheaterson, span_userdanger("This area has a heavy universal force occupying it, and you are scattered to the cosmos!"))
+			to_chat(living_cheaterson, ("<span class='userdanger'>This area has a heavy universal force occupying it, and you are scattered to the cosmos!</span>"))
 			if(ishuman(living_cheaterson))
 				shake_camera(living_cheaterson, 20, 1)
 				addtimer(CALLBACK(living_cheaterson, TYPE_PROC_REF(/mob/living/carbon, vomit)), 2 SECONDS)
@@ -80,9 +80,9 @@
 	var/area/destination_area = newloc.loc
 	movedelay = world.time + movespeed
 	if(newloc.flags_1 & NOJAUNT_1)
-		to_chat(user, span_warning("Some strange aura is blocking the way."))
+		to_chat(user, ("<span class='warning'>Some strange aura is blocking the way.</span>"))
 		return
 	if(destination_area.area_flags & NOTELEPORT || SSmapping.level_trait(newloc.z, ZTRAIT_NOPHASE))
-		to_chat(user, span_danger("Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous."))
+		to_chat(user, ("<span class='danger'>Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous.</span>"))
 		return
 	return newloc

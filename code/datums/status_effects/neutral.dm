@@ -99,7 +99,7 @@
 		rewarded = caster
 
 /datum/status_effect/bounty/on_apply()
-	to_chat(owner, span_boldnotice("You hear something behind you talking... \"You have been marked for death by [rewarded]. If you die, they will be rewarded.\""))
+	to_chat(owner, ("<span class='boldnotice'>You hear something behind you talking... \"You have been marked for death by [rewarded]. If you die, they will be rewarded.\"</span>"))
 	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
 	return ..()
 

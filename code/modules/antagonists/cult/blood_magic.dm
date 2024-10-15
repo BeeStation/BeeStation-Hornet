@@ -217,8 +217,8 @@
 	charges = 4
 	check_flags = AB_CHECK_CONSCIOUS
 	click_action = TRUE
-	enable_text = span_cult("You prepare to horrify a target...")
-	disable_text = span_cult("You dispel the magic...")
+	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
+	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
 /datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
@@ -243,14 +243,14 @@
 	clicked_on.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", sparkle_image, NONE)
 
 	addtimer(CALLBACK(clicked_on, TYPE_PROC_REF(/atom, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
-	to_chat(caller, span_cultbold("[clicked_on] has been cursed with living nightmares!"))
+	to_chat(caller, ("<span class='cultbold'>[clicked_on] has been cursed with living nightmares!</span>"))
 
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	UpdateButtons()
 	if(charges <= 0)
-		to_chat(caller, span_cult("You have exhausted the spell's power!"))
+		to_chat(caller, ("<span class='cult'>You have exhausted the spell's power!</span>"))
 		qdel(src)
 
 	return TRUE
@@ -404,7 +404,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
 
-		var/anti_magic_source = L.anti_magic_check(holy = TRUE)
+		var/anti_magic_source = L.anti_magic_check(MAGIC_RESISTANCE_HOLY)
 		if(anti_magic_source)
 
 			L.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)

@@ -66,29 +66,29 @@
 		return FALSE
 	var/mob/living/living_cast_on = cast_on
 	if(!living_cast_on.mind)
-		to_chat(owner, span_warning("[cast_on] has no mind to read!"))
+		to_chat(owner, ("<span class='warning'>[cast_on] has no mind to read!</span>"))
 		return FALSE
 	if(living_cast_on.stat == DEAD)
-		to_chat(owner, span_warning("[cast_on] is dead!"))
+		to_chat(owner, ("<span class='warning'>[cast_on] is dead!</span>"))
 		return FALSE
 
 	return TRUE
 
 /datum/action/cooldown/spell/pointed/mindread/cast(mob/living/cast_on)
 	. = ..()
-	if(cast_on.anti_magic_check())
-		to_chat(owner, span_warning("As you reach into [cast_on]'s mind, \
-			you are stopped by a mental blockage. It seems you've been foiled."))
+	if(cast_on.anti_magic_check(MAGIC_RESISTANCE_MIND, 0))
+		to_chat(owner, ("<span class='warning'>As you reach into [cast_on]'s mind, \
+			you are stopped by a mental blockage. It seems you've been foiled.</span>"))
 		return
 
 	if(cast_on == owner)
-		to_chat(owner, span_warning("You plunge into your mind... Yep, it's your mind."))
+		to_chat(owner, ("<span class='warning'>You plunge into your mind... Yep, it's your mind.</span>"))
 		return
 
-	to_chat(owner, span_boldnotice("You plunge into [cast_on]'s mind..."))
+	to_chat(owner, ("<span class='boldnotice'>You plunge into [cast_on]'s mind...</span>"))
 	if(prob(20))
 		// chance to alert the read-ee
-		to_chat(cast_on, span_danger("You feel something foreign enter your mind."))
+		to_chat(cast_on, ("<span class='danger'>You feel something foreign enter your mind.</span>"))
 
 	/* Uhhhh idk what to put here :3
 	var/list/recent_speech = list()

@@ -150,7 +150,7 @@
 	var/turf/caster_turf = get_turf(owner)
 	if((spell_requirements & SPELL_REQUIRES_OFF_CENTCOM) && is_centcom_level(caster_turf.z))
 		if(feedback)
-			to_chat(owner, span_warning("You can't cast [src] here!"))
+			to_chat(owner, ("<span class='warning'>You can't cast [src] here!</span>"))
 		return FALSE
 
 	if((spell_requirements & SPELL_REQUIRES_MIND) && !owner.mind)
@@ -160,19 +160,19 @@
 	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !owner.mind?.miming)
 		// In the future this can be moved out of spell checks exactly
 		if(feedback)
-			to_chat(owner, span_warning("You must dedicate yourself to silence first!"))
+			to_chat(owner, ("<span class='warning'>You must dedicate yourself to silence first!</span>"))
 		return FALSE
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
 	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && owner.anti_magic_check(antimagic_flags))
 		if(feedback)
-			to_chat(owner, span_warning("Some form of antimagic is preventing you from casting [src]!"))
+			to_chat(owner, ("<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>"))
 		return FALSE
 
 	if(!(spell_requirements & SPELL_CASTABLE_WHILE_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
 		if(feedback)
-			to_chat(owner, span_warning("[src] cannot be cast unless you are completely manifested in the material plane!"))
+			to_chat(owner, ("<span class='warning'>[src] cannot be cast unless you are completely manifested in the material plane!</span>"))
 		return FALSE
 
 	if(!can_invoke(feedback = feedback))
@@ -182,22 +182,22 @@
 		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
 			var/mob/living/carbon/human/human_owner = owner
 			if(!(human_owner.wear_suit?.clothing_flags & CASTING_CLOTHES))
-				to_chat(owner, span_warning("You don't feel strong enough without your robe!"))
+				to_chat(owner, ("<span class='warning'>You don't feel strong enough without your robe!</span>"))
 				return FALSE
 			if(!(human_owner.head?.clothing_flags & CASTING_CLOTHES))
-				to_chat(owner, span_warning("You don't feel strong enough without your hat!"))
+				to_chat(owner, ("<span class='warning'>You don't feel strong enough without your hat!</span>"))
 				return FALSE
 
 	else
 		// If the spell requires wizard equipment and we're not a human (can't wear robes or hats), that's just a given
 		if(spell_requirements & (SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_HUMAN))
 			if(feedback)
-				to_chat(owner, span_warning("[src] can only be cast by humans!"))
+				to_chat(owner, ("<span class='warning'>[src] can only be cast by humans!</span>"))
 			return FALSE
 
 		if(!(spell_requirements & SPELL_CASTABLE_AS_BRAIN) && isbrain(owner))
 			if(feedback)
-				to_chat(owner, span_warning("[src] can't be cast in this state!"))
+				to_chat(owner, ("<span class='warning'>[src] can't be cast in this state!</span>"))
 			return FALSE
 
 		// Being put into a card form breaks a lot of spells, so we'll just forbid them in these states
@@ -349,18 +349,18 @@
 	// If you want a spell usable by ghosts for some reason, it must be INVOCATION_NONE
 	if(!isliving(owner))
 		if(feedback)
-			to_chat(owner, span_warning("You need to be living to invoke [src]!"))
+			to_chat(owner, ("<span class='warning'>You need to be living to invoke [src]!</span>"))
 		return FALSE
 
 	var/mob/living/living_owner = owner
 	if(invocation_type == INVOCATION_EMOTE && HAS_TRAIT(living_owner, TRAIT_EMOTEMUTE))
 		if(feedback)
-			to_chat(owner, span_warning("You can't position your hands correctly to invoke [src]!"))
+			to_chat(owner, ("<span class='warning'>You can't position your hands correctly to invoke [src]!</span>"))
 		return FALSE
 
 	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak_vocal())
 		if(feedback)
-			to_chat(owner, span_warning("You can't get the words out to invoke [src]!"))
+			to_chat(owner, ("<span class='warning'>You can't get the words out to invoke [src]!</span>"))
 		return FALSE
 
 	return TRUE

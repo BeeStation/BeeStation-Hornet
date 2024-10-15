@@ -26,8 +26,8 @@
 	var/mob/living/living_hit = victim
 	if(living_hit.anti_magic_check())
 		victim.visible_message(
-			span_danger("The spell bounces off of [victim]!"),
-			span_danger("The spell bounces off of you!"),
+			("<span class='danger'>The spell bounces off of [victim]!</span>"),
+			("<span class='danger'>The spell bounces off of you!</span>"),
 		)
 		return FALSE
 
@@ -43,16 +43,7 @@
 		carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
-/*
-/datum/action/cooldown/spell/touch/mansus_grasp/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	if(isliving(victim)) // if it's a living mob, go with our normal afterattack
-		return SECONDARY_ATTACK_CALL_NORMAL
 
-	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) & COMPONENT_USE_HAND)
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
-
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-*/
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
 	desc = "A sinister looking aura that distorts the flow of reality around it. \
@@ -77,11 +68,11 @@
 	remove_hand_with_no_refund(user)
 
 /obj/item/melee/touch_attack/mansus_fist/ignition_effect(atom/to_light, mob/user)
-	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
+	. = ("<span class='notice'>[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!</span>")
 	remove_hand_with_no_refund(user)
 
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(("<span class='suicide'>[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	var/datum/action/cooldown/spell/touch/mansus_grasp/source = locate() in user.actions
 	if(!IS_HERETIC(user))

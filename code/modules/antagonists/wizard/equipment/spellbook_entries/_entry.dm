@@ -86,10 +86,10 @@
 	if(existing)
 		var/before_name = existing.name
 		if(!existing.level_spell())
-			to_chat(user, span_warning("This spell cannot be improved further!"))
+			to_chat(user, ("<span class='warning'>This spell cannot be improved further!</span>"))
 			return FALSE
 
-		to_chat(user, span_notice("You have improved [before_name] into [existing.name]."))
+		to_chat(user, ("<span class='notice'>You have improved [before_name] into [existing.name].</span>"))
 		name = existing.name
 
 		//we'll need to update the cooldowns for the spellbook
@@ -102,7 +102,7 @@
 	//No same spell found - just learn it
 	var/datum/action/cooldown/spell/new_spell = new spell_type(user.mind || user)
 	new_spell.Grant(user)
-	to_chat(user, span_notice("You have learned [new_spell.name]."))
+	to_chat(user, ("<span class='notice'>You have learned [new_spell.name].</span>"))
 
 	log_spellbook("[key_name(user)] learned [new_spell] for [cost] points")
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -157,7 +157,7 @@
 /datum/spellbook_entry/proc/refund_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
 	var/area/wizard_station/wizard_home = GLOB.areas_by_type[/area/wizard_station]
 	if(get_area(user) != wizard_home)
-		to_chat(user, span_warning("You can only refund spells at the wizard lair!"))
+		to_chat(user, ("<span class='warning'>You can only refund spells at the wizard lair!</span>"))
 		return -1
 
 	for(var/datum/action/cooldown/spell/to_refund in user.actions)
@@ -205,7 +205,7 @@
 /// Attempts to give the item to the buyer on purchase.
 /datum/spellbook_entry/item/proc/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
 	var/was_put_in_hands = user.put_in_hands(to_equip)
-	to_chat(user, span_notice("\A [to_equip.name] has been summoned [was_put_in_hands ? "in your hands" : "at your feet"]."))
+	to_chat(user, ("<span class='notice'>\A [to_equip.name] has been summoned [was_put_in_hands ? "in your hands" : "at your feet"].</span>"))
 
 /// Ritual, these cause station wide effects and are (pretty much) a blank slate to implement stuff in
 /datum/spellbook_entry/summon

@@ -3,7 +3,7 @@
 	name = "Autotomy"
 	desc = "Allows a creature to voluntary discard a random appendage."
 	quality = POSITIVE
-	text_gain_indication = span_notice("Your joints feel loose.")
+	text_gain_indication = ("<span class='notice'>Your joints feel loose.</span>")
 	instability = 30
 	power_path = /datum/action/cooldown/spell/self_amputation
 
@@ -24,7 +24,7 @@
 /datum/action/cooldown/spell/self_amputation/cast(mob/living/carbon/cast_on)
 	. = ..()
 	if(HAS_TRAIT(cast_on, TRAIT_NODISMEMBER))
-		to_chat(cast_on, span_notice("You concentrate really hard, but nothing happens."))
+		to_chat(cast_on, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
 		return
 
 	var/list/parts = list()
@@ -36,7 +36,7 @@
 		parts += to_remove
 
 	if(!length(parts))
-		to_chat(cast_on, span_notice("You can't shed any more limbs!"))
+		to_chat(cast_on, ("<span class='notice'>You can't shed any more limbs!</span>"))
 		return
 
 	var/obj/item/bodypart/to_remove = pick(parts)

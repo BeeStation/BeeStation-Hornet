@@ -383,7 +383,7 @@
 	. = ..()
 	var/mob/living/to_summon = summon_weakref?.resolve()
 	if(QDELETED(to_summon))
-		to_chat(cast_on, span_warning("You can't seem to summon your servant - it seems they've vanished from reality, or never existed in the first place..."))
+		to_chat(cast_on, ("<span class='warning'>You can't seem to summon your servant - it seems they've vanished from reality, or never existed in the first place...</span>"))
 		return
 
 	do_teleport(

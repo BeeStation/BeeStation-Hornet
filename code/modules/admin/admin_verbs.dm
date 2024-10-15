@@ -638,7 +638,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(!which)
 		return
 	if(QDELETED(spell_recipient))
-		to_chat(usr, span_warning("The intended spell recipient no longer exists."))
+		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
 	var/list/spell_list = list()
 	for(var/datum/action/cooldown/spell/to_add as anything in subtypesof(/datum/action/cooldown/spell))
@@ -660,7 +660,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/robeless = (tgui_alert(usr, "Would you like to force this spell to be robeless?", "Robeless Casting?", list("Force Robeless", "Use Spell Setting")) == "Force Robeless")
 	if(QDELETED(spell_recipient))
-		to_chat(usr, span_warning("The intended spell recipient no longer exists."))
+		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -675,8 +675,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	new_spell.Grant(spell_recipient)
 
 	if(!spell_recipient.mind)
-		to_chat(usr, span_userdanger("Spells given to mindless mobs will belong to the mob and not their mind, \
-			and as such will not be transferred if their mind changes body (Such as from Mindswap)."))
+		to_chat(usr, ("<span class='userdanger'>Spells given to mindless mobs will belong to the mob and not their mind, \
+			and as such will not be transferred if their mind changes body (Such as from Mindswap).</span>"))
 
 /client/proc/remove_spell(mob/T in GLOB.mob_list)
 	set category = "Fun"

@@ -10,7 +10,7 @@
 	school = SCHOOL_MIME
 	cooldown_time = 30 SECONDS
 	invocation = "Someone does a weird gesture." // Overriden in before cast
-	invocation_self_message = span_notice("You conjure up an invisible box, large enough to store a few things.")
+	invocation_self_message = ("<span class='notice'>You conjure up an invisible box, large enough to store a few things.</span>")
 	invocation_type = INVOCATION_EMOTE
 
 	spell_requirements = SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_MIME_VOW
@@ -24,7 +24,7 @@
 
 /datum/action/cooldown/spell/conjure_item/invisible_box/before_cast(atom/cast_on)
 	. = ..()
-	invocation = span_notice("<b>[cast_on]</b> moves [cast_on.p_their()] hands in the shape of a cube, pressing a box out of the air.")
+	invocation = ("<span class='notice'><b>[cast_on]</b> moves [cast_on.p_their()] hands in the shape of a cube, pressing a box out of the air.</span>")
 
 /datum/action/cooldown/spell/conjure_item/invisible_box/make_item()
 	. = ..()

@@ -35,11 +35,11 @@
 /datum/action/cooldown/spell/pointed/blind/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.anti_magic_check())
-		to_chat(cast_on, span_notice("Your eye itches, but it passes momentarily."))
-		to_chat(owner, span_warning("The spell had no effect!"))
+		to_chat(cast_on, ("<span class='notice'>Your eye itches, but it passes momentarily.</span>"))
+		to_chat(owner, ("<span class='warning'>The spell had no effect!</span>"))
 		return FALSE
 
-	to_chat(cast_on, span_warning("Your eyes cry out in pain!"))
+	to_chat(cast_on, ("<span class='warning'>Your eyes cry out in pain!</span>"))
 	cast_on.set_blindness(eye_blind_amount)
 	cast_on.blur_eyes(eye_blurry_amount)
 	return TRUE

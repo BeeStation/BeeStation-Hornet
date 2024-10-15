@@ -10,7 +10,7 @@
 	school = SCHOOL_MIME
 	cooldown_time = 30 SECONDS
 	invocation = "Someone does a weird gesture." // Overriden in before cast
-	invocation_self_message = span_notice("You form a wall in front of yourself.")
+	invocation_self_message = ("<span class='notice'>You form a wall in front of yourself.</span>")
 	invocation_type = INVOCATION_EMOTE
 
 	spell_requirements = SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_MIME_VOW
@@ -23,4 +23,4 @@
 
 /datum/action/cooldown/spell/conjure/invisible_wall/before_cast(atom/cast_on)
 	. = ..()
-	invocation = span_notice("<b>[cast_on]</b> looks as if a wall is in front of [cast_on.p_them()].")
+	invocation = ("<span class='notice'><b>[cast_on]</b> looks as if a wall is in front of [cast_on.p_them()].</span>")

@@ -99,7 +99,7 @@
 	if(!cell.use(THERMAL_REGULATOR_COST))
 		toggle_spacesuit(user)
 		update_hud_icon(user)
-		to_chat(user, span_warning("The thermal regulator cuts off as [cell] runs out of charge."))
+		to_chat(user, ("<span class='warning'>The thermal regulator cuts off as [cell] runs out of charge.</span>"))
 		return
 
 	// If we got here, it means thermals are on, the cell is in and the cell has
@@ -209,13 +209,13 @@
 	// thermal protection value and should just return out early.
 	if(!thermal_on && (!cell || cell.charge < THERMAL_REGULATOR_COST))
 		if(toggler)
-			to_chat(toggler, span_warning("The thermal regulator on [src] has no charge."))
+			to_chat(toggler, ("<span class='warning'>The thermal regulator on [src] has no charge.</span>"))
 		return
 
 	thermal_on = !thermal_on
 	min_cold_protection_temperature = thermal_on ? SPACE_SUIT_MIN_TEMP_PROTECT : SPACE_SUIT_MIN_TEMP_PROTECT_OFF
 	if(toggler)
-		to_chat(toggler, span_notice("You turn [thermal_on ? "on" : "off"] [src]'s thermal regulator."))
+		to_chat(toggler, ("<span class='notice'>You turn [thermal_on ? "on" : "off"] [src]'s thermal regulator.</span>"))
 
 	update_action_buttons()
 

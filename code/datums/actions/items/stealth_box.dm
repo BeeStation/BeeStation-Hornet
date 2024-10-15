@@ -22,7 +22,7 @@
 		return
 	//Box closing from here on out.
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
-		to_chat(owner, span_warning("You need more space to activate this implant!"))
+		to_chat(owner, ("<span class='warning'>You need more space to activate this implant!</span>"))
 		return
 	if(!COOLDOWN_FINISHED(src, box_cooldown))
 		return
@@ -50,6 +50,6 @@
 	var/obj/structure/closet/cardboard/agent/box = owner.loc
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 	box.open()
-	owner.visible_message(span_suicide("[owner] falls out of [box]! It looks like [owner.p_they()] committed suicide!"))
+	owner.visible_message("<span class='suicide'>[owner] falls out of [box]! It looks like [owner.p_they()] committed suicide!</span>")
 	owner.throw_at(get_turf(owner))
 	return OXYLOSS

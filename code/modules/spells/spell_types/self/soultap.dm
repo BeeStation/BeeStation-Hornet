@@ -30,7 +30,7 @@
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
 	if(!is_valid_target(owner))
 		if(feedback)
-			to_chat(owner, span_warning("You have no soul to tap into!"))
+			to_chat(owner, ("<span class='warning'>You have no soul to tap into!</span>"))
 		return FALSE
 
 	return TRUE
@@ -48,16 +48,16 @@
 
 	// If the tap took all of our life, we die and lose our soul!
 	if(cast_on.maxHealth <= 0)
-		to_chat(cast_on, span_userdanger("Your weakened soul is completely consumed by the tap!"))
+		to_chat(cast_on, ("<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>"))
 		ADD_TRAIT(cast_on, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
-		cast_on.visible_message(span_danger("[cast_on] suddenly dies!"), ignored_mobs = cast_on)
+		cast_on.visible_message(("<span class='danger'>[cast_on] suddenly dies!</span>"), ignored_mobs = cast_on)
 		cast_on.death()
 
 	// If the next tap will kill us, give us a heads-up
 	else if(cast_on.maxHealth - tap_health_taken <= 0)
-		to_chat(cast_on, span_bolddanger("Your body feels incredibly drained, and the burning is hard to ignore!"))
+		to_chat(cast_on, ("<span class='bolddanger'>Your body feels incredibly drained, and the burning is hard to ignore!</span>"))
 
 	// Otherwise just give them some feedback
 	else
-		to_chat(cast_on, span_danger("Your body feels drained and there is a burning pain in your chest."))
+		to_chat(cast_on, ("<span class='danger'>Your body feels drained and there is a burning pain in your chest.</span>"))

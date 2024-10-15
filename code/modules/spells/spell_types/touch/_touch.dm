@@ -9,9 +9,9 @@
 	/// Ref to the hand we currently have deployed.
 	var/obj/item/melee/touch_attack/attached_hand
 	/// The message displayed to the person upon creating the touch hand
-	var/draw_message = span_notice("You channel the power of the spell to your hand.")
+	var/draw_message = ("<span class='notice'>You channel the power of the spell to your hand.</span>")
 	/// The message displayed upon willingly dropping / deleting / cancelling the touch hand before using it
-	var/drop_message = span_notice("You draw the power out of your hand.")
+	var/drop_message = ("<span class='notice'>You draw the power out of your hand.</span>")
 
 /datum/action/cooldown/spell/touch/Destroy()
 	// If we have an owner, the hand is cleaned up in Remove(), which Destroy() calls.
@@ -63,9 +63,9 @@
 	if(!cast_on.put_in_hands(new_hand, del_on_fail = TRUE))
 		reset_spell_cooldown()
 		if (cast_on.usable_hands == 0)
-			to_chat(cast_on, span_warning("You dont have any usable hands!"))
+			to_chat(cast_on, ("<span class='warning'>You dont have any usable hands!</span>"))
 		else
-			to_chat(cast_on, span_warning("Your hands are full!"))
+			to_chat(cast_on, ("<span class='warning'>Your hands are full!</span>"))
 		return FALSE
 
 	attached_hand = new_hand
@@ -123,22 +123,6 @@
 
 	INVOKE_ASYNC(src, PROC_REF(do_hand_hit), source, victim, caster)
 
-/**
- * Signal proc for [COMSIG_ITEM_AFTERATTACK_SECONDARY] from our attached hand.
- *
- * Same as on_hand_hit, but for if right-click was used on hit.
- */
-/datum/action/cooldown/spell/touch/proc/on_secondary_hand_hit(datum/source, atom/victim, mob/caster, proximity_flag, click_parameters)
-	SIGNAL_HANDLER
-
-	if(!proximity_flag)
-		return
-	if(victim == caster)
-		return
-	if(!can_cast_spell(feedback = FALSE))
-		return
-
-	//INVOKE_ASYNC(src, PROC_REF(do_secondary_hand_hit), source, victim, caster)
 
 /**
  * Calls cast_on_hand_hit() from the caster onto the victim.
@@ -152,25 +136,7 @@
 	spell_feedback()
 	remove_hand(caster)
 
-//Calls do_secondary_hand_hit() from the caster onto the victim.
-/*
-/datum/action/cooldown/spell/touch/proc/do_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	var/secondary_result = cast_on_secondary_hand_hit(hand, victim, caster)
-	switch(secondary_result)
-		// Continue will remove the hand here and stop
-		if(SECONDARY_ATTACK_CONTINUE_CHAIN)
-			log_combat(caster, victim, "cast the touch spell [name] on", hand, "(secondary / alt cast)")
-			spell_feedback()
-			remove_hand(caster)
 
-		// Call normal will call the normal cast proc
-		if(SECONDARY_ATTACK_CALL_NORMAL)
-			do_hand_hit(hand, victim, caster)
-
-		// Cancel chain will do nothing,
-		if(SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-			return
-*/
 /**
  * The actual process of casting the spell on the victim from the caster.
  *
@@ -181,16 +147,7 @@
 /datum/action/cooldown/spell/touch/proc/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return FALSE
 
-/**
- * For any special casting effects done if the user right-clicks
- * on touch spell instead of left-clicking
- *
- * Return SECONDARY_ATTACK_CALL_NORMAL to call the normal cast_on_hand_hit
- * Return SECONDARY_ATTACK_CONTINUE_CHAIN to prevent the normal cast_on_hand_hit from calling, but still use up the hand
- * Return SECONDARY_ATTACK_CANCEL_CHAIN to prevent the spell from being used
- */
-///datum/action/cooldown/spell/touch/proc/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	//return SECONDARY_ATTACK_CALL_NORMAL
+
 
 /**
  * Signal proc for [COMSIG_PARENT_QDELETING] from our attached hand.
@@ -241,7 +198,7 @@
 	if(!iscarbon(user)) //Look ma, no hands
 		return TRUE
 	if(!(user.mobility_flags & MOBILITY_USE))
-		to_chat(user, span_warning("You can't reach out!"))
+		to_chat(user, ("<span class='warning'>You can't reach out!</span>"))
 		return TRUE
 	return ..()
 

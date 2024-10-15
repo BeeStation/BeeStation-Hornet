@@ -10,12 +10,12 @@
 	if(!martial)
 		CRASH("Someone attempted to learn [type], which did not have a martial arts set.")
 	if(user.mind.has_martialart(initial(martial.id)))
-		to_chat(user, span_warning("You already know [martial_name]!"))
+		to_chat(user, ("<span class='warning'>You already know [martial_name]!</span>"))
 		return FALSE
 	return TRUE
 
 /obj/item/book/granter/martial/on_reading_start(mob/user)
-	to_chat(user, span_notice("You start reading about [martial_name]..."))
+	to_chat(user, ("<span class='notice'>You start reading about [martial_name]...</span>"))
 
 /obj/item/book/granter/martial/on_reading_finished(mob/user)
 	to_chat(user, "[greet]")

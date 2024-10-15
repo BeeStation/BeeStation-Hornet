@@ -40,8 +40,8 @@
 	player_mind.assigned_role = "Slaughter Demon"
 	player_mind.special_role = "Slaughter Demon"
 	player_mind.add_antag_datum(/datum/antagonist/slaughter)
-	to_chat(S, span_bold("You are currently not currently in the same plane of existence as the station. \
-		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc."))
+	to_chat(S, ("<span class='bold'>You are currently not currently in the same plane of existence as the station. \
+		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc.</span>"))
 	SEND_SOUND(S, 'sound/magic/demon_dies.ogg')
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a slaughter demon by an event.")
 	log_game("[key_name(S)] was spawned as a slaughter demon by an event.")

@@ -25,17 +25,17 @@
 /datum/action/cooldown/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
 	playsound(owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(cast_on.anti_magic_check())
+	if(cast_on.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 		owner.balloon_alert(owner, "spell blocked!")
 		cast_on.visible_message(
-			span_danger("The spell bounces off of [cast_on]!"),
-			span_danger("The spell bounces off of you!"),
+			("<span class='danger'>The spell bounces off of [cast_on]!</span>"),
+			("<span class='danger'>The spell bounces off of you!</span>"),
 		)
 		return FALSE
 
 	cast_on.visible_message(
-		span_danger("[cast_on] turns pale as a red glow envelops [cast_on.p_them()]!"),
-		span_danger("You pale as a red glow enevelops you!"),
+		("<span class='danger'>[cast_on] turns pale as a red glow envelops [cast_on.p_them()]!</span>"),
+		("<span class='danger'>You pale as a red glow enevelops you!</span>"),
 	)
 
 	var/mob/living/living_owner = owner

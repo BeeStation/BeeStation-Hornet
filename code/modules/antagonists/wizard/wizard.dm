@@ -232,18 +232,18 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 				/datum/action/cooldown/spell/aoe/magic_missile,
 				/datum/action/cooldown/spell/pointed/projectile/fireball,
 			)
-			to_chat(owner, span_bold("Your service has not gone unrewarded, however. \
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned powerful, \
-				destructive spells. You are able to cast magic missile and fireball."))
+				destructive spells. You are able to cast magic missile and fireball.</span>"))
 
 		if(APPRENTICE_BLUESPACE)
 			spells_to_grant = list(
 				/datum/action/cooldown/spell/teleport/area_teleport/wizard,
 				/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
 			)
-			to_chat(owner, span_bold("Your service has not gone unrewarded, however. \
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned reality-bending \
-				mobility spells. You are able to cast teleport and ethereal jaunt."))
+				mobility spells. You are able to cast teleport and ethereal jaunt.</span>"))
 
 		if(APPRENTICE_HEALING)
 			spells_to_grant = list(
@@ -253,17 +253,17 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 			items_to_grant = list(
 				/obj/item/gun/magic/staff/healing,
 			)
-			to_chat(owner, span_bold("Your service has not gone unrewarded, however. \
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned life-saving \
-				survival spells. You are able to cast charge and forcewall, and have a staff of healing."))
+				survival spells. You are able to cast charge and forcewall, and have a staff of healing.</span>"))
 		if(APPRENTICE_ROBELESS)
 			spells_to_grant = list(
 				/datum/action/cooldown/spell/aoe/knock,
 				/datum/action/cooldown/spell/pointed/mind_transfer,
 			)
-			to_chat(owner, span_bold("Your service has not gone unrewarded, however. \
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned stealthy, \
-				robeless spells. You are able to cast knock and mindswap."))
+				robeless spells. You are able to cast knock and mindswap.</span>"))
 
 	for(var/spell_type in spells_to_grant)
 		var/datum/action/cooldown/spell/new_spell = new spell_type(owner)
@@ -384,10 +384,10 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 		purchases += "[amount > 1 ? "[amount]x ":""][initial(bought.name)]"
 
 	if(length(purchases))
-		parts += span_bold("[owner.name] used the following spells:")
+		parts += ("<span class='bold'>[owner.name] used the following spells:</span>")
 		parts += purchases.Join(", ")
 	else
-		parts += span_bold("[owner.name] didn't buy any spells!")
+		parts += ("<span class='bold'>[owner.name] didn't buy any spells!</span>")
 
 	return parts.Join("<br>")
 

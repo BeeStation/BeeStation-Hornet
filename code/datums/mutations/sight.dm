@@ -88,7 +88,7 @@
 	. = ..()
 	ADD_TRAIT(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
 	cast_on.update_sight()
-	to_chat(cast_on, span_info("You focus your eyes intensely, as your vision becomes filled with heat signatures."))
+	to_chat(cast_on, ("<span class='info'>You focus your eyes intensely, as your vision becomes filled with heat signatures.</span>"))
 	addtimer(CALLBACK(src, PROC_REF(deactivate), cast_on), thermal_duration)
 
 /datum/action/cooldown/spell/thermal_vision/proc/deactivate(mob/living/cast_on)
@@ -97,7 +97,7 @@
 
 	REMOVE_TRAIT(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
 	cast_on.update_sight()
-	to_chat(cast_on, span_info("You blink a few times, your vision returning to normal as a dull pain settles in your eyes."))
+	to_chat(cast_on, ("<span class='info'>You blink a few times, your vision returning to normal as a dull pain settles in your eyes.</span>"))
 
 	if(iscarbon(cast_on))
 		var/mob/living/carbon/carbon_cast_on = cast_on

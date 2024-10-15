@@ -23,7 +23,7 @@
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
 	if(!is_valid_target(owner))
 		if(feedback)
-			to_chat(owner, span_warning("You don't have a soul to bind!"))
+			to_chat(owner, ("<span class='warning'>You don't have a soul to bind!</span>"))
 		return FALSE
 
 	return TRUE
@@ -36,29 +36,29 @@
 	if(!marked_item || marked_item.item_flags & ABSTRACT)
 		return
 	if(HAS_TRAIT(marked_item, TRAIT_NODROP))
-		to_chat(cast_on, span_warning("[marked_item] is stuck to your hand - it wouldn't be a wise idea to place your soul into it."))
+		to_chat(cast_on, ("<span class='warning'>[marked_item] is stuck to your hand - it wouldn't be a wise idea to place your soul into it.</span>"))
 		return
 	// I ensouled the nuke disk once.
 	// But it's a really mean tactic, so we probably should disallow it.
 	if(SEND_SIGNAL(marked_item, COMSIG_ITEM_IMBUE_SOUL, src, cast_on) & COMPONENT_BLOCK_IMBUE)
-		to_chat(cast_on, span_warning("[marked_item] is not suitable for emplacement of your fragile soul."))
+		to_chat(cast_on, ("<span class='warning'>[marked_item] is not suitable for emplacement of your fragile soul.</span>"))
 		return
 
 	. = ..()
 	playsound(cast_on, 'sound/effects/pope_entry.ogg', 100)
 
-	to_chat(cast_on, span_green("You begin to focus your very being into [marked_item]..."))
+	to_chat(cast_on, ("<span class='green'>You begin to focus your very being into [marked_item]...</span>"))
 	if(!do_after(cast_on, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
-		to_chat(cast_on, span_warning("Your soul snaps back to your body as you stop ensouling [marked_item]!"))
+		to_chat(cast_on, ("<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>"))
 		return
 
 	marked_item.AddComponent(/datum/component/phylactery, cast_on.mind)
 
 	cast_on.set_species(/datum/species/skeleton)
-	to_chat(cast_on, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination \
+	to_chat(cast_on, ("<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination \
 		as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! \
 		As your organs crumble to dust in your fleshless chest you come to terms with your choice. \
-		You're a lich!"))
+		You're a lich!</span>"))
 
 	if(iscarbon(cast_on))
 		var/mob/living/carbon/carbon_cast_on = cast_on

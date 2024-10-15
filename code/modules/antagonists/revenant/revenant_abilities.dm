@@ -112,7 +112,7 @@
 				reveal(46)
 				stun(46)
 				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray.</span>")
-				if(target.anti_magic_check(FALSE, TRUE))
+				if(target.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 					to_chat(src, "<span class='revenminor'>Something's wrong! [target] seems to be resisting the siphoning, leaving you vulnerable!</span>")
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
 											   "<span class='revenwarning'>Violet lights, dancing in your vision, receding--</span>")
@@ -234,12 +234,12 @@
 
 	if(locked)
 		if(!cast_on.unlock(unlock_amount))
-			to_chat(cast_on, span_revenwarning("You don't have enough essence to unlock [initial(name)]!"))
+			to_chat(cast_on, ("<span class='revenwarning'>You don't have enough essence to unlock [initial(name)]!</span>"))
 			reset_spell_cooldown()
 			return . | SPELL_CANCEL_CAST
 
 		name = "[initial(name)] ([cast_amount]E)"
-		to_chat(cast_on, span_revennotice("You have unlocked [initial(name)]!"))
+		to_chat(cast_on, ("<span class='revennotice'>You have unlocked [initial(name)]!</span>"))
 		panel = "Revenant Abilities"
 		locked = FALSE
 		reset_spell_cooldown()
@@ -278,7 +278,7 @@
 		if(!light.on)
 			continue
 
-		light.visible_message(span_boldwarning("[light] suddenly flares brightly and begins to spark!"))
+		light.visible_message(("<span class='boldwarning'>[light] suddenly flares brightly and begins to spark!</span>"))
 		var/datum/effect_system/spark_spread/light_sparks = new /datum/effect_system/spark_spread()
 		light_sparks.set_up(4, 0, light)
 		light_sparks.start()
@@ -291,7 +291,7 @@
 		if(human_mob == caster)
 			continue
 		to_shock.Beam(human_mob, icon_state = "purple_lightning", time = 0.5 SECONDS)
-		if(!human_mob.anti_magic_check())
+		if(!human_mob.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 			human_mob.electrocute_act(shock_damage, to_shock, flags = SHOCK_NOGLOVES)
 
 		do_sparks(4, FALSE, human_mob)
@@ -370,9 +370,9 @@
 	for(var/mob/living/carbon/human/human in victim)
 		if(human == caster)
 			continue
-		if(human.anti_magic_check())
+		if(human.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 			continue
-		to_chat(human, span_revenwarning("You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
+		to_chat(human, ("<span class='revenwarning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
 		new /obj/effect/temp_visual/revenant(human.loc)
 		human.emp_act(EMP_HEAVY)
 	for(var/obj/thing in victim)
@@ -405,8 +405,8 @@
 	for(var/mob/living/mob in victim)
 		if(mob == caster)
 			continue
-		if(mob.anti_magic_check())
-			to_chat(caster, span_warning("The spell had no effect on [mob]!"))
+		if(mob.anti_magic_check(MAGIC_RESISTANCE_HOLY))
+			to_chat(caster, ("<span class='warning'>The spell had no effect on [mob]!</span>"))
 			continue
 		new /obj/effect/temp_visual/revenant(mob.loc)
 		if(iscarbon(mob))
@@ -420,7 +420,7 @@
 						blight.stage++
 				if(!blightfound)
 					H.ForceContractDisease(new /datum/disease/revblight(), FALSE, TRUE)
-					to_chat(H, span_revenminor("You feel [pick("suddenly sick", "a surge of nausea", "like your skin is <i>wrong</i>")]."))
+					to_chat(H, ("<span class='revenminor'>You feel [pick("suddenly sick", "a surge of nausea", "like your skin is <i>wrong</i>")].</span>"))
 			else
 				if(mob.reagents)
 					mob.reagents.add_reagent(/datum/reagent/toxin/plasma, 5)

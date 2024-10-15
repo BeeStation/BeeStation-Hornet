@@ -9,7 +9,6 @@
 ///From mob/living/carbon/human/suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
-//Heretics stuff
 /// Default behavior is to use a charge, so return this to blocks the mansus fist from being consumed after use.
 #define COMPONENT_BLOCK_CHARGE_USE (1<<0)
 

@@ -2,7 +2,7 @@
 	name = "Tongue Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as a deadly weapon."
 	quality = POSITIVE
-	text_gain_indication = span_notice("Your feel like you can throw your voice.")
+	text_gain_indication = ("<span class='notice'>Your feel like you can throw your voice.</span>")
 	instability = 15
 	power_path = /datum/action/cooldown/spell/tongue_spike
 
@@ -27,12 +27,12 @@
 /datum/action/cooldown/spell/tongue_spike/cast(mob/living/carbon/cast_on)
 	. = ..()
 	if(HAS_TRAIT(cast_on, TRAIT_NODISMEMBER))
-		to_chat(cast_on, span_notice("You concentrate really hard, but nothing happens."))
+		to_chat(cast_on, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
 		return
 
 	var/obj/item/organ/tongue/to_fire = locate() in cast_on.internal_organs
 	if(!to_fire)
-		to_chat(cast_on, span_notice("You don't have a tongue to shoot!"))
+		to_chat(cast_on, ("<span class='notice'>You don't have a tongue to shoot!</span>"))
 		return
 
 	to_fire.Remove(cast_on, special = TRUE)
@@ -75,7 +75,7 @@
 		missed = FALSE
 
 /obj/item/hardened_spike/unembedded()
-	visible_message(span_warning("[src] cracks and twists, changing shape!"))
+	visible_message(("<span class='warning'>[src] cracks and twists, changing shape!</span>"))
 	for(var/obj/tongue as anything in contents)
 		tongue.forceMove(get_turf(src))
 
@@ -85,7 +85,7 @@
 	name = "Chem Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as biomass, allowing a long range transfer of chemicals."
 	quality = POSITIVE
-	text_gain_indication = span_notice("Your feel like you can really connect with people by throwing your voice.")
+	text_gain_indication = ("<span class='notice'>Your feel like you can really connect with people by throwing your voice.</span>")
 	instability = 15
 	locked = TRUE
 	power_path = /datum/action/cooldown/spell/tongue_spike/chem
@@ -130,13 +130,13 @@
 	chem_action.transfered_ref = WEAKREF(embedded_mob)
 	chem_action.Grant(fired_by)
 
-	to_chat(fired_by, span_notice("Link established! Use the \"Transfer Chemicals\" ability \
-		to send your chemicals to the linked target!"))
+	to_chat(fired_by, ("<span class='notice'>Link established! Use the \"Transfer Chemicals\" ability \
+		to send your chemicals to the linked target!</span>"))
 
 /obj/item/hardened_spike/chem/unembedded()
 	var/mob/living/carbon/fired_by = fired_by_ref?.resolve()
 	if(fired_by)
-		to_chat(fired_by, span_warning("Link lost!"))
+		to_chat(fired_by, ("<span class='warning'>Link lost!</span>"))
 		var/datum/action/send_chems/chem_action = locate() in fired_by.actions
 		QDEL_NULL(chem_action)
 
@@ -169,7 +169,7 @@
 	if(!ishuman(transfered))
 		return FALSE
 
-	to_chat(transfered, span_warning("You feel a tiny prick!"))
+	to_chat(transfered, ("<span class='warning'>You feel a tiny prick!</span>"))
 	transferer.reagents.trans_to(transfered, transferer.reagents.total_volume, 1, 1, 0, transfered_by = transferer)
 
 	var/obj/item/hardened_spike/chem/chem_spike = target
@@ -177,5 +177,5 @@
 
 	//this is where it would deal damage, if it transfers chems it removes itself so no damage
 	chem_spike.forceMove(get_turf(spike_location))
-	chem_spike.visible_message(span_notice("[chem_spike] falls out of [spike_location]!"))
+	chem_spike.visible_message(("<span class='notice'>[chem_spike] falls out of [spike_location]!</span>"))
 	return TRUE

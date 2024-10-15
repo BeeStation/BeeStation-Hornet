@@ -29,17 +29,17 @@
 	for(var/mob/living/carbon/human/victim as anything in nearby)
 		if(victim == owner)
 			continue
-		if(victim.anti_magic_check())
+		if(victim.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 			victim.visible_message(
-				span_danger("[victim]'s flashes in a firey glow, but repels the blaze!"),
-				span_danger("Your body begins to flash a firey glow, but you are protected!!")
+				("<span class='danger'>[victim]'s flashes in a firey glow, but repels the blaze!</span>"),
+				("<span class='danger'>Your body begins to flash a firey glow, but you are protected!!</span>")
 			)
 			continue
 		if(!victim.blood_volume)
 			continue
 		victim.visible_message(
-			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
-			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
+			("<span class='danger'>[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!</span>"),
+			("<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>")
 		)
 		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
 		victim.apply_damage(20, BURN, bodypart)

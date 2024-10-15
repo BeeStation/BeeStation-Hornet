@@ -579,7 +579,7 @@
 	//scan_ability.Remove(user)
 
 /obj/item/clothing/glasses/godeye/proc/pain(mob/living/victim)
-	to_chat(victim, span_userdanger("You experience blinding pain, as [src] burrows into your skull."))
+	to_chat(victim, ("<span class='userdanger'>You experience blinding pain, as [src] burrows into your skull.</span>"))
 	victim.emote("scream")
 	victim.flash_act()
 

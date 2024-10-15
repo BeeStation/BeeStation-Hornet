@@ -15,8 +15,7 @@
 	var/duration = 140
 	var/datum/proximity_monitor/advanced/timestop/chronofield
 	alpha = 125
-	var/check_anti_magic = FALSE
-	var/check_holy = FALSE
+	var/check_anti_magic
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 
@@ -51,11 +50,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 /obj/effect/timestop/proc/timestop()
 	target = get_turf(src)
 	playsound(src, 'sound/magic/timeparadox2.ogg', 75, 1, -1)
-	chronofield = make_field(/datum/proximity_monitor/advanced/timestop, list("current_range" = freezerange, "host" = src, "immune" = immune, "check_anti_magic" = check_anti_magic, "check_holy" = check_holy))
+	chronofield = make_field(/datum/proximity_monitor/advanced/timestop, list("current_range" = freezerange, "host" = src, "immune" = immune, "check_anti_magic" = check_anti_magic))
 	QDEL_IN(src, duration)
 
 /obj/effect/timestop/wizard
-	check_anti_magic = TRUE
+	check_anti_magic = MAGIC_RESISTANCE
 	duration = 100
 
 /datum/proximity_monitor/advanced/timestop
@@ -66,8 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	var/list/immune = list()
 	var/list/frozen_things = list()
 	var/list/frozen_mobs = list() //cached separately for processing
-	var/check_anti_magic = FALSE
-	var/check_holy = FALSE
+	var/check_anti_magic
 
 	var/static/list/global_frozen_atoms = list()
 
@@ -164,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/L)
 	frozen_mobs += L
-	if(L.anti_magic_check(check_anti_magic, check_holy))
+	if(L.anti_magic_check(check_anti_magic))
 		immune += L
 		return
 	L.Stun(20, ignore_canstun = TRUE)

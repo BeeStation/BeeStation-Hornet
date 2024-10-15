@@ -28,7 +28,7 @@
 			return do_bloodcrawl(blood_nearby, cast_on)
 
 	reset_spell_cooldown()
-	to_chat(cast_on, span_warning("There must be a nearby source of blood!"))
+	to_chat(cast_on, ("<span class='warning'>There must be a nearby source of blood!</span>"))
 
 /**
  * Attempts to enter or exit the passed blood pool.
@@ -42,7 +42,7 @@
 
 	if(!.)
 		reset_spell_cooldown()
-		to_chat(jaunter, span_warning("You are unable to blood crawl!"))
+		to_chat(jaunter, ("<span class='warning'>You are unable to blood crawl!</span>"))
 
 /**
  * Attempts to enter the passed blood pool.
@@ -51,7 +51,7 @@
 /datum/action/cooldown/spell/jaunt/bloodcrawl/proc/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(enter_blood_time > 0 SECONDS)
-			blood.visible_message(span_warning("[jaunter] starts to sink into [blood]!"))
+			blood.visible_message(("<span class='warning'>[jaunter] starts to sink into [blood]!</span>"))
 			if(!do_after(jaunter, enter_blood_time, target = blood))
 				return FALSE
 
@@ -75,7 +75,7 @@
 		jaunter.put_in_hands(left_hand)
 		jaunter.put_in_hands(right_hand)
 
-	blood.visible_message(span_warning("[jaunter] sinks into [blood]!"))
+	blood.visible_message(("<span class='warning'>[jaunter] sinks into [blood]!</span>"))
 	playsound(jaunt_turf, 'sound/magic/enter_blood.ogg', 50, TRUE, -1)
 	jaunter.ExtinguishMob()
 
@@ -89,11 +89,11 @@
 /datum/action/cooldown/spell/jaunt/bloodcrawl/proc/try_exit_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(jaunter.notransform)
-			to_chat(jaunter, span_warning("You cannot exit yet!!"))
+			to_chat(jaunter, ("<span class='warning'>You cannot exit yet!!</span>"))
 			return FALSE
 
 		if(exit_blood_time > 0 SECONDS)
-			blood.visible_message(span_warning("[blood] starts to bubble..."))
+			blood.visible_message(("<span class='warning'>[blood] starts to bubble...</span>"))
 			if(!do_after(jaunter, exit_blood_time, target = blood))
 				return FALSE
 
@@ -105,7 +105,7 @@
 			jaunter.temporarilyRemoveItemFromInventory(blood_hand, force = TRUE)
 			qdel(blood_hand)
 
-	blood.visible_message(span_boldwarning("[jaunter] rises out of [blood]!"))
+	blood.visible_message(("<span class='boldwarning'>[jaunter] rises out of [blood]!</span>"))
 	return TRUE
 
 /datum/action/cooldown/spell/jaunt/bloodcrawl/exit_jaunt(mob/living/unjaunter, turf/loc_override)
@@ -159,8 +159,8 @@
 
 	if(victim.stat == CONSCIOUS)
 		jaunt_turf.visible_message(
-			span_warning("[victim] kicks free of [blood] just before entering it!"),
-			blind_message = span_notice("You hear splashing and struggling."),
+			("<span class='warning'>[victim] kicks free of [blood] just before entering it!</span>"),
+			blind_message = ("<span class='notice'>You hear splashing and struggling.</span>"),
 		)
 		return FALSE
 
@@ -170,8 +170,8 @@
 	victim.forceMove(jaunter)
 	victim.emote("scream")
 	jaunt_turf.visible_message(
-		span_boldwarning("[jaunter] drags [victim] into [blood]!"),
-		blind_message = span_notice("You hear a splash."),
+		("<span class='boldwarning'>[jaunter] drags [victim] into [blood]!</span>"),
+		blind_message = ("<span class='notice'>You hear a splash.</span>"),
 	)
 
 	jaunter.notransform = TRUE
@@ -190,7 +190,7 @@
 	for(var/i in 1 to 3)
 		playsound(get_turf(jaunter), consume_sound, 50, TRUE)
 		if(!do_after(jaunter, 3 SECONDS, victim))
-			to_chat(jaunter, span_danger("You lose your victim!"))
+			to_chat(jaunter, ("<span class='danger'>You lose your victim!</span>"))
 			return FALSE
 		if(QDELETED(src))
 			return FALSE
@@ -209,13 +209,13 @@
  * Called when a victim starts to be consumed.
  */
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
-	to_chat(jaunter, span_danger("You begin to feast on [victim]... You can not move while you are doing this."))
+	to_chat(jaunter, ("<span class='danger'>You begin to feast on [victim]... You can not move while you are doing this.</span>"))
 
 /**
  * Called when a victim is successfully consumed.
  */
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_consumed(mob/living/victim, mob/living/jaunter)
-	to_chat(jaunter, span_danger("You devour [victim]. Your health is fully restored."))
+	to_chat(jaunter, ("<span class='danger'>You devour [victim]. Your health is fully restored.</span>"))
 	qdel(victim)
 
 /**
@@ -245,10 +245,10 @@
 	return ..()
 
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
-	to_chat(jaunter, span_clown("You invite [victim] to your party! You can not move while you are doing this."))
+	to_chat(jaunter, ("<span class='clown'>You invite [victim] to your party! You can not move while you are doing this.</span>"))
 
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_consumed(mob/living/victim, mob/living/jaunter)
-	to_chat(jaunter, span_clown("[victim] joins your party! Your health is fully restored."))
+	to_chat(jaunter, ("<span class='clown'>[victim] joins your party! Your health is fully restored.</span>"))
 	consumed_mobs += victim
 	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, PROC_REF(on_victim_statchange))
 	RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(on_victim_deleted))
@@ -272,7 +272,7 @@
 			continue
 		friend.grab_ghost(force = TRUE)
 		playsound(release_turf, consumed_mobs, 50, TRUE, -1)
-		to_chat(friend, span_clown("You leave [source]'s warm embrace, and feel ready to take on the world."))
+		to_chat(friend, ("<span class='clown'>You leave [source]'s warm embrace, and feel ready to take on the world.</span>"))
 
 
 /**
@@ -289,7 +289,7 @@
 		return
 	// Someone we've eaten has spontaneously revived; maybe regen coma, maybe a changeling
 	victim.forceMove(get_turf(victim))
-	victim.visible_message(span_warning("[victim] falls out of the air, covered in blood, with a confused look on their face."))
+	victim.visible_message(("<span class='warning'>[victim] falls out of the air, covered in blood, with a confused look on their face.</span>"))
 	exit_blood_effect(victim)
 
 	consumed_mobs -= victim

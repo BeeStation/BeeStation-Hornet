@@ -947,10 +947,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	var/turf/jaunt_turf = get_turf(jaunter)
 	jaunt_turf.visible_message(
-		span_warning("Something prevents [source] from entering [blood]!"),
-		blind_message = span_notice("You hear a splash and a thud.")
+		("<span class='warning'>Something prevents [source] from entering [blood]!</span>"),
+		blind_message = ("<span class='notice'>You hear a splash and a thud.</span>")
 	)
-	to_chat(jaunter, span_warning("A strange force is blocking [source] from entering!"))
+	to_chat(jaunter, ("<span class='warning'>A strange force is blocking [source] from entering!</span>"))
 
 	return COMPONENT_STOP_CONSUMPTION
 
@@ -985,20 +985,20 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	. = COMPONENT_STOP_CONSUMPTION
 
-	to_chat(jaunter, span_boldwarning("AAH! THEIR FLESH! IT BURNS!"))
+	to_chat(jaunter, ("<span class='boldwarning'>AAH! THEIR FLESH! IT BURNS!</span>"))
 	jaunter.apply_damage(25, BRUTE)
 
 	for(var/obj/effect/decal/cleanable/nearby_blood in range(1, get_turf(source)))
 		if(!nearby_blood.can_bloodcrawl_in())
 			continue
 		source.forceMove(get_turf(nearby_blood))
-		source.visible_message(span_warning("[nearby_blood] violently expels [source]!"))
+		source.visible_message(("<span class='warning'>[nearby_blood] violently expels [source]!</span>"))
 		crawl.exit_blood_effect(source)
 		return
 
 	// Fuck it, just eject them, thanks to some split second cleaning
 	source.forceMove(get_turf(source))
-	source.visible_message(span_warning("[source] appears from nowhere, covered in blood!"))
+	source.visible_message(("<span class='warning'>[source] appears from nowhere, covered in blood!</span>"))
 	crawl.exit_blood_effect(source)
 
 /datum/reagent/consumable/ethanol/vodkatonic

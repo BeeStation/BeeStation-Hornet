@@ -46,6 +46,6 @@
 		var/from_link = FOLLOW_LINK(ghost, owner)
 		var/from_mob_name = "<span class='[bold_telepathy_span]'>[owner] [src]:</span>"
 		var/to_link = FOLLOW_LINK(ghost, cast_on)
-		var/to_mob_name = span_name("[cast_on]")
+		var/to_mob_name = ("<span class='name'>[cast_on]</span>")
 
 		to_chat(ghost, "[from_link] [from_mob_name] [formatted_message] [to_link] [to_mob_name]")

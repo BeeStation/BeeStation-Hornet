@@ -262,8 +262,8 @@
 	S.mind.assigned_role = S.name
 	S.mind.special_role = S.name
 	S.mind.add_antag_datum(antag_type)
-	to_chat(S, span_bold("You are currently not currently in the same plane of existence as the station. \
-		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc."))
+	to_chat(S, ("<span class='bold'>You are currently not currently in the same plane of existence as the station. \
+		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc.</span>"))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"

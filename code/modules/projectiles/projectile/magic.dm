@@ -18,7 +18,7 @@
 	if(isliving(target))
 		var/mob/living/victim = target
 		if(victim.anti_magic_check(antimagic_flags))
-			visible_message(span_warning("[src] fizzles on contact with [victim]!"))
+			visible_message(("<span class='warning'>[src] fizzles on contact with [victim]!</span>"))
 			return PROJECTILE_DELETE_WITHOUT_HITTING
 
 /obj/projectile/magic/death

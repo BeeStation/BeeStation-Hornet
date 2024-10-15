@@ -204,7 +204,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	aoe_radius = 14
 
 /datum/action/cooldown/spell/aoe/blindness/cast(atom/cast_on)
-	cast_on.visible_message(span_danger("[cast_on] glares their eyes."))
+	cast_on.visible_message(("<span class='danger'>[cast_on] glares their eyes.</span>"))
 	return ..()
 
 /datum/action/cooldown/spell/aoe/blindness/get_things_to_cast_on(atom/center)

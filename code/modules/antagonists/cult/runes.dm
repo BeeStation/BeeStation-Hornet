@@ -269,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 			to_chat(M, "<span class='danger'>You need at least two invokers to convert [convertee]!</span>")
 		log_game("Offer rune failed - tried conversion with one invoker")
 		return 0
-	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat)) //Not major because it can be spammed
+	if(convertee.anti_magic_check(MAGIC_RESISTANCE_HOLY) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat)) //Not major because it can be spammed
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>Something is shielding [convertee]'s mind!</span>")
 		log_game("Offer rune failed - convertee had anti-magic")
@@ -836,7 +836,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			var/atom/I = L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE)
+			var/atom/I = L.anti_magic_check(MAGIC_RESISTANCE_HOLY)
 			if(I)
 				if(isitem(I))
 					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
@@ -864,7 +864,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			if(L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE))
+			if(L.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
 

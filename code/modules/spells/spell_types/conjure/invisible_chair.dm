@@ -10,7 +10,7 @@
 	school = SCHOOL_MIME
 	cooldown_time = 30 SECONDS
 	invocation = "Someone does a weird gesture." // Overriden in before cast
-	invocation_self_message = span_notice("You conjure an invisible chair and sit down.")
+	invocation_self_message = ("<span class='notice'>You conjure an invisible chair and sit down.</span>")
 	invocation_type = INVOCATION_EMOTE
 
 	spell_requirements = SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_MIME_VOW
@@ -23,7 +23,7 @@
 
 /datum/action/cooldown/spell/conjure/invisible_chair/before_cast(atom/cast_on)
 	. = ..()
-	invocation = span_notice("<b>[cast_on]</b> pulls out an invisible chair and sits down.")
+	invocation = ("<span class='notice'><b>[cast_on]</b> pulls out an invisible chair and sits down.</span>")
 
 /datum/action/cooldown/spell/conjure/invisible_chair/post_summon(atom/summoned_object, mob/living/carbon/human/cast_on)
 	if(!isobj(summoned_object))

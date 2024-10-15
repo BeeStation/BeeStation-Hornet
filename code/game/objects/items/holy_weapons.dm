@@ -2,11 +2,11 @@
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"

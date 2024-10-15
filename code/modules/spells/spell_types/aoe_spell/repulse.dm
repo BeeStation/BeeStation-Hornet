@@ -32,7 +32,7 @@
 			var/mob/living/victim_living = victim
 			victim_living.Paralyze(10 SECONDS)
 			victim_living.adjustBruteLoss(5)
-			to_chat(victim, span_userdanger("You're slammed into the floor by [caster]!"))
+			to_chat(victim, ("<span class='userdanger'>You're slammed into the floor by [caster]!</span>"))
 	else
 		if(sparkle_path)
 			// Created sparkles will disappear on their own
@@ -41,7 +41,7 @@
 		if(isliving(victim))
 			var/mob/living/victim_living = victim
 			victim_living.Paralyze(4 SECONDS)
-			to_chat(victim, span_userdanger("You're thrown back by [caster]!"))
+			to_chat(victim, ("<span class='userdanger'>You're thrown back by [caster]!</span>"))
 
 		// So stuff gets tossed around at the same time.
 		victim.safe_throw_at(throwtarget, ((clamp((max_throw - (clamp(dist_from_caster - 2, 0, dist_from_caster))), 3, max_throw))), 1, caster, force = repulse_force)

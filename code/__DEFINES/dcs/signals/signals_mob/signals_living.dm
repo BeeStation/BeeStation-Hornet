@@ -74,10 +74,10 @@
 #define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
 ///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
 #define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
-/// Block the electrocute_act() proc from proceeding
-#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
 ///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
+	/// Block the electrocute_act() proc from proceeding
+	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
 ///sent by stuff like stunbatons and tasers: ()
 ///from base of mob/living/set_body_position()
 #define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"

@@ -20,13 +20,13 @@
 	if(!human_victim.mind || IS_HERETIC(human_victim))
 		return FALSE
 
-	if(human_victim.anti_magic_check())
+	if(human_victim.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 		victim.visible_message(
-			span_danger("The spell bounces off of [victim]!"),
-			span_danger("The spell bounces off of you!"),
+			("<span class='danger'>The spell bounces off of [victim]!</span>"),
+			("<span class='danger'>The spell bounces off of you!</span>"),
 		)
 		return FALSE
 
-	to_chat(caster, span_warning("[human_victim.name] has been cursed!"))
+	to_chat(caster, ("<span class='warning'>[human_victim.name] has been cursed!</span>"))
 	SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 	return TRUE

@@ -26,8 +26,8 @@
 	spell_requirements = NONE
 	mindbound = FALSE
 	hand_path = /obj/item/melee/touch_attack/shock
-	draw_message = span_notice("You channel electricity into your hand.")
-	drop_message = span_notice("You let the electricity from your hand dissipate.")
+	draw_message = ("<span class='notice'>You channel electricity into your hand.</span>")
+	drop_message = ("<span class='notice'>You let the electricity from your hand dissipate.</span>")
 
 /datum/action/cooldown/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(iscarbon(victim))
@@ -37,8 +37,8 @@
 			carbon_victim.dropItemToGround(carbon_victim.get_inactive_held_item())
 //			carbon_victim.adjust_timed_status_effect(15 SECONDS, /datum/status_effect/confusion)
 			carbon_victim.visible_message(
-				span_danger("[caster] electrocutes [victim]!"),
-				span_userdanger("[caster] electrocutes you!"),
+				("<span class='danger'>[caster] electrocutes [victim]!</span>"),
+				("<span class='userdanger'>[caster] electrocutes you!</span>"),
 			)
 			return TRUE
 
@@ -46,10 +46,10 @@
 		var/mob/living/living_victim = victim
 		if(living_victim.electrocute_act(15, caster, 1, SHOCK_NOSTUN))
 			living_victim.visible_message(
-				span_danger("[caster] electrocutes [victim]!"),
-				span_userdanger("[caster] electrocutes you!"),
+				("<span class='danger'>[caster] electrocutes [victim]!</span>"),
+				("<span class='userdanger'>[caster] electrocutes you!</span>"),
 			)
 			return TRUE
 
-	to_chat(caster, span_warning("The electricity doesn't seem to affect [victim]..."))
+	to_chat(caster, ("<span class='warning'>The electricity doesn't seem to affect [victim]...</span>"))
 	return TRUE

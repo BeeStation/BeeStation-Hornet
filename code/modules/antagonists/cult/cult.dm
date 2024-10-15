@@ -269,7 +269,7 @@
 		if(cultist.current.stat == DEAD || !cultist.current.client)
 			continue
 
-		to_chat(cultist.current, span_bold(span_cultlarge("[marker] has marked [blood_target] in the [target_area.name] as the cult's top priority, get there immediately!")))
+		to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>[marker] has marked [blood_target] in the [target_area.name] as the cult's top priority, get there immediately!</span></span>")))
 		SEND_SOUND(cultist.current, sound(pick('sound/hallucinations/over_here2.ogg','sound/hallucinations/over_here3.ogg'), 0, 1, 75))
 		cultist.current.client.images += blood_target_image
 
@@ -287,9 +287,9 @@
 			continue
 
 		if(QDELETED(blood_target))
-			to_chat(cultist.current, span_bold(span_cultlarge("The blood mark's target is lost!")))
+			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark's target is lost!</span></span>")))
 		else
-			to_chat(cultist.current, span_bold(span_cultlarge("The blood mark has expired!")))
+			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark has expired!</span></span>")))
 		cultist.current.client.images -= blood_target_image
 
 	UnregisterSignal(blood_target, COMSIG_PARENT_QDELETING)

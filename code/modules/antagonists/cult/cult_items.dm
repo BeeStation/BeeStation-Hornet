@@ -69,7 +69,7 @@ Striking a noncultist, however, will tear their flesh."}
 							"<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
 		user.adjustStaminaLoss(rand(force/2,force))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
-	if (target.anti_magic_check(magic = FALSE, holy = TRUE))
+	if (target.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 		force = 15
 	else
 		force = 22
@@ -120,7 +120,7 @@ Striking a noncultist, however, will tear their flesh."}
 		return
 	if(ismob(hit_atom))
 		var/mob/M = hit_atom
-		if(M.anti_magic_check(magic = FALSE, holy = TRUE))
+		if(M.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 			M.visible_message("[src] passes right through [M]!")
 			return
 	. = ..()
@@ -512,7 +512,7 @@ Striking a noncultist, however, will tear their flesh."}
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
+			if(!L.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -749,7 +749,7 @@ Striking a noncultist, however, will tear their flesh."}
 		if (attack_type == MELEE_ATTACK && ishuman(hitby.loc))
 			// Cannot block someone who has the bible on their side
 			var/mob/living/carbon/human/attacker = hitby.loc
-			if (attacker.anti_magic_check(magic = FALSE, holy = TRUE))
+			if (attacker.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 				owner.visible_message("<span class='danger'>[owner] fails to block the attack from [attacker]!</span>", "<span class='userdanger'>You fail to block the empowered attack!</span>")
 				return FALSE
 		. = ..()
@@ -789,7 +789,7 @@ Striking a noncultist, however, will tear their flesh."}
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
+			if(!L.anti_magic_check(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

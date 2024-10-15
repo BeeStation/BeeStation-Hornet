@@ -39,7 +39,7 @@
 	. = ..()
 	var/list/turf/to_switcharoo = get_targets_to_scramble(cast_on)
 	if(!length(to_switcharoo))
-		to_chat(cast_on, span_warning("For whatever reason, the strings nearby aren't keen on being tangled."))
+		to_chat(cast_on, ("<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>"))
 		reset_spell_cooldown()
 		return
 

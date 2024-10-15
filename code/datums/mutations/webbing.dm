@@ -35,17 +35,17 @@
 /datum/action/cooldown/spell/lay_genetic_web/cast(atom/cast_on)
 	var/turf/web_spot = cast_on.loc
 	if(!isturf(web_spot) || (locate(web_path) in web_spot))
-		to_chat(cast_on, span_warning("You can't lay webs here!"))
+		to_chat(cast_on, ("<span class='warning'>You can't lay webs here!</span>"))
 		reset_spell_cooldown()
 		return FALSE
 
 	cast_on.visible_message(
-		span_notice("[cast_on] begins to secrete a sticky substance."),
-		span_notice("You begin to lay a web."),
+		("<span class='notice'>[cast_on] begins to secrete a sticky substance.</span>"),
+		("<span class='notice'>You begin to lay a web.</span>"),
 	)
 
 	if(!do_after(cast_on, webbing_time, target = web_spot))
-		to_chat(cast_on, span_warning("Your web spinning was interrupted!"))
+		to_chat(cast_on, ("<span class='warning'>Your web spinning was interrupted!</span>"))
 		return
 
 	new web_path(web_spot, cast_on)

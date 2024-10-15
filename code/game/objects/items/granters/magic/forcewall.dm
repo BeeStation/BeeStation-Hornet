@@ -15,6 +15,6 @@
 
 /obj/item/book/granter/action/spell/forcewall/recoil(mob/living/user)
 	. = ..()
-	to_chat(user, span_warning("You suddenly feel very solid!"))
+	to_chat(user, ("<span class='warning'>You suddenly feel very solid!</span>"))
 	user.Stun(4 SECONDS, ignore_canstun = TRUE)
 	user.petrify(6 SECONDS)

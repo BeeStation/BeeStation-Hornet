@@ -54,7 +54,7 @@
 
 	our_lizard.adjust_fire_stacks(cone_levels)
 	our_lizard.IgniteMob()
-	to_chat(our_lizard, span_warning("Something in front of your mouth catches fire!"))
+	to_chat(our_lizard, ("<span class='warning'>Something in front of your mouth catches fire!</span>"))
 
 /datum/action/cooldown/spell/cone/staggered/fire_breath/after_cast(atom/cast_on)
 	. = ..()

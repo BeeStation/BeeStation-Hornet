@@ -46,19 +46,19 @@
 /datum/action/cooldown/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
 	var/datum/component/mind_linker/linker = target
 	if(linkee.stat == DEAD)
-		to_chat(owner, span_warning("They're dead!"))
+		to_chat(owner, ("<span class='warning'>They're dead!</span>"))
 		return FALSE
-	to_chat(owner, span_notice("You begin linking [linkee]'s mind to yours..."))
-	to_chat(linkee, span_warning("You feel your mind being pulled somewhere... connected... intertwined with the very fabric of reality..."))
+	to_chat(owner, ("<span class='notice'>You begin linking [linkee]'s mind to yours...</span>"))
+	to_chat(linkee, ("<span class='warning'>You feel your mind being pulled somewhere... connected... intertwined with the very fabric of reality...</span>"))
 	if(!do_after(owner, link_time, linkee))
-		to_chat(owner, span_warning("You fail to link to [linkee]'s mind."))
-		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
+		to_chat(owner, ("<span class='warning'>You fail to link to [linkee]'s mind.</span>"))
+		to_chat(linkee, ("<span class='warning'>The foreign presence leaves your mind.</span>"))
 		return FALSE
 	if(QDELETED(src) || QDELETED(owner) || QDELETED(linkee))
 		return FALSE
 	if(!linker.link_mob(linkee))
-		to_chat(owner, span_warning("You can't seem to link to [linkee]'s mind."))
-		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
+		to_chat(owner, ("<span class='warning'>You can't seem to link to [linkee]'s mind.</span>"))
+		to_chat(linkee, ("<span class='warning'>The foreign presence leaves your mind.</span>"))
 		return FALSE
 	return TRUE
 

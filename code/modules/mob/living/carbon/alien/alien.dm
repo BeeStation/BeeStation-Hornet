@@ -111,8 +111,8 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/proc/alien_evolve(mob/living/carbon/alien/new_xeno)
 	visible_message(
-		span_alertalien("[src] begins to twist and contort!"),
-		span_noticealien("You begin to evolve!"),
+		("<span class='alienalert'>[src] begins to twist and contort!</span>"),
+		("<span class='noticealien'>You begin to evolve!</span>"),
 	)
 	new_xeno.setDir(dir)
 	if(!alien_name_regex.Find(name))

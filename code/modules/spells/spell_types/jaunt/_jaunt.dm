@@ -30,12 +30,12 @@
 
 	if(owner_area.area_flags & NOTELEPORT)
 		if(feedback)
-			to_chat(owner, span_danger("Some dull, universal force is stopping you from jaunting here."))
+			to_chat(owner, ("<span class='danger'>Some dull, universal force is stopping you from jaunting here.</span>"))
 		return FALSE
 
 	if(owner_turf?.turf_flags & NOJAUNT_1)
 		if(feedback)
-			to_chat(owner, span_danger("An otherwordly force is preventing you from jaunting here."))
+			to_chat(owner, ("<span class='danger'>An otherwordly force is preventing you from jaunting here.</span>"))
 		return FALSE
 
 	return isliving(owner)

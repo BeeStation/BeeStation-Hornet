@@ -31,4 +31,4 @@
 		user.equip_to_slot_if_possible(magic_mask, ITEM_SLOT_MASK, TRUE, TRUE)
 		qdel(src)
 	else
-		to_chat(user,span_notice("I say thee neigh")) //It still lives here
+		to_chat(user,("<span class='notice'>I say thee neigh</span>")) //It still lives here

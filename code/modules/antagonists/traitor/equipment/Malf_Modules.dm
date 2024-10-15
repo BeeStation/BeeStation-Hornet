@@ -565,11 +565,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		unset_ranged_ability(caller)
 		return FALSE
 	if(!istype(clicked_on, /obj/machinery))
-		to_chat(caller, span_warning("You can only overload machines!"))
+		to_chat(caller, ("<span class='warning'>You can only overload machines!</span>"))
 		return FALSE
 	var/obj/machinery/clicked_machine = clicked_on
 	if(is_type_in_typecache(clicked_machine, GLOB.blacklisted_malf_machines))
-		to_chat(caller, span_warning("You cannot overload that device!"))
+		to_chat(caller, ("<span class='warning'>You cannot overload that device!</span>"))
 		return FALSE
 
 	//caller.playsound_local(caller, SFX_SPARKS, 50, 0)
@@ -578,9 +578,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		desc = "[initial(desc)] It has [uses] use\s remaining."
 		UpdateButtons()
 
-	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
+	clicked_machine.audible_message(("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [clicked_machine]!</span>"))
 	addtimer(CALLBACK(src, PROC_REF(detonate_machine), caller, clicked_machine), 5 SECONDS) //kaboom!
-	unset_ranged_ability(caller, span_danger("Overcharging machine..."))
+	unset_ranged_ability(caller, ("<span class='danger'>Overcharging machine...</span>"))
 	return TRUE
 
 
@@ -612,11 +612,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		unset_ranged_ability(caller)
 		return FALSE
 	if(!istype(clicked_on, /obj/machinery))
-		to_chat(caller, span_warning("You can only animate machines!"))
+		to_chat(caller, ("<span class='warning'>You can only animate machines!</span>"))
 		return FALSE
 	var/obj/machinery/clicked_machine = clicked_on
 	if(!clicked_machine.can_be_overridden() || is_type_in_typecache(clicked_machine, GLOB.blacklisted_malf_machines))
-		to_chat(caller, span_warning("That machine can't be overridden!"))
+		to_chat(caller, ("<span class='warning'>That machine can't be overridden!</span>"))
 		return FALSE
 
 	caller.playsound_local(caller, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
@@ -626,9 +626,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		desc = "[initial(desc)] It has [uses] use\s remaining."
 		UpdateButtons()
 
-	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
+	clicked_machine.audible_message(("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [clicked_machine]!</span>"))
 	addtimer(CALLBACK(src, PROC_REF(animate_machine), caller, clicked_machine), 5 SECONDS) //kabeep!
-	unset_ranged_ability(caller, span_danger("Sending override signal..."))
+	unset_ranged_ability(caller, ("<span class='danger'>Sending override signal...</span>"))
 	return TRUE
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(mob/living/caller, obj/machinery/to_animate)

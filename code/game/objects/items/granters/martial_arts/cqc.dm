@@ -18,10 +18,10 @@
 /obj/item/book/granter/martial/cqc/on_reading_finished(mob/living/carbon/user)
 	. = ..()
 	if(uses <= 0)
-		to_chat(user, span_warning("[src] beeps ominously..."))
+		to_chat(user, ("<span class='warning'>[src] beeps ominously...</span>"))
 
 /obj/item/book/granter/martial/cqc/recoil(mob/living/user)
-	to_chat(user, span_warning("[src] explodes!"))
+	to_chat(user, ("<span class='warning'>[src] explodes!</span>"))
 	playsound(src,'sound/effects/explosion1.ogg',40,TRUE)
 	user.flash_act(1, 1)
 	user.adjustBruteLoss(6)

@@ -32,18 +32,18 @@
 	. = ..()
 	if(cast_on.anti_magic_check())
 		cast_on.visible_message(
-			span_danger("[cast_on]'s face bursts into flames, which instantly burst outward, leaving [cast_on.p_them()] unharmed!"),
-			span_danger("Your face starts burning up, but the flames are repulsed by your anti-magic protection!"),
+			("<span class='danger'>[cast_on]'s face bursts into flames, which instantly burst outward, leaving [cast_on.p_them()] unharmed!</span>"),
+			("<span class='danger'>Your face starts burning up, but the flames are repulsed by your anti-magic protection!</span>"),
 		)
-		to_chat(owner, span_warning("The spell had no effect!"))
+		to_chat(owner, ("<span class='warning'>The spell had no effect!</span>"))
 		return FALSE
 
 	var/chosen_type = pick(GLOB.cursed_animal_masks)
 	var/obj/item/clothing/mask/cursed_mask = new chosen_type(get_turf(target))
 
 	cast_on.visible_message(
-		span_danger("[target]'s face bursts into flames, and a barnyard animal's head takes its place!"),
-		span_userdanger("Your face burns up, and shortly after the fire you realise you have the [cursed_mask.name]!"),
+		("<span class='danger'>[target]'s face bursts into flames, and a barnyard animal's head takes its place!</span>"),
+		("<span class='userdanger'>Your face burns up, and shortly after the fire you realise you have the [cursed_mask.name]!</span>"),
 	)
 
 	// Can't drop? Nuke it

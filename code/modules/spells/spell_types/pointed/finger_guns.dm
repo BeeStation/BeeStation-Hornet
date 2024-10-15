@@ -13,7 +13,7 @@
 
 	invocation = ""
 	invocation_type = INVOCATION_EMOTE
-	invocation_self_message = span_danger("You fire your finger gun!")
+	invocation_self_message = ("<span class='danger'>You fire your finger gun!</span>")
 
 	spell_requirements = SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_MIME_VOW
 	antimagic_flags = NONE
@@ -34,15 +34,15 @@
 		var/mob/living/carbon/human/human_owner = owner
 		if(human_owner.incapacitated())
 			if(feedback)
-				to_chat(owner, span_warning("You can't properly point your fingers while incapacitated."))
+				to_chat(owner, ("<span class='warning'>You can't properly point your fingers while incapacitated.</span>"))
 			return FALSE
 		if(human_owner.get_active_held_item())
 			if(feedback)
-				to_chat(owner, span_warning("You can't properly fire your finger guns with something in your hand."))
+				to_chat(owner, ("<span class='warning'>You can't properly fire your finger guns with something in your hand.</span>"))
 			return FALSE
 
 	return ..()
 
 /datum/action/cooldown/spell/pointed/projectile/finger_guns/before_cast(atom/cast_on)
 	. = ..()
-	invocation = span_notice("<b>[cast_on]</b> fires [cast_on.p_their()] finger gun!")
+	invocation = ("<span class='notice'><b>[cast_on]</b> fires [cast_on.p_their()] finger gun!</span>")

@@ -284,8 +284,8 @@
 	hurt_spider.heal_overall_damage(20, 20)
 	new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
 	visible_message(
-		span_notice("[src] wraps the wounds of [hurt_spider]."),
-		span_notice("You wrap the wounds of [hurt_spider]."),
+		("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>"),
+		("<span class='notice'>You wrap the wounds of [hurt_spider].</span>"),
 	)
 
 //Handles AI nurse healing when spiders are idle
@@ -512,7 +512,7 @@
 	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
 	var/obj/structure/spider/stickyweb/web = locate() in get_turf(spider)
 	if(web && (istype(web, /obj/structure/spider/stickyweb)))
-		to_chat(owner, span_warning("There's already a web here!"))
+		to_chat(owner, ("<span class='warning'>There's already a web here!</span>"))
 		return FALSE
 
 	if(!isturf(spider.loc))
@@ -526,13 +526,13 @@
 	var/obj/structure/spider/stickyweb/web = locate() in spider_turf
 	if(web)
 		spider.visible_message(
-			span_notice("[spider] begins to pack more webbing onto the web."),
-			span_notice("You begin to seal the web."),
+			("<span class='notice'>[spider] begins to pack more webbing onto the web.</span>"),
+			("<span class='notice'>You begin to seal the web.</span>"),
 		)
 	else
 		spider.visible_message(
-			span_notice("[spider] begins to secrete a sticky substance."),
-			span_notice("You begin to lay a web."),
+			("<span class='notice'>[spider] begins to secrete a sticky substance.</span>"),
+			("<span class='notice'>You begin to lay a web.</span>"),
 		)
 
 	spider.stop_automated_movement = TRUE
@@ -571,7 +571,7 @@
 	if(!.)
 		return
 
-	to_chat(on_who, span_notice("You prepare to wrap something in a cocoon. <B>Left-click your target to start wrapping!</B>"))
+	to_chat(on_who, ("<span class='notice'>You prepare to wrap something in a cocoon. <B>Left-click your target to start wrapping!</B></span>"))
 	button_icon_state = "wrap_0"
 	UpdateButtons()
 
@@ -581,7 +581,7 @@
 		return
 
 	if(refund_cooldown)
-		to_chat(on_who, span_notice("You no longer prepare to wrap something in a cocoon."))
+		to_chat(on_who, ("<span class='notice'>You no longer prepare to wrap something in a cocoon.</span>"))
 	button_icon_state = "wrap_1"
 	UpdateButtons()
 
@@ -610,8 +610,8 @@
 
 /datum/action/cooldown/wrap/proc/cocoon(atom/movable/to_wrap)
 	owner.visible_message(
-		span_notice("[owner] begins to secrete a sticky substance around [to_wrap]."),
-		span_notice("You begin wrapping [to_wrap] into a cocoon."),
+		("<span class='notice'>[owner] begins to secrete a sticky substance around [to_wrap].</span>"),
+		("<span class='notice'>You begin wrapping [to_wrap] into a cocoon.</span>"),
 	)
 
 	var/mob/living/simple_animal/animal_owner = owner
@@ -628,13 +628,13 @@
 				if(egg_power)
 					egg_power.UpdateButtons()
 					owner.visible_message(
-						span_danger("[owner] sticks a proboscis into [living_wrapped] and sucks a viscous substance out."),
-						span_notice("You suck the nutriment out of [living_wrapped], feeding you enough to lay a cluster of enriched eggs."),
+						("<span class='danger'>[owner] sticks a proboscis into [living_wrapped] and sucks a viscous substance out.</span>"),
+						("<span class='notice'>You suck the nutriment out of [living_wrapped], feeding you enough to lay a cluster of enriched eggs.</span>"),
 					)
 
 				living_wrapped.death() //you just ate them, they're dead.
 			else
-				to_chat(owner, span_warning("[living_wrapped] cannot sate your hunger!"))
+				to_chat(owner, ("<span class='warning'>[living_wrapped] cannot sate your hunger!</span>"))
 
 		to_wrap.forceMove(casing)
 		if(to_wrap.density || ismob(to_wrap))

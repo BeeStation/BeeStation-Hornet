@@ -38,8 +38,8 @@
 /datum/action/cooldown/spell/pointed/dominate/cast(mob/living/simple_animal/cast_on)
 	. = ..()
 	if(cast_on.anti_magic_check())
-		to_chat(cast_on, span_warning("Your feel someone attempting to subject your mind to terrible machinations!"))
-		to_chat(owner, span_warning("[cast_on] resists your domination!"))
+		to_chat(cast_on, ("<span class='warning'>Your feel someone attempting to subject your mind to terrible machinations!</span>"))
+		to_chat(owner, ("<span class='warning'>[cast_on] resists your domination!</span>"))
 		return FALSE
 
 	var/turf/cast_turf = get_turf(cast_on)

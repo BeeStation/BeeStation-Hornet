@@ -47,8 +47,8 @@
 		"YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?",
 	)
 
-	to_chat(caster, span_warning("Glowing red letters appear on the front cover..."))
-	to_chat(caster, span_red(pick(clever_girl)))
+	to_chat(caster, ("<span class='warning'>Glowing red letters appear on the front cover...</span>"))
+	to_chat(caster, ("<span class='red'>[pick(clever_girl)]</span>"))
 
 	return COMPONENT_ITEM_BURNT_OUT
 
@@ -63,15 +63,15 @@
 	if(!owner)
 		if(!user.mind)
 			return
-		to_chat(user, span_notice("You bind [src] to yourself."))
+		to_chat(user, ("<span class='notice'>You bind [src] to yourself.</span>"))
 		owner = user.mind
 		return
 
 	if(user.mind != owner)
 		if(user.mind?.special_role == ROLE_WIZARD_APPRENTICE)
-			to_chat(user, span_warning("If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."))
+			to_chat(user, ("<span class='warning'>If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not.</span>"))
 		else
-			to_chat(user, span_warning("[src] does not recognize you as its owner and refuses to open!"))
+			to_chat(user, ("<span class='warning'>[src] does not recognize you as its owner and refuses to open!</span>"))
 		return
 
 	return ..()
@@ -81,17 +81,17 @@
 	if(istype(O, /obj/item/antag_spawner/contract))
 		var/datum/spellbook_entry/item/contract/contract_entry = locate() in entries
 		if(!istype(contract_entry))
-			to_chat(user, span_warning("[src] doesn't seem to want to refund [O]."))
+			to_chat(user, ("<span class='warning'>[src] doesn't seem to want to refund [O].</span>"))
 			return
 		if(!contract_entry.can_refund(user, src))
-			to_chat(user, span_warning("You can't refund [src]."))
+			to_chat(user, ("<span class='warning'>You can't refund [src].</span>"))
 			return
 		var/obj/item/antag_spawner/contract/contract = O
 		if(contract.used)
-			to_chat(user, span_warning("The contract has been used, you can't get your points back now!"))
+			to_chat(user, ("<span class='warning'>The contract has been used, you can't get your points back now!</span>"))
 			return
 
-		to_chat(user, span_notice("You feed the contract back into the spellbook, refunding your points."))
+		to_chat(user, ("<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>"))
 		uses += contract_entry.cost
 		contract_entry.times--
 		qdel(O)
@@ -99,13 +99,13 @@
 	else if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
 		var/datum/spellbook_entry/item/hugbottle/demon_entry = locate() in entries
 		if(!istype(demon_entry))
-			to_chat(user, span_warning("[src] doesn't seem to want to refund [O]."))
+			to_chat(user, ("<span class='warning'>[src] doesn't seem to want to refund [O].</span>"))
 			return
 		if(!demon_entry.can_refund(user, src))
-			to_chat(user, span_warning("You can't refund [O]."))
+			to_chat(user, ("<span class='warning'>You can't refund [O].</span>"))
 			return
 
-		to_chat(user, span_notice("On second thought, maybe summoning a demon isn't a funny idea. You refund your points."))
+		to_chat(user, ("<span class='notice'>On second thought, maybe summoning a demon isn't a funny idea. You refund your points.</span>"))
 		uses += demon_entry.cost
 		demon_entry.times--
 		qdel(O)
@@ -113,13 +113,13 @@
 	else if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		var/datum/spellbook_entry/item/bloodbottle/demon_entry = locate() in entries
 		if(!istype(demon_entry))
-			to_chat(user, span_warning("[src] doesn't seem to want to refund [O]."))
+			to_chat(user, ("<span class='warning'>[src] doesn't seem to want to refund [O].</span>"))
 			return
 		if(!demon_entry.can_refund(user, src))
-			to_chat(user, span_warning("You can't refund [O]."))
+			to_chat(user, ("<span class='warning'>You can't refund [O].</span>"))
 			return
 
-		to_chat(user, span_notice("On second thought, maybe summoning a demon is a bad idea. You refund your points."))
+		to_chat(user, ("<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>"))
 		uses += demon_entry.cost
 		demon_entry.times--
 		qdel(O)
@@ -180,7 +180,7 @@
 		return
 	var/mob/living/carbon/human/wizard = usr
 	if(!istype(wizard))
-		to_chat(wizard, span_warning("The book doesn't seem to listen to lower life forms."))
+		to_chat(wizard, ("<span class='warning'>The book doesn't seem to listen to lower life forms.</span>"))
 		return FALSE
 
 	// Actions that are always available
@@ -204,7 +204,7 @@
 			return TRUE
 
 	if(uses < initial(uses))
-		to_chat(wizard, span_warning("You need to have all your spell points to do this!"))
+		to_chat(wizard, ("<span class='warning'>You need to have all your spell points to do this!</span>"))
 		return FALSE
 
 	// Actions that are only available if you have full spell points

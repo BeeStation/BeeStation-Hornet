@@ -84,7 +84,7 @@ Doesn't work on other aliens/AI.*/
 /datum/action/cooldown/alien/make_structure/proc/check_for_duplicate()
 	var/obj/structure/existing_thing = locate(made_structure_type) in owner.loc
 	if(existing_thing)
-		to_chat(owner, span_warning("There is already \a [existing_thing] here!"))
+		to_chat(owner, ("<span class='warning'>There is already \a [existing_thing] here!</span>"))
 		return FALSE
 
 	return TRUE
@@ -109,7 +109,7 @@ Doesn't work on other aliens/AI.*/
 	made_structure_type = /obj/structure/alien/weeds/node
 
 /datum/action/cooldown/alien/make_structure/plant_weeds/Activate(atom/target)
-	owner.visible_message(span_alertalien("[owner] plants some alien weeds!"))
+	owner.visible_message(("<span class='alienalert'>[owner] plants some alien weeds!</span>"))
 	return ..()
 
 /datum/action/cooldown/alien/whisper
@@ -124,7 +124,7 @@ Doesn't work on other aliens/AI.*/
 		possible_recipients += recipient
 
 	if(!length(possible_recipients))
-		to_chat(owner, span_noticealien("There's no one around to whisper to."))
+		to_chat(owner, ("<span class='noticealien'>There's no one around to whisper to.</span>"))
 		return FALSE
 
 	var/mob/living/chosen_recipient = tgui_input_list(owner, "Select whisper recipient", "Whisper", sort_names(possible_recipients))
@@ -135,18 +135,18 @@ Doesn't work on other aliens/AI.*/
 	if(QDELETED(chosen_recipient) || QDELETED(src) || QDELETED(owner) || !IsAvailable() || !to_whisper)
 		return FALSE
 	if(chosen_recipient.anti_magic_check())
-		to_chat(owner, span_warning("As you reach into [chosen_recipient]'s mind, you are stopped by a mental blockage. It seems you've been foiled."))
+		to_chat(owner, ("<span class='warning'>As you reach into [chosen_recipient]'s mind, you are stopped by a mental blockage. It seems you've been foiled.</span>"))
 		return FALSE
 
 	log_directed_talk(owner, chosen_recipient, to_whisper, LOG_SAY, tag = "alien whisper")
-	to_chat(chosen_recipient, "[span_noticealien("You hear a strange, alien voice in your head...")][to_whisper]")
-	to_chat(owner, span_noticealien("You said: \"[to_whisper]\" to [chosen_recipient]"))
+	to_chat(chosen_recipient, "[("<span class='noticealien'>You hear a strange, alien voice in your head...</span>")][to_whisper]")
+	to_chat(owner, ("<span class='noticealien'>You said: \"[to_whisper]\" to [chosen_recipient]</span>"))
 	for(var/mob/dead_mob as anything in GLOB.dead_mob_list)
 		if(!isobserver(dead_mob))
 			continue
 		var/follow_link_user = FOLLOW_LINK(dead_mob, owner)
 		var/follow_link_whispee = FOLLOW_LINK(dead_mob, chosen_recipient)
-		to_chat(dead_mob, "[follow_link_user] [span_name("[owner]")] [span_alertalien("Alien Whisper --> ")] [follow_link_whispee] [span_name("[chosen_recipient]")] [span_noticealien("[to_whisper]")]")
+		to_chat(dead_mob, "[follow_link_user] [("<span class='name'>[owner]</span>")] [("<span class='alienalert'>Alien Whisper --> </span>")] [follow_link_whispee] [("<span class='name'>[chosen_recipient]</span>")] [("<span class='noticealien'>[to_whisper]</span>")]")
 
 	return TRUE
 
@@ -165,7 +165,7 @@ Doesn't work on other aliens/AI.*/
 		aliens_around += alien
 
 	if(!length(aliens_around))
-		to_chat(owner, span_noticealien("There are no other aliens around."))
+		to_chat(owner, ("<span class='noticealien'>There are no other aliens around.</span>"))
 		return FALSE
 
 	var/mob/living/carbon/donation_target = tgui_input_list(owner, "Target to transfer to", "Plasma Donation", sort_names(aliens_around))
@@ -177,14 +177,14 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 
 	if(get_dist(owner, donation_target) > 1)
-		to_chat(owner, span_noticealien("You need to be closer!"))
+		to_chat(owner, ("<span class='noticealien'>You need to be closer!</span>"))
 		return FALSE
 
 	donation_target.adjustPlasma(amount)
 	carbon_owner.adjustPlasma(-amount)
 
-	to_chat(donation_target, span_noticealien("[owner] has transferred [amount] plasma to you."))
-	to_chat(owner, span_noticealien("You transfer [amount] plasma to [donation_target]."))
+	to_chat(donation_target, ("<span class='noticealien'>[owner] has transferred [amount] plasma to you.</span>"))
+	to_chat(owner, ("<span class='noticealien'>You transfer [amount] plasma to [donation_target].</span>"))
 	return TRUE
 
 /datum/action/cooldown/alien/acid
@@ -202,7 +202,7 @@ Doesn't work on other aliens/AI.*/
 	if(!.)
 		return
 
-	to_chat(on_who, span_noticealien("You prepare to vomit acid. <b>Click a target to acid it!</b>"))
+	to_chat(on_who, ("<span class='noticealien'>You prepare to vomit acid. <b>Click a target to acid it!</b></span>"))
 	on_who.update_icons()
 
 /datum/action/cooldown/alien/acid/corrosion/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
@@ -211,7 +211,7 @@ Doesn't work on other aliens/AI.*/
 		return
 
 	if(refund_cooldown)
-		to_chat(on_who, span_noticealien("You empty your corrosive acid glands."))
+		to_chat(on_who, ("<span class='noticealien'>You empty your corrosive acid glands.</span>"))
 	on_who.update_icons()
 
 /datum/action/cooldown/alien/acid/corrosion/PreActivate(atom/target)
@@ -222,12 +222,12 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/cooldown/alien/acid/corrosion/Activate(atom/target)
 	if(!target.acid_act(200, 1000))
-		to_chat(owner, span_noticealien("You cannot dissolve this object."))
+		to_chat(owner, ("<span class='noticealien'>You cannot dissolve this object.</span>"))
 		return FALSE
 
 	owner.visible_message(
-		span_alertalien("[owner] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"),
-		span_noticealien("You vomit globs of acid over [target]. It begins to sizzle and melt."),
+		("<span class='alienalert'>[owner] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>"),
+		("<span class='noticealien'>You vomit globs of acid over [target]. It begins to sizzle and melt.</span>"),
 	)
 	return TRUE
 
@@ -245,7 +245,7 @@ Doesn't work on other aliens/AI.*/
 	if(!.)
 		return
 
-	to_chat(on_who, span_notice("You prepare your neurotoxin gland. <B>Left-click to fire at a target!</B>"))
+	to_chat(on_who, ("<span class='notice'>You prepare your neurotoxin gland. <B>Left-click to fire at a target!</B></span>"))
 
 	button_icon_state = "alien_neurotoxin_1"
 	UpdateButtons()
@@ -257,7 +257,7 @@ Doesn't work on other aliens/AI.*/
 		return
 
 	if(refund_cooldown)
-		to_chat(on_who, span_notice("You empty your neurotoxin gland."))
+		to_chat(on_who, ("<span class='notice'>You empty your neurotoxin gland.</span>"))
 
 	button_icon_state = "alien_neurotoxin_0"
 	UpdateButtons()
@@ -279,8 +279,8 @@ Doesn't work on other aliens/AI.*/
 
 	var/modifiers = params2list(params)
 	caller.visible_message(
-		span_danger("[caller] spits neurotoxin!"),
-		span_alertalien("You spit neurotoxin."),
+		("<span class='danger'>[caller] spits neurotoxin!</span>"),
+		("<span class='alienalert'>You spit neurotoxin.</span>"),
 	)
 	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(caller.loc)
 	neurotoxin.preparePixelProjectile(target, caller, modifiers)
@@ -310,7 +310,7 @@ Doesn't work on other aliens/AI.*/
 	for(var/blocker_name in structures)
 		var/obj/structure/blocker_type = structures[blocker_name]
 		if(locate(blocker_type) in owner.loc)
-			to_chat(owner, span_warning("There is already a resin structure there!"))
+			to_chat(owner, ("<span class='warning'>There is already a resin structure there!</span>"))
 			return FALSE
 
 	return TRUE
@@ -325,8 +325,8 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 
 	owner.visible_message(
-		span_notice("[owner] vomits up a thick purple substance and begins to shape it."),
-		span_notice("You shape a [choice] out of resin."),
+		("<span class='notice'>[owner] vomits up a thick purple substance and begins to shape it.</span>"),
+		("<span class='notice'>You shape a [choice] out of resin.</span>"),
 	)
 
 	new choice_path(owner.loc)
@@ -351,12 +351,12 @@ Doesn't work on other aliens/AI.*/
 		// It's safest to go to the initial alpha of the mob.
 		// Otherwise we get permanent invisbility exploits.
 		owner.alpha = initial(owner.alpha)
-		to_chat(owner, span_noticealien("You reveal yourself!"))
+		to_chat(owner, ("<span class='noticealien'>You reveal yourself!</span>"))
 		REMOVE_TRAIT(owner, TRAIT_ALIEN_SNEAK, name)
 
 	else
 		owner.alpha = sneak_alpha
-		to_chat(owner, span_noticealien("You blend into the shadows..."))
+		to_chat(owner, ("<span class='noticealien'>You blend into the shadows...</span>"))
 		ADD_TRAIT(owner, TRAIT_ALIEN_SNEAK, name)
 
 	return TRUE

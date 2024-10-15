@@ -782,34 +782,32 @@
 /mob/proc/is_muzzled()
 	return FALSE
 
+
 /**
-  * Convert a list of spells into a displyable list for the statpanel
+  * Convert a list of actions into a displyable list for the statpanel
   *
-  * Shows charge and other important info
+  * shows spells we can cast, their level, and what cooldown they have and for actions just their cooldown
   */
-// IDK how statpanel from tg works but it probably should be ported alongside proc_holder removals
-/mob/proc/get_actions_for_statpanel()
-	var/list/data = list()
+
+/mob/proc/get_actions_for_statpanel(list/actions, current_tab)
+	var/list/action_data = list()
+	if(!length(actions))
+		return action_data
+	client.stat_update_mode = STAT_MEDIUM_UPDATE
 	for(var/datum/action/cooldown/action in actions)
-		var/list/action_data = action.set_statpanel_format()
-		if(!length(action_data))
-			return
+		action_data["[action.name]"] = action.get_stat_label()
+	return action_data
 
-		data += list(list(
-			// the panel the action gets displayed to
-			// in the future, this could probably be replaced with subtabs (a la admin tabs)
-			action_data[PANEL_DISPLAY_PANEL],
-			// the status of the action, - cooldown, charges, whatever
-			action_data[PANEL_DISPLAY_STATUS],
-			// the name of the action
-			action_data[PANEL_DISPLAY_NAME],
-			// a ref to the action button of this action for this mob
-			// it's a ref to the button specifically, instead of the action itself,
-			// because statpanel href calls click(), which the action button (not the action itself) handles
-			REF(action.viewers[hud_used]),
-		))
+/datum/action/cooldown/proc/get_stat_label()
+	var/label = ""
+	var/time_left = max(next_use_time - world.time, 0)
+	if(istype(src, /datum/action/cooldown/spell))
+		var/datum/action/cooldown/spell/spell = src
+		label = GENERATE_STAT_TEXT(" Spell Level: [spell.spell_level]/[spell.spell_max_level], Spell Cooldown: [(spell.cooldown_time/10)] Seconds, Can be cast in [(time_left/10)]")
+	else
+		label = GENERATE_STAT_TEXT("Action Cooldown: [(cooldown_time/10)] Seconds,  Can be cast in [(time_left/10)]")
+	return label
 
-	return data
 
 #define MOB_FACE_DIRECTION_DELAY 1
 
@@ -887,16 +885,38 @@
 		ghost.notify_cloning(message, sound, source, flashwindow)
 		return ghost
 
-///Return any anti magic atom on this mob that matches the magic type
-/mob/proc/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)
-	if(!magic && !holy)
-		return
-	var/list/protection_sources = list()
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, src, magic, holy, major, self, protection_sources) & COMPONENT_BLOCK_MAGIC)
-		if(protection_sources.len)
-			return pick(protection_sources)
-		else
-			return src
+/**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/anti_magic_check(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
+
+	var/list/protection_was_used = list() // this is a janky way of interrupting signals using lists
+	var/is_magic_blocked = SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, src, casted_magic_flags, charge_cost, protection_was_used) & COMPONENT_MAGIC_BLOCKED
+	if(casted_magic_flags && HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		is_magic_blocked = TRUE
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
+		is_magic_blocked = TRUE
+
+	return is_magic_blocked
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
 
 ///Return any anti artifact atom on this mob
 /mob/proc/anti_artifact_check(self = FALSE)

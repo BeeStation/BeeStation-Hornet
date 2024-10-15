@@ -42,7 +42,7 @@
 
 /datum/spellbook_entry/item/soulstones/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
 	var/was_equipped = user.equip_to_slot_if_possible(to_equip, ITEM_SLOT_BELT, disable_warning = TRUE)
-	to_chat(user, span_notice("\A [to_equip.name] has been summoned [was_equipped ? "on your waist" : "at your feet"]."))
+	to_chat(user, ("<span class='notice'>\A [to_equip.name] has been summoned [was_equipped ? "on your waist" : "at your feet"].</span>"))
 
 /datum/spellbook_entry/item/soulstones/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. =..()

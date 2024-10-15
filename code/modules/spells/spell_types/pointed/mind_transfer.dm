@@ -39,7 +39,7 @@
 		return FALSE
 	if(owner.suiciding)
 		if(feedback)
-			to_chat(owner, span_warning("You're killing yourself! You can't concentrate enough to do this!"))
+			to_chat(owner, ("<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>"))
 		return FALSE
 	return TRUE
 
@@ -49,26 +49,26 @@
 		return FALSE
 
 	if(!isliving(cast_on))
-		to_chat(owner, span_warning("You can only swap minds with living beings!"))
+		to_chat(owner, ("<span class='warning'>You can only swap minds with living beings!</span>"))
 		return FALSE
 	if(is_type_in_typecache(cast_on, blacklisted_mobs))
-		to_chat(owner, span_warning("This creature is too [pick("powerful", "strange", "arcane", "obscene")] to control!"))
+		to_chat(owner, ("<span class='warning'>This creature is too [pick("powerful", "strange", "arcane", "obscene")] to control!</span>"))
 		return FALSE
 	if(isholopara(cast_on))
 		var/mob/living/simple_animal/hostile/holoparasite/stand = cast_on
 		if(stand.summoner && stand.summoner == owner)
-			to_chat(owner, span_warning("Swapping minds with your own guardian would just put you back into your own head!"))
+			to_chat(owner, ("<span class='warning'>Swapping minds with your own guardian would just put you back into your own head!</span>"))
 			return FALSE
 	var/mob/living/living_target = cast_on
 	if(living_target.stat == DEAD)
-		to_chat(owner, span_warning("You don't particularly want to be dead!"))
+		to_chat(owner, ("<span class='warning'>You don't particularly want to be dead!</span>"))
 		return FALSE
 	if(!living_target.mind)
-		to_chat(owner, span_warning("[living_target.p_theyve(TRUE)] doesn't appear to have a mind to swap into!"))
+		to_chat(owner, ("<span class='warning'>[living_target.p_theyve(TRUE)] doesn't appear to have a mind to swap into!</span>"))
 		return FALSE
 	if(!living_target.key && target_requires_key)
-		to_chat(owner, span_warning("[living_target.p_theyve(TRUE)] appear[living_target.p_s()] to be catatonic! \
-			Not even magic can affect [living_target.p_their()] vacant mind."))
+		to_chat(owner, ("<span class='warning'>[living_target.p_theyve(TRUE)] appear[living_target.p_s()] to be catatonic! \
+			Not even magic can affect [living_target.p_their()] vacant mind.</span>"))
 		return FALSE
 
 	return TRUE
@@ -92,7 +92,7 @@
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/rev) \
 		|| mind_to_swap.key?[1] == "@" \
 	)
-		to_chat(caster, span_warning("[to_swap.p_their(TRUE)] mind is resisting your spell!"))
+		to_chat(caster, ("<span class='warning'>[to_swap.p_their(TRUE)] mind is resisting your spell!</span>"))
 		return FALSE
 
 	// MIND TRANSFER BEGIN

@@ -121,7 +121,7 @@
 	if(!found_exit)
 		// It's possible no exit was found, because we literally didn't even move
 		if(get_turf(cast_on) != start_point)
-			to_chat(cast_on, span_danger("Unable to find an unobstructed space, you find yourself ripped back to where you started."))
+			to_chat(cast_on, ("<span class='danger'>Unable to find an unobstructed space, you find yourself ripped back to where you started.</span>"))
 		// Either way, default to where we started
 		found_exit = start_point
 
@@ -252,5 +252,5 @@
 	if(!.)
 		return
 	if (locate(/obj/effect/blessing) in .)
-		to_chat(user, span_warning("Holy energies block your path!"))
+		to_chat(user, ("<span class='warning'>Holy energies block your path!</span>"))
 		return null

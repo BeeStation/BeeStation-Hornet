@@ -99,6 +99,11 @@
 			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				// Check if we can actually see the turf
 				listed_turf.render_stat_information(client, tab_data)
+			// ===== SPELLS && ACTIONS ====
+			if(actions)
+				for(var/datum/action/cooldown/action in actions)
+					if(action.panel == selected_tab)
+						tab_data += get_actions_for_statpanel(actions, selected_tab)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
@@ -303,6 +308,9 @@
 			listed_turf = null
 		else
 			tabs |= sanitize(listed_turf.name)
+	//Spells we have
+	for(var/datum/action/cooldown/action in actions)
+		tabs |= action.panel
 	//Holder stat tabs
 	if(client.holder)
 		tabs |= "MC"

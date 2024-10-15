@@ -7,7 +7,7 @@
 	spell_requirements = NONE
 
 	/// Fluff text shown when a message is sent to the pair
-	var/fluff_text = span_boldnotice("You hear an echoing voice in the back of your head...")
+	var/fluff_text = ("<span class='boldnotice'>You hear an echoing voice in the back of your head...</span>")
 	/// The message to send to the corresponding person on cast
 	var/to_send
 
@@ -43,12 +43,12 @@
 	. = ..()
 	var/datum/brain_trauma/severe/split_personality/trauma = target
 
-	var/user_message = span_boldnotice("You concentrate and send thoughts to your other self:")
-	var/user_message_body = span_notice("[to_send]")
+	var/user_message = ("<span class='boldnotice'>You concentrate and send thoughts to your other self:</span>")
+	var/user_message_body = ("<span class='notice'>[to_send]</span>")
 	to_chat(cast_on, "[user_message] [user_message_body]")
 	to_chat(trauma.owner, "[fluff_text] [user_message_body]")
 	log_directed_talk(cast_on, trauma.owner, to_send, LOG_SAY, "[name]")
 	for(var/dead_mob in GLOB.dead_mob_list)
 		if(!isobserver(dead_mob))
 			continue
-		to_chat(dead_mob, "[FOLLOW_LINK(dead_mob, cast_on)] [span_boldnotice("[cast_on] [name]:")] [span_notice("\"[to_send]\" to")] [span_name("[trauma]")]")
+		to_chat(dead_mob, "[FOLLOW_LINK(dead_mob, cast_on)] [("<span class='boldnotice'>[cast_on] [name]:</span>")] [("<span class='notice'>\"[to_send]\" to</span>")] [("<span class='name'>[trauma]</span>")]")
