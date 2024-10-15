@@ -1,6 +1,6 @@
 /datum/bounty/item/core/New()
 	..()
-	description = "I heard that a [name] core help you grow your beard, fetch me a [name] core immediately! Ship it to receive a large payment."
+	description = "The admiral heard that a [name] core help you grow your beard, fetch a [name] core immediately! Ship it to receive a large payment."
 	required_count = 1
 
 /datum/bounty/item/core/mark_high_priority(scale_reward)
