@@ -5,7 +5,7 @@
 	name = "Alcohol Enjoyer"
 	desc = "Nothing like a good drink to make you feel on top of the world. You become drunk more slowly, suffer fewer drawbacks from alcohol and whenever you're drunk, you slowly recover from injuries."
 	icon = "beer"
-	value = 3
+	value = 2
 	mob_trait = TRAIT_ALCOHOL_ENJOYER
 	gain_text = "<span class='notice'>You feel like you could drink a whole keg!</span>"
 	lose_text = "<span class='danger'>You don't feel as resistant to alcohol anymore. Somehow.</span>"
