@@ -109,6 +109,9 @@
 	change_setting(current, user)
 	..()
 
+/obj/machinery/power/floodlight/attack_silicon(mob/user)
+	return attack_hand(user)
+
 /obj/machinery/power/floodlight/obj_break(damage_flag)
 	. = ..()
 	if(!.)
