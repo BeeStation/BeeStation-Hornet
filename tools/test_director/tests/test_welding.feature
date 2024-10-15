@@ -6,7 +6,7 @@ Feature: Welding Tests
     And player is holding welder
     And window is defined as new /obj/structure/window
     And take_damage(1) is called on window
-    And window integrity should not be its max_integrity
+    And window obj_integrity should not be its max_integrity
     When the player clicks on window
     And waits 10 seconds
-    Then window integrity should be its max_integrity
+    Then window obj_integrity should be its max_integrity
