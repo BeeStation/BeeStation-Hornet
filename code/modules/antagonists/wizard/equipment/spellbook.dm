@@ -675,7 +675,8 @@
 	var/uses = 10
 	var/temp = null
 	var/refuses_refund = FALSE
-	var/mob/living/carbon/human/owner
+	/// The mind that first used the book. Automatically assigned when a wizard spawns.
+	var/datum/mind/owner
 	var/list/entries = list()
 	var/everything_robeless = FALSE //! if TRUE, all spells you learn become robeless. Ask admin.
 	var/bypass_lock = FALSE //! bypasses some locked ritual & spell combinations. Ask admin.
@@ -693,16 +694,18 @@
 
 /obj/item/spellbook/attack_self(mob/user)
 	if(!owner)
+		if(!user.mind)
+			return
 		to_chat(user, "<span class='notice'>You bind the spellbook to yourself.</span>")
-		owner = user
+		owner = user.mind
 		return
-	if(user != owner)
+	if(user.mind != owner)
 		if(user.mind.special_role == "apprentice")
 			to_chat(user, "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not.")
 		else
 			to_chat(user, "<span class='warning'>The [name] does not recognize you as its owner and refuses to open!</span>")
 		return
-	. = ..()
+	return ..()
 
 /obj/item/spellbook/attackby(obj/item/O, mob/user, params)
 	if(refuses_refund)
