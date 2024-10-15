@@ -140,13 +140,17 @@
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
 
+///Anything that wants to be part of the game plane, but also wants to draw above literally everything else
+#define HIGH_GAME_PLANE 499
+
+#define FULLSCREEN_PLANE 500
+
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
 #define BALLOON_CHAT_PLANE 651
 
 ///--------------- FULLSCREEN IMAGES ------------
-#define FULLSCREEN_PLANE 500
 #define FLASH_LAYER 1
 #define FULLSCREEN_LAYER 2
 #define UI_DAMAGE_LAYER 3

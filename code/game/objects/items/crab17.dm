@@ -51,6 +51,8 @@
 	var/player_modifier = 1
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
+
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
 	bogdanoff = user
 	add_overlay("flaps")
@@ -250,13 +252,15 @@
 /obj/effect/dumpeetTarget
 	name = "Landing Zone Indicator"
 	desc = "A holographic projection designating the landing zone of something. It's probably best to stand back."
-	icon = 'icons/mob/actions/actions_items.dmi'
+	icon = 'icons/hud/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
 	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	light_range = 2
 	var/obj/effect/dumpeetFall/DF
 	var/obj/structure/checkoutmachine/dump
 	var/mob/living/carbon/human/bogdanoff
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 
 /obj/effect/dumpeetTarget/Initialize(mapload, user)
 	. = ..()

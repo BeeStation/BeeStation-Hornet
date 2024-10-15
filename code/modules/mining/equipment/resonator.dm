@@ -70,6 +70,8 @@
 	var/creator
 	var/obj/item/resonator/res
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/resonance)
+
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, set_duration)
 	duration = set_duration
 	. = ..()

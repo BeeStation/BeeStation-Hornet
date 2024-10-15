@@ -241,7 +241,7 @@
 	src.bullets--
 	user.visible_message("<span class='danger'>[user] fires [src] at [target]!</span>", \
 						"<span class='danger'>You fire [src] at [target]!</span>", \
-						 "<span class='italics'>You hear a gunshot!</span>")
+						"<span class='italics'>You hear a gunshot!</span>")
 
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"
@@ -789,17 +789,8 @@
 	user.visible_message(
 		"<span class='notice'>[user] presses the button on \the [src].</span>",
 		"<span class='notice'>You press the button on \the [src].</span>",
-		"<span class='notice'>You hear a soft click.</span>")
-
-/obj/item/toy/talking/codex_gigas/generate_messages()
-	var/datum/fakeDevil/devil = new
-	var/list/messages = list()
-	messages += "Some fun facts about: [devil.truename]"
-	messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-	messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-	messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-	messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-	return messages
+		"<span class='notice'>You hear a soft click...</span>",
+		"<span class='notice'>Nothing happens, maybe it's broken?</span>",)
 
 /obj/item/toy/talking/owl
 	name = "owl action figure"
@@ -950,22 +941,22 @@
 		return ..()
 
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-    . = ..()
-    var/mob/living/M = usr
-    if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
-        return
-    if(Adjacent(usr))
-        if(over_object == M && loc != M)
-            M.put_in_hands(src)
-            to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+	. = ..()
+	var/mob/living/M = usr
+	if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
+		return
+	if(Adjacent(usr))
+		if(over_object == M && loc != M)
+			M.put_in_hands(src)
+			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
-        else if(istype(over_object, /atom/movable/screen/inventory/hand))
-            var/atom/movable/screen/inventory/hand/H = over_object
-            if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-                to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+		else if(istype(over_object, /atom/movable/screen/inventory/hand))
+			var/atom/movable/screen/inventory/hand/H = over_object
+			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
+				to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
-    else
-        to_chat(usr, "<span class='warning'>You can't reach it from here!</span>")
+	else
+		to_chat(usr, "<span class='warning'>You can't reach it from here!</span>")
 
 
 
@@ -1240,7 +1231,7 @@
  */
 /obj/item/toy/redbutton
 	name = "big red button"
-	desc = "A big, plastic red button. Reads 'From HonkCo Pranks?' on the back."
+	desc = "A big, plastic red button. Reads 'From Honk Co. Pranks?' on the back."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	w_class = WEIGHT_CLASS_SMALL

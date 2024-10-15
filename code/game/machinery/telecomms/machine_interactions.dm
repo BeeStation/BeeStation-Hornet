@@ -116,6 +116,7 @@
 					network = params["value"]
 					links = list()
 					log_game("[key_name(usr)] has changed the network for [src] at [AREACOORD(src)] to [network].")
+					update_network()
 					. = TRUE
 		if("tempfreq")
 			if(params["value"])

@@ -107,9 +107,14 @@
 #define RIGHT_HANDS 2
 
 //flags for female outfits: How much the game can safely "take off" the uniform without it looking weird
-#define NO_FEMALE_UNIFORM			0
-#define FEMALE_UNIFORM_FULL			1
-#define FEMALE_UNIFORM_TOP			2
+/// For when there's simply no need for a female version of this uniform.
+#define NO_FEMALE_UNIFORM 0
+/// For the game to take off everything, disregards other flags.
+#define FEMALE_UNIFORM_FULL (1<<0)
+/// For when you really need to avoid the game cutting off that one pixel between the legs, to avoid the comeback of the infamous "dixel".
+#define FEMALE_UNIFORM_TOP_ONLY (1<<1)
+/// For when you don't want the "breast" effect to be applied (the one that cuts two pixels in the middle of the front of the uniform when facing east or west).
+#define FEMALE_UNIFORM_NO_BREASTS (1<<2)
 
 //flags for alternate styles: These are hard sprited so don't set this if you didn't put the effort in
 #define NORMAL_STYLE 0
@@ -148,6 +153,7 @@ GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/flashlight,
 	/obj/item/gun,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
@@ -160,6 +166,7 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/gun/energy,
 	/obj/item/gun/grenadelauncher,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
@@ -175,6 +182,7 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/gun/grenadelauncher,
 	/obj/item/lighter,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/melee/classic_baton/police,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
@@ -191,6 +199,7 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/gun/grenadelauncher,
 	/obj/item/knife/combat,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
@@ -207,9 +216,15 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/gun/grenadelauncher,
 	/obj/item/lighter,
 	/obj/item/melee/baton,
+	/obj/item/melee/tonfa,
 	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman,
 	/obj/item/toy)))
+
+// Collection flags for RPED inventory
+#define COLLECT_ONE 0
+#define COLLECT_EVERYTHING 1
+#define COLLECT_SAME 2

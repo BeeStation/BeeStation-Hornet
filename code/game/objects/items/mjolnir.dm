@@ -31,7 +31,6 @@
 	. = ..()
 
 /obj/item/mjolnir/proc/shock(mob/living/target)
-	target.Stun(60)
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)
 	s.start()
@@ -83,6 +82,8 @@
 	layer = HIGH_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/obj/item/mjolnir/contained
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 
 /obj/structure/anchored_mjolnir/Initialize(mapload, obj/item/mjolnir/god_hammer)
 	. = ..()
@@ -138,6 +139,8 @@
 	projectile_piercing = (ALL & (~PASSCLOSEDTURF))
 	speed = 0.3
 	var/obj/item/mjolnir/contained
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/mjolnir)
 
 /obj/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
 	. = ..()

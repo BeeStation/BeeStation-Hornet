@@ -18,6 +18,8 @@
 	var/check_anti_magic = FALSE
 	var/check_holy = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
+
 /obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE)	//Immune atoms assoc list atom = TRUE
 	. = ..()
 	if(!isnull(time))
