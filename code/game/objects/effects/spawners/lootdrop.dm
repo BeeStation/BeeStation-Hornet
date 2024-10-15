@@ -399,114 +399,221 @@
 // Tech storage circuit board spawners
 
 /obj/effect/spawner/lootdrop/techstorage
-
 	name = "generic circuit board spawner"
 	icon_state = "random_board"
 	lootdoubles = FALSE
 	fan_out_items = TRUE
 	lootcount = INFINITY
 
+/obj/effect/spawner/lootdrop/techstorage/shuttles
+	name = "shuttles circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/computer/shuttle/mining_shuttle,
+		/obj/item/circuitboard/computer/shuttle/labor_shuttle,
+		/obj/item/circuitboard/computer/shuttle/science_shuttle,
+		/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
+		/obj/item/circuitboard/computer/shuttle/flight_control
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/games
+	name = "games circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/computer/arcade/battle,
+		/obj/item/circuitboard/computer/arcade/orion_trail,
+		/obj/item/circuitboard/computer/slot_machine
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/cargo
+	name = "cargo circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/machine/autolathe,
+		/obj/item/circuitboard/computer/mining,
+		/obj/item/circuitboard/machine/mining_equipment_vendor,
+		/obj/item/circuitboard/machine/ore_redemption,
+		/obj/item/circuitboard/computer/cargo/request,
+		/obj/item/circuitboard/computer/cargo,
+		/obj/item/circuitboard/computer/bounty
+	)
+
 /obj/effect/spawner/lootdrop/techstorage/service
 	name = "service circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/arcade/battle,
-				/obj/item/circuitboard/computer/arcade/orion_trail,
-				/obj/item/circuitboard/machine/autolathe,
-				/obj/item/circuitboard/computer/mining,
-				/obj/item/circuitboard/machine/ore_redemption,
-				/obj/item/circuitboard/machine/mining_equipment_vendor,
-				/obj/item/circuitboard/machine/microwave,
-				/obj/item/circuitboard/machine/chem_dispenser/drinks,
-				/obj/item/circuitboard/machine/chem_dispenser/drinks/beer,
-				/obj/item/circuitboard/computer/slot_machine
-				)
+		/obj/item/circuitboard/machine/chem_dispenser/drinks,
+		/obj/item/circuitboard/machine/chem_dispenser/drinks/beer,
+		/obj/item/circuitboard/machine/reagentgrinder,
+		/obj/item/circuitboard/machine/chem_master
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/kitchen
+	name = "kitchen circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/machine/microwave,
+		/obj/item/circuitboard/machine/griddle,
+		/obj/item/circuitboard/machine/microwave,
+		/obj/item/circuitboard/machine/gibber,
+		/obj/item/circuitboard/machine/processor,
+		/obj/item/circuitboard/machine/oven,
+		/obj/item/circuitboard/machine/smartfridge
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/botany
+	name = "botany circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/machine/hydroponics,
+		/obj/item/circuitboard/machine/hydroponics,
+		/obj/item/circuitboard/machine/hydroponics,
+		/obj/item/circuitboard/machine/chem_dispenser/botany,
+		/obj/item/circuitboard/machine/biogenerator,
+		/obj/item/circuitboard/machine/plantgenes,
+		/obj/item/circuitboard/machine/seed_extractor
+	)
 
 /obj/effect/spawner/lootdrop/techstorage/rnd
 	name = "RnD circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/aifixer,
-				/obj/item/circuitboard/machine/rdserver,
-				/obj/item/circuitboard/machine/mechfab,
-				/obj/item/circuitboard/machine/circuit_imprinter/department,
-				/obj/item/circuitboard/computer/teleporter,
-				/obj/item/circuitboard/machine/destructive_analyzer,
-				/obj/item/circuitboard/computer/rdconsole,
-				/obj/item/circuitboard/computer/nanite_chamber_control,
-				/obj/item/circuitboard/computer/nanite_cloud_controller,
-				/obj/item/circuitboard/machine/nanite_chamber,
-				/obj/item/circuitboard/machine/nanite_programmer,
-				/obj/item/circuitboard/machine/nanite_program_hub,
-				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
-				)
+		/obj/item/circuitboard/computer/aifixer,
+		/obj/item/circuitboard/machine/rdserver,
+		/obj/item/circuitboard/machine/rdserver,
+		/obj/item/circuitboard/machine/rdserver,
+		/obj/item/circuitboard/machine/rdserver,
+		/obj/item/circuitboard/machine/destructive_analyzer,
+		/obj/item/circuitboard/computer/rdconsole,
+		/obj/item/circuitboard/machine/xenoartifact_inbox,
+		/obj/item/circuitboard/computer/xenoartifact_console,
+		/obj/item/circuitboard/computer/xenobiology,
+		/obj/item/circuitboard/machine/exploration_equipment_vendor
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/nanites
+	name = "nanites circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/computer/nanite_chamber_control,
+		/obj/item/circuitboard/computer/nanite_cloud_controller,
+		/obj/item/circuitboard/machine/nanite_chamber,
+		/obj/item/circuitboard/machine/nanite_programmer,
+		/obj/item/circuitboard/machine/nanite_program_hub
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/robotics
+	name = "science circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/machine/mechfab,
+		/obj/item/circuitboard/machine/circuit_imprinter/department,
+		/obj/item/circuitboard/machine/cyborgrecharger,
+		/obj/item/circuitboard/computer/mech_bay_power_console,
+		/obj/item/circuitboard/machine/mech_recharger,
+		/obj/item/circuitboard/machine/ecto_sniffer
+	)
 
 /obj/effect/spawner/lootdrop/techstorage/security
 	name = "security circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/secure_data,
-				/obj/item/circuitboard/computer/security,
-				/obj/item/circuitboard/computer/prisoner
-				)
+		/obj/item/circuitboard/computer/secure_data,
+		/obj/item/circuitboard/computer/security,
+		/obj/item/circuitboard/computer/prisoner,
+		/obj/item/circuitboard/computer/gulag_teleporter_console,
+		/obj/item/circuitboard/machine/gulag_teleporter,
+		/obj/item/circuitboard/machine/recharger,
+		/obj/item/circuitboard/computer/warrant
+	)
 
 /obj/effect/spawner/lootdrop/techstorage/engineering
 	name = "engineering circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/atmos_alert,
-				/obj/item/circuitboard/computer/stationalert,
-				/obj/item/circuitboard/computer/powermonitor
-				)
+		/obj/item/circuitboard/computer/atmos_alert,
+		/obj/item/circuitboard/computer/stationalert,
+		/obj/item/circuitboard/computer/powermonitor,
+		/obj/item/circuitboard/machine/pacman,
+		/obj/item/circuitboard/machine/smes,
+		/obj/item/circuitboard/machine/emitter,
+		/obj/item/circuitboard/machine/emitter,
+		/obj/item/circuitboard/machine/suit_storage_unit,
+		/obj/item/circuitboard/machine/circuit_imprinter,
+		/obj/item/circuitboard/machine/thermomachine,
+		/obj/item/circuitboard/machine/cell_charger,
+		/obj/item/circuitboard/machine/mass_driver,
+		/obj/item/circuitboard/machine/fax
+	)
 
 /obj/effect/spawner/lootdrop/techstorage/tcomms
 	name = "tcomms circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/message_monitor,
-				/obj/item/circuitboard/machine/telecomms/broadcaster,
-				/obj/item/circuitboard/machine/telecomms/bus,
-				/obj/item/circuitboard/machine/telecomms/server,
-				/obj/item/circuitboard/machine/telecomms/receiver,
-				/obj/item/circuitboard/machine/telecomms/processor,
-				/obj/item/circuitboard/machine/announcement_system,
-				/obj/item/circuitboard/computer/comm_server,
-				/obj/item/circuitboard/computer/comm_monitor
-				)
+		/obj/item/circuitboard/computer/message_monitor,
+		/obj/item/circuitboard/machine/telecomms/broadcaster,
+		/obj/item/circuitboard/machine/telecomms/bus,
+		/obj/item/circuitboard/machine/telecomms/server,
+		/obj/item/circuitboard/machine/telecomms/receiver,
+		/obj/item/circuitboard/machine/telecomms/processor,
+		/obj/item/circuitboard/machine/announcement_system,
+		/obj/item/circuitboard/computer/comm_server,
+		/obj/item/circuitboard/computer/comm_monitor
+	)
 
 /obj/effect/spawner/lootdrop/techstorage/medical
 	name = "medical circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/cloning,
-				/obj/item/circuitboard/machine/clonepod,
-				/obj/item/circuitboard/machine/chem_dispenser,
-				/obj/item/circuitboard/computer/scan_consolenew,
-				/obj/item/circuitboard/computer/med_data,
-				/obj/item/circuitboard/machine/smoke_machine,
-				/obj/item/circuitboard/machine/chem_master,
-				/obj/item/circuitboard/machine/clonescanner,
-				/obj/item/circuitboard/computer/pandemic
-				)
+		/obj/item/circuitboard/computer/med_data,
+		/obj/item/circuitboard/computer/crew,
+		/obj/item/circuitboard/machine/stasis,
+		/obj/item/circuitboard/machine/stasis,
+		/obj/item/circuitboard/computer/operating,
+		/obj/item/circuitboard/computer/operating,
+		/obj/item/circuitboard/computer/operating,
+		/obj/item/stack/sheet/mineral/silver,
+		/obj/item/circuitboard/machine/cryo_tube,
+		/obj/item/circuitboard/computer/pandemic
+	)
 
-/obj/effect/spawner/lootdrop/techstorage/AI
+/obj/effect/spawner/lootdrop/techstorage/chemistry
+	name = "chemistry circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/machine/chem_master,
+		/obj/item/circuitboard/machine/smoke_machine,
+		/obj/item/circuitboard/machine/chem_dispenser,
+		/obj/item/circuitboard/machine/reagentgrinder,
+		/obj/item/circuitboard/machine/chem_heater
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/genetics
+	name = "genetics circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/machine/clonescanner,
+		/obj/item/circuitboard/computer/scan_consolenew,
+		/obj/item/circuitboard/computer/cloning,
+		/obj/item/circuitboard/machine/clonepod
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/secure/AI
 	name = "secure AI circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/aiupload,
-				/obj/item/circuitboard/computer/borgupload,
-				/obj/item/circuitboard/aicore
-				)
+		/obj/item/circuitboard/aicore,
+		/obj/item/aiModule/reset,
+		/obj/effect/spawner/lootdrop/aimodule_harmless
+	)
 
-/obj/effect/spawner/lootdrop/techstorage/command
+/obj/effect/spawner/lootdrop/techstorage/secure/command
 	name = "secure command circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/crew,
-				/obj/item/circuitboard/computer/communications,
-				/obj/item/circuitboard/computer/card
-				)
+		/obj/item/circuitboard/computer/communications,
+		/obj/item/circuitboard/computer/card
+	)
 
-/obj/effect/spawner/lootdrop/techstorage/RnD_secure
-	name = "secure RnD circuit board spawner"
+/obj/effect/spawner/lootdrop/techstorage/secure/science
+	name = "secure science circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/mecha_control,
-				/obj/item/circuitboard/computer/apc_control,
-				/obj/item/circuitboard/computer/robotics
-				)
+		/obj/item/circuitboard/computer/aiupload,
+		/obj/item/circuitboard/computer/borgupload,
+		/obj/item/circuitboard/computer/robotics
+	)
+
+/obj/effect/spawner/lootdrop/techstorage/secure/engineering
+	name = "secure engineering circuit board spawner"
+	loot = list(
+		/obj/item/circuitboard/computer/teleporter,
+		/obj/item/circuitboard/machine/teleporter_station,
+		/obj/item/circuitboard/computer/apc_control,
+		/obj/item/circuitboard/machine/teleporter_hub
+	)
 
 /obj/effect/spawner/lootdrop/trap
 	name = "10% pressure plate spawner"
