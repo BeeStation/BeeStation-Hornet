@@ -68,6 +68,7 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				//we'll need to update the cooldowns for the spellbook
 				GetInfo()
+				book.update_static_data(user) // updates "times" var
 				SSblackbox.record_feedback("nested tally", "wizard_spell_improved", 1, list("[name]", "[aspell.spell_level]"))
 				return TRUE
 	//debug handling
@@ -684,7 +685,7 @@
 /obj/item/spellbook/examine(mob/user)
 	. = ..()
 	if(owner)
-		. += {"There is a small signature on the front cover: "[owner]"."}
+		. += "There is a small signature on the front cover: \"[owner]\"."
 	else
 		. += "It appears to have no author."
 
@@ -734,7 +735,7 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/challenge
 	for(var/type in entry_types)
 		var/datum/spellbook_entry/possible_entry = new type
-		if(possible_entry.IsAvailable())
+		if(possible_entry.IsAvailable(src))
 			possible_entry.GetInfo() //loads up things for the entry that require checking spell instance.
 			entries |= possible_entry
 		else
