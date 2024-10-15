@@ -69,6 +69,7 @@ export class Scenario {
         if (!line) {
           throw new Error(`Step '${step.text}' belonging to scenario '${this.name}' failed to produce valid code.`);
         }
+        output.inline_text.push(`log_test("${step.text}")`);
         for (const new_line of line.split('\n')) {
           output.inline_text.push(new_line);
         }
