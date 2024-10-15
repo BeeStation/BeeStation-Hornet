@@ -5,6 +5,34 @@
 		"code": "TEST_ASSERT_EQUAL($3, $1:$2, \"Incorrect value.\")"
 	  },
 	  {
+		"match": "(%NAME%) should be (%VALUE%)",
+		"code": "TEST_ASSERT_EQUAL($2, $1, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "(%NAME%) (%NAME%) is (%VALUE%)",
+		"code": "TEST_ASSERT_EQUAL($3, $1:$2, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "(%NAME%) is (%VALUE%)",
+		"code": "TEST_ASSERT_EQUAL($2, $1, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "(%NAME%) (%NAME%) should not be (%VALUE%)",
+		"code": "TEST_ASSERT_NOTEQUAL($3, $1:$2, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "(%NAME%) should not be (%VALUE%)",
+		"code": "TEST_ASSERT_NOTEQUAL($2, $1, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "(%NAME%) (%NAME%) is not (%VALUE%)",
+		"code": "TEST_ASSERT_NOTEQUAL($3, $1:$2, \"Incorrect value.\")"
+	  },
+	  {
+		"match": "(%NAME%) is not (%VALUE%)",
+		"code": "TEST_ASSERT_NOTEQUAL($2, $1, \"Incorrect value.\")"
+	  },
+	  {
 		"match": "tgui window should open",
 		"code": "CRASH(\"Instruction 'tgui window should open' is not currently supported\")"
 	  }

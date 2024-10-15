@@ -1,12 +1,16 @@
 {
 	"patterns": [
 	  {
-		"match": "player clicks (%NAME%)",
+		"match": "player clicks(?: on)? (%NAME%)",
 		"code": "player.ClickOn($1)"
 	  },
 	  {
 		"match": "player uses (%NAME%)",
 		"code": "if (player.get_active_held_item() != $1)\n\tTEST_FAIL(\"The player was not holding the $1 and thus could not use it.\")\nplayer.ClickOn($1)"
+	  },
+	  {
+		"match": "waits (\\d+) seconds",
+		"code": "sleep($1 * 10)"
 	  }
 	]
   }
