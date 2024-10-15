@@ -1,8 +1,8 @@
 /// Switches between mouse buttons for MODsuit active modules
 /datum/preference/choiced/mod_select
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	//savefile_key = "mod_select"
-	//savefile_identifier = PREFERENCE_PLAYER
+	db_key = "mod_select"
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/choiced/mod_select/init_possible_values()
 	return list(MIDDLE_CLICK, ALT_CLICK)
