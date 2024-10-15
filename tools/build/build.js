@@ -13,7 +13,7 @@ import Juke from './juke/index.js';
 import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond.js';
 import { yarn } from './lib/yarn.js';
 import { parse_features } from './modules/test_director/parse_test.js';
-import { compile_tests } from './modules/test_director/test_director.js';
+import { check_tests, compile_tests } from './modules/test_director/test_director.js';
 
 const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
 
@@ -159,6 +159,30 @@ export const TestDirectorTargetBuild = new Juke.Target({
     fs.writeFileSync(`${DME_NAME}.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
       encoding: 'utf8'
     });
+  },
+});
+
+/**
+ * Does a dry run of test-generation to ensure config validity.
+ * Runs in parallel with the main build to give an indication that tests written
+ * are fine without actually delaying the build to wait for them to be completed.
+ * Generally, as long as the test is well-formed and passes this it will work
+ * as expected due to the make-up of Gherkin files.
+ */
+export const CheckTestDirectorTarget = new Juke.Target({
+  executes: async ({ get }) => {
+    try {
+      check_tests(
+        'tools/test_director/actions',
+        'tools/test_director/tests',
+        'tools/test_director/test_template.dm'
+      );
+    }
+    catch (err) {
+      Juke.logger.error('Failed to generate test director tests.');
+      Juke.logger.error(err);
+      throw new Juke.ExitCode(1);
+    }
   },
 });
 
@@ -335,7 +359,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTarget, TguiTarget],
+  dependsOn: [DmTarget, TguiTarget, CheckTestDirectorTarget],
 });
 
 export const ServerTarget = new Juke.Target({

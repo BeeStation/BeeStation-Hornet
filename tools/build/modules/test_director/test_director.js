@@ -4,6 +4,26 @@ import fs from 'fs';
 import Juke from '../../juke/index.js';
 import { parse_features } from './parse_test.js';
 
+export function check_tests(config_directory, test_directory, template_path) {
+  // Generate test director files
+  const test_directories = Juke.glob(`${test_directory}/**/*`);
+  // Get all the features that we wish to build code for
+  const results = test_directories.flatMap(test_file => parse_features(test_file));
+  // Get all the actions
+  const action_directories = Juke.glob(`${config_directory}/**/*.json`);
+  const actions = action_directories.flatMap(file => parse_actions(file));
+  // Load up the template file
+  const test_template = fs.readFileSync(template_path, 'utf-8');
+  // Create the tests
+  for (const test of results) {
+    const indent_match = /^(\s*).*TEST_CODE/gmi.exec(test_template);
+    if (indent_match === null)
+      throw new Error(`${template_path} does not contain TEST_CODE, meaning that no test code is being injected.`);
+    // Run the code generator, ensure that the test config is valid
+    test.generate_code(actions, test_template);
+  }
+}
+
 /**
  * Compile the test config files and generate DM files
  * @param {string} dm_path
