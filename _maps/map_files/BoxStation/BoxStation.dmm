@@ -2350,12 +2350,12 @@
 /turf/open/space/basic,
 /area/engine/atmos)
 "aGG" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/spawner/lootdrop/techstorage/AI,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/techstorage/secure/science,
+/obj/structure/rack,
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "aGZ" = (
@@ -9155,6 +9155,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/lootdrop/techstorage/chemistry,
+/obj/effect/spawner/lootdrop/techstorage/genetics,
 /turf/open/floor/iron/techmaint,
 /area/storage/tech)
 "bTO" = (
@@ -11752,6 +11754,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/lootdrop/techstorage/botany,
+/obj/effect/spawner/lootdrop/techstorage/kitchen,
+/obj/effect/spawner/lootdrop/techstorage/games,
 /turf/open/floor/iron/techmaint,
 /area/storage/tech)
 "cim" = (
@@ -17207,14 +17212,13 @@
 /area/security/warden)
 "dDw" = (
 /obj/structure/rack,
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/item/aicard,
-/obj/item/aiModule/reset,
-/turf/open/floor/iron/grid/steel,
+/obj/effect/spawner/lootdrop/techstorage/shuttles,
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
 /area/storage/tech)
 "dDy" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -19377,7 +19381,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/spawner/lootdrop/techstorage/command,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -19385,6 +19388,7 @@
 /obj/machinery/status_display/ai{
 	pixel_y = 31
 	},
+/obj/effect/spawner/lootdrop/techstorage/secure/engineering,
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "evf" = (
@@ -21270,12 +21274,8 @@
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "fgq" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
-	},
-/obj/item/kirbyplants/photosynthetic{
-	pixel_y = 6
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -21284,6 +21284,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/lootdrop/techstorage/secure/command,
+/obj/structure/rack,
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "fgG" = (
@@ -23698,9 +23700,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/spawner/lootdrop/techstorage/RnD_secure,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/machinery/camera/directional/north,
+/obj/item/aicard,
+/obj/effect/spawner/lootdrop/techstorage/secure/AI,
+/obj/item/aiModule/reset,
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "gfd" = (
@@ -51025,6 +51029,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/kirbyplants/photosynthetic{
+	pixel_y = 6
+	},
 /turf/open/floor/engine/light,
 /area/storage/tech)
 "rhN" = (
@@ -66126,16 +66133,14 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "xfZ" = (
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/tank_dispenser/oxygen{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/turf/open/floor/iron/grid/steel,
+/obj/effect/spawner/lootdrop/techstorage/cargo,
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/structure/rack,
+/turf/open/floor/iron/dark,
 /area/storage/tech)
 "xgj" = (
 /obj/effect/turf_decal/bot,
@@ -67801,6 +67806,8 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/techstorage/robotics,
+/obj/effect/spawner/lootdrop/techstorage/nanites,
 /turf/open/floor/iron/techmaint,
 /area/storage/tech)
 "xQz" = (
