@@ -570,21 +570,3 @@
 		M.Jitter(4)
 		M.Dizzy(4)
 	..()
-
-/datum/reagent/drug/lavaglitter
-	name = "Lavaland Glitter"
-	description = "A chemical formulation of gold and lavaland mushroom extracts that eases muscle pain and tiredness, at the cost of blood toxicity. Mildly addictive."
-	color = "#dcd910"
-	trippy = FALSE
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "sour sand"
-	addiction_threshold = 20
-
-/datum/reagent/drug/lavaglitter/on_mob_life(mob/living/carbon/M)
-	var/high_message = pick("You feel tingly.", "You feel like a walk on a warm summer's day.", "You feel like your arms weigh nothing.")
-	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	M.adjustStaminaLoss(-12, 0)
-	M.adjustToxLoss(1, 0)
-	..()
-	. = 1
