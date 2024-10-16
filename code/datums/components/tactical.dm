@@ -20,7 +20,7 @@
 	var/obj/item/item = parent
 	if(ismob(item.loc))
 		var/mob/holder = item.loc
-		modify(item, holder, current_slot)
+		modify(item, holder, holder.get_slot_by_item(item))
 
 /datum/component/tactical/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -47,6 +47,13 @@
 	ADD_TRAIT(user, TRAIT_UNKNOWN, REF(src))
 
 	current_slot = slot
+
+	// update the item name to remove the wielded status, copied from twohanded.dm
+	var/sf = findtext(source.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
+	if(sf)
+		source.name = copytext(source.name, 1, sf)
+	else
+		source.name = "[initial(source.name)]"
 
 	on_icon_update(source)
 
@@ -79,14 +86,8 @@
 		identity[VISIBLE_NAME_FORCED] = tactical_disguise_power
 
 	var/obj/item/flawless_disguise = parent
-	var/wielded = ISWIELDED(parent)
-	if(wielded)
-		var/no_more_wielded_name = findtext(flawless_disguise.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
-		identity[VISIBLE_NAME_FACE] = no_more_wielded_name
-		identity[VISIBLE_NAME_ID] = no_more_wielded_name
-	else
-		identity[VISIBLE_NAME_FACE] = flawless_disguise.name
-		identity[VISIBLE_NAME_ID] = flawless_disguise.name // for Unknown (as 'potted plant') says
+	identity[VISIBLE_NAME_FACE] = flawless_disguise.name
+	identity[VISIBLE_NAME_ID] = flawless_disguise.name // for Unknown (as 'potted plant') says
 
 
 /datum/component/tactical/proc/unmodify(obj/item/source, mob/user)
