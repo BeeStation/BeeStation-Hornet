@@ -239,7 +239,7 @@
 	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
 		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>" // May make more sense as "You do x"
 
-	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+	if(LAZYFIND(visible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
 		to_chat(src, self_message)
 		self_runechat = TRUE
 
@@ -298,7 +298,7 @@
 	var/self_runechat = FALSE
 	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
 		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>"
-	if(audible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+	if(LAZYFIND(audible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
 		to_chat(src, self_message)
 		self_runechat = TRUE
 	else
@@ -313,14 +313,14 @@
 		return FALSE
 	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
