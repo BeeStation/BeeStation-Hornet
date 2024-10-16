@@ -24,7 +24,7 @@
 	if(user.getStaminaLoss() < 75)
 		. = ..()
 	else
-		to_chat(user, "<span class='danger'>You are too tired to work!</span>")
+		to_chat(user, "<span class='danger'>You quickly stop picking. You are too tired to work!</span>")
 		return
 	user.adjustStaminaLoss(stamina_use)
 	return
