@@ -356,7 +356,7 @@
 	req_access_txt = "12"
 	},
 /turf/open/floor/iron/techmaint,
-/area/crew_quarters/cryopods)
+/area/maintenance/starboard/fore)
 "aeV" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -782,7 +782,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "63"
+	req_one_access_txt = "1;57"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -3516,7 +3516,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
-/area/science/misc_lab)
+/area/maintenance/department/science)
 "aPK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -3643,7 +3643,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal)
+/area/maintenance/starboard/aft)
 "aQS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -4927,7 +4927,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "bgZ" = (
@@ -5360,11 +5360,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bmB" = (
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -5372,8 +5367,13 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "xeno5";
-	name = "Creature Cell #5"
+	id = "xeno1";
+	name = "Creature Cell #1"
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	name = "Creature Pen";
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/xenobiology)
@@ -6486,7 +6486,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "bDD" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "bDQ" = (
@@ -7490,7 +7490,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology Lab";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -7504,7 +7504,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
-/area/science/xenobiology)
+/area/maintenance/department/science)
 "bTl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -8826,7 +8826,7 @@
 	req_one_access_txt = "8;24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/storage)
+/area/maintenance/aft)
 "cny" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -9009,7 +9009,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/maintenance/department/security/brig)
 "cpE" = (
@@ -9438,8 +9438,8 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "cargo Maintenance";
-	req_one_access_txt = "31;48;47"
+	name = "Cargo Maintenance";
+	req_one_access_txt = "31;48;47;12"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -11991,7 +11991,7 @@
 	req_access_txt = "49"
 	},
 /turf/open/floor/iron/techmaint,
-/area/quartermaster/exploration_prep)
+/area/maintenance/department/science)
 "dcZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup,
@@ -22091,7 +22091,7 @@
 "fGF" = (
 /obj/machinery/door/airlock/research{
 	name = "Experimentation Lab";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -24039,7 +24039,8 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300
+	obj_integrity = 300;
+	req_one_access_txt = "55"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -25567,7 +25568,7 @@
 	icon_state = "leftsecure";
 	name = "Secure Creature Pen Shield Holder";
 	obj_integrity = 300;
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/sign/warning/electricshock{
 	pixel_x = -32
@@ -26686,7 +26687,7 @@
 	req_access_txt = "24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/department/engine)
 "gNg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -26959,7 +26960,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal/incinerator)
+/area/maintenance/department/engine)
 "gQx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -28294,7 +28295,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Apothecary";
-	req_access_txt = "5;33"
+	req_access_txt = "33"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/grid,
@@ -31726,17 +31727,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"idG" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 4;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/techmaint,
-/area/science/xenobiology)
 "idZ" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "emmd";
@@ -33024,7 +33014,7 @@
 "iuM" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Xenobiology Kill Room";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
@@ -34618,14 +34608,14 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "iOM" = (
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/security/telescreen/station{
+	dir = 8;
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "iON" = (
@@ -34686,9 +34676,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/chair/fancy/bench/right{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/left{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -34787,6 +34776,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "iQv" = (
@@ -35210,7 +35200,7 @@
 	req_one_access_txt = "8;47"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/misc_lab)
+/area/maintenance/department/science)
 "iWb" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -35846,14 +35836,14 @@
 /obj/item/clothing/glasses/welding,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/stack/sheet/glass/ten,
-/obj/item/stack/sheet/mineral/copper/five,
 /obj/machinery/requests_console{
 	department = "Research Lab";
 	name = "Research RC";
 	pixel_x = 32;
 	receive_ore_updates = 1
 	},
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/mineral/copper/five,
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "jfR" = (
@@ -38277,7 +38267,7 @@
 "jOt" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Post - Research Division";
-	req_access_txt = "63"
+	req_one_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -39140,7 +39130,7 @@
 	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal/incinerator)
+/area/maintenance/aft)
 "jYk" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -39342,7 +39332,7 @@
 	dir = 1;
 	id = "medcell";
 	name = "Medical Cell";
-	req_access_txt = "63"
+	req_access_txt = "1;40"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable/yellow{
@@ -39794,9 +39784,9 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/station{
 	dir = 1;
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
@@ -41596,7 +41586,7 @@
 	req_access_txt = "24"
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/aft)
 "kEc" = (
 /obj/effect/turf_decal/guideline/guideline_out_arrow_con/blue{
 	dir = 6
@@ -41652,7 +41642,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "kEV" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -42210,7 +42200,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Medical";
-	req_access_txt = "63"
+	req_one_access_txt = "1;40"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -42473,7 +42463,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Engineering";
-	req_access_txt = "63"
+	req_one_access_txt = "1;56"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -42713,7 +42703,7 @@
 	dir = 8;
 	id = "arrdoor";
 	name = "Arrival Cell";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
@@ -49217,7 +49207,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/aft)
 "mBP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -49601,24 +49591,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"mFv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno1";
-	name = "Creature Cell #1"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/ridged/steel,
-/area/science/xenobiology)
 "mFB" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -51430,9 +51402,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/chair/fancy/bench/left{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -51653,7 +51624,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/techmaint,
-/area/engine/gravity_generator)
+/area/maintenance/department/engine)
 "nix" = (
 /obj/machinery/telecomms/bus/preset_one,
 /obj/effect/turf_decal/stripes/end{
@@ -51971,7 +51942,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/storage)
+/area/maintenance/department/science)
 "nnx" = (
 /turf/open/space/basic,
 /area/space)
@@ -54856,7 +54827,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -54865,7 +54836,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/xenobiology)
+/area/maintenance/department/science)
 "obK" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/closed/wall/r_wall,
@@ -57706,7 +57677,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Apothecary Maintenance";
-	req_access_txt = "5;33"
+	req_access_txt = "33"
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/medical)
@@ -58316,7 +58287,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/research)
+/area/maintenance/aft)
 "pam" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 8
@@ -58932,7 +58903,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/vacant_room/office)
+/area/maintenance/starboard/central)
 "pik" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -59699,7 +59670,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "puT" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "puV" = (
@@ -60317,7 +60288,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
@@ -61223,7 +61194,7 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "pOi" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
 "pOk" = (
@@ -62999,7 +62970,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/misc_lab/range)
 "qmT" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "qmU" = (
@@ -67432,7 +67403,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/lawoffice)
+/area/maintenance/starboard/central)
 "ruK" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/machinery/atmospherics/components/binary/pump{
@@ -69172,9 +69143,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/fancy/bench/left{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -69889,7 +69859,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/techmaint,
-/area/crew_quarters/locker)
+/area/maintenance/starboard/fore)
 "rXc" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -70330,7 +70300,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology Lab";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72187,13 +72157,13 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "xeno6";
-	name = "Creature Cell #6"
+	id = "xeno4";
+	name = "Creature Cell #4"
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/xenobiology)
@@ -72996,7 +72966,7 @@
 	},
 /area/maintenance/department/science)
 "sMN" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
@@ -73520,7 +73490,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/xenobiology)
@@ -74737,7 +74707,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/space/basic,
-/area/space/nearstation)
+/area/engine/engine_room)
 "tjv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -76120,7 +76090,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Secure Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -76191,7 +76161,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Secure Creature Pen";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -77741,9 +77711,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/fancy/bench/right{
-	dir = 4;
-	pixel_x = 5
+/obj/structure/chair/fancy/bench/left{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -79926,7 +79895,7 @@
 "uzz" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Checkpoint";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -81744,7 +81713,7 @@
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 1;
 	name = "Security Desk";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -81895,7 +81864,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
-/area/maintenance/disposal)
+/area/maintenance/starboard/aft)
 "uYt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -84831,24 +84800,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"vDh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno3";
-	name = "Creature Cell #3"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/ridged/steel,
-/area/science/xenobiology)
 "vDn" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/canister,
@@ -84998,7 +84949,7 @@
 	req_access_txt = "47"
 	},
 /turf/open/floor/iron/techmaint,
-/area/science/research)
+/area/maintenance/department/science)
 "vFA" = (
 /obj/structure/rack,
 /obj/item/electronics/apc,
@@ -85524,7 +85475,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/atmos)
+/area/maintenance/department/engine)
 "vMJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -85558,13 +85509,13 @@
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
 "vMR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+	req_access_txt = "55"
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
@@ -87411,7 +87362,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
-/area/engine/engine_room)
+/area/maintenance/department/engine)
 "wjP" = (
 /obj/structure/chair/foldable,
 /obj/effect/turf_decal/tile/purple,
@@ -89129,7 +89080,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/engine_room)
 "wGC" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wGL" = (
@@ -89558,7 +89509,7 @@
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "wLV" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "wMa" = (
@@ -89606,7 +89557,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
-/area/science/shuttledock)
+/area/maintenance/department/science)
 "wMs" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
@@ -94308,7 +94259,6 @@
 /turf/open/floor/carpet/red,
 /area/library)
 "xIK" = (
-/obj/effect/landmark/start/roboticist,
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
@@ -94754,24 +94704,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/carpet/royalblack,
 /area/bridge/showroom/corporate)
-"xMg" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xeno4";
-	name = "Creature Cell #4"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 4;
-	name = "Creature Pen";
-	req_access_txt = "47"
-	},
-/turf/open/floor/iron/ridged/steel,
-/area/science/xenobiology)
 "xMi" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -130900,11 +130832,11 @@ ide
 gzm
 siW
 qTo
-mFv
+bmB
 awe
 xDt
 xVZ
-vDh
+bmB
 lYK
 xDt
 oMm
@@ -131157,11 +131089,11 @@ vIp
 vfS
 siW
 kgC
-idG
+vMR
 oPf
 xDt
 cTH
-idG
+vMR
 oPf
 xDt
 aRg
@@ -132446,7 +132378,7 @@ sTr
 xKR
 xDt
 aFf
-xMg
+sBz
 rWr
 xDt
 eHT
