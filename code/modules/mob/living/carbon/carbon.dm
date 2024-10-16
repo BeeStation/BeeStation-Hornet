@@ -223,17 +223,18 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	changeNext_move(CLICK_CD_BREAKOUT)
 	last_special = world.time + CLICK_CD_BREAKOUT
-	var/buckle_cd = 60 SECONDS
+	var/buckle_cd = 1 MINUTES
 
 	if(handcuffed)
 		var/obj/item/restraints/O = src.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		buckle_cd = O.breakouttime
 
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [round(buckle_cd/600,1)] minute\s, and you need to stay still.)</span>")
+				"<span class='notice'>You attempt to unbuckle yourself... \
+				(This will take around [DisplayTimeText(buckle_cd)] and you need to stay still.)</span>")
 
-	if(do_after(src, buckle_cd, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
-		if(!buckled)
+	if(!do_after(src, buckle_cd, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
+		if(buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 		return
 
@@ -274,32 +275,38 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		cuff_resist(I)
 
 
-/mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
-	if(I.item_flags & BEING_REMOVED)
-		to_chat(src, "<span class='warning'>You're already attempting to remove [I]!</span>")
+/**
+ * Helper to break the cuffs from hands
+ * @param {obj/item} cuffs - The cuffs to break
+ * @param {number} breakouttime - The time it takes to break the cuffs. Use SECONDS/MINUTES defines
+ * @param {number} cuff_break - Speed multiplier, 0 is default, see _DEFINES\combat.dm
+ */
+/mob/living/carbon/proc/cuff_resist(obj/item/cuffs, breakouttime = 1 MINUTES, cuff_break = 0)
+	if(cuffs.item_flags & BEING_REMOVED)
+		to_chat(src, "<span class='warning'>You're already attempting to remove [cuffs]!</span>")
 		return
-	I.item_flags |= BEING_REMOVED
-	breakouttime = I.breakouttime
+	cuffs.item_flags |= BEING_REMOVED
+	breakouttime = cuffs.breakouttime
 	if(!cuff_break)
-		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)</span>")
+		visible_message("<span class='warning'>[src] attempts to remove [cuffs]!</span>")
+		to_chat(src, "<span class='notice'>You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
-			clear_cuffs(I, cuff_break)
+			. = clear_cuffs(cuffs, cuff_break)
 		else
-			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
+			to_chat(src, "<span class='warning'>You fail to remove [cuffs]!</span>")
 
 	else if(cuff_break == FAST_CUFFBREAK)
-		breakouttime = 50
-		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
+		breakouttime = 5 SECONDS
+		visible_message("<span class='warning'>[src] is trying to break [cuffs]!</span>")
+		to_chat(src, "<span class='notice'>You attempt to break [cuffs]... (This will take around 5 seconds and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM))
-			clear_cuffs(I, cuff_break)
+			. = clear_cuffs(cuffs, cuff_break)
 		else
-			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
+			to_chat(src, "<span class='warning'>You fail to break [cuffs]!</span>")
 
 	else if(cuff_break == INSTANT_CUFFBREAK)
-		clear_cuffs(I, cuff_break)
-	I.item_flags &= ~BEING_REMOVED
+		. = clear_cuffs(cuffs, cuff_break)
+	cuffs.item_flags &= ~BEING_REMOVED
 
 /mob/living/carbon/proc/uncuff()
 	if (handcuffed)
@@ -360,7 +367,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			I.dropped(src)
 			update_inv_legcuffed()
 			return TRUE
-
 
 /mob/living/carbon/proc/accident(obj/item/I)
 	if(!I || (I.item_flags & ABSTRACT) || HAS_TRAIT(I, TRAIT_NODROP))

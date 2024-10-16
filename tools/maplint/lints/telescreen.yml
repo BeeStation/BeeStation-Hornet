@@ -1,0 +1,5 @@
+help:
+  Found a telescreen with no subtype, if you intended for this to be a thunderdome monitor please use
+  the /obj/machinery/computer/security/telescreen/entertainment subtype instead.
+=/obj/machinery/computer/security/telescreen:
+  banned: true

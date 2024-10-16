@@ -127,6 +127,13 @@
 		return
 	split_ability.Trigger(TRUE)
 
+/datum/species/diona/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	H.unequip_everything()
+	H.gib_animation()
+	H.spawn_gibs()
+	QDEL_NULL(H)
+	return
+
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/organ/appendix/appendix = H.getorganslot("appendix") //No appendixes for plant people
@@ -183,12 +190,12 @@
 	if(special)
 		startSplitting(FALSE, user) //This runs when you are dead.
 		return TRUE
-	if(user.incapacitated(ignore_restraints = TRUE)) //Are we incapacitated right now?
+	if(user.incapacitated(IGNORE_RESTRAINTS)) //Are we incapacitated right now?
 		return FALSE
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
-		if(user.incapacitated(ignore_restraints = TRUE)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
+		if(user.incapacitated(IGNORE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
 		startSplitting(FALSE, user) //This runs when you manually activate the ability.
 		return TRUE
