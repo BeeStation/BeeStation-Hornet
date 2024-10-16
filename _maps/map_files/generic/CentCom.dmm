@@ -64,6 +64,9 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
+"ak" = (
+/turf/closed/mineral/random/snowmountain/cavern,
+/area/syndicate_mothership)
 "al" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
@@ -386,6 +389,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/syndicate_mothership/control)
+"ba" = (
+/obj/structure/flora/tree/pine,
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "bb" = (
 /obj/structure/barricade/security/ctf,
 /obj/effect/turf_decal/siding/red{
@@ -1529,7 +1536,7 @@
 	pixel_x = 28;
 	pixel_y = 23
 	},
-/turf/open/floor/plating/asteroid,
+/turf/open/floor/plating/ice,
 /area/syndicate_mothership)
 "dK" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -2597,7 +2604,9 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "gp" = (
-/turf/open/space/basic,
+/turf/open/floor/grass/snow/safe{
+	icon_state = "snow_dug"
+	},
 /area/syndicate_mothership)
 "gq" = (
 /obj/structure/barricade/security/ctf,
@@ -2614,12 +2623,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"gt" = (
-/obj/structure/flora/rock/pile{
-	icon_state = "lavarocks2"
-	},
-/turf/open/floor/plating/asteroid,
-/area/syndicate_mothership)
 "gu" = (
 /turf/closed/indestructible/splashscreen,
 /area/start)
@@ -2632,7 +2635,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/airalarm/directional/north,
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "gx" = (
 /obj/machinery/computer/security{
@@ -2779,6 +2782,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
+"gT" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
+	},
+/turf/open/floor/carpet/purple,
+/area/syndicate_mothership/control)
 "gV" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 5
@@ -2831,6 +2840,12 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"hc" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
 "hd" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -2865,6 +2880,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"hh" = (
+/obj/structure/barricade/wooden/crude/snow,
+/turf/closed/wall/ice,
+/area/syndicate_mothership)
 "hi" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -2992,6 +3011,10 @@
 "hB" = (
 /turf/open/floor/circuit/red,
 /area/ctf)
+"hD" = (
+/obj/structure/flora/rock/icy,
+/turf/open/floor/plating/ice/smooth,
+/area/syndicate_mothership)
 "hH" = (
 /turf/open/floor/holofloor/hyperspace,
 /area/space)
@@ -3106,6 +3129,18 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/syndicate_mothership/control)
+"ib" = (
+/obj/structure/flora/rock/pile{
+	icon_state = "lavarocks2"
+	},
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
+"ic" = (
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/obj/structure/barricade/wooden/snowed,
+/turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "id" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
@@ -4361,7 +4396,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "ly" = (
 /obj/effect/turf_decal/stripes/line,
@@ -4552,6 +4587,9 @@
 	icon_state = "alien11"
 	},
 /area/abductor_ship)
+"ma" = (
+/turf/open/floor/plating/ice,
+/area/syndicate_mothership)
 "mb" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/small,
@@ -5177,7 +5215,7 @@
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "nV" = (
-/turf/open/floor/plating/asteroid,
+/turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "nW" = (
 /obj/machinery/vending/cola,
@@ -5867,6 +5905,13 @@
 /obj/machinery/light,
 /turf/open/floor/iron,
 /area/centcom/ferry)
+"py" = (
+/obj/structure/flora/rock/pile/icy{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "pz" = (
 /turf/open/space/basic,
 /area/centcom/ferry)
@@ -6013,7 +6058,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "pV" = (
 /obj/machinery/light{
@@ -8099,7 +8144,7 @@
 /area/syndicate_mothership/control)
 "vr" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid,
+/turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "vs" = (
 /obj/effect/turf_decal/siding/wood{
@@ -8119,6 +8164,9 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"vv" = (
+/turf/closed/wall/ice,
+/area/syndicate_mothership)
 "vy" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs/cable/zipties,
@@ -8394,7 +8442,7 @@
 /obj/structure/sign/poster/official/fruit_bowl{
 	pixel_y = 32
 	},
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "vZ" = (
 /obj/structure/fence/corner{
@@ -8614,8 +8662,8 @@
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "wF" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
+/obj/structure/flora/grass/both,
+/turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "wG" = (
 /obj/effect/turf_decal/stripes/line,
@@ -8707,6 +8755,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
+"wX" = (
+/obj/structure/statue/snow/snowman,
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "wY" = (
 /obj/structure/fluff/hedge,
 /obj/structure/sign/poster/contraband/syndicate{
@@ -8967,6 +9019,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
+"xH" = (
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
+"xO" = (
+/turf/open/floor/plating/ice/smooth/red,
+/area/syndicate_mothership)
 "xQ" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
@@ -9069,6 +9127,10 @@
 	},
 /turf/open/floor/engine/cult,
 /area/wizard_station)
+"yc" = (
+/obj/structure/flora/stump,
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "yd" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -9133,6 +9195,10 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/control)
+"yk" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/plating/ice,
+/area/syndicate_mothership)
 "yn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/vacuum,
@@ -9420,6 +9486,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"zc" = (
+/obj/structure/flora/tree/dead,
+/obj/structure/flora/rock/pile{
+	icon_state = "lavarocks2";
+	pixel_x = -10;
+	pixel_y = -9
+	},
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "zd" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid/planetary,
@@ -10987,6 +11062,10 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
+"CS" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
 "CU" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -12258,8 +12337,8 @@
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "Gi" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
 "Gj" = (
 /obj/effect/turf_decal/siding/red{
@@ -14518,7 +14597,7 @@
 /area/tdome/tdomeobserve)
 "Ly" = (
 /obj/structure/flora/rock,
-/turf/open/floor/plating/asteroid,
+/turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "Lz" = (
 /obj/machinery/computer/camera_advanced{
@@ -15693,7 +15772,7 @@
 /obj/item/disk/data{
 	pixel_y = -17
 	},
-/turf/open/floor/plating/asteroid,
+/turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "Ow" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -15941,6 +16020,13 @@
 /obj/machinery/washing_machine,
 /turf/open/floor/iron/white,
 /area/centcom/holding)
+"Pb" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
 "Pc" = (
 /obj/item/defibrillator/loaded,
 /obj/structure/table/reinforced,
@@ -16189,6 +16275,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
+"PI" = (
+/obj/structure/flora/tree/dead,
+/obj/item/toy/plush/moth/snow{
+	pixel_x = -5
+	},
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "PJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fluff/paper/stack{
@@ -16666,6 +16759,9 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
+"QV" = (
+/turf/open/floor/plating/ice/smooth,
+/area/syndicate_mothership)
 "QW" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	locked = 0
@@ -17225,7 +17321,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
 	},
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "Sr" = (
 /obj/effect/turf_decal/siding/blue{
@@ -17376,6 +17472,10 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"SP" = (
+/obj/structure/barricade/wooden/crude/snow,
+/turf/closed/indestructible/syndicate,
+/area/syndicate_mothership/control)
 "SQ" = (
 /obj/structure/chair,
 /obj/item/cigbutt/cigarbutt{
@@ -17839,7 +17939,7 @@
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/structure/extinguisher_cabinet/directional/north,
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "TY" = (
 /obj/structure/trap/ctf/red,
@@ -18081,6 +18181,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
+"UD" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
 "UE" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood,
@@ -18159,6 +18264,10 @@
 /obj/effect/turf_decal/weather/dirt/corner,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
+"UR" = (
+/obj/structure/flora/rock/icy,
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "US" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -18806,6 +18915,12 @@
 	dir = 4
 	},
 /area/syndicate_mothership/control)
+"WH" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
 "WI" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 6
@@ -19573,7 +19688,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
-/turf/open/floor/glass/reinforced/plasma,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "YI" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -19708,7 +19824,7 @@
 "Zc" = (
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/glass/reinforced/plasma,
+/turf/open/floor/carpet/purple,
 /area/syndicate_mothership/control)
 "Zf" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -28392,10 +28508,10 @@ kh
 og
 ku
 mf
-mf
-mf
-mf
-mf
+ak
+ak
+ak
+ak
 mf
 mf
 mf
@@ -28648,13 +28764,13 @@ ol
 uj
 cw
 ku
-mf
-mf
+ak
+ak
 Ov
 nV
-mf
-mf
-mf
+ak
+ak
+ak
 mf
 mf
 Rk
@@ -28905,13 +29021,13 @@ RT
 Tx
 Kt
 ku
-mf
-gp
+ak
+nV
 wF
 nV
 nV
 Ly
-mf
+ak
 mf
 mf
 mf
@@ -29163,12 +29279,12 @@ Oi
 zE
 ku
 wF
-wF
-wF
-gp
-gp
+QV
+QV
+QV
 nV
-mf
+py
+ak
 mf
 mf
 mf
@@ -29419,13 +29535,13 @@ nN
 mY
 lq
 ku
-gp
-gp
-wF
-gp
-gp
+QV
+QV
+hD
+QV
 nV
-mf
+wF
+ak
 mf
 mf
 mf
@@ -29677,12 +29793,12 @@ Lm
 mL
 ku
 ku
-gp
-wF
-gp
-gp
-gp
-mf
+QV
+QV
+QV
+QV
+nV
+ak
 mf
 mf
 mf
@@ -31482,7 +31598,7 @@ ku
 ku
 ku
 ku
-mf
+ak
 mf
 mf
 mf
@@ -31738,9 +31854,9 @@ XD
 gA
 cH
 ku
-gp
-mf
-mf
+nV
+ak
+ak
 mf
 mf
 mf
@@ -31995,10 +32111,10 @@ rg
 XF
 WT
 ku
-gp
-gp
-mf
-mf
+nV
+nV
+ak
+ak
 mf
 mf
 Rk
@@ -32253,9 +32369,9 @@ rg
 kn
 ku
 wF
+yc
 wF
-wF
-mf
+ak
 mf
 mf
 Rk
@@ -32509,10 +32625,10 @@ pb
 Hu
 sV
 CW
-gp
+hc
 gp
 nV
-mf
+ak
 mf
 mf
 Rk
@@ -32766,10 +32882,10 @@ Bw
 ST
 ST
 ob
-gp
-gp
+Pb
+nV
 vr
-mf
+ak
 mf
 mf
 Rk
@@ -33022,11 +33138,11 @@ Cf
 Kw
 bm
 JK
-ob
-gp
+ic
 nV
-nV
-mf
+wF
+UR
+ak
 mf
 mf
 Rk
@@ -33280,10 +33396,10 @@ Mk
 zz
 iQ
 ob
-wF
-nV
-mf
-mf
+yc
+wX
+ak
+ak
 mf
 mf
 Rk
@@ -33536,10 +33652,10 @@ ku
 ku
 ku
 ku
-ku
-gp
-mf
-mf
+SP
+nV
+ak
+ak
 mf
 mf
 Rk
@@ -33793,9 +33909,9 @@ Rj
 ku
 mf
 mf
-mf
-mf
-mf
+ak
+ak
+ak
 mf
 mf
 mf
@@ -34819,8 +34935,8 @@ ob
 ob
 ob
 ku
-mf
-mf
+ak
+ak
 mf
 Rk
 Rk
@@ -35072,13 +35188,13 @@ yg
 LG
 ku
 ku
-gp
-gp
-gp
 nV
-mf
-mf
-mf
+ma
+ma
+ma
+ak
+ak
+ak
 Rk
 aa
 aa
@@ -35328,13 +35444,13 @@ EL
 xm
 Zu
 ku
-wF
-wF
-wF
-wF
+xH
+xH
 nV
-mf
-mf
+ma
+ma
+ak
+ak
 Rk
 Rk
 aa
@@ -35585,13 +35701,13 @@ YM
 Cb
 Fw
 xm
-gp
-gp
-gp
-gp
-mf
-mf
-mf
+CS
+ib
+wF
+nV
+ak
+ak
+ak
 Rk
 aa
 aa
@@ -35842,12 +35958,12 @@ DX
 Cb
 sJ
 xm
-gp
-gp
-gp
-gp
-mf
-mf
+xO
+nV
+nV
+PI
+ak
+ak
 Rk
 Rk
 aa
@@ -36099,12 +36215,12 @@ Lb
 Ll
 yO
 xm
-wF
-wF
-wF
+xO
+xO
 nV
-mf
-mf
+nV
+ak
+ak
 Rk
 aa
 aa
@@ -36356,11 +36472,11 @@ KK
 eI
 kX
 ku
+wF
 nV
-gt
-gp
-mf
-mf
+nV
+ak
+ak
 Rk
 Rk
 aa
@@ -36613,11 +36729,11 @@ XA
 Xf
 Xq
 ku
-mf
 nV
 nV
 nV
-mf
+hh
+ak
 Rk
 aa
 aa
@@ -36870,11 +36986,11 @@ QS
 Cb
 Fw
 xm
-gp
+hc
 nV
 nV
-nV
-mf
+wF
+ak
 Rk
 aa
 aa
@@ -37127,11 +37243,11 @@ bx
 Cb
 dV
 xm
-gp
-wF
+xH
+hc
+ba
 nV
-nV
-mf
+ak
 Rk
 Rk
 aa
@@ -37384,12 +37500,12 @@ Wq
 Cb
 Tp
 xm
-wF
-wF
-wF
+xH
+UD
 nV
-mf
-mf
+nV
+ak
+ak
 Rk
 aa
 aa
@@ -37641,12 +37757,12 @@ Vg
 CM
 CM
 ku
-Gi
-Gi
+xH
 Gi
 nV
-nV
-mf
+wF
+ak
+ak
 Rk
 aa
 aa
@@ -37898,12 +38014,12 @@ CM
 pN
 id
 ku
-wF
-wF
-wF
+CS
+WH
+nV
 nV
 dJ
-mf
+ak
 Rk
 aa
 aa
@@ -38145,7 +38261,7 @@ mf
 ku
 fx
 Zc
-YH
+gT
 YH
 Sq
 Uu
@@ -38155,12 +38271,12 @@ YM
 Cb
 Tp
 xm
-gp
-gp
+Gi
 nV
-vr
 nV
-mf
+yk
+ma
+ak
 Rk
 aa
 aa
@@ -38412,12 +38528,12 @@ hO
 Cb
 dV
 xm
-gp
-nV
-nV
-nV
-mf
-mf
+WH
+zc
+wF
+ma
+ak
+ak
 Rk
 aa
 aa
@@ -38671,9 +38787,9 @@ Tp
 xm
 wF
 nV
-mf
-mf
-mf
+ak
+ak
+ak
 Rk
 Rk
 aa
@@ -38926,9 +39042,9 @@ Om
 eI
 EF
 ku
-gp
 nV
-mf
+vv
+ak
 Rk
 Rk
 Rk
@@ -39183,9 +39299,9 @@ Cw
 jQ
 BF
 ku
-mf
-mf
-mf
+ak
+ak
+ak
 mf
 mf
 mf
@@ -39440,9 +39556,9 @@ KP
 Cb
 pr
 ku
-mf
-mf
-mf
+ak
+ak
+ak
 mf
 mf
 mf
@@ -39697,7 +39813,7 @@ kG
 Cb
 sJ
 ku
-mf
+ak
 mf
 mf
 mf
@@ -39954,7 +40070,7 @@ Lb
 Cb
 yO
 ku
-mf
+ak
 mf
 mf
 mf
