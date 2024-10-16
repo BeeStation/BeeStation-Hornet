@@ -130,11 +130,7 @@
 		for(var/mob/viewer as anything in viewers(user))
 			to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
 			if(user.runechat_prefs_check(viewer, list(CHATMESSAGE_EMOTE = TRUE)))
-				create_chat_message(
-					speaker = user,
-					raw_message = msg,
-					message_mods = list(CHATMESSAGE_EMOTE = TRUE),
-				)
+				create_chat_message(user, null, list(viewer), msg, null, list(CHATMESSAGE_EMOTE = TRUE))
 	// Emotes has both an audible and visible component
 	// Prioritize audible, and provide a visible message if the user is deaf
 	else if(is_visual && is_audible)
@@ -142,7 +138,7 @@
 			message = msg,
 			deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>",
 			self_message = msg,
-			audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE|ALWAYS_SHOW_SELF_MESSAGE),
+			audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, ALWAYS_SHOW_SELF_MESSAGE = TRUE),
 			separation = space
 		)
 	// Emote is entirely audible, no visible component
@@ -158,7 +154,7 @@
 		user.visible_message(
 			message = msg,
 			self_message = msg,
-			visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE|ALWAYS_SHOW_SELF_MESSAGE),
+			visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, ALWAYS_SHOW_SELF_MESSAGE = TRUE),
 		)
 	else
 		CRASH("Emote [type] has no valid emote type set!")

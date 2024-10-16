@@ -155,32 +155,37 @@
 /mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)
-		return
+		return FALSE
 
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
+	// Return TRUE if we sent the original msg, otherwise return FALSE
+	. = TRUE
 	if(type)
 		if(type & MSG_VISUAL && (is_blind() && dist > BLIND_TEXT_DIST))//Vision related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 
 		if(type & MSG_AUDIBLE && !can_hear())//Hearing related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 				if(type & MSG_VISUAL && is_blind())
-					return
+					return FALSE
 	// voice muffling
 	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
+	return .
 
 
 /atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
@@ -235,6 +240,7 @@
 	. = ..()
 	if(!self_message)
 		return
+	var/raw_self_message = self_message
 	var/self_runechat = FALSE
 	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
 		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>" // May make more sense as "You do x"
@@ -247,7 +253,7 @@
 		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
 	if(self_runechat && (LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, visible_message_flags))
-		show_message(self_message, MSG_AUDIBLE, blind_message, MSG_VISUAL)
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = visible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this atom
@@ -295,6 +301,8 @@
 	. = ..()
 	if(!self_message)
 		return
+
+	var/raw_self_message = self_message
 	var/self_runechat = FALSE
 	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
 		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>"
@@ -305,7 +313,7 @@
 		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 	if(self_runechat && (LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, audible_message_flags))
-		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = audible_message_flags)
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
