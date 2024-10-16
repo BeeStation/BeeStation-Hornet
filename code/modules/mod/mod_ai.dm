@@ -96,6 +96,7 @@
 #undef WEARER_DELAY
 #undef LONE_DELAY
 #undef CHARGE_PER_STEP
+#undef AI_FALL_TIME
 
 /obj/item/mod/control/proc/ai_fall()
 	if(!wearer)
