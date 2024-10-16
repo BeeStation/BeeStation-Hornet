@@ -1,0 +1,5 @@
+author: BeeLover66
+delete-after: true
+changes:
+  - bugfix: Radio channels no longer always default to common when no encryption key
+      is installed
