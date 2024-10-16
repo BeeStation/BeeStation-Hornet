@@ -59,6 +59,11 @@
 	handle_whitespace = TRUE,
 	trailing_newline = TRUE
 )
+#ifdef UNIT_TESTS
+	if (istype(target, /mob/living/carbon/human/consistent))
+		log_test("[target]: [strip_html_tags(html)][text]")
+#endif
+
 	if(isnull(Master) || !SSchat?.initialized || !MC_RUNNING(SSchat.init_stage))
 		to_chat_immediate(target, html, type, text, avoid_highlighting, allow_linkify)
 		return
