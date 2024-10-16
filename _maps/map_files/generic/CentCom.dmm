@@ -3627,13 +3627,9 @@
 /turf/open/floor/iron,
 /area/centcom/supply)
 "jz" = (
-/obj/machinery/door/poddoor/shuttledock{
-	checkdir = 1;
-	name = "syndicate blast door";
-	turftype = /turf/open/floor/plating/asteroid/snow
-	},
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shuttledock,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "jA" = (
@@ -6104,6 +6100,7 @@
 	req_access_txt = "150"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "qj" = (
@@ -14685,10 +14682,10 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/structure/holosign/barrier/engineering{
-	pixel_y = 20
-	},
 /obj/effect/decal/cleanable/glass,
+/obj/structure/holosign/barrier/engineering{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "LS" = (
@@ -17067,12 +17064,8 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "RU" = (
-/obj/machinery/door/poddoor/shuttledock{
-	checkdir = 1;
-	name = "syndicate blast door";
-	turftype = /turf/open/floor/plating/asteroid/snow
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shuttledock,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "RV" = (
