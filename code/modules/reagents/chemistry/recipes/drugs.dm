@@ -54,3 +54,9 @@
 	results = list(/datum/reagent/drug/ketamine = 3)
 	required_reagents = list(/datum/reagent/medicine/morphine = 3, /datum/reagent/toxin/chloralhydrate = 3, /datum/reagent/toxin/fentanyl = 3, /datum/reagent/medicine/epinephrine =3)
 	required_temp = 370
+
+/datum/chemical_reaction/lavaglitter
+	name = "Lavaland Glitter"
+	id = /datum/reagent/drug/lavaglitter
+	results = list(/datum/reagent/drug/lavaglitter = 3)
+	required_reagents = list (/datum/reagent/gold = 2, /datum/reagent/consumable/entpoly = 1)
