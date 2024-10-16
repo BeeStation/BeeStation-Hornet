@@ -119,6 +119,8 @@
 		cooldown = S.charge_max/10
 	if(S.clothes_req)
 		clothes_req = TRUE
+	if(!desc)
+		desc = S.desc
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
@@ -718,17 +720,23 @@
 			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
 		else
 			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
-			uses++
+			uses += 2
 			for(var/datum/spellbook_entry/item/contract/CT in entries)
 				if(!isnull(CT.limit))
 					CT.limit++
 			qdel(O)
 	else if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
-		uses++
-		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
-			if(!isnull(BB.limit))
-				BB.limit++
+		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
+			uses += 1
+			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
+				if(!isnull(HB.limit))
+					HB.limit++
+		else
+			uses += 2
+			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
+				if(!isnull(BB.limit))
+					BB.limit++
 		qdel(O)
 
 /obj/item/spellbook/proc/prepare_spells()
@@ -813,19 +821,20 @@
 			randomize(wizard)
 			update_static_data(wizard) //update statics!
 		if("purchase_loadout")
-			wizard_loadout(wizard, locate(params["id"]))
+			wizard_loadout(wizard, params["id"])
+			update_static_data(wizard) //update statics!
 
 /obj/item/spellbook/proc/wizard_loadout(mob/living/carbon/human/wizard, loadout)
 	var/list/wanted_spell_names
 	switch(loadout)
-		if(WIZARD_LOADOUT_CLASSIC) //(Fireball>2, MM>2, Smite>2, Jauntx2>4) = 10
-			wanted_spell_names = list("Fireball" = 1, "Magic Missile" = 1, "Smite" = 1, "Ethereal Jaunt" = 2)
-		if(WIZARD_LOADOUT_MJOLNIR) //(Mjolnir>2, Summon Itemx3>3, Mutate>2, Force Wall>1, Blink>2) = 10
-			wanted_spell_names = list("Mjolnir" = 1, "Summon Item" = 3, "Mutate" = 1, "Force Wall" = 1, "Blink" = 1)
+		if(WIZARD_LOADOUT_CLASSIC) //(Fireball>2, MM>2, Disintegrate>2, Jauntx2>4) = 10
+			wanted_spell_names = list("Fireball" = 1, "Magic Missile" = 1, "Disintegrate" = 1, "Ethereal Jaunt" = 2)
+		if(WIZARD_LOADOUT_MJOLNIR) //(Mjolnir>2, Summon Item>1, Mutate>2, Force Wall>1, Blink>2, Repusle>2) = 10
+			wanted_spell_names = list("Mjolnir" = 1, "Summon Item" = 1, "Mutate" = 1, "Force Wall" = 1, "Blink" = 1, "Repulse" = 1)
 		if(WIZARD_LOADOUT_WIZARMY) //(Soulstones>2, Staff of Change>2, A Necromantic Stone>2, Teleport>2, Ethereal Jaunt>2) = 10
 			wanted_spell_names = list("Soulstone Shard Kit" = 1, "Staff of Change" = 1, "A Necromantic Stone" = 1, "Teleport" = 1, "Ethereal Jaunt" = 1)
-		if(WIZARD_LOADOUT_SOULTAP) //(Soul Tap>1, Smite>2, Flesh to Stone>2, Mindswap>2, Knock>1, Teleport>2) = 10
-			wanted_spell_names = list("Soul Tap" = 1, "Smite" = 1, "Flesh to Stone" = 1, "Mindswap" = 1, "Knock" = 1, "Teleport" = 1)
+		if(WIZARD_LOADOUT_SOULTAP) //(Soul Tap>1, Disintegrate>2, Flesh to Stone>2, Mindswap>2, Knock>1, Teleport>2) = 10
+			wanted_spell_names = list("Soul Tap" = 1, "Disintegrate" = 1, "Flesh to Stone" = 1, "Mindswap" = 1, "Knock" = 1, "Teleport" = 1)
 	for(var/datum/spellbook_entry/entry as anything in entries)
 		if(!(entry.name in wanted_spell_names))
 			continue
@@ -868,6 +877,8 @@
 	var/list/entries_copy = entries.Copy()
 	while(uses > 0)
 		var/datum/spellbook_entry/entry = pick_n_take(entries_copy)
+		if(istype(entry, /datum/spellbook_entry/summon/wild_magic))
+			continue
 		if(entry?.CanBuy(wizard,src))
 			if(entry.Buy(wizard,src))
 				entry.refundable = FALSE //once you go random, you never go back

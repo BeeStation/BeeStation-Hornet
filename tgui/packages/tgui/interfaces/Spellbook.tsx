@@ -23,7 +23,7 @@ type SpellEntry = {
   // Byond REF of the spell entry datum
   ref: byondRef;
   // Whether the spell requires wizard clothing to cast
-  requires_wizard_garb: BooleanLike;
+  clothes_req: BooleanLike;
   // Spell points required to buy the spell
   cost: number;
   // How many times the spell has been bought
@@ -34,6 +34,8 @@ type SpellEntry = {
   cat: SpellCategory;
   // Whether the spell is refundable
   refundable: BooleanLike;
+  // // How many times the spell can been bought
+  limit: number;
   // The verb displayed when buying
   buyword: Buywords;
 };
@@ -41,8 +43,6 @@ type SpellEntry = {
 type Data = {
   owner: string;
   points: number;
-  semi_random_bonus: number;
-  full_random_bonus: number;
   entries: SpellEntry[];
 };
 
@@ -278,7 +278,7 @@ const Loadouts = (props, context) => {
             blurb={multiline`
                 This is the classic wizard, crazy popular in
                 the 2550's. Comes with Fireball, Magic Missile,
-                Ei Nath, and Ethereal Jaunt. The key here is that
+                Disintegrate, and Ethereal Jaunt. The key here is that
                 every part of this kit is very easy to pick up and use.
               `}
           />
@@ -291,7 +291,7 @@ const Loadouts = (props, context) => {
             blurb={multiline`
                 The power of the mighty Mjolnir! Best not to lose it.
                 This loadout has Summon Item, Mutate, Blink, Force Wall,
-                Tesla Blast, and Mjolnir. Mutate is your utility in this case:
+                Tesla Blast, Repulse and Mjolnir. Mutate is your utility in this case:
                 Use it for limited ranged fire and getting out of bad blinks.
               `}
           />
@@ -320,7 +320,7 @@ const Loadouts = (props, context) => {
             blurb={multiline`
                 Embrace the dark, and tap into your soul.
                 You can recharge very long recharge spells
-                like Ei Nath by jumping into new bodies with
+                like Disintegrate by jumping into new bodies with
                 Mind Swap and starting Soul Tap anew.
               `}
           />
@@ -379,7 +379,7 @@ const SearchSpells = (props, context) => {
     const searchStatement = spellSearch.toLowerCase();
     if (searchStatement === 'robeless') {
       // Lets you just search for robeless spells, you're welcome mindswap-bros
-      return entries.filter((entry) => !entry.requires_wizard_garb);
+      return entries.filter((entry) => !entry.clothes_req);
     }
 
     return entries.filter(
@@ -437,6 +437,8 @@ const SpellTabDisplay = (
     } else {
       if (entry.cooldown) {
         return `${entry.cooldown}s Cooldown`;
+      } else if (entry.limit) {
+        return `Maximum: ${entry.limit}`;
       } else {
         return '';
       }
@@ -455,19 +457,20 @@ const SpellTabDisplay = (
             <Stack.Item width="60px" ml={PointOffset}>
               {entry.cost} points
             </Stack.Item>
-            {entry.buyword === Buywords.Learn && (
-              <Stack.Item>
+          </Stack>
+          <Section
+            title={entry.name}
+            buttons={
+              entry.buyword === Buywords.Learn && (
                 <Button
                   mt={-0.8}
                   icon="tshirt"
-                  color={entry.requires_wizard_garb ? 'bad' : 'green'}
+                  color={entry.clothes_req ? 'bad' : 'green'}
                   tooltipPosition="bottom-start"
-                  tooltip={entry.requires_wizard_garb ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
+                  tooltip={entry.clothes_req ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
                 />
-              </Stack.Item>
-            )}
-          </Stack>
-          <Section title={entry.name}>
+              )
+            }>
             <Stack>
               <Stack.Item grow>{entry.desc}</Stack.Item>
               <Stack.Item>
@@ -478,7 +481,7 @@ const SpellTabDisplay = (
                   fluid
                   textAlign="center"
                   color={points >= entry.cost ? 'green' : 'bad'}
-                  disabled={points < entry.cost}
+                  disabled={points < entry.cost || entry.limit === 0}
                   width={7}
                   icon={BUYWORD2ICON[entry.buyword]}
                   content={entry.buyword}
