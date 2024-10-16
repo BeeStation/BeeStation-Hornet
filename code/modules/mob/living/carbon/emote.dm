@@ -189,6 +189,9 @@
 	emote_length = 3 SECONDS
 	sound = 'sound/emotes/sweatdrop.ogg'
 
+/datum/emote/living/carbon/sweatdrop/sweat //This is entirely the same as sweatdrop, however people might use either, so i'm adding this one instead of editing the other one.
+	key = "sweat"
+
 /datum/emote/living/carbon/annoyed
 	key = "annoyed"
 	emote_type = EMOTE_ANIMATED | EMOTE_VISIBLE

@@ -363,6 +363,12 @@
 	message = "grins smugly"
 	emote_type = EMOTE_VISIBLE
 
+/datum/emote/living/smirk
+	key = "smirk"
+	key_third_person = "smirks"
+	message = "smirks"
+	emote_type = EMOTE_VISIBLE
+
 /datum/emote/living/snore
 	key = "snore"
 	key_third_person = "snores"
