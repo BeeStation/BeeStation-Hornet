@@ -26,9 +26,9 @@
 		add_overlay(deflector_overlay)
 
 	if(rotation_angle == -1)
-		setAngle(dir2angle(dir))
+		set_angle(dir2angle(dir))
 	else
-		setAngle(rotation_angle)
+		set_angle(rotation_angle)
 
 	if(admin)
 		can_rotate = FALSE
@@ -44,7 +44,7 @@
 			else
 				. += "<span class='notice'>Use <b>screwdriver</b> to unlock the rotation.</span>"
 
-/obj/structure/reflector/proc/setAngle(new_angle, force_rotate = FALSE)
+/obj/structure/reflector/proc/set_angle(new_angle, force_rotate = FALSE)
 	if(can_rotate || force_rotate)
 		rotation_angle = new_angle
 		if(deflector_overlay)
@@ -55,7 +55,7 @@
 /obj/structure/reflector/shuttleRotate(rotation, params=ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
 	. = ..()
 	if(params & ROTATE_DIR)
-		setAngle(rotation_angle + rotation, TRUE)
+		set_angle(rotation_angle + rotation, TRUE)
 
 /obj/structure/reflector/setDir(new_dir)
 	return ..(NORTH)
@@ -168,7 +168,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(!isnull(new_angle))
-		setAngle(SIMPLIFY_DEGREES(new_angle))
+		set_angle(SIMPLIFY_DEGREES(new_angle))
 	return TRUE
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX
@@ -196,7 +196,7 @@
 	if(abs(incidence) > 90 && abs(incidence) < 270)
 		return FALSE
 	var/new_angle = SIMPLIFY_DEGREES(rotation_angle + incidence)
-	P.setAngle(new_angle)
+	P.set_angle_centered(new_angle)
 	return ..()
 
 //DOUBLE
@@ -220,7 +220,7 @@
 /obj/structure/reflector/double/auto_reflect(obj/projectile/P, pdir, turf/ploc, pangle)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(rotation_angle, (P.Angle + 180))
 	var/new_angle = SIMPLIFY_DEGREES(rotation_angle + incidence)
-	P.setAngle(new_angle)
+	P.set_angle_centered(new_angle)
 	return ..()
 
 //BOX
@@ -242,7 +242,7 @@
 	anchored = TRUE
 
 /obj/structure/reflector/box/auto_reflect(obj/projectile/P)
-	P.setAngle(rotation_angle)
+	P.set_angle(rotation_angle)
 	return ..()
 
 /obj/structure/reflector/ex_act()
@@ -300,7 +300,7 @@
 			if(isnull(new_angle))
 				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the rotate UI, somehow.")
 				return FALSE
-			setAngle(SIMPLIFY_DEGREES(new_angle))
+			set_angle(SIMPLIFY_DEGREES(new_angle))
 			return TRUE
 		if("calculate")
 			if (!can_rotate || admin)
@@ -309,5 +309,5 @@
 			if(isnull(new_angle))
 				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the calculate UI, somehow.")
 				return FALSE
-			setAngle(SIMPLIFY_DEGREES(new_angle))
+			set_angle(SIMPLIFY_DEGREES(new_angle))
 			return TRUE
