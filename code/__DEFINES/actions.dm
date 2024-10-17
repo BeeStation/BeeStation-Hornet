@@ -6,3 +6,6 @@
 #define AB_CHECK_LYING (1<<2)
 // Checks to see if the mob in concious
 #define AB_CHECK_CONSCIOUS (1<<3)
+
+///Action button triggered with right click
+#define TRIGGER_SECONDARY_ACTION (1<<0)

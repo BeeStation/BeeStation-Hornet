@@ -199,7 +199,7 @@
 						else
 							fed++ //it is not a humanoid, but still has nourishment
 						if(lay_eggs)
-							lay_eggs.UpdateButtonIcon(TRUE)
+							lay_eggs.UpdateButtons(TRUE)
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
 					else
 						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
@@ -543,7 +543,8 @@
 
 /obj/effect/proc_holder/spider/wrap/update_icon()
 	action.button_icon_state = "wrap_[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
+	return ..()
 
 /obj/effect/proc_holder/spider/wrap/activate(mob/living/user)
 	var/message
@@ -605,7 +606,7 @@
 
 /obj/effect/proc_holder/spider/throw_web/update_icon()
 	action.button_icon_state = "throw_web_[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spider/throw_web/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
@@ -682,7 +683,7 @@
 						spider.spider_team = spiders					//lets make sure her potentially sentient children are all on the same team
 						new_cluster.spider_team = spider.spider_team
 					new_cluster.faction = spider.faction.Copy()
-					UpdateButtonIcon(TRUE)
+					UpdateButtons(TRUE)
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 
@@ -712,7 +713,7 @@
 	if(new_directive)
 		spider_antag.spider_team.update_directives(new_directive)
 		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
-		S.lay_eggs.UpdateButtonIcon(TRUE)
+		S.lay_eggs.UpdateButtons(TRUE)
 
 // Spider command ability for broodmothers
 /datum/action/innate/spider/comm
@@ -723,7 +724,7 @@
 /datum/action/innate/spider/comm/IsAvailable()
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
-/datum/action/innate/spider/comm/Trigger()
+/datum/action/innate/spider/comm/Trigger(trigger_flags)
 	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
 	if(QDELETED(src) || !input || !IsAvailable())
 		return FALSE

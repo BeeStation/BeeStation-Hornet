@@ -595,6 +595,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
 
+	active_mousedown_item = null
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
@@ -916,6 +917,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		ip_intel = res.intel
 
 /client/Click(atom/object, atom/location, control, params)
+	if(click_intercept_time)
+		if(click_intercept_time >= world.time)
+			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
+			return
+		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
+
 	var/ab = FALSE
 	var/list/modifiers = params2list(params)
 
@@ -923,18 +930,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(dragged && !LAZYACCESS(modifiers, dragged)) //I don't know what's going on here, but I don't trust it
 		return
 
-	if (object && object == middragatom && LAZYACCESS(modifiers, LEFT_CLICK))
+	if (object && IS_WEAKREF_OF(object, middle_drag_atom_ref) && LAZYACCESS(modifiers, LEFT_CLICK))
 		ab = max(0, 5 SECONDS-(world.time-middragtime)*0.1)
 
 	var/mcl = CONFIG_GET(number/minute_click_limit)
 	if (!holder && mcl)
 		var/minute = round(world.time, 600)
+
 		if (!clicklimiter)
 			clicklimiter = new(LIMITER_SIZE)
+
 		if (minute != clicklimiter[CURRENT_MINUTE])
 			clicklimiter[CURRENT_MINUTE] = minute
 			clicklimiter[MINUTE_COUNT] = 0
+
 		clicklimiter[MINUTE_COUNT] += 1+(ab)
+
 		if (clicklimiter[MINUTE_COUNT] > mcl)
 			var/msg = "Your previous click was ignored because you've done too many in a minute."
 			if (minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
@@ -955,10 +966,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/second = round(world.time, 10)
 		if (!clicklimiter)
 			clicklimiter = new(LIMITER_SIZE)
+
 		if (second != clicklimiter[CURRENT_SECOND])
 			clicklimiter[CURRENT_SECOND] = second
 			clicklimiter[SECOND_COUNT] = 0
+
 		clicklimiter[SECOND_COUNT] += 1+(!!ab)
+
 		if (clicklimiter[SECOND_COUNT] > scl)
 			to_chat(src, "<span class='danger'>Your previous click was ignored because you've done too many in a second</span>")
 			return
@@ -970,6 +984,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
+
+	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
 
 	..()
 

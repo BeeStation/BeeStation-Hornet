@@ -150,9 +150,7 @@
 	if(light_on)
 		add_overlay("[icon_state]_lit")
 	spawn(1)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
+		update_action_buttons()
 	item_state = "crusher[wielded]"
 
 //destablizing force

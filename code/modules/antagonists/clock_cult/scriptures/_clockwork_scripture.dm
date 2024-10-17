@@ -258,9 +258,7 @@
 	button_icon_state = scripture.button_icon_state
 	if(scripture.power_cost)
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
-	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE
+	return ..(M)
 
 /datum/action/innate/clockcult/quick_bind/Remove(mob/M)
 	if(activation_slab.invoking_scripture == scripture)
@@ -300,6 +298,4 @@
 	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE), owner, "<span class='brass'>")
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
-	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE
+	return ..(M)

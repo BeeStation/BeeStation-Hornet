@@ -60,7 +60,7 @@
   * colour_type - a typepath (subtyped from /datum/client_colour)
   */
 /mob/proc/add_client_colour(colour_type)
-	if(!ispath(colour_type, /datum/client_colour))
+	if(!ispath(colour_type, /datum/client_colour) || QDELING(src))
 		return
 
 	var/datum/client_colour/colour = new colour_type(src)

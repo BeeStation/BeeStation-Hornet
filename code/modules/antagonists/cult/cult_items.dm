@@ -548,14 +548,13 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "Call the blood spear back to your hand!"
 	background_icon_state = "bg_demon"
 	button_icon_state = "bloodspear"
+	default_button_position = "6:157,4:-2"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
 	spear = blood_spear
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Activate()
 	if(owner == spear.loc || cooldown > world.time)

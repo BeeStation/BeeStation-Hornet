@@ -102,7 +102,7 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
 
-	var/list/weather_immunities = list()
+	var/list/weather_immunities
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
@@ -140,9 +140,10 @@
 
 	var/mobchatspan = "unknown"	//The span to use when this mob talks in chat for the name tag
 
-	//List of active diseases
-	var/list/diseases = list() // list of all diseases in a mob
-	var/list/disease_resistances = list()
+	//List of all diseases in mob
+	var/list/diseases
+	//List of diseases that the mob has been immunized from
+	var/list/disease_resistances
 
 	var/slowed_by_drag = TRUE //Whether the mob is slowed down when dragging another prone mob
 

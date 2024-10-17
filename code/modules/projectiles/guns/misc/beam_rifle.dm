@@ -292,7 +292,9 @@
 	process_aim()
 	if(aiming_time_left <= aiming_time_fire_threshold && check_user())
 		sync_ammo()
-		afterattack(object, M, FALSE, params, passthrough = TRUE)
+		var/atom/target = object
+		if(target)
+			afterattack(target, M, FALSE, params, passthrough = TRUE)
 	stop_aiming()
 	QDEL_LIST(current_tracers)
 	return ..()
