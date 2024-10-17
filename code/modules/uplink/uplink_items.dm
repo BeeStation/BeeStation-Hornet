@@ -1246,6 +1246,20 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
+/datum/uplink_item/ammo/dark_gygax/bag
+	name = "Dark Gygax Ammo Bag"
+	desc = "A duffel bag containing ammo for three full reloads of the incendiary carbine and flash bang launcher that are equipped on a standard Dark Gygax exosuit."
+	item = /obj/item/storage/backpack/duffelbag/syndie/ammo/dark_gygax
+	cost = 4
+	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/ammo/mauler/bag
+	name = "Mauler Ammo Bag"
+	desc = "A duffel bag containing ammo for three full reloads of the LMG, scattershot carbine, and SRM-8 missile laucher that are equipped on a standard Mauler exosuit."
+	item = /obj/item/storage/backpack/duffelbag/syndie/ammo/mauler
+	cost = 6
+	purchasable_from = UPLINK_NUKE_OPS
+
 //Grenades and Explosives
 /datum/uplink_item/explosives
 	category = "Explosives"
@@ -1824,9 +1838,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/device_tools/failsafe/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
-	if(!U)
+	if(!U || !U.unlock_code)
+		to_chat(user, "<span class='warning'>A failsafe code could not be assigned to this uplink.")
 		return
-	U.failsafe_code = U.generate_code()
+	do
+		U.failsafe_code = U.generate_code()
+	while(islist(U.failsafe_code) ? compare_list(U.failsafe_code, U.unlock_code) : U.failsafe_code == U.unlock_code)
 	var/code = "[islist(U.failsafe_code) ? english_list(U.failsafe_code) : U.failsafe_code]"
 	to_chat(user, "<span class='warning'>The new failsafe code for this uplink is now : [code].</span>")
 	if(user.mind)
@@ -1906,6 +1923,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
+/datum/uplink_item/device_tools/medkit_infiltration
+	name = "Syndicate Infiltrator's Medical Kit"
+	desc = "This first aid kit, filled with supplies stolen from Nanotrasen forces, is intended to be \
+			used by infiltrators on enemy stations. It contains some basic first-aid tools for self-treatment \
+			in dire situations. Fits in your bag, but is visually obvious as non-Nanotrasen."
+	item = /obj/item/storage/firstaid/infiltrator
+	cost = 2
 
 /datum/uplink_item/device_tools/soap
 	name = "Syndicate Soap"

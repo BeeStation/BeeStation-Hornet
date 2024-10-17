@@ -32,6 +32,7 @@
 
 	sec_radio = new/obj/item/radio(src)
 	sec_radio.set_listening(FALSE)
+	sec_radio.set_frequency(FREQ_SECURITY)
 
 	if(id != null)
 		for(var/obj/machinery/door/window/brigdoor/M in urange(20, src))
@@ -123,8 +124,7 @@
 		return 0
 
 	if(!forced)
-		sec_radio.set_frequency(FREQ_SECURITY)
-		sec_radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
+		sec_radio.talk_into(src, "Timer has expired. Releasing prisoner.")
 
 	timing = FALSE
 	activation_time = null
