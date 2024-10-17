@@ -35665,6 +35665,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/light,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "fyj" = (
@@ -37924,7 +37925,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "ggf" = (
@@ -39846,9 +39846,6 @@
 /obj/machinery/light,
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
-	},
-/obj/machinery/camera{
-	dir = 10
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
@@ -42687,6 +42684,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "hEN" = (
@@ -88604,7 +88602,7 @@
 /area/science/mixing)
 "wkM" = (
 /turf/open/floor/holofloor/plating,
-/area/security/prison)
+/area/holodeck/prison)
 "wkS" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/computer/med_data{
