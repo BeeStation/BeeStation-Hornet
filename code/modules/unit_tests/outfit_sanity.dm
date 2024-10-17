@@ -3,13 +3,17 @@
 	/* We don't check the result of equip_to_slot_or_del because it returns false for random jumpsuits, as they delete themselves on init */ \
 	var/obj/item/outfit_item = H.get_item_by_slot(##slot_name); \
 	if (!outfit_item) { \
-		TEST_FAIL("[outfit.name]'s [#outfit_key] is invalid!"); \
+		TEST_FAIL("[outfit.name]'s [#outfit_key] is invalid! Could not equip a [outfit.##outfit_key] into that slot."); \
 	} \
-	outfit_item.on_outfit_equip(H, FALSE, ##slot_name); \
+	else { \
+		outfit_item.on_outfit_equip(H, FALSE, ##slot_name); \
+	} \
 }
 
 /datum/unit_test/outfit_sanity/Run()
-	var/mob/living/carbon/human/H = allocate(/mob/living/carbon/human)
+	var/datum/outfit/prototype_outfit = /datum/outfit
+	var/prototype_name = initial(prototype_outfit.name)
+	var/mob/living/carbon/human/H = allocate(/mob/living/carbon/human/consistent)
 
 	for (var/outfit_type in subtypesof(/datum/outfit))
 		// Only make one human and keep undressing it because it's much faster
@@ -17,6 +21,9 @@
 			qdel(I)
 
 		var/datum/outfit/outfit = new outfit_type
+
+		if(outfit.name == prototype_name)
+			TEST_FAIL("[outfit.type]'s name is invalid! Uses default outfit name!")
 		outfit.pre_equip(H, TRUE)
 
 		CHECK_OUTFIT_SLOT(uniform, ITEM_SLOT_ICLOTHING)
