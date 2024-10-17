@@ -48,6 +48,8 @@
 	GLOB.active_jammers -= src
 	UnregisterSignal(parent, COMSIG_PARENT_MOVED_RELAY)
 	var/turf/jammer_turf = get_turf(parent)
+	if(!jammer_turf)
+		return
 	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z[jammer_turf.z])
 		receiver.check_jammed()
 
@@ -56,13 +58,6 @@
 	//Toggle the jammer
 	if (active)
 		disable()
-
-	//Don't be active ever during unit tests (causes list bugs)
-	#ifdef UNIT_TESTS
-	else
-		disable()
-	#endif
-
 	else
 		enable()
 	if (!silent && user)
