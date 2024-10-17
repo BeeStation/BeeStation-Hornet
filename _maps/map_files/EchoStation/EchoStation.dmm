@@ -18517,6 +18517,9 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/mapping_helpers/apc/discharged,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron,
 /area/science/research/abandoned)
 "jeo" = (
@@ -27106,6 +27109,9 @@
 "noC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/white/side,
 /area/asteroid/paradise)
 "npg" = (
@@ -35567,6 +35573,9 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron,
 /area/science/research/abandoned)
 "rFV" = (
@@ -43060,7 +43069,6 @@
 	pixel_y = 2
 	},
 /obj/effect/loot_jobscale/medical/burn_kit,
-/obj/structure/table,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "vvR" = (
