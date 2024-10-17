@@ -213,6 +213,9 @@
 /datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
+/datum/species/oozeling/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
+
 /datum/species/oozeling/get_species_description()
 	return "Literally made of jelly, Oozelings are squishy friends aboard Space Station 13."
 
