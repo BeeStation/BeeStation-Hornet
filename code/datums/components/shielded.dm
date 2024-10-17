@@ -25,6 +25,8 @@
 	var/shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE
 	/// Energy shield alpha
 	var/shield_alpha = 180
+	/// The item we use for recharging
+	var/recharge_path
 	/// The cooldown tracking when we were last hit
 	COOLDOWN_DECLARE(recently_hit_cd)
 	/// The cooldown tracking when we last replenished a charge
@@ -42,6 +44,7 @@
 		shield_inhand = FALSE,
 		shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE,
 		shield_alpha = 160,
+		rechage_path = null,
 		run_hit_callback
 		)
 	if(!isitem(parent) || max_integrity <= 0)
@@ -56,6 +59,7 @@
 	src.shield_inhand = shield_inhand
 	src.shield_flags = shield_flags
 	src.shield_alpha = shield_alpha
+	src.recharge_path = recharge_path
 	src.on_hit_effects = run_hit_callback || CALLBACK(src, PROC_REF(default_run_hit_callback))
 
 	current_integrity = max_integrity
@@ -68,7 +72,7 @@
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
-	QDEL_NULL(on_hit_effects)
+	on_hit_effects = null
 	return ..()
 
 /datum/component/shielded/RegisterWithParent()
@@ -76,9 +80,18 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(lost_wearer))
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(on_hit_react))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(check_recharge_rune))
+	var/atom/shield = parent
+	if(ismob(shield.loc))
+		var/mob/holder = shield.loc
+		if(holder.is_holding(parent) && !shield_inhand)
+			return
+		set_wearer(holder)
 
 /datum/component/shielded/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED, COMSIG_ITEM_HIT_REACT, COMSIG_PARENT_ATTACKBY))
+	var/atom/shield = parent
+	if(shield.loc == wearer)
+		lost_wearer(src, wearer)
 
 // Handle recharging, if we want to
 /datum/component/shielded/process(delta_time)
@@ -111,6 +124,7 @@
 	if(slot == ITEM_SLOT_HANDS && !shield_inhand)
 		lost_wearer(source, user)
 		return
+	set_wearer(source, user)
 
 	wearer = user
 	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
@@ -126,6 +140,13 @@
 		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
+
+/datum/component/shielded/proc/set_wearer(mob/user)
+	wearer = user
+	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
+	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
+	if(current_integrity)
+		wearer.update_appearance(UPDATE_ICON)
 
 /// Used to draw the shield overlay on the wearer
 /datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
@@ -178,15 +199,12 @@
 	if(current_integrity <= 0)
 		owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
 
-/datum/component/shielded/proc/check_recharge_rune(datum/source, obj/item/wizard_armour_charge/recharge_rune, mob/living/user)
+/datum/component/shielded/proc/check_recharge_rune(datum/source, obj/item/recharge_rune, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(!istype(recharge_rune))
+	if(!istype(recharge_rune, recharge_path))
 		return
 	. = COMPONENT_NO_AFTERATTACK
-	if(!istype(parent, /obj/item/clothing/suit/space/hardsuit/shielded/wizard))
-		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
-		return
 
 	max_integrity += recharge_rune.added_shield
 	adjust_charge(recharge_rune.added_shield)

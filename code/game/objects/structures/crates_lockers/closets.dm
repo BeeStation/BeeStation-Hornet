@@ -20,7 +20,10 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
-	var/divable = TRUE //controls whether someone with skittish trait can enter the closet with CtrlShiftClick
+	/// Whether a skittish person can dive inside this closet. Disable if opening the closet causes "bad things" to happen or that it leads to a logical inconsistency.
+	var/divable = TRUE
+	/// true whenever someone with the strong pull component (or magnet modsuit module) is dragging this, preventing opening
+	var/strong_grab = FALSE
 	var/large = TRUE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/breakout_time = 1200

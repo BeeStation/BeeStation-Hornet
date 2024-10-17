@@ -33,6 +33,8 @@
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
 #define ISCARVABLE			    (1<<17) //! Examine will not read out this item
+///Can be equipped on digitigrade legs.
+#define IGNORE_DIGITIGRADE (1<<18)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -44,6 +46,7 @@
 #define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
 #define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
 #define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
+#define BLOCKS_SHOVE_KNOCKDOWN  (1<<8) // Prevents shovies against a dense object from knocking the wearer down.
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 #define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
