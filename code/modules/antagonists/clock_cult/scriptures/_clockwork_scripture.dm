@@ -156,25 +156,20 @@
 	var/uses = 1
 	var/after_use_text = ""
 	end_on_invokation = FALSE
-
-	var/obj/effect/proc_holder/slab/PH
+	var/timeout_time = 0
+	var/allow_mobility = TRUE //if moving and swapping hands is allowed during the while
 
 	var/uses_left
 	var/time_left = 0
 	var/loop_timer_id
+	var/empowerment
 
-/datum/clockcult/scripture/slab/New()
-	PH = new
-	PH.parent_scripture = src
-	..()
 
 /datum/clockcult/scripture/slab/Destroy()
 	if(progress)
 		QDEL_NULL(progress)
-	if(!QDELETED(PH))
-		PH.remove_ranged_ability()
-		QDEL_NULL(PH)
 	return ..()
+
 
 /datum/clockcult/scripture/slab/invoke()
 	progress = new(invoker, use_time)
@@ -183,7 +178,8 @@
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	PH.add_ranged_ability(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
+	invoking_slab.empowerment = empowerment
+	to_chat(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
 	count_down()
 	invoke_success()
 
@@ -198,16 +194,6 @@
 	else
 		end_invokation()
 
-/datum/clockcult/scripture/slab/proc/click_on(atom/A)
-	if(!invoker.can_interact_with(A))
-		return
-	if(apply_effects(A))
-		uses_left --
-		if(uses_left <= 0)
-			if(after_use_text)
-				clockwork_say(invoker, text2ratvar(after_use_text), TRUE)
-			end_invokation()
-
 /datum/clockcult/scripture/slab/proc/end_invokation()
 	//Remove the timer if there is one currently active
 	if(loop_timer_id)
@@ -215,20 +201,12 @@
 		loop_timer_id = null
 	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
 	progress.end_progress()
-	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = null
+	empowerment = null
 	end_invoke()
 
-/datum/clockcult/scripture/slab/proc/apply_effects(atom/A)
-	return TRUE
-
-/obj/effect/proc_holder/slab
-	var/datum/clockcult/scripture/slab/parent_scripture
-
-/obj/effect/proc_holder/slab/InterceptClickOn(mob/living/caller, params, atom/A)
-	parent_scripture?.click_on(A)
 
 //==================================//
 // !       Quick bind spell       ! //
@@ -259,8 +237,6 @@
 	if(scripture.power_cost)
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
 	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE
 
 /datum/action/innate/clockcult/quick_bind/Remove(mob/M)
 	if(activation_slab.invoking_scripture == scripture)
@@ -301,5 +277,3 @@
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
 	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE

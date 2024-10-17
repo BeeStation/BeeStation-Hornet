@@ -17,49 +17,11 @@
 	Therefore, the top right corner (except during admin shenanigans) is at "17,15"
 */
 
-//Lower left, persistent menu
-#define ui_inventory "WEST:6,SOUTH:5"
-
-//Middle left indicators
-#define ui_lingchemdisplay "WEST,CENTER-1:15"
-#define ui_lingstingdisplay "WEST:6,CENTER-3:11"
 
 #define ui_devilsouldisplay "WEST:6,CENTER-1:15"
 
-//Lower center, persistent menu
-#define ui_sstore1 "CENTER-5:10,SOUTH:5"
-#define ui_id "CENTER-4:12,SOUTH:5"
-#define ui_belt "CENTER-3:14,SOUTH:5"
-#define ui_back "CENTER-2:14,SOUTH:5"
-
-/proc/ui_hand_position(i) //values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
-	var/x_off = -(!(i % 2))
-	var/y_off = round((i-1) / 2)
-	return"CENTER+[x_off]:16,SOUTH+[y_off]:5"
-
-/proc/ui_equip_position(mob/M)
-	var/y_off = round((M.held_items.len-1) / 2) //values based on old equip ui position (CENTER: +/-16,SOUTH+1:5)
-	return "CENTER:-16,SOUTH+[y_off+1]:5"
-
-/proc/ui_swaphand_position(mob/M, which = 1) //values based on old swaphand ui positions (CENTER: +/-16,SOUTH+1:5)
-	var/x_off = which == 1 ? -1 : 0
-	var/y_off = round((M.held_items.len-1) / 2)
-	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
-
-#define ui_storage1 "CENTER+1:18,SOUTH:5"
-#define ui_storage2 "CENTER+2:20,SOUTH:5"
-
-#define ui_borg_lamp "CENTER-3:16, SOUTH:5"			//borgs
-#define ui_borg_tablet "CENTER-4:16, SOUTH:5"		//borgs
-#define ui_inv1 "CENTER-2:16,SOUTH:5"				//borgs
-#define ui_inv2 "CENTER-1  :16,SOUTH:5"				//borgs
-#define ui_inv3 "CENTER  :16,SOUTH:5"				//borgs
-#define ui_borg_module "CENTER+1:16,SOUTH:5"		//borgs
-#define ui_borg_store "CENTER+2:16,SOUTH:5"			//borgs
-#define ui_borg_camera "CENTER+3:21,SOUTH:5"		//borgs
-#define ui_borg_alerts "CENTER+4:21,SOUTH:5"		//borgs
+	//borgs
 #define ui_borg_crew_manifest "CENTER+5:21,SOUTH:5"	//borgs
-#define ui_borg_language_menu "CENTER+4:21,SOUTH+1:5"	//borgs
 
 #define ui_monkey_body "CENTER-6:12,SOUTH:5"	//monkey
 #define ui_monkey_head "CENTER-5:14,SOUTH:5"	//monkey
@@ -124,66 +86,16 @@
 //slimes
 #define ui_slime_health "EAST,CENTER:15"  //same as borgs, constructs and humans
 
-// AI
-
-#define ui_ai_core "SOUTH:6,WEST"
-#define ui_ai_camera_list "SOUTH:6,WEST+1"
-#define ui_ai_track_with_camera "SOUTH:6,WEST+2"
-#define ui_ai_camera_light "SOUTH:6,WEST+3"
-#define ui_ai_crew_monitor "SOUTH:6,WEST+4"
-#define ui_ai_crew_manifest "SOUTH:6,WEST+5"
-#define ui_ai_alerts "SOUTH:6,WEST+6"
-#define ui_ai_announcement "SOUTH:6,WEST+7"
-#define ui_ai_shuttle "SOUTH:6,WEST+8"
-#define ui_ai_state_laws "SOUTH:6,WEST+9"
 #define ui_ai_mod_int "SOUTH:6,WEST+10"
-#define ui_ai_take_picture "SOUTH:6,WEST+11"
-#define ui_ai_view_images "SOUTH:6,WEST+12"
-#define ui_ai_sensor "SOUTH:6,WEST+13"
-#define ui_ai_multicam "SOUTH:6,WEST+12"
-#define ui_ai_add_multicam "SOUTH:6,WEST+13"
 #define ui_ai_move_up "SOUTH:6,WEST+14"
 #define ui_ai_move_down "SOUTH:6,WEST+15"
-#define ui_ai_language_menu "CENTER+7:32,SOUTH+1:5"
 
-// pAI
-
-#define ui_pai_software "SOUTH:6,WEST"
-#define ui_pai_shell "SOUTH:6,WEST+1"
-#define ui_pai_chassis "SOUTH:6,WEST+2"
-#define ui_pai_rest "SOUTH:6,WEST+3"
-#define ui_pai_light "SOUTH:6,WEST+4"
-#define ui_pai_newscaster "SOUTH:6,WEST+5"
-#define ui_pai_host_monitor "SOUTH:6,WEST+6"
-#define ui_pai_crew_manifest "SOUTH:6,WEST+7"
-#define ui_pai_state_laws "SOUTH:6,WEST+8"
-#define ui_pai_internal_gps "SOUTH:6,WEST+9"
-#define ui_pai_take_picture "SOUTH:6,WEST+10"
-#define ui_pai_view_images "SOUTH:6,WEST+11"
 #define ui_pai_mod_int "SOUTH:6,WEST+12"
 
-//Pop-up inventory
-#define ui_shoes "WEST+1:8,SOUTH:5"
-
-#define ui_iclothing "WEST:6,SOUTH+1:7"
-#define ui_oclothing "WEST+1:8,SOUTH+1:7"
-#define ui_gloves "WEST+2:10,SOUTH+1:7"
-
-#define ui_glasses "WEST:6,SOUTH+3:11"
-#define ui_mask "WEST+1:8,SOUTH+2:9"
-#define ui_ears "WEST+2:10,SOUTH+2:9"
-#define ui_neck "WEST:6,SOUTH+2:9"
-#define ui_head "WEST+1:8,SOUTH+3:11"
 
 //Ghosts
 
 #define ui_ghost_jumptomob "SOUTH:6,CENTER-3:24"
-#define ui_ghost_orbit "SOUTH:6,CENTER-2:24"
-#define ui_ghost_reenter_corpse "SOUTH:6,CENTER-1:24"
-#define ui_ghost_teleport "SOUTH:6,CENTER:24"
-#define ui_ghost_spawners_menu "SOUTH:6,CENTER+1:24"
-#define ui_ghost_pai "SOUTH: 6, CENTER+2:24"
-#define ui_ghost_language_menu "SOUTH:21, CENTER+3:7"
 
 //Team finder
 

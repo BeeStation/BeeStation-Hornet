@@ -10,7 +10,7 @@
 	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50, BLEED = 60)
 	strip_delay = 50
 	equip_delay_other = 50
-	clothing_flags = SNUG_FIT | THICKMATERIAL
+	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
@@ -80,7 +80,7 @@
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()
 	. = ..()

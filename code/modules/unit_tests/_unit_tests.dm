@@ -41,6 +41,7 @@
 #include "keybinding_init.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
+#include "mindbound_actions.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"
@@ -57,6 +58,10 @@
 #include "siunit.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
+#include "spell_invocations.dm"
+#include "spell_mindswap.dm"
+#include "spell_names.dm"
+#include "spell_shapeshift.dm"
 #include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
@@ -67,6 +72,7 @@
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #include "walls_have_sheets.dm"
+#include "wizard_loadout.dm"
 #include "worn_icons.dm"
 
 /*

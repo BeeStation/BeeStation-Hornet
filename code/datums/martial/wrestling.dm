@@ -45,7 +45,7 @@
 	name = "Slam (Cinch) - Slam a grappled opponent into the floor."
 	button_icon_state = "wrassle_slam"
 
-/datum/action/slam/Trigger()
+/datum/action/slam/Trigger(trigger_flags)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
 		return
@@ -57,7 +57,7 @@
 	name = "Throw (Cinch) - Spin a cinched opponent around and throw them."
 	button_icon_state = "wrassle_throw"
 
-/datum/action/throw_wrassle/Trigger()
+/datum/action/throw_wrassle/Trigger(trigger_flags)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
 		return
@@ -69,7 +69,7 @@
 	name = "Kick - A powerful kick, sends people flying away from you. Also useful for escaping from bad situations."
 	button_icon_state = "wrassle_kick"
 
-/datum/action/kick/Trigger()
+/datum/action/kick/Trigger(trigger_flags)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
 		return
@@ -81,7 +81,7 @@
 	name = "Strike - Hit a neaby opponent with a quick attack."
 	button_icon_state = "wrassle_strike"
 
-/datum/action/strike/Trigger()
+/datum/action/strike/Trigger(trigger_flags)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
 		return
@@ -93,7 +93,7 @@
 	name = "Drop - Smash down onto an opponent."
 	button_icon_state = "wrassle_drop"
 
-/datum/action/drop/Trigger()
+/datum/action/drop/Trigger(trigger_flags)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
 		return
