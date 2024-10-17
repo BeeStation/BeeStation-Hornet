@@ -273,7 +273,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
-	set_machine_stat(machine_stat | BROKEN)
+	atom_break()
 	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)

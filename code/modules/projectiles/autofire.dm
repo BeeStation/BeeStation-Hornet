@@ -96,7 +96,7 @@ Everything else should be handled for you. Good luck soldier.
 	if(L.Adjacent(autofire_target)) //Melee attack? Or ranged attack?
 		if(isobj(autofire_target))
 			next_process = world.time + CLICK_CD_MELEE
-			G.attack_obj(autofire_target, L)
+			G.attack_atom(autofire_target, L)
 			return
 		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)

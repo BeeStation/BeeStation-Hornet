@@ -23199,7 +23199,7 @@
 	dir = 8;
 	icon_state = "rightsecure";
 	name = "Secondary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /turf/open/floor/circuit/red,
@@ -24039,7 +24039,7 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_one_access_txt = "55"
 	},
 /obj/structure/window/reinforced{
@@ -24737,7 +24737,7 @@
 	dir = 1;
 	icon_state = "rightsecure";
 	name = "Primary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -25567,7 +25567,7 @@
 	dir = 4;
 	icon_state = "leftsecure";
 	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "55"
 	},
 /obj/structure/sign/warning/electricshock{
@@ -28148,7 +28148,7 @@
 	base_state = "rightsecure";
 	icon_state = "rightsecure";
 	name = "Primary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /turf/open/floor/engine,
@@ -32166,7 +32166,7 @@
 	dir = 8;
 	icon_state = "rightsecure";
 	name = "Secondary AI Core Access";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /turf/open/floor/circuit/red,

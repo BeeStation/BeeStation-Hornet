@@ -46,6 +46,9 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		underlays += underlay_appearance
 
+/turf/closed/wall/atom_destruction(damage_flag)
+	dismantle_wall(TRUE, FALSE)
+
 /turf/closed/wall/Destroy()
 	if(is_station_level(z))
 		GLOB.station_turfs -= src

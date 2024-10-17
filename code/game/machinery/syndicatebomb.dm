@@ -59,11 +59,11 @@
 			var/obj/item/transfer_valve/valve_payload = payload
 			valve_payload.toggle_valve()
 
-/obj/machinery/syndicatebomb/obj_break()
+/obj/machinery/syndicatebomb/atom_break()
 	if(!try_detonate())
 		..()
 
-/obj/machinery/syndicatebomb/obj_destruction()
+/obj/machinery/syndicatebomb/atom_destruction()
 	if(!try_detonate())
 		..()
 
@@ -193,11 +193,11 @@
 			to_chat(user, "<span class='notice'>You need at least [PLASTEEL_REPAIR_AMOUNT] sheets of plasteel to repair [src].</span>")
 			return
 		if(do_after(user, delay = 2.5 SECONDS, target = src) && stack_sheets.use(PLASTEEL_REPAIR_AMOUNT))
-			obj_integrity = min(obj_integrity + 100, max_integrity)
+			atom_integrity = min(atom_integrity + 100, max_integrity)
 	else
-		var/old_integ = obj_integrity
+		var/old_integ = atom_integrity
 		. = ..()
-		if((old_integ > obj_integrity) && active  && (payload in src))
+		if((old_integ > atom_integrity) && active  && (payload in src))
 			to_chat(user, "<span class='warning'>That seems like a really bad idea...</span>")
 
 /obj/machinery/syndicatebomb/interact(mob/user)
@@ -230,7 +230,7 @@
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] must be anchored in order to arm!</span>")
 			return
-		if(obj_integrity != max_integrity)
+		if(atom_integrity != max_integrity)
 			to_chat(user, "<span class='warning'>[src] must be undamaged in order to arm!</span>")
 			return
 		visible_message("<span class='danger'>[icon2html(src, viewers(loc))] [timer_set] seconds until detonation, please clear the area.</span>")
