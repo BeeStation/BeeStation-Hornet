@@ -56,6 +56,12 @@ map echostation
 	votable
 endmap
 
+map alphastation
+	maxplayers 18
+	votable
+endmap
+
+
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation
