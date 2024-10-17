@@ -20,6 +20,7 @@
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	flags_1 = STAT_UNIQUE_1
 	var/can_unwrench = 0
 	var/initialize_directions = 0
 	var/pipe_color
