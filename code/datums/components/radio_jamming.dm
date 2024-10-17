@@ -50,7 +50,9 @@
 	var/turf/jammer_turf = get_turf(parent)
 	if(!jammer_turf)
 		return
+	CRASH("the list length is [GLOB.jam_receivers_by_z]")
 	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z[jammer_turf.z])
+		CRASH("the list length is [GLOB.jam_receivers_by_z]")
 		receiver.check_jammed()
 
 /datum/component/radio_jamming/proc/toggle(datum/source, mob/user, silent = FALSE)
