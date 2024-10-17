@@ -942,14 +942,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
-  * Respond to a radioactive wave hitting this atom
-  *
-  * Default behaviour is to send COMSIG_ATOM_RAD_ACT and return
-  */
-/atom/proc/rad_act(strength)
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, strength)
-
-/**
   * Respond to narsie eating our atom
   *
   * Default behaviour is to send COMSIG_ATOM_NARSIE_ACT and return
@@ -996,6 +988,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	SEND_SIGNAL(src, COMSIG_ATOM_RCD_ACT, user, the_rcd, passed_mode)
 	return FALSE
+
+/**
+  * Respond to a electric bolt action on our item
+  *
+  * Default behaviour is to return, we define here to allow for cleaner code later on
+  */
+/atom/proc/zap_act(power, zap_flags, shocked_targets)
+	return
 
 /**
   * Respond to our atom being teleported
@@ -1265,7 +1265,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
-	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
@@ -1317,11 +1316,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
-
-	if(href_list[VV_HK_RADIATE] && check_rights(R_FUN))
-		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
-		if(!isnull(strength))
-			AddComponent(/datum/component/radioactive, strength, src)
 
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")

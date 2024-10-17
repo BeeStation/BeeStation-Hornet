@@ -24,8 +24,6 @@
 #define ACID "acid"
 /// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
 #define BIO "bio"
-/// Involves ionizing radiation.
-#define RAD	"rad"
 /// Involves a shockwave, usually from an explosion.
 #define BOMB "bomb"
 /// Involves a solid projectile.
@@ -62,7 +60,6 @@
 #define EFFECT_UNCONSCIOUS "unconscious"
 #define EFFECT_PARALYZE "paralyze"
 #define EFFECT_IMMOBILIZE "immobilize"
-#define EFFECT_IRRADIATE "irradiate"
 #define EFFECT_STUTTER "stutter"
 #define EFFECT_SLUR "slur"
 #define EFFECT_EYE_BLUR "eye_blur"

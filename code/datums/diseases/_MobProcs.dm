@@ -150,3 +150,9 @@
 
 /mob/living/carbon/CanSpreadAirborneDisease()
 	return !((head && (head.flags_cover & HEADCOVERSMOUTH) && (head.get_armor_rating(BIO, src) >= 25)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && (wear_mask.get_armor_rating(BIO, src) >= 25)))
+
+/mob/living/proc/set_shocked()
+	flags_1 |= TESLA_IGNORE_1
+
+/mob/living/proc/reset_shocked()
+	flags_1 &= ~ TESLA_IGNORE_1
