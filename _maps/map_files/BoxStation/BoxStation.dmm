@@ -18510,7 +18510,7 @@
 	dir = 8;
 	id = "medcell";
 	name = "Medical Cell";
-	req_access_txt = "63"
+	req_one_access_txt = "1;40"
 	},
 /obj/machinery/door/window/southright{
 	dir = 4
@@ -33988,7 +33988,7 @@
 "kjp" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -36353,12 +36353,12 @@
 /obj/machinery/computer/med_data{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/station{
+	dir = 8;
+	pixel_x = 32
 	},
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
@@ -47156,7 +47156,7 @@
 "pGd" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Medbay Security Post";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -54367,7 +54367,7 @@
 "syU" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -56664,7 +56664,7 @@
 "tpM" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"

@@ -5604,7 +5604,7 @@
 "aHP" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Cargo";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -5976,7 +5976,7 @@
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 8;
 	name = "Security Desk";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/machinery/door/window/northright{
 	dir = 4;
@@ -23332,7 +23332,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Science";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -33738,7 +33738,7 @@
 "eRe" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Medical";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -40323,7 +40323,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "engdoor";
 	name = "Engineering Cell";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -46879,7 +46879,7 @@
 /obj/machinery/door/airlock/security{
 	id_tag = "scidoor";
 	name = "Security Post - Science";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -65198,7 +65198,7 @@
 	dir = 1;
 	id = "engcell";
 	name = "Engineering Cell";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
@@ -65760,7 +65760,7 @@
 /obj/machinery/door/window/brigdoor{
 	id = "cargocell";
 	name = "Cargo Cell";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -66680,7 +66680,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "cardoor";
 	name = "Cargo Cell";
-	req_access_txt = "1;57"
+	req_one_access_txt = "1;57"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -77642,7 +77642,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security Post - Engineering";
-	req_access_txt = "1;56"
+	req_one_access_txt = "1;56"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -82855,7 +82855,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "meddoor";
 	name = "Medical Cell";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -83263,7 +83263,7 @@
 	dir = 4;
 	id = "medcell";
 	name = "Medical Cell";
-	req_access_txt = "1;40"
+	req_one_access_txt = "1;40"
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
@@ -85858,7 +85858,7 @@
 /obj/machinery/door/window/brigdoor{
 	id = "scicell";
 	name = "Medical Cell";
-	req_access_txt = "1;30"
+	req_one_access_txt = "1;30"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,

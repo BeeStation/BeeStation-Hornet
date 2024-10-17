@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		UnregisterSignal(source, COMSIG_MOB_MOUSE_SCROLL_ON)
 		return
 
-	if(source.incapacitated(ignore_restraints = TRUE))
+	if(source.incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
 		return
 
 	if(delta_y < 0)

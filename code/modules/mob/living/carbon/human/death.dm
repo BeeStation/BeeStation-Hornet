@@ -89,6 +89,10 @@
 	if (death_message)
 		to_chat(src, death_message)
 
+/mob/living/carbon/human/gib(no_brain, no_organs, no_bodyparts)
+	dna.species.spec_gib(no_brain, no_organs, no_bodyparts, src)
+	return
+
 /mob/living/carbon/human/proc/reagents_readout()
 	var/readout = "Blood:"
 	for(var/datum/reagent/reagent in reagents?.reagent_list)
