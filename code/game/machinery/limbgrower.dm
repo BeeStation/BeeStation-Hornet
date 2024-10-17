@@ -57,8 +57,8 @@
 	popup.open()
 
 /obj/machinery/limbgrower/on_deconstruction()
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
-		reagents.trans_to(G, G.reagents.maximum_volume)
+	for(var/obj/item/reagent_containers/cup/our_beaker in component_parts)
+		reagents.trans_to(our_beaker, our_beaker.reagents.maximum_volume)
 	..()
 
 /obj/machinery/limbgrower/attackby(obj/item/O, mob/user, params)
@@ -155,9 +155,9 @@
 
 /obj/machinery/limbgrower/RefreshParts()
 	reagents.maximum_volume = 0
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
-		reagents.maximum_volume += G.volume
-		G.reagents.trans_to(src, G.reagents.total_volume)
+	for(var/obj/item/reagent_containers/cup/our_beaker in component_parts)
+		reagents.maximum_volume += our_beaker.volume
+		our_beaker.reagents.trans_to(src, our_beaker.reagents.total_volume)
 	var/T=1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T -= M.rating*0.2

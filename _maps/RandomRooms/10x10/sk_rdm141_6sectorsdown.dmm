@@ -129,7 +129,7 @@
 /area/template_noop)
 "qP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = 4;
 	pixel_y = 7
 	},
@@ -176,7 +176,7 @@
 /area/template_noop)
 "AU" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
 	pixel_x = -4;
 	pixel_y = 5
 	},
@@ -260,7 +260,7 @@
 "Qx" = (
 /obj/structure/closet,
 /obj/structure/window/reinforced/tinted/frosted,
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
+/obj/item/reagent_containers/cup/glass/bottle/tequila{
 	pixel_x = -6;
 	pixel_y = 4
 	},

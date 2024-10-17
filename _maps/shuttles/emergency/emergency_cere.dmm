@@ -458,7 +458,7 @@
 /area/shuttle/escape)
 "gd" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /obj/item/wrench,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4

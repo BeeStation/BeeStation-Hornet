@@ -91,8 +91,8 @@
 /obj/item/surgical_drapes,
 /obj/item/storage/firstaid,
 /obj/item/storage/box/syringes,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/stack/sheet/mineral/silver{
 	amount = 2
 	},

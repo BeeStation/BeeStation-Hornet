@@ -23,7 +23,7 @@
 /obj/structure/window{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	list_reagents = list()
 	},
 /turf/open/floor/holofloor/white,

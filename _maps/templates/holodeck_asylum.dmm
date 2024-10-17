@@ -127,7 +127,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)

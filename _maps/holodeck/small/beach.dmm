@@ -9,7 +9,7 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "v" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/shovel/spade,
 /turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)

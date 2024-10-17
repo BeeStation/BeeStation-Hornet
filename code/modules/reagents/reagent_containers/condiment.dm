@@ -5,7 +5,7 @@
 //	to mixed-drinks code. If you want an object that starts pre-loaded, you need to make it in addition to the other code.
 
 //Food items that aren't eaten normally and leave an empty container behind.
-/obj/item/reagent_containers/food/condiment
+/obj/item/reagent_containers/condiment
 	name = "condiment bottle"
 	desc = "Just your average condiment bottle."
 	icon = 'icons/obj/food/containers.dmi'
@@ -23,7 +23,7 @@
 	/// Holder for original icon_state value if it was overwritten by icon_emty to change back to
 	var/icon_preempty
 
-/obj/item/reagent_containers/food/condiment/update_icon_state()
+/obj/item/reagent_containers/condiment/update_icon_state()
 	. = ..()
 	if (reagents.reagent_list.len)
 		if (icon_preempty)
@@ -34,11 +34,11 @@
 			icon_preempty = icon_state
 			icon_state = icon_empty
 
-/obj/item/reagent_containers/food/condiment/suicide_act(mob/living/carbon/user)
+/obj/item/reagent_containers/condiment/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is trying to eat the entire [src]! It looks like [user.p_they()] forgot how food works!</span>")
 	return OXYLOSS
 
-/obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/condiment/attack(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
@@ -67,7 +67,7 @@
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
 
-/obj/item/reagent_containers/food/condiment/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/condiment/afterattack(obj/target, mob/user , proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -95,14 +95,14 @@
 		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the condiment to [target].</span>")
 
-/obj/item/reagent_containers/food/condiment/enzyme
+/obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
 	desc = "Used in cooking various dishes."
 	icon_state = "enzyme"
 	list_reagents = list(/datum/reagent/consumable/enzyme = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/enzyme/examine(mob/user)
+/obj/item/reagent_containers/condiment/enzyme/examine(mob/user)
 	. = ..()
 	var/datum/chemical_reaction/recipe = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/cheesewheel]
 	var/milk_required = recipe.required_reagents[/datum/reagent/consumable/milk]
@@ -110,7 +110,7 @@
 	. += "<span class='notice'>[milk_required] milk, [enzyme_required] enzyme and you got cheese.</span>"
 	. += "<span class='warning'>Remember, the enzyme isn't used up, so return it to the bottle, dingus!</span>"
 
-/obj/item/reagent_containers/food/condiment/sugar
+/obj/item/reagent_containers/condiment/sugar
 	name = "sugar sack"
 	desc = "Tasty spacey sugar!"
 	icon_state = "sugar"
@@ -120,7 +120,7 @@
 	list_reagents = list(/datum/reagent/consumable/sugar = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/sugar/examine(mob/user)
+/obj/item/reagent_containers/condiment/sugar/examine(mob/user)
 	. = ..()
 	var/datum/chemical_reaction/recipe = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/cakebatter]
 	var/flour_required = recipe.required_reagents[/datum/reagent/consumable/flour]
@@ -128,7 +128,7 @@
 	var/sugar_required = recipe.required_reagents[/datum/reagent/consumable/sugar]
 	. += "<span class='notice'>[flour_required] flour, [eggyolk_required] egg yolk (or soy milk), [sugar_required] sugar makes cake dough. You can make pie dough from it.</span>"
 
-/obj/item/reagent_containers/food/condiment/saltshaker		//Separate from above since it's a small shaker rather then
+/obj/item/reagent_containers/condiment/saltshaker		//Separate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
@@ -140,7 +140,7 @@
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 20)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/living/user)
+/obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/newname = "[name]"
 	name = "[user.name]"
@@ -149,7 +149,7 @@
 	desc = "Salt. From dead crew, presumably."
 	return (TOXLOSS)
 
-/obj/item/reagent_containers/food/condiment/saltshaker/afterattack(obj/target, mob/living/user, proximity)
+/obj/item/reagent_containers/condiment/saltshaker/afterattack(obj/target, mob/living/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -162,7 +162,7 @@
 		new/obj/effect/decal/cleanable/food/salt(target)
 		return
 
-/obj/item/reagent_containers/food/condiment/peppermill
+/obj/item/reagent_containers/condiment/peppermill
 	name = "pepper mill"
 	desc = "Often used to flavor food or make people sneeze."
 	icon_state = "peppermillsmall"
@@ -174,7 +174,7 @@
 	list_reagents = list(/datum/reagent/consumable/blackpepper = 20)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/milk
+/obj/item/reagent_containers/condiment/milk
 	name = "space milk"
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
@@ -184,7 +184,7 @@
 	list_reagents = list(/datum/reagent/consumable/milk = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/milk/examine(mob/user)
+/obj/item/reagent_containers/condiment/milk/examine(mob/user)
 	. = ..()
 	var/datum/chemical_reaction/recipe = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/cheesewheel]
 	var/milk_required = recipe.required_reagents[/datum/reagent/consumable/milk]
@@ -192,7 +192,7 @@
 	. += "<span class='notice'>[milk_required] milk, [enzyme_required] enzyme and you got cheese.</span>"
 	. += "<span class='warning'>Remember, the enzyme isn't used up, so return it to the bottle, dingus!</span>"
 
-/obj/item/reagent_containers/food/condiment/flour
+/obj/item/reagent_containers/condiment/flour
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
@@ -202,7 +202,7 @@
 	list_reagents = list(/datum/reagent/consumable/flour = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/flour/examine(mob/user)
+/obj/item/reagent_containers/condiment/flour/examine(mob/user)
 	. = ..()
 	var/datum/chemical_reaction/recipe_dough = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/dough]
 	var/datum/chemical_reaction/recipe_cakebatter = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/cakebatter]
@@ -215,7 +215,7 @@
 	. += "<span class='notice'>[dough_flour_required] flour, [dough_water_required] water makes normal dough. You can make flat dough from it.</span>"
 	. += "<span class='notice'>[cakebatter_flour_required] flour, [cakebatter_eggyolk_required] egg yolk (or soy milk), [cakebatter_sugar_required] sugar makes cake dough. You can make pie dough from it.</span>"
 
-/obj/item/reagent_containers/food/condiment/soymilk
+/obj/item/reagent_containers/condiment/soymilk
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
@@ -225,7 +225,7 @@
 	list_reagents = list(/datum/reagent/consumable/soymilk = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/rice
+/obj/item/reagent_containers/condiment/rice
 	name = "rice sack"
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
@@ -240,27 +240,27 @@
 	name = "cornmeal box"
 	desc = "A big box of cornmeal. Great for southern style cooking."
 	icon_state = "cornmeal"
-	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
+	item_state = "carton"
+	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/cornmeal = 30)
 	fill_icon_thresholds = null
 */
 
-/obj/item/reagent_containers/food/condiment/bbqsauce
+/obj/item/reagent_containers/condiment/bbqsauce
 	name = "bbq sauce"
 	desc = "Hand wipes not included."
 	icon_state = "bbqsauce"
 	list_reagents = list(/datum/reagent/consumable/bbqsauce = 50)
 
-/obj/item/reagent_containers/food/condiment/soysauce
+/obj/item/reagent_containers/condiment/soysauce
 	name = "soy sauce"
 	desc = "A salty soy-based flavoring."
 	icon_state = "soysauce"
 	list_reagents = list(/datum/reagent/consumable/soysauce = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/mayonnaise
+/obj/item/reagent_containers/condiment/mayonnaise
 	name = "mayonnaise"
 	desc = "An oily condiment made from egg yolks."
 	icon_state = "mayonnaise"
@@ -276,7 +276,7 @@
 	fill_icon_thresholds = null
 */
 
-/obj/item/reagent_containers/food/condiment/cooking_oil
+/obj/item/reagent_containers/condiment/cooking_oil
 	name = "cooking oil"
 	desc = "For all your deep-frying needs."
 	icon_state = "cooking_oil"
@@ -306,21 +306,21 @@
 	fill_icon_thresholds = null
 */
 
-/obj/item/reagent_containers/food/condiment/cherryjelly
+/obj/item/reagent_containers/condiment/cherryjelly
 	name = "cherry jelly"
 	desc = "A jar of super-sweet cherry jelly."
 	icon_state = "cherryjelly"
 	list_reagents = list(/datum/reagent/consumable/cherryjelly = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/honey
+/obj/item/reagent_containers/condiment/honey
 	name = "honey"
 	desc = "A jar of sweet and viscous honey."
 	icon_state = "honey"
 	list_reagents = list(/datum/reagent/consumable/honey = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/ketchup
+/obj/item/reagent_containers/condiment/ketchup
 	name = "ketchup"
 	// At time of writing, "ketchup" mechanically, is just ground tomatoes,
 	// rather than // tomatoes plus vinegar plus sugar.
@@ -329,13 +329,13 @@
 	list_reagents = list(/datum/reagent/consumable/ketchup = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/food/condiment/hotsauce
+/obj/item/reagent_containers/condiment/hotsauce
 	name = "hotsauce bottle"
 	desc= "You can almost TASTE the stomach ulcers!"
 	icon_state = "hotsauce"
 	list_reagents = list(/datum/reagent/consumable/capsaicin = 50)
 
-/obj/item/reagent_containers/food/condiment/coldsauce
+/obj/item/reagent_containers/condiment/coldsauce
 	name = "coldsauce bottle"
 	desc= "Leaves the tongue numb from its passage."
 	icon_state = "coldsauce"
@@ -343,7 +343,7 @@
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
-/obj/item/reagent_containers/food/condiment/pack
+/obj/item/reagent_containers/condiment/pack
 	name = "condiment pack"
 	desc = "A small plastic pack with condiments to put on your food."
 	icon_state = "condi_empty"
@@ -372,13 +372,13 @@
 	/// Can't use initial(name) for this. This stores the name set by condimasters.
 	var/originalname = "condiment"
 
-/obj/item/reagent_containers/food/condiment/pack/update_icon()
+/obj/item/reagent_containers/condiment/pack/update_icon()
 	return
 
-/obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
+/obj/item/reagent_containers/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return
 
-/obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/condiment/pack/afterattack(obj/target, mob/user , proximity)
 	if(!proximity)
 		return
 
@@ -399,7 +399,7 @@
 			return
 	. = ..()
 
-/obj/item/reagent_containers/food/condiment/pack/on_reagent_change(changetype)
+/obj/item/reagent_containers/condiment/pack/on_reagent_change(changetype)
 	if(reagents.reagent_list.len > 0)
 		var/main_reagent = reagents.get_master_reagent_id()
 		if(main_reagent in possible_states)
@@ -414,23 +414,23 @@
 		desc = "A small condiment pack. It is empty."
 
 //Ketchup
-/obj/item/reagent_containers/food/condiment/pack/ketchup
+/obj/item/reagent_containers/condiment/pack/ketchup
 	name = "ketchup pack"
 	originalname = "ketchup"
 	list_reagents = list(/datum/reagent/consumable/ketchup = 10)
 
 //Hot sauce
-/obj/item/reagent_containers/food/condiment/pack/hotsauce
+/obj/item/reagent_containers/condiment/pack/hotsauce
 	name = "hotsauce pack"
 	originalname = "hotsauce"
 	list_reagents = list(/datum/reagent/consumable/capsaicin = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/astrotame
+/obj/item/reagent_containers/condiment/pack/astrotame
 	name = "astrotame pack"
 	originalname = "astrotame"
 	list_reagents = list(/datum/reagent/consumable/astrotame = 5)
 
-/obj/item/reagent_containers/food/condiment/pack/bbqsauce
+/obj/item/reagent_containers/condiment/pack/bbqsauce
 	name = "bbq sauce pack"
 	originalname = "bbq sauce"
 	list_reagents = list(/datum/reagent/consumable/bbqsauce = 10)

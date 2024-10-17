@@ -137,7 +137,7 @@
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
 			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
-			new /obj/item/reagent_containers/glass/rag(src)
+			new /obj/item/reagent_containers/cup/rag(src)
 			new /obj/item/encryptionkey/syndicate(src)
 
 		if("ninja")
@@ -188,7 +188,7 @@
 			new /obj/item/clothing/mask/rat/bee(src) // 0 tc
 			new /obj/item/storage/belt/fannypack/yellow(src) // 0 tc
 			new /obj/item/storage/box/syndie_kit/bee_grenades(src) // 15 tc
-			new /obj/item/reagent_containers/glass/bottle/beesease(src) // 10 tc?
+			new /obj/item/reagent_containers/cup/bottle/beesease(src) // 10 tc?
 			new /obj/item/gun/chem/bee(src) //priceless
 
 		if("mr_freeze")
@@ -407,19 +407,19 @@
 	STR.max_items = 14
 
 /obj/item/storage/box/syndie_kit/chemical/PopulateContents()
-	new /obj/item/reagent_containers/glass/bottle/polonium(src)
-	new /obj/item/reagent_containers/glass/bottle/venom(src)
-	new /obj/item/reagent_containers/glass/bottle/fentanyl(src)
-	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
-	new /obj/item/reagent_containers/glass/bottle/spewium(src)
-	new /obj/item/reagent_containers/glass/bottle/cyanide(src)
-	new /obj/item/reagent_containers/glass/bottle/histamine(src)
-	new /obj/item/reagent_containers/glass/bottle/initropidril(src)
-	new /obj/item/reagent_containers/glass/bottle/pancuronium(src)
-	new /obj/item/reagent_containers/glass/bottle/sodium_thiopental(src)
-	new /obj/item/reagent_containers/glass/bottle/coniine(src)
-	new /obj/item/reagent_containers/glass/bottle/curare(src)
-	new /obj/item/reagent_containers/glass/bottle/amanitin(src)
+	new /obj/item/reagent_containers/cup/bottle/polonium(src)
+	new /obj/item/reagent_containers/cup/bottle/venom(src)
+	new /obj/item/reagent_containers/cup/bottle/fentanyl(src)
+	new /obj/item/reagent_containers/cup/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/cup/bottle/spewium(src)
+	new /obj/item/reagent_containers/cup/bottle/cyanide(src)
+	new /obj/item/reagent_containers/cup/bottle/histamine(src)
+	new /obj/item/reagent_containers/cup/bottle/initropidril(src)
+	new /obj/item/reagent_containers/cup/bottle/pancuronium(src)
+	new /obj/item/reagent_containers/cup/bottle/sodium_thiopental(src)
+	new /obj/item/reagent_containers/cup/bottle/coniine(src)
+	new /obj/item/reagent_containers/cup/bottle/curare(src)
+	new /obj/item/reagent_containers/cup/bottle/amanitin(src)
 	new /obj/item/reagent_containers/syringe(src)
 
 /obj/item/storage/box/syndie_kit/nuke
@@ -447,7 +447,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure(src)
 	new /obj/item/reagent_containers/syringe(src)
-	new /obj/item/reagent_containers/glass/bottle/tuberculosiscure(src)
+	new /obj/item/reagent_containers/cup/bottle/tuberculosiscure(src)
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
@@ -502,7 +502,7 @@
 	new/obj/item/toy/crayon/rainbow(src)
 
 /obj/item/storage/box/syndie_kit/romerol/PopulateContents()
-	new /obj/item/reagent_containers/glass/bottle/romerol(src)
+	new /obj/item/reagent_containers/cup/bottle/romerol(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/dropper(src)
 

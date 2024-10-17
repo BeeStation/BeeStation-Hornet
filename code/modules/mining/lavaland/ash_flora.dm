@@ -292,13 +292,13 @@
 
 //CRAFTING
 
-/obj/item/reagent_containers/glass/bowl/mushroom_bowl
+/obj/item/reagent_containers/cup/bowl/mushroom_bowl
 	name = "mushroom bowl"
 	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 
-/obj/item/reagent_containers/glass/bowl/mushroom_bowl/update_icon()
+/obj/item/reagent_containers/cup/bowl/mushroom_bowl/update_icon()
 	cut_overlays()
 	if(reagents?.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/lavaland/ash_flora.dmi', "fullbowl")

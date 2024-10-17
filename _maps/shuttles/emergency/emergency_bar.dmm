@@ -115,7 +115,7 @@
 "at" = (
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/carpet/royalblue,
@@ -441,7 +441,7 @@
 "hS" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
@@ -726,7 +726,7 @@
 	},
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/lizardwine,
+/obj/item/reagent_containers/cup/glass/bottle/lizardwine,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/escape)

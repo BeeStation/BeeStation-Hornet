@@ -2754,7 +2754,7 @@
 "zn" = (
 /obj/structure/table,
 /obj/item/stack/package_wrap,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -2940,9 +2940,9 @@
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "zU" = (
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
 /obj/item/storage/fancy/egg_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/freezer{
@@ -3242,10 +3242,10 @@
 /area/awaymission/undergroundoutpost45/research)
 "AW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
 /turf/open/floor/iron/cafeteria{
@@ -4242,7 +4242,7 @@
 "Eh" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -4604,7 +4604,7 @@
 "FB" = (
 /obj/structure/table,
 /obj/item/stack/package_wrap,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/cup/rag,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -5471,11 +5471,11 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -6118,7 +6118,7 @@
 /area/awaymission/undergroundoutpost45/engineering)
 "KM" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -6208,10 +6208,10 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "KZ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -6228,7 +6228,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -6355,7 +6355,7 @@
 /area/awaymission/undergroundoutpost45/engineering)
 "Lu" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
@@ -7279,7 +7279,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 5
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7954,7 +7954,7 @@
 /area/awaymission/undergroundoutpost45/gateway)
 "QS" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/open/floor/carpet/grimy,
 /area/awaymission/undergroundoutpost45/central)
 "QT" = (
@@ -8874,7 +8874,7 @@
 /area/awaymission/undergroundoutpost45/caves)
 "TW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
 "TX" = (
@@ -8946,7 +8946,7 @@
 /obj/item/shovel/spade,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/central)
 "Up" = (
@@ -9805,9 +9805,9 @@
 	name = "kitchen Cabinet";
 	req_access_txt = "201"
 	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/sugar,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria{
 	dir = 5

@@ -108,9 +108,9 @@
 /obj/item/food/rationpack,
 /obj/item/food/rationpack,
 /obj/item/food/rationpack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "jP" = (
@@ -157,7 +157,7 @@
 /area/shuttle/hunter)
 "my" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/storage/bag/trash{
 	pixel_x = 6
 	},
@@ -689,7 +689,7 @@
 /area/shuttle/hunter)
 "Jx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = 8;
 	pixel_y = 6
 	},
@@ -988,7 +988,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "Ul" = (
-/obj/item/reagent_containers/food/drinks/flask/gold{
+/obj/item/reagent_containers/cup/glass/flask/gold{
 	list_reagents = list(/datum/reagent/consumable/ethanol/sbiten=30);
 	pixel_y = 8;
 	pixel_x = 4
@@ -1030,7 +1030,7 @@
 	pixel_y = 8;
 	pixel_x = 2
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = -8;
 	pixel_y = 11
 	},

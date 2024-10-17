@@ -31,7 +31,7 @@
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/food/grown)
 	holdingitems = list()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 	beaker.desc += " May contain blended dust. Don't breathe this in!"
 
 /obj/machinery/reagentgrinder/constructed/Initialize(mapload)

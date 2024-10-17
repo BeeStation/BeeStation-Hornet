@@ -83,7 +83,7 @@
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
-	new /obj/item/reagent_containers/food/drinks/flask/det(src)
+	new /obj/item/reagent_containers/cup/glass/flask/det(src)
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()

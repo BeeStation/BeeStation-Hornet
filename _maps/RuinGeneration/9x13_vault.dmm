@@ -104,7 +104,7 @@
 /obj/item/paper{
 	default_raw_text = "IOU - One Very Cool Revolver (Thanks HOP)"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)

@@ -43,7 +43,7 @@
 	name = "Egg bowl"
 	result = /obj/item/food/salad/eggbowl
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/grown/carrot = 1,

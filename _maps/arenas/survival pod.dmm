@@ -60,11 +60,11 @@
 /area/tdome/arena)
 "m" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 7;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/cup/glass/bottle/wine{
 	pixel_x = -6;
 	pixel_y = 10
 	},
@@ -126,7 +126,7 @@
 /area/tdome/arena)
 "v" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 7;
 	pixel_y = 2
 	},

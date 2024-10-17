@@ -100,7 +100,7 @@
 	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
-	if ((istype(I, /obj/item/reagent_containers/glass) \
+	if ((istype(I, /obj/item/reagent_containers/cup) \
 		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
 		&& user.a_intent != INTENT_HARM)
 		if (length(inserted_vials) >= max_vials)

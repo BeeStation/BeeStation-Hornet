@@ -341,13 +341,13 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(
-	/obj/item/reagent_containers/food/drinks/bottle/ale,
-	/obj/item/reagent_containers/food/drinks/bottle/beer,
-	/obj/item/reagent_containers/food/drinks/bottle/gin,
-	/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-	/obj/item/reagent_containers/food/drinks/bottle/vodka,
-	/obj/item/reagent_containers/food/drinks/bottle/rum,
-	/obj/item/reagent_containers/food/drinks/bottle/applejack
+	/obj/item/reagent_containers/cup/glass/bottle/ale,
+	/obj/item/reagent_containers/cup/glass/bottle/beer,
+	/obj/item/reagent_containers/cup/glass/bottle/gin,
+	/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+	/obj/item/reagent_containers/cup/glass/bottle/vodka,
+	/obj/item/reagent_containers/cup/glass/bottle/rum,
+	/obj/item/reagent_containers/cup/glass/bottle/applejack
 ))
 
 GLOBAL_LIST_INIT(junkie_drugs, list(

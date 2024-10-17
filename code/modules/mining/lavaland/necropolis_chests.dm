@@ -45,8 +45,8 @@
 		/obj/item/gun/magic/hook											= 5,
 		/obj/item/book_of_babel 											= 5,
 		/obj/item/clothing/neck/necklace/memento_mori						= 5,
-		/obj/item/reagent_containers/glass/waterbottle/relic				= 5,
-		/obj/item/reagent_containers/glass/bottle/necropolis_seed			= 5,
+		/obj/item/reagent_containers/cup/glass/waterbottle/relic				= 5,
+		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
 		/obj/item/staff/storm												= 5
@@ -302,13 +302,13 @@
 		qdel(src)
 
 // Relic water bottle
-/obj/item/reagent_containers/glass/waterbottle/relic
+/obj/item/reagent_containers/cup/glass/waterbottle/relic
 	name = "ancient bottle of unknown reagent"
 	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
 	list_reagents = list()
 
-/obj/item/reagent_containers/glass/waterbottle/relic/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
@@ -588,16 +588,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 
 //Potion of Flight
-/obj/item/reagent_containers/glass/bottle/potion
+/obj/item/reagent_containers/cup/bottle/potion
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "potionflask"
 
-/obj/item/reagent_containers/glass/bottle/potion/flight
+/obj/item/reagent_containers/cup/bottle/potion/flight
 	name = "strange elixir"
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list(/datum/reagent/flightpotion = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/cup/bottle/potion/update_icon()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else

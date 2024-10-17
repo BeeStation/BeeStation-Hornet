@@ -157,7 +157,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 /turf/open/lava/plasma/attackby(obj/item/I, mob/user, params)
-	var/obj/item/reagent_containers/glass/C = I
+	var/obj/item/reagent_containers/cup/C = I
 	if(C.reagents.total_volume >= C.volume)
 		to_chat(user, "<span class='danger'>[C] is full.</span>")
 		return

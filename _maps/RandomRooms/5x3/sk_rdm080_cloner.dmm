@@ -6,8 +6,8 @@
 /turf/open/floor/iron/white,
 /area/template_noop)
 "i" = (
-/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
-/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
+/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
 /obj/structure/closet,
 /turf/open/floor/iron/white,
 /area/template_noop)

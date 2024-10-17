@@ -75,7 +75,7 @@
 /area/template_noop)
 "v" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "A" = (

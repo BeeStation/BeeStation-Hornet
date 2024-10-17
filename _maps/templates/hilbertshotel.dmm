@@ -64,7 +64,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = 9;
 	pixel_y = 2
 	},
@@ -291,7 +291,7 @@
 /area/hilbertshotel)
 "Z" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = -6;
 	pixel_y = 2
 	},

@@ -174,7 +174,7 @@
 	name = "Rice and Pork"
 	result = /obj/item/food/salad/ricepork
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/meat/cutlet = 2
 	)

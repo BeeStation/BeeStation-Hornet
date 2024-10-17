@@ -673,5 +673,5 @@
 	required_container = /obj/item/slime_extract/rainbow
 
 /datum/chemical_reaction/slime/flight_potion/on_reaction(datum/reagents/holder)
-	new /obj/item/reagent_containers/glass/bottle/potion/flight(get_turf(holder.my_atom))
+	new /obj/item/reagent_containers/cup/bottle/potion/flight(get_turf(holder.my_atom))
 	..()

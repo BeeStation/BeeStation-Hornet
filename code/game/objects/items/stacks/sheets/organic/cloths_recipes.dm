@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("sheet snatcher",						/obj/item/storage/bag/sheetsnatcher, 6, time = 4 SECONDS), \
 	null, \
 	new/datum/stack_recipe("improvised gauze",						/obj/item/stack/medical/gauze/improvised, 1, 2, 6), \
-	new/datum/stack_recipe("rag",									/obj/item/reagent_containers/glass/rag, 1, time = 1 SECONDS), \
+	new/datum/stack_recipe("rag",									/obj/item/reagent_containers/cup/rag, 1, time = 1 SECONDS), \
 	new/datum/stack_recipe("bedsheet",								/obj/item/bedsheet, 3, time = 4 SECONDS), \
 	new/datum/stack_recipe("double bedsheet",						/obj/item/bedsheet/double, 6, time = 8 SECONDS), \
 	new/datum/stack_recipe("empty sandbag",							/obj/item/emptysandbag, 4, time = 2 SECONDS), \

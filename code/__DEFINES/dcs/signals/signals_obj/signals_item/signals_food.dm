@@ -54,3 +54,8 @@
 #define COMSIG_EDIBLE_ON_COMPOST "on_compost"
 	// Used to stop food from being composted.
 	#define COMPONENT_EDIBLE_BLOCK_COMPOST 1
+
+//Drink
+
+///from base of obj/item/reagent_containers/cup/attack(): (mob/M, mob/user)
+#define COMSIG_GLASS_DRANK "glass_drank"

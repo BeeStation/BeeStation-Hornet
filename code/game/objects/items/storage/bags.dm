@@ -251,7 +251,7 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 100
 	STR.max_items = 100
-	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/honeycomb, /obj/item/disk/plantgene, /obj/item/food/seaweed_sheet))
+	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/cup/glass/honeycomb, /obj/item/disk/plantgene, /obj/item/food/seaweed_sheet))
 
 ////////
 
@@ -429,7 +429,7 @@
 	STR.max_combined_w_class = 200
 	STR.max_items = 50
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/medspray, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/waterbottle))
+	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/medspray, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/cup/glass/waterbottle))
 
 /*
  *  Biowaste bag (mostly for xenobiologists)
@@ -450,7 +450,7 @@
 	STR.max_combined_w_class = 200
 	STR.max_items = 25
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/food/deadmouse, /obj/item/food/monkeycube, /obj/item/organ, /obj/item/bodypart))
+	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/food/deadmouse, /obj/item/food/monkeycube, /obj/item/organ, /obj/item/bodypart))
 
 /obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/item/slimecross/reproductive))
@@ -473,4 +473,4 @@
 	STR.max_items = 50
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics, /obj/item/rcd_ammo))
+	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/cup/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics, /obj/item/rcd_ammo))
