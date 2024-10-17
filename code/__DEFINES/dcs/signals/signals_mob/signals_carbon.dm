@@ -39,3 +39,7 @@
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
 #define COMSIG_CARBON_GAIN_WOUND "carbon_gain_wound"				//from /datum/wound/proc/apply_wound() (/mob/living/carbon/C, /datum/wound/W, /obj/item/bodypart/L)
 #define COMSIG_CARBON_LOSE_WOUND "carbon_lose_wound"				//from /datum/wound/proc/remove_wound() (/mob/living/carbon/C, /datum/wound/W, /obj/item/bodypart/L
+/// from /obj/item/bodypart/proc/apply_gauze(/obj/item/stack/gauze): (/obj/item/stack/medical/gauze/applied_gauze, /obj/item/stack/medical/gauze/stack_used)
+#define COMSIG_BODYPART_GAUZED "bodypart_gauzed"
+/// from /obj/item/stack/medical/gauze/Destroy(): (/obj/item/stack/medical/gauze/removed_gauze)
+#define COMSIG_BODYPART_UNGAUZED "bodypart_ungauzed"
