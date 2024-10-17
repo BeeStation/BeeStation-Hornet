@@ -126,6 +126,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 	/********************************Subtype Gens********************************/
 	var/list/easy_add_list_subtypes = list(/datum/bounty/item/assistant = 2,
 											/datum/bounty/item/mech = 1,
+											/datum/bounty/item/core = 2,
 											/datum/bounty/item/chef = 2,
 											/datum/bounty/item/security = 1,
 											/datum/bounty/virus = 1,
