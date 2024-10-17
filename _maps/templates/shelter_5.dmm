@@ -1,10 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "c" = (
 /obj/machinery/vending/wallmed/survival_pod,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "d" = (
 /obj/machinery/stasis/survival_pod,
@@ -45,13 +45,13 @@
 /area/survivalpod)
 "F" = (
 /obj/structure/sign/departments/medbay/alt,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "N" = (
 /obj/structure/sign/departments/medbay/alt,
 /obj/structure/sign/departments/minsky/medical/medical2,
 /obj/structure/sign/departments/medbay/alt2,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/survivalpod)
 "S" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
