@@ -143,6 +143,14 @@
 	//to be overridden for toggling internals, id binding, access etc
 	return
 
+#define EQUIP_OUTFIT_ITEM(item_path, slot_name) if(##item_path) { \
+	H.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path, H), ##slot_name, TRUE); \
+	var/obj/item/outfit_item = H.get_item_by_slot(##slot_name); \
+	if (outfit_item && outfit_item.type == ##item_path) { \
+		outfit_item.on_outfit_equip(H, visualsOnly, ##slot_name); \
+	} \
+}
+
 /**
   * Equips all defined types and paths to the mob passed in
   *
@@ -156,31 +164,31 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(uniform, H), ITEM_SLOT_ICLOTHING, TRUE)
+		EQUIP_OUTFIT_ITEM(uniform, ITEM_SLOT_ICLOTHING)
 	if(suit)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(suit, H), ITEM_SLOT_OCLOTHING, TRUE)
-	if(back)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(back, H), ITEM_SLOT_BACK, TRUE)
+		EQUIP_OUTFIT_ITEM(suit, ITEM_SLOT_OCLOTHING)
 	if(belt)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(belt, H), ITEM_SLOT_BELT, TRUE)
+		EQUIP_OUTFIT_ITEM(belt, ITEM_SLOT_BELT)
 	if(gloves)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(gloves, H), ITEM_SLOT_GLOVES, TRUE)
+		EQUIP_OUTFIT_ITEM(gloves, ITEM_SLOT_GLOVES)
 	if(shoes)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(shoes, H), ITEM_SLOT_FEET, TRUE)
+		EQUIP_OUTFIT_ITEM(shoes, ITEM_SLOT_FEET)
 	if(head)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(head, H), ITEM_SLOT_HEAD, TRUE)
+		EQUIP_OUTFIT_ITEM(head, ITEM_SLOT_HEAD)
 	if(mask)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(mask, H), ITEM_SLOT_MASK, TRUE)
+		EQUIP_OUTFIT_ITEM(mask, ITEM_SLOT_MASK)
 	if(neck)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(neck, H), ITEM_SLOT_NECK, TRUE)
+		EQUIP_OUTFIT_ITEM(neck, ITEM_SLOT_NECK)
 	if(ears)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(ears, H), ITEM_SLOT_EARS, TRUE)
+		EQUIP_OUTFIT_ITEM(ears, ITEM_SLOT_EARS)
 	if(glasses)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(glasses, H), ITEM_SLOT_EYES, TRUE)
+		EQUIP_OUTFIT_ITEM(glasses, ITEM_SLOT_EYES)
+	if(back)
+		EQUIP_OUTFIT_ITEM(back, ITEM_SLOT_BACK)
 	if(id)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(id, H), ITEM_SLOT_ID, TRUE) //We don't provide ids (Fix this?)
+		EQUIP_OUTFIT_ITEM(id, ITEM_SLOT_ID)
 	if(suit_store)
-		H.equip_to_slot_or_del(SSwardrobe.provide_type(suit_store, H), ITEM_SLOT_SUITSTORE, TRUE)
+		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(accessory)
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -196,9 +204,9 @@
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			H.equip_to_slot_or_del(SSwardrobe.provide_type(l_pocket, H), ITEM_SLOT_LPOCKET, TRUE)
+			EQUIP_OUTFIT_ITEM(l_pocket, ITEM_SLOT_LPOCKET)
 		if(r_pocket)
-			H.equip_to_slot_or_del(SSwardrobe.provide_type(r_pocket, H), ITEM_SLOT_RPOCKET, TRUE)
+			EQUIP_OUTFIT_ITEM(r_pocket, ITEM_SLOT_RPOCKET)
 
 		if(box)
 			if(!backpack_contents)
@@ -212,7 +220,7 @@
 				if(!isnum_safe(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
-					H.equip_to_slot_or_del(SSwardrobe.provide_type(path, H), ITEM_SLOT_BACKPACK, TRUE)
+					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
@@ -231,6 +239,8 @@
 
 	H.update_body()
 	return TRUE
+
+#undef EQUIP_OUTFIT_ITEM
 
 /**
   * Apply a fingerprint from the passed in human to all items in the outfit
