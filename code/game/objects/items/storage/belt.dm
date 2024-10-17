@@ -49,7 +49,7 @@
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -77,7 +77,6 @@
 		/obj/item/airlock_painter,
 		/obj/item/shuttle_creator
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/botanical
 	name = "botanical belt"
@@ -90,7 +89,7 @@
 /obj/item/storage/belt/botanical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/reagent_containers/spray,
 		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
 		/obj/item/reagent_containers/glass/bottle,//fertilizer bottles
@@ -110,7 +109,6 @@
 		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/utility/chief
 	name = "\improper Chief Engineer's toolbelt" //"the Chief Engineer's toolbelt", because "Chief Engineer's toolbelt" is not a proper noun
@@ -168,7 +166,7 @@
 /obj/item/storage/belt/utility/servant/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -196,7 +194,6 @@
 		/obj/item/clockwork/clockwork_slab,
 		/obj/item/clockwork/replica_fabricator
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/utility/servant/PopulateContents()
 	if(slab)
@@ -224,7 +221,7 @@
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -277,7 +274,6 @@
 		/obj/item/plunger,
 		/obj/item/extrapolator
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/medical/ert
 	name = "emergency response medical belt"
@@ -308,7 +304,7 @@
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
 		/obj/item/melee/classic_baton/police,
@@ -329,7 +325,6 @@
 		/obj/item/club,
 		/obj/item/shield/riot/tele
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/security/full/PopulateContents()
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
@@ -369,7 +364,7 @@
 /obj/item/storage/belt/mining/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -420,7 +415,6 @@
 		/obj/item/exploration_detonator,
 		/obj/item/research_disk_pinpointer
 		))
-	STR.can_hold = can_hold
 
 
 /obj/item/storage/belt/mining/vendor
@@ -454,10 +448,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/soulstone
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/soulstone/full/PopulateContents()
 	for(var/i in 1 to 6)
@@ -483,10 +476,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/clothing/mask/luchador
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/military
 	name = "chest rig"
@@ -514,11 +506,10 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_SMALL
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/food,
 		/obj/item/reagent_containers/food/drinks
 		))
-	STR.can_hold = can_hold
 	var/amount = 5
 	var/rig_snacks
 	while(contents.len <= amount)
@@ -595,7 +586,7 @@
 	STR.max_items = 30
 	STR.display_numerical_stacking = TRUE
 	STR.max_combined_w_class = 60
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/grenade,
 		/obj/item/screwdriver,
 		/obj/item/lighter,
@@ -605,7 +596,6 @@
 		/obj/item/food/grown/cherry_bomb,
 		/obj/item/food/grown/firelemon
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/grenade/full/PopulateContents()
 	var/static/items_inside = list(
@@ -640,10 +630,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/gun/magic/wand
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/wands/full/PopulateContents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -667,7 +656,7 @@
 /obj/item/storage/belt/janitor/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/grenade/chem_grenade,
 		/obj/item/lightreplacer,
 		/obj/item/flashlight,
@@ -682,7 +671,6 @@
 		/obj/item/paint/paint_remover,
 		/obj/item/pushbroom
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
 	new /obj/item/lightreplacer(src)
@@ -703,10 +691,9 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 18
 	STR.display_numerical_stacking = TRUE
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/ammo_casing/shotgun
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/bandolier/western
 	name = "sheriff's bandolier"
@@ -738,13 +725,12 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 15
 	STR.display_numerical_stacking = TRUE
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/ammo_casing/caseless/arrow/wood,
 		/obj/item/ammo_casing/caseless/arrow/ash,
 		/obj/item/ammo_casing/caseless/arrow/bone,
 		/obj/item/ammo_casing/caseless/arrow/bronze
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -839,10 +825,9 @@
 	STR.max_items = 1
 	STR.rustle_sound = FALSE
 	STR.max_w_class = WEIGHT_CLASS_BULKY
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/melee/sabre
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
@@ -894,10 +879,9 @@
 	MTR.max_items = 1
 	MTR.rustle_sound = FALSE
 	MTR.max_w_class = WEIGHT_CLASS_BULKY
-	var/static/list/can_hold = typecacheof(list(
+	MTR.set_holdable(list(
 		/obj/item/melee/sabre/mime
 		))
-	MTR.can_hold = can_hold
 
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)
