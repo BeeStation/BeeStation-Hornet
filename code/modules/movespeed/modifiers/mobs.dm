@@ -89,10 +89,6 @@
 	variable = TRUE
 	flags = IGNORE_NOSLOW
 
-/datum/movespeed_modifier/basicmob_varspeed
-	variable = TRUE
-	flags = IGNORE_NOSLOW
-
 /datum/movespeed_modifier/tarantula_web
 	multiplicative_slowdown = 3
 
