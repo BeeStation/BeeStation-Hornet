@@ -56,6 +56,13 @@
 	//Toggle the jammer
 	if (active)
 		disable()
+
+	//Don't be active ever during unit tests (causes list bugs)
+	#ifdef UNIT_TESTS
+	else
+		disable()
+	#endif
+
 	else
 		enable()
 	if (!silent && user)
