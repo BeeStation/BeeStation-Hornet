@@ -216,7 +216,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 			return
 		var/mob/living/carbon/C = user.pulling
 		user.visible_message("<span class = 'danger'>[user] dunks [C]'s face in [src]!</span>")
-		reagents.reaction(C, TOUCH)
+		reagents.expose(C, TOUCH)
 		log_combat(user, C, "fryer slammed")
 		var/permeability = 1 - C.get_permeability_protection(list(HEAD))
 		C.apply_damage(min(30 * permeability, reagents.total_volume), BURN, BODY_ZONE_HEAD)
