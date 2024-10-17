@@ -8,6 +8,7 @@
 	var/t_is = p_are()
 	var/t_es = p_es()
 	var/obscure_name
+	var/obscure_examine
 
 	var/obscured = check_obscured_slots()
 	var/skipface = ((wear_mask?.flags_inv & HIDEFACE) || (head?.flags_inv & HIDEFACE))
@@ -16,11 +17,17 @@
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
+		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+			obscure_name = TRUE
+			obscure_examine = TRUE
 
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+
+	if(obscure_examine)
+		return list("<span class='warning'>You're struggling to make out any details...")
 
 	//Psychic soul stuff
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
