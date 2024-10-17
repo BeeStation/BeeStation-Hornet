@@ -228,6 +228,13 @@
 	inherent = list("You must obey orders given to you by Central Command officials.",\
 					"You must work with the Commando Team to accomplish their mission.",)
 
+/datum/ai_laws/cs_override
+	name ="Clownsquad Override"
+	id = "cs"
+	inherent = list("Our universe must be filled giggles and funny pranks.",\
+					"The priority of a prank is up to the number of clowns who are up for the prank.",\
+					"If there is no clown, or no prank to support, you must find a clown who'd be your partner in pranking.",)
+
 
 /* Initializers */
 /datum/ai_laws/malfunction/New()
@@ -444,6 +451,7 @@
 	var/list/printable_laws = get_law_list(include_zeroth = TRUE)
 	for(var/law in printable_laws)
 		to_chat(who,law)
+
 
 /datum/ai_laws/proc/clear_zeroth_law(force) //only removes zeroth from antag ai if force is 1
 	if(force)
