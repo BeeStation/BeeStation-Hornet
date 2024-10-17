@@ -21,7 +21,7 @@
 		for(var/turf/open/T in RANGE_TURFS(1, B))
 			var/obj/structure/blob/C = locate() in T
 			if(!(C?.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
-				new /obj/effect/hotspot(T)
+				new /obj/effect/simple_fire(T)
 	if(damage_flag == FIRE)
 		return 0
 	return ..()
