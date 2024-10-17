@@ -8,6 +8,8 @@
 	#define COMPONENT_NO_AFTERATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
+///from base of atom/attack_ai(): (/mob/user)
+#define COMSIG_ATOM_ATTACK_AI "attack_ai"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 //from base of atom/attack_basic_mob(): (/mob/user)
@@ -25,3 +27,10 @@
 #define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"
 ///from base of atom/attack_paw(): (mob/user)
 #define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"
+///from base of atom/attack_robot(): (mob/user)
+#define COMSIG_ATOM_ATTACK_ROBOT "atom_attack_robot"
+///from base of atom/attack_silicon(): (mob/user)
+#define COMSIG_ATOM_ATTACK_SILICON "atom_attack_silicon"
+
+///from base of atom/interact(): (mob/user)
+#define COMSIG_ATOM_INTERACT "atom_interact"

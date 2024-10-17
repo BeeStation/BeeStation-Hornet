@@ -449,8 +449,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 	. = ..()
 
 /obj/machinery/status_display/ai/attack_ai(mob/living/silicon/ai/user)
-	if(!isAI(user))
-		return
 	var/list/choices = list()
 	for(var/emotion_const in emotion_map)
 		var/icon_state = emotion_map[emotion_const]
@@ -500,9 +498,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 
 	var/static/list/picture_options = list(
 		"Default" = "default",
+		"Delta Alert" = "deltaalert",
 		"Red Alert" = "redalert",
+		"Blue Alert" = "bluealert",
+		"Green Alert" = "greenalert",
 		"Biohazard" = "biohazard",
 		"Lockdown" = "lockdown",
+		"Radiation" = "radiation",
 		"Happy" = "ai_happy",
 		"Neutral" = "ai_neutral",
 		"Very Happy" = "ai_veryhappy",

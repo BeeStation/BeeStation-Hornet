@@ -101,6 +101,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/security/warden,
 			/obj/item/clothing/under/rank/security/head_of_security, /obj/item/clothing/under/rank/security/detective,
 			/obj/item/melee/baton, /obj/item/gun/energy/taser, /obj/item/restraints/handcuffs,
+			/obj/item/melee/tonfa,
 			/obj/machinery/door/airlock/security, /obj/effect/hallucination/simple/securitron)),
 
 		"clowns"    = typecacheof(list(
@@ -235,8 +236,7 @@ SUBSYSTEM_DEF(traumas)
 							"conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
 							"robots" = typecacheof(list(/datum/species/android)),
 							"the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
-							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
-							/datum/species/shadow)),
+							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/diona, /datum/species/shadow)),
 							"anime" = typecacheof(list(/datum/species/human/felinid))
 						)
 
