@@ -87,7 +87,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/mutation
 	clothes_req = FALSE
-	var/datum/mutation/parent_mutation
+	var/datum/mutation/human/parent_mutation
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/touch/mutation)
 

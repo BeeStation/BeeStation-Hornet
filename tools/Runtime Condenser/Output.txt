@@ -87,7 +87,7 @@ The following runtime has occurred 9 time(s).
 runtime error: Cannot read null.thrownby
 proc name: hitby (/mob/living/carbon/human/hitby)
   source file: human_defense.dm,353
-  usr: the monkey (662) (/mob/living/carbon/monkey)
+  usr: the monkey (662) (/mob/living/carbon/human/species/monkey)
   src: Sydney Hujsak (/mob/living/carbon/human)
 
 
@@ -190,7 +190,7 @@ runtime error: Cannot read null.pipe_vision_img
 proc name: add ventcrawl (/mob/living/proc/add_ventcrawl)
   source file: ventcrawling.dm,94
   usr: (src)
-  src: the monkey (809) (/mob/living/carbon/monkey)
+  src: the monkey (809) (/mob/living/carbon/human/species/monkey)
   src.loc: the Cloning Lab vent pump #1 (/obj/machinery/atmospherics/components/unary/vent_pump)
 
 

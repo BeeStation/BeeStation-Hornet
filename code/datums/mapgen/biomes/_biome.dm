@@ -134,7 +134,7 @@
 		/mob/living/simple_animal/hostile/lizard,
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/sloth,
-		/mob/living/carbon/monkey
+		/mob/living/carbon/human/species/monkey
 	)
 
 /datum/biome/grassclearing

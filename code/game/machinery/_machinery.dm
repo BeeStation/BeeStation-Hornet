@@ -166,6 +166,18 @@ Class Procs:
 
 	return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/computer/can_interact(mob/user)
+	var/mob/living/living_user = user
+	//Quick check for lesserbeings (monkeys, teratomas)
+	if(HAS_TRAIT(living_user, TRAIT_INFERIORFORM))
+		to_chat(living_user, "<span class='notice'>What is this thing?! Your fingers dance around the buttons.</span>")
+		//We fuck around on the keys for a bit, like any toddler would
+		if(do_after(living_user, 2 SECONDS, src))
+			to_chat(living_user, "<span class='warning'> Shiny! Not much use to me though!</span>")
+	else
+		. = ..()
+
+
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
 

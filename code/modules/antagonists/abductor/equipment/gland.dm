@@ -204,7 +204,7 @@
 
 /obj/item/organ/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = VENTCRAWLER_ALWAYS
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 /obj/item/organ/heart/gland/viral
 	true_name = "contamination incubator"

@@ -7,7 +7,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 //VENTCRAWLING
 
 /mob/living/proc/handle_ventcrawl(atom/A)
-	if(!ventcrawler || !Adjacent(A))
+	// Being able to always ventcrawl trumps being only able to ventcrawl when wearing nothing
+	var/required_nudity = HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS)
+	if(!Adjacent(A))
+		return
+	if(!HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS))
 		return
 	if(stat)
 		to_chat(src, "You must be conscious to do this!")
@@ -57,15 +61,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 			if(!client)
 				return
 
-			if(iscarbon(src) && ventcrawler < 2)//It must have atleast been 1 to get this far
-				var/failed = 0
-				var/list/items_list = get_equipped_items(include_pockets = TRUE)
-				if(items_list.len)
-					failed = 1
-				for(var/obj/item/I in held_items)
-					failed = 1
-					break
-				if(failed)
+			if(iscarbon(src) && required_nudity)
+				if(length(get_equipped_items(include_pockets = TRUE)) || get_num_held_items())
 					to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 					return
 
@@ -78,7 +75,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(buckled)
 		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
 		return
-	..()
+	return ..()
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
