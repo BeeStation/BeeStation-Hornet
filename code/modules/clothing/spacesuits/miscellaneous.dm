@@ -147,6 +147,7 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has blue highlights."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "hardsuit0-ert_commander"
+	hardsuit_type = "ert_commander"
 	armor = list(MELEE = 65,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, STAMINA = 70, BLEED = 70)
 	strip_delay = 130
 	light_range = 7
@@ -173,11 +174,6 @@ Contains:
 	else
 		AddComponent(/datum/component/team_monitor, "cent", -1)
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/ui_action_click(mob/user, datum/action)
-	switch(action.type)
-		if(/datum/action/item_action/toggle_beacon_hud)
-			toggle_hud(user)
-
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team commander hardsuit"
 	desc = "The standard issue hardsuit of the ERT, this one has blue highlights. Offers superb protection against environmental hazards."
@@ -202,21 +198,13 @@ Contains:
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_CONTENTS)
 
-/obj/item/clothing/suit/space/hardsuit/ert/ui_action_click(mob/user, datum/actiontype)
-	switch(actiontype.type)
-		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
-		if(/datum/action/item_action/toggle_beacon)
-			toggle_beacon(user)
-		if(/datum/action/item_action/toggle_beacon_frequency)
-			set_beacon_freq(user)
-
 	//ERT Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/sec
 	name = "emergency response team security helmet"
 	desc = "The integrated helmet of an ERT hardsuit, this one has red highlights."
 	icon_state = "hardsuit0-ert_security"
 	item_state = "hardsuit0-ert_security"
+	hardsuit_type = "ert_security"
 	beacon_colour = "#ec4848"
 	beacon_zdiff_colour = "#ca7878"
 
@@ -234,6 +222,7 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has orange highlights."
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "hardsuit0-ert_engineer"
+	hardsuit_type = "ert_engineer"
 	beacon_colour = "#ecaa48"
 	beacon_zdiff_colour = "#daa960"
 
@@ -251,6 +240,7 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has white highlights."
 	icon_state = "hardsuit0-ert_medical"
 	item_state = "hardsuit0-ert_medical"
+	hardsuit_type = "ert_medical"
 	beacon_colour = "#88ecec"
 	beacon_zdiff_colour = "#4f8888"
 
@@ -268,6 +258,7 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has purple highlights."
 	icon_state = "hardsuit0-ert_janitor"
 	item_state = "hardsuit0-ert_janitor"
+	hardsuit_type = "ert_janitor"
 	beacon_colour = "#be43ce"
 	beacon_zdiff_colour = "#895d8f"
 
