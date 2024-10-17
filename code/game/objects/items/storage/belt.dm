@@ -117,43 +117,89 @@
 	item_state = "utility_ce"
 	worn_icon_state = "utility_ce"
 
+/obj/item/storage/belt/utility/chief/full
+	preload = TRUE
+
 /obj/item/storage/belt/utility/chief/full/PopulateContents()
-	new /obj/item/powertool/hand_drill(src)
-	new /obj/item/powertool/jaws_of_life(src)
-	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
-	new /obj/item/extinguisher/mini(src)
-	new /obj/item/analyzer/ranged(src)
+	SSwardrobe.provide_type(/obj/item/powertool/hand_drill, src)
+	SSwardrobe.provide_type(/obj/item/powertool/jaws_of_life, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool/experimental, src)//This can be changed if this is too much
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
+	SSwardrobe.provide_type(/obj/item/analyzer/ranged, src)
 	//much roomier now that we've managed to remove two tools
 
+/obj/item/storage/belt/utility/chief/full/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/powertool/hand_drill
+	to_preload += /obj/item/powertool/jaws_of_life
+	to_preload += /obj/item/weldingtool/experimental
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	to_preload += /obj/item/extinguisher/mini
+	to_preload += /obj/item/analyzer/ranged
+	return to_preload
+
 /obj/item/storage/belt/utility/full/PopulateContents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL,pick("red","yellow","orange"))
+
+/obj/item/storage/belt/utility/full/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	return to_preload
 
 /obj/item/storage/belt/utility/full/engi/PopulateContents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool/largetank, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL, pick("red","yellow","orange"))
 
+/obj/item/storage/belt/utility/full/engi/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool/largetank
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	return to_preload
 
 /obj/item/storage/belt/utility/atmostech/PopulateContents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/t_scanner(src)
-	new /obj/item/extinguisher/mini(src)
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/t_scanner, src)
+	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
+
+/obj/item/storage/belt/utility/atmostech/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/t_scanner
+	to_preload += /obj/item/extinguisher/mini
+	return to_preload
 
 /obj/item/storage/belt/utility/servant
 	var/slab = null
