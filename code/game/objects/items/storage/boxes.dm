@@ -707,6 +707,15 @@
 		new /obj/item/firing_pin/tag/red(src)
 		new /obj/item/firing_pin/tag/blue(src)
 
+/obj/item/storage/box/firingpins/alert
+	name = "box of alert firing pins"
+	desc = "A box full of alert firing pins, to allow newly-developed firearms to operate behind alert level checks."
+	illustration = "firingpin"
+
+/obj/item/storage/box/firingpins/alert/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/firing_pin/alert(src)
+
 /obj/item/storage/box/handcuffs
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."
