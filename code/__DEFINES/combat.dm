@@ -42,11 +42,9 @@
 #define MELEE "melee"
 /// Bleed prevention
 #define BLEED "bleed"
-
-/*
 /// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
-*/
+
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)

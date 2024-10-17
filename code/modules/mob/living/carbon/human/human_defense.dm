@@ -223,7 +223,7 @@
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-		apply_damage(20, BRUTE, affecting, armor_block)
+		apply_damage(20, BRUTE, affecting, armor_block, wound_bonus=10)
 		return 1
 
 /mob/living/carbon/human/attack_hand(mob/user)
@@ -317,8 +317,10 @@
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = 20
+		var/wound_mod = -45 // 25^1.4=90, 90-45=45
 		if(M.is_adult)
 			damage = 30
+			wound_mod = -90 // 35^1.4=145, 145-90=55
 
 		if(M.transformeffects & SLIME_EFFECT_RED)
 			damage *= 1.1
@@ -334,7 +336,7 @@
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE)
-		apply_damage(damage, BRUTE, affecting, armor_block)
+		apply_damage(damage, BRUTE, affecting, armor_block, wound_bonus=wound_mod)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
@@ -712,6 +714,20 @@
 			else
 				isdisabled += " and "
 		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>")
+
+		for(var/thing in LB.wounds)
+			var/datum/wound/W = thing
+			var/msg
+			switch(W.severity)
+				if(WOUND_SEVERITY_TRIVIAL)
+					msg = "\t <span class='danger'>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)].</span>"
+				if(WOUND_SEVERITY_MODERATE)
+					msg = "\t <span class='warning'>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!</span>"
+				if(WOUND_SEVERITY_SEVERE)
+					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!</b></span>"
+				if(WOUND_SEVERITY_CRITICAL)
+					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!!</b></span>"
+			to_chat(src, msg)
 
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())

@@ -161,6 +161,8 @@
 	bleed_force = BLEED_CUT
 	tool_behaviour = TOOL_SCALPEL
 	toolspeed = 1
+	wound_bonus = 10
+	bare_wound_bonus = 15
 
 /obj/item/scalpel/Initialize(mapload)
 	. = ..()
@@ -429,3 +431,18 @@
 /obj/item/surgicaldrill/advanced/examine()
 	. = ..()
 	. += " It's set to [tool_behaviour == TOOL_DRILL ? "drilling" : "mending"] mode."
+
+/obj/item/bonesetter
+	name = "bonesetter"
+	desc = "For setting things right."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "bone_setter"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
+	flags_1 = CONDUCT_1
+	item_flags = SURGICAL_TOOL
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("corrected", "properly set")
+	tool_behaviour = TOOL_BONESET
+	toolspeed = 1

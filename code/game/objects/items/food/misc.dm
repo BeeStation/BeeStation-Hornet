@@ -164,7 +164,7 @@
 	block_power = 55
 	attack_weight = 2
 	armour_penetration = 80
-	//wound_bonus = -50
+	wound_bonus = -50
 	attack_verb_continuous = list("slaps", "slathers")
 	attack_verb_simple = list("slap", "slather")
 	w_class = WEIGHT_CLASS_BULKY

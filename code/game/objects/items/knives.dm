@@ -22,8 +22,8 @@
 	bleed_force = BLEED_CUT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/bayonet = FALSE //Can this be attached to a gun?
-	//wound_bonus = 5
-	//bare_wound_bonus = 15
+	wound_bonus = -5
+	bare_wound_bonus = 10
 	tool_behaviour = TOOL_KNIFE
 
 /obj/item/knife/Initialize(mapload)
