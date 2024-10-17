@@ -1095,9 +1095,11 @@
 		"idcardconsole",
 		"libraryconsole",
 		"mining",
+		"photobooth",
 		"objective",
 		"rdcamera",
 		"seccamera",
+		"security_photobooth",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
@@ -1162,7 +1164,7 @@
 	prereq_ids = list("comptech")
 	design_ids = list(
 		"automated_announcement",
-		"med_data",
+		"records/medical",
 		"prisonmanage",
 		"secdata",
 		"vendor",

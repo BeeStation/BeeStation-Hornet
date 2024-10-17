@@ -75,11 +75,11 @@
 		if(id_card)
 			.["user"]["card_found"] = TRUE
 			.["user"]["name"] = id_card.registered_name || id_card.registered_account?.account_holder || "Unknown"
-			var/datum/data/record/R = find_record("name", id_card.registered_name, GLOB.data_core.general)
+			var/datum/record/crew/R = find_record(id_card.registered_name)
 			if(!R)
-				R = find_record("name", id_card.registered_account.account_holder, GLOB.data_core.general)
+				R = find_record(id_card.registered_account.account_holder)
 			if(R)
-				.["user"]["job"] = R.fields["rank"]
+				.["user"]["job"] = R.rank
 			else if(id_card.assignment)
 				.["user"]["job"] = id_card.assignment
 			else if(id_card.registered_account?.account_job)
