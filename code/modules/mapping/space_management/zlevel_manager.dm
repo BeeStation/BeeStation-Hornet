@@ -27,6 +27,7 @@
 	var/datum/space_level/S = new z_type(new_z, name, traits, orbital_body_type)
 	manage_z_level(S, filled_with_space = TRUE, contain_turfs = contain_turfs)
 	generate_linkages_for_z_level(new_z)
+	calculate_z_level_gravity(new_z)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, S)
 	return S
 

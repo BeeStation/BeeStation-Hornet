@@ -301,4 +301,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
 
+/// We are ignoring gravity
+#define TRAIT_IGNORING_GRAVITY "ignores_gravity"
+/// We have some form of forced gravity acting on us
+#define TRAIT_FORCED_GRAVITY "forced_gravity"
+#define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
+#define TRAIT_NEGATES_GRAVITY "negates_gravity"
+
 // END TRAIT DEFINES
