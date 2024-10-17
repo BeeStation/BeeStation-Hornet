@@ -159,7 +159,6 @@
 	faction = list("pirate");
 	name = "syndicate semi-auto swivel gun"
 	},
-/obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -190,7 +189,6 @@
 /turf/closed/wall/mineral/wood,
 /area/shuttle/pirate)
 "hX" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -369,11 +367,11 @@
 	pixel_x = 10;
 	pixel_y = 7
 	},
-/obj/item/knife/shank,
 /obj/item/ammo_casing/shotgun/improvised{
 	pixel_x = -8;
 	pixel_y = 7
 	},
+/obj/item/knife/shiv,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "ss" = (
@@ -591,7 +589,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "EF" = (
@@ -607,7 +604,6 @@
 /area/shuttle/pirate)
 "Fj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -649,7 +645,6 @@
 	faction = list("pirate");
 	name = "syndicate semi-auto swivel gun"
 	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -800,7 +795,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny,
-/obj/effect/decal/cleanable/cobweb,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
@@ -863,7 +857,6 @@
 /area/shuttle/pirate)
 "PO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -876,7 +869,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = 3;
 	pixel_y = 7
@@ -1007,7 +999,6 @@
 /area/shuttle/pirate)
 "Wa" = (
 /obj/structure/fans/tiny,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/door/airlock/wood{
 	req_access_txt = "180";
 	name = "Pirate Shuttle"
@@ -1062,7 +1053,6 @@
 	faction = list("pirate");
 	name = "syndicate semi-auto swivel gun"
 	},
-/obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
