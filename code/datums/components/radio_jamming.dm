@@ -52,7 +52,9 @@
 		return
 	if(!jammer_turf.z)
 		return
-	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z?[jammer_turf.z])
+	if(!GLOB.jam_receivers_by_z[jammer_turf.z])
+		return
+	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z[jammer_turf.z])
 		receiver.check_jammed()
 
 /datum/component/radio_jamming/proc/toggle(datum/source, mob/user, silent = FALSE)
