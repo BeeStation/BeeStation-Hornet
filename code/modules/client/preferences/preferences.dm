@@ -444,7 +444,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.real_name = character.real_name
 
 	if(icon_updates)
-		character.icon_render_keys = list() // turns out if you don't set this to null update_body_parts does nothing, since it assumes the operation was cached
+		character.icon_render_keys = null // turns out if you don't set this to null update_body_parts does nothing, since it assumes the operation was cached
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model

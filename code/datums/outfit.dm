@@ -75,6 +75,9 @@
 	/// Should the toggle helmet proc be called on the helmet during equip
 	var/toggle_helmet = TRUE
 
+	///Should we preload some of this job's items?
+	var/preload = FALSE
+
 	///ID of the slot containing a gas tank
 	var/internals_slot = null
 
@@ -153,49 +156,49 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		H.equip_to_slot_or_del(new uniform(H),ITEM_SLOT_ICLOTHING, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(uniform, H), ITEM_SLOT_ICLOTHING, TRUE)
 	if(suit)
-		H.equip_to_slot_or_del(new suit(H),ITEM_SLOT_OCLOTHING, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(suit, H), ITEM_SLOT_OCLOTHING, TRUE)
 	if(back)
-		H.equip_to_slot_or_del(new back(H),ITEM_SLOT_BACK, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(back, H), ITEM_SLOT_BACK, TRUE)
 	if(belt)
-		H.equip_to_slot_or_del(new belt(H),ITEM_SLOT_BELT, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(belt, H), ITEM_SLOT_BELT, TRUE)
 	if(gloves)
-		H.equip_to_slot_or_del(new gloves(H),ITEM_SLOT_GLOVES, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(gloves, H), ITEM_SLOT_GLOVES, TRUE)
 	if(shoes)
-		H.equip_to_slot_or_del(new shoes(H),ITEM_SLOT_FEET, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(shoes, H), ITEM_SLOT_FEET, TRUE)
 	if(head)
-		H.equip_to_slot_or_del(new head(H),ITEM_SLOT_HEAD, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(head, H), ITEM_SLOT_HEAD, TRUE)
 	if(mask)
-		H.equip_to_slot_or_del(new mask(H),ITEM_SLOT_MASK, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(mask, H), ITEM_SLOT_MASK, TRUE)
 	if(neck)
-		H.equip_to_slot_or_del(new neck(H),ITEM_SLOT_NECK, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(neck, H), ITEM_SLOT_NECK, TRUE)
 	if(ears)
-		H.equip_to_slot_or_del(new ears(H),ITEM_SLOT_EARS, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(ears, H), ITEM_SLOT_EARS, TRUE)
 	if(glasses)
-		H.equip_to_slot_or_del(new glasses(H),ITEM_SLOT_EYES, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(glasses, H), ITEM_SLOT_EYES, TRUE)
 	if(id)
-		H.equip_to_slot_or_del(new id(H),ITEM_SLOT_ID, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(id, H), ITEM_SLOT_ID, TRUE) //We don't provide ids (Fix this?)
 	if(suit_store)
-		H.equip_to_slot_or_del(new suit_store(H),ITEM_SLOT_SUITSTORE, TRUE)
+		H.equip_to_slot_or_del(SSwardrobe.provide_type(suit_store, H), ITEM_SLOT_SUITSTORE, TRUE)
 
 	if(accessory)
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(U)
-			U.attach_accessory(new accessory(H))
+			U.attach_accessory(SSwardrobe.provide_type(accessory, H))
 		else
 			WARNING("Unable to equip accessory [accessory] in outfit [name]. No uniform present!")
 
 	if(l_hand)
-		H.put_in_l_hand(new l_hand(H))
+		H.put_in_l_hand(SSwardrobe.provide_type(l_hand, H))
 	if(r_hand)
-		H.put_in_r_hand(new r_hand(H))
+		H.put_in_r_hand(SSwardrobe.provide_type(r_hand, H))
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			H.equip_to_slot_or_del(new l_pocket(H),ITEM_SLOT_LPOCKET, TRUE)
+			H.equip_to_slot_or_del(SSwardrobe.provide_type(l_pocket, H), ITEM_SLOT_LPOCKET, TRUE)
 		if(r_pocket)
-			H.equip_to_slot_or_del(new r_pocket(H),ITEM_SLOT_RPOCKET, TRUE)
+			H.equip_to_slot_or_del(SSwardrobe.provide_type(r_pocket, H), ITEM_SLOT_RPOCKET, TRUE)
 
 		if(box)
 			if(!backpack_contents)
@@ -209,7 +212,7 @@
 				if(!isnum_safe(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
-					H.equip_to_slot_or_del(new path(H),ITEM_SLOT_BACKPACK, TRUE)
+					H.equip_to_slot_or_del(SSwardrobe.provide_type(path, H), ITEM_SLOT_BACKPACK, TRUE)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
@@ -223,7 +226,7 @@
 			H.open_internals(H.get_item_by_slot(internals_slot))
 		if(implants)
 			for(var/implant_type in implants)
-				var/obj/item/implant/I = new implant_type(H)
+				var/obj/item/implant/I = SSwardrobe.provide_type(implant_type, H)
 				I.implant(H, null, TRUE)
 
 	H.update_body()
@@ -283,6 +286,42 @@
 	types += chameleon_extras
 	list_clear_nulls(types)
 	return types
+
+/// Return a list of types to pregenerate for later equipping
+/// This should not be things that do unique stuff in Initialize() based off their location, since we'll be storing them for a while
+/datum/outfit/proc/get_types_to_preload()
+	var/list/preload = list()
+	preload += id
+	preload += uniform
+	preload += suit
+	preload += suit_store
+	preload += back
+	//Load in backpack gear and shit
+	for(var/datum/type_to_load in backpack_contents)
+		for(var/i in 1 to backpack_contents[type_to_load])
+			preload += type_to_load
+	preload += belt
+	preload += ears
+	preload += glasses
+	preload += gloves
+	preload += head
+	preload += mask
+	preload += neck
+	preload += shoes
+	preload += l_pocket
+	preload += r_pocket
+	preload += l_hand
+	preload += r_hand
+	preload += accessory
+	preload += box
+	for(var/implant_type in implants)
+		preload += implant_type
+	/*
+	for(var/skillpath in skillchips)
+		preload += skillpath
+	*/
+
+	return preload
 
 /datum/outfit/proc/get_json_data()
 	. = list()
