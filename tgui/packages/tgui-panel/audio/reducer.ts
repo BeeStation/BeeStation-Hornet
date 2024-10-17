@@ -4,9 +4,13 @@
  * @license MIT
  */
 
+import { AudioTrack } from './AudioTrack';
+
 const initialState = {
   visible: false,
   playing: false,
+  muted: false,
+  duration: 0,
   track: null,
 };
 
@@ -15,8 +19,10 @@ export const audioReducer = (state = initialState, action) => {
   if (type === 'audio/playing') {
     return {
       ...state,
-      visible: true,
+      visible: !state.muted,
       playing: true,
+      duration: payload.duration,
+      track: payload.track,
     };
   }
   if (type === 'audio/stopped') {
@@ -26,18 +32,17 @@ export const audioReducer = (state = initialState, action) => {
       playing: false,
     };
   }
-  if (type === 'audio/playMusic') {
+  if (type === 'audio/onMute') {
     return {
       ...state,
-      meta: payload,
+      muted: true,
+      visible: false,
     };
   }
-  if (type === 'audio/stopMusic') {
+  if (type === 'audio/onUnmute') {
     return {
       ...state,
-      visible: false,
-      playing: false,
-      meta: null,
+      muted: false,
     };
   }
   if (type === 'audio/toggle') {
