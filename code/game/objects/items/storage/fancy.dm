@@ -70,7 +70,7 @@
 	icon_state = "donutbox"
 	base_icon_state = "donutbox"
 	spawn_type = /obj/item/food/donut/premade
-	appearance_flags = KEEP_TOGETHER
+	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
 
 /obj/item/storage/fancy/donut_box/ComponentInitialize()

@@ -24,7 +24,6 @@
 	health = 2500
 	maxHealth = 2500
 	speed = 4
-	glide_size = 2
 	can_be_held = TRUE
 	chat_color = "#E7D26F"
 
