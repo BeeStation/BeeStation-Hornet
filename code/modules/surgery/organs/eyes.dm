@@ -52,14 +52,14 @@
 	if(eye_owner.has_dna() && ishuman(eye_owner))
 		eye_owner.dna.species.handle_body(eye_owner) //updates eye icon
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = 0, pref_load = FALSE)
 	..()
-	if(ishuman(M) && eye_color)
-		var/mob/living/carbon/human/HMN = M
-		HMN.eye_color = old_eye_color
-		HMN.update_body()
-	M.update_tint()
-	M.update_sight()
+	if(ishuman(eye_owner) && eye_color)
+		var/mob/living/carbon/human/human_owner = eye_owner
+		human_owner.eye_color = old_eye_color
+		human_owner.update_body()
+	eye_owner.update_tint()
+	eye_owner.update_sight()
 
 //Gotta reset the eye color, because that persists
 /obj/item/organ/eyes/enter_wardrobe()
