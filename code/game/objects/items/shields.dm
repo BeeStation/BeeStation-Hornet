@@ -296,7 +296,7 @@
 			var/obj/projectile/P = hitby
 			if(P.reflectable)
 				P.firer = src
-				P.setAngle(get_dir(owner, hitby))
+				P.set_angle(get_dir(owner, hitby))
 				return 1
 		return ..()
 	return 0
