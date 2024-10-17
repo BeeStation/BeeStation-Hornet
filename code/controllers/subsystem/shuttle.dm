@@ -437,14 +437,14 @@ SUBSYSTEM_DEF(shuttle)
 		if(!(M in transit_requesters))
 			transit_requesters += M
 
-/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M)
+/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/mobile_dock)
 	// First, determine the size of the needed zone
 	// Because of shuttle rotation, the "width" of the shuttle is not
 	// always x.
-	var/travel_dir = M.preferred_direction
+	var/travel_dir = mobile_dock.preferred_direction
 	// Remember, the direction is the direction we appear to be
 	// coming from
-	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
+	var/dock_angle = dir2angle(mobile_dock.preferred_direction) + dir2angle(mobile_dock.port_direction) + 180
 	var/dock_dir = angle2dir(dock_angle)
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
@@ -452,7 +452,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	// Shuttles travelling on their side have their dimensions swapped
 	// from our perspective
-	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, dock_dir)
+	var/list/union_coords = mobile_dock.return_union_coords(mobile_dock.get_all_towed_shuttles(), 0, 0, dock_dir)
 	transit_width += union_coords[3] - union_coords[1] + 1
 	transit_height += union_coords[4] - union_coords[2] + 1
 
@@ -489,20 +489,22 @@ SUBSYSTEM_DEF(shuttle)
 		return FALSE
 	var/area/old_area = midpoint.loc
 	old_area.turfs_to_uncontain += proposal.reserved_turfs
-	var/area/shuttle/transit/A = new()
-	A.parallax_movedir = travel_dir
-	A.contents = proposal.reserved_turfs
-	A.contained_turfs = proposal.reserved_turfs
+	var/area/shuttle/transit/transit_area = new()
+	transit_area.hyper_parallax_data = new()
+	transit_area.hyper_parallax_data.parallax_direction = travel_dir
+	transit_area.contents = proposal.reserved_turfs
+	transit_area.contained_turfs = proposal.reserved_turfs
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
+	new_transit_dock.hyper_parallax_data = transit_area.hyper_parallax_data
 	new_transit_dock.reserved_area = proposal
-	new_transit_dock.name = "Transit for [M.id]/[M.name]"
-	new_transit_dock.owner = M
-	new_transit_dock.assigned_area = A
+	new_transit_dock.name = "Transit for [mobile_dock.id]/[mobile_dock.name]"
+	new_transit_dock.owner = mobile_dock
+	new_transit_dock.assigned_area = transit_area
 
 	// Add 180, because ports point inwards, rather than outwards
 	new_transit_dock.setDir(angle2dir(dock_angle))
 
-	M.assigned_transit = new_transit_dock
+	mobile_dock.assigned_transit = new_transit_dock
 	return new_transit_dock
 
 /datum/controller/subsystem/shuttle/Recover()
