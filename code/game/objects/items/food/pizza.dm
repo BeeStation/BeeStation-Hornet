@@ -12,9 +12,17 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 	foodtypes = GRAIN | DAIRY | VEGETABLES
-	//burns_in_oven = TRUE
 	/// type is spawned 6 at a time and replaces this pizza when processed by cutting tool
 	var/obj/item/food/pizzaslice/slice_type
+	///What label pizza boxes use if this pizza spawns in them.
+	var/boxtag = ""
+
+/obj/item/food/pizza/raw
+	foodtypes =  GRAIN | DAIRY | VEGETABLES | RAW
+	slice_type = null
+
+/obj/item/food/pizza/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizza/make_processable()
 	if(slice_type)
@@ -45,6 +53,16 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/margherita
+	boxtag = "Margherita Deluxe"
+
+/obj/item/food/pizza/margherita/raw
+	name = "raw pizza margherita"
+	icon_state = "pizzamargherita_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | RAW
+	slice_type = null
+
+/obj/item/food/pizza/margherita/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/margherita, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizza/margherita/robo
 	food_reagents = list(
@@ -78,6 +96,16 @@
 	)
 	foodtypes = GRAIN | VEGETABLES| DAIRY | MEAT
 	slice_type = /obj/item/food/pizzaslice/meat
+	boxtag = "Meatlovers' Supreme"
+
+/obj/item/food/pizza/meat/raw
+	name = "raw meatpizza"
+	icon_state = "meatpizza_raw"
+	foodtypes =  GRAIN | VEGETABLES| DAIRY | MEAT | RAW
+	slice_type = null
+
+/obj/item/food/pizza/meat/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/meat, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/meat
 	name = "meatpizza slice"
@@ -98,6 +126,16 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/mushroom
+	boxtag = "Mushroom Special"
+
+/obj/item/food/pizza/mushroom/raw
+	name = "raw mushroom pizza"
+	icon_state = "mushroompizza_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | RAW
+	slice_type = null
+
+/obj/item/food/pizza/mushroom/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mushroom, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/mushroom
 	name = "mushroom pizza slice"
@@ -113,12 +151,21 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 25,
 		/datum/reagent/consumable/tomatojuice = 6,
-		/datum/reagent/medicine/oculine = 12,
 		/datum/reagent/consumable/nutriment/vitamin = 5
 	)
 	tastes = list("crust" = 1, "tomato" = 2, "cheese" = 1, "carrot" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/vegetable
+	boxtag = "Gourmet Vegetable"
+
+/obj/item/food/pizza/vegetable/raw
+	name = "raw vegetable pizza"
+	icon_state = "vegetablepizza_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | RAW
+	slice_type = null
+
+/obj/item/food/pizza/vegetable/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/vegetable, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/vegetable
 	name = "vegetable pizza slice"
@@ -141,6 +188,16 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1, "laziness" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | JUNKFOOD
 	slice_type = /obj/item/food/pizzaslice/donkpocket
+	boxtag = "Bangin' Donk"
+
+/obj/item/food/pizza/donkpocket/raw
+	name = "raw donkpocket pizza"
+	icon_state = "donkpocketpizza_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | MEAT | JUNKFOOD | RAW
+	slice_type = null
+
+/obj/item/food/pizza/donkpocket/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/donkpocket, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/donkpocket
 	name = "donkpocket pizza slice"
@@ -162,6 +219,16 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/dank
+	boxtag = "Fresh Herb"
+
+/obj/item/food/pizza/dank/raw
+	name = "raw dank pizza"
+	icon_state = "dankpizza_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | RAW
+	slice_type = null
+
+/obj/item/food/pizza/dank/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/dank, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/dank
 	name = "dank pizza slice"
@@ -172,7 +239,7 @@
 
 /obj/item/food/pizza/sassysage
 	name = "sassysage pizza"
-	desc = "You can really smell the sassiness."
+	desc = "You can almost taste the sassiness."
 	icon_state = "sassysagepizza"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
@@ -183,6 +250,16 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	slice_type = /obj/item/food/pizzaslice/sassysage
+	boxtag = "Sausage Lovers"
+
+/obj/item/food/pizza/sassysage/raw
+	name = "raw sassysage pizza"
+	icon_state = "sassysagepizza_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | MEAT | RAW
+	slice_type = null
+
+/obj/item/food/pizza/sassysage/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/sassysage, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/sassysage
 	name = "sassysage pizza slice"
@@ -205,6 +282,16 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 2, "ham" = 2)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE
 	slice_type = /obj/item/food/pizzaslice/pineapple
+	boxtag = "Honolulu Chew"
+
+/obj/item/food/pizza/pineapple/raw
+	name = "raw Hawaiian pizza"
+	icon_state = "pineapplepizza_raw"
+	foodtypes =  GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE | RAW
+	slice_type = null
+
+/obj/item/food/pizza/pineapple/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/pineapple, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pizzaslice/pineapple
 	name = "\improper Hawaiian pizza slice"
@@ -226,6 +313,16 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pepperoni" = 2, "9 millimeter bullets" = 2)
 	slice_type = /obj/item/food/pizzaslice/arnold
+	boxtag = "9mm Pepperoni"
+
+/obj/item/food/pizza/arnold/raw
+	name = "raw Arnold pizza"
+	icon_state = "arnoldpizza_raw"
+	foodtypes =  GRAIN | DAIRY | VEGETABLES | RAW
+	slice_type = null
+
+/obj/item/food/pizza/arnold/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/arnold, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
 
 /obj/item/food/proc/try_break_off(mob/living/M, mob/living/user) //maybe i give you a pizza maybe i break off your arm
 	if(prob(50) || (M != user) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_NODISMEMBER))

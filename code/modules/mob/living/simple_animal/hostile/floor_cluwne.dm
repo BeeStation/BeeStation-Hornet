@@ -507,7 +507,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		return
 
 	// Send 'em to the destination. If the teleport fails, do nothing.
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE, no_wake = TRUE))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE, no_wake = TRUE))
 		return
 
 	// If our target died during the (short) wait timer,
@@ -594,7 +594,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, forced = TRUE, no_wake = TRUE))
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, bypass_area_restriction = TRUE, no_wake = TRUE))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
 		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
