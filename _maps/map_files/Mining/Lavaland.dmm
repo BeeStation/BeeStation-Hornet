@@ -1663,15 +1663,6 @@
 /obj/structure/closet/secure_closet/miner,
 /turf/open/floor/iron/dark,
 /area/mine/storage)
-"kU" = (
-/obj/machinery/portable_thermomachine,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/mine/living_quarters)
 "kV" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
@@ -5601,6 +5592,15 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
+"PQ" = (
+/obj/machinery/portable_thermomachine,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/mine/living_quarters)
 "PR" = (
 /obj/machinery/shower{
 	dir = 8
@@ -6056,6 +6056,10 @@
 /obj/machinery/light/small,
 /turf/open/floor/iron/dark,
 /area/mine/production)
+"Tn" = (
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/mine/production)
 "Tp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6275,10 +6279,6 @@
 /obj/item/pickaxe,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Va" = (
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/mine/production)
 "Vb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -35334,7 +35334,7 @@ xT
 xT
 ND
 qe
-Va
+Tn
 Xj
 qT
 Sy
@@ -44062,7 +44062,7 @@ IJ
 IJ
 ZH
 YM
-kU
+PQ
 vG
 DS
 YV
