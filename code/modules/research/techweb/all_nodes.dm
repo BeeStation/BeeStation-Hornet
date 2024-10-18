@@ -246,6 +246,7 @@
 		"genescanner",
 		"medipen_atropine",
 		"medipen_dex",
+		"medipen_clot",
 		"medipen_epi",
 		"medspray",
 		"minor_botanical_dispenser",

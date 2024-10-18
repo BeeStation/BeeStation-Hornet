@@ -1046,6 +1046,55 @@
 	..()
 	. = 1
 
+/datum/reagent/medicine/clotagen
+	name = "Clotagen"
+	description = "Encourages coagulation to stop wounds from bleeding."
+	color = "#FA7DB5"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "a roll of gauze"
+	metabolization_rate = 0.3 * REAGENTS_METABOLISM
+	overdose_threshold = 20
+
+/datum/reagent/medicine/clotagen/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(-0.3)
+	M.suppress_bloodloss(0.3)
+	..()
+
+/datum/reagent/medicine/clotagen/overdose_process(mob/living/M)
+	M.adjustBruteLoss(1)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 1)
+	..()
+
+/datum/reagent/medicine/clotagenp
+	name = "Clotagen Plus"
+	description = "Encourages coagulation to stop wounds from bleeding, as a side effect it also increases blood toxicity."
+	color = "#82405D"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "a roll of gauze with a hint of toxin"
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	overdose_threshold = 10
+
+/datum/reagent/medicine/clotagenp/on_mob_life(mob/living/carbon/M)
+	M.suppress_bloodloss(0.3)
+	M.adjustBruteLoss(-0.6)
+	M.adjustToxLoss(1.5)
+	..()
+
+/datum/reagent/medicine/clotagen/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NO_BLEEDING, type)
+	. = ..()
+
+
+/datum/reagent/medicine/clotagenp/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
+	..()
+
+/datum/reagent/medicine/clotagenp/overdose_process(mob/living/M)
+	M.adjustToxLoss(2)
+	M.blur_eyes(1)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
+	..()
+
 //Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/amphetamine
 	name = "Amphetamine"

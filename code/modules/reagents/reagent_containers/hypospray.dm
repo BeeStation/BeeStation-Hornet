@@ -83,7 +83,7 @@
 	volume = 90
 	possible_transfer_amounts = list(10,15,30,45)
 	ignore_flags = 1 // So they can heal their comrades.
-	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/stabilizing_nanites = 15)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 25, /datum/reagent/medicine/omnizine = 25, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/stabilizing_nanites = 15, /datum/reagent/medicine/clotagen = 10)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	name = "experimental combat stimulant injector"
@@ -200,6 +200,13 @@
 	item_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
+
+/obj/item/reagent_containers/hypospray/medipen/clotagen
+	name = "clotagen medipen"
+	icon_state = "survpen"
+	item_state = "survpen"
+	desc = "A autoinjector containing Clotagen, used to cause blood clots heal cuts quickly."
+	list_reagents = list(/datum/reagent/medicine/clotagen = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
