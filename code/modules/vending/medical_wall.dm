@@ -10,7 +10,9 @@
 					/obj/item/reagent_containers/hypospray/medipen/dexalin = 3,
 					/obj/item/reagent_containers/glass/bottle/epinephrine = 2,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 2,
-					/obj/item/reagent_containers/medspray/sterilizine = 3)
+					/obj/item/reagent_containers/medspray/sterilizine = 3,
+					/obj/item/healthanalyzer/wound = 2,
+					/obj/item/stack/medical/bone_gel = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/toxin = 1,
 						/obj/item/reagent_containers/glass/bottle/morphine = 1)
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)

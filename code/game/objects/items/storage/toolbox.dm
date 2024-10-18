@@ -22,6 +22,7 @@
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	wound_bonus = 5
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()

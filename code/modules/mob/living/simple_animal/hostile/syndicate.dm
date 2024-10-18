@@ -283,6 +283,9 @@
 	health = 25
 	maxHealth = 25
 	melee_damage = 15
+	wound_bonus = -10
+	bare_wound_bonus = 20
+	sharpness = TRUE
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	attack_verb_continuous = "cuts"

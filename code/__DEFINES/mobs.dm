@@ -163,8 +163,9 @@
 #define TRAUMA_RESILIENCE_BASIC 1      //! Curable with chems
 #define TRAUMA_RESILIENCE_SURGERY 2    //! Curable with brain recalibration
 #define TRAUMA_RESILIENCE_LOBOTOMY 3   //! Curable with lobotomy
-#define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
-#define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
+#define TRAUMA_RESILIENCE_WOUND 4      //Curable by healing the head wound
+#define TRAUMA_RESILIENCE_MAGIC 5      //Curable only with magic
+#define TRAUMA_RESILIENCE_ABSOLUTE 6   //This is here to stay
 
 GLOBAL_LIST_INIT(available_random_trauma_list, list(
 	"spiders" = 5,
@@ -198,6 +199,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2
+#define TRAUMA_LIMIT_WOUND 2
 #define TRAUMA_LIMIT_LOBOTOMY 3
 #define TRAUMA_LIMIT_MAGIC 3
 #define TRAUMA_LIMIT_ABSOLUTE INFINITY
@@ -425,6 +427,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
 #define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
 #define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_TIME	1 SECONDS
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 

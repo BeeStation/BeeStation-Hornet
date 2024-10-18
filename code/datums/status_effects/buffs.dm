@@ -345,6 +345,10 @@
 	owner.adjustOxyLoss(-5, FALSE, TRUE)
 	//Heals 0.5 cloneloss per second for a total of 15
 	owner.adjustCloneLoss(-0.5, TRUE, TRUE)
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	QDEL_LIST(C.all_scars)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
