@@ -98,6 +98,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = "o2"
 
+	///What anim to use for dusting
+	var/dust_anim = "dust-h"
+	///What anim to use for gibbing
+	var/gib_anim = "gibbed-h"
+
 	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
 	//List is called in health analyzer and displays all missing organs
 	var/list/required_organs = list()
@@ -155,6 +160,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
+
+	///List of results you get from knife-butchering. null means you cant butcher it. Associated by resulting type - value of amount
+	var/list/knife_butcher_results
 
 ///////////
 // PROCS //
@@ -839,7 +847,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(mutant_bodyparts["tail_human"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
-
 
 	if(mutant_bodyparts["waggingtail_human"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
@@ -1647,6 +1654,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
 			if(ATTACK_EFFECT_SMASH)
 				user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+			if(ATTACK_EFFECT_BITE)
+				if(user.is_mouth_covered(FALSE, TRUE))
+					to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+					return FALSE
+				user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
@@ -2939,3 +2951,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //Use this to return dynamic heights, such as making felinids shorter on halloween or something
 /datum/species/proc/get_species_height()
 	return species_height
+
+/datum/species/proc/get_species_height_map()
+	return icon('icons/effects/64x64.dmi', "height_displacement")
+
+///Species override for unarmed attacks because the attack_hand proc was made by a mouth-breathing troglodyte on a tricycle. Also to whoever thought it would be a good idea to make it so the original spec_unarmedattack was not actually linked to unarmed attack needs to be checked by a doctor because they clearly have a vast empty space in their head.
+/datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target)
+	return FALSE
