@@ -836,6 +836,26 @@
 	..()
 	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "big_plush")
 
+/obj/item/toy/plush/shark/pink
+	name = "pink shark plushie"
+	desc = "A big plushie depicting a rather cartoonish, yet cute shark. Smells like strawberries."
+	icon_state = "pinkswedishsharkplush"
+
+/obj/item/toy/plush/shark/purple
+	name = "purple shark plushie"
+	desc = "A big plushie depicting a rather cartoonish, yet cute shark. Tastes like grape."
+	icon_state = "purpleswedishsharkplush"
+
+/obj/item/toy/plush/shark/red
+	name = "red shark plushie"
+	desc = "A big plushie depicting a rather cartoonish, yet cute shark. Is that blood?"
+	icon_state = "redswedishsharkplush"
+
+/obj/item/toy/plush/shark/green
+	name = "pink shark plushie"
+	desc = "A big plushie depicting a rather cartoonish, yet cute shark. Has fur that feels like moss."
+	icon_state = "greenswedishsharkplush"
+
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"
 	desc = "Hgrgrhrhg cuter."
@@ -888,6 +908,10 @@
 		/obj/item/toy/plush/moth/whitefly,
 		/obj/item/toy/plush/moth/witchwing,
 		/obj/item/toy/plush/shark,
+		/obj/item/toy/plush/shark/pink,
+		/obj/item/toy/plush/shark/green,
+		/obj/item/toy/plush/shark/purple,
+		/obj/item/toy/plush/shark/red,
 	)
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
