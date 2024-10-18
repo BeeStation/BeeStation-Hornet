@@ -8647,28 +8647,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
-"eeU" = (
-/obj/structure/closet/secure_closet/detective,
-/obj/item/storage/box/evidence{
-	pixel_y = 5
-	},
-/obj/item/flashlight/seclite,
-/obj/item/restraints/handcuffs,
-/obj/item/taperecorder,
-/obj/machinery/requests_console{
-	department = "Detective's office";
-	name = "Detective RC";
-	pixel_y = 30
-	},
-/obj/item/camera/detective,
-/obj/machinery/camera/directional/north,
-/obj/item/holosign_creator/security,
-/obj/machinery/computer/security/telescreen/station{
-	dir = 8;
-	pixel_x = 32
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "efa" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -10503,57 +10481,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/research)
-"eYP" = (
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light_switch{
-	pixel_x = 6;
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera/autoname/directional/south{
-	network = list("aiupload")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light_switch{
-	pixel_x = 6;
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera/directional/south,
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "eYZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15828,6 +15755,28 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"hDU" = (
+/obj/structure/closet/secure_closet/detective,
+/obj/item/storage/box/evidence{
+	pixel_y = 5
+	},
+/obj/item/flashlight/seclite,
+/obj/item/restraints/handcuffs,
+/obj/item/taperecorder,
+/obj/machinery/requests_console{
+	department = "Detective's office";
+	name = "Detective RC";
+	pixel_y = 30
+	},
+/obj/item/camera/detective,
+/obj/machinery/camera/directional/north,
+/obj/item/holosign_creator/security,
+/obj/machinery/computer/security/telescreen/station{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "hDY" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -25086,26 +25035,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"mqF" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/vending/wallmed{
-	pixel_x = -32
-	},
-/obj/machinery/camera/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2,
-/turf/open/floor/iron/grid/steel,
-/area/medical/medbay/central)
 "mqS" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -31755,6 +31684,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
+"pGC" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/vending/wallmed{
+	pixel_x = -32
+	},
+/obj/machinery/camera/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2,
+/turf/open/floor/iron/grid/steel,
+/area/medical/medbay/central)
 "pHp" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -32579,6 +32528,30 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/captain)
+"qbo" = (
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 4;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	obj_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light_switch{
+	pixel_x = 6;
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera/directional/south,
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "qbw" = (
 /obj/structure/lattice/catwalk/over,
 /obj/item/wirecutters{
@@ -41307,6 +41280,32 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
+"uwJ" = (
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 8;
+	icon_state = "leftsecure";
+	name = "Primary AI Core Access";
+	obj_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI Core Shutter"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai";
+	icon_state = "control_stun";
+	name = "AI Chamber turret control";
+	pixel_x = -1;
+	pixel_y = 29
+	},
+/turf/open/floor/engine,
+/area/ai_monitored/turret_protected/ai)
 "uwN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -43153,32 +43152,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
-"voq" = (
-/obj/machinery/door/window{
-	base_state = "leftsecure";
-	dir = 8;
-	icon_state = "leftsecure";
-	name = "Primary AI Core Access";
-	atom_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
-	icon_state = "control_stun";
-	name = "AI Chamber turret control";
-	pixel_x = -1;
-	pixel_y = 29
-	},
-/turf/open/floor/engine,
-/area/ai_monitored/turret_protected/ai)
 "vou" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/disposalpipe/segment,
@@ -125958,7 +125931,7 @@ rSE
 bDD
 fWF
 ttY
-mqF
+pGC
 sAD
 jLG
 xPe
@@ -128036,7 +128009,7 @@ aoM
 pHI
 aoM
 oEl
-eeU
+hDU
 lii
 xlw
 oEl
@@ -194571,7 +194544,7 @@ fdh
 hbs
 aEi
 aEi
-voq
+uwJ
 aEi
 ceR
 gMP
@@ -195085,7 +195058,7 @@ fdh
 fdh
 aEi
 aEi
-eYP
+qbo
 aEi
 aYp
 fHo
