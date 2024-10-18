@@ -707,6 +707,7 @@
 		/obj/item/lightreplacer,
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
+		/obj/item/reagent_containers/glass/bucket,
 		/obj/item/soap,
 		/obj/item/holosign_creator/janibarrier,
 		/obj/item/forcefield_projector,
@@ -724,6 +725,7 @@
 	new /obj/item/soap/nanotrasen(src)
 	new /obj/item/holosign_creator/janibarrier(src)
 	new /obj/item/melee/flyswatter(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
