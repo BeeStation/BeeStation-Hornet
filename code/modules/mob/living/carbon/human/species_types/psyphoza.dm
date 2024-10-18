@@ -193,14 +193,9 @@
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
-/datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
-	if(has_cooldown_timer)
-		return FALSE
-	return ..()
-
-/datum/action/item_action/organ_action/psychic_highlight/Trigger()
+/datum/action/item_action/organ_action/psychic_highlight/Trigger(trigger_flags)
 	. = ..()
-	if(has_cooldown_timer || !owner || !check_head())
+	if(!owner || !check_head())
 		return
 	//Reveal larger area of sense
 	dim_overlay()
@@ -209,14 +204,8 @@
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
-	has_cooldown_timer = TRUE
-	UpdateButtonIcon()
-	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
-
-/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
-	. = ..()
-	if(!IsAvailable())
-		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
+	UpdateButtons()
+	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")
@@ -237,8 +226,7 @@
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
-	has_cooldown_timer = FALSE
-	UpdateButtonIcon()
+	UpdateButtons()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -432,7 +420,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/Trigger()
+/datum/action/change_psychic_visual/Trigger(trigger_flags)
 	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
@@ -461,10 +449,10 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/Trigger()
+/datum/action/change_psychic_auto/Trigger(trigger_flags)
 	. = ..()
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/change_psychic_auto/IsAvailable()
 	. = ..()
@@ -497,7 +485,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/Trigger()
+/datum/action/change_psychic_texture/Trigger(trigger_flags)
 	. = ..()
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()

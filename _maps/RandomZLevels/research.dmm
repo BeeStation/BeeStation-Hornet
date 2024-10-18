@@ -2264,7 +2264,6 @@
 /area/space/nearstation)
 "nb" = (
 /obj/structure/table/wood,
-/obj/item/book/granter/spell/random,
 /turf/open/floor/mineral/plasma,
 /area/space/nearstation)
 "nc" = (
@@ -4532,6 +4531,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"VX" = (
+/obj/structure/table/wood,
+/obj/item/book/granter/action/spell/random,
+/turf/open/floor/mineral/plasma,
+/area/space/nearstation)
 "Wi" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
@@ -9305,7 +9309,7 @@ ab
 ab
 na
 nb
-nb
+VX
 nb
 na
 ab
