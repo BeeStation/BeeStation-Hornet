@@ -222,39 +222,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/arrow //1 metal sheet = 2 rods= 2 arrows
-	name = "Arrow"
-	result = /obj/item/ammo_casing/caseless/arrow/wood
-	time = 3 SECONDS
-	reqs = list(
-		/obj/item/stack/sheet/wood = 1,
-		/obj/item/stack/sheet/silk = 1,
-		/obj/item/stack/rods = 1
-	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/bone_arrow
-	name = "Bone Arrow"
-	result = /obj/item/ammo_casing/caseless/arrow/bone
-	time = 3 SECONDS
-	reqs = list(
-		/obj/item/stack/sheet/bone = 1,
-		/obj/item/stack/sheet/sinew = 1,
-		/obj/item/ammo_casing/caseless/arrow/ash = 1
-	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/ashen_arrow
-	name = "Ashen arrow"
-	result = /obj/item/ammo_casing/caseless/arrow/ash
-	tools = list(TOOL_WELDER)
-	time = 3 SECONDS
-	reqs = list(/obj/item/ammo_casing/caseless/arrow/wood = 1)
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/bronze_arrow
 	name = "Bronze arrow"
 	result = /obj/item/ammo_casing/caseless/arrow/bronze
