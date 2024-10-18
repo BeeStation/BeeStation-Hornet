@@ -32,6 +32,7 @@
 		"Security" = /obj/machinery/door/airlock/security,
 		"Command" = /obj/machinery/door/airlock/command,
 		"Medical" = /obj/machinery/door/airlock/medical,
+		"Chemistry" = /obj/machinery/door/airlock/chemistry,
 		"Research" = /obj/machinery/door/airlock/research,
 		"Freezer" = /obj/machinery/door/airlock/freezer,
 		"Science" = /obj/machinery/door/airlock/science,

@@ -421,6 +421,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		"Security" = get_airlock_image(/obj/machinery/door/airlock/security),
 		"Command" = get_airlock_image(/obj/machinery/door/airlock/command),
 		"Medical" = get_airlock_image(/obj/machinery/door/airlock/medical),
+		"Chemistry" = get_airlock_image(/obj/machinery/door/airlock/chemistry),
 		"Research" = get_airlock_image(/obj/machinery/door/airlock/research),
 		"Freezer" = get_airlock_image(/obj/machinery/door/airlock/freezer),
 		"Science" = get_airlock_image(/obj/machinery/door/airlock/science),
@@ -441,6 +442,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		"Security" = get_airlock_image(/obj/machinery/door/airlock/security/glass),
 		"Command" = get_airlock_image(/obj/machinery/door/airlock/command/glass),
 		"Medical" = get_airlock_image(/obj/machinery/door/airlock/medical/glass),
+		"Medical" = get_airlock_image(/obj/machinery/door/airlock/chemistry/glass),
 		"Research" = get_airlock_image(/obj/machinery/door/airlock/research/glass),
 		"Science" = get_airlock_image(/obj/machinery/door/airlock/science/glass),
 		"Virology" = get_airlock_image(/obj/machinery/door/airlock/virology/glass),
@@ -474,6 +476,8 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 						airlock_type = /obj/machinery/door/airlock/command
 					if("Medical")
 						airlock_type = /obj/machinery/door/airlock/medical
+					if("Chemistry")
+						airlock_type = /obj/machinery/door/airlock/chemistry
 					if("Research")
 						airlock_type = /obj/machinery/door/airlock/research
 					if("Freezer")
@@ -519,6 +523,8 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 						airlock_type = /obj/machinery/door/airlock/command/glass
 					if("Medical")
 						airlock_type = /obj/machinery/door/airlock/medical/glass
+					if("Chemistry")
+						airlock_type = /obj/machinery/door/airlock/chemistry/glass
 					if("Research")
 						airlock_type = /obj/machinery/door/airlock/research/glass
 					if("Science")
