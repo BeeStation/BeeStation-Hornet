@@ -27,6 +27,8 @@
  * Requests some telemetry from the client.
  */
 /datum/tgui_panel/proc/request_telemetry()
+	// Assumes that this does not sleep inside of initialisation of TGUI panel
+	SHOULD_NOT_SLEEP(TRUE)
 	telemetry_requested_at = world.time
 	telemetry_analyzed_at = null
 	telemetry_status = TGUI_TELEMETRY_STAT_AWAITING

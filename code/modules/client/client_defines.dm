@@ -133,3 +133,8 @@
 
 	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
 	var/datum/weakref/eye_weakref
+
+	/// Personal lobby music, if they decided to skip the global one
+	var/datum/playing_track/personal_lobby_music
+	/// The index of the song that we are currently on
+	var/personal_lobby_music_index
