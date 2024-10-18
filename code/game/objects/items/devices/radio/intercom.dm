@@ -14,6 +14,14 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 
+/obj/item/radio/intercom/syndicate
+	name = "Syndicate Intercom"
+	freqlock = TRUE
+
+/obj/item/radio/intercom/syndicate/Initialize(mapload)
+	. = ..()
+	set_frequency(FREQ_SYNDICATE, FALSE)
+
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()
 	var/area/current_area = get_area(src)
