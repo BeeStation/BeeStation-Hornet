@@ -25,6 +25,15 @@ ALTER TABLE `SS13_characters`
 
 -----------------------------------------------------
 
+Version 7.3, 15 September 2024, by Rkz
+Set default client fps 60
+
+UPDATE `SS13_preferences` SET `preference_value` = "-1" WHERE `preference_tag` = "clientfps" AND `preference_value` = "40"
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+
 Version 7.2, 20 December 2023, by that0neperson and Absolucy
 Added customization for quirks.
 

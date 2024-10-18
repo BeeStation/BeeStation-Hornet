@@ -81,7 +81,8 @@
 	var/mob/camera/ai_eye/eyeobj
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
+	//Default value of camera acceleration
+	var/acceleration = 0
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
