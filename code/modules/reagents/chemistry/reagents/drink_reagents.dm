@@ -461,7 +461,8 @@
 	M.drowsyness = 0
 	M.AdjustSleeping(-40)
 	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
-	M.radiation += 4
+	if (SSradiation.can_irradiate_basic(M))
+		M.AddComponent(/datum/component/irradiated)
 	..()
 	. = 1
 

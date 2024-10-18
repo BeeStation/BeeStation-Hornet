@@ -33,7 +33,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 10)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0,  FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 10)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -133,13 +133,11 @@
 	cooldown_message = "<span class='danger'>The reactive teleport system is still recharging! It fails to activate!</span>"
 	reactivearmor_cooldown_duration = 10 SECONDS
 	var/tele_range = 6
-	var/rad_amount= 15
 
 /obj/item/clothing/suit/armor/reactive/teleport/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>The reactive teleport system flings [owner] clear of [attack_text], shutting itself off in the process!</span>")
 	playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
-	owner.rad_act(rad_amount)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/teleport/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -148,7 +146,6 @@
 	playsound(get_turf(owner), 'sound/machines/buzz-sigh.ogg', 50, 1)
 	playsound(get_turf(owner), 'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = src, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
-	owner.rad_act(rad_amount)
 	return FALSE //you didn't actually evade the attack now did you
 
 //Fire
@@ -232,9 +229,9 @@
 	siemens_coefficient = -1
 	cooldown_message = "<span class='danger'>The tesla capacitors on the reactive tesla armor are still recharging! The armor merely emits some sparks.</span>"
 	emp_message = "<span class='warning'>The tesla capacitors beep ominously for a moment.</span>"
-	var/tesla_power = 25000
-	var/tesla_range = 20
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
+	var/zap_power = 25000
+	var/zap_range = 20
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 
 /obj/item/clothing/suit/armor/reactive/tesla/dropped(mob/user)
 	..()
@@ -254,7 +251,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
-	tesla_zap(owner, tesla_range, tesla_power, tesla_flags)
+	tesla_zap(owner, zap_range, zap_power, zap_flags)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)

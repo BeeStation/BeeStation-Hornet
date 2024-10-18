@@ -96,7 +96,6 @@
 			tab_data["Toxin Levels"] = GENERATE_STAT_TEXT("[getToxLoss()]")
 			tab_data["Burn Severity"] = GENERATE_STAT_TEXT("[getFireLoss()]")
 			tab_data["Brute Trauma"] = GENERATE_STAT_TEXT("[getBruteLoss()]")
-			tab_data["Radiation Levels"] = GENERATE_STAT_TEXT("[radiation] rad")
 			tab_data["Body Temperature"] = GENERATE_STAT_TEXT("[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
 
 			//Diseases
@@ -549,7 +548,6 @@
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	rad_act(current_size * 3)
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
 
