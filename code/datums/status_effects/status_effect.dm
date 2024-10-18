@@ -12,6 +12,10 @@
 	var/examine_text //If defined, this text will appear when the mob is examined - to use he, she etc. use "SUBJECTPRONOUN" and replace it in the examines themselves
 	var/alert_type = /atom/movable/screen/alert/status_effect //the alert thrown by the status effect, contains name and description
 	var/atom/movable/screen/alert/status_effect/linked_alert = null //the alert itself, if it exists
+	/// While enabled, the duration of the status effect will show alongside the icon.
+	/// Regardless of what this value is set to, duration will not display if a linked alert is not set
+	var/show_duration = TRUE
+	var/last_shown_duration = 0
 
 /datum/status_effect/New(list/arguments)
 	on_creation(arglist(arguments))
@@ -31,6 +35,7 @@
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
+	update_icon()
 	if(duration > 0 || initial(tick_interval) > 0) //don't process if we don't care
 		START_PROCESSING(SSfastprocess, src)
 	return TRUE
@@ -49,9 +54,13 @@
 	if(!owner)
 		qdel(src)
 		return
+	var/needs_update = last_shown_duration != CEILING((duration - world.time) / 10, 1)
 	if(tick_interval < world.time)
 		tick()
 		tick_interval = world.time + initial(tick_interval)
+		needs_update = TRUE
+	if (needs_update)
+		update_icon()
 	if(duration != -1 && duration < world.time)
 		qdel(src)
 
@@ -88,6 +97,12 @@
 /datum/status_effect/proc/nextmove_adjust()
 	return 0
 
+/datum/status_effect/proc/update_icon()
+	if (!linked_alert || !show_duration || duration <= 0)
+		return
+	last_shown_duration = CEILING((duration - world.time) / 10, 1)
+	linked_alert.maptext = MAPTEXT("[last_shown_duration]s")
+
 ////////////////
 // ALERT HOOK //
 ////////////////
@@ -118,6 +133,7 @@
 				return
 			else if (S.status_type == STATUS_EFFECT_MERGE)
 				S.merge(arglist(args.Copy(2)))
+				S.update_icon()
 				return
 			else
 				return
