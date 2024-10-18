@@ -109,12 +109,11 @@
 /datum/quirk/monochromatic/remove()
 	quirk_target.remove_client_colour(/datum/client_colour/monochrome)
 
-/datum/quirk/mute
-	name = "Mute"
-	desc = "You are unable to speak."
-	icon = "volume-mute"
+/datum/quirk/linguist
+	name = "Linguist"
+	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
+	icon = "language"
 	value = 0
-	mob_trait = TRAIT_MUTE
-	gain_text = "<span class='danger'>You feel unable to talk.</span>"
-	lose_text = "<span class='notice'>You feel able to talk again.</span>"
-	medical_record_text = "Patient is unable to speak."
+	mob_trait = TRAIT_LINGUIST
+	gain_text = "<span class='notice'>You can recognise the linguistic features of every language.</span>"
+	lose_text = "<span class='danger'>You can no longer recognise linguistic features for each language.</span>"
