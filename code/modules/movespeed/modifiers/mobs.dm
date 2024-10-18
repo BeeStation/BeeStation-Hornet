@@ -83,6 +83,7 @@
 /datum/movespeed_modifier/limbless
 	variable = TRUE
 	movetypes = GROUND
+	blacklisted_movetypes = FLOATING|FLYING
 	flags = IGNORE_NOSLOW
 
 /datum/movespeed_modifier/simplemob_varspeed
