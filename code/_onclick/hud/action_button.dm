@@ -221,9 +221,7 @@
 	var/list/ui_segments = splittext(ui_icon, ".")
 	var/list/ui_paths = splittext(ui_segments[1], "/")
 	var/ui_name = ui_paths[length(ui_paths)]
-
 	icon_state = "[ui_name]_palette"
-
 
 /atom/movable/screen/button_palette/MouseEntered(location, control, params)
 	. = ..()
@@ -329,7 +327,6 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	var/mob/viewer = our_hud.mymob
 	if(viewer.client)
 		viewer.client.screen |= src
-
 	var/list/settings = our_hud.get_action_buttons_icons()
 	icon = settings["bg_icon"]
 
