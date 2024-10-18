@@ -462,12 +462,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
-"bN" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned/bar)
 "bO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -672,20 +666,6 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
-"cs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/portable_thermomachine,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/abandoned/engine)
 "ct" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -1378,6 +1358,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bridge)
+"hy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/machinery/portable_thermomachine,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/shuttle/abandoned/engine)
 "hz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/firealarm{
@@ -1964,6 +1958,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
+"EB" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned/bar)
 "FY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/white/corners{
@@ -2350,7 +2350,7 @@ bP
 bV
 cc
 ck
-cs
+hy
 cB
 ai
 az
@@ -2744,7 +2744,7 @@ av
 ae
 Yz
 ae
-bN
+EB
 af
 aa
 aa
