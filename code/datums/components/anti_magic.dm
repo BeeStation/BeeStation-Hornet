@@ -81,8 +81,8 @@
 	UnregisterSignal(on_what, list(COMSIG_MOB_RECEIVE_MAGIC, COMSIG_MOB_RESTRICT_MAGIC))
 
 /datum/component/anti_magic/Destroy(force, silent)
-	QDEL_NULL(drain_antimagic)
-	QDEL_NULL(expiration)
+	drain_antimagic = 0
+	expiration = 0
 	if(ismob(parent)) //If the component is attached to an item, it should go through on_drop instead.
 		var/mob/user = parent
 		UnregisterSignal(user, COMSIG_MOB_RECEIVE_MAGIC)
