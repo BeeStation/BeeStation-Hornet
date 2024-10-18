@@ -335,7 +335,7 @@
 
 	var/obj/item/spellbook/S = locate() in H.held_items
 	if(S)
-		S.owner = H
+		S.owner = H.mind
 
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"
