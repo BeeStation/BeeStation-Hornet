@@ -62,8 +62,7 @@
 			F.burn_tile()
 		if(isfloorturf(F))
 			for(var/turf/open/turf in RANGE_TURFS(1,F))
-				if(!locate(/obj/effect/hotspot) in turf)
-					new /obj/effect/hotspot(F)
+				new /obj/effect/simple_fire(F, max(reac_volume / 9, 3))
 	if(iswallturf(T))
 		var/turf/closed/wall/W = T
 		if(prob(reac_volume))
@@ -74,8 +73,7 @@
 		if(method != INGEST && method != INJECT)
 			M.adjust_fire_stacks(min(reac_volume/5, 10))
 			M.IgniteMob()
-			if(!locate(/obj/effect/hotspot) in M.loc)
-				new /obj/effect/hotspot(M.loc)
+			new /obj/effect/simple_fire(M.loc, max(reac_volume / 9, 3))
 
 /datum/reagent/sorium
 	name = "Sorium"
@@ -317,6 +315,8 @@
 		else if(istype(F))
 			F.lifetime = initial(F.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
 
+	for (var/obj/effect/simple_fire/fire in T)
+		qdel(fire)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !isspaceturf(T))
 		if(T.air)

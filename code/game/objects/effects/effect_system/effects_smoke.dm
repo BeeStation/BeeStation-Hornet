@@ -179,6 +179,8 @@
 		T.air_update_turf()
 		for(var/obj/effect/hotspot/H in T)
 			qdel(H)
+		for(var/obj/effect/simple_fire/H in T)
+			qdel(H)
 		if(G.get_moles(GAS_PLASMA))
 			G.adjust_moles(GAS_N2, G.get_moles(GAS_PLASMA))
 			G.set_moles(GAS_PLASMA, 0)
