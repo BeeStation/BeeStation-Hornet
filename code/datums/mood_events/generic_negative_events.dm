@@ -165,10 +165,27 @@
 /datum/mood_event/sec_insulated_gloves
 	description = "<span class='warning'>I look like an Assistant...</span>"
 	mood_change = -1
+
 /datum/mood_event/burnt_wings
 	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!!</span>"
 	mood_change = -10
 	timeout = 10 MINUTES
+
+/datum/mood_event/soda_spill
+	description = "Cool! That's fine, I wanted to wear that soda, not drink it..."
+	mood_change = -2
+	timeout = 1 MINUTES
+
+/datum/mood_event/observed_soda_spill
+	description = "Ahaha! It's always funny to see someone get sprayed by a can of soda."
+	mood_change = 2
+	timeout = 30 SECONDS
+
+/datum/mood_event/observed_soda_spill/add_effects(mob/spilled_mob, atom/soda_can)
+	if(!spilled_mob)
+		return
+
+	description = "Ahaha! [spilled_mob] spilled [spilled_mob.p_their()] [soda_can ? soda_can.name : "soda"] all over [spilled_mob.p_them()]self! Classic."
 
 /datum/mood_event/feline_dysmorphia
 	description = "<span class='boldwarning'>I'm so ugly. I wish I was cuter!</span>"

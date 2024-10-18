@@ -362,7 +362,7 @@
 /area/security/detectives_office)
 "ir" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = 11;
 	pixel_y = -5
 	},
