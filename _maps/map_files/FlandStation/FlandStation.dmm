@@ -17846,9 +17846,9 @@
 	pixel_y = 31
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/item/key{
+/obj/item/key/atv{
 	desc = "A small grey key, whatever you do, whatever you are thinking of, no, this is the wrong place (or universe if that matters) to look for a use for this key.";
-	name = "Irridium key"
+	name = "Iridium key"
 	},
 /obj/machinery/door/window/westright{
 	dir = 2;
