@@ -35,6 +35,11 @@ MAP_REMOVE_JOB(virologist)
 	MAP_JOB_CHECK
 	spawn_positions = 1
 	total_positions = 1
+/datum/job/shaft_miner/New()
+	..()
+	MAP_JOB_CHECK
+	spawn_positions = 1
+	total_positions = 1
 
 //TODO: Convert this into a mapping config please
 /datum/controller/subsystem/mapping/Initialize()
