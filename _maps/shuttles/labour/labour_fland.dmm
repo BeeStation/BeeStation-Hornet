@@ -258,7 +258,7 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "U" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/labor)
 "V" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -275,7 +275,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "Z" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/labor)
 
 (1,1,1) = {"

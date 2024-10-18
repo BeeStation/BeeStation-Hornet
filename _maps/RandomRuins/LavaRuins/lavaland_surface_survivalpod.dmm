@@ -12,7 +12,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "d" = (
-/turf/closed/wall/mineral/titanium/survival/pod,
+/turf/closed/wall/mineral/plastic/pod,
 /area/ruin/powered)
 "e" = (
 /obj/structure/sign/mining/survival{
