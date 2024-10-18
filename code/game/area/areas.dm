@@ -64,7 +64,8 @@
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
 	var/teleport_restriction = TELEPORT_ALLOW_ALL
 
-	var/parallax_movedir = 0
+	/// used to record parallax data for players visual supprt. It's given on shuttle transit.
+	var/datum/hyper_parallax_data/hyper_parallax_data
 
 	var/ambience_index = AMBIENCE_GENERIC
 	///Regular
