@@ -26,6 +26,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)
  * the component, so delete itself.
  */
 /obj/item/implant/uplink/proc/_component_removal(datum/source, datum/component/component)
+	SIGNAL_HANDLER
 	if(istype(component, /datum/component/uplink))
 		qdel(src)
 

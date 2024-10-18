@@ -19,7 +19,6 @@
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"
-#include "outfit_sanity.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
 /*
@@ -45,6 +44,7 @@
 #include "metabolizing.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
+#include "outfit_sanity.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"
