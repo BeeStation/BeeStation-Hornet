@@ -29,7 +29,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/airalarm/directional/east{
 	req_access = null;
 	req_access_txt = "181"
