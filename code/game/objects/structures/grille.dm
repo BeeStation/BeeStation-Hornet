@@ -288,7 +288,7 @@
 		rods_amount = 1
 		rods_broken = FALSE
 		var/drop_loc = drop_location()
-		var/obj/R = new rods_type(drop_loc, rods_broken)
+		var/obj/R = new rods_type(drop_loc, rods_amount)
 		if(QDELETED(R)) // the rods merged with something on the tile
 			R = locate(rods_type) in drop_loc
 		if(R)
