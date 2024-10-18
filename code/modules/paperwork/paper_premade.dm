@@ -135,3 +135,9 @@
 	<br>\
 	<p>signed: <strong><em>Kevin Firewind</em></strong></p>\
 	<p>Glory to Nanotrasen</p>"
+
+//////////// Pirate 1728
+/obj/item/paper/fluff/stations/pirate_1782
+	name = "ammo home brewery"
+	default_raw_text = "<p>Dont forget to make some ammo, left a bunch of shit in the nearby crate.</p>"
+
