@@ -29,7 +29,7 @@
 				var/mob/M = A
 				if(magic)
 					antimagic_flag |= MAGIC_RESISTANCE
-				if(M.anti_magic_check(antimagic_flag))
+				if(M.can_block_magic(antimagic_flag))
 					continue
 			empulse_atoms += A
 		empulse_atoms += T

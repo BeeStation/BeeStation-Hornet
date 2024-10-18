@@ -22,7 +22,7 @@
 	. = ..()
 	var/mob/M = target
 	if(istype(M))
-		if(M.anti_magic_check())
+		if(M.can_block_magic())
 			return BULLET_ACT_BLOCK
 
 // Mime

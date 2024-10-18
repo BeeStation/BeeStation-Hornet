@@ -112,7 +112,7 @@
 				reveal(46)
 				stun(46)
 				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray.</span>")
-				if(target.anti_magic_check(MAGIC_RESISTANCE_HOLY))
+				if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 					to_chat(src, "<span class='revenminor'>Something's wrong! [target] seems to be resisting the siphoning, leaving you vulnerable!</span>")
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
 											   "<span class='revenwarning'>Violet lights, dancing in your vision, receding--</span>")
@@ -291,7 +291,7 @@
 		if(human_mob == caster)
 			continue
 		to_shock.Beam(human_mob, icon_state = "purple_lightning", time = 0.5 SECONDS)
-		if(!human_mob.anti_magic_check(MAGIC_RESISTANCE_HOLY))
+		if(!human_mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			human_mob.electrocute_act(shock_damage, to_shock, flags = SHOCK_NOGLOVES)
 
 		do_sparks(4, FALSE, human_mob)
@@ -370,7 +370,7 @@
 	for(var/mob/living/carbon/human/human in victim)
 		if(human == caster)
 			continue
-		if(human.anti_magic_check(MAGIC_RESISTANCE_HOLY))
+		if(human.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			continue
 		to_chat(human, ("<span class='revenwarning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
 		new /obj/effect/temp_visual/revenant(human.loc)
@@ -405,7 +405,7 @@
 	for(var/mob/living/mob in victim)
 		if(mob == caster)
 			continue
-		if(mob.anti_magic_check(MAGIC_RESISTANCE_HOLY))
+		if(mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			to_chat(caster, ("<span class='warning'>The spell had no effect on [mob]!</span>"))
 			continue
 		new /obj/effect/temp_visual/revenant(mob.loc)

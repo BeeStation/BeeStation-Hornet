@@ -84,7 +84,7 @@
 		return
 	return ..()
 /obj/effect/immovablerod/wizard/penetrate(mob/living/penetrated)
-	if(penetrated.anti_magic_check())
+	if(penetrated.can_block_magic())
 		penetrated.visible_message(
 			("<span class='danger'>[src] hits [penetrated], but it bounces back, then vanishes!</span>"),
 			("<span class='userdanger'>[src] hits you... but it bounces back, then vanishes!</span>"),

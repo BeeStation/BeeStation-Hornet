@@ -162,7 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/L)
 	frozen_mobs += L
-	if(L.anti_magic_check(check_anti_magic))
+	if(L.can_block_magic(check_anti_magic))
 		immune += L
 		return
 	L.Stun(20, ignore_canstun = TRUE)

@@ -38,7 +38,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/forcefield)
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
-		if(living_mover.anti_magic_check())
+		if(living_mover.can_block_magic(antimagic_flags))
 			return TRUE
 
 	return ..()

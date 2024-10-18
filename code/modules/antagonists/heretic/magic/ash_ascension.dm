@@ -141,7 +141,7 @@
 		if(istype(T, /turf/closed))
 			break
 		for(var/mob/living/L in T.contents)
-			if(L.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+			if(L.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 				L.visible_message(("<span class='danger'>The spell bounces off of [L]!</span>"), ("<span class='danger'>The spell bounces off of you!</span>"))
 				continue
 			if((L in hit_list) || L == source)

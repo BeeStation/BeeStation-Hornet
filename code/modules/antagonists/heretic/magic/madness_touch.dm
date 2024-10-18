@@ -20,7 +20,7 @@
 	if(!human_victim.mind || IS_HERETIC(human_victim))
 		return FALSE
 
-	if(human_victim.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	if(human_victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 		victim.visible_message(
 			("<span class='danger'>The spell bounces off of [victim]!</span>"),
 			("<span class='danger'>The spell bounces off of you!</span>"),

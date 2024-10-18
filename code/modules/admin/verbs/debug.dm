@@ -927,16 +927,106 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].</span>")
 	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
-/*
-/client/proc/give_all_spells()
-	set category = "Debug"
-	set name = "Give all spells"
+
+
+/client/proc/give_all_spells_touch()
+	set category = "Debug Spell"
+	set name = "Give all touch spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for(var/type in GLOB.spells)
-		var/obj/effect/proc_holder/spell/spell = new type
-		mob.AddSpell(spell)
-*/
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/touch))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_aoe()
+	set category = "Debug Spell"
+	set name = "Give all aoe spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/aoe))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_cone()
+	set category = "Debug Spell"
+	set name = "Give all cone spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/cone))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_conjure()
+	set category = "Debug Spell"
+	set name = "Give all conjure spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/conjure))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_conjure_item()
+	set category = "Debug Spell"
+	set name = "Give all conjure item spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/conjure_item))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_jaunt()
+	set category = "Debug Spell"
+	set name = "Give all jaunt spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/jaunt))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_list_targets()
+	set category = "Debug Spell"
+	set name = "Give all list targets spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/list_target))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_pointed()
+	set category = "Debug Spell"
+	set name = "Give all painted spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/pointed))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_projectile()
+	set category = "Debug Spell"
+	set name = "Give all projectile spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/basic_projectile))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_shapeshift()
+	set category = "Debug Spell"
+	set name = "Give all shapeshift spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/shapeshift))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_teleport()
+	set category = "Debug Spell"
+	set name = "Give all teleport spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/teleport))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/remove_all_spells()
+	set category = "Debug"
+	set name = "Remove all spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/cooldown/spell/power as anything in mob.actions)
+		if(istype(power, /datum/action/cooldown/spell))
+			power.Remove(mob)
+
+
 /// A debug verb to check the sources of currently running timers
 /client/proc/check_timer_sources()
 	set category = "Debug"

@@ -10,7 +10,6 @@
 	flags_1 =  CONDUCT_1
 	w_class = WEIGHT_CLASS_HUGE
 	var/antimagic_flags = MAGIC_RESISTANCE
-	var/checks_antimagic = TRUE
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 8
@@ -44,7 +43,7 @@
 			return
 		else
 			no_den_usage = 0
-	if(checks_antimagic && user.anti_magic_check(antimagic_flags))
+	if(user.can_block_magic(antimagic_flags))
 		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>Something is interfering with [src].</span>")
 		return

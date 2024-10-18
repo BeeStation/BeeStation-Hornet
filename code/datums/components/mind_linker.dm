@@ -186,7 +186,7 @@
 /datum/component/mind_linker/active_linking/link_mob(mob/living/to_link)
 	if(HAS_TRAIT(to_link, TRAIT_MINDSHIELD))
 		return FALSE
-	if(to_link.anti_magic_check())
+	if(to_link.can_block_magic())
 		return FALSE
 
 	. = ..()

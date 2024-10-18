@@ -26,7 +26,7 @@
 		var/mob/living/L = clicked_on
 		if(is_servant_of_ratvar(L) || L.stat)
 			return BULLET_ACT_HIT
-		var/atom/O = L.anti_magic_check(MAGIC_RESISTANCE_HOLY)
+		var/atom/O = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		playsound(L, 'sound/magic/fireball.ogg', 50, TRUE, frequency = 1.25)
 		if(O)
 			if(isitem(O))

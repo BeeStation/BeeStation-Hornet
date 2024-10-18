@@ -404,7 +404,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
 
-		var/anti_magic_source = L.anti_magic_check(MAGIC_RESISTANCE_HOLY)
+		var/anti_magic_source = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		if(anti_magic_source)
 
 			L.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)

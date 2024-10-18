@@ -25,7 +25,7 @@
 /datum/action/cooldown/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
 	playsound(owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(cast_on.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	if(cast_on.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 		owner.balloon_alert(owner, "spell blocked!")
 		cast_on.visible_message(
 			("<span class='danger'>The spell bounces off of [cast_on]!</span>"),

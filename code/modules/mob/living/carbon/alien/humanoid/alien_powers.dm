@@ -134,7 +134,7 @@ Doesn't work on other aliens/AI.*/
 	var/to_whisper = tgui_input_text(owner, title = "Alien Whisper")
 	if(QDELETED(chosen_recipient) || QDELETED(src) || QDELETED(owner) || !IsAvailable() || !to_whisper)
 		return FALSE
-	if(chosen_recipient.anti_magic_check())
+	if(chosen_recipient.can_block_magic())
 		to_chat(owner, ("<span class='warning'>As you reach into [chosen_recipient]'s mind, you are stopped by a mental blockage. It seems you've been foiled.</span>"))
 		return FALSE
 

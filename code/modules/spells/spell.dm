@@ -165,7 +165,7 @@
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
-	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && owner.anti_magic_check(antimagic_flags))
+	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && owner.can_block_magic(antimagic_flags))
 		if(feedback)
 			to_chat(owner, ("<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>"))
 		return FALSE

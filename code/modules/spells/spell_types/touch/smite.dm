@@ -25,7 +25,7 @@
 		nearby_spectator.flash_act(affect_silicon = FALSE)
 
 	var/mob/living/living_victim = victim
-	if(living_victim.anti_magic_check())
+	if(living_victim.can_block_magic(antimagic_flags))
 		caster.visible_message(
 			("<span class='warning'>The feedback blows [caster]'s arm off!</span>"),
 			("<span class='userdanger'>The spell bounces from [living_victim]'s skin back into your arm!</span>"),

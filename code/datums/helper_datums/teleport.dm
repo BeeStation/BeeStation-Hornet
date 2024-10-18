@@ -37,9 +37,9 @@
 	// Checks antimagic
 	if(ismob(teleatom))
 		var/mob/tele_mob = teleatom
-		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.anti_magic_check())
+		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.can_block_magic())
 			return FALSE
-		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.anti_magic_check())
+		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.can_block_magic())
 			return FALSE
 
 	// Check for NO_TELEPORT restrictions

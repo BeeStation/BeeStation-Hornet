@@ -17,7 +17,7 @@
 		return FALSE
 
 	var/mob/living/living_victim = victim
-	if(living_victim.anti_magic_check())
+	if(living_victim.can_block_magic(antimagic_flags))
 		to_chat(caster, ("<span class='warning'>The spell can't seem to affect [victim]!</span>"))
 		to_chat(victim, ("<span class='warning'>You feel your flesh turn to stone for a moment, then revert back!</span>"))
 		return TRUE

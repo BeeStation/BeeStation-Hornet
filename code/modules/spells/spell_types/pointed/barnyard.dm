@@ -30,7 +30,7 @@
 
 /datum/action/cooldown/spell/pointed/barnyardcurse/cast(mob/living/carbon/human/cast_on)
 	. = ..()
-	if(cast_on.anti_magic_check())
+	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
 			("<span class='danger'>[cast_on]'s face bursts into flames, which instantly burst outward, leaving [cast_on.p_them()] unharmed!</span>"),
 			("<span class='danger'>Your face starts burning up, but the flames are repulsed by your anti-magic protection!</span>"),

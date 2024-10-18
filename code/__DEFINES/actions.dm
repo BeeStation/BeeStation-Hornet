@@ -43,3 +43,8 @@
 	var/datum/action/_ability = new typepath(src);\
 	_ability.Grant(src);\
 } while (FALSE)
+
+#define GRANT_ACTION_MOB(typepath, mob) do {\
+	var/datum/action/_ability = new typepath(mob);\
+	_ability.Grant(mob);\
+} while (FALSE)

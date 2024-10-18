@@ -29,7 +29,7 @@
 	for(var/mob/living/carbon/human/victim as anything in nearby)
 		if(victim == owner)
 			continue
-		if(victim.anti_magic_check(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+		if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 			victim.visible_message(
 				("<span class='danger'>[victim]'s flashes in a firey glow, but repels the blaze!</span>"),
 				("<span class='danger'>Your body begins to flash a firey glow, but you are protected!!</span>")

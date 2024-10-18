@@ -24,7 +24,7 @@
 		return FALSE
 
 	var/mob/living/living_hit = victim
-	if(living_hit.anti_magic_check())
+	if(living_hit.can_block_magic(antimagic_flags))
 		victim.visible_message(
 			("<span class='danger'>The spell bounces off of [victim]!</span>"),
 			("<span class='danger'>The spell bounces off of you!</span>"),
