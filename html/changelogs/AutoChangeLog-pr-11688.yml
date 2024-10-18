@@ -1,0 +1,4 @@
+author: ktlwjec
+delete-after: true
+changes:
+  - bugfix: Breaking grilles no longer drop invisible rods.
