@@ -29,7 +29,7 @@
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
 
 /datum/data/tachyon_record
-	name = "Log Recording"
+	var/name = "Log Recording"
 	var/timestamp
 	var/coordinates = ""
 	var/displacement = 0

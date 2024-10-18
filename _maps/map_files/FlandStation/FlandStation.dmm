@@ -1570,7 +1570,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "avJ" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/reagent_dispensers/peppertank{
@@ -4600,7 +4600,7 @@
 /turf/closed/wall,
 /area/space/nearstation)
 "bcd" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -6319,7 +6319,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "bAF" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -10794,7 +10794,7 @@
 /area/hallway/primary/fore)
 "cOM" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "cOP" = (
@@ -15399,7 +15399,7 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dZA" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -19703,7 +19703,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
 "fcb" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -23571,7 +23571,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "fYR" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -24857,7 +24857,7 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -27246,7 +27246,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "gUs" = (
 /obj/structure/window/reinforced,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -34608,7 +34608,7 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "iOM" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -36125,7 +36125,7 @@
 	},
 /area/hallway/primary/starboard)
 "jjA" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -42042,7 +42042,7 @@
 /turf/open/floor/iron,
 /area/storage/tools)
 "kKG" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -44686,7 +44686,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "lol" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/machinery/light,
@@ -45248,7 +45248,7 @@
 /area/library)
 "lvm" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/secure_data/laptop{
+/obj/machinery/computer/records/security/laptop{
 	pixel_y = 2
 	},
 /obj/item/paper/fluff{
@@ -46957,7 +46957,7 @@
 /area/crew_quarters/toilet/auxiliary)
 "lVc" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4;
 	pixel_x = 3;
 	pixel_y = 2
@@ -51687,7 +51687,7 @@
 /turf/open/floor/wood,
 /area/library)
 "njq" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/structure/noticeboard{
@@ -58026,7 +58026,7 @@
 /area/engine/atmos)
 "oWl" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/machinery/button/door{
 	id = "emmd";
 	name = "Emergency Medical Lockdown";
@@ -65772,7 +65772,7 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine)
 "qWx" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -68209,7 +68209,7 @@
 	c_tag = "Medbay - Auxiliary Fore Entrance";
 	name = "medbay camera"
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green/opposingcorners{
@@ -73134,7 +73134,7 @@
 /area/science/storage)
 "sOP" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4;
 	pixel_y = 5
 	},
@@ -74014,7 +74014,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "sZv" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -77241,7 +77241,7 @@
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
@@ -78069,7 +78069,7 @@
 	pixel_y = 29
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
 "ucJ" = (
@@ -80521,7 +80521,7 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -88869,7 +88869,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron,
 /area/security/checkpoint/supply)
