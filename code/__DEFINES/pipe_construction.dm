@@ -75,6 +75,13 @@
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
 
+/// Safe proc to remove a destination for /datum/map_adjustment.
+/proc/exclude_tagger_destination(name_to_remove)
+	GLOB.disabled_tagger_locations += name_to_remove
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	GLOB.tagger_destination_areas -= name_to_remove // unit test only
+#endif
+
 GLOBAL_LIST_INIT(disabled_tagger_locations, list())
 
 GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
