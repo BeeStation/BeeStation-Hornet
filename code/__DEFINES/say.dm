@@ -107,11 +107,23 @@
 //Used in visible_message_flags, audible_message_flags and message_mods
 #define CHATMESSAGE_EMOTE "emotemessage"
 
+/// By default, self_message will respect the visual / audible component of the message.
+/// Meaning that if the message is visual, and sourced from a blind mob, they will not see it.
+/// This flag skips that behavior, and will always show the self message to the mob.
+#define ALWAYS_SHOW_SELF_MESSAGE "showselfmessage"
+
 ///How far away blind people can see visible messages from
 #define BLIND_TEXT_DIST 2
 
-// Emote flags
-
+// Bitflags for emotes, used in var/emote_type of the emote datum
+/// Is the emote audible
 #define EMOTE_AUDIBLE (1<<0)
-#define EMOTE_ANIMATED (1<<1)
+/// Is the emote visible
+#define EMOTE_VISIBLE (1<<1)
+/// Is it an emote that should be shown regardless of blindness/deafness
+#define EMOTE_IMPORTANT (1<<2)
+/// Emote only prints to runechat, not to the chat window
+#define EMOTE_RUNECHAT (1<<3)
+// Animated emote bitflag
+#define EMOTE_ANIMATED (1<<4)
 
