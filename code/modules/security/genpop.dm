@@ -260,14 +260,14 @@
 			qdel(src)
 			return
 
-	if(obj_integrity >= max_integrity)
+	if(atom_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>The turnstile doesn't need repairing.</span>")
 		return
 	user.visible_message("[user] is welding the turnstile.", \
 				"<span class='notice'>You begin repairing the turnstile...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume=50))
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 		set_machine_stat(machine_stat & ~BROKEN)
 		user.visible_message("[user.name] has repaired [src].", \
 							"<span class='notice'>You finish repairing the turnstile.</span>")
