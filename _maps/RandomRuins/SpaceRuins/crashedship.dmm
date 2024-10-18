@@ -63,7 +63,7 @@
 /area/awaymission/BMPship/Fore)
 "cl" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
@@ -485,7 +485,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/BMPship/Aft)
 "oh" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "ol" = (
@@ -655,7 +655,7 @@
 "rv" = (
 /obj/structure/table,
 /obj/item/pen/red,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Aft)
 "rB" = (
@@ -1169,7 +1169,7 @@
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
 "Ds" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "Dz" = (
@@ -1195,8 +1195,8 @@
 /area/awaymission/BMPship/Midship)
 "Et" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "Ey" = (
@@ -1221,7 +1221,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Fd" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
@@ -1360,7 +1360,7 @@
 /area/awaymission/BMPship/Aft)
 "HJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "HL" = (
@@ -1373,7 +1373,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/awaymission/BMPship/Aft)
 "HZ" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
@@ -1664,7 +1664,7 @@
 /obj/structure/table/wood,
 /obj/item/stack/spacecash/c500,
 /obj/item/stack/spacecash/c100,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/wood,
 /area/awaymission/BMPship/Fore)
 "OE" = (
@@ -1711,7 +1711,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Pd" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "Pf" = (
@@ -1988,7 +1988,7 @@
 "Vr" = (
 /obj/structure/table,
 /obj/item/knife/butcher,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/item/food/meat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1

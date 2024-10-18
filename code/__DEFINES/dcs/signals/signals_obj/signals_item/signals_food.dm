@@ -57,3 +57,7 @@
 
 ///Called when we try to feed food to an object
 #define COMSIG_FOOD_FEED_ITEM "feed_item"
+
+//Drink
+///from base of obj/item/reagent_containers/cup/attack(): (mob/M, mob/user)
+#define COMSIG_GLASS_DRANK "glass_drank"
