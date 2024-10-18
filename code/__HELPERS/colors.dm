@@ -112,3 +112,9 @@
 		final_color += copytext(color, digit, digit + 1)
 
 	return final_color
+
+/// Given a color in the format of "#RRGGBB", will return if the color
+/// is dark.
+/proc/is_color_dark(color, threshold = 25)
+	var/hsl = rgb2num(color, COLORSPACE_HSL)
+	return hsl[3] < threshold

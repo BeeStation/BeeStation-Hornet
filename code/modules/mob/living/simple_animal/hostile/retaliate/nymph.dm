@@ -257,7 +257,7 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 
-/datum/action/nymph/evolve/Trigger()
+/datum/action/nymph/evolve/Trigger(trigger_flags)
 	. = ..()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
 	if(!isnymph(user))
@@ -286,7 +286,7 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/Trigger(drone_parent, forced)
+/datum/action/nymph/SwitchFrom/Trigger(trigger_flags, drone_parent, forced)
 	. = ..()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
 	var/mob/living/carbon/human/drone_diona = user.drone_parent

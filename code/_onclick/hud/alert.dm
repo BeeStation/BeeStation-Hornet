@@ -248,6 +248,11 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 		var/mob/living/carbon/M = usr
 		return M.help_shake_act(M)
 
+/atom/movable/screen/alert/negative
+	name = "Negative Gravity"
+	desc = "You're getting pulled upwards. While you won't have to worry about falling down anymore, you may accidentally fall upwards!"
+	icon_state = "negative"
+
 /atom/movable/screen/alert/weightless
 	name = "Weightless"
 	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
@@ -549,6 +554,21 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Low Blood Charge"
 	desc = "Your blood's electric charge is running low, find a source of charge for your blood. Use a recharging station found in robotics or the dormitory bathrooms, or eat some Ethereal-friendly food."
 	icon_state = "etherealcharge"
+
+//MODsuit unique
+/atom/movable/screen/alert/nocore
+	name = "Missing Core"
+	desc = "Unit has no core. No modules available until a core is reinstalled. Robotics may provide assistance."
+	icon_state = "no_cell"
+
+/atom/movable/screen/alert/emptycell/plasma
+	name = "Out of Power"
+	desc = "Unit's plasma core has no charge remaining. No modules available until plasma core is recharged. \
+		Unit can be refilled through plasma ore."
+
+/atom/movable/screen/alert/lowcell/plasma
+	name = "Low Charge"
+	desc = "Unit's plasma core is running low. Unit can be refilled through plasma ore."
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked

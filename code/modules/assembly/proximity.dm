@@ -11,7 +11,8 @@
 	var/time = 20
 	var/sensitivity = 0
 	var/hearing_range = 3
-	///Proximity monitor associated with this atom, needed for it to work after this rework
+	///Proximity monitor associated with this atom, needed for it to work.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
@@ -44,7 +45,7 @@
 	// assembly holder's attached object
 	// assembly holder itself
 	// us
-	proximity_monitor?.SetHost(connected?.holder || holder?.master || holder || src, src)
+	proximity_monitor?.set_host(connected?.holder || holder?.master || holder || src, src)
 
 /obj/item/assembly/prox_sensor/on_attach()
 	. = ..()
@@ -53,7 +54,7 @@
 	// assembly holder's attached object
 	// assembly holder itself
 	// us
-	proximity_monitor.SetHost(connected?.holder || holder?.master || holder || src, src)
+	proximity_monitor.set_host(connected?.holder || holder?.master || holder || src, src)
 
 /obj/item/assembly/prox_sensor/on_detach()
 	. = ..()
@@ -65,19 +66,19 @@
 		// assembly holder's attached object
 		// assembly holder itself
 		// us
-		proximity_monitor.SetHost(connected?.holder || holder?.master || holder || src, src)
+		proximity_monitor.set_host(connected?.holder || holder?.master || holder || src, src)
 
 /obj/item/assembly/prox_sensor/toggle_secure()
 	secured = !secured
 	if(!secured)
 		if(scanning)
 			toggle_scan()
-			proximity_monitor.SetHost(src,src)
+			proximity_monitor.set_host(src,src)
 		timing = FALSE
 		STOP_PROCESSING(SSobj, src)
 	else
 		START_PROCESSING(SSobj, src)
-		proximity_monitor.SetHost(loc,src)
+		proximity_monitor.set_host(loc,src)
 	update_icon()
 	return secured
 
@@ -110,28 +111,28 @@
 	if(!secured)
 		return FALSE
 	scanning = scan
-	proximity_monitor.SetRange(scanning ? sensitivity : 0)
-	update_icon()
+	proximity_monitor.set_range(scanning ? sensitivity : 0)
+	update_appearance()
 
 /obj/item/assembly/prox_sensor/proc/sensitivity_change(value)
 	var/sense = min(max(sensitivity + value, 0), 5)
 	sensitivity = sense
-	if(scanning && proximity_monitor.SetRange(sense))
+	if(scanning && proximity_monitor.set_range(sense))
 		sense()
 
-/obj/item/assembly/prox_sensor/update_icon()
-	cut_overlays()
+/obj/item/assembly/prox_sensor/update_appearance()
+	. = ..()
+	holder?.update_appearance()
+
+/obj/item/assembly/prox_sensor/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		add_overlay("prox_timing")
+		. += "prox_timing"
 		attached_overlays += "prox_timing"
 	if(scanning)
-		add_overlay("prox_scanning")
+		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
-	if(holder)
-		holder.update_icon()
-	return
-
 
 /obj/item/assembly/prox_sensor/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()

@@ -150,6 +150,8 @@
 	if(wear_neck)
 		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
 			return TRUE
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, damage, attack_text, attack_type, armour_penetration) & SHIELD_BLOCK)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
@@ -193,6 +195,7 @@
 	else
 		affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 	var/target_area = parse_zone(check_zone(user.get_combat_bodyzone(src))) //our intended target
+
 	if(affecting)
 		if(I.force && I.damtype != STAMINA && (!IS_ORGANIC_LIMB(affecting))) // Bodpart_robotic sparks when hit, but only when it does real damage
 			if(I.force >= 5)

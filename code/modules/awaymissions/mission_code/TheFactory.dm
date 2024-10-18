@@ -203,13 +203,13 @@
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Also shows information about criminals and their condition. Has enhanced shielding which blocks flashes."
 	icon_state = "t80sunglasses"
 	darkness_view = 1
-	clothing_flags = SCAN_REAGENTS
 	vision_flags = SEE_MOBS
 	flash_protect = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_DIAGNOSTIC_BASIC, DATA_HUD_MEDICAL_ADVANCED)
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 
 //MOBS//
 

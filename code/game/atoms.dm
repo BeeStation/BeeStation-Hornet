@@ -51,8 +51,6 @@
 	///overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc
 	var/list/managed_overlays
 
-	///Proximity monitor associated with this atom
-	var/datum/proximity_monitor/proximity_monitor
 	///Cooldown tick timer for buckle messages
 	var/buckle_message_cooldown = 0
 	///Last fingerprints to touch this atom
@@ -1093,7 +1091,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	return TRUE
 
 ///Get the best place to dump the items contained in the source storage item?
-/atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
+/atom/proc/get_dumping_location()
 	return null
 
 /**
@@ -1894,7 +1892,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(!length(forced_gravity))
 		SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
 	if(length(forced_gravity))
-		var/max_grav
+		var/max_grav = forced_gravity[1]
 		for(var/i in forced_gravity)
 			max_grav = max(max_grav, i)
 		return max_grav
