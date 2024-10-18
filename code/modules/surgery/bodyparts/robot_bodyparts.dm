@@ -238,6 +238,7 @@
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	w_class = WEIGHT_CLASS_NORMAL
 
 	brute_reduction = 5
 	burn_reduction = 4
