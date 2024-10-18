@@ -16,6 +16,7 @@
 
 /mob/camera/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_GLIDE, TRAIT_GENERIC) //Hacky, but needed
 	if(!can_hear_init)
 		// Cameras should not be able to hear by default despite being mobs
 		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
