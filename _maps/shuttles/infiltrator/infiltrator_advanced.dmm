@@ -1551,6 +1551,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/medbot/nukie,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/medical)
 "de" = (

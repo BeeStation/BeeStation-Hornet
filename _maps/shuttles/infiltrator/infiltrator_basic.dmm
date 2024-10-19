@@ -395,6 +395,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/mob/living/simple_animal/bot/medbot/nukie,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bJ" = (
@@ -1019,7 +1020,7 @@ aJ
 br
 FN
 tW
-tW
+bT
 wK
 tW
 cp
