@@ -1,7 +1,7 @@
 {
 	"suspicion": [
 		"@pick(add_name)i'm watching you...",
-		"@pick(add_name)i know what you're doing",
+		"@pick(add_name)i know what you've done..",
 		"@pick(add_name)what are you hiding?",
 		"I saw that"
 	],
@@ -74,8 +74,10 @@
 	"aggressive": [
 		"@pick(add_name)give me that!",
 		"@pick(add_name)stop it!",
-		"@pick(add_name)i'm going to kill you!",
-		"@pick(add_name)fuck you!"
+		"@pick(add_name)i'm gonna kill you!",
+		"@pick(add_name)fuck you!",
+		"@pick(add_name)i'll stab you!",
+		"@pick(add_name)you asshole!"
 	],
 
 	"help": [
@@ -110,51 +112,50 @@
 
 	"people": [
 		"Captain",
-		"Hos",
-		"Cmo",
-		"Rd",
-		"Ce",
-		"Hop",
+		"Head of Security",
+		"Chief Medical Officer",
+		"Research Director",
+		"Chief Engineer",
+		"Head of Personnel",
 		"Janitor",
 		"AI",
-		"Viro",
-		"Qm",
+		"Quartermaster",
+		"Assistant",
+		"Doctor",
+		"Scientist",
+		"Roboticist",
+		"Cargo Technician",
+		"Chemist",
+		"Security Officer",
+		"Detective",
+		"Clown",
+		"Mime",
 		"%TARGETNAME%"
 	],
 
 	"accusations": [
 		"dead",
 		"rogue",
-		"cult",
-		"a cultist",
-		"clockcult",
-		"a clock cultist",
-		"a revhead",
-		"a rev",
-		"a gang leader",
-		"a gangster",
-		"a traitor",
-		"a tator",
-		"a ling",
-		"a changeling"
+		"a freak",
+		"a lunatic",
+		"a union rep",
+		"creep",
+		"asshole"
 	],
 
 	"threat": [
-		"Cult",
-		"Wizard",
-		"Blob",
-		"Ling",
-		"Ops",
-		"Swarmers",
+		"Tiny robot",
 		"Spiders",
-		"Xenos",
-		"Revenant",
-		"Traitor",
+		"Alien",
+		"Ghost",
 		"Harm",
-		"Blue APC",
-		"I hear flashing",
+		"Weird APC",
+		"I hear strange sounds",
 		"Help",
-		"%TARGETNAME%"
+		"%TARGETNAME%",
+		"Maniac",
+		"Murderer",
+		"Cluwne"
 	],
 
 	"location": [
@@ -180,7 +181,7 @@
 		"tool storage",
 		"botany",
 		"the kitchen",
-		"the ai sat"
+		"the AI satellite"
 	],
 
 	"sublocation": [
@@ -204,7 +205,7 @@
 		"tool storage",
 		"botany",
 		"the kitchen",
-		"the ai sat"
+		"the AI satellite"
 	],
 
 	"advice": [
@@ -218,7 +219,18 @@
 		"You should go somewhere else. Quickly.",
 		"Good luck. You'll need it.",
 		"You have my permission. Do it.",
-		"Just do it."
+		"Just do it.",
+		"He knows what you did! Kill them!!",
+		"She knows what you did! Kill them!!"
+	],
+
+	"reportadvice": [
+		"%TARGETNAME% report to @pick(location) please.",
+		"%TARGETNAME% come to @pick(location) fast!",
+		"%TARGETNAME%, we need you at @pick(location)!",
+		"%TARGETNAME%, get your ass to @pick(location) or you're fired!",
+		"Hey %TARGETNAME%, can you come to @pick(location) please?",
+		"%TARGETNAME% GET TO @pick(location) NOW!!!!!"
 	],
 
 	"chemicals": [
