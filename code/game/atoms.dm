@@ -678,6 +678,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
+ * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
+ *
+ * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
+ * moments, while allowing people to manually double-examine to take a closer look
+ *
+ * Produces a signal [COMSIG_PARENT_EXAMINE_MORE]
+ */
+/atom/proc/examine_more(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
+	. = list()
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
+
+/**
  * Updates the appearance of the icon
  *
  * Mostly delegates to update_name, update_desc, and update_icon

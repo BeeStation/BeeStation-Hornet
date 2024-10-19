@@ -88,21 +88,21 @@
  * * mob/living/user - The mob hitting with this item
  * * params - Click params of this attack
  */
-/obj/item/proc/attack(mob/living/M, mob/living/user, params)
-	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user, params)
+/obj/item/proc/attack(mob/living/target_mob, mob/living/user, params)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target_mob, user, params)
 	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return
 
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user, params)
-	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target_mob, user, params)
+	SEND_SIGNAL(target_mob, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
 
 	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
 		nonharmfulhit = TRUE
-	for(var/datum/surgery/S in M.surgeries)
+	for(var/datum/surgery/S in target_mob.surgeries)
 		if(S.failed_step)
 			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
 			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step
@@ -120,22 +120,22 @@
 	else if(hitsound)
 		playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
-	M.lastattacker = user.real_name
-	M.lastattackerckey = user.ckey
+	target_mob.lastattacker = user.real_name
+	target_mob.lastattackerckey = user.ckey
 
-	user.do_attack_animation(M)
+	user.do_attack_animation(target_mob)
 	var/time = world.time
 	if(nonharmfulhit)
-		M.send_item_poke_message(src, user)
+		target_mob.send_item_poke_message(src, user)
 		user.time_of_last_poke = time
 	else
 		user.record_accidental_poking()
-		M.attacked_by(src, user)
-		M.time_of_last_attack_received = time
+		target_mob.attacked_by(src, user)
+		target_mob.time_of_last_attack_received = time
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
 
-	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
+	log_combat(user, target_mob, "[nonharmfulhit ? "poked" : "attacked"]", src, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
 	add_fingerprint(user)
 
 
