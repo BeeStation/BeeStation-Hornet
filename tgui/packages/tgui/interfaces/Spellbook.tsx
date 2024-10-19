@@ -151,7 +151,7 @@ const TableOfContents = (props, context) => {
         fluid
         icon="shield-alt"
         content="Defensive Evocations"
-        onClick={() => setTabIndex(3)}
+        onClick={() => setTabIndex(4)}
       />
       <Divider />
       <Button
@@ -161,10 +161,10 @@ const TableOfContents = (props, context) => {
         content="Magical Transportation"
         onClick={() => setTabIndex(5)}
       />
-      <Button lineHeight={lineHeightToc} fluid icon="users" content="Assistance and Summoning" onClick={() => setTabIndex(5)} />
+      <Button lineHeight={lineHeightToc} fluid icon="users" content="Assistance and Summoning" onClick={() => setTabIndex(6)} />
       <Divider />
       <Button lineHeight={lineHeightToc} fluid icon="crown" content="Challenges" onClick={() => setTabIndex(7)} />
-      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(7)} />
+      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(8)} />
       <Divider />
       <Button
         lineHeight={lineHeightToc}
@@ -173,7 +173,7 @@ const TableOfContents = (props, context) => {
         content="Wizard Approved Loadouts"
         onClick={() => setTabIndex(9)}
       />
-      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(9)} />
+      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(10)} />
     </Box>
   );
 };
@@ -184,7 +184,7 @@ const LockedPage = (props, context) => {
   return (
     <Dimmer>
       <Stack vertical>
-        <Stack.Item>
+        <Stack.Item align="center">
           <Icon color="purple" name="lock" size={10} />
         </Stack.Item>
         <Stack.Item fontSize="18px" color="purple">
@@ -412,20 +412,18 @@ const SearchSpells = (props, context) => {
       </Stack>
     );
   }
-  return <SpellTabDisplay TabSpells={filteredEntries} CooldownOffset={32} PointOffset={84} />;
+  return <SpellTabDisplay TabSpells={filteredEntries} />;
 };
 
 const SpellTabDisplay = (
   props: {
     TabSpells: SpellEntry[];
-    CooldownOffset?: number;
-    PointOffset?: number;
   },
   context
 ) => {
   const { act, data } = useBackend<Data>(context);
   const { points } = data;
-  const { TabSpells, CooldownOffset, PointOffset } = props;
+  const { TabSpells } = props;
 
   const getTimeOrCat = (entry: SpellEntry) => {
     if (entry.cat === SpellCategory.Rituals) {
@@ -451,12 +449,10 @@ const SpellTabDisplay = (
         <Stack.Item key={entry.name}>
           <Divider />
           <Stack mt={1.3} width="100%" position="absolute" textAlign="left">
-            <Stack.Item width="120px" ml={CooldownOffset}>
+            <Stack.Item width="100px" ml={40}>
               {getTimeOrCat(entry)}
             </Stack.Item>
-            <Stack.Item width="60px" ml={PointOffset}>
-              {entry.cost} points
-            </Stack.Item>
+            <Stack.Item width="60px">{entry.cost} points</Stack.Item>
           </Stack>
           <Section
             title={entry.name}
@@ -532,16 +528,14 @@ const CategoryDisplay = (props: { ActiveCat: TabType }, context) => {
             </Box>
           </Stack.Item>
         )}
-        <Stack.Item>
-          {(ActiveCat.component && ActiveCat.component()) || <SpellTabDisplay TabSpells={TabSpells} PointOffset={38} />}
-        </Stack.Item>
+        <Stack.Item>{(ActiveCat.component && ActiveCat.component()) || <SpellTabDisplay TabSpells={TabSpells} />}</Stack.Item>
       </Stack>
     </>
   );
 };
 
-const widthSection = '466px';
-const heightSection = '456px';
+const widthSection = '486px';
+const heightSection = '546px';
 
 export const Spellbook = (props, context) => {
   const { data } = useBackend<Data>(context);
@@ -591,7 +585,7 @@ export const Spellbook = (props, context) => {
   const SelectedVerb = SelectSearchVerb();
 
   return (
-    <Window title="Spellbook" theme="wizard" width={950} height={540}>
+    <Window title="Spellbook" theme="wizard" width={500} height={640}>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
@@ -610,58 +604,33 @@ export const Spellbook = (props, context) => {
                   </Section>
                 </Stack.Item>
               ) : (
-                <>
-                  <Stack.Item grow>
-                    <Section
-                      scrollable={ActiveCat.scrollable}
-                      textAlign="center"
-                      width={widthSection}
-                      height={heightSection}
-                      fill
-                      title={ActiveCat.title}
-                      buttons={
-                        <>
-                          <Button
-                            mr={57}
-                            disabled={tabIndex === 1}
-                            icon="arrow-left"
-                            content="Previous Page"
-                            onClick={() => setTabIndex(tabIndex - 2)}
-                          />
-                          <Box textAlign="right" bold mt={-3.3} mr={1}>
-                            {tabIndex}
-                          </Box>
-                        </>
-                      }>
-                      <CategoryDisplay ActiveCat={ActiveCat} />
-                    </Section>
-                  </Stack.Item>
-                  <Stack.Item grow>
-                    <Section
-                      scrollable={ActiveNextCat.scrollable}
-                      textAlign="center"
-                      width={widthSection}
-                      height={heightSection}
-                      fill
-                      title={ActiveNextCat.title}
-                      buttons={
-                        <>
-                          <Button
-                            mr={0}
-                            icon="arrow-right"
-                            disabled={tabIndex === 9}
-                            content="Next Page"
-                            onClick={() => setTabIndex(tabIndex + 2)}
-                          />
-                          <Box textAlign="left" bold mt={-3.3} ml={-59.8}>
-                            {tabIndex + 1}
-                          </Box>
-                        </>
-                      }>
-                      <CategoryDisplay ActiveCat={ActiveNextCat} />
-                    </Section>
-                  </Stack.Item>
-                </>
+                <Stack.Item grow>
+                  <Section
+                    scrollable={ActiveCat.scrollable}
+                    width={widthSection}
+                    height={heightSection}
+                    fill
+                    title={ActiveCat.title}
+                    buttons={
+                      <>
+                        <Button
+                          disabled={tabIndex === 1}
+                          icon="arrow-left"
+                          content="Previous Page"
+                          onClick={() => setTabIndex(tabIndex - 1)}
+                        />
+                        <Button disabled={tabIndex === 2} icon="home" content="TOC" onClick={() => setTabIndex(2)} />
+                        <Button
+                          icon="arrow-right"
+                          disabled={tabIndex === 10}
+                          content="Next Page"
+                          onClick={() => setTabIndex(tabIndex + 1)}
+                        />
+                      </>
+                    }>
+                    <CategoryDisplay ActiveCat={ActiveCat} />
+                  </Section>
+                </Stack.Item>
               )}
             </Stack>
           </Stack.Item>

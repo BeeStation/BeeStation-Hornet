@@ -63,7 +63,6 @@
 						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Instant [aspell.name].</span>")
 						newname = "Instant [aspell.name]"
 				aspell.name = newname
-				name = newname
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				//we'll need to update the cooldowns for the spellbook
