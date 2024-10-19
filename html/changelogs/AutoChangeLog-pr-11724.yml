@@ -1,6 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - bugfix: Fixed ERT hardsuit lights not being able to be turned on
-  - bugfix: Fixed ERT hardsuit helmets turning into engineering ones when the light
-      is turned on
