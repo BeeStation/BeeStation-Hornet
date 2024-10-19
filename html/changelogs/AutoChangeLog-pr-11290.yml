@@ -1,0 +1,6 @@
+author: rkz, Kylerace, TemporalOroboros
+delete-after: true
+changes:
+  - refactor: moves integrity down to the /atom level
+  - refactor: desnowflakes gas tank items to use integrity
+  - bugfix: gas tanks now release their contents if destroyed
