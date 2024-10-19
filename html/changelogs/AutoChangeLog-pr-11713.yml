@@ -1,0 +1,5 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - rscadd: 'FlandStation: Adds a missing oven on the kitchen'
+  - rscdel: 'FlandStation: Deletes one of the 2 deepfryers on the kitchen.'
