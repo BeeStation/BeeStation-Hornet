@@ -3,7 +3,7 @@
 	var/transfer_blood = 0
 
 
-/obj/item/reagent_containers/glass/rag
+/obj/item/reagent_containers/cup/rag
 	name = "damp rag"
 	desc = "For cleaning up messes, you suppose."
 	w_class = WEIGHT_CLASS_TINY
@@ -16,11 +16,11 @@
 	volume = 5
 	spillable = FALSE
 
-/obj/item/reagent_containers/glass/rag/suicide_act(mob/living/user)
+/obj/item/reagent_containers/cup/rag/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area, mob/user,proximity)
+/obj/item/reagent_containers/cup/rag/afterattack(atom/A as obj|turf|area, mob/user,proximity)
 	. = ..()
 	if(!proximity)
 		return

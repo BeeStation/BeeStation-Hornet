@@ -232,7 +232,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/cup/glass/mug{
 	pixel_x = 9;
 	pixel_y = -2
 	},
@@ -389,7 +389,7 @@
 	pixel_x = -7;
 	pixel_y = -7
 	},
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/cup/glass/mug{
 	pixel_x = -7;
 	pixel_y = 4
 	},
@@ -1220,7 +1220,7 @@
 /obj/effect/decal/cleanable/oil{
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = -8;
 	pixel_y = 2
 	},
