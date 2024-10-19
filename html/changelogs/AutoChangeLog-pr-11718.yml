@@ -1,0 +1,5 @@
+author: Therealdoooc213
+delete-after: true
+changes:
+  - rscdel: Removes LRPspeak from hallucinations
+  - rscadd: New hallucination types!
