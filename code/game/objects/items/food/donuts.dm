@@ -164,7 +164,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/cocoa/hot_cocoa = 3,
+		/datum/reagent/consumable/hot_cocoa = 3,
 		/datum/reagent/consumable/sprinkles = 1
 	) //the cocoa reagent is just bitter.
 	tastes = list("donut" = 4, "bitterness" = 1)
@@ -293,7 +293,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/cocoa/hot_cocoa = 3,
+		/datum/reagent/consumable/hot_cocoa = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //the coco reagent is just bitter.
@@ -413,7 +413,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/cocoa/hot_cocoa = 3,
+		/datum/reagent/consumable/hot_cocoa = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //the cocoa reagent is just bitter.

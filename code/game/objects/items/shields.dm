@@ -42,10 +42,10 @@
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 		if(attackforce)
 			owner.changeNext_move(CLICK_CD_MELEE)
-		if (obj_integrity <= attackforce)
+		if (atom_integrity <= attackforce)
 			var/turf/T = get_turf(owner)
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
-			obj_integrity = 1
+			atom_integrity = 1
 			shatter(owner)
 			return FALSE
 		take_damage(attackforce * ((100-(block_power))/100))
@@ -55,13 +55,13 @@
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
 	if(istype(W))
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is welding the [src].", \
 									"<span class='notice'>You begin repairing the [src]]...</span>")
 			if(W.use_tool(src, user, 40, volume=50))
-				obj_integrity += 10
+				atom_integrity += 10
 				user.visible_message("[user.name] has repaired some dents on [src].", \
 									"<span class='notice'>You finish repairing some of the dents on [src].</span>")
 			else
@@ -70,7 +70,7 @@
 
 /obj/item/shield/examine(mob/user)
 	. = ..()
-	var/healthpercent = round((obj_integrity/max_integrity) * 100, 1)
+	var/healthpercent = round((atom_integrity/max_integrity) * 100, 1)
 	switch(healthpercent)
 		if(50 to 99)
 			. += "<span class='info'>It looks slightly damaged.</span>"
@@ -110,12 +110,12 @@
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
-		if (obj_integrity >= max_integrity)
+		if (atom_integrity >= max_integrity)
 			to_chat(user, "<span class='notice'>[src] is already in perfect condition.</span>")
 		else
 			var/obj/item/stack/sheet/mineral/titanium/T = W
 			T.use(1)
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair [src] with [T].</span>")
 	else
 		return ..()
@@ -316,8 +316,8 @@
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] is now active and back at full power.</span>")
-		if(obj_integrity <= 1)
-			obj_integrity = max_integrity
+		if(atom_integrity <= 1)
+			atom_integrity = max_integrity
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)

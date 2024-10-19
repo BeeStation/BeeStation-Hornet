@@ -88,13 +88,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	radio_key = /obj/item/encryptionkey/syndicate
 	radio_channel = RADIO_CHANNEL_SYNDICATE
 	heal_threshold = 30
-	reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/nanites
+	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
 
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
 	declare_crit = TRUE
-	reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/kelobic
+	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/kelobic
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
