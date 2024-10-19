@@ -46,7 +46,7 @@
 				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
 				last_record = chemscan(user, carbon, to_chat = FALSE)
 				return FALSE
-			else if(!istype(target, /obj/item/reagent_containers/pill/floorpill) && !istype(target, /obj/item/reagent_containers/glass/chem_heirloom))
+			else if(!istype(target, /obj/item/reagent_containers/pill/floorpill) && !istype(target, /obj/item/reagent_containers/cup/chem_heirloom))
 				if(!isnull(target.reagents))
 					if(target.reagents.reagent_list.len > 0)
 						var/reagents_length = target.reagents.reagent_list.len

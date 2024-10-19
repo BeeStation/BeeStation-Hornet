@@ -931,8 +931,8 @@
 	name = "container storage apparatus"
 	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
-	storable = list(/obj/item/reagent_containers/glass)
-	var/defaultcontainer = /obj/item/reagent_containers/glass/beaker
+	storable = list(/obj/item/reagent_containers/cup)
+	var/defaultcontainer = /obj/item/reagent_containers/cup/beaker
 
 /obj/item/borg/apparatus/container/Destroy()
 	if(stored)
@@ -944,7 +944,7 @@
 /obj/item/borg/apparatus/container/examine()
 	. = ..()
 	//apparatus/container/service means this will not always be true.
-	if(istype(stored, /obj/item/reagent_containers/glass))
+	if(istype(stored, /obj/item/reagent_containers/cup))
 		var/obj/item/reagent_containers/C = stored
 		. += "The apparatus currently has [C] secured, which contains:"
 		if(length(C.reagents.reagent_list))
@@ -962,7 +962,7 @@
 		stored.pixel_x = 0
 		stored.pixel_y = 0
 		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
-		if(istype(stored, /obj/item/reagent_containers/glass/beaker))
+		if(istype(stored, /obj/item/reagent_containers/cup/beaker))
 			arm.pixel_y = arm.pixel_y - 3
 		stored_copy.layer = FLOAT_LAYER
 		stored_copy.plane = FLOAT_PLANE
@@ -1038,24 +1038,26 @@
 /obj/item/borg/apparatus/container/service
 	name = "versatile service grasper"
 	desc = "Specially designed for carrying glasses, food and seeds. It can also synthesize glasses for drinks!"
-	storable = list(/obj/item/reagent_containers/food,
-	/obj/item/reagent_containers/glass,
+	storable = list(
+	/obj/item/food,
+	/obj/item/reagent_containers/condiment,
+	/obj/item/reagent_containers/cup,
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
 	/obj/item/clothing/mask/cigarette,
 	/obj/item/storage/fancy/cigarettes,
-	/obj/item/reagent_containers/glass/beaker,
-	/obj/item/reagent_containers/glass/bottle,
-	/obj/item/reagent_containers/glass/bucket
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/cup/bucket
 	)
-	defaultcontainer = /obj/item/reagent_containers/food/drinks/drinkingglass
+	defaultcontainer = /obj/item/reagent_containers/cup/glass/drinkingglass
 
 
 /obj/item/borg/apparatus/container/service/examine()
 	. = ..()
 	//Parent type handles this type. All other objects held are handled here.
-	if(!istype(stored, /obj/item/reagent_containers/glass))
+	if(!istype(stored, /obj/item/reagent_containers/cup))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
 
