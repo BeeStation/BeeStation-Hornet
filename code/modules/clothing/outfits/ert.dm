@@ -275,7 +275,7 @@
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/mop/advanced=1,
-		/obj/item/reagent_containers/glass/bucket=1,
+		/obj/item/reagent_containers/cup/bucket=1,
 		/obj/item/grenade/clusterbuster/cleaner=1,
 		/obj/item/choice_beacon/janicart)
 

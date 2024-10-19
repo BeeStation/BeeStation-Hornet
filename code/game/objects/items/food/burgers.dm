@@ -162,7 +162,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/protein = 12,
-		/datum/reagent/medicine/mannitol = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | FRUIT
