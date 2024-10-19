@@ -168,6 +168,7 @@ Contents:
 	n_shoes.slowdown -= 0.5
 	n_gloves = H.gloves
 	ADD_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
+	H.update_equipment_speed_mods()
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
@@ -193,6 +194,9 @@ Contents:
 		REMOVE_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 		n_gloves.candrain = FALSE
 		n_gloves.draining = FALSE
+	if (isliving(loc))
+		var/mob/living/worn_mob = loc
+		worn_mob.update_equipment_speed_mods()
 
 /obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))

@@ -1267,7 +1267,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	if(user.get_active_held_item() != src)
 		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
 		return
-	var/obj/item/reagent_containers/glass/bottle/culture_bottle = new(user.drop_location())
+	var/obj/item/reagent_containers/cup/bottle/culture_bottle = new(user.drop_location())
 	culture_bottle.name = "[disease.name] culture bottle"
 	culture_bottle.desc = "A small bottle. Contains [disease.agent] culture in synthblood medium."
 	culture_bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)

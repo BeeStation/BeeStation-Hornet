@@ -1,4 +1,4 @@
-/obj/item/clothing/accessory //Ties moved to neck slot items, but as there are still things like medals and armbands, this accessory system is being kept as-is
+/obj/item/clothing/accessory
 	name = "Accessory"
 	desc = "Something has gone wrong!"
 	icon = 'icons/obj/clothing/accessories.dmi'
@@ -34,14 +34,19 @@
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
 	if(minimize_when_attached)
-		transform *= 0.5	//halve the size so it doesn't overpower the under
+		transform *= 0.5 //halve the size so it doesn't overpower the under
 		pixel_x += 8
 		pixel_y -= 8
 	U.add_overlay(src)
 
-	if (islist(U.armor) || isnull(U.armor)) 										// This proc can run before /obj/Initialize has run for U and src,
-		U.armor = getArmor(arglist(U.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
-																					// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
+	/**
+	** This proc can run before /obj/Initialize has run for U and src,
+	** we have to check that the armor list has been transformed into a datum before we try to call a proc on it
+	** This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
+	**/
+	if (islist(U.armor) || isnull(U.armor))
+		U.armor = getArmor(arglist(U.armor))
+
 	if (islist(armor) || isnull(armor))
 		armor = getArmor(arglist(armor))
 
@@ -377,7 +382,9 @@
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
 	icon_state = "holster"
 	item_state = "holster"
+	worn_icon_state = "holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
+	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"
