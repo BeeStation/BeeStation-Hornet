@@ -1,0 +1,4 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: Deconverting clock cultists now show a message when it was successful
