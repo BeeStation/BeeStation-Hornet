@@ -225,6 +225,10 @@
 	name = "kelotane-bicaridine reserve tank"
 	list_reagents = list(/datum/reagent/medicine/kelotane = 50, /datum/reagent/medicine/bicaridine = 50)
 
+/obj/item/reagent_containers/glass/beaker/large/nanites
+	name = "suspicious nanite reserve tank"
+	list_reagents = list(/datum/reagent/medicine/leporazine = 30, /datum/reagent/medicine/syndicate_nanites = 40, /datum/reagent/medicine/stabilizing_nanites = 30)
+
 /obj/item/reagent_containers/glass/beaker/synthflesh
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 50)
 

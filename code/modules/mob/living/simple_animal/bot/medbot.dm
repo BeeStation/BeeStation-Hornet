@@ -79,6 +79,35 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	heal_threshold = 0
 	declare_crit = 0
 
+/mob/living/simple_animal/bot/medbot/oppenheimer
+	name = "\improper Oppenheimer"
+	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate. Despite their best efforts at reprogramming, it still appears visibly upset near nuclear explosives."
+	skin = MEDBOT_SKIN_BEZERK
+	health = 40
+	maxHealth = 40
+	radio_key = /obj/item/encryptionkey/syndicate
+	radio_channel = RADIO_CHANNEL_SYNDICATE
+	heal_threshold = 30
+	reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/nanites
+	pass_flags = PASSMOB
+
+/mob/living/simple_animal/bot/medbot/oppenheimer/Initialize(mapload, new_skin)
+	. = ..()
+	skin = new_skin
+	update_icon()
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
+	linked_techweb = SSresearch.science_tech
+
+	if(mapload)
+		reagent_glass = new /obj/item/reagent_containers/chem_bag/syndicate
+	if(!GLOB.medibot_unique_id_gen)
+		GLOB.medibot_unique_id_gen = 0
+	medibot_counter = GLOB.medibot_unique_id_gen
+	GLOB.medibot_unique_id_gen++
+
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
