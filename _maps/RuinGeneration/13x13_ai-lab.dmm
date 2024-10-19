@@ -87,6 +87,11 @@
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
+"oe" = (
+/mob/living/silicon/robot/derelict,
+/obj/machinery/recharge_station,
+/turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
 "py" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
@@ -193,6 +198,25 @@
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
+"Bp" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"BF" = (
+/obj/effect/turf_decal/bot_red,
+/mob/living/simple_animal/bot/secbot/derelict,
+/turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
 "BT" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -261,27 +285,9 @@
 /obj/item/mmi/posibrain,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"Kx" = (
-/obj/machinery/recharge_station,
-/turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
 "KU" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Lx" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 6
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
@@ -382,15 +388,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
-"ZS" = (
-/obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/secbot{
-	emagged = 1;
-	faction = list("silicon","turret");
-	name = "Officer Buzzsky"
-	},
-/turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
 
 (1,1,1) = {"
 JS
@@ -412,11 +409,11 @@ JS
 eH
 tj
 er
-Kx
+oe
 MV
 JS
 hB
-ZS
+BF
 JG
 Os
 hB
@@ -538,7 +535,7 @@ KU
 za
 SV
 WV
-Lx
+Bp
 nN
 JS
 "}
