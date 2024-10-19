@@ -5,7 +5,7 @@
 	name = "Herb salad"
 	result = /obj/item/food/salad/herbsalad
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/grown/ambrosia/vulgaris = 3,
 		/obj/item/food/grown/apple = 1
 	)
@@ -15,7 +15,7 @@
 	name = "Aesir salad"
 	result = /obj/item/food/salad/aesirsalad
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/grown/ambrosia/deus = 3,
 		/obj/item/food/grown/apple/gold = 1
 	)
@@ -25,7 +25,7 @@
 	name = "Valid salad"
 	result = /obj/item/food/salad/validsalad
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/grown/ambrosia/vulgaris = 3,
 		/obj/item/food/grown/potato = 1,
 		/obj/item/food/meatball = 1
@@ -39,7 +39,7 @@
 		/datum/reagent/consumable/flour = 5,
 		/datum/reagent/consumable/sodiumchloride = 1,
 		/datum/reagent/consumable/blackpepper = 1,
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/monkeycube = 1,
 		/obj/item/food/grown/banana = 1
 	)
@@ -62,7 +62,7 @@
 	name = "Fruit salad"
 	result = /obj/item/food/salad/fruit
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/grown/apple = 1,
 		/obj/item/food/grown/grapes = 1,
 		/obj/item/food/grown/citrus/orange = 1,
@@ -75,7 +75,7 @@
 	name = "Jungle salad"
 	result = /obj/item/food/salad/jungle
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/grown/apple = 1,
 		/obj/item/food/grown/grapes = 1,
 		/obj/item/food/grown/banana = 2,
@@ -87,7 +87,7 @@
 	name = "Citrus delight"
 	result = /obj/item/food/salad/citrusdelight
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/grown/citrus/lime = 1,
 		/obj/item/food/grown/citrus/lemon = 1,
 		/obj/item/food/grown/citrus/orange = 1
