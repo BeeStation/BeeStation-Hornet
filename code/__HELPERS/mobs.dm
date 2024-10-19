@@ -147,7 +147,6 @@
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
 		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
 		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
-		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
 		"diona_leaves" = pick(GLOB.diona_leaves_list),
 		"diona_thorns" = pick(GLOB.diona_thorns_list),
 		"diona_flowers" = pick(GLOB.diona_flowers_list),
