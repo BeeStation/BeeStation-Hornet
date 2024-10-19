@@ -476,7 +476,7 @@
 		if(/datum/action/item_action/toggle_helmet_mode)
 			attack_self(user)
 			return
-	..()
+	. = ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
@@ -1031,14 +1031,6 @@
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/actiontype)
-	switch(actiontype.type)
-		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
-		if(/datum/action/item_action/toggle_beacon)
-			toggle_beacon(user)
-		if(/datum/action/item_action/toggle_beacon_frequency)
-			set_beacon_freq(user)
 
 //Helmet - With built in HUD
 
@@ -1065,11 +1057,6 @@
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else
 		AddComponent(/datum/component/team_monitor/worn, "synd", -1)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/action)
-	switch(action.type)
-		if(/datum/action/item_action/toggle_beacon_hud)
-			toggle_hud(user)
 
 ///SWAT version
 /obj/item/clothing/suit/space/hardsuit/shielded/swat
