@@ -1,0 +1,4 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - bugfix: Changed Robotic Head from bulky to normal.
