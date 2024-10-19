@@ -34,8 +34,8 @@
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, 0)
 		return TRUE
-	if(istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = O
+	if(istype(O, /obj/item/reagent_containers/cup/glass/drinkingglass))
+		var/obj/item/reagent_containers/cup/glass/drinkingglass/DG = O
 		if(!DG.reagents.total_volume) //glass is empty
 			qdel(DG)
 			glasses++
@@ -132,7 +132,7 @@
 			to_chat(usr, "<span class='warning'>There are no glasses left!</span>")
 			glasses = 0
 		else
-			var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = new(loc)
+			var/obj/item/reagent_containers/cup/glass/drinkingglass/DG = new(loc)
 			if(href_list["pour"])
 				reagents.trans_id_to(DG, reagents.reagent_list[text2num(href_list["pour"])]?.type, portion)
 			if(href_list["m_pour"])
