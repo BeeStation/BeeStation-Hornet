@@ -1,9 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - config: The percentage of votes required to leave now starts at 70% instead of
-      75%
-  - config: Auto-transfer reminders to vote now happen every 40 minutes, and decay
-      of the required votes to leave now begins at 40 minutes instead of 60.
-  - config: These changes mean the maximum round length before a shuttle is forcibly
-      called is now 3 hours instead of 3.5.
