@@ -1,6 +1,6 @@
 
-/obj/item/reagent_containers/glass
-	name = "glass"
+/obj/item/reagent_containers/cup
+	name = "cup"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
@@ -9,7 +9,7 @@
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 
-/obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)
+/obj/item/reagent_containers/cup/attack(mob/M, mob/user, obj/target)
 	if(!canconsume(M, user))
 		return
 
@@ -111,7 +111,7 @@
 	..()
 
 
-/obj/item/reagent_containers/glass/beaker
+/obj/item/reagent_containers/cup/beaker
 	name = "beaker"
 	desc = "A beaker. It can hold up to 50 units."
 	icon = 'icons/obj/chemical.dmi'
@@ -121,15 +121,15 @@
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_beaker"
 
-/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+/obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
 	update_icon()
 
 
-/obj/item/reagent_containers/glass/beaker/get_part_rating()
+/obj/item/reagent_containers/cup/beaker/get_part_rating()
 	return reagents.maximum_volume
 
-/obj/item/reagent_containers/glass/beaker/jar
+/obj/item/reagent_containers/cup/beaker/jar
 	name = "honey jar"
 	desc = "A jar for honey. It can hold up to 50 units of sweet delight."
 	icon = 'icons/obj/chemical.dmi'
@@ -138,7 +138,7 @@
 	fill_icon_thresholds = null
 	label_icon = null
 
-/obj/item/reagent_containers/glass/beaker/large
+/obj/item/reagent_containers/cup/beaker/large
 	name = "large beaker"
 	desc = "A large beaker. Can hold up to 100 units."
 	icon_state = "beakerlarge"
@@ -148,7 +148,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	label_icon = "label_beakerlarge"
 
-/obj/item/reagent_containers/glass/beaker/plastic
+/obj/item/reagent_containers/cup/beaker/plastic
 	name = "x-large beaker"
 	desc = "An extra-large beaker. Can hold up to 120 units."
 	icon_state = "beakerwhite"
@@ -158,7 +158,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120)
 	label_icon = "label_beakerlarge"
 
-/obj/item/reagent_containers/glass/beaker/meta
+/obj/item/reagent_containers/cup/beaker/meta
 	name = "metamaterial beaker"
 	desc = "A large beaker. Can hold up to 180 units."
 	icon_state = "beakergold"
@@ -169,7 +169,7 @@
 	fill_icon_thresholds = list(1, 10, 25, 35, 50, 60, 80, 100)
 	label_icon = "label_beakerlarge"
 
-/obj/item/reagent_containers/glass/beaker/noreact
+/obj/item/reagent_containers/cup/beaker/noreact
 	name = "cryostasis beaker"
 	desc = "A cryostasis beaker that allows for chemical storage without \
 		reactions. Can hold up to 50 units."
@@ -182,7 +182,7 @@
 	fill_icon_thresholds = null
 	label_icon = null
 
-/obj/item/reagent_containers/glass/beaker/bluespace
+/obj/item/reagent_containers/cup/beaker/bluespace
 	name = "bluespace beaker"
 	desc = "A bluespace beaker, powered by experimental bluespace technology \
 		and Element Cuban combined with the Compound Pete. Can hold up to \
@@ -234,7 +234,7 @@
 
 
 
-/obj/item/reagent_containers/glass/bucket
+/obj/item/reagent_containers/cup/bucket
 	name = "bucket"
 	desc = "It's a bucket."
 	icon = 'icons/obj/janitor.dmi'
@@ -263,7 +263,7 @@
 		ITEM_SLOT_DEX_STORAGE
 	)
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/O, mob/user, params)
+/obj/item/reagent_containers/cup/bucket/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/mop))
 		if(reagents.total_volume < 1)
 			to_chat(user, "<span class='warning'>[src] is out of water!</span>")
@@ -279,7 +279,7 @@
 	else
 		..()
 
-/obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
+/obj/item/reagent_containers/cup/bucket/equipped(mob/user, slot)
 	..()
 	if (slot == ITEM_SLOT_HEAD)
 		if(reagents.total_volume)
@@ -288,11 +288,11 @@
 			reagents.clear_reagents()
 		reagents.flags = NONE
 
-/obj/item/reagent_containers/glass/bucket/dropped(mob/user)
+/obj/item/reagent_containers/cup/bucket/dropped(mob/user)
 	..()
 	reagents.flags = initial(reagent_flags)
 
-/obj/item/reagent_containers/glass/bucket/equip_to_best_slot(var/mob/M)
+/obj/item/reagent_containers/cup/bucket/equip_to_best_slot(var/mob/M)
 	if(reagents.total_volume) //If there is water in a bucket, don't quick equip it to the head
 		var/index = slot_equipment_priority.Find(ITEM_SLOT_HEAD)
 		slot_equipment_priority.Remove(ITEM_SLOT_HEAD)
@@ -301,7 +301,7 @@
 		return
 	return ..()
 
-/obj/item/reagent_containers/glass/waterbottle
+/obj/item/reagent_containers/cup/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
 	icon = 'icons/obj/drinks.dmi'
@@ -320,19 +320,19 @@
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
 
-/obj/item/reagent_containers/glass/waterbottle/Initialize(mapload)
+/obj/item/reagent_containers/cup/waterbottle/Initialize(mapload)
 	. = ..()
 	cap_overlay = mutable_appearance(icon, cap_icon_state)
 	if(cap_on)
 		spillable = FALSE
 		update_icon()
 
-/obj/item/reagent_containers/glass/waterbottle/update_overlays()
+/obj/item/reagent_containers/cup/waterbottle/update_overlays()
 	. = ..()
 	if(cap_on)
 		. += cap_overlay
 
-/obj/item/reagent_containers/glass/waterbottle/examine(mob/user)
+/obj/item/reagent_containers/cup/waterbottle/examine(mob/user)
 	. = ..()
 	if(cap_lost)
 		. += "<span class='notice'>The cap seems to be missing.</span>"
@@ -341,7 +341,7 @@
 	else
 		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
 
-/obj/item/reagent_containers/glass/waterbottle/AltClick(mob/user)
+/obj/item/reagent_containers/cup/waterbottle/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(cap_lost)
@@ -364,35 +364,35 @@
 		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
 	update_icon()
 
-/obj/item/reagent_containers/glass/waterbottle/is_refillable()
+/obj/item/reagent_containers/cup/waterbottle/is_refillable()
 	if(cap_on)
 		return FALSE
 	. = ..()
 
-/obj/item/reagent_containers/glass/waterbottle/is_drainable()
+/obj/item/reagent_containers/cup/waterbottle/is_drainable()
 	if(cap_on)
 		return FALSE
 	. = ..()
 
-/obj/item/reagent_containers/glass/waterbottle/attack(mob/M, mob/user, obj/target)
+/obj/item/reagent_containers/cup/waterbottle/attack(mob/M, mob/user, obj/target)
 	if(cap_on && reagents.total_volume && istype(M))
 		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
 		return
 	. = ..()
 
-/obj/item/reagent_containers/glass/waterbottle/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/cup/waterbottle/afterattack(obj/target, mob/user, proximity)
 	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && user.a_intent == INTENT_HARM)))
 		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
 		return
 
-	else if(istype(target, /obj/item/reagent_containers/glass/waterbottle))
-		var/obj/item/reagent_containers/glass/waterbottle/WB = target
+	else if(istype(target, /obj/item/reagent_containers/cup/waterbottle))
+		var/obj/item/reagent_containers/cup/waterbottle/WB = target
 		if(WB.cap_on)
 			to_chat(user, "<span class='warning'>[WB] has a cap firmly twisted on!</span>")
 	. = ..()
 
 // heehoo bottle flipping
-/obj/item/reagent_containers/glass/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/reagent_containers/cup/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(cap_on && reagents.total_volume)
 		if(prob(flip_chance)) // landed upright
@@ -402,15 +402,15 @@
 		else // landed on it's side
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
-/obj/item/reagent_containers/glass/waterbottle/pickup(mob/user)
+/obj/item/reagent_containers/cup/waterbottle/pickup(mob/user)
 	..()
 	animate(src, transform = null, time = 1, loop = 0)
 
-/obj/item/reagent_containers/glass/waterbottle/empty
+/obj/item/reagent_containers/cup/waterbottle/empty
 	list_reagents = list()
 	cap_on = FALSE
 
-/obj/item/reagent_containers/glass/waterbottle/large
+/obj/item/reagent_containers/cup/waterbottle/large
 	desc = "A fresh commercial-sized bottle of water."
 	icon_state = "largebottle"
 	custom_materials = list(/datum/material/glass=0)
@@ -420,7 +420,7 @@
 	cap_icon_state = "bottle_cap"
 	icon_state_preview = "waterbottle_large"
 
-/obj/item/reagent_containers/glass/waterbottle/large/empty
+/obj/item/reagent_containers/cup/waterbottle/large/empty
 	list_reagents = list()
 	cap_on = FALSE
 
@@ -431,7 +431,7 @@
 	icon_state = "pestle"
 	force = 7
 
-/obj/item/reagent_containers/glass/mortar
+/obj/item/reagent_containers/cup/mortar
 	name = "mortar"
 	desc = "A specially formed bowl of ancient design. It is possible to crush or juice items placed in it using a pestle; however the process, unlike modern methods, is slow and physically exhausting. Alt click to eject the item."
 	icon_state = "mortar"
@@ -443,7 +443,7 @@
 	spillable = TRUE
 	var/obj/item/grinded
 
-/obj/item/reagent_containers/glass/mortar/AltClick(mob/user)
+/obj/item/reagent_containers/cup/mortar/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(grinded)
@@ -451,7 +451,7 @@
 		grinded = null
 		to_chat(user, "You eject the item inside.")
 
-/obj/item/reagent_containers/glass/mortar/attackby(obj/item/I, mob/living/carbon/human/user)
+/obj/item/reagent_containers/cup/mortar/attackby(obj/item/I, mob/living/carbon/human/user)
 	..()
 	if(istype(I,/obj/item/pestle))
 		if(grinded)
@@ -493,12 +493,12 @@
 		return
 	to_chat(user, "<span class='danger'>You can't grind this!</span>")
 
-/obj/item/reagent_containers/glass/saline
+/obj/item/reagent_containers/cup/saline
 	name = "saline canister"
 	volume = 5000
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 5000)
 
-/obj/item/reagent_containers/glass/saline/Moved(atom/OldLoc, Dir)
+/obj/item/reagent_containers/cup/saline/Moved(atom/OldLoc, Dir)
 	if (loc && !istype(loc, /obj/machinery/iv_drip/saline))
 		qdel(src)
 		return
