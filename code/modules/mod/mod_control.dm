@@ -177,7 +177,7 @@
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/item/mod/control/obj_destruction(damage_flag)
+/obj/item/mod/control/atom_destruction(damage_flag)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module)
 	if(ai)

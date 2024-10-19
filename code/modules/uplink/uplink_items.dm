@@ -1858,9 +1858,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/device_tools/failsafe/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
-	if(!U)
+	if(!U || !U.unlock_code)
+		to_chat(user, "<span class='warning'>A failsafe code could not be assigned to this uplink.")
 		return
-	U.failsafe_code = U.generate_code()
+	do
+		U.failsafe_code = U.generate_code()
+	while(islist(U.failsafe_code) ? compare_list(U.failsafe_code, U.unlock_code) : U.failsafe_code == U.unlock_code)
 	var/code = "[islist(U.failsafe_code) ? english_list(U.failsafe_code) : U.failsafe_code]"
 	to_chat(user, "<span class='warning'>The new failsafe code for this uplink is now : [code].</span>")
 	if(user.mind)
@@ -1940,6 +1943,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
+/datum/uplink_item/device_tools/medkit_infiltration
+	name = "Syndicate Infiltrator's Medical Kit"
+	desc = "This first aid kit, filled with supplies stolen from Nanotrasen forces, is intended to be \
+			used by infiltrators on enemy stations. It contains some basic first-aid tools for self-treatment \
+			in dire situations. Fits in your bag, but is visually obvious as non-Nanotrasen."
+	item = /obj/item/storage/firstaid/infiltrator
+	cost = 2
 
 /datum/uplink_item/device_tools/soap
 	name = "Syndicate Soap"
@@ -2388,7 +2399,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
 			At least, that's what the label says"
-	item = /obj/item/reagent_containers/glass/bottle/fluspanish
+	item = /obj/item/reagent_containers/cup/bottle/fluspanish
 	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
@@ -2396,7 +2407,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Retrovirus Culture Bottle"
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts. \
 			At least, that's what the label says."
-	item = /obj/item/reagent_containers/glass/bottle/retrovirus
+	item = /obj/item/reagent_containers/cup/bottle/retrovirus
 	cost = 12
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
 
@@ -2404,7 +2415,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Anxiety Culture Bottle"
 	desc = "A bottle of contagious anxiety-inducing virus. \
 			At least, that's what the label says"
-	item = /obj/item/reagent_containers/glass/bottle/anxiety
+	item = /obj/item/reagent_containers/cup/bottle/anxiety
 	cost = 4
 	restricted_roles = list(JOB_NAME_VIROLOGIST)
 
@@ -2585,7 +2596,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Beer"
 	desc = "Syndicate brand 'beer' designed to flush toxins out of your system. \
 			Warning: Do not consume more than one!"
-	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
+	item = /obj/item/reagent_containers/cup/glass/bottle/beer/syndicate
 	cost = 4
 	illegal_tech = FALSE
 

@@ -75,8 +75,8 @@
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -374,8 +374,8 @@
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -413,6 +413,27 @@
 		/obj/item/reagent_containers/pill/patch/styptic = 2,
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
 		/obj/item/clothing/glasses/hud/health/night = 1)
+	generate_items_inside(items_inside,src)
+
+//infiltrator kit, buyable by traitors
+/obj/item/storage/firstaid/infiltrator
+	name = "infiltrator medical kit"
+	desc = "(Un)fortunately for you, the Syndicate has a good medical plan."
+	icon_state = "firstaid-combat"
+	item_state = "firstaid-combat"
+	skin_type = MEDBOT_SKIN_SYNDI
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/firstaid/infiltrator/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/reagent_containers/pill/patch/synthflesh = 2,
+		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
 //medibot assembly
