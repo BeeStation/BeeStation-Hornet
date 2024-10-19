@@ -196,36 +196,36 @@
 	fill_icon_thresholds = null
 	label_icon = "label_beakerlarge"
 
-/obj/item/reagent_containers/glass/beaker/cryoxadone
+/obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulfuric
+/obj/item/reagent_containers/cup/beaker/sulfuric
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
 
-/obj/item/reagent_containers/glass/beaker/slime
+/obj/item/reagent_containers/cup/beaker/slime
 	list_reagents = list(/datum/reagent/toxin/slimejelly = 50)
 
-/obj/item/reagent_containers/glass/beaker/large/styptic
+/obj/item/reagent_containers/cup/beaker/large/styptic
 	name = "styptic reserve tank"
 	list_reagents = list(/datum/reagent/medicine/styptic_powder = 50)
 
-/obj/item/reagent_containers/glass/beaker/large/silver_sulfadiazine
+/obj/item/reagent_containers/cup/beaker/large/silver_sulfadiazine
 	name = "silver sulfadiazine reserve tank"
 	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 50)
 
-/obj/item/reagent_containers/glass/beaker/large/charcoal
+/obj/item/reagent_containers/cup/beaker/large/charcoal
 	name = "charcoal reserve tank"
 	list_reagents = list(/datum/reagent/medicine/charcoal = 50)
 
-/obj/item/reagent_containers/glass/beaker/large/epinephrine
+/obj/item/reagent_containers/cup/beaker/large/epinephrine
 	name = "epinephrine reserve tank"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
-/obj/item/reagent_containers/glass/beaker/large/kelobic
+/obj/item/reagent_containers/cup/beaker/large/kelobic
 	name = "kelotane-bicaridine reserve tank"
 	list_reagents = list(/datum/reagent/medicine/kelotane = 50, /datum/reagent/medicine/bicaridine = 50)
 
-/obj/item/reagent_containers/glass/beaker/synthflesh
+/obj/item/reagent_containers/cup/beaker/synthflesh
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 50)
 
 /obj/item/reagent_containers/cup/beaker/large/nanites
