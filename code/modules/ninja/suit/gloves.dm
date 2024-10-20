@@ -32,12 +32,23 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 120
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 30, LASER = 20, ENERGY = 15, BOMB = 30, BIO = 100, FIRE = 100, ACID = 100)
+	armor_type = /datum/armor/gloves_space_ninja
 	var/draining = 0
 	var/candrain = 0
 	var/mindrain = 200
 	var/maxdrain = 400
 
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/gloves_space_ninja
+	melee = 40
+	bullet = 30
+	laser = 20
+	energy = 15
+	bomb = 30
+	bio = 100
+	fire = 100
+	acid = 100
 
 /obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
 	if(!candrain || draining)

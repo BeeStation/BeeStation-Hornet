@@ -1,0 +1,15 @@
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\bin\Debug\net8.0\armorlist.exe
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\bin\Debug\net8.0\armorlist.deps.json
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\bin\Debug\net8.0\armorlist.runtimeconfig.json
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\bin\Debug\net8.0\armorlist.dll
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\bin\Debug\net8.0\armorlist.pdb
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.AssemblyInfoInputs.cache
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.AssemblyInfo.cs
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.csproj.CoreCompileInputs.cache
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.sourcelink.json
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.dll
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\refint\armorlist.dll
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.pdb
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\armorlist.genruntimeconfig.cache
+C:\Users\Boneyards\Documents\Cloned Repos\BeeStation-Salatland\armorlist\obj\Debug\net8.0\ref\armorlist.dll

@@ -6,12 +6,23 @@
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 75, BOMB = 25, BIO = 0, FIRE = 100, ACID = 70, RAD = 75, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/poddoor_shutters
 	recipe_type = /datum/crafting_recipe/shutters
 	base_state = "shut"
 	icon_state = "shut_closed"
 	pod_open_sound  = 'sound/machines/shutter_open.ogg'
 	pod_close_sound = 'sound/machines/shutter_close.ogg'
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/poddoor_shutters
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 75
+	bomb = 25
+	fire = 100
+	acid = 70
+	rad = 75
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shut_open"

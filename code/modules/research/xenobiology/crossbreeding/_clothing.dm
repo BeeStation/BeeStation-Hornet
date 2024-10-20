@@ -13,9 +13,13 @@ Slimecrossing Armor
 	body_parts_covered = NONE
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/mask_nobreath
 	flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/mask_nobreath
+	bio = 50
 
 /obj/item/clothing/mask/nobreath/equipped(mob/living/carbon/human/user, slot)
 	. = ..()

@@ -10,7 +10,7 @@
 	item_state = "space_helmet"
 	desc = "A special helmet with solar UV shielding to protect your eyes from harmful rays."
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10, BLEED = 50)
+	armor_type = /datum/armor/helmet_space
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
@@ -24,6 +24,15 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	dog_fashion = null
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/helmet_space
+	bio = 100
+	rad = 50
+	fire = 80
+	acid = 70
+	stamina = 10
+	bleed = 50
 
 /obj/item/clothing/suit/space
 	name = "space suit"
@@ -41,7 +50,7 @@
 		/obj/item/tank/internals,
 		)
 	slowdown = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10, BLEED = 50)
+	armor_type = /datum/armor/suit_space
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT_OFF
@@ -56,6 +65,15 @@
 	var/cell_cover_open = FALSE /// Status of the cell cover on the suit
 	var/thermal_on = FALSE /// Status of the thermal regulator
 	var/show_hud = TRUE /// If this is FALSE the battery status UI will be disabled. This is used for suits that don't use batteries like the changeling's flesh suit mutation.
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/suit_space
+	bio = 100
+	rad = 50
+	fire = 80
+	acid = 70
+	stamina = 10
+	bleed = 50
 
 /obj/item/clothing/suit/space/Initialize(mapload)
 	. = ..()

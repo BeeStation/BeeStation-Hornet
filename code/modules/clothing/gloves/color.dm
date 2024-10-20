@@ -7,9 +7,13 @@
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/color_yellow
+	bio = 50
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
@@ -48,9 +52,13 @@
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 1 //Set to a default of 1, gets overridden in Initialize()
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/color_fyellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/color_fyellow
+	bio = 25
 
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
 	. = ..()
@@ -106,7 +114,7 @@
 	name = "insulated gloves"
 	desc = "These gloves provide protection against electric shock."
 	siemens_coefficient = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/none
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/rainbow
@@ -177,7 +185,13 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 90, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/color_captain
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/color_captain
+	bio = 90
+	fire = 70
+	acid = 50
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -186,10 +200,14 @@
 	item_state = "latex"
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/color_latex
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	var/carrytrait = TRAIT_QUICKER_CARRY
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/color_latex
+	bio = 100
 
 /obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
 	..()

@@ -44,7 +44,11 @@
 /obj/item/clothing/shoes/sneakers/white
 	name = "white shoes"
 	greyscale_colors = "#ffffff#ffffff"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 95, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/sneakers_white
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/sneakers_white
+	bio = 95
 
 /obj/item/clothing/shoes/sneakers/rainbow
 	name = "rainbow shoes"
@@ -119,7 +123,13 @@
 	strip_delay = 5
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 70, ACID = 30)
+	armor_type = /datum/armor/sneakers_marisa
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/sneakers_marisa
+	bio = 50
+	fire = 70
+	acid = 30
 
 /obj/item/clothing/shoes/sneakers/cyborg
 	name = "cyborg boots"

@@ -26,9 +26,14 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/restraints_handcuffs
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/restraints_handcuffs
+	fire = 50
+	acid = 50
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
 	if(!istype(C))

@@ -9,11 +9,15 @@
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
 
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/clothing_shoes
 	slowdown = SHOES_SLOWDOWN
 	strip_delay = 1 SECONDS
 	var/offset = 0
 	var/equipped_before_drop = FALSE
+
+/// Automatically generated armor datum, errors may exist
+/datum/armor/clothing_shoes
+	bio = 50
 
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
 	if(prob(50))
