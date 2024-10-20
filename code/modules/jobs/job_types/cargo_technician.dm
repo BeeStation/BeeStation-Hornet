@@ -40,3 +40,7 @@
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	l_hand = /obj/item/export_scanner
 
+/datum/outfit/job/cargo_tech/mod
+	name = "Cargo Technician (MODsuit)"
+
+	back = /obj/item/mod/control/pre_equipped/loader
