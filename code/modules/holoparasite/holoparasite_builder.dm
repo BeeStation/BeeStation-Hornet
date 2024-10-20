@@ -43,7 +43,7 @@
 	if(isnum_safe(_uses))
 		uses = max(round(_uses), 1)
 	debug_mode = _debug_mode
-	accent_color = pick(GLOB.color_list_blood_brothers)
+	accent_color = pick(GLOB.color_list_rainbow)
 
 /datum/holoparasite_builder/Destroy()
 	QDEL_NULL(saved_stats)
@@ -104,7 +104,7 @@
 			)
 		),
 		"validation" = list(
-			"color" = is_color_dark(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS) ? "too dark" : "valid",
+			"color" = is_color_dark_with_saturation(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS) ? "too dark" : "valid",
 			"name" = check_name_validity(),
 			"notes" = check_notes_validity()
 		)
@@ -195,8 +195,8 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_blood_brothers))
-			if(is_color_dark(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
+			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
+			if(is_color_dark_with_saturation(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 				to_chat(usr, "<span class='warning'>Selected accent color is too dark!</span>")
 				return
 			accent_color = new_accent_color
@@ -346,18 +346,18 @@
 		to_chat(src, "<span class='warning'>The provided notes contain forbidden words.</span>")
 		user.balloon_alert(user, "failed, filtered notes", show_in_chat = FALSE)
 		return FALSE
-	if(is_color_dark(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
+	if(is_color_dark_with_saturation(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 		to_chat(src, "<span class='warning'>The provided accent color ([accent_color]) is too dark (lightness of [rgb2num(accent_color, COLORSPACE_HSL)[3]], must be below [HOLOPARA_MAX_ACCENT_LIGHTNESS]).</span>")
 		user.balloon_alert(user, "failed, accent color too dark", show_in_chat = FALSE)
 		return FALSE
 	calc_points()
 	if(points < 0)
-		to_chat("<span class='danger'>You don't have enough points for a [theme.name] like that!</span>")
+		to_chat(user, "<span class='danger'>You don't have enough points for a [theme.name] like that!</span>")
 		user.balloon_alert(user, "failed, not enough points", show_in_chat = FALSE)
 		return FALSE
 	waiting = TRUE
 	theme.display_message(user, HOLOPARA_MESSAGE_USE)
-	user.balloon_alert(user, "attempting to summon [lowertext(theme.name)]", show_in_chat = FALSE)
+	user.balloon_alert(user, "attempting to summon [LOWER_TEXT(theme.name)]", show_in_chat = FALSE)
 	var/tldr_stats = saved_stats.tldr()
 	user.log_message("is attempting to summon a holoparasite ([theme.name]), with the following stats: [tldr_stats]", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] is attempting to summon a holoparasite ([theme.name]), with the following stats: [tldr_stats]")
@@ -366,15 +366,15 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = pollGhostCandidates(
+		candidates = poll_ghost_candidates(
 			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
-			jobbanType = ROLE_HOLOPARASITE,
+			jobban_type = ROLE_HOLOPARASITE,
 			poll_time = 30 SECONDS
 		)
 	waiting = FALSE
 	if(!length(candidates))
 		theme.display_message(user, HOLOPARA_MESSAGE_FAILED)
-		user.balloon_alert(user, "failed to summon [lowertext(theme.name)]", show_in_chat = FALSE)
+		user.balloon_alert(user, "failed to summon [LOWER_TEXT(theme.name)]", show_in_chat = FALSE)
 		return FALSE
 	uses--
 	var/mob/dead/observer/candidate = pick(candidates)
@@ -385,7 +385,7 @@
 	user.log_message("summoned [key_name(holoparasite)], a holoparasite ([theme.name]), with the following stats: [tldr_stats]", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] has summoned [ADMIN_LOOKUPFLW(holoparasite)], a holoparasite ([theme.name]), with the following stats: [tldr_stats]")
 	theme.display_message(user, HOLOPARA_MESSAGE_SUCCESS, holoparasite)
-	user.balloon_alert(user, "successfully summoned [lowertext(theme.name)]", show_in_chat = FALSE)
+	user.balloon_alert(user, "successfully summoned [LOWER_TEXT(theme.name)]", show_in_chat = FALSE)
 	record_to_blackbox()
 
 /**
@@ -451,6 +451,8 @@
 	var/uses = 1
 	/// Debug mode will simply yoink the user into the newly created holoparasite when enabled.
 	var/debug_mode = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 
 /obj/item/holoparasite_creator/Initialize(mapload, datum/holoparasite_theme/theme_override)
 	. = ..()
@@ -540,7 +542,7 @@
 	name = "debug preset holoparasite injector"
 	max_points = 99
 
-/obj/item/holoparasite_creator/debug/preset/Initialize()
+/obj/item/holoparasite_creator/debug/preset/Initialize(mapload)
 	. = ..()
 	builder.holopara_name = "Radiosonde Castle"
 	builder.notes = "Debug Testing Holoparasite"
@@ -563,7 +565,7 @@
 /obj/item/holoparasite_creator/carp
 	name = "holocarp fishsticks"
 	desc = "Using the power of Carp'sie, you can catch a carp from byond the veil of Carpthulu, and bind it to your fleshy flesh form."
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "fishfingers"
 	theme = /datum/holoparasite_theme/carp
 	allow_multiple = TRUE

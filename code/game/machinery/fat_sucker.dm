@@ -86,7 +86,7 @@
 		user.visible_message("<span class='notice'>You see [user] kicking against the door of [src]!</span>", \
 			"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
 			"<span class='italics'>You hear a metallic creaking from [src].</span>")
-		if(do_after(user, breakout_time, target = src))
+		if(do_after(user, breakout_time, target = src, hidden = TRUE))
 			if(!user || user.stat != CONSCIOUS || user.loc != src || state_open)
 				return
 			free_exit = TRUE
@@ -192,13 +192,13 @@
 				qdel(src)
 				return
 			if(nutrients >= nutrient_to_meat * 2)
-				C.put_in_hands(new /obj/item/reagent_containers/food/snacks/cookie (), TRUE)
+				C.put_in_hands(new /obj/item/food/cookie, del_on_fail = TRUE)
 			while(nutrients >= nutrient_to_meat)
 				nutrients -= nutrient_to_meat
 				new C.type_of_meat (drop_location())
 			while(nutrients >= nutrient_to_meat / 3)
 				nutrients -= nutrient_to_meat / 3
-				new /obj/item/reagent_containers/food/snacks/meat/rawcutlet/plain (drop_location())
+				new /obj/item/food/meat/rawcutlet/plain (drop_location())
 			nutrients = 0
 
 /obj/machinery/fat_sucker/screwdriver_act(mob/living/user, obj/item/I)

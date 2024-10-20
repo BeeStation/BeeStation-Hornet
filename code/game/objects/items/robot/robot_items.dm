@@ -70,13 +70,13 @@
 	switch(mode)
 		if(0)
 			if(M.health >= 0)
-				if(user.zone_selected == BODY_ZONE_HEAD)
+				if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE))
 					user.visible_message("<span class='notice'>[user] playfully boops [M] on the head!</span>", \
 									"<span class='notice'>You playfully boop [M] on the head!</span>")
 					user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
 					playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
 				else if(ishuman(M))
-					if(!(user.mobility_flags & MOBILITY_STAND))
+					if(user.body_position == LYING_DOWN)
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", \
 										"<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
 					else
@@ -91,10 +91,10 @@
 		if(1)
 			if(M.health >= 0)
 				if(ishuman(M))
-					if(!(M.mobility_flags & MOBILITY_STAND))
+					if(M.body_position == LYING_DOWN)
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", \
 										"<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
-					else if(user.zone_selected == BODY_ZONE_HEAD)
+					else if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE))
 						user.visible_message("<span class='warning'>[user] bops [M] on the head!</span>", \
 										"<span class='warning'>You bop [M] on the head!</span>")
 						user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
@@ -111,10 +111,9 @@
 			if(scooldown < world.time)
 				if(M.health >= 0)
 					if(ishuman(M)||ismonkey(M))
-						M.electrocute_act(5, "[user]", safety = 1)
+						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
 						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", \
 							"<span class='danger'>You electrocute [M] with your touch!</span>")
-						M.update_mobility()
 					else
 						if(!iscyborg(M))
 							M.adjustFireLoss(10)
@@ -481,20 +480,20 @@
 		if(O.density)
 			return FALSE
 
-	var/obj/item/reagent_containers/food/snacks/L
+	var/obj/item/food_item
 	switch(mode)
 		if(DISPENSE_LOLLIPOP_MODE)
-			L = new /obj/item/reagent_containers/food/snacks/lollipop(T)
+			food_item = new /obj/item/food/lollipop(T)
 		if(DISPENSE_ICECREAM_MODE)
-			L = new /obj/item/reagent_containers/food/snacks/icecream(T)
-			var/obj/item/reagent_containers/food/snacks/icecream/I = L
+			food_item = new /obj/item/food/icecream(T)
+			var/obj/item/food/icecream/I = food_item
 			I.add_ice_cream("vanilla")
 			I.desc = "Eat the ice cream."
 
 	var/into_hands = FALSE
 	if(ismob(A))
 		var/mob/M = A
-		into_hands = M.put_in_hands(L)
+		into_hands = M.put_in_hands(food_item)
 
 	candy--
 	check_amount()
@@ -590,13 +589,14 @@
 	name = "gumball"
 	desc = "Oh noes! A fast-moving gumball!"
 	icon_state = "gumball"
-	ammo_type = /obj/item/reagent_containers/food/snacks/gumball/cyborg
+	ammo_type = /obj/item/food/gumball/cyborg
 	nodamage = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/reusable/gumball/handle_drop()
 	if(!dropped)
 		var/turf/T = get_turf(src)
-		var/obj/item/reagent_containers/food/snacks/gumball/S = new ammo_type(T)
+		var/obj/item/food/gumball/S = new ammo_type(T)
 		S.color = color
 		dropped = TRUE
 
@@ -609,13 +609,14 @@
 	name = "lollipop"
 	desc = "Oh noes! A fast-moving lollipop!"
 	icon_state = "lollipop_1"
-	ammo_type = /obj/item/reagent_containers/food/snacks/lollipop/cyborg
+	ammo_type = /obj/item/food/lollipop/cyborg
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(src)
+	var/obj/item/food/lollipop/S = new ammo_type(src)
 	color2 = S.headcolor
 	var/mutable_appearance/head = mutable_appearance('icons/obj/projectiles.dmi', "lollipop_2")
 	head.color = color2
@@ -624,7 +625,7 @@
 /obj/projectile/bullet/reusable/lollipop/handle_drop()
 	if(!dropped)
 		var/turf/T = get_turf(src)
-		var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(T)
+		var/obj/item/food/lollipop/S = new ammo_type(T)
 		S.change_head_color(color2)
 		dropped = TRUE
 
@@ -635,7 +636,8 @@
 	name = "\improper Hyperkinetic Dampening projector"
 	desc = "A device that projects a dampening field that weakens kinetic energy above a certain threshold. <span class='boldnotice'>Projects a field that drains power per second while active, that will weaken and slow damaging projectiles inside its field.</span> Still being a prototype, it tends to induce a charge on ungrounded metallic surfaces."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "shield"
+	icon_state = "shield0"
+	base_icon_state = "shield"
 	var/maxenergy = 1500
 	var/energy = 1500
 	/// Recharging rate in energy per second
@@ -688,7 +690,7 @@
 	to_chat(user, "<span class='boldnotice'>You [active? "activate":"deactivate"] [src].</span>")
 
 /obj/item/borg/projectile_dampen/update_icon_state()
-	icon_state = "[initial(icon_state)][active]"
+	icon_state = "[base_icon_state][active]"
 	return ..()
 
 /obj/item/borg/projectile_dampen/proc/activate_field()
@@ -701,7 +703,8 @@
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
-	QDEL_NULL(dampening_field)
+	if(istype(dampening_field))
+		QDEL_NULL(dampening_field)
 	visible_message("<span class='warning'>\The [src] shuts off!</span>")
 	for(var/P in tracked)
 		restore_projectile(P)
@@ -838,7 +841,7 @@
 /**********************************************************************
 						Borg apparatus
 ***********************************************************************/
-//These are tools that can hold only specific items. For example, the mediborg gets one that can only hold beakers and bottles.
+//These are tools that can hold only specific items. For example, the mediborg and service borg get one that can only hold reagent containers
 
 /obj/item/borg/apparatus/
 	name = "unknown storage apparatus"
@@ -920,33 +923,28 @@
 		return
 	. = ..()
 
-/////////////////
-//beaker holder//
-/////////////////
+////////////////////
+//container holder//
+////////////////////
 
-/obj/item/borg/apparatus/beaker
-	name = "beaker storage apparatus"
-	desc = "A special apparatus for carrying beakers without spilling the contents."
+/obj/item/borg/apparatus/container
+	name = "container storage apparatus"
+	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
 	icon_state = "borg_beaker_apparatus"
-	storable = list(/obj/item/reagent_containers/glass/beaker,
-				/obj/item/reagent_containers/glass/bottle)
+	storable = list(/obj/item/reagent_containers/cup)
+	var/defaultcontainer = /obj/item/reagent_containers/cup/beaker
 
-/obj/item/borg/apparatus/beaker/Initialize(mapload)
-	. = ..()
-	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
-	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, TYPE_PROC_REF(/atom, update_icon))
-	update_icon()
-
-/obj/item/borg/apparatus/beaker/Destroy()
+/obj/item/borg/apparatus/container/Destroy()
 	if(stored)
 		var/obj/item/reagent_containers/C = stored
 		C.SplashReagents(get_turf(src))
 		QDEL_NULL(stored)
 	. = ..()
 
-/obj/item/borg/apparatus/beaker/examine()
+/obj/item/borg/apparatus/container/examine()
 	. = ..()
-	if(stored)
+	//apparatus/container/service means this will not always be true.
+	if(istype(stored, /obj/item/reagent_containers/cup))
 		var/obj/item/reagent_containers/C = stored
 		. += "The apparatus currently has [C] secured, which contains:"
 		if(length(C.reagents.reagent_list))
@@ -956,7 +954,7 @@
 			. += "Nothing."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
 
-/obj/item/borg/apparatus/beaker/update_overlays()
+/obj/item/borg/apparatus/container/update_overlays()
 	. = ..()
 	var/mutable_appearance/arm = mutable_appearance(icon = icon, icon_state = "borg_beaker_apparatus_arm")
 	if(stored)
@@ -964,7 +962,7 @@
 		stored.pixel_x = 0
 		stored.pixel_y = 0
 		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
-		if(istype(stored, /obj/item/reagent_containers/glass/beaker))
+		if(istype(stored, /obj/item/reagent_containers/cup/beaker))
 			arm.pixel_y = arm.pixel_y - 3
 		stored_copy.layer = FLOAT_LAYER
 		stored_copy.plane = FLOAT_PLANE
@@ -973,7 +971,14 @@
 		arm.pixel_y = arm.pixel_y - 5
 	. += arm
 
-/obj/item/borg/apparatus/beaker/attack_self(mob/living/silicon/robot/user)
+/obj/item/borg/apparatus/container/attack_self(mob/living/silicon/robot/user)
+	if(!stored)
+		var/newcontainer = new defaultcontainer(src)
+		stored = newcontainer
+		to_chat(user, "<span class='notice'>You synthesize a new [newcontainer]!</span>")
+		playsound(src, 'sound/machines/click.ogg', 10, 1)
+		update_icon()
+		return
 	if(stored && !user.client?.keys_held["Alt"] && user.a_intent != "help")
 		var/obj/item/reagent_containers/C = stored
 		C.SplashReagents(get_turf(user))
@@ -981,9 +986,9 @@
 		return
 	. = ..()
 
-/obj/item/borg/apparatus/beaker/extra
-	name = "secondary beaker storage apparatus"
-	desc = "A supplementary beaker storage apparatus."
+/obj/item/borg/apparatus/container/extra
+	name = "container storage apparatus"
+	desc = "A supplementary container storage apparatus."
 
 ////////////////////
 //engi part holder//
@@ -1030,22 +1035,30 @@
 //versatile service holder//
 ////////////////////
 
-/obj/item/borg/apparatus/beaker/service
+/obj/item/borg/apparatus/container/service
 	name = "versatile service grasper"
-	desc = "Specially designed for carrying glasses, food and seeds."
-	storable = list(/obj/item/reagent_containers/food,
+	desc = "Specially designed for carrying glasses, food and seeds. It can also synthesize glasses for drinks!"
+	storable = list(
+	/obj/item/food,
+	/obj/item/reagent_containers/condiment,
+	/obj/item/reagent_containers/cup,
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
 	/obj/item/clothing/mask/cigarette,
 	/obj/item/storage/fancy/cigarettes,
-	/obj/item/reagent_containers/glass/beaker,
-	/obj/item/reagent_containers/glass/bottle,
-	/obj/item/reagent_containers/glass/bucket
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/cup/bucket
 	)
+	defaultcontainer = /obj/item/reagent_containers/cup/glass/drinkingglass
 
-/obj/item/borg/apparatus/beaker/service/examine()
+
+/obj/item/borg/apparatus/container/service/examine()
 	. = ..()
-	if(stored)
+	//Parent type handles this type. All other objects held are handled here.
+	if(!istype(stored, /obj/item/reagent_containers/cup))
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+#undef PKBORG_DAMPEN_CYCLE_DELAY

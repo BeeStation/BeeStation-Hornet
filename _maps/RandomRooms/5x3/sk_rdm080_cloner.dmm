@@ -3,34 +3,34 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "i" = (
-/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
-/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
+/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
 /obj/structure/closet,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "j" = (
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "m" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "u" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "C" = (
 /obj/machinery/clonepod/experimental,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "G" = (
 /obj/structure/chair{
@@ -39,7 +39,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "K" = (
 /obj/machinery/computer/cloning/prototype,
@@ -49,22 +49,22 @@
 /obj/item/paper/fluff/ruins/exp_cloning/manual,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "P" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Q" = (
 /obj/effect/trap/nexus/trickyspawner/zombie,
 /obj/effect/spawner/lootdrop/trap,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "W" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 
 (1,1,1) = {"

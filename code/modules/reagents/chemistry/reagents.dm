@@ -1,8 +1,3 @@
-#define REM REAGENTS_EFFECT_MULTIPLIER
-#define METABOLITE_RATE     0.5 // How much of a reagent is converted metabolites if one is defined
-#define MAX_METABOLITES		15  // The maximum amount of a given metabolite someone can have at a time
-#define METABOLITE_PENALTY(path) clamp(M.reagents.get_reagent_amount(path)/2.5, 1, 5) //Ranges from 1 to 5 depending on level of metabolites.
-
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /proc/build_name2reagent()
@@ -123,17 +118,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 // Called after add_reagents creates a new reagent.
 /datum/reagent/proc/on_new(data)
-	return
+	if(data)
+		src.data = data
 
 // Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data)
 	return
 
 /datum/reagent/proc/on_update(atom/A)
-	return
-
-// Called when the reagent container is hit by an explosion
-/datum/reagent/proc/on_ex_act(severity)
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects

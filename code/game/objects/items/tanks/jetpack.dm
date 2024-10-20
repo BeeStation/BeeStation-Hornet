@@ -87,7 +87,7 @@
 	known_user = null
 
 /obj/item/tank/jetpack/proc/on_user_loss()
-	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
 
@@ -110,7 +110,7 @@
 	if(ion_trail)
 		ion_trail.stop()
 
-	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
@@ -144,6 +144,7 @@
 	desc = "A jetpack made from two air tanks, a fire extinguisher and some atmospherics equipment. It doesn't look like it can hold much."
 	icon_state = "jetpack-improvised"
 	item_state = "jetpack-sec"
+	worn_icon = null
 	volume = 20 //normal jetpacks have 70 volume
 	gas_type = null //it starts empty
 	full_speed = FALSE //moves at hardsuit jetpack speeds
@@ -180,10 +181,10 @@
 	name = "jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
 	icon_state = "jetpack-mini"
-	item_state = "jetpack-mini"
+	item_state = "jetpack-black"
 	volume = 40
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
 /obj/item/tank/jetpack/oxygen/captain
@@ -191,7 +192,7 @@
 	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
 	icon_state = "jetpack-captain"
 	item_state = "jetpack-captain"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	volume = 90
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
@@ -430,7 +431,7 @@
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.air_contents
-	RegisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
+	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()
 

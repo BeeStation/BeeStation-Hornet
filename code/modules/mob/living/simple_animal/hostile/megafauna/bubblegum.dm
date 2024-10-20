@@ -29,12 +29,14 @@ Difficulty: Hard
 	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
 	health = 1250
 	maxHealth = 1250
-	attacktext = "rends"
+	attack_verb_continuous = "rends"
+	attack_verb_simple = "rend"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
 	icon_dead = ""
-	friendly = "stares down"
+	friendly_verb_continuous = "stares down"
+	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
 	armour_penetration = 40
@@ -76,7 +78,7 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now triple charging at the target you click on.</span>"
 	chosen_attack_num = 1
@@ -259,14 +261,15 @@ Difficulty: Hard
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 	SLEEP_CHECK_DEATH(6)
 	for(var/mob/living/L in T)
-		if(!faction_check_mob(L))
-			if(L.stat != CONSCIOUS)
-				to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
-				playsound(T, 'sound/magic/enter_blood.ogg', 100, 1, -1)
-				var/turf/targetturf = get_step(src, dir)
-				L.forceMove(targetturf)
-				playsound(targetturf, 'sound/magic/exit_blood.ogg', 100, 1, -1)
-				addtimer(CALLBACK(src, PROC_REF(devour), L), 2)
+		if(faction_check_mob(L))
+			continue
+		if(L.stat == CONSCIOUS || L.stat == DEAD)
+			continue
+		to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
+		playsound(T, 'sound/magic/enter_blood.ogg', 100, 1, -1)
+		var/turf/targetturf = get_step(src, dir)
+		L.forceMove(targetturf)
+		playsound(targetturf, 'sound/magic/exit_blood.ogg', 100, 1, -1)
 	SLEEP_CHECK_DEATH(1)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_warp()
@@ -307,13 +310,12 @@ Difficulty: Hard
 		return TRUE
 	return FALSE
 
+
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/be_aggressive()
 	if(BUBBLEGUM_IS_ENRAGED)
 		return TRUE
-	if(isliving(target))
-		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || !(livingtarget.mobility_flags & MOBILITY_STAND))
-	return FALSE
+	return isliving(target) && HAS_TRAIT(target, TRAIT_INCAPACITATED)
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()
 	return (be_aggressive() ? null : initial(retreat_distance))
@@ -383,13 +385,6 @@ Difficulty: Hard
 		INVOKE_ASYNC(B, PROC_REF(charge), chargeat, delay, chargepast)
 	if(useoriginal)
 		charge(chargeat, delay, chargepast)
-
-/mob/living/simple_animal/hostile/megafauna/bubblegum/devour(mob/living/L)
-	var/turf/death_turf = get_turf(L)
-	. = ..()
-	if(. && death_turf)
-		for(var/i in 1 to 3)
-			new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter(death_turf)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
@@ -575,7 +570,8 @@ Difficulty: Hard
 	icon_state = "bloodbrood"
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
-	attacktext = "pierces"
+	attack_verb_continuous = "pierces"
+	attack_verb_simple = "pierce"
 	color = "#C80000"
 	density = FALSE
 	faction = list("mining", "boss")
@@ -586,3 +582,7 @@ Difficulty: Hard
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum))
 		return TRUE
 	return FALSE
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED

@@ -33,7 +33,7 @@ Bonus
 	suffixes = list(" Tuberculosis")
 	var/paralysis = FALSE
 	threshold_desc = "<b>Stage Speed 8:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
-					  <b>Transmission 8:</b> Doubles the damage caused by the symptom."
+						<b>Transmission 8:</b> Doubles the damage caused by the symptom."
 
 /datum/symptom/asphyxiation/severityset(datum/disease/advance/A)
 	. = ..()
@@ -52,8 +52,9 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(HAS_TRAIT(M, TRAIT_NOBREATH)) //if they don't breath, why would being unable to breath kill them?
+	if(HAS_TRAIT(M, TRAIT_NOBREATH) || M.stat == DEAD) //if they don't breath, why would being unable to breath kill them?
 		return
+
 	switch(A.stage)
 		if(3, 4)
 			to_chat(M, "<span class='warning'><b>[pick("Your windpipe feels thin.", "Your lungs feel small.")]</span>")

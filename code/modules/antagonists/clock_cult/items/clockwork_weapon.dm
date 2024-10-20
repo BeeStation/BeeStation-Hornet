@@ -4,6 +4,8 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
+	worn_icon_state = "baguette"
+	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
 	block_upgrade_walk = 1
@@ -13,10 +15,12 @@
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
-	materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
+	custom_materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
@@ -80,7 +84,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	clockwork_desc = "A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage."
 	icon_state = "ratvarian_spear"
-	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
+	embedding = list("max_damage_mult" = 7.5, "armour_block" = 80)
 	throwforce = 36
 	force = 25
 	armour_penetration = 24
@@ -91,10 +95,13 @@
 	desc = "A brass hammer glowing with energy."
 	clockwork_desc = "A brass hammer enfused with an ancient power allowing it to strike foes with incredible force."
 	icon_state = "ratvarian_hammer"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	armour_penetration = 6
 	sharpness = IS_BLUNT
-	attack_verb = list("bashed", "smitted", "hammered", "attacked")
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
 /obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
@@ -112,10 +119,13 @@
 	desc = "A large sword made of brass."
 	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
 	icon_state = "ratvarian_sword"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "claymore"
 	force = 26
 	throwforce = 20
 	armour_penetration = 12
-	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
 	COOLDOWN_DECLARE(emp_cooldown)
 
@@ -130,15 +140,15 @@
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
+/obj/item/clockwork/weapon/brass_sword/attack_atom(obj/O, mob/living/user)
 	..()
-	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
+	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 
-	var/obj/mecha/target = O
+	var/obj/vehicle/sealed/mecha/target = O
 	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)
@@ -147,6 +157,8 @@
 
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
+
+//Clockbow, different pathing
 
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"

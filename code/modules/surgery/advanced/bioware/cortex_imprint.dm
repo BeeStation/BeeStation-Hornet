@@ -14,7 +14,7 @@
 
 	bioware_target = BIOWARE_CORTEX
 
-/datum/surgery/advanced/bioware/cortex_imprint/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/bioware/cortex_imprint/can_start(mob/user, mob/living/carbon/target, target_zone)
 	var/obj/item/organ/brain/target_brain = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!target_brain)
 		return FALSE
@@ -25,7 +25,7 @@
 	accept_hand = TRUE
 	time = 125
 
-/datum/surgery_step/imprint_cortex/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/imprint_cortex/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(
 		user,
 		target,
@@ -34,7 +34,7 @@
 		"<span class='notice'>[user] begins to perform surgery on [target]'s brain.</span>",
 	)
 
-/datum/surgery_step/imprint_cortex/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/imprint_cortex/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	display_results(
 		user,
 		target,
@@ -45,7 +45,7 @@
 	new /datum/bioware/cortex_imprint(target)
 	return ..()
 
-/datum/surgery_step/imprint_cortex/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/imprint_cortex/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(target.getorganslot(ORGAN_SLOT_BRAIN))
 		display_results(
 			user,

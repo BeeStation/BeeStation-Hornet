@@ -62,9 +62,6 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()
 
-/obj/effect/countdown/ex_act(severity, target) //immune to explosions
-	return
-
 /obj/effect/countdown/singularity_pull()
 	return
 
@@ -172,3 +169,15 @@
 		var/obj/machinery/computer/arena/C = A.get_controller()
 		var/time_left = max(0, (C.start_time - world.time) / 10)
 		return round(time_left)
+
+/obj/effect/countdown/flower_bud
+	name = "flower bud countdown"
+
+/obj/effect/countdown/flower_bud/get_value()
+	var/obj/structure/alien/resin/flower_bud/bud = attached_to
+	if(!istype(bud))
+		return
+	if(!bud.finish_time)
+		return -1
+	var/time_left = max(0, (bud.finish_time - world.time) / 10)
+	return time_left

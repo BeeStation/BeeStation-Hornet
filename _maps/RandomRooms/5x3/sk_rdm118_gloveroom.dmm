@@ -4,7 +4,7 @@
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/fyellow/old,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "b" = (
 /obj/structure/table,
@@ -14,30 +14,30 @@
 	},
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "d" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/trickyspawner{
 	mobs = 3
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "f" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "g" = (
 /obj/structure/table,
@@ -45,26 +45,26 @@
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/fyellow/old,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "y" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/yellow,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "H" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/gloves,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/fyellow,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 
 (1,1,1) = {"

@@ -227,7 +227,7 @@
 			special_role = TRAITOR_AGENT_ROLE
 			syndicate = TRUE
 			log_game("[owner.key] has been designated an External Affairs Agent")
-			forge_single_objective()
+			forge_single_human_objective()
 
 /datum/antagonist/traitor/internal_affairs/forge_traitor_objectives()
 	forge_iaa_objectives()
@@ -263,3 +263,5 @@
 #undef PINPOINTER_EXTRA_RANDOM_RANGE
 #undef PINPOINTER_MINIMUM_RANGE
 #undef PINPOINTER_PING_TIME
+
+#undef TRAITOR_AGENT_ROLE

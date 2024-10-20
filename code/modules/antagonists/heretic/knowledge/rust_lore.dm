@@ -28,7 +28,7 @@
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. \
 		Allows you to transmute a knife with any trash item into a Rusty Blade. \
-		You can only create two at a time."
+		You can only create two at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
 	next_knowledge = list(/datum/heretic_knowledge/rust_fist)
 	banned_knowledge = list(
@@ -45,6 +45,7 @@
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	limit = 2
+	destroy_if_over_limit = TRUE
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_RUST
@@ -77,7 +78,7 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/mecha
+		/obj/vehicle/sealed/mecha
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
@@ -401,7 +402,7 @@
 		max_dist = max(max_dist, get_dist(found_turf, centre) + 1)
 
 	for(var/turf/nearby_turf as anything in spiral_range_turfs(max_dist, centre, FALSE))
-		if(nearby_turf in rusted_turfs || is_type_in_typecache(nearby_turf, blacklisted_turfs))
+		if((nearby_turf in rusted_turfs) || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
 
 		for(var/turf/line_turf as anything in getline(nearby_turf, centre))

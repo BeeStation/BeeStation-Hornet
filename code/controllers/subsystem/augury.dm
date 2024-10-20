@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(augury)
 			watchers -= W
 			continue
 		if(biggest_doom && (!W.orbiting || W.orbiting.parent != biggest_doom))
-			W.ManualFollow(biggest_doom)
+			W.check_orbitable(biggest_doom)
 
 /datum/action/innate/augury
 	name = "Auto Follow Debris"

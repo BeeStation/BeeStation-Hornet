@@ -12,7 +12,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -59,12 +59,12 @@
 	filling.color = get_reagents_color()
 	. += filling
 
-/obj/item/watertank/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/watertank/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(reagents.total_volume < 1)
 			return
-		var/mutable_appearance/filling = mutable_appearance('icons/mob/reagent_overlays.dmi', "waterbackpack[worn_fill_icon_thresholds[1]]")
+		var/mutable_appearance/filling = mutable_appearance('icons/mob/reagent_overlays.dmi', "waterbackpack[worn_fill_icon_thresholds[1]]", item_layer)
 
 		var/percent = round(((reagents.total_volume / volume) * 100), 1)
 		for(var/i in 1 to length(worn_fill_icon_thresholds))
@@ -673,11 +673,11 @@
 		turn_on()
 
 //Todo : cache these.
-/obj/item/reagent_containers/chemtank/worn_overlays(mutable_appearance/standing, isinhands = FALSE) //apply chemcolor and level
+/obj/item/reagent_containers/chemtank/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin) //apply chemcolor and level
 	. = list()
 	//inhands + reagent_filling
 	if(!isinhands && reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "backpackmob-10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "backpackmob-10", item_layer)
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -720,37 +720,3 @@
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
 	user.update_inv_back() //for overlays update
-
-//Operator backpack spray
-/obj/item/watertank/op
-	name = "backpack water tank"
-	desc = "A New Russian backpack spray for systematic cleansing of carbon lifeforms."
-	icon_state = "waterbackpackop"
-	item_state = "waterbackpackop"
-	w_class = WEIGHT_CLASS_NORMAL
-	volume = 2000
-	slowdown = 0
-
-/obj/item/watertank/op/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/mutagen,350)
-	reagents.add_reagent(/datum/reagent/napalm,125)
-	reagents.add_reagent(/datum/reagent/fuel,125)
-	reagents.add_reagent(/datum/reagent/clf3,300)
-	reagents.add_reagent(/datum/reagent/cryptobiolin,350)
-	reagents.add_reagent(/datum/reagent/toxin/plasma,250)
-	reagents.add_reagent(/datum/reagent/consumable/condensedcapsaicin,500)
-
-/obj/item/reagent_containers/spray/mister/op
-	desc = "A mister nozzle attached to several extended water tanks. It suspiciously has a compressor in the system and is labelled entirely in New Cyrillic."
-	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "misterop"
-	item_state = "misterop"
-	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
-	amount_per_transfer_from_this = 100
-	possible_transfer_amounts = list(75,100,150)
-
-/obj/item/watertank/op/make_noz()
-	return new /obj/item/reagent_containers/spray/mister/op(src)

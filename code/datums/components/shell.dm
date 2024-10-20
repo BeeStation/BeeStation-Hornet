@@ -121,7 +121,7 @@
  */
 /datum/component/shell/proc/on_unfasten(atom/source, anchored)
 	SIGNAL_HANDLER
-	attached_circuit?.on = anchored
+	attached_circuit?.set_on(anchored)
 /**
  * Called when an item hits the parent. This is the method to add the circuitboard to the component.
  */
@@ -133,7 +133,7 @@
 
 	if(istype(item, /obj/item/inducer))
 		var/obj/item/inducer/inducer = item
-		INVOKE_ASYNC(inducer, TYPE_PROC_REF(/obj/item, attack_obj), attached_circuit, attacker, list())
+		INVOKE_ASYNC(inducer, TYPE_PROC_REF(/obj/item, attack_atom), attached_circuit, attacker, list())
 		return COMPONENT_NO_AFTERATTACK
 
 	if(attached_circuit)

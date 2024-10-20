@@ -12,10 +12,14 @@
 	health = 4
 	melee_damage = 3
 	obj_damage = 0
-	attacktext = "bites"
-	response_help  = "pets"
-	response_disarm = "pokes"
-	response_harm   = "squishes"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "pokes"
+	response_disarm_simple = "poke"
+	response_harm_continuous = "squishes"
+	response_harm_simple = "squish"
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list("hostile")
@@ -45,7 +49,7 @@
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
-/mob/living/simple_animal/hostile/redgrub/Initialize()
+/mob/living/simple_animal/hostile/redgrub/Initialize(mapload)
 	. = ..()
 	grub_diseases += new /datum/disease/advance/random(rand(3, 6), 9, rand(3, 4), guaranteed_symptoms = list(/datum/symptom/parasite))
 	food = rand(15, 50)
@@ -172,7 +176,7 @@
 
 /mob/living/simple_animal/hostile/redgrub/harvest(mob/living/user) //used for extra objects etc. in butchering
 	for(var/i in 1 to growthstage)
-		var/obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub/meat = new(src.loc)
+		var/obj/item/food/meat/rawcutlet/grub/meat = new(src.loc)
 		for(var/datum/disease/advance/A in grub_diseases)
 			if(A.spread_flags & DISEASE_SPREAD_FALTERED)
 				grub_diseases -= A

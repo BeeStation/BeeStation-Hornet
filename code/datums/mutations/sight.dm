@@ -34,7 +34,7 @@
 
 /datum/mutation/thermal
 	name = "Thermal Vision"
-	desc = "The mutation enables the growth of Heat Pits in the eyes, not unlike those of a reptile, which can visually percieve the unique infrared thermal signature of living creatures."
+	desc = "The mutation enables the growth of Heat Pits in the eyes, not unlike those of a reptile, which can visually perceive the unique infrared thermal signature of living creatures."
 	quality = POSITIVE
 	difficulty = 18
 	instability = 25
@@ -72,7 +72,7 @@
 /datum/mutation/laser_eyes/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	..()
 	if(!(type in visual_indicators))
-		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "lasereyes", -FRONT_MUTATIONS_LAYER))
+		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "lasereyes"))
 
 /datum/mutation/laser_eyes/get_visual_indicator()
 	return visual_indicators[type][1]

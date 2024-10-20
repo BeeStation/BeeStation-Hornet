@@ -100,7 +100,7 @@
 	for(var/datum/antagonist/summoner_antag in holder.owner.antag_datums)
 		if(istype(summoner_antag, /datum/antagonist/traitor))
 			var/datum/antagonist/traitor/summoner_traitor = summoner_antag
-			if(summoner_traitor.should_give_codewords)
+			if(summoner_traitor.has_codewords)
 				LAZYSET(extra_info, "Code Phrases", jointext(GLOB.syndicate_code_phrase, ", "))
 				extra_info["Code Responses"] = jointext(GLOB.syndicate_code_response, ", ")
 		var/datum/team/summoner_team = summoner_antag.get_team()
@@ -144,8 +144,8 @@
 /datum/antagonist/holoparasite/apply_innate_effects()
 	. = ..()
 	RegisterSignal(owner, COMSIG_HOLOPARA_SET_SUMMONER, PROC_REF(on_set_summoner))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_SET_ACCENT_COLOR, COMSIG_HOLOPARA_SET_THEME), PROC_REF(do_update_static_data))
-	RegisterSignal(stats, list(COMSIG_HOLOPARA_STATS_SET_MAJOR_ABILITY, COMSIG_HOLOPARA_STATS_ADD_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_TAKE_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_SET_WEAPON), PROC_REF(do_update_static_data))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_SET_ACCENT_COLOR, COMSIG_HOLOPARA_SET_THEME), PROC_REF(do_update_static_data))
+	RegisterSignals(stats, list(COMSIG_HOLOPARA_STATS_SET_MAJOR_ABILITY, COMSIG_HOLOPARA_STATS_ADD_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_TAKE_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_SET_WEAPON), PROC_REF(do_update_static_data))
 
 /datum/antagonist/holoparasite/remove_innate_effects()
 	. = ..()

@@ -67,6 +67,9 @@
 
 /datum/holoparasite_ability/major/healing/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
+	// too lazy to make this code better, this still works. dextrous can use more intents, so our 2-intent hud is just worse.
+	if(istype(owner.stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
+		return
 	hud.action_intent = new /atom/movable/screen/act_intent/holopara_healer
 	hud.action_intent.icon = hud.ui_style
 	hud.action_intent.icon_state = owner.a_intent
@@ -136,7 +139,7 @@
 			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
-			human_target.bleed_rate = max(human_target.bleed_rate - actual_heal_amt, 0)
+			human_target.cauterise_wounds(actual_heal_amt * 0.2)
 
 	if(purge_toxins)
 		var/list/reagents_purged = list()
@@ -185,12 +188,12 @@
  * Heals an object.
  */
 /datum/holoparasite_ability/major/healing/proc/heal_obj(obj/target)
-	var/old_integrity = target.obj_integrity
-	target.obj_integrity = min(target.obj_integrity + (target.max_integrity * 0.1), target.max_integrity)
-	if(old_integrity > target.obj_integrity)
+	var/old_integrity = target.get_integrity()
+	target.repair_damage(target.get_integrity() + (target.max_integrity * 0.1), target.max_integrity)
+	if(old_integrity > target.get_integrity())
 		SSblackbox.record_feedback("associative", "holoparasite_obj_damage_healed", 1, list(
 			"target" = replacetext("[target.type]", "/obj/", ""),
-			"amount" = max(old_integrity - target.obj_integrity, 0)
+			"amount" = max(old_integrity - target.get_integrity(), 0)
 		))
 
 /**

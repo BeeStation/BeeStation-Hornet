@@ -6,11 +6,18 @@
 #define COMSIG_MOVABLE_EXITTED_AREA "exit_area" 							//! from base of area/Exited(): (/area)
 
 // /atom/movable signals
-#define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"				//! from base of atom/movable/Moved(): (/atom)
-	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE 1
-#define COMSIG_MOVABLE_MOVED "movable_moved"					//! from base of atom/movable/Moved(): (/atom, dir)
-#define COMSIG_MOVABLE_CROSS "movable_cross"					//! from base of atom/movable/Cross(): (/atom/movable)
-#define COMSIG_MOVABLE_BUMP "movable_bump"						//! from base of atom/movable/Bump(): (/atom)
+
+///from base of atom/movable/Moved(): (/atom)
+#define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
+	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
+///from base of atom/movable/Moved(): (/atom, dir)
+#define COMSIG_MOVABLE_MOVED "movable_moved"
+///from base of atom/movable/Cross(): (/atom/movable)
+#define COMSIG_MOVABLE_CROSS "movable_cross"
+///from base of atom/movable/Move(): (/atom/movable)
+#define COMSIG_MOVABLE_CROSS_OVER "movable_cross_am"
+///from base of atom/movable/Bump(): (/atom)
+#define COMSIG_MOVABLE_BUMP "movable_bump"
 #define COMSIG_MOVABLE_IMPACT "movable_impact"					//! from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"			//! from base of mob/living/hitby(): (mob/living/target, hit_zone)
 #define COMSIG_MOVABLE_BUCKLE "buckle"							//! from base of atom/movable/buckle_mob(): (mob, force)
@@ -32,13 +39,16 @@
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7
 
-#define COMSIG_MOVABLE_DISPOSING "movable_disposing"			//! called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
-
-///from base of atom/movable/setGrabState(): (newstate)
-#define COMSIG_MOVABLE_SET_GRAB_STATE "living_set_grab_state"
-
+///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
+#define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 // called when movable is expelled from a disposal pipe, bin or outlet on obj/pipe_eject: (direction)
 #define COMSIG_MOVABLE_PIPE_EJECTING "movable_pipe_ejecting"
+///called when the movable sucessfully has it's anchored var changed, from base atom/movable/set_anchored(): (value)
+#define COMSIG_MOVABLE_SET_ANCHORED "movable_set_anchored"
+///from base of atom/movable/setGrabState(): (newstate)
+#define COMSIG_MOVABLE_SET_GRAB_STATE "living_set_grab_state"
+///called when the movable's glide size is updated: (new_glide_size)
+#define COMSIG_MOVABLE_UPDATE_GLIDE_SIZE "movable_glide_size"
 
 ///from base of atom/movable/newtonian_move(): (inertia_direction)
 #define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
@@ -53,3 +63,14 @@
 #define COMSIG_STORAGE_ENTERED "storage_entered"
 ///from base of atom/movable/on_exit_storage(): (datum/component/storage/concrete/master_storage)
 #define COMSIG_STORAGE_EXITED "storage_exited"
+
+
+
+// /datum/element/movetype_handler signals
+/// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
+#define COMSIG_PAUSE_FLOATING_ANIM "pause_floating_anim"
+/// From base of datum/element/movetype_handler/on_movement_type_trait_gain: (flag)
+#define COMSIG_MOVETYPE_FLAG_ENABLED "movetype_flag_enabled"
+/// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag)
+#define COMSIG_MOVETYPE_FLAG_DISABLED "movetype_flag_disabled"
+

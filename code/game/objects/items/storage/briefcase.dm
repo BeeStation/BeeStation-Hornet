@@ -1,6 +1,7 @@
 /obj/item/storage/briefcase
 	name = "briefcase"
 	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
+	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "briefcase"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
@@ -10,7 +11,8 @@
 	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
 	var/folder_path = /obj/item/folder //this is the path of the folder that gets spawned in New()
@@ -19,7 +21,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
+	STR.max_combined_w_class = 28
 
 /obj/item/storage/briefcase/PopulateContents()
 	new /obj/item/pen(src)

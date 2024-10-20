@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 		"command" = list(
 			"name" = "Command",
 			"huds" = GLOB.command_huds,
-			"jobs" = GLOB.command_positions,
+			"jobs" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
 			"order" = SSjob.chain_of_command
 		),
 		"order" = ordering,
@@ -40,4 +40,4 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 	return list("manifest" = GLOB.data_core.get_manifest(), "user_theme" = user_theme)
 
 /datum/crew_manifest/ui_assets(mob/user)
-	return list(get_asset_datum(/datum/asset/spritesheet/job_icons))
+	return list(get_asset_datum(/datum/asset/spritesheet_batched/job_icons))

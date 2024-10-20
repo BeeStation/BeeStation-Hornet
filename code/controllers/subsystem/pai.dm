@@ -71,6 +71,7 @@ SUBSYSTEM_DEF(pai)
 	data["comments"] = candidate.comments
 	data["description"] = candidate.description
 	data["name"] = candidate.name
+	data["ready"] = check_ready(candidate)
 	var/datum/pai_candidate/default_candidate = new
 	default_candidate.load(user)
 	data["default_name"] = default_candidate.name
@@ -115,6 +116,11 @@ SUBSYSTEM_DEF(pai)
 			candidate.description = params["candidate"]["description"]
 			candidate.name = params["candidate"]["name"]
 			candidate.save(usr)
+		if("delete")
+			if(!candidate.ready)
+				return FALSE
+			candidate.ready = FALSE
+			to_chat(usr, "<span class='notice'>Your candidacy has been deleted. You can no longer be selected as a pAI personality.</span>")
 	return TRUE
 
 

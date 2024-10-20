@@ -3,7 +3,7 @@
 	name = "Entropic Plume"
 	desc = "Spews forth a disorienting plume that causes enemies to strike each other, briefly blinds them (increasing with range) and poisons them (decreasing with range). Also spreads rust in the path of the plume."
 	action_background_icon_state = "bg_ecult"
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "entropic_plume"
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
@@ -66,7 +66,7 @@
 	requires_heretic_focus = TRUE
 	charge_max = 350
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "rust_wave"
 	action_background_icon_state = "bg_ecult"
 	invocation = "SPR'D TH' WO'D"

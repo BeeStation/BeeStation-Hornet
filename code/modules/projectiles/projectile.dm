@@ -199,6 +199,9 @@
 	// i know that this is probably more with wands and gun mods in mind, but it's a bit silly that the projectile on_hit signal doesn't ping the projectile itself.
 	// maybe we care what the projectile thinks! See about combining these via args some time when it's not 5AM
 	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, def_zone)
+
+	if(QDELETED(src)) // in case one of the above signals deleted the projectile for whatever reason
+		return
 	var/turf/target_loca = get_turf(target)
 
 	var/hitx
@@ -255,7 +258,7 @@
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
-		if(suppressed==SUPPRESSED_VERY)
+		if(suppressed == SUPPRESSED_VERY)
 			playsound(loc, hitsound, 5, TRUE, -1)
 		else if(suppressed)
 			playsound(loc, hitsound, 5, 1, -1)
@@ -279,6 +282,7 @@
 			reagent_note = " REAGENTS:"
 			for(var/datum/reagent/R in D.syringe.reagents.reagent_list)
 				reagent_note += "[R.name] ([num2text(R.volume)])"
+
 	if(ismob(firer))
 		log_combat(firer, L, "shot", src, reagent_note)
 	else
@@ -301,7 +305,7 @@
 	if(firer && HAS_TRAIT(firer, TRAIT_NICE_SHOT))
 		best_angle += NICE_SHOT_RICOCHET_BONUS
 	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
-		if(L.stat == DEAD || !isInSight(src, L))
+		if(L.stat == DEAD || !is_in_sight(src, L))
 			continue
 		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
 		if(our_angle < best_angle)
@@ -399,7 +403,7 @@
 		return process_hit(T, select_target(T, target, bumped), bumped, hit_something)	// try to hit something else
 	// at this point we are going to hit the thing
 	// in which case send signal to it
-	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, args)
+	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, src, args)
 	if(mode == PROJECTILE_PIERCE_HIT)
 		++pierces
 	hit_something = TRUE
@@ -496,11 +500,16 @@
 		// If target not able to use items, move and stand - or if they're just dead, pass over.
 		if(L.stat == DEAD)
 			return FALSE
+		// If things pass through the mob, then this will too unless they are lying down (lying down forces density to be false)
 		if(!L.density)
+			// If you are moving, then bullets will hit you even if you are lying.
+			// This is to counter abuse in space where you can be moving via inertia while lying #11020
+			if ((L.body_position == LYING_DOWN) && L.last_move_time + max(L.inertia_move_delay, CRAWLING_ADD_SLOWDOWN + CONFIG_GET(number/movedelay/run_delay)) > world.time)
+				return TRUE
 			return FALSE
-		if (L.mobility_flags & MOBILITY_STAND)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
+		if(L.body_position != LYING_DOWN)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
 			return TRUE
-		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
+		var/stunned = HAS_TRAIT(L, TRAIT_IMMOBILIZED) && HAS_TRAIT(L, TRAIT_FLOORED) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED)
 		return !stunned || hit_stunned_targets
 	return TRUE
 
@@ -922,3 +931,6 @@
 
 /obj/projectile/experience_pressure_difference()
 	return
+
+#undef MOVES_HITSCAN
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

@@ -1,0 +1,2 @@
+/mob/living/simple_animal/cockroach : /mob/living/basic/cockroach{@OLD; squish_chance = @SKIP}
+/mob/living/simple_animal/mothroach : /mob/living/basic/mothroach{@OLD}

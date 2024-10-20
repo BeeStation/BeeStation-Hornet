@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN, ABSTRACTION_HOLOGRAM_TRAIT)
 	ADD_TRAIT(src, TRAIT_NODISMEMBER, ABSTRACTION_HOLOGRAM_TRAIT)
-	dna.species.species_traits |= NOBLOOD
+	ADD_TRAIT(src, TRAIT_NO_BLOOD, ABSTRACTION_HOLOGRAM_TRAIT)
 
 /mob/living/carbon/human/abstraction_hologram/death(gibbed)
 	//Put the person back in their body
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/health_lost = last_check_health - health
 	if(health_lost > 0)
 		damage_crystal(health_lost)
-	var/required_health =  (linked_crystal.obj_integrity / linked_crystal.max_integrity) * maxHealth
+	var/required_health =  (linked_crystal.get_integrity() / linked_crystal.max_integrity) * maxHealth
 	var/health_delta_needed = max(health - required_health, 0)
 	adjustCloneLoss(health_delta_needed)	//Adjust clone loss so that our health = crystals health
 	last_check_health = health
@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	else
 		active_hologram.real_name = "the eminence"
 
-	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 	active_hologram.add_overlay(forbearance)
 
 	to_chat(active_hologram, "<span class='neovgre'>You manifest yourself at [src].</span>")
@@ -229,3 +229,5 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	qdel(O)
 
 #undef ABSTRACTION_HOLOGRAM_TRAIT
+
+#undef ABSTRACTION_CRYSTAL_RANGE

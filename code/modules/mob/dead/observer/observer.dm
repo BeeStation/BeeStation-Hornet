@@ -15,8 +15,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	see_in_dark = 100
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	invisibility = INVISIBILITY_SPIRIT
+	//appearance_flags = LONG_GLIDE
 	hud_type = /datum/hud/ghost
-	movement_type = GROUND | FLYING
+	movement_type = FLYING | FLOATING
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 2
@@ -135,9 +136,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		remove_verb(/mob/dead/observer/verb/boo)
 		remove_verb(/mob/dead/observer/verb/possess)
 
-	animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-	animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-
 	add_to_dead_mob_list()
 
 	for(var/v in GLOB.active_alternate_appearances)
@@ -153,6 +151,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	data_huds_on = 1
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		if(facial_hair_style)
 			S = GLOB.facial_hair_styles_list[facial_hair_style]
 			if(S)
-				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
+				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(facial_hair_color)
 					facial_hair_overlay.color = "#" + facial_hair_color
 				facial_hair_overlay.alpha = 200
@@ -240,7 +240,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		if(hair_style)
 			S = GLOB.hair_styles_list[hair_style]
 			if(S)
-				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
+				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(hair_color)
 					hair_overlay.color = "#" + hair_color
 				hair_overlay.alpha = 200
@@ -325,10 +325,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	ghostize(FALSE,SENTIENCE_RETAIN)
 
-/mob/dead/observer/Move(NewLoc, direct)
+/mob/dead/observer/Move(NewLoc, direct, glide_size_override = 32)
 	if(updatedir)
 		setDir(direct)//only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
 
+	if(glide_size_override)
+		set_glide_size(glide_size_override)
 	if(NewLoc)
 		abstract_move(NewLoc)
 	else
@@ -388,6 +390,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isliving(mind?.current))
 		mind.current.med_hud_set_status()
 	to_chat(src, "You can no longer be brought back into your body.")
+	src.log_message("[key_name(src)] has opted to do-not-resuscitate / DNR from their body [mind?.current]", LOG_GAME)
 	return TRUE
 
 /mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source, flashwindow = TRUE)
@@ -449,14 +452,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	orbit_menu.ui_interact(src)
 
+
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(atom/movable/target)
-	if (!istype(target))
+/mob/dead/observer/check_orbitable(atom/movable/target_original)
+	var/atom/movable/target = target_original.get_orbitable()
+	if (!istype(target) || orbiting?.parent == target_original)
 		return
 
-	var/icon/I = icon(target.icon,target.icon_state,target.dir)
-
-	var/orbitsize = (I.Width()+I.Height())*0.5
+	var/list/icon_dimensions = get_icon_dimensions(target.icon)
+	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * 0.5
 	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
 
 	var/rot_seg
@@ -483,8 +487,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	. = ..()
 	//restart our floating animation after orbit is done.
 	pixel_y = base_pixel_y
-	animate(src, pixel_y = base_pixel_y + 2, time = 1 SECONDS, loop = -1)
-	animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
@@ -692,7 +694,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(href_list["follow"])
 			var/atom/movable/target = locate(href_list["follow"])
 			if(istype(target) && (target != src))
-				ManualFollow(target)
+				check_orbitable(target)
 				return
 		if(href_list["x"] && href_list["y"] && href_list["z"])
 			var/tx = text2num(href_list["x"])
@@ -822,6 +824,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/is_literate()
 	return TRUE
 
+/mob/dead/observer/can_read(obj/O)
+	return TRUE
+
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
@@ -839,7 +844,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				remove_verb(/mob/dead/observer/verb/boo)
 				remove_verb(/mob/dead/observer/verb/possess)
 
-/mob/dead/observer/reset_perspective(atom/A)
+/mob/dead/observer/reset_perspective(atom/new_eye)
 	if(client)
 		if(ismob(client.eye) && (client.eye != src))
 			var/mob/target = client.eye
@@ -870,7 +875,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/mob/mob_eye = creatures[eye_name]
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
-		client.eye = mob_eye
+		client.set_eye(mob_eye)
 		if(mob_eye.hud_used)
 			client.screen = list()
 			LAZYINITLIST(mob_eye.observers)
@@ -907,7 +912,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 // Ghosts have no momentum, being massless ectoplasm
 /mob/dead/observer/Process_Spacemove(movement_dir)
-	return 1
+	return TRUE
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()
@@ -941,8 +946,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/list/t_ray_images = list()
 	var/static/list/stored_t_ray_images = list()
 	for(var/obj/O in orange(client.view, src) )
-
-		if(O.invisibility == INVISIBILITY_MAXIMUM)
+		if(HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 			var/image/I = new(loc = get_turf(O))
 			var/mutable_appearance/MA = new(O)
 			MA.alpha = 128

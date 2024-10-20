@@ -1,8 +1,7 @@
 /mob/living/Login()
-	..()
-
-	//if(ishuman())
-	//qdel_list_wrapperdna?.species?.on_owner_login(src)
+	. = ..()
+	if(!. || !client)
+		return FALSE
 
 	//Mind updates
 	sync_mind()
@@ -31,6 +30,3 @@
 	var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
 		changeling.regain_powers()
-	var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(hivemind)
-		hivemind.regain_images()

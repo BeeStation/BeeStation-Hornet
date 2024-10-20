@@ -11,7 +11,7 @@
 	density = TRUE
 
 	max_integrity = 250
-	integrity_failure = 80
+	integrity_failure = 0.33
 
 	// These allow for different icons when creating custom dispensers
 	var/icon_off = "off"
@@ -50,7 +50,7 @@
 
 /obj/machinery/droneDispenser/Initialize(mapload)
 	. = ..()
-	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass), MINERAL_MATERIAL_AMOUNT * MAX_STACK_SIZE * 2, TRUE, /obj/item/stack)
+	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass), MINERAL_MATERIAL_AMOUNT * MAX_STACK_SIZE * 2, MATCONTAINER_EXAMINE|BREAKDOWN_FLAGS_DRONE_DISPENSER, /obj/item/stack)
 	materials.insert_amount_mat(starting_amount)
 	materials.precise_insertion = TRUE
 	using_materials = list(/datum/material/iron = iron_cost, /datum/material/glass = glass_cost)
@@ -227,12 +227,12 @@
 			"<span class='notice'>You restore [src] to operation.</span>")
 
 		set_machine_stat(machine_stat & ~BROKEN)
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 		update_icon()
 	else
 		return ..()
 
-/obj/machinery/droneDispenser/obj_break(damage_flag)
+/obj/machinery/droneDispenser/atom_break(damage_flag)
 	. = ..()
 	if(!.)
 		return

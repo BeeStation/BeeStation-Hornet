@@ -10,4 +10,4 @@
 	if(!can_ghost)
 		return
 	var/mob/dead/observer/A = C.mob
-	A.ManualFollow(AM)
+	A.check_orbitable(AM)

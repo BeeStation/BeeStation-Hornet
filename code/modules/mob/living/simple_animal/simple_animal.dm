@@ -4,7 +4,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
-
+	living_flags = MOVES_ON_ITS_OWN
 	status_flags = CANPUSH
 
 	var/icon_living = ""
@@ -25,10 +25,19 @@
 	var/wander = TRUE	// Does the mob wander around when idle?
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
 
-	//Interaction
-	var/response_help   = "pokes"
-	var/response_disarm = "shoves"
-	var/response_harm   = "hits"
+	///When someone interacts with the simple animal.
+	///Help-intent verb in present continuous tense.
+	var/response_help_continuous = "pokes"
+	///Help-intent verb in present simple tense.
+	var/response_help_simple = "poke"
+	///Disarm-intent verb in present continuous tense.
+	var/response_disarm_continuous = "shoves"
+	///Disarm-intent verb in present simple tense.
+	var/response_disarm_simple = "shove"
+	///Harm-intent verb in present continuous tense.
+	var/response_harm_continuous = "hits"
+	///Harm-intent verb in present simple tense.
+	var/response_harm_simple = "hit"
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
 	//Temperature effect
@@ -42,14 +51,25 @@
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
 	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
-	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
-	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
-	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
-	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
-	var/attacktext = "attacks"
+	///how much damage this simple animal does to objects, if any.
+	var/obj_damage = 0
+	///How much armour they ignore, as a flat reduction from the targets armour value.
+	var/armour_penetration = 0
+	///Damage type of a simple mob's melee attack, should it do damage.
+	var/melee_damage_type = BRUTE
+	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source.
+	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
+	///Attacking verb in present continuous tense.
+	var/attack_verb_continuous = "attacks"
+	///Attacking verb in present simple tense.
+	var/attack_verb_simple = "attack"
 	var/attack_sound = null
-	var/friendly = "nuzzles" //If the mob does no damage with it's attack
-	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	///Attacking, but without damage, verb in present continuous tense.
+	var/friendly_verb_continuous = "nuzzles"
+	///Attacking, but without damage, verb in present simple tense.
+	var/friendly_verb_simple = "nuzzle"
+	///Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls.
+	var/environment_smash = ENVIRONMENT_SMASH_NONE
 	var/hardattacks = FALSE //if true, a simplemob is unaffected by NASTY_BLOCKING
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
@@ -79,6 +99,11 @@
 	var/dextrous = FALSE //If the creature has, and can use, hands
 	var/dextrous_hud_type = /datum/hud/dextrous
 
+	///If the creature should have an innate TRAIT_MOVE_FLYING trait added on init that is also toggled off/on on death/revival.
+	var/is_flying_animal = FALSE
+	//If the creature should play its bobbing up and down animation.
+	var/no_flying_animation
+
 	var/AIStatus = AI_ON //The Status of our AI, can be changed via toggle_ai(togglestatus) to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players)
 	var/can_have_ai = TRUE //once we have become sentient, we can never go back
 
@@ -89,11 +114,16 @@
 
 	var/my_z // I don't want to confuse this with client registered_z
 
-	var/do_footstep = FALSE
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
+
 	///Generic flags
 	var/simple_mob_flags = NONE
 
 	var/special_process = FALSE
+
+	///set it TRUE if "health" is not relable to this simple mob.
+	var/do_not_show_health_on_stat_panel
 
 	//Discovery
 	var/discovery_points = 200
@@ -109,10 +139,17 @@
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
 
+	if(footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
 /mob/living/simple_animal/ComponentInitialize()
 	. = ..()
+	if(no_flying_animation)
+		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
+	if(is_flying_animal)
+		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
 
@@ -131,14 +168,25 @@
 
 	return ..()
 
+/mob/living/simple_animal/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
+		if(NAMEOF(src, is_flying_animal))
+			if(stat != DEAD)
+				if(!is_flying_animal)
+					REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
+				else
+					ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
+		if(NAMEOF(src, no_flying_animation))
+			if(!no_flying_animation)
+				REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
+			else
+				ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
+
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
-
-/mob/living/simple_animal/initialize_footstep()
-	if(do_footstep)
-		..()
 
 /mob/living/simple_animal/updatehealth()
 	. = ..()
@@ -335,10 +383,13 @@
 
 /mob/living/simple_animal/proc/update_simplemob_varspeed()
 	if(speed == 0)
-		remove_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE)
-	add_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE, 100, multiplicative_slowdown = speed, override = TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 
 /mob/living/simple_animal/get_stat_tab_status()
+	if(do_not_show_health_on_stat_panel)
+		return ..()
+
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
 	return tab_data
@@ -352,7 +403,6 @@
 			new i(loc)
 
 /mob/living/simple_animal/death(gibbed)
-	movement_type &= ~FLYING
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
@@ -369,6 +419,10 @@
 		del_on_death = FALSE
 		qdel(src)
 	else
+		if(is_flying_animal)
+			REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
+		if(no_flying_animation)
+			REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 		health = 0
 		icon_state = icon_dead
 		if(flip_on_death)
@@ -388,8 +442,8 @@
 		if(L.stat != CONSCIOUS)
 			return FALSE
 	if (ismecha(the_target))
-		var/obj/mecha/M = the_target
-		if (M.occupant)
+		var/obj/vehicle/sealed/mecha/M = the_target
+		if(LAZYLEN(M.occupants))
 			return FALSE
 	return TRUE
 
@@ -402,15 +456,18 @@
 /mob/living/simple_animal/ExtinguishMob()
 	return
 
+
 /mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		icon = initial(icon)
-		icon_state = icon_living
-		set_density(initial(density))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
-		update_mobility()
-		. = 1
-		setMovetype(initial(movement_type))
+	. = ..()
+	if(!.)
+		return
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	if(is_flying_animal)
+		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
+	if(no_flying_animation)
+		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	set waitfor = 0
@@ -469,23 +526,6 @@
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	return ..()
 
-/mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(HAS_TRAIT_NOT_FROM(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT))
-		drop_all_held_items()
-		mobility_flags = NONE
-	else if(buckled || IsImmobilized())
-		mobility_flags = MOBILITY_FLAGS_INTERACTION
-	else
-		if(value_otherwise)
-			mobility_flags = MOBILITY_FLAGS_DEFAULT
-		else
-			mobility_flags = NONE
-	if(!(mobility_flags & MOBILITY_MOVE))
-		SSmove_manager.stop_looping(src) //stop mid walk
-
-	update_transform()
-	update_action_buttons_icon()
-
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
 	var/changed = FALSE
@@ -508,7 +548,7 @@
 		return
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
+		see_in_dark = NIGHTVISION_FOV_RANGE
 		see_invisible = SEE_INVISIBLE_OBSERVER
 		return
 
@@ -545,7 +585,7 @@
 	if(!selhand)
 		selhand = (active_hand_index % held_items.len)+1
 	if(istext(selhand))
-		selhand = lowertext(selhand)
+		selhand = LOWER_TEXT(selhand)
 		if(selhand == "right" || selhand == "r")
 			selhand = 2
 		if(selhand == "left" || selhand == "l")
@@ -604,7 +644,7 @@
 		M.forceMove(get_turf(src))
 		return ..()
 
-/mob/living/simple_animal/relaymove(mob/user, direction)
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
 	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
 	if(tame && riding_datum)
 		riding_datum.handle_ride(user, direction)

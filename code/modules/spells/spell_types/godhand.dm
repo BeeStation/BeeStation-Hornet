@@ -17,6 +17,8 @@
 	throw_speed = 0
 	var/charges = 1
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack)
+
 /obj/item/melee/touch_attack/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
@@ -186,7 +188,7 @@
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
 	if(do_after(user, 25 SECONDS, M))
 		var/name = M.real_name
-		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
+		var/obj/item/food/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
 		. = ..()
@@ -197,7 +199,9 @@
 	catchphrase = null
 	var/datum/mutation/parent_mutation
 
-/obj/item/melee/touch_attack/mutation/Initialize(_mapload, obj/effect/proc_holder/spell/targeted/touch/_spell, datum/mutation/_parent)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mutation)
+
+/obj/item/melee/touch_attack/mutation/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell, datum/mutation/_parent)
 	. = ..()
 	if(!istype(_parent))
 		return INITIALIZE_HINT_QDEL

@@ -72,7 +72,7 @@
 		return
 	// Bit of a nasty hardcoded hack, but eh, it works!
 	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
-	if(summoner_traitor?.should_give_codewords)
+	if(summoner_traitor?.has_codewords)
 		message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
 		message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
 	// Assemble the message prefix
@@ -186,15 +186,17 @@
 	return avoid_assoc_duplicate_keys("[custom_name] @ [snare_area.name]", snare_names)
 
 /datum/holoparasite_ability/lesser/snare/proc/get_snare_by_name(name_to_find)
-	name_to_find = trim(lowertext(name_to_find), MAX_NAME_LEN)
+	name_to_find = trim(LOWER_TEXT(name_to_find), MAX_NAME_LEN)
 	for(var/obj/effect/snare/snare as() in snares)
-		if(lowertext(snare.name) == name_to_find)
+		if(LOWER_TEXT(snare.name) == name_to_find)
 			return snare
 
 /atom/movable/screen/holoparasite/snare
 	var/datum/holoparasite_ability/lesser/snare/ability
 
-/atom/movable/screen/holoparasite/snare/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/snare)
+
+/atom/movable/screen/holoparasite/snare/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make snare holoparasite HUD without proper reference to snare ability")
@@ -205,7 +207,7 @@
 	desc = "Arm a surveillance snare below you, which will alert you whenever someone walks over it."
 	icon_state = "snare:arm"
 
-/atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
+/atom/movable/screen/holoparasite/snare/arm/use()
 	if(ability.arming)
 		return
 	ability.try_arm_snare()
@@ -236,7 +238,7 @@
 /atom/movable/screen/holoparasite/snare/disarm/should_be_transparent()
 	return !length(ability.snares)
 
-/atom/movable/screen/holoparasite/snare/disarm/Click(location, control, params)
+/atom/movable/screen/holoparasite/snare/disarm/use()
 	ability.disarm_snare()
 
 /obj/effect/snare
@@ -248,6 +250,8 @@
 	alpha = 100
 	/// A reference to the holoparasite ability that created this snare.
 	var/datum/holoparasite_ability/lesser/snare/ability
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/snare)
 
 /obj/effect/snare/Initialize(mapload, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()

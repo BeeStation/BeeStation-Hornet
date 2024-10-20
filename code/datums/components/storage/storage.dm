@@ -1,7 +1,3 @@
-#define COLLECT_ONE 0
-#define COLLECT_EVERYTHING 1
-#define COLLECT_SAME 2
-
 // External storage-related logic:
 // /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
@@ -10,9 +6,9 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/datum/component/storage/concrete/master		//If not null, all actions act on master and this is just an access point.
 
-	var/list/can_hold								//if this is set, only things in this typecache will fit.
+	var/list/can_hold								//if this is set, only things in this typecache will fit, unless
 	var/list/cant_hold								//if this is set, anything in this typecache will not be able to fit.
-	var/list/exception_hold							//if set, these items will be the exception to the max size of object that can fit.
+	var/list/exception_hold							//if this is set, items in this typecache will ignore size limitations, only respecting max_items
 	/// If set can only contain stuff with this single trait present.
 	var/list/can_hold_trait
 
@@ -156,7 +152,7 @@
 	var/datum/component/storage/concrete/master = master()
 	if(!master)
 		return
-	. = COMPONENT_BLOCK_REACH
+	. = COMPONENT_ALLOW_REACH
 	next += master.parent
 	for(var/i in master.slaves)
 		var/datum/component/storage/slave = i
@@ -185,7 +181,7 @@
 
 	if(!isitem(O) || !click_gather || SEND_SIGNAL(O, COMSIG_CONTAINS_STORAGE))
 		return FALSE
-	. = COMPONENT_NO_ATTACK
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(locked)
 		var/atom/host = parent
 		host.balloon_alert(M, "[host] is locked.")
@@ -214,7 +210,7 @@
 	var/list/rejections = list()
 	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), things, attack_item.loc, rejections, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
 	animate_parent()
 
@@ -275,7 +271,7 @@
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 1 SECONDS, T, NONE, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 /datum/component/storage/proc/mass_remove_from_storage(atom/target, list/things, datum/progressbar/progress, trigger_on_found = TRUE)
 	var/atom/real_location = real_location()
@@ -284,6 +280,8 @@
 		if(I.loc != real_location)
 			continue
 		remove_from_storage(I, target)
+		I.pixel_x = rand(-10,10)
+		I.pixel_y = rand(-10,10)
 		if(trigger_on_found && I.on_found())
 			return FALSE
 		if(TICK_CHECK)
@@ -601,7 +599,7 @@
 		if(iscarbon(M) || isdrone(M))
 			var/mob/living/L = M
 			if(!L.incapacitated() && I == L.get_active_held_item())
-				if(!SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && can_be_inserted(I, FALSE))	//If it has storage it should be trying to dump, not insert.
+				if(!SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && can_be_inserted(I, FALSE, L))	//If it has storage it should be trying to dump, not insert.
 					handle_item_insertion(I, FALSE, L)
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
@@ -635,17 +633,19 @@
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE
-	if(I.w_class > max_w_class)
-		if(!stop_messages)
-			host.balloon_alert(M, "[I] is too big")
-		return FALSE
-	var/sum_w_class = I.w_class
-	for(var/obj/item/_I in real_location)
-		sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
-	if(sum_w_class > max_combined_w_class)
-		if(!stop_messages)
-			host.balloon_alert(M, "[host] is full")
-		return FALSE
+	if(!length(exception_hold) || !is_type_in_typecache(I, exception_hold))
+		if(I.w_class > max_w_class)
+			if(!stop_messages)
+				host.balloon_alert(M, "[I] is too big")
+			return FALSE
+		var/sum_w_class = I.w_class
+		for(var/obj/item/_I in real_location)
+			if(!length(exception_hold) || !is_type_in_typecache(I, exception_hold)) //we want to exclude items that are part of the exception list from counting toward capacity.
+				sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+		if(sum_w_class > max_combined_w_class)
+			if(!stop_messages)
+				host.balloon_alert(M, "[host] is full")
+			return FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
@@ -775,7 +775,7 @@
 	if(user.active_storage == src && A.loc == user) //if you're already looking inside the storage item
 		user.active_storage.close(user)
 		close(user)
-		. = COMPONENT_NO_ATTACK_HAND
+		. = COMPONENT_CANCEL_ATTACK_CHAIN
 		return
 
 	if(rustle_sound)
@@ -784,21 +784,24 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == A && !H.get_active_held_item())	//Prevents opening if it's in a pocket.
-			. = COMPONENT_NO_ATTACK_HAND
+			. = COMPONENT_CANCEL_ATTACK_CHAIN
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, put_in_hands), A)
 			H.l_store = null
 			return
 		if(H.r_store == A && !H.get_active_held_item())
-			. = COMPONENT_NO_ATTACK_HAND
+			. = COMPONENT_CANCEL_ATTACK_CHAIN
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, put_in_hands), A)
 			H.r_store = null
 			return
 
 	if(A.loc == user)
-		. = COMPONENT_NO_ATTACK_HAND
+		. = COMPONENT_CANCEL_ATTACK_CHAIN
 		if(locked)
 			var/atom/host = parent
 			host.balloon_alert(user, "[host] is locked.")
+		else if(!can_be_opened)
+			user.doUnEquip(parent, FALSE, null, TRUE, silent = TRUE)
+			user.put_in_active_hand(parent)
 		else
 			show_to(user)
 

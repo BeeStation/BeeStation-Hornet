@@ -32,7 +32,7 @@
 			return FALSE
 		M.handcuffed = new /obj/item/restraints/handcuffs/clockwork(M)
 		M.update_handcuffed()
-		log_combat(invoker, M, "handcuffed")
+		log_combat(invoker, M, "handcuffed", src)
 		return TRUE
 	return FALSE
 

@@ -71,7 +71,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE, /datum/role_preference/midround_ghost/space_pirate, 15 SECONDS)
+	var/list/candidates = poll_ghost_candidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE, /datum/role_preference/midround_ghost/space_pirate, 15 SECONDS)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -82,12 +82,12 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!T)
 		CRASH("Pirate event found no turf to load in")
 
-	var/datum/map_generator/template_placer = ship.load(T)
+	var/datum/async_map_generator/template_placer = ship.load(T)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
 	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
-/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/map_generator/map_generator, turf/T)
+/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/async_map_generator/async_map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
 			if(candidates.len > 0)
@@ -249,7 +249,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/piratepad)
 DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/computer/piratepad_control
@@ -276,7 +276,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
 		set_pad(buffer)
 		ui_update()
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
@@ -442,7 +442,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
-		if(H.mind.assigned_role in GLOB.command_positions)
+		if(H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			return 3000
 		else
 			return 1000

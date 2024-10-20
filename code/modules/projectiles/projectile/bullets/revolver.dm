@@ -33,14 +33,14 @@
 
 /obj/projectile/bullet/c38/match/bouncy
 	name = ".38 Bouncy Rubber bullet"
-	damage = 10
-	stamina = 30
-	armour_penetration = -30
-	ricochets_max = 6
+	damage = 7
+	stamina = 27
+	bleed_force = BLEED_SCRATCH
+	ricochets_max = 5
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
-	ricochet_decay_damage = 0.8
-	shrapnel_type = NONE
+	ricochet_decay_damage = 0.9
+	armour_penetration = -20
 
 /obj/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
@@ -98,12 +98,19 @@
 	. = ..()
 	empulse(target, 0, 2)
 
+/obj/projectile/bullet/c38/improv
+	damage = 25
+	ricochets_max = 1
+	ricochet_chance = 80
+	ricochet_auto_aim_range = 0
+
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
 	icon_state = null
 	damage = 0
 	nodamage = TRUE
 	martial_arts_no_deflect = TRUE
+	bleed_force = 0
 
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
@@ -131,6 +138,10 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
+
+/obj/projectile/bullet/a357/improv
+	damage = 50
+	armour_penetration = -10
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

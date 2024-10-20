@@ -12,7 +12,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	max_integrity = 30
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 0, BLEED = 0)
 	var/health_regen = 2 //how much health this blob regens when pulsed
 	var/pulse_timestamp = 0 //we got pulsed when?
 	var/heal_timestamp = 0 //we got healed when?
@@ -20,6 +20,8 @@
 	var/fire_resist = 1 //multiplies burn damage by this
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
@@ -114,7 +116,7 @@
 	if(pulse_timestamp <= world.time)
 		ConsumeTile()
 		if(heal_timestamp <= world.time)
-			obj_integrity = min(max_integrity, obj_integrity+health_regen)
+			atom_integrity = min(max_integrity, atom_integrity+health_regen)
 			heal_timestamp = world.time + 20
 		update_icon()
 		pulse_timestamp = world.time + 10
@@ -248,7 +250,7 @@
 /obj/structure/blob/proc/typereport(mob/user)
 	RETURN_TYPE(/list)
 	return list("<b>Blob Type:</b> <span class='notice'>[uppertext(initial(name))]</span>",
-		"<b>Health:</b> <span class='notice'>[obj_integrity]/[max_integrity]</span>",
+		"<b>Health:</b> <span class='notice'>[atom_integrity]/[max_integrity]</span>",
 		"<b>Effects:</b> <span class='notice'>[scannerreport()]</span>")
 
 
@@ -267,7 +269,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/blob/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/blob/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	switch(damage_type)
 		if(BRUTE)
 			damage_amount *= brute_resist
@@ -284,12 +286,12 @@
 		damage_amount = overmind.blobstrain.damage_reaction(src, damage_amount, damage_type, damage_flag)
 	return damage_amount
 
-/obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0)
+	if(. && atom_integrity > 0)
 		update_icon()
 
-/obj/structure/blob/obj_destruction(damage_flag)
+/obj/structure/blob/atom_destruction(damage_flag)
 	if(overmind)
 		overmind.blobstrain.death_reaction(src, damage_flag)
 	..()
@@ -332,19 +334,22 @@
 	name = "normal blob"
 	icon_state = "blob"
 	light_range = 0
-	obj_integrity = 21 //doesn't start at full health
 	max_integrity = 25
 	health_regen = 1
 	brute_resist = 0.25
 
+/obj/structure/blob/normal/Initialize(mapload)
+	. = ..()
+	update_integrity(21) //doesn't start at full health
+
 /obj/structure/blob/normal/scannerreport()
-	if(obj_integrity <= 15)
+	if(atom_integrity <= 15)
 		return "Currently weak to brute damage."
 	return "N/A"
 
 /obj/structure/blob/normal/update_icon()
 	..()
-	if(obj_integrity <= 15)
+	if(atom_integrity <= 15)
 		icon_state = "blob_damaged"
 		name = "fragile blob"
 		desc = "A thin lattice of slightly twitching tendrils."

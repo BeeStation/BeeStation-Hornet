@@ -22,6 +22,15 @@
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
 
+	// Body temperature for Plasmen is much lower human as they can handle colder environments
+	bodytemp_normal = (BODYTEMP_NORMAL - 40)
+	// The minimum amount they stabilize per tick is reduced making hot areas harder to deal with
+	bodytemp_autorecovery_min = 2
+	// They are hurt at hot temps faster as it is harder to hold their form
+	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT - 20) // about 40C
+	// This effects how fast body temp stabilizes, also if cold resit is lost on the mob
+	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
+
 	species_chest = /obj/item/bodypart/chest/plasmaman
 	species_head = /obj/item/bodypart/head/plasmaman
 	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
@@ -84,7 +93,7 @@
 			H.open_internals(H.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.security_positions)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 		return 0
 	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0

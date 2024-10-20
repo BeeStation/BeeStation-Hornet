@@ -37,13 +37,13 @@
 	add_fingerprint(user)
 
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
@@ -77,7 +77,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
-		setAnchored(!anchored)
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
@@ -130,6 +130,16 @@
 		return TRUE
 
 /obj/structure/railing/proc/after_rotation(mob/user,rotation_type)
-	air_update_turf(1)
 	ini_dir = dir
 	add_fingerprint(user)
+
+/obj/structure/railing/sec
+	name = "checkpoint railing"
+	desc = "A security wall used in checkpoints. It is just small enough that you can climb over..."
+	icon_state = "railing_sec"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/sec/corner
+	icon_state = "railing_corner"
+	density = FALSE
+	climbable = FALSE

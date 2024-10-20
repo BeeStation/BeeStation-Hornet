@@ -16,7 +16,7 @@
 	var/mode = SYRINGE_DRAW
 	var/busy = FALSE		// needed for delayed drawing of blood
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
-	materials = list(/datum/material/iron=10, /datum/material/glass=20)
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
 	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
@@ -104,7 +104,7 @@
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from you!</span>")
 					busy = TRUE
-					if(!do_after(user, target = target, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
+					if(!do_after(user, 3 SECONDS, target = target, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
 						busy = FALSE
 						return
 					if(reagents.total_volume >= reagents.maximum_volume)
@@ -115,7 +115,8 @@
 				else
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
 					balloon_alert(user, "You are unable to draw any blood from [L]!")
-				transfer_diseases(L)
+				if(CONFIG_GET(flag/biohazards_allowed))
+					transfer_diseases(L)
 
 			else //if not mob
 				if(!target.reagents.total_volume)
@@ -172,7 +173,7 @@
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_after(user, target = L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
+					if(!do_after(user, 3 SECONDS, target = L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
 						return
 					if(!reagents.total_volume)
 						return
@@ -185,7 +186,8 @@
 					log_combat(user, L, "injected", src, addition="which had [contained]")
 				else
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
-				transfer_diseases(L)
+				if(CONFIG_GET(flag/biohazards_allowed))
+					transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)

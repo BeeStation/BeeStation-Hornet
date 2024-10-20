@@ -4,13 +4,16 @@
 	door_anim_squish = 0.22
 	door_anim_angle = 123
 	door_anim_time = 2.50
+	icon_emagged = "freezer_emagged"
+	icon_locked = "freezer_locked"
+	icon_unlocked = "freezer_unlocked"
 
 /obj/structure/closet/secure_closet/freezer/Destroy()
 	recursive_organ_check(src)
 	..()
 
 /obj/structure/closet/secure_closet/freezer/Initialize(mapload)
-	..()
+	. = ..()
 	recursive_organ_check(src)
 
 /obj/structure/closet/secure_closet/freezer/open(mob/living/user)
@@ -36,9 +39,9 @@
 /obj/structure/closet/secure_closet/freezer/kitchen/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/food/condiment/flour(src)
-	new /obj/item/reagent_containers/food/condiment/rice(src)
-	new /obj/item/reagent_containers/food/condiment/sugar(src)
+		new /obj/item/reagent_containers/condiment/flour(src)
+	new /obj/item/reagent_containers/condiment/rice(src)
+	new /obj/item/reagent_containers/condiment/sugar(src)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
@@ -48,9 +51,9 @@
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/PopulateContents()
 	..()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/milk(src)
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 
@@ -64,7 +67,7 @@
 /obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
 	..()
 	for(var/i in 1 to 4)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/monkey(src)
+		new /obj/item/food/meat/slab/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
@@ -78,9 +81,9 @@
 /obj/structure/closet/secure_closet/freezer/fridge/PopulateContents()
 	..()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/milk(src)
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 
@@ -109,4 +112,4 @@
 
 /obj/structure/closet/secure_closet/freezer/cream_pie/PopulateContents()
 	..()
-	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/food/pie/cream(src)

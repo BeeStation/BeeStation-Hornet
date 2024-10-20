@@ -10,7 +10,7 @@
  */
 
 /obj/item/kitchen
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	item_flags = ISWEAPON
@@ -24,11 +24,12 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=80)
+	custom_materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
-	attack_verb = list("attacked", "stabbed", "poked")
+	attack_verb_continuous = list("attacks", "stabs", "pokes")
+	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0, BLEED = 0)
 	var/datum/reagent/forkload //used to eat omelette
 
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
@@ -50,7 +51,7 @@
 		icon_state = "fork"
 		forkload = null
 
-	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, simplified_probability = 30))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		return eyestab(M,user)
@@ -82,8 +83,10 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 7
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.5)
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 	custom_price = 20
 	tool_behaviour = TOOL_ROLLINGPIN
 

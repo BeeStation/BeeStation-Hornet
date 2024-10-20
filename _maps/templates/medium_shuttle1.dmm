@@ -31,18 +31,18 @@
 /turf/closed/wall/mineral/titanium/overspace,
 /area/ruin/powered/shuttle/medium_1)
 "j" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "k" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "n" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/shuttle/medium_1)
 "o" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/shuttle/medium_1)
 "s" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -50,7 +50,7 @@
 /area/ruin/powered/shuttle/medium_1)
 "t" = (
 /obj/machinery/power/smes/magical,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/powered/shuttle/medium_1)
 "u" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -65,33 +65,33 @@
 "D" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "L" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "R" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "S" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "Y" = (
 /obj/machinery/sleeper,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 "Z" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/powered/shuttle/medium_1)
 
 (1,1,1) = {"

@@ -10,6 +10,7 @@
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define OBJ_EMPED				(1<<8)  //! Object is affected by EMP
+#define SCANNED					(1<<9)  //! Object has been scanned by the prison_scanner
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -49,7 +50,13 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
-#define HEADINTERNALS 			(1<<15) //! Headgear/helmet allows internals
+/// Headgear/helmet allows internals
+#define HEADINTERNALS (1<<18)
+
+/// Integrity defines for clothing (not flags but close enough)
+#define CLOTHING_PRISTINE 0 // We have no damage on the clothing
+#define CLOTHING_DAMAGED 1 // There's some damage on the clothing but it still has at least one functioning bodypart and can be equipped
+#define CLOTHING_SHREDDED 2 // The clothing is useless and cannot be equipped unless repaired first
 
 /// Flags for the organ_flags var on /obj/item/organ
 

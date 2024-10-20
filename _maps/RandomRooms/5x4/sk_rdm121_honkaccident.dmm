@@ -1,30 +1,26 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "c" = (
 /obj/item/grown/bananapeel,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "d" = (
 /obj/structure/mecha_wreckage/honker,
 /obj/effect/trap/nexus/darkness,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "g" = (
@@ -33,28 +29,26 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "h" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/honker,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "l" = (
 /obj/effect/spawner/lootdrop/clowntrap,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "B" = (
@@ -62,7 +56,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "D" = (
 /obj/item/grown/bananapeel,
@@ -70,7 +64,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "I" = (
 /obj/machinery/light{
@@ -79,20 +73,19 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "O" = (
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
 /obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

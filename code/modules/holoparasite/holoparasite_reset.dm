@@ -48,9 +48,9 @@
 	if(being_reset)
 		return
 	being_reset = TRUE
-	var/list/mob/dead/observer/candidates = pollGhostCandidates(
+	var/list/mob/dead/observer/candidates = poll_ghost_candidates(
 		"Do you want to play as [summoner.name]'s [real_name], a [theme.name]?",
-		jobbanType = ROLE_HOLOPARASITE,
+		jobban_type = ROLE_HOLOPARASITE,
 		poll_time = 30 SECONDS
 	)
 	being_reset = FALSE

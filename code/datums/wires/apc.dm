@@ -39,16 +39,18 @@
 				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/power/apc, reset), wire), 10)
 	ui_update()
 
-/datum/wires/apc/on_cut(index, mend)
+/datum/wires/apc/on_cut(index, mob/user, mend)
 	var/obj/machinery/power/apc/A = holder
 	switch(index)
 		if(WIRE_POWER1, WIRE_POWER2) // Short out.
 			if(mend && !is_cut(WIRE_POWER1) && !is_cut(WIRE_POWER2))
 				A.shorted = FALSE
-				A.shock(usr, 50)
+				if (user)
+					A.shock(user, 50)
 			else
 				A.shorted = TRUE
-				A.shock(usr, 50)
+				if (user)
+					A.shock(user, 50)
 		if(WIRE_AI) // Disable AI control.
 			if(mend)
 				A.aidisabled = FALSE

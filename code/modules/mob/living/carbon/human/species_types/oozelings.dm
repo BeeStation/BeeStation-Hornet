@@ -9,7 +9,7 @@
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
+	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
@@ -123,7 +123,7 @@
 	name = "Regenerate Limbs"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeheal"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/regenerate_limbs/IsAvailable()

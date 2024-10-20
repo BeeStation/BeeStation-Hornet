@@ -31,7 +31,7 @@ Bonus
 	prefixes = list("Aural ")
 	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/deafness/severityset(datum/disease/advance/A)
 	. = ..()
@@ -50,6 +50,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(3, 4)
 			if(prob(base_message_chance) && !suppress_warning)

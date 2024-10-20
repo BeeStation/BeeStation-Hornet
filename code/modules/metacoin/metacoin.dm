@@ -33,9 +33,12 @@
 		CRASH("Metacoin amount fetched before value initialized")
 	return metabalance_cached
 
+/client/proc/get_metabalance_async()
+	return metabalance_cached || get_metabalance_db()
+
 /// Gets the user's metabalance from the DB. Blocking.
 /client/proc/get_metabalance_db()
-	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_metacoins = SSdbcore.NewQuery(
 		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -79,7 +82,7 @@
 	INVOKE_ASYNC(src, PROC_REF(db_inc_metabalance), mc_count)
 
 /client/proc/db_inc_metabalance(mc_count)
-	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)
@@ -87,7 +90,7 @@
 	qdel(query_set_metacoins)
 
 /client/proc/db_set_metabalance(mc_count)
-	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)

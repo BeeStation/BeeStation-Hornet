@@ -29,7 +29,7 @@
 	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 	RegisterSignal(new_pawn, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
-	RegisterSignal(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
+	RegisterSignals(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
 	RegisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING, PROC_REF(listened_throw))
 	return ..() //Run parent at end
 
@@ -163,7 +163,7 @@
 /datum/ai_controller/dog/proc/command_radial(mob/living/clicker)
 	var/list/commands = list(
 		COMMAND_HEEL = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow"),
-		COMMAND_FETCH = image(icon = 'icons/mob/actions/actions_spells.dmi', icon_state = "summons"),
+		COMMAND_FETCH = image(icon = 'icons/hud/actions/actions_spells.dmi', icon_state = "summons"),
 		COMMAND_ATTACK = image(icon = 'icons/effects/effects.dmi', icon_state = "bite"),
 		COMMAND_DIE = image(icon = 'icons/mob/pets.dmi', icon_state = "puppy_dead")
 		)

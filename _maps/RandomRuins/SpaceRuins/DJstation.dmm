@@ -8,7 +8,7 @@
 /area/ruin/space/djstation/solars)
 "ac" = (
 /obj/machinery/power/solar/fake,
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/djstation/solars)
 "ad" = (
 /turf/open/floor/plating/airless,
@@ -108,55 +108,55 @@
 /area/ruin/space/djstation)
 "au" = (
 /obj/structure/closet/emcloset,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "av" = (
 /obj/machinery/vending/snack,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aw" = (
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "ax" = (
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "ay" = (
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aB" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aC" = (
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aD" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aE" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aG" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen"
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aH" = (
 /obj/structure/table,
@@ -167,31 +167,31 @@
 	listening = 1;
 	name = "Pirate Radio Listening Channel"
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aI" = (
 /obj/structure/chair/office/light,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Rest Room"
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aK" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aL" = (
 /obj/machinery/sleeper{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aP" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aQ" = (
 /obj/structure/table,
@@ -202,32 +202,32 @@
 	listening = 0;
 	name = "Pirate Radio Broadcast Channel"
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aR" = (
 /obj/structure/table,
 /obj/item/paper/fluff/ruins/djstation,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aS" = (
 /obj/structure/frame/computer{
 	anchored = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aT" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aU" = (
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aV" = (
 /obj/structure/closet,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aW" = (
 /obj/structure/disposalpipe/segment,
@@ -237,33 +237,33 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Washroom"
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "aY" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ba" = (
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "bb" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bc" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/space_heater,
-/turf/open/floor/plasteel/cafeteria,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bd" = (
 /obj/structure/window/reinforced{
@@ -271,8 +271,8 @@
 	},
 /obj/structure/rack,
 /obj/item/clothing/under/costume/soviet,
-/obj/item/clothing/head/ushanka,
-/turf/open/floor/plasteel/cafeteria,
+/obj/item/clothing/head/costume/ushanka,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "be" = (
 /obj/structure/sink{
@@ -281,13 +281,13 @@
 	pixel_y = 2
 	},
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "bf" = (
 /obj/structure/toilet{
 	pixel_y = 8
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "bg" = (
 /obj/structure/table,
@@ -296,13 +296,13 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bh" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bi" = (
 /obj/machinery/door/airlock/external{
@@ -323,18 +323,18 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/djstation)
 "hL" = (
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/djstation)
 "om" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/djstation)
 "Cf" = (
 /obj/structure/table,
@@ -342,7 +342,7 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/djstation)
 "Co" = (
 /obj/machinery/door/airlock/external{
@@ -357,11 +357,11 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/djstation)
 "Rq" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/space/djstation)
 
 (1,1,1) = {"

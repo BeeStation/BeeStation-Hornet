@@ -306,7 +306,7 @@
 	cooldown_min = 150
 	invocation_type = INVOCATION_NONE
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
-	action_icon = 'icons/mob/actions/actions_xeno.dmi'
+	action_icon = 'icons/hud/actions/actions_xeno.dmi'
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
 	anti_magic_check = FALSE
@@ -367,7 +367,7 @@
 		if(isliving(hit_atom))
 			var/mob/living/M = hit_atom
 			if(!M.anti_magic_check())
-				M.electrocute_act(80, src, illusion = 1)
+				M.electrocute_act(80, src, flags = SHOCK_ILLUSION)
 		qdel(src)
 
 /obj/item/spellpacket/lightningbolt/throw_at(atom/target, range, speed, mob/thrower, spin=TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, quickstart = TRUE)

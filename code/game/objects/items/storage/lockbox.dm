@@ -1,6 +1,7 @@
 /obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
+	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "lockbox+l"
 	item_state = "lockbox+l"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'

@@ -12,7 +12,9 @@ fi
 mkdir -p \
     $1/_maps \
 	$1/auxtools \
-    $1/icons/runtime \
+	$1/code/datums/greyscale/json_configs \
+	$1/data/spritesheets \
+	$1/icons \
     $1/sound/runtime \
     $1/strings \
     $1/tgui/public \
@@ -25,7 +27,8 @@ fi
 
 cp beestation.dmb beestation.rsc $1/
 cp -r _maps/* $1/_maps/
-cp -r icons/runtime/* $1/icons/runtime/
+cp -r code/datums/greyscale/json_configs/* $1/code/datums/greyscale/json_configs/
+cp -r icons/* $1/icons/
 cp -r sound/runtime/* $1/sound/runtime/
 cp -r strings/* $1/strings/
 cp -r tgui/public/* $1/tgui/public/

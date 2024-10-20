@@ -41,14 +41,14 @@
 	stored_research = new
 	host_research = SSresearch.science_tech
 	update_research()
-	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload)
+	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
 	RefreshParts()
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_RESEARCH, PROC_REF(alert_research))
 
 /obj/machinery/rnd/production/Destroy()
-	materials = null
+	custom_materials = null
 	cached_designs = null
 	matching_designs = null
 	QDEL_NULL(stored_research)
@@ -160,10 +160,9 @@
 
 	var/list/L = list()
 	for(var/datum/material/material as() in materials.mat_container.materials)
-		L[material.id] = list(
+		L[material.name] = list(
 				name = material.name,
 				amount = materials.mat_container.materials[material]/MINERAL_MATERIAL_AMOUNT,
-				id = material.id,
 			)
 
 	return list(
@@ -250,7 +249,7 @@
 	if(action == "ejectsheet" && materials && materials.mat_container)
 		var/datum/material/M
 		for(var/datum/material/potential_material as() in materials.mat_container.materials)
-			if(potential_material.id == params["material_id"])
+			if(potential_material.name == params["material_id"])
 				M = potential_material
 				break
 		if(M)
@@ -276,7 +275,7 @@
 	efficiency_coeff = 1
 	if(reagents)		//If reagents/materials aren't initialized, don't bother, we'll be doing this again after reagents init anyways.
 		reagents.maximum_volume = 0
-		for(var/obj/item/reagent_containers/glass/G in component_parts)
+		for(var/obj/item/reagent_containers/cup/G in component_parts)
 			reagents.maximum_volume += G.volume
 			G.reagents.trans_to(src, G.reagents.total_volume)
 	if(materials)
@@ -286,7 +285,8 @@
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = clamp(total_rating - (M.rating * 0.1), 0, 1)
+		total_rating = (total_rating - (M.rating * 0.1))
+	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
@@ -294,18 +294,16 @@
 
 //we eject the materials upon deconstruction.
 /obj/machinery/rnd/production/on_deconstruction()
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	return ..()
 
 /obj/machinery/rnd/production/proc/do_print(path, amount, list/matlist, notify_admins)
-	if(notify_admins)
-		investigate_log("[key_name(usr)] built [amount] of [path] at [src]([type]).", INVESTIGATE_RESEARCH)
+	if(notify_admins && ismob(usr))
+		usr.investigate_log(" built [amount] of [path] at [src]([type]).", INVESTIGATE_RESEARCH)
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has built [amount] of [path] at \a [src]([type]).")
 	for(var/i in 1 to amount)
-		var/obj/item/I = new path(get_turf(src))
-		if(efficient_with(I.type))
-			I.materials = matlist.Copy()
+		new path(get_turf(src))
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 
 /obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, var/mat)	// now returns how many times the item can be built with the material

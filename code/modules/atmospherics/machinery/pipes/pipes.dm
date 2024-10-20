@@ -10,13 +10,13 @@
 	//Buckling
 	can_buckle = 1
 	buckle_requires_restraints = 1
-	buckle_lying = -1
+	buckle_lying = NO_BUCKLE_LYING
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
 			icon_state = INSTANCE_VAR_DEFAULT\
-        ),\
-    )
+		),\
+	)
 
 /obj/machinery/atmospherics/pipe/New()
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)
@@ -106,7 +106,7 @@
 /obj/machinery/atmospherics/pipe/returnPipenets()
 	. = list(parent)
 
-/obj/machinery/atmospherics/pipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 12)
 		return 0
 	. = ..()

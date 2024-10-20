@@ -25,7 +25,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 
-/obj/machinery/atmospherics/components/Initialize()
+/obj/machinery/atmospherics/components/Initialize(mapload)
 	. = ..()
 
 	if(hide)
@@ -36,8 +36,9 @@
 /obj/machinery/atmospherics/components/proc/update_icon_nopipes()
 	return
 
-/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, covered)
-	showpipe = !covered
+/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, underfloor_accessibility)
+	SIGNAL_HANDLER
+	showpipe = !!underfloor_accessibility
 	update_icon()
 
 /obj/machinery/atmospherics/components/update_icon()
@@ -153,7 +154,6 @@
 		for(var/i in 1 to device_type)
 			var/datum/gas_mixture/air = airs[i]
 			T.assume_air_moles(air, shared_loss)
-		air_update_turf(1)
 
 /obj/machinery/atmospherics/components/proc/safe_input(var/title, var/text, var/default_set)
 	var/new_value = input(usr,text,title,default_set) as num

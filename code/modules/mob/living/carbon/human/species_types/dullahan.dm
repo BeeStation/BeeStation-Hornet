@@ -3,16 +3,21 @@
 	id = SPECIES_DULLAHAN
 	max_bodypart_count = 5 //No head
 	default_color = "FFFFFF"
-	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
+	species_traits = list(
+		EYECOLOR,
+		HAIR,
+		FACEHAIR,
+		LIPS
+	)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
 		TRAIT_NONECRODISEASE,
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
 	use_skintones = TRUE
-	mutant_brain = /obj/item/organ/brain/dullahan
+	mutantbrain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan
 	mutanttongue = /obj/item/organ/tongue/dullahan
 	mutantears = /obj/item/organ/ears/dullahan
@@ -34,7 +39,7 @@
 
 /datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species)
 	. = ..()
-	REMOVE_TRAIT(human, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
+	human.lose_hearing_sensitivity(TRAIT_GENERIC)
 	var/obj/item/bodypart/head/head = human.get_bodypart(BODY_ZONE_HEAD)
 
 	if(head)
@@ -45,10 +50,12 @@
 			my_head = new /obj/item/dullahan_relay(head, human)
 			human.put_in_hands(head)
 			head.show_organs_on_examine = FALSE
+			head.speech_span = null
 
 			// We want to give the head some boring old eyes just so it doesn't look too jank on the head sprite.
 			head.eyes = new /obj/item/organ/eyes(head)
 			head.eyes.eye_color = human.eye_color
+			human.update_body()
 			head.update_icon_dropped()
 
 /datum/species/dullahan/on_species_loss(mob/living/carbon/human/human)
@@ -110,6 +117,7 @@
 	eyes_toggle_perspective_action?.Trigger()
 	owner_first_client_connection_handled = TRUE
 
+
 /datum/species/dullahan/get_species_description()
 	return "An angry spirit, hanging onto the land of the living for \
 		unfinished business. Or that's what the books say. They're quite nice \
@@ -154,7 +162,7 @@
 
 /obj/item/organ/brain/dullahan
 	decoy_override = TRUE
-	organ_flags = 0
+	organ_flags = NONE
 
 /obj/item/organ/tongue/dullahan
 	zone = "abstract"
@@ -201,6 +209,8 @@
 	/// The mob (a dullahan) that owns this relay.
 	var/mob/living/owner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/dullahan_relay)
+
 /obj/item/dullahan_relay/Initialize(mapload, mob/living/carbon/human/new_owner)
 	. = ..()
 	if(!new_owner)
@@ -213,7 +223,7 @@
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
 /obj/item/dullahan_relay/Destroy()
-	//lose_hearing_sensitivity(ROUNDSTART_TRAIT)
+	lose_hearing_sensitivity(ROUNDSTART_TRAIT)
 	owner = null
 	return ..()
 

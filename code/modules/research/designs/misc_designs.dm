@@ -177,6 +177,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/scigoggles_night
+	name = "Night Vision Science Goggles"
+	desc = "An advanced set of science goggles that let experiments continue even in complete darkness"
+	id= "scigoggles_night"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/plasma = 300, /datum/material/copper = 300)
+	build_path= /obj/item/clothing/glasses/science/night
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/diskplantgene
 	name = "Plant Data Disk"
 	desc = "A disk for storing plant genetic data."
@@ -539,4 +549,24 @@
 	materials = list(/datum/material/iron = 1500, /datum/material/plastic = 1000)
 	build_path = /obj/item/stack/sticky_tape/pointy
 	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/paper_reader
+	name = "Electronic Paper Reader"
+	desc = "A device to read papers for blind people."
+	id = "epaperread"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
+	build_path = /obj/item/paper_reader
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/oven_tray
+	name = "Oven Tray"
+	desc = "Gotta shove something in!"
+	id = "oven_tray"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 500)
+	build_path = /obj/item/plate/oven_tray
+	category = list("initial","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE

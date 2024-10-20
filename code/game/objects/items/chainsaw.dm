@@ -16,10 +16,12 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
-	materials = list(/datum/material/iron=13000)
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	custom_materials = list(/datum/material/iron=13000)
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = "swing_hit"
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 	tool_behaviour = TOOL_SAW
@@ -88,7 +90,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	force_on = 40
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("sawed", "shred", "rended", "gutted", "eviscerated")
+	attack_verb_continuous = list("saws", "shreds", "rends", "guts", "eviscerates")
+	attack_verb_simple = list("saw", "shred", "rend", "gut", "eviscerate")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
 	armour_penetration = 50
@@ -129,7 +132,7 @@
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	force_on = 60
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
 	block_level = 1
 	attack_weight = 3 //fear him

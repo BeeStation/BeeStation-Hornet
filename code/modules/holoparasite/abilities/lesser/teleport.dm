@@ -230,7 +230,9 @@
 /atom/movable/screen/holoparasite/teleport
 	var/datum/holoparasite_ability/lesser/teleport/ability
 
-/atom/movable/screen/holoparasite/teleport/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/teleport/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/teleport)
+
+/atom/movable/screen/holoparasite/teleport/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/teleport/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make telepad holoparasite HUD without proper reference to telepad ability")
@@ -258,7 +260,7 @@
 	icon_state = (ability.warp_mode && !ability.warping) ? disable_icon : initial(icon_state)
 	return ..()
 
-/atom/movable/screen/holoparasite/teleport/warp/Click(location, control, params)
+/atom/movable/screen/holoparasite/teleport/warp/use()
 	if(!COOLDOWN_FINISHED(ability, warp_cooldown))
 		ability.warp_mode = FALSE
 		begin_timer(COOLDOWN_TIMELEFT(ability, warp_cooldown))
@@ -284,7 +286,7 @@
 	desc = "Deploys a bluespace beacon, allowing you to warp things to it later."
 	icon_state = "warp:place"
 
-/atom/movable/screen/holoparasite/teleport/deploy/Click(location, control, params)
+/atom/movable/screen/holoparasite/teleport/deploy/use()
 	if(ability.placing)
 		return
 	ability.try_place_beacon()
@@ -304,6 +306,8 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	/// The holoparasite ability that created this beacon.
 	var/datum/holoparasite_ability/lesser/teleport/ability
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/receiving_pad)
 
 /obj/structure/receiving_pad/Initialize(mapload, datum/holoparasite_ability/lesser/teleport/_ability)
 	. = ..()
@@ -331,6 +335,8 @@
 	icon_state = "bluestream_fade"
 	alpha = 0
 	var/turf/destination
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/holopara_bluespace_tear)
 
 /obj/effect/holopara_bluespace_tear/Initialize(mapload, turf/_destination)
 	. = ..()

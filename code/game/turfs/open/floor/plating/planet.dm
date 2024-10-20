@@ -4,7 +4,6 @@
 	desc = "Upon closer examination, it's still dirt."
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "dirt"
-	baseturfs = /turf/open/chasm/jungle
 	initial_gas_mix = OPENTURF_LOW_PRESSURE
 	planetary_atmos = TRUE
 	attachment_holes = FALSE
@@ -13,6 +12,22 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	resistance_flags = INDESTRUCTIBLE
+	baseturfs = /turf/open/floor/plating/dirt
+
+/turf/open/floor/plating/dirt/planetary
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+
+/turf/open/floor/plating/dirt/grass
+	desc = "You're almost positive this is real grass."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "grass"
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	baseturfs = /turf/open/floor/plating/dirt
 
 /turf/open/floor/plating/dirt/dark
 	icon_state = "greenerdirt"
@@ -33,27 +48,32 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "wasteland"
 	slowdown = 1
-	var/floor_variance = 15
+	variant_probability = 15
+	variant_states = 13
 
-/turf/open/floor/plating/dirt/jungle/wasteland/Initialize(mapload)
-	.=..()
-	if(prob(floor_variance))
-		icon_state = "[initial(icon_state)][rand(0,12)]"
-
-/turf/open/floor/plating/grass/jungle
+/turf/open/floor/grass/jungle
 	name = "jungle grass"
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	desc = "Greener on the other side."
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "junglegrass"
+	color = "#0f9731"
 
-/turf/open/floor/plating/grass/jungle/Initialize(mapload)
+/turf/open/floor/grass/jungle/Initialize(mapload)
 	.=..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
 
 /turf/closed/mineral/random/jungle
-	mineralSpawnChanceList = list(/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
-		/obj/item/stack/ore/bluespace_crystal = 1)
 	baseturfs = /turf/open/floor/plating/dirt/dark
+
+/turf/closed/mineral/random/jungle/mineral_chances()
+	return list(
+		/obj/item/stack/ore/uranium = 5,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 10,
+		/obj/item/stack/ore/silver = 12,
+		/obj/item/stack/ore/plasma = 20,
+		/obj/item/stack/ore/iron = 40,
+		/obj/item/stack/ore/titanium = 11,
+		/obj/item/stack/ore/bluespace_crystal = 1,
+	)
+

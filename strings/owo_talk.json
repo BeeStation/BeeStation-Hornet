@@ -1,5 +1,5 @@
 {
-	
+
     "wowds": {
         "id": "furball",
         "fuck": "OwO",
@@ -23,10 +23,10 @@
         "person": "cat",
         "lizard": "scalie",
         "damn": "mew",
-        "kill": "yiff",
-        "killed": "yiffed",
-        "murder": "yiff",
-        "murdered": "yiffed",
+        "kill": "nuzzle",
+        "killed": "nuzzled",
+        "murder": "nuzzle",
+        "murdered": "nuzzled",
         "thief": "stealer",
         "bad": "naughty",
         "horrible": "naughty",
@@ -71,6 +71,6 @@
         "th": "f",
         "ove": "uv"
     }
-	
-	
+
+
 }

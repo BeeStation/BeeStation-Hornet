@@ -3,7 +3,7 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
@@ -277,3 +277,6 @@
 	var/power = rand(1,powerlevel)
 	do_teleport(src, get_turf(src), power, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	powerlevel -= power
+
+#undef NO_GROWTH_NEEDED
+#undef GROWTH_NEEDED

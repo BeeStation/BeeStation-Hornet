@@ -70,6 +70,7 @@ export type Department = {
 export type Job = {
   description: string;
   department: string;
+  lock_reason: string;
 };
 
 export type Quirk = {

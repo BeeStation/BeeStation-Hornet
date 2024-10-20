@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj)
+
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -8,17 +10,24 @@
 
 	var/damtype = BRUTE
 	var/force = 0
+	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
+	var/bleed_force = 0
 
+	/*
 	var/datum/armor/armor
-	/// The integrity the object starts at. Defaults to max_integrity.
-	var/obj_integrity
+	VAR_PRIVATE/atom_integrity //defaults to max_integrity
 	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior.
+	/// The object will break once atom_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
 	var/integrity_failure = 0
+	/// Damage under this value will be completely ignored
+	var/damage_deflection = 0
+	/// Maximum damage that can be taken in a single hit
+	var/max_hit_damage = null
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
+	*/
 
 	/// How much acid is on that obj
 	var/acid_level = 0
@@ -50,32 +59,30 @@
 	/// broadcasted to as long as the other guys network is on the same branch or above.
 	var/network_id = null
 
+	uses_integrity = TRUE
+
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
 	/// If the emag behavior should be toggleable
 	var/emag_toggleable = FALSE
 
 /obj/vv_edit_var(vname, vval)
-	switch(vname)
-		if("anchored")
-			setAnchored(vval)
-			return TRUE
-		if(NAMEOF(src, obj_flags))
-			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
-				return FALSE
+	if(vname == NAMEOF(src, obj_flags))
+		if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
+			return FALSE
 	return ..()
 
 /obj/Initialize(mapload)
-	. = ..()
-	if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!armor)
-		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	//if (islist(armor))
+	//	armor = getArmor(arglist(armor))
+	//else if (!armor)
+	//	armor = getArmor()
+	//else if (!istype(armor, /datum/armor))
+	//	stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	//atom_integrity = max_integrity
 
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
+	. = ..() //Do this after, else mat datums is mad.
+
 	if (set_obj_flags)
 		var/flagslist = splittext(set_obj_flags,";")
 		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
@@ -108,9 +115,6 @@
 	SStgui.close_uis(src)
 	. = ..()
 
-/obj/proc/setAnchored(anchorvalue)
-	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
-	anchored = anchorvalue
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)
@@ -303,14 +307,14 @@
 			if (result["button"] != 2) // If the user pressed the cancel button
 				// text2num conveniently returns a null on invalid values
 				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
-			                  bullet = text2num(result["values"][BULLET]),\
-			                  laser = text2num(result["values"][LASER]),\
-			                  energy = text2num(result["values"][ENERGY]),\
-			                  bomb = text2num(result["values"][BOMB]),\
-			                  bio = text2num(result["values"][BIO]),\
-			                  rad = text2num(result["values"][RAD]),\
-			                  fire = text2num(result["values"][FIRE]),\
-			                  acid = text2num(result["values"][ACID]))
+								bullet = text2num(result["values"][BULLET]),\
+								laser = text2num(result["values"][LASER]),\
+								energy = text2num(result["values"][ENERGY]),\
+								bomb = text2num(result["values"][BOMB]),\
+								bio = text2num(result["values"][BIO]),\
+								rad = text2num(result["values"][RAD]),\
+								fire = text2num(result["values"][FIRE]),\
+								acid = text2num(result["values"][ACID]))
 				log_admin("[key_name(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]</span>")
 	if(href_list[VV_HK_MASS_DEL_TYPE])
@@ -474,3 +478,12 @@
 		obj_flags ^= EMAGGED
 	else
 		obj_flags |= EMAGGED
+
+/// shows mobs in its contents to ghosts. can be used to update
+/obj/proc/update_mob_alpha()
+	if(!length(contents))
+		SSvis_overlays.remove_mob_alpha(src)
+	var/list/exception_mobs = list()
+	for(var/mob/each_mob in contents)
+		exception_mobs += SSvis_overlays.add_mob_alpha(src, each_mob)
+	SSvis_overlays.remove_mob_alpha(src, exception_mobs)

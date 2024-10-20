@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "clamps"
-	materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
+	custom_materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	tool_behaviour = TOOL_RETRACTOR
@@ -18,7 +18,7 @@
 	desc = "Micro-mechanical manipulator for retracting stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
-	materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
+	custom_materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
@@ -32,10 +32,11 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "clamps"
-	materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
+	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("attacked", "pinched")
+	attack_verb_continuous = list("attacks", "pinches")
+	attack_verb_simple = list("attack", "pinch")
 	tool_behaviour = TOOL_HEMOSTAT
 	toolspeed = 1
 
@@ -45,11 +46,12 @@
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
-	materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
+	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
-	attack_verb = list("attacked", "pinched")
+	attack_verb_continuous = list("attacks", "pinches")
+	attack_verb_simple = list("attack", "pinch")
 
 
 /obj/item/cautery
@@ -60,10 +62,11 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "cautery"
-	materials = list(/datum/material/iron=2500, /datum/material/glass=750)
+	custom_materials = list(/datum/material/iron=2500, /datum/material/glass=750)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("burnt")
+	attack_verb_continuous = list("burns")
+	attack_verb_simple = list("burn")
 	tool_behaviour = TOOL_CAUTERY
 	toolspeed = 1
 
@@ -73,11 +76,12 @@
 	desc = "A heated element that cauterizes wounds."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
-	materials = list(/datum/material/iron=2500, /datum/material/glass=750)
+	custom_materials = list(/datum/material/iron=2500, /datum/material/glass=750)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
-	attack_verb = list("burnt")
+	attack_verb_continuous = list("burns")
+	attack_verb_simple = list("burn")
 
 
 /obj/item/blood_filter
@@ -87,10 +91,11 @@
 	icon_state = "bloodfilter"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
+	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("pumps", "siphons")
+	attack_verb_continuous = list("pumps", "siphons")
+	attack_verb_simple = list("pump", "siphon")
 	tool_behaviour = TOOL_BLOODFILTER
 	toolspeed = 1
 
@@ -103,11 +108,12 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
+	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	flags_1 = CONDUCT_1
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("drilled")
+	attack_verb_continuous = list("drills")
+	attack_verb_simple = list("drill")
 	tool_behaviour = TOOL_DRILL
 	toolspeed = 1
 
@@ -124,12 +130,13 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
+	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	flags_1 = CONDUCT_1
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
-	attack_verb = list("drilled")
+	attack_verb_continuous = list("drills")
+	attack_verb_simple = list("drill")
 
 
 /obj/item/scalpel
@@ -146,10 +153,12 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	tool_behaviour = TOOL_SCALPEL
 	toolspeed = 1
 
@@ -168,11 +177,13 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	toolspeed = 0.5
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 
 /obj/item/scalpel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat", "stomach")] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -193,9 +204,11 @@
 	throwforce = 9
 	throw_speed = 2
 	throw_range = 5
-	materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
-	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
+	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
+	attack_verb_simple = list("attack", "slash", "saw", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -216,10 +229,36 @@
 	throwforce = 9
 	throw_speed = 2
 	throw_range = 5
-	materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
+	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	toolspeed = 0.5
-	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
+	attack_verb_simple = list("attack", "slash", "saw", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
+
+/obj/item/hacksaw
+	name = "hacksaw"
+	desc = "A hacksaw with a metal-cutting blade attached. You could use it as a regular saw in a pinch."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "hacksaw"
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	throwhitsound =  'sound/weapons/pierce.ogg'
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	item_state = "wrench"
+	flags_1 = CONDUCT_1
+	force = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	custom_materials = list(/datum/material/iron=12000)
+	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
+	attack_verb_simple = list("attack", "slash", "saw", "cut")
+	sharpness = IS_SHARP
+	tool_behaviour = TOOL_SAW
+	toolspeed = 2
+
+/obj/item/hacksaw/Initialize(mapload)
+	. = ..() //Much worse than a circular saw for butchering. Slower, less efficient, better chance for bonus items however.
+	AddComponent(/datum/component/butchering, 40 * toolspeed, 80, 10, 'sound/items/hacksaw.ogg')
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
@@ -230,16 +269,16 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "drapes"
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("slapped")
+	attack_verb_continuous = list("slaps")
+	attack_verb_simple = list("slap")
 
 /obj/item/surgical_drapes/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
+	attempt_initiate_surgery(src, M, user)
 
 /obj/item/organ_storage //allows medical cyborgs to manipulate organs without hands
 	name = "organ storage bag"
 	desc = "A container for holding body parts."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "evidenceobj"
 
 /obj/item/organ_storage/afterattack(obj/item/I, mob/user, proximity)
@@ -320,7 +359,8 @@
 	light_range = 1
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = IS_SHARP_ACCURATE
-
+	// It cauterises the wound it causes
+	bleed_force = 0
 
 /obj/item/scalpel/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)

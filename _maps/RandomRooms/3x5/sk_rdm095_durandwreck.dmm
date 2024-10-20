@@ -2,12 +2,12 @@
 "a" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/random/five,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
 /obj/structure/extinguisher_cabinet{
@@ -16,29 +16,29 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/glasses/welding,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "d" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/mecha_wreckage/durand,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "f" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "g" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "h" = (
 /obj/structure/table,
@@ -50,29 +50,29 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "j" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "k" = (
 /obj/structure/table,
 /obj/item/weldingtool,
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "l" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/four,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/dirt,
@@ -81,7 +81,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

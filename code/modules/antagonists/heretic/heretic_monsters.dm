@@ -32,6 +32,9 @@
  */
 /datum/antagonist/heretic_monster/proc/set_owner(datum/mind/master)
 	src.master = master
+	var/datum/antagonist/heretic/master_heretic = master.has_antag_datum(/datum/antagonist/heretic)
+	if(master_heretic)
+		LAZYOR(master_heretic.monsters_summoned, WEAKREF(owner))
 
 	var/datum/objective/master_obj = new()
 	master_obj.owner = owner

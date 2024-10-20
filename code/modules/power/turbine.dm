@@ -83,7 +83,7 @@
 	inturf = get_step(src, dir)
 	locate_machinery()
 	if(!turbine)
-		set_machine_stat(machine_stat | BROKEN)
+		atom_break()
 
 
 #define COMPFRICTION 5e5
@@ -119,7 +119,7 @@
 			set_machine_stat(machine_stat & ~BROKEN)
 		else
 			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
-			set_machine_stat(machine_stat | BROKEN)
+			atom_break()
 		return
 
 	default_deconstruction_crowbar(I)
@@ -162,7 +162,7 @@
 		add_overlay(mutable_appearance(icon, "comp-o2", FLY_LAYER))
 	else if(rpm>500)
 		add_overlay(mutable_appearance(icon, "comp-o1", FLY_LAYER))
-	 //TODO: DEFERRED
+	//TODO: DEFERRED
 
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
 // rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
@@ -176,7 +176,7 @@
 	outturf = get_step(src, dir)
 	locate_machinery()
 	if(!compressor)
-		set_machine_stat(machine_stat | BROKEN)
+		atom_break()
 	connect_to_network()
 
 /obj/machinery/power/turbine/RefreshParts()
@@ -249,7 +249,7 @@
 			set_machine_stat(machine_stat & ~BROKEN)
 		else
 			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
-			set_machine_stat(machine_stat | BROKEN)
+			atom_break()
 		return
 
 	default_deconstruction_crowbar(I)

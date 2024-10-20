@@ -2,8 +2,14 @@
 /obj/machinery/computer/camera_advanced/shuttle_creator
 	name = "internal shuttle creator console"
 	desc = "You should not have access to this, please report this as a bug"
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	networks = list()
 	use_power = NO_POWER_USE
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/obj/item/shuttle_creator/owner_rsd
 	var/datum/action/innate/shuttle_creator/designate_area/area_action = new
 	var/datum/action/innate/shuttle_creator/designate_turf/turf_action = new
@@ -13,7 +19,7 @@
 	var/datum/action/innate/shuttle_creator/modify/modify_action = new
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
-	if(user.is_blind() || user.incapacitated())
+	if(user.incapacitated())
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()

@@ -19,7 +19,7 @@ Reproductive extracts:
 /obj/item/slimecross/reproductive/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
-		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)
+		typecache_to_take = typecacheof(/obj/item/food/monkeycube)
 	slime_storage = AddComponent(/datum/component/storage/concrete/extract_inventory)
 	slime_storage.can_hold = typecache_to_take
 
@@ -48,7 +48,7 @@ Reproductive extracts:
 			to_chat(user, "<span class='notice'>There are no monkey cubes in the bio bag!</span>")
 		return
 
-	else if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+	else if(istype(O, /obj/item/food/monkeycube))
 		slime_storage.locked = FALSE //This weird unlock-then-lock nonsense brought to you courtesy of storage jank
 		if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, O, user, TRUE))
 			to_chat(user, "<span class='notice'>You feed a Monkey Cube to [src], and it pulses gently.</span>")

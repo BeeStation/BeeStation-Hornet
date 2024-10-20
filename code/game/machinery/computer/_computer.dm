@@ -11,8 +11,8 @@
 	idle_power_usage = 300
 	active_power_usage = 300
 	max_integrity = 200
-	integrity_failure = 100
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20, STAMINA = 0)
+	integrity_failure = 0.5
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20, STAMINA = 0, BLEED = 0)
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
 	light_range = 1
@@ -67,7 +67,7 @@
 		SET_BITFLAG_LIST(smoothing_groups)
 		SET_BITFLAG_LIST(canSmoothWith)
 		QUEUE_SMOOTH(src)
-		if(smoothing_flags)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		update_appearance()
 
@@ -88,7 +88,8 @@
 		return
 
 	. += mutable_appearance(icon, icon_screen)
-	. += emissive_appearance(icon, icon_screen)
+	. += emissive_appearance(icon, icon_screen, layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/computer/power_change()
 	. = ..()
@@ -118,7 +119,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/machinery/computer/obj_break(damage_flag)
+/obj/machinery/computer/atom_break(damage_flag)
 	if(!circuit) //no circuit, no breaking
 		return
 	. = ..()
@@ -132,10 +133,10 @@
 		switch(severity)
 			if(1)
 				if(prob(50))
-					obj_break(ENERGY)
+					atom_break(ENERGY)
 			if(2)
 				if(prob(10))
-					obj_break(ENERGY)
+					atom_break(ENERGY)
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
@@ -146,7 +147,7 @@
 			A.circuit = circuit
 			// Circuit removal code is handled in /obj/machinery/Exited()
 			circuit.forceMove(A)
-			A.setAnchored(TRUE)
+			A.set_anchored(TRUE)
 			if(machine_stat & BROKEN)
 				if(user)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")

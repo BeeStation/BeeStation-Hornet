@@ -61,24 +61,12 @@
 	dizziness = 0
 	jitteriness = 0
 
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		if(M.occupant == src)
-			M.go_out()
-
 	if(!QDELETED(dna)) //The gibbed param is bit redundant here since dna won't exist at this point if they got deleted.
 		dna.species.spec_death(gibbed, src)
 
 	if(SSticker.HasRoundStarted())
 		SSblackbox.ReportDeath(src)
 		log_game("[key_name(src)] has died (BRUTE: [src.getBruteLoss()], BURN: [src.getFireLoss()], TOX: [src.getToxLoss()], OXY: [src.getOxyLoss()], CLONE: [src.getCloneLoss()]) ([AREACOORD(src)])")
-	if(is_devil(src))
-		INVOKE_ASYNC(is_devil(src), TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck), src)
-	if(is_hivemember(src))
-		remove_hivemember(src)
-	if(IS_HIVEHOST(src))
-		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
-		hive.destroy_hive()
 	if(HAS_TRAIT(src, TRAIT_DROPS_ITEMS_ON_DEATH)) //if you want to add anything else, do it before this if statement
 		var/list/turfs_to_throw = view(2, src)
 		for(var/obj/item/I in contents)
@@ -97,7 +85,13 @@
 			<b>Brain damage</b>: [src.getOrganLoss(ORGAN_SLOT_BRAIN) || "0"]<br>\
 			<b>Blood volume</b>: [src.blood_volume]cl ([round((src.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
 			<b>Reagents</b>:<br>[reagents_readout()]", INVESTIGATE_DEATHS)
-	to_chat(src, "<span_class='warning'>You have died. Barring complete bodyloss, you can in most cases be revived by other players. If you do not wish to be brought back, use the \"Do Not Resuscitate\" verb in the ghost tab.</span>")
+	var/death_message = CONFIG_GET(string/death_message)
+	if (death_message)
+		to_chat(src, death_message)
+
+/mob/living/carbon/human/gib(no_brain, no_organs, no_bodyparts)
+	dna.species.spec_gib(no_brain, no_organs, no_bodyparts, src)
+	return
 
 /mob/living/carbon/human/proc/reagents_readout()
 	var/readout = "Blood:"

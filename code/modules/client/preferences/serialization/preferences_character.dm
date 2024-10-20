@@ -23,7 +23,7 @@
 	if(. != PREFERENCE_LOAD_SUCCESS)
 		return .
 	var/list/values
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
 		list("ckey" = prefs.parent.ckey, "slot" = slot_number)
 	)
@@ -70,6 +70,8 @@
 		if(!istype(preference))
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid db_key [db_key] in dirty preferences list (2).")
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
 		if(preference.preference_type != pref_type)
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid preference type [preference.preference_type] for [db_key] (want [pref_type]).")
 			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")
@@ -82,7 +84,7 @@
 		return PREFERENCE_LOAD_NO_DATA
 	new_data["ckey"] = prefs.parent.ckey
 	new_data["slot"] = slot_number
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names_short)]) VALUES (:ckey, :slot, [db_column_list(column_names_short, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names_short)]", new_data
 	)
 	var/success = Q.warn_execute()
@@ -96,6 +98,8 @@
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.preference_type != PREFERENCE_CHARACTER)
+			continue
+		if(preference.disable_serialization)
 			continue
 		// IMPORTANT: use of initial evades varedits. Filter to only alphanumeric and underscores
 		var/column_name = clean_column_name(preference)
@@ -158,7 +162,7 @@
 		data[prefs.default_slot] = read_preference(prefs, GLOB.preference_entries[/datum/preference/name/real_name])
 		prefs.character_profiles_cached = data
 		return
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey=:ckey",
 		list("ckey" = prefs.parent.ckey)
 	)

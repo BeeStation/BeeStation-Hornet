@@ -99,7 +99,7 @@
 			qdel(target)
 			decreaseUses(user)
 
-	else if(ishuman(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	else if(ishuman(target) && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		var/mob/living/carbon/human/H = user
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>", "<span class='notice'>You wash \the [target]'s mouth out with [src.name]!</span>") //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
 		H.lip_style = null //removes lipstick
@@ -124,10 +124,8 @@
 				C.tint -= 2
 				H.update_tint()
 				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-			for(var/obj/effect/decal/cleanable/C in target)
-				qdel(C)
+			target.wash(CLEAN_SCRUB)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 			decreaseUses(user)
 	return
 
@@ -142,6 +140,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bike_horn"
 	item_state = "bike_horn"
+	worn_icon_state = "horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
 	throwforce = 0
@@ -151,7 +150,8 @@
 	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
-	attack_verb = list("HONKED")
+	attack_verb_continuous = list("HONKS")
+	attack_verb_simple = list("HONK")
 	tool_behaviour = TOOL_BIKEHORN
 	toolspeed = 1
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
@@ -162,7 +162,7 @@
 	var/list/sound_list = list()
 	sound_list[sound_file] = 1
 	//LoadComponent so child types dont stack squeak components
-	LoadComponent(/datum/component/squeak, sound_list, 50)
+	LoadComponent(/datum/component/squeak, sound_list, 50, falloff_exponent = 20)
 
 /obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
@@ -178,6 +178,7 @@
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
+	worn_icon_state = "horn_air"
 	sound_file = 'sound/items/airhorn2.ogg'
 
 //golden bikehorn
@@ -186,6 +187,7 @@
 	desc = "Golden? Clearly, it's made with bananium! Honk!"
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
+	worn_icon_state = "horn_gold"
 	var/flip_cooldown = 0
 
 /obj/item/bikehorn/golden/attack()
@@ -208,7 +210,7 @@
 	flip_cooldown = world.time + 7
 
 //canned laughter
-/obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter
+/obj/item/reagent_containers/cup/soda_cans/canned_laughter
 	name = "Canned Laughter"
 	desc = "Just looking at this makes you want to giggle."
 	icon_state = "laughter"
