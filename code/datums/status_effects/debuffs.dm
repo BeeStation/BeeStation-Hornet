@@ -1302,7 +1302,7 @@
 	/// The overlay for the crit token
 	var/mutable_appearance/crit_token
 	/// If we have a crit token, certain weapons may deal additional damage
-	var/has_crit_token = TRUE
+	var/has_crit_token = FALSE
 
 /datum/status_effect/blindness/New(list/arguments)
 	crit_token = mutable_appearance('icons/mob/combat_overlays.dmi', "crit_token")
@@ -1315,13 +1315,11 @@
 	var/atom/movable/screen/fullscreen/flash/effect = owner.overlay_fullscreen("flash", owner.get_flash_overlay())
 	effect.animate_duration(9 SECONDS)
 	RegisterSignal(owner, COMSIG_MOB_IS_CRITICAL_HIT, PROC_REF(test_critical_hit))
-	grant_crit_token()
 
 /datum/status_effect/blindness/refresh()
 	. = ..()
 	var/atom/movable/screen/fullscreen/flash/effect = owner.overlay_fullscreen("flash", owner.get_flash_overlay())
 	effect.animate_duration(9 SECONDS)
-	grant_crit_token()
 
 /datum/status_effect/blindness/on_remove()
 	owner.clear_fullscreen("flash")

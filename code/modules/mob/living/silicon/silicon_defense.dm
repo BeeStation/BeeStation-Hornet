@@ -150,7 +150,7 @@
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
-/mob/living/silicon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/silicon/flash_act(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, critical_hit = FALSE)
 	if(affect_silicon)
 		return ..()
 

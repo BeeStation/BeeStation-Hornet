@@ -229,11 +229,11 @@
 	var/list/mob/targets = oviewers(max_distance, get_turf(user))
 	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
 	for(var/mob/living/carbon/target in targets)
-		if(target.flash_act(1))
+		if(target.flash_act(1, critical_hit = TRUE))
 			target.Paralyze(10 + (5 * max_distance))
 
 	for(var/mob/living/carbon/C in targets)
-		if(C.flash_act(1))
+		if(C.flash_act(1, critical_hit = TRUE))
 			C.Paralyze(10 + (5*max_distance))
 
 /datum/mutation/overload/modify()

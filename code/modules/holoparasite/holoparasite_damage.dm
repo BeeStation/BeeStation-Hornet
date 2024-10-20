@@ -99,7 +99,7 @@
 /**
  * A holoparasite does not sense through traditional methods, therefore it is immune to being flashed.
  */
-/mob/living/simple_animal/hostile/holoparasite/flash_act(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/flash_act(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, critical_hit = FALSE)
 	return FALSE
 
 /**

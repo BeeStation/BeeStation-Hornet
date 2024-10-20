@@ -65,9 +65,9 @@
 		recharging = TRUE
 
 /obj/item/flashbulb/recharging/revolution
-	name = "modified flashbulb"
-	charges_left = 10
-	max_charges = 10
+	name = "weakened flashbulb"
+	charges_left = 4
+	max_charges = 4
 	charge_time = 15 SECONDS
 
 /obj/item/flashbulb/recharging/cyborg
@@ -96,12 +96,14 @@
 	var/last_trigger = 0 //Last time it was successfully triggered.
 	var/burnt_out = FALSE
 	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
+	var/critical_hit = TRUE
 
 /obj/item/assembly/flash/handheld/weak
 	bulb = /obj/item/flashbulb/weak
 
-/obj/item/assembly/flash/handheld/strong
+/obj/item/assembly/flash/handheld/revolution
 	bulb = /obj/item/flashbulb/recharging/revolution
+	critical_hit = FALSE
 
 /obj/item/assembly/flash/Initialize(mapload)
 	. = ..()
@@ -156,7 +158,7 @@
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		flash_carbon(user, user, 15, 0)
+		flash_carbon(user, user, 0)
 		return FALSE
 	return TRUE
 
@@ -188,14 +190,14 @@
 	return TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!
-/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, power = 5, targeted = FALSE, mob/user)
+/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, targeted = FALSE, mob/user)
 	if(!bypass_checks && !try_use_flash())
 		return FALSE
 	var/list/mob/targets = get_flash_targets(get_turf(src), range, FALSE)
 	if(user)
 		targets -= user
 	for(var/mob/living/carbon/C in targets)
-		flash_carbon(C, user, power, targeted, TRUE)
+		flash_carbon(C, user, targeted, TRUE)
 	return TRUE
 
 /obj/item/assembly/flash/proc/get_flash_targets(atom/target_loc, range = 3, override_vision_checks = FALSE)
@@ -208,7 +210,7 @@
 	else
 		return typecache_filter_list(target_loc.GetAllContents(), GLOB.typecache_living)
 
-/obj/item/assembly/flash/proc/try_use_flash(mob/user = null)
+/obj/item/assembly/flash/proc/try_use_flash(mob/user = null, emit_light = TRUE)
 	if(!bulb || (world.time < last_trigger + cooldown))
 		return FALSE
 	switch(bulb.use_flashbulb())
@@ -222,8 +224,9 @@
 			bulb.charges_left ++
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
-	set_light_on(TRUE)
-	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
+	if (emit_light)
+		set_light_on(TRUE)
+		addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	update_icon(TRUE)
 	if(user && !clown_check(user))
 		return FALSE
@@ -234,7 +237,7 @@
 	set_light_on(FALSE)
 
 
-/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
+/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
 	if(user)
@@ -245,7 +248,7 @@
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
 		//No flash protection, blind and stun
-		if(M.flash_act(1))
+		if(M.flash_act(1, critical_hit = critical_hit))
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -264,7 +267,7 @@
 			M.confused = max(M.confused, 4)
 
 		//Basic flash protection, only blind
-		else if(M.flash_act(2, TRUE))
+		else if(M.flash_act(2, TRUE, critical_hit = critical_hit))
 			if(user)
 				//Tell the user that their flash failed
 				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
@@ -282,19 +285,25 @@
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else
-		M.flash_act(2)
+		M.flash_act(2, critical_hit = TRUE)
+
+/obj/item/assembly/flash/attack_self(mob/user)
+	. = ..()
+	activate_direction(user, user.dir)
+	return TRUE
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
 		return FALSE
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(iscarbon(M))
-		flash_carbon(M, user, 5, 1)
+		flash_carbon(M, user, 1)
 		return TRUE
 	else if(issilicon(M))
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.flash_act(affect_silicon = 1)
+		R.flash_act(affect_silicon = 1, critical_hit = TRUE)
 		if(R.last_flashed + FLASHED_COOLDOWN < world.time)
 			R.last_flashed = world.time
 			R.Paralyze(5 SECONDS)
@@ -304,13 +313,37 @@
 		return TRUE
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to blind [M] with the flash!</span>")
+	return TRUE
 
-/obj/item/assembly/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
-	if(holder)
-		return FALSE
-	if(!AOE_flash(FALSE, 3, 5, FALSE, user))
-		return FALSE
-	to_chat(user, "<span class='danger'>[src] emits a blinding light!</span>")
+/obj/item/assembly/flash/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	activate_direction(user, get_cardinal_dir(user, target))
+	return TRUE
+
+/obj/item/assembly/flash/proc/activate_direction(mob/user, direction)
+	if(!try_use_flash(user, emit_light = FALSE))
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	// Take 2 steps away from the user
+	var/turf/previous = get_turf(user)
+	var/turf/next = get_step(user, direction)
+	for (var/i in 1 to 2)
+		// Travel until something that blocks light is in front of us
+		if (next.opacity)
+			break
+		previous = next
+		next = get_step(previous, direction)
+	// If we are flashing at a wall, do nothing
+	if (previous == get_turf(user))
+		return
+	var/turf/target_turf = previous
+	var/list/mob/targets = get_flash_targets(target_turf, 1, FALSE)
+	if(user)
+		targets -= user
+	for (var/turf/open/affected_turf in RANGE_TURFS(1, previous))
+		new /obj/effect/temp_visual/tile_light(affected_turf)
+	for(var/mob/living/carbon/C in targets)
+		flash_carbon(C, user, FALSE, TRUE)
 
 /obj/item/assembly/flash/emp_act(severity)
 	. = ..()
@@ -319,7 +352,6 @@
 	if(!try_use_flash())
 		return
 	AOE_flash()
-	burn_out()
 
 /obj/item/assembly/flash/activate()//AOE flash on signal received
 	if(!..())
@@ -419,7 +451,7 @@
 /obj/item/assembly/flash/hypnotic/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
+/obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
 	if(user)

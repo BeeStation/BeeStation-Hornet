@@ -50,7 +50,7 @@
 /mob/living/brain/get_ear_protection()//no ears
 	return 2
 
-/mob/living/brain/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
+/mob/living/brain/flash_act(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, critical_hit = FALSE)
 	return // no eyes, no flashing
 
 /mob/living/brain/can_be_revived()

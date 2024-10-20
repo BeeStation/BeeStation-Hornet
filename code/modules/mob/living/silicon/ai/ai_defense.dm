@@ -52,5 +52,5 @@
 	. = ..(Proj)
 	updatehealth()
 
-/mob/living/silicon/ai/flash_act(intensity, override_blindness_check, affect_silicon, visual)
+/mob/living/silicon/ai/flash_act(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, critical_hit = FALSE)
 	return // no eyes, no flashing

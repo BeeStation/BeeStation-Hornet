@@ -186,7 +186,7 @@
 	if (SEND_SIGNAL(target, COMSIG_MOB_IS_CRITICAL_HIT, user, src) & DEAL_CRITICAL_HIT)
 		target.apply_damage(2.5 * stunforce, STAMINA, affecting, armor_block)
 		target.apply_effect(EFFECT_STUTTER, 1.5 * stunforce)
-		target.on_critical_hit(target, src)
+		target.on_critical_hit(user, src)
 	else
 		target.apply_damage(stunforce, STAMINA, affecting, armor_block)
 		target.apply_effect(EFFECT_STUTTER, stunforce)

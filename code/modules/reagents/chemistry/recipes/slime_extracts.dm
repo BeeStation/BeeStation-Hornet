@@ -147,7 +147,7 @@
 	playsound(T, 'sound/effects/phasein.ogg', 100, TRUE)
 
 	for(var/mob/living/carbon/C in viewers(T))
-		C.flash_act()
+		C.flash_act(1, critical_hit = TRUE)
 
 	var/chosen = getbork()
 	var/obj/item/food_item = new chosen(T)

@@ -47,4 +47,4 @@
 		qdel(target.wear_mask)
 	target.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, 1, 1)
 
-	target.flash_act()
+	target.flash_act(1, critical_hit = TRUE)

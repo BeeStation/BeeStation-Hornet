@@ -426,12 +426,14 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/proc/flash_act(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, critical_hit = FALSE)
 	if(get_eye_protection() >= intensity)
 		return FALSE
 	if(!override_blindness_check && is_blind())
 		return FALSE
-	apply_status_effect(STATUS_EFFECT_BLIND)
+	var/datum/status_effect/blindness/blindness = apply_status_effect(STATUS_EFFECT_BLIND)
+	if (critical_hit)
+		blindness.grant_crit_token()
 	return TRUE
 
 /mob/living/proc/get_flash_overlay()

@@ -245,7 +245,7 @@ Regenerative extracts:
 	..()
 	playsound(src, 'sound/weapons/flash.ogg', 100, 1)
 	for(var/mob/living/L in viewers(7, user))
-		L.flash_act()
+		L.flash_act(1, critical_hit = TRUE)
 
 /obj/item/slimecross/regenerative/black
 	colour = "black"

@@ -110,7 +110,7 @@
 				severity = 0
 
 			//chance to actually hit the eyes depends on internal component
-			if(prob(effectchance * diode.rating) && C.flash_act(severity))
+			if(prob(effectchance * diode.rating) && C.flash_act(severity, critical_hit = TRUE))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
@@ -121,7 +121,7 @@
 		log_combat(user, S, "shone in the sensors", src)
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
-			S.flash_act(affect_silicon = 1)
+			S.flash_act(affect_silicon = 1, critical_hit = TRUE)
 			if(S.last_flashed + FLASHED_COOLDOWN < world.time)
 				S.last_flashed = world.time
 				S.Paralyze(5 SECONDS)

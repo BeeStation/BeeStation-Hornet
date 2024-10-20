@@ -33,12 +33,12 @@
 	//Can be less than 0 due to hearers being a circular radius.
 	var/distance_proportion = max(1 - (distance / flashbang_range), 0)
 
-	if(M.flash_act(intensity = 1, affect_silicon = 1))
+	if(M.flash_act(intensity = 1, affect_silicon = 1, critical_hit = TRUE))
 		if(distance_proportion)
 			M.Paralyze(20 * distance_proportion)
 			M.Knockdown(200 * distance_proportion)
 	else
-		M.flash_act(intensity = 2)
+		M.flash_act(intensity = 2, critical_hit = TRUE)
 
 //Bang
 /obj/item/grenade/flashbang/proc/bang(turf/T, mob/living/M)
@@ -105,7 +105,7 @@
 	if(M.stat == DEAD)
 		return
 	var/distance = max(0,get_dist(get_turf(src),T))
-	if(M.flash_act(affect_silicon = 1))
+	if(M.flash_act(affect_silicon = 1, critical_hit = TRUE))
 		M.Paralyze(max(10/max(1,distance), 5))
 		M.Knockdown(max(100/max(1,distance), 60))
 

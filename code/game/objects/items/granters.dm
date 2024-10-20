@@ -354,7 +354,7 @@
 /obj/item/book/granter/martial/cqc/recoil(mob/living/carbon/user)
 	to_chat(user, "<span class='warning'>[src] explodes!</span>")
 	playsound(src,'sound/effects/explosion1.ogg',40,1)
-	user.flash_act(1, 1)
+	user.flash_act(1, 1, critical_hit = TRUE)
 	user.adjustBruteLoss(6)
 	user.adjustFireLoss(6)
 	qdel(src)
