@@ -189,7 +189,7 @@
 	var/turf/target = upwards ? T.above() : T.below()
 	if(isturf(target))
 		AI.eyeobj.forceMove(target)
-		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/static)
 		AI.camera_visibility(AI.eyeobj)
 		AI.clear_fullscreen("flash", 5)
 	else

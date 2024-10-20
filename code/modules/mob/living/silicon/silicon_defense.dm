@@ -150,6 +150,9 @@
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
-/mob/living/silicon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/static)
+/mob/living/silicon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()
+
+/mob/living/silicon/get_flash_overlay()
+	return /atom/movable/screen/fullscreen/flash/silicon

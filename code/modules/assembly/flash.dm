@@ -294,7 +294,7 @@
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
+		R.flash_act(affect_silicon = 1)
 		if(R.last_flashed + FLASHED_COOLDOWN < world.time)
 			R.last_flashed = world.time
 			R.Paralyze(5 SECONDS)

@@ -1293,3 +1293,53 @@
 	var/datum/status_effect/ling_transformation/new_effect = new_body.apply_status_effect(/datum/status_effect/ling_transformation, target_dna, original_dna, TRUE)
 	if(new_effect)
 		new_effect.charge_left = charge_left
+
+/datum/status_effect/blindness
+	id = "blindness"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	duration = 9 SECONDS
+	/// The overlay for the crit token
+	var/mutable_appearance/crit_token
+	/// If we have a crit token, certain weapons may deal additional damage
+	var/has_crit_token = TRUE
+
+/datum/status_effect/blindness/New(list/arguments)
+	crit_token = mutable_appearance('icons/mob/combat_overlays.dmi', "crit_token")
+	crit_token.pixel_y = 19
+	crit_token.appearance_flags |= RESET_COLOR | RESET_TRANSFORM
+	return ..()
+
+/datum/status_effect/blindness/on_apply()
+	. = ..()
+	var/atom/movable/screen/fullscreen/flash/effect = owner.overlay_fullscreen("flash", owner.get_flash_overlay())
+	effect.animate_duration(9 SECONDS)
+	RegisterSignal(owner, COMSIG_MOB_IS_CRITICAL_HIT, PROC_REF(test_critical_hit))
+	grant_crit_token()
+
+/datum/status_effect/blindness/refresh()
+	. = ..()
+	var/atom/movable/screen/fullscreen/flash/effect = owner.overlay_fullscreen("flash", owner.get_flash_overlay())
+	effect.animate_duration(9 SECONDS)
+	grant_crit_token()
+
+/datum/status_effect/blindness/on_remove()
+	owner.clear_fullscreen("flash")
+	UnregisterSignal(owner, COMSIG_MOB_IS_CRITICAL_HIT, PROC_REF(test_critical_hit))
+	clear_crit_token()
+	return ..()
+
+/datum/status_effect/blindness/proc/test_critical_hit(mob/living/source, mob/living/attacker, obj/item/weapon)
+	if (!has_crit_token)
+		return
+	// Clear the crit token
+	clear_crit_token()
+	return DEAL_CRITICAL_HIT
+
+/datum/status_effect/blindness/proc/grant_crit_token()
+	has_crit_token = TRUE
+	owner.add_overlay(crit_token)
+
+/datum/status_effect/blindness/proc/clear_crit_token()
+	has_crit_token = FALSE
+	owner.cut_overlay(crit_token)

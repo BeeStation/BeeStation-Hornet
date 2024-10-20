@@ -426,16 +426,20 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(get_eye_protection() >= intensity)
 		return FALSE
 	if(!override_blindness_check && is_blind())
 		return FALSE
+	apply_status_effect(STATUS_EFFECT_BLIND)
+	return TRUE
+
+/mob/living/proc/get_flash_overlay()
+	RETURN_TYPE(/atom/movable/screen/fullscreen/flash)
+	var/type = /atom/movable/screen/fullscreen/flash
 	if(client?.prefs?.read_player_preference(/datum/preference/toggle/darkened_flash))
 		type = /atom/movable/screen/fullscreen/flash/black
-	overlay_fullscreen("flash", type)
-	addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 2.5 SECONDS), 2.5 SECONDS)
-	return TRUE
+	return type
 
 //called when the mob receives a loud bang
 /mob/living/proc/soundbang_act()
@@ -614,3 +618,9 @@
 			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",
 				"<span class='danger'>You shove [name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		log_combat(user, src, "shoved", "disarm")
+
+/mob/living/proc/on_critical_hit(mob/attacker, obj/item/weapon)
+	changeNext_move(CLICK_CD_MELEE)
+	client?.give_cooldown_cursor(CLICK_CD_MELEE)
+	SEND_SOUND(src, 'sound/weapons/crit_hit.ogg')
+	SEND_SOUND(attacker, 'sound/weapons/crit_hit.ogg')

@@ -15,7 +15,7 @@
 	attack_verb_simple = list("enforce the law upon")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
 
-	var/stunforce = 40
+	var/stunforce = 28
 	var/turned_on = FALSE
 	var/obj/item/stock_parts/cell/cell
 	var/hitcost = 1000
@@ -90,6 +90,7 @@
 		. += "<span class='notice'>\The [src] is [round(cell.percent())]% charged.</span>"
 	else
 		. += "<span class='warning'>\The [src] does not have a power source installed.</span>"
+	. += "<b>Performs critical hits on blinded opponents.</b>"
 
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -182,8 +183,13 @@
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 	var/armor_block = target.run_armor_check(affecting, STAMINA)
 	// L.adjustStaminaLoss(stunforce)
-	target.apply_damage(stunforce, STAMINA, affecting, armor_block)
-	target.apply_effect(EFFECT_STUTTER, stunforce)
+	if (SEND_SIGNAL(target, COMSIG_MOB_IS_CRITICAL_HIT, user, src) & DEAL_CRITICAL_HIT)
+		target.apply_damage(2.5 * stunforce, STAMINA, affecting, armor_block)
+		target.apply_effect(EFFECT_STUTTER, 1.5 * stunforce)
+		target.on_critical_hit(target, src)
+	else
+		target.apply_damage(stunforce, STAMINA, affecting, armor_block)
+		target.apply_effect(EFFECT_STUTTER, stunforce)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 	target.stuttering = 20
 

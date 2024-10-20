@@ -130,8 +130,13 @@
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
 
-#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
-#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
+///Time before regen starts when in stam crit
+#define STAMINA_CRIT_TIME (5 SECONDS)
+///Time before regen starts when hit with stam damage
+#define STAMINA_REGEN_BLOCK_TIME (1 SECONDS)
+/// How much stamina damage we regen per-second
+/// The number is multiplied to 2x this number when we have 100 stamina damage
+#define STAMINA_REGEN_PER_SECOND (3.5)
 
 #define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point

@@ -67,3 +67,9 @@
 ///Called after a client connects to a mob and all UI elements have been setup
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
+
+/// Checks if the hit should be considered a critical hit.
+/// Parameters: (mob/living/source, mob/living/attacker, obj/item/weapon)
+#define COMSIG_MOB_IS_CRITICAL_HIT "mob_is_critical_hit"
+	/// It is a critical hit
+	#define DEAL_CRITICAL_HIT (1 << 0)

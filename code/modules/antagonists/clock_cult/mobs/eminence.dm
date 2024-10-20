@@ -150,7 +150,7 @@
 /mob/living/simple_animal/eminence/update_health_hud()
 	return
 
-/mob/living/simple_animal/eminence/flash_act(intensity, override_blindness_check, affect_silicon, visual, type)
+/mob/living/simple_animal/eminence/flash_act(intensity, override_blindness_check, affect_silicon, visual)
 	return
 
 //Eminence abilities
