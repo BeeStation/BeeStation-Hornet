@@ -49,7 +49,7 @@
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	handle_specials()
+	handle_specials(riding_mob)
 	riding_mob.updating_glide_size = FALSE
 	ride_check_flags |= buckle_mob_flags
 
@@ -83,7 +83,7 @@
 	var/atom/movable/movable_parent = parent
 	restore_position(rider)
 	unequip_buckle_inhands(rider)
-	//rider.updating_glide_size = TRUE
+	rider.updating_glide_size = TRUE
 	if(!movable_parent.has_buckled_mobs())
 		qdel(src)
 
@@ -116,7 +116,6 @@
 	var/atom/movable/movable_parent = parent
 	if (isnull(dir))
 		dir = movable_parent.dir
-	//movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
 	for (var/m in movable_parent.buckled_mobs)
 		var/mob/buckled_mob = m
 		ride_check(buckled_mob)
@@ -220,7 +219,8 @@
 /// Every time the driver tries to move, this is called to see if they can actually drive and move the vehicle (via relaymove)
 /datum/component/riding/proc/driver_move(atom/movable/movable_parent, mob/living/user, direction)
 	SIGNAL_HANDLER
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
 
 /// So we can check all occupants when we bump a door to see if anyone has access
 /datum/component/riding/proc/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)

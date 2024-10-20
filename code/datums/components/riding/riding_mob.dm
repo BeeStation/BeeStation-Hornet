@@ -14,7 +14,7 @@
 	var/mob/living/living_parent = parent
 	living_parent.stop_pulling() // was only used on humans previously, may change some other behavior
 	log_riding(living_parent, riding_mob)
-	//riding_mob.set_glide_size(living_parent.glide_size)
+	riding_mob.set_glide_size(living_parent.glide_size)
 	handle_vehicle_offsets(living_parent.dir)
 
 	if(can_use_abilities)
@@ -75,11 +75,13 @@
 	rider.layer = initial(rider.layer)
 	return ..()
 
-/datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/living_parent, mob/living/former_rider, force = FALSE)
-	if(istype(living_parent) && istype(former_rider))
-		living_parent.log_message("is no longer being ridden by [former_rider]", LOG_ATTACK, color="pink")
-		former_rider.log_message("is no longer riding [living_parent]", LOG_ATTACK, color="pink")
+/datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/formerly_ridden, mob/living/former_rider, force = FALSE)
+	if(istype(formerly_ridden) && istype(former_rider))
+		formerly_ridden.log_message("is no longer being ridden by [former_rider]", LOG_ATTACK, color="pink")
+		former_rider.log_message("is no longer riding [formerly_ridden]", LOG_ATTACK, color="pink")
 	remove_abilities(former_rider)
+	former_rider.layer = MOB_LAYER
+	formerly_ridden.layer = MOB_LAYER
 	return ..()
 
 /datum/component/riding/creature/driver_move(atom/movable/movable_parent, mob/living/user, direction)
@@ -91,6 +93,7 @@
 	step(living_parent, direction)
 	last_move_diagonal = ((direction & (direction - 1)) && (living_parent.loc == next))
 	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal? sqrt(2) : 1) * vehicle_move_delay * vehicle_move_multiplier)
+	return ..()
 
 /// Yeets the rider off, used for animals and cyborgs, redefined for humans who shove their piggyback rider off
 /datum/component/riding/creature/proc/force_dismount(mob/living/rider, gentle = FALSE)
@@ -362,11 +365,12 @@
 	qdel(src)
 
 //Snowflake, I know, but good enough for the time being
-/datum/component/riding/creature/tamed/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+/datum/component/riding/creature/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	if(istype(parent, /mob/living/simple_animal))
 		var/mob/living/simple_animal/S = parent
 		M.spacewalk = S.spacewalk
 		S.toggle_ai(AI_OFF)
+	..()
 
 /datum/component/riding/creature/tamed/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	M.spacewalk = FALSE

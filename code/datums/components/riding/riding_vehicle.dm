@@ -63,6 +63,7 @@
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
 	handle_ride(user, direction)
+	return ..()
 
 /// This handles the actual movement for vehicles once [/datum/component/riding/vehicle/proc/driver_move] has given us the green light
 /datum/component/riding/vehicle/proc/handle_ride(mob/user, direction)
@@ -147,9 +148,12 @@
 /datum/component/riding/vehicle/scooter
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 
-/datum/component/riding/vehicle/scooter/handle_specials()
+/datum/component/riding/vehicle/scooter/handle_specials(mob/living/riding_mob)
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0), TEXT_SOUTH = list(-2), TEXT_EAST = list(0), TEXT_WEST = list( 2)))
+	if(iscyborg(riding_mob))
+		set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0), TEXT_SOUTH = list(0), TEXT_EAST = list(0), TEXT_WEST = list(2)))
+	else
+		set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(2), TEXT_SOUTH = list(-2), TEXT_EAST = list(0), TEXT_WEST = list(2)))
 
 /datum/component/riding/vehicle/scooter/skateboard
 	vehicle_move_delay = 1.5
