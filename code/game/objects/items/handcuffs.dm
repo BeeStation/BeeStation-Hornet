@@ -30,7 +30,7 @@
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/restraints_handcuffs
 	fire = 50
 	acid = 50

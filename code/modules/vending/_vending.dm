@@ -180,7 +180,7 @@
 	///Name of lighting mask for the vending machine
 	var/light_mask
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_vending
 	melee = 20
 	fire = 50

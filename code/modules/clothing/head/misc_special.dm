@@ -27,7 +27,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/utility_welding
 	melee = 10
 	fire = 100

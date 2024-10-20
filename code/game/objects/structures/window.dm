@@ -33,7 +33,7 @@
 	ricochet_chance_mod = 0.4
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_window
 	fire = 80
 	acid = 100
@@ -413,7 +413,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	rad_insulation = RAD_HEAVY_INSULATION
 	ricochet_chance_mod = 0.8
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/window_reinforced
 	melee = 50
 	bomb = 25
@@ -444,7 +444,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	rad_insulation = RAD_NO_INSULATION
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/window_plasma
 	melee = 75
 	bullet = 5
@@ -485,7 +485,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/plasma_reinforced
 	melee = 85
 	bullet = 20
@@ -526,7 +526,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_type = /obj/item/stack/sheet/mineral/uranium
 	rad_insulation = RAD_FULL_INSULATION
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/window_depleteduranium
 	melee = 45
 	bullet = 20
@@ -667,7 +667,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/window_shuttle
 	melee = 50
 	bomb = 50
@@ -704,7 +704,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/window_plastitanium
 	melee = 50
 	bomb = 50

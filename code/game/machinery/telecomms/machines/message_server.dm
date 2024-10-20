@@ -18,7 +18,7 @@
 	var/obj/item/stored
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_blackbox_recorder
 	melee = 25
 	bullet = 10

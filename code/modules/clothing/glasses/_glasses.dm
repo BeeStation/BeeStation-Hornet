@@ -146,7 +146,7 @@
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/glasses_science
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/glasses_science
 	fire = 80
 	acid = 100
@@ -164,7 +164,7 @@
 	armor_type = /datum/armor/science_prescription
 	vision_correction = 1
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/science_prescription
 	fire = 20
 	acid = 40

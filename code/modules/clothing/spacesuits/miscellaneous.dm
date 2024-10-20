@@ -28,7 +28,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	actions_types = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_deathsquad
 	melee = 80
 	bullet = 80
@@ -60,7 +60,7 @@ Contains:
 	cell = /obj/item/stock_parts/cell/bluespace
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_deathsquad
 	melee = 80
 	bullet = 80
@@ -89,7 +89,7 @@ Contains:
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_beret
 	melee = 80
 	bullet = 80
@@ -123,7 +123,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 	//NASA Voidsuit
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_officer
 	melee = 80
 	bullet = 80
@@ -178,7 +178,7 @@ Contains:
 	equip_delay_other = 20
 	flags_cover = HEADCOVERSEYES
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_pirate
 	melee = 30
 	bullet = 50
@@ -212,7 +212,7 @@ Contains:
 	equip_delay_other = 20
 
 	//Emergency Response Team suits
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_pirate
 	melee = 30
 	bullet = 50
@@ -244,7 +244,7 @@ Contains:
 	var/beacon_colour = "#4b48ec"
 	var/beacon_zdiff_colour = "#0b0a47"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_ert
 	melee = 65
 	bullet = 50
@@ -292,7 +292,7 @@ Contains:
 	)
 
 // ERT suit's gets EMP Protection
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_ert
 	melee = 65
 	bullet = 50
@@ -389,7 +389,7 @@ Contains:
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor_type = /datum/armor/space_eva
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_eva
 	bio = 100
 	rad = 20
@@ -405,7 +405,7 @@ Contains:
 	flash_protect = 0
 	armor_type = /datum/armor/space_eva
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_eva
 	bio = 100
 	rad = 20
@@ -425,7 +425,7 @@ Contains:
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_freedom
 	melee = 20
 	bullet = 40
@@ -451,7 +451,7 @@ Contains:
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	slowdown = 0
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_freedom
 	melee = 20
 	bullet = 40
@@ -544,7 +544,7 @@ Contains:
 	strip_delay = 65
 	flash_protect = 0
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_fragile
 	melee = 5
 	bio = 10
@@ -562,7 +562,7 @@ Contains:
 	strip_delay = 65
 	w_class = WEIGHT_CLASS_NORMAL
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_fragile
 	melee = 5
 	bio = 10
@@ -590,7 +590,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	cell = /obj/item/stock_parts/cell/hyper
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_hunter
 	melee = 60
 	bullet = 40
@@ -622,7 +622,7 @@ Contains:
 	max_heat_protection_temperature = 100
 	actions_types = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_skinsuit
 	bio = 100
 	bleed = 10
@@ -652,7 +652,7 @@ Contains:
 	max_heat_protection_temperature = 100
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_skinsuit
 	bio = 50
 	bleed = 10
@@ -668,7 +668,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor_type = /datum/armor/space_hunter
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_hunter
 	melee = 5
 	bullet = 5

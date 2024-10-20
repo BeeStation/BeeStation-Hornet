@@ -26,7 +26,7 @@
 	var/grab_ghost = TRUE // Do we pull the ghost back into their body?
 	var/cooldown_duration = 5 SECONDS//how long does it take to recharge
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_defibrillator
 	fire = 50
 	acid = 50

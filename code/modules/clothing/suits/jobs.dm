@@ -55,7 +55,7 @@
 	toggle_noun = "sleeves"
 
 //Cook
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/toggle_chef
 	bio = 50
 
@@ -89,7 +89,7 @@
 		/obj/item/clothing/accessory/holster/detective,
 		) //Trench coats are a little more apt at carrying larger objects.
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/jacket_det_suit
 	melee = 25
 	bullet = 10
@@ -127,7 +127,7 @@
 	armor_type = /datum/armor/hazardvest_brig_physician
 
 //Engineering
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hazardvest_brig_physician
 	melee = 10
 	bio = 10
@@ -261,7 +261,7 @@
 
 //Roboticist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/jacket_curator
 	melee = 25
 	bullet = 10

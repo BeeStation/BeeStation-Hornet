@@ -40,7 +40,7 @@
 	trigger_guard = TRIGGER_GUARD_NORMAL
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_pneumatic_cannon
 	fire = 60
 	acid = 50

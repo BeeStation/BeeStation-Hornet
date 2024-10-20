@@ -9,7 +9,7 @@
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/under_syndicate
 	melee = 10
 	bio = 10
@@ -25,7 +25,7 @@
 	item_state = "bl_suit"
 	armor_type = /datum/armor/syndicate_tacticool
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndicate_tacticool
 	bio = 10
 	fire = 50
@@ -54,7 +54,7 @@
 	armor_type = /datum/armor/syndicate_soviet
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndicate_soviet
 	melee = 10
 	bio = 10
@@ -75,7 +75,7 @@
 	armor_type = /datum/armor/syndicate_rus_army
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndicate_rus_army
 	melee = 5
 	bio = 10

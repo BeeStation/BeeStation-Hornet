@@ -26,7 +26,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_botanic_leather
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_botanic_leather
 	bio = 50
 	fire = 70
@@ -47,7 +47,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_combat
 	bio = 90
 	fire = 80
@@ -71,7 +71,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_bracer
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_bracer
 	melee = 15
 	bullet = 35

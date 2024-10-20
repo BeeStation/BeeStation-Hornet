@@ -28,7 +28,7 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/unary_thermomachine
 	energy = 100
 	rad = 100

@@ -13,7 +13,7 @@
 	strip_delay = 80
 	equip_delay_other = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/chaplainsuit_armor
 	melee = 50
 	bullet = 10
@@ -131,7 +131,7 @@
 	strip_delay = 80
 	dog_fashion = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_chaplain
 	melee = 50
 	bullet = 10
@@ -160,7 +160,7 @@
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
 	armor_type = /datum/armor/plate_crusader
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/plate_crusader
 	melee = 50
 	bullet = 50
@@ -192,7 +192,7 @@
 	worn_x_dimension = 64
 	worn_y_dimension = 64
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/crusader_prophet
 	melee = 60
 	bullet = 60
@@ -268,7 +268,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor_type = /datum/armor/armor_crusader
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_crusader
 	melee = 50
 	bullet = 50
@@ -346,7 +346,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_graverobber_gloves
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_graverobber_gloves
 	bio = 10
 	fire = 30

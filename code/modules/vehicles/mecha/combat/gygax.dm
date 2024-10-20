@@ -16,7 +16,7 @@
 	max_equip = 3
 	step_energy_drain = 3
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_gygax
 	melee = 25
 	bullet = 20
@@ -41,7 +41,7 @@
 	max_equip = 5
 	destruction_knockdown_duration = 2 SECONDS //Syndi mechs get reduced knockdown
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gygax_dark
 	melee = 40
 	bullet = 40

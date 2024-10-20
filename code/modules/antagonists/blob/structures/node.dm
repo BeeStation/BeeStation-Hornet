@@ -10,7 +10,7 @@
 	point_return = 25
 	resistance_flags = LAVA_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/blob_node
 	fire = 65
 	acid = 90

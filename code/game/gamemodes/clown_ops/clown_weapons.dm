@@ -26,8 +26,6 @@
 #define BANANA_SHOES_RECHARGE_RATE 17
 #define BANANA_SHOES_MAX_CHARGE 3000
 
-//The super annoying version
-/// Automatically generated armor datum, errors may exist
 /datum/armor/clown_shoes_combat
 	melee = 25
 	bullet = 25
@@ -40,6 +38,7 @@
 	stamina = 25
 	bleed = 40
 
+//The super annoying version
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat
 	name = "mk-honk combat shoes"
 	desc = "The culmination of years of clown combat research, these shoes leave a trail of chaos in their wake. They will slowly recharge themselves over time, or can be manually charged with bananium."
@@ -50,7 +49,6 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	always_noslip = TRUE
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/banana_shoes_combat
 	melee = 25
 	bullet = 25

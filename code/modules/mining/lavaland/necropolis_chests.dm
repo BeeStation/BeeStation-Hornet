@@ -686,7 +686,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF //they are from lavaland after all
 	armor_type = /datum/armor/gloves_concussive_gauntlets
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_concussive_gauntlets
 	melee = 15
 	bullet = 35

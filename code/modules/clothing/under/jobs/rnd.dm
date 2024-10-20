@@ -11,7 +11,7 @@
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/rnd_research_director
 	bomb = 10
 	bio = 10
@@ -38,7 +38,7 @@
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/research_director_alt
 	bomb = 10
 	bio = 10
@@ -64,7 +64,7 @@
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/research_director_turtleneck
 	bomb = 10
 	bio = 10
@@ -96,7 +96,7 @@
 	worn_icon_state = "toxinswhite"
 	armor_type = /datum/armor/rnd_scientist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/rnd_scientist
 	bomb = 10
 	bio = 50

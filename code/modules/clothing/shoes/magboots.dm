@@ -13,7 +13,7 @@
 	resistance_flags = FIRE_PROOF
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_magboots
 	bio = 90
 
@@ -72,7 +72,7 @@
 	armor_type = /datum/armor/magboots_commando
 	clothing_flags = NOSLIP
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/magboots_commando
 	melee = 40
 	bullet = 30

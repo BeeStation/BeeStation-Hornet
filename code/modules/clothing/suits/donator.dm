@@ -41,6 +41,6 @@
 	toggle_noun = "zipper"
 	body_parts_covered = CHEST|GROIN|ARMS
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/toggle_softshell
 	bio = 30

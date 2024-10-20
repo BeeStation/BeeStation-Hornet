@@ -9,7 +9,7 @@
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_sign
 	melee = 50
 	fire = 50

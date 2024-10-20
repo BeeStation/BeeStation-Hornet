@@ -20,7 +20,7 @@
 
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_navbeacon
 	melee = 70
 	bullet = 70

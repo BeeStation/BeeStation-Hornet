@@ -92,7 +92,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/projected_forcefield)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_projected_forcefield
 	bullet = 25
 	laser = 50

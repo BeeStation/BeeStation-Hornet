@@ -51,7 +51,7 @@
 	COOLDOWN_DECLARE(reactivearmor_cooldown)
 	pocket_storage_component_path = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_reactive
 	fire = 100
 	acid = 100

@@ -19,7 +19,7 @@
 	force_string = "LORD SINGULOTH HIMSELF"
 	var/charged = 5
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_singularityhammer
 	melee = 50
 	bullet = 50

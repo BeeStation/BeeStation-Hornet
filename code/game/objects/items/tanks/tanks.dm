@@ -32,7 +32,7 @@
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_tank
 	bomb = 10
 	fire = 80

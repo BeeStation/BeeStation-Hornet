@@ -107,7 +107,7 @@
 		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_airalarm
 	energy = 100
 	rad = 100

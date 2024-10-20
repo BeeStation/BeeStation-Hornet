@@ -258,7 +258,7 @@
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_plate
 	melee = 50
 	bullet = 50

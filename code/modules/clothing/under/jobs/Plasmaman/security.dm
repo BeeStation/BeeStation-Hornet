@@ -7,7 +7,7 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/plasmaman_security
 	melee = 10
 	bio = 100
@@ -35,7 +35,7 @@
 	item_state = "secmed_envirosuit"
 	armor_type = /datum/armor/security_secmed
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_secmed
 	melee = 5
 	bio = 100

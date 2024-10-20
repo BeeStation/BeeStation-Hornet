@@ -224,7 +224,7 @@
 	greyscale_colors = "#8291a1"
 	armor_type = /datum/armor/color_durathread
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/color_durathread
 	melee = 10
 	bullet = 15
@@ -242,7 +242,7 @@
 	greyscale_colors = "#8291a1"
 	armor_type = /datum/armor/jumpskirt_durathread
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/jumpskirt_durathread
 	melee = 10
 	bullet = 15

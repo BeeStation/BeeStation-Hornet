@@ -9,7 +9,7 @@
 	blockTracking = TRUE//Roughly the only unique thing about this helmet.
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_space_ninja
 	melee = 60
 	bullet = 50

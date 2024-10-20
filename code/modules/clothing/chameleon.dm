@@ -360,7 +360,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/under_chameleon
 	melee = 10
 	bullet = 10
@@ -448,7 +448,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_chameleon
 	melee = 10
 	bullet = 10
@@ -502,7 +502,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/glasses_chameleon
 	melee = 10
 	bullet = 10
@@ -565,7 +565,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_chameleon
 	melee = 10
 	bullet = 10
@@ -623,7 +623,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/chameleon_combat
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/chameleon_combat
 	melee = 10
 	bullet = 10
@@ -646,7 +646,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/head_chameleon
 	melee = 5
 	bullet = 5
@@ -781,7 +781,7 @@
 	var/datum/action/item_action/chameleon/change/chameleon_action
 	var/datum/action/item_action/chameleon/tongue_change/tongue_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/mask_chameleon
 	melee = 5
 	bullet = 5
@@ -853,7 +853,7 @@
 	// Can drones use the voice changer part? Let's not find out.
 	voice_change = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/chameleon_drone
 	bleed = 10
 
@@ -882,7 +882,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_chameleon
 	melee = 10
 	bullet = 10
@@ -1130,7 +1130,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/neck_chameleon
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/neck_chameleon
 	fire = 50
 	acid = 50

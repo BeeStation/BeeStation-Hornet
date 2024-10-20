@@ -48,7 +48,7 @@
 	armor_type = /datum/armor/backpack_holding
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/backpack_holding
 	fire = 60
 	acid = 50
@@ -89,7 +89,7 @@
 	armor_type = /datum/armor/backpack_hammerspace
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/backpack_hammerspace
 	melee = 100
 	bullet = 100

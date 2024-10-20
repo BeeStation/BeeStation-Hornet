@@ -206,7 +206,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_debug
 	melee = 300
 	bullet = 300
@@ -240,18 +240,6 @@
 
 
 // debug bag
-/// Automatically generated armor datum, errors may exist
-/datum/armor/hardsuit_debug
-	melee = 300
-	bullet = 300
-	laser = 300
-	energy = 300
-	bomb = 300
-	bio = 300
-	rad = 300
-	fire = 300
-	acid = 300
-	stamina = 300
 
 /obj/item/storage/backpack/debug
 	name = "bag of portable hole"
@@ -262,7 +250,7 @@
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_debug
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/backpack_debug
 	melee = 100
 	bullet = 100

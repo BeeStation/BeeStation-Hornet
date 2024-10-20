@@ -11,7 +11,7 @@
 	light_on = FALSE
 	var/sword_color
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/transforming_energy
 	fire = 100
 	acid = 30

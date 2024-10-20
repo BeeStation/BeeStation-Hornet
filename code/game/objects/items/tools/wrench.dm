@@ -22,7 +22,7 @@
 	toolspeed = 1
 	armor_type = /datum/armor/item_wrench
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_wrench
 	fire = 50
 	acid = 30

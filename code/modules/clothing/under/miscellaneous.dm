@@ -47,7 +47,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	blocks_shove_knockdown = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/misc_adminsuit
 	melee = 100
 	bullet = 100

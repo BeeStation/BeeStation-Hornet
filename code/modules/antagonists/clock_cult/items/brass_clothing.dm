@@ -13,7 +13,7 @@
 	allowed = list(/obj/item/clockwork, /obj/item/stack/sheet/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 	var/allow_any = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_clockwork
 	melee = 50
 	bullet = 60
@@ -55,7 +55,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor_type = /datum/armor/clockwork_speed
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/clockwork_speed
 	melee = 40
 	bullet = 40
@@ -83,7 +83,7 @@
 	var/start
 	var/previous_alpha
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/clockwork_cloak
 	melee = 10
 	bullet = 60
@@ -191,7 +191,7 @@
 	flash_protect = 1
 	bang_protect = 3
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_clockcult
 	melee = 50
 	bullet = 60
@@ -225,7 +225,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_clockcult
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_clockcult
 	bio = 90
 	fire = 80

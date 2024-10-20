@@ -8,7 +8,7 @@
 	key_type = /obj/item/key/security
 	integrity_failure = 0.5
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/ridden_secway
 	melee = 20
 	bullet = 15

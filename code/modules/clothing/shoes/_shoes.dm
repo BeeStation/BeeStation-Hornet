@@ -15,7 +15,7 @@
 	var/offset = 0
 	var/equipped_before_drop = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/clothing_shoes
 	bio = 50
 

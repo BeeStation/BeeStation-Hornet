@@ -21,7 +21,7 @@
 	var/list/fill_icon_thresholds = list(1, 20, 30, 40, 50, 60, 70, 80, 90)
 	var/list/worn_fill_icon_thresholds = list(1, 20, 40, 65, 75, 90)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_watertank
 	fire = 100
 	acid = 30

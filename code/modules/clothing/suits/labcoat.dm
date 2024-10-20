@@ -31,7 +31,7 @@
 	armor_type = /datum/armor/toggle_labcoat
 	species_exception = list(/datum/species/golem)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/toggle_labcoat
 	bio = 50
 	fire = 50
@@ -56,7 +56,7 @@
 	item_state = "labcoat_sec"
 	armor_type = /datum/armor/labcoat_brig_physician
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/labcoat_brig_physician
 	melee = 10
 	bio = 10

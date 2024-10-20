@@ -128,7 +128,7 @@
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor_type = /datum/armor/costume_bronze
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/costume_bronze
 	melee = 5
 	laser = -5
@@ -177,7 +177,7 @@
 	light_range = 0 //luminosity when on
 	actions_types = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/carp_hood_spaceproof
 	melee = 20
 	bullet = 10
@@ -199,7 +199,7 @@
 	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
 	armor_type = /datum/armor/spaceproof_old
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/spaceproof_old
 	bio = 100
 	rad = 50
@@ -215,13 +215,6 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
 
-/// Automatically generated armor datum, errors may exist
-/datum/armor/spaceproof_old
-	bio = 100
-	rad = 50
-	fire = 80
-	acid = 70
-	stamina = 10
 
 /obj/item/clothing/head/hooded/ian_hood
 	name = "corgi hood"
@@ -250,7 +243,7 @@
 	armor_type = /datum/armor/bee_costume_syndie
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/bee_costume_syndie
 	melee = 20
 	bullet = 20
@@ -263,7 +256,7 @@
 /obj/item/clothing/head/hooded/bee_hood/syndie
 	armor_type = /datum/armor/bee_hood_syndie
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/bee_hood_syndie
 	melee = 20
 	bullet = 20

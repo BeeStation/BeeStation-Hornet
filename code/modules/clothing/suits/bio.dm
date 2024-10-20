@@ -12,7 +12,7 @@
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/head_bio_hood
 	bio = 100
 	rad = 80
@@ -39,7 +39,7 @@
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_bio_suit
 	bio = 100
 	rad = 80
@@ -70,7 +70,7 @@
 	armor_type = /datum/armor/bio_hood_security
 	icon_state = "bio_security"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/bio_hood_security
 	melee = 25
 	bullet = 15
@@ -90,7 +90,7 @@
 
 
 //Janitor's biosuit, grey with purple arms
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/bio_suit_security
 	melee = 25
 	bullet = 15

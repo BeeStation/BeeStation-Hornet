@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_modular_computer
 	bullet = 20
 	laser = 20

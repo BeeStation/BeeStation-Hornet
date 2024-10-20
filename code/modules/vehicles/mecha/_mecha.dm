@@ -178,7 +178,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sealed_mecha
 	melee = 20
 	bullet = 10

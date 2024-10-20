@@ -87,7 +87,7 @@
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_carp_rift
 	energy = 100
 	bomb = 50

@@ -25,7 +25,7 @@ Woods Sheets
 	grind_results = list(/datum/reagent/carbon = 20)
 	walltype = /turf/closed/wall/mineral/wood
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_wood
 	fire = 50
 
@@ -48,7 +48,7 @@ Woods Sheets
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_bamboo
 	fire = 50
 

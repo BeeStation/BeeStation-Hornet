@@ -41,7 +41,6 @@
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	light_mask = "med-light-mask"
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/vending_medical
 	melee = 100
 	bullet = 100

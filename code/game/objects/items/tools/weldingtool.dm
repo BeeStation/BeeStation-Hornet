@@ -45,7 +45,7 @@
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_weldingtool
 	fire = 100
 	acid = 30

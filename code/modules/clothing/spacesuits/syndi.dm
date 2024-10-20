@@ -6,7 +6,7 @@
 	desc = "Has a tag on it: Totally not property of an enemy corporation, honest!"
 	armor_type = /datum/armor/space_syndicate
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_syndicate
 	melee = 40
 	bullet = 50
@@ -31,7 +31,7 @@
 	cell = /obj/item/stock_parts/cell/hyper
 
 //Green syndicate space suit
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_syndicate
 	melee = 40
 	bullet = 50

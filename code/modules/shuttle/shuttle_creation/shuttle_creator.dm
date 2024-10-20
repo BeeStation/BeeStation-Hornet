@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/turf/recorded_origin //The last remembered location of our airlock
 	var/turf/exit //Record the exterior turf next to the airlock to prevent modification designation
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_shuttle_creator
 	fire = 100
 	acid = 50

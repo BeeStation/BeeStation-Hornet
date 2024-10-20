@@ -228,7 +228,7 @@ It remains quite flush against the wall, and there only seems to be enough room 
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/safe_caps_spare
 	melee = 100
 	bullet = 100

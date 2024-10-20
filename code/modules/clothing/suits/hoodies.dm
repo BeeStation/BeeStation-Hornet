@@ -12,7 +12,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	hoodtype = /obj/item/clothing/head/hooded/hoodie
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hooded_hoodie
 	bio = 10
 
@@ -134,7 +134,7 @@
 	armor_type = /datum/armor/hoodie_durathread
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/durathread
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hoodie_durathread
 	melee = 15
 	bullet = 25
@@ -150,7 +150,7 @@
 	armor_type = /datum/armor/hoodie_durathread
 	color = "#8291a1"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hoodie_durathread
 	melee = 5
 	bullet = 5

@@ -9,7 +9,7 @@
 	layer = BELOW_OBJ_LAYER
 	CanAtmosPass = ATMOS_PASS_NO
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_plasticflaps
 	melee = 100
 	bullet = 80

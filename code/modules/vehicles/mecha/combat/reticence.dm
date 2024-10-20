@@ -18,7 +18,7 @@
 	step_energy_drain = 3
 	color = "#87878715"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_reticence
 	melee = 25
 	bullet = 20

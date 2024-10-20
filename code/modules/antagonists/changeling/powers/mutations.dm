@@ -414,7 +414,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	cell = null
 	show_hud = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_changeling
 	melee = 35
 	bullet = 25
@@ -457,7 +457,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	armor_type = /datum/armor/space_changeling
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_changeling
 	melee = 35
 	bullet = 25
@@ -508,7 +508,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	blocks_shove_knockdown = TRUE
 	slowdown = 0.2
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_changeling
 	melee = 40
 	bullet = 40
@@ -536,7 +536,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	armor_type = /datum/armor/helmet_changeling
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_changeling
 	melee = 40
 	bullet = 40

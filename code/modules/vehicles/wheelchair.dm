@@ -13,7 +13,7 @@
 	// Run speed delay is multiplied with this for vehicle move delay.
 	var/delay_multiplier = 6.7
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/ridden_wheelchair
 	melee = 10
 	bullet = 10

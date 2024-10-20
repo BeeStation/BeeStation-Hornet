@@ -298,7 +298,7 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/costume_russian_officer
 	melee = 10
 	fire = 30

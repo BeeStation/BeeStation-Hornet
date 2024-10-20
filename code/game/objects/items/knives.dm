@@ -26,7 +26,7 @@
 	//bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_knife
 	fire = 50
 	acid = 50

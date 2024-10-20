@@ -20,7 +20,7 @@
 	allow_diagonal_movement = FALSE
 	pivot_step = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/working_clarke
 	melee = 20
 	bullet = 10

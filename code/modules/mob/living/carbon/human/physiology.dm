@@ -42,4 +42,4 @@
 	var/hunger_mod = 1
 
 /datum/physiology/New()
-	armor = new
+	physio_armor = new

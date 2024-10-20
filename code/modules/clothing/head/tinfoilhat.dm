@@ -9,7 +9,7 @@
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
 	var/mutable_appearance/psychic_overlay
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/costume_foilhat
 	laser = -5
 	rad = -5
@@ -84,7 +84,7 @@
 	///Is the light on?
 	var/on = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/foilhat_plasmaman
 	bio = 100
 	fire = 50

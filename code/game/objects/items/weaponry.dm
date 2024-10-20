@@ -16,7 +16,7 @@
 	armor_type = /datum/armor/item_banhammer
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_banhammer
 	fire = 100
 	acid = 70
@@ -95,7 +95,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armor_type = /datum/armor/item_claymore
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_claymore
 	fire = 100
 	acid = 50
@@ -254,7 +254,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 30
 	armor_type = /datum/armor/claymore_bone
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/claymore_bone
 	fire = 100
 	acid = 50
@@ -286,7 +286,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armor_type = /datum/armor/item_katana
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_katana
 	fire = 100
 	acid = 50

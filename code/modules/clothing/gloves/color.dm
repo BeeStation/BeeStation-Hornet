@@ -11,7 +11,7 @@
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/color_yellow
 	bio = 50
 
@@ -56,7 +56,7 @@
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/color_fyellow
 	bio = 25
 
@@ -187,7 +187,7 @@
 	strip_delay = 60
 	armor_type = /datum/armor/color_captain
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/color_captain
 	bio = 90
 	fire = 70
@@ -205,7 +205,7 @@
 	resistance_flags = NONE
 	var/carrytrait = TRAIT_QUICKER_CARRY
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/color_latex
 	bio = 100
 

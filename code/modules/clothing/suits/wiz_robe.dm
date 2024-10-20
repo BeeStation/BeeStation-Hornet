@@ -13,7 +13,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/head_wizard
 	melee = 30
 	bullet = 20
@@ -93,7 +93,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_wizrobe
 	melee = 30
 	bullet = 20
@@ -242,7 +242,7 @@
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_wizard
 	melee = 30
 	bullet = 20
@@ -270,7 +270,7 @@
 	actions_types = null //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_wizard
 	melee = 30
 	bullet = 20

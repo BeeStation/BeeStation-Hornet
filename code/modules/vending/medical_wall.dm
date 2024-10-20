@@ -24,7 +24,6 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/vending_wallmed
 	melee = 100
 	bullet = 100

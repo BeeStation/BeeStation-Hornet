@@ -42,7 +42,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_firealarm
 	rad = 100
 	fire = 90

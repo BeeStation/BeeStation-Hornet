@@ -16,7 +16,7 @@
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_button
 	melee = 50
 	bullet = 50

@@ -67,7 +67,7 @@ Possible to do for anyone motivated enough:
 	///bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_holopad
 	melee = 50
 	bullet = 20

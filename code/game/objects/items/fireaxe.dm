@@ -23,7 +23,7 @@
 	item_flags = ISWEAPON
 	var/icon_prefix = "fireaxe"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_fireaxe
 	fire = 100
 	acid = 30

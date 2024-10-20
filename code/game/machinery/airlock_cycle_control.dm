@@ -77,7 +77,7 @@
 	var/list/vents = list()
 	var/obj/vis_target = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_advanced_airlock_controller
 	energy = 100
 	bio = 100

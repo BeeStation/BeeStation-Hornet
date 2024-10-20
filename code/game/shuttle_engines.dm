@@ -10,7 +10,7 @@
 	max_integrity = 500
 	armor_type = /datum/armor/structure_shuttle
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_shuttle
 	melee = 100
 	bullet = 10

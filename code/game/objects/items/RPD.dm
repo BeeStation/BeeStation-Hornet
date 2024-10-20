@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	/// list of atmos constructs that we don't want to attack with RPD
 	var/static/list/atmos_constructs = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/transit_tube))
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_pipe_dispenser
 	fire = 100
 	acid = 50

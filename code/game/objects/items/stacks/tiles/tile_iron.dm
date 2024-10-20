@@ -67,7 +67,7 @@
 		/obj/item/stack/tile/iron/sepia,
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/tile_iron
 	fire = 100
 	acid = 70

@@ -9,7 +9,7 @@
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/rank_captain
 	melee = 10
 	bio = 10

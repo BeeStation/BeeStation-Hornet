@@ -554,7 +554,7 @@
 	reinf = FALSE
 	var/made_glow = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/reinforced_clockwork
 	melee = 40
 	bullet = -20

@@ -33,7 +33,7 @@
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shuttle_heater
 	energy = 100
 	bio = 100

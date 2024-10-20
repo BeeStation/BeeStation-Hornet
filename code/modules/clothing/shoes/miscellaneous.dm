@@ -11,7 +11,7 @@
 	resistance_flags = NONE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_combat
 	melee = 25
 	bullet = 25
@@ -30,7 +30,7 @@
 	clothing_flags = NOSLIP
 	armor_type = /datum/armor/combat_swat
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_swat
 	melee = 40
 	bullet = 30
@@ -54,7 +54,7 @@
 	armor_type = /datum/armor/shoes_sandal
 	strip_delay = 5
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_sandal
 	bio = 10
 
@@ -82,7 +82,7 @@
 	can_be_bloody = FALSE
 	custom_price = 100
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_galoshes
 	bio = 100
 	fire = 40
@@ -164,7 +164,7 @@
 	armor_type = /datum/armor/shoes_jackboots
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_jackboots
 	bio = 90
 
@@ -192,7 +192,7 @@
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_winterboots
 	bio = 80
 
@@ -221,7 +221,7 @@
 	equip_delay_other = 40
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_workboots
 	bio = 80
 
@@ -267,7 +267,7 @@
 	equip_delay_other = 100
 	armor_type = /datum/armor/shoes_roman
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_roman
 	bio = 10
 
@@ -293,7 +293,7 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_bhop
 	bio = 90
 

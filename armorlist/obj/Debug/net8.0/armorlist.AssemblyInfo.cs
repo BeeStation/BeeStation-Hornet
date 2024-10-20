@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("armorlist")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc866d5a654914247214baded5a3aa717300e9c9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36d50cd6f54f2ea32987d6c0cdd30308dd34eecb")]
 [assembly: System.Reflection.AssemblyProductAttribute("armorlist")]
 [assembly: System.Reflection.AssemblyTitleAttribute("armorlist")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

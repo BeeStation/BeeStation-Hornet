@@ -21,7 +21,7 @@
 	armor_type = /datum/armor/trek_engsec
 	strip_delay = 50
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/trek_engsec
 	melee = 10
 	bio = 10

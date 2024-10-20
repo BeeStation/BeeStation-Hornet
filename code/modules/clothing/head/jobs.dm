@@ -38,7 +38,7 @@
 	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hats_caphat
 	melee = 25
 	bullet = 15
@@ -67,7 +67,7 @@
 	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hats_hopcap
 	melee = 25
 	bullet = 15
@@ -105,7 +105,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/fedora_det_hat
 	melee = 25
 	bullet = 5
@@ -210,7 +210,7 @@
 
 //Security
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_durathread
 	melee = 15
 	bullet = 25
@@ -231,7 +231,7 @@
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hats_hos
 	melee = 40
 	bullet = 30
@@ -269,7 +269,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hats_warden
 	melee = 40
 	bullet = 30
@@ -357,7 +357,7 @@
 	armor_type = /datum/armor/beret_corpwarden
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_corpwarden
 	melee = 40
 	bullet = 30
@@ -377,7 +377,7 @@
 	strip_delay = 60
 	dog_fashion = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_sec
 	melee = 35
 	bullet = 30
@@ -396,7 +396,7 @@
 	armor_type = /datum/armor/beret_corpsec
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_corpsec
 	melee = 40
 	bullet = 30
@@ -415,7 +415,7 @@
 	armor_type = /datum/armor/beret_spacepol
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_spacepol
 	melee = 40
 	bullet = 30
@@ -439,7 +439,7 @@
 	armor_type = /datum/armor/sec_navywarden
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sec_navywarden
 	melee = 40
 	bullet = 30
@@ -468,7 +468,7 @@
 	armor_type = /datum/armor/beret_eng
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_eng
 	rad = 10
 	fire = 10
@@ -480,7 +480,7 @@
 	armor_type = /datum/armor/beret_atmos
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_atmos
 	rad = 10
 	fire = 10
@@ -492,7 +492,7 @@
 	armor_type = /datum/armor/beret_ce
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_ce
 	rad = 20
 	fire = 30
@@ -504,7 +504,7 @@
 	armor_type = /datum/armor/beret_sci
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_sci
 	bomb = 5
 	bio = 5
@@ -519,7 +519,7 @@
 	strip_delay = 60
 
 //Medical
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_supply
 	rad = 10
 	fire = 10
@@ -531,7 +531,7 @@
 	armor_type = /datum/armor/beret_med
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_med
 	bio = 20
 
@@ -543,7 +543,7 @@
 	strip_delay = 60
 
 //CentCom
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_cmo
 	bio = 30
 	rad = 10
@@ -556,7 +556,7 @@
 	armor_type = /datum/armor/beret_cccaptain
 	strip_delay = 120
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_cccaptain
 	melee = 80
 	bullet = 80
@@ -577,7 +577,7 @@
 	armor_type = /datum/armor/beret_ccofficer
 	strip_delay = 120
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_ccofficer
 	melee = 80
 	bullet = 80
@@ -599,7 +599,7 @@
 	strip_delay = 120
 
 //For blueshields, but those aren't in so I renamed them to centcom guards
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_ccofficernavy
 	melee = 80
 	bullet = 80
@@ -620,7 +620,7 @@
 	armor_type = /datum/armor/beret_ccguard
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_ccguard
 	melee = 40
 	bullet = 20
@@ -641,7 +641,7 @@
 	armor_type = /datum/armor/beret_ccguardnavy
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_ccguardnavy
 	melee = 40
 	bullet = 20
@@ -662,7 +662,7 @@
 	armor_type = /datum/armor/beret_sergeant
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_sergeant
 	melee = 40
 	bullet = 20
@@ -685,7 +685,7 @@
 
 
 //CentCom
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_captain
 	melee = 50
 	bullet = 30
@@ -712,7 +712,7 @@
 #undef DRILL_YELLING
 #undef DRILL_CANADIAN
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beret_centcom_formal
 	melee = 80
 	bullet = 80

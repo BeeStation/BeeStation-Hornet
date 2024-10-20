@@ -18,7 +18,7 @@
 	max_equip = 5
 	bumpsmash = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_marauder
 	melee = 50
 	bullet = 55

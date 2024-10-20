@@ -151,7 +151,7 @@
 	block_power = 60
 	armor_type = /datum/armor/sabre_mime
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sabre_mime
 	fire = 100
 	acid = 100

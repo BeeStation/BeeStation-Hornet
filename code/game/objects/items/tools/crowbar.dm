@@ -21,7 +21,7 @@
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_crowbar
 	fire = 50
 	acid = 30

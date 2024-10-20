@@ -24,7 +24,7 @@
 	///Whether the headlamp is on or off.
 	var/on = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/utility_hardhat
 	melee = 15
 	bullet = 5
@@ -191,7 +191,7 @@
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardhat_pumpkinhead
 	stamina = 10
 

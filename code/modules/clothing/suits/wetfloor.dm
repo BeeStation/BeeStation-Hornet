@@ -17,6 +17,6 @@
 	armor_type = /datum/armor/suit_caution
 	pocket_storage_component_path = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_caution
 	melee = 5

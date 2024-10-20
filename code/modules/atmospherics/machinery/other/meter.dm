@@ -14,7 +14,7 @@
 	var/atom/target
 	var/target_layer = PIPING_LAYER_DEFAULT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_meter
 	energy = 100
 	rad = 100

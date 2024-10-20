@@ -53,7 +53,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_checkoutmachine
 	melee = 30
 	bullet = 50

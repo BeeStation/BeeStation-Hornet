@@ -35,7 +35,7 @@
 	visor_flags_inv = 0
 	armor_type = /datum/armor/sechailer_swat
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sechailer_swat
 	melee = 10
 	bullet = 5

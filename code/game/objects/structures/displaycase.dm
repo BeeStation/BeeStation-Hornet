@@ -31,7 +31,7 @@
 	///Represents a signal source of screaming when broken
 	var/datum/alarm_handler/alarm_manager
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_displaycase
 	melee = 30
 	bomb = 10

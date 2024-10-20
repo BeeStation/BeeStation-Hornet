@@ -37,7 +37,7 @@
 	var/list/access_log
 	var/process_ticker //Ratelimit process to one check ~5 process ticks
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/door_firedoor
 	melee = 30
 	bullet = 30

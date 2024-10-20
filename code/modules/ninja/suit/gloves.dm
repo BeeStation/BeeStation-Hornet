@@ -39,7 +39,7 @@
 	var/maxdrain = 400
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gloves_space_ninja
 	melee = 40
 	bullet = 30

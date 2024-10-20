@@ -33,7 +33,6 @@
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 	light_mask = "liberation-light-mask"
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/vending_liberationstation
 	melee = 100
 	bullet = 100

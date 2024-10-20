@@ -134,7 +134,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 								/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
 								/mob/living/simple_animal/hostile/asteroid/elite/herald)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_elite_tumor
 	melee = 100
 	bullet = 100

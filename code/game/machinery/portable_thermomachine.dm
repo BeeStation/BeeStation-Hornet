@@ -42,7 +42,7 @@
 	///Should we add an overlay for open portable thermomachines
 	var/display_panel = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_portable_thermomachine
 	rad = 100
 	fire = 80

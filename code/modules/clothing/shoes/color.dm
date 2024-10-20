@@ -46,7 +46,7 @@
 	greyscale_colors = "#ffffff#ffffff"
 	armor_type = /datum/armor/sneakers_white
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sneakers_white
 	bio = 95
 
@@ -125,7 +125,7 @@
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 	armor_type = /datum/armor/sneakers_marisa
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sneakers_marisa
 	bio = 50
 	fire = 70

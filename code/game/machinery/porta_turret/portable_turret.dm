@@ -100,7 +100,7 @@
 	var/datum/action/turret_toggle/toggle_action
 	var/mob/remote_controller
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_porta_turret
 	melee = 50
 	bullet = 30
@@ -774,7 +774,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	armor_type = /datum/armor/syndicate_shuttle
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndicate_shuttle
 	melee = 50
 	bullet = 30

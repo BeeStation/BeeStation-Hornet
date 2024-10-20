@@ -6,7 +6,7 @@
 	resistance_flags = FIRE_PROOF
 	dynamic_hair_suffix = ""
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/costume_crown
 	melee = 15
 	energy = 15

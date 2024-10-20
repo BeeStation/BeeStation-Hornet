@@ -60,7 +60,7 @@
 	//should be just for crates, right?
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_closet
 	melee = 20
 	bullet = 10

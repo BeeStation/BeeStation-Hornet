@@ -54,7 +54,7 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/portable_atmospherics_canister
 	melee = 50
 	bullet = 50

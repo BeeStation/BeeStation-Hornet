@@ -68,7 +68,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cloak_goliath
 	melee = 50
 	bullet = 10
@@ -89,7 +89,7 @@
 	transparent_protection = HIDEMASK
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cloakhood_goliath
 	melee = 50
 	bullet = 10
@@ -115,7 +115,7 @@
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 	high_pressure_multiplier = 0.4
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cloak_drake
 	melee = 70
 	bullet = 30
@@ -139,7 +139,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	high_pressure_multiplier = 0.4
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cloakhood_drake
 	melee = 70
 	bullet = 30
@@ -165,7 +165,7 @@
 	resistance_flags = NONE
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cloak_bone
 	melee = 40
 	bullet = 25
@@ -188,7 +188,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cloakhood_bone
 	melee = 35
 	bullet = 25

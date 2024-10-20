@@ -49,6 +49,6 @@
 	can_adjust = FALSE
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/curator_nasa
 	bio = 95

@@ -28,7 +28,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_disposal
 	melee = 25
 	bullet = 10

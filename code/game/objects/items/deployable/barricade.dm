@@ -199,7 +199,7 @@
 	pickup_damaged = FALSE
 	locked_down = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/barricade_security
 	melee = 10
 	bullet = 50

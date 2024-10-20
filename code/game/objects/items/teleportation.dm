@@ -117,7 +117,7 @@
 	var/atmos_link_override
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_hand_tele
 	bomb = 30
 	fire = 100

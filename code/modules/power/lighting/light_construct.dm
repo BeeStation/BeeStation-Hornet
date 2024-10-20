@@ -18,7 +18,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_light_construct
 	melee = 50
 	bullet = 10

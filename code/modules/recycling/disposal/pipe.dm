@@ -19,7 +19,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_disposalpipe
 	melee = 25
 	bullet = 10

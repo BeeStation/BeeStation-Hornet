@@ -34,7 +34,7 @@
 	/// How many random books to generate.
 	var/books_to_load = 0
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_bookcase
 	fire = 50
 

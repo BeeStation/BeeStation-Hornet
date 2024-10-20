@@ -31,7 +31,7 @@
 	var/powered = 0
 	var/strength = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_particle_accelerator
 	melee = 30
 	bullet = 20

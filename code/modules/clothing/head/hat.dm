@@ -12,7 +12,7 @@
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hats_centhat
 	melee = 30
 	bullet = 15
@@ -32,7 +32,7 @@
 	armor_type = /datum/armor/hats_centcom_cap
 	strip_delay = (8 SECONDS)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hats_centcom_cap
 	melee = 30
 	bullet = 15
@@ -68,7 +68,7 @@
 	armor_type = /datum/armor/costume_plague
 	flags_inv = HIDEHAIR
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/costume_plague
 	bio = 100
 

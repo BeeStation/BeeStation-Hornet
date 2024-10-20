@@ -17,7 +17,7 @@
 	//	flags = CONDUCT_1
 	z_flags = Z_BLOCK_OUT_DOWN
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_lattice
 	melee = 50
 	fire = 80

@@ -3,7 +3,7 @@
 	worn_icon = 'icons/mob/clothing/under/medical.dmi'
 	armor_type = /datum/armor/rank_medical
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/rank_medical
 	bio = 50
 
@@ -126,7 +126,7 @@
 	item_state = "w_suit"
 	armor_type = /datum/armor/medical_chemist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/medical_chemist
 	bio = 50
 	fire = 50

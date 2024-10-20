@@ -23,7 +23,7 @@
 	var/baseforce = 20
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/melee_powerfist
 	fire = 100
 	acid = 40

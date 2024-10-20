@@ -44,7 +44,7 @@ field_generator power level display
 	var/clean_up = 0
 	COOLDOWN_STATIC_DECLARE(loose_message_cooldown)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/field_generator
 	melee = 25
 	bullet = 10

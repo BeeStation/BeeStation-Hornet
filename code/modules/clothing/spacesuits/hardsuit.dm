@@ -31,7 +31,7 @@
 	/// If the headlamp is broken, used by lighteater
 	var/light_broken = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_hardsuit
 	melee = 10
 	bullet = 5
@@ -165,7 +165,7 @@
 	/// Whether the helmet is on.
 	var/helmet_on = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_hardsuit
 	melee = 10
 	bullet = 5
@@ -313,7 +313,7 @@
 	hardsuit_type = "engineering"
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_engine
 	melee = 30
 	bullet = 5
@@ -337,7 +337,7 @@
 	resistance_flags = FIRE_PROOF
 
 	//Atmospherics
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_engine
 	melee = 30
 	bullet = 5
@@ -361,7 +361,7 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/engine_atmos
 	melee = 30
 	bullet = 5
@@ -387,7 +387,7 @@
 
 
 	//Chief Engineer's hardsuit
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/engine_atmos
 	melee = 30
 	bullet = 5
@@ -411,7 +411,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/engine_elite
 	melee = 40
 	bullet = 5
@@ -438,7 +438,7 @@
 	cell = /obj/item/stock_parts/cell/super
 
 	//Mining hardsuit
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/engine_elite
 	melee = 40
 	bullet = 5
@@ -466,7 +466,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 	high_pressure_multiplier = 0.6
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_mining
 	melee = 30
 	bullet = 5
@@ -498,7 +498,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	high_pressure_multiplier = 0.6
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_mining
 	melee = 30
 	bullet = 5
@@ -532,7 +532,7 @@
 		/datum/action/item_action/toggle_beacon_hud/explorer
 		)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_exploration
 	melee = 35
 	bullet = 15
@@ -570,7 +570,7 @@
 
 //Cybersun Hardsuit
 //A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_exploration
 	melee = 35
 	bullet = 15
@@ -593,7 +593,7 @@
 	armor_type = /datum/armor/hardsuit_cybersun
 	strip_delay = 600
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_cybersun
 	melee = 30
 	bullet = 35
@@ -620,7 +620,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 
 	//Syndicate hardsuit
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_cybersun
 	melee = 30
 	bullet = 35
@@ -651,7 +651,7 @@
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
 	visor_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_syndi
 	melee = 40
 	bullet = 50
@@ -760,7 +760,7 @@
 		/datum/action/item_action/toggle_beacon_frequency
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_syndi
 	melee = 40
 	bullet = 50
@@ -840,7 +840,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndi_elite
 	melee = 60
 	bullet = 60
@@ -868,7 +868,7 @@
 	cell = /obj/item/stock_parts/cell/bluespace
 
 //The Owl Hardsuit
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndi_elite
 	melee = 60
 	bullet = 60
@@ -915,7 +915,7 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_wizard
 	melee = 40
 	bullet = 40
@@ -945,7 +945,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	slowdown = 0.3
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_wizard
 	melee = 40
 	bullet = 40
@@ -976,7 +976,7 @@
 	armor_type = /datum/armor/hardsuit_medical
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_medical
 	melee = 30
 	bullet = 5
@@ -1001,7 +1001,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_medical
 	melee = 30
 	bullet = 5
@@ -1040,7 +1040,7 @@
 		/datum/action/item_action/toggle_research_scanner
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_rd
 	melee = 30
 	bullet = 5
@@ -1084,7 +1084,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 	cell = /obj/item/stock_parts/cell/super
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_research_director
 	melee = 30
 	bullet = 5
@@ -1112,7 +1112,7 @@
 	armor_type = /datum/armor/hardsuit_security
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_security
 	melee = 35
 	bullet = 35
@@ -1135,7 +1135,7 @@
 	armor_type = /datum/armor/hardsuit_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_security
 	melee = 35
 	bullet = 35
@@ -1162,7 +1162,7 @@
 	armor_type = /datum/armor/security_hos
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_hos
 	melee = 35
 	bullet = 35
@@ -1187,7 +1187,7 @@
 	cell = /obj/item/stock_parts/cell/super
 
 	//SWAT MKII
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_head_of_security
 	melee = 35
 	bullet = 35
@@ -1213,7 +1213,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_swat
 	melee = 40
 	bullet = 50
@@ -1241,7 +1241,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 
 // SWAT and Captain get EMP Protection
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_swat
 	melee = 40
 	bullet = 50
@@ -1283,7 +1283,7 @@
 	armor_type = /datum/armor/hardsuit_clown
 	hardsuit_type = "clown"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_clown
 	melee = 30
 	bullet = 5
@@ -1305,7 +1305,7 @@
 	armor_type = /datum/armor/hardsuit_clown
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/clown
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_clown
 	melee = 30
 	bullet = 5
@@ -1339,7 +1339,7 @@
 	hardsuit_type = "ancient"
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_ancient
 	melee = 30
 	bullet = 5
@@ -1367,7 +1367,7 @@
 
 /////////////SHIELDED//////////////////////////////////
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_ancient
 	melee = 30
 	bullet = 5
@@ -1399,7 +1399,7 @@
 	/// The icon for the shield
 	var/shield_icon = "shield-old"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hardsuit_shielded
 	melee = 30
 	bullet = 15
@@ -1514,7 +1514,7 @@
 	)
 	jetpack = /obj/item/tank/jetpack/suit
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_syndi
 	melee = 40
 	bullet = 50
@@ -1550,7 +1550,7 @@
 		/datum/action/item_action/toggle_beacon_hud
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_syndi
 	melee = 40
 	bullet = 50
@@ -1592,7 +1592,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_swat
 	melee = 80
 	bullet = 80
@@ -1620,7 +1620,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_swat
 	melee = 80
 	bullet = 80
@@ -1665,7 +1665,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_doomguy
 	melee = 135
 	bullet = 135
@@ -1694,7 +1694,7 @@
 
 #undef HARDSUIT_EMP_BURN
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shielded_doomguy
 	melee = 135
 	bullet = 135

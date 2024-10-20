@@ -17,7 +17,7 @@
 	var/cannonmode = FALSE
 	var/cannonbusy = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/car_clowncar
 	melee = 70
 	bullet = 40

@@ -15,7 +15,7 @@
 	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_armor
 	melee = 30
 	bullet = 30
@@ -61,7 +61,7 @@
 	armor_type = /datum/armor/vest_blueshirt
 	slowdown = 0.14
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vest_blueshirt
 	melee = 40
 	bullet = 40
@@ -81,7 +81,7 @@
 	armor_type = /datum/armor/vest_corporate
 	slowdown = 0.02
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vest_corporate
 	melee = 25
 	bullet = 25
@@ -105,7 +105,7 @@
 	strip_delay = 80
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_hos
 	melee = 30
 	bullet = 30
@@ -166,7 +166,7 @@
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vest_capcarapace
 	melee = 50
 	bullet = 40
@@ -198,7 +198,7 @@
 	body_parts_covered = CHEST|ARMS
 	armor_type = /datum/armor/capcarapace_jacket
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/capcarapace_jacket
 	melee = 40
 	bullet = 30
@@ -225,7 +225,7 @@
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_riot
 	melee = 50
 	bullet = 10
@@ -246,7 +246,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_bone
 	melee = 35
 	bullet = 25
@@ -268,7 +268,7 @@
 	strip_delay = 70
 	equip_delay_other = 50
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_bulletproof
 	melee = 15
 	bullet = 60
@@ -290,7 +290,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_laserproof
 	melee = 10
 	bullet = 10
@@ -333,7 +333,7 @@
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_heavy
 	melee = 80
 	bullet = 80
@@ -355,7 +355,7 @@
 	armor_type = /datum/armor/armor_tdome
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_tdome
 	melee = 80
 	bullet = 80
@@ -385,7 +385,7 @@
 	cold_protection = null
 	heat_protection = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/tdome_holosuit
 	melee = 10
 	bullet = 10
@@ -431,7 +431,7 @@
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/vest_durathread
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vest_durathread
 	melee = 20
 	bullet = 40
@@ -451,7 +451,7 @@
 	armor_type = /datum/armor/vest_russian
 	slowdown = 0.05
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vest_russian
 	melee = 25
 	bullet = 30
@@ -473,7 +473,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor_type = /datum/armor/vest_russian_coat
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vest_russian_coat
 	melee = 25
 	bullet = 20
@@ -495,7 +495,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	armor_type = /datum/armor/armor_centcom_formal
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/armor_centcom_formal
 	melee = 35
 	bullet = 40

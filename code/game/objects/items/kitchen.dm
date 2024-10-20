@@ -32,7 +32,7 @@
 	armor_type = /datum/armor/kitchen_fork
 	var/datum/reagent/forkload //used to eat omelette
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/kitchen_fork
 	fire = 50
 	acid = 30

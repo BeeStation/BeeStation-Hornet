@@ -6,7 +6,7 @@
 	armor_type = /datum/armor/rank_engineering
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/rank_engineering
 	bio = 10
 	rad = 10
@@ -22,7 +22,7 @@
 	armor_type = /datum/armor/engineering_chief_engineer
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/engineering_chief_engineer
 	bio = 10
 	rad = 10
@@ -42,7 +42,7 @@
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/chief_engineer_skirt
 	rad = 7
 	fire = 80
@@ -75,7 +75,7 @@
 	armor_type = /datum/armor/engineering_engineer
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/engineering_engineer
 	rad = 10
 	fire = 60

@@ -43,7 +43,7 @@
 	item_state = "hostrench"
 	armor_type = /datum/armor/jacket_puffer
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/jacket_puffer
 	bio = 50
 
@@ -56,7 +56,7 @@
 	cold_protection = CHEST|GROIN
 	armor_type = /datum/armor/puffer_vest
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/puffer_vest
 	bio = 30
 

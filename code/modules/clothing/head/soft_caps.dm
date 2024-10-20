@@ -103,7 +103,7 @@
 	armor_type = /datum/armor/soft_sec
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/soft_sec
 	melee = 30
 	bullet = 25

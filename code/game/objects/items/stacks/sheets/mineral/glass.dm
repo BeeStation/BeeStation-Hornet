@@ -28,7 +28,7 @@
 	cost = 500
 	source = /datum/robot_energy_storage/glass
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_glass
 	fire = 50
 	acid = 100
@@ -82,7 +82,7 @@
 	point_value = 4
 	matter_amount = 6
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_rglass
 	fire = 70
 	acid = 100
@@ -132,7 +132,7 @@
 	material_flags = NONE
 	tableVariant = /obj/structure/table/glass/plasma
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_plasmaglass
 	fire = 75
 	acid = 100
@@ -175,7 +175,7 @@
 	point_value = 23
 	matter_amount = 8
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_plasmarglass
 	melee = 20
 	fire = 80
@@ -198,7 +198,7 @@
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_titaniumglass
 	fire = 80
 	acid = 100
@@ -220,7 +220,7 @@
 	material_flags = NONE
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_plastitaniumglass
 	fire = 80
 	acid = 100
@@ -254,7 +254,7 @@
 	embedding = list("embed_chance" = 65)
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_shard
 	melee = 100
 	energy = 100

@@ -1,86 +1,53 @@
-﻿using System.Text.RegularExpressions;
-
-var treeDefinition = false;
-var baseDir = Environment.CurrentDirectory;
+﻿var baseDir = Environment.CurrentDirectory;
 
 var allFiles = Directory.EnumerateFiles($@"{baseDir}\code", "*.dm", SearchOption.AllDirectories).ToList();
+var known = new Dictionary<string, List<KeyValuePair<string, int>>>();
 
 foreach (var file in allFiles)
 {
-	var armorDatum = String.Empty;
-	var treeIdx = -1;
-	var needsUpdate = false;
-	var fileContents = File.ReadAllLines(file).ToList();
-	var newContents = new List<string>();
-	var fileTemp = new FileInfo($"{file}.tmp");
-	var currentTree = String.Empty;
-	for (var lineIdx = 0; lineIdx < fileContents.Count; lineIdx++)
+	var fileLines = File.ReadAllLines(file);
+	for (var i = 0; i < fileLines.Length; i++)
 	{
-		var line = fileContents[lineIdx];
-		newContents.Add(line);
-		if (line == String.Empty)
-			continue;
-
-		if (treeDefinition && treeIdx is not -1)
+		var line = fileLines[i];
+		if (line.StartsWith("/datum/armor/"))
 		{
-			if (line[0] == '/' && line[1] != '/' && line[1] != '*')
-			{
-				treeDefinition = false;
-				if (!armorDatum.Equals(String.Empty))
-				{
-					newContents.Insert(newContents.Count - 1, armorDatum);
-					armorDatum = String.Empty;
-					needsUpdate = true;
-				}
-			}
-			else if (line.StartsWith("\tarmor = list("))
-			{
-				Console.WriteLine($"Armor Definition at [{file}:{lineIdx}]: '{currentTree}' = {line}");
-				var datumPath = $"/datum/armor/{currentTree}";
-				newContents[^1] = $"\tarmor_type = {datumPath}";
-				line = line[(line.IndexOf("(", StringComparison.Ordinal) + 1) .. line.LastIndexOf(")", StringComparison.Ordinal)];
-				var armorValues = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-				armorValues = armorValues.Where(v => v.Split("=", StringSplitOptions.TrimEntries)[1] != "0").ToArray();
-				if (armorValues.Length == 0)
-				{
-					newContents[^1] = "\tarmor_type = /datum/armor/none";
-					needsUpdate = true;
-					continue;
-				}
-				armorDatum = $"/// Automatically generated armor datum, errors may exist\n{datumPath}\n";
-				armorDatum = armorValues.Aggregate(armorDatum, (current, armorValue) => current + $"\t{armorValue.ToLower()}\n");
-			}
+			var armorName = line.Replace("/datum/armor/", "").Trim();
+			if (!known.ContainsKey(armorName))
+				known[armorName] = new List<KeyValuePair<string, int>>();
+			var knownList = known[armorName];
+			knownList.Add(new KeyValuePair<string, int>(file, i));
 		}
-
-		var treeRegex = Regex.Match(line, @"^(/\w+)+(\s*//.*)?$");
-		if (treeRegex.Success)
-		{
-			var endIdx = line.Contains("//") ? line.IndexOf("//", StringComparison.Ordinal) : line.Length;
-			currentTree = line[..endIdx].Split("/", StringSplitOptions.TrimEntries)[^2..].Aggregate("", (s, s1) => $"{s}_{s1}")[1..];
-			treeDefinition = true;
-			treeIdx = lineIdx;
-		}
-	}
-
-	if (treeDefinition && treeIdx is not -1)
-	{
-			treeDefinition = false;
-			if (!armorDatum.Equals(String.Empty))
-			{
-				needsUpdate = true;
-				newContents.Add("\n"+armorDatum[..^1]);
-			}
-	}
-
-	if (needsUpdate)
-	{
-		var fStream = fileTemp.CreateText();
-		foreach (var newLine in newContents)
-			fStream.WriteLine(newLine);
-		fStream.Close();
-		File.Delete(file);
-		fileTemp.MoveTo(file);
 	}
 }
 
-Console.WriteLine($"Processed {allFiles.Count} files.");
+Console.WriteLine($"There are {known.Sum(d => d.Value.Count)} duplicate armor datums.");
+
+var duplicates = new Dictionary<string, List<int>>();
+foreach (var (_, entries) in known)
+{
+	var actuals = entries.Skip(1).ToList();
+	foreach (var actual in actuals)
+	{
+		if (!duplicates.ContainsKey(actual.Key))
+			duplicates[actual.Key] = new List<int>();
+		duplicates[actual.Key].Add(actual.Value);
+	}
+}
+
+Console.WriteLine($"There are {duplicates.Count} files to update.");
+
+foreach (var (file, idxes) in duplicates)
+{
+	var fileContents = File.ReadAllLines(file).ToList();
+	foreach (var idx in idxes.OrderByDescending(i => i))
+	{
+		string line;
+		do
+		{
+			line = fileContents[idx];
+			fileContents.RemoveAt(idx);
+		}
+		while (!String.IsNullOrWhiteSpace(line));
+	}
+	File.WriteAllLines(file, fileContents);
+}

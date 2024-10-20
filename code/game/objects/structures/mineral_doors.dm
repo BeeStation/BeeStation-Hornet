@@ -26,7 +26,7 @@
 	var/sheetType = /obj/item/stack/sheet/iron //what we're made of
 	var/sheetAmount = 7 //how much we drop when deconstructed
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_mineral_door
 	melee = 10
 	energy = 100

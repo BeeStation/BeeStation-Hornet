@@ -14,7 +14,7 @@
 	var/volume = 0
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_portable_atmospherics
 	energy = 100
 	rad = 100

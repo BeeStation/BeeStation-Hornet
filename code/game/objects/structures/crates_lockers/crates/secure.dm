@@ -9,7 +9,7 @@
 	var/tamperproof = 0
 	icon_door = "crate"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/crate_secure
 	melee = 30
 	bullet = 50

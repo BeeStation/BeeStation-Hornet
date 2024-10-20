@@ -42,7 +42,7 @@
 		"yellow" = "#ffa500"
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_screwdriver
 	fire = 50
 	acid = 30

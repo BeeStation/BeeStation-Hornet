@@ -18,7 +18,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_swat
 	melee = 40
 	bullet = 30

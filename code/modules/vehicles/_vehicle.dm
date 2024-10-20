@@ -25,7 +25,7 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/obj_vehicle
 	melee = 30
 	bullet = 30

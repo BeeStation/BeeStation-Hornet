@@ -663,7 +663,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	COOLDOWN_DECLARE(weight_increase_cooldown)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/disk_nuclear
 	bomb = 30
 	fire = 100

@@ -41,7 +41,7 @@
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/unary_cryo_cell
 	energy = 100
 	rad = 100

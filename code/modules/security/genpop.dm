@@ -25,7 +25,7 @@
 	circuit = /obj/item/circuitboard/machine/turnstile
 	var/state = TURNSTILE_SECURED
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_turnstile
 	melee = 50
 	bullet = 20

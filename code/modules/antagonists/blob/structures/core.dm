@@ -13,7 +13,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/blob_core
 	fire = 75
 	acid = 90

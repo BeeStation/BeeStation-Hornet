@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/marker_beacon)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_marker_beacon
 	melee = 50
 	bullet = 75

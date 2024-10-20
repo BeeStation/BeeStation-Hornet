@@ -30,7 +30,7 @@
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "donksoft-light-mask"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/vending_toyliberationstation
 	melee = 100
 	bullet = 100

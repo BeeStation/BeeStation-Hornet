@@ -69,7 +69,7 @@ Metals Sheets
 	matter_amount = 12
 	material_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/sheet_plasteel
 	fire = 100
 	acid = 80

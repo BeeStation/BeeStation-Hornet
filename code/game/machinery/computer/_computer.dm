@@ -28,7 +28,6 @@
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/machinery_computer
 	fire = 40
 	acid = 20

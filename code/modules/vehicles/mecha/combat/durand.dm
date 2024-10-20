@@ -14,7 +14,7 @@
 	var/obj/durand_shield/shield
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_durand
 	melee = 40
 	bullet = 35

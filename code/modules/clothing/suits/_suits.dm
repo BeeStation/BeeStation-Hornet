@@ -18,7 +18,7 @@
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/clothing_suit
 	bleed = 5
 

@@ -25,7 +25,7 @@
 		pipe_astar_cost = 1\
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_grille
 	melee = 50
 	bullet = 70

@@ -22,7 +22,7 @@
 	var/throw_hit_chance = 35
 	var/preload_cell_type //if not empty the baton starts with this type of cell
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/melee_baton
 	bomb = 50
 	fire = 80

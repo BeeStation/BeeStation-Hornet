@@ -17,7 +17,7 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/rank_security
 	melee = 10
 	bio = 10
@@ -33,7 +33,7 @@
 	armor_type = /datum/armor/security_officer
 	alt_covers_chest = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_officer
 	melee = 10
 	fire = 30
@@ -89,7 +89,7 @@
 	item_state = "r_suit"
 	armor_type = /datum/armor/security_warden
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_warden
 	melee = 10
 	fire = 30
@@ -135,7 +135,7 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_detective
 	melee = 10
 	fire = 30
@@ -186,7 +186,7 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/security_head_of_security
 	melee = 10
 	bio = 10

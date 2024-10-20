@@ -5,7 +5,7 @@
 	item_state = "engineer_envirosuit"
 	armor_type = /datum/armor/plasmaman_engineering
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/plasmaman_engineering
 	bio = 100
 	rad = 10

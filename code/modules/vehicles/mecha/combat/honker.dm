@@ -16,7 +16,7 @@
 	max_equip = 3
 	var/squeak = 0
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_honker
 	melee = -20
 	fire = 100
@@ -200,7 +200,7 @@
 	wreckage = /obj/structure/mecha_wreckage/honker/dark
 	max_equip = 4
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/honker_dark
 	melee = 40
 	bullet = 40

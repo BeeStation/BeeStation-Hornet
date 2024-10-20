@@ -42,7 +42,7 @@
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_door
 	melee = 30
 	bullet = 30

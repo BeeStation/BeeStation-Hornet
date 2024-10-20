@@ -14,7 +14,7 @@
 	var/extinguishes_left = 10
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/eva_plasmaman
 	bio = 100
 	fire = 100
@@ -76,7 +76,7 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEEYES|HIDEFACE|HIDEFACIALHAIR
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_plasmaman
 	bio = 100
 	fire = 100
@@ -260,7 +260,7 @@
 	greyscale_colors = "#9F2A2E#2D2D2D#7D282D"
 	armor_type = /datum/armor/plasmaman_security
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/plasmaman_security
 	melee = 10
 	bio = 100
@@ -321,7 +321,7 @@
 	armor_type = /datum/armor/plasmaman_engineering
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/plasmaman_engineering
 	bio = 100
 	rad = 10
@@ -494,7 +494,7 @@
 	greyscale_colors = "#9F2A2E#2D2D2D"
 	armor_type = /datum/armor/mark2_security
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/mark2_security
 	melee = 10
 	bio = 100
@@ -555,7 +555,7 @@
 	armor_type = /datum/armor/mark2_engineering
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/mark2_engineering
 	bio = 100
 	rad = 10
@@ -764,7 +764,7 @@
 	armor_type = /datum/armor/protective_engineering
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/protective_engineering
 	bio = 100
 	rad = 10

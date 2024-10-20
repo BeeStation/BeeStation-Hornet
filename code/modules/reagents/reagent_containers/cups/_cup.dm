@@ -315,7 +315,7 @@
 		ITEM_SLOT_DEX_STORAGE
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cup_bucket
 	melee = 10
 	fire = 75

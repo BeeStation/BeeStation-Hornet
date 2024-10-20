@@ -11,7 +11,7 @@
 	atmosblock = TRUE
 	armor_type = /datum/armor/blob_shield
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/blob_shield
 	fire = 90
 	acid = 90

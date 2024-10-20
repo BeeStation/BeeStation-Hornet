@@ -868,7 +868,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_cloth_pile
 	melee = 90
 	bullet = 90

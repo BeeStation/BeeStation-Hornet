@@ -29,7 +29,6 @@
 	extra_price = 80
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/vending_tool
 	melee = 100
 	bullet = 100

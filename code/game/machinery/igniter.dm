@@ -15,7 +15,7 @@
 	var/id = null
 	var/on = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_igniter
 	melee = 50
 	bullet = 30

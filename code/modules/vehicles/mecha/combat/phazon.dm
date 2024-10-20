@@ -16,7 +16,7 @@
 	max_equip = 3
 	phase_state = "phazon-phase"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/combat_phazon
 	melee = 30
 	bullet = 30

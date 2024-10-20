@@ -11,7 +11,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_powertool
 	fire = 50
 	acid = 30

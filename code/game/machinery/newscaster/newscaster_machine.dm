@@ -61,7 +61,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_newscaster
 	melee = 50
 	fire = 50

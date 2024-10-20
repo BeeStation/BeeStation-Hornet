@@ -16,7 +16,7 @@
 	envirosealed = TRUE
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/under_plasmaman
 	bio = 100
 	fire = 95

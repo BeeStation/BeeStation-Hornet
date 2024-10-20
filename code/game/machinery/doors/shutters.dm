@@ -13,7 +13,7 @@
 	pod_open_sound  = 'sound/machines/shutter_open.ogg'
 	pod_close_sound = 'sound/machines/shutter_close.ogg'
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/poddoor_shutters
 	melee = 20
 	bullet = 20

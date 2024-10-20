@@ -39,7 +39,7 @@ RLD
 	var/datum/component/remote_materials/silo_mats //remote connection to the silo
 	var/silo_link = FALSE //switch to use internal or remote storage
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_construction
 	fire = 100
 	acid = 50

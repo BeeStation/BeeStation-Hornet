@@ -292,7 +292,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	armor_type = /datum/armor/table_glass
 	var/list/debris = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/table_glass
 	fire = 80
 	acid = 100
@@ -364,7 +364,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	max_integrity = 270
 	armor_type = /datum/armor/glass_plasma
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/glass_plasma
 	melee = 10
 	bullet = 5
@@ -493,7 +493,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	integrity_failure = 0.25
 	armor_type = /datum/armor/table_reinforced
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/table_reinforced
 	melee = 10
 	bullet = 30

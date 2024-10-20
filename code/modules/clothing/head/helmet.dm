@@ -18,7 +18,7 @@
 	bang_protect = 1
 	clothing_flags = THICKMATERIAL
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/head_helmet
 	melee = 35
 	bullet = 30
@@ -71,7 +71,7 @@
 	item_state = "helmetalt"
 	armor_type = /datum/armor/helmet_alt
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_alt
 	melee = 15
 	bullet = 60
@@ -148,7 +148,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/toggleable_riot
 	melee = 50
 	bullet = 10
@@ -215,7 +215,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_swat
 	melee = 40
 	bullet = 30
@@ -254,7 +254,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_thunderdome
 	melee = 80
 	bullet = 80
@@ -271,7 +271,7 @@
 	heat_protection = null
 	armor_type = /datum/armor/thunderdome_holosuit
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/thunderdome_holosuit
 	melee = 10
 	bullet = 10
@@ -287,7 +287,7 @@
 	item_state = "roman"
 	strip_delay = 100
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_roman
 	melee = 25
 	laser = 25
@@ -302,7 +302,7 @@
 	desc = "An ancient helmet made of plastic and leather."
 	armor_type = /datum/armor/roman_fake
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/roman_fake
 	bleed = 10
 
@@ -316,7 +316,7 @@
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
 	armor_type = /datum/armor/legionnaire_fake
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/legionnaire_fake
 	bleed = 10
 
@@ -336,7 +336,7 @@
 	item_state = "redtaghelm"
 	armor_type = /datum/armor/helmet_redtaghelm
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_redtaghelm
 	melee = 15
 	bullet = 10
@@ -355,7 +355,7 @@
 	item_state = "bluetaghelm"
 	armor_type = /datum/armor/helmet_bluetaghelm
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_bluetaghelm
 	melee = 15
 	bullet = 10
@@ -377,7 +377,7 @@
 	strip_delay = 80
 	bang_protect = 1
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_knight
 	melee = 50
 	bullet = 10
@@ -410,7 +410,7 @@
 	item_state = "skull"
 	strip_delay = 100
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_skull
 	melee = 35
 	bullet = 25
@@ -431,7 +431,7 @@
 	armor_type = /datum/armor/helmet_durathread
 	strip_delay = 60
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_durathread
 	melee = 20
 	bullet = 40
@@ -451,7 +451,7 @@
 	armor_type = /datum/armor/helmet_rus_helmet
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_rus_helmet
 	melee = 25
 	bullet = 30
@@ -473,7 +473,7 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	armor_type = /datum/armor/helmet_rus_ushanka
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_rus_ushanka
 	melee = 25
 	bullet = 20
@@ -498,7 +498,7 @@
 	body_parts_covered = HEAD
 	armor_type = /datum/armor/helmet_outlaw
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/helmet_outlaw
 	melee = 25
 	bullet = 25

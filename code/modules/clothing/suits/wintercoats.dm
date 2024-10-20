@@ -20,7 +20,7 @@
 		/obj/item/lighter
 	)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hooded_wintercoat
 	bio = 10
 
@@ -51,7 +51,7 @@
 	armor_type = /datum/armor/wintercoat_captain
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_captain
 	melee = 25
 	bullet = 30
@@ -77,7 +77,7 @@
 	armor_type = /datum/armor/wintercoat_security
 	slowdown = 0.04
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_security
 	melee = 15
 	bullet = 15
@@ -96,7 +96,7 @@
 	armor_type = /datum/armor/winterhood_security
 	icon_state = "winterhood_security"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/winterhood_security
 	melee = 15
 	bullet = 15
@@ -131,7 +131,7 @@
 	heat_protection = CHEST|GROIN|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/detective
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_detective
 	melee = 25
 	bullet = 10
@@ -144,7 +144,7 @@
 	icon_state = "winterhood_detective"
 	armor_type = /datum/armor/winterhood_detective
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/winterhood_detective
 	melee = 25
 	bullet = 10
@@ -184,7 +184,7 @@
 	armor_type = /datum/armor/wintercoat_brigphys
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_brigphys
 	melee = 10
 	laser = 10
@@ -197,7 +197,7 @@
 	icon_state = "winterhood_brigphys"
 	armor_type = /datum/armor/winterhood_brigphys
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/winterhood_brigphys
 	melee = 10
 	laser = 10
@@ -238,7 +238,7 @@
 	armor_type = /datum/armor/wintercoat_medical
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_medical
 	bio = 50
 	acid = 45
@@ -278,7 +278,7 @@
 	armor_type = /datum/armor/wintercoat_virologist
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/virologist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_virologist
 	bio = 80
 	acid = 15
@@ -287,7 +287,7 @@
 	icon_state = "winterhood_viro"
 	armor_type = /datum/armor/winterhood_virologist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/winterhood_virologist
 	bio = 50
 
@@ -325,7 +325,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/chemist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_chemist
 	bomb = 15
 	fire = 40
@@ -371,7 +371,7 @@
 	armor_type = /datum/armor/wintercoat_geneticist
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/geneticist
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_geneticist
 	bio = 20
 	rad = 30
@@ -388,7 +388,7 @@
 	armor_type = /datum/armor/wintercoat_science
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_science
 	bomb = 10
 
@@ -403,7 +403,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_engineering
 	rad = 20
 	fire = 30
@@ -486,7 +486,7 @@
 	high_pressure_multiplier = 0.4
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_miner
 	melee = 30
 	bullet = 20
@@ -511,7 +511,7 @@
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/winterhood_miner
 	melee = 30
 	bullet = 20
@@ -612,7 +612,7 @@
 	armor_type = /datum/armor/wintercoat_centcom
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/centcom
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wintercoat_centcom
 	melee = 35
 	bullet = 40
@@ -632,7 +632,7 @@
 	icon_state = "hood_centcom"
 	armor_type = /datum/armor/winterhood_centcom
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/winterhood_centcom
 	melee = 35
 	bullet = 40

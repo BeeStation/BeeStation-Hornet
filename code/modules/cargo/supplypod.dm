@@ -60,7 +60,7 @@
 	var/list/reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE, "Mecha"=FALSE)
 	var/list/turfs_in_cargo = list()
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/closet_supplypod
 	melee = 30
 	bullet = 50

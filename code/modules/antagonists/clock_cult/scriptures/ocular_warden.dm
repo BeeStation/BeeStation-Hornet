@@ -35,7 +35,7 @@
 	armor_type = /datum/armor/clockwork_ocular_warden
 	var/cooldown
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/clockwork_ocular_warden
 	melee = -80
 	bullet = -50

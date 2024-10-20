@@ -91,7 +91,7 @@
 	icon_state = "beaniedurathread"
 	armor_type = /datum/armor/beanie_durathread
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/beanie_durathread
 	melee = 15
 	bullet = 25

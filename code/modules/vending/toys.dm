@@ -31,7 +31,6 @@
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
-/// Automatically generated armor datum, errors may exist
 /datum/armor/vending_donksofttoyvendor
 	melee = 100
 	bullet = 100

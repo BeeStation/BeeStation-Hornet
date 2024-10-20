@@ -547,7 +547,7 @@
 	cold_protection = CHEST|GROIN|ARMS|LEGS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/syndicate_coldres
 	melee = 20
 	bullet = 10

@@ -27,7 +27,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/door_window
 	melee = 20
 	bullet = 50
@@ -455,7 +455,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	operationdelay = 10
 	var/made_glow = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/window_clockwork
 	bomb = 10
 	bio = 100

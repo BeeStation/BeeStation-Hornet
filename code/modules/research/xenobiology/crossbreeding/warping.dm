@@ -383,7 +383,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/holding_bluespace
 	melee = 100
 	bullet = 100

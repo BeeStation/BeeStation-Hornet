@@ -176,7 +176,7 @@
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/card_id
 	fire = 100
 	acid = 100
@@ -861,7 +861,7 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/id_paper
 	acid = 50
 

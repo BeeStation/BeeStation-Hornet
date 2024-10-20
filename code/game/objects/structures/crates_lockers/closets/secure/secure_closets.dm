@@ -7,7 +7,7 @@
 	armor_type = /datum/armor/closet_secure_closet
 	secure = TRUE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/closet_secure_closet
 	melee = 30
 	bullet = 50

@@ -30,7 +30,7 @@
 	stepsound = 'sound/mecha/powerloader_step.ogg'
 	turnsound = 'sound/mecha/powerloader_turn2.ogg'
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/working_ripley
 	melee = 40
 	bullet = 20
@@ -83,7 +83,7 @@
 	enter_delay = 40
 	silicon_icon_state = null
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/ripley_mk2
 	melee = 40
 	bullet = 20

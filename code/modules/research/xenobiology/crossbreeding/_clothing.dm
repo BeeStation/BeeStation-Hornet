@@ -17,7 +17,7 @@ Slimecrossing Armor
 	flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/mask_nobreath
 	bio = 50
 

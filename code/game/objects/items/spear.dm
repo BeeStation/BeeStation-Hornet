@@ -25,7 +25,7 @@
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/item_spear
 	fire = 50
 	acid = 30

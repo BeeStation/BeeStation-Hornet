@@ -10,7 +10,7 @@
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_holosign
 	bullet = 50
 	laser = 50

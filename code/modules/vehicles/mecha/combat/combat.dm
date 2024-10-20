@@ -7,7 +7,7 @@
 	destruction_knockdown_duration = 8 SECONDS
 	exit_delay = 40
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/mecha_combat
 	melee = 30
 	bullet = 30

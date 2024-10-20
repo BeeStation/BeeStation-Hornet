@@ -80,7 +80,7 @@ Slimecrossing Weapons
 	attack_verb_simple = list("bash", "pound", "slam")
 	item_flags = SLOWS_WHILE_IN_HAND
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shield_adamantineshield
 	melee = 50
 	bullet = 50

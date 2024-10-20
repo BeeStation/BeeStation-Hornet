@@ -149,7 +149,7 @@ Slimecrossing Items
 	max_integrity = 100
 	armor_type = /datum/armor/structure_ice_stasis
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/structure_ice_stasis
 	melee = 30
 	bullet = 50

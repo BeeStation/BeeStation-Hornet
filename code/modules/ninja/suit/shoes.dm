@@ -13,7 +13,7 @@
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/shoes_space_ninja
 	melee = 60
 	bullet = 50

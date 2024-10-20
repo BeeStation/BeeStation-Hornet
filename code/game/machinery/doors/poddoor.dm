@@ -21,7 +21,7 @@
 	var/pod_close_sound = 'sound/machines/blastdoor.ogg'
 	icon_state = "blast_closed"
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/door_poddoor
 	melee = 50
 	bullet = 100

@@ -13,7 +13,7 @@
 	var/cooldown_time = 100
 	req_access = list(ACCESS_AI_UPLOAD)
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/machinery_ai_slipper
 	melee = 50
 	bullet = 20

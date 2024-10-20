@@ -144,7 +144,7 @@ Striking a noncultist, however, will tear their flesh."}
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hooded_cult_hoodie
 	melee = 30
 	bullet = 30
@@ -174,7 +174,7 @@ Striking a noncultist, however, will tear their flesh."}
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hooded_cultrobes
 	melee = 30
 	bullet = 30
@@ -216,7 +216,7 @@ Striking a noncultist, however, will tear their flesh."}
 	armor_type = /datum/armor/wizard_magus
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/wizard_magus
 	melee = 50
 	bullet = 30
@@ -241,7 +241,7 @@ Striking a noncultist, however, will tear their flesh."}
 	armor_type = /datum/armor/suit_magusred
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/suit_magusred
 	melee = 50
 	bullet = 30
@@ -278,7 +278,7 @@ Striking a noncultist, however, will tear their flesh."}
 	/// if anyone can equip this. used by the prefs menu
 	var/allow_any = FALSE
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cultrobes_cult_shield
 	melee = 40
 	bullet = 30
@@ -320,7 +320,7 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "cult_hoodalt"
 	armor_type = /datum/armor/cult_hoodie_cult_shield
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cult_hoodie_cult_shield
 	melee = 40
 	bullet = 30
@@ -351,7 +351,7 @@ Striking a noncultist, however, will tear their flesh."}
 	slowdown = -0.4
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cultrobes_berserker
 	melee = 10
 	bullet = 20
@@ -364,7 +364,7 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "Blood-soaked hood infused with dark magic."
 	armor_type = /datum/armor/cult_hoodie_berserkerhood
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/cult_hoodie_berserkerhood
 	melee = 10
 	bullet = 20

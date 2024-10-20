@@ -26,7 +26,7 @@
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hooded_explorer
 	melee = 30
 	bullet = 20
@@ -55,7 +55,7 @@
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/hooded_explorer
 	melee = 30
 	bullet = 20
@@ -89,7 +89,7 @@
 	armor_type = /datum/armor/gas_explorer
 	resistance_flags = FIRE_PROOF
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/gas_explorer
 	melee = 10
 	bullet = 5
@@ -127,7 +127,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_hostile_environment
 	melee = 70
 	bullet = 40
@@ -168,7 +168,7 @@
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_hostile_environment
 	melee = 70
 	bullet = 40

@@ -66,7 +66,7 @@ Contents:
 	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
 
-/// Automatically generated armor datum, errors may exist
+
 /datum/armor/space_space_ninja
 	melee = 60
 	bullet = 50
