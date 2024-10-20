@@ -20,6 +20,9 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSMOB
 
+	///when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
+	vis_flags = VIS_INHERIT_PLANE
+
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/datum/mind/mind
 	var/static/next_mob_id = 0
@@ -202,7 +205,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
 
-	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
+	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 
 	///Allows a datum to intercept all click calls this mob is the source of
@@ -213,7 +216,8 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	var/memory_throttle_time = 0
 
-	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
+	///Whether the mob is updating glide size when movespeed updates or not
+	var/updating_glide_size = TRUE
 
 	var/list/mob_properties
 

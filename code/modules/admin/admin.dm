@@ -360,7 +360,7 @@
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
-		to_chat(world, "<span class='adminnotice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b></span>\n \t [message]")
+		send_ooc_announcement(message, "From [usr.client.holder.fakekey ? "Administrator" : usr.key]")
 		log_admin("Announce: [key_name(usr)] : [message]")
 		sendooc2ext("***[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:***\n       [message]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -634,8 +634,7 @@
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
-	for(var/i in GLOB.silicon_mobs)
-		var/mob/living/silicon/S = i
+	for(var/mob/living/silicon/S as anything in GLOB.silicon_mobs)
 		ai_number++
 		var/message = ""
 		if(isAI(S))
@@ -659,22 +658,6 @@
 
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>" )
-
-/datum/admins/proc/output_all_devil_info()
-	var/devil_number = 0
-	for(var/datum/mind/D in SSticker.mode.devils)
-		devil_number++
-		var/datum/antagonist/devil/devil = D.has_antag_datum(/datum/antagonist/devil)
-		to_chat(usr, "Devil #[devil_number]:<br><br>" + devil.printdevilinfo())
-	if(!devil_number)
-		to_chat(usr, "<b>No Devils located</b>" )
-
-/datum/admins/proc/output_devil_info(mob/living/M)
-	if(is_devil(M))
-		var/datum/antagonist/devil/devil = M.mind.has_antag_datum(/datum/antagonist/devil)
-		to_chat(usr, devil.printdevilinfo())
-	else
-		to_chat(usr, "<b>[M] is not a devil.")
 
 /datum/admins/proc/manage_free_slots()
 	if(!check_rights())

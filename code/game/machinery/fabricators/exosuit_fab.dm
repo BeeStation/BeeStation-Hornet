@@ -26,6 +26,7 @@
 		"H.O.N.K",
 		"Phazon",
 		"Exosuit Equipment",
+		"Exosuit Ammunition",
 		"Cyborg Upgrade Modules",
 		"IPC Components",
 		"Cybernetics",

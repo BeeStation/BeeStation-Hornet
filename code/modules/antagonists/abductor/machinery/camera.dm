@@ -61,7 +61,7 @@
 
 /datum/action/innate/teleport_in
 	name = "Send To"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/Activate()
@@ -104,7 +104,7 @@
 
 /datum/action/innate/teleport_out
 	name = "Retrieve"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_up"
 
 /datum/action/innate/teleport_out/Activate()
@@ -116,7 +116,7 @@
 
 /datum/action/innate/teleport_self
 	name = "Send Self"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_self/Activate()
@@ -159,7 +159,7 @@
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_mode"
 
 /datum/action/innate/vest_mode_swap/Activate()
@@ -171,7 +171,7 @@
 
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_disguise"
 
 /datum/action/innate/vest_disguise_swap/Activate()
@@ -182,7 +182,7 @@
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "set_drop"
 
 /datum/action/innate/set_droppoint/Activate()

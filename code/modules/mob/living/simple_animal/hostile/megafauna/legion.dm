@@ -40,7 +40,7 @@ Difficulty: Medium
 	vision_range = 13
 	wander = FALSE
 	elimination = TRUE
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	attack_action_types = list(/datum/action/innate/megafauna_attack/create_skull,
 							   /datum/action/innate/megafauna_attack/charge_target)
@@ -55,7 +55,7 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/charge_target
 	name = "Charge Target"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now charging at your target.</span>"
 	chosen_attack_num = 2

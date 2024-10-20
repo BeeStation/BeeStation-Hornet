@@ -362,7 +362,7 @@
 /area/security/detectives_office)
 "ir" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = 11;
 	pixel_y = -5
 	},
@@ -884,9 +884,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/camera/autoname{
-	dir = 10;
-	network = list("ss13","rd")
+/obj/machinery/camera{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/space)
@@ -1710,6 +1709,16 @@
 "RC" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating,
 /area/space)
 "RN" = (
@@ -1760,7 +1769,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
 "Tm" = (
-/obj/machinery/computer/security/telescreen,
+/obj/machinery/computer/security/telescreen/entertainment,
 /turf/open/floor/iron/dark,
 /area/space)
 "Tn" = (

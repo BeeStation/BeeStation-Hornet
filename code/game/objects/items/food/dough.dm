@@ -1,21 +1,16 @@
-
-
-/////////////////// Dough Ingredients ////////////////////////
+//Note for this file: All the raw pastries should not have microwave results, use baking instead. All cooked products can use baking, but should also support a microwave.
 
 /obj/item/food/dough
 	name = "dough"
 	desc = "A piece of dough."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "dough"
-	microwaved_type = /obj/item/food/bread/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 
-/*
-/obj/item/food/dough/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/bread/plain)
-*/
+/obj/item/food/dough/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/bread/plain, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 // Dough + rolling pin = flat dough
 /obj/item/food/dough/make_processable()
@@ -26,15 +21,12 @@
 	desc = "A flattened dough."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "flat dough"
-	microwaved_type = /obj/item/food/pizzabread
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 
-/*
-/obj/item/food/flatdough/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/pizzabread)
-*/
+/obj/item/food/flatdough/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pizzabread, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 // sliceable into 3xdoughslices
 /obj/item/food/flatdough/make_processable()
@@ -58,16 +50,13 @@
 	desc = "A slice of dough. Can be cooked into a bun."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
-	microwaved_type = /obj/item/food/bun
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 
-/*
-/obj/item/food/doughslice/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/bun)
-*/
+/obj/item/food/doughslice/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/bun, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
 
 /obj/item/food/bun
 	name = "bun"
@@ -88,15 +77,12 @@
 	desc = "Bake it to get a cake."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "cakebatter"
-	microwaved_type = /obj/item/food/cake/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9)
 	tastes = list("batter" = 1)
 	foodtypes = GRAIN | DAIRY
 
-/*
-/obj/item/food/cakebatter/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/cake/plain)
-*/
+/obj/item/food/cakebatter/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/cake/plain, rand(70 SECONDS, 90 SECONDS), TRUE, TRUE)
 
 // Cake batter + rolling pin = pie dough
 /obj/item/food/cakebatter/make_processable()
@@ -107,15 +93,12 @@
 	desc = "Cook it to get a pie."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "piedough"
-	microwaved_type = /obj/item/food/pie/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN | DAIRY
 
-/*
-/obj/item/food/piedough/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/pie/plain)
-*/
+/obj/item/food/piedough/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pie/plain, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 /obj/item/food/piedough/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/rawpastrybase, 6, 3 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
@@ -125,16 +108,13 @@
 	desc = "Must be cooked before use."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "rawpastrybase"
-	microwaved_type = /obj/item/food/pastrybase
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("raw pastry" = 1)
 	foodtypes = GRAIN | DAIRY
 
-/*
-/obj/item/food/rawpastrybase/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/pastrybase)
-*/
+/obj/item/food/rawpastrybase/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/pastrybase, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
 
 /obj/item/food/pastrybase
 	name = "pastry base"

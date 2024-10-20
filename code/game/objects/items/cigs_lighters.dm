@@ -177,7 +177,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	else
 		return ..()
 
-/obj/item/clothing/mask/cigarette/proc/dip(obj/item/reagent_containers/glass/glass, mob/user, proximity)
+/obj/item/clothing/mask/cigarette/proc/dip(obj/item/reagent_containers/cup/glass, mob/user, proximity)
 	if(!proximity || lit) //can't dip if cigarette is lit (it will heat the reagents in the glass instead)
 		return
 	if(istype(glass))	//you can dip cigarettes into beakers
