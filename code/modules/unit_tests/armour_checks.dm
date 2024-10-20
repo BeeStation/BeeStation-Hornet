@@ -10,7 +10,7 @@
 	var/armor100 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 100))
 	var/armor200 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 200))
 	var/armorN50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = -50))
-	if (armor50.armor.melee != 50)
+	if (armor50.get_armor_rating(MELEE) != 50)
 		TEST_FAIL("Armour 50 did not have the correct armour applied to it. This is an error with the unit test.")
 	// Run armour checks again without penetration
 	equip_item(test_dummy, armor50)

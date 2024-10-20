@@ -313,9 +313,9 @@
 		normal_step_energy_drain = 500
 		step_energy_drain = normal_step_energy_drain
 	if(capacitor)
-		armor = armor.modifyRating(energy = (capacitor.rating * 5)) //Each level of capacitor protects the mech against emp by 5%
-	else //because we can still be hit without a cap, even if we can't move
-		armor = armor.setRating(energy = 0)
+		var/datum/armor/stock_armor = get_armor_by_type(armor_type)
+		var/initial_energy = stock_armor.get_rating(ENERGY)
+		set_armor_rating(ENERGY, initial_energy + (capacitor.rating * 5))
 
 
 ////////////////////////
