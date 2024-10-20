@@ -153,7 +153,8 @@
 		if ("makePriorityAnnouncement")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
-			make_announcement(usr)
+			var/emagged = obj_flags & EMAGGED
+			make_announcement(usr, emagged)
 			. = TRUE
 		if ("messageAssociates")
 			if (!authenticated(usr) || issilicon(usr) || (SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
@@ -288,7 +289,18 @@
 			if(picture in GLOB.status_display_state_pictures)
 				post_status(picture)
 			else
-				post_status("alert", picture)
+				if(picture == "currentalert") // You cannot set Code Blue display during Code Red and similiar
+					switch(SSsecurity_level.get_current_level_as_number())
+						if(SEC_LEVEL_DELTA)
+							post_status("alert", "deltaalert")
+						if(SEC_LEVEL_RED)
+							post_status("alert", "redalert")
+						if(SEC_LEVEL_BLUE)
+							post_status("alert", "bluealert")
+						if(SEC_LEVEL_GREEN)
+							post_status("alert", "greenalert")
+				else
+					post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("toggleAuthentication")
@@ -489,7 +501,7 @@
 
 	return length(CONFIG_GET(keyed_list/cross_server)) > 0
 
-/obj/machinery/computer/communications/proc/make_announcement(mob/living/user)
+/obj/machinery/computer/communications/proc/make_announcement(mob/living/user, syndicate)
 	var/is_ai = issilicon(user)
 	if(!SScommunications.can_announce(user, is_ai))
 		to_chat(user, "<span class='alert'>Intercomms recharging. Please stand by.</span>")
@@ -500,7 +512,7 @@
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, "<span class='warning'>You cannot send an announcement that contains prohibited words.</span>")
 		return
-	SScommunications.make_announcement(user, is_ai, input)
+	SScommunications.make_announcement(user, is_ai, input, null, syndicate)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> made a priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)

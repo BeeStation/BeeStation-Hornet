@@ -284,8 +284,8 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels && channels.len > 0)
-		if(channel == MODE_DEPARTMENT)
+	if(channel && channels)
+		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
 		if(istype(talking_movable, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)

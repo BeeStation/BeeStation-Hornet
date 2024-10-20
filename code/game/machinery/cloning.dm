@@ -76,7 +76,7 @@
 	efficiency = 0
 	reagents.maximum_volume = 0
 	fleshamnt = 1
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
@@ -105,7 +105,7 @@
 	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
-/obj/machinery/clonepod/attack_ai(mob/user)
+/obj/machinery/clonepod/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/clonepod/examine(mob/user)
@@ -178,9 +178,6 @@
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
-
-/obj/machinery/clonepod/attack_ai(mob/user)
-	return examine(user)
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
@@ -278,8 +275,6 @@
 
 	if(H)
 		H.faction |= factions
-		remove_hivemember(H)
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
@@ -589,7 +584,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	playsound(src,'sound/hallucinations/wail.ogg', 100, TRUE)
 
 /obj/machinery/clonepod/deconstruct(disassembled = TRUE)
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	if(occupant)
 		var/mob/living/mob_occupant = occupant

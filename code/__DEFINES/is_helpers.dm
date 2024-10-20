@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define islizard(A) (is_species(A, /datum/species/lizard))
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
-#define ispodperson(A) (is_species(A, /datum/species/pod))
+#define isdiona(A) (is_species(A, /datum/species/diona))
 #define isflyperson(A) (is_species(A, /datum/species/fly))
 #define isslimeperson(A) (is_species(A, /datum/species/oozeling/slime))
 #define isluminescent(A) (is_species(A, /datum/species/oozeling/luminescent))
@@ -121,6 +121,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/royal/queen))
 
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
+
+#define isnymph(A) (istype(A, /mob/living/simple_animal/hostile/retaliate/nymph))
 
 //Silicon mobs
 #define issilicon(A) (istype(A, /mob/living/silicon))
@@ -231,6 +233,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 #define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
 
 //Assemblies
 #define isassembly(O) (istype(O, /obj/item/assembly))

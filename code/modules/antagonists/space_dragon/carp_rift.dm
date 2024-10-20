@@ -9,7 +9,7 @@
 	name = "Summon Rift"
 	desc = "Summon a rift to bring forth a horde of space carp."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "carp_rift"
 
 /datum/action/innate/summon_rift/Activate()
@@ -169,7 +169,7 @@
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
 		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations")
-		obj_integrity = INFINITY
+		atom_integrity = INFINITY
 		icon_state = "carp_rift_charged"
 		set_light_color(LIGHT_COLOR_DIM_YELLOW)
 		update_light()

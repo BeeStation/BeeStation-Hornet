@@ -306,7 +306,7 @@
 	cooldown_min = 150
 	invocation_type = INVOCATION_NONE
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
-	action_icon = 'icons/mob/actions/actions_xeno.dmi'
+	action_icon = 'icons/hud/actions/actions_xeno.dmi'
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
 	anti_magic_check = FALSE

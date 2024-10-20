@@ -24,12 +24,12 @@
 /area/template_noop)
 "g" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	icon_state = "sakecup";
 	pixel_x = -8;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	icon_state = "sakecup";
 	pixel_x = 8;
 	pixel_y = 3
@@ -47,9 +47,9 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug,
-/obj/item/reagent_containers/food/drinks/mug,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
+/obj/item/reagent_containers/cup/glass/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
