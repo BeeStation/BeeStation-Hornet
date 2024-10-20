@@ -154,6 +154,9 @@
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
 
+	/// The last thing the projectile force-pierced due to holopara shenanigans.
+	var/atom/movable/last_holopara_pierce
+
 /obj/projectile/Initialize(mapload)
 	. = ..()
 	decayedRange = range

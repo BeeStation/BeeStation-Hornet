@@ -101,11 +101,9 @@
 		to_chat(user, "<span class='notice'>You notch the arrow.</span>")
 		update_icon()
 	if(I.is_hot() > 900 && get_ammo()) //You can set a cloth arrow alight while it is notched
-		var/obj/item/ammo_casing/caseless/arrow/cloth/AC = magazine.get_round(1)
-		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
-			if(!AC.lit && !AC.burnt)
-				AC.ignite()
-				update_icon()
+		var/obj/item/ammo_casing/caseless/arrow/AC = magazine.get_round(1)
+		AC.attackby(I, user, params)
+	..()
 
 /obj/item/gun/ballistic/bow/proc/string_update(obj/item/I, mob/user, params)
 	var/obj/item/weaponcrafting/attachment/primary/S = I
