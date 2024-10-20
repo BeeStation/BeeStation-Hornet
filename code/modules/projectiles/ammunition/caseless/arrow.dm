@@ -22,6 +22,8 @@ COOLDOWN_DECLARE(Burning_arrow)
 	throw_speed = 2
 	///What the arrow is tipped with currently
 	var/arrow_state = UNFINISHED
+	//This is updated when attaching a head
+	bleed_force = 0
 
 /obj/item/ammo_casing/caseless/arrow/Initialize(mapload)
 	. = ..()
@@ -278,6 +280,7 @@ COOLDOWN_DECLARE(Burning_arrow)
 		hitsound = 'sound/weapons/pierce.ogg'
 		projectile_arrow.damage *= 2
 		projectile_arrow.armour_penetration *= 10
+		bleed_force = BLEED_DEEP_WOUND
 
 	//Reagents need to be reflected by the stored projectile as well
 	if(reagents)
@@ -346,6 +349,7 @@ COOLDOWN_DECLARE(Burning_arrow)
 	name = "bronze arrow"
 	desc = "An arrow made from wood. tipped with bronze."
 	icon_state = "bronzearrow"
+	bleed_force = BLEED_DEEP_WOUND
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bronze
 
 #undef UNFINISHED
