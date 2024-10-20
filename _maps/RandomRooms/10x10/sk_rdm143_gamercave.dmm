@@ -24,19 +24,19 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = -7;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+/obj/item/reagent_containers/cup/soda_cans/cola{
 	pixel_x = 12;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/starkist{
+/obj/item/reagent_containers/cup/soda_cans/starkist{
 	pixel_x = 10;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -99,11 +99,11 @@
 /area/template_noop)
 "w" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/shamblers{
+/obj/item/reagent_containers/cup/soda_cans/shamblers{
 	pixel_x = 9;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -117,7 +117,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game{
+/obj/item/reagent_containers/cup/soda_cans/pwr_game{
 	pixel_x = -7;
 	pixel_y = 10
 	},
@@ -136,7 +136,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "D" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = 4
 	},
 /turf/open/floor/plating,

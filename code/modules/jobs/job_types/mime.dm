@@ -1,7 +1,7 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
 	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_BITFLAG_SRV
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -50,7 +50,7 @@
 	suit = /obj/item/clothing/suit/suspenders
 	backpack_contents = list(
 		/obj/item/book/mimery=1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing=1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing=1,
 		/obj/item/stamp/mime=1
 	)
 

@@ -84,7 +84,7 @@
 	icon_state = "studentuni"
 	item_state = "studentuni"
 	body_parts_covered = ARMS|CHEST
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 /obj/item/storage/box/holy/sentinel
 	name = "Stone Sentinel Kit"
@@ -212,8 +212,10 @@
 			"Unholy Pitchfork" = /obj/item/nullrod/pitchfork,
 			"Egyptian Staff" = /obj/item/nullrod/egyptian,
 			"Hypertool" = /obj/item/nullrod/hypertool,
-			"Ancient Spear" = /obj/item/nullrod/spear
+			"Ancient Spear" = /obj/item/nullrod/spear,
+			"Rainbow Knife" = /obj/item/nullrod/rainbow_knife
 		)
+
 	if(isnull(unique_reskin_icon))
 		unique_reskin_icon = list(
 			"Null Rod" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "nullrod"),
@@ -249,8 +251,10 @@
 			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
 			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
 			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
-			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear")
-	)
+			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear"),
+			"Rainbow Knife" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "rainbowknife")
+		)
+
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
@@ -818,3 +822,46 @@
 	attack_verb_continuous = list("stabs", "pokes", "slashes", "clocks")
 	attack_verb_simple = list("stab", "poke", "slash", "clock")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/nullrod/rainbow_knife
+	name = "rainbow knife"
+	desc = "A strange, transparent knife which constantly shifts color. This one glitters with a holy aura."
+	icon = 'icons/obj/knives.dmi'
+	icon_state = "rainbowknife"
+	item_state = "rainbowknife"
+	force = 15
+	throwforce = 15
+	damtype = BRUTE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	throw_speed = 3
+	throw_range = 6
+	tool_behaviour = TOOL_KNIFE
+	sharpness = IS_SHARP_ACCURATE
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/nullrod/rainbow_knife/afterattack(atom/O, mob/user, proximity)
+	if(proximity && istype(O, /mob/living))
+		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
+	switch(damtype)
+		if(BRUTE)
+			hitsound = 'sound/weapons/bladeslice.ogg'
+			attack_verb_continuous = list("slashes", "slices", "cuts")
+			attack_verb_simple = list("slash", "slice", "cut")
+		if(BURN)
+			hitsound = 'sound/weapons/sear.ogg'
+			attack_verb_continuous = list("burns", "sings", "heats")
+			attack_verb_simple = list("burn", "sing", "heat")
+		if(TOX)
+			hitsound = 'sound/weapons/pierce.ogg'
+			attack_verb_continuous = list("poisons", "doses", "toxifies")
+			attack_verb_simple = list("poison", "dose", "toxify")
+		if(OXY)
+			hitsound = 'sound/effects/space_wind.ogg'
+			attack_verb_continuous = list("suffocates", "winds", "vacuums")
+			attack_verb_simple = list("suffocate", "wind", "vacuum")
+		if(CLONE)
+			hitsound = 'sound/items/geiger/ext1.ogg'
+			attack_verb_continuous = list("irradiates", "mutates", "maligns")
+			attack_verb_simple = list("irradiate", "mutate", "malign")
+	return ..()
+

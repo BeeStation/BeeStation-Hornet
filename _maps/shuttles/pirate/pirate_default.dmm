@@ -229,7 +229,7 @@
 	dir = 8;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/bottle/hooch{
+/obj/item/reagent_containers/cup/glass/bottle/hooch{
 	pixel_x = 8;
 	pixel_y = 4
 	},
@@ -402,7 +402,7 @@
 	pixel_x = 8;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = -9;
 	pixel_y = -7
 	},
@@ -594,7 +594,7 @@
 	pixel_x = -8;
 	pixel_y = 14
 	},
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/cup/glass/mug{
 	pixel_x = -14;
 	pixel_y = 1
 	},
@@ -870,7 +870,7 @@
 	pixel_y = 10;
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = 2;
 	pixel_x = -7
 	},
@@ -929,7 +929,7 @@
 	pixel_x = 6;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = 10;
 	pixel_y = 19
 	},
@@ -1242,7 +1242,7 @@
 	},
 /area/shuttle/pirate)
 "FZ" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/structure/railing,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -2004,7 +2004,7 @@
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 4
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/item/storage/bag/trash{
 	pixel_x = 4;
@@ -2098,40 +2098,40 @@
 /area/shuttle/pirate)
 "Wx" = (
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/drinks/bottle/moonshine{
+/obj/item/reagent_containers/cup/glass/bottle/moonshine{
 	pixel_x = 7;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 1
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 1
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -8;
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -10;
 	pixel_x = -3
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -8;
 	pixel_x = 8
 	},

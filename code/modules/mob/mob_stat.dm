@@ -245,6 +245,11 @@
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+	if (!isnewplayer(src) && SSautotransfer.can_fire)
+		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
+		else
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -446,6 +451,8 @@
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()
+		if ("votetoleave")
+			client.vote_to_leave()
 
 /*
  * Sets the current stat tab selected.
