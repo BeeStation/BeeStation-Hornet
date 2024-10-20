@@ -13,11 +13,6 @@
 	if(suit)
 		suit.deactivate(1, 1)
 
-/obj/item/clothing/head/helmet/space/chronos/Destroy()
-	dropped()
-	return ..()
-
-
 /obj/item/clothing/suit/space/chronos
 	name = "Chronosuit"
 	desc = "An advanced spacesuit equipped with time-bluespace teleportation and anti-compression technology."
@@ -57,11 +52,6 @@
 			activate()
 		else
 			deactivate()
-
-/obj/item/clothing/suit/space/chronos/dropped()
-	if(activated)
-		deactivate()
-	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	QDEL_NULL(teleport_now)
