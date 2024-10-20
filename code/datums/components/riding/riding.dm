@@ -7,7 +7,7 @@
 
 
 /datum/component/riding
-	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 
 	var/last_move_diagonal = FALSE
 	///tick delay between movements, lower = faster, higher = slower
@@ -48,8 +48,9 @@
 /datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
+
 	handle_specials()
-	//riding_mob.updating_glide_size = FALSE
+	riding_mob.updating_glide_size = FALSE
 	ride_check_flags |= buckle_mob_flags
 
 	//Calculate the move multiplier speed, to be proportional to mob speed
@@ -61,6 +62,7 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, PROC_REF(vehicle_turned))
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
+	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(vehicle_bump))
 
@@ -85,6 +87,14 @@
 	if(!movable_parent.has_buckled_mobs())
 		qdel(src)
 
+/// This proc is called when a rider buckles, allowing for offsets to be set properly
+/datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
+	SIGNAL_HANDLER
+
+	var/atom/movable/movable_parent = parent
+	handle_vehicle_layer(movable_parent.dir)
+	handle_vehicle_offsets(movable_parent.dir)
+
 /// Some ridable atoms may want to only show on top of the rider in certain directions, like wheelchairs
 /datum/component/riding/proc/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
@@ -100,7 +110,7 @@
 	directional_vehicle_layers["[dir]"] = layer
 
 /// This is called after the ridden atom is successfully moved and is used to handle icon stuff
-/datum/component/riding/proc/vehicle_moved(datum/source, dir)
+/datum/component/riding/proc/vehicle_moved(datum/source, oldloc, dir, forced)
 	SIGNAL_HANDLER
 
 	var/atom/movable/movable_parent = parent
