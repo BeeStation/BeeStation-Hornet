@@ -154,6 +154,12 @@
 	message = "shrugs"
 	emote_type = EMOTE_VISIBLE
 
+/datum/emote/living/carbon/human/tilt
+	key = "tilt"
+	key_third_person = "tilts their head to the side"
+	message = "tilts their head to the side"
+	emote_type = EMOTE_VISIBLE
+
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
