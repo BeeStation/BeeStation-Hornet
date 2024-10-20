@@ -684,10 +684,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/datum/action/A = X
 		A.Remove(user)
 
-	if(item_flags & DROPDEL && !QDELETED(src))
-		qdel(src)
-		return
-
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -701,6 +697,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	user.update_equipment_speed_mods()
+
+	if(item_flags & DROPDEL && !QDELETED(src))
+		qdel(src)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
