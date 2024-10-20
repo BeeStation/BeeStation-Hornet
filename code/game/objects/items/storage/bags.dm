@@ -256,7 +256,7 @@
 			/obj/item/food/grown,
 			/obj/item/seeds,
 			/obj/item/grown,
-			/obj/item/reagent_containers/honeycomb,
+			/obj/item/reagent_containers/cup/glass/honeycomb,
 			/obj/item/disk/plantgene,
 			/obj/item/food/seaweed_sheet
 		)
@@ -441,12 +441,12 @@
 	STR.set_holdable(
 		list(
 			/obj/item/reagent_containers/pill,
-			/obj/item/reagent_containers/glass/beaker,
-			/obj/item/reagent_containers/glass/bottle,
+			/obj/item/reagent_containers/cup/beaker,
+			/obj/item/reagent_containers/cup/glass/bottle,
 			/obj/item/reagent_containers/medspray,
 			/obj/item/reagent_containers/syringe,
 			/obj/item/reagent_containers/dropper,
-			/obj/item/reagent_containers/glass/waterbottle
+			/obj/item/reagent_containers/cup/waterbottle
 			)
 		)
 
@@ -474,8 +474,8 @@
 			/obj/item/slime_extract,
 			/obj/item/reagent_containers/syringe,
 			/obj/item/reagent_containers/dropper,
-			/obj/item/reagent_containers/glass/beaker,
-			/obj/item/reagent_containers/glass/bottle,
+			/obj/item/reagent_containers/cup/beaker,
+			/obj/item/reagent_containers/cup/glass/bottle,
 			/obj/item/reagent_containers/blood,
 			/obj/item/reagent_containers/hypospray/medipen,
 			/obj/item/food/deadmouse,
@@ -511,7 +511,7 @@
 			/obj/item/stack/ore/bluespace_crystal,
 			/obj/item/assembly,
 			/obj/item/stock_parts,
-			/obj/item/reagent_containers/glass/beaker,
+			/obj/item/reagent_containers/cup/beaker,
 			/obj/item/stack/cable_coil,
 			/obj/item/circuitboard,
 			/obj/item/electronics,

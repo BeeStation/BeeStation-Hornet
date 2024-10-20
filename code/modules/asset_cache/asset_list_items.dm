@@ -361,7 +361,7 @@
 			if (!ispath(item, /atom))
 				// biogenerator outputs to beakers by default
 				if (initial(D.build_type) & BIOGENERATOR)
-					item = /obj/item/reagent_containers/glass/beaker/large
+					item = /obj/item/reagent_containers/cup/beaker/large
 				else
 					continue  // shouldn't happen, but just in case
 					// hint^ it does fucking happen. this was giving me so much trouble

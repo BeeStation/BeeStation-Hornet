@@ -1,5 +1,5 @@
 
-/obj/item/reagent_containers/honeycomb
+/obj/item/reagent_containers/cup/glass/honeycomb
 	name = "honeycomb"
 	desc = "A hexagonal mesh of honeycomb."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -13,14 +13,14 @@
 	grind_results = list()
 	var/honey_color = ""
 
-/obj/item/reagent_containers/honeycomb/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/honeycomb/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
 	update_icon()
 
 
-/obj/item/reagent_containers/honeycomb/update_icon()
+/obj/item/reagent_containers/cup/glass/honeycomb/update_icon()
 	cut_overlays()
 	var/mutable_appearance/honey_overlay = mutable_appearance(icon, /datum/reagent/consumable/honey)
 	if(honey_color)
@@ -29,7 +29,7 @@
 	add_overlay(honey_overlay)
 
 
-/obj/item/reagent_containers/honeycomb/proc/set_reagent(reagent)
+/obj/item/reagent_containers/cup/glass/honeycomb/proc/set_reagent(reagent)
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
 	if(istype(R))
 		name = "honeycomb ([R.name])"
