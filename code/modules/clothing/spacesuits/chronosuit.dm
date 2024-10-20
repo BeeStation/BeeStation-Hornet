@@ -59,9 +59,9 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped()
-	..()
 	if(activated)
 		deactivate()
+	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	dropped()
@@ -213,8 +213,8 @@
 		var/hard_landing = teleporting && force
 		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
-		activated = 0
-		activating = 0
+		activated = FALSE
+		activating = FALSE
 		finish_chronowalk()
 		if(user && ishuman(user))
 			teleport_now.Remove(user)
