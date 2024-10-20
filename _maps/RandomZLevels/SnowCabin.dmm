@@ -289,19 +289,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"aS" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
-	},
-/obj/structure/janitorialcart,
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/caution,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/awaymission/cabin)
 "aT" = (
 /obj/machinery/door/window/eastleft{
 	name = "fireplace"
@@ -350,11 +337,6 @@
 	name = "Cabin"
 	},
 /turf/open/floor/wood,
-/area/awaymission/cabin)
-"bc" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/britcup,
-/turf/open/floor/carpet,
 /area/awaymission/cabin)
 "bd" = (
 /obj/structure/chair/office,
@@ -600,11 +582,6 @@
 /obj/item/instrument/accordion,
 /obj/item/instrument/trumpet,
 /obj/structure/closet/crate/wooden,
-/turf/open/floor/wood,
-/area/awaymission/cabin)
-"bU" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/shaker,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bV" = (
@@ -881,31 +858,6 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
-"cJ" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 8;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 8
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -8
-	},
-/turf/open/floor/iron/cafeteria,
-/area/awaymission/cabin)
-"cK" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/sillycup/smallcarton{
-	pixel_y = 4
-	},
-/turf/open/floor/wood,
-/area/awaymission/cabin)
 "cL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/maintenance{
@@ -987,17 +939,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"dc" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
-	desc = "A fancy bottle of vodka. The name isn't in Galactic Common though.";
-	name = "Porosha Vodka"
-	},
-/turf/open/floor/plating/snowed/temperatre,
-/area/awaymission/cabin/snowforest/sovietsurface)
 "dd" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -1096,11 +1037,6 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/awaymission/cabin)
-"dt" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/condiment/mayonnaise,
-/turf/open/floor/iron/freezer,
 /area/awaymission/cabin)
 "du" = (
 /obj/machinery/door/airlock/wood{
@@ -1358,19 +1294,6 @@
 	},
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin)
-"eo" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/turf/open/floor/carpet,
-/area/awaymission/cabin)
 "ep" = (
 /obj/effect/light_emitter{
 	set_cap = 1;
@@ -1406,11 +1329,6 @@
 /area/awaymission/cabin)
 "eu" = (
 /obj/structure/table/wood/fancy,
-/turf/open/floor/wood,
-/area/awaymission/cabin)
-"ev" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/glass/rag,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "ew" = (
@@ -1695,11 +1613,6 @@
 "fe" = (
 /obj/structure/table/wood,
 /obj/item/shovel,
-/turf/open/floor/wood/cold,
-/area/awaymission/cabin/lumbermill)
-"ff" = (
-/obj/structure/table/wood,
-/obj/item/key/atv,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "fg" = (
@@ -2007,17 +1920,6 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"gM" = (
-/obj/structure/closet,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/key/atv,
-/obj/item/key/atv,
-/obj/item/key/atv,
-/obj/item/key/atv,
-/obj/item/key/atv,
-/obj/item/key/atv,
-/turf/open/floor/plating,
-/area/awaymission/cabin)
 "gN" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -2318,14 +2220,6 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
-"hF" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_y = 2
-	},
-/turf/open/floor/carpet,
-/area/awaymission/cabin)
 "hG" = (
 /obj/effect/landmark/awaystart,
 /obj/structure/cable/yellow{
@@ -2383,10 +2277,6 @@
 /area/awaymission/cabin/caves)
 "hP" = (
 /obj/item/candle/infinite,
-/turf/open/floor/plating/snowed,
-/area/awaymission/cabin/caves)
-"hQ" = (
-/obj/item/reagent_containers/food/drinks/beer,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
 "hR" = (
@@ -2589,11 +2479,6 @@
 	name = "soviet floor"
 	},
 /area/awaymission/cabin/caves/sovietcave)
-"is" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/item/reagent_containers/food/condiment/enzyme,
-/turf/open/floor/iron/freezer,
-/area/awaymission/cabin)
 "it" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
@@ -2687,47 +2572,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves)
-"iR" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_x = -7;
-	pixel_y = -2
-	},
-/turf/open/floor/wood,
-/area/awaymission/cabin)
-"iS" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/turf/open/floor/wood,
-/area/awaymission/cabin)
-"iT" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/turf/open/floor/wood,
-/area/awaymission/cabin)
-"iU" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/drinks/mug/cocoa{
-	desc = "Still hot!";
-	pixel_x = 7;
-	pixel_y = -2
-	},
-/turf/open/floor/wood,
-/area/awaymission/cabin)
 "iZ" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
@@ -2979,21 +2823,6 @@
 	pixel_y = 2
 	},
 /turf/open/floor/carpet,
-/area/awaymission/cabin)
-"jy" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/bottle/wine{
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -7;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/turf/open/floor/wood,
 /area/awaymission/cabin)
 "jz" = (
 /obj/structure/table/wood,
@@ -3440,14 +3269,6 @@
 "kJ" = (
 /obj/effect/decal/hammerandsickle,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/plastitanium/red{
-	name = "soviet floor"
-	},
-/area/awaymission/cabin/caves/sovietcave)
-"kK" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/mineral/plastitanium/red{
 	name = "soviet floor"
 	},
@@ -4317,13 +4138,6 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/ice/smooth,
 /area/awaymission/cabin/caves)
-"mZ" = (
-/obj/item/key/atv,
-/obj/effect/decal/remains/human{
-	color = "#72e4fa"
-	},
-/turf/open/floor/plating/ice/smooth,
-/area/awaymission/cabin/caves)
 "na" = (
 /obj/vehicle/ridden/atv{
 	dir = 4
@@ -4659,17 +4473,52 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"oJ" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "pa" = (
 /turf/open/floor/wood/cold{
 	broken = 1
 	},
 /area/awaymission/cabin/caves)
+"pg" = (
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/turf/open/floor/plating/snowed,
+/area/awaymission/cabin/caves)
+"pj" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/cup/glass/bottle/wine{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "pn" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/asteroid/snow{
 	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
+"qA" = (
+/obj/item/key/atv,
+/obj/effect/decal/remains/human{
+	color = "#72e4fa"
+	},
+/turf/open/floor/plating/ice/smooth,
+/area/awaymission/cabin/caves)
 "qH" = (
 /obj/structure/ladder/unbreakable/rune{
 	alpha = 0;
@@ -4720,6 +4569,26 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"tV" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/reagent_containers/condiment/mayonnaise,
+/turf/open/floor/iron/freezer,
+/area/awaymission/cabin)
+"vf" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/cup/glass/sillycup/smallcarton{
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
+"vP" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_y = 2
+	},
+/turf/open/floor/carpet,
+/area/awaymission/cabin)
 "ww" = (
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = 32
@@ -4727,6 +4596,33 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"wJ" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "sink";
+	pixel_y = 28
+	},
+/obj/structure/janitorialcart,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/caution,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/awaymission/cabin)
+"xc" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "xn" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -4751,6 +4647,11 @@
 	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
+"yk" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/item/reagent_containers/condiment/enzyme,
+/turf/open/floor/iron/freezer,
+/area/awaymission/cabin)
 "yG" = (
 /obj/machinery/light{
 	dir = 1
@@ -4790,6 +4691,24 @@
 	broken = 1
 	},
 /area/awaymission/cabin)
+"zH" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8
+	},
+/turf/open/floor/iron/cafeteria,
+/area/awaymission/cabin)
 "zJ" = (
 /obj/structure/sign/basic{
 	pixel_x = 32
@@ -4815,6 +4734,11 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
+"Ax" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/britcup,
+/turf/open/floor/carpet,
+/area/awaymission/cabin)
 "Bk" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
@@ -4824,6 +4748,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"BF" = (
+/obj/structure/table/wood,
+/obj/item/key/atv,
+/turf/open/floor/wood/cold,
+/area/awaymission/cabin/lumbermill)
 "Cq" = (
 /obj/item/nullrod/claymore/multiverse{
 	anchored = 1;
@@ -4832,6 +4761,11 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"CQ" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/cup/glass/shaker,
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "CV" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
@@ -4850,12 +4784,29 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"DF" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "DU" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"EU" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/turf/open/floor/mineral/plastitanium/red{
+	name = "soviet floor"
+	},
+/area/awaymission/cabin/caves/sovietcave)
 "Fm" = (
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/head/helmet/police{
@@ -4906,6 +4857,15 @@
 /obj/item/toy/foamblade,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
+"GK" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_x = -7;
+	pixel_y = -2
+	},
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "Ha" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -5005,6 +4965,19 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"Nm" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/cup/glass/mug/cocoa{
+	desc = "Still hot!";
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/turf/open/floor/carpet,
+/area/awaymission/cabin)
 "ND" = (
 /obj/machinery/light{
 	dir = 4
@@ -5180,6 +5153,28 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/cabin/caves/mountain)
+"Wz" = (
+/obj/structure/closet,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/key/atv,
+/obj/item/key/atv,
+/obj/item/key/atv,
+/obj/item/key/atv,
+/obj/item/key/atv,
+/obj/item/key/atv,
+/turf/open/floor/plating,
+/area/awaymission/cabin)
+"WO" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
+	desc = "A fancy bottle of vodka. The name isn't in Galactic Common though.";
+	name = "Porosha Vodka"
+	},
+/turf/open/floor/plating/snowed/temperatre,
+/area/awaymission/cabin/snowforest/sovietsurface)
 "Xa" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
@@ -5190,6 +5185,11 @@
 	slowdown = 1
 	},
 /area/awaymission/cabin/caves)
+"Xv" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/cup/rag,
+/turf/open/floor/wood,
+/area/awaymission/cabin)
 "Yh" = (
 /obj/machinery/computer/prisoner/management{
 	desc = "Used to manage tracking implants placed inside criminals and the prison cells.";
@@ -17038,7 +17038,7 @@ mP
 mP
 hO
 iC
-mZ
+qA
 hO
 hO
 mP
@@ -25681,7 +25681,7 @@ ac
 ac
 dB
 iZ
-jy
+pj
 jG
 az
 az
@@ -26971,7 +26971,7 @@ an
 an
 an
 an
-aS
+wJ
 hg
 aq
 bh
@@ -26988,7 +26988,7 @@ aq
 bV
 ed
 ed
-gM
+Wz
 an
 an
 dB
@@ -27753,7 +27753,7 @@ az
 cO
 az
 ci
-eo
+Nm
 cC
 aq
 eN
@@ -28251,7 +28251,7 @@ ac
 ac
 dB
 ja
-jy
+pj
 jF
 az
 az
@@ -28528,7 +28528,7 @@ cO
 aq
 aq
 aq
-iR
+GK
 ao
 dB
 ac
@@ -28781,7 +28781,7 @@ az
 aO
 az
 ci
-hF
+vP
 cC
 aq
 aq
@@ -29547,10 +29547,10 @@ aq
 bh
 an
 hb
-bU
-ev
+CQ
+Xv
 eu
-cK
+vf
 cD
 an
 aq
@@ -29793,7 +29793,7 @@ ac
 ac
 dB
 jb
-jy
+pj
 jH
 az
 az
@@ -30070,7 +30070,7 @@ an
 aq
 aq
 aq
-iU
+xc
 ao
 dB
 ac
@@ -30833,9 +30833,9 @@ aq
 an
 bx
 bO
-cJ
+zH
 cP
-cJ
+zH
 bO
 an
 aq
@@ -31612,7 +31612,7 @@ an
 aq
 aq
 aq
-iS
+oJ
 ao
 dB
 ac
@@ -32363,7 +32363,7 @@ ac
 ac
 dB
 jc
-jy
+pj
 jI
 az
 az
@@ -32376,8 +32376,8 @@ an
 bC
 bB
 bY
-is
-dt
+yk
+tV
 cG
 an
 aq
@@ -33154,7 +33154,7 @@ an
 aq
 aq
 aq
-iT
+DF
 ao
 dB
 ac
@@ -33905,7 +33905,7 @@ ac
 ac
 dB
 jd
-jy
+pj
 jJ
 az
 az
@@ -35710,7 +35710,7 @@ ed
 hu
 an
 aY
-bc
+Ax
 bg
 an
 nU
@@ -36698,7 +36698,7 @@ af
 af
 al
 kf
-ff
+BF
 eQ
 ak
 af
@@ -42698,7 +42698,7 @@ FF
 FF
 FF
 FF
-dc
+WO
 dm
 dW
 dG
@@ -48193,7 +48193,7 @@ gx
 gx
 hM
 hP
-hQ
+pg
 hP
 hW
 hO
@@ -48449,9 +48449,9 @@ gx
 gx
 gx
 hM
-hQ
+pg
 hR
-hQ
+pg
 ig
 il
 hO
@@ -48707,7 +48707,7 @@ gx
 gx
 hM
 hP
-hQ
+pg
 hP
 ih
 hO
@@ -60943,7 +60943,7 @@ gx
 gx
 gx
 ii
-kK
+EU
 kL
 kM
 ii

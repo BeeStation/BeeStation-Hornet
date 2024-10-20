@@ -416,7 +416,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/circuit_imprinter/department
 	name = "departmental circuit imprinter (Machine Board)"
@@ -451,7 +451,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/protolathe/department
 	name = "departmental protolathe (Machine Board)"
@@ -519,7 +519,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/techfab/department
 	name = "departmental techfab (Machine Board)"
@@ -704,11 +704,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/chem_master
 	desc = "You can turn the \"mode selection\" dial using a screwdriver."
 	req_components = list(
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
 	def_components = list(
-		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
+		/obj/item/reagent_containers/cup/beaker = /obj/item/reagent_containers/cup/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
@@ -735,7 +735,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		/obj/item/stock_parts/scanning_module = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/clonepod/experimental
 	name = "experimental clone pod (Machine Board)"
@@ -782,7 +782,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/limbgrower
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/protolathe/department/medical
