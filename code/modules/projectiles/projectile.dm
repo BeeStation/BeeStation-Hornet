@@ -696,9 +696,7 @@
 	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
 		last_angle_set_hitscan_store = loc
 		var/datum/point/point_cache = new (src)
-		var/list/coordinates = trajectory.return_coordinates()
-		point_cache.initialize_location(coordinates[1], coordinates[2], coordinates[3]) // Take the center of the hitscan collision tile, so it looks good on reflector boxes and the like
-		trajectory.initialize_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to it as well, to prevent a strange visual bug
+		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
 	return TRUE
 
