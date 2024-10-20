@@ -2,6 +2,7 @@
 	name = "Spacepol Nobody (Preview)"
 
 	id = /obj/item/card/id/silver/spacepol
+	uniform = /obj/item/clothing/under/syndicate/combat
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
 	box = /obj/item/storage/box/survival
@@ -18,7 +19,6 @@
 /datum/outfit/spacepol/sergeant
 	name = "Spacepol Sergeant"
 	assignment = "Spacepol Sergeant"
-	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/armor/vest/warden/sergeant
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/sergeant
@@ -31,7 +31,6 @@
 /datum/outfit/spacepol/officer
 	name = "Spacepol Officer"
 	assignment = "Spacepol Officer"
-	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/armor/vest/blueshirt
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/spacepol
