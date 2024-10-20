@@ -323,6 +323,7 @@
 	sentience.AddSpell(P)
 	//Display traits to sentience
 	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
+	var/trait_dialogue = ""
 	for(var/index in component_parent.artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in component_parent.artifact_traits[index])
 			to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
@@ -330,7 +331,8 @@
 			trait_name = replacetext(trait_name, "Δ", "delta")
 			trait_name = replacetext(trait_name, "Σ", "sigma")
 			trait_name = replacetext(trait_name, "Ω", "omega")
-			sentience.add_memory(trait_name)
+			trait_dialogue = "[trait_dialogue]\n[trait_name]"
+	sentience.add_memory(trait_dialogue)
 	playsound(get_turf(component_parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)
