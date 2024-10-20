@@ -62,6 +62,13 @@ SUBSYSTEM_DEF(mapping)
 #else
 	config = load_map_config(error_if_missing = FALSE)
 #endif
+	// After assigning a config datum to var/config, we check which map ajudstment fits the current config
+	for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
+		if(initial(each_adjust.map_file_name) != config.map_file)
+			continue
+		map_adjustment = new each_adjust() // map_adjustment has multiple procs that'll be called from needed places (i.e. job_change)
+		log_world("Loaded '[config.map_file]' map adjustment.")
+		break
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
