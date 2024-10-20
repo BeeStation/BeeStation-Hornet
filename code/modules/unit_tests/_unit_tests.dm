@@ -13,6 +13,7 @@
 #include "antag_datums.dm"
 #include "area_contents.dm"
 #include "armour_checks.dm"
+#include "armor_verification.dm"
 #include "asset_smart_cache.dm"
 #include "async.dm"
 #include "bloody_footprints.dm"
