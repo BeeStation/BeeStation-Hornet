@@ -419,7 +419,7 @@
 	overheat = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), flashcd * 2)
 
-/obj/item/assembly/flash/armimplant/try_use_flash(mob/user = null)
+/obj/item/assembly/flash/armimplant/try_use_flash(mob/user = null, emit_light = TRUE)
 	if(overheat)
 		var/obj/item/organ/cyberimp/arm/flash/real_arm = arm.resolve()
 		if(real_arm?.owner)
