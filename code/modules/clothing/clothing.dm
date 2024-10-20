@@ -329,6 +329,7 @@
 	if(href_list["list_armor"])
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
+		var/datum/armor/armor = get_armor()
 		var/added_damage_header = FALSE
 		for(var/damage_key in ARMOR_LIST_DAMAGE())
 			var/rating = armor.get_rating(damage_key)
