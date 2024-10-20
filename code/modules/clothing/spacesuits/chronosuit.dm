@@ -64,7 +64,6 @@
 	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
-	dropped()
 	QDEL_NULL(teleport_now)
 	return ..()
 
