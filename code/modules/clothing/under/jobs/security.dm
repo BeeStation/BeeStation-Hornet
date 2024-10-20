@@ -148,7 +148,7 @@
 	desc = "A security jumpsuit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "rhos"
 	item_state = "r_suit"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
 	strip_delay = 60
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS

@@ -215,7 +215,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
 	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	gas_transfer_coefficient = 0
-	permeability_coefficient = 0
 	siemens_coefficient = 0
 	slowdown = -1
 	equip_delay_other = 6000 // stripping an admin for 10 minutes

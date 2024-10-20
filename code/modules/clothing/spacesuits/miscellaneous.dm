@@ -428,8 +428,7 @@ Contains:
 	item_state = "skinsuit_helmet"
 	max_integrity = 200
 	desc = "An airtight helmet meant to protect the wearer during emergency situations."
-	permeability_coefficient = 0.01
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
 	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
 	heat_protection = NONE
 	flash_protect = 0
@@ -457,8 +456,7 @@ Contains:
 	clothing_flags = STOPSPRESSUREDAMAGE
 	species_restricted = null
 	gas_transfer_coefficient = 0.5
-	permeability_coefficient = 0.5
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	min_cold_protection_temperature = EMERGENCY_SUIT_MIN_TEMP_PROTECT
 	heat_protection = NONE

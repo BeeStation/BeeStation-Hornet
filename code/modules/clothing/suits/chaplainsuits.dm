@@ -282,13 +282,12 @@
 	desc = "A pair of leather gloves in poor condition."
 	icon_state = "graverobber-gloves"
 	item_state = "graverobber-gloves"
-	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 20, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 30, ACID = 20, STAMINA = 0)
 
 /obj/item/clothing/under/rank/civilian/graverobber_under
 	name = "grave robber uniform"

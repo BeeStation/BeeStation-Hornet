@@ -252,7 +252,7 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "empowered cultist helmet"
 	desc = "A runed helmet scribbed with blood rites which shimmer in the light, reflecting projectiles."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60, STAMINA = 40, BLEED = 20)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 30, BOMB = 50, BIO = 100, RAD = 30, FIRE = 50, ACID = 60, STAMINA = 40, BLEED = 20)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()

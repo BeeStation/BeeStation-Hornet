@@ -32,6 +32,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 120
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20, ENERGY = 15, BOMB = 30, BIO = 100, FIRE = 100, ACID = 100)
 	var/draining = 0
 	var/candrain = 0
 	var/mindrain = 200

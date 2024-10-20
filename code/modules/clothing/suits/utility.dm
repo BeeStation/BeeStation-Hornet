@@ -21,7 +21,6 @@
 	item_state = "ro_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.9
-	permeability_coefficient = 0.5
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	allowed = list(
 		/obj/item/flashlight,
@@ -32,7 +31,7 @@
 		/obj/item/powertool/jaws_of_life
 	)
 	slowdown = 1
-	armor = list(MELEE = 15,  BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50, STAMINA = 10, BLEED = 25)
+	armor = list(MELEE = 15,  BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 50, RAD = 20, FIRE = 100, ACID = 50, STAMINA = 10, BLEED = 25)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -91,11 +90,10 @@
 	item_state = "bombsuit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	clothing_flags = THICKMATERIAL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 100, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10, BLEED = 25)
+	armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 100, BIO = 50, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10, BLEED = 25)
 	flags_inv = HIDEJUMPSUIT
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -146,7 +144,6 @@
 	item_state = "rad_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.9
-	permeability_coefficient = 0.5
 	clothing_flags = THICKMATERIAL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/geiger_counter)

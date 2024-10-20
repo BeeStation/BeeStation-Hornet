@@ -43,7 +43,6 @@
 	item_state = "that"
 	icon_state = "plaguedoctor"
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
-	permeability_coefficient = 0.01
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	flags_inv = HIDEHAIR
 

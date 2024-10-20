@@ -6,6 +6,7 @@
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 75, BOMB = 25, BIO = 0, FIRE = 100, ACID = 70, RAD = 75, STAMINA = 0, BLEED = 0)
 	recipe_type = /datum/crafting_recipe/shutters
 	base_state = "shut"
 	icon_state = "shut_closed"

@@ -6,8 +6,7 @@
 	icon_state = "wizard"
 	item_state = "wizhat"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
-	permeability_coefficient = 0.01
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50, BLEED = 60)
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50, BLEED = 60)
 	strip_delay = 50
 	equip_delay_other = 50
 	clothing_flags = SNUG_FIT | THICKMATERIAL
@@ -37,7 +36,6 @@
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
@@ -72,9 +70,8 @@
 	worn_icon = 'icons/mob/clothing/suits/wizard.dmi'
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50, BLEED = 60)
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50, BLEED = 60)
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
@@ -142,7 +139,6 @@
 	icon_state = "wizard-fake"
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
@@ -152,7 +148,6 @@
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
@@ -163,7 +158,6 @@
 	icon_state = "marisa"
 	item_state = "marisarobe"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE

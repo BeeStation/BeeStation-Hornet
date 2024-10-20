@@ -6,18 +6,16 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 30, BLEED = 20)
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 90, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 30, BLEED = 20)
 	strip_delay = 40
 	resistance_flags = NONE
-	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT boots"
 	desc = "High speed, no drag combat boots."
-	permeability_coefficient = 0.01
 	clothing_flags = NOSLIP
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30, BLEED = 20)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30, BLEED = 20)
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain wooden sandals."
@@ -26,7 +24,7 @@
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.5)
 	strip_delay = 50
 	equip_delay_other = 50
-	permeability_coefficient = 0.9
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 	strip_delay = 5
 
 /obj/item/clothing/shoes/sandal/alt
@@ -44,13 +42,12 @@
 	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	name = "galoshes"
 	icon_state = "galoshes"
-	permeability_coefficient = 0.01
 	clothing_flags = NOSLIP
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 40, ACID = 75, STAMINA = 0, BLEED = 0)
 	can_be_bloody = FALSE
 	custom_price = 100
 
@@ -127,7 +124,7 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 90, FIRE = 0, ACID = 0)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
@@ -147,7 +144,7 @@
 	desc = "Boots lined with 'synthetic' animal fur."
 	icon_state = "winterboots"
 	item_state = "winterboots"
-	permeability_coefficient = 0.15
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 80, FIRE = 0, ACID = 0)
 	cold_protection = FEET|LEGS
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET|LEGS
@@ -174,7 +171,7 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	permeability_coefficient = 0.15
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 80, FIRE = 0, ACID = 0)
 	strip_delay = 20
 	equip_delay_other = 40
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
@@ -219,7 +216,7 @@
 	item_state = "roman"
 	strip_delay = 100
 	equip_delay_other = 100
-	permeability_coefficient = 0.9
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/shoes/griffin
 	name = "griffon boots"
@@ -236,7 +233,7 @@
 	resistance_flags = FIRE_PROOF
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	actions_types = list(/datum/action/item_action/bhop)
-	permeability_coefficient = 0.05
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 90, FIRE = 0, ACID = 0)
 	strip_delay = 30
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3

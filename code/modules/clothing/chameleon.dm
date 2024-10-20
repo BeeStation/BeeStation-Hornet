@@ -356,7 +356,7 @@
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -575,13 +575,12 @@
 	item_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
 	strip_delay = 80
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
 
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
@@ -709,11 +708,10 @@
 	icon_state = "gas_alt"
 	item_state = "gas_alt"
 	resistance_flags = NONE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
 	voice_change = TRUE
@@ -801,9 +799,8 @@
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
 	desc = "A pair of black shoes."
-	permeability_coefficient = 0.05
 	resistance_flags = NONE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 90, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 	var/datum/action/item_action/chameleon/change/chameleon_action

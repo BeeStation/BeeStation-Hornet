@@ -13,7 +13,7 @@
 	name = "portable thermomachine"
 	desc = "Made by Space Amish using traditional space techniques, this thermomachine is guaranteed not to set the station on fire. Warranty void if used in engines."
 	max_integrity = 250
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 10, STAMINA = 0, BLEED = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 100, FIRE = 80, ACID = 10, STAMINA = 0, BLEED = 0)
 	circuit = /obj/item/circuitboard/machine/portable_thermomachine
 	//We don't use area power, we always use the cell
 	use_power = NO_POWER_USE

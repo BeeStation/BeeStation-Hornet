@@ -46,7 +46,7 @@
 	icon = 'icons/obj/clothing/suits/jacket.dmi'
 	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	gas_transfer_coefficient = 0.9
-	permeability_coefficient = 0.5
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 0)
 	body_parts_covered = CHEST|GROIN|ARMS
 	allowed = list(
 		/obj/item/kitchen,

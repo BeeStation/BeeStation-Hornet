@@ -3,7 +3,7 @@
 /obj/item/clothing/under/rank/engineering
 	icon = 'icons/obj/clothing/under/engineering.dmi'
 	worn_icon = 'icons/mob/clothing/under/engineering.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20, STAMINA = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 10, FIRE = 60, ACID = 20, STAMINA = 0)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer
@@ -12,7 +12,7 @@
 	icon_state = "chiefengineer"
 	item_state = "gy_suit"	//TODO replace it
 	worn_icon_state = "chiefengineer"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40, STAMINA = 0, BLEED = 10)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 10, FIRE = 80, ACID = 40, STAMINA = 0, BLEED = 10)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
