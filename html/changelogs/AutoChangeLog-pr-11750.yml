@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: fixed a game-crashing bug with the syndicate explosive walls
+  - bugfix: fixed gibtonite rocks remaining behind after blowing up indefinitely
