@@ -4090,9 +4090,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/stasis{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/effect/turf_decal/tile/white{
 	dir = 4
@@ -4100,6 +4097,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/bed/roller,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "aXL" = (
@@ -23492,9 +23491,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/stasis{
-	dir = 1
-	},
+/obj/structure/table/optable,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "gcZ" = (
