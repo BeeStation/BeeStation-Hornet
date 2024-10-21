@@ -23303,8 +23303,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/assistant,
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
+/obj/structure/table/optable,
 /turf/open/floor/iron/grid/steel,
 /area/medical/sleeper)
 "hpy" = (
