@@ -9079,10 +9079,9 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "epj" = (
-/obj/machinery/stasis{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
 "epk" = (
