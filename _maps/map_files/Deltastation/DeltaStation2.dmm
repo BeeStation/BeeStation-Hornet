@@ -33093,12 +33093,12 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "eHp" = (
-/obj/machinery/stasis{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/official/nanomichi_ad{
 	pixel_x = -32
+	},
+/obj/structure/bed{
+	dir = 4
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
