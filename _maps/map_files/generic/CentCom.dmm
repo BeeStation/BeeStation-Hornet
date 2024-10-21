@@ -6406,7 +6406,9 @@
 "xB" = (
 /mob/living/simple_animal/bot/medbot/nukie{
 	name = "\improper Hattori";
-	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern."
+	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern.";
+	radio_key = null;
+	radio_channel = null
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
@@ -14067,7 +14069,8 @@
 "Zx" = (
 /mob/living/simple_animal/bot/medbot/nukie{
 	name = "\improper Hijikata";
-	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis."
+	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis.";
+	radio_key = null
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
