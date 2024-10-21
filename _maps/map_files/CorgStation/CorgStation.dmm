@@ -26595,10 +26595,6 @@
 	pixel_x = -7;
 	pixel_y = 1
 	},
-/obj/item/circuitboard/machine/stasis{
-	pixel_x = -8;
-	pixel_y = -2
-	},
 /turf/open/floor/iron/dark,
 /area/engine/storage)
 "ivy" = (
