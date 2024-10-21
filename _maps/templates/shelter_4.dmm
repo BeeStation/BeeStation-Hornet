@@ -89,7 +89,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aw" = (
-/obj/machinery/stasis/survival_pod,
+/obj/structure/bodycontainer/morgue,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ax" = (
