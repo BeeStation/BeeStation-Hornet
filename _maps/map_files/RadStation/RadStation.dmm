@@ -23303,9 +23303,8 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/assistant,
-/obj/machinery/stasis{
-	dir = 4
-	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/grid/steel,
 /area/medical/sleeper)
 "hpy" = (
@@ -57105,13 +57104,13 @@
 	},
 /area/science/research)
 "scM" = (
-/obj/machinery/stasis{
-	dir = 1
-	},
 /obj/machinery/defibrillator_mount{
 	pixel_x = -32
 	},
 /obj/machinery/camera/directional/west,
+/obj/structure/bed{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "scT" = (
