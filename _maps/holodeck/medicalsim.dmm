@@ -566,17 +566,19 @@
 	},
 /area/template_noop)
 "VU" = (
-/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "Wx" = (
-/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
