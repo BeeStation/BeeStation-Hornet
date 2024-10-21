@@ -82,6 +82,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		to_chat(M, "<span class='userdanger'>[user] is pushing you into [src]!</span>")
 		if(!do_after(user, 5 SECONDS, src))
 			return // failed do_after, we don't teleport
+		if(!active)
+			return
 		user.visible_message("<span class='notice'>[user] shoves [M] into [src].</span>", "<span class='notice'>You shove [M] into [src].</span>")
 	else
 		user.visible_message("<span class='notice'>[AM] is pushed into [src].</span>", "<span class='warning'>You push [AM] into [src].</span>")
@@ -146,6 +148,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 			"<span class='notice'>You begin climbing into [src]...</span>")
 		if(!do_after(M, 5 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
 			return
+		if(!active)
+			return
 	else
 		AM.visible_message("<span class='notice'>[AM] enters the gateway.</span>") // oooo~ ominous
 
@@ -165,7 +169,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		user.visible_message("<span class='notice'>[user] switches [src] on.</span>", "<span class='notice'>You switch [src] on.</span>")
 		return TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>You need a multitool to turn it on!</span>")
+		to_chat(user, "<span class='warning'>You need a multitool to turn it off!</span>")
 		return TRUE
 	return ..()
 
