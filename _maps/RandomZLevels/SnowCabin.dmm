@@ -4735,6 +4735,11 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"sq" = (
+/obj/item/bedsheet/medical,
+/obj/structure/bed,
+/turf/open/floor/iron/white,
+/area/awaymission/cabin)
 "sU" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -34201,7 +34206,7 @@ bQ
 cu
 hp
 js
-hp
+sq
 an
 aq
 aq
