@@ -122,10 +122,10 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "iZ" = (
-/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/structure/bed,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "jR" = (

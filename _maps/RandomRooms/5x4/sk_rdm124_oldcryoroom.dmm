@@ -81,11 +81,11 @@
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "m" = (
-/obj/machinery/stasis,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/broken{
 	dir = 4
 	},
+/obj/structure/bed,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
