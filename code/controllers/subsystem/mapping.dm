@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/datum/map_config/config
 	var/datum/map_config/next_map_config
+	var/datum/map_adjustment/map_adjustment
 
 	var/map_voted = FALSE
 
@@ -61,6 +62,13 @@ SUBSYSTEM_DEF(mapping)
 #else
 	config = load_map_config(error_if_missing = FALSE)
 #endif
+	// After assigning a config datum to var/config, we check which map ajudstment fits the current config
+	for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
+		if(initial(each_adjust.map_file_name) != config.map_file)
+			continue
+		map_adjustment = new each_adjust() // map_adjustment has multiple procs that'll be called from needed places (i.e. job_change)
+		log_world("Loaded '[config.map_file]' map adjustment.")
+		break
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
@@ -71,6 +79,11 @@ SUBSYSTEM_DEF(mapping)
 		if(!config || config.defaulted)
 			to_chat(world, "<span class='boldannounce'>Unable to load next or default map config, defaulting to Box Station</span>")
 			config = old_config
+
+	if(map_adjustment)
+		map_adjustment.on_mapping_init()
+		log_world("Applied '[map_adjustment.map_file_name]' map adjustment: on_mapping_init()")
+
 	initialize_biomes()
 	loadWorld()
 	require_area_resort()

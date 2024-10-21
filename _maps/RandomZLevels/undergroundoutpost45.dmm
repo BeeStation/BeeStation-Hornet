@@ -59,23 +59,21 @@
 "an" = (
 /turf/closed/wall/r_wall/rust,
 /area/awaymission/undergroundoutpost45/central)
-"at" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+"as" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/computer/atmos_control/tank{
+	input_tag = "UO45_air_in";
+	name = "Mixed Air Supply Control";
+	output_tag = "UO45_air_out";
+	sensors = list("UO45_air_sensor"="Tank")
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
+/turf/open/floor/iron/white/corner{
+	dir = 1
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Research Division West"
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/iron/white,
-/area/awaymission/undergroundoutpost45/gateway)
+/area/awaymission/undergroundoutpost45/engineering)
 "av" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/open/floor/iron,
@@ -108,6 +106,17 @@
 "aE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/central)
+"aF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/bucket,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
 "aL" = (
 /obj/structure/disposalpipe/segment,
@@ -177,12 +186,6 @@
 /obj/item/multitool,
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/central)
-"bh" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/research)
 "bl" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
@@ -208,22 +211,12 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"bo" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 23
-	},
-/obj/machinery/camera/directional/east{
-	c_tag = "Kitchen"
-	},
+"br" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
+/obj/item/stack/package_wrap,
+/obj/item/reagent_containers/cup/rag,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "bw" = (
 /obj/machinery/vending/hydronutrients,
@@ -262,6 +255,14 @@
 	dir = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
+"bH" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/shovel/spade,
+/obj/item/wrench,
+/obj/item/screwdriver,
+/obj/item/reagent_containers/cup/bucket,
+/turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/central)
 "bO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -298,12 +299,6 @@
 	},
 /turf/closed/wall,
 /area/awaymission/undergroundoutpost45/central)
-"cb" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/research)
 "ck" = (
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -380,26 +375,26 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
-"cS" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/computer/atmos_control{
-	dir = 4;
-	name = "Distribution and Waste Monitor";
-	sensors = list("UO45_air_sensor"="Mixed Air Supply Tank","UO45_distro_meter"="Distribution Loop","UO45_waste_meter"="Waste Loop")
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "cV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
 	},
 /turf/closed/wall/rust,
 /area/awaymission/undergroundoutpost45/central)
+"cY" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/computer/atmos_control{
+	dir = 4;
+	name = "Tank Monitor";
+	sensors = list("UO45_n2_sensor"="Nitrogen","UO45_o2_sensor"="Oxygen","UO45_mix_sensor"="Gas Mix Tank")
+	},
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "dd" = (
 /obj/machinery/computer/monitor/secret{
 	dir = 1;
@@ -559,6 +554,15 @@
 	name = "Cave Floor"
 	},
 /area/awaymission/undergroundoutpost45/caves)
+"eg" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
+/obj/machinery/camera/directional/west{
+	c_tag = "Engineering Hallway"
+	},
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "ei" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass,
@@ -573,21 +577,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
+"el" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/obj/machinery/computer/atmos_control/tank{
+	dir = 1;
+	input_tag = "UO45_n2_in";
+	name = "Nitrogen Supply Control";
+	output_tag = "UO45_n2_out";
+	sensors = list("UO45_n2_sensor"="Tank")
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "em" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/carpet,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"ep" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Research Division East"
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/iron/white,
-/area/awaymission/undergroundoutpost45/research)
 "er" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
@@ -655,6 +663,24 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"eB" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/dropper,
+/turf/open/floor/iron/white/side{
+	dir = 8
+	},
+/area/awaymission/undergroundoutpost45/research)
 "eK" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -694,6 +720,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
+"eY" = (
+/obj/machinery/airalarm/all_access{
+	dir = 4;
+	pixel_x = -23
+	},
+/obj/machinery/camera/directional/west{
+	c_tag = "Gateway Chamber"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/gateway)
 "fa" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 8
@@ -709,22 +746,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/mining)
-"fg" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
-/obj/machinery/camera/directional/north{
-	c_tag = "Dormitories"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "fh" = (
 /turf/open/floor/plating/asteroid{
 	initial_gas_mix = "co2=173.4;n2=135.1;plasma=229.8;TEMP=351.9";
@@ -1016,20 +1037,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"hQ" = (
-/obj/machinery/button/door{
-	desc = "A remote control-switch for the security Privacy Shutters.";
-	id = "UO45_EngineeringOffice";
-	name = "Privacy Shutters";
-	pixel_x = -24;
-	pixel_y = 6;
-	req_access_txt = "201"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
 "hY" = (
 /obj/machinery/light{
 	dir = 1
@@ -1063,6 +1070,17 @@
 	name = "Cave Floor"
 	},
 /area/awaymission/undergroundoutpost45/caves)
+"io" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/turf/open/floor/carpet/grimy,
+/area/awaymission/undergroundoutpost45/central)
+"iE" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "iF" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -1105,6 +1123,12 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"jf" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "jv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -1171,6 +1195,21 @@
 	},
 /turf/closed/wall/r_wall,
 /area/awaymission/undergroundoutpost45/central)
+"jG" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/computer/atmos_control/tank{
+	dir = 1;
+	input_tag = "UO45_o2_in";
+	name = "Oxygen Supply Control";
+	output_tag = "UO45_o2_out";
+	sensors = list("UO45_o2_sensor"="Tank")
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "jH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -1263,25 +1302,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
-"kC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 23;
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Gateway Ready Room"
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/gateway)
 "lh" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -1343,10 +1363,13 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/grimy,
 /area/awaymission/undergroundoutpost45/central)
-"mH" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+"mk" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/central)
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "mJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall/rust,
@@ -1405,6 +1428,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/research)
+"nv" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "nw" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -1442,6 +1476,21 @@
 /obj/item/clothing/under/suit/waiter,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/showroomfloor,
+/area/awaymission/undergroundoutpost45/crew_quarters)
+"nE" = (
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/storage/fancy/egg_box,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "refrigerator";
+	req_access_txt = "201"
+	},
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "nF" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -1544,21 +1593,6 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"oD" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/computer/atmos_control/tank{
-	input_tag = "UO45_air_in";
-	name = "Mixed Air Supply Control";
-	output_tag = "UO45_air_out";
-	sensors = list("UO45_air_sensor"="Tank")
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/white/corner{
-	dir = 1
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "oF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1677,21 +1711,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/awaymission/undergroundoutpost45/engineering)
-"pB" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 4
-	},
-/obj/machinery/computer/atmos_control/tank{
-	dir = 1;
-	input_tag = "UO45_n2_in";
-	name = "Nitrogen Supply Control";
-	output_tag = "UO45_n2_out";
-	sensors = list("UO45_n2_sensor"="Tank")
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
 "pE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos{
 	icon_state = "in";
@@ -1713,6 +1732,18 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
 /area/awaymission/undergroundoutpost45/research)
+"pJ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "pK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall,
@@ -1795,6 +1826,13 @@
 	name = "Server Walkway"
 	},
 /area/awaymission/undergroundoutpost45/research)
+"qo" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/gateway)
 "qE" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -1811,21 +1849,16 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"qI" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/central)
 "qK" = (
 /obj/machinery/door/airlock{
 	name = "Unit 1"
 	},
 /turf/open/floor/iron/freezer,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"qO" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/undergroundoutpost45/research)
 "qP" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1848,21 +1881,20 @@
 	name = "Server Walkway"
 	},
 /area/awaymission/undergroundoutpost45/research)
-"rm" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Engineering Secure Storage"
-	},
-/turf/open/floor/plating,
-/area/awaymission/undergroundoutpost45/engineering)
 "ro" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
 /area/awaymission/undergroundoutpost45/engineering)
+"rr" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/camera/directional/east{
+	c_tag = "Arrivals"
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/central)
 "rz" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9
@@ -1888,6 +1920,20 @@
 	},
 /obj/item/bikehorn/rubberducky,
 /turf/open/floor/iron/freezer,
+/area/awaymission/undergroundoutpost45/crew_quarters)
+"rX" = (
+/obj/structure/closet/secure_closet{
+	locked = 0;
+	name = "kitchen Cabinet";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "sb" = (
 /obj/structure/table,
@@ -1932,55 +1978,6 @@
 	dir = 4
 	},
 /turf/open/floor/engine/vacuum,
-/area/awaymission/undergroundoutpost45/engineering)
-"sw" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Central Hallway"
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/central)
-"sB" = (
-/obj/machinery/computer/atmos_control/tank{
-	dir = 8;
-	input_tag = "UO45_mix_in";
-	name = "Gas Mix Tank Control";
-	output_tag = "UO45_mix_in";
-	sensors = list("UO45_mix_sensor"="Tank")
-	},
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
-"sD" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 10
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Atmospherics"
-	},
-/obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 5
-	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/item/multitool,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
 "sJ" = (
 /obj/machinery/door/firedoor,
@@ -2111,13 +2108,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"tA" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "tB" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -2205,10 +2195,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
-"uh" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/gateway)
 "un" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -2222,20 +2208,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/undergroundoutpost45/gateway)
-"us" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/sign/warning/electricshock{
-	pixel_y = -32
-	},
-/obj/machinery/vending/engivend,
-/obj/machinery/camera/directional/south{
-	c_tag = "Engineering Foyer"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
 "uv" = (
 /turf/closed/mineral/random/labormineral,
 /area/awaymission/undergroundoutpost45/research)
@@ -2408,6 +2380,20 @@
 "vL" = (
 /turf/closed/wall/rust,
 /area/awaymission/undergroundoutpost45/mining)
+"vT" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "vW" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
@@ -2636,24 +2622,6 @@
 	},
 /turf/closed/wall/rust,
 /area/awaymission/undergroundoutpost45/mining)
-"xL" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Hydroponics"
-	},
-/obj/machinery/power/apc/highcap/fifteen_k{
-	locked = 0;
-	name = "Hydroponics APC";
-	pixel_y = -23;
-	start_charge = 100
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/central)
 "xM" = (
 /obj/machinery/mineral/stacking_unit_console{
 	machinedir = 2
@@ -2709,14 +2677,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"yx" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/machinery/camera/directional/east{
-	c_tag = "Arrivals"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/central)
 "yy" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 10
@@ -2948,14 +2908,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
-"zn" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/obj/item/reagent_containers/food/condiment/enzyme,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "zp" = (
 /obj/structure/disposaloutlet{
 	dir = 8
@@ -3136,21 +3088,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"zU" = (
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/storage/fancy/egg_box,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "201"
-	},
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "zV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
@@ -3189,6 +3126,23 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
+"zY" = (
+/obj/machinery/airalarm/all_access{
+	dir = 4;
+	pixel_x = 23
+	},
+/obj/machinery/camera/directional/east{
+	c_tag = "Kitchen"
+	},
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Ab" = (
 /obj/machinery/shower{
 	dir = 4
@@ -3420,18 +3374,6 @@
 	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
-"AW" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3
-	},
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Ba" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
@@ -3457,19 +3399,6 @@
 "Bd" = (
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/central)
-"Bf" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Mining"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/mining)
 "Bg" = (
 /obj/structure/chair/fancy/comfy,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -3573,6 +3502,24 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/central)
+"By" = (
+/obj/machinery/camera/directional/south{
+	c_tag = "Hydroponics"
+	},
+/obj/machinery/power/apc/highcap/fifteen_k{
+	locked = 0;
+	name = "Hydroponics APC";
+	pixel_y = -23;
+	start_charge = 100
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
 "Bz" = (
@@ -3905,21 +3852,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"CD" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/computer/atmos_control/tank{
-	dir = 1;
-	input_tag = "UO45_o2_in";
-	name = "Oxygen Supply Control";
-	output_tag = "UO45_o2_out";
-	sensors = list("UO45_o2_sensor"="Tank")
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/engineering)
 "CE" = (
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
@@ -4196,6 +4128,26 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"Ds" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/research)
+"Dt" = (
+/obj/machinery/button/door{
+	desc = "A remote control-switch for the security Privacy Shutters.";
+	id = "UO45_EngineeringOffice";
+	name = "Privacy Shutters";
+	pixel_x = -24;
+	pixel_y = 6;
+	req_access_txt = "201"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "Du" = (
 /obj/machinery/airalarm/all_access{
 	dir = 4;
@@ -4330,6 +4282,23 @@
 	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/research)
+"DS" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Research Division West"
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron/white,
+/area/awaymission/undergroundoutpost45/gateway)
 "DU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/structure/disposalpipe/segment{
@@ -4370,13 +4339,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
-"Eh" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Ei" = (
 /obj/machinery/vending/snack,
 /obj/effect/decal/cleanable/dirt,
@@ -4489,6 +4451,10 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"ED" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/gateway)
 "EE" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -4732,13 +4698,6 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
 /area/awaymission/undergroundoutpost45/research)
-"FB" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/obj/item/reagent_containers/glass/rag,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "FC" = (
 /obj/machinery/light{
 	dir = 8
@@ -4795,6 +4754,17 @@
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
+/area/awaymission/undergroundoutpost45/research)
+"FO" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Research Division East"
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron/white,
 /area/awaymission/undergroundoutpost45/research)
 "FP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -5231,6 +5201,14 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
+"HF" = (
+/obj/machinery/camera/directional/east{
+	c_tag = "Bar"
+	},
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "HG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5294,15 +5272,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/research)
-"HS" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Engineering Hallway"
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "HT" = (
 /obj/structure/window/reinforced,
 /turf/open/floor/iron/dark,
@@ -5557,24 +5526,6 @@
 	dir = 5
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"IL" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/dropper,
-/turf/open/floor/iron/white/side{
-	dir = 8
-	},
-/area/awaymission/undergroundoutpost45/research)
 "IM" = (
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/gateway)
@@ -5593,6 +5544,12 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
+/area/awaymission/undergroundoutpost45/research)
+"IR" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/research)
 "IS" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
@@ -5676,6 +5633,25 @@
 "Jb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
+/area/awaymission/undergroundoutpost45/gateway)
+"Jd" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/airalarm/all_access{
+	pixel_y = 23;
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Gateway Ready Room"
+	},
+/turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/gateway)
 "Je" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -6175,12 +6151,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
-"KM" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "KN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -6265,34 +6235,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"KZ" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Lb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/gateway)
-"Lc" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/central)
 "Ld" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6412,12 +6360,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/engineering)
-"Lu" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Lv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -6522,6 +6464,20 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"Ma" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/computer/atmos_control{
+	dir = 4;
+	name = "Distribution and Waste Monitor";
+	sensors = list("UO45_air_sensor"="Mixed Air Supply Tank","UO45_distro_meter"="Distribution Loop","UO45_waste_meter"="Waste Loop")
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "Mc" = (
 /turf/open/floor/iron{
 	dir = 8;
@@ -6659,6 +6615,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/research)
+"MA" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_y = -32
+	},
+/obj/machinery/vending/engivend,
+/obj/machinery/camera/directional/south{
+	c_tag = "Engineering Foyer"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "MD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -6872,20 +6842,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"Nj" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/computer/atmos_control{
-	dir = 4;
-	name = "Tank Monitor";
-	sensors = list("UO45_n2_sensor"="Nitrogen","UO45_o2_sensor"="Oxygen","UO45_mix_sensor"="Gas Mix Tank")
-	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/awaymission/undergroundoutpost45/engineering)
 "Nl" = (
 /obj/structure/chair{
 	dir = 4
@@ -7311,20 +7267,6 @@
 	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
-"OF" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "OG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -7455,6 +7397,19 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/research)
+"OV" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/camera/directional/west{
+	c_tag = "Mining"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/mining)
 "OW" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/fifty,
@@ -7619,19 +7574,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/central)
-"Px" = (
-/obj/machinery/airalarm/all_access{
-	pixel_y = 23;
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Research Lab"
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/undergroundoutpost45/research)
 "Py" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -7650,14 +7592,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/crew_quarters)
-"PG" = (
-/obj/machinery/camera/directional/east{
-	c_tag = "Bar"
-	},
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "PH" = (
@@ -7943,6 +7877,11 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/research)
+"QG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/bucket,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/central)
 "QI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -7984,11 +7923,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/awaymission/undergroundoutpost45/gateway)
-"QS" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/turf/open/floor/carpet/grimy,
-/area/awaymission/undergroundoutpost45/central)
 "QT" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -8092,17 +8026,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/undergroundoutpost45/gateway)
-"Ro" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -23
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Gateway Chamber"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/gateway)
 "Rq" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8124,6 +8047,21 @@
 	name = "Cave Floor"
 	},
 /area/awaymission/undergroundoutpost45/gateway)
+"Rt" = (
+/obj/machinery/computer/atmos_control/tank{
+	dir = 8;
+	input_tag = "UO45_mix_in";
+	name = "Gas Mix Tank Control";
+	output_tag = "UO45_mix_in";
+	sensors = list("UO45_mix_sensor"="Tank")
+	},
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "Ru" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8284,6 +8222,30 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/undergroundoutpost45/research)
+"RU" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 10
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Atmospherics"
+	},
+/obj/structure/table,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/item/multitool,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/engineering)
 "RY" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -8300,6 +8262,15 @@
 	},
 /turf/open/floor/carpet,
 /area/awaymission/undergroundoutpost45/central)
+"RZ" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/undergroundoutpost45/research)
 "Sb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants,
@@ -8600,6 +8571,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/freezer,
 /area/awaymission/undergroundoutpost45/central)
+"Te" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
+/obj/machinery/camera/directional/north{
+	c_tag = "Dormitories"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Tg" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -8859,11 +8846,6 @@
 	name = "Cave Floor"
 	},
 /area/awaymission/undergroundoutpost45/caves)
-"TW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/iron,
-/area/awaymission/undergroundoutpost45/central)
 "TX" = (
 /obj/machinery/light{
 	dir = 8
@@ -8928,14 +8910,6 @@
 	name = "Cave Floor"
 	},
 /area/awaymission/undergroundoutpost45/caves)
-"Um" = (
-/obj/structure/closet/crate/hydroponics,
-/obj/item/shovel/spade,
-/obj/item/wrench,
-/obj/item/screwdriver,
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/iron/dark,
-/area/awaymission/undergroundoutpost45/central)
 "Up" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -9398,6 +9372,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"VP" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Central Hallway"
+	},
+/turf/open/floor/iron,
+/area/awaymission/undergroundoutpost45/central)
 "VQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -9476,6 +9460,14 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet,
 /area/awaymission/undergroundoutpost45/mining)
+"We" = (
+/obj/structure/table,
+/obj/item/stack/package_wrap,
+/obj/item/reagent_containers/condiment/enzyme,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Wf" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plating{
@@ -9769,20 +9761,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/research)
-"Xp" = (
-/obj/structure/closet/secure_closet{
-	locked = 0;
-	name = "kitchen Cabinet";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "Xq" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10165,6 +10143,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/awaymission/undergroundoutpost45/research)
+"YG" = (
+/obj/machinery/airalarm/all_access{
+	pixel_y = 23;
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Research Lab"
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/undergroundoutpost45/research)
 "YI" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -10233,6 +10224,15 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/undergroundoutpost45/crew_quarters)
+"YW" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Engineering Secure Storage"
+	},
+/turf/open/floor/plating,
+/area/awaymission/undergroundoutpost45/engineering)
 "Za" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -29678,7 +29678,7 @@ JZ
 JZ
 FC
 ON
-Ro
+eY
 ZZ
 gv
 gK
@@ -29930,9 +29930,9 @@ ad
 ad
 gv
 JZ
-uh
-uh
-uh
+ED
+ED
+ED
 HT
 tQ
 Lh
@@ -30187,9 +30187,9 @@ ad
 ad
 gv
 JZ
-uh
+ED
 JZ
-tA
+qo
 Bm
 Lb
 BJ
@@ -30444,9 +30444,9 @@ ad
 ad
 gw
 JZ
-uh
-uh
-uh
+ED
+ED
+ED
 Jp
 Rj
 eN
@@ -30710,7 +30710,7 @@ Zr
 SM
 gv
 gK
-kC
+Jd
 Lb
 LM
 gK
@@ -33794,7 +33794,7 @@ fh
 Rr
 gw
 Ie
-at
+DS
 gw
 Hn
 fh
@@ -35841,7 +35841,7 @@ ad
 ad
 ad
 gy
-Px
+YG
 HR
 Hg
 QX
@@ -36869,7 +36869,7 @@ ad
 ad
 gz
 gz
-IL
+eB
 fj
 SU
 Tr
@@ -37139,7 +37139,7 @@ Qy
 JF
 hM
 hM
-qO
+RZ
 Bc
 DP
 gy
@@ -37649,7 +37649,7 @@ fh
 QE
 gz
 IB
-ep
+FO
 gx
 gy
 gx
@@ -37909,7 +37909,7 @@ PK
 PS
 Yy
 OU
-cb
+Ds
 QF
 wY
 nf
@@ -38423,7 +38423,7 @@ Ag
 PS
 Yy
 TL
-bh
+IR
 zJ
 zJ
 hi
@@ -39944,7 +39944,7 @@ NC
 Qn
 EC
 Qi
-mH
+qI
 an
 SN
 sp
@@ -40957,7 +40957,7 @@ cF
 SG
 OM
 Pi
-yx
+rr
 Cy
 HZ
 bR
@@ -41489,7 +41489,7 @@ ai
 Hu
 lT
 SI
-sw
+VP
 ae
 fK
 Xe
@@ -41724,7 +41724,7 @@ Di
 Or
 Eo
 qE
-QS
+io
 yL
 Az
 ti
@@ -42279,7 +42279,7 @@ fN
 WU
 UK
 nA
-fg
+Te
 Zt
 JV
 Ol
@@ -44312,7 +44312,7 @@ jv
 Eo
 Or
 Or
-TW
+QG
 GM
 qE
 fh
@@ -44325,7 +44325,7 @@ Xe
 Zq
 Ue
 Zq
-Lu
+jf
 Zq
 Zq
 Ck
@@ -44584,11 +44584,11 @@ IE
 Ig
 Ig
 Ig
-KM
+iE
 Ck
 Ig
 Zi
-KZ
+nv
 fO
 lh
 FV
@@ -44827,7 +44827,7 @@ Or
 Or
 Or
 Or
-xL
+By
 an
 VW
 fh
@@ -44836,7 +44836,7 @@ fh
 WE
 fh
 gg
-FB
+br
 Uj
 Ig
 Ig
@@ -45095,10 +45095,10 @@ ad
 fK
 Qu
 Uj
-Eh
+mk
 eT
 zj
-PG
+HF
 Ig
 Uk
 Cz
@@ -45336,13 +45336,13 @@ an
 yJ
 df
 GE
-Lc
+aF
 Or
 Or
 Or
 Or
 MX
-Um
+bH
 fK
 fK
 gg
@@ -45385,7 +45385,7 @@ et
 vL
 Vx
 Le
-Bf
+OV
 KW
 cR
 ZP
@@ -45626,7 +45626,7 @@ Kb
 aX
 aX
 gk
-HS
+eg
 Nm
 An
 Xu
@@ -45864,8 +45864,8 @@ Dg
 UG
 Sc
 Qj
-zn
-AW
+We
+pJ
 QN
 DU
 Rx
@@ -46376,7 +46376,7 @@ fO
 Mk
 fO
 fO
-OF
+vT
 Qj
 Qj
 AC
@@ -46635,11 +46635,11 @@ UQ
 fN
 Hm
 NZ
-bo
+zY
 Of
 Df
-zU
-Xp
+nE
+rX
 jC
 Id
 DK
@@ -48714,8 +48714,8 @@ DB
 zD
 JG
 uc
-Nj
-cS
+cY
+Ma
 XO
 ew
 ni
@@ -49997,12 +49997,12 @@ ni
 hL
 zC
 Tn
-hQ
+Dt
 YC
 Mq
 zD
 NW
-us
+MA
 wn
 uE
 Ij
@@ -51527,7 +51527,7 @@ ad
 ad
 ad
 ln
-rm
+YW
 Ch
 OP
 Sr
@@ -52306,12 +52306,12 @@ ln
 ln
 ni
 ln
-sD
+RU
 LG
 Lw
 eU
 er
-pB
+el
 hj
 ve
 vE
@@ -52563,7 +52563,7 @@ ln
 oZ
 pE
 bm
-oD
+as
 AT
 Jn
 VC
@@ -53082,7 +53082,7 @@ Eg
 Ai
 av
 Qv
-CD
+jG
 hj
 vg
 vG
@@ -53337,7 +53337,7 @@ ln
 WI
 WI
 KC
-sB
+Rt
 Fc
 EH
 ni
