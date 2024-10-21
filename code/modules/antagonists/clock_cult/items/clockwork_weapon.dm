@@ -140,7 +140,7 @@
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
+/obj/item/clockwork/weapon/brass_sword/attack_atom(obj/O, mob/living/user)
 	..()
 	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return

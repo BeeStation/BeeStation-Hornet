@@ -177,7 +177,6 @@
 	Kill or exile all heads of staff on the station."
 	antag_datum = /datum/antagonist/rev/head
 	preview_outfit = /datum/outfit/revolutionary
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
 
 /datum/outfit/revolutionary
 	name = "Revolutionary (Preview only)"
@@ -251,32 +250,6 @@
 	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
-
-/datum/role_preference/antagonist/hivemind_host
-	name = "Hivemind Host"
-	description = "A powerful host of a Hivemind. Assimilate crew into your hive to grow your power. \
-	Use the members of your hive as machines in your objectives, and work with or against other Hiveminds on the station."
-	antag_datum = /datum/antagonist/hivemind
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/role_preference/antagonist/hivemind_host/get_preview_icon()
-	var/icon/background = icon('icons/effects/hivemind.dmi', "awoken")
-	var/icon/outfit = render_preview_outfit(/datum/outfit/hivemind_host_preview)
-	background.Blend(outfit, ICON_OVERLAY)
-	return finish_preview_icon(background)
-
-/datum/outfit/hivemind_host_preview
-	name = "Hivemind Host (Preview only)"
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	uniform = /obj/item/clothing/under/rank/civilian/bartender
-	suit = /obj/item/clothing/suit/armor/vest
-
-/datum/outfit/hivemind_host_preview/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	H.hair_style = "Bob Hair 4"
-	H.hair_color = "111"
-	H.gradient_style = "Reflected Inverse"
-	H.gradient_color = "808"
-	H.update_hair()
 
 /datum/role_preference/antagonist/incursionist
 	name = "Incursionist"

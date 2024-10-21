@@ -108,11 +108,11 @@
 			return
 	..()
 
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
+/obj/item/modular_computer/tablet/attack_atom(obj/target, mob/living/user)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the gas scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
+		if(thread.use_attack_obj && !thread.attack_atom(target, user))
 			return
 	..()
 

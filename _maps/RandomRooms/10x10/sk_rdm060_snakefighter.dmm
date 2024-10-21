@@ -116,7 +116,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "x" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
