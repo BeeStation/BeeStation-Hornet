@@ -53,7 +53,7 @@
 	item_state = "spickaxe"
 	worn_icon_state = "spickaxe"
 	toolspeed = 0.5
-	stamina_use = 4 //costs less stamina because silver is lighter??
+	stamina_use = 3 //costs less stamina because silver is lighter??
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	force = 17
 
