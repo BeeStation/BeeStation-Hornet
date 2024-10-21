@@ -49,7 +49,7 @@
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0)
+	if(. && atom_integrity > 0)
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom()
 
