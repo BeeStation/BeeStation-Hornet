@@ -116,7 +116,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 /obj/structure/anchored_mjolnir/Destroy()
 	if(contained)
 		QDEL_NULL(contained)
-	. = ..()
+	return ..()
 
 /obj/structure/anchored_mjolnir/attack_hand(mob/user)
 	. = ..()

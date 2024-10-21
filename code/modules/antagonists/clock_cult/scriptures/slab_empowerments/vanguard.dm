@@ -36,3 +36,9 @@
 	REMOVE_TRAIT(invoker, TRAIT_NOSTAMCRIT, VANGUARD_TRAIT)
 	REMOVE_TRAIT(invoker, TRAIT_NOLIMBDISABLE, VANGUARD_TRAIT)
 	..()
+
+// Due to how files are formatted this is put here.
+
+#undef KINDLE
+#undef MANACLES
+#undef COMPROMISE

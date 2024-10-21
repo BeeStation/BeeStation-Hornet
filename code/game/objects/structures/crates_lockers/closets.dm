@@ -66,6 +66,10 @@
 	if (mapload && !opened)
 		. = INITIALIZE_HINT_LATELOAD
 	populate_contents_immediate()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_MAGICALLY_UNLOCKED = PROC_REF(on_magic_unlock),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	update_icon()
 
 /obj/structure/closet/LateInitialize()

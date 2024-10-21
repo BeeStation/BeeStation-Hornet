@@ -9,11 +9,11 @@
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 1
 	power_cost = 80
-	empowerment = "compromise"
+	empowerment = COMPROMISE
 
 //For the Sentinel's Compromise scripture; heals a clicked_on servant.
 
-/obj/item/clockwork/clockwork_slab/proc/sentinels_compromise(mob/living/caller, atom/clicked_on)
+/datum/clockcult/scripture/slab/proc/sentinels_compromise(mob/living/caller, atom/clicked_on)
 	empowerment = null
 	var/turf/T = caller.loc
 	if(!isturf(T))

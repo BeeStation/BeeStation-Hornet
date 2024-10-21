@@ -1,3 +1,8 @@
+
+#define KINDLE 0
+#define MANACLES 1
+#define COMPROMISE 2
+
 /datum/clockcult/scripture
 	var/name = ""
 	var/desc = ""
@@ -207,6 +212,19 @@
 	empowerment = null
 	end_invoke()
 
+
+/datum/clockcult/scripture/slab/proc/on_slab_attack(atom/target, mob/user)
+	switch(empowerment)
+		if(KINDLE)
+			kindle(user, target)
+			end_invokation()
+		if(MANACLES)
+			hateful_manacles(user, target)
+			end_invokation()
+		if(COMPROMISE)
+			sentinels_compromise(user, target)
+			end_invokation()
+	return
 
 //==================================//
 // !       Quick bind spell       ! //

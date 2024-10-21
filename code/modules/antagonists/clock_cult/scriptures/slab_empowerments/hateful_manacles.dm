@@ -13,11 +13,11 @@
 	use_time = 200
 	cogs_required = 0
 	category = SPELLTYPE_SERVITUDE
-	empowerment = "manacles"
+	empowerment = MANACLES
 
 //For the Hateful Manacles scripture; applies replicant handcuffs to the clicked_on.
 
-/obj/item/clockwork/clockwork_slab/proc/hateful_manacles(mob/living/caller, atom/clicked_on)
+/datum/clockcult/scripture/slab/proc/hateful_manacles(mob/living/caller, atom/clicked_on)
 	empowerment = null
 	var/turf/T = caller.loc
 	if(!isturf(T))

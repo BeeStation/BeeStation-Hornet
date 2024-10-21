@@ -45,7 +45,6 @@
 	ghostize()
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
-	actions?.Cut()
 	return ..()
 
 /**

@@ -930,7 +930,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 /client/proc/give_all_spells_touch()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all touch spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -938,7 +938,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_aoe()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all aoe spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -946,7 +946,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_cone()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all cone spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -954,7 +954,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_conjure()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all conjure spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -962,7 +962,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_conjure_item()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all conjure item spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -970,7 +970,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_jaunt()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all jaunt spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -978,7 +978,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_list_targets()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all list targets spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -986,7 +986,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_pointed()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all painted spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -994,7 +994,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_projectile()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all projectile spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -1002,7 +1002,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_shapeshift()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all shapeshift spells"
 	if(!check_rights(R_DEBUG))
 		return
@@ -1010,7 +1010,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_teleport()
-	set category = "Debug Spell"
+	set category = "Debug"
 	set name = "Give all teleport spells"
 	if(!check_rights(R_DEBUG))
 		return

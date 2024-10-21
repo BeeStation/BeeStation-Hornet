@@ -9,9 +9,6 @@
 ///From mob/living/carbon/human/suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
-/// Default behavior is to use a charge, so return this to blocks the mansus fist from being consumed after use.
-#define COMPONENT_BLOCK_CHARGE_USE (1<<0)
-
 ///called from /obj/effect/proc_holder/spell/cast_check (src)
 #define COMSIG_MOB_PRE_CAST_SPELL "mob_cast_spell"
 	/// Return to cancel the cast from beginning.

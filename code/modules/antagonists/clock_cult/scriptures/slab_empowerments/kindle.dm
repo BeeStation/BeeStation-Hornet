@@ -14,11 +14,11 @@
 	use_time = 150
 	cogs_required = 1
 	category = SPELLTYPE_SERVITUDE
-	empowerment = "kindle"
+	empowerment = KINDLE
 
 //For the Kindle scripture; stuns and mutes a clicked_on non-servant.
 
-/obj/item/clockwork/clockwork_slab/proc/kindle(mob/living/caller, mob/living/clicked_on)
+/datum/clockcult/scripture/slab/proc/kindle(mob/living/caller, mob/living/clicked_on)
 	empowerment = null
 	to_chat(caller, ("<span class='brass'>You release the light of Ratvar!</span>"))
 	clockwork_say(caller, text2ratvar("Purge all untruths and honor Engine!"))
