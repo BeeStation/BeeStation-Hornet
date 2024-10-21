@@ -6404,11 +6404,9 @@
 /turf/open/floor/carpet,
 /area/wizard_station)
 "xB" = (
-/mob/living/simple_animal/bot/medbot{
-	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern.";
-	name = "Hattori";
-	radio_key = null;
-	stationary_mode = 1
+/mob/living/simple_animal/bot/medbot/nukie{
+	name = "\improper Hattori";
+	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern."
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
