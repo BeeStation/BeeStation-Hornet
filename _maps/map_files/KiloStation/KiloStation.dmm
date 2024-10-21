@@ -14656,6 +14656,11 @@
 /area/security/execution/education)
 "cTm" = (
 /obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 4;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	req_access_txt = "16"atom_integrity=300;
 	atom_integrity = 300
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -42877,6 +42882,11 @@
 	pixel_y = 28
 	},
 /obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 8;
+	icon_state = "leftsecure";
+	name = "Primary AI Core Access";
+	req_access_txt = "16"atom_integrity=300;
 	atom_integrity = 300
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
