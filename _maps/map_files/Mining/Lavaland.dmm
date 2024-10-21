@@ -641,6 +641,7 @@
 "eq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/portable_thermomachine,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "er" = (
@@ -3545,6 +3546,7 @@
 "Ab" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "Ah" = (
@@ -3890,6 +3892,7 @@
 "Cv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "CC" = (
@@ -4287,7 +4290,6 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "FI" = (
@@ -4832,6 +4834,7 @@
 /obj/structure/closet/crate,
 /obj/item/toy/plush/moth/bluespace,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "Jr" = (
