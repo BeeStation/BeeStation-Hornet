@@ -72460,8 +72460,8 @@
 /obj/structure/sign/poster/official/nanomichi_ad{
 	pixel_y = 32
 	},
-/obj/machinery/stasis{
-	dir = 8
+/obj/structure/bed{
+	dir = 4
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
