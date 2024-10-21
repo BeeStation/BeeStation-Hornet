@@ -38099,6 +38099,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/circuit,
 /area/gateway)
 "sWP" = (

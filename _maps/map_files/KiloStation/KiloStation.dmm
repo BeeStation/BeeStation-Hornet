@@ -5032,9 +5032,6 @@
 "azH" = (
 /obj/machinery/gateway/centerstation,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -5648,7 +5645,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/maintenance{
 	name = "Gateway Maintenance";
-	req_access_txt = "17";
+	req_access_txt = "62";
 	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -21058,6 +21055,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "cvR" = (
@@ -21250,7 +21248,7 @@
 	id = "gatewayshutters";
 	name = "Gateway Shutters";
 	pixel_x = -26;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -34913,9 +34911,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -35211,10 +35206,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/gateway,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -56008,6 +55999,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron,
 /area/gateway)
 "mGA" = (
@@ -57540,9 +57532,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -62330,9 +62319,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},

@@ -13678,8 +13678,8 @@
 "bQx" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Gateway Maintenance";
-	req_access_txt = "17";
-	security_level = 6
+	security_level = 6;
+	req_one_access_txt = "62"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -13987,7 +13987,7 @@
 	id = "gateshutter";
 	name = "Gateway Shutter Control";
 	pixel_y = -26;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /obj/effect/turf_decal/bot{
 	dir = 1
@@ -14394,7 +14394,7 @@
 	id = "gateshutter";
 	name = "Gateway Shutter Control";
 	pixel_y = 26;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -41615,10 +41615,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "kHk" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
 /turf/open/floor/iron/dark,
 /area/gateway)
 "kHK" = (
@@ -65614,6 +65615,9 @@
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/gateway)
 "ttk" = (

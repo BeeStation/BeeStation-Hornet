@@ -19710,9 +19710,6 @@
 /area/gateway)
 "cAj" = (
 /obj/machinery/gateway/centerstation,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/gateway)
@@ -20591,9 +20588,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Gateway Chamber";
 	req_access_txt = "62"
@@ -20606,15 +20600,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron,
-/area/gateway)
-"cEY" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/open/floor/iron,
 /area/gateway)
 "cFa" = (
@@ -21394,7 +21379,7 @@
 	id = "gatewayshutters";
 	name = "Gateway Shutters";
 	pixel_x = -26;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -29747,9 +29732,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "dVp" = (
 /obj/machinery/holopad,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -55290,12 +55272,6 @@
 /area/maintenance/starboard)
 "lNf" = (
 /obj/machinery/gateway,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box,
@@ -57907,9 +57883,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "mFt" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -137719,7 +137692,7 @@ vRb
 riC
 epQ
 mXa
-cEY
+cAd
 cGD
 cHQ
 cIF

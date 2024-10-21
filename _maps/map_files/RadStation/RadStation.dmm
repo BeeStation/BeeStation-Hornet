@@ -45589,7 +45589,7 @@
 	name = "Gateway Shutters";
 	pixel_x = -4;
 	pixel_y = 31;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /turf/open/floor/iron,
 /area/gateway)

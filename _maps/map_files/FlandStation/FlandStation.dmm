@@ -2962,17 +2962,6 @@
 /obj/effect/turf_decal/stripes/full,
 /turf/open/floor/iron/techmaint,
 /area/gateway)
-"aKP" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "gateshutter";
-	name = "Gateway Access Shutter"
-	},
-/obj/effect/turf_decal/stripes/full,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/gateway)
 "aKR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -17947,7 +17936,7 @@
 	id = "gateshutter";
 	name = "Gateway Access Shutters Control";
 	pixel_y = -24;
-	req_access_txt = "57"
+	req_access_txt = "62"
 	},
 /turf/open/floor/iron/dark,
 /area/gateway)
@@ -36128,15 +36117,6 @@
 	},
 /turf/open/floor/vault,
 /area/engine/supermatter)
-"jlM" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/open/floor/iron/dark,
-/area/gateway)
 "jlY" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Storage Room";
@@ -69008,9 +68988,6 @@
 /area/crew_quarters/locker)
 "rML" = (
 /obj/machinery/gateway,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
@@ -113867,8 +113844,8 @@ vDW
 eSm
 hpY
 rML
-aKP
-jlM
+aKC
+sYV
 aTQ
 vDW
 suE

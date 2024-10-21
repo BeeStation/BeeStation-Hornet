@@ -516,6 +516,12 @@
 "dt" = (
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
+"dA" = (
+/obj/structure/sign/poster/official/science{
+	pixel_x = 32
+	},
+/turf/open/floor/iron,
+/area/mine/living_quarters)
 "dG" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
@@ -623,14 +629,12 @@
 /turf/open/floor/iron/dark,
 /area/mine/science)
 "ei" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
 /obj/structure/table,
 /obj/item/hand_labeler,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron/dark,
 /area/mine/eva)
 "ek" = (
@@ -641,7 +645,9 @@
 "eq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/portable_thermomachine,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/open/floor/plating,
 /area/mine/gateway)
 "er" = (
@@ -723,6 +729,9 @@
 "eB" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
@@ -961,6 +970,7 @@
 /area/mine/science)
 "gb" = (
 /obj/machinery/recharge_station,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
 /area/mine/eva)
 "ge" = (
@@ -999,6 +1009,10 @@
 "go" = (
 /turf/closed/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors/unexplored/danger)
+"gp" = (
+/obj/item/radio/intercom/directional/north,
+/turf/open/floor/iron,
+/area/mine/living_quarters)
 "gs" = (
 /obj/machinery/button/door{
 	id = "miningdorm3";
@@ -1016,6 +1030,7 @@
 "gu" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/bot,
+/obj/item/toy/plush/moth/punished,
 /turf/open/floor/iron,
 /area/mine/laborcamp)
 "gx" = (
@@ -1066,6 +1081,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/safety_internals{
+	pixel_x = -32
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
@@ -1314,10 +1332,16 @@
 	dir = 4;
 	id = "gulag"
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/open/floor/iron,
 /area/mine/laborcamp)
 "iC" = (
 /obj/structure/tank_dispenser/oxygen,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/dark,
 /area/mine/eva)
 "iF" = (
@@ -1334,6 +1358,9 @@
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
 "iP" = (
+/obj/structure/sign/poster/official/help_others{
+	pixel_x = 32
+	},
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
 "iQ" = (
@@ -1358,6 +1385,12 @@
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile/block{
 	dir = 1
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"iW" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -2364,6 +2397,11 @@
 "qt" = (
 /turf/closed/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
+"qw" = (
+/obj/machinery/vendor/mining,
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/open/floor/iron/dark,
+/area/mine/gateway)
 "qy" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/chem_heater,
@@ -2510,6 +2548,9 @@
 	pixel_x = -4
 	},
 /obj/item/book/granter/crafting_recipe/cooking_sweets_101,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
 "rN" = (
@@ -2984,6 +3025,13 @@
 "vy" = (
 /turf/closed/wall/r_wall,
 /area/mine/maintenance)
+"vz" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/open/floor/iron,
+/area/mine/gateway)
 "vG" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -3209,6 +3257,7 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron,
 /area/mine/gateway)
 "xl" = (
@@ -3546,7 +3595,6 @@
 "Ab" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "Ah" = (
@@ -3701,6 +3749,9 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
 "Bq" = (
@@ -3735,6 +3786,9 @@
 "By" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/bot,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/iron,
 /area/mine/laborcamp)
 "BA" = (
@@ -3843,6 +3897,9 @@
 /obj/machinery/camera/directional/south{
 	c_tag = "Mining area External"
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/eva)
 "Cj" = (
@@ -3876,6 +3933,9 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/open/floor/iron,
 /area/mine/gateway)
 "Ct" = (
@@ -3892,7 +3952,6 @@
 "Cv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "CC" = (
@@ -3979,6 +4038,9 @@
 /area/mine/living_quarters)
 "Di" = (
 /obj/machinery/light/small,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/eva)
 "Dj" = (
@@ -4290,7 +4352,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor/iron,
 /area/mine/gateway)
 "FI" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4408,6 +4470,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron,
 /area/mine/gateway)
 "Gw" = (
@@ -4521,6 +4584,9 @@
 /area/mine/production)
 "Hl" = (
 /obj/machinery/iv_drip,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
 "Ho" = (
@@ -4652,9 +4718,19 @@
 	},
 /turf/open/floor/iron,
 /area/mine/science)
+"HV" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/open/floor/iron/dark,
+/area/mine/eva)
 "Ic" = (
 /obj/machinery/deepfryer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/sign/poster/official/moth1{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/checker,
 /area/mine/production)
 "Ih" = (
@@ -4834,7 +4910,7 @@
 /obj/structure/closet/crate,
 /obj/item/toy/plush/moth/bluespace,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/lattice/catwalk/over,
+/obj/item/poster/random_official,
 /turf/open/floor/plating,
 /area/mine/gateway)
 "Jr" = (
@@ -5100,8 +5176,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor/iron,
 /area/mine/gateway)
 "KX" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5434,6 +5509,9 @@
 	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/open/floor/iron/checker,
 /area/mine/production)
 "NJ" = (
@@ -5719,6 +5797,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
+"PH" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/open/floor/iron/techmaint,
+/area/mine/laborcamp)
 "PI" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -6724,6 +6809,10 @@
 	},
 /turf/open/floor/iron,
 /area/mine/science)
+"Xd" = (
+/obj/item/radio/intercom/directional/north,
+/turf/open/floor/iron,
+/area/mine/production)
 "Xh" = (
 /obj/structure/toilet{
 	dir = 4
@@ -6999,6 +7088,9 @@
 	pixel_x = 3
 	},
 /obj/item/reagent_containers/condiment/flour,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
 "YM" = (
@@ -33866,7 +33958,7 @@ fM
 jG
 tL
 RN
-uI
+PH
 nE
 bO
 CL
@@ -37720,7 +37812,7 @@ Ku
 Ku
 Ku
 lw
-HM
+vz
 tI
 DX
 AE
@@ -38234,9 +38326,9 @@ jm
 LX
 DO
 qO
-qO
+qw
 tI
-DN
+Xd
 uF
 DN
 aT
@@ -40546,7 +40638,7 @@ wS
 iC
 Yl
 sE
-Wn
+HV
 AF
 wS
 jw
@@ -44143,7 +44235,7 @@ kV
 YN
 oN
 ZH
-MZ
+gp
 Wg
 QV
 wz
@@ -45687,7 +45779,7 @@ xy
 vy
 gl
 EK
-MZ
+dA
 Fa
 ZH
 IJ
@@ -51582,7 +51674,7 @@ Zd
 Zd
 Zd
 Zd
-Zd
+iW
 jh
 mp
 jh
