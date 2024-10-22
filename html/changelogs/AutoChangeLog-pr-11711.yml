@@ -1,0 +1,5 @@
+author: NotRanged
+delete-after: true
+changes:
+  - rscadd: Emitters now fire hitscan lasers!
+  - bugfix: Hitscan projectiles now reflect correctly
