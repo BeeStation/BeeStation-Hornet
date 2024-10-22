@@ -1,5 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - tweak: Adds the ability to set Conveyor Belt direction directly from USB circuit
-      Connections
