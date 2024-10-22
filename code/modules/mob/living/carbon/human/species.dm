@@ -164,6 +164,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///List of results you get from knife-butchering. null means you cant butcher it. Associated by resulting type - value of amount
 	var/list/knife_butcher_results
 
+	/// This supresses the "dosen't appear to be himself" examine text for if the mob is run by an AI controller. Should be used on any NPC human subtypes. Monkeys are the prime example.
+	var/ai_controlled_species = FALSE
+
 ///////////
 // PROCS //
 ///////////
