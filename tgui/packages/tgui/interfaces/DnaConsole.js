@@ -1179,9 +1179,11 @@ const GeneticMakeupInfo = (props, context) => {
 const GeneticMakeupBufferInfo = (props, context) => {
   const { index, makeup } = props;
   const { act, data } = useBackend(context);
-  const { isViableSubject, hasDisk, diskReadOnly, isInjectorReady } = data;
+  const { isViableSubject, hasDisk, diskReadOnly, isInjectorReady, selectedMakeup } = data;
+  const { useIdentity, useEnzymes, useFeatures } = selectedMakeup;
   // Type of the action for applying makeup
   const ACTION_MAKEUP_APPLY = isViableSubject ? 'makeup_apply' : 'makeup_delay';
+  const MAKEUP_SELECTED = useIdentity || useEnzymes || useFeatures;
   if (!makeup) {
     return <Box color="average">No stored subject data.</Box>;
   }
@@ -1193,99 +1195,58 @@ const GeneticMakeupBufferInfo = (props, context) => {
         Makeup Actions
       </Box>
       <LabeledList>
-        <LabeledList.Item label="Enzymes">
-          <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
+        <LabeledList.Item label="Select">
+          <Button.Checkbox
+            checked={useIdentity}
+            content="Identity"
             onClick={() =>
-              act('makeup_injector', {
-                index,
-                type: 'ue',
-              })
-            }
-          />
-          <Button
-            icon="exchange-alt"
-            onClick={() =>
-              act(ACTION_MAKEUP_APPLY, {
-                index,
-                type: 'ue',
-              })
-            }>
-            Transfer
-            {!isViableSubject && ' (Delayed)'}
-          </Button>
-        </LabeledList.Item>
-        <LabeledList.Item label="Identity">
-          <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
-            onClick={() =>
-              act('makeup_injector', {
+              act('select_makeup_type', {
                 index,
                 type: 'ui',
               })
             }
           />
-          <Button
-            icon="exchange-alt"
+          <Button.Checkbox
+            checked={useEnzymes}
+            content="Enzymes"
             onClick={() =>
-              act(ACTION_MAKEUP_APPLY, {
+              act('select_makeup_type', {
                 index,
-                type: 'ui',
+                type: 'ue',
               })
-            }>
-            Transfer
-            {!isViableSubject && ' (Delayed)'}
-          </Button>
-        </LabeledList.Item>
-        <LabeledList.Item label="Features">
-          <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
+            }
+          />
+          <Button.Checkbox
+            checked={useFeatures}
+            content="Features"
             onClick={() =>
-              act('makeup_injector', {
+              act('select_makeup_type', {
                 index,
                 type: 'uf',
               })
             }
           />
-          <Button
-            icon="exchange-alt"
-            onClick={() =>
-              act(ACTION_MAKEUP_APPLY, {
-                index,
-                type: 'uf',
-              })
-            }>
-            Transfer
-            {!isViableSubject && ' (Delayed)'}
-          </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Full Makeup">
+        <LabeledList.Item label="Inject">
           <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
+            icon="print"
+            disabled={!(isInjectorReady && MAKEUP_SELECTED)}
+            content="Print Timed Injector"
             onClick={() =>
               act('makeup_injector', {
                 index,
-                type: 'mixed',
               })
             }
           />
           <Button
             icon="exchange-alt"
+            disabled={!MAKEUP_SELECTED}
             onClick={() =>
               act(ACTION_MAKEUP_APPLY, {
                 index,
-                type: 'mixed',
               })
             }>
-            Transfer
+            Inject Into Subject
             {!isViableSubject && ' (Delayed)'}
           </Button>
         </LabeledList.Item>
