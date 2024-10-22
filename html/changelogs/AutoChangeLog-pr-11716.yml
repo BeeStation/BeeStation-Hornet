@@ -1,9 +1,0 @@
-author: Sarchutar, tralezab, Timberpoes, CoffeeDragon16, san7890, MrMelbert, Arkatos1
-delete-after: true
-changes:
-  - rscadd: Wizard Spellbook TGUI, with a randomizer and four presets
-  - bugfix: slaughter demon bottles and apprentice contracts now give back their full
-      point amount when refunded
-  - bugfix: refunding a laughter demon doesn't raise the buy limit of slaughter demons
-      anymore
-  - bugfix: liches and mindswapped wizard can use their spellbook again

@@ -1,8 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: the oven tray should no longer appear above the oven when it should be
-      inside
-  - bugfix: only roundstart ovens start with trays inside. Make them from autolathes.
-  - bugfix: ovens obey pass flags
-  - code_imp: fixes drinks updatepaths
