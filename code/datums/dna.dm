@@ -192,6 +192,22 @@
 		L[DNA_IPC_ANTENNA_BLOCK] = construct_block(GLOB.ipc_antennas_list.Find(features["ipc_antenna"]), GLOB.ipc_antennas_list.len)
 	if(features["ipc_chassis"])
 		L[DNA_IPC_CHASSIS_BLOCK] = construct_block(GLOB.ipc_chassis_list.Find(features["ipc_chassis"]), GLOB.ipc_chassis_list.len)
+	if(features["diona_leaves"])
+		L[DNA_DIONA_LEAVES_BLOCK] = construct_block(GLOB.diona_leaves_list.Find(features["diona_leaves"]), GLOB.diona_leaves_list.len)
+	if(features["diona_thorns"])
+		L[DNA_DIONA_THORNS_BLOCK] = construct_block(GLOB.diona_thorns_list.Find(features["diona_thorns"]), GLOB.diona_thorns_list.len)
+	if(features["diona_flowers"])
+		L[DNA_DIONA_FLOWERS_BLOCK] = construct_block(GLOB.diona_flowers_list.Find(features["diona_flowers"]), GLOB.diona_flowers_list.len)
+	if(features["diona_moss"])
+		L[DNA_DIONA_MOSS_BLOCK] = construct_block(GLOB.diona_moss_list.Find(features["diona_moss"]), GLOB.diona_moss_list.len)
+	if(features["diona_mushroom"])
+		L[DNA_DIONA_MUSHROOM_BLOCK] = construct_block(GLOB.diona_mushroom_list.Find(features["diona_mushroom"]), GLOB.diona_mushroom_list.len)
+	if(features["diona_antennae"])
+		L[DNA_DIONA_ANTENNAE_BLOCK] = construct_block(GLOB.diona_antennae_list.Find(features["diona_antennae"]), GLOB.diona_antennae_list.len)
+	if(features["diona_eyes"])
+		L[DNA_DIONA_EYES_BLOCK] = construct_block(GLOB.diona_eyes_list.Find(features["diona_eyes"]), GLOB.diona_eyes_list.len)
+	if(features["diona_pbody"])
+		L[DNA_DIONA_PBODY_BLOCK] = construct_block(GLOB.diona_pbody_list.Find(features["diona_pbody"]), GLOB.diona_pbody_list.len)
 
 	for(var/i in 1 to DNA_FEATURE_BLOCKS)
 		data += (L[i] || random_string(DNA_BLOCK_SIZE,GLOB.hex_characters))
@@ -333,6 +349,22 @@
 			setblock(unique_features, blocknumber, construct_block(GLOB.ipc_antennas_list.Find(features["ipc_antenna"]), GLOB.ipc_antennas_list.len))
 		if(DNA_IPC_CHASSIS_BLOCK)
 			setblock(unique_features, blocknumber, construct_block(GLOB.ipc_chassis_list.Find(features["ipc_chassis"]), GLOB.ipc_chassis_list.len))
+		if(DNA_DIONA_LEAVES_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_leaves_list.Find(features["diona_leaves"]), GLOB.diona_leaves_list.len))
+		if(DNA_DIONA_THORNS_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_thorns_list.Find(features["diona_thorns"]), GLOB.diona_thorns_list.len))
+		if(DNA_DIONA_FLOWERS_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_flowers_list.Find(features["diona_flowers"]), GLOB.diona_flowers_list.len))
+		if(DNA_DIONA_MOSS_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_moss_list.Find(features["diona_moss"]), GLOB.diona_moss_list.len))
+		if(DNA_DIONA_MUSHROOM_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_mushroom_list.Find(features["diona_mushroom"]), GLOB.diona_mushroom_list.len))
+		if(DNA_DIONA_ANTENNAE_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_antennae_list.Find(features["diona_antennae"]), GLOB.diona_antennae_list.len))
+		if(DNA_DIONA_EYES_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_eyes_list.Find(features["diona_eyes"]), GLOB.diona_eyes_list.len))
+		if(DNA_DIONA_PBODY_BLOCK)
+			setblock(unique_features, blocknumber, construct_block(GLOB.diona_pbody_list.Find(features["diona_pbody"]), GLOB.diona_pbody_list.len))
 
 //Please use add_mutation or activate_mutation instead
 /datum/dna/proc/force_give(datum/mutation/HM)
@@ -593,6 +625,22 @@
 		dna.features["ipc_antenna"] = GLOB.ipc_antennas_list[deconstruct_block(getblock(features, DNA_IPC_ANTENNA_BLOCK), GLOB.ipc_antennas_list.len)]
 	if(dna.features["ipc_chassis"])
 		dna.features["ipc_chassis"] = GLOB.ipc_chassis_list[deconstruct_block(getblock(features, DNA_IPC_CHASSIS_BLOCK), GLOB.ipc_chassis_list.len)]
+	if(dna.features["diona_leaves"])
+		dna.features["diona_leaves"] = GLOB.diona_leaves_list[deconstruct_block(getblock(features, DNA_DIONA_LEAVES_BLOCK), GLOB.diona_leaves_list.len)]
+	if(dna.features["diona_thorns"])
+		dna.features["diona_thorns"] = GLOB.diona_thorns_list[deconstruct_block(getblock(features, DNA_DIONA_THORNS_BLOCK), GLOB.diona_thorns_list.len)]
+	if(dna.features["diona_flowers"])
+		dna.features["diona_flowers"] = GLOB.diona_flowers_list[deconstruct_block(getblock(features, DNA_DIONA_FLOWERS_BLOCK), GLOB.diona_flowers_list.len)]
+	if(dna.features["diona_moss"])
+		dna.features["diona_moss"] = GLOB.diona_moss_list[deconstruct_block(getblock(features, DNA_DIONA_MOSS_BLOCK), GLOB.diona_moss_list.len)]
+	if(dna.features["diona_mushroom"])
+		dna.features["diona_mushroom"] = GLOB.diona_mushroom_list[deconstruct_block(getblock(features, DNA_DIONA_MUSHROOM_BLOCK), GLOB.diona_mushroom_list.len)]
+	if(dna.features["diona_antennae"])
+		dna.features["diona_antennae"] = GLOB.diona_antennae_list[deconstruct_block(getblock(features, DNA_DIONA_ANTENNAE_BLOCK), GLOB.diona_antennae_list.len)]
+	if(dna.features["diona_eyes"])
+		dna.features["diona_eyes"] = GLOB.diona_eyes_list[deconstruct_block(getblock(features, DNA_DIONA_EYES_BLOCK), GLOB.diona_eyes_list.len)]
+	if(dna.features["diona_pbody"])
+		dna.features["diona_pbody"] = GLOB.diona_pbody_list[deconstruct_block(getblock(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
 
 	// Ensure we update the skin tone of all non-foreign bodyparts
 	for(var/obj/item/bodypart/part in bodyparts)
