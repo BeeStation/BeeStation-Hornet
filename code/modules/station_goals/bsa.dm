@@ -269,8 +269,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 /obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
 	winding_up = FALSE
 	playsound(get_turf(src), fire_sound, 100, 1, world.maxx, pressure_affected = FALSE, ignore_walls = TRUE)
+	// we shake camera of every mob with client on the same zlevel as cannon, explosion itself handles shaking camera on target zlevel
 	for(var/mob/M in GLOB.mob_living_list)
-		if(!compare_z(M.get_virtual_z_level(), get_virtual_z_level()))
+		if(!M.client || !compare_z(M.get_virtual_z_level(), get_virtual_z_level()))
 			continue
 		shake_camera(M, 15, 1)
 
