@@ -1,7 +1,0 @@
-author: MarkusLarsson421
-delete-after: true
-changes:
-  - rscadd: Added anomaly cores to the Cargo bounty.
-  - rscadd: Added cores to be sellable, including ones made from the SM.
-  - balance: Added another method for Cargo to get fat stacks of cash.
-  - balance: Gave anomaly cores a non-bounty sell value, even ones made by the SM.
