@@ -56,7 +56,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	button_icon = 'icons/obj/food/piecake.dmi'
-	button_icon_state = "frostypie"
+	button_icon_state = "blumpkinpislice"
 
 
 
