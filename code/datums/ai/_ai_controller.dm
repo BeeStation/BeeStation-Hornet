@@ -273,5 +273,5 @@ multiple modular subtrees with behaviors
 
 /// If this controller is applied to a human subtype, this proc will be called to generate examine text
 /datum/ai_controller/proc/get_human_examine_text()
-	var/text = "[span_deadsay("[pawn.p_they(TRUE)] do[pawn.p_es()]n't appear to be [pawn.p_them()]self.")]"
+	var/text = "["<span class='deadsay'>[pawn.p_they(TRUE)] do[pawn.p_es()]n't appear to be [pawn.p_them()]self.</span>"]"
 	return text
