@@ -132,6 +132,7 @@
 	label_name = "formaldehyde"
 	desc = "A small bottle of formaldehyde."
 	list_reagents = list(/datum/reagent/toxin/formaldehyde = 30)
+	icon_state_preview = "bottle_formaldehyde"
 
 /obj/item/reagent_containers/cup/bottle/cryostylane
 	name = "cryostylane bottle"
