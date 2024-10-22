@@ -1651,7 +1651,6 @@
 	scanner_occupant = connected_scanner.occupant
 
 	if(!scanner_occupant.has_dna() || \
-	   (NO_DNA_COPY in scanner_occupant.dna.species.species_traits) || \
 	   HAS_TRAIT(scanner_occupant, TRAIT_RADIMMUNE))
 		return FALSE
 	else if(connected_scanner.scan_level >= 3) //A high scanner level overrides the below conditions
