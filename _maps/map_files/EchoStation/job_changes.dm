@@ -49,3 +49,4 @@ MAP_REMOVE_JOB(virologist)
 	GLOB.disabled_tagger_locations += "Law Office"
 
 #undef JOB_MODIFICATION_MAP_NAME
+

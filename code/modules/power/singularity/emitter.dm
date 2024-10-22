@@ -262,7 +262,7 @@
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/item)
 	. = ..()
-	default_unfasten_wrench(user, item)
+	default_unfasten_wrench(user, item, 15)
 	return TRUE
 
 /obj/machinery/power/emitter/welder_act(mob/living/user, obj/item/item)
@@ -277,7 +277,7 @@
 		user.visible_message("<span class='notice'>[user.name] starts to cut the [name] free from the floor.</span>", \
 			"<span class='notice'>You start to cut [src] free from the floor...</span>", \
 			"<span class='hear'>You hear welding.</span>")
-		if(!item.use_tool(src, user, 20, volume=50) || !welded)
+		if(!item.use_tool(src, user, 20, amount=7, volume=50)  || !welded)
 			return
 		welded = FALSE
 		to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
@@ -293,7 +293,7 @@
 	user.visible_message("<span class='notice'>[user.name] starts to weld the [name] to the floor.</span>", \
 		"<span class='notice'>You start to weld [src] to the floor...</span>", \
 		"<span class='hear'>You hear welding.</span>")
-	if(!item.use_tool(src, user, amount=20, volume=50) || !anchored)
+	if(!item.use_tool(src, user, 20, amount=7, volume=50) || !anchored)
 		return
 	welded = TRUE
 	to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
