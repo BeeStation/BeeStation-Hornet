@@ -795,6 +795,30 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
+"iG" = (
+/obj/structure/closet/secure_closet{
+	icon_state = "sec";
+	name = "security officer's locker";
+	req_access_txt = "201"
+	},
+/obj/item/clothing/suit/armor/vest,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/item/grenade/flashbang,
+/obj/item/storage/belt/security,
+/obj/item/reagent_containers/cup/glass/bottle/beer{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/obj/machinery/airalarm/unlocked{
+	pixel_y = 23;
+	req_access = null;
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/awaymission/moonoutpost19/research)
 "iH" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
@@ -899,15 +923,17 @@
 	dir = 5
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"jP" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/barman_recipes{
+"jq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/cup/rag{
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/cup/glass/shaker,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
+/obj/machinery/door/poddoor/shutters{
+	id = "awaykitchen";
+	name = "Serving Hatch"
 	},
+/turf/open/floor/carpet,
 /area/awaymission/moonoutpost19/arrivals)
 "jQ" = (
 /obj/structure/table,
@@ -1219,21 +1245,6 @@
 	dir = 8
 	},
 /obj/structure/chair/fancy/comfy,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/arrivals)
-"mE" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/whiskey{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 3
-	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/arrivals)
 "mF" = (
@@ -2033,14 +2044,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/hive)
-"uL" = (
-/obj/machinery/gateway,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "uU" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -2097,13 +2100,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
-"vB" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "vC" = (
 /obj/structure/sink{
 	dir = 4;
@@ -2170,6 +2166,20 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"wa" = (
+/obj/structure/closet/secure_closet{
+	locked = 0;
+	name = "kitchen Cabinet";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/showroomfloor{
+	initial_temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "wb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -2335,6 +2345,26 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
+"xd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
+"xl" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 3
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/arrivals)
 "xm" = (
 /obj/structure/sign/warning/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
@@ -2355,12 +2385,6 @@
 	name = "Unisex Restrooms"
 	},
 /turf/open/floor/iron/freezer,
-/area/awaymission/moonoutpost19/syndicate)
-"xx" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "xz" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -2438,14 +2462,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"yo" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "yr" = (
 /obj/item/shard{
@@ -2636,13 +2652,6 @@
 	name = "Dorm 2"
 	},
 /turf/open/floor/wood,
-/area/awaymission/moonoutpost19/syndicate)
-"Af" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "Aj" = (
 /obj/structure/chair{
@@ -3039,6 +3048,21 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
+"Dw" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "awaykitchen";
+	name = "Serving Hatch"
+	},
+/turf/open/floor/carpet,
+/area/awaymission/moonoutpost19/arrivals)
 "DG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3212,6 +3236,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
+"Ft" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "Fv" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -3876,13 +3904,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"Kg" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "Kr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -4061,6 +4082,20 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
+"LE" = (
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "refrigerator";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/storage/fancy/egg_box,
+/turf/open/floor/iron/showroomfloor{
+	initial_temperature = 273.15
+	},
 /area/awaymission/moonoutpost19/arrivals)
 "LG" = (
 /obj/structure/cable{
@@ -4286,18 +4321,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"Nv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/cup/rag{
-	pixel_y = 5
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "awaykitchen";
-	name = "Serving Hatch"
-	},
-/turf/open/floor/carpet,
-/area/awaymission/moonoutpost19/arrivals)
 "Nw" = (
 /obj/machinery/light{
 	dir = 4
@@ -4326,35 +4349,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"NE" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "awaykitchen";
-	name = "Serving Hatch"
-	},
-/turf/open/floor/carpet,
-/area/awaymission/moonoutpost19/arrivals)
-"NG" = (
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/storage/fancy/egg_box,
-/turf/open/floor/iron/showroomfloor{
-	initial_temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "NM" = (
 /turf/open/floor/iron{
 	dir = 8;
@@ -4455,13 +4449,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/freezer,
-/area/awaymission/moonoutpost19/syndicate)
-"OF" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "OJ" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
@@ -4707,6 +4694,16 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"PM" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/barman_recipes{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/shaker,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "PP" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
@@ -4744,13 +4741,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"PV" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "PX" = (
 /obj/structure/alien/weeds,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -4780,13 +4770,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/awaymission/moonoutpost19/research)
-"Qf" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "Qr" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -4837,6 +4820,13 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"QV" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "QW" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -4845,20 +4835,6 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"QX" = (
-/obj/structure/closet/secure_closet{
-	locked = 0;
-	name = "kitchen Cabinet";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/sugar,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/showroomfloor{
-	initial_temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "Rb" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -4901,30 +4877,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"Rn" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "sec";
-	name = "security officer's locker";
-	req_access_txt = "201"
-	},
-/obj/item/clothing/suit/armor/vest,
-/obj/item/reagent_containers/peppercloud_deployer,
-/obj/item/grenade/flashbang,
-/obj/item/storage/belt/security,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = -3;
-	pixel_y = -2
-	},
-/obj/machinery/airalarm/unlocked{
-	pixel_y = 23;
-	req_access = null;
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/awaymission/moonoutpost19/research)
 "Ro" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
@@ -34480,7 +34432,7 @@ tn
 eJ
 Dc
 dZ
-Rn
+iG
 Rf
 Ic
 pd
@@ -40609,9 +40561,9 @@ ac
 ac
 at
 PS
-Af
-PV
-vB
+Ft
+Ft
+Ft
 wn
 pb
 Aw
@@ -40866,9 +40818,9 @@ ac
 ac
 at
 Gz
-OF
-xx
-uL
+Ft
+Gz
+QV
 yZ
 tL
 vD
@@ -41123,9 +41075,9 @@ ac
 ac
 at
 Fv
-Qf
-Kg
-yo
+Ft
+Ft
+xd
 Em
 YZ
 Ln
@@ -43230,9 +43182,9 @@ tn
 tn
 hJ
 hJ
-NE
+Dw
 yv
-Nv
+jq
 yv
 yv
 hJ
@@ -43745,14 +43697,14 @@ tn
 hI
 kh
 jn
-jP
+PM
 kp
 iX
 iX
 iX
 lS
 lR
-mE
+xl
 lA
 tn
 tn
@@ -44779,7 +44731,7 @@ hJ
 hJ
 GA
 GA
-QX
+wa
 hJ
 tn
 tn
@@ -45293,7 +45245,7 @@ tn
 hI
 AF
 XX
-NG
+LE
 hI
 tn
 tn

@@ -539,11 +539,6 @@
 /obj/item/food/sausage,
 /turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
-"cD" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/enzyme,
-/turf/open/floor/iron/cafeteria,
-/area/awaymission/spacebattle/cruiser)
 "cE" = (
 /obj/structure/table/reinforced,
 /obj/item/knife/kitchen,
@@ -813,24 +808,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"ec" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"ed" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"ee" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "ef" = (
 /mob/living/simple_animal/hostile/syndicate/melee/spacebattle,
 /turf/open/floor/mineral/plastitanium/red,
@@ -860,43 +837,9 @@
 "el" = (
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
-"em" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"en" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"eo" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "er" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/awaymission/spacebattle/syndicate4)
-"et" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"eu" = (
-/obj/machinery/gateway,
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"ev" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "ew" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium/red,
@@ -2353,12 +2296,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
-"oS" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/spacebattle/cruiser)
 "pS" = (
 /obj/vehicle/sealed/mecha/combat/gygax,
 /turf/open/floor/plating,
@@ -2403,12 +2340,6 @@
 "vw" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate5)
-"vH" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/awaymission/spacebattle/cruiser)
 "wc" = (
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot{
 	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
@@ -2444,6 +2375,11 @@
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
+/area/awaymission/spacebattle/cruiser)
+"AE" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/enzyme,
+/turf/open/floor/iron/cafeteria,
 /area/awaymission/spacebattle/cruiser)
 "Bp" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
@@ -2557,6 +2493,12 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
+"KZ" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/saltshaker,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/spacebattle/cruiser)
 "Ls" = (
 /turf/open/floor/vault/alien,
 /area/awaymission/spacebattle/secret)
@@ -2582,6 +2524,12 @@
 	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
 	},
 /turf/open/floor/iron/airless,
+/area/awaymission/spacebattle/cruiser)
+"Qs" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "Qt" = (
 /obj/structure/chair{
@@ -26696,9 +26644,9 @@ cc
 cc
 bT
 cK
-ec
-em
-et
+cK
+cK
+cK
 cK
 cK
 cK
@@ -26953,9 +26901,9 @@ cA
 cc
 bT
 cK
-ed
-en
-eu
+cK
+cK
+cK
 cK
 cK
 cK
@@ -27210,9 +27158,9 @@ cc
 cc
 bT
 cK
-ee
-eo
-ev
+cK
+cK
+cK
 cK
 jF
 fb
@@ -31057,7 +31005,7 @@ bT
 cc
 cc
 bT
-cD
+AE
 cP
 cP
 cT
@@ -31069,7 +31017,7 @@ OJ
 OJ
 Ae
 xn
-oS
+KZ
 Qt
 bT
 cc
@@ -32092,11 +32040,11 @@ cV
 OJ
 OJ
 QT
-vH
+Qs
 xn
 Qt
 Ae
-vH
+Qs
 xn
 Qt
 bT

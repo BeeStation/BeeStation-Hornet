@@ -196,13 +196,6 @@
 /obj/item/clothing/mask/gas/tiki_mask,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
-"aH" = (
-/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
-	pixel_x = -17;
-	pixel_y = 17
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
 "aI" = (
 /obj/item/melee/skateboard{
 	color = "#6666ff";
@@ -213,113 +206,18 @@
 	},
 /turf/open/floor/plating/beach/water,
 /area/awaymission/beach)
-"aJ" = (
-/obj/item/reagent_containers/cup/glass/bottle/beer/light{
-	pixel_x = -14;
-	pixel_y = 15
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
 "aK" = (
 /mob/living/simple_animal/crab,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aL" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 9
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aM" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aN" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 5
-	},
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "aO" = (
 /obj/effect/baseturf_helper/beach/sand,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
-"aP" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aQ" = (
-/obj/machinery/gateway/centeraway,
-/obj/effect/turf_decal/sand,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aR" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aS" = (
-/obj/item/reagent_containers/cup/soda_cans/lemon_lime{
-	pixel_x = -12;
-	pixel_y = 14
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
 "aT" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
-/area/awaymission/beach)
-"aU" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 10
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aV" = (
-/obj/machinery/gateway,
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"aW" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 6
-	},
-/turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "aX" = (
 /turf/closed/wall/mineral/sandstone,
@@ -477,12 +375,6 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/beach)
-"bu" = (
-/obj/item/reagent_containers/cup/glass/bottle/wine,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/awaymission/beach)
 "bv" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
@@ -618,11 +510,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron/white,
-/area/awaymission/beach)
-"bO" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/champagne,
-/turf/open/floor/wood,
 /area/awaymission/beach)
 "bP" = (
 /obj/item/trash/chips{
@@ -786,18 +673,6 @@
 /obj/effect/mob_spawn/human/bartender/alive/beach,
 /turf/open/floor/wood,
 /area/awaymission/beach)
-"cl" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker,
-/turf/open/floor/wood,
-/area/awaymission/beach)
-"cm" = (
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/turf/open/floor/wood,
-/area/awaymission/beach)
 "cn" = (
 /obj/machinery/vending/boozeomat/all_access{
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. May not work for bartenders that don't have Nanotrasen bank accounts."
@@ -820,21 +695,6 @@
 "cq" = (
 /obj/structure/table/wood,
 /obj/machinery/microwave,
-/turf/open/floor/wood,
-/area/awaymission/beach)
-"cr" = (
-/obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = list(25)
-	},
-/obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/mayonnaise,
-/obj/item/reagent_containers/condiment/sugar,
-/obj/item/reagent_containers/condiment/sugar,
-/obj/item/reagent_containers/condiment/enzyme,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cs" = (
@@ -886,30 +746,8 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/beach)
-"cB" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/ale,
-/turf/open/floor/wood,
-/area/awaymission/beach)
 "cC" = (
 /obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/awaymission/beach)
-"cD" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/rag{
-	pixel_y = 7
-	},
-/turf/open/floor/wood,
-/area/awaymission/beach)
-"cE" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
-/turf/open/floor/wood,
-/area/awaymission/beach)
-"cF" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/soda_cans/lemon_lime,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cG" = (
@@ -935,16 +773,6 @@
 	},
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
-"cK" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/item/reagent_containers/cup/glass/bottle/beer,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
 "cL" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/rainbow,
@@ -959,62 +787,8 @@
 /obj/item/food/chips,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
-"cN" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/soda_cans/sodawater,
-/obj/item/reagent_containers/cup/soda_cans/shamblers,
-/obj/item/reagent_containers/cup/soda_cans/pwr_game,
-/obj/item/reagent_containers/cup/soda_cans/air,
-/obj/item/reagent_containers/cup/soda_cans/canned_laughter,
-/obj/item/reagent_containers/cup/soda_cans/tonic,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
 "cO" = (
 /obj/structure/chair,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cP" = (
-/obj/item/reagent_containers/cup/soda_cans/lemon_lime{
-	pixel_x = -12
-	},
-/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
-	pixel_x = 13
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cQ" = (
-/obj/item/reagent_containers/cup/soda_cans/starkist{
-	pixel_x = -12;
-	pixel_y = 3
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cR" = (
-/obj/item/reagent_containers/cup/soda_cans/cola{
-	pixel_x = -8;
-	pixel_y = -4
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cS" = (
-/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cT" = (
-/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind,
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cU" = (
-/obj/item/reagent_containers/cup/soda_cans/cola{
-	pixel_x = -8;
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
-	pixel_x = 15
-	},
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "cV" = (
@@ -1023,24 +797,6 @@
 	pixel_y = 4
 	},
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner,
-/area/awaymission/beach)
-"cW" = (
-/obj/item/reagent_containers/cup/soda_cans/lemon_lime{
-	pixel_x = -12
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cX" = (
-/obj/item/reagent_containers/cup/soda_cans/cola{
-	pixel_x = -5
-	},
-/turf/open/floor/plating/beach/sand,
-/area/awaymission/beach)
-"cY" = (
-/obj/item/reagent_containers/cup/soda_cans/starkist{
-	pixel_x = -6
-	},
-/turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "cZ" = (
 /obj/item/clothing/head/collectable/paper{
@@ -1080,6 +836,169 @@
 "dg" = (
 /obj/item/clothing/glasses/heat,
 /turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"dA" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/soda_cans/sodawater,
+/obj/item/reagent_containers/cup/soda_cans/shamblers,
+/obj/item/reagent_containers/cup/soda_cans/pwr_game,
+/obj/item/reagent_containers/cup/soda_cans/air,
+/obj/item/reagent_containers/cup/soda_cans/canned_laughter,
+/obj/item/reagent_containers/cup/soda_cans/tonic,
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"fe" = (
+/obj/item/reagent_containers/cup/soda_cans/cola{
+	pixel_x = -5
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"kw" = (
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"kN" = (
+/obj/item/reagent_containers/cup/soda_cans/lemon_lime{
+	pixel_x = -12
+	},
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
+	pixel_x = 13
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"lj" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/shaker,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"qq" = (
+/obj/item/reagent_containers/cup/soda_cans/lemon_lime{
+	pixel_x = -12;
+	pixel_y = 14
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"ro" = (
+/obj/item/reagent_containers/cup/soda_cans/starkist{
+	pixel_x = -12;
+	pixel_y = 3
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"vn" = (
+/obj/item/reagent_containers/cup/soda_cans/lemon_lime{
+	pixel_x = -12
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"vP" = (
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind,
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"Ct" = (
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"Di" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/soda_cans/lemon_lime,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"DS" = (
+/obj/item/reagent_containers/cup/glass/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"Eo" = (
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	req_access = list(25)
+	},
+/obj/item/storage/fancy/egg_box,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/mayonnaise,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/item/reagent_containers/condiment/enzyme,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"Iw" = (
+/obj/item/reagent_containers/cup/soda_cans/cola{
+	pixel_x = -8;
+	pixel_y = -4
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"MS" = (
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
+	pixel_x = -17;
+	pixel_y = 17
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"PH" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"PV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/champagne,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"Rd" = (
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
+	pixel_x = -14;
+	pixel_y = 15
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"Rl" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"RI" = (
+/obj/item/reagent_containers/cup/soda_cans/cola{
+	pixel_x = -8;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
+	pixel_x = 15
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"Vj" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/rag{
+	pixel_y = 7
+	},
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"WZ" = (
+/obj/item/reagent_containers/cup/soda_cans/starkist{
+	pixel_x = -6
+	},
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"ZA" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/ale,
+/turf/open/floor/wood,
 /area/awaymission/beach)
 
 (1,1,1) = {"
@@ -6493,7 +6412,7 @@ ci
 bd
 bd
 bd
-cB
+ZA
 cH
 ba
 ak
@@ -6600,12 +6519,12 @@ cj
 bd
 bd
 bd
-cB
+ZA
 cH
 ba
 ak
 ak
-cP
+kN
 ak
 ap
 ar
@@ -6810,11 +6729,11 @@ ak
 ba
 ba
 aX
-cl
+lj
 bd
 bd
 bd
-cD
+Vj
 cH
 ba
 ak
@@ -6900,9 +6819,9 @@ ak
 ak
 ak
 ak
-aL
-aP
-aU
+bf
+bp
+bx
 ak
 ak
 ba
@@ -6917,7 +6836,7 @@ ak
 ba
 ba
 aX
-cm
+kw
 bd
 bd
 bd
@@ -7007,9 +6926,9 @@ ak
 ak
 ak
 ak
-aM
-aQ
-aV
+bg
+ba
+by
 ba
 ba
 ba
@@ -7028,12 +6947,12 @@ cn
 bd
 bd
 bd
-cE
+Rl
 cH
 ba
 ak
 ak
-cQ
+ro
 ak
 ap
 ar
@@ -7114,9 +7033,9 @@ ak
 ak
 ak
 ak
-aN
-aR
-aW
+bh
+br
+bz
 ak
 ak
 ak
@@ -7135,7 +7054,7 @@ co
 bd
 bd
 bd
-cF
+Di
 cH
 ba
 ak
@@ -7247,7 +7166,7 @@ cH
 ba
 ak
 ak
-cR
+Iw
 ak
 ap
 ar
@@ -7461,7 +7380,7 @@ cH
 ba
 ak
 aA
-cS
+Ct
 ak
 ap
 ar
@@ -7559,7 +7478,7 @@ ak
 ba
 cg
 aX
-cr
+Eo
 cs
 cw
 bd
@@ -7675,7 +7594,7 @@ ba
 ba
 ak
 ak
-cT
+vP
 ak
 ap
 ar
@@ -8101,7 +8020,7 @@ ak
 ak
 ak
 ak
-cK
+PH
 cM
 ap
 bw
@@ -8182,7 +8101,7 @@ ac
 ad
 ag
 ak
-aH
+MS
 dg
 ak
 aD
@@ -8209,7 +8128,7 @@ ak
 ak
 ak
 cL
-cN
+dA
 ap
 aY
 ac
@@ -8504,7 +8423,7 @@ ac
 ad
 ag
 ak
-aJ
+Rd
 aE
 ak
 aX
@@ -8613,7 +8532,7 @@ ah
 am
 az
 ak
-aS
+qq
 aX
 bc
 bd
@@ -8852,7 +8771,7 @@ cx
 cJ
 ak
 ak
-cU
+RI
 ak
 ap
 ar
@@ -9473,12 +9392,12 @@ ag
 aX
 bb
 de
-bu
+DS
 aX
 ba
 ba
 aX
-bO
+PV
 db
 bZ
 aX
@@ -10222,12 +10141,12 @@ ak
 aX
 bb
 df
-bu
+DS
 aX
 ba
 ba
 aX
-bu
+DS
 dc
 bZ
 aX
@@ -10243,7 +10162,7 @@ ak
 ak
 ak
 ak
-cW
+vn
 ak
 ap
 ar
@@ -10457,7 +10376,7 @@ aZ
 ak
 ak
 ak
-cX
+fe
 ak
 ap
 ar
@@ -10671,7 +10590,7 @@ ak
 ak
 ak
 ak
-cY
+WZ
 ak
 ap
 ar
@@ -10971,12 +10890,12 @@ ak
 aX
 bb
 dd
-bu
+DS
 aX
 ba
 ba
 aX
-bu
+DS
 bk
 bZ
 aX
