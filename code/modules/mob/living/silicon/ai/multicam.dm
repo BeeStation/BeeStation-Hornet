@@ -244,7 +244,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
 			P.show_to(client)
 
-/mob/living/silicon/ai/proc/end_multicam()
+/mob/living/silicon/ai/proc/end_multicam(from_reset_perspective)
 	if(!multicam_on)
 		return
 	multicam_on = FALSE
