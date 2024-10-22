@@ -1645,24 +1645,21 @@
 	// GUARD CHECK - We always want to perform the scanner operational check as
 	//  part of checking if we can modify the occupant.
 	// We can never modify the occupant of a broken scanner.
-	if(!scanner_operational())
-		return FALSE
-
-	if(!connected_scanner.occupant)
+	if(!(scanner_operational() && iscarbon(connected_scanner.occupant)))
 		return FALSE
 
 	scanner_occupant = connected_scanner.occupant
 
-		// Check validity of occupent for DNA Modification
-		// DNA Modification:
-		//   requires DNA
-		//	   this DNA can not be bad
-		//   is done via radiation bursts, so radiation immune carbons are not viable
-		// And the DNA Scanner itself must have a valid scan level
-	if(scanner_occupant.has_dna() && !HAS_TRAIT(scanner_occupant, TRAIT_RADIMMUNE) && !HAS_TRAIT(scanner_occupant, TRAIT_BADDNA) || (connected_scanner.scan_level >= 3))
+	if(!scanner_occupant.has_dna() || \
+	   (NO_DNA_COPY in scanner_occupant.dna.species.species_traits) || \
+	   HAS_TRAIT(scanner_occupant, TRAIT_RADIMMUNE))
+		return FALSE
+	else if(connected_scanner.scan_level >= 3) //A high scanner level overrides the below conditions
 		return TRUE
-
-	return FALSE
+	else if(HAS_TRAIT(scanner_occupant, TRAIT_BADDNA))
+		return FALSE
+	else
+		return TRUE
 
 /**
   * Called by connected DNA Scanners when their doors close.
@@ -1672,11 +1669,6 @@
   */
 /obj/machinery/computer/scan_consolenew/proc/on_scanner_close()
 	SIGNAL_HANDLER
-	// Set the appropriate occupant now the scanner is closed
-	if(connected_scanner.occupant)
-		scanner_occupant = connected_scanner.occupant
-	else
-		scanner_occupant = null
 
 	// If we have a delayed action - In this case the only delayed action is
 	//  applying a genetic makeup buffer the next time the DNA Scanner is closed -
