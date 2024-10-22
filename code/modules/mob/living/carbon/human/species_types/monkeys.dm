@@ -35,6 +35,8 @@
 	dust_anim = "dust-m"
 	gib_anim = "gibbed-m"
 
+	ai_controlled_species = TRUE
+
 	species_height = SPECIES_HEIGHTS(8, 8, 8)
 
 	//payday_modifier = 1.5
