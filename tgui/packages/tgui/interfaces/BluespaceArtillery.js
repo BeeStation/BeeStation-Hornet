@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const BluespaceArtillery = (props, context) => {
   const { act, data } = useBackend(context);
-  const { notice, connected, unlocked, target, charge, max_charge, formatted_charge, targets } = data;
+  const { notice, connected, unlocked, target_ref, target_name, charge, max_charge, formatted_charge, targets } = data;
   return (
     <Window width={600} height={280}>
       <Window.Content>
@@ -28,8 +28,8 @@ export const BluespaceArtillery = (props, context) => {
                 </ProgressBar>
               </Section>
               <Section title="Target">
-                <Box color={target ? 'average' : 'bad'} fontSize="25px">
-                  {target ? target[1] : 'No Target Set'}
+                <Box color={target_ref ? 'average' : 'bad'} fontSize="25px">
+                  {target_ref ? target_name : 'No Target Set'}
                 </Box>
               </Section>
               <Section>
@@ -39,11 +39,11 @@ export const BluespaceArtillery = (props, context) => {
                       fluid
                       content="FIRE"
                       color="bad"
-                      disabled={!target}
+                      disabled={!target_ref}
                       fontSize="30px"
                       textAlign="center"
                       lineHeight="46px"
-                      onClick={() => target && act('fire')}
+                      onClick={() => target_ref && act('fire')}
                     />
                   </Box>
                 ) : (
@@ -63,9 +63,9 @@ export const BluespaceArtillery = (props, context) => {
                     <Box key={`${key}-${index}`} mb={1}>
                       <Button
                         fluid
-                        color={target && key === target[0] ? 'bad' : 'blue'}
+                        color={target_ref && key === target_ref ? 'bad' : 'blue'}
                         content={value}
-                        onClick={() => act('set_target', { target: key })}
+                        onClick={() => act('set_target', { chosen_target: key })}
                       />
                     </Box>
                   ))}

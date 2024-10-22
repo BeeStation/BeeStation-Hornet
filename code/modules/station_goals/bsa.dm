@@ -379,9 +379,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
 	data["targets"] = get_available_targets()
 	if(target_ref?.resolve())
-		data["target"] = list(FAST_REF(target), get_target_name())
+		data["target_ref"] = FAST_REF(target)
+		data["target_name"] = get_target_name()
 	else
-		data["target"] = null
+
+		data["target_ref"] = null
+		data["target_name"] = null
 		target_ref = null
 	return data
 
@@ -396,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 			fire(usr)
 			. = TRUE
 		if("set_target")
-			var/datum/component/gps/target = locate(params["target"])
+			var/datum/component/gps/target = locate(params["chosen_target"])
 			target_ref = WEAKREF(target)
 			. = TRUE
 	if(.)
