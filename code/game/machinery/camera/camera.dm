@@ -13,7 +13,7 @@
 	max_integrity = 100
 	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
-	var/list/network = list("ss13")
+	var/list/network
 	var/c_tag = null
 	var/status = TRUE
 	var/current_state = TRUE
@@ -26,10 +26,6 @@
 	//Emp tracking
 	var/thisemp
 	var/list/previous_network
-
-	FASTDMM_PROP(\
-		pinned_vars = list("name", "network", "c_tag")\
-	)
 
 	//OTHER
 
@@ -53,7 +49,6 @@
 	var/datum/alarm_handler/alarm_manager
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera, 0)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/autoname, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/emp_proof, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/motion, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
@@ -62,7 +57,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	name = "Hardened Bomb-Test Camera"
 	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top."
 	c_tag = "Bomb Testing Site"
-	network = list("rd","toxins")
+	network = list(CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_TOXINS_TEST)
 	use_power = NO_POWER_USE //Test site is an unpowered area
 	invuln = TRUE
 	light_range = 10
@@ -72,9 +67,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)
 	. = ..()
-	for(var/i in network)
-		network -= i
-		network += LOWER_TEXT(i)
+	var/static/list/autonames_in_areas = list()
+
+	// Calculate area code
+	var/area/camera_area = get_area(src)
+	if (istype(camera_area, /area/space))
+		var/turf/connected_wall = get_step(src, dir)
+		camera_area = get_area(connected_wall)
+
+	// Calculate the camera tag
+	if (!c_tag)
+		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
+		if (get_area(src) != camera_area)
+			c_tag = "[c_tag] (External)"
+	if (!islist(network))
+		if (camera_area.camera_networks)
+			network = camera_area.camera_networks
+		else if (is_station_level(z))
+			network = list(CAMERA_NETWORK_STATION)
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
@@ -162,6 +172,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		if(!status && powered())
 			. += "<span class='info'>It can reactivated with a <b>screwdriver</b>.</span>"
 
+/obj/machinery/camera/vv_edit_var(vname, vval)
+	// Can't mess with these since they are references
+	if (vname == NAMEOF(src, network))
+		return FALSE
+	return ..()
+
 /obj/machinery/camera/emp_act(severity)
 	. = ..()
 	if(!status)
@@ -227,7 +243,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	if(!panel_open)
 		return FALSE
 	toggle_cam(user, 1)
-	obj_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
+	atom_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
 	I.play_tool_sound(src)
 	return TRUE
 
@@ -371,12 +387,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	return ..()
 
-/obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/camera/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
-/obj/machinery/camera/obj_break(damage_flag)
+/obj/machinery/camera/atom_break(damage_flag)
 	if(!status)
 		return
 	. = ..()
@@ -484,7 +500,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	return see
 
 /obj/machinery/camera/proc/Togglelight(on=0)
-	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+	for(var/mob/living/silicon/ai/A as anything in GLOB.ai_list)
 		for(var/obj/machinery/camera/cam in A.lit_cameras)
 			if(cam == src)
 				return

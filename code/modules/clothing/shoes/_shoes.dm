@@ -43,8 +43,8 @@
 		if(HAS_BLOOD_DNA(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
 
-/obj/item/clothing/shoes/equipped(mob/user, slot)
-	. = ..()
+/obj/item/clothing/shoes/visual_equipped(mob/user, slot)
+	..()
 	if(offset && (slot_flags & slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)

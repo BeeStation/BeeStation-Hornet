@@ -37,9 +37,6 @@
 		return TRUE
 	interact(user)
 
-/obj/item/instrument/interact(mob/user)
-	ui_interact(user)
-
 /obj/item/instrument/ui_interact(mob/living/user)
 	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
 		return

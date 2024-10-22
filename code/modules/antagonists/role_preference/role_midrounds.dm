@@ -215,13 +215,6 @@
 
 	return finish_preview_icon(final_icon)
 
-/datum/role_preference/midround_ghost/devil
-	name = "Devil (Midround)"
-	description = "Sign deals with crewmembers, turn them to the side of the Devil."
-	antag_datum = /datum/antagonist/devil
-	use_icon = /datum/role_preference/antagonist/devil
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
 /datum/role_preference/midround_ghost/ninja
 	name = "Ninja"
 	description = "Become a conniving space ninja, equipped with a teleporting katana, gloves to hack \
