@@ -280,7 +280,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
-		qdel(src)
+		atom_destruction(MELEE)
 
 /obj/item/ComponentInitialize()
 	. = ..()
@@ -434,6 +434,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. += research_msg.Join()
 
 /obj/item/interact(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
+		. = TRUE
 	add_fingerprint(user)
 	ui_interact(user)
 

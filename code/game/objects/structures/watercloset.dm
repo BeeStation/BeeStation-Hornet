@@ -325,7 +325,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(istype(O, /obj/item/stack/medical/gauze))
 		var/obj/item/stack/medical/gauze/G = O
-		new /obj/item/reagent_containers/glass/rag(src.loc)
+		new /obj/item/reagent_containers/cup/rag(src.loc)
 		to_chat(user, "<span class='notice'>You tear off a strip of gauze and make a rag.</span>")
 		G.use(1)
 		return

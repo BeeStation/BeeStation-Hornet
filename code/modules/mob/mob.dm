@@ -305,7 +305,7 @@
 	return null
 
 ///Is the mob incapacitated
-/mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
+/mob/proc/incapacitated(flags)
 	return
 
 /**
@@ -523,7 +523,7 @@
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
 	/// our active hand, to check if it's disabled/detatched
 	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
-	if(!active_hand || active_hand.bodypart_disabled || LAZYLEN(do_afters) >= usable_hands)
+	if(!active_hand || active_hand.bodypart_disabled || do_after_count() >= usable_hands)
 		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
 		return FALSE
 
