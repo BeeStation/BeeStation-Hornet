@@ -110,7 +110,7 @@
 
 // Clean up the cell on destroy
 /obj/item/clothing/suit/space/Destroy()
-	if(cell)
+	if(isatom(cell))
 		QDEL_NULL(cell)
 	var/mob/living/carbon/human/human = src.loc
 	if(istype(human))

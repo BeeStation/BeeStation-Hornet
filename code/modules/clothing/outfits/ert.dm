@@ -1,3 +1,6 @@
+/datum/outfit/centcom
+	name = "CentCom Base"
+
 /datum/outfit/ert
 	name = "ERT Common"
 
@@ -265,19 +268,19 @@
 
 	id = /obj/item/card/id/ert/Janitor
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
+	suit_store = /obj/item/storage/bag/trash/bluespace
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
-	l_pocket = /obj/item/grenade/chem_grenade/cleaner
-	l_hand = /obj/item/storage/bag/trash/bluespace
+
+	r_hand = /obj/item/choice_beacon/janicart
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/mop/advanced=1,
-		/obj/item/reagent_containers/cup/bucket=1,
 		/obj/item/grenade/clusterbuster/cleaner=1,
-		/obj/item/choice_beacon/janicart)
+		)
 
 /datum/outfit/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -291,12 +294,8 @@
 
 /datum/outfit/ert/janitor/heavy
 	name = "ERT Janitor - Heavy Duty"
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
-		/obj/item/storage/box/lights/mixed=1,
-		/obj/item/melee/baton/loaded=1,
-		/obj/item/grenade/clusterbuster/cleaner=3,
-		/obj/item/reagent_containers/spray/chemsprayer/janitor=1,
-		/obj/item/choice_beacon/janicart)
+
+	l_hand = /obj/item/reagent_containers/spray/chemsprayer/janitor
 
 /datum/outfit/ert/kudzu
 	name = "ERT Weed Whacker"

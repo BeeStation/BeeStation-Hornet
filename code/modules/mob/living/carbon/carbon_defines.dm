@@ -81,3 +81,6 @@
 
 	/// Timer id of any transformation
 	var/transformation_timer
+
+	/// Only load in visual organs
+	var/visual_only_organs = FALSE

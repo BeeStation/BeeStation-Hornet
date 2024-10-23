@@ -232,7 +232,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/card/id/))
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE

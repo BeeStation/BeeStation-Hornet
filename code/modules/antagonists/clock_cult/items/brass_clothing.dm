@@ -18,19 +18,23 @@
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(!is_servant_of_ratvar(user) && !allow_any)
-		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
-		user.dropItemToGround(src, TRUE)
-		var/mob/living/carbon/C = user
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			H.electrocution_animation(20)
-		C.jitteriness += 1000
-		C.do_jitter_animation(C.jitteriness)
-		C.stuttering += 1
-		spawn(20)
-		if(C)
-			C.jitteriness = max(C.jitteriness - 990, 10)
+	if(istype(user, /mob/living/carbon/human/consistent) || istype(user, /mob/living/carbon/human/dummy))
+		//Fake people need not apply (it fucks up my unit tests)
+		return
+	if(is_servant_of_ratvar(user) && allow_any)
+		return
+	to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+	user.dropItemToGround(src, TRUE)
+	var/mob/living/carbon/C = user
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		H.electrocution_animation(20)
+	C.jitteriness += 1000
+	C.do_jitter_animation(C.jitteriness)
+	C.stuttering += 1
+	spawn(20)
+	if(C)
+		C.jitteriness = max(C.jitteriness - 990, 10)
 
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"

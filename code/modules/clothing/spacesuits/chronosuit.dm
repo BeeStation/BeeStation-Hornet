@@ -13,11 +13,6 @@
 	if(suit)
 		suit.deactivate(1, 1)
 
-/obj/item/clothing/head/helmet/space/chronos/Destroy()
-	dropped()
-	return ..()
-
-
 /obj/item/clothing/suit/space/chronos
 	name = "Chronosuit"
 	desc = "An advanced spacesuit equipped with time-bluespace teleportation and anti-compression technology."
@@ -58,13 +53,7 @@
 		else
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/dropped()
-	..()
-	if(activated)
-		deactivate()
-
 /obj/item/clothing/suit/space/chronos/Destroy()
-	dropped()
 	QDEL_NULL(teleport_now)
 	return ..()
 
@@ -213,8 +202,8 @@
 		var/hard_landing = teleporting && force
 		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
-		activated = 0
-		activating = 0
+		activated = FALSE
+		activating = FALSE
 		finish_chronowalk()
 		if(user && ishuman(user))
 			teleport_now.Remove(user)

@@ -89,7 +89,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/evidencebag))
+	STR.set_holdable(list(/obj/item/evidencebag))
 
 /obj/item/storage/box/evidence/PopulateContents()
 	for(var/i in 1 to 6)
