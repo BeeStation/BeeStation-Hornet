@@ -94,6 +94,7 @@
 	//Hitscan
 	var/hitscan = FALSE		//Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments	//assoc list of datum/point or datum/point/vector, start = end. Used for hitscan effect generation.
+	var/turf/last_angle_set_hitscan_store /// Last turf an angle was changed in for hitscan projectiles.
 	var/datum/point/beam_index
 	var/turf/hitscan_last	//last turf touched during hitscanning.
 	var/tracer_type
@@ -313,11 +314,11 @@
 			unlucky_sob = L
 
 	if(unlucky_sob)
-		setAngle(get_angle(src, unlucky_sob.loc))
+		set_angle(get_angle(src, unlucky_sob.loc))
 
-/obj/projectile/proc/store_hitscan_collision(datum/point/pcache)
-	beam_segments[beam_index] = pcache
-	beam_index = pcache
+/obj/projectile/proc/store_hitscan_collision(datum/point/point_cache)
+	beam_segments[beam_index] = point_cache
+	beam_index = point_cache
 	beam_segments[beam_index] = null
 
 /obj/projectile/Bump(atom/A)
@@ -343,7 +344,7 @@
 		return FALSE
 	if(impacted[A])		// NEVER doublehit
 		return FALSE
-	var/datum/point/pcache = trajectory.copy_to()
+	var/datum/point/point_cache = trajectory.copy_to()
 	var/turf/T = get_turf(A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
 		ricochets++
@@ -354,7 +355,7 @@
 			decayedRange = max(0, decayedRange - reflect_range_decrease)
 			range = decayedRange
 			if(hitscan)
-				store_hitscan_collision(pcache)
+				store_hitscan_collision(point_cache)
 			return TRUE
 
 	var/distance = get_dist(T, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
@@ -656,9 +657,9 @@
 		if(QDELETED(src))
 			return
 	if(isnum_safe(angle))
-		setAngle(angle)
+		set_angle(angle)
 	if(spread)
-		setAngle(Angle + ((rand() - 0.5) * spread))
+		set_angle(Angle + ((rand() - 0.5) * spread))
 	var/turf/starting = get_turf(src)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
@@ -666,7 +667,7 @@
 			qdel(src)
 			return
 		var/turf/target = locate(clamp(starting + xo, 1, world.maxx), clamp(starting + yo, 1, world.maxy), starting.z)
-		setAngle(get_angle(src, target))
+		set_angle(get_angle(src, target))
 	original_angle = Angle
 	if(!nondirectional_sprite)
 		var/matrix/M = new
@@ -684,15 +685,41 @@
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!
 
-/obj/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+/obj/projectile/proc/set_angle(new_angle) //wrapper for overrides.
 	Angle = new_angle
 	if(!nondirectional_sprite)
-		var/matrix/M = new
-		M.Turn(Angle)
-		transform = M
+		var/matrix/matrix = new
+		matrix.Turn(Angle)
+		transform = matrix
 	if(trajectory)
 		trajectory.set_angle(new_angle)
+	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
+		last_angle_set_hitscan_store = loc
+		var/datum/point/point_cache = new (src)
+		point_cache = trajectory.copy_to()
+		store_hitscan_collision(point_cache)
 	return TRUE
+
+/// Same as set_angle, but the reflection continues from the center of the object that reflects it instead of the side
+/obj/projectile/proc/set_angle_centered(new_angle)
+	Angle = new_angle
+	if(!nondirectional_sprite)
+		var/matrix/matrix = new
+		matrix.Turn(Angle)
+		transform = matrix
+	if(trajectory)
+		trajectory.set_angle(new_angle)
+
+	var/list/coordinates = trajectory.return_coordinates()
+	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
+
+	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store)) // Handles hitscan projectiles
+		last_angle_set_hitscan_store = loc
+		var/datum/point/point_cache = new (src)
+		point_cache.initialize_location(coordinates[1], coordinates[2], coordinates[3]) // Take the center of the hitscan collision tile
+		store_hitscan_collision(point_cache)
+	return TRUE
+
 
 /obj/projectile/forceMove(atom/target)
 	if(!isloc(target) || !isloc(loc) || !z)
@@ -720,7 +747,7 @@
 /obj/projectile/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, Angle))
-			setAngle(var_value)
+			set_angle(var_value)
 			return TRUE
 		else
 			return ..()
@@ -731,14 +758,14 @@
 		return TRUE
 	return FALSE
 
-/obj/projectile/proc/record_hitscan_start(datum/point/pcache)
-	if(pcache)
+/obj/projectile/proc/record_hitscan_start(datum/point/point_cache)
+	if(point_cache)
 		beam_segments = list()
-		beam_index = pcache
+		beam_index = point_cache
 		beam_segments[beam_index] = null	//record start.
 
 /obj/projectile/proc/process_hitscan()
-	var/safety = range * 3
+	var/safety = range * 10
 	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
 	while(loc && !QDELETED(src))
 		if(paused)
@@ -801,7 +828,7 @@
 	PT.x += clamp(homing_offset_x, 1, world.maxx)
 	PT.y += clamp(homing_offset_y, 1, world.maxy)
 	var/angle = closer_angle_difference(Angle, angle_between_points(RETURN_PRECISE_POINT(src), PT))
-	setAngle(Angle + clamp(angle, -homing_turn_speed, homing_turn_speed))
+	set_angle(Angle + clamp(angle, -homing_turn_speed, homing_turn_speed))
 
 /obj/projectile/proc/set_homing_target(atom/A)
 	if(!A || (!isturf(A) && !isturf(A.loc)))
@@ -827,18 +854,18 @@
 	if(targloc || !params)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
-		setAngle(get_angle(src, targloc) + spread)
+		set_angle(get_angle(src, targloc) + spread)
 
 	if(isliving(source) && params)
 		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, params)
 		p_x = calculated[2]
 		p_y = calculated[3]
 
-		setAngle(calculated[1] + spread)
+		set_angle(calculated[1] + spread)
 	else if(targloc)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
-		setAngle(get_angle(src, targloc) + spread)
+		set_angle(get_angle(src, targloc) + spread)
 	else
 		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
 		qdel(src)
@@ -895,8 +922,8 @@
 
 /obj/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
 	if(trajectory && beam_index)
-		var/datum/point/pcache = trajectory.copy_to()
-		beam_segments[beam_index] = pcache
+		var/datum/point/point_cache = trajectory.copy_to()
+		beam_segments[beam_index] = point_cache
 	generate_hitscan_tracers(null, null, impacting)
 
 /obj/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
