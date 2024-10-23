@@ -42,12 +42,25 @@
 
 	update_appearance(UPDATE_ICON)
 
-/obj/machinery/microwave/Destroy()
+/obj/machinery/microwave/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	ingredients += arrived
+	return ..()
+
+/obj/machinery/microwave/Exited(atom/movable/gone, direction)
+	if(gone in ingredients)
+		ingredients -= gone
+	return ..()
+
+
+/obj/machinery/microwave/on_deconstruction()
 	eject()
+	return ..()
+
+/obj/machinery/microwave/Destroy()
+	QDEL_LIST(ingredients)
+	QDEL_NULL(wires)
 	QDEL_NULL(soundloop)
-	if(wires)
-		QDEL_NULL(wires)
-	. = ..()
+	return ..()
 
 /obj/machinery/microwave/RefreshParts()
 	efficiency = 0
@@ -180,23 +193,32 @@
 
 	return ..()
 
-/obj/machinery/microwave/attackby(obj/item/O, mob/user, params)
+/obj/machinery/microwave/crowbar_act(mob/living/user, obj/item/tool)
 	if(operating)
 		return
-	if(default_deconstruction_crowbar(O))
+	if(!default_deconstruction_crowbar(tool))
 		return
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	if(dirty < 100)
-		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
-			update_icon()
-			return
+/obj/machinery/microwave/screwdriver_act(mob/living/user, obj/item/tool)
+	if(operating)
+		return
+	if(dirty >= 100)
+		return
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, tool))
+		update_appearance()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/microwave/attackby(obj/item/O, mob/living/user, params)
+	if(operating)
+		return
 
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
 		return TRUE
 
 	if(broken > 0)
-		if(broken == 2 && O.tool_behaviour == TOOL_WIRECUTTER) // If it's broken and they're using a screwdriver
+		if(broken == 2 && O.tool_behaviour == TOOL_WIRECUTTER) // If it's broken and they're using a TOOL_WIRECUTTER
 			user.visible_message("[user] starts to fix part of \the [src].", "<span class='notice'>You start to fix part of \the [src]...</span>")
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes part of \the [src].", "<span class='notice'>You fix part of \the [src].</span>")
@@ -252,7 +274,6 @@
 				return TRUE
 			if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
 				loaded++
-				ingredients += S
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] items into \the [src].</span>")
 			update_appearance()
@@ -266,12 +287,11 @@
 			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand!</span>")
 			return FALSE
 
-		ingredients += O
 		user.visible_message("[user] has added \a [O] to \the [src].", "<span class='notice'>You add [O] to \the [src].</span>")
 		update_appearance()
 		return
 
-	..()
+	return ..()
 
 /obj/machinery/microwave/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(usr)))
@@ -310,11 +330,11 @@
 			examine(user)
 
 /obj/machinery/microwave/proc/eject()
-	for(var/i in ingredients)
-		var/atom/movable/AM = i
-		AM.forceMove(drop_location())
-	ingredients.Cut()
+	var/atom/drop_loc = drop_location()
+	for(var/atom/movable/movable_ingredient as anything in ingredients)
+		movable_ingredient.forceMove(drop_loc)
 	open()
+	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 
 /obj/machinery/microwave/proc/cook()
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -367,19 +387,17 @@
 
 /obj/machinery/microwave/proc/muck()
 	wzhzhzh()
-	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 	dirty_anim_playing = TRUE
-	update_icon()
+	update_appearance()
 	loop(MICROWAVE_MUCK, 4)
 
 /obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
-	if(machine_stat & (NOPOWER|BROKEN))
-		operating = FALSE
-		if(type == MICROWAVE_PRE)
-			pre_fail()
-		after_finish_loop()
+	if((machine_stat & BROKEN) && type == MICROWAVE_PRE)
+		pre_fail()
 		return
-	if(!time)
+
+	if(!time || !length(ingredients))
 		switch(type)
 			if(MICROWAVE_NORMAL)
 				loop_finish()
@@ -411,10 +429,6 @@
 		dump_inventory_contents()
 
 	after_finish_loop()
-
-/obj/machinery/microwave/dump_inventory_contents()
-	. = ..()
-	ingredients.Cut()
 
 /obj/machinery/microwave/proc/pre_fail()
 	broken = 2
