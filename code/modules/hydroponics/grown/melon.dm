@@ -66,8 +66,8 @@
 
 /obj/item/food/grown/holymelon/make_edible()
 	. = ..()
-	AddComponent(/datum/component/edible, check_liked = CALLBACK(src, .proc/check_holyness))
-	
+	AddComponent(/datum/component/edible, check_liked = CALLBACK(src, PROC_REF(check_holyness)))
+
 /*
  * Callback to be used with the edible component.
  * Checks whether or not the person eating the holymelon

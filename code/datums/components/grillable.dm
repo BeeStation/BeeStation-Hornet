@@ -1,4 +1,5 @@
 /datum/component/grillable
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	///Result atom type of grilling this object
 	var/atom/cook_result
 	///Amount of time required to cook the food
@@ -23,9 +24,9 @@
 	src.use_large_steam_sprite = use_large_steam_sprite
 
 /datum/component/grillable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_GRILL_PLACED_ON, .proc/on_grill_start)
-	RegisterSignal(parent, COMSIG_ITEM_GRILL_PROCESS, .proc/on_grill)
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	RegisterSignal(parent, COMSIG_ITEM_GRILL_PLACED_ON, PROC_REF(on_grill_start))
+	RegisterSignal(parent, COMSIG_ITEM_GRILL_PROCESS, PROC_REF(on_grill))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/grillable/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -55,8 +56,8 @@
 	if(griller && griller.mind)
 		who_placed_us = REF(griller.mind)
 
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_moved)
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/add_grilled_item_overlay)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_grilled_item_overlay))
 
 	var/atom/atom_parent = parent
 	atom_parent.update_appearance()
