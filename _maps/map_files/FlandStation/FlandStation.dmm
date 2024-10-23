@@ -65296,7 +65296,7 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300
+	atom_integrity = 300
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -80156,7 +80156,7 @@
 	dir = 4;
 	icon_state = "leftsecure";
 	name = "Secure Creature Pen Shield Holder";
-	obj_integrity = 300;
+	atom_integrity = 300;
 	req_access_txt = "47"
 	},
 /obj/structure/sign/warning/electricshock{
