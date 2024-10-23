@@ -138,7 +138,9 @@
 	food_reagents = list(/datum/reagent/drug/mushroomhallucinogen = 3)
 	tastes = list("pop candy" = 1, "meat" = 1)
 	foodtypes = VEGETABLES | RAW | GORE
-	microwaved_type = /obj/item/food/meat/steak/plain/human/psyphoza
+
+/obj/item/food/meat/slab/human/mutant/psyphoza/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/psyphoza, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
 
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
@@ -358,7 +360,6 @@
 	name = "raw crab meat"
 	desc = "A pile of raw crab meat."
 	icon_state = "crabmeatraw"
-	microwaved_type = /obj/item/food/meat/crab
 	bite_consumption = 3
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 3,
@@ -660,7 +661,6 @@
 	bite_consumption = 1
 	tastes = list("slime" = 1, "grub" = 1)
 	foodtypes = RAW | MEAT | TOXIC
-	microwaved_type = /obj/item/food/meat/cutlet/grub
 
 /obj/item/food/meat/rawcutlet/grub/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/grub, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)

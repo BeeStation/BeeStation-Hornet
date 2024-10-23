@@ -1020,22 +1020,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/proc/microwave_act(obj/machinery/microwave/M)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M) & COMPONENT_SUCCESFUL_MICROWAVE)
-		return
-	if(istype(M) && M.dirty < 100)
-		M.dirty++
+/obj/item/proc/microwave_act(obj/machinery/microwave/microwave_source, mob/microwaver)
+	SHOULD_CALL_PARENT(TRUE)
 
-	var/obj/item/stock_parts/cell/battery = get_cell()
-	if(battery && battery.charge < battery.maxcharge * 0.4)
-		battery.give(battery.maxcharge * 0.4 - battery.charge)
-		if(prob(5))
-			message_admins("A modular tablet ([src]) was detonated in a microwave (5% chance) at [ADMIN_JMP(src)]")
-			log_game("A modular tablet named [src] detonated in a microwave at [get_turf(src)]")
-			if(battery.charge > 3600) //At this charge level, the default charge-based battery explosion is more severe
-				battery.explode()
-			else
-				explosion(src, 0, 0, 3, 4)
+	return SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, microwave_source, microwaver)
 
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 

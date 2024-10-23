@@ -42,25 +42,20 @@ Behavior that's still missing from this component that original food items had t
 	var/datum/callback/check_liked
 	///Last time we checked for food likes
 	var/last_check_time
-	///The initial reagents of this food when it is made
-	var/list/initial_reagents
 	///The initial volume of the foods reagents
-	var/volume
+	var/volume = 50
 	///The flavortext for taste
 	var/list/tastes
-	///The type of atom this creates when the object is microwaved.
-	var/atom/microwaved_type
 
 /datum/component/edible/Initialize(
 	list/initial_reagents,
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
-	eat_time = 10,
+	eat_time = 1 SECONDS,
 	list/tastes,
-	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
+	list/eatverbs = list("bite", "chew", "nibble", "gnaw", "gobble", "chomp"),
 	bite_consumption = 2,
-	microwaved_type,
 	junkiness,
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
@@ -72,62 +67,72 @@ Behavior that's still missing from this component that original food items had t
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
+	src.bite_consumption = bite_consumption
+	src.food_flags = food_flags
+	src.foodtypes = foodtypes
+	src.volume = volume
+	src.eat_time = eat_time
+	src.eatverbs = string_list(eatverbs)
+	src.junkiness = junkiness
+	src.after_eat = after_eat
+	src.on_consume = on_consume
+	src.tastes = string_assoc_list(tastes)
+	src.check_liked = check_liked
+
+	setup_initial_reagents(initial_reagents)
+
+/datum/component/edible/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(use_by_animal))
 	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(on_craft))
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(on_processed))
-	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 
+	if(isturf(parent))
+		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
+	else
+		var/static/list/loc_connections = list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered))
+		AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
+
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
-		RegisterSignal(parent, COMSIG_GRILL_FOOD, PROC_REF(GrillFood))
-		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
-		RegisterSignal(parent, COMSIG_ITEM_USED_AS_INGREDIENT,  PROC_REF(used_to_customize))
+		RegisterSignal(parent, COMSIG_ITEM_USED_AS_INGREDIENT, PROC_REF(used_to_customize))
 
 		var/obj/item/item = parent
-		if (!item.grind_results)
+		if(!item.grind_results)
 			item.grind_results = list() //If this doesn't already exist, add it as an empty list. This is needed for the grinder to accept it.
 
-	src.bite_consumption = bite_consumption
-	src.food_flags = food_flags
-	src.foodtypes = foodtypes
-	src.eat_time = eat_time
-	src.eatverbs = string_list(eatverbs)
-	src.junkiness = junkiness
-	src.pre_eat = pre_eat
-	src.on_compost = on_compost
-	src.after_eat = after_eat
-	src.on_consume = on_consume
-	src.initial_reagents = string_assoc_list(initial_reagents)
-	src.tastes = string_assoc_list(tastes)
-	src.microwaved_type = microwaved_type
-	src.check_liked = check_liked
+	else if(isturf(parent) || isstructure(parent))
+		RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(TryToEatIt))
 
-	var/atom/owner = parent
+/datum/component/edible/UnregisterFromParent()
+	UnregisterSignal(parent, list(
+		COMSIG_ATOM_ATTACK_ANIMAL,
+		COMSIG_ATOM_ATTACK_HAND,
+		COMSIG_ATOM_CHECKPARTS,
+		COMSIG_ATOM_CREATEDBY_PROCESSING,
+		COMSIG_ATOM_ENTERED,
+		COMSIG_FOOD_INGREDIENT_ADDED,
+		COMSIG_ITEM_ATTACK,
+		COMSIG_ITEM_FRIED,
+		COMSIG_ITEM_USED_AS_INGREDIENT,
+		COMSIG_PARENT_EXAMINE,
+	))
 
-	owner.create_reagents(volume, INJECTABLE)
-
-	for(var/rid in initial_reagents)
-		var/amount = initial_reagents[rid]
-		if(length(tastes) && (rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin))
-			owner.reagents.add_reagent(rid, amount, tastes.Copy())
-		else
-			owner.reagents.add_reagent(rid, amount)
+	qdel(GetComponent(/datum/component/connect_loc_behalf))
 
 /datum/component/edible/InheritComponent(
-	datum/component/C,
+	datum/component/edible/old_comp,
 	i_am_original,
 	list/initial_reagents,
 	food_flags = NONE,
 	foodtypes = NONE,
-	volume = 50,
-	eat_time = 10,
+	volume,
+	eat_time,
 	list/tastes,
-	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
-	bite_consumption = 2,
-	microwaved_type,
+	list/eatverbs,
+	bite_consumption,
 	junkiness,
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
@@ -136,68 +141,118 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/check_liked,
 	)
 
-	. = ..()
-	src.bite_consumption = bite_consumption
-	src.food_flags = food_flags
-	src.foodtypes = foodtypes
-	src.eat_time = eat_time
-	src.eatverbs = eatverbs
-	src.junkiness = junkiness
-	src.pre_eat = pre_eat
-	src.on_compost = on_compost
-	src.after_eat = after_eat
-	src.on_consume = on_consume
+	// If we got passed an old comp, take only the values that will not override our current ones
+	if(old_comp)
+		food_flags = old_comp.food_flags
+		foodtypes = old_comp.foodtypes
+		tastes = old_comp.tastes
+		eatverbs = old_comp.eatverbs
+
+	// only edit if we're OG
+	if(!i_am_original)
+		return
+
+	// add food flags and types
+	src.food_flags |= food_flags
+	src.foodtypes |= foodtypes
+
+	// add all new eatverbs to the list
+	if(islist(eatverbs))
+		var/list/cached_verbs = src.eatverbs
+		if(islist(cached_verbs))
+			// eatverbs becomes a combination of existing verbs and new ones
+			src.eatverbs = string_list(cached_verbs | eatverbs)
+		else
+			src.eatverbs = string_list(eatverbs)
+
+	// add all new tastes to the tastes
+	if(islist(tastes))
+		var/list/cached_tastes = src.tastes
+		if(islist(cached_tastes))
+			// tastes becomes a combination of existing tastes and new ones
+			var/list/mixed_tastes = cached_tastes.Copy()
+			for(var/new_taste in tastes)
+				mixed_tastes[new_taste] += tastes[new_taste]
+
+			src.tastes = string_assoc_list(mixed_tastes)
+		else
+			src.tastes = string_assoc_list(tastes)
+
+	// just set these directly
+	if(!isnull(bite_consumption))
+		src.bite_consumption = bite_consumption
+	if(!isnull(volume))
+		src.volume = volume
+	if(!isnull(eat_time))
+		src.eat_time = eat_time
+	if(!isnull(junkiness))
+		src.junkiness = junkiness
+	if(!isnull(after_eat))
+		src.after_eat = after_eat
+	if(!isnull(on_consume))
+		src.on_consume = on_consume
+	if(!isnull(check_liked))
+		src.check_liked = check_liked
+
+	// add newly passed in reagents
+	setup_initial_reagents(initial_reagents)
 
 /datum/component/edible/Destroy(force, silent)
 	QDEL_NULL(pre_eat)
 	QDEL_NULL(on_compost)
 	QDEL_NULL(after_eat)
 	QDEL_NULL(on_consume)
+	QDEL_NULL(check_liked)
 	return ..()
+
+/// Sets up the initial reagents of the food.
+/datum/component/edible/proc/setup_initial_reagents(list/reagents)
+	var/atom/owner = parent
+	if(owner.reagents)
+		owner.reagents.maximum_volume = volume
+	else
+		owner.create_reagents(volume, INJECTABLE)
+
+	for(var/rid in reagents)
+		var/amount = reagents[rid]
+		if(length(tastes) && (rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin))
+			owner.reagents.add_reagent(rid, amount, tastes.Copy())
+		else
+			owner.reagents.add_reagent(rid, amount)
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(microwaved_type)
-		examine_list += "[parent] could be <b>microwaved</b> into [initial(microwaved_type.name)]!"
+	if(foodtypes)
+		var/list/types = bitfield_to_list(foodtypes, FOOD_FLAGS)
+		examine_list += "<span class='notice'>It is [LOWER_TEXT(english_list(types))].</span>"
+
+	var/datum/mind/mind = user.mind
+	if(mind && HAS_TRAIT_FROM(parent, TRAIT_FOOD_CHEF_MADE, REF(mind)))
+		examine_list += "<span class='green'>[parent] was made by you!</span>"
 
 	if(!(food_flags & FOOD_IN_CONTAINER))
-		switch (bitecount)
-			if (0)
-				return
+		switch(bitecount)
+			if(0)
+				pass()
 			if(1)
-				examine_list += "[parent] was bitten by someone!"
-			if(2,3)
-				examine_list += "[parent] was bitten [bitecount] times!"
+				examine_list += "<span class='notice'>[parent] was bitten by someone!</span>"
+			if(2, 3)
+				examine_list += "<span class='notice'>[parent] was bitten [bitecount] times!</span>"
 			else
-				examine_list += "[parent] was bitten multiple times!"
+				examine_list += "<span class='notice'>[parent] was bitten multiple times!</span>"
 
 /datum/component/edible/proc/use_from_hand(obj/item/source, mob/living/M, mob/living/user)
 	SIGNAL_HANDLER
 
 	return TryToEat(M, user)
 
-/datum/component/edible/proc/GrillFood(datum/source, atom/fry_object, grill_time)
+/datum/component/edible/proc/TryToEatIt(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	var/atom/this_food = parent
-
-	switch(grill_time) //no 0-20 to prevent spam
-		if(20 to 30)
-			this_food.name = "lightly-grilled [this_food.name]"
-			this_food.desc = "[this_food.desc] It's been lightly grilled."
-		if(30 to 80)
-			this_food.name = "grilled [this_food.name]"
-			this_food.desc = "[this_food.desc] It's been grilled."
-			foodtypes |= FRIED
-		if(80 to 100)
-			this_food.name = "heavily grilled [this_food.name]"
-			this_food.desc = "[this_food.desc] It's been heavily grilled."
-			foodtypes |= FRIED
-		if(100 to INFINITY) //grill marks reach max alpha
-			this_food.name = "Powerfully Grilled [this_food.name]"
-			this_food.desc = "A [this_food.name]. Reminds you of your wife, wait, no, it's prettier!"
-			foodtypes |= FRIED
+	if (!in_range(source, user))
+		return
+	return TryToEat(user, user)
 
 ///Called when food is created through processing (Usually this means it was sliced). We use this to pass the OG items reagents.
 /datum/component/edible/proc/on_processed(datum/source, atom/original_atom, list/chosen_processing_option)
@@ -238,38 +293,6 @@ Behavior that's still missing from this component that original food items had t
 	this_food.reagents.maximum_volume = ROUND_UP(this_food.reagents.maximum_volume) // Just because I like whole numbers for this.
 
 	SSblackbox.record_feedback("tally", "food_made", 1, type)
-
-/datum/component/edible/proc/on_microwaved(datum/source, obj/machinery/microwave/used_microwave)
-	SIGNAL_HANDLER
-
-	var/turf/parent_turf = get_turf(parent)
-
-	if(!microwaved_type)
-		new /obj/item/food/badrecipe(parent_turf)
-		qdel(parent)
-		return
-
-	var/obj/item/result
-
-	result = new microwaved_type(parent_turf)
-
-	var/efficiency = istype(used_microwave) ? used_microwave.efficiency : 1
-
-	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, parent, efficiency)
-
-	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
-	qdel(parent)
-	return COMPONENT_SUCCESFUL_MICROWAVE
-
-///Corrects the reagents on the newly cooked food
-/datum/component/edible/proc/on_microwave_cooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
-	SIGNAL_HANDLER
-
-	var/atom/this_food = parent
-
-	this_food.reagents.multiply_reagents(cooking_efficiency * CRAFTED_FOOD_BASE_REAGENT_MODIFIER)
-
-	source_item.reagents?.trans_to(this_food, source_item.reagents.total_volume)
 
 ///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
 /datum/component/edible/proc/IsFoodGone(atom/owner, mob/living/feeder)
@@ -324,7 +347,7 @@ Behavior that's still missing from this component that original food items had t
 		else if(fullness > (600 * (1 + eater.overeatduration / 2000)))	// The more you eat - the more you can eat
 			eater.visible_message("<span class='warning'>[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!</span>", "<span class='warning'>You cannot force any more of \the [parent] to go down your throat!</span>")
 			return
-			
+
 	else //If you're feeding it to someone else.
 		if(isbrain(eater))
 			to_chat(feeder, "<span class='warning'>[eater] doesn't seem to have a mouth!</span>")
@@ -490,6 +513,11 @@ Behavior that's still missing from this component that original food items had t
 		L.manual_emote(satisfaction_text)
 		qdel(parent)
 
+///Ability to feed food to puppers
+/datum/component/edible/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	SEND_SIGNAL(parent, COMSIG_FOOD_CROSSED, arrived, bitecount)
+
 ///Response to being used to customize something
 /datum/component/edible/proc/used_to_customize(datum/source, atom/customized)
 	SIGNAL_HANDLER
@@ -500,9 +528,4 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/edible_ingredient_added(datum/source, datum/component/edible/ingredient)
 	SIGNAL_HANDLER
 
-	var/datum/component/edible/E = ingredient
-	if (LAZYLEN(E.tastes))
-		tastes = tastes.Copy()
-		for (var/t in E.tastes)
-			tastes[t] += E.tastes[t]
-	foodtypes |= E.foodtypes
+	InheritComponent(ingredient, TRUE)

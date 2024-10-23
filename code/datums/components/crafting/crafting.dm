@@ -217,6 +217,7 @@
 		else
 			result.forceMove(user.drop_location())
 		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
+		TR.on_craft_completion(user, result)
 	else
 		to_chat(user, "<span class='warning'>Construction failed[result]</span>")
 	busy = FALSE
@@ -427,7 +428,8 @@
 	return data
 
 /datum/component/personal_crafting/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("make")

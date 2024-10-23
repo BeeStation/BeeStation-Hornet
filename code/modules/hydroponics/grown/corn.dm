@@ -20,7 +20,6 @@
 	name = "ear of corn"
 	desc = "Needs some butter!"
 	icon_state = "corn"
-	microwaved_type = /obj/item/food/popcorn
 	trash_type = /obj/item/grown/corncob
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
@@ -29,10 +28,8 @@
 	distill_reagent = /datum/reagent/consumable/ethanol/whiskey
 	discovery_points = 300
 
-/*
 /obj/item/food/grown/corn/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/popcorn)
-*/
 
 /obj/item/grown/corncob
 	name = "corn cob"

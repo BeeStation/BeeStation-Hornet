@@ -66,7 +66,7 @@
 			return
 		else if(!grilled_item && user.transferItemToLoc(I, src))
 			grilled_item = I
-			RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
+			RegisterSignal(grilled_item, COMSIG_ITEM_GRILLED, PROC_REF(GrillCompleted))
 			to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
 			update_appearance()
 			grill_loop.start()
@@ -85,7 +85,7 @@
 			smoke.set_up(1, loc)
 			smoke.start()
 	if(grilled_item)
-		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, src, delta_time)
+		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILL_PROCESS, src, delta_time)
 		grill_time += delta_time
 		grilled_item.reagents.add_reagent(/datum/reagent/consumable/char, 0.5 * delta_time)
 		grill_fuel -= GRILL_FUELUSAGE_ACTIVE * delta_time
@@ -126,9 +126,11 @@
 	return ..()
 
 /obj/machinery/grill/proc/finish_grill()
-	SEND_SIGNAL(grilled_item, COMSIG_GRILL_FOOD, grilled_item, grill_time)
+	if(grilled_item)
+		if(grill_time >= 20)
+			grilled_item.AddElement(/datum/element/grilled_item, grill_time)
+		UnregisterSignal(grilled_item, COMSIG_ITEM_GRILLED)
 	grill_time = 0
-	UnregisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
 	grill_loop.stop()
 
 ///Called when a food is transformed by the grillable component

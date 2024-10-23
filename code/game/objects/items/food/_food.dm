@@ -14,6 +14,8 @@
 	icon_state = null
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
+	obj_flags = UNIQUE_RENAME
+	grind_results = list()
 	///List of reagents this food gets on creation
 	var/list/food_reagents
 	///Extra flags for things such as if the food is in a container or not
@@ -30,8 +32,6 @@
 	var/list/eatverbs
 	///How much reagents per bite
 	var/bite_consumption
-	///What you get if you microwave the food, this should be replaced once I fully re-work cooking.
-	var/microwaved_type
 	///Type of atom thats spawned after eating this item
 	var/trash_type
 	///How much junkiness this food has? God I should remove junkiness soon
@@ -51,6 +51,7 @@
 	make_grillable()
 	//make_decompose(mapload)
 	make_bakeable()
+	make_microwaveable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/make_edible()
@@ -63,8 +64,8 @@
 		tastes = tastes,\
 		eatverbs = eatverbs,\
 		bite_consumption = bite_consumption,\
-		microwaved_type = microwaved_type,\
-		junkiness = junkiness)
+		junkiness = junkiness,\
+	)
 
 
 ///This proc handles processable elements, overwrite this if you want to add behavior such as slicing, forking, spooning, whatever, to turn the item into something else
@@ -79,6 +80,11 @@
 ///This proc handles bakeable components, overwrite if you want different bake results etc.
 /obj/item/food/proc/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/badrecipe, rand(25 SECONDS, 40 SECONDS), FALSE)
+
+/// This proc handles the microwave component. Overwrite if you want special microwave results.
+/// By default, all food is microwavable. However, they will be microwaved into a bad recipe (burnt mess).
+/obj/item/food/proc/make_microwaveable()
+	AddElement(/datum/element/microwavable)
 
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
 /obj/item/food/proc/make_leave_trash()

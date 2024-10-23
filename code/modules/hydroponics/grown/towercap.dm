@@ -293,9 +293,11 @@
 			var/mob/living/L = A
 			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
 			L.IgniteMob()
-		else if(istype(A, /obj/item))
-			var/obj/item/grilled_item = A
-			SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, src, delta_time) //Not a big fan, maybe make this use fire_act() in the future.
+		else
+			var/atom/movable/burned_movable = A
+			if(grill && isitem(burned_movable))
+				var/obj/item/grilled_item = burned_movable
+				SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILL_PROCESS, src, delta_time) //Not a big fan, maybe make this use fire_act() in the future.
 
 /obj/structure/bonfire/process(delta_time)
 	if(needs_oxygen && !CheckOxygen())

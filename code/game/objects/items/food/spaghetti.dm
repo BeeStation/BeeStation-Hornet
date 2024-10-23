@@ -5,20 +5,24 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	foodtypes = GRAIN
 
-/obj/item/food/spaghetti/Initialize(mapload)
-	. = ..()
-	if(!microwaved_type) // This isn't cooked, why would you put uncooked spaghetti in your pocket?
-		var/list/display_message = list(
-			"<span class='notice'>Something wet falls out of their pocket and hits the ground. Is that... [name]?</span>",
-			"<span class='warning'>Oh shit! All your pocket [name] fell out!</span>")
-		AddComponent(/datum/component/spill, display_message, 'sound/effects/splat.ogg')
+// Why are you putting cooked spaghetti in your pockets?
+/obj/item/food/spaghetti/make_microwaveable()
+	var/list/display_message = list(
+		"<span class='notice'>Something wet falls out of their pocket and hits the ground. Is that... [name]?</span>",
+		"<span class='warning'>Oh shit! All your pocket [name] fell out!</span>")
+	AddComponent(/datum/component/spill, display_message, 'sound/effects/splat.ogg')
 
 /obj/item/food/spaghetti/raw
 	name = "spaghetti"
 	desc = "Now that's a nic'e pasta!"
 	icon_state = "spaghetti"
 	tastes = list("pasta" = 1)
-	microwaved_type = /obj/item/food/spaghetti/boiledspaghetti
+
+/obj/item/food/spaghetti/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/spaghetti/boiledspaghetti, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
+
+/obj/item/food/spaghetti/raw/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/spaghetti/boiledspaghetti)
 
 /obj/item/food/spaghetti/boiledspaghetti
 	name = "boiled spaghetti"
