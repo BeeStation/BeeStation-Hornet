@@ -440,6 +440,17 @@
 			busy = TRUE
 			. = TRUE
 			INVOKE_ASYNC(src, PROC_REF(construct_item_ui), user, TR)
+			var/atom/movable/result = construct_item(usr, TR)
+			if(!istext(result)) //We made an item and didn't get a fail message
+				if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
+					user.put_in_hands(result)
+				else
+					result.forceMove(user.drop_location())
+				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				TR.on_craft_completion(user, result)
+			else
+				to_chat(usr, "<span class='warning'>Construction failed[result]</span>")
+			busy = FALSE
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE
