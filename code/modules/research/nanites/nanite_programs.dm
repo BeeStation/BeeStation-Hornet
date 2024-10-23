@@ -191,6 +191,7 @@
 	if(timer_restart)
 		timer_restart_next = world.time + timer_restart
 
+/// Processes every second
 /datum/nanite_program/proc/on_process()
 	if(!activated)
 		if(timer_restart_next && world.time > timer_restart_next)

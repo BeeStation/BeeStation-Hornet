@@ -39,9 +39,6 @@
 /obj/item/disk/nanite_program/regenerative
 	program_type = /datum/nanite_program/regenerative
 
-/obj/item/disk/nanite_program/regenerative_advanced
-	program_type = /datum/nanite_program/regenerative_advanced
-
 /obj/item/disk/nanite_program/temperature
 	program_type = /datum/nanite_program/temperature
 
