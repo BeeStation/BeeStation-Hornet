@@ -162,14 +162,6 @@
 	program_type = /datum/nanite_program/regenerative
 	category = list("Medical Nanites")
 
-/datum/design/nanites/regenerative_advanced
-	name = "Bio-Reconstruction"
-	desc = "The nanites manually repair and replace organic cells, acting much faster than normal regeneration. \
-			However, this program cannot detect the difference between harmed and unharmed, causing it to consume nanites even if it has no effect."
-	id = "regenerative_plus_nanites"
-	program_type = /datum/nanite_program/regenerative_advanced
-	category = list("Medical Nanites")
-
 /datum/design/nanites/temperature
 	name = "Temperature Adjustment"
 	desc = "The nanites adjust the host's internal temperature to an ideal level."
@@ -642,7 +634,7 @@
 	id = "unsafe_storage_nanites"
 	program_type = /datum/nanite_program/protocol/unsafe_storage
 	category = list("Protocols_Nanites")
-	
+
 ////////////////////NANITE CLASSIFIED//////////////////////////////////////
 /datum/design/nanites/mindshield
 	name = "Mental Barrier"

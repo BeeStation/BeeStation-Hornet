@@ -167,29 +167,6 @@
 	for(var/datum/reagent/toxin/R in host_mob.reagents?.reagent_list)
 		host_mob.reagents?.remove_reagent(R.type,1)
 
-/datum/nanite_program/regenerative_advanced
-	name = "Bio-Reconstruction"
-	desc = "The nanites manually repair and replace organic cells, acting much faster than normal regeneration. \
-			However, this program cannot detect the difference between harmed and unharmed, causing it to consume nanites even if it has no effect."
-	use_rate = 5.5
-	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
-
-/datum/nanite_program/regenerative_advanced/active_effect()
-	if(iscarbon(host_mob))
-		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
-		if(!parts.len)
-			return
-		var/update = FALSE
-		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(3/parts.len, 3/parts.len, null, BODYTYPE_ORGANIC))
-				update = TRUE
-		if(update)
-			host_mob.update_damage_overlays()
-	else
-		host_mob.adjustBruteLoss(-3, TRUE)
-		host_mob.adjustFireLoss(-3, TRUE)
-
 /datum/nanite_program/brain_heal_advanced
 	name = "Neural Reimaging"
 	desc = "The nanites are able to backup and restore the host's neural connections, potentially replacing entire chunks of missing or damaged brain matter."
