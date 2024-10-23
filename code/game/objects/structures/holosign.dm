@@ -186,6 +186,11 @@
 	max_integrity = 20
 	var/shockcd = 0
 
+/obj/structure/holosign/barrier/cyborg/hacked/detective
+	name = "investigation barrier"
+	desc = "An authoritive holographic barrier proclaiming a crime scene. Energy arcs off of it."
+	icon_state = "holosign_det"
+
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
 	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
 	return BULLET_ACT_HIT

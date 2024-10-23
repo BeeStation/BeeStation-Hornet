@@ -492,6 +492,11 @@
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
 	dye_color = DYE_WHITE
 
+/obj/item/toy/crayon/white/chalk
+	name = "detective's chalk"
+	desc = "A stick of white chalk for marking crime scenes."
+	toolspeed = 0.25
+
 /obj/item/toy/crayon/mime
 	icon_state = "crayonmime"
 	desc = "A very sad-looking crayon."
