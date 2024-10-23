@@ -90,7 +90,7 @@
 
 /datum/action/vehicle/sealed/mecha/mech_search_ruins
 	name = "Search for Ruins"
-	button_icon_state = "mech_search_ruins"
+	button_icon_state = "mech_search_ruins" //This is missing from code itself
 	COOLDOWN_DECLARE(search_cooldown)
 
 /datum/action/vehicle/sealed/mecha/mech_search_ruins/Trigger(trigger_flags)

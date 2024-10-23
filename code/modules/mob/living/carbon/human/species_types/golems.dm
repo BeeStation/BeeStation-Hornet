@@ -153,6 +153,7 @@
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "sacredflame"
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 
 /datum/action/innate/ignite/Activate()
 	if(ishuman(owner))

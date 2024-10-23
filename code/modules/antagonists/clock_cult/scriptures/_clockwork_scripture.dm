@@ -232,13 +232,13 @@
 
 /datum/action/innate/clockcult
 	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_clock"
 	buttontooltipstyle = "brass"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/clockcult/quick_bind
 	name = "Quick Bind"
-	button_icon_state = "telerune"
 	desc = "A quick bound spell."
 	var/obj/item/clockwork/clockwork_slab/activation_slab
 	var/datum/clockcult/scripture/scripture

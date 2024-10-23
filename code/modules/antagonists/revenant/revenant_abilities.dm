@@ -174,7 +174,7 @@
 	panel = "Revenant Abilities (Locked)"
 	background_icon_state = "bg_revenant"
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
-
+	button_icon_state = "r_default"
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	spell_requirements = NONE
 

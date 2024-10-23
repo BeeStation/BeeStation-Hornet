@@ -254,6 +254,7 @@
 /datum/action/innate/pai
 	name = "PAI Action"
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon_state = null
 	var/mob/living/silicon/pai/P
 
 /datum/action/innate/pai/Trigger(trigger_flags)

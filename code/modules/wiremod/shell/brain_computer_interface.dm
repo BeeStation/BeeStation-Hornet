@@ -136,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	name = "Action"
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "bci_power"
+	button_icon_state = "green_power_button"
 
 	var/obj/item/circuit_component/bci_action/circuit_component
 

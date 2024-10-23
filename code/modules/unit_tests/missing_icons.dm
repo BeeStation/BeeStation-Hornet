@@ -1,4 +1,4 @@
-/// Makes sure objects actually have icons that exist!
+/// Makes sure objects and datums actually have icons that exist!
 /datum/unit_test/missing_icons
 	var/static/list/possible_icon_states = list()
 	/// additional_icon_location is for downstream modularity support.
@@ -19,12 +19,35 @@
 /datum/unit_test/missing_icons/Run()
 	generate_possible_icon_states_list()
 	generate_possible_icon_states_list("icons/effects/")
+	generate_possible_icon_states_list("icons/hud/")
 	if(additional_icon_location)
 		generate_possible_icon_states_list(additional_icon_location)
 
 	//Add EVEN MORE paths if needed here!
 	//generate_possible_icon_states_list("your/folder/path/")
 	var/list/bad_list = list()
+	for(var/datum/action/action_path as anything in subtypesof(/datum/action))
+		var/icon = initial(action_path.icon_icon)
+		if(isnull(icon))
+			continue
+		var/icon_state = initial(action_path.button_icon_state)
+		if(isnull(icon_state))
+			continue
+
+		if(length(bad_list) && (icon_state in bad_list[icon]))
+			continue
+
+		if(icon_exists(icon, icon_state))
+			continue
+
+		bad_list[icon] += list(icon_state)
+
+		var/match_message
+		if(icon_state in possible_icon_states)
+			for(var/file_place in possible_icon_states[icon_state])
+				match_message += (match_message ? " & '[file_place]'" : " - Matching sprite found in: '[file_place]'")
+
+		TEST_FAIL("Missing icon_state for [action_path] in '[icon]'.\n\ticon_state = \"[icon_state]\"[match_message]")
 	for(var/obj/obj_path as anything in subtypesof(/obj))
 		if(ispath(obj_path, /obj/item))
 			var/obj/item/item_path = obj_path

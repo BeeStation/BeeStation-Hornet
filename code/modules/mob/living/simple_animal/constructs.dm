@@ -487,6 +487,7 @@
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	var/tracking = FALSE
 	var/mob/living/simple_animal/hostile/construct/the_construct
 

@@ -449,6 +449,7 @@
 
 /datum/action/innate/spider
 	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_alien"
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -756,7 +757,7 @@
 	panel = "Spider"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
 	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
-	button_icon = 'icons/hud/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "throw_web_0"
 	background_icon_state = "bg_alien"
 	cooldown_time = 2 SECONDS

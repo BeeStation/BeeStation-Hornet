@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	name = "AI Action"
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
+	button_icon_state = null
 	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	/// The owner AI, so we don't have to typecast every time
 	var/mob/living/silicon/ai/owner_AI

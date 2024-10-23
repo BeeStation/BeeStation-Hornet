@@ -10,7 +10,7 @@ Doesn't work on other aliens/AI.*/
 	panel = "Alien"
 	background_icon_state = "bg_alien"
 	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
-	button_icon_state = "spell_default"
+	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	/// How much plasma this action uses.
 	var/plasma_cost = 0

@@ -6,12 +6,12 @@
 
 /datum/action/item_action/toggle_beacon
 	name = "Toggle Hardsuit Locator Beacon"
-	icon_icon = 'icons/hud/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-transmission"
 
 /datum/action/item_action/toggle_beacon_hud
 	name = "Toggle Hardsuit Locator HUD"
-	icon_icon = 'icons/hud/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-hud"
 
 /datum/action/item_action/toggle_beacon_hud/explorer
@@ -19,7 +19,7 @@
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"
-	icon_icon = 'icons/hud/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change-code"
 
 /datum/action/item_action/toggle_research_scanner

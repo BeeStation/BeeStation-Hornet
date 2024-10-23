@@ -6,6 +6,7 @@
 	name = "Prototype Sting - Debug button, ahelp this"
 	background_icon_state = "bg_changeling"
 	icon_icon = 'icons/hud/actions/actions_changeling.dmi'
+	button_icon_state = null
 	var/needs_button = TRUE//for passive abilities like hivemind that dont need a button
 	var/helptext = "" // Details
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)

@@ -439,6 +439,7 @@
 	name = "Switch to Manual Firing"
 	desc = "The emitter will only fire on your command and at your designated target"
 	button_icon_state = "mech_zoom_on"
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 
 /datum/action/innate/proto_emitter/firing/Activate()
 	if(proto_emitter.manual)

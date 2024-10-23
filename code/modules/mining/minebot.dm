@@ -496,6 +496,7 @@
 // Used when a player's in control of a minebot.
 
 /datum/action/innate/minedrone
+	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"

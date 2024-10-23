@@ -3,6 +3,7 @@
 /datum/action/innate/cult
 	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
+	button_icon_state = null
 	buttontooltipstyle = "cult"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'

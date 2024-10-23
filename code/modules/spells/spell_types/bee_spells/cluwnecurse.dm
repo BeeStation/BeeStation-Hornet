@@ -6,7 +6,7 @@
 	invocation = "CLU WO'NIS CA'TE'BEST'IS MAXIMUS!"
 	invocation_type = INVOCATION_SHOUT
 	target_radius = 3
-	button_icon = 'icons/hud/actions.dmi'
+	icon_icon = 'icons/obj/clothing/masks.dmi'
 	button_icon_state = "cluwne"
 	choose_target_message = "Choose your victim"
 
@@ -28,11 +28,3 @@
 /datum/spellbook_entry/cluwnecurse
 	name = "Cluwne Curse"
 	spell_type = /datum/action/cooldown/spell/list_target/cluwnecurse
-
-
-/* What the fuck is this doing here
-/datum/action/spell_action/New(Target)
-	..()
-	var/obj/effect/proc_holder/spell/S = Target
-	icon_icon = S.action_icon
-*/
