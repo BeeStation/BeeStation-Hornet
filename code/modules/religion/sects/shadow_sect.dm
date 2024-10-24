@@ -22,6 +22,7 @@
 	var/light_power = 0
 	var/list/obelisks = list()
 	var/faithful_used = FALSE
+	var/Murder = FALSE
 
 /datum/religion_sect/shadow_sect/is_available(mob/user)
 	if(isshadow(user))
@@ -387,6 +388,8 @@
 		to_chat(user,"<span class='warning'>This rite has already been used, your favor has been refuned.</span>")
 		GLOB.religious_sect?.adjust_favor(50000, user)
 		return ..()
+	if(user.mind.is_murderbone())
+		sect.Murder = TRUE
 	sect.faithful_used = TRUE
 	var/altar_turf = get_turf(religious_tool)
 	var/obj/structure/destructible/religion/shadow_obelisk/lisk = new(altar_turf)
@@ -402,8 +405,8 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
 		START_PROCESSING(SSobj, obs)
 		var/obelisk_turf = get_turf(obs)
-		if(user.mind.is_murderbone())
-			prob(30)
+		if(sect.Murder)
+			if(prob(30))
 				for(var/i in 1 to 3)
 					var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
 					faithful.AddComponent(/datum/component/dark_favor, faithful)
