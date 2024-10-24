@@ -205,7 +205,7 @@
 	if(!shockcd)
 		if(ismob(user))
 			var/mob/living/M = user
-			M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES)
+			M.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
 			shockcd = TRUE
 			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
@@ -217,6 +217,5 @@
 		return
 
 	var/mob/living/M = AM
-	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES)
-	shockcd = TRUE
+	M.Knockdown(10)
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
