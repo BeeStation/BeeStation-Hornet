@@ -482,7 +482,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 				slurring += 2 * delta_time
 			jitteriness = max(jitteriness - (3 * delta_time), 0)
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
-			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING))
+			if(HAS_TRAIT(src, TRAIT_ALCOHOL_ENJOYER))
 				adjustBruteLoss(-0.12 * delta_time, FALSE)
 				adjustFireLoss(-0.06 * delta_time, FALSE)
 		else
@@ -514,7 +514,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			if(DT_PROB(25, delta_time))
 				confused += 2 * delta_time
 			Dizzy(10)
-			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING)) // effects stack with lower tiers
+			if(HAS_TRAIT(src, TRAIT_ALCOHOL_ENJOYER)) // effects stack with lower tiers
 				adjustBruteLoss(-0.3 * delta_time, FALSE)
 				adjustFireLoss(-0.15 * delta_time, FALSE)
 
@@ -527,7 +527,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 61)
 			if(DT_PROB(50, delta_time))
 				blur_eyes(5 * delta_time)
-			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING))
+			if(HAS_TRAIT(src, TRAIT_ALCOHOL_ENJOYER))
 				adjustBruteLoss(-0.4 * delta_time, FALSE)
 				adjustFireLoss(-0.2 * delta_time, FALSE)
 
