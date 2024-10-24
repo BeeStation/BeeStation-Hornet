@@ -43,6 +43,9 @@
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 
+	/// Ability which lets carp teleport around
+	var/datum/action/cooldown/mob_cooldown/lesser_carp_rift/teleport
+
 	/// If the carp uses random coloring
 	var/random_color = TRUE
 	/// The chance for a rare color variant
@@ -243,10 +246,10 @@
 /mob/living/simple_animal/hostile/carp/advanced
 	name = "advanced space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
-	maxHealth = 40
-	health = 40
+	maxHealth = 60
+	health = 60
 	gold_core_spawnable = NO_SPAWN
-	obj_damage = 15
+	obj_damage = 20
 
 /mob/living/simple_animal/hostile/carp/advanced/examine(mob/user)
 	. = ..()
