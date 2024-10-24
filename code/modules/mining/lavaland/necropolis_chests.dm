@@ -50,7 +50,6 @@
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
 		/obj/item/staff/storm												= 5,
-		/obj/item/book/granter/action/spell/summonitem						= 5,
 	)
 
 	if(..())
