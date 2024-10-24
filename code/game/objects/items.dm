@@ -1020,10 +1020,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/proc/microwave_act(obj/machinery/microwave/microwave_source, mob/microwaver)
+/obj/item/proc/microwave_act(obj/machinery/microwave/microwave_source, mob/microwaver, randomize_pixel_offset)
 	SHOULD_CALL_PARENT(TRUE)
 
-	return SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, microwave_source, microwaver)
+	return SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, microwave_source, microwaver, randomize_pixel_offset)
 
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
