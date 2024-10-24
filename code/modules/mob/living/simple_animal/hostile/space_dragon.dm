@@ -383,7 +383,6 @@
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
 	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
-	adjustBruteLoss(-10)
 /**
  * Remove the speed boost from carps when hit by space dragon's flame breath
  *
