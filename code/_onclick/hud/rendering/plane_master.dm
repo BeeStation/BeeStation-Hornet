@@ -123,6 +123,17 @@
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/atom/movable/screen/plane_master/blurred_lighting
+	name = "blurred-lighting plane master"
+	plane = BLURRED_LIGHTING
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_plane = LIGHTING_PLANE
+	blend_mode_override = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/blurred_lighting/Initialize(mapload)
+	. = ..()
+	add_filter("guassian_blur", 1, gauss_blur_filter(6))
+
 /**
  * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
  */

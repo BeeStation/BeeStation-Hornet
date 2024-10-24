@@ -134,16 +134,70 @@
 	icon_state = "impairedoverlay"
 
 /atom/movable/screen/fullscreen/flash
-	icon = 'icons/hud/screen_gen.dmi'
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	icon = 'icons/hud/fullscreen/flash.dmi'
 	icon_state = "flash"
+	color = list(
+		1, 1, 1, 1,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+	)
+	var/grey_value = 1
 
 /atom/movable/screen/fullscreen/flash/black
+	color = list(
+		0.3, 0.3, 0.3, 1,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+	)
+	grey_value = 0.3
+
+/atom/movable/screen/fullscreen/flash/proc/animate_duration(duration)
+	color = initial(color)
+	// Initial full blindness
+	animate(src, time = duration * 0.1, flags = ANIMATION_END_NOW)
+	// Transition to green level blindness
+	animate(time = duration * 0.5, color=list(
+		0, 0, 0, 0,
+		grey_value * 0.8, grey_value * 0.8, grey_value * 0.8, 1,
+		grey_value * 0.5, grey_value * 0.5, grey_value * 0.5, 1,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+	))
+	// Transition to blue level blindness
+	animate(time = duration * 0.2, color=list(
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		grey_value * 0.8, grey_value * 0.8, grey_value * 0.8, 1,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+	))
+	// Fade away
+	animate(time = duration * 0.2, color=list(
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+	))
+
+/atom/movable/screen/fullscreen/flash/silicon
 	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	icon_state = "black"
+	icon_state = "noise"
+	color = null
 
-/atom/movable/screen/fullscreen/flash/static
+/atom/movable/screen/fullscreen/flash/silicon/animate_duration(duration)
+	alpha = 255
+	animate(src, time = duration * 0.1, flags = ANIMATION_END_NOW)
+	animate(time = duration * 0.5, alpha = 0.5)
+	animate(time = duration * 0.2, alpha = 0.3)
+	animate(time = duration * 0.2, alpha = 0)
+
+/atom/movable/screen/fullscreen/static
 	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "noise"

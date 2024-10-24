@@ -251,7 +251,7 @@
 		handle_clown_mutation(H, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 
 	if(give_flash)
-		var/obj/item/assembly/flash/handheld/T = new(H)
+		var/obj/item/assembly/flash/handheld/revolution/T = new(H)
 		var/list/slots = list (
 			"backpack" = ITEM_SLOT_BACKPACK,
 			"left pocket" = ITEM_SLOT_LPOCKET,

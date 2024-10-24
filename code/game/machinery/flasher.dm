@@ -126,7 +126,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 	use_power(1000)
 
 	for (var/mob/living/L in hearers(range, src))
-		if(L.flash_act(affect_silicon = 1))
+		if(L.flash_act(affect_silicon = 1, critical_hit = TRUE))
 			L.Paralyze(strength)
 
 	return 1

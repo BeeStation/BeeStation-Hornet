@@ -161,13 +161,13 @@
 		results += "<span class='danger'>[M.p_they()] doesn't have any eyes!</span>"
 	else if(M == user)
 		//they're using it on themselves, give less of a report
-		if(M.flash_act(visual = 1))
+		if(M.flash_act(visual = 1, critical_hit = TRUE))
 			to_chat(user, "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
 		else
 			to_chat(user, "<span class='notice'>You wave the light in front of your eyes.</span>")
 		return
 	else
-		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
+		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1, critical_hit = TRUE)) //mob is dead or fully blind
 			results += "<span class='warning'>[M.p_their(TRUE)] pupils don't react to the light!</span>"
 		else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
 			results += "<span class='danger'>[M.p_their(TRUE)] pupils give an eerie glow!</span>"

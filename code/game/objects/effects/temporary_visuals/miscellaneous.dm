@@ -616,3 +616,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/launchpad)
 	duration = time
 	animate(src, time=time, alpha=255)
 	return ..()
+
+/obj/effect/temp_visual/tile_light
+	icon = 'icons/effects/alphacolors.dmi'
+	icon_state = "white"
+	plane = BLURRED_LIGHTING
+	blend_mode = BLEND_ADD
+	duration = FLASH_LIGHT_DURATION
+	transform = list(2, 0, 0, 0, 2, 0)
