@@ -12,7 +12,7 @@
 
 /datum/mutation/human/wacky
 	name = "Wacky"
-	desc = "Effects not tested..."
+	desc = "A mutation that causes the user to talk in an odd manner."
 	quality = MINOR_NEGATIVE
 
 /datum/mutation/human/wacky/on_acquiring(mob/living/carbon/owner)
@@ -138,7 +138,7 @@
 
 /datum/mutation/human/chav
 	name = "Chav"
-	desc = "Unknown"
+	desc = "A mutation that causes the user to construct sentences in a more rudimentary manner."
 	quality = MINOR_NEGATIVE
 
 /datum/mutation/human/chav/on_acquiring(mob/living/carbon/owner)
