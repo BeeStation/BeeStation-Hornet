@@ -24,7 +24,6 @@
 	if(istype(new_holder))
 		holder = new_holder
 	update_height_holder()
-	new_holder?.vis_contents += height_displacement_holder
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
@@ -713,11 +712,12 @@
 /datum/dna/proc/update_height_holder()
 	if(!height_displacement_holder)
 		height_displacement_holder = new()
+		height_displacement_holder.AddComponent(/datum/component/anchor, holder)
 	//Update the icon, just in-case we changed species or whatever, also becuase of species delay in general //TODO: make sure this isn't expensive with changing clothes - Racc
 	height_displacement_holder.appearance = species?.get_species_height_map() || icon('icons/effects/64x64.dmi', "height_displacement")
 	//ALL our important visual stuff gets reset when we update appearance, so we have to set it back
 	height_displacement_holder.vis_flags = VIS_UNDERLAY | VIS_INHERIT_DIR
-	height_displacement_holder.appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_TRANSFORM
+	height_displacement_holder.appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_TRANSFORM | RESET_COLOR
 	height_displacement_holder.plane = PLANE_SPACE
 	height_displacement_holder.layer = 0
 	height_displacement_holder.render_target = "*[REF(height_displacement_holder)]"
