@@ -1,0 +1,7 @@
+author: carlarctg
+delete-after: true
+changes:
+  - rscadd: New medibot syndicate type!
+  - balance: The Syndicate Infiltraitor and the Ninja Dojo now spawn with syndicate
+      medibots, Oppenheimer and Hijikata respectively.
+  - bugfix: medibots now properly spawn with correct icons
