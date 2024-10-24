@@ -84,7 +84,7 @@
 /obj/structure/railing/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(border_dir & dir)
-		return . || mover.throwing || mover.movement_type & (FLYING | FLOATING)
+		return . || mover.throwing || mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND
 	return TRUE
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
@@ -102,7 +102,7 @@
 	if (leaving.throwing)
 		return
 
-	if (leaving.movement_type & (PHASING | FLYING | FLOATING))
+	if (leaving.movement_type & (PHASING | MOVETYPES_NOT_TOUCHING_GROUND))
 		return
 
 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
