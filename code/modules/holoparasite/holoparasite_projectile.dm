@@ -1,7 +1,3 @@
-/obj/projectile
-	/// The last thing the projectile force-pierced due to holopara shenanigans.
-	var/atom/movable/last_holopara_pierce
-
 /obj/projectile/holoparasite
 	name = "crystal spray"
 	icon_state = "guardian"
