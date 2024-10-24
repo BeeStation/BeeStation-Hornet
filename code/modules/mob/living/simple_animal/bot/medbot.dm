@@ -190,9 +190,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 // Actions received from TGUI
 /mob/living/simple_animal/bot/medbot/ui_act(action, params)
-	. = ..()
-	if(. || (locked && !usr.has_unlimited_silicon_privilege))
-		return
+	if(..())
+		return TRUE
 	switch(action)
 		if("eject")
 			if (!isnull(reagent_glass))

@@ -325,9 +325,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 	return data
 
 /mob/living/simple_animal/bot/atmosbot/ui_act(action, params)
-	. = ..()
-	if(. || (locked && !usr.has_unlimited_silicon_privilege))
-		return
+	if(..())
+		return TRUE
 	switch(action)
 		if("breach_pressure")
 			var/adjust_num = round(text2num(params["pressure"]))
