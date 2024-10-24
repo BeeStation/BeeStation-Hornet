@@ -31,7 +31,6 @@
 		if(cholder?.dna == src)
 			cholder.dna = null
 	holder?.remove_filter("species_height_displacement")
-	holder?.vis_contents -= height_displacement_holder
 	holder = null
 	QDEL_NULL(height_displacement_holder)
 

@@ -5,10 +5,10 @@
 */
 
 /datum/component/anchor
-	///Do we copy the target's direction
-	var/copy_direction = TRUE
 	///Do the copy their position
 	var/copy_position = TRUE
+	///Do we copy the target's direction
+	var/copy_direction = TRUE
 
 /datum/component/anchor/Initialize(atom/movable/anchor_target)
 	. = ..()
@@ -24,11 +24,14 @@
 /datum/component/anchor/proc/catch_move(datum/source)
 	SIGNAL_HANDLER
 
+	if(!copy_position)
+		return
 	var/atom/movable/movable_parent = parent
 	movable_parent.forceMove(get_turf(source))
 
 /datum/component/anchor/proc/catch_dir(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
-
+	if(!copy_direction)
+		return
 	var/atom/movable/movable_parent = parent
 	movable_parent.dir = new_dir
