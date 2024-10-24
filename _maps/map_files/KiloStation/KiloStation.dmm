@@ -61247,6 +61247,9 @@
 	pixel_y = -25
 	},
 /obj/machinery/light/small,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "ouO" = (
@@ -67579,6 +67582,8 @@
 	pixel_x = 27;
 	pixel_y = -4
 	},
+/obj/item/storage/firstaid/regular,
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "qxx" = (
@@ -76438,11 +76443,11 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "twq" = (
