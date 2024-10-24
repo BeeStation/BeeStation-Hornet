@@ -43,9 +43,6 @@
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	/// Ability which lets carp teleport around
-	var/datum/action/cooldown/mob_cooldown/lesser_carp_rift/teleport
-
 	/// If the carp uses random coloring
 	var/random_color = TRUE
 	/// The chance for a rare color variant
