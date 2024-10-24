@@ -148,7 +148,7 @@
 /////////////////
 #define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
 #define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
-	#define COMPONENT_ALLOW_EXAMINATE 1 //Allows the user to examinate regardless of client.eye.
+	#define COMPONENT_ALLOW_EXAMINATE 1 						//Allows the user to examinate regardless of client.eye.
 #define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
 	#define COMPONENT_INTERCEPT_ALT 1
