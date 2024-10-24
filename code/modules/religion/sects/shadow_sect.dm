@@ -372,7 +372,7 @@
 
 /datum/religion_rites/final_darkness
 	name = "Final Darkness"
-	desc = "The endgame, Activates the obelisk heal and summons Faithsworn entities from every obelisk in existence. THIS IS ONE USE ONLY."
+	desc = "The endgame, Activates the obelisk heal and (if you meet the requirements) summons Faithsworn entities from 30% of the obelisks in existence. THIS IS ONE USE ONLY."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Join us in this darkness ...",
@@ -402,10 +402,15 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
 		START_PROCESSING(SSobj, obs)
 		var/obelisk_turf = get_turf(obs)
-		for(var/i in 1 to 3)
-			var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
-			faithful.AddComponent(/datum/component/dark_favor, faithful)
-			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
-		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+		if(user.mind.is_murderbone())
+			prob(30)
+				for(var/i in 1 to 3)
+					var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
+					faithful.AddComponent(/datum/component/dark_favor, faithful)
+					faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
+			playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+		else
+			for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
+				playsound(obs, 'sound/magic/fireball.ogg', 50, TRUE)
 
 #undef DARKNESS_INVERSE_COLOR
