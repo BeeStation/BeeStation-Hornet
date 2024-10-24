@@ -303,10 +303,10 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/crew
 
-/obj/item/circuitboard/computer/med_data
+/obj/item/circuitboard/computer/records/medical
 	name = "medical records console (Computer Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/computer/med_data
+	build_path = /obj/machinery/computer/records/medical
 
 /obj/item/circuitboard/computer/operating
 	name = "operating computer (Computer Board)"
@@ -417,10 +417,10 @@
 	icon_state = "security"
 	build_path = /obj/machinery/computer/prisoner
 
-/obj/item/circuitboard/computer/secure_data
+/obj/item/circuitboard/computer/records/security
 	name = "security records console (Computer Board)"
 	icon_state = "security"
-	build_path = /obj/machinery/computer/secure_data
+	build_path = /obj/machinery/computer/records/security
 
 /obj/item/circuitboard/computer/security
 	name = "security camera console (Computer Board)"

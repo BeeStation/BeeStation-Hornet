@@ -21,7 +21,7 @@
   * A datum that represents a product that is vendable
   */
 /datum/data/vending_product
-	name = "generic"
+	var/name = "generic"
 	///Typepath of the product that is created when this record "sells"
 	var/product_path = null
 	///How many of this product we currently have
@@ -875,12 +875,12 @@
 		.["user"]["cash"] = H.get_accessible_cash()
 		.["user"]["job"] = "No Job"
 		.["user"]["department_bitflag"] = 0
-		var/datum/data/record/R = find_record("name", card?.registered_account?.account_holder, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder)
 		if(card?.registered_account?.account_job)
 			.["user"]["job"] = card.registered_account.account_job.title
 			.["user"]["department_bitflag"] = card.registered_account.active_departments
 		if(R)
-			.["user"]["job"] = R.fields["rank"]
+			.["user"]["job"] = R.rank
 	.["stock"] = list()
 
 	for (var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)

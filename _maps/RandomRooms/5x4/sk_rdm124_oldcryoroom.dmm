@@ -105,7 +105,7 @@
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "p" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
