@@ -141,4 +141,3 @@
 				log_admin(log_msg)
 				admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
 				vv_update_display(L, Text, "[newamt]")
-        
