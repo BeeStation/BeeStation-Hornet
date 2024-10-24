@@ -202,7 +202,8 @@
 		/obj/item/rollerbed = 1,
 		/obj/item/weldingtool/mini = 1, // stopping IPC bleeding while delivering them to robotics (STOP DELIVERING IPCS TO MEDBAY I SWEAR TO GOD) -doc
 		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 2
+		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 1
 		)
 	generate_items_inside(items_inside,src)
 
