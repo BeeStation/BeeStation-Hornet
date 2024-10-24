@@ -1,4 +1,0 @@
-author: ktlwjec
-delete-after: true
-changes:
-  - bugfix: Radiation and fire closet build results work as expected.
