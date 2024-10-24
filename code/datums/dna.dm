@@ -720,4 +720,4 @@
 	height_displacement_holder.appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_TRANSFORM
 	height_displacement_holder.plane = PLANE_SPACE
 	height_displacement_holder.layer = 0
-	height_displacement_holder.render_target = "[ref(height_displacement_holder)]"
+	height_displacement_holder.render_target = "*[REF(height_displacement_holder)]"
