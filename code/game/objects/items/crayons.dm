@@ -493,7 +493,7 @@
 	dye_color = DYE_WHITE
 
 /obj/item/toy/crayon/white/chalk
-	name = "detective's chalk"
+	name = "\proper detective's chalk"
 	desc = "A stick of white chalk for marking crime scenes."
 	toolspeed = 0.25
 
