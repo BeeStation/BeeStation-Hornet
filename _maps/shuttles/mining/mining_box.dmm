@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall/mineral/titanium/survival,
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/mining)
 "b" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -71,7 +71,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "q" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "F" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
