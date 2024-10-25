@@ -421,7 +421,7 @@
 			toasted = TRUE
 			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
-				mob_occupant.radiation = 0 //The guy inside is toasted to a crisp, no need to leave him with the rads
+				qdel(mob_occupant.GetComponent(/datum/component/irradiated)) //The guy inside is toasted to a crisp, no need to leave him with the rads
 			else
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
@@ -438,7 +438,7 @@
 		if(!toasted) //Special toast check to prevent a double finishing message.
 			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
-				mob_occupant.radiation = 0
+				qdel(mob_occupant.GetComponent(/datum/component/irradiated))
 			else
 				visible_message("<span class='notice'>[src]'s door slides open. The glowing yellow lights dim to a gentle green.</span>")
 		toasted = FALSE

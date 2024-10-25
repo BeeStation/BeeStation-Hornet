@@ -2974,10 +2974,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
 	},
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "blA" = (
@@ -4298,13 +4298,13 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "bVa" = (
@@ -4636,7 +4636,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "cdr" = (
@@ -8431,7 +8431,7 @@
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 4
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "ebn" = (
@@ -27523,10 +27523,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 8
 	},
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "nFR" = (
@@ -27787,19 +27787,6 @@
 /obj/structure/flora/rock,
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
-"nKs" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "nKB" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/sepia/planetary{
@@ -63860,7 +63847,7 @@ ruV
 dXI
 dXI
 ocx
-nKs
+ebk
 ebk
 blt
 xiB

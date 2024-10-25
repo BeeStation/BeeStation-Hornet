@@ -23,3 +23,7 @@
 
 ///from /obj/item/assembly/proc/pulsed(mob/pulser)
 #define COMSIG_ASSEMBLY_PULSED "assembly_pulsed"
+
+/// from /datum/component/supermatter_crystal/proc/consume()
+/// called on the thing consumed, passes the thing which consumed it
+#define COMSIG_SUPERMATTER_CONSUMED "sm_consumed_this"

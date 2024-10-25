@@ -59,10 +59,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	//Main one can zap
 	//Tesla only zaps if the tick usage isn't over the limit.
 	if(!TICK_CHECK)
-		tesla_zap(src, 7, TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS)
+		tesla_zap(src, 7, TESLA_DEFAULT_POWER, ZAP_ENERGY_PRIMARY_BALL_FLAGS)
 	else
 		//Weaker, less intensive zap
-		tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
+		tesla_zap(src, 4, TESLA_DEFAULT_POWER, ZAP_ENERGY_MINI_BALL_FLAGS)
 		pixel_x = -32
 		pixel_y = -32
 		return
@@ -74,7 +74,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 			return
 		var/range = rand(1, clamp(orbiting_balls.len, 3, 7))
 		//Miniballs don't explode.
-		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
+		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, ZAP_ENERGY_MINI_BALL_FLAGS)
 
 /obj/anomaly/energy_ball/examine(mob/user)
 	. = ..()
@@ -203,7 +203,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	if(!QDELETED(src))
 		qdel(src)
 
-/proc/tesla_zap(atom/source, zap_range = 3, power, tesla_flags = TESLA_DEFAULT_FLAGS, list/shocked_targets)
+/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+	if(QDELETED(source))
+		return
 	. = source.dir
 	if(power < 1000)
 		return
@@ -232,12 +234,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 										/obj/machinery/gateway,
 										/obj/structure/lattice,
 										/obj/structure/grille,
-										/obj/machinery/the_singularitygen/tesla,
-										/obj/structure/frame/machine))
+										/obj/structure/frame/machine,
+										/obj/vehicle/ridden))
 
 	for(var/atom/A as() in oview(zap_range+2, source))
 		//typecache_filter_multi_list_exclusion has been inlined to minimize lag.
-		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
+		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
 			continue
 		if(istype(A, /obj/machinery/power/tesla_coil))
 			var/obj/o = A
@@ -301,7 +303,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	if(closest_atom)
 		//common stuff
 		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time = 5)
-		if(!(tesla_flags & TESLA_ALLOW_DUPLICATES))
+		if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
 			LAZYSET(shocked_targets, closest_atom, TRUE)
 		var/zapdir = get_dir(source, closest_atom)
 		if(zapdir)
@@ -310,17 +312,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	//per type stuff:
 		if(priority == 3)
 			var/mob/living/m = closest_atom
-			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-			m.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((tesla_flags & TESLA_MOB_STUN) ? NONE : SHOCK_NOSTUN))
+			var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
+			m.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 			if(issilicon(m))
-				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
+				if((zap_flags & ZAP_MOB_STUN) && (zap_flags & ZAP_MOB_DAMAGE))
 					m.emp_act(EMP_LIGHT)
-				tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
+				tesla_zap(m, 7, power / 1.5, zap_flags, shocked_targets) // metallic folks bounce it further
 			else
-				tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
+				tesla_zap(m, 5, power / 1.5, zap_flags, shocked_targets)
 		else
 			var/obj/o = closest_atom
-			o.tesla_act(power, tesla_flags, shocked_targets)
+			o.zap_act(power, , shocked_targets)
 #undef TESLA_MAX_BALLS
 
 #undef TESLA_DEFAULT_POWER

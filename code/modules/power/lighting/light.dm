@@ -612,8 +612,8 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, tesla_flags)
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/light/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		//Fire can cause a lot of lag, just do a mini explosion.
 		explosion(src,0,0,1, adminlog = 0)
 		for(var/mob/living/L in range(3, src))

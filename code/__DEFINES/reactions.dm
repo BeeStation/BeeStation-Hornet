@@ -57,3 +57,11 @@
 #define FUSION_RAD_MIDPOINT					15		//! If you decrease this by one, the fusion rads will *triple* and vice versa
 #define FUSION_MIDDLE_ENERGY_REFERENCE		1e6		//! This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
 #define FUSION_BUFFER_DIVISOR				1		//! Increase this to cull unrobust fusions faster
+
+/// Maximum range a radiation pulse is allowed to be from a gas reaction.
+#define GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE 20
+
+/// A scaling factor for the range of radiation pulses produced by tritium fires.
+#define TRITIUM_RADIATION_RANGE_DIVISOR 0.5
+/// The threshold of the tritium combustion's radiation. Lower values means it will be able to penetrate through more structures.
+#define TRITIUM_RADIATION_THRESHOLD 0.3

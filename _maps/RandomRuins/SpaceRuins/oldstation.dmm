@@ -2483,11 +2483,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
-"hK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/rad_collector,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "hL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8729,8 +8724,8 @@ eZ
 fz
 fz
 dh
-hK
-hK
+dh
+dh
 Ku
 Ll
 Sf
@@ -8777,8 +8772,8 @@ bD
 fz
 fz
 fz
-hK
-hK
+dh
+dh
 BH
 wC
 bD
