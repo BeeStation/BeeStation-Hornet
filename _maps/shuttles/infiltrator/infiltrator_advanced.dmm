@@ -1099,6 +1099,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/medbot/nukie,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "cd" = (

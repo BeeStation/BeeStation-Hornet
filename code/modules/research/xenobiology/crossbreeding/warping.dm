@@ -770,7 +770,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/adamantinespace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src) - rune_turf)
 		var/obj/structure/reflector/box/anchored/mob_pass/D = new (T)
-		D.setAngle(dir2angle(get_dir(src, D)))
+		D.set_angle(dir2angle(get_dir(src, D)))
 		D.admin = TRUE
 		QDEL_IN(D, 300)
 	activated_on_step = TRUE

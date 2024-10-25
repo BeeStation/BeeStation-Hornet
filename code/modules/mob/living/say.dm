@@ -164,11 +164,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(message_mods[RADIO_KEY] == RADIO_KEY_UPLINK) // only uplink needs this
 		message_mods[MODE_UNTREATED_MESSAGE] = message // let's store the original message before treating those
 	message = treat_message(message) // unfortunately we still need this
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
-		message = uppertext(message)
-	if(!message)
-		return
 
 	spans |= speech_span
 
@@ -181,6 +176,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = "[randomnote] [message] [randomnote]"
 		spans |= SPAN_SINGING
 
+	// Leaving this here so that anything that handles speech this way will be able to have spans affecting it and all that.
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args, message_range)
+	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+	if(!message)
+		if(succumbed)
+			succumb()
+		return
+
 	//This is before anything that sends say a radio message, and after all important message type modifications, so you can scumb in alien chat or something
 	if(saymode && !saymode.early && !saymode.handle_message(src, message, language))
 		return
@@ -189,6 +193,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		// radios don't pick up whispers very well
 		radio_message = stars(radio_message)
 		spans |= SPAN_ITALICS
+
 	var/radio_return = radio(radio_message, message_mods, spans, language)//roughly 27% of living/say()'s total cost
 	if(radio_return & ITALICS)
 		spans |= SPAN_ITALICS

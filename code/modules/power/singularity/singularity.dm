@@ -11,7 +11,7 @@
 	plane = MASSIVE_OBJ_PLANE
 	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	energy = 100 //How strong are we?
