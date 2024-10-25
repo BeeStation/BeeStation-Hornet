@@ -77,7 +77,7 @@
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
 	if(cocoon_action)
-		cocoon_action.UpdateButtonIcon()
+		cocoon_action.UpdateButtons()
 
 /datum/action/innate/cocoon
 	name = "Cocoon"

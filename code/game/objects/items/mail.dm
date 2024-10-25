@@ -48,7 +48,7 @@
 			/obj/item/firing_pin,
 			/obj/item/storage/lockbox/loyalty,
 			/obj/item/grenade/clusterbuster/cleaner,
-			/obj/item/book/granter/spell/mimery_blockade,
+			/obj/item/book/granter/action/spell/mime,
 			/obj/item/gun/ballistic/rifle/boltaction/enchanted,
 			/obj/item/melee/classic_baton/police/telescopic,
 			/obj/item/reagent_containers/cup/bottle/random_virus/minor,

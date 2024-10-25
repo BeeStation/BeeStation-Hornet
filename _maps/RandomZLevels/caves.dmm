@@ -186,9 +186,6 @@
 	amount = 25
 	},
 /obj/item/coin/antagtoken,
-/obj/item/book/granter/spell/summonitem{
-	name = "an extremely flamboyant book"
-	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
@@ -2257,6 +2254,12 @@
 	name = "elevator flooring"
 	},
 /area/awaymission/caves/BMP_asteroid)
+"UX" = (
+/obj/item/book/granter/action/spell/summonitem,
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_three)
 
 (1,1,1) = {"
 aa
@@ -5927,7 +5930,7 @@ ae
 bt
 bc
 bc
-ae
+UX
 bc
 ac
 ac
