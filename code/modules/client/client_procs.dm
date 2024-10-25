@@ -317,6 +317,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		player_details.byond_version = full_version
 		GLOB.player_details[ckey] = player_details
 
+	previous_turf = locate(1, 1, 1) // necessary for parallax
 
 	. = ..()	//calls mob.Login()
 
@@ -597,6 +598,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
+  
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 

@@ -3,6 +3,7 @@
 	// Crashing this ship with NO SURVIVORS
 	if(new_dock.docked == src)
 		remove_ripples()
+		on_docking_success(new_dock)
 		return DOCKING_SUCCESS
 
 	if(!force)
@@ -101,9 +102,13 @@
 
 	// remove any stragglers just in case, and clear the list
 	remove_ripples()
+	on_docking_success(new_dock)
 	return DOCKING_SUCCESS
 
 /obj/docking_port/mobile/proc/preflight_check(list/old_turfs, list/new_turfs, list/areas_to_move, rotation)
+	var/list/area/all_shuttle_areas = list()
+	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
+		all_shuttle_areas |= M.shuttle_areas
 	for(var/i in 1 to old_turfs.len)
 		CHECK_TICK
 		var/turf/oldT = old_turfs[i]
@@ -114,9 +119,6 @@
 			return DOCKING_NULL_SOURCE
 
 		var/area/old_area = oldT.loc
-		var/list/area/all_shuttle_areas = list()
-		for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
-			all_shuttle_areas |= M.shuttle_areas
 		var/move_mode = old_area.beforeShuttleMove(all_shuttle_areas)											//areas
 
 		var/list/old_contents = oldT.contents
@@ -201,15 +203,13 @@
 		CHECK_TICK
 		A.afterShuttleMove()
 
-	// Parallax handling
 	// This needs to be done before the atom after move
-	var/new_parallax_dir = FALSE
-	if(istype(new_dock, /obj/docking_port/stationary/transit))
-		new_parallax_dir = preferred_direction
+	/* // This is commented because there is no use for this currently.
 	for(var/i in 1 to areas_to_move.len)
 		CHECK_TICK
 		var/area/internal_area = areas_to_move[i]
-		internal_area.afterShuttleMove(new_parallax_dir)													//areas
+		internal_area.afterShuttleMove()	//areas
+	*/
 
 	for(var/i in 1 to old_turfs.len)
 		CHECK_TICK
@@ -228,7 +228,7 @@
 		moved_object.afterShuttleMove(oldT, movement_force, dir, preferred_direction, movement_direction, rotation)//atoms
 
 	// lateShuttleMove (There had better be a really good reason for additional stages beyond this)
-
+	/* // This is commented because there is no use for this currently.
 	for(var/area/A in underlying_old_area)
 		CHECK_TICK
 		A.lateShuttleMove()
@@ -237,6 +237,7 @@
 		CHECK_TICK
 		var/area/internal_area = areas_to_move[i]
 		internal_area.lateShuttleMove()
+	*/
 
 	for(var/i in 1 to old_turfs.len)
 		CHECK_TICK
