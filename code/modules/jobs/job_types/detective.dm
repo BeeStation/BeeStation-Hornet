@@ -69,4 +69,4 @@
 /obj/item/storage/belt/fannypack/detective/PopulateContents()
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/detective_scanner(src)
-	new /obj/item/toy/crayon/white(src)
+	new /obj/item/toy/crayon/white/chalk(src)

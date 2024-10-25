@@ -186,6 +186,11 @@
 	max_integrity = 20
 	var/shockcd = 0
 
+/obj/structure/holosign/barrier/cyborg/hacked/detective
+	name = "investigation barrier"
+	desc = "An authoritive holographic barrier proclaiming a crime scene. Energy arcs off of it."
+	icon_state = "holosign_det"
+
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
 	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
 	return BULLET_ACT_HIT
@@ -200,7 +205,7 @@
 	if(!shockcd)
 		if(ismob(user))
 			var/mob/living/M = user
-			M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES)
+			M.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
 			shockcd = TRUE
 			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
@@ -212,6 +217,5 @@
 		return
 
 	var/mob/living/M = AM
-	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES)
-	shockcd = TRUE
+	M.Knockdown(10)
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
