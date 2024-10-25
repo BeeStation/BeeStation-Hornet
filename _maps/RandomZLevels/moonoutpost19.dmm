@@ -83,6 +83,20 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"bc" = (
+/obj/structure/closet/secure_closet{
+	locked = 0;
+	name = "kitchen Cabinet";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/showroomfloor{
+	initial_temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "bd" = (
 /obj/machinery/vending/cola,
 /turf/open/floor/iron/dark,
@@ -208,6 +222,30 @@
 "dA" = (
 /turf/closed/mineral,
 /area/awaymission/moonoutpost19/main)
+"dK" = (
+/obj/structure/closet/secure_closet{
+	icon_state = "sec";
+	name = "security officer's locker";
+	req_access_txt = "201"
+	},
+/obj/item/clothing/suit/armor/vest,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/item/grenade/flashbang,
+/obj/item/storage/belt/security,
+/obj/item/reagent_containers/cup/glass/bottle/beer{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/obj/machinery/airalarm/unlocked{
+	pixel_y = 23;
+	req_access = null;
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/awaymission/moonoutpost19/research)
 "dX" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -899,16 +937,6 @@
 	dir = 5
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"jP" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/barman_recipes{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/glass/shaker,
-/turf/open/floor/iron/cafeteria{
-	dir = 5
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "jQ" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -1219,21 +1247,6 @@
 	dir = 8
 	},
 /obj/structure/chair/fancy/comfy,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/arrivals)
-"mE" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/whiskey{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 3
-	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/arrivals)
 "mF" = (
@@ -2033,6 +2046,20 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/hive)
+"uJ" = (
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "refrigerator";
+	req_access_txt = "201"
+	},
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/storage/fancy/egg_box,
+/turf/open/floor/iron/showroomfloor{
+	initial_temperature = 273.15
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "uL" = (
 /obj/machinery/gateway,
 /obj/structure/cable{
@@ -2230,6 +2257,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
+"wv" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/cup/rag{
+	pixel_y = 5
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "awaykitchen";
+	name = "Serving Hatch"
+	},
+/turf/open/floor/carpet,
+/area/awaymission/moonoutpost19/arrivals)
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
@@ -2429,6 +2468,21 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
+/area/awaymission/moonoutpost19/arrivals)
+"yh" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "awaykitchen";
+	name = "Serving Hatch"
+	},
+/turf/open/floor/carpet,
 /area/awaymission/moonoutpost19/arrivals)
 "ym" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -4286,18 +4340,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"Nv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/cup/rag{
-	pixel_y = 5
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "awaykitchen";
-	name = "Serving Hatch"
-	},
-/turf/open/floor/carpet,
-/area/awaymission/moonoutpost19/arrivals)
 "Nw" = (
 /obj/machinery/light{
 	dir = 4
@@ -4326,35 +4368,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"NE" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "awaykitchen";
-	name = "Serving Hatch"
-	},
-/turf/open/floor/carpet,
-/area/awaymission/moonoutpost19/arrivals)
-"NG" = (
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/storage/fancy/egg_box,
-/turf/open/floor/iron/showroomfloor{
-	initial_temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "NM" = (
 /turf/open/floor/iron{
 	dir = 8;
@@ -4796,6 +4809,16 @@
 	dir = 1
 	},
 /area/awaymission/moonoutpost19/research)
+"Qu" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/barman_recipes{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/shaker,
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "Qx" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -4845,20 +4868,6 @@
 	broken = 1
 	},
 /area/awaymission/moonoutpost19/research)
-"QX" = (
-/obj/structure/closet/secure_closet{
-	locked = 0;
-	name = "kitchen Cabinet";
-	req_access_txt = "201"
-	},
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/sugar,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/showroomfloor{
-	initial_temperature = 273.15
-	},
-/area/awaymission/moonoutpost19/arrivals)
 "Rb" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -4901,30 +4910,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/arrivals)
-"Rn" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "sec";
-	name = "security officer's locker";
-	req_access_txt = "201"
-	},
-/obj/item/clothing/suit/armor/vest,
-/obj/item/reagent_containers/peppercloud_deployer,
-/obj/item/grenade/flashbang,
-/obj/item/storage/belt/security,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = -3;
-	pixel_y = -2
-	},
-/obj/machinery/airalarm/unlocked{
-	pixel_y = 23;
-	req_access = null;
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/awaymission/moonoutpost19/research)
 "Ro" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
@@ -4990,6 +4975,19 @@
 /obj/item/trash/candy,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/arrivals)
+"RL" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/awaymission/moonoutpost19/research)
 "RU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5094,6 +5092,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/research)
+"Tm" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 3
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/arrivals)
 "Tr" = (
 /obj/structure/closet/crate/bin,
 /obj/item/plate,
@@ -5171,6 +5184,14 @@
 	dir = 6
 	},
 /turf/open/floor/iron/white,
+/area/awaymission/moonoutpost19/research)
+"Ua" = (
+/obj/machinery/power/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
 "Uc" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -5338,14 +5359,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"Vw" = (
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/research)
 "Vy" = (
 /obj/structure/alien/weeds,
 /obj/effect/turf_decal/tile/purple{
@@ -5372,19 +5385,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/awaymission/moonoutpost19/research)
-"VE" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
 "VM" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -34480,7 +34480,7 @@ tn
 eJ
 Dc
 dZ
-Rn
+dK
 Rf
 Ic
 pd
@@ -38073,7 +38073,7 @@ tn
 tn
 tn
 dZ
-VE
+RL
 uU
 uU
 HI
@@ -38081,7 +38081,7 @@ Lj
 KR
 vx
 PP
-Vw
+Ua
 ea
 tn
 tn
@@ -43230,9 +43230,9 @@ tn
 tn
 hJ
 hJ
-NE
+yh
 yv
-Nv
+wv
 yv
 yv
 hJ
@@ -43745,14 +43745,14 @@ tn
 hI
 kh
 jn
-jP
+Qu
 kp
 iX
 iX
 iX
 lS
 lR
-mE
+Tm
 lA
 tn
 tn
@@ -44779,7 +44779,7 @@ hJ
 hJ
 GA
 GA
-QX
+bc
 hJ
 tn
 tn
@@ -45293,7 +45293,7 @@ tn
 hI
 AF
 XX
-NG
+uJ
 hI
 tn
 tn
