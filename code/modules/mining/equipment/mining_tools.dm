@@ -14,10 +14,20 @@
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/iron=2000) //one sheet, but where can you make them?
 	tool_behaviour = TOOL_MINING
-	toolspeed = 1
+	toolspeed = 0.5
+	var/stamina_use = 5
 	usesound = list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')
 	attack_verb_continuous = list("hits", "pierces", "slices", "attacks")
 	attack_verb_simple = list("hit", "pierce", "slice", "attack")
+
+/obj/item/pickaxe/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
+	if(user.getStaminaLoss() < 75)
+		. = ..()
+	else
+		to_chat(user, "<span class='danger'>You quickly stop picking. You are too tired to work!</span>")
+		return
+	user.adjustStaminaLoss(stamina_use)
+	return
 
 /obj/item/pickaxe/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins digging into [user.p_their()] chest!  It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -42,7 +52,8 @@
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
 	worn_icon_state = "spickaxe"
-	toolspeed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
+	toolspeed = 0.5
+	stamina_use = 3 //costs less stamina because silver is lighter??
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	force = 17
 
@@ -52,6 +63,7 @@
 	item_state = "dpickaxe"
 	worn_icon_state = "dpickaxe"
 	toolspeed = 0.3
+	stamina_use = 3
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	force = 19
 
@@ -61,7 +73,8 @@
 	item_state = "jackhammer"
 	worn_icon_state = "jackhammer"
 	slot_flags = ITEM_SLOT_BELT
-	toolspeed = 0.6 //available from roundstart, faster than a pickaxe.
+	toolspeed = 0.5
+	stamina_use = 0//available from roundstart, faster than a pickaxe. doesn't use stamina because it's an automatic drill
 	usesound = 'sound/weapons/drill.ogg'
 	hitsound = 'sound/weapons/drill.ogg'
 	desc = "An electric mining drill for the especially scrawny."
