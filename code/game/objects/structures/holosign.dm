@@ -204,9 +204,9 @@
 		return
 	if(shockcd || !isliving(user))
 	    return
-			M.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
-			shockcd = TRUE
-			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+	M.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
+	shockcd = TRUE
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
 	if(shockcd)
