@@ -9,8 +9,7 @@
 	trash_type = /obj/item/trash/candy
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
-		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/sugar = 3
 	)
 	junkiness = 25
 	tastes = list("candy" = 1)
@@ -26,8 +25,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/sugar = 2,
-		/datum/reagent/consumable/sodiumchloride = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/sodiumchloride = 2
 	)
 	junkiness = 25
 	tastes = list("dried meat" = 1)
@@ -52,8 +50,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/sodiumchloride = 1,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/sodiumchloride = 1
 	)
 	junkiness = 20
 	tastes = list("salt" = 1, "crisps" = 1)
@@ -67,8 +64,7 @@
 	trash_type = /obj/item/trash/raisins
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		/datum/reagent/consumable/sugar = 4,
-		/datum/reagent/consumable/maltodextrin = 3.35
+		/datum/reagent/consumable/sugar = 4
 	)
 	junkiness = 25
 	tastes = list("dried raisins" = 1)
@@ -93,8 +89,7 @@
 	icon_state = "space_twinkie"
 	desc = "Guaranteed to survive longer than you will."
 	food_reagents = list(
-		/datum/reagent/consumable/sugar = 4,
-		/datum/reagent/consumable/maltodextrin = 1.35
+		/datum/reagent/consumable/sugar = 4
 	)
 	junkiness = 25
 	foodtypes = JUNKFOOD | GRAIN | SUGAR
@@ -109,8 +104,7 @@
 	trash_type = /obj/item/trash/cheesie
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
-		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/sugar = 3
 	)
 	junkiness = 25
 	tastes = list("cheese" = 5, "crisps" = 2)
@@ -124,8 +118,7 @@
 	trash_type = /obj/item/trash/syndi_cakes
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/doctor_delight = 5,
-		/datum/reagent/consumable/maltodextrin = 4
+		/datum/reagent/consumable/doctor_delight = 5
 	)
 	tastes = list("sweetness" = 3, "cake" = 1)
 	foodtypes = GRAIN | FRUIT | VEGETABLES
@@ -138,8 +131,7 @@
 	trash_type = /obj/item/trash/energybar
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/liquidelectricity = 10,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/liquidelectricity = 10
 	)
 	tastes = list("pure electricity" = 3, "fitness" = 2)
 	foodtypes = TOXIC
