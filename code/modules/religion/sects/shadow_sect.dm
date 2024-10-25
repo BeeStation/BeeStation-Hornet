@@ -404,6 +404,10 @@
 					faithful.real_name = "Faithful ([rand(1,999)])"
 					Mind.active = 1
 					Mind.transfer_to(faithful)
+					to_chat(faithful, "<span class='userdanger'>You've been summoned into this hellscape by a chaplain bent on murder and destruction, Protect the shadow people, and kill the rest.</span>")
+					var/objective = "You've been summoned into this hellscape by a chaplain bent on murder and destruction, Protect the shadow people, and kill the rest!"
+					brainwash(faithful, objective, "Final Darkness Rite")
+					log_game("[key_name(faithful)] has been given the objective '[objective]' via the chaplains final darkness rite.")
 		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
 
 #undef DARKNESS_INVERSE_COLOR
