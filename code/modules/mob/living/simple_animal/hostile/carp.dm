@@ -244,7 +244,7 @@
 	name = "advanced space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
 	maxHealth = 80
-	health = 60
+	health = 80
 	gold_core_spawnable = NO_SPAWN
 	obj_damage = 25
 
