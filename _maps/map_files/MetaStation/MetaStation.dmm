@@ -20128,9 +20128,6 @@
 /turf/open/space/basic,
 /area/space)
 "cVk" = (
-/obj/item/bedsheet,
-/obj/structure/bed,
-/obj/machinery/iv_drip,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -20139,6 +20136,9 @@
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
+	},
+/obj/machinery/computer/operating{
+	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_half,
 /area/security/brig)
@@ -41245,6 +41245,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"kBJ" = (
+/obj/machinery/iv_drip,
+/turf/open/floor/iron/white/textured_large,
+/area/security/brig)
 "kBS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -42191,6 +42195,10 @@
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
+	},
+/obj/item/stack/medical/gauze,
+/obj/item/clothing/under/rank/medical/doctor/purple{
+	pixel_y = -4
 	},
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
@@ -59845,8 +59853,8 @@
 /turf/open/floor/iron,
 /area/medical/chemistry)
 "rrR" = (
-/obj/structure/bodycontainer/morgue{
-	dir = 2
+/obj/machinery/vending/medical{
+	pixel_x = -2
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -60853,7 +60861,6 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
 "rMU" = (
-/obj/structure/bed/roller,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -60862,6 +60869,10 @@
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
+	},
+/obj/structure/table/optable,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/white/smooth_half,
 /area/security/brig)
@@ -77410,15 +77421,13 @@
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
 "xGs" = (
-/obj/structure/rack,
 /obj/machinery/camera/directional/south{
 	c_tag = "Brig - Infirmary"
 	},
-/obj/item/clothing/under/rank/medical/doctor/purple{
-	pixel_y = -4
-	},
-/obj/item/stack/medical/gauze,
 /obj/effect/turf_decal/tile/red/half,
+/obj/structure/bodycontainer/morgue{
+	dir = 1
+	},
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
 	},
@@ -105549,7 +105558,7 @@ ajm
 fIy
 xXp
 qpd
-xXp
+kBJ
 rMU
 ahx
 gTN
