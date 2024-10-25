@@ -17,10 +17,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/shuttle_flight/ferry/attack_ai()
-	return allow_silicons ? ..() : FALSE
-
-/obj/machinery/computer/shuttle_flight/ferry/attack_robot()
+/obj/machinery/computer/shuttle_flight/ferry/attack_silicon()
 	return allow_silicons ? ..() : FALSE
 
 /obj/machinery/computer/shuttle_flight/ferry/request

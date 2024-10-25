@@ -156,6 +156,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
+	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	var/prevent_perspective_change = FALSE
+
 ///////////
 // PROCS //
 ///////////
@@ -1137,6 +1140,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
 
+/datum/species/proc/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	var/prev_lying = H.lying_prev
+	if(H.stat != DEAD)
+		H.death(TRUE)
+
+	if(!prev_lying)
+		H.gib_animation()
+
+	H.spill_organs(no_brain, no_organs, no_bodyparts)
+
+	if(!no_bodyparts)
+		H.spread_bodyparts(no_brain, no_organs)
+
+	H.spawn_gibs(no_bodyparts)
+	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
+	return
+
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
 	// handles the equipping of species-specific gear
 	return
@@ -1577,15 +1597,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			log_combat(user, target, "shaken")
 		return TRUE
 	else
-		var/we_breathe = !HAS_TRAIT(user, TRAIT_NOBREATH)
-		var/we_lung = user.getorganslot(ORGAN_SLOT_LUNGS)
-
-		if(we_breathe && we_lung)
-			user.do_cpr(target)
-		else if(we_breathe && !we_lung)
-			to_chat(user, "<span class='warning'>You have no lungs to breathe with, so you cannot perform CPR.</span>")
-		else
-			to_chat(user, "<span class='notice'>You do not breathe, so you cannot perform CPR.</span>")
+		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1753,9 +1765,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-
-	var/weakness = H.check_weakness(I, user)
-	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
+	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
@@ -2490,6 +2500,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /// Given a human, will adjust it before taking a picture for the preferences UI.
 /// This should create a CONSISTENT result, so the icons don't randomly change.
 /datum/species/proc/prepare_human_for_preview(mob/living/carbon/human/human)
+	return
+
+/**
+ * Owner login
+ */
+
+/**
+ * A simple proc to be overwritten if something needs to be done when a mob logs in. Does nothing by default.
+ *
+ * Arguments:
+ * * owner - The owner of our species.
+ */
+/datum/species/proc/on_owner_login(mob/living/carbon/human/owner)
 	return
 
 /**

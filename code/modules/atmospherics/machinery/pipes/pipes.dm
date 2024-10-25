@@ -106,7 +106,7 @@
 /obj/machinery/atmospherics/pipe/returnPipenets()
 	. = list(parent)
 
-/obj/machinery/atmospherics/pipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 12)
 		return 0
 	. = ..()

@@ -12,11 +12,7 @@
  */
 
 /obj/item/storage/fancy
-	name = "null box do not use"
-	desc = "Mmm. Runtimes."
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "donutbox"
-	base_icon_state = "donutbox"
 	resistance_flags = FLAMMABLE
 	//custom_materials = list(/datum/material/cardboard = 2000)
 	/// Used by examine to report what this thing is holding.
@@ -71,10 +67,9 @@
 	name = "donut box"
 	desc = "Mmm. Donuts."
 	icon = 'icons/obj/food/donuts.dmi'
-	icon_state = "donutbox_inner"
+	icon_state = "donutbox"
 	base_icon_state = "donutbox"
 	spawn_type = /obj/item/food/donut/premade
-	is_open = TRUE
 	appearance_flags = KEEP_TOGETHER
 	contents_tag = "donut"
 
