@@ -32229,8 +32229,9 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/stasis,
 /obj/machinery/light,
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/dark/airless,
 /area/medical/surgery)
 "ipn" = (
@@ -67810,11 +67811,12 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/machinery/stasis,
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/dark/airless,
 /area/medical/surgery)
 "rzi" = (

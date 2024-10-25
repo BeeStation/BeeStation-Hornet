@@ -7,7 +7,7 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "d" = (
-/obj/machinery/stasis/survival_pod,
+/obj/structure/bodycontainer/morgue,
 /turf/open/floor/iron/grid,
 /area/survivalpod)
 "e" = (

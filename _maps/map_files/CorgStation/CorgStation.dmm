@@ -26595,10 +26595,6 @@
 	pixel_x = -7;
 	pixel_y = 1
 	},
-/obj/item/circuitboard/machine/stasis{
-	pixel_x = -8;
-	pixel_y = -2
-	},
 /turf/open/floor/iron/dark,
 /area/engine/storage)
 "ivy" = (
@@ -54400,10 +54396,11 @@
 /area/security/brig/dock)
 "rDu" = (
 /obj/machinery/airalarm/directional/south,
-/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "rDE" = (
@@ -59956,10 +59953,11 @@
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "ttQ" = (
-/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "tub" = (
