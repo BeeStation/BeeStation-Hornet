@@ -64,6 +64,7 @@
 #include "techweb_sanity.dm"
 #include "teleporters.dm"
 #include "tgui_create_message.dm"
+#include "trait_tests.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #include "walls_have_sheets.dm"
@@ -87,5 +88,7 @@
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
 #undef TEST_ASSERT_NOTEQUAL
+#undef TEST_ASSERT_TRUE
+#undef TEST_ASSERT_FALSE
 //#undef TEST_FOCUS - This define is used by vscode unit test extension to pick specific unit tests to run and appended later so needs to be used out of scope here
 #endif
