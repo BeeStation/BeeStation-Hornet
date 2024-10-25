@@ -202,9 +202,8 @@
 	. = ..()
 	if(.)
 		return
-	if(!shockcd)
-		if(ismob(user))
-			var/mob/living/M = user
+	if(shockcd || !isliving(user))
+	    return
 			M.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
 			shockcd = TRUE
 			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
