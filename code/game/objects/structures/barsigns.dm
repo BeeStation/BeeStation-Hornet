@@ -292,6 +292,11 @@
 	icon = "goose"
 	desc = "Drink till you puke and/or break the laws of reality!"
 
+/datum/barsign/bluenote
+	name = "The Blue Note"
+	icon = "bluenote"
+	desc = "Misery loves company, but sometimes a stiff drink will have to suffice."
+
 /datum/barsign/hiddensigns
 	hidden = TRUE
 
