@@ -980,30 +980,6 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
-"fd" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/cryo)
-"fe" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/cryo)
 "fh" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/machinery/atmospherics/components/unary/cryo_cell,
@@ -2481,6 +2457,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"qk" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "qo" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -2506,6 +2490,18 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
+"qA" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/cryo)
 "qV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2953,14 +2949,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"ym" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/mob/living/carbon/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "ys" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
@@ -3450,11 +3438,18 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"ET" = (
-/mob/living/carbon/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
+"EO" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/cryo)
 "EU" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -3916,6 +3911,11 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
+"LJ" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "LL" = (
 /obj/machinery/door/window/eastleft,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -4019,14 +4019,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
-"Ne" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/mob/living/carbon/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "Ns" = (
 /obj/item/ammo_casing/c45,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -4040,6 +4032,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"NU" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "NV" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
@@ -36498,11 +36498,11 @@ cx
 cx
 ea
 oP
-fd
+EO
 Wi
 Hm
 oP
-fd
+EO
 Wi
 ea
 cx
@@ -36749,10 +36749,10 @@ aH
 cm
 cw
 cx
-ET
+LJ
 Fq
 Mu
-ET
+LJ
 ea
 oP
 fc
@@ -37007,16 +37007,16 @@ cd
 cx
 cx
 oT
-ym
+NU
 ss
 ss
 ea
 DK
-fe
+qA
 Wi
 Go
 oP
-fe
+qA
 Wi
 ea
 ss
@@ -38554,14 +38554,14 @@ wo
 rR
 ea
 EZ
-fd
+EO
 Wi
 Go
 oP
-fd
+EO
 Wi
 ea
-Ne
+qk
 Rb
 Rb
 Ez
@@ -38821,7 +38821,7 @@ ea
 Fq
 Kd
 Fq
-ET
+LJ
 cx
 cm
 cw
@@ -39068,11 +39068,11 @@ cx
 cx
 ea
 Vl
-fe
+qA
 VM
 Go
 JT
-fe
+qA
 Wi
 ea
 cx

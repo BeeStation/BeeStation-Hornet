@@ -222,13 +222,13 @@ SUBSYSTEM_DEF(atoms)
 	BadInitializeCalls = SSatoms.BadInitializeCalls
 
 /datum/controller/subsystem/atoms/proc/setupGenetics()
-	var/list/mutations = subtypesof(/datum/mutation)
+	var/list/mutations = subtypesof(/datum/mutation/human)
 	shuffle_inplace(mutations)
 	for(var/datum/generecipe/GR as() in subtypesof(/datum/generecipe))
 		GLOB.mutation_recipes[initial(GR.required)] = initial(GR.result)
 	for(var/i in 1 to length(mutations))
 		var/path = mutations[i] //byond gets pissy when we do it in one line
-		var/datum/mutation/B = new path ()
+		var/datum/mutation/human/B = new path ()
 		B.alias = "Mutation [i]"
 		GLOB.all_mutations[B.type] = B
 		GLOB.full_sequences[B.type] = generate_gene_sequence(B.blocks)

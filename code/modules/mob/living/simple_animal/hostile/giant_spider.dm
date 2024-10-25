@@ -45,7 +45,6 @@
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 4
-	ventcrawler = VENTCRAWLER_ALWAYS
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -76,6 +75,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	lay_web = new
 	lay_web.Grant(src)
 	lesserwrap = new

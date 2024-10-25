@@ -27,7 +27,6 @@
 	unsuitable_atmos_damage = 0
 	wander = FALSE
 	speed = 0
-	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -85,6 +84,7 @@
 
 /mob/living/simple_animal/drone/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	GLOB.drones_list += src
 	access_card = new /obj/item/card/id(src)
 	access_card.access = get_all_accesses()
