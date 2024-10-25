@@ -217,4 +217,6 @@
 
 	var/mob/living/M = AM
 	M.Knockdown(10)
+	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
+	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
