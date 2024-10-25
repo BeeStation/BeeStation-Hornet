@@ -12,6 +12,7 @@
 #include "anchored_mobs.dm"
 #include "antag_datums.dm"
 #include "area_contents.dm"
+#include "armor_verification.dm"
 #include "armour_checks.dm"
 #include "asset_smart_cache.dm"
 #include "async.dm"

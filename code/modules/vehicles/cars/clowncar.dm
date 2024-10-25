@@ -3,7 +3,7 @@
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
 	max_integrity = 150
-	armor = list(MELEE = 70,  BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/car_clowncar
 	enter_delay = 20
 	max_occupants = 50
 	movedelay = 0.6
@@ -16,6 +16,15 @@
 	var/thankscount
 	var/cannonmode = FALSE
 	var/cannonbusy = FALSE
+
+
+/datum/armor/car_clowncar
+	melee = 70
+	bullet = 40
+	laser = 40
+	bomb = 30
+	fire = 80
+	acid = 80
 
 /obj/vehicle/sealed/car/clowncar/generate_actions()
 	. = ..()

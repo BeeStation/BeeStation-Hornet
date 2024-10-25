@@ -5,7 +5,7 @@
 	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
-	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_fireaxecabinet
 	max_integrity = 150
 	integrity_failure = 0.33
 	layer = ABOVE_WINDOW_LAYER
@@ -14,6 +14,16 @@
 	var/obj/item/fireaxe/fireaxe
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
+
+
+/datum/armor/structure_fireaxecabinet
+	melee = 50
+	bullet = 20
+	energy = 100
+	bomb = 10
+	rad = 100
+	fire = 90
+	acid = 50
 
 /obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()

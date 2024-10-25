@@ -262,7 +262,7 @@
 		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
 		return
 	var/mob/living/infectee = pick(target_hosts)
-	if(prob(100 - (infectee.get_permeability_protection() * 100)))
+	if(prob(100 - (infectee.getarmor(null, BIO))))
 		COOLDOWN_START(src, spread_cooldown, 7.5 SECONDS)
 		//this will potentially take over existing nanites!
 		infectee.AddComponent(/datum/component/nanites, 10)
@@ -291,7 +291,7 @@
 		consume_nanites(-5)
 		return
 	var/mob/living/infectee = pick(target_hosts)
-	if(prob(100 - (infectee.get_permeability_protection() * 100)))
+	if(prob(100 - (infectee.getarmor(null, BIO))))
 		//unlike with Infective Exo-Locomotion, this can't take over existing nanites, because Nanite Sting only targets non-hosts.
 		infectee.AddComponent(/datum/component/nanites, 5)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)

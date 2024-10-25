@@ -13,7 +13,7 @@
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/working_ripley
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
@@ -29,6 +29,17 @@
 	/// Custom Ripley step and turning sounds (from TGMC)
 	stepsound = 'sound/mecha/powerloader_step.ogg'
 	turnsound = 'sound/mecha/powerloader_turn2.ogg'
+
+
+/datum/armor/working_ripley
+	melee = 40
+	bullet = 20
+	laser = 10
+	energy = 20
+	bomb = 40
+	rad = 20
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/working/ripley/Move()
 	. = ..()
@@ -66,11 +77,21 @@
 	fast_pressure_step_in = 1.75 //step_in while in low pressure conditions
 	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
 	movedelay = 4
-	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/ripley_mk2
 	wreckage = /obj/structure/mecha_wreckage/ripley/mk2
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
+
+
+/datum/armor/ripley_mk2
+	melee = 40
+	bullet = 20
+	laser = 10
+	energy = 20
+	bomb = 40
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/working/ripley/mk2/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)

@@ -654,7 +654,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	icon_state = "nucleardisk"
 	persistence_replacement = /obj/item/disk/nuclear/fake
 	max_integrity = 250
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/disk_nuclear
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/fake = FALSE
 	var/turf/lastlocation
@@ -662,6 +662,12 @@ This is here to make the tiles around the station mininuke change when it's arme
 	var/process_tick = 0
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	COOLDOWN_DECLARE(weight_increase_cooldown)
+
+
+/datum/armor/disk_nuclear
+	bomb = 30
+	fire = 100
+	acid = 100
 
 /obj/item/disk/nuclear/Initialize(mapload)
 	. = ..()

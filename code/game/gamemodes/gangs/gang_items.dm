@@ -149,21 +149,6 @@
 	id = "armor"
 	cost = 200
 
-/datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/storage/box/armor_box = new (get_turf(user))
-
-	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
-	suit.armor = suit.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
-	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-
-	var/obj/item/clothing/head/hat = new gang.hat(armor_box)
-	hat.armor = hat.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
-	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-
-	user.put_in_hands(armor_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
-	return TRUE
-
 /datum/gang_item/clothing/ssuit
 	name = "Gang Spaceproof Outerwear"
 	id = "ssuit"

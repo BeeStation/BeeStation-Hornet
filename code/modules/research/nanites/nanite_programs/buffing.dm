@@ -44,15 +44,13 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 30
-		H.physiology.armor.bullet += 30
+		H.physiology.physio_armor.generate_new_with_specific(list(MELEE = 30, BULLET = 30))
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 30
-		H.physiology.armor.bullet -= 30
+		H.physiology.physio_armor = null
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
@@ -64,15 +62,13 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 30
-		H.physiology.armor.energy += 30
+		H.physiology.physio_armor.generate_new_with_specific(list(LASER = 20, ENERGY = 30))
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 30
-		H.physiology.armor.energy -= 30
+		H.physiology.physio_armor = null
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"

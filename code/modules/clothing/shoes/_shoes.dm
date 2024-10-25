@@ -9,11 +9,15 @@
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
 
-	permeability_coefficient = 0.5
+	armor_type = /datum/armor/clothing_shoes
 	slowdown = SHOES_SLOWDOWN
 	strip_delay = 1 SECONDS
 	var/offset = 0
 	var/equipped_before_drop = FALSE
+
+
+/datum/armor/clothing_shoes
+	bio = 50
 
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
 	if(prob(50))

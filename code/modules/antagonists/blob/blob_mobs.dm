@@ -149,8 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
-		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		maxHealth += A.armor.melee //That zombie's got armor, I want armor!
+		maxHealth += H.get_armor_rating(MELEE)
 	maxHealth += 40
 	health = maxHealth
 	name = "blob zombie"

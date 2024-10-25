@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "markerrandom"
 	layer = BELOW_OPEN_DOOR_LAYER
-	armor = list(MELEE = 50,  BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_marker_beacon
 	max_integrity = 50
 	anchored = TRUE
 	light_range = 2
@@ -83,6 +83,17 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	var/picked_color
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/marker_beacon)
+
+
+/datum/armor/structure_marker_beacon
+	melee = 50
+	bullet = 75
+	laser = 75
+	energy = 75
+	bomb = 25
+	bio = 100
+	rad = 100
+	fire = 25
 
 /obj/structure/marker_beacon/Initialize(mapload, set_color)
 	. = ..()

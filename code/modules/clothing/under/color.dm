@@ -222,13 +222,37 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/color_durathread
+
+
+/datum/armor/color_durathread
+	melee = 10
+	bullet = 15
+	laser = 10
+	fire = 40
+	acid = 10
+	bomb = 5
+	energy = 20
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/under/color/jumpskirt/durathread
 	name = "durathread jumpskirt"
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/jumpskirt_durathread
+
+
+/datum/armor/jumpskirt_durathread
+	melee = 10
+	bullet = 15
+	laser = 10
+	fire = 40
+	acid = 10
+	bomb = 5
+	energy = 20
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
