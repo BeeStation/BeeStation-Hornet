@@ -35,7 +35,7 @@
 	invocation = null
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
-
+	bypass = TELEPORT_ALLOW_WIZARD
 	invocation_says_area = FALSE
 
 /datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/IsAvailable()

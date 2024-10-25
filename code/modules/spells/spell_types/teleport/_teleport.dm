@@ -16,6 +16,7 @@
 	var/destination_flags = NONE
 	/// The sound played on arrival, after the teleport.
 	var/post_teleport_sound = 'sound/weapons/zapbang.ogg'
+	var/bypass
 
 /datum/action/cooldown/spell/teleport/cast(atom/cast_on)
 	. = ..()
@@ -23,7 +24,7 @@
 	if(!length(destinations))
 		CRASH("[type] failed to find a teleport destination.")
 
-	do_teleport(cast_on, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel)
+	do_teleport(cast_on, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, bypass_area_restriction = bypass)
 
 /// Gets a list of destinations that are valid
 /datum/action/cooldown/spell/teleport/proc/get_destinations(atom/center)

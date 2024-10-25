@@ -4,6 +4,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 	var/uses = 4 /// Number of uses the scroll gets.
+	var/smoke_amt = 20 //How much smoke after teleporting
 	actions_types = list(/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll)
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "paper"
@@ -51,10 +52,3 @@
 		to_chat(user, ("<span class='warning'>[src] runs out of uses and crumbles to dust!</span>"))
 		qdel(src)
 	return TRUE
-/* stale merge upstream moment
-	if(do_teleport(user, pick(L), channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE))
-		smoke.start()
-		uses--
-	else
-		to_chat(user, "The spell matrix was disrupted by something near the destination.")
-*/
