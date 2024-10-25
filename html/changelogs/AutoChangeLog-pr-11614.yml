@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Removes the effects that makes you unable to self-tend shortly after
+      self-tending with ointment and bruise packs.
+  - balance: Adds a significant combat debuff when self-tending with ointment and
+      bruise-packs.
