@@ -30,9 +30,10 @@
 
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
 	AddComponent(/datum/component/personal_crafting)
-	AddComponent(/datum/component/bloodysoles/feet)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	AddComponent(/datum/component/bloodysoles/feet)
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -962,19 +963,6 @@
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].</span>")
 
-
-/mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
-		return ..()
-
-	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
-	if(user == target)
-		if(can_piggyback(target))
-			piggyback(target)
-	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
-	else if(can_be_firemanned(target))
-		fireman_carry(target)
-
 /mob/living/carbon/human/MouseDrop(mob/over)
 	. = ..()
 	if(ishuman(over))
@@ -1056,6 +1044,19 @@
 		arm.attack_self(src)
 	return ..()
 
+/mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(pulling != M || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+		return ..()
+
+	//If they dragged themselves to you and you're currently aggressively grabbing them try to piggyback
+	if(user == M && can_piggyback(M))
+		piggyback(M)
+		return TRUE
+
+	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
+	if(can_be_firemanned(M))
+		fireman_carry(M)
+		return TRUE
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
@@ -1091,62 +1092,34 @@
 		target.visible_message("<span class='warning'>[target] can't hang on to [src]!</span>")
 		return
 
-	buckle_mob(target, TRUE, TRUE, 90, 1, 0)
+	return buckle_mob(target, TRUE, TRUE, CARRIER_NEEDS_ARM)
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
-	if(can_piggyback(target))
-		visible_message("<span class='notice'>[target] starts to climb onto [src].</span>")
-		if(do_after(target, 15, target = src))
-			if(can_piggyback(target))
-				if(target.incapacitated(FALSE, TRUE) || incapacitated(FALSE, TRUE))
-					target.visible_message("<span class='warning'>[target] can't hang onto [src]!</span>")
-					return
-				buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
-		else
-			visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
-	else
+	if(!can_piggyback(target))
 		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
-
-
-/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
-	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
+
+	visible_message("<span class='notice'>[target] starts to climb onto [src].</span>")
+	if(!do_after(target, 1.5 SECONDS, target = src) || !can_piggyback(target))
+		visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
+		return
+
+	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+		target.visible_message("<span class='warning'>[target] can't hang onto [src]!</span>")
+		return
+
+	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
+
+
+/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(!is_type_in_typecache(target, can_ride_typecache))
 		target.visible_message("<span class='warning'>[target] really can't seem to mount [src].</span>")
 		return
-	buckle_lying = lying_buckle
-	var/datum/component/riding/human/riding_datum = LoadComponent(/datum/component/riding/human)
-	if(target_hands_needed)
-		riding_datum.ride_check_rider_restrained = TRUE
-	if(buckled_mobs && ((target in buckled_mobs) || (buckled_mobs.len >= max_buckled_mobs)) || buckled)
+
+	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
-	var/equipped_hands_self
-	var/equipped_hands_target
-	if(hands_needed)
-		equipped_hands_self = riding_datum.equip_buckle_inhands(src, hands_needed, target)
-	if(target_hands_needed)
-		equipped_hands_target = riding_datum.equip_buckle_inhands(target, target_hands_needed)
 
-	if(hands_needed || target_hands_needed)
-		if(hands_needed && !equipped_hands_self)
-			src.visible_message("<span class='warning'>[src] can't get a grip on [target] because their hands are full!</span>",
-				"<span class='warning'>You can't get a grip on [target] because your hands are full!</span>")
-			return
-		else if(target_hands_needed && !equipped_hands_target)
-			target.visible_message("<span class='warning'>[target] can't get a grip on [src] because their hands are full!</span>",
-				"<span class='warning'>You can't get a grip on [src] because your hands are full!</span>")
-			return
-
-	stop_pulling()
-	riding_datum.handle_vehicle_layer()
-	. = ..(target, force, check_loc)
-
-	//Something went wrong with buckling, remove inhands and restore target's position!
-	if(!.)
-		riding_datum.unequip_buckle_inhands(src)
-		riding_datum.unequip_buckle_inhands(target)
-		riding_datum.restore_position(target)
-		to_chat(src, "<span class='warning'>You seem to be unable to carry [target]!</span>")
+	return ..()
 
 /mob/living/carbon/human/updatehealth()
 	. = ..()
