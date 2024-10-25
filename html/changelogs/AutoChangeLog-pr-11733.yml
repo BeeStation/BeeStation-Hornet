@@ -1,0 +1,6 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: fixes some important clothing variables not being passed during changeling
+      transformation
+  - bugfix: enforces drop deletion on all changeling items
