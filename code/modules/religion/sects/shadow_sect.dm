@@ -22,7 +22,9 @@
 	var/light_power = 0
 	var/list/obelisks = list()
 	var/faithful_used = FALSE
-	var/Murder = FALSE
+	var/murder = FALSE
+	var/min_summon = 3
+	var/max_summon = 3
 
 /datum/religion_sect/shadow_sect/is_available(mob/user)
 	if(isshadow(user))
@@ -46,10 +48,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!religious_tool || !user)
 		return
-	if(user.mind.is_murderbone())
-		sect.Murder = TRUE
-	else
-		sect.Murder = FALSE
+	sect.murder = user.mind.is_murderbone()
 	religious_tool.AddComponent(/datum/component/dark_favor, user)
 
 /datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
@@ -371,8 +370,7 @@
 		to_chat(user,"<span class='warning'>This rite has already been used, your favor has been refuned.</span>")
 		GLOB.religious_sect?.adjust_favor(favor_cost, user)
 		return ..()
-	if(user.mind.is_murderbone())
-		sect.Murder = TRUE
+	sect.murder = user.mind.is_murderbone() || sect.murder
 	sect.faithful_used = TRUE
 	var/altar_turf = get_turf(religious_tool)
 	var/obj/structure/destructible/religion/shadow_obelisk/lisk = new(altar_turf)
@@ -380,7 +378,7 @@
 	lisk.AddComponent(/datum/component/dark_favor, user)
 	lisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
-	if(sect.Murder)
+	if(sect.murder)
 		priority_announce("May our lord, [GLOB.deity], have mercy on your soul as darkness reigns apon you all.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
 	else
 		priority_announce("May our lord, [GLOB.deity], bless all the shadows as darkness heals those who worship the night.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
@@ -388,17 +386,24 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/final_darkness_activate()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	var/list/candidates = poll_ghost_candidates("Do you wish to be summoned as a Shadow Faithful?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYUNDEAD)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
 		START_PROCESSING(SSobj, obs)
-		if(sect.Murder)
-			var/obelisk_turf = get_turf(obs)
-			if(prob(30))
-				for(var/i in 1 to 3)
-					var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
-					faithful.AddComponent(/datum/component/dark_favor, faithful)
-					faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
-			playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
-		else
+		if(!sect.murder)
 			playsound(obs, 'sound/magic/fireball.ogg', 50, TRUE)
+			return
+		var/obelisk_turf = get_turf(obs)
+		if(prob(30))
+			for(var/i in sect.min_summon to sect.max_summon)
+				var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
+				faithful.AddComponent(/datum/component/dark_favor, faithful)
+				faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
+				if(length(candidates))
+					var/mob/dead/observer/selected = pick_n_take(candidates)
+					var/datum/mind/Mind = new /datum/mind(selected.key)
+					faithful.real_name = "Faithful ([rand(1,999)])"
+					Mind.active = 1
+					Mind.transfer_to(faithful)
+		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
 
 #undef DARKNESS_INVERSE_COLOR
