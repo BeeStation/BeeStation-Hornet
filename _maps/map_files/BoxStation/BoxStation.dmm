@@ -24178,7 +24178,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "gpd" = (
-/obj/structure/table,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -24189,12 +24188,10 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
+/obj/structure/table,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "gpn" = (
