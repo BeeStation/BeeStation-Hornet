@@ -186,7 +186,7 @@
 /obj/item/organ/heart/cybernetic
 	name = "cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
-	icon_state = "heart-c"
+	icon_state = "heart-c-on"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	var/dose_available = TRUE
@@ -211,7 +211,7 @@
 /obj/item/organ/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
-	icon_state = "heart-c-u"
+	icon_state = "heart-c-u-on"
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
