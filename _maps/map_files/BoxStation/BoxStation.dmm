@@ -24193,10 +24193,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 8
-	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
