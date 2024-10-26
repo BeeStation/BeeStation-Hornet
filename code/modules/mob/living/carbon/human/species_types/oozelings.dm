@@ -118,7 +118,7 @@
 	qdel(consumed_limb)
 	H.blood_volume = BLOOD_VOLUME_SAFE
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
-   		H.nutrition = NUTRITION_LEVEL_HUNGRY + 30
+		H.nutrition = NUTRITION_LEVEL_HUNGRY + 30
 
 /datum/action/innate/regenerate_limbs
 	name = "Regenerate Limbs"
