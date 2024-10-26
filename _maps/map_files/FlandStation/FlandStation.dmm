@@ -13378,6 +13378,7 @@
 	name = "O2 Conveyor";
 	pixel_x = -12
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "dxQ" = (
@@ -68074,6 +68075,7 @@
 	name = "Canister Conveyor";
 	pixel_x = -12
 	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "rBl" = (
@@ -87740,6 +87742,7 @@
 	name = "Plasma Conveyor";
 	pixel_x = -12
 	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "wmC" = (
