@@ -1,6 +1,0 @@
-author: Therealdoooc213
-delete-after: true
-changes:
-  - balance: paramedics no longer start with full doctors bags, they have a custom
-      one now
-  - tweak: paramedics start with degraded medhud sunglasses
