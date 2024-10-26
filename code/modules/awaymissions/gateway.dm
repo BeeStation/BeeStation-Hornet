@@ -205,13 +205,15 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		return FALSE
 
 	for(var/obj/machinery/gateway/G in adjacent_parts)
-		G.active = 1
+		G.active = TRUE
 		G.update_icon()
-	active = 1
+	active = TRUE
 	update_icon()
 	return TRUE
 
 /obj/machinery/gateway/proc/toggleoff(telegraph = FALSE)
+	if(!centerpiece)
+		return FALSE
 	if(!active)
 		return FALSE
 	for(var/obj/machinery/gateway/G in adjacent_parts)
