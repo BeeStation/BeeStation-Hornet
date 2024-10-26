@@ -68169,6 +68169,7 @@
 /area/crew_quarters/locker)
 "rDJ" = (
 /obj/structure/chair/fancy/bench/corporate/right,
+/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "rDN" = (
