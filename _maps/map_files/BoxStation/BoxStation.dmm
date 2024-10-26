@@ -1867,13 +1867,10 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 9
-	},
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
+/obj/machinery/reagentgrinder,
 /turf/open/floor/iron,
 /area/hydroponics)
 "aAr" = (
@@ -11722,13 +11719,6 @@
 "cig" = (
 /turf/closed/wall,
 /area/engine/engineering)
-"cij" = (
-/obj/structure/chair/stool/bar/directional/west,
-/obj/structure/window{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/bar/atrium)
 "cik" = (
 /obj/machinery/computer/arcade/orion_trail{
 	dir = 4
@@ -16278,7 +16268,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Service Maintenance";
-	req_one_access_txt = "12;25;26;35;28;22;37;46;38"
+	req_one_access_txt = "25;26;35;28;22;37;46;38"
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -17268,7 +17258,8 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
-/obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/camera/directional/north,
+/obj/machinery/vending/wardrobe/bar_wardrobe,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "dFp" = (
@@ -18015,7 +18006,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
-/area/crew_quarters/bar)
+/area/crew_quarters/kitchen)
 "dTA" = (
 /obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
@@ -19824,22 +19815,15 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "eFj" = (
-/obj/machinery/chem_master/condimaster{
-	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe"
-	},
-/obj/machinery/requests_console{
-	department = "Kitchen";
-	departmentType = 2;
-	pixel_y = 30
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	dir = 8;
 	freq = 1400;
 	location = "Bar"
 	},
-/turf/open/floor/wood/big,
+/obj/structure/plasticflaps/opaque,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
 /area/crew_quarters/bar)
 "eFx" = (
 /obj/effect/turf_decal/siding/wood{
@@ -25541,6 +25525,20 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
+"gTo" = (
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	pixel_y = 30
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe";
+	pixel_x = -4
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "gTu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
@@ -25932,7 +25930,7 @@
 	req_access_txt = "25"
 	},
 /turf/open/floor/iron,
-/area/crew_quarters/bar)
+/area/crew_quarters/kitchen)
 "hef" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/effect/turf_decal/tile/white{
@@ -26990,6 +26988,20 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
+"hAG" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/southleft{
+	req_access_txt = "25";
+	name = "Bar Delivery"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/crew_quarters/bar)
 "hAK" = (
 /obj/structure/table,
 /obj/item/storage/box/disks_nanite,
@@ -30667,7 +30679,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "iVN" = (
@@ -33320,6 +33331,7 @@
 /area/hallway/secondary/command)
 "jVH" = (
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "jVQ" = (
@@ -41431,8 +41443,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/checker,
 /area/maintenance/starboard/fore)
 "noN" = (
@@ -44750,6 +44760,10 @@
 	},
 /turf/open/floor/iron,
 /area/security/courtroom)
+"oIA" = (
+/obj/effect/spawner/lootdrop/glowstick,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "oIC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -46226,7 +46240,7 @@
 	req_access_txt = "25"
 	},
 /turf/open/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/starboard/fore)
 "pps" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -46632,18 +46646,12 @@
 /area/maintenance/fore/secondary)
 "pxC" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = 13;
-	pixel_y = 5
-	},
 /obj/item/watertank,
 /obj/item/radio/intercom/directional/west,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
+/obj/item/reagent_containers/spray/plantbgone,
 /turf/open/floor/iron,
 /area/hydroponics)
 "pxL" = (
@@ -53095,10 +53103,6 @@
 	pixel_x = -1;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_x = 13;
-	pixel_y = 17
-	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
@@ -53910,21 +53914,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"soc" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/window/eastleft{
-	dir = 2;
-	name = "Bar Door";
-	req_access_txt = "25"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "soA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -59808,16 +59797,6 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
-"uBF" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=2";
-	freq = 1400;
-	location = "Bar"
-	},
-/obj/structure/plasticflaps/opaque,
-/turf/open/floor/iron,
-/area/crew_quarters/bar)
 "uBL" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/siding/thinplating_new/corner,
@@ -59889,6 +59868,9 @@
 "uDC" = (
 /obj/structure/table,
 /obj/effect/turf_decal/siding/white,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "uDZ" = (
@@ -64489,11 +64471,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
-"wuE" = (
-/obj/machinery/vending/wardrobe/bar_wardrobe,
-/obj/machinery/camera/directional/north,
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "wuP" = (
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
@@ -102922,8 +102899,8 @@ pRR
 fyT
 fyT
 fyT
-cij
-cij
+pRR
+pRR
 fqC
 aYV
 aYV
@@ -105736,9 +105713,9 @@ rmj
 pDz
 kPQ
 gOt
-uBF
-soc
-jVH
+aJC
+aJC
+gTo
 jUv
 iss
 kjj
@@ -105993,9 +105970,9 @@ usc
 bQm
 uvw
 noM
-aJC
+oIA
 eFj
-jVH
+hAG
 jUv
 deN
 aJC
@@ -106250,8 +106227,8 @@ eBo
 kcQ
 ofK
 iUM
+aoP
 aJC
-wuE
 dES
 rGK
 tAr
@@ -106507,16 +106484,16 @@ awG
 jxG
 dZF
 dZF
-aJC
-aJC
-aJC
-aJC
-aJC
-aJC
-aJC
+dZF
+dZF
+dZF
+aJI
+aJI
+aJI
+aJI
 dTf
 hdj
-aJC
+aJI
 kuB
 uQL
 uQL
