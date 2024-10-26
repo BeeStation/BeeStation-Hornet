@@ -12,7 +12,7 @@
 	default_raw_text = "<big><b>Hello valued Nanotrasen employee!</b><br>\
 			You have volunteered and/or been selected to join our crew working, living, and \
 			enjoying our premier plasma resourcing planet endearingly named “Lavaland”!<br><br> \
-			<b>Here are a few things to expect with your new work enviroment:</b></big><br><br> \
+			<b>Here are a few things to expect with your new work environment:</b></big><br><br> \
 			<b>Sweet natural atmosphere!</b><br>\
 			Is the station just not your style? Are you partial to warmer climates? Is a lower than \
 			average barometric pressure a comfortable and welcome thing to you? Well by Jiminy, Lavaland \
@@ -23,7 +23,7 @@
 			sorts of hearty creatures that float and stomp about the ashen plains. Get \
 			your dinner plates and wooden plaques ready for the next beast; be they goliath, watcher, \
 			ashwalker or even bigger and more exotic creatures! And the best part: you do it on company time!<br><br> \
-			<b>Wild enviroment!</b><br>\
+			<b>Wild environment!</b><br>\
 			Are you the frontier type? Do you embrace the challenge of maintaining a building with your \
 			peers? Lavaland and its base are perfect for you! Sometimes the unexpected happens: some \
 			of the walls, pipework, and floors may need your expertise. Working in space on places like \
