@@ -142,24 +142,15 @@
 		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
 		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
-	if(H.blood_volume >= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
-		if(do_after(H, 60, target = H))
-			H.regenerate_limbs()
-			H.blood_volume -= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)*limbs_to_heal.len
-			H.nutrition -= 20*limbs_to_heal.len
-			to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
-		return
-	if(H.blood_volume >= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY))//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_SAFE && LAZYLEN(limbs_to_heal))
-			if(do_after(H, 30, target = H))
-				var/healed_limb = pick(limbs_to_heal)
-				H.regenerate_limb(healed_limb)
-				limbs_to_heal -= healed_limb
-				H.blood_volume -= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)
-				H.nutrition -= 20
-			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!</span>")
-		return
-	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to heal!</span>")
+	while(H.blood_volume >= BLOOD_VOLUME_SAFE && LAZYLEN(limbs_to_heal))
+		if(do_after(H, 30, target = H))
+			var/healed_limb = pick(limbs_to_heal)
+			H.regenerate_limb(healed_limb)
+			limbs_to_heal -= healed_limb
+			H.blood_volume -= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)
+			H.nutrition -= 40
+	if(LAZYLEN(limbs_to_heal))
+		to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to fully heal!</span>")
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/water)
