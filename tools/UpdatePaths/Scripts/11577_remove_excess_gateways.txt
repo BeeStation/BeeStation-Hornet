@@ -1,2 +1,0 @@
-/obj/machinery/gateway : @DELETE
-/obj/machinery/gateway/centeraway : @DELETE
