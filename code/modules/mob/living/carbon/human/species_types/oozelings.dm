@@ -116,8 +116,9 @@
 	consumed_limb.drop_limb()
 	to_chat(H, "<span class='userdanger'>Your [consumed_limb] is drawn back into your body, unable to maintain its shape!</span>")
 	qdel(consumed_limb)
-	H.blood_volume += 80
-	H.nutrition += 20
+	H.blood_volume = BLOOD_VOLUME_SAFE
+	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
+   		H.nutrition = NUTRITION_LEVEL_HUNGRY + 30
 
 /datum/action/innate/regenerate_limbs
 	name = "Regenerate Limbs"
@@ -130,7 +131,7 @@
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		var/list/limbs_to_heal = H.get_missing_limbs()
-		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+80)
+		if(limbs_to_heal.len && (H.blood_volume >= (BLOOD_VOLUME_OKAY + (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY))))
 			return TRUE
 		return FALSE
 
@@ -141,20 +142,20 @@
 		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
 		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
-	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
+	if(H.blood_volume >= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
 		if(do_after(H, 60, target = H))
 			H.regenerate_limbs()
-			H.blood_volume -= 80*limbs_to_heal.len
+			H.blood_volume -= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)*limbs_to_heal.len
 			H.nutrition -= 20*limbs_to_heal.len
 			to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
 		return
-	if(H.blood_volume >= 80)//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
+	if(H.blood_volume >= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY))//We can partially heal some limbs
+		while(H.blood_volume >= BLOOD_VOLUME_OKAY+(BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY) && LAZYLEN(limbs_to_heal))
 			if(do_after(H, 30, target = H))
 				var/healed_limb = pick(limbs_to_heal)
 				H.regenerate_limb(healed_limb)
 				limbs_to_heal -= healed_limb
-				H.blood_volume -= 80
+				H.blood_volume -= (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_OKAY)
 				H.nutrition -= 20
 			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!</span>")
 		return
