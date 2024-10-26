@@ -58303,6 +58303,10 @@
 	pixel_y = 4
 	},
 /obj/item/assembly/igniter,
+/obj/item/reagent_containers/chem_bag/tricordrazine{
+	pixel_x = 8;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/dark,
 /area/medical/chemistry)
 "nCM" = (
@@ -81751,6 +81755,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "vmQ" = (

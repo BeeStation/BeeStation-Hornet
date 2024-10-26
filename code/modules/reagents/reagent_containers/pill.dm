@@ -112,6 +112,12 @@
 	icon_state = "pill_shape_capsule_white_redlined"
 	list_reagents = list(/datum/reagent/medicine/ephedrine = 10, /datum/reagent/medicine/antihol = 10, /datum/reagent/consumable/coffee = 30)
 
+/obj/item/reagent_containers/pill/methamphetamine
+	name = "methamphetamine"
+	desc = "Commonly used to treat boredom, bleeding, hyperactiveness, clingy girlfriends, and whatever else you might have issues with."
+	icon_state = "pill_shape_capsule_black_white"
+	list_reagents = list(/datum/reagent/drug/methamphetamine = 10)
+
 /obj/item/reagent_containers/pill/salbutamol
 	name = "salbutamol pill"
 	desc = "Used to treat oxygen deprivation."

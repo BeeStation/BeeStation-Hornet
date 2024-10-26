@@ -12009,6 +12009,7 @@
 	pixel_x = 32;
 	pixel_y = 1
 	},
+/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "dNw" = (
@@ -25783,6 +25784,7 @@
 	pixel_x = 21;
 	pixel_y = 22
 	},
+/obj/item/reagent_containers/chem_bag/tricordrazine,
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "igf" = (
@@ -62226,6 +62228,7 @@
 /obj/structure/sign/painting/library{
 	pixel_x = 32
 	},
+/obj/item/reagent_containers/pill/methamphetamine,
 /turf/open/floor/wood,
 /area/library)
 "tIQ" = (

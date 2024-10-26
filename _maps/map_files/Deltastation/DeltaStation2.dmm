@@ -27742,6 +27742,7 @@
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /obj/item/paicard,
+/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "dEI" = (
@@ -43993,6 +43994,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/item/reagent_containers/chem_bag/tricordrazine,
 /turf/open/floor/iron,
 /area/medical/chemistry)
 "hWT" = (

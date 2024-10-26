@@ -5580,6 +5580,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
+/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "blF" = (
@@ -26927,6 +26928,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 4
 	},
+/obj/item/reagent_containers/chem_bag/tricordrazine,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "hzN" = (

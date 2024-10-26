@@ -43,6 +43,10 @@
 	name = "bicaridine reserve bag"
 	list_reagents=  list(/datum/reagent/medicine/bicaridine = 100)
 
+/obj/item/reagent_containers/chem_bag/tricordrazine
+	name = "tricordrazine reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/tricordrazine = 100)
+
 /obj/item/reagent_containers/chem_bag/kelotane
 	name = "kelotane reserve bag"
 	list_reagents=  list(/datum/reagent/medicine/kelotane = 100)

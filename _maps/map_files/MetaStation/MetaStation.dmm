@@ -38975,6 +38975,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/reagent_containers/chem_bag/tricordrazine,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "jMd" = (
@@ -47285,9 +47286,6 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
 /obj/effect/turf_decal/delivery,
 /obj/item/healthanalyzer{
 	pixel_x = 4;
@@ -47301,6 +47299,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
+/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "mMC" = (
@@ -75533,6 +75532,9 @@
 /obj/structure/table,
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
+/obj/item/radio/headset/headset_sci{
+	pixel_x = -3
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "xaq" = (
