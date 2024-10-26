@@ -433,7 +433,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		spark_system.start()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
 
-/obj/item/pipe_dispenser/attack_obj(obj/O, mob/living/user)
+/obj/item/pipe_dispenser/attack_atom(obj/O, mob/living/user)
 	// don't attempt to attack what we don't want to attack
 	if(is_type_in_typecache(O, atmos_constructs) || is_type_in_typecache(O, rpd_targets) || is_type_in_typecache(O, rpd_whitelist))
 		return
