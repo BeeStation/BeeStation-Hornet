@@ -24189,7 +24189,6 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/table,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
