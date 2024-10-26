@@ -310,7 +310,7 @@ Behavior that's still missing from this component that original food items had t
 			return
 		var/eatverb = pick(eatverbs)
 
-		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
+		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_HUNGRY + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
 			to_chat(eater, "<span class='warning'>You don't feel like eating any more junk food at the moment!</span>")
 			return
 		else if(fullness <= 50)
