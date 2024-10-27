@@ -10238,7 +10238,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/item/reagent_containers/chem_bag/tricordrazine,
+/obj/item/reagent_containers/chem_bag/triamed,
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "eWk" = (
@@ -48254,9 +48254,6 @@
 /obj/item/toy/cards/deck,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/item/reagent_containers/pill/methamphetamine{
-	pixel_y = 5
 	},
 /turf/open/floor/carpet/purple,
 /area/library/abandoned)

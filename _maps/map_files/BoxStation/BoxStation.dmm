@@ -26927,7 +26927,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/chem_bag/tricordrazine,
+/obj/item/reagent_containers/chem_bag/triamed,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "hzN" = (

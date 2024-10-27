@@ -29279,7 +29279,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/item/reagent_containers/chem_bag/tricordrazine,
+/obj/item/reagent_containers/chem_bag/triamed,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "jqx" = (

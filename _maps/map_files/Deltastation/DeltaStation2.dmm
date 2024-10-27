@@ -43992,7 +43992,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/item/reagent_containers/chem_bag/tricordrazine,
+/obj/item/reagent_containers/chem_bag/triamed,
 /turf/open/floor/iron,
 /area/medical/chemistry)
 "hWT" = (

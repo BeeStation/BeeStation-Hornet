@@ -53160,7 +53160,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/reagent_containers/chem_bag/tricordrazine,
+/obj/item/reagent_containers/chem_bag/triamed,
 /turf/open/floor/iron/grid/steel,
 /area/medical/apothecary)
 "nDQ" = (

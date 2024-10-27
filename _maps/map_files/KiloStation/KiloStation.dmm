@@ -58295,7 +58295,7 @@
 	pixel_y = 4
 	},
 /obj/item/assembly/igniter,
-/obj/item/reagent_containers/chem_bag/tricordrazine{
+/obj/item/reagent_containers/chem_bag/triamed{
 	pixel_x = 8;
 	pixel_y = 4
 	},
