@@ -103,7 +103,7 @@
 			to_chat(user, "<span class='warning'>[src] has both electronics and a cell.</span>")
 			return
 	else if (istype(W, /obj/item/wallframe/apc) && opened)
-		if (!(machine_stat & BROKEN || opened==APC_COVER_REMOVED || obj_integrity < max_integrity)) // There is nothing to repair
+		if (!(machine_stat & BROKEN || opened==APC_COVER_REMOVED || atom_integrity < max_integrity)) // There is nothing to repair
 			to_chat(user, "<span class='warning'>You find no reason for repairing this APC.</span>")
 			return
 		if (!(machine_stat & BROKEN) && opened==APC_COVER_REMOVED)
@@ -125,7 +125,7 @@
 			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
 			qdel(W)
 			set_machine_stat(machine_stat & ~BROKEN)
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			if (opened==APC_COVER_REMOVED)
 				opened = APC_COVER_OPENED
 			update_appearance()
@@ -231,7 +231,7 @@
 	if((machine_stat & MAINT) && !opened) //no board; no interface
 		return
 
-/obj/machinery/power/apc/obj_break(damage_flag)
+/obj/machinery/power/apc/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		set_broken()
@@ -272,8 +272,8 @@
 /obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	machine_stat |= BROKEN
 	operating = FALSE
+	atom_break()
 	if(occupier)
 		malfvacate(1)
 	update_appearance()

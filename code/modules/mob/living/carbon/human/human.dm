@@ -2,7 +2,7 @@
 	name = "Unknown"
 	real_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	COOLDOWN_DECLARE(special_emote_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
@@ -136,6 +136,12 @@
 	if(istype(C))
 		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
+
+/mob/living/carbon/human/reset_perspective(atom/new_eye, force_reset = FALSE)
+	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases, like Dullahans preventing perspective changes when they're looking through their head.
+		update_fullscreen()
+		return
+	return ..()
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
@@ -551,46 +557,72 @@
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	rad_act(current_size * 3)
 
-/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/C)
-	CHECK_DNA_AND_SPECIES(C)
+#define CPR_PANIC_SPEED (0.8 SECONDS)
 
-	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
-		to_chat(src, "<span class='warning'>[C.name] is dead!</span>")
+/// Performs CPR on the target after a delay.
+/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/target)
+	if(target == src)
 		return
-	if(is_mouth_covered())
-		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
-		return 0
-	if(C.is_mouth_covered())
-		to_chat(src, "<span class='warning'>Remove [p_their()] mask first!</span>")
-		return 0
 
-	if(C.cpr_time < world.time + 30)
-		visible_message("<span class='notice'>[src] is trying to perform CPR on [C.name]!</span>", \
-						"<span class='notice'>You try to perform CPR on [C.name]... Hold still!</span>")
-		if(!do_after(src, target = C))
-			to_chat(src, "<span class='warning'>You fail to perform CPR on [C]!</span>")
-			return 0
+	var/panicking = FALSE
 
-		var/they_breathe = !HAS_TRAIT(C, TRAIT_NOBREATH)
-		var/they_lung = C.getorganslot(ORGAN_SLOT_LUNGS)
+	do
+		CHECK_DNA_AND_SPECIES(target)
 
-		if(C.health > C.crit_threshold)
-			return
+		if (DOING_INTERACTION_WITH_TARGET(src,target))
+			return FALSE
 
-		src.visible_message("[src] performs CPR on [C.name]!", "<span class='notice'>You perform CPR on [C.name].</span>")
+		if (target.stat == DEAD || HAS_TRAIT(target, TRAIT_FAKEDEATH))
+			to_chat(src, "<span class='warning'>[target.name] is dead!</span>")
+			return FALSE
+
+		if (is_mouth_covered())
+			to_chat(src, "<span class='warning'>Remove your mask first!</span>")
+			return FALSE
+
+		if (target.is_mouth_covered())
+			to_chat(src, "<span class='warning'>Remove [p_their()] mask first!</span>")
+			return FALSE
+
+		if (!getorganslot(ORGAN_SLOT_LUNGS))
+			to_chat(src, "<span class='warning'>You have no lungs to breathe with, so you cannot perform CPR!</span>")
+			return FALSE
+
+		if (HAS_TRAIT(src, TRAIT_NOBREATH))
+			to_chat(src, "<span class='warning'>You do not breathe, so you cannot perform CPR!</span>")
+			return FALSE
+
+		visible_message("<span class='notice'>[src] is trying to perform CPR on [target.name]!</span>", \
+						"<span class='notice'>You try to perform CPR on [target.name]... Hold still!</span>")
+
+		if (!do_after(src, delay = panicking ? CPR_PANIC_SPEED : (3 SECONDS), target = target))
+			to_chat(src, "<span class='warning'>You fail to perform CPR on [target]!</span>")
+			return FALSE
+
+		if (target.health > target.crit_threshold)
+			return FALSE
+
+		visible_message("<span class='notice'>[src] performs CPR on [target.name]!</span>", "<span class='notice'>You perform CPR on [target.name].</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "perform_cpr", /datum/mood_event/perform_cpr)
-		C.cpr_time = world.time
-		log_combat(src, C, "CPRed")
+		log_combat(src, target, "CPRed")
 
-		if(they_breathe && they_lung)
-			var/suff = min(C.getOxyLoss(), 7)
-			C.adjustOxyLoss(-suff)
-			C.updatehealth()
-			to_chat(C, "<span class='unconscious'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
-		else if(they_breathe && !they_lung)
-			to_chat(C, "<span class='unconscious'>You feel a breath of fresh air, but you don't feel any better.</span>")
+		if (HAS_TRAIT(target, TRAIT_NOBREATH))
+			to_chat(target, "<span class='unconscious'>You feel a breath of fresh air... which is a sensation you don't recognise...</span>")
+		else if (!target.getorganslot(ORGAN_SLOT_LUNGS))
+			to_chat(target, "<span class='unconscious'>You feel a breath of fresh air... but you don't feel any better...</span>")
 		else
-			to_chat(C, "<span class='unconscious'>You feel a breath of fresh air, which is a sensation you don't recognise.</span>")
+			target.adjustOxyLoss(-min(target.getOxyLoss(), 7))
+			to_chat(target, "<span class='unconscious'>You feel a breath of fresh air enter your lungs... It feels good...</span>")
+
+		if (target.health <= target.crit_threshold)
+			if (!panicking)
+				to_chat(src, "<span class='warning'>[target] still isn't up! You try harder!</span>")
+			panicking = TRUE
+		else
+			panicking = FALSE
+	while (panicking)
+
+#undef CPR_PANIC_SPEED
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HAS_TRAIT(src, TRAIT_FAST_CUFF_REMOVAL))
@@ -721,6 +753,17 @@
 	else
 		..()
 
+/mob/living/carbon/human/clear_cuffs(obj/item/I, cuff_break)
+	. = ..()
+	if(.)
+		return
+	if(!I.loc || buckled)
+		return FALSE
+	if(I == wear_suit)
+		visible_message("<span class='danger'>[src] manages to [cuff_break ? "break" : "remove"] [I]!</span>")
+		to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
+		return TRUE
+
 /mob/living/carbon/human/replace_records_name(oldname,newname) // Only humans have records right now, move this up if changed.
 	for(var/list/L in list(GLOB.data_core.general,GLOB.data_core.medical,GLOB.data_core.security,GLOB.data_core.locked))
 		var/datum/data/record/R = find_record("name", oldname, L)
@@ -739,8 +782,7 @@
 		return
 	else
 		if(hud_used.healths)
-			var/health_amount = min(health, maxHealth - getStaminaLoss())
-			if(..(health_amount)) //not dead
+			if(..()) //not dead
 				switch(hal_screwyhud)
 					if(SCREWYHUD_CRIT)
 						hud_used.healths.icon_state = "health6"
@@ -769,17 +811,17 @@
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
 						icon_num = 0
 					if(icon_num)
-						hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone][icon_num]"))
+						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]"))
 					//Stamina Outline (Communicate that we have stamina damage)
 					//Hallucinations will appear as regular damage
 					if(BP.stamina_dam && !hallucination)
-						var/mutable_appearance/MA = mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone]stam")
+						var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]stam")
 						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
 						hud_used.healthdoll.add_overlay(MA)
 				for(var/t in get_missing_limbs()) //Missing limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]6"))
+					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
 				for(var/t in get_disabled_limbs()) //Disabled limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]7"))
+					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
@@ -799,11 +841,6 @@
 	coretemperature = get_body_temp_normal(apply_change=FALSE)
 	heat_exposure_stacks = 0
 	..()
-
-/mob/living/carbon/human/check_weakness(obj/item/weapon, mob/living/attacker)
-	. = ..()
-	if (dna && dna.species)
-		. += dna.species.check_species_weakness(weapon, attacker)
 
 /mob/living/carbon/human/is_literate()
 	return TRUE
@@ -1028,27 +1065,33 @@
 	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	var/carrydelay = 50 //if you have latex you are faster at grabbing
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+		to_chat(src, "<span class='notice'>You can't fireman carry [target] while they're standing!</span>")
+		return
+
+	var/carrydelay = 5 SECONDS //if you have latex you are faster at grabbing
 	var/skills_space = "" //cobby told me to do this
 	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
-		carrydelay = 30
+		carrydelay = 3 SECONDS
 		skills_space = " expertly"
 	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
-		carrydelay = 40
+		carrydelay = 4 SECONDS
 		skills_space = " quickly"
-	if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE))
-		visible_message("<span class='notice'>[src] starts[skills_space] lifting [target] onto their back..</span>",
-		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
-		"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
-		//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
-		if(do_after(src, carrydelay, target))
-			//Second check to make sure they're still valid to be carried
-			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE) && !target.buckled)
-				buckle_mob(target, TRUE, TRUE, 90, 1, 0)
-				return
+
+	visible_message("<span class='notice'>[src] starts[skills_space] lifting [target] onto their back..</span>",
+	//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
+	"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
+	//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
+	if(!do_after(src, carrydelay, target))
 		visible_message("<span class='warning'>[src] fails to fireman carry [target]!</span>")
-	else
-		to_chat(src, "<span class='notice'>You can't fireman carry [target] while they're standing!</span>")
+		return
+
+	//Second check to make sure they're still valid to be carried
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+		target.visible_message("<span class='warning'>[target] can't hang on to [src]!</span>")
+		return
+
+	buckle_mob(target, TRUE, TRUE, 90, 1, 0)
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
 	if(can_piggyback(target))
@@ -1301,8 +1344,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 /mob/living/carbon/human/species/plasma
 	race = /datum/species/plasmaman
 
-/mob/living/carbon/human/species/pod
-	race = /datum/species/pod
+/mob/living/carbon/human/species/diona
+	race = /datum/species/diona
 
 /mob/living/carbon/human/species/shadow
 	race = /datum/species/shadow
@@ -1329,7 +1372,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 	race = /datum/species/human/krokodil_addict
 
 /mob/living/carbon/human/species/pumpkin_man
-	race = /datum/species/pod/pumpkin_man
+	race = /datum/species/pumpkin_man
 
 /mob/living/carbon/human/species/psyphoza
 	race = /datum/species/psyphoza

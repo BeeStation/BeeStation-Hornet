@@ -7,8 +7,8 @@
 	products = list(/obj/item/food/donkpocket/warm = 8,
 					/obj/item/food/salad/herbsalad = 6,
 					/obj/item/food/canned/beans = 4,
-					/obj/item/reagent_containers/glass/waterbottle/large = 10)
-	contraband = list(/obj/item/reagent_containers/food/drinks/coffee = 10,
+					/obj/item/reagent_containers/cup/glass/waterbottle/large = 10)
+	contraband = list(/obj/item/reagent_containers/cup/glass/coffee = 10,
 						/obj/item/food/chips = 6,
 						/obj/item/food/icecreamsandwich = 6)
 	refill_canister = /obj/item/vending_refill/mining

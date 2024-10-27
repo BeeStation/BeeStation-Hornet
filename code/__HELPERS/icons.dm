@@ -1109,31 +1109,31 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
 /// For creating consistent icons for human looking simple animals.
-/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
+/proc/get_flat_human_icon(icon_id, datum/job/job, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
 	var/static/list/humanoid_icon_cache = list()
-	if(!icon_id || !humanoid_icon_cache[icon_id])
-		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
-
-		if(prefs)
-			prefs.apply_prefs_to(body, icon_updates = TRUE)
-		if(J)
-			J.equip(body, TRUE, FALSE, outfit_override = outfit_override)
-		else if (outfit_override)
-			body.equipOutfit(outfit_override,visualsOnly = TRUE)
-
-
-		var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
-		for(var/D in showDirs)
-			body.setDir(D)
-			COMPILE_OVERLAYS(body)
-			var/icon/partial = getFlatIcon(body)
-			out_icon.Insert(partial,dir=D)
-
-		humanoid_icon_cache[icon_id] = out_icon
-		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
-		return out_icon
-	else
+	if(icon_id && humanoid_icon_cache[icon_id])
 		return humanoid_icon_cache[icon_id]
+
+	var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
+
+	if(prefs)
+		prefs.apply_prefs_to(body, icon_updates = TRUE)
+
+	var/datum/outfit/outfit = outfit_override || job?.outfit
+	if(job)
+		job.equip(body, TRUE, FALSE, outfit_override = outfit_override)
+	if(outfit)
+		body.equipOutfit(outfit_override,visualsOnly = TRUE)
+
+	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
+	COMPILE_OVERLAYS(body)
+	for(var/D in showDirs)
+		var/icon/partial = getFlatIcon(body, defdir=D)
+		out_icon.Insert(partial,dir=D)
+
+	humanoid_icon_cache[icon_id] = out_icon
+	dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
+	return out_icon
 
 /**
  * A simpler version of get_flat_human_icon() that uses an existing human as a base to create the icon.
@@ -1459,3 +1459,10 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
+
+/// Returns a list containing the width and height of an icon file
+/proc/get_icon_dimensions(icon_path)
+	if (isnull(GLOB.icon_dimensions[icon_path]))
+		var/icon/my_icon = icon(icon_path)
+		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
+	return GLOB.icon_dimensions[icon_path]
