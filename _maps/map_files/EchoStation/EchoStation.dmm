@@ -19552,7 +19552,6 @@
 /obj/structure/table,
 /obj/structure/railing,
 /obj/machinery/camera/directional/west,
-/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics)
 "jGA" = (

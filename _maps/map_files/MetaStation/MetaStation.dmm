@@ -47299,7 +47299,6 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "mMC" = (

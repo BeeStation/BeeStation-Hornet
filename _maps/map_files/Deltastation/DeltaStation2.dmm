@@ -27742,7 +27742,6 @@
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /obj/item/paicard,
-/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "dEI" = (

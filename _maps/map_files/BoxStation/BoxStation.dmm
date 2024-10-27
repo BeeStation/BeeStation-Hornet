@@ -5580,7 +5580,6 @@
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
-/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "blF" = (

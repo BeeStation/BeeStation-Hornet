@@ -81755,7 +81755,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/item/reagent_containers/chem_bag/bicaridine,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "vmQ" = (
