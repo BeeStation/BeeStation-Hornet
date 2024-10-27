@@ -1,0 +1,6 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - rscdel: Removed unused maintenance room details.
+  - bugfix: Fixed maintenance room incorrect path name.
+  - rscadd: Added Kilo themed maintenance room.
