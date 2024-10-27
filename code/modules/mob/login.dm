@@ -29,9 +29,19 @@
 /mob/Login()
 	if(!client)
 		return FALSE
-	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
-	// FALSE when weakref doesn't exist, to prevent using their current eye
+
+	// -------------------------------------------------------
+	/*	set_eye() is important here. `client.eye = thing` is way too raw, but `set_eye()` is made to handle important stuff automatically
+		CLIENT_OLD_EYE_NULL("fake_null") is intentionally used to override over 'null' at the second parameter(old_eye) of the proc
+
+		[CLIENT_OLD_EYE_NULL is intentional? What do you mean?]
+			set_eye(new_eye = null, old_eye = src.eye) has a preset value in parameter. all proc call 'set_eye' will have 'old_eye = src.eye'
+			in this code, we use 'old_eye = client.eye_weakref?.resolve()', but this can return null when resolve() fails
+			this means 'old_eye = src.eye' will be priotized, but this isn't what we want to pass.
+			By having 'client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL', if resolve() returns null, CLIENT_OLD_EYE_NULL will be sent.   */
 	client.set_eye(client.eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
+	// -------------------------------------------------------
+
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
