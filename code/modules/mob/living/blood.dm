@@ -37,13 +37,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /datum/status_effect/bleeding/merge(bleed_level)
 	src.bleed_rate = src.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(src.bleed_rate, 1), bleed_level - src.bleed_rate)
-	update_icon()
 
 /datum/status_effect/bleeding/on_creation(mob/living/new_owner, bleed_rate)
-	. = ..()
-	if (.)
-		src.bleed_rate = bleed_rate
-		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
+	src.bleed_rate = bleed_rate
+	return ..()
 
 /datum/status_effect/bleeding/tick()
 	if (HAS_TRAIT(owner, TRAIT_NO_BLOOD))
@@ -60,8 +57,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
 	if (!ishuman(owner))
 		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4 * bleed_heal_multiplier
-	// Make sure to update our icon
-	update_icon()
 	// Set the rate at which we process, so we bleed more on the ground when heavy bleeding
 	tick_interval = bleed_rate <= BLEED_RATE_MINOR ? 1 SECONDS : 0.2 SECONDS
 	// Reduce the actual rate of bleeding
@@ -84,7 +79,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Actually do the bleeding
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 
-/datum/status_effect/bleeding/proc/update_icon()
+/datum/status_effect/bleeding/update_icon()
 	// The actual rate of bleeding, can be reduced by holding wounds
 	// Calculate the message to show to the user
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
