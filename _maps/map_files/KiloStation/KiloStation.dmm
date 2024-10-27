@@ -50692,15 +50692,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/light/small,
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
-"ouO" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/security{
-	name = "Armory";
-	req_access_txt = "3";
-	security_level = 6
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -57281,12 +57277,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch{
-	pixel_x = 27;
-	pixel_y = -4
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
 	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
+/obj/effect/turf_decal/caution,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "qxx" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
