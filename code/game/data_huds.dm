@@ -314,7 +314,7 @@
  */
 /proc/update_matching_security_huds(perp_name)
 	for (var/mob/living/carbon/human/h as anything in GLOB.human_list)
-		if (h.get_face_name(h.get_id_name("")) == perp_name)
+		if (h.get_face_name(h.get_id_name()) == perp_name)
 			h.sec_hud_set_security_status()
 
 /**

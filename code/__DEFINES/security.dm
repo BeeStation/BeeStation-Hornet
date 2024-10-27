@@ -8,7 +8,7 @@
 #define WANTED_SUSPECT "Suspected"
 
 /// List of available wanted statuses
-#define WANTED_STATUSES(...) list(\
+#define WANTED_STATUSES list(\
 	WANTED_NONE, \
 	WANTED_SUSPECT, \
 	WANTED_ARREST, \

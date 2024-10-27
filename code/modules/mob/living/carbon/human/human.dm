@@ -276,7 +276,7 @@
 				to_chat(human_user, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
 			if(ishuman(human_or_ghost_user) && href_list["status"])
-				var/new_status = tgui_input_list(human_user, "Specify a new criminal status for this person.", "Security HUD", WANTED_STATUSES(), target_record.wanted_status)
+				var/new_status = tgui_input_list(human_user, "Specify a new criminal status for this person.", "Security HUD", WANTED_STATUSES, target_record.wanted_status)
 				if(!new_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 
