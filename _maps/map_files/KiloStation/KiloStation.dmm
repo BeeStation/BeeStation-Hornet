@@ -7781,7 +7781,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "bAJ" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/requests_console{
 	department = "Detective's office";
 	name = "Detective RC";
@@ -10068,7 +10068,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
@@ -10496,7 +10496,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cgt" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
@@ -18471,7 +18471,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -23654,7 +23654,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "fHt" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -32449,7 +32449,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -39360,7 +39360,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -39930,7 +39930,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "kVf" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood/end{
@@ -47277,7 +47277,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "nrf" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -50297,7 +50297,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "opn" = (
@@ -52198,7 +52198,7 @@
 /area/space/nearstation)
 "oRZ" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -52400,7 +52400,7 @@
 /turf/open/floor/grass,
 /area/medical/medbay/central)
 "oVE" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -52570,7 +52570,7 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "oYU" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -53550,7 +53550,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "ppO" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -58630,7 +58630,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "qVt" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -65352,7 +65352,7 @@
 	},
 /area/maintenance/solars/port/fore)
 "tbT" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -69014,7 +69014,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
 "upB" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -76972,7 +76972,7 @@
 	dir = 4;
 	color = "#486091"
 	},
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
@@ -77321,7 +77321,7 @@
 	},
 /area/maintenance/starboard/aft)
 "wRP" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/machinery/requests_console{
@@ -80954,7 +80954,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "xTB" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
