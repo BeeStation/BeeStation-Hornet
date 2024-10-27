@@ -101,7 +101,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		if(anchored)
 			flash()
 
-/obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/flasher/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 10) //any melee attack below 10 dmg does nothing
 		return 0
 	. = ..()
@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 			bulb.burn_out()
 			power_change()
 
-/obj/machinery/flasher/obj_break(damage_flag)
+/obj/machinery/flasher/atom_break(damage_flag)
 	. = ..()
 	if(. && bulb)
 		bulb.burn_out()
