@@ -66,7 +66,6 @@
 			physical_status = target.physical_status,
 			mental_status = target.mental_status,
 			name = target.name,
-			notes = notes,
 			quirk_notes = target.quirk_notes,
 			rank = target.rank,
 			species = target.species,

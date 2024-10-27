@@ -250,7 +250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		return TRUE
 
 	if(params["description"] && length(params["description"]) > 2 && params["description"] != editing_crime.details)
-		var/new_details = strip_html_full(params["description"], MAX_MESSAGE_LEN)
+		var/new_details = STRIP_HTML_FULL(params["description"], MAX_MESSAGE_LEN)
 		editing_crime.details = new_details
 		return TRUE
 

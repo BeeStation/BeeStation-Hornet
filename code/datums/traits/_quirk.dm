@@ -120,21 +120,6 @@
 			return
 		return TRUE
 
-/datum/mind/proc/get_quirk_string(medical) //helper string. gets a string of all the quirks the mind has
-	var/list/dat = list()
-	if(!medical)
-		for(var/datum/quirk/T in quirks)
-			dat += T.name
-		if(!length(dat))
-			return "None"
-		return dat.Join(", ")
-	else
-		for(var/datum/quirk/T in quirks)
-			dat += T.medical_record_text
-		if(!length(dat))
-			return "None"
-		return dat.Join("<br>")
-
 /**
  * get_quirk_string() is used to get a printable string of all the quirk traits someone has for certain criteria
  *
@@ -144,6 +129,8 @@
  * * from_scan- If the source of this call is like a health analyzer or HUD, in which case QUIRK_HIDE_FROM_MEDICAL hides the quirk.
  */
 /mob/living/proc/get_quirk_string(medical = FALSE, category = CAT_QUIRK_ALL, from_scan = FALSE)
+	if(!mind)
+		return
 	var/list/dat = list()
 	for(var/datum/quirk/candidate as anything in mind.quirks)
 		switch(category)

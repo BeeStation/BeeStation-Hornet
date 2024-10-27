@@ -420,7 +420,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/datum/record/locked/record_found //Referenced to later to either randomize or not randomize the character.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
-		record_found = find_record(G_found.name, locked_only = TRUE)
+		record_found = find_record(G_found.real_name, locked_only = TRUE)
 
 	if(record_found)//If they have a record we can determine a few things.
 		new_character.real_name = record_found.name

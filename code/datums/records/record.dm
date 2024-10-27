@@ -307,6 +307,33 @@
 
 	return printed_paper
 
+
+/// Returns a paper printout of the current record's crime data.
+/datum/record/crew/proc/get_medical_sheet()
+	var/obj/item/paper/med_record_paper = new
+	var/med_record_text
+	med_record_text += "<CENTER><B>Medical Record</B></CENTER>"
+	med_record_text += "<BR>Name: [name] Rank: [rank]"
+	med_record_text += "<BR>Gender: [gender]</BR>"
+	med_record_text += "<BR>Age: [age]<BR>"
+	med_record_text += "<BR>\n<CENTER><B>Medical Data</B></CENTER></BR>"
+	med_record_text += "<BR>Blood Type: [blood_type]</BR>"
+	med_record_text += "<BR>DNA: [dna_string]</BR>"
+	med_record_text += "<BR>Physical Status: [physical_status]</BR>"
+	med_record_text += "<BR>Mental Status: [mental_status]</BR>"
+	med_record_text += "<BR>Minor Disabilities: [minor_disabilities]</BR>"
+	med_record_text += "<BR>Details: [minor_disabilities_desc]</BR>"
+	med_record_text += "<BR>Major Disabilities: [major_disabilities]</BR>"
+	med_record_text += "<BR>Details: [major_disabilities_desc]</BR>"
+	med_record_text += "<BR>Important Notes: \t[medical_notes]</BR>"
+	med_record_text += "<BR><CENTER><B>Comments/Log</B></CENTER></BR>"
+
+	med_record_paper.name = "paper - '[name]'"
+	med_record_paper.add_raw_text(med_record_text)
+	med_record_paper.update_appearance()
+
+	return med_record_paper
+
 /**
  * Cloning record
  */

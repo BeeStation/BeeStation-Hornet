@@ -31,24 +31,18 @@
 	/// Fine for the crime
 	var/fine
 	/// Amount of money paid for the crime
-	var/paid
+	var/paid = 0
 
 /datum/crime/citation/New(name = "Citation", details = "No details provided.", author = "Anonymous", fine = 0)
 	. = ..()
 	src.fine = fine
-	src.paid = 0
 
 /// Pays off a fine and attempts to fix any weird values.
 /datum/crime/citation/proc/pay_fine(amount)
 	if(amount <= 0)
 		return FALSE
 	paid += amount
-	if(paid > fine)
-		paid = fine
-
-	fine -= amount
-	if(fine < 0)
-		fine = 0
+	fine = max(0, fine - amount)
 
 	return TRUE
 
