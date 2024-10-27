@@ -78,7 +78,7 @@
 		for(var/datum/xenoartifact_trait/trait_datum as anything in artifact_datum.artifact_traits[trait])
 			//Already scanned another of this type.
 			var/discover_id = get_discover_id?.Invoke() || trait_datum.type
-			if(linked_techweb.scanned_atoms[discover_id] && !unique)
+			if(!unique && linked_techweb.scanned_atoms[discover_id])
 				continue
 			if(atom_parent.flags_1 & HOLOGRAM_1)
 				continue
