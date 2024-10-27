@@ -240,7 +240,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
 	if(ishuman(M))
 		// Humans use their job as seen on the crew manifest. This is so the AI
 		// can know their job even if they don't carry an ID.
-		var/datum/record/crew/found_record = find_record(name)
+		var/datum/record/crew/found_record = find_record(name, GLOB.manifest.general)
 		if(found_record)
 			job = found_record.rank
 		else

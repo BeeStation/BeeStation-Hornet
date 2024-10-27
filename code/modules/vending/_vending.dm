@@ -875,7 +875,7 @@
 		.["user"]["cash"] = H.get_accessible_cash()
 		.["user"]["job"] = "No Job"
 		.["user"]["department_bitflag"] = 0
-		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder)
+		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder, GLOB.manifest.general)
 		if(card?.registered_account?.account_job)
 			.["user"]["job"] = card.registered_account.account_job.title
 			.["user"]["department_bitflag"] = card.registered_account.active_departments

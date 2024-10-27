@@ -138,7 +138,7 @@
 
 /// Edits the rank of the found record.
 /datum/manifest/proc/modify(name, assignment)
-	var/datum/record/crew/target = find_record(name)
+	var/datum/record/crew/target = find_record(name, GLOB.manifest.general)
 	if(!target)
 		return
 
@@ -152,7 +152,7 @@
  * - add_height_chart - If we should add a height chart to the background of the photo.
  */
 /datum/manifest/proc/change_pictures(name, mob/living/person, add_height_chart = FALSE)
-	var/datum/record/crew/target = find_record(name)
+	var/datum/record/crew/target = find_record(name, GLOB.manifest.general)
 	if(!target)
 		return FALSE
 

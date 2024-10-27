@@ -75,9 +75,9 @@
 		if(id_card)
 			.["user"]["card_found"] = TRUE
 			.["user"]["name"] = id_card.registered_name || id_card.registered_account?.account_holder || "Unknown"
-			var/datum/record/crew/R = find_record(id_card.registered_name)
+			var/datum/record/crew/R = find_record(id_card.registered_name, GLOB.manifest.general)
 			if(!R)
-				R = find_record(id_card.registered_account.account_holder)
+				R = find_record(id_card.registered_account.account_holder, GLOB.manifest.general)
 			if(R)
 				.["user"]["job"] = R.rank
 			else if(id_card.assignment)

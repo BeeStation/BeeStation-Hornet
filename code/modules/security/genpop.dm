@@ -584,7 +584,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	user.log_message("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", LOG_ATTACK)
 
 	if(desired_crime)
-		var/datum/record/crew/target_record = find_record(desired_name, FALSE)
+		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
 		if(target_record)
 			target_record.wanted_status = WANTED_PRISONER
 			var/datum/crime/new_crime = new(desired_crime, null, "General Populace")
@@ -734,7 +734,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 		update_label(registered_name, assignment)
 		playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
-		var/datum/record/crew/R = find_record(registered_name, FALSE)
+		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)
 		if(R)
 			R.wanted_status = WANTED_DISCHARGED
 

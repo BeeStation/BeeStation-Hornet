@@ -289,7 +289,7 @@
 		holder.icon_state = null
 		return
 
-	var/datum/record/crew/target = find_record(perp_name)
+	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
 	if(!target)
 		return
 

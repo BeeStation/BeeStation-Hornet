@@ -346,7 +346,7 @@
 
 	var/perpname = get_face_name(get_id_name(""))
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
-		var/datum/record/crew/target_record = find_record(perpname)
+		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(target_record)
 			. += "<span class='deptradio'>Rank:</span> [target_record.rank]"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
@@ -361,7 +361,7 @@
 				. += "Physical status: <a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
 				var/mental_status = target_record.mental_status
 				. += "Mental status: <a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
-			target_record = find_record(perpname)
+			target_record = find_record(perpname, GLOB.manifest.general)
 			. += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
 				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
@@ -371,7 +371,7 @@
 				var/wanted_status = WANTED_NONE
 				var/security_note = "None."
 
-				target_record = find_record(perpname)
+				target_record = find_record(perpname, GLOB.manifest.general)
 				if(target_record)
 					wanted_status = target_record.wanted_status
 					if(target_record.security_note)

@@ -20,7 +20,7 @@
 
 	var/datum/record/crew/record
 	if (contract.target)
-		record = find_record(contract.target.name)
+		record = find_record(contract.target.name, GLOB.manifest.general)
 
 	if (record)
 		target_rank = record.rank

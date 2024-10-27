@@ -190,7 +190,7 @@
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
-		var/datum/record/crew/R = find_record(recipient.name, FALSE)
+		var/datum/record/crew/R = find_record(recipient.name, GLOB.manifest.general)
 		if(R) // manifest is primary
 			color = get_chatcolor_by_hud(R.hud)
 		else if(this_job.title) // when they have no manifest, roundstart job will be base

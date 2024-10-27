@@ -321,7 +321,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if(length(paycheck_departments))
 			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-				var/datum/record/crew/R = find_record(B.account_holder)
+				var/datum/record/crew/R = find_record(B.account_holder, GLOB.manifest.general)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
 				dat += "<td>[R ? R.rank : "(No data)"]</td>"
@@ -430,7 +430,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// Department active status
 			banking += "<tr>"
 			banking += "<td><b>Active Department Manifest:</b></td>"
-			var/datum/record/crew/R = find_record(inserted_modify_id.registered_name)
+			var/datum/record/crew/R = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
 			if(R)
 				for(var/each in available_paycheck_departments)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
@@ -617,7 +617,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
-				var/datum/record/crew/R = find_record(inserted_modify_id.registered_name)
+				var/datum/record/crew/R = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/newJob = reject_bad_text(stripped_input("Enter a custom job assignment.", "Assignment", inserted_modify_id ? inserted_modify_id.assignment : "Unassigned"), MAX_NAME_LEN)
@@ -864,7 +864,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("turn_on_off_department_manifest")
 			var/target_bitflag = text2num(href_list["target_bitflag"])
-			var/datum/record/crew/R = find_record(inserted_modify_id.registered_name)
+			var/datum/record/crew/R = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
 			if(!R)
 				updateUsrDialog()
 				return

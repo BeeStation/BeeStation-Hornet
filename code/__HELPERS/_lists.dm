@@ -534,24 +534,15 @@
 /**
  * Returns the first record in the list that matches the name
  *
- * If locked_only is TRUE, locked records will be checked
- *
- * If locked_only is FALSE, crew records will be checked
+ * Make sure to supply it with the proper record list.
+ * Either GLOB.manifest.general or GLOB.manifest.locked
  *
  * If no record is found, returns null
  */
-/proc/find_record(value, locked_only = FALSE)
-	if(locked_only)
-		for(var/datum/record/locked/target in GLOB.manifest.locked)
-			if(target.name != value)
-				continue
+/proc/find_record(value, list/inserted_list)
+	for(var/datum/record/target in inserted_list)
+		if(target.name == value)
 			return target
-		return null
-
-	for(var/datum/record/crew/target in GLOB.manifest.general)
-		if(target.name != value)
-			continue
-		return target
 	return null
 
 /**
