@@ -67126,6 +67126,14 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
+"xzB" = (
+/obj/effect/turf_decal/tile/blue,
+/mob/living/simple_animal/bot/medbot/filled{
+	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
+	name = "Inspector Johnson"
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "xzU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -104929,7 +104937,7 @@ iKc
 jQJ
 vJp
 byO
-qjW
+xzB
 dxW
 bKZ
 wxs

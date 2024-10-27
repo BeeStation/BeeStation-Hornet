@@ -42560,6 +42560,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
 /area/science/explab)
+"nDW" = (
+/mob/living/simple_animal/bot/medbot/filled{
+	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
+	name = "Inspector Johnson"
+	},
+/turf/open/floor/glass/reinforced,
+/area/medical/medbay/central)
 "nEf" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -114923,7 +114930,7 @@ dvz
 gOi
 vIg
 ofY
-ofY
+nDW
 ofY
 fbN
 hli

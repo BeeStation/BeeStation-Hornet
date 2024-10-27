@@ -94,7 +94,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
 	declare_crit = TRUE
-	reagent_glass = new /obj/item/reagent_containers/chem_bag/bicaritane
+	reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
@@ -139,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	linked_techweb = SSresearch.science_tech
 
 	if(mapload)
-		reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
+		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
 	if(!GLOB.medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
 	medibot_counter = GLOB.medibot_unique_id_gen

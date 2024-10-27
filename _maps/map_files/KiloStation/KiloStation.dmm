@@ -56417,14 +56417,6 @@
 	burnt = 1
 	},
 /area/maintenance/aft)
-"mQm" = (
-/mob/living/simple_animal/bot/medbot{
-	auto_patrol = 1;
-	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
-	name = "Inspector Johnson"
-	},
-/turf/open/floor/glass/reinforced,
-/area/medical/medbay/lobby)
 "mQB" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/line{
@@ -71940,6 +71932,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"rSO" = (
+/mob/living/simple_animal/bot/medbot/filled{
+	name = "Inspector Johnson";
+	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed."
+	},
+/turf/open/floor/glass/reinforced,
+/area/medical/medbay/lobby)
 "rTd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/suit_storage_unit/exploration,
@@ -113824,7 +113823,7 @@ vSc
 bEC
 raV
 eJO
-kvM
+rSO
 uPQ
 iKi
 mnu
@@ -114081,7 +114080,7 @@ otN
 uXs
 wkP
 rZj
-mQm
+kvM
 kvM
 sNi
 wXX

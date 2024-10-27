@@ -41804,7 +41804,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/blue,
-/mob/living/simple_animal/bot/medbot{
+/mob/living/simple_animal/bot/medbot/filled{
 	name = "Flint, RN"
 	},
 /turf/open/floor/iron,
