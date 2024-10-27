@@ -1,0 +1,4 @@
+author: ktlwjec
+delete-after: true
+changes:
+  - bugfix: Bronze desk bell will not change color while ringing.
