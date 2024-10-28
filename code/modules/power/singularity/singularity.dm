@@ -356,7 +356,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 			return 0
 	else if(locate(/obj/machinery/power/shieldwallgen) in T)
 		var/obj/machinery/power/shieldwallgen/S = locate(/obj/machinery/power/shieldwallgen) in T
-		if(S?.active)
+		if(S?.shieldstate)
 			return 0
 	return 1
 

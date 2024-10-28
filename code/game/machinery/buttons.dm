@@ -296,3 +296,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
 	device_type = /obj/item/assembly/control/shieldwallgen
 	req_access = list()
 	id = 1
+
+/obj/machinery/button/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	id = "[REF(port)][id]"

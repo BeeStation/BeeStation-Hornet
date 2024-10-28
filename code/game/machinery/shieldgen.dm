@@ -205,8 +205,9 @@
 	icon_state = "shield[active ? "on" : "off"][(machine_stat & BROKEN) ? "br" : null]"
 	return ..()
 
-#define ACTIVE_SETUPFIELDS 1
-#define ACTIVE_HASFIELDS 2
+#define SHIELD_NOTACTIVE 0
+#define SHIELD_SETUPFIELDS 1
+#define SHIELD_HASFIELDS 2
 
 /obj/machinery/power/shieldwallgen
 	name = "shield wall generator"
@@ -217,12 +218,12 @@
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	flags_1 = CONDUCT_1
-	use_power = NO_POWER_USE
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/shieldwallgen
 	max_integrity = 300
-	var/active = FALSE
+	var/shieldstate = SHIELD_NOTACTIVE
 	var/id = null
 	var/locked = TRUE
 	var/shield_range = 8
@@ -265,21 +266,21 @@
 	id = "[REF(port)][id]"
 
 /obj/machinery/power/shieldwallgen/process()
-	if(active)
-		if(active == ACTIVE_SETUPFIELDS)
+	if(shieldstate)
+		if(shieldstate == SHIELD_SETUPFIELDS)
 			var/fields = 0
 			for(var/direction in GLOB.cardinals)
 				if(setup_field(direction))
 					fields++
 			if(fields)
-				active = ACTIVE_HASFIELDS
+				shieldstate = SHIELD_HASFIELDS
 		if(!active_power_usage || surplus() >= active_power_usage)
 			add_load(active_power_usage)
 		else
 			visible_message("<span class='danger'>The [src.name] shuts down due to lack of power!</span>", \
 				"If this message is ever seen, something is wrong.",
 				"<span class='hear'>You hear heavy droning fade out.</span>")
-			active = FALSE
+			shieldstate = SHIELD_NOTACTIVE
 			log_game("[src] deactivated due to lack of power at [AREACOORD(src)]")
 			for(var/direction in GLOB.cardinals)
 				cleanup_field(direction)
@@ -289,7 +290,7 @@
 	update_appearance()
 
 /obj/machinery/power/shieldwallgen/update_icon_state()
-	if(active)
+	if(shieldstate)
 		icon_state = initial(icon_state) + "_on"
 	else
 		icon_state = initial(icon_state)
@@ -314,7 +315,7 @@
 		turf = get_step(turf, direction)
 		generator = locate(/obj/machinery/power/shieldwallgen) in turf
 		if(generator)
-			if(!generator.active)
+			if(!generator.shieldstate)
 				return
 			generator.cleanup_field(opposite_direction)
 			break
@@ -339,7 +340,7 @@
 		turf = get_step(turf, direction)
 
 		generator = (locate(/obj/machinery/power/shieldwallgen) in turf)
-		if(generator && !generator.active)
+		if(generator && !generator.shieldstate)
 			break
 
 		field = (locate(/obj/machinery/shieldwall) in turf)
@@ -348,11 +349,11 @@
 
 /obj/machinery/power/shieldwallgen/proc/block_singularity_if_active()
 	SIGNAL_HANDLER
-	if(active)
+	if(shieldstate)
 		return SINGULARITY_TRY_MOVE_BLOCK
 
 /obj/machinery/power/shieldwallgen/can_be_unfasten_wrench(mob/user, silent)
-	if(active)
+	if(shieldstate)
 		if(!silent)
 			to_chat(user, "<span class='warning'>Turn off the shield generator first!</span>")
 		return FAILED_UNFASTEN
@@ -418,16 +419,16 @@
 		to_chat(user, "<span class='warning'>\The [src] needs to be powered by a wire!</span>")
 		return
 
-	if(active)
+	if(shieldstate)
 		user.visible_message("[user] turned \the [src] off.", \
 			"<span class='notice'>You turn off \the [src].</span>", \
 			"<span class='italics'>You hear heavy droning fade out.</span>")
-		active = FALSE
+		shieldstate = SHIELD_NOTACTIVE
 	else
 		user.visible_message("[user] turned \the [src] on.", \
 			"<span class='notice'>You turn on \the [src].</span>", \
 			"<span class='italics'>You hear heavy droning.</span>")
-		active = ACTIVE_SETUPFIELDS
+		shieldstate = SHIELD_SETUPFIELDS
 	add_fingerprint(user)
 
 /obj/machinery/power/shieldwallgen/proc/toggle()
@@ -435,18 +436,18 @@
 		return
 	if(!powernet)
 		return
-	if(active)
+	if(shieldstate)
 		visible_message("<span class= 'notice'>The [src.name] hums as it powers down.</span>", \
 			"If this message is ever seen, something is wrong.", \
 			"<span class= 'notice'>You hear heavy droning fade out.</span>")
 		playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, frequency = 6120)
-		active = FALSE
+		shieldstate = SHIELD_NOTACTIVE
 		log_game("[src] was deactivated by wire pulse at [AREACOORD(src)]")
 	else
 		visible_message("<span class= 'notice'>The [src.name] beeps as it powers up.</span>", \
 			"If this message is ever seen, something is wrong.", \
 			"<span class= 'notice'>You hear heavy droning.</span>")
-		active = ACTIVE_SETUPFIELDS
+		shieldstate = SHIELD_SETUPFIELDS
 		log_game("[src] was activated by wire pulse at [AREACOORD(src)]")
 
 /obj/machinery/power/shieldwallgen/on_emag(mob/user)
@@ -489,7 +490,7 @@
 
 /obj/machinery/power/shieldwallgen/atmos/roundstart
 	anchored = TRUE
-	active = ACTIVE_SETUPFIELDS
+	shieldstate = SHIELD_SETUPFIELDS
 	active_power_usage = 0
 
 /obj/machinery/power/shieldwallgen/atmos/strong //these are for ruins and large hangars, try to not use them on ships
@@ -501,7 +502,7 @@
 
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart
 	anchored = TRUE
-	active = ACTIVE_SETUPFIELDS
+	shieldstate = SHIELD_SETUPFIELDS
 	active_power_usage = 0
 
 /obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
@@ -530,7 +531,7 @@
 		turf = get_step(turf, direction)
 		generator = locate(/obj/machinery/power/shieldwallgen/atmos) in turf
 		if(generator)
-			if(!generator.active)
+			if(!generator.shieldstate)
 				return
 			generator.cleanup_field(opposite_direction)
 			break
@@ -553,7 +554,7 @@
 	for(var/i in 1 to shield_range+1)
 
 		generator = (locate(/obj/machinery/power/shieldwallgen) in turf)
-		if(generator && !generator.active)
+		if(generator && !generator.shieldstate)
 			break
 
 		field = (locate(/obj/machinery/shieldwall) in turf)
@@ -562,8 +563,9 @@
 
 		turf = get_step(turf, direction)
 
-#undef ACTIVE_SETUPFIELDS
-#undef ACTIVE_HASFIELDS
+#undef SHIELD_NOTACTIVE
+#undef SHIELD_SETUPFIELDS
+#undef SHIELD_HASFIELDS
 
 //////////////Containment Field START
 /obj/machinery/shieldwall
@@ -575,6 +577,8 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
+	//default power usage
+	active_power_usage = 50
 	var/needs_power = FALSE
 	var/hardshield = TRUE
 	var/obj/machinery/power/shieldwallgen/gen_primary
@@ -592,6 +596,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	if(hardshield == TRUE)
 		for(var/mob/living/victim in get_turf(src))
 			visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [victim]!</span>")
+			victim.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			victim.gib()
 	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity))
 
@@ -602,27 +607,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 
 /obj/machinery/shieldwall/process()
 	if(needs_power)
-		if(!gen_primary || !gen_primary.active || !gen_secondary || !gen_secondary.active)
+		if(!gen_primary || !gen_primary.shieldstate || !gen_secondary || !gen_secondary.shieldstate)
 			qdel(src)
 			return
 
-		drain_power(50)
-
-//Atmos shields suck more power
-/obj/machinery/shieldwall/atmos/process()
-	if(needs_power)
-		if(!gen_primary || !gen_primary.active || !gen_secondary || !gen_secondary.active)
-			qdel(src)
-			return
-
-		drain_power(500)
+		drain_power(active_power_usage)
 
 /obj/machinery/shieldwall/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BURN)
-			playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
+			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 		if(BRUTE)
-			playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
+			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 
 //the shield wall is immune to damage but it drains the stored power of the generators.
 /obj/machinery/shieldwall/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
@@ -663,6 +659,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"
 	light_system = MOVABLE_LIGHT //for instant visual feedback regardless of lag
+	//Atmos shields suck more power
+	active_power_usage = 500
 
 /obj/machinery/shieldwall/atmos/Initialize(mapload)
 	. = ..()

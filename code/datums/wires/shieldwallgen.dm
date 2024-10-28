@@ -20,7 +20,7 @@
 	var/obj/machinery/power/shieldwallgen/generator = holder
 	var/list/status = list()
 	status += "The interface light is [generator.locked ? "red" : "green"]."
-	status += "The activity light is [generator.active ? "blinking steadily" : "off"]."
+	status += "The activity light is [generator.shieldstate ? "blinking steadily" : "off"]."
 	return status
 
 /datum/wires/shieldwallgen/on_pulse(wire)
@@ -41,6 +41,6 @@
 			generator.shocked = !mend
 		if(WIRE_ACTIVATE)
 			if(!mend)
-				generator.active = FALSE
+				generator.shieldstate = FALSE
 		if(WIRE_DISABLE)
 			generator.locked = !mend

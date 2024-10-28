@@ -166,3 +166,6 @@
 			INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery/power/shieldwallgen, toggle))
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 20)
+
+/obj/item/assembly/control/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	id = "[REF(port)][id]"
