@@ -376,20 +376,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 		CHECK_TICK
 
 /// Updates the switch's `position` and `last_pos` variable. Useful so that the switch can properly cycle between the forwards, backwards and neutral positions.
-/obj/machinery/conveyor_switch/proc/update_position()
-	if(position == 0)
-		if(oneway)   //is it a oneway switch
-			position = oneway
-		else
-			if(last_pos < 0)
-				position = 1
-				last_pos = 0
-			else
-				position = -1
-				last_pos = 0
-	else
+/// If set direction == false, this behaves like the normal switch. If it is set to true
+/// attempt to set the switch to the indicated direction.
+/obj/machinery/conveyor_switch/proc/update_position(set_direction = FALSE, direction = 0)
+	if(set_direction)
 		last_pos = position
-		position = 0
+		position = 0 //Default to stopped.
+		if(direction > 0)
+			position = 1 //Positive values moves the switch to forward
+		if(direction < 0)
+			position = -1 //Negative values moves the switch to reverse.
+
+		//Run sanity check on the switch for one way direction.
+		if(oneway)
+			if(SIGN(position) != SIGN(oneway)) //If our signs don't match...
+				position = 0 // Set position to zero to stop the conveyor since we can't go that way.
+	else
+		if(position == 0)
+			if(oneway)   //is it a oneway switch
+				position = oneway
+			else
+				if(last_pos < 0)
+					position = 1
+					last_pos = 0
+				else
+					position = -1
+					last_pos = 0
+		else
+			last_pos = position
+			position = 0
 
 /// Called when a user clicks on this switch with an open hand.
 /obj/machinery/conveyor_switch/interact(mob/user)
@@ -526,13 +541,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 /obj/item/circuit_component/conveyor_switch
 	display_name = "Conveyor Switch"
 	desc = "Allows to control connected conveyor belts."
-	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	//This input works the same way as clicking on a switch.
+	var/datum/port/input/toggle_trigger
+	//Direction of the belt to set.
+	var/datum/port/input/set_direction
+	//This input sets the direction of the belt
+	var/datum/port/input/set_direction_trigger
 
 	var/datum/port/output/direction
+	var/datum/port/output/triggered
+
 	var/obj/machinery/conveyor_switch/attached_switch
 
+
 /obj/item/circuit_component/conveyor_switch/populate_ports()
+	toggle_trigger = add_input_port("Toggle Switch", PORT_TYPE_SIGNAL)
+	set_direction = add_input_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	set_direction_trigger = add_input_port("Set Direction", PORT_TYPE_SIGNAL)
+
 	direction = add_output_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/conveyor_switch/get_ui_notices()
 	. = ..()
@@ -551,17 +580,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 	if(!attached_switch)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(update_conveyors), port)
-
-/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(datum/port/input/port)
-	if(!attached_switch)
+	if(COMPONENT_TRIGGERED_BY(port, toggle_trigger))
+		INVOKE_ASYNC(src, PROC_REF(update_conveyors))
 		return
 
-	attached_switch.update_position()
+	if(COMPONENT_TRIGGERED_BY(port, set_direction_trigger))
+		INVOKE_ASYNC(src, PROC_REF(update_conveyors), TRUE, set_direction.value)
+		return
+
+/// If set direction == false, this behaves like the normal switch. If it is set to true
+/// attempt to set the switch to the indicated direction.
+/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(set_direction = FALSE, direction_in = 0)
+	if(!attached_switch)
+		return
+	attached_switch.update_position(set_direction, direction_in)
 	attached_switch.update_icon()
 	attached_switch.update_icon_state()
 	attached_switch.update_linked_conveyors()
 	attached_switch.update_linked_switches()
 	direction.set_output(attached_switch.position)
+	triggered.set_output(COMPONENT_SIGNAL)
 
 #undef MAX_CONVEYOR_ITEMS_MOVE
