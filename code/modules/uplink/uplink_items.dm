@@ -1769,7 +1769,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
 	Insert into an Operating Console to enable the procedure."
 	item = /obj/item/disk/surgery/brainwashing
-	player_minimum = 25
+	player_minimum = 10
 	cost = 5
 
 /datum/uplink_item/device_tools/briefcase_launchpad
@@ -1879,6 +1879,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Hypnotic Flash"
 	desc = "A modified flash able to hypnotize targets. If the target is not in a mentally vulnerable state, it will only confuse and pacify them temporarily."
 	item = /obj/item/assembly/flash/hypnotic
+	player_minimum = 20
 	cost = 7
 
 /datum/uplink_item/device_tools/medgun

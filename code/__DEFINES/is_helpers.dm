@@ -80,6 +80,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
+#define isashwalker(A) (is_species(A, /datum/species/lizard/ashwalker))
 #define islizard(A) (is_species(A, /datum/species/lizard))
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
 #define isdiona(A) (is_species(A, /datum/species/diona))
@@ -96,6 +97,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
 #define isethereal(A) (is_species(A, /datum/species/ethereal))
 #define isvampire(A) (is_species(A,/datum/species/vampire))
+#define isdullahan(A) (is_species(A, /datum/species/dullahan))
 #define isipc(A) (is_species(A, /datum/species/ipc))
 #define isapid(A) (is_species(A, /datum/species/apid))
 #define isandroid(A) (is_species(A, /datum/species/android))
