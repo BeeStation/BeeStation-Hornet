@@ -66,12 +66,14 @@
 		if(item.GetComponent(/datum/component/xenoartifact))
 			continue
 		//Check for any pearls attached to the item first
-		var/trait_list = list()
+		var/list/trait_list
 		for(var/obj/item/sticker/trait_pearl/pearl in item.contents)
-			trait_list += pearl.stored_trait
+			LAZYADD(trait_list, pearl.stored_trait)
 			qdel(pearl)
+		if(isnull(trait_list))
+			return
 		//Make the item an artifact
-		item.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, length(trait_list) ? trait_list : null, TRUE, FALSE)
+		item.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, trait_list, TRUE, FALSE)
 		playsound(item, 'sound/magic/staff_change.ogg', 50, TRUE)
 		qdel(src)
 		break
