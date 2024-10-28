@@ -43,6 +43,7 @@
 	id = /obj/item/card/id/job/paramedic
 	belt = /obj/item/modular_computer/tablet/pda/paramedic
 	ears = /obj/item/radio/headset/headset_med
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -50,7 +51,7 @@
 	suit =  /obj/item/clothing/suit/toggle/labcoat/paramedic
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/sensor_device
-	suit_store = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical/paramedic
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
