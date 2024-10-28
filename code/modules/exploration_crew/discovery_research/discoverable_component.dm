@@ -73,7 +73,7 @@
 		return
 	//Loop through artfact traits
 	var/total_payout = 0
-	var/discovered_traits = 0
+	var/discovered_trait_count = 0
 	for(var/trait in artifact_datum.artifact_traits)
 		for(var/datum/xenoartifact_trait/trait_datum as anything in artifact_datum.artifact_traits[trait])
 			//Already scanned another of this type.
@@ -83,13 +83,13 @@
 			if(atom_parent.flags_1 & HOLOGRAM_1)
 				continue
 			total_payout += trait_datum.discovery_reward
-			discovered_traits += 1
+			discovered_trait_count++
 			linked_techweb.scanned_atoms[discover_id] = TRUE
 	scanned = TRUE
 	if(total_payout)
 		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, total_payout)
 		playsound(user, 'sound/machines/terminal_success.ogg', 60)
-		to_chat(user, "<span class='notice'>New datapoint scanned, [total_payout] discovery points gained.\n[discovered_traits] new traits discovered!</span>")
+		to_chat(user, "<span class='notice'>New datapoint scanned, [total_payout] discovery points gained.\n[discovered_trait_count] new traits discovered!</span>")
 		pulse_effect(get_turf(atom_parent), 4)
 	else
 		playsound(user, 'sound/machines/uplinkerror.ogg', 60)

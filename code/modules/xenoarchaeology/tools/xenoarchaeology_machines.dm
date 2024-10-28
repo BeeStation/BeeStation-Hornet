@@ -106,6 +106,7 @@
 				if(prob(1))
 					say("Unexpected Fatass Detected!")
 					say("Get the fuck off me, lardass!")
+					playsound(get_turf(src), 'sound/vehicles/clowncar_fart.ogg', 100)
 				else
 					say("Unexpected Item Detected!")
 				return
@@ -155,6 +156,7 @@
 				if(prob(1))
 					say("Unexpected Fatass Detected!")
 					say("Get the fuck off me, lardass!")
+					playsound(get_turf(src), 'sound/vehicles/clowncar_fart.ogg', 100)
 				else
 					say("Unexpected Item Detected!")
 				return

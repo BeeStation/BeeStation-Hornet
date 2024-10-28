@@ -53,19 +53,19 @@
 
 /datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE, patch_traits = TRUE)
 	. = ..()
-	var/atom/A = parent
+	var/atom/atom_parent = parent
 
 	//Add discovery component
-	A.AddComponent(/datum/component/discoverable/artifact)
+	atom_parent.AddComponent(/datum/component/discoverable/artifact)
 
 	//Setup our typing
 	artifact_type = type || pick_weight(SSxenoarchaeology.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
-	A.custom_price = A.custom_price || artifact_type.custom_price
+	atom_parent.custom_price = atom_parent.custom_price || artifact_type.custom_price
 
 	//Build appearance from material
-	old_appearance = A.appearance
-	old_name = A.name
+	old_appearance = atom_parent.appearance
+	old_name = atom_parent.name
 	do_texture = _do_appearance
 	do_mask = _do_mask
 	build_material_appearance()
@@ -107,16 +107,16 @@
 
 /datum/component/xenoartifact/Destroy(force, silent)
 	if(!QDELETED(parent))
-		var/atom/A = parent
+		var/atom/atom_parent = parent
 		//Remove discovery component
-		var/datum/component/discoverable/artifact/X = A.GetComponent(/datum/component/discoverable/artifact)
+		var/datum/component/discoverable/artifact/X = atom_parent.GetComponent(/datum/component/discoverable/artifact)
 		X.RemoveComponent()
 		//Reset parent's visuals
-		A.remove_filter("texture_overlay")
-		A.remove_filter("outline_1")
-		A.remove_filter("outline_2")
-		A.appearance = old_appearance
-		A.name = old_name
+		atom_parent.remove_filter("texture_overlay")
+		atom_parent.remove_filter("outline_1")
+		atom_parent.remove_filter("outline_2")
+		atom_parent.appearance = old_appearance
+		atom_parent.name = old_name
 		old_appearance = null
 	//Delete our traits
 	for(var/i in artifact_traits)
@@ -143,8 +143,8 @@
 	if(!calibrated)
 		handle_malfunctions()
 	//Cleanup targets
-	for(var/atom/A in targets)
-		unregister_target(A)
+	for(var/atom/target in targets)
+		unregister_target(target)
 	//Timer setup
 	if(!cooldown_disabled)
 		use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), max(0, use_cooldown + trait_cooldown), TIMER_STOPPABLE)
@@ -185,9 +185,9 @@
 	if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_type.max_trait_malfunctions)
 		return
 	//Hint sound
-	var/atom/A = parent
-	playsound(A, 'sound/effects/light_flicker.ogg', 60)
-	A.visible_message("<span class='warning'>[A] makes a concerning sound, as if something has gone terribly wrong...</span>")
+	var/atom/atom_parent = parent
+	playsound(atom_parent, 'sound/effects/light_flicker.ogg', 60)
+	atom_parent.visible_message("<span class='warning'>[atom_parent] makes a concerning sound, as if something has gone terribly wrong...</span>")
 	//Build malfunctions
 	var/list/focus_traits
 	focus_traits = artifact_type.get_malfunctions()
@@ -302,7 +302,7 @@
 
 //Calcifies, aka breaks, the artifact
 /datum/component/xenoartifact/proc/calcify(override_cooldown = TRUE)
-	var/atom/movable/A = parent
+	var/atom/movable/atom_parent = parent
 	//Appearnce
 	artifact_type = new /datum/xenoartifact_material/calcified()
 	var/old_mask = do_mask
@@ -312,7 +312,7 @@
 	do_mask = old_mask
 	//States
 	calcified = TRUE
-	A.custom_price /= 2
+	atom_parent.custom_price /= 2
 	//Disable artifact
 	cooldown_override = TRUE
 
@@ -320,51 +320,51 @@
 
 //Calibrates. Does the opposite of calcify
 /datum/component/xenoartifact/proc/calibrate()
-	var/atom/movable/A = parent
+	var/atom/movable/atom_parent = parent
 	//Stats
 	calibrated = TRUE
-	A.custom_price *= 2
+	atom_parent.custom_price *= 2
 	//Effect
-	calibrated_holder = new(A)
+	calibrated_holder = new(atom_parent)
 	var/obj/emitter/spiral/S = calibrated_holder.add_emitter(/obj/emitter/spiral, "calibration", 11)
 	S.setup(artifact_type.material_color)
-	A.vis_contents += calibrated_holder
+	atom_parent.vis_contents += calibrated_holder
 
 //Build the artifact's appearance
 /datum/component/xenoartifact/proc/build_material_appearance()
-	var/atom/A = parent
+	var/atom/atom_parent = parent
 	//Remove old filters, if they exist
-	A.remove_filter("texture_overlay")
-	A.remove_filter("outline_fix")
-	A.remove_filter("outline_1")
-	A.remove_filter("outline_2")
+	atom_parent.remove_filter("texture_overlay")
+	atom_parent.remove_filter("outline_fix")
+	atom_parent.remove_filter("outline_1")
+	atom_parent.remove_filter("outline_2")
 	//Apply new stuff
 	if(do_mask)
-		var/old_desc = A.desc
+		var/old_desc = atom_parent.desc
 		//Build the silhouette of the artifact
 		var/mutable_appearance/MA = artifact_type.get_mask()
-		MA.plane = A.plane //This is important lol
-		MA.layer = A.layer
-		A.appearance = MA
+		MA.plane = atom_parent.plane //This is important lol
+		MA.layer = atom_parent.layer
+		atom_parent.appearance = MA
 		//Rset name & desc
-		A.name = "[artifact_type.name] [old_name]"
-		A.desc = old_desc //Appearance resets this shit
+		atom_parent.name = "[artifact_type.name] [old_name]"
+		atom_parent.desc = old_desc //Appearance resets this shit
 	if(do_texture)
 		//Overlay the material texture
 		var/icon/I = artifact_type.get_texture()
-		A.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
+		atom_parent.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
 		//Throw on some outlines
 		//TODO: Check if this fix is still needed in 515 - Racc from 514 : PLAYTEST
-		A.add_filter("outline_fix", 2, outline_filter(0)) //This fixes a weird byond thing. BLEND_INSET_OVERLAY will encrouch on outline 1 if we dont do this
-		A.add_filter("outline_1", 3, outline_filter(1, "#000", flags = OUTLINE_SHARP))
-		A.add_filter("outline_2", 4, outline_filter(1, artifact_type.material_color, flags = OUTLINE_SHARP))
+		atom_parent.add_filter("outline_fix", 2, outline_filter(0)) //This fixes a weird byond thing. BLEND_INSET_OVERLAY will encrouch on outline 1 if we dont do this
+		atom_parent.add_filter("outline_1", 3, outline_filter(1, "#000", flags = OUTLINE_SHARP))
+		atom_parent.add_filter("outline_2", 4, outline_filter(1, artifact_type.material_color, flags = OUTLINE_SHARP))
 
 ///Create a hint beam from the artifact to the target
 /datum/component/xenoartifact/proc/create_beam(atom/movable/target)
 	if(!get_turf(target) || locate(parent) in target.contents)
 		return
-	var/atom/A = parent
-	var/datum/beam/xenoa_beam/B = new((!isturf(A.loc) ? A.loc : A), (!isturf(target.loc) ? target.loc : target), time=1.5 SECONDS, beam_color = artifact_type.material_color, icon='icons/obj/xenoarchaeology/xenoartifact.dmi', icon_state="xenoa_beam", beam_type=/obj/effect/ebeam/xenoa_ebeam)
+	var/atom/atom_parent = parent
+	var/datum/beam/xenoa_beam/B = new((!isturf(atom_parent.loc) ? atom_parent.loc : atom_parent), (!isturf(target.loc) ? target.loc : target), time=1.5 SECONDS, beam_color = artifact_type.material_color, icon='icons/obj/xenoarchaeology/xenoartifact.dmi', icon_state="xenoa_beam", beam_type=/obj/effect/ebeam/xenoa_ebeam)
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 
 /datum/component/xenoartifact/proc/anti_check(atom/target, type = XENOA_ACTIVATION_CONTACT)
@@ -377,9 +377,9 @@
 	if(isliving(M) && M.anti_artifact_check(FALSE, slot))
 		return TRUE
 	//Just check if the thing itself has the anti-component
-	var/datum/component/anti_artifact/A = target.GetComponent(/datum/component/anti_artifact)
-	if(A?.charges && prob(A.chance))
-		A.charges -= 1
+	var/datum/component/anti_artifact/anti_component = target.GetComponent(/datum/component/anti_artifact)
+	if(anti_component?.charges && prob(anti_component.chance))
+		anti_component.charges -= 1
 		return TRUE
 	return FALSE
 

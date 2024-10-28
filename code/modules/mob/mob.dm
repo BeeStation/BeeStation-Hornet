@@ -893,13 +893,13 @@
 	if(!spell)
 		return
 	for(var/X in mob_spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(istype(S, spell))
-			mob_spell_list -= S
+		var/obj/effect/proc_holder/spell/spell_holder = X
+		if(istype(spell_holder, spell))
+			mob_spell_list -= spell_holder
 			if(delete_spell)
-				qdel(S)
+				qdel(spell_holder)
 			else
-				S.action.Remove(src)
+				spell_holder.action.Remove(src)
 
 ///Return any anti magic atom on this mob that matches the magic type
 /mob/proc/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)

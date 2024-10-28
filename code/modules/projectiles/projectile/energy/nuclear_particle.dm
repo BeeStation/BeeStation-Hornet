@@ -63,8 +63,7 @@
 		if(!prob(33))
 			continue
 		//Proceed with artifact logic
-		var/datum/component/xenoartifact/artifact_datum = item.GetComponent(/datum/component/xenoartifact)
-		if(artifact_datum)
+		if(item.GetComponent(/datum/component/xenoartifact))
 			continue
 		//Check for any pearls attached to the item first
 		var/trait_list = list()

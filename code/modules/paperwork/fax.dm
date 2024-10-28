@@ -233,11 +233,11 @@
  * This list expands if you snip a particular wire.
  */
 /obj/machinery/fax/proc/is_allowed_type(obj/item/item)
+	if(item?.GetComponent(/datum/component/xenoartifact))
+		return FALSE
 	if(is_type_in_list(item, allowed_types))
 		return TRUE
 	if(!allow_exotic_faxes)
-		return FALSE
-	if(item?.GetComponent(/datum/component/xenoartifact))
 		return FALSE
 	return is_type_in_list(item, exotic_types)
 
