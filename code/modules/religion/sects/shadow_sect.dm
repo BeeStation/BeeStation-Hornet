@@ -324,15 +324,16 @@
 	if(!rite_target)
 		return FALSE
 	rite_target.AddComponent(/datum/component/anti_magic, MAGIC_TRAIT, _magic = TRUE, _holy = FALSE)
-	if(rite_target != user)
-		to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-		var/objective = "You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost!"
-		brainwash(rite_target, objective, "Shadow Conversion")
-		log_game("[key_name(rite_target)] has been brainwashed with the objective '[objective]' via the chaplains sect shadow conversion.")
 	var/obj/effect/proc_holder/spell/targeted/shadowwalk/SW = new
 	rite_target.AddSpell(SW)
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
+	if(rite_target == user)
+		return
+	to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+	var/objective = "You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost!"
+	brainwash(rite_target, objective, "Shadow Conversion")
+	log_game("[key_name(rite_target)] has been brainwashed with the objective '[objective]' via the chaplains sect shadow conversion.")
 	return TRUE
 
 /datum/religion_rites/shadow_heart
