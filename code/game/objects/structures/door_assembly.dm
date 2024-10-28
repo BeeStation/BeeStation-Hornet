@@ -66,7 +66,7 @@
 		if(mineral)
 			var/mineral_path
 			if(mineral == "wood")
-				mineral_path = text2path("/obj/item/stack/sheet/wood")
+				mineral_path = /obj/item/stack/sheet/wood
 			else
 				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			user.visible_message("[user] welds the [mineral] plating off the airlock assembly.", "You start to weld the [mineral] plating off the airlock assembly...")
@@ -347,7 +347,7 @@
 		if(mineral)
 			var/mineral_path
 			if(mineral == "wood")
-				mineral_path = text2path("/obj/item/stack/sheet/wood")
+				mineral_path = /obj/item/stack/sheet/wood
 			else
 				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)
