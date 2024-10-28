@@ -29,7 +29,11 @@ export const StatusDisplayControls = (props, context) => {
       <Section title="Graphics">
         <Button icon="flag" content="Logo" onClick={() => act('setStatusPicture', { picture: 'default' })} />
 
-        <Button icon="bell-o" content="Red Alert" onClick={() => act('setStatusPicture', { picture: 'redalert' })} />
+        <Button
+          icon="exclamation"
+          content="Security Alert Level"
+          onClick={() => act('setStatusPicture', { picture: 'currentalert' })}
+        />
 
         <Button
           icon="exclamation-triangle"
@@ -38,6 +42,8 @@ export const StatusDisplayControls = (props, context) => {
         />
 
         <Button icon="biohazard" content="Biohazard" onClick={() => act('setStatusPicture', { picture: 'biohazard' })} />
+
+        <Button icon="radiation" content="Radiation" onClick={() => act('setStatusPicture', { picture: 'radiation' })} />
       </Section>
 
       <Section title="Message">

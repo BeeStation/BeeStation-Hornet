@@ -374,7 +374,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0) //damage received
+	if(. && atom_integrity > 0) //damage received
 		if(prob(30))
 			spark_system.start()
 		if(on && !attacked && !(obj_flags & EMAGGED))
@@ -387,7 +387,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
 	qdel(src)
 
-/obj/machinery/porta_turret/obj_break(damage_flag)
+/obj/machinery/porta_turret/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		power_change()
@@ -936,13 +936,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	locked = FALSE
 
-/obj/machinery/turretid/attack_robot(mob/user)
-	if(!ailock)
-		return attack_hand(user)
-	else
-		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-
-/obj/machinery/turretid/attack_ai(mob/user)
+/obj/machinery/turretid/attack_silicon(mob/user)
 	if(!ailock || IsAdminGhost(user))
 		return attack_hand(user)
 	else

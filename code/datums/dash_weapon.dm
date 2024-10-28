@@ -36,19 +36,39 @@
 	var/turf/T = get_turf(target)
 	if(user in viewers(user.client.view, T))
 		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-		if(do_teleport(user, T, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE))
+		var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
+		if(new_location)
 			playsound(T, dash_sound, 25, 1)
-			var/obj/spot2 = new phasein(get_turf(user), user.dir)
+			var/obj/spot2 = new phasein(new_location, user.dir)
 			spot1.Beam(spot2,beam_effect,time=2 SECONDS)
+			if (owner)
+				owner.update_action_buttons_icon()
+			if (current_charges == max_charges)
+				addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 			current_charges--
-			owner.update_action_buttons_icon()
-			addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		else
 			to_chat(user, "<span class='warning'>You cannot dash here!</span>")
 
+/datum/action/innate/dash/proc/dashslash(mob/user, turf/slash_location)
+	for(var/mob/living/target in slash_location)//Hit everything in the turf
+		// skip mobs that we shouldn't be able to hit
+		if (target.incorporeal_move)
+			continue
+		// Skip any mobs that aren't standing, or aren't dense
+		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
+			continue
+		// Slash through target
+		target.attackby(dashing_item, user)
+		user.do_item_attack_animation(target, used_item=dashing_item)
+		to_chat(target, "<span class='userdanger'>[user] goes through you faster than you can see!</span>")
+	return TRUE
+
 /datum/action/innate/dash/proc/charge()
 	current_charges = clamp(current_charges + 1, 0, max_charges)
-	owner.update_action_buttons_icon()
+	if (owner)
+		owner.update_action_buttons_icon()
+		to_chat(owner, "<span class='notice'>[src] now has [current_charges]/[max_charges] charges.</span>")
 	if(recharge_sound)
 		playsound(dashing_item, recharge_sound, 50, 1)
-	to_chat(owner, "<span class='notice'>[src] now has [current_charges]/[max_charges] charges.</span>")
+	if (current_charges != max_charges)
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)

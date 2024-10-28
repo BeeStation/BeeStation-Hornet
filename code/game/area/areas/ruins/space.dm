@@ -172,6 +172,7 @@
 /area/ruin/space/has_grav/deepstorage
 	name = "Deep Storage"
 	icon_state = "storage"
+	camera_networks = list(CAMERA_NETWORK_BUNKER)
 
 /area/ruin/space/has_grav/deepstorage/airlock
 	name = "Deep Storage Airlock"

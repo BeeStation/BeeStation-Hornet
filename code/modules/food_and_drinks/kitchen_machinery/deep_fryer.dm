@@ -10,9 +10,9 @@ God bless America.
 
 /// Global typecache of things which should never be fried.
 GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
-	/obj/item/reagent_containers/glass,
+	/obj/item/reagent_containers/cup,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/reagent_containers/food/condiment,
+	/obj/item/reagent_containers/condiment,
 	/obj/item/small_delivery,
 	/obj/item/his_grace,
 )))
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 /obj/machinery/deepfryer
 	name = "deep fryer"
 	desc = "Deep fried <i>everything</i>."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "fryer_off"
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -199,8 +199,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flame_range = 7)
 	deconstruct(FALSE)
 
-/obj/machinery/deepfryer/attack_ai(mob/user)
-	return
+/obj/machinery/deepfryer/attack_silicon(mob/user)
+	return TRUE
 
 /obj/machinery/deepfryer/attack_hand(mob/user)
 	if(frying)
