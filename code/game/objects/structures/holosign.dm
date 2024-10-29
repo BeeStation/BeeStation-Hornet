@@ -205,17 +205,13 @@
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
 /obj/structure/holosign/barrier/detective/Bumped(atom/movable/victim)
-	if(shockcd)
-		return
-
-	if(!ismob(victim))
-		return
-
-	var/mob/living/M = victim
-	M.Knockdown(10)
-	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
-	shockcd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+    if(shockcd || !isliving(victim))
+        return
+    var/mob/living/living_victim = victim
+    living_victim.Knockdown(10)
+    living_victim.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
+    shockcd = TRUE
+    addtimer(CALLBACK(src, PROC_REF(cooldown)), 5 SECONDS)
 
 /obj/structure/holosign/barrier/cyborg/hacked
 	name = "Charged Energy Field"
@@ -238,17 +234,17 @@
 		return
 	user.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5 SECONDS)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/victim)
 	if(shockcd)
 		return
 
-	if(!ismob(victim))
+    if(!isliving(victim))
 		return
 
-	var/mob/living/M = victim
-	M.Knockdown(10)
-	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
+    var/mob/living/living_victim = victim
+    living_victim .Knockdown(10)
+    living_victim .electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
