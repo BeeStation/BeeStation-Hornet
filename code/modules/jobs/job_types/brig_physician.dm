@@ -3,8 +3,8 @@
 	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
 	department_for_prefs = DEPT_NAME_SECURITY
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
-	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	supervisors = "chief medical officer"
+	department_head = list(JOB_NAME_HEADOFSECURITY)
+	supervisors = "head of security"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
