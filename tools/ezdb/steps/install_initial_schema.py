@@ -23,11 +23,11 @@ class InstallInitialSchema(Step):
                     return True
 
                 cursor.execute(f"USE {database}")
-                cursor.execute("SHOW TABLES LIKE 'schema_revision'")
+                cursor.execute("SHOW TABLES LIKE 'SS13_schema_revision'")
                 if cursor.fetchone() is None:
                     return True
 
-                cursor.execute("SELECT * FROM `schema_revision` LIMIT 1")
+                cursor.execute("SELECT * FROM `SS13_schema_revision` LIMIT 1")
                 if cursor.fetchone() is None:
                     return True
 

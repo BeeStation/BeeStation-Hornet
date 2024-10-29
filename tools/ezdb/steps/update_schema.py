@@ -21,7 +21,7 @@ class UpdateSchema(Step):
         with open_connection() as connection:
             with closing(connection.cursor()) as cursor:
                 cursor.execute(f"USE {database}")
-                cursor.execute("SELECT major, minor FROM `schema_revision` ORDER BY `major` DESC, `minor` DESC LIMIT 1")
+                cursor.execute("SELECT major, minor FROM `SS13_schema_revision` ORDER BY `major` DESC, `minor` DESC LIMIT 1")
                 (major_version, minor_version) = cursor.fetchone()
 
             changes = get_changes()

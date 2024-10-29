@@ -44,7 +44,7 @@ def execute_sql(sql: str):
     )
 
 def insert_new_schema_query(major_version: int, minor_version: int):
-    return f"INSERT INTO `schema_revision` (`major`, `minor`) VALUES ({major_version}, {minor_version})"
+    return f"INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES ({major_version}, {minor_version})"
 
 process = None
 def start_daemon():
