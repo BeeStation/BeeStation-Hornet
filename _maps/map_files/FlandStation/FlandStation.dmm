@@ -649,8 +649,11 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "ajn" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/pump,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "ajo" = (
@@ -2243,11 +2246,14 @@
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "aDB" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "aDF" = (
@@ -8644,8 +8650,11 @@
 /area/chapel/office)
 "cjd" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/engine,
 /area/science/storage)
 "cje" = (
@@ -9918,6 +9927,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"cBs" = (
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor/inverted{
+	id = "plasma_conveyor";
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/science/storage)
 "cBt" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -11999,6 +12016,14 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
+"ddm" = (
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor/inverted{
+	id = "plasma_conveyor";
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/science/storage)
 "ddo" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -12852,11 +12877,11 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "dpl" = (
-/obj/structure/table,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/mask/gas,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/science/storage)
 "dpq" = (
@@ -13490,10 +13515,15 @@
 /area/maintenance/department/medical)
 "dxM" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/conveyor_switch/oneway{
+	id = "o2_conveyor";
+	name = "O2 Conveyor";
+	pixel_x = -12
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "dxQ" = (
@@ -36443,6 +36473,17 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
+"jml" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor{
+	id = "plasma_conveyor";
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/science/storage)
 "jmr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -36451,6 +36492,14 @@
 	broken = 1
 	},
 /area/maintenance/starboard/aft)
+"jmu" = (
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor{
+	id = "plasma_conveyor";
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/science/storage)
 "jmQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -36862,12 +36911,14 @@
 /area/science/shuttle)
 "jtK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/item/radio/intercom{
 	pixel_x = 28
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/storage)
@@ -39326,6 +39377,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/engine,
 /area/science/storage)
 "jYW" = (
@@ -40855,6 +40909,15 @@
 /obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"kta" = (
+/obj/structure/plasticflaps/opaque,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "o2_conveyor"
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/open/floor/engine,
+/area/science/storage)
 "ktg" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Laser Room";
@@ -41961,6 +42024,15 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
+"kHO" = (
+/obj/structure/plasticflaps/opaque,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "canister_conveyor"
+	},
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/floor/engine,
+/area/science/storage)
 "kHU" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/end{
@@ -43471,9 +43543,12 @@
 	},
 /area/janitor)
 "kZv" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/engine,
 /area/science/storage)
 "kZw" = (
@@ -46088,11 +46163,13 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "lFr" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/item/wrench,
+/obj/item/clothing/mask/gas,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "lFs" = (
@@ -46319,15 +46396,17 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine)
 "lIE" = (
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/obj/machinery/conveyor/inverted{
+	id = "plasma_conveyor";
+	dir = 6
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "lIM" = (
 /obj/structure/cable/yellow{
@@ -46970,11 +47049,14 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "lSw" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/engine,
 /area/science/storage)
 "lSH" = (
@@ -47892,6 +47974,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/science/storage)
 "mfN" = (
@@ -48484,8 +48569,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/storage)
@@ -52657,6 +52742,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/structure/railing{
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/science/storage)
@@ -57346,6 +57434,15 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"oHz" = (
+/obj/structure/plasticflaps/opaque,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "plasma_conveyor"
+	},
+/turf/open/floor/engine,
+/area/science/storage)
 "oHE" = (
 /obj/machinery/telecomms/broadcaster/preset_right,
 /obj/effect/turf_decal/stripes/closeup{
@@ -65340,9 +65437,12 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "qLW" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/engine,
+/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "canister_conveyor"
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "qMc" = (
 /obj/effect/turf_decal/bot,
@@ -65911,9 +66011,12 @@
 /turf/open/floor/plating,
 /area/security/courtroom)
 "qSX" = (
-/obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/open/floor/engine,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "o2_conveyor"
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "qTa" = (
 /obj/structure/cable/yellow{
@@ -68286,14 +68389,15 @@
 /area/science/nanite)
 "rBk" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/camera/directional/east{
-	c_tag = "Science - Toxins Storage Passtrough";
-	name = "science camera"
+/obj/machinery/conveyor_switch/oneway{
+	id = "canister_conveyor";
+	name = "Canister Conveyor";
+	pixel_x = -12
 	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "rBl" = (
@@ -70268,6 +70372,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
+"rYX" = (
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor{
+	dir = 10;
+	id = "plasma_conveyor"
+	},
+/turf/open/floor/plating,
+/area/science/storage)
 "rZb" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
@@ -76025,12 +76137,15 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "twn" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "o2_conveyor"
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "twu" = (
 /obj/structure/cable{
@@ -78172,12 +78287,15 @@
 /turf/open/floor/wood,
 /area/library/lounge)
 "tZC" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "canister_conveyor"
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "tZF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -82540,8 +82658,11 @@
 /area/medical/morgue)
 "vbQ" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/engine,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "plasma_conveyor"
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "vcf" = (
 /obj/structure/table,
@@ -85002,12 +85123,18 @@
 /turf/open/floor/plating,
 /area/storage/tech)
 "vAQ" = (
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/machinery/conveyor{
+	id = "plasma_conveyor";
+	dir = 9
+	},
+/turf/open/floor/plating,
 /area/science/storage)
 "vAS" = (
 /obj/effect/turf_decal/siding/wood{
@@ -87979,7 +88106,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/camera/directional/north,
+/obj/machinery/conveyor_switch/oneway{
+	id = "plasma_conveyor";
+	name = "Plasma Conveyor";
+	pixel_x = -12
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
 "wmC" = (
@@ -91667,14 +91800,13 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "xfs" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
 /obj/machinery/light/small,
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/open/floor/engine,
 /area/science/storage)
 "xfu" = (
@@ -94300,11 +94432,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"xEy" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/engine,
-/area/science/storage)
 "xEG" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 8
@@ -97221,6 +97348,14 @@
 	burnt = 1
 	},
 /area/space/nearstation)
+"ykA" = (
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/conveyor{
+	id = "plasma_conveyor";
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/science/storage)
 "ykE" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -137106,9 +137241,9 @@ xCA
 oqW
 oqW
 oqW
-oqW
-oqW
-oqW
+oHz
+kHO
+kta
 oqW
 sOH
 oqW
@@ -137361,8 +137496,8 @@ vKD
 mho
 mho
 oqW
-vbQ
-vbQ
+ddm
+cBs
 vbQ
 qLW
 qSX
@@ -137618,11 +137753,11 @@ cYE
 wQe
 qYB
 oqW
-vbQ
-vbQ
-vbQ
+ykA
+jmu
+rYX
 qLW
-xEy
+qSX
 kZv
 uxw
 kHV
@@ -137876,7 +138011,7 @@ wQe
 ccQ
 oqW
 lIE
-vAQ
+jml
 vAQ
 tZC
 twn
