@@ -28,7 +28,7 @@ def get_mariadb_install_db_path():
     return get_mariadb_bin_path() / 'mariadb-install-db.exe'
 
 def get_initial_schema_path():
-    return get_root_path() / 'SQL' / 'tgstation_schema.sql'
+    return get_root_path() / 'SQL' / 'beestation_schema.sql'
 
 def get_changelog_path():
     return get_root_path() / 'SQL' / 'database_changelog.md'
