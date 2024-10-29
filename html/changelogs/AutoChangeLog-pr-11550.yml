@@ -1,0 +1,9 @@
+author: rkz, actioninja, PrefabQuasar, Bjarl, rye-rice, Infared_Baron, MemedHams,
+  Apogee-Dev
+delete-after: true
+changes:
+  - rscadd: Adds Holofields from shiptest. A static machine that will generate a field
+      between two points. Now installed throughout Fland and its exploration shuttle
+      as a proof of concept.
+  - refactor: refactored shieldwall generator code
+  - balance: reverted ATMOS Holofan projector to pre-monstermos max signs of 3
