@@ -180,16 +180,48 @@
 	else
 		return ..()
 
+/obj/structure/holosign/barrier/detective
+	name = "investigation barrier"
+	desc = "An authoritive holographic barrier proclaiming a crime scene. Energy arcs off of it."
+	max_integrity = 20
+	icon_state = "holosign_det"
+	var/shockcd = 0
+
+/obj/structure/holosign/barrier/detective/bullet_act(obj/projectile/P)
+	take_damage(P.damage, BRUTE, MELEE, 1)
+	return BULLET_ACT_HIT
+
+/obj/structure/holosign/barrier/detective/proc/cooldown()
+	shockcd = FALSE
+
+/obj/structure/holosign/barrier/detective/attack_hand(mob/living/user)
+	. = ..()
+	if(.)
+		return
+	if(shockcd || !isliving(user))
+		return
+	user.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
+	shockcd = TRUE
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+
+/obj/structure/holosign/barrier/detective/Bumped(atom/movable/victim)
+	if(shockcd)
+		return
+
+	if(!ismob(victim))
+		return
+
+	var/mob/living/M = victim
+	M.Knockdown(10)
+	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
+	shockcd = TRUE
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+
 /obj/structure/holosign/barrier/cyborg/hacked
 	name = "Charged Energy Field"
 	desc = "A powerful energy field that blocks movement. Energy arcs off it."
 	max_integrity = 20
 	var/shockcd = 0
-
-/obj/structure/holosign/barrier/cyborg/hacked/detective
-	name = "investigation barrier"
-	desc = "An authoritive holographic barrier proclaiming a crime scene. Energy arcs off of it."
-	icon_state = "holosign_det"
 
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
 	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
@@ -208,14 +240,14 @@
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
-/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
+/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/victim)
 	if(shockcd)
 		return
 
-	if(!ismob(AM))
+	if(!ismob(victim))
 		return
 
-	var/mob/living/M = AM
+	var/mob/living/M = victim
 	M.Knockdown(10)
 	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
 	shockcd = TRUE

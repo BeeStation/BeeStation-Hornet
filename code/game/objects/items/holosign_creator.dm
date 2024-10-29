@@ -106,7 +106,7 @@
 	name = "detective holobarrier projector"
 	desc = "A holographic projector that creates shocked investigation barriers."
 	icon_state = "signmaker_det"
-	holosign_type = /obj/structure/holosign/barrier/cyborg/hacked/detective
+	holosign_type = /obj/structure/holosign/barrier/detective
 	creation_time = 20
 	max_signs = 8
 
