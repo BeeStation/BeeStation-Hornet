@@ -247,4 +247,4 @@
     living_victim .Knockdown(10)
     living_victim .electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5 SECONDS)
