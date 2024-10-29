@@ -445,7 +445,7 @@
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
 	hardsuit_type = "syndi"
-	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90, STAMINA = 60, BLEED = 70)
+	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 100, STAMINA = 60, BLEED = 70)
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(
