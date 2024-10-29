@@ -12,9 +12,10 @@
 		var/special_owner = locate(href_list["special_owner"])
 		if(!isdatum(special_owner))
 			return
+		var/special_varname = href_list["special_varname"]
 		if(GET_VV_VAR_TARGET || href_list[VV_HK_DO_LIST_EDIT]) // if href_list["targetvar"] exists, we do vv_edit to list. if not, it's just viewing.
-			vv_do_list(special_owner:vars[href_list["special_varname"]], href_list)
-		GLOB.vv_ghost.mark_special(href_list["special_owner"], href_list["special_varname"])
+			vv_do_list(special_owner:vars[special_varname], href_list)
+		GLOB.vv_ghost.mark_special(special_owner, special_varname)
 		vv_refresh_target = GLOB.vv_ghost
 	// for standard /list
 	else if(islist(target))
@@ -29,7 +30,8 @@
 	// if there is no `href_list["target"]`, we check `href_list["Vars"]` to see if we want see it
 	if(!target && !vv_refresh_target)
 		vv_refresh_target = locate(href_list["Vars"])
-		// "Vars" means we want to view-variables this thing.
+		// href key as "Vars" means we want to view-variables this thing.
+		// ...Whoever named that, it is really a bad naming. Who'd think "Vars" means trying view-variable? Enbrace it.
 
 	if(vv_refresh_target)
 		debug_variables(vv_refresh_target)

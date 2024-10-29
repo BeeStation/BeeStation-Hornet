@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 
 /*
 	< What the hell is this vv_ghost? >
-		Our view-variables client proc doesn't like to investigate.
-		This means `debug_variables(list_reference)` won't work, because it only wants /datum.
+		Our view-variables client proc doesn't like to investigate list() objects.
+		This means `debug_variables(list_reference)` won't work, because it only wants /datum - but /list is not /datum
 		vv_ghost exists to trick the proc, by storing values to bypass /datum restriction of the proc.
 		but also, it exists to deliever some special list that isn't possible to get through locate().
 	< Can you just do `locate([0x0_list_ref_id])`? >
