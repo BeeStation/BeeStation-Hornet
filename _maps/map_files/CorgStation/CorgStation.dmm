@@ -34585,7 +34585,7 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/supply)
 "ldG" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -62092,7 +62092,7 @@
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
 "udV" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/science/xenobiology)
