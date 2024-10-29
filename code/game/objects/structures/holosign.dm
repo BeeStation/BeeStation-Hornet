@@ -244,7 +244,7 @@
 		return
 
 	var/mob/living/living_victim = victim
-	living_victim .Knockdown(10)
-	living_victim .electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
+	living_victim.Knockdown(10)
+	living_victim.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5 SECONDS)
