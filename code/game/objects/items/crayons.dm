@@ -265,6 +265,9 @@
 	if(!proximity || !check_allowed_items(target))
 		return
 
+	if(is_capped)
+		return
+
 	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
 
 	var/cost = 1
@@ -589,6 +592,7 @@
 	icon_uncapped = "spraycan"
 	use_overlays = TRUE
 	paint_color = null
+	drawtype = "splatter"
 
 	item_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
