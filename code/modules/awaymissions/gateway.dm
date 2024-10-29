@@ -159,7 +159,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 		user.visible_message("<span class='notice'>[user] switches [src] off.</span>", "<span class='notice'>You switch [src] off.</span>")
 		return TRUE
 	else if(!active)
-		to_chat(user, "<span class='warning'>Its already on!</span>")
+		to_chat(user, "<span class='warning'>Its already off!</span>")
 		return TRUE
 	return ..()
 
