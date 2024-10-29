@@ -18533,7 +18533,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -39095,7 +39095,7 @@
 /area/bridge)
 "kGh" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -51498,7 +51498,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "oHq" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 8
@@ -56173,7 +56173,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "qfW" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -70792,7 +70792,7 @@
 	name = "command camera"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/teleporter)
@@ -73056,7 +73056,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "vBg" = (
-/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /obj/machinery/light{
 	dir = 1
 	},
