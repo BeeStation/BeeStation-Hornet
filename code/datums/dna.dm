@@ -18,7 +18,7 @@
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
-	var/atom/movable/height_displacement_holder
+	var/atom/movable/height_displacement_holder/height_displacement_holder
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -720,3 +720,6 @@
 	height_displacement_holder.plane = PLANE_SPACE
 	height_displacement_holder.layer = 0
 	height_displacement_holder.render_target = "*[REF(height_displacement_holder)]"
+
+//Throw any extras you want in here when we eventually do more custom stuff
+/atom/movable/height_displacement_holder
