@@ -1,10 +1,13 @@
 Any time you make a change to the schema files, remember to increment the database schema version. Generally increment the minor number, major should be reserved for significant changes to the schema. Both values go up to 255.
 
 The latest database version is 7.3; The query to update the schema revision table is:
-
+```sql
 INSERT INTO `schema_revision` (`major`, `minor`) VALUES (7, 3);
+```
 or
+```sql
 INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 3);
+```
 
 In any query remember to add a prefix to the table names if you use one.
 
@@ -12,7 +15,7 @@ In any query remember to add a prefix to the table names if you use one.
 -----------------------------------------------------
 Version 7.3, 30 April 2024, by XeonMations
 Dionae - Species Addition
-
+```sql
 ALTER TABLE `SS13_characters`
 	ADD COLUMN IF NOT EXISTS `feature_diona_leaves` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_psyphoza_cap`,
 	ADD COLUMN IF NOT EXISTS `feature_diona_thorns` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_leaves`,
@@ -22,12 +25,12 @@ ALTER TABLE `SS13_characters`
 	ADD COLUMN IF NOT EXISTS `feature_diona_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_mushroom`,
 	ADD COLUMN IF NOT EXISTS `feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_antennae`,
 	ADD COLUMN IF NOT EXISTS `feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_eyes`;
-
+```
 -----------------------------------------------------
 
 Version 7.2, 20 December 2023, by that0neperson and Absolucy
 Added customization for quirks.
-
+```sql
 ALTER TABLE `SS13_characters`
 	ADD COLUMN IF NOT EXISTS `quirk_prosthetic_limb_location` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `all_quirks`,
 	ADD COLUMN IF NOT EXISTS `quirk_phobia` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_prosthetic_limb_location`,
@@ -35,16 +38,16 @@ ALTER TABLE `SS13_characters`
 	ADD COLUMN IF NOT EXISTS `quirk_smoker_cigarettes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_multilingual_language` ,
 	ADD COLUMN IF NOT EXISTS `quirk_junkie_drug` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_smoker_cigarettes`,
 	ADD COLUMN IF NOT EXISTS `quirk_alcohol_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_junkie_drug`;
-
+```
 -----------------------------------------------------
 
 -----------------------------------------------------
 
 Version 7.1, 4 December 2023, by DrDuckedGoose
 Psyphoza - Species Addition
-
+```sql
 ALTER TABLE `SS13_characters` ADD COLUMN IF NOT EXISTS `feature_psyphoza_cap` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_human_ears`;
-
+```
 -----------------------------------------------------
 
 -----------------------------------------------------
@@ -60,10 +63,10 @@ See prefs_migration_2023-07-26.sql
 
 Version 6.2 - 16 June 2023 by itsmeow
 Add per-character role preferences.
-
+```sql
 ALTER TABLE `SS13_characters` ADD COLUMN IF NOT EXISTS `role_preferences` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci' AFTER `equipped_gear`;
 UPDATE `SS13_characters` SET `role_preferences` = '[]' WHERE `role_preferences` = '';
-
+```
 -----------------------------------------------------
 
 -----------------------------------------------------
@@ -92,9 +95,9 @@ UPDATE SS13_preferences SET preference_value = preference_value | (1<<13) WHERE 
 
 Version 6.1, 29 December 2020, by Missfox, ported 20 August 2022 by ivanmixo
 Modified table `messages`, adding column `playtime` to show the user's playtime when the note was created.
-
+```sql
 ALTER TABLE `messages` ADD `playtime` INT(11) UNSIGNED NULL DEFAULT(NULL) AFTER `severity`
-
+```
 -----------------------------------------------------
 
 -----------------------------------------------------
@@ -108,6 +111,7 @@ DROP TABLE IF EXISTS `SS13_characters`;
 DROP TABLE IF EXISTS `SS13_preferences`;
 
 # 2. Make new ones
+```sql
 CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`slot` INT(11) UNSIGNED NOT NULL,
 	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -150,20 +154,20 @@ CREATE TABLE `SS13_preferences` (
 	`preference_value` MEDIUMTEXT NULL COLLATE 'utf8mb4_general_ci',
 	UNIQUE INDEX `prefbinding` (`ckey`, `preference_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+```
 -----------------------------------------------------
 Version 5.10, 28 December 2020 by Crossedfall
 Added the server_name column to the feedback table
-
+```sql
 ALTER TABLE `ss13_feedback`
 	ADD COLUMN IF NOT EXISTS `server_name` varchar(32) DEFAULT NULL AFTER `round_id`;
-
+```
 -----------------------------------------------------
 
 Version 5.9, 5 October 2019 by Anturke, ported 1 October 2021 by Ivniinvi
 Added achievements table.
 See hub migration verb in _achievement_data.dm for details on migrating.
-
+```sql
 DROP TABLE IF EXISTS `achievements`;
 CREATE TABLE `achievements` (
 	`ckey` VARCHAR(32) NOT NULL,
@@ -172,9 +176,9 @@ CREATE TABLE `achievements` (
 	`last_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`ckey`,`achievement_key`)
 ) ENGINE=InnoDB;
-
+```
 Added achievement_metadata table.
-
+```sql
 DROP TABLE IF EXISTS `achievement_metadata`;
 CREATE TABLE `achievement_metadata` (
 	`achievement_key` VARCHAR(32) NOT NULL,
@@ -184,24 +188,24 @@ CREATE TABLE `achievement_metadata` (
 	`achievement_description` VARCHAR(512) NULL DEFAULT NULL,
 	PRIMARY KEY (`achievement_key`)
 ) ENGINE=InnoDB;
-
+```
 -----------------------------------------------------
 
 Version 5.8 28 September 2021, by Raven-Industries and MCterra
 Updates the maximum length for book titles in the library.
-
+```sql
 ALTER TABLE `SS13_library`
 	CHANGE COLUMN `title` `title` VARCHAR(50) NOT NULL AFTER `author`;
-
+```
 -----------------------------------------------------
 
 Version 5.7 20 July 2020, by ike709
 Adds a new `uuid` column in the `player` table that allows for discord verification.
-
+```sql
 ALTER TABLE SS13_player
 ADD COLUMN `uuid` VARCHAR(64) DEFAULT NULL AFTER `computerid`,
 ADD CONSTRAINT `UUID` UNIQUE KEY (`uuid`)
-
+```
 ----------------------------------------------------
 
 Version 5.6, 13 June 2020, by Jordie0608
@@ -209,7 +213,7 @@ Updates and improvements to poll handling.
 Added the `deleted` column to tables 'poll_option', 'poll_textreply' and 'poll_vote' and the columns `created_datetime`, `subtitle`, `allow_revoting` and `deleted` to 'poll_question'.
 Changes table 'poll_question' column `createdby_ckey` to be NOT NULL and index `idx_pquest_time_admin` to be `idx_pquest_time_deleted_id` and 'poll_textreply' column `adminrank` to have no default.
 Added procedure `set_poll_deleted` that's called when deleting a poll to set deleted to true on each poll table where rows matching a poll_id argument.
-
+```sql
 ALTER TABLE `poll_option`
 	ADD COLUMN `deleted` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `default_percentage_calc`;
 
@@ -242,33 +246,33 @@ UPDATE `poll_textreply` SET deleted = 1 WHERE pollid = poll_id;
 END
 $$
 DELIMITER ;
-
+```
 -----------------------------------------------------
 
 Version 5.5 21 May 2020, by Crossedfall
 Adds a new `hidden` column in the `ban` table that allows for server maintainers to hide specific ban entries if needed (e.g. in cases where the GDPR is invoked)
-
+```sql
 ALTER TABLE `ban`
 ADD `hidden` tinyint(1) unsigned NOT NULL DEFAULT '0';
-
+```
 ----------------------------------------------------
 Version 5.4 2 Jan 2020, by ike709
 Adds the ability to specify a minimum playtime requirement (in hours) to vote in a server poll.
-
+```sql
 ALTER TABLE `poll_question`
 ADD `minimumplaytime` int(4) NOT NULL;
-
+```
 ----------------------------------------------------
 Version 5.3 4 Oct 2019, by Crossedfall
 Adds the ability to apply bans globally or locally when multiple servers are used using the new `global_ban` column in the `ban` table.
-
+```sql
 ALTER TABLE `ban`
 ADD `global_ban` tinyint(1) unsigned NOT NULL DEFAULT '1';
-
+```
 ----------------------------------------------------
 Version 5.2, 22 Sep 2019, by Crossedfall & Qwerty
 Added the `server_name` column to the ban, connection_log, death, legacy_population, and round tables containing the server's name pulled from the `serversqlname` config variable. Updated the `server` column in the messages table to match the standard naming convention (`server_name`).
-
+```sql
 ALTER TABLE `ban`
 ADD `server_name` varchar(32) DEFAULT NULL;
 
@@ -286,13 +290,13 @@ ADD `server_name` varchar(32) DEFAULT NULL;
 
 ALTER TABLE `messages`
 CHANGE `server` `server_name` varchar(32);
-
+```
 ----------------------------------------------------
 
 
 Version 5.1, 25 Feb 2018, by MrStonedOne
 Added four tables to enable storing of stickybans in the database since byond can lose them, and to enable disabling stickybans for a round without depending on a crash free round. Existing stickybans are automagically imported to the tables.
-
+```sql
 CREATE TABLE `stickyban` (
 	`ckey` VARCHAR(32) NOT NULL,
 	`reason` VARCHAR(2048) NOT NULL,
@@ -325,7 +329,7 @@ CREATE TABLE `stickyban_matched_cid` (
 	`last_matched` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`stickyban`, `matched_cid`)
 ) ENGINE=InnoDB;
-
+```
 ----------------------------------------------------
 
 Version 5.0, 28 October 2018, by Jordie0608
@@ -334,6 +338,7 @@ Modified ban table to remove the need for the `bantype` column, a python script 
 See the file 'ban_conversion_2018-10-28.py' for instructions on how to use the script.
 
 A new ban table can be created with the query:
+```sql
 CREATE TABLE `ban` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `bantime` DATETIME NOT NULL,
@@ -363,34 +368,34 @@ CREATE TABLE `ban` (
   KEY `idx_ban_isbanned_details` (`ckey`,`ip`,`computerid`,`role`,`unbanned_datetime`,`expiration_time`),
   KEY `idx_ban_count` (`bantime`,`a_ckey`,`applies_to_admins`,`unbanned_datetime`,`expiration_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+```
 ----------------------------------------------------
 
 Version 4.7, 18 August 2018, by CitrusGender
 Modified table `messages`, adding column `severity` to classify notes based on their severity.
-
+```sql
 ALTER TABLE `messages` ADD `severity` enum('high','medium','minor','none') DEFAULT NULL AFTER `expire_timestamp`
-
+```
 ----------------------------------------------------
 
 Version 4.6, 11 August 2018, by Jordie0608
 Modified table `messages`, adding column `expire_timestamp` to allow for auto-"deleting" messages.
-
+```sql
 ALTER TABLE `messages` ADD `expire_timestamp` DATETIME NULL DEFAULT NULL AFTER `secret`;
-
+```
 ----------------------------------------------------
 
 Version 4.5, 9 July 2018, by Jordie0608
 Modified table `player`, adding column `byond_key` to store a user's key along with their ckey.
 To populate this new column run the included script 'populate_key_2018-07', see the file for use instructions.
-
+```sql
 ALTER TABLE `player` ADD `byond_key` VARCHAR(32) DEFAULT NULL AFTER `ckey`;
-
+```
 ----------------------------------------------------
 
 Version 4.4, 9 May 2018, by Jordie0608
 Modified table `round`, renaming column `start_datetime` to `initialize_datetime` and `end_datetime` to `shutdown_datetime` and adding columns to replace both under the same name in preparation for changes to TGS server initialization.
-
+```sql
 ALTER TABLE `round`
 	ALTER `start_datetime` DROP DEFAULT;
 ALTER TABLE `round`
@@ -398,12 +403,12 @@ ALTER TABLE `round`
 	ADD COLUMN `start_datetime` DATETIME NULL DEFAULT NULL AFTER `initialize_datetime`,
 	CHANGE COLUMN `end_datetime` `shutdown_datetime` DATETIME NULL DEFAULT NULL AFTER `start_datetime`,
 	ADD COLUMN `end_datetime` DATETIME NULL DEFAULT NULL AFTER `shutdown_datetime`;
-
+```
 ----------------------------------------------------
 
 Version 4.3, 9 May 2018, by MrStonedOne
 Added table `role_time_log` and triggers `role_timeTlogupdate`, `role_timeTloginsert` and `role_timeTlogdelete` to update it from changes to `role_time`
-
+```sql
 CREATE TABLE `role_time_log` ( `id` BIGINT NOT NULL AUTO_INCREMENT , `ckey` VARCHAR(32) NOT NULL , `job` VARCHAR(128) NOT NULL , `delta` INT NOT NULL , `datetime` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), INDEX (`ckey`), INDEX (`job`), INDEX (`datetime`)) ENGINE = InnoDB;
 
 DELIMITER $$
@@ -417,14 +422,16 @@ CREATE TRIGGER `role_timeTlogdelete` AFTER DELETE  ON `role_time` FOR EACH ROW B
 END
 $$
 DELIMITER ;
+```
 ----------------------------------------------------
 
 Version 4.2, 17 April 2018, by Jordie0608
 Modified table 'admin', adding the columns 'round_id' and 'target'
+```sql
 ALTER TABLE `admin_log`
 	ADD COLUMN `round_id` INT UNSIGNED NOT NULL AFTER `datetime`,
 	ADD COLUMN `target` VARCHAR(32) NOT NULL AFTER `operation`;
-
+```
 ----------------------------------------------------
 
 Version 4.1, 3 February 2018, by Jordie0608
@@ -432,7 +439,7 @@ Modified tables 'admin', 'admin_log' and 'admin_rank', removing unnecessary colu
 This change was made to enable use of sql-based admin loading.
 To import your existing admins and ranks run the included script 'admin_import_2018-02-03.py', see the file for use instructions.
 Legacy file-based admin loading is still supported, if you want to continue using it the script doesn't need to be run.
-
+```sql
 ALTER TABLE `admin`
 	CHANGE COLUMN `rank` `rank` VARCHAR(32) NOT NULL AFTER `ckey`,
 	DROP COLUMN `id`,
@@ -457,7 +464,7 @@ ALTER TABLE `admin_ranks`
 	DROP COLUMN `id`,
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`rank`);
-
+```
 ----------------------------------------------------
 
 Version 4.0, 12 November 2017, by Jordie0608
@@ -466,6 +473,7 @@ Modified feedback table to use json, a python script is used to migrate data to 
 See the file 'feedback_conversion_2017-11-12.py' for instructions on how to use the script.
 
 A new json feedback table can be created with:
+```sql
 CREATE TABLE `feedback` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `datetime` datetime NOT NULL,
@@ -476,12 +484,12 @@ CREATE TABLE `feedback` (
   `json` json NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM
-
+```
 ----------------------------------------------------
 
 Version 3.4, 28 August 2017, by MrStonedOne
 Modified table 'messages', adding a deleted column and editing all indexes to include it
-
+```sql
 ALTER TABLE `messages`
 ADD COLUMN `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' AFTER `edits`,
 DROP INDEX `idx_msg_ckey_time`,
@@ -490,29 +498,29 @@ DROP INDEX `idx_msg_type_ckey_time_odr`,
 ADD INDEX `idx_msg_ckey_time` (`targetckey`,`timestamp`, `deleted`),
 ADD INDEX `idx_msg_type_ckeys_time` (`type`,`targetckey`,`adminckey`,`timestamp`, `deleted`),
 ADD INDEX `idx_msg_type_ckey_time_odr` (`type`,`targetckey`,`timestamp`, `deleted`);
-
+```
 ----------------------------------------------------
 
 Version 3.3, 25 August 2017, by Jordie0608
 
 Modified tables 'connection_log', 'legacy_population', 'library', 'messages' and 'player' to add additional 'round_id' tracking in various forms and 'server_ip' and 'server_port' to the table 'messages'.
-
+```sql
 ALTER TABLE `connection_log` ADD COLUMN `round_id` INT(11) UNSIGNED NOT NULL AFTER `server_port`;
 ALTER TABLE `legacy_population` ADD COLUMN `round_id` INT(11) UNSIGNED NOT NULL AFTER `server_port`;
 ALTER TABLE `library` ADD COLUMN `round_id_created` INT(11) UNSIGNED NOT NULL AFTER `deleted`;
 ALTER TABLE `messages` ADD COLUMN `server_ip` INT(10) UNSIGNED NOT NULL AFTER `server`, ADD COLUMN `server_port` SMALLINT(5) UNSIGNED NOT NULL AFTER `server_ip`, ADD COLUMN `round_id` INT(11) UNSIGNED NOT NULL AFTER `server_port`;
 ALTER TABLE `player` ADD COLUMN `firstseen_round_id` INT(11) UNSIGNED NOT NULL AFTER `firstseen`, ADD COLUMN `lastseen_round_id` INT(11) UNSIGNED NOT NULL AFTER `lastseen`;
-
+```
 ----------------------------------------------------
 
 Version 3.2, 18 August 2017, by Cyberboss and nfreader
 
 Modified table 'death', adding the columns `last_words` and 'suicide'.
-
+```sql
 ALTER TABLE `death`
 ADD COLUMN `last_words` varchar(255) DEFAULT NULL AFTER `staminaloss`,
 ADD COLUMN `suicide` tinyint(0) NOT NULL DEFAULT '0' AFTER `last_words`;
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -520,11 +528,11 @@ Remember to add a prefix to the table name if you use them.
 Version 3.1, 20th July 2017, by Shadowlight213
 Added role_time table to track time spent playing departments.
 Also, added flags column to the player table.
-
+```sql
 CREATE TABLE `role_time` ( `ckey` VARCHAR(32) NOT NULL , `job` VARCHAR(128) NOT NULL , `minutes` INT UNSIGNED NOT NULL, PRIMARY KEY (`ckey`, `job`) ) ENGINE = InnoDB;
 
 ALTER TABLE `player` ADD `flags` INT NOT NULL default '0' AFTER `accountjoindate`;
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -534,7 +542,7 @@ Added schema_revision to store the current db revision, why start at 3.0?
 
 because:
 15:09 <+MrStonedOne> 1.0 was erro, 2.0 was when i removed erro_, 3.0 was when jordie made all the strings that hold numbers numbers
-
+```sql
 CREATE TABLE `schema_revision` (
 `major` TINYINT(3) UNSIGNED NOT NULL ,
 `minor` TINYINT(3) UNSIGNED NOT NULL ,
@@ -543,7 +551,7 @@ PRIMARY KEY ( `major`,`minor` )
 ) ENGINE = INNODB;
 
 INSERT INTO `schema_revision` (`major`, `minor`) VALUES (3, 0);
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -551,9 +559,9 @@ Remember to add a prefix to the table name if you use them.
 26 June 2017, by Jordie0608
 
 Modified table 'poll_option', adding the column 'default_percentage_calc'.
-
+```sql
 ALTER TABLE `poll_option` ADD COLUMN `default_percentage_calc` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1' AFTER `descmax`
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -561,9 +569,9 @@ Remember to add a prefix to the table name if you use them.
 22 June 2017, by Jordie0608
 
 Modified table 'poll_option', removing the column 'percentagecalc'.
-
+```sql
 ALTER TABLE `poll_option` DROP COLUMN `percentagecalc`
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -571,7 +579,7 @@ Remember to add a prefix to the table name if you use them.
 8 June 2017, by Jordie0608
 
 Modified table 'death', adding column 'round_id', removing column 'gender' and replacing column 'coord' with the columns 'x_coord', 'y_coord' and 'z_coord'.
-
+```sql
 START TRANSACTION;
 ALTER TABLE `death` DROP COLUMN `gender`, ADD COLUMN `x_coord` SMALLINT(5) UNSIGNED NOT NULL AFTER `coord`, ADD COLUMN `y_coord` SMALLINT(5) UNSIGNED NOT NULL AFTER `x_coord`, ADD COLUMN `z_coord` SMALLINT(5) UNSIGNED NOT NULL AFTER `y_coord`, ADD COLUMN `round_id` INT(11) NOT NULL AFTER `server_port`;
 SET SQL_SAFE_UPDATES = 0;
@@ -579,7 +587,7 @@ UPDATE `death` SET `x_coord` = SUBSTRING_INDEX(`coord`, ',', 1), `y_coord` = SUB
 SET SQL_SAFE_UPDATES = 1;
 ALTER TABLE `death` DROP COLUMN `coord`;
 COMMIT;
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ---------------------------------------------------
@@ -587,17 +595,17 @@ Remember to add a prefix to the table name if you use them.
 30 May 2017, by MrStonedOne
 
 Z levels changed, this query allows you to convert old ss13 death records:
-
+```sql
 UPDATE death SET coord = CONCAT(SUBSTRING_INDEX(coord, ',', 2), ', ', CASE TRIM(SUBSTRING_INDEX(coord, ',', -1)) WHEN 1 THEN 2 WHEN 2 THEN 1 ELSE TRIMSUBSTRING_INDEX(coord, ',', -1) END)
-
+```
 ---------------------------------------------------
 
 26 May 2017, by Jordie0608
 
 Modified table 'ban', adding the column 'round_id'.
-
+```sql
 ALTER TABLE `ban` ADD COLUMN `round_id` INT(11) NOT NULL AFTER `server_port`
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -606,7 +614,7 @@ Remember to add a prefix to the table name if you use them.
 
 Created table `round` to replace tracking of the datapoints 'round_start', 'round_end', 'server_ip', 'game_mode', 'round_end_results', 'end_error', 'end_proper', 'emergency_shuttle', 'map_name' and 'station_renames' in the `feedback` table.
 Once created this table is populated with rows from the `feedback` table.
-
+```sql
 START TRANSACTION;
 CREATE TABLE `round` (`id` INT(11) NOT NULL AUTO_INCREMENT, `start_datetime` DATETIME NOT NULL, `end_datetime` DATETIME NULL, `server_ip` INT(10) UNSIGNED NOT NULL, `server_port` SMALLINT(5) UNSIGNED NOT NULL, `commit_hash` CHAR(40) NULL, `game_mode` VARCHAR(32) NULL, `game_mode_result` VARCHAR(64) NULL, `end_state` VARCHAR(64) NULL, `shuttle_name` VARCHAR(64) NULL, `map_name` VARCHAR(32) NULL, `station_name` VARCHAR(80) NULL, PRIMARY KEY (`id`));
 ALTER TABLE `feedback` ADD INDEX `tmp` (`round_id` ASC, `var_name` ASC);
@@ -617,7 +625,7 @@ FROM `feedback`AS ri
 LEFT JOIN `feedback` AS st ON ri.round_id = st.round_id AND st.var_name = "round_start" LEFT JOIN `feedback` AS et ON ri.round_id = et.round_id AND et.var_name = "round_end" LEFT JOIN `feedback` AS si ON ri.round_id = si.round_id AND si.var_name = "server_ip" LEFT JOIN `feedback` AS ch ON ri.round_id = ch.round_id AND ch.var_name = "revision" LEFT JOIN `feedback` AS gm ON ri.round_id = gm.round_id AND gm.var_name = "game_mode" LEFT JOIN `feedback` AS mr ON ri.round_id = mr.round_id AND mr.var_name = "round_end_result" LEFT JOIN `feedback` AS es ON ri.round_id = es.round_id AND es.var_name = "end_state" LEFT JOIN `feedback` AS ep ON ri.round_id = ep.round_id AND ep.var_name = "end_proper" LEFT JOIN `feedback` AS ss ON ri.round_id = ss.round_id AND ss.var_name = "emergency_shuttle" LEFT JOIN `feedback` AS mn ON ri.round_id = mn.round_id AND mn.var_name = "map_name" LEFT JOIN `feedback` AS sn ON ri.round_id = sn.round_id AND sn.var_name = "station_renames";
 ALTER TABLE `feedback` DROP INDEX `tmp`;
 COMMIT;
-
+```
 It's not necessary to delete the rows from the `feedback` table but henceforth these datapoints will be in the `round` table.
 
 Remember to add a prefix to the table names if you use them
@@ -627,20 +635,20 @@ Remember to add a prefix to the table names if you use them
 21 April 2017, by Jordie0608
 
 Modified table 'player', adding the column 'accountjoindate', removing the column 'id' and making the column 'ckey' the primary key.
-
+```sql
 ALTER TABLE `player` DROP COLUMN `id`, ADD COLUMN `accountjoindate` DATE NULL AFTER `lastadminrank`, DROP PRIMARY KEY, ADD PRIMARY KEY (`ckey`), DROP INDEX `ckey`;
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
 10 March 2017, by Jordie0608
 
 Modified table 'death', adding the columns 'toxloss', 'cloneloss', and 'staminaloss' and table 'legacy_population', adding the columns 'server_ip' and 'server_port'.
-
+```sql
 ALTER TABLE `death` ADD COLUMN `toxloss` SMALLINT(5) UNSIGNED NOT NULL AFTER `oxyloss`, ADD COLUMN `cloneloss` SMALLINT(5) UNSIGNED NOT NULL AFTER `toxloss`, ADD COLUMN `staminaloss` SMALLINT(5) UNSIGNED NOT NULL AFTER `cloneloss`;
 
 ALTER TABLE `legacy_population` ADD COLUMN `server_ip` INT(10) UNSIGNED NOT NULL AFTER `time`, ADD COLUMN `server_port` SMALLINT(5) UNSIGNED NOT NULL AFTER `server_ip`;
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -658,9 +666,9 @@ Remember to add a prefix to the table name if you use them
 30 January 2017, by Lzimann
 
 Modified table 'death', adding the columns 'mapname' and 'server'.
-
+```sql
 ALTER TABLE `death` ADD COLUMN `mapname` TEXT NOT NULL AFTER `coord`, ADD COLUMN `server` TEXT NOT NULL AFTER `mapname`
-
+```
 Remember to add a prefix to the table name if you use them
 
 ----------------------------------------------------
@@ -670,11 +678,11 @@ Remember to add a prefix to the table name if you use them
 Created table 'messages' to supersede the 'notes', 'memos', and 'watchlist' tables; they must be collated into this new table
 
 To create this new table run the following command:
-
+```sql
 CREATE  TABLE `messages` (`id` INT(11) NOT NULL AUTO_INCREMENT , `type` VARCHAR(32) NOT NULL , `targetckey` VARCHAR(32) NOT NULL , `adminckey` VARCHAR(32) NOT NULL , `text` TEXT NOT NULL , `timestamp` DATETIME NOT NULL , `server` VARCHAR(32) NULL , `secret` TINYINT(1) NULL DEFAULT 1 , `lasteditor` VARCHAR(32) NULL , `edits` TEXT NULL , PRIMARY KEY (`id`) )
-
+```
 To copy the contents of the 'notes', 'memos', and 'watchlist' tables to this new table run the following commands:
-
+```sql
 INSERT INTO `messages`
 (`id`,`type`,`targetckey`,`adminckey`,`text`,`timestamp`,`server`,`secret`,`lasteditor`,`edits`) SELECT `id`, "note", `ckey`, `adminckey`, `notetext`, `timestamp`, `server`, `secret`, `last_editor`, `edits` FROM `notes`
 
@@ -683,7 +691,7 @@ INSERT INTO `messages`
 
 INSERT INTO `messages`
 (`type`,`targetckey`,`adminckey`,`text`,`timestamp`,`lasteditor`,`edits`) SELECT "watchlist entry", `ckey`, `adminckey`, `reason`, `timestamp`, `last_editor`, `edits` FROM `watch`
-
+```
 It's not necessary to delete the 'notes', 'memos', and 'watchlist' tables but they will no longer be used.
 
 Remember to add a prefix to the table names if you use them
@@ -693,9 +701,9 @@ Remember to add a prefix to the table names if you use them
 1 September 2016, by Jordie0608
 
 Modified table 'notes', adding column 'secret'.
-
+```sql
 ALTER TABLE `notes` ADD COLUMN `secret` TINYINT(1) NOT NULL DEFAULT '1'  AFTER `server`
-
+```
 Remember to add a prefix to the table name if you use them
 
 ----------------------------------------------------
@@ -703,9 +711,9 @@ Remember to add a prefix to the table name if you use them
 19 August 2016, by Shadowlight213
 
 Changed appearance bans to be jobbans.
-
+```sql
 UPDATE `ban` SET `job` = "appearance", `bantype` = "JOB_PERMABAN" WHERE `bantype` = "APPEARANCE_PERMABAN"
-
+```
 Remember to add a prefix to the table name if you use them
 
 ----------------------------------------------------
@@ -713,9 +721,9 @@ Remember to add a prefix to the table name if you use them
 3 July 2016, by Jordie0608
 
 Modified table 'poll_question', adding column 'dontshow' which was recently added to the server schema.
-
+```sql
 ALTER TABLE `poll_question` ADD COLUMN `dontshow` TINYINT(1) NOT NULL DEFAULT '0'  AFTER `for_trialmin`
-
+```
 Remember to add a prefix to the table name if you use them
 
 ----------------------------------------------------
@@ -723,22 +731,22 @@ Remember to add a prefix to the table name if you use them
 16th April 2016
 
 Added ipintel table, only required if ip intel is enabled in the config
-
+```sql
 CREATE TABLE `ipintel` (
 `ip` INT UNSIGNED NOT NULL ,
 `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL ,
 `intel` REAL NOT NULL DEFAULT  '0',
 PRIMARY KEY (  `ip` )
 ) ENGINE = INNODB;
-
+```
 ---------------------------------------------------
 
 21 September 2015, by Jordie0608
 
 Modified table 'poll_question', adding columns 'createdby_ckey', 'createdby_ip' and 'for_trialmin' to bring it inline with the schema used by the tg servers.
-
+```sql
 ALTER TABLE `poll_question` ADD COLUMN `createdby_ckey` VARCHAR(45) NULL DEFAULT NULL AFTER `multiplechoiceoptions`, ADD COLUMN `createdby_ip` VARCHAR(45) NULL DEFAULT NULL AFTER `createdby_ckey`, ADD COLUMN `for_trialmin` VARCHAR(45) NULL DEFAULT NULL AFTER `createdby_ip`
-
+```
 Remember to add a prefix to the table name if you use them
 
 ----------------------------------------------------
@@ -746,9 +754,9 @@ Remember to add a prefix to the table name if you use them
 27 August 2015, by Jordie0608
 
 Modified table 'watch', removing 'id' column, making 'ckey' primary and adding the columns 'timestamp', 'adminckey', 'last_editor' and 'edits'.
-
+```sql
 ALTER TABLE `watch` DROP COLUMN `id`, ADD COLUMN `timestamp` datetime NOT NULL AFTER `reason`, ADD COLUMN `adminckey` varchar(32) NOT NULL AFTER `timestamp`, ADD COLUMN `last_editor` varchar(32) NULL AFTER `adminckey`, ADD COLUMN `edits` text NULL AFTER `last_editor`, DROP PRIMARY KEY, ADD PRIMARY KEY (`ckey`)
-
+```
 Remember to add a prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -758,9 +766,9 @@ Remember to add a prefix to the table name if you use them.
 Added new table 'notes' to replace BYOND's .sav note system.
 
 To create this new table run the following command:
-
+```sql
 CREATE TABLE `notes` ( `id` int(11) NOT NULL AUTO_INCREMENT, `ckey` varchar(32) NOT NULL, `notetext` text NOT NULL, `timestamp` datetime NOT NULL, `adminckey` varchar(32) NOT NULL, `last_editor` varchar(32), `edits` text, `server` varchar(50) NOT NULL, PRIMARY KEY (`id`))
-
+```
 Remember to add prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -768,9 +776,9 @@ Remember to add prefix to the table name if you use them.
 28 July 2015, by Jordie0608
 
 Modified table 'memo', removing 'id' column and making 'ckey' primary.
-
+```sql
 ALTER TABLE `memo` DROP COLUMN `id`, DROP PRIMARY KEY, ADD PRIMARY KEY (`ckey`)
-
+```
 Remember to add prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -780,9 +788,9 @@ Remember to add prefix to the table name if you use them.
 Added new table 'memo' for use with admin memos.
 
 To create this new table run the following command:
-
+```sql
 CREATE TABLE `memo` (`id` int(11) NOT NULL AUTO_INCREMENT, `ckey` varchar(32) NOT NULL, `memotext` text NOT NULL, `timestamp` datetime NOT NULL, `last_editor` varchar(32), `edits` text, PRIMARY KEY (`id`))
-
+```
 Remember to add prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -790,9 +798,9 @@ Remember to add prefix to the table name if you use them.
 7 July 2015, by MrStonedOne
 
 Removed the privacy poll and related table. Existing codebases may safely delete the privacy table after updating:
-
+```sql
 DROP TABLE `privacy`;
-
+```
 --------------------------------------------------
 
 19 May 2015, by Jordie0608
@@ -800,9 +808,9 @@ DROP TABLE `privacy`;
 Added new table 'watch' for use in flagging ckeys. It shouldn't ever exist, but also added command to de-erroize this new table just in case someone does make it like that.
 
 To create this new table run the following command:
-
+```sql
 CREATE TABLE `watch` (`id` int(11) NOT NULL AUTO_INCREMENT, `ckey` varchar(32) NOT NULL, `reason` text NOT NULL, PRIMARY KEY (`id`))
-
+```
 Remember to add prefix to the table name if you use them.
 
 ----------------------------------------------------
@@ -824,9 +832,9 @@ If you have an existing database, and you want to rid your database of erros, yo
 The column 'deleted' was added to the erro_library table. If set to anything other than null, the book is interpreted as deleted.
 
 To update your database, execute the following code in phpmyadmin, mysql workbench or whatever program you use:
-
+```sql
 ALTER TABLE erro_library ADD COLUMN deleted TINYINT(1) NULL DEFAULT NULL  AFTER datetime;
-
+```
 If you want to 'soft delete' a book (meaning it remains in the library, but isn't viewable by players), set the value in the 'deleted' column for the row to 1. To undelete, set it back to null. If you're making an admin tool to work with this, execute the following SQL statement to soft-delete the book with id someid:
 
 UPDATE erro_library SET deleted = 1 WHERE id = someid
