@@ -83,6 +83,18 @@
 	icon_state = "letterman_n"
 	item_state = "letterman_n"
 
+/obj/item/clothing/suit/jacket/kim
+	name = "Liutenant jacket"
+	desc = "An orange jacket that belonged to a liutenant."
+	icon_state = "kim"
+	item_state = "kim"
+
+/obj/item/clothing/suit/jacket/kaneda
+	name = "Biker jacket"
+	desc = "Good for health. Bad for eduaciton."
+	icon_state = "kaneda"
+	item_state = "kaneda"
+
 //Aristocrat coats
 
 /obj/item/clothing/suit/jacket/aristocrat
@@ -108,3 +120,4 @@
 	desc = "A fancy coat made of silk. This one is blue."
 	icon_state = "aristo_blue"
 	item_state = "aristo_blue"
+
