@@ -8,19 +8,19 @@
 
 	vv_do_basic(target, href_list, href)
 	// for non-standard special list
-	if(href_list["special_owner"])
-		var/special_owner = locate(href_list["special_owner"])
-		if(!isdatum(special_owner))
+	if(href_list["dmlist_origin_ref"])
+		var/located = locate(href_list["dmlist_origin_ref"])
+		var/dmlist_varname = href_list["dmlist_varname"]
+		if(!isdatum(located) || !GLOB.vv_special_lists[dmlist_varname] || !(dmlist_varname in located:vars))
 			return
-		var/special_varname = href_list["special_varname"]
 		if(GET_VV_VAR_TARGET || href_list[VV_HK_DO_LIST_EDIT]) // if href_list["targetvar"] exists, we do vv_edit to list. if not, it's just viewing.
-			vv_do_list(special_owner:vars[special_varname], href_list)
-		GLOB.vv_ghost.mark_special(special_owner, special_varname)
+			vv_do_list(located:vars[dmlist_varname], href_list)
+		GLOB.vv_ghost.mark_special(href_list["dmlist_origin_ref"], dmlist_varname)
 		vv_refresh_target = GLOB.vv_ghost
 	// for standard /list
 	else if(islist(target))
 		vv_do_list(target, href_list)
-		GLOB.vv_ghost.mark_list_ref(target)
+		GLOB.vv_ghost.mark_list(target)
 		vv_refresh_target = GLOB.vv_ghost
 	// for standard /datum
 	else if(istype(target, /datum))
@@ -30,8 +30,7 @@
 	// if there is no `href_list["target"]`, we check `href_list["Vars"]` to see if we want see it
 	if(!target && !vv_refresh_target)
 		vv_refresh_target = locate(href_list["Vars"])
-		// href key as "Vars" means we want to view-variables this thing.
-		// ...Whoever named that, it is really a bad naming. Who'd think "Vars" means trying view-variable? Enbrace it.
+		// "Vars" means we want to view-variables this thing.
 
 	if(vv_refresh_target)
 		debug_variables(vv_refresh_target)

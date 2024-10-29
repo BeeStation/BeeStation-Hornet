@@ -19,15 +19,18 @@
 
 	// vv_ghost part. exotique abyss code
 	var/static/datum/vv_ghost/vv_spectre = new() /// internal purpose
-	var/special_list_level /// protected level of special list
+	var/special_list_secure_level /// protected level of special list
 	var/is_vv_readonly /// checks if the special list is not vv editable, as read-only
 	if(thing == GLOB.vv_ghost)
-		if(GLOB.vv_ghost.special_owner)
+		if(GLOB.vv_ghost.dmlist_origin_ref)
 			thing = vv_spectre.deliver_special()
-			special_list_level = GLOB.vv_special_lists[vv_spectre.special_varname]
-			is_vv_readonly = (special_list_level && (special_list_level != VV_LIST_EDITABLE)) ? VV_READ_ONLY : null
-		else if(GLOB.vv_ghost.list_ref)
-			thing = vv_spectre.deliver_list_ref()
+			special_list_secure_level = GLOB.vv_special_lists[vv_spectre.dmlist_varname]
+			if(special_list_secure_level == VV_LIST_PROTECTED) // investigating this is not recommended. force return.
+				vv_spectre.reset()
+				return
+			is_vv_readonly = (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY)) ? VV_READ_ONLY : null
+		else if(GLOB.vv_ghost.list_holder)
+			thing = vv_spectre.deliver_list()
 		else
 			return // vv_ghost is not meant to be vv'ed
 
@@ -43,7 +46,7 @@
 	var/hash
 
 	var/type = \
-		vv_spectre.special_varname ? "/special_list ([vv_spectre.special_varname])" \
+		vv_spectre.dmlist_varname ? "/special_list ([vv_spectre.dmlist_varname])" \
 		: islist ? /list \
 		: isappearance ? "/appearance" \
 		: thing.type
@@ -105,19 +108,19 @@
 
 	// Builds a menu of dropdown-options
 	var/list/dropdownoptions
-	if (islist || special_list_level)
+	if (islist || special_list_secure_level)
 		if(is_vv_readonly) // vv_ghost thing. I know this is cringe
 			dropdownoptions = list(
 				"---",
-				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_EXPOSE, vv_spectre.special_varname),
+				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_EXPOSE, vv_spectre.dmlist_varname),
 				"---"
 			)
-		else if(special_list_level) // another vv_ghost thing
+		else if(special_list_secure_level) // another vv_ghost thing
 			dropdownoptions = list(
 				"---",
-				"Add Item" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ADD, vv_spectre.special_varname),
-				"Remove Nulls" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_LIST_ERASE_NULLS, vv_spectre.special_varname),
-				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.special_owner, VV_HK_EXPOSE, vv_spectre.special_varname),
+				"Add Item" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_LIST_ADD, vv_spectre.dmlist_varname),
+				"Remove Nulls" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_LIST_ERASE_NULLS, vv_spectre.dmlist_varname),
+				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_EXPOSE, vv_spectre.dmlist_varname),
 				"---"
 			)
 		else // standard dropdown options for sane /list
@@ -152,15 +155,15 @@
 	sleep(1 TICKS)
 
 	var/list/variable_html = list()
-	if(islist || special_list_level)
+	if(islist || special_list_secure_level)
 		var/list/list_value = thing
 		for(var/i in 1 to list_value.len)
 			var/key = list_value[i]
 			var/value
 			if(IS_NORMAL_LIST(list_value) && IS_VALID_ASSOC_KEY(key))
 				value = list_value[key]
-			variable_html += debug_variable(i, value, 0, special_list_level ? vv_spectre : thing, display_flags = is_vv_readonly)
-			// special_list_level exists? We send vv_ghost instead. debug_variable will handle the vv_ghost different... hehe, hell.
+			variable_html += debug_variable(i, value, 0, special_list_secure_level ? vv_spectre : thing, display_flags = is_vv_readonly)
+			// special_list_secure_level exists? We send vv_ghost instead. debug_variable will handle the vv_ghost different... hehe, hell.
 	else if(isappearance)
 		names = sort_list(names)
 		for(var/varname in names)
@@ -172,11 +175,11 @@
 				variable_html += thing.vv_get_var(varname)
 
 	// href key "Vars" only does refreshing. I hate that name because it's contextless.
-	// "special_owner" and "special_varname" must exist at the same time, to access a special list directly, because such special list is not possible to be accessed through locate(refID)
+	// "dmlist_origin_ref" and "dmlist_varname" must exist at the same time, to access a special list directly, because such special list is not possible to be accessed through locate(refID)
 	// For example, you can't access /client/images internal variable by 'locate(that_client_images_list_ref)'. Yes, This sucks
 	var/refresh_link = \
-		vv_spectre.special_varname \
-		? "<a id='refresh_link' href='?_src_=vars;[HrefToken()];special_owner=[vv_spectre.special_owner];special_varname=[vv_spectre.special_varname]'>Refresh</a>" \
+		vv_spectre.dmlist_varname \
+		? "<a id='refresh_link' href='?_src_=vars;[HrefToken()];dmlist_origin_ref=[vv_spectre.dmlist_origin_ref];dmlist_varname=[vv_spectre.dmlist_varname]'>Refresh</a>" \
 		: "<a id='refresh_link' href='?_src_=vars;[HrefToken()];Vars=[refid]'>Refresh</a>"
 
 	var/html = {"

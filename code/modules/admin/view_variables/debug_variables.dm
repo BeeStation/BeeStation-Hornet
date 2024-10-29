@@ -12,7 +12,7 @@
 			vv_spectre = owner
 		if(islist(owner) || vv_spectre)
 			index = name
-			owner_list = vv_spectre?.special_ref || owner
+			owner_list = vv_spectre?.dmlist_holder || owner
 			if (value)
 				name = owner_list[name] //name is really the index until this line
 			else
@@ -22,11 +22,15 @@
 	if(CHECK_BITFIELD(display_flags, VV_READ_ONLY))
 		. = "<li style='backgroundColor:white'>(READ ONLY) "
 	else if(vv_spectre)
-		. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_EDIT, "E", index, vv_spectre.special_varname)]) ([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_CHANGE, "C", index, vv_spectre.special_varname)]) ([VV_HREF_SPECIAL(vv_spectre.special_owner, VV_HK_LIST_REMOVE, "-", index, vv_spectre.special_varname)]) "
+		. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_EDIT, "E", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_CHANGE, "C", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_REMOVE, "-", index, vv_spectre.dmlist_varname)]) "
 	else if(owner_list)
 		. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
 	else if(owner)
-		. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
+		var/special_list_secure_level = istext(name) ? GLOB.vv_special_lists[name] : null
+		if(special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
+			. = "<li style='backgroundColor:white'>(READ ONLY) "
+		else
+			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
 	else
 		. = "<li>"
 
@@ -72,9 +76,12 @@
 		var/image/image = value
 		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] (<span class='value'>[get_appearance_vv_summary_name(image)]</span>) [REF(value)]</a>"
 
+	// fun fact: there are two types of /filters. `/filters(/filters(), /filters(), ...)`
+	// isfilter() doesn't know if it's a parent filter(that has [/filters]s inside of itself), or a child filter
 	var/isfilter = isfilter(value)
-	if(isfilter && !isdatum(owner) && !isappearance(owner)) // each filter in atom.filters
-		return "/[value] (<span class='value'>[value:type]</span>)"
+	var/is_child_filter = isfilter && !isdatum(owner) && !isappearance(owner) // 'child_filter' means each /filters in /atom.filters
+	if(is_child_filter)
+		return "/filters\[child\] (<span class='value'>[value:type]</span>)"
 
 	if(isfile(value))
 		return "<span class='value'>'[value]'</span>"
@@ -83,31 +90,37 @@
 		var/datum/datum_value = value
 		return datum_value.debug_variable_value(name, level, owner, sanitize, display_flags)
 
-	// list debug
-	var/special_list_level = (istext(name) && isdatum(owner)) ? GLOB.vv_special_lists[name] : null
-	if(islist(value) || special_list_level) // Some special lists arent detectable as a list through istype
+	var/special_list_secure_level = (istext(name) && isdatum(owner)) ? GLOB.vv_special_lists[name] : null
+	var/islist = islist(value) || special_list_secure_level
+	if(islist)
 		var/list/list_value = value
-		var/list/items = list()
 
-		// Saves a list name format
-		var/list_name
-		if(isnull(special_list_level))
-			list_name = "list"
-		else if(isfilter)
-			list_name = "[value]"
+		var/list_type = \
+			isfilter ? "/filters\[parent\]" \
+			: special_list_secure_level ? "/special_list" \
+			: /list
+
+		// Hyperlink to open a /list window.
+		var/a_open = null
+		var/a_close = null
+
+		// some /list instance is dangerous to open.
+
+		var/can_open_list_window = !( (special_list_secure_level == VV_LIST_PROTECTED) || isappearance(owner) )
+		if(can_open_list_window)
+			var/href_list_reference = \
+				special_list_secure_level \
+				? "dmlist_origin_ref=[REF(owner)];dmlist_varname=[name]" \
+				: "Vars=[REF(value)]"
+			a_open = "<a href='?_src_=vars;[HrefToken()];[href_list_reference]'>"
+			a_close = "</a>"
+
+		var/should_fold_list_items = (display_flags & VV_ALWAYS_CONTRACT_LIST) || length(list_value) > VV_BIG_SIZED_LIST_THRESHOLD
+		if(can_open_list_window && should_fold_list_items)
+			return "[a_open][list_type] ([length(list_value)])[a_close]"
 		else
-			list_name = "special_list"
-
-		// checks if a list is safe to open. Some special list does very weird thing
-		var/is_unsafe_list = (special_list_level == VV_LIST_PROTECTED) || isappearance(owner)
-		// This is becuse some lists either dont count as lists or a locate on their ref will return null
-		var/link_vars = is_unsafe_list ? null : (special_list_level ? "special_owner=[REF(owner)];special_varname=[name]" : "Vars=[REF(value)]")
-		// do not make a href hyperlink to open a list if it's not safe. filters aren't recommended to open
-		var/a_open = is_unsafe_list ? null : "<a href='?_src_=vars;[HrefToken()];[link_vars]'>"
-		var/a_close = is_unsafe_list ? null : "</a>"
-
-		// Checks if it's too big to open, so it's gonna be folded, or not. If is_unsafe_list, it's always unfolded.
-		if (!(display_flags & VV_ALWAYS_CONTRACT_LIST) && length(list_value) > 0 && length(list_value) <= (IS_NORMAL_LIST(list_value) ? VV_NORMAL_LIST_NO_EXPAND_THRESHOLD : VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD) || is_unsafe_list)
+			var/flag = (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY)) ? VV_READ_ONLY : null
+			var/list/items = list()
 			for (var/i in 1 to length(list_value))
 				var/key = list_value[i]
 				var/val
@@ -117,11 +130,9 @@
 					val = key
 					key = i
 
-				items += debug_variable(key, val, level + 1, sanitize = sanitize)
+				items += debug_variable(key, val, level + 1, sanitize = sanitize, display_flags = flag)
 
-			return "[a_open]/[list_name] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
-		else
-			return "[a_open]/[list_name] ([length(list_value)])[a_close]"
+			return "[a_open][list_type] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
 
 	if(name in GLOB.bitfields)
 		var/list/flags = list()
