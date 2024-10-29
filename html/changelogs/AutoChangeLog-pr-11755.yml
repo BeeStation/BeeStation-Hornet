@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - config: Database version is now 7.3
