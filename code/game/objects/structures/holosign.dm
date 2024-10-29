@@ -240,7 +240,7 @@
 	if(shockcd)
 		return
 
-    if(!isliving(victim))
+	if(!isliving(victim))
 		return
 
 	var/mob/living/living_victim = victim
