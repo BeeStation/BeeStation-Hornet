@@ -18188,9 +18188,6 @@
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "fLv" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -29360,9 +29357,6 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "jnI" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -34154,9 +34148,6 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "kSq" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -41619,9 +41610,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "niw" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -43255,7 +43243,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "nLX" = (
-/obj/machinery/gateway,
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/gateway)
@@ -66754,9 +66741,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "vAy" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -66779,8 +66763,8 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "vAQ" = (
-/obj/machinery/gateway/centerstation,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/gateway/station,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "vAR" = (
@@ -72190,9 +72174,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "xrR" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/camera/directional/west,
 /turf/open/floor/circuit,
 /area/gateway)
@@ -73065,9 +73046,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "xGI" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /turf/open/floor/circuit,
 /area/gateway)
 "xGR" = (

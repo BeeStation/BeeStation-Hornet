@@ -857,9 +857,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "alz" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
@@ -8698,9 +8695,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hos)
 "bRl" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /turf/open/floor/engine,
 /area/gateway)
 "bRn" = (
@@ -18433,9 +18427,6 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "ece" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -19292,7 +19283,7 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "euh" = (
-/obj/machinery/gateway/centerstation,
+/obj/machinery/gateway/station,
 /turf/open/floor/engine,
 /area/gateway)
 "euG" = (
@@ -22276,7 +22267,6 @@
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "fDu" = (
-/obj/machinery/gateway,
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/turf_decal/box,
 /turf/open/floor/engine,
@@ -33955,12 +33945,6 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
-"kka" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/gateway)
 "kll" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -52732,9 +52716,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "rNx" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54890,9 +54871,6 @@
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
 "sHc" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -60040,9 +60018,6 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "uIS" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -95452,7 +95427,7 @@ wkt
 bCs
 aaa
 ayG
-kka
+bRl
 euh
 fDu
 eFM

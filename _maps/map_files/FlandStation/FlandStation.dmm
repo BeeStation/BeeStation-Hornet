@@ -3403,14 +3403,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"aPj" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/gateway)
 "aPp" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/closed/wall,
@@ -18768,9 +18760,6 @@
 /turf/open/floor/iron/dark,
 /area/library/lounge)
 "eSm" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light{
 	dir = 1
@@ -22044,9 +22033,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "fHg" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -28530,7 +28516,7 @@
 /turf/closed/wall,
 /area/vacant_room/commissary/commissary1)
 "hpY" = (
-/obj/machinery/gateway/centerstation,
+/obj/machinery/gateway/station,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "hpZ" = (
@@ -31316,9 +31302,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "ibK" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -36564,9 +36547,6 @@
 /turf/open/floor/engine,
 /area/science/storage)
 "jui" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners,
@@ -65146,9 +65126,6 @@
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "qOh" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -68604,9 +68581,6 @@
 /turf/open/floor/iron,
 /area/maintenance/disposal)
 "rIw" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -68987,7 +68961,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "rML" = (
-/obj/machinery/gateway,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
@@ -114099,7 +114072,7 @@ nnx
 csJ
 vDW
 fHg
-aPj
+qOh
 jui
 aKC
 qfK

@@ -12874,7 +12874,7 @@
 /turf/open/floor/plating,
 /area/gateway)
 "bLE" = (
-/obj/machinery/gateway/centerstation,
+/obj/machinery/gateway/station,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "bLG" = (
@@ -22321,9 +22321,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "dtL" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -25571,14 +25568,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
-"eGM" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/gateway)
 "eGR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -33061,9 +33050,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "hAT" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -47496,9 +47482,6 @@
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
 "mQd" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -50024,9 +50007,6 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "nOg" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -55308,7 +55288,6 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/tcommsat/server)
 "pKj" = (
-/obj/machinery/gateway,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -65609,9 +65588,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "tta" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners,
@@ -66787,9 +66763,6 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "tOn" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -110501,7 +110474,7 @@ lKt
 igA
 bGM
 hAT
-eGM
+dtL
 tta
 kHk
 bQw

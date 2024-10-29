@@ -438,9 +438,6 @@
 /turf/open/floor/iron,
 /area/janitor)
 "akD" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -5823,9 +5820,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "cDH" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/circuit,
@@ -7511,9 +7505,6 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/quartermaster/storage)
 "dzu" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -8918,9 +8909,6 @@
 /turf/open/openspace,
 /area/maintenance/department/chapel)
 "eiO" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -22157,8 +22145,8 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/warehouse)
 "kYW" = (
-/obj/machinery/gateway/centerstation,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/gateway/station,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "kZz" = (
@@ -25083,9 +25071,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "mzX" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -34642,9 +34627,6 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "rlC" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -41376,7 +41358,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "uGD" = (
-/obj/machinery/gateway,
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/gateway)
@@ -48024,9 +48005,6 @@
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "xVa" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},

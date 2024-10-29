@@ -73,8 +73,6 @@
 	if(.)
 		return
 
-	if(!centerpiece)
-		return FALSE
 	if(linked_gateway)
 		user.abstract_move(get_turf(linked_gateway))
 		return TRUE

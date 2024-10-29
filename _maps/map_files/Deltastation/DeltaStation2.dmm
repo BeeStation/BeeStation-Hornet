@@ -44827,7 +44827,6 @@
 /turf/open/floor/glass/reinforced,
 /area/hallway/secondary/entry)
 "ilM" = (
-/obj/machinery/gateway,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box,
@@ -55222,9 +55221,6 @@
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "lMi" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -55367,8 +55363,8 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "lOl" = (
-/obj/machinery/gateway/centerstation,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/gateway/station,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "lOn" = (
@@ -56095,9 +56091,6 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "lYP" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/east{
 	c_tag = "Bridge - Gateway Chamber";
@@ -61556,9 +61549,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "nHQ" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -65261,15 +65251,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/surgery)
-"oTV" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/gateway)
 "oUc" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -72367,9 +72348,6 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "riC" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -94275,9 +94253,6 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "xVd" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -94509,9 +94484,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "xXV" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -138201,7 +138173,7 @@ jBK
 cvE
 cvz
 lMi
-oTV
+riC
 lYP
 cDm
 cFa

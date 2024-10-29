@@ -1961,9 +1961,6 @@
 /turf/open/floor/plating/lavaland,
 /area/mine/laborcamp)
 "nb" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -2208,9 +2205,6 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "pr" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -2691,9 +2685,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
 "sQ" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -2875,7 +2866,7 @@
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "uw" = (
-/obj/machinery/gateway/centeraway/mining,
+/obj/machinery/gateway/away,
 /turf/open/floor/iron/dark,
 /area/mine/gateway)
 "uA" = (
@@ -3499,9 +3490,6 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "zx" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners{
@@ -3692,14 +3680,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/mine/science)
-"AY" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "Ba" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -5012,9 +4992,6 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "JP" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/corners,
@@ -5442,7 +5419,6 @@
 /turf/open/floor/iron,
 /area/mine/science)
 "Nj" = (
-/obj/machinery/gateway,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
@@ -5512,14 +5488,6 @@
 	},
 /turf/open/floor/iron/checker,
 /area/mine/production)
-"NJ" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/mine/gateway)
 "NL" = (
 /obj/machinery/button/door{
 	id = "miningdorm1";
@@ -37295,7 +37263,7 @@ Bq
 Bq
 tI
 lf
-NJ
+sQ
 uw
 Nj
 Ku
@@ -37553,7 +37521,7 @@ Zd
 yP
 ka
 pr
-AY
+sQ
 JP
 ue
 aW
