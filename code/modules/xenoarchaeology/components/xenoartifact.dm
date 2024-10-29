@@ -71,7 +71,7 @@
 	build_material_appearance()
 
 	//Populate priotity list
-	for(var/i in SSxenoarchaeology.xenoartifact_trait_priorities)
+	for(var/i in SSxenoarchaeology.xenoartifact_trait_category_priorities)
 		artifact_traits[i] = list()
 
 	//If we're force-generating traits
@@ -137,7 +137,7 @@
 	if(play_hint_sound)
 		playsound(get_turf(parent), 'sound/magic/blink.ogg', 50, TRUE)
 	//Trait triggers
-	for(var/i in SSxenoarchaeology.xenoartifact_trait_priorities)
+	for(var/i in SSxenoarchaeology.xenoartifact_trait_category_priorities)
 		SEND_SIGNAL(src, COMSIG_XENOA_TRIGGER, i)
 	//Malfunctions
 	if(!calibrated)

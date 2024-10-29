@@ -72,6 +72,7 @@
 		/obj/item/stack/ore/bluespace_crystal = 5,
 		/obj/item/stock_parts/matter_bin = 1)
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 	Scale, measures artifact weight
 */
@@ -122,6 +123,7 @@
 	icon_state = "science"
 	build_path = /obj/machinery/xenoarchaeology_machine/scale
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 	Conductor, measures artifact conductivty
 */
@@ -172,6 +174,7 @@
 	icon_state = "science"
 	build_path = /obj/machinery/xenoarchaeology_machine/conductor
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 	Calibrator, calibrates artifacts
 */

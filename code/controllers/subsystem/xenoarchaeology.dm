@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	var/list/xenoartifact_material_weights = list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1)
 
 	///Trait priority list - The order is important and it represents priotity
-	var/list/xenoartifact_trait_priorities = list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR)
+	var/list/xenoartifact_trait_category_priorities = list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR)
 
 	///List of 'discovered' traits
 	var/list/discovered_traits = list()
