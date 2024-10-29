@@ -9,9 +9,8 @@
 ## Examples: localhost, 200.135.5.43, www.mysqldb.com, etc.
 ADDRESS localhost
 
-## MySQL server port (default is 3306).
+## MySQL server port (default is 3306) (Change to 1338 as a default when using EZDB).
 PORT 3306
-
 ## Database for all SQL functions, not just feedback.
 FEEDBACK_DATABASE ss13beedb
 
