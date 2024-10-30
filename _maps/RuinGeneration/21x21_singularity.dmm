@@ -22,7 +22,6 @@
 /turf/open/floor/iron,
 /area/ruin)
 "l" = (
-/obj/machinery/the_singularitygen,
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
@@ -30,7 +29,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/tesla_coil/power/anchored,
 /turf/open/floor/iron,
 /area/ruin)
 "q" = (
