@@ -22,7 +22,6 @@
 	var/light_power = 0
 	var/list/obelisks = list()
 	var/faithful_used = FALSE
-	var/murder = FALSE
 	var/min_summon = 3
 	var/max_summon = 3
 
@@ -45,10 +44,8 @@
 
 /datum/religion_sect/shadow_sect/on_select(atom/religious_tool, mob/living/user)
 	. = ..()
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!religious_tool || !user)
 		return
-	sect.murder = user.mind.is_murderbone()
 	religious_tool.AddComponent(/datum/component/dark_favor, user)
 
 /datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
@@ -371,7 +368,6 @@
 		to_chat(user,"<span class='warning'>This rite has already been used, your favor has been refuned.</span>")
 		GLOB.religious_sect?.adjust_favor(favor_cost, user)
 		return ..()
-	sect.murder = user.mind.is_murderbone() || sect.murder
 	sect.faithful_used = TRUE
 	var/altar_turf = get_turf(religious_tool)
 	var/obj/structure/destructible/religion/shadow_obelisk/lisk = new(altar_turf)
@@ -379,18 +375,18 @@
 	lisk.AddComponent(/datum/component/dark_favor, user)
 	lisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
-	if(sect.murder)
+	if(user.mind.is_murderbone())
 		priority_announce("May our lord, [GLOB.deity], have mercy on your soul as darkness reigns apon you all.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
 	else
 		priority_announce("May our lord, [GLOB.deity], bless all the shadows as darkness heals those who worship the night.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
-	addtimer(CALLBACK(lisk, TYPE_PROC_REF(/obj/structure/destructible/religion/shadow_obelisk, final_darkness_activate)), 250)
+	addtimer(CALLBACK(lisk, TYPE_PROC_REF(/obj/structure/destructible/religion/shadow_obelisk, final_darkness_activate), user), 250)
 
-/obj/structure/destructible/religion/shadow_obelisk/proc/final_darkness_activate()
+/obj/structure/destructible/religion/shadow_obelisk/proc/final_darkness_activate(mob/living/user)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/list/candidates = poll_ghost_candidates("Do you wish to be summoned as a Shadow Faithful?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYUNDEAD)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
 		START_PROCESSING(SSobj, obs)
-		if(!sect.murder)
+		if(!user.mind.is_murderbone())
 			playsound(obs, 'sound/magic/fireball.ogg', 50, TRUE)
 			return
 		var/obelisk_turf = get_turf(obs)
