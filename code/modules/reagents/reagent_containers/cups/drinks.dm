@@ -292,6 +292,17 @@
 	list_reagents = list()
 	cap_on = FALSE
 
+// Admin spawn
+/obj/item/reagent_containers/cup/glass/waterbottle/random
+	name = "mysterious bottle"
+	desc = "A bottle quite similar to a water bottle, with some faded words scribbled on with a marker. It seems to be radiating some kind of energy."
+	flip_chance = 100 // FLIPP
+	list_reagents = list()
+
+/obj/item/reagent_containers/cup/glass/waterbottle/random/Initialize(mapload)
+	list_reagents = list(get_random_reagent_id(CHEMICAL_RNG_FUN) = 50)
+	. = ..()
+
 /obj/item/reagent_containers/cup/glass/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
