@@ -90,8 +90,3 @@
 
 	return FALSE
 
-var/thing1
-var/obj/thing2 = thing1
-
-
-
