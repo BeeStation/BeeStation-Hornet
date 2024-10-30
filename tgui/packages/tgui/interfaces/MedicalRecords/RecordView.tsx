@@ -20,7 +20,7 @@ export const MedicalRecordView = (props, context) => {
   const {
     age,
     blood_type,
-    crew_ref,
+    record_ref,
     dna,
     gender,
     major_disabilities,
@@ -55,7 +55,7 @@ export const MedicalRecordView = (props, context) => {
             <Button.Confirm
               content="Delete"
               icon="trash"
-              onClick={() => act('expunge_record', { crew_ref: crew_ref })}
+              onClick={() => act('expunge_record', { record_ref: record_ref })}
               tooltip="Expunge record data."
             />
           }
@@ -65,10 +65,10 @@ export const MedicalRecordView = (props, context) => {
           wrap>
           <LabeledList>
             <LabeledList.Item label="Name">
-              <EditableText field="name" target_ref={crew_ref} text={name} />
+              <EditableText field="name" target_ref={record_ref} text={name} />
             </LabeledList.Item>
             <LabeledList.Item label="Job">
-              <EditableText field="job" target_ref={crew_ref} text={rank} />
+              <EditableText field="job" target_ref={record_ref} text={rank} />
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <RestrictedInput
@@ -77,7 +77,7 @@ export const MedicalRecordView = (props, context) => {
                 onEnter={(event, value) =>
                   act('edit_field', {
                     field: 'age',
-                    ref: crew_ref,
+                    ref: record_ref,
                     value: value,
                   })
                 }
@@ -85,16 +85,16 @@ export const MedicalRecordView = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText field="species" target_ref={crew_ref} text={species} />
+              <EditableText field="species" target_ref={record_ref} text={species} />
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText field="gender" target_ref={crew_ref} text={gender} />
+              <EditableText field="gender" target_ref={record_ref} text={gender} />
             </LabeledList.Item>
             <LabeledList.Item label="DNA">
-              <EditableText color="good" field="dna" target_ref={crew_ref} text={dna} />
+              <EditableText color="good" field="dna" target_ref={record_ref} text={dna} />
             </LabeledList.Item>
             <LabeledList.Item color="bad" label="Blood Type">
-              <EditableText field="blood_type" target_ref={crew_ref} text={blood_type} />
+              <EditableText field="blood_type" target_ref={record_ref} text={blood_type} />
             </LabeledList.Item>
             <LabeledList.Item
               buttons={physical_statuses.map((button, index) => {
@@ -107,7 +107,7 @@ export const MedicalRecordView = (props, context) => {
                     key={index}
                     onClick={() =>
                       act('set_physical_status', {
-                        crew_ref: crew_ref,
+                        record_ref: record_ref,
                         physical_status: button,
                       })
                     }
@@ -133,7 +133,7 @@ export const MedicalRecordView = (props, context) => {
                     key={index}
                     onClick={() =>
                       act('set_mental_status', {
-                        crew_ref: crew_ref,
+                        record_ref: record_ref,
                         mental_status: button,
                       })
                     }

@@ -12,7 +12,7 @@ export const getMedicalRecord = (context) => {
   if (!selectedRecord) return;
   const { data } = useBackend<MedicalRecordData>(context);
   const { records = [] } = data;
-  const foundRecord = records.find((record) => record.crew_ref === selectedRecord.crew_ref);
+  const foundRecord = records.find((record) => record.record_ref === selectedRecord.record_ref);
   if (!foundRecord) return;
 
   return foundRecord;

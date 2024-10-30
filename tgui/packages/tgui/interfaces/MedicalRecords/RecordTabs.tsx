@@ -62,15 +62,15 @@ const CrewTab = (props: { record: MedicalRecord }, context) => {
   const { act, data } = useBackend<MedicalRecordData>(context);
   const { character_preview_view } = data;
   const { record } = props;
-  const { crew_ref, name, rank } = record;
+  const { record_ref, name, rank } = record;
 
   /** Sets the record to preview */
   const selectRecord = (record: MedicalRecord) => {
-    if (selectedRecord?.crew_ref === crew_ref) {
+    if (selectedRecord?.record_ref === record_ref) {
       setSelectedRecord(undefined);
     } else {
       setSelectedRecord(record);
-      act('view_record', { character_preview_view: character_preview_view, crew_ref: crew_ref });
+      act('view_record', { character_preview_view: character_preview_view, record_ref: record_ref });
     }
   };
 
@@ -79,7 +79,7 @@ const CrewTab = (props: { record: MedicalRecord }, context) => {
       className="candystripe"
       label={name}
       onClick={() => selectRecord(record)}
-      selected={selectedRecord?.crew_ref === crew_ref}>
+      selected={selectedRecord?.record_ref === record_ref}>
       <Box wrap>
         <Icon name={JOB2ICON[rank] || 'question'} /> {name}
       </Box>

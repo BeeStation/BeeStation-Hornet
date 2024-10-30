@@ -8,7 +8,7 @@ export const RecordPrint = (props, context) => {
   const foundRecord = getSecurityRecord(context);
   if (!foundRecord) return <> </>;
 
-  const { crew_ref, crimes, name } = foundRecord;
+  const { record_ref, crimes, name } = foundRecord;
   const innocent = !crimes?.length;
   const { act } = useBackend<SecurityRecordsData>(context);
 
@@ -23,7 +23,7 @@ export const RecordPrint = (props, context) => {
   const printSheet = () => {
     act('print_record', {
       alias: alias,
-      crew_ref: crew_ref,
+      record_ref: record_ref,
       desc: description,
       head: header,
       type: printType,

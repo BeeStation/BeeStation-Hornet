@@ -10,7 +10,7 @@ export const NoteKeeper = (props, context) => {
   if (!foundRecord) return <> </>;
 
   const { act } = useBackend<MedicalRecordData>(context);
-  const { crew_ref } = foundRecord;
+  const { record_ref } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<MedicalNote | undefined>(context, 'selectedNote', undefined);
 
@@ -18,7 +18,7 @@ export const NoteKeeper = (props, context) => {
 
   const addNote = (event, value: string) => {
     act('add_note', {
-      crew_ref: crew_ref,
+      record_ref: record_ref,
       content: value,
     });
     setWriting(false);
@@ -27,7 +27,7 @@ export const NoteKeeper = (props, context) => {
   const deleteNote = () => {
     if (!selectedNote) return;
     act('delete_note', {
-      crew_ref: crew_ref,
+      record_ref: record_ref,
       note_ref: selectedNote.note_ref,
     });
     setSelectedNote(undefined);

@@ -69,19 +69,19 @@ const CrewTab = (props: { record: SecurityRecord }, context) => {
   const { act, data } = useBackend<SecurityRecordsData>(context);
   const { character_preview_view } = data;
   const { record } = props;
-  const { crew_ref, name, rank, wanted_status } = record;
+  const { record_ref, name, rank, wanted_status } = record;
 
   /** Chooses a record */
   const selectRecord = (record: SecurityRecord) => {
-    if (selectedRecord?.crew_ref === crew_ref) {
+    if (selectedRecord?.record_ref === record_ref) {
       setSelectedRecord(undefined);
     } else {
       setSelectedRecord(record);
-      act('view_record', { character_preview_view: character_preview_view, crew_ref: crew_ref });
+      act('view_record', { character_preview_view: character_preview_view, record_ref: record_ref });
     }
   };
 
-  const isSelected = selectedRecord?.crew_ref === crew_ref;
+  const isSelected = selectedRecord?.record_ref === record_ref;
 
   return (
     <Tabs.Tab className="candystripe" label={record.name} onClick={() => selectRecord(record)} selected={isSelected}>
