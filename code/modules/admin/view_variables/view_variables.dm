@@ -52,7 +52,7 @@
 
 	// ------------------------------------------------------
 	// Sets which style this proc will use for how output date should be written
-	var/read_only_special_list = (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY)) ? VV_READ_ONLY : null
+	var/read_only_special_list = (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
 	var/debug_output_style = \
 		isappearance ? STYLE_APPEARANCE \
 		: read_only_special_list ? STYLE_READ_ONLY_LIST \
@@ -110,7 +110,7 @@
 	var/title = ""
 	var/refid = REF(thing)
 
-	title = "[thing] ([REF(thing)]) = [type]"
+	title = "[thing] ([refid]) = [type]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 	var/ref_line = "@[copytext(refid, 2, -1)]" // get rid of the brackets, add a @ prefix for copy pasting in asay
 
@@ -178,12 +178,13 @@
 				"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
 				"---"
 			)
+	// finalise dropdown options for /list
 	if(islist)
 		for(var/idx in 1 to length(dropdownoptions))
-			var/key_name = dropdownoptions[idx]
-			var/href_item = dropdownoptions[key]
-			var/href_string = href_item	? "value='[href_item]'" : null
-			dropdownoptions[idx] = "<option [href_string]>[key_name]</option>"
+			var/assoc_key = dropdownoptions[idx]
+			var/assoc_val = dropdownoptions[assoc_key]
+			var/href_string = assoc_val ? "value='[assoc_val]'" : null
+			dropdownoptions[idx] = "<option [href_string]>[assoc_key]</option>"
 
 
 	// ------------------------------------------------------
@@ -212,14 +213,17 @@
 			for(var/each_varname in varname_list)
 				variable_html += debug_variable_appearance(each_varname, thing)
 		if(STYLE_LIST, STYLE_SPECIAL_LIST, STYLE_READ_ONLY_LIST)
+			var/list_flags = (read_only_special_list ? VV_READ_ONLY : null)
+			// If TRUE, instead of sending actual '/special_list' instance, we send 'vv_spectre' which delegates that /special_list
+			var/should_delegate_list = (special_list_secure_level ? TRUE : FALSE)
+			
 			var/list/list_value = thing
 			for(var/i in 1 to list_value.len)
 				var/key = list_value[i]
 				var/value
 				if(IS_NORMAL_LIST(list_value) && IS_VALID_ASSOC_KEY(key))
 					value = list_value[key]
-				variable_html += debug_variable(i, value, 0, (special_list_secure_level ? vv_spectre : thing), display_flags = read_only_special_list)
-				// special_list_secure_level exists? We send vv_ghost instead. debug_variable will handle the vv_ghost different... hehe, hell.
+				variable_html += debug_variable(i, value, 0, (should_delegate_list ? vv_spectre : thing), display_flags = list_flags)
 
 	// ------------------------------------------------------
 	// Builds 'href string' based on the existence of 'vv_spectre' (which remembers actual refID of a special list)
