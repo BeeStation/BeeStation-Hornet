@@ -299,10 +299,10 @@
 	flip_chance = 100 // FLIPP
 
 /obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
+	. = ..()
 	var/reagent_id = get_random_reagent_id()
 	var/datum/reagent/random_reagent = new reagent_id
 	list_reagents = list(random_reagent.type = 50)
-	. = ..()
 	desc += "<span class='notice'>The writing reads '[random_reagent.name]'.</span>"
 	update_appearance()
 
