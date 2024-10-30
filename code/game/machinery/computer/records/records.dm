@@ -26,28 +26,28 @@
 
 	var/mob/user = ui.user
 
-	var/datum/record/crew/target
-	if(params["crew_ref"])
-		target = locate(params["crew_ref"]) in GLOB.manifest.general
+	var/datum/record/crew/target_record
+	if(params["record_ref"])
+		target_record = locate(params["record_ref"]) in GLOB.manifest.general
 
 	switch(action)
 		if("edit_field")
-			target = locate(params["ref"]) in GLOB.manifest.general
+			target_record = locate(params["record_ref"]) in GLOB.manifest.general
 			var/field = params["field"]
-			if(!field || !(field in target?.vars))
+			if(!field || !(field in target_record?.vars))
 				return FALSE
 
 			var/value = trim(params["value"], MAX_BROADCAST_LEN)
-			target.vars[field] = value || null
+			target_record.vars[field] = value || null
 
 			return TRUE
 
-		if("expunge_record")
-			if(!target)
+		if("anonymize_record")
+			if(!target_record)
 				return FALSE
 
-			expunge_record_info(target)
-			balloon_alert(user, "record expunged")
+			target_record.anonymize_record_info()
+			balloon_alert(user, "record anonymized")
 			playsound(src, 'sound/machines/terminal_eject.ogg', 70, TRUE)
 
 			return TRUE
@@ -70,7 +70,7 @@
 
 			if(do_after(user, 5 SECONDS))
 				for(var/datum/record/crew/entry in GLOB.manifest.general)
-					expunge_record_info(entry)
+					entry.delete_security_record()
 
 				update_all_security_huds()
 				balloon_alert(user, "records purged")
@@ -79,11 +79,11 @@
 			return TRUE
 
 		if("view_record")
-			if(!target)
+			if(!target_record)
 				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(user, params["character_preview_view"], target)
+			update_preview(user, params["character_preview_view"], target_record)
 			return TRUE
 
 	return FALSE
@@ -115,10 +115,6 @@
 		return
 
 	old_view.appearance = preview.appearance
-
-/// Expunges info from a record.
-/obj/machinery/computer/records/proc/expunge_record_info(datum/record/crew/target)
-	return
 
 /// Detects whether a user can use buttons on the machine
 /obj/machinery/computer/records/proc/has_auth(mob/user)

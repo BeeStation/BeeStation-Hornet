@@ -13,3 +13,11 @@
 	src.author = author
 	src.content = content
 	src.time = station_time_timestamp()
+
+/datum/medical_note/proc/get_info_list()
+	return list(
+			author = src.author,
+			content = src.content,
+			note_ref = FAST_REF(src),
+			time = src.time
+		)

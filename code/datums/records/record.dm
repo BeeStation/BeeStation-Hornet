@@ -1,3 +1,6 @@
+/// Editing this will cause UI issues.
+#define MAX_CRIME_NAME_LEN 24
+
 /**
  * Record datum. Used for crew records and admin locked records.
  */
@@ -131,14 +134,228 @@
 	QDEL_LAZYLIST(record_photos)
 	return ..()
 
+
+/datum/record/crew/proc/get_info_list()
+	var/list/list_of_medical_notes
+	for(var/datum/medical_note/medical_note in medical_notes)
+		list_of_medical_notes += medical_note.get_info_list()
+
+	return list(
+		age = src.age,
+		blood_type = src.blood_type,
+		record_ref = FAST_REF(src),
+		dna = src.dna_string,
+		gender = src.gender,
+		major_disabilities = src.major_disabilities_desc,
+		minor_disabilities = src.minor_disabilities_desc,
+		physical_status = src.physical_status,
+		mental_status = src.mental_status,
+		name = src.name,
+		quirk_notes = src.quirk_notes,
+		rank = src.rank,
+		species = src.species,
+		list_of_medical_notes
+		)
+
+
+/datum/record/crew/proc/add_medical_note(list/params)
+	if(!params["content"])
+		return FALSE
+	var/content = STRIP_HTML_FULL(params["content"], MAX_MESSAGE_LEN)
+
+	var/datum/medical_note/new_note = new(usr.name, content)
+	while(length(medical_notes) > 2)
+		medical_notes.Cut(1, 2)
+
+	medical_notes += new_note
+	return TRUE
+
+/datum/record/crew/proc/delete_medical_note(list/params)
+	var/datum/medical_note/old_note = locate(params["note_ref"]) in medical_notes
+	if(isnull(old_note))
+		return FALSE
+
+	medical_notes -= old_note
+	qdel(old_note)
+	return TRUE
+
+/datum/record/crew/proc/set_physical_status(list/params)
+	var/new_physical_status = params["physical_status"]
+	if(!new_physical_status || !(new_physical_status in PHYSICAL_STATUSES))
+		return FALSE
+
+	physical_status = new_physical_status
+	return TRUE
+
+/datum/record/crew/proc/set_mental_status(list/params)
+	var/new_mental_status = params["mental_status"]
+	if(!new_mental_status || !(new_mental_status in MENTAL_STATUSES))
+		return FALSE
+
+	mental_status = new_mental_status
+	return TRUE
+
+/// Deletes medical information from a record.
+/datum/record/crew/proc/anonymize_record_info()
+
+	age = 18
+	blood_type = pick(list("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"))
+	dna_string = "Unknown"
+	gender = "Unknown"
+	major_disabilities = ""
+	major_disabilities_desc = ""
+	medical_notes.Cut()
+	minor_disabilities = ""
+	minor_disabilities_desc = ""
+	physical_status = ""
+	mental_status = ""
+	name = "Unknown"
+	quirk_notes = ""
+	rank = "Unknown"
+	species = "Unknown"
+
+	return TRUE
+
+/// Voids crimes, or sets someone to discharged if they have none left.
+/datum/record/crew/proc/invalidate_crime(mob/user, list/params)
+	var/acquitted = TRUE
+	var/datum/crime_record/to_void = locate(params["crime_ref"]) in crimes
+	if(!to_void)
+		to_void = locate(params["crime_ref"]) in citations
+		// No need to change status after invalidatation of citation
+		acquitted = FALSE
+		if(!to_void)
+			return FALSE
+
+	if(user != to_void.author && !has_armory_access(user))
+		return FALSE
+
+	to_void.valid = FALSE
+	to_void.voider = user
+	user.investigate_log("[key_name(user)] has invalidated [name]'s crime: [to_void.name]", INVESTIGATE_RECORDS)
+
+	for(var/datum/crime_record/incident in crimes)
+		if(!incident.valid)
+			continue
+		acquitted = FALSE
+		break
+
+	if(acquitted)
+		wanted_status = WANTED_DISCHARGED
+		user.investigate_log("[key_name(user)] has invalidated [name]'s last valid crime. Their status is now [WANTED_DISCHARGED].", INVESTIGATE_RECORDS)
+
+	update_matching_security_huds(name)
+
+	return TRUE
+
+/// Deletes security information from a record.
+/datum/record/crew/proc/delete_security_record()
+	citations.Cut()
+	crimes.Cut()
+	security_note = "None."
+	wanted_status = WANTED_NONE
+	return TRUE
+
+/// Handles adding a crime to a particular record.
+/datum/record/crew/proc/add_crime(mob/user, list/params)
+	var/input_name = trim(params["name"], MAX_CRIME_NAME_LEN)
+	if(!input_name)
+		to_chat(user, "<span class='warning'>You must enter a name for the crime.</span>")
+		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
+		return FALSE
+
+	var/max = CONFIG_GET(number/maxfine)
+	if(params["fine"] > max)
+		to_chat(user, "<span class='warning'>The maximum fine is [max] credits.</span>")
+		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
+		return FALSE
+
+	var/input_details
+	if(params["details"])
+		input_details = trim(params["details"], MAX_MESSAGE_LEN)
+
+	if(params["fine"] == 0)
+		var/datum/crime_record/new_crime = new(name = input_name, details = input_details, author = user)
+		crimes += new_crime
+		wanted_status = WANTED_ARREST
+		user.investigate_log("New Crime: <strong>[input_name]</strong> | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
+
+		update_matching_security_huds(name)
+		return TRUE
+
+	var/datum/crime_record/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = params["fine"])
+
+	citations += new_citation
+	new_citation.alert_owner(user, src, name, "You have been issued a [params["fine"]]cr citation for [input_name]. Fines are payable at Security.")
+	user.investigate_log("New Citation: <strong>[input_name]</strong> Fine: [params["fine"]] | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
+
+	return TRUE
+
+/// Handles editing a crime on a particular record.
+/datum/record/crew/proc/edit_crime(mob/user, list/params)
+	var/datum/crime_record/editing_crime = locate(params["crime_ref"]) in crimes
+	if(!editing_crime?.valid)
+		editing_crime = locate(params["crime_ref"]) in citations //One last hail mary.
+		if(!editing_crime?.valid)
+			return FALSE
+
+	if(user != editing_crime.author && !has_armory_access(user)) // only warden/hos/command can edit crimes they didn't author
+		return FALSE
+
+	if(params["name"] && length(params["name"]) > 2 && params["name"] != editing_crime.name)
+		editing_crime.name = trim(params["name"], MAX_CRIME_NAME_LEN)
+		return TRUE
+
+	if(params["description"] && length(params["description"]) > 2 && params["description"] != editing_crime.details)
+		var/new_details = STRIP_HTML_FULL(params["description"], MAX_MESSAGE_LEN)
+		editing_crime.details = new_details
+		return TRUE
+
+	return FALSE
+
+
+/datum/record/crew/proc/set_security_note(list/params)
+	var/new_security_note = params["security_note"]
+	security_note = trim(new_security_note, MAX_MESSAGE_LEN)
+
+/datum/record/crew/proc/set_wanted_status(list/params)
+	var/new_wanted_status = params["status"]
+	if(!new_wanted_status || !(new_wanted_status in WANTED_STATUSES()))
+		return FALSE
+	if(new_wanted_status == WANTED_ARREST && !length(crimes))
+		return FALSE
+	wanted_status = new_wanted_status
+
+	update_matching_security_huds(name)
+	return TRUE
+
+
+/// Only qualified personnel can edit records.
+/datum/record/crew/proc/has_armory_access(mob/user)
+	if(issiliconoradminghost(user))
+		return TRUE
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/player = user
+
+	var/obj/item/card/id/auth = player.get_idcard(TRUE)
+	if(!auth)
+		return FALSE
+
+	if(!(ACCESS_ARMORY in auth.GetAccess()))
+		return FALSE
+
+	return TRUE
+
+
 /**
  * Admin locked record
  */
 /datum/record/locked
 	/// Mob's dna
-	var/datum/dna/dna_ref
+	var/datum/dna/dna
 	/// Mind datum
-	var/datum/mind/mind_ref
+	var/datum/mind/mind
 
 /datum/record/locked/New(
 	age = 18,
@@ -152,12 +369,12 @@
 	rank = "Unassigned",
 	species = "Human",
 	/// Locked specific
-	datum/dna/dna_ref,
-	datum/mind/mind_ref,
+	datum/dna/dna,
+	datum/mind/mind,
 )
 	. = ..()
-	src.dna_ref = dna_ref
-	src.mind_ref = mind_ref
+	src.dna = dna
+	src.mind = mind
 
 	GLOB.manifest.locked += src
 
@@ -265,7 +482,7 @@
 						<th>Author</th>
 						<th>Time Added</th>
 						</tr>"}
-	for(var/datum/crime/crime in crimes)
+	for(var/datum/crime_record/crime in crimes)
 		if(crime.valid)
 			final_paper_text += "<tr><td>[crime.name]</td>"
 			final_paper_text += "<td>[crime.details]</td>"
@@ -286,7 +503,7 @@
 						<th>Time Added</th>
 						<th>Fine</th>
 						</tr><br>"}
-	for(var/datum/crime/citation/warrant in citations)
+	for(var/datum/crime_record/citation/warrant in citations)
 		final_paper_text += "<tr><td>[warrant.name]</td>"
 		final_paper_text += "<td>[warrant.details]</td>"
 		final_paper_text += "<td>[warrant.author]</td>"
@@ -340,10 +557,10 @@
 /datum/record/cloning
 
 	var/id
-	var/datum/dna/dna_ref
+	var/datum/dna/dna
 	var/uni_identity
 	var/SE
-	var/datum/mind/mind_ref /// Mind datum
+	var/datum/mind/mind /// Mind datum
 	var/last_death
 	var/factions
 	var/traumas
@@ -363,10 +580,10 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	species = "Unknown",
-	datum/dna/dna_ref,
+	datum/dna/dna,
 	uni_identity,
 	SE,
-	datum/mind/mind_ref,
+	datum/mind/mind,
 	last_death,
 	factions,
 	traumas,
@@ -377,10 +594,10 @@
 	)
 	. = ..()
 	src.id = id
-	src.dna_ref = dna_ref
+	src.dna = dna
 	src.uni_identity = uni_identity
 	src.SE = SE
-	src.mind_ref = mind_ref
+	src.mind = mind
 	src.last_death = last_death
 	src.factions = factions
 	src.traumas = traumas
@@ -394,3 +611,5 @@
 /datum/record/cloning/Destroy()
 	GLOB.manifest.cloning -= src
 	return ..()
+
+#undef MAX_CRIME_NAME_LEN

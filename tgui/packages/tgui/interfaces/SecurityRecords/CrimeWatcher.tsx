@@ -64,7 +64,7 @@ const CrimeDisplay = ({ item }: { item: Crime }, context) => {
   const foundRecord = getSecurityRecord(context);
   if (!foundRecord) return <> </>;
 
-  const { crew_ref } = foundRecord;
+  const { record_ref } = foundRecord;
   const { act, data } = useBackend<SecurityRecordsData>(context);
   const { current_user, higher_access } = data;
   const { author, crime_ref, details, fine, name, paid, time, valid, voider } = item;
@@ -128,7 +128,7 @@ const CrimeDisplay = ({ item }: { item: Crime }, context) => {
               icon="ban"
               onClick={() =>
                 act('invalidate_crime', {
-                  crew_ref: crew_ref,
+                  record_ref: record_ref,
                   crime_ref: crime_ref,
                 })
               }
@@ -143,7 +143,7 @@ const CrimeDisplay = ({ item }: { item: Crime }, context) => {
               onEnter={(event, value) => {
                 setEditing(false);
                 act('edit_crime', {
-                  crew_ref: crew_ref,
+                  record_ref: record_ref,
                   crime_ref: crime_ref,
                   name: value,
                 });
@@ -158,7 +158,7 @@ const CrimeDisplay = ({ item }: { item: Crime }, context) => {
               onEnter={(event, value) => {
                 setEditing(false);
                 act('edit_crime', {
-                  crew_ref: crew_ref,
+                  record_ref: record_ref,
                   crime_ref: crime_ref,
                   description: value,
                 });
@@ -177,7 +177,7 @@ const CrimeAuthor = (props, context) => {
   const foundRecord = getSecurityRecord(context);
   if (!foundRecord) return <> </>;
 
-  const { crew_ref } = foundRecord;
+  const { record_ref } = foundRecord;
   const { act } = useBackend<SecurityRecordsData>(context);
 
   const [crimeName, setCrimeName] = useLocalState(context, 'crimeName', '');
@@ -191,7 +191,7 @@ const CrimeAuthor = (props, context) => {
   const createCrime = () => {
     if (!crimeName) return;
     act('add_crime', {
-      crew_ref: crew_ref,
+      record_ref: record_ref,
       details: crimeDetails,
       fine: crimeFine,
       name: crimeName,

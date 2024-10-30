@@ -14,7 +14,7 @@ export type SecurityRecordsData = {
 export type SecurityRecord = {
   age: number;
   citations: Crime[];
-  crew_ref: string;
+  record_ref: string;
   crimes: Crime[];
   fingerprint: string;
   gender: string;

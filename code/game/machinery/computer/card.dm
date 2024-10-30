@@ -206,8 +206,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 	if (mode == 1) // accessing crew manifest
 		var/crew = ""
-		for(var/datum/record/crew/t in sort_record(GLOB.manifest.general))
-			crew += t.name + " - " + t.rank + "<br>"
+		for(var/datum/record/crew/record_reference in sort_record(GLOB.manifest.general))
+			crew += record_reference.name + " - " + record_reference.rank + "<br>"
 		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
 
 	else if(mode == 2)
@@ -321,10 +321,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if(length(paycheck_departments))
 			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-				var/datum/record/crew/R = find_record(B.account_holder, GLOB.manifest.general)
+				var/datum/record/crew/record_reference = find_record(B.account_holder, GLOB.manifest.general)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
-				dat += "<td>[R ? R.rank : "(No data)"]</td>"
+				dat += "<td>[record_reference ? record_reference.rank : "(No data)"]</td>"
 				if(!(target_paycheck in paycheck_departments))
 					dat += "<td>(Auth-denied)</td>"
 				else
@@ -430,12 +430,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// Department active status
 			banking += "<tr>"
 			banking += "<td><b>Active Department Manifest:</b></td>"
-			var/datum/record/crew/R = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
-			if(R)
+			var/datum/record/crew/record_reference = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
+			if(record_reference)
 				for(var/each in available_paycheck_departments)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
-					if(R.active_department & SSeconomy.get_budget_acc_bitflag(each))
+					if(record_reference.active_department & SSeconomy.get_budget_acc_bitflag(each))
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
@@ -617,7 +617,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
-				var/datum/record/crew/R = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
+				var/datum/record/crew/record_reference = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/newJob = reject_bad_text(stripped_input("Enter a custom job assignment.", "Assignment", inserted_modify_id ? inserted_modify_id.assignment : "Unassigned"), MAX_NAME_LEN)
@@ -638,12 +638,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.bonus_per_department[each] = 0   // your bonus for each department is 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement. Command bitflag should be removed manually, because 'for/each' didn't remove it.
 						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_MINIMAL // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
-					if(R)
+					if(record_reference)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
-							R.active_department &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
-						R.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
+							record_reference.active_department &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
+						record_reference.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
 
 
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
@@ -673,12 +673,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0
 							B.bonus_per_department[each] = 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement
-					if(R && jobdatum) // 1-B: reseting crew manifest
+					if(record_reference && jobdatum) // 1-B: reseting crew manifest
 						for(var/each in available_paycheck_departments)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
-							R.active_department &= ~SSeconomy.get_budget_acc_bitflag(each)
-						R.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2
+							record_reference.active_department &= ~SSeconomy.get_budget_acc_bitflag(each)
+						record_reference.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2
 						// Note: `active_department = NONE` is a bad idea because you should keep VIP_BITFLAG.
 					// Step 2: giving the job info into their bank and record
 					if(B && jobdatum) // 2-A: setting bank payment
@@ -687,8 +687,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								continue
 							B.payment_per_department[each] = jobdatum.payment_per_department[each]
 						B.active_departments |= jobdatum.bank_account_department
-					if(R && jobdatum) // 2-B: setting crew manifest
-						R.active_department |= jobdatum.departments
+					if(record_reference && jobdatum) // 2-B: setting crew manifest
+						record_reference.active_department |= jobdatum.departments
 
 					log_id("[key_name(usr)] assigned [jobdatum || t1] job to [inserted_modify_id], manipulating it to the default access of the job using [inserted_scan_id] at [AREACOORD(usr)].")
 
@@ -864,15 +864,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("turn_on_off_department_manifest")
 			var/target_bitflag = text2num(href_list["target_bitflag"])
-			var/datum/record/crew/R = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
-			if(!R)
+			var/datum/record/crew/record_reference = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
+			if(!record_reference)
 				updateUsrDialog()
 				return
 
-			if(R.active_department & target_bitflag)
-				R.active_department &= ~target_bitflag // turn off
+			if(record_reference.active_department & target_bitflag)
+				record_reference.active_department &= ~target_bitflag // turn off
 			else
-				R.active_department |= target_bitflag // turn on
+				record_reference.active_department |= target_bitflag // turn on
 
 		if ("print")
 			if (!( printing ))

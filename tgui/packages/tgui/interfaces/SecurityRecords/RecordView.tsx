@@ -41,7 +41,7 @@ const RecordInfo = (props, context) => {
   const { available_statuses } = data;
   const [open, setOpen] = useLocalState<boolean>(context, 'printOpen', false);
 
-  const { age, crew_ref, crimes, fingerprint, gender, name, security_note, rank, species, wanted_status } = foundRecord;
+  const { age, record_ref, crimes, fingerprint, gender, name, security_note, rank, species, wanted_status } = foundRecord;
 
   const { min_age, max_age } = data;
 
@@ -62,7 +62,7 @@ const RecordInfo = (props, context) => {
                 <Button.Confirm
                   content="Delete"
                   icon="trash"
-                  onClick={() => act('delete_record', { crew_ref: crew_ref })}
+                  onClick={() => act('delete_record', { record_ref: record_ref })}
                   tooltip="Delete record data."
                 />
               </Stack.Item>
@@ -83,7 +83,7 @@ const RecordInfo = (props, context) => {
                     key={index}
                     onClick={() =>
                       act('set_wanted', {
-                        crew_ref: crew_ref,
+                        record_ref: record_ref,
                         status: button,
                       })
                     }
@@ -104,10 +104,10 @@ const RecordInfo = (props, context) => {
         <Section fill scrollable>
           <LabeledList>
             <LabeledList.Item label="Name">
-              <EditableText field="name" target_ref={crew_ref} text={name} />
+              <EditableText field="name" target_ref={record_ref} text={name} />
             </LabeledList.Item>
             <LabeledList.Item label="Job">
-              <EditableText field="rank" target_ref={crew_ref} text={rank} />
+              <EditableText field="rank" target_ref={record_ref} text={rank} />
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <RestrictedInput
@@ -115,7 +115,7 @@ const RecordInfo = (props, context) => {
                 maxValue={max_age}
                 onEnter={(event, value) =>
                   act('edit_field', {
-                    crew_ref: crew_ref,
+                    record_ref: record_ref,
                     field: 'age',
                     value: value,
                   })
@@ -124,16 +124,16 @@ const RecordInfo = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText field="species" target_ref={crew_ref} text={species} />
+              <EditableText field="species" target_ref={record_ref} text={species} />
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText field="gender" target_ref={crew_ref} text={gender} />
+              <EditableText field="gender" target_ref={record_ref} text={gender} />
             </LabeledList.Item>
             <LabeledList.Item color="good" label="Fingerprint">
-              <EditableText color="good" field="fingerprint" target_ref={crew_ref} text={fingerprint} />
+              <EditableText color="good" field="fingerprint" target_ref={record_ref} text={fingerprint} />
             </LabeledList.Item>
             <LabeledList.Item label="Note">
-              <EditableText field="security_note" target_ref={crew_ref} text={security_note} />
+              <EditableText field="security_note" target_ref={record_ref} text={security_note} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

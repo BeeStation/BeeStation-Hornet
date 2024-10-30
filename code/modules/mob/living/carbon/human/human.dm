@@ -281,7 +281,7 @@
 					return
 
 				if(new_status == WANTED_ARREST)
-					var/datum/crime/new_crime = new(author = human_user, details = "Set by SecHUD.")
+					var/datum/crime_record/new_crime = new(author = human_user, details = "Set by SecHUD.")
 					target_record.crimes += new_crime
 					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 
@@ -303,7 +303,7 @@
 				sec_record_message += "\n<b>Note:</b> [target_record.security_note || "None"]"
 				sec_record_message += "\n<b>Rapsheet:</b> [length(target_record.crimes)] incidents"
 				if(length(target_record.crimes))
-					for(var/datum/crime/crime in target_record.crimes)
+					for(var/datum/crime_record/crime in target_record.crimes)
 						if(!crime.valid)
 							sec_record_message += "<span class='notice'>\n-- REDACTED --</span>"
 							continue
@@ -322,7 +322,7 @@
 					if(!fine || !target_record || !citation_name || !allowed_access || !isnum(fine) || fine > max_fine || fine <= 0 || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
 
-					var/datum/crime/citation/new_citation = new(name = citation_name, author = allowed_access, fine = fine)
+					var/datum/crime_record/citation/new_citation = new(name = citation_name, author = allowed_access, fine = fine)
 
 					target_record.citations += new_citation
 					new_citation.alert_owner(usr, src, target_record.name, "You have been fined [fine] credits for '[citation_name]'. Fines may be paid at security.")
@@ -334,7 +334,7 @@
 					if(!target_record || !crime_name || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
 
-					var/datum/crime/new_crime = new(name = crime_name, author = allowed_access)
+					var/datum/crime_record/new_crime = new(name = crime_name, author = allowed_access)
 
 					target_record.crimes += new_crime
 					investigate_log("New Crime: <strong>[crime_name]</strong> | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)

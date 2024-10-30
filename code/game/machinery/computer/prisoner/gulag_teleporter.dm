@@ -38,10 +38,10 @@
 		prisoner_list["name"] = prisoner.real_name
 		if(contained_id)
 			can_teleport = TRUE
-		for(var/r in GLOB.manifest.general)
-			var/datum/record/crew/R = r
-			if(R.name == prisoner_list["name"])
-				temporary_record = R
+		for(var/manifests in GLOB.manifest.general)
+			var/datum/record/crew/crew_record = manifests
+			if(crew_record.name == prisoner_list["name"])
+				temporary_record = crew_record
 				prisoner_list["crimstat"] = temporary_record.wanted_status
 
 	data["prisoner"] = prisoner_list

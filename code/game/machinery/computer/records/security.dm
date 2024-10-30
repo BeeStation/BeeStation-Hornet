@@ -2,8 +2,7 @@
 #define PRINTOUT_MISSING "Missing"
 #define PRINTOUT_RAPSHEET "Rapsheet"
 #define PRINTOUT_WANTED "Wanted"
-/// Editing this will cause UI issues.
-#define MAX_CRIME_NAME_LEN 24
+
 
 /obj/machinery/computer/records/security
 	name = "security records console"
@@ -41,34 +40,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		/obj/item/circuit_component/arrest_console_arrest,
 	))
 
-/obj/machinery/computer/records/security/emp_act(severity)
-	. = ..()
-
-	if(machine_stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_SELF)
-		return
-
-	for(var/datum/record/crew/target in GLOB.manifest.general)
-		if(prob(10/severity))
-			switch(rand(1,5))
-				if(1)
-					if(prob(10))
-						target.name = "[pick(random_lizard_name(MALE),random_lizard_name(FEMALE))]"
-					else
-						target.name = "[pick(pick(GLOB.first_names_male), pick(GLOB.first_names_female))] [pick(GLOB.last_names)]"
-				if(2)
-					target.gender = pick("Male", "Female", "Other")
-				if(3)
-					target.age = rand(5, 85)
-				if(4)
-					target.wanted_status = pick(WANTED_STATUSES())
-				if(5)
-					target.species = pick(get_selectable_species())
-			continue
-
-		else if(prob(1))
-			qdel(target)
-			continue
-
 /obj/machinery/computer/records/security/attacked_by(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(!istype(attacking_item, /obj/item/photo))
@@ -96,7 +67,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	var/list/records = list()
 	for(var/datum/record/crew/target in GLOB.manifest.general)
 		var/list/citations = list()
-		for(var/datum/crime/citation/warrant in target.citations)
+		for(var/datum/crime_record/citation/warrant in target.citations)
 			citations += list(list(
 				author = warrant.author,
 				crime_ref = REF(warrant),
@@ -110,7 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			))
 
 		var/list/crimes = list()
-		for(var/datum/crime/crime in target.crimes)
+		for(var/datum/crime_record/crime in target.crimes)
 			crimes += list(list(
 				author = crime.author,
 				crime_ref = REF(crime),
@@ -124,7 +95,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		records += list(list(
 			age = target.age,
 			citations = citations,
-			crew_ref = REF(target),
+			record_ref = REF(target),
 			crimes = crimes,
 			fingerprint = target.fingerprint,
 			gender = target.gender,
@@ -153,165 +124,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		return
 
 	var/mob/user = ui.user
-	var/datum/record/crew/target
-	if(params["crew_ref"])
-		target = locate(params["crew_ref"]) in GLOB.manifest.general
-	if(!target)
+	var/datum/record/crew/target_record
+	if(params["record_ref"])
+		target_record = locate(params["record_ref"]) in GLOB.manifest.general
+	if(!target_record)
 		return FALSE
 
 	switch(action)
 		if("add_crime")
-			add_crime(user, target, params)
+			target_record.add_crime(user, params)
 			return TRUE
 
 		if("delete_record")
-			qdel(target)
+			qdel(target_record)
 			return TRUE
 
 		if("edit_crime")
-			edit_crime(user, target, params)
+			target_record.edit_crime(user, params)
 			return TRUE
 
 		if("invalidate_crime")
-			invalidate_crime(user, target, params)
+			target_record.invalidate_crime(user, params)
 			return TRUE
 
 		if("print_record")
-			print_record(user, target, params)
+			print_record(user, target_record, params)
 			return TRUE
 
 		if("set_note")
-			var/security_note = params["security_note"]
-			target.security_note = trim(security_note, MAX_MESSAGE_LEN)
+			target_record.set_security_note(params)
 			return TRUE
 
 		if("set_wanted")
-			var/wanted_status = params["status"]
-			if(!wanted_status || !(wanted_status in WANTED_STATUSES()))
-				return FALSE
-			if(wanted_status == WANTED_ARREST && !length(target.crimes))
-				return FALSE
-			target.wanted_status = wanted_status
-
-			update_matching_security_huds(target.name)
-
+			target_record.set_wanted_status(params)
 			return TRUE
 
 	return FALSE
-
-/// Handles adding a crime to a particular record.
-/obj/machinery/computer/records/security/proc/add_crime(mob/user, datum/record/crew/target, list/params)
-	var/input_name = trim(params["name"], MAX_CRIME_NAME_LEN)
-	if(!input_name)
-		to_chat(user, "<span class='warning'>You must enter a name for the crime.</span>")
-		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
-		return FALSE
-
-	var/max = CONFIG_GET(number/maxfine)
-	if(params["fine"] > max)
-		to_chat(user, "<span class='warning'>The maximum fine is [max] credits.</span>")
-		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
-		return FALSE
-
-	var/input_details
-	if(params["details"])
-		input_details = trim(params["details"], MAX_MESSAGE_LEN)
-
-	if(params["fine"] == 0)
-		var/datum/crime/new_crime = new(name = input_name, details = input_details, author = user)
-		target.crimes += new_crime
-		target.wanted_status = WANTED_ARREST
-		investigate_log("New Crime: <strong>[input_name]</strong> | Added to [target.name] by [key_name(user)]", INVESTIGATE_RECORDS)
-
-		update_matching_security_huds(target.name)
-		return TRUE
-
-	var/datum/crime/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = params["fine"])
-
-	target.citations += new_citation
-	new_citation.alert_owner(user, src, target.name, "You have been issued a [params["fine"]]cr citation for [input_name]. Fines are payable at Security.")
-	investigate_log("New Citation: <strong>[input_name]</strong> Fine: [params["fine"]] | Added to [target.name] by [key_name(user)]", INVESTIGATE_RECORDS)
-
-	return TRUE
-
-/// Handles editing a crime on a particular record.
-/obj/machinery/computer/records/security/proc/edit_crime(mob/user, datum/record/crew/target, list/params)
-	var/datum/crime/editing_crime = locate(params["crime_ref"]) in target.crimes
-	if(!editing_crime?.valid)
-		editing_crime = locate(params["crime_ref"]) in target.citations //One last hail mary.
-		if(!editing_crime?.valid)
-			return FALSE
-
-	if(user != editing_crime.author && !has_armory_access(user)) // only warden/hos/command can edit crimes they didn't author
-		return FALSE
-
-	if(params["name"] && length(params["name"]) > 2 && params["name"] != editing_crime.name)
-		editing_crime.name = trim(params["name"], MAX_CRIME_NAME_LEN)
-		return TRUE
-
-	if(params["description"] && length(params["description"]) > 2 && params["description"] != editing_crime.details)
-		var/new_details = STRIP_HTML_FULL(params["description"], MAX_MESSAGE_LEN)
-		editing_crime.details = new_details
-		return TRUE
-
-	return FALSE
-
-/// Deletes security information from a record.
-/obj/machinery/computer/records/security/expunge_record_info(datum/record/crew/target)
-	target.citations.Cut()
-	target.crimes.Cut()
-	target.security_note = "None."
-	target.wanted_status = WANTED_NONE
-	return TRUE
-
-/// Only qualified personnel can edit records.
-/obj/machinery/computer/records/security/proc/has_armory_access(mob/user)
-	if(issiliconoradminghost(user))
-		return TRUE
-	if(!isliving(user))
-		return FALSE
-	var/mob/living/player = user
-
-	var/obj/item/card/id/auth = player.get_idcard(TRUE)
-	if(!auth)
-		return FALSE
-
-	if(!(ACCESS_ARMORY in auth.GetAccess()))
-		return FALSE
-
-	return TRUE
-
-/// Voids crimes, or sets someone to discharged if they have none left.
-/obj/machinery/computer/records/security/proc/invalidate_crime(mob/user, datum/record/crew/target, list/params)
-	var/acquitted = TRUE
-	var/datum/crime/to_void = locate(params["crime_ref"]) in target.crimes
-	if(!to_void)
-		to_void = locate(params["crime_ref"]) in target.citations
-		// No need to change status after invalidatation of citation
-		acquitted = FALSE
-		if(!to_void)
-			return FALSE
-
-	if(user != to_void.author && !has_armory_access(user))
-		return FALSE
-
-	to_void.valid = FALSE
-	to_void.voider = user
-	investigate_log("[key_name(user)] has invalidated [target.name]'s crime: [to_void.name]", INVESTIGATE_RECORDS)
-
-	for(var/datum/crime/incident in target.crimes)
-		if(!incident.valid)
-			continue
-		acquitted = FALSE
-		break
-
-	if(acquitted)
-		target.wanted_status = WANTED_DISCHARGED
-		investigate_log("[key_name(user)] has invalidated [target.name]'s last valid crime. Their status is now [WANTED_DISCHARGED].", INVESTIGATE_RECORDS)
-
-	update_matching_security_huds(target.name)
-
-	return TRUE
 
 /// Finishes printing, resets the printer.
 /obj/machinery/computer/records/security/proc/print_finish(obj/item/printable)
@@ -351,7 +199,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 				return FALSE
 
 			input_description += "\n\n<b>WANTED FOR:</b>"
-			for(var/datum/crime/incident in crimes)
+			for(var/datum/crime_record/incident in crimes)
 				if(!incident.valid)
 					input_description += "<b>--REDACTED--</b>"
 					continue
@@ -376,6 +224,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 	return TRUE
 
+/// Only qualified personnel can edit records.
+/obj/machinery/computer/records/security/proc/has_armory_access(mob/user)
+	if(issiliconoradminghost(user))
+		return TRUE
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/player = user
+
+	var/obj/item/card/id/auth = player.get_idcard(TRUE)
+	if(!auth)
+		return FALSE
+
+	if(!(ACCESS_ARMORY in auth.GetAccess()))
+		return FALSE
+
+	return TRUE
 
 /**
  * Security circuit component
@@ -522,4 +386,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 #undef PRINTOUT_MISSING
 #undef PRINTOUT_RAPSHEET
 #undef PRINTOUT_WANTED
-#undef MAX_CRIME_NAME_LEN

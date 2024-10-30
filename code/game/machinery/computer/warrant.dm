@@ -28,7 +28,7 @@
 
 		var/list/citations = list()
 
-		for(var/datum/crime/citation/warrant as anything in target.citations)
+		for(var/datum/crime_record/citation/warrant as anything in target.citations)
 			if(!warrant.valid)
 				continue
 
@@ -47,7 +47,7 @@
 		var/list/record = list(list(
 			citations = citations,
 			crew_name = target.name,
-			crew_ref = REF(target),
+			record_ref = REF(target),
 			notes = target.security_note,
 			rank = target.rank,
 		))
@@ -79,11 +79,11 @@
 
 /// Pays towards a listed fine.
 /obj/machinery/computer/warrant/proc/pay_fine(mob/user, list/params)
-	var/datum/record/crew/target = locate(params["crew_ref"]) in GLOB.manifest.general
+	var/datum/record/crew/target = locate(params["record_ref"]) in GLOB.manifest.general
 	if(!target)
 		return FALSE
 
-	var/datum/crime/citation/warrant = locate(params["fine_ref"]) in target.citations
+	var/datum/crime_record/citation/warrant = locate(params["fine_ref"]) in target.citations
 	if(!warrant)
 		return FALSE
 
@@ -152,11 +152,11 @@
 		playsound(src, 'sound/machines/terminal_error.ogg', 100, TRUE)
 		return FALSE
 
-	var/datum/record/crew/target = locate(params["crew_ref"]) in GLOB.manifest.general
+	var/datum/record/crew/target = locate(params["record_ref"]) in GLOB.manifest.general
 	if(!target)
 		return FALSE
 
-	var/datum/crime/citation/warrant = locate(params["fine_ref"]) in target.citations
+	var/datum/crime_record/citation/warrant = locate(params["fine_ref"]) in target.citations
 	if(!warrant?.fine)
 		return FALSE
 

@@ -309,7 +309,7 @@
 	var/icon/reshape
 	if(target)
 		for(var/datum/record/locked/R as() in GLOB.manifest.locked)
-			var/datum/mind/M = R.mind_ref
+			var/datum/mind/M = R.mind
 			if(target == M)
 				reshape = R.character_appearance
 				break

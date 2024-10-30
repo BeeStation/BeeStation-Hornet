@@ -27,11 +27,11 @@
 	/// Takes a result of each crew data in a format
 	var/list/manifest_out = list()
 
-	for(var/datum/record/crew/target in GLOB.manifest.general)
-		var/name = target.name
-		var/rank = target.rank
-		var/hud = target.hud
-		var/dept_bitflags = target.active_department
+	for(var/datum/record/crew/person_record in GLOB.manifest.general)
+		var/name = person_record.name
+		var/rank = person_record.rank
+		var/hud = person_record.hud
+		var/dept_bitflags = person_record.active_department
 		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
 		if(dept_bitflags)
 			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
@@ -91,12 +91,14 @@
 	var/mutable_appearance/character_appearance = new(person.appearance)
 	var/datum/dna/stored/record_dna = new()
 	person.dna.copy_dna(record_dna)
-	var/person_gender = "Other"
-	if(person.gender == "male")
-		person_gender = "Male"
-	if(person.gender == "female")
-		person_gender = "Female"
-	var/assignment = person.mind.assigned_role
+	var/gender_string = "Other"
+	if(person.gender == MALE)
+		gender_string = "Male"
+	if(person.gender == FEMALE)
+		gender_string = "Female"
+	var/assignment = person.mind?.assigned_role
+	if(isnull(assignment))
+		assignment = "None"
 	var/datum/bank_account/bank_account = person.get_bank_account()
 
 	var/datum/record/locked/lockfile = new(
@@ -105,14 +107,14 @@
 		character_appearance = character_appearance,
 		dna_string = record_dna.unique_enzymes,
 		fingerprint = md5(record_dna.uni_identity),
-		gender = person_gender,
+		gender = gender_string,
 		initial_rank = assignment,
 		name = person.real_name,
 		rank = assignment,
 		species = record_dna.species.name,
 		// Locked specifics
-		dna_ref = record_dna,
-		mind_ref = person.mind,
+		dna = record_dna,
+		mind = person.mind,
 	)
 
 	new /datum/record/crew(
@@ -121,7 +123,7 @@
 		character_appearance = character_appearance,
 		dna_string = record_dna.unique_enzymes,
 		fingerprint = md5(record_dna.uni_identity),
-		gender = person_gender,
+		gender = gender_string,
 		initial_rank = assignment,
 		name = person.real_name,
 		rank = assignment,
@@ -176,7 +178,7 @@
 	for(var/datum/record/crew/gen_record as anything in GLOB.manifest.general)
 		/// The object containing the crew info
 		var/list/crew_record = list()
-		crew_record["ref"] = REF(gen_record)
+		crew_record["record_ref"] = FAST_REF(gen_record)
 		crew_record["name"] = gen_record.name
 		crew_record["physical_status"] = gen_record.physical_status
 		crew_record["mental_status"] = gen_record.mental_status
@@ -198,7 +200,7 @@
 	for(var/datum/record/crew/sec_record as anything in GLOB.manifest.general)
 		/// The object containing the crew info
 		var/list/crew_record = list()
-		crew_record["ref"] = REF(sec_record)
+		crew_record["record_ref"] = FAST_REF(sec_record)
 		crew_record["name"] = sec_record.name
 		crew_record["status"] = sec_record.wanted_status
 		crew_record["crimes"] = length(sec_record.crimes)

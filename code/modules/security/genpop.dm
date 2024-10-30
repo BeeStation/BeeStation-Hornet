@@ -412,7 +412,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	crime_list = list()
 	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 	message_admins("<span class='boldannounce'>Failed to read the space_law config file! Defaulting to hardcoded datums.</span>") //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+	for (var/datum/crime_record/crime_path as() in subtypesof(/datum/crime_record))
 		// Ignore this crime, it is abstract
 		if (isnull(initial(crime_path.name)))
 			continue
@@ -587,7 +587,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
 		if(target_record)
 			target_record.wanted_status = WANTED_PRISONER
-			var/datum/crime/new_crime = new(desired_crime, null, "General Populace")
+			var/datum/crime_record/new_crime = new(desired_crime, null, "General Populace")
 			target_record.crimes += new_crime
 			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [target_record.name] by [key_name(user)]", INVESTIGATE_RECORDS)
 			say("Criminal record for [target_record.name] successfully updated.")

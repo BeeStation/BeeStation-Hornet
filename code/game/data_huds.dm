@@ -285,12 +285,13 @@
 	holder.pixel_y = sec_icon.Height() - world.icon_size
 	var/perp_name = get_face_name(get_id_name(""))
 
-	if(!perp_name || !GLOB.manifest)
+	if(!perp_name || isnull(GLOB.manifest))
 		holder.icon_state = null
 		return
 
 	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
-	if(!target)
+	if(isnull(target))
+		holder.icon_state = null
 		return
 
 	switch(target.wanted_status)
@@ -305,7 +306,7 @@
 		if(WANTED_DISCHARGED)
 			holder.icon_state = "huddischarged"
 		if(WANTED_NONE)
-			holder.icon_state = "hudnone"
+			holder.icon_state = null
 
 //Utility functions
 
@@ -321,8 +322,8 @@
  * Updates the visual security huds on all mobs in GLOB.human_list
  */
 /proc/update_all_security_huds()
-	for(var/mob/living/carbon/human/h as anything in GLOB.human_list)
-		h.sec_hud_set_security_status()
+	for(var/mob/living/carbon/human/security_hud_person as anything in GLOB.human_list)
+		security_hud_person.sec_hud_set_security_status()
 
 /***********************************************
  * Diagnostic HUDs!

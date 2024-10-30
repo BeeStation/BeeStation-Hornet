@@ -67,7 +67,7 @@
 				. = pod
 
 /proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/R, experimental)
-	return pod.growclone(R.name, R.uni_identity, R.SE, R.mind_ref, R.last_death, R.species, R.dna_ref.features, R.factions, R.mind_ref.account_id, R.traumas, R.body_only, experimental)
+	return pod.growclone(R.name, R.uni_identity, R.SE, R.mind, R.last_death, R.species, R.dna.features, R.factions, R.mind.account_id, R.traumas, R.body_only, experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -78,7 +78,7 @@
 		ui_update()
 
 	for(var/datum/record/cloning/R in records)
-		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(R.mind_ref)
+		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(R.mind)
 
 		if(!pod)
 			return
@@ -89,7 +89,7 @@
 		var/result = grow_clone_from_record(pod, R, experimental)
 		if(result & CLONING_SUCCESS)
 			temp = "[R.name] => Cloning cycle in progress..."
-			log_cloning("Cloning of [key_name(R.mind_ref)] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
+			log_cloning("Cloning of [key_name(R.mind)] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
 			SStgui.update_uis(src)
 		if(result & CLONING_DELETE_RECORD)
 			records -= R
@@ -227,11 +227,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	diskette.data.name = GRAB.name
 	diskette.data.rank = GRAB.rank
 	diskette.data.species = GRAB.species
-	diskette.data.dna_ref = GRAB.dna_ref
+	diskette.data.dna = GRAB.dna
 	diskette.data.uni_identity = GRAB.uni_identity
 	diskette.data.SE = GRAB.SE
 	diskette.data.UE = GRAB.UE
-	diskette.data.mind_ref = GRAB.mind_ref
+	diskette.data.mind = GRAB.mind
 	diskette.data.last_death = GRAB.last_death
 	diskette.data.factions = GRAB.factions
 	diskette.data.traumas = GRAB.traumas
@@ -286,10 +286,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	R.initial_rank = diskette.data.initial_rank
 	R.name = diskette.data.name
 	R.species = diskette.data.species
-	R.dna_ref = diskette.data.dna_ref
+	R.dna = diskette.data.dna
 	R.uni_identity = diskette.data.uni_identity
 	R.SE = diskette.data.SE
-	R.mind_ref = diskette.data.mind_ref
+	R.mind = diskette.data.mind
 	R.last_death = diskette.data.last_death
 	R.factions = diskette.data.factions
 	R.traumas = diskette.data.traumas
@@ -328,7 +328,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(C.name, C.uni_identity, C.SE, C.mind_ref, C.last_death, C.species, C.dna_ref.features, C.factions, C.mind_ref.account_id, C.traumas, C.body_only, experimental))
+			switch(pod.growclone(C.name, C.uni_identity, C.SE, C.mind, C.last_death, C.species, C.dna.features, C.factions, C.mind.account_id, C.traumas, C.body_only, experimental))
 				if(CLONING_SUCCESS)
 					temp = "Notice: [C.name] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
@@ -648,7 +648,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	R.uni_identity = dna.uni_identity
 	R.SE = dna.mutation_index
 	R.blood_type = dna.blood_type
-	R.dna_ref = dna
+	R.dna = dna
 	R.factions = mob_occupant.faction
 	R.traumas = list()
 	R.age = C.age
@@ -668,7 +668,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	R.bank_account = has_bank_account
 	if(!experimental)
-		R.mind_ref = mob_occupant.mind
+		R.mind = mob_occupant.mind
 		R.last_death = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
 		R.body_only = body_only
 	else
