@@ -14,6 +14,7 @@
 	var/list/owner_list
 	var/datum/vv_ghost/vv_spectre
 
+	// ------------------------------------------------------------
 	// checks if a thing is /list, or /vv_ghost to deliver a special list, and then reassign name/value
 	if(owner)
 		if(istype(owner, /datum/vv_ghost))
@@ -27,7 +28,7 @@
 				value = owner_list[name]
 
 	// ------------------------------------------------------------
-	// Makes hyperlink strings with edit options
+	// Builds hyperlink strings with edit options
 	var/special_list_secure_level = vv_spectre && istext(name) && GLOB.vv_special_lists[name]
 	var/is_ready_only = CHECK_BITFIELD(display_flags, VV_READ_ONLY) || (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
 	var/hyperlink_style =\
@@ -48,8 +49,8 @@
 			. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_EDIT, "E", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_CHANGE, "C", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_REMOVE, "-", index, vv_spectre.dmlist_varname)]) "
 		if(STYLE_EMPTY)
 			. = "<li>"
-	// ------------------------------------------------------------
 
+	// ------------------------------------------------------------
 	var/name_part = VV_HTML_ENCODE(name)
 	if(level > 0 || islist(owner)) //handling keys in assoc lists
 		if(istype(name,/datum))
@@ -106,7 +107,7 @@
 		var/datum/datum_value = value
 		return datum_value.debug_variable_value(name, level, owner, sanitize, display_flags)
 
-	var/special_list_secure_level = (istext(name) && isdatum(owner)) ? GLOB.vv_special_lists[name] : null
+	var/special_list_secure_level = (istext(name) && isdatum(owner) && GLOB.vv_special_lists[name])
 	var/islist = islist(value) || special_list_secure_level
 	if(islist)
 		var/list/list_value = value
@@ -120,15 +121,14 @@
 		var/a_open = null
 		var/a_close = null
 
-		// some /list instance is dangerous to open.
-
+		// some '/list' instance is dangerous to open.
 		var/can_open_list_window = !( (special_list_secure_level == VV_LIST_PROTECTED) || isappearance(owner) )
 		if(can_open_list_window)
-			var/href_list_reference = \
+			var/href_reference_string = \
 				special_list_secure_level \
 				? "dmlist_origin_ref=[REF(owner)];dmlist_varname=[name]" \
 				: "Vars=[REF(value)]"
-			a_open = "<a href='?_src_=vars;[HrefToken()];[href_list_reference]'>"
+			a_open = "<a href='?_src_=vars;[HrefToken()];[href_reference_string]'>"
 			a_close = "</a>"
 
 		var/should_fold_list_items = (display_flags & VV_ALWAYS_CONTRACT_LIST) || length(list_value) > VV_BIG_SIZED_LIST_THRESHOLD
