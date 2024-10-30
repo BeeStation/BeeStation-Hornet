@@ -40725,10 +40725,6 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "uoP" = (
-/obj/item/book/granter/spell/smoke/lesser{
-	pixel_x = -4;
-	pixel_y = 5
-	},
 /obj/item/reagent_containers/cup/glass/bottle/holywater{
 	pixel_x = 8;
 	pixel_y = 4
@@ -40746,6 +40742,7 @@
 	pixel_x = -5;
 	pixel_y = -1
 	},
+/obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/wood,
 /area/chapel/office)
 "upm" = (

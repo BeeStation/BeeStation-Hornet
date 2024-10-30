@@ -186,9 +186,6 @@
 	amount = 25
 	},
 /obj/item/coin/antagtoken,
-/obj/item/book/granter/spell/summonitem{
-	name = "an extremely flamboyant book"
-	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
@@ -2109,6 +2106,12 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/caves/listeningpost)
+"DL" = (
+/obj/item/book/granter/action/spell/summonitem,
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_three)
 "IH" = (
 /obj/structure/closet/crate/miningcar{
 	name = "Mining cart"
@@ -5857,7 +5860,7 @@ ae
 bt
 bc
 bc
-ae
+DL
 bc
 ac
 ac
