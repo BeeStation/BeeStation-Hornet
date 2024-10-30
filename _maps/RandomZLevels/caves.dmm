@@ -392,54 +392,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid/level_three)
-"bi" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"bj" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"bk" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"bl" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"bm" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"bn" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
 "bo" = (
 /obj/structure/flora/rock,
 /obj/item/soulstone/anybody,
@@ -447,28 +399,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid/level_three)
-"bp" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"bq" = (
-/obj/machinery/gateway,
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
-"br" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/turf/open/floor/engine/cult{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_four)
 "bs" = (
 /obj/structure/trap/stun{
 	desc = "A rune inscribed in the floor, the air feeling electrified around it.";
@@ -1897,11 +1827,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"gf" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid)
 "gg" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets,
@@ -1986,10 +1911,6 @@
 /area/awaymission/caves/BMP_asteroid)
 "gw" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid)
-"gy" = (
-/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/open/floor/iron,
 /area/awaymission/caves/BMP_asteroid)
 "gz" = (
@@ -2155,11 +2076,22 @@
 /obj/vehicle/sealed/mecha/working/ripley/mining,
 /turf/open/floor/iron/recharge_floor,
 /area/awaymission/caves/BMP_asteroid)
-"qC" = (
+"rP" = (
+/obj/structure/table,
+/obj/item/kitchen/fork,
+/obj/item/plate,
+/turf/open/floor/iron,
+/area/awaymission/caves/BMP_asteroid)
+"so" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/turf/open/floor/iron,
+/area/awaymission/caves/BMP_asteroid)
+"yN" = (
 /obj/structure/table,
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -2167,8 +2099,8 @@
 	throwforce = 1
 	},
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -2177,19 +2109,71 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/caves/listeningpost)
-"rP" = (
-/obj/structure/table,
-/obj/item/kitchen/fork,
-/obj/item/plate,
-/turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid)
-"xG" = (
+"IH" = (
 /obj/structure/closet/crate/miningcar{
 	name = "Mining cart"
 	},
 /obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_two)
+"Jq" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/caves/BMP_asteroid/level_two)
+"Lc" = (
+/obj/item/plate,
+/turf/open/floor/iron,
+/area/awaymission/caves/BMP_asteroid)
+"Ny" = (
+/turf/open/floor/plating/elevatorshaft{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
+	name = "elevator flooring"
+	},
+/area/awaymission/caves/BMP_asteroid)
+"NH" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/turf/open/floor/iron,
+/area/awaymission/caves/BMP_asteroid)
+"OQ" = (
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_two)
+"Uu" = (
+/obj/structure/closet/crate/miningcar{
+	name = "Mining cart"
+	},
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes","bludgeons","thrashes","whacks");
+	attack_verb_simple = list("bash","bludgeon","thrash","whack");
 	desc = "A pickaxe thats been left to rust.";
 	force = 1;
 	name = "rusty pickaxe";
@@ -2203,60 +2187,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid/level_two)
-"Ci" = (
-/obj/structure/closet/crate/miningcar{
-	name = "Mining cart"
-	},
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_two)
-"Gh" = (
-/obj/structure/closet/secure_closet/personal,
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid/level_two)
-"IV" = (
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_two)
-"Lc" = (
-/obj/item/plate,
-/turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid)
-"Ny" = (
-/turf/open/floor/plating/elevatorshaft{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
-	name = "elevator flooring"
-	},
-/area/awaymission/caves/BMP_asteroid)
 
 (1,1,1) = {"
 aa
@@ -13249,7 +13179,7 @@ dX
 dW
 eF
 eK
-qC
+yN
 eV
 eF
 eJ
@@ -16092,7 +16022,7 @@ bM
 fW
 fy
 ev
-gf
+so
 gm
 ev
 ev
@@ -17124,7 +17054,7 @@ gi
 fy
 fy
 gq
-gy
+NH
 fH
 cj
 bV
@@ -54127,7 +54057,7 @@ bJ
 bJ
 bJ
 bJ
-IV
+OQ
 gk
 bJ
 gs
@@ -54342,7 +54272,7 @@ bK
 bK
 bK
 bX
-Ci
+IH
 cf
 cf
 cf
@@ -58092,9 +58022,9 @@ ao
 ao
 ao
 bf
-bi
-bl
-bp
+ao
+ao
+ao
 aw
 ao
 bz
@@ -58349,9 +58279,9 @@ ao
 ao
 bf
 ap
-bj
-bm
-bq
+ao
+ao
+ao
 bf
 bw
 bA
@@ -58467,7 +58397,7 @@ bQ
 dk
 dp
 dq
-Gh
+Jq
 dw
 bR
 bK
@@ -58606,9 +58536,9 @@ ao
 ao
 ao
 bf
-bk
-bn
-br
+ao
+ao
+ao
 ao
 ao
 bz
@@ -60773,7 +60703,7 @@ bK
 bK
 bR
 bJ
-IV
+OQ
 bJ
 bJ
 bR
@@ -61578,7 +61508,7 @@ bK
 bK
 bK
 bK
-xG
+Uu
 bJ
 bJ
 bJ

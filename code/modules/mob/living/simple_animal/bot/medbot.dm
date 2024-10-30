@@ -94,7 +94,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
 	declare_crit = TRUE
-	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/kelobic
+	reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()

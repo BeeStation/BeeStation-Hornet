@@ -324,33 +324,6 @@
 "bz" = (
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/gateway)
-"bA" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bB" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bC" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
 "bD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -385,54 +358,6 @@
 /area/awaymission/research/interior/gateway)
 "bR" = (
 /obj/effect/landmark/awaystart,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bS" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bT" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bU" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bY" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"bZ" = (
-/obj/machinery/gateway,
-/obj/effect/landmark/awaystart,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
-"ca" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/gateway)
 "cb" = (
@@ -680,23 +605,6 @@
 /obj/structure/filingcabinet,
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/secure)
-"df" = (
-/obj/structure/closet/crate,
-/obj/item/disk/data{
-	desc = "A data disk used to store cloning and genetic records. The name on the label appears to be scratched off.";
-	genetic_makeup_buffer = list("label" = "Buffer1:Kr-$$@##", "UI" = "f8f603857000f930127c4", "SE" = "414401462231053131010241514651403453121613263463440351136366", "UE" = "340008485c321e542aed4df7032ac04d", "name" = "Krystal Symers", "blood_type" = "A+");
-	name = "dusty genetics data disk";
-	read_only = 1
-	},
-/obj/item/disk/data{
-	desc = "A specialized data disk for holding critical genetic backup data. Without proper passwords, information will turn up blank on most DNA machines.";
-	name = "encrypted genetic data disk";
-	read_only = 1
-	},
-/obj/item/dnainjector/xraymut,
-/obj/item/dnainjector/xraymut,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/secure)
 "dg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -758,23 +666,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/secure)
-"dL" = (
-/obj/structure/closet/crate,
-/obj/item/disk/data{
-	desc = "A data disk used to store cloning and genetic records. The name on the label appears to be scratched off with the words 'DO NOT CLONE' hastily written over it.";
-	genetic_makeup_buffer = list("label" = "Buffer1:George Melons", "UI" = "3c300f11b5421ca7014d8", "SE" = "430431205660551642142504334461413202111310233445620533134255", "UE" = "6893e6a0b0076a41897776b10cc2b324", "name" = "George Melons", "blood_type" = "B+");
-	name = "old genetics data disk"
-	},
-/obj/item/disk/data{
-	desc = "A specialized data disk for holding critical genetic backup data. Without proper passwords, information will turn up blank on most DNA machines.";
-	name = "encrypted genetic data disk";
-	read_only = 1
-	},
-/obj/item/firing_pin/dna,
-/obj/item/dnainjector/dwarf,
-/obj/item/dnainjector/dwarf,
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/secure)
 "dM" = (
@@ -904,6 +795,12 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/awaymission/research/interior/maint)
+"eC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "eD" = (
 /obj/structure/barricade/security,
 /turf/open/floor/iron{
@@ -978,6 +875,30 @@
 /area/awaymission/research/interior)
 "fc" = (
 /obj/machinery/atmospherics/components/unary/cryo_cell,
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/cryo)
+"fd" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/cryo)
+"fe" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = 7;
+	pixel_y = 1
+	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
 "fh" = (
@@ -1352,6 +1273,23 @@
 /obj/item/firing_pin/dna/dredd,
 /obj/item/dnainjector/lasereyesmut,
 /obj/item/dnainjector/lasereyesmut,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/secure)
+"im" = (
+/obj/structure/closet/crate,
+/obj/item/disk/data{
+	desc = "A data disk used to store cloning and genetic records. The name on the label appears to be scratched off with the words 'DO NOT CLONE' hastily written over it.";
+	genetic_makeup_buffer = list("label"="Buffer1:George Melons","UI"="3c300f11b5421ca7014d8","SE"="430431205660551642142504334461413202111310233445620533134255","UE"="6893e6a0b0076a41897776b10cc2b324","name"="George Melons","blood_type"="B+");
+	name = "old genetics data disk"
+	},
+/obj/item/disk/data{
+	desc = "A specialized data disk for holding critical genetic backup data. Without proper passwords, information will turn up blank on most DNA machines.";
+	name = "encrypted genetic data disk";
+	read_only = 1
+	},
+/obj/item/firing_pin/dna,
+/obj/item/dnainjector/dwarf,
+/obj/item/dnainjector/dwarf,
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/secure)
 "io" = (
@@ -2371,6 +2309,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
+"oS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "oT" = (
 /obj/machinery/door/window/eastright,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -2449,6 +2393,12 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"qh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "qj" = (
 /obj/item/ammo_casing/c9mm,
 /obj/effect/decal/cleanable/blood,
@@ -2457,14 +2407,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"qk" = (
-/obj/structure/window/reinforced{
-	dir = 8
+"qm" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "qo" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -2490,18 +2438,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
-"qA" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/cryo)
 "qV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2591,6 +2527,23 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"si" = (
+/obj/structure/closet/crate,
+/obj/item/disk/data{
+	desc = "A data disk used to store cloning and genetic records. The name on the label appears to be scratched off.";
+	genetic_makeup_buffer = list("label"="Buffer1:Kr-$$@##","UI"="f8f603857000f930127c4","SE"="414401462231053131010241514651403453121613263463440351136366","UE"="340008485c321e542aed4df7032ac04d","name"="Krystal Symers","blood_type"="A+");
+	name = "dusty genetics data disk";
+	read_only = 1
+	},
+/obj/item/disk/data{
+	desc = "A specialized data disk for holding critical genetic backup data. Without proper passwords, information will turn up blank on most DNA machines.";
+	name = "encrypted genetic data disk";
+	read_only = 1
+	},
+/obj/item/dnainjector/xraymut,
+/obj/item/dnainjector/xraymut,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/secure)
 "sk" = (
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = -32
@@ -2657,6 +2610,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
+"ta" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "te" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -2742,6 +2700,12 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
+"uZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "ve" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
@@ -2968,6 +2932,11 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"yJ" = (
+/obj/effect/landmark/awaystart,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "yN" = (
 /obj/structure/barricade/security,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
@@ -3438,18 +3407,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"EO" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/cryo)
 "EU" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -3911,11 +3868,6 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
-"LJ" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "LL" = (
 /obj/machinery/door/window/eastleft,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -4006,6 +3958,14 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/research/interior/security)
+"MO" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "MY" = (
 /obj/machinery/light{
 	dir = 4
@@ -4032,14 +3992,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"NU" = (
-/obj/structure/window/reinforced{
-	dir = 4
+"NF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "NV" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
@@ -4421,6 +4379,14 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/research/interior/maint)
+"UD" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "UL" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -4495,6 +4461,12 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
+"VC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "VK" = (
 /obj/item/stack/rods,
 /obj/item/shard{
@@ -29299,7 +29271,7 @@ ji
 cQ
 dd
 dp
-dL
+im
 cQ
 dc
 cQ
@@ -30582,7 +30554,7 @@ ji
 ji
 ji
 cQ
-df
+si
 dd
 dM
 cQ
@@ -33145,9 +33117,9 @@ ji
 ji
 ji
 bl
-bA
-bS
-bY
+VC
+NF
+oS
 cj
 bz
 bz
@@ -33402,9 +33374,9 @@ ji
 ji
 ji
 bl
-bB
-bT
-bZ
+uZ
+bz
+yJ
 ck
 bz
 cu
@@ -33659,9 +33631,9 @@ ji
 ji
 ji
 bl
-bC
-bU
-ca
+qh
+eC
+qm
 cj
 bz
 cE
@@ -36498,11 +36470,11 @@ cx
 cx
 ea
 oP
-EO
+fd
 Wi
 Hm
 oP
-EO
+fd
 Wi
 ea
 cx
@@ -36749,10 +36721,10 @@ aH
 cm
 cw
 cx
-LJ
+ta
 Fq
 Mu
-LJ
+ta
 ea
 oP
 fc
@@ -37007,16 +36979,16 @@ cd
 cx
 cx
 oT
-NU
+UD
 ss
 ss
 ea
 DK
-qA
+fe
 Wi
 Go
 oP
-qA
+fe
 Wi
 ea
 ss
@@ -38554,14 +38526,14 @@ wo
 rR
 ea
 EZ
-EO
+fd
 Wi
 Go
 oP
-EO
+fd
 Wi
 ea
-qk
+MO
 Rb
 Rb
 Ez
@@ -38821,7 +38793,7 @@ ea
 Fq
 Kd
 Fq
-LJ
+ta
 cx
 cm
 cw
@@ -39068,11 +39040,11 @@ cx
 cx
 ea
 Vl
-qA
+fe
 VM
 Go
 JT
-qA
+fe
 Wi
 ea
 cx
