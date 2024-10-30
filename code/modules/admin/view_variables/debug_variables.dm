@@ -1,4 +1,12 @@
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
+
+// defines of hints for how a proc should build strings
+#define STYLE_READ_ONLY (1)
+#define STYLE_NORMAL (2)
+#define STYLE_LIST (3)
+#define STYLE_SPECIAL (4)
+#define STYLE_EMPTY (5)
+
 /// Get displayed variable in VV variable list
 /proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE, display_flags = NONE) //if D is a list, name will be index, and value will be assoc value.
 	// variables to store values
@@ -18,21 +26,29 @@
 			else
 				value = owner_list[name]
 
-	// Builds text for single letter actions
-	if(CHECK_BITFIELD(display_flags, VV_READ_ONLY))
-		. = "<li style='backgroundColor:white'>(READ ONLY) "
-	else if(vv_spectre)
-		. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_EDIT, "E", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_CHANGE, "C", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_REMOVE, "-", index, vv_spectre.dmlist_varname)]) "
-	else if(owner_list)
-		. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
-	else if(owner)
-		var/special_list_secure_level = istext(name) ? GLOB.vv_special_lists[name] : null
-		if(special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
+	// ------------------------------------------------------------
+	// Makes hyperlink strings with edit options
+	var/special_list_secure_level = vv_spectre && istext(name) && GLOB.vv_special_lists[name]
+	var/is_ready_only = CHECK_BITFIELD(display_flags, VV_READ_ONLY) || (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
+	var/hyperlink_style =\
+		is_ready_only ? STYLE_READ_ONLY \
+		: vv_spectre ? STYLE_SPECIAL \
+		: owner_list ? STYLE_LIST \
+		: owner ? STYLE_NORMAL \
+		: STYLE_EMPTY
+
+	switch(hyperlink_style)
+		if(STYLE_READ_ONLY)
 			. = "<li style='backgroundColor:white'>(READ ONLY) "
-		else
+		if(STYLE_NORMAL)
 			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
-	else
-		. = "<li>"
+		if(STYLE_LIST)
+			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
+		if(STYLE_SPECIAL)
+			. = "<li style='backgroundColor:white'>([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_EDIT, "E", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_CHANGE, "C", index, vv_spectre.dmlist_varname)]) ([VV_HREF_SPECIAL(vv_spectre.dmlist_origin_ref, VV_HK_LIST_REMOVE, "-", index, vv_spectre.dmlist_varname)]) "
+		if(STYLE_EMPTY)
+			. = "<li>"
+	// ------------------------------------------------------------
 
 	var/name_part = VV_HTML_ENCODE(name)
 	if(level > 0 || islist(owner)) //handling keys in assoc lists
@@ -168,3 +184,8 @@
 			</table></td><td class='rbrak'>&nbsp;</td></tr></tbody></table></span>"} //TODO link to modify_transform wrapper for all matrices
 
 #undef VV_HTML_ENCODE
+#undef STYLE_READ_ONLY
+#undef STYLE_NORMAL
+#undef STYLE_LIST
+#undef STYLE_SPECIAL
+#undef STYLE_EMPTY
