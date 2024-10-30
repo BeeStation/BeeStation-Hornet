@@ -115,7 +115,7 @@
 /obj/item/ammo_box/c38/box
 	name = "ammo box (.38)"
 	desc = "A small pack of .38 cartridges"
-	icon_state = "357OLD-0"
+	icon_state = "357OLD"
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 7
 	multiple_sprites = 1

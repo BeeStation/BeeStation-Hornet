@@ -351,6 +351,14 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
+"eW" = (
+/obj/machinery/power/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/awaymission/moonoutpost19/research)
 "fk" = (
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
@@ -1921,6 +1929,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
+"tF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "tL" = (
 /obj/machinery/door/window{
 	dir = 1;
@@ -2033,14 +2046,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/hive)
-"uL" = (
-/obj/machinery/gateway,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "uU" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -2097,13 +2102,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
-"vB" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "vC" = (
 /obj/structure/sink{
 	dir = 4;
@@ -2356,12 +2354,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/awaymission/moonoutpost19/syndicate)
-"xx" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "xz" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
@@ -2438,14 +2430,6 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"yo" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "yr" = (
 /obj/item/shard{
@@ -2636,13 +2620,6 @@
 	name = "Dorm 2"
 	},
 /turf/open/floor/wood,
-/area/awaymission/moonoutpost19/syndicate)
-"Af" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "Aj" = (
 /obj/structure/chair{
@@ -3694,6 +3671,19 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"IH" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/awaymission/moonoutpost19/research)
 "IN" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg,
@@ -3875,13 +3865,6 @@
 /turf/open/floor/wood{
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
-/area/awaymission/moonoutpost19/syndicate)
-"Kg" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "Kr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4446,6 +4429,13 @@
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251"
 	},
 /area/awaymission/moonoutpost19/hive)
+"OA" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "OD" = (
 /obj/structure/sink{
 	pixel_y = 28
@@ -4455,13 +4445,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/freezer,
-/area/awaymission/moonoutpost19/syndicate)
-"OF" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/awaymission/moonoutpost19/syndicate)
 "OJ" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
@@ -4744,13 +4727,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/moonoutpost19/syndicate)
-"PV" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "PX" = (
 /obj/structure/alien/weeds,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -4780,13 +4756,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/awaymission/moonoutpost19/research)
-"Qf" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/moonoutpost19/syndicate)
 "Qr" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -5172,6 +5141,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
+"Ua" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/moonoutpost19/syndicate)
 "Uc" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
@@ -5338,14 +5311,6 @@
 	initial_temperature = 251
 	},
 /area/awaymission/moonoutpost19/syndicate)
-"Vw" = (
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/awaymission/moonoutpost19/research)
 "Vy" = (
 /obj/structure/alien/weeds,
 /obj/effect/turf_decal/tile/purple{
@@ -5372,19 +5337,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/awaymission/moonoutpost19/research)
-"VE" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
 /area/awaymission/moonoutpost19/research)
 "VM" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -38073,7 +38025,7 @@ tn
 tn
 tn
 dZ
-VE
+IH
 uU
 uU
 HI
@@ -38081,7 +38033,7 @@ Lj
 KR
 vx
 PP
-Vw
+eW
 ea
 tn
 tn
@@ -40609,9 +40561,9 @@ ac
 ac
 at
 PS
-Af
-PV
-vB
+Ua
+Ua
+Ua
 wn
 pb
 Aw
@@ -40866,9 +40818,9 @@ ac
 ac
 at
 Gz
-OF
-xx
-uL
+Ua
+Gz
+OA
 yZ
 tL
 vD
@@ -41123,9 +41075,9 @@ ac
 ac
 at
 Fv
-Qf
-Kg
-yo
+Ua
+Ua
+tF
 Em
 YZ
 Ln
