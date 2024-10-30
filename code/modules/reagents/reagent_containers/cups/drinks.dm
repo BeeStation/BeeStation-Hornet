@@ -292,21 +292,6 @@
 	list_reagents = list()
 	cap_on = FALSE
 
-// Admin spawn
-/obj/item/reagent_containers/cup/glass/waterbottle/relic
-	name = "mysterious bottle"
-	desc = "A bottle quite similar to a water bottle, but with some words scribbled on with a marker. It seems to be radiating some kind of energy."
-	flip_chance = 100 // FLIPP
-
-/obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
-	. = ..()
-	var/reagent_id = get_random_reagent_id()
-	var/datum/reagent/random_reagent = new reagent_id
-	list_reagents = list(random_reagent.type = 50)
-	desc += "<span class='notice'>The writing reads '[random_reagent.name]'.</span>"
-	update_appearance()
-
-
 /obj/item/reagent_containers/cup/glass/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
