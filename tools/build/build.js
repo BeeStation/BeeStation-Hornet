@@ -95,7 +95,7 @@ export const DmTarget = new Juke.Target({
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
-    await DreamMaker(`${DME_NAME}.dme`, {
+    await DreamMaker(get(CiParameter) ? `${DME_NAME}.ci.dme` : `${DME_NAME}.dme`, {
       defines: ['CBT', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
       ignoreWarningCodes: get(NoWarningParameter),
@@ -156,7 +156,7 @@ export const TestDirectorTargetBuild = new Juke.Target({
       throw new Juke.ExitCode(1);
     }
     // Include the generated tests at the end of the DME so it has access to defines
-    fs.writeFileSync(`${DME_NAME}.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
+    fs.writeFileSync(`${DME_NAME}.ci.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
       encoding: 'utf8'
     });
   },
