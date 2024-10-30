@@ -43,6 +43,7 @@ export class Scenario {
         })
         .filter(x => x.regex_match?.length);
       if (valid_matches.length === 0) {
+        console.log(JSON.stringify(this));
         throw new Error(`Step '${step.text}' belonging to scenario '${this.name}' failed to match any actions.`);
       }
       const match = valid_matches[0];

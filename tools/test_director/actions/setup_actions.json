@@ -23,6 +23,10 @@
 	  {
 		"match": "(%PROC%) is called on (%NAME%)",
 		"code": "$2:$1"
+	  },
+	  {
+		"match": "player is (%TYPE%)",
+		"code": "player = allocate($1)"
 	  }
 	]
   }
