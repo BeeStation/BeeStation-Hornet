@@ -66,16 +66,20 @@
   */
 /mob/proc/ClickOn( atom/A, params )
 	if(world.time <= next_click)
+		CRASH("A")
 		return
 	next_click = world.time + 1
 
 	if(check_click_intercept(params,A))
+		CRASH("B")
 		return
 
 	if(notransform)
+		CRASH("C")
 		return
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
+		CRASH("D")
 		return
 
 	var/list/modifiers = params2list(params)
@@ -102,23 +106,28 @@
 		return
 
 	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
+		CRASH("E")
 		return
 
 	face_atom(A)
 
 	if(next_move > world.time) // in the year 2000...
+		CRASH("F")
 		return
 
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
+		CRASH("G")
 		return
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
 		UnarmedAttack(A)
+		CRASH("H")
 		return
 
 	if(throw_mode && throw_item(A))
 		changeNext_move(CLICK_CD_THROW)
+		CRASH("I")
 		return
 
 	var/obj/item/W = get_active_held_item()
@@ -126,6 +135,7 @@
 	if(W == A)
 		W.attack_self(src)
 		update_inv_hands()
+		CRASH("J")
 		return
 
 	//These are always reachable.
@@ -137,10 +147,12 @@
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A)
+		CRASH("J")
 		return
 
 	//Can't reach anything else in lockers or other weirdness
 	if(!loc.AllowClick())
+		CRASH("K")
 		return
 
 	//Standard reach turf to turf or reaching inside storage
@@ -151,11 +163,13 @@
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A,1)
+		CRASH("M")
 	else
 		if(W)
 			W.afterattack(A,src,0,params)
 		else
 			RangedAttack(A,params)
+		CRASH("L")
 
 /// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
