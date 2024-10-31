@@ -7,11 +7,11 @@
 	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
-	active_power_usage = 4
+	active_power_usage = 9
 	max_integrity = 150
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0, STAMINA = 0, BLEED = 0)
 	var/frequency = 0
-	var/atom/target
+	var/obj/machinery/atmospherics/pipe/target
 	var/target_layer = PIPING_LAYER_DEFAULT
 
 /obj/machinery/meter/atmos
@@ -53,23 +53,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 	target_layer = new_layer
 	PIPING_LAYER_DOUBLE_SHIFT(src, target_layer)
 
+/obj/machinery/meter/on_set_is_operational(old_value)
+	if(is_operational)
+		SSair.start_processing_machine(src)//dont set icon_state here because it will be reset on next process() if it ever happens
+	else
+		icon_state = "meterX"
+		SSair.stop_processing_machine(src)
+
 /obj/machinery/meter/process_atmos()
-	if(!target)
+	var/datum/gas_mixture/pipe_air = target.return_air()
+	if(!pipe_air)
 		icon_state = "meterX"
-		return 0
+		return FALSE
 
-	if(machine_stat & (BROKEN|NOPOWER))
-		icon_state = "meter0"
-		return 0
-
-	use_power(5)
-
-	var/datum/gas_mixture/environment = target.return_air()
-	if(!environment)
-		icon_state = "meterX"
-		return 0
-
-	var/env_pressure = environment.return_pressure()
+	var/env_pressure = pipe_air.return_pressure()
 	if(env_pressure <= 0.15*ONE_ATMOSPHERE)
 		icon_state = "meter0"
 	else if(env_pressure <= 1.8*ONE_ATMOSPHERE)
@@ -83,6 +80,33 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 		icon_state = "meter3_[val]"
 	else
 		icon_state = "meter4"
+
+	var/env_temperature = pipe_air.temperature
+
+	var/new_greyscale = greyscale_colors
+
+	if(env_pressure == 0 || env_temperature == 0)
+		new_greyscale = COLOR_GRAY
+	else
+		switch(env_temperature)
+			if(BODYTEMP_HEAT_WARNING_3 to INFINITY)
+				new_greyscale = COLOR_RED
+			if(BODYTEMP_HEAT_WARNING_2 to BODYTEMP_HEAT_WARNING_3)
+				new_greyscale = COLOR_ORANGE
+			if(BODYTEMP_HEAT_WARNING_1 to BODYTEMP_HEAT_WARNING_2)
+				new_greyscale = COLOR_YELLOW
+			if(BODYTEMP_COLD_WARNING_1 to BODYTEMP_HEAT_WARNING_1)
+				new_greyscale = COLOR_VIBRANT_LIME
+			if(BODYTEMP_COLD_WARNING_2 to BODYTEMP_COLD_WARNING_1)
+				new_greyscale = COLOR_CYAN
+			if(BODYTEMP_COLD_WARNING_3 to BODYTEMP_COLD_WARNING_2)
+				new_greyscale = COLOR_BLUE
+			else
+				new_greyscale = COLOR_VIOLET
+
+	if(new_greyscale != greyscale_colors)//dont update if nothing has changed since last update
+		greyscale_colors = new_greyscale
+		set_greyscale(greyscale_colors)
 
 	if(frequency)
 		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
@@ -100,9 +124,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 
 /obj/machinery/meter/proc/status()
 	if (target)
-		var/datum/gas_mixture/environment = target.return_air()
-		if(environment)
-			. = "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.return_temperature(),0.01)] K ([round(environment.return_temperature()-T0C,0.01)]&deg;C)."
+		var/datum/gas_mixture/pipe_air = target.return_air()
+		if(pipe_air)
+			. = "The pressure gauge reads [round(pipe_air.return_pressure(), 0.01)] kPa; [round(pipe_air.temperature,0.01)] K ([round(pipe_air.temperature-T0C,0.01)]&deg;C)."
 		else
 			. = "The sensor error light is blinking."
 	else
