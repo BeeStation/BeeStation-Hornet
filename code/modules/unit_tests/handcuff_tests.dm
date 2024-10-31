@@ -12,7 +12,6 @@
 	TEST_ASSERT_EQUAL(first.get_active_held_item(), cuffs, "First mob should be holding handcuffs")
 	first.ClickOn(second)
 	TEST_ASSERT_NOTNULL(second.handcuffed, "Second mob should be handcuffed")
-	// Restore client
-	var/previous_loc = second.loc
-	second.Move(get_step(second, NORTH), NORTH)
-	TEST_ASSERT_EQUAL(second.loc, previous_loc, "The mob should not be able to move while grabbed")
+	// We can't actually test movement with a client (no clients until we stub them), so we have to
+	// check this instead for now
+	TEST_ASSERT_EQUAL(second.Process_Grab(), TRUE, "The mob should not be able to move while grabbed")
