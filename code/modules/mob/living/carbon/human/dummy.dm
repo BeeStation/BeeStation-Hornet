@@ -146,6 +146,8 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /// Provides a dummy for unit_tests that functions like a normal human, but with a standardized appearance
 /// Copies the stock dna setup from the dummy/consistent type
 /mob/living/carbon/human/consistent
+	next_click = -1
+	next_move = -1
 
 /mob/living/carbon/human/consistent/Initialize(mapload)
 	. = ..()
