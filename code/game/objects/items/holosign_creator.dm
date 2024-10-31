@@ -118,7 +118,7 @@
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	sign_name = "holofan"
 	creation_time = 0
-	max_signs = 6
+	max_signs = 3
 
 /obj/item/holosign_creator/medical
 	name = "\improper PENLITE barrier projector"
