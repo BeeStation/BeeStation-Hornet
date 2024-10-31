@@ -1,0 +1,4 @@
+author: ktlwjec
+delete-after: true
+changes:
+  - bugfix: Helmet of justice will no longer be invisible when turned on.
