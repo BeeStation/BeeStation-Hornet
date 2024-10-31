@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, INSTANT_DO_AFTER)
+	ADD_TRAIT(src, INSTANT_DO_AFTER, INNATE_TRAIT)
 
 /mob/living/carbon/human/consistent/setup_human_dna()
 	create_consistent_human_dna(src)
