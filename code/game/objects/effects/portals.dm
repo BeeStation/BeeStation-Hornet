@@ -1,10 +1,9 @@
-
-/proc/create_portal_pair(turf/source, turf/destination, _creator = null, _lifespan = 300, accuracy = 0, newtype = /obj/effect/portal, atmos_link_override)
+/proc/create_portal_pair(turf/source, turf/destination, _lifespan = 300, accuracy = 0, newtype = /obj/effect/portal)
 	if(!istype(source) || !istype(destination))
 		return
 	var/turf/actual_destination = get_teleport_turf(destination, accuracy)
-	var/obj/effect/portal/P1 = new newtype(source, _creator, _lifespan, null, FALSE, null, atmos_link_override)
-	var/obj/effect/portal/P2 = new newtype(actual_destination, _creator, _lifespan, P1, TRUE, null, atmos_link_override)
+	var/obj/effect/portal/P1 = new newtype(source, _lifespan, null, FALSE, null)
+	var/obj/effect/portal/P2 = new newtype(actual_destination, _lifespan, P1, TRUE, null)
 	if(!istype(P1)||!istype(P2))
 		return
 	P1.link_portal(P2)
@@ -138,16 +137,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 		return FALSE
 	atmos_source.atmos_adjacent_turfs[atmos_destination] = TRUE
 	atmos_destination.atmos_adjacent_turfs[atmos_source] = TRUE
-	atmos_source.air_update_turf(FALSE)
-	atmos_destination.air_update_turf(FALSE)
+	atmos_source.air_update_turf(FALSE, FALSE)
+	atmos_destination.air_update_turf(FALSE, FALSE)
 
 /obj/effect/portal/proc/unlink_atmos()
 	if(istype(atmos_source))
-		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source))
+		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source, FALSE))
 			LAZYREMOVE(atmos_source.atmos_adjacent_turfs, atmos_destination)
 		atmos_source = null
 	if(istype(atmos_destination))
-		if(istype(atmos_source) && !atmos_destination.Adjacent(atmos_source) && !CANATMOSPASS(atmos_source, atmos_destination))
+		if(istype(atmos_source) && !atmos_destination.Adjacent(atmos_source) && !CANATMOSPASS(atmos_source, atmos_destination, FALSE))
 			LAZYREMOVE(atmos_destination.atmos_adjacent_turfs, atmos_source)
 		atmos_destination = null
 
@@ -156,7 +155,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 		call(creator, "on_portal_destroy")(src, src.loc)
 	creator = null
 	GLOB.portals -= src
-	unlink_atmos()
 	if(hardlinked && !QDELETED(linked))
 		QDEL_NULL(linked)
 	else

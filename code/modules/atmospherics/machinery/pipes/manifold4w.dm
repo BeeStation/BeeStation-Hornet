@@ -26,7 +26,7 @@
 	center = mutable_appearance(icon, "manifold4w_center")
 	return ..()
 
-/obj/machinery/atmospherics/pipe/manifold4w/SetInitDirections()
+/obj/machinery/atmospherics/pipe/manifold4w/set_init_directions()
 	initialize_directions = initial(initialize_directions)
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_icon()
@@ -39,6 +39,6 @@
 	//Add non-broken pieces
 	for(var/i in 1 to device_type)
 		if(nodes[i])
-			add_overlay( getpipeimage(icon, "pipe-[piping_layer]", get_dir(src, nodes[i])) )
+			add_overlay( get_pipe_image(icon, "pipe-[piping_layer]", get_dir(src, nodes[i])) )
 
 	update_layer()

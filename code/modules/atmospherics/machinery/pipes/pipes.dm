@@ -1,10 +1,12 @@
 /obj/machinery/atmospherics/pipe
+	damage_deflection = 12
 	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
 	var/volume = 0
 
 	use_power = NO_POWER_USE
 	can_unwrench = 1
 	var/datum/pipeline/parent = null
+
 	paintable = TRUE
 
 	//Buckling
@@ -28,13 +30,9 @@
 	. = ..()
 
 	if(hide)
-		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE) //if changing this, change the subtypes RemoveElements too, because thats how bespoke works
 
-/obj/machinery/atmospherics/pipe/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
-
-/obj/machinery/atmospherics/pipe/nullifyNode(i)
+/obj/machinery/atmospherics/pipe/nullify_node(i)
 	var/obj/machinery/atmospherics/oldN = nodes[i]
 	..()
 	if(oldN)
@@ -43,30 +41,32 @@
 /obj/machinery/atmospherics/pipe/destroy_network()
 	QDEL_NULL(parent)
 
-/obj/machinery/atmospherics/pipe/build_network()
-	if(QDELETED(parent))
-		parent = new
-		parent.build_pipeline(src)
+/obj/machinery/atmospherics/pipe/get_rebuild_targets()
+	if(!QDELETED(parent))
+		return
+	parent = new
+	return list(parent)
 
 /obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
 	if(air_temporary)
 		var/turf/T = loc
 		T.assume_air(air_temporary)
-		air_update_turf()
+		air_update_turf(FALSE, FALSE)
 
 /obj/machinery/atmospherics/pipe/return_air()
-	if(parent)
-		return parent.air
+	if(air_temporary)
+		return air_temporary
+	return parent.air
 
 /obj/machinery/atmospherics/pipe/return_analyzable_air()
-	if(parent)
-		return parent.air
+	if(air_temporary)
+		return air_temporary
+	return parent.air
 
 /obj/machinery/atmospherics/pipe/remove_air(amount)
+	if(air_temporary)
+		return air_temporary.remove(amount)
 	return parent.air.remove(amount)
-
-/obj/machinery/atmospherics/pipe/remove_air_ratio(ratio)
-	return parent.air.remove_ratio(ratio)
 
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pipe_meter))
@@ -76,11 +76,10 @@
 	else
 		return ..()
 
-/obj/machinery/atmospherics/pipe/returnPipenet()
-	if(parent)
-		return parent.air
+/obj/machinery/atmospherics/pipe/return_pipenet()
+	return parent
 
-/obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
+/obj/machinery/atmospherics/pipe/set_pipenet(datum/pipeline/P)
 	parent = P
 
 /obj/machinery/atmospherics/pipe/Destroy()
@@ -97,13 +96,17 @@
 			qdel(meter)
 	. = ..()
 
+/obj/machinery/atmospherics/pipe/update_icon()
+	. = ..()
+	update_layer()
+
 /obj/machinery/atmospherics/pipe/proc/update_node_icon()
 	for(var/i in 1 to device_type)
 		if(nodes[i])
 			var/obj/machinery/atmospherics/N = nodes[i]
 			N.update_icon()
 
-/obj/machinery/atmospherics/pipe/returnPipenets()
+/obj/machinery/atmospherics/pipe/return_pipenets()
 	. = list(parent)
 
 /obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)

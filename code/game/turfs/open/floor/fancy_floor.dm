@@ -100,7 +100,7 @@
 	return make_plating()
 
 /turf/open/floor/wood/cold
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/wood/airless
 	initial_gas_mix = AIRLESS_ATMOS

@@ -32,13 +32,6 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	///Is this floor no-slip?
 	var/traction = FALSE
 
-/turf/open/Initialize(mapload)
-	. = ..()
-	if(broken)
-		break_tile(TRUE)
-	if(burnt)
-		burn_tile(TRUE)
-
 /turf/open/ComponentInitialize()
 	. = ..()
 	if(wet)
@@ -128,6 +121,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "boss"
 	baseturfs = /turf/open/indestructible/boss
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/indestructible/boss/air
@@ -135,6 +129,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
 	tiled_dirt = FALSE
@@ -157,7 +152,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/indestructible/binary
 	name = "tear in the fabric of reality"
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 	baseturfs = /turf/open/indestructible/binary
 	icon_state = "binary"
 	footstep = FOOTSTEP_PLATING
@@ -168,20 +163,20 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
+	blocks_air = TRUE
+	init_air = FALSE
 	baseturfs = /turf/open/indestructible/airblock
-	CanAtmosPass = ATMOS_PASS_NO
 	init_air = FALSE
 
-/turf/open/Initalize_Atmos(times_fired)
-	if(!istype(air, /datum/gas_mixture/turf))
-		air = new(2500,src)
-	air.copy_from_turf(src)
-	update_air_ref(planetary_atmos ? 1 : 2)
+/turf/open/Initalize_Atmos(time)
+	excited = FALSE
+	if(!blocks_air)
+		if(!istype(air,/datum/gas_mixture/turf))
+			air = new(2500,src)
+		air.copy_from_turf(src)
 
-	update_visuals()
-
-	ImmediateCalculateAdjacentTurfs()
-
+	current_cycle = time
+	init_immediate_calculate_adjacent_turfs()
 
 /turf/open/proc/GetHeatCapacity()
 	. = air.heat_capacity()
@@ -190,8 +185,8 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	. = air.return_temperature()
 
 /turf/open/proc/TakeTemperature(temp)
-	air.set_temperature(air.return_temperature() + temp)
-	air_update_turf()
+	air.temperature = air.return_temperature() + temp
+	air_update_turf(FALSE, FALSE)
 
 /turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)
@@ -279,11 +274,11 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/rad_act(pulse_strength)
 	. = ..()
-	if (air.get_moles(GAS_CO2) && air.get_moles(GAS_O2))
-		pulse_strength = min(pulse_strength,air.get_moles(GAS_CO2)*1000,air.get_moles(GAS_O2)*2000) //Ensures matter is conserved properly
-		air.set_moles(GAS_CO2, max(air.get_moles(GAS_CO2)-(pulse_strength/1000),0))
-		air.set_moles(GAS_O2, max(air.get_moles(GAS_O2)-(pulse_strength/2000),0))
-		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
+	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen])
+		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
+		ADD_MOLES(/datum/gas/carbon_dioxide, air, (pulse_strength/1000)-air.gases[/datum/gas/carbon_dioxide][MOLES])
+		ADD_MOLES(/datum/gas/oxygen, air, (pulse_strength/2000)-air.gases[/datum/gas/oxygen][MOLES])
+		ADD_MOLES(/datum/gas/pluoxium, air, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)

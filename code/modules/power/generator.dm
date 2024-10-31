@@ -80,8 +80,8 @@
 				var/heat = energy_transfer*(1-efficiency)
 				lastgen += energy_transfer*efficiency
 
-				hot_air.set_temperature(hot_air.return_temperature() - energy_transfer/hot_air_heat_capacity)
-				cold_air.set_temperature(cold_air.return_temperature() + heat/cold_air_heat_capacity)
+				hot_air.temperature = (hot_air.return_temperature() - energy_transfer/hot_air_heat_capacity)
+				cold_air.temperature = (cold_air.return_temperature() + heat/cold_air_heat_capacity)
 
 				//add_avail(lastgen) This is done in process now
 		// update icon overlays only if displayed level has changed

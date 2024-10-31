@@ -591,7 +591,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.set_moles(GAS_PLASMA, 70)
+				var/datum/gas_mixture/plasma_air = Plasma.return_air()
+				SET_MOLES(/datum/gas/plasma, plasma_air, 70)
+
 				Rad.drainratio = 0
 				Rad.loaded_tank = Plasma
 				Plasma.forceMove(Rad)
@@ -916,13 +918,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG) || !C)
 		return
 
-	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in GLOB.gas_data.ids
+	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in subtypesof(/datum/gas)
 	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
 	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
 
+	var/datum/gas_mixture/C_air = C.return_air()
 
-	C.air_contents.set_moles(gas_to_add, amount)
-	C.air_contents.set_temperature(temp)
+	SET_MOLES(gas_to_add, C_air, amount)
+
+	C_air.temperature = (temp)
 	C.update_icon()
 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].</span>")

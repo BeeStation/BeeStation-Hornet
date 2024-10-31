@@ -150,6 +150,9 @@
 /// Plane for balloon text (text that fades up)
 #define BALLOON_CHAT_PLANE 651
 
+#define ATMOS_GROUP_PLANE 652
+#define ATMOS_GROUP_LAYER 652
+
 ///--------------- FULLSCREEN IMAGES ------------
 #define FLASH_LAYER 1
 #define FULLSCREEN_LAYER 2

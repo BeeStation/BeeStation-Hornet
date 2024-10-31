@@ -21,7 +21,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_volume(0)
+	air_contents.volume = 0
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)
@@ -31,7 +31,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/update_icon_nopipes()
 	icon_state = "connector"
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "connector_cap", initialize_directions)
+		var/image/cap = get_pipe_image(icon, "connector_cap", initialize_directions)
 		add_overlay(cap)
 
 /obj/machinery/atmospherics/components/unary/portables_connector/process_atmos()
@@ -47,13 +47,6 @@
 
 /obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()
-
-/obj/machinery/atmospherics/components/unary/portables_connector/build_network()
-	. = ..()
-	if(connect_to)
-		var/obj/machinery/portable_atmospherics/PA = connect_to
-		if(PA)
-			PA.connect(src)
 
 /obj/proc/portableConnectorReturnAir()
 	return

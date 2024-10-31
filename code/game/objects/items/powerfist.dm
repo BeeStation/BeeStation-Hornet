@@ -78,7 +78,7 @@
 	if(!tank)
 		to_chat(user, "<span class='warning'>\The [src] can't operate without a source of gas!</span>")
 		return
-	var/datum/gas_mixture/gasused = tank.air_contents.remove(gasperfist * fisto_setting)
+	var/datum/gas_mixture/gasused = tank.remove_air(gasperfist * fisto_setting)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -96,7 +96,7 @@
 		return ..()
 	if(gasused.total_moles() < gasperfist * fisto_setting)
 		T.assume_air(gasused)
-		T.air_update_turf()
+		T.air_update_turf(FALSE, FALSE)
 		to_chat(user, "<span class='warning'>\The [src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
 		force = (baseforce / 2)
@@ -114,7 +114,7 @@
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, force))
 			T.assume_air(gasused)
-			T.air_update_turf()
+			T.air_update_turf(FALSE, FALSE)
 			return
 	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
 		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>", ignored_mobs = list(user))
@@ -131,6 +131,6 @@
 	user.changeNext_move(CLICK_CD_MELEE * click_delay)
 
 	T.assume_air(gasused)
-	T.air_update_turf()
+	T.air_update_turf(FALSE, FALSE)
 
 	return ..()

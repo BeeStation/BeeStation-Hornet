@@ -13,7 +13,7 @@
 
 	allow_z_travel = TRUE
 
-	initial_temperature = TCMB
+	temperature = TCMB
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
@@ -25,9 +25,10 @@
 	var/destination_x
 	var/destination_y
 
-	var/static/datum/gas_mixture/immutable/space/space_gas
+	var/static/datum/gas_mixture/immutable/space/space_gas = new
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
+	run_later = TRUE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -60,7 +61,6 @@
 	if(!space_gas)
 		space_gas = new
 	air = space_gas
-	update_air_ref(0)
 
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -69,6 +69,9 @@
 	var/area/A = loc
 	if(IS_DYNAMIC_LIGHTING(A))
 		overlays += GLOB.starlight_overlay
+
+	if(requires_activation)
+		SSair.add_to_active(src, TRUE)
 
 	return INITIALIZE_HINT_NORMAL
 

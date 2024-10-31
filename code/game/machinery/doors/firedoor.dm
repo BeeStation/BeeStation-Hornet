@@ -341,7 +341,7 @@
 		if(reconsider_immediately)
 			var/turf/open/T = FD.loc
 			if(istype(T))
-				T.ImmediateCalculateAdjacentTurfs()
+				T.immediate_calculate_adjacent_turfs()
 
 /obj/machinery/door/firedoor/proc/emergency_pressure_stop(consider_timer = TRUE)
 	set waitfor = 0
@@ -377,7 +377,7 @@
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/firelocks/edge_Doorfire.dmi'
 	flags_1 = ON_BORDER_1
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
 /obj/machinery/door/firedoor/border_only/Initialize(mapload)
@@ -468,7 +468,7 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
+/obj/machinery/door/firedoor/border_only/can_atmos_pass(turf/T, vertical = FALSE)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else

@@ -119,9 +119,11 @@
 /obj/item/coin/plasma
 	custom_materials = list(/datum/material/plasma = 400)
 
-/obj/item/coin/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		plasma_ignition(0)
+/obj/item/coin/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/item/coin/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	plasma_ignition(0)
 
 
 /obj/item/coin/plasma/bullet_act(obj/projectile/Proj)

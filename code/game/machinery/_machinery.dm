@@ -137,13 +137,14 @@ Class Procs:
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
 
-	///Is this machine currently in the atmos machinery queue?
-	var/atmos_processing = FALSE
 	///Is this machine currently in the atmos machinery queue, but also interacting with turf air?
 	var/interacts_with_air = FALSE
 
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
+
+	///Is this machine currently in the atmos machinery queue?
+	var/atmos_processing = FALSE
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)

@@ -6,14 +6,14 @@
 	device_type = BINARY
 	layer = GAS_PUMP_LAYER
 
-/obj/machinery/atmospherics/components/binary/SetInitDirections()
+/obj/machinery/atmospherics/components/binary/set_init_directions()
 	switch(dir)
 		if(NORTH, SOUTH)
 			initialize_directions = NORTH|SOUTH
 		if(EAST, WEST)
 			initialize_directions = EAST|WEST
 
-/obj/machinery/atmospherics/components/binary/getNodeConnects()
+/obj/machinery/atmospherics/components/binary/get_node_connects()
 	return list(turn(dir, 180), dir)
 
 ///Used by binary devices to set what the offset will be for each layer

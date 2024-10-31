@@ -52,13 +52,14 @@
 		var/output_capacity = air_output.heat_capacity()
 
 		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * coolant_temperature_delta * (input_capacity * output_capacity / (input_capacity + output_capacity))
-		remove_input.set_temperature(max(remove_input.return_temperature() - (cooling_heat_amount / input_capacity), TCMB))
-		remove_output.set_temperature(max(remove_output.return_temperature() + (cooling_heat_amount / output_capacity), TCMB))
+		remove_input.temperature = (max(remove_input.return_temperature() - (cooling_heat_amount / input_capacity), TCMB))
+		remove_output.temperature = (max(remove_output.return_temperature() + (cooling_heat_amount / output_capacity), TCMB))
+		update_parents()
+
 
 	air_input.merge(remove_input)
 	air_output.merge(remove_output)
 
-	update_parents()
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

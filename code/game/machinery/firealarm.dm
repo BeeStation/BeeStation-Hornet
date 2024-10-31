@@ -36,7 +36,7 @@
 
 	var/detecting = 1
 	var/buildstage = 2 // 2 = complete, 1 = no wires, 0 = circuit gone
-	var/last_alarm = 0
+	COOLDOWN_DECLARE(last_alarm)
 	var/area/myarea = null
 	var/locked = FALSE //Are we locked?
 
@@ -53,6 +53,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
+
+/obj/machinery/firealarm/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
+/obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
+	SIGNAL_HANDLER
+	if(is_station_level(z))
+		update_appearance()
 
 /obj/machinery/firealarm/Destroy()
 	myarea.firereset(src)
@@ -122,11 +131,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
-/obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
-		alarm()
-		try_lock(null, TRUE)
-	..()
+/obj/machinery/firealarm/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && !(obj_flags & EMAGGED) && detecting && !machine_stat
+
+/obj/machinery/firealarm/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	alarm()
 
 /**
  * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
@@ -142,9 +151,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		update_appearance()
 
 /obj/machinery/firealarm/proc/alarm(mob/user)
-	if(!is_operational || (last_alarm+FIREALARM_COOLDOWN > world.time))
+	if(!is_operational || !COOLDOWN_FINISHED(src, last_alarm))
 		return
-	last_alarm = world.time
+	COOLDOWN_START(src, last_alarm, FIREALARM_COOLDOWN)
 	var/area/A = get_area(src)
 	A.firealert(src)
 	playsound(loc, 'goon/sound/machinery/FireAlarm.ogg', 75)

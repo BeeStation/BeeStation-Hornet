@@ -31,6 +31,9 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
+	///Used by process() to track if there's a reason to process each tick
+	var/excited = TRUE
+	var/leaking = FALSE
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -70,7 +73,7 @@
 	. = ..()
 
 	air_contents = new(volume) //liters
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = T20C
 
 	populate_gas()
 
@@ -98,7 +101,7 @@
 
 	. += "<span class='notice'>The gauge reads [round(air_contents.total_moles(), 0.01)] mol at [round(src.air_contents.return_pressure(),0.01)] kPa.</span>"	//yogs can read mols
 
-	var/celsius_temperature = src.air_contents.return_temperature()-T0C
+	var/celsius_temperature = air_contents.return_temperature()-T0C
 	var/descriptive
 
 	if (celsius_temperature < 20)
@@ -117,10 +120,11 @@
 	. += "<span class='notice'>It feels [descriptive].</span>"
 
 /obj/item/tank/deconstruct(disassembled = TRUE)
-	var/turf/location = get_turf(src)
-	if(location)
-		location.assume_air(air_contents)
-		location.air_update_turf(FALSE, FALSE)
+	if(!disassembled)
+		var/turf/location = get_turf(src)
+		if(location)
+			location.assume_air(air_contents)
+			air_update_turf(FALSE, FALSE)
 		playsound(location, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	return ..()
 
@@ -203,31 +207,34 @@
 				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 
 /obj/item/tank/remove_air(amount)
+	START_PROCESSING(SSobj, src)
 	return air_contents.remove(amount)
 
 /obj/item/tank/remove_air_ratio(ratio)
-	return air_contents.remove_ratio(ratio)
+	return remove_air_ratio(ratio)
 
 /obj/item/tank/return_air()
+	START_PROCESSING(SSobj, src)
 	return air_contents
 
 /obj/item/tank/return_analyzable_air()
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)
+	START_PROCESSING(SSobj, src)
 	air_contents.merge(giver)
 	handle_tolerances(ASSUME_AIR_DT_FACTOR)
 	return TRUE
 
 /obj/item/tank/assume_air_moles(datum/gas_mixture/giver, moles)
+	START_PROCESSING(SSobj, src)
 	giver.transfer_to(air_contents, moles)
-
 	handle_tolerances(ASSUME_AIR_DT_FACTOR)
 	return TRUE
 
 /obj/item/tank/assume_air_ratio(datum/gas_mixture/giver, ratio)
+	START_PROCESSING(SSobj, src)
 	giver.transfer_ratio_to(air_contents, ratio)
-
 	handle_tolerances(ASSUME_AIR_DT_FACTOR)
 	return TRUE
 
@@ -243,16 +250,22 @@
 
 	return remove_air(moles_needed)
 
+
 /obj/item/tank/process(delta_time)
 	if(!air_contents)
 		return
 
 	//Allow for reactions
-	air_contents.react(src)
-	handle_tolerances(delta_time)
-	if(QDELETED(src) || !leaking || !air_contents)
+	excited = (excited | air_contents.react(src))
+	excited = (excited | handle_tolerances(delta_time))
+
+	if(!excited)
+		STOP_PROCESSING(SSobj, src)
+	excited = FALSE
+
+	if(QDELETED(src) || !air_contents)
 		return
-	var/turf/location = get_turf(src)
+	var/atom/location = loc
 	if(!location)
 		return
 	var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
@@ -262,6 +275,7 @@
 /**
  * Handles the minimum and maximum pressure tolerances of the tank.
  *
+ * Returns true if it did anything of significance, false otherwise
  * Arguments:
  * - delta_time: How long has passed between ticks.
  */
@@ -280,31 +294,17 @@
 	if(pressure >= TANK_LEAK_PRESSURE)
 		var/pressure_damage_ratio = (pressure - TANK_LEAK_PRESSURE) / (TANK_RUPTURE_PRESSURE - TANK_LEAK_PRESSURE)
 		take_damage(max_integrity * pressure_damage_ratio * delta_time, BRUTE, BOMB, FALSE, NONE)
-	return TRUE
-
-/// Handles the tank springing a leak.
-/obj/item/tank/atom_break(damage_flag)
-	. = ..()
-	if(leaking)
-		return
-
-	leaking = TRUE
-	if(atom_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
-		return
-	visible_message("<span class='warning'>[src] springs a leak!</span>")
-	playsound(src, 'sound/effects/spray.ogg', 10, TRUE, -3)
+		return TRUE
+	return FALSE
 
 /// Handles rupturing and fragmenting
-/obj/item/tank/atom_destruction(damage_flag)
+/obj/item/tank/obj_destruction(damage_flag)
 	if(!air_contents)
-		return ..()
-
-	var/turf/location = get_turf(src)
-	if(!location)
 		return ..()
 
 	/// Handle fragmentation
 	var/pressure = air_contents.return_pressure()
+
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		var/explosion_mod = 1
 		if(!istype(loc, /obj/item/transfer_valve))
@@ -317,8 +317,25 @@
 		pressure = air_contents.return_pressure()
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 
-		explosion(location, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
+		if(istype(src.loc, /obj/item/transfer_valve))
+			qdel(src.loc)
+		else
+			qdel(src)
+
 	return ..()
+
+/// Handles the tank springing a leak.
+/obj/item/tank/obj_break(damage_flag)
+	. = ..()
+
+	START_PROCESSING(SSobj, src)
+
+	if(obj_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
+		return
+	visible_message("<span class='warning'>[src] springs a leak!</span>")
+	playsound(src, 'sound/effects/spray.ogg', 10, TRUE, -3)
+
 
 #undef TTV_NO_CASING_MOD
 #undef REACTIONS_BEFORE_EXPLOSION

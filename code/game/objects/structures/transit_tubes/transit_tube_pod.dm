@@ -13,9 +13,10 @@
 
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
-	air_contents.set_moles(GAS_O2, MOLES_O2STANDARD)
-	air_contents.set_moles(GAS_N2, MOLES_N2STANDARD)
-	air_contents.set_temperature(T20C)
+	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*air_contents.volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, air_contents, 6*ONE_ATMOSPHERE*air_contents.volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+
+	air_contents.temperature = T20C
 
 
 /obj/structure/transit_tube_pod/Destroy()
@@ -169,10 +170,10 @@
 	return giver.transfer_ratio_to(air_contents, ratio)
 
 /obj/structure/transit_tube_pod/remove_air(amount)
-	return air_contents.remove(amount)
+	return remove_air(amount)
 
 /obj/structure/transit_tube_pod/remove_air_ratio(ratio)
-	return air_contents.remove_ratio(ratio)
+	return remove_air_ratio(ratio)
 
 /obj/structure/transit_tube_pod/transfer_air(datum/gas_mixture/taker, moles)
 	return air_contents.transfer_to(taker, moles)

@@ -23,7 +23,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/list/baseturfs = /turf/baseturf_bottom
 
 	/// How hot the turf is, in kelvin
-	var/initial_temperature = T20C
+	var/temperature = T20C
 
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
@@ -35,6 +35,10 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
+
+	/// Whether the turf blocks atmos from passing through it or not
+	var/blocks_air = FALSE
+
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -124,7 +128,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
-		CALCULATE_ADJACENT_TURFS(src)
+		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -157,13 +161,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		else if (!armor)
 			armor = getArmor()
 
-	if(isopenturf(src))
-		var/turf/open/O = src
-		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
-	else
-		update_air_ref(-1)
-		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
-
 	//Handle turf texture
 	var/datum/turf_texture/TT = get_turf_texture()
 	if(TT)
@@ -171,15 +168,9 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/proc/__auxtools_update_turf_temp_info()
-
-/turf/return_temperature()
-
-/turf/proc/set_temperature()
-
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
-/turf/proc/Initalize_Atmos(times_fired)
-	CALCULATE_ADJACENT_TURFS(src)
+/turf/proc/Initalize_Atmos(time)
+	CALCULATE_ADJACENT_TURFS(src, NORMAL_TURF)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC

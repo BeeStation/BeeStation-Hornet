@@ -674,7 +674,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "4"
 	color = RUNE_COLOR_DARKRED
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	var/datum/timedevent/density_timer
 	var/recharging = FALSE
 
@@ -694,7 +694,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	GLOB.wall_runes -= src
 	return ..()
 
-/obj/effect/rune/wall/BlockThermalConductivity()
+/obj/effect/rune/wall/block_superconductivity()
 	return density
 
 /obj/effect/rune/wall/invoke(var/list/invokers)

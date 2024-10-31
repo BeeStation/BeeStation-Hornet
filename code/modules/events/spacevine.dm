@@ -24,6 +24,10 @@
 		new /datum/spacevine_controller(T, list(pick(subtypesof(/datum/spacevine_mutation))), rand(10,100), rand(1,6)) //spawn a controller at turf with randomized stats and a single random mutation
 		message_admins("Event spacevine has been spawned in [ADMIN_VERBOSEJMP(T)].")
 
+/obj/structure/spacevine/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /datum/spacevine_mutation
 	var/name = ""
 	var/severity = 1
@@ -213,7 +217,7 @@
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air
-		GM.set_moles(GAS_O2, max(GM.get_moles(GAS_O2) - severity * holder.energy, 0))
+		SET_MOLES(/datum/gas/oxygen, GM, max(GET_MOLES(/datum/gas/oxygen, GM) - severity * holder.energy, 0))
 
 /datum/spacevine_mutation/nitro_eater
 	name = "nitrogen consuming"
@@ -225,7 +229,7 @@
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air
-		GM.set_moles(GAS_N2, max(GM.get_moles(GAS_N2) - severity * holder.energy, 0))
+		SET_MOLES(/datum/gas/nitrogen, GM, max(GET_MOLES(/datum/gas/nitrogen, GM) - severity * holder.energy, 0))
 
 /datum/spacevine_mutation/carbondioxide_eater
 	name = "CO2 consuming"
@@ -237,7 +241,7 @@
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air
-		GM.set_moles(GAS_CO2, max(GM.get_moles(GAS_CO2) - severity * holder.energy, 0))
+		REMOVE_MOLES(/datum/gas/carbon_dioxide, GM, severity * holder.energy - GET_MOLES(/datum/gas/carbon_dioxide, GM))
 
 /datum/spacevine_mutation/plasma_eater
 	name = "toxins consuming"
@@ -249,7 +253,7 @@
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air
-		GM.set_moles(GAS_PLASMA, max(GM.get_moles(GAS_PLASMA) - severity * holder.energy, 0))
+		SET_MOLES(/datum/gas/plasma, GM, max(GET_MOLES(/datum/gas/plasma, GM) - severity * holder.energy, 0))
 
 /datum/spacevine_mutation/thorns
 	name = "thorny"
@@ -569,10 +573,14 @@
 	if(!i && prob(100/severity))
 		qdel(src)
 
-/obj/structure/spacevine/temperature_expose(null, temp, volume)
+/obj/structure/spacevine/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return TRUE
+
+/obj/structure/spacevine/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	var/override = 0
+	var/volume = air.return_volume()
 	for(var/datum/spacevine_mutation/SM in mutations)
-		override += SM.process_temperature(src, temp, volume)
+		override += SM.process_temperature(src, exposed_temperature, volume)
 	if(!override)
 		qdel(src)
 

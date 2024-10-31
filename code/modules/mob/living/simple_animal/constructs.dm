@@ -180,14 +180,14 @@
 			if(P.starting)
 				var/new_x = P.starting.x + pick(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3)
 				var/new_y = P.starting.y + pick(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3)
-				var/turf/curloc = get_turf(src)
+				var/turf/current_location = get_turf(src)
 
 				// redirect the projectile
 				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
+				P.starting = current_location
 				P.firer = src
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
+				P.yo = new_y - current_location.y
+				P.xo = new_x - current_location.x
 				var/new_angle_s = P.Angle + rand(120,240)
 				while(new_angle_s > 180)	// Translate to regular projectile degrees
 					new_angle_s -= 360

@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(explosions)
 
 	var/list/explosions = list()
 
-	var/currentpart = SSAIR_REBUILD_PIPENETS
+	var/currentpart = SSAIR_REBUILD_PIPELINE
 
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
@@ -624,8 +624,6 @@ SUBSYSTEM_DEF(explosions)
 		cost_throwturf = MC_AVERAGE(cost_throwturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
 	currentpart = SSEXPLOSIONS_TURFS
-
-#undef SSAIR_REBUILD_PIPENETS
 
 #undef EXPLOSION_THROW_SPEED
 #undef SSEX_TURF

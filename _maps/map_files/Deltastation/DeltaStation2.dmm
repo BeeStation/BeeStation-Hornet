@@ -41256,7 +41256,7 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	initial_temperature = 2.7;
+	temperature = 2.7;
 	luminosity = 2
 	},
 /area/security/main)
@@ -78310,7 +78310,11 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plating{
+	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
+	temperature = 2.7;
+	luminosity = 2
+	},
 /area/security/brig)
 "sXV" = (
 /obj/structure/cable/yellow{
@@ -92175,7 +92179,7 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	initial_temperature = 2.7;
+	temperature = 2.7;
 	luminosity = 2
 	},
 /area/security/main)
@@ -93584,9 +93588,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/quartermaster/miningoffice)
+/turf/open/floor/plating{
+	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
+	temperature = 2.7;
+	luminosity = 2
+	},
+/area/security/brig)
 "xKK" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{

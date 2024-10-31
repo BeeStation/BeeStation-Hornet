@@ -45,10 +45,10 @@
 	if(!ST.air && (atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"]))
 		return FALSE
 
-	var/plas = ST.air.get_moles(GAS_PLASMA)
-	var/oxy = ST.air.get_moles(GAS_O2)
-	var/n2  = ST.air.get_moles(GAS_N2)
-	var/co2 = ST.air.get_moles(GAS_CO2)
+	var/plas = GET_MOLES(/datum/gas/plasma, ST.air)
+	var/oxy = GET_MOLES(/datum/gas/oxygen, ST.air)
+	var/n2  = GET_MOLES(/datum/gas/nitrogen, ST.air)
+	var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, ST.air)
 
 	. = TRUE
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])

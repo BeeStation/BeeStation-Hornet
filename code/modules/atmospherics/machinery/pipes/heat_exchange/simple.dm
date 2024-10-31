@@ -14,7 +14,7 @@
 	construction_type = /obj/item/pipe/binary/bendable
 	pipe_state = "he"
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/SetInitDirections()
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple/set_init_directions()
 	if(dir in GLOB.diagonals)
 		initialize_directions = dir
 		return
