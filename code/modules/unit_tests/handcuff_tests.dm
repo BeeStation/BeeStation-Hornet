@@ -8,6 +8,7 @@
 	first.ClickOn(second)
 	TEST_ASSERT_EQUAL(second.pulledby, first, "Second mob should be pulled by the first")
 	first.put_in_active_hand(cuffs)
+	TEST_ASSERT_EQUAL(first.get_active_held_item(), cuffs, "First mob should be holding handcuffs")
 	first.ClickOn(second)
 	TEST_ASSERT_NOTNULL(second.handcuffed, "Second mob should be handcuffed")
 	// Restore client
