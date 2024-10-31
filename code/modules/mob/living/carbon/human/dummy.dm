@@ -162,4 +162,5 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/ClickOn(atom/A, params)
 	next_click = -1
+	next_move = -1
 	. = ..()
