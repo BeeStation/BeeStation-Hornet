@@ -33,7 +33,6 @@
 	var/mob/living/carbon/breathing_mob = null
 	///Used by process() to track if there's a reason to process each tick
 	var/excited = TRUE
-	var/leaking = FALSE
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -297,41 +296,17 @@
 		return TRUE
 	return FALSE
 
-/// Handles rupturing and fragmenting
-/obj/item/tank/obj_destruction(damage_flag)
-	if(!air_contents)
-		return ..()
-
-	/// Handle fragmentation
-	var/pressure = air_contents.return_pressure()
-
-	if(pressure > TANK_FRAGMENT_PRESSURE)
-		var/explosion_mod = 1
-		if(!istype(loc, /obj/item/transfer_valve))
-			log_bomber(details = "[src.fingerprintslast] was the last key to touch", bomb = src, additional_details = ", which ruptured explosively")
-		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
-			explosion_mod = TTV_NO_CASING_MOD
-		//Give the gas a chance to build up more pressure through reacting
-		for(var/i in 1 to REACTIONS_BEFORE_EXPLOSION)
-			air_contents.react(src)
-		pressure = air_contents.return_pressure()
-		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
-
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
-		if(istype(src.loc, /obj/item/transfer_valve))
-			qdel(src.loc)
-		else
-			qdel(src)
-
-	return ..()
-
 /// Handles the tank springing a leak.
-/obj/item/tank/obj_break(damage_flag)
+/obj/item/tank/atom_break(damage_flag)
 	. = ..()
+	if(leaking)
+		return
+
+	leaking = TRUE
 
 	START_PROCESSING(SSobj, src)
 
-	if(obj_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
+	if(atom_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
 		return
 	visible_message("<span class='warning'>[src] springs a leak!</span>")
 	playsound(src, 'sound/effects/spray.ogg', 10, TRUE, -3)

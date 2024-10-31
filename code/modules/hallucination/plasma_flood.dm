@@ -58,7 +58,7 @@
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinals)
 			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+			if((T in flood_turfs) || !FT.can_atmos_pass(T))
 				continue
 			var/obj/effect/plasma_image_holder/pih = new(T)
 			var/image/new_plasma = image(image_icon, pih, image_state, FLY_LAYER)

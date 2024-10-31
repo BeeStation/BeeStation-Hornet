@@ -656,8 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holofield"
 	density = FALSE
-	CanAtmosPass = ATMOS_PASS_NO
-	CanAtmosPassVertical = 1
+	can_atmos_pass = ATMOS_PASS_NO
 	hardshield = FALSE
 	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"
