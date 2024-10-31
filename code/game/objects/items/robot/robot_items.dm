@@ -730,6 +730,13 @@
 	. = ..()
 	host = loc
 
+/obj/item/borg/projectile_dampen/cyborg_unequip(mob/user)
+	if(!active)
+		return
+	deactivate_field()
+	update_appearance()
+	to_chat(user, "<span class='boldnotice'>[src] deactivates itself.</span>")
+
 /obj/item/borg/projectile_dampen/on_mob_death()
 	deactivate_field()
 	. = ..()
