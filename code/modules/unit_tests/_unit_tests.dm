@@ -68,6 +68,7 @@
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #include "walls_have_sheets.dm"
+#include "wizard.dm"
 #include "worn_icons.dm"
 
 /*

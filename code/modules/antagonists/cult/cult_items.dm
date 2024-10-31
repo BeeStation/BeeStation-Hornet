@@ -164,6 +164,7 @@ Striking a noncultist, however, will tear their flesh."}
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	item_state = "cultrobes"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor_type = /datum/armor/hooded_cultrobes

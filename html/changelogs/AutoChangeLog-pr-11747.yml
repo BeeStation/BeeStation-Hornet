@@ -1,0 +1,10 @@
+author: Aramix
+delete-after: true
+changes:
+  - bugfix: fixed being unable to toggle mulebot power or auto-return
+  - bugfix: fixed getting irrelevant "access denied" messages in chat whenever trying
+      to change settings of an unlocked bot that you normally don't have access to
+  - bugfix: silicons don't have to unlock bots to change their settings anymore
+  - code_imp: cleaned up bot access code
+  - code_imp: changed ui_act() return value to TRUE if unsuccessful or interrupted
+      (as previously expected in some places)

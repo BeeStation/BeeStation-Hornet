@@ -661,7 +661,7 @@
 	bio = 100
 	rad = 50
 	fire = 50
-	acid = 90
+	acid = 100
 	stamina = 60
 	bleed = 70
 
@@ -745,6 +745,7 @@
 	item_state = "syndie_hardsuit"
 	hardsuit_type = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = ACID_PROOF
 	supports_variations = DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_syndi
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
@@ -759,20 +760,6 @@
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
-
-
-/datum/armor/hardsuit_syndi
-	melee = 40
-	bullet = 50
-	laser = 30
-	energy = 55
-	bomb = 35
-	bio = 100
-	rad = 50
-	fire = 50
-	acid = 90
-	stamina = 60
-	bleed = 70
 
 /obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
 	. = ..()

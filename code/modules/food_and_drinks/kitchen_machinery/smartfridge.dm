@@ -518,7 +518,8 @@
 		/obj/item/reagent_containers/pill/epinephrine = 12,
 		/obj/item/reagent_containers/pill/charcoal = 5,
 		/obj/item/reagent_containers/cup/bottle/epinephrine = 1,
-		/obj/item/reagent_containers/cup/bottle/charcoal = 1)
+		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
+		/obj/item/reagent_containers/chem_bag/triamed = 1)
 
 // ----------------------------
 // Virology Medical Smartfridge
