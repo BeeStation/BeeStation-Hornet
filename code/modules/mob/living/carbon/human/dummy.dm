@@ -161,5 +161,5 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	return // We skipped adding any mutations so this runtimes
 
 /mob/living/carbon/human/consistent/ClickOn(atom/A, params)
-	. = ..()
 	next_click = -1
+	. = ..()
