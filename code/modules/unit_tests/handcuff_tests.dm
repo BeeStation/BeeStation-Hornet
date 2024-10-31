@@ -9,7 +9,6 @@
 	TEST_ASSERT_EQUAL(second.pulledby, first, "Second mob should be pulled by the first")
 	first.put_in_active_hand(cuffs)
 	first.ClickOn(second)
-	sleep(4 SECONDS)
 	TEST_ASSERT_NOTNULL(second.handcuffed, "Second mob should be handcuffed")
 	// Restore client
 	var/previous_loc = second.loc
