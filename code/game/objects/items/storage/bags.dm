@@ -1,3 +1,5 @@
+#define ORE_BAG_BALOON_COOLDOWN (2 SECONDS)
+
 /*
  *	These absorb the functionality of the plant bag, ore satchel, etc.
  *	They use the use_to_pickup, quick_gather, and quick_empty functions
