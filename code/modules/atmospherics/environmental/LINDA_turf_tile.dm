@@ -1,5 +1,5 @@
 /turf
-	//used for temperature calculations
+	//used for temperature calculations in superconduction
 	var/thermal_conductivity = 0.05
 	var/heat_capacity = INFINITY //This should be opt in rather then opt out
 	var/temperature_archived

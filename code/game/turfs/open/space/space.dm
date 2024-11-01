@@ -14,7 +14,7 @@
 	allow_z_travel = TRUE
 
 	temperature = TCMB
-	thermal_conductivity = 0
+	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
 	// Since we have a lighting layer that extends further than the turf, make this turf
