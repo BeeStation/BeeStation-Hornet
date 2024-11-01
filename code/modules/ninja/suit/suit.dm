@@ -68,16 +68,16 @@ Contents:
 
 
 /datum/armor/space_space_ninja
-	melee = 60
-	bullet = 50
-	laser = 30
-	energy = 15
-	bomb = 30
+	melee = 20
+	bullet = 40
+	laser = 40
+	energy = 70
+	bomb = 60
 	bio = 100
 	rad = 30
 	fire = 100
 	acid = 100
-	stamina = 60
+	stamina = 70
 	bleed = 60
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
