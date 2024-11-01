@@ -54,7 +54,7 @@
 
 	uniform = /obj/item/clothing/under/rank/prisoner
 	id = /obj/item/card/id/silver/bounty
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
