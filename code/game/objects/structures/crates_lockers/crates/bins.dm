@@ -30,7 +30,7 @@
 		var/obj/item/storage/bag/trash/T = W
 		to_chat(user, "<span class='notice'>You fill the bag.</span>")
 		for(var/obj/item/O in src)
-			SEND_SIGNAL(T, COMSIG_TRY_STORAGE_INSERT, O, user, TRUE)
+			T.atom_storage?.attempt_insert(T, O, user, TRUE)
 		T.update_appearance()
 		do_open()
 		return TRUE

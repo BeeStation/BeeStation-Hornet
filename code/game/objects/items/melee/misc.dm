@@ -87,15 +87,15 @@
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
-/obj/item/melee/sabre/on_exit_storage(datum/component/storage/concrete/S)
-	var/obj/item/storage/belt/sabre/B = S.real_location()
-	if(istype(B))
-		playsound(B, 'sound/items/unsheath.ogg', 25, TRUE)
+/obj/item/melee/sabre/on_exit_storage(datum/storage/container)
+	var/obj/item/storage/belt/sabre/sabre = container.real_location?.resolve()
+	if(istype(sabre))
+		playsound(sabre, 'sound/items/unsheath.ogg', 25, TRUE)
 
-/obj/item/melee/sabre/on_enter_storage(datum/component/storage/concrete/S)
-	var/obj/item/storage/belt/sabre/B = S.real_location()
-	if(istype(B))
-		playsound(B, 'sound/items/sheath.ogg', 25, TRUE)
+/obj/item/melee/sabre/on_enter_storage(datum/storage/container)
+	var/obj/item/storage/belt/sabre/sabre = container.real_location?.resolve()
+	if(istype(sabre))
+		playsound(sabre, 'sound/items/sheath.ogg', 25, TRUE)
 
 /obj/item/melee/sabre/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to cut off all [user.p_their()] limbs with [src]! it looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -151,15 +151,15 @@
 	block_power = 60
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 
-/obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
-	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
-	if(istype(M))
-		playsound(M, 'sound/items/unsheath.ogg', 25, TRUE)
+/obj/item/melee/sabre/mime/on_exit_storage(datum/storage/container)
+	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
+	if(istype(sabre))
+		playsound(sabre, 'sound/items/unsheath.ogg', 25, TRUE)
 
-/obj/item/melee/sabre/on_enter_storage(datum/component/storage/concrete/R)
-	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
-	if(istype(M))
-		playsound(M, 'sound/items/sheath.ogg', 25, TRUE)
+/obj/item/melee/sabre/on_enter_storage(datum/storage/container)
+	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
+	if(istype(sabre))
+		playsound(sabre, 'sound/items/sheath.ogg', 25, TRUE)
 
 /obj/item/melee/classic_baton
 	name = "classic baton"

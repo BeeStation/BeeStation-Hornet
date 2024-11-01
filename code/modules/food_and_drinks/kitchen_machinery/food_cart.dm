@@ -66,7 +66,7 @@
 			else
 				if(!IS_EDIBLE(S))
 					continue
-				if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
+				if(T.atom_storage.attempt_remove(S, src))
 					if(stored_food[sanitize(S.name)])
 						stored_food[sanitize(S.name)]++
 					else

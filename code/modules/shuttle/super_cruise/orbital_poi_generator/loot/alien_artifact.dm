@@ -157,6 +157,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
+	SHOULD_CALL_PARENT(FALSE)
 	monitor = _monitor
 	callback = _callback
 	monitor?.hasprox_receiver = src

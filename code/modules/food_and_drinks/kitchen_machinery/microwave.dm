@@ -250,7 +250,7 @@
 			if(ingredients.len >= max_n_of_items)
 				to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
 				return TRUE
-			if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
+			if(T.atom_storage.attempt_remove(S, src))
 				loaded++
 				ingredients += S
 		if(loaded)

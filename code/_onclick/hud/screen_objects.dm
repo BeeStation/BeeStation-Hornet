@@ -235,7 +235,7 @@
 	icon_state = "backpack_close"
 
 	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/storage/master = null
+	var/datum/component/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
@@ -246,8 +246,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
 /atom/movable/screen/close/Click()
-	var/datum/component/storage/S = master
-	S.hide_from(usr)
+	var/datum/storage/storage = master
+	storage.hide_contents(usr)
 	return TRUE
 
 /atom/movable/screen/drop
@@ -444,7 +444,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
 	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/storage/master = null
+	var/datum/storage/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 

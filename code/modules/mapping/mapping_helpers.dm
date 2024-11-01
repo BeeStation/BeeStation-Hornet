@@ -346,6 +346,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	)
 
 /obj/effect/mapping_helpers/simple_pipes/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	preform_layer(piping_layer, pipe_color)
 	qdel(src)
 
@@ -436,6 +437,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 // Instead of using our current layer, we use
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	preform_layer(2, rgb(0, 0, 255), override_name = "air supply pipe")
 	preform_layer(4, rgb(255, 0, 0), override_name = "scrubbers pipe")
 

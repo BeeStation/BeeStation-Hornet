@@ -4,6 +4,7 @@
 	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/doorway_marker
@@ -12,6 +13,7 @@
 	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 //Basic loot, utility and maybe some weapons

@@ -222,15 +222,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	return src
 
 //How disposal handles getting a storage dump from a storage object
-/obj/machinery/disposal/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
+/obj/machinery/disposal/storage_contents_dump_act(datum/storage/src_object, mob/user)
 	. = ..()
 	if(.)
 		return
-	for(var/obj/item/I in src_object.parent)
+	var/atom/resolve_parent = src_object.real_location?.resolve()
+	if(!resolve_parent)
+		return FALSE
+	for(var/obj/item/I in resolve_parent)
 		if(user.active_storage != src_object)
 			if(I.on_found(user))
 				return
-		src_object.remove_from_storage(I, src)
+		src_object.attempt_remove(I, src)
 	return TRUE
 
 // Disposal bin
@@ -249,10 +252,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 /obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))	//Not doing component overrides because this is a specific type.
 		var/obj/item/storage/bag/trash/T = I
-		var/datum/component/storage/STR = T.GetComponent(/datum/component/storage)
 		to_chat(user, "<span class='warning'>You empty the bag.</span>")
 		for(var/obj/item/O in T.contents)
-			STR.remove_from_storage(O,src)
+			T.atom_storage.attempt_remove(O,src)
 		T.update_appearance()
 		update_appearance()
 	else
