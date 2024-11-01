@@ -15,7 +15,7 @@
 
 /obj/item/shield_belt/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/shielded, max_integrity = max_shield_integrity, charge_recovery = 10, shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_INVISIBLE, on_active_effects = CALLBACK(src, PROC_REF(add_shield_effects)), on_deactive_effects = CALLBACK(src, PROC_REF(remove_shield_effects)), run_hit_callback = CALLBACK(src, PROC_REF(update_shield_health)))
+	AddComponent(/datum/component/shielded, max_integrity = max_shield_integrity, charge_recovery = 0, shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_INVISIBLE, on_active_effects = CALLBACK(src, PROC_REF(add_shield_effects)), on_deactive_effects = CALLBACK(src, PROC_REF(remove_shield_effects)), run_hit_callback = CALLBACK(src, PROC_REF(update_shield_health)))
 
 /obj/item/shield_belt/proc/add_shield_effects(mob/living/wearer, current_integrity)
 	RegisterSignal(wearer, COMSIG_MOB_BEFORE_FIRE_GUN, PROC_REF(intercept_gun_fire))
