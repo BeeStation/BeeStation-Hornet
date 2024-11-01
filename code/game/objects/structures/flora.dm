@@ -321,7 +321,7 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
-/obj/item/kirbyplants/Initialize()
+/obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
 	create_storage(type = /datum/storage/kirbyplants)
 */
