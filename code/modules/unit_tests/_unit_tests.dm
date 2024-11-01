@@ -23,10 +23,10 @@
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
 #include "create_and_destroy.dm"
+#include "dcs_get_id_from_elements.dm"
 #include "gas_transfer.dm"
 
 
-#include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 
