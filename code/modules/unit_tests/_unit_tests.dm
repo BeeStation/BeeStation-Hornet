@@ -16,12 +16,12 @@
 #include "asset_smart_cache.dm"
 #include "async.dm"
 #include "bloody_footprints.dm"
+#include "breath.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
-#include "breath.dm"
 #include "gas_transfer.dm"
 
 /*
