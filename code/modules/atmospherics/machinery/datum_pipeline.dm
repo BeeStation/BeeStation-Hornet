@@ -39,7 +39,7 @@
 	reconcile_air()
 	update = air.react(src)
 
-///Preps a pipeline for rebuilding, insterts it into the rebuild queue
+///Preps a pipeline for rebuilding, inserts it into the rebuild queue
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	building = TRUE
 	var/volume = 0
