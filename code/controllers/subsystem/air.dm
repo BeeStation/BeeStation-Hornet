@@ -776,6 +776,7 @@ GLOBAL_LIST_EMPTY(colored_images)
 	if(machine.atmos_processing)
 		return
 	machine.atmos_processing = TRUE
+	atmos_machinery += machine
 
 /**
  * Removes a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
