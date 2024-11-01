@@ -308,11 +308,12 @@
 	r_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_hand = /obj/item/scythe
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/choice_beacon/pet/goat,
-		/obj/item/grenade/clusterbuster/antiweed=2)
+		/obj/item/choice_beacon/pet/goat
+		)
 
 /datum/outfit/ert/kudzu/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -453,7 +454,8 @@
 	id = /obj/item/card/id/centcom
 	ears = /obj/item/radio/headset/headset_cent/alt
 
-	backpack_contents = list(/obj/item/storage/box=1,\
+	backpack_contents = list(
+		/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\

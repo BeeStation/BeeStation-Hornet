@@ -41,7 +41,7 @@
 	. = ..()
 	atom_storage.max_slots = 8
 	atom_storage.max_total_storage = 8
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
