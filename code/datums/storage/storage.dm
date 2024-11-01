@@ -216,8 +216,8 @@
 
 	UnregisterSignal(resolve_location, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED))
 
-	RegisterSignal(real, COMSIG_ATOM_ENTERED, .proc/handle_enter)
-	RegisterSignal(real, COMSIG_ATOM_EXITED, .proc/handle_exit)
+	RegisterSignal(real, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
+	RegisterSignal(real, COMSIG_ATOM_EXITED, PROC_REF(handle_exit))
 
 	real_location = WEAKREF(real)
 
@@ -286,7 +286,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	var/datum/action/modeswitch_action = new(resolve_parent)
-	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, .proc/action_trigger)
+	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
 	modeswitch_action_ref = WEAKREF(modeswitch_action)
 	modeswitch_action.Grant(usr)
 
@@ -314,6 +314,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_location)
 		return
+
+	if(QDELETED(to_insert))
+		return FALSE
 
 	if(!isitem(to_insert))
 		return FALSE
@@ -397,7 +400,6 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	to_insert.forceMove(resolve_location)
 	item_insertion_feedback(user, to_insert, override)
 	resolve_location.update_appearance()
-
 	return TRUE
 
 /**
@@ -637,7 +639,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!isturf(thing.loc))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	INVOKE_ASYNC(src, .proc/collect_on_turf, thing, user)
+	INVOKE_ASYNC(src, PROC_REF(collect_on_turf), thing, user)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
@@ -658,17 +660,17 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	var/amount = length(turf_things)
 	if(!amount)
-		to_chat(user, "<span class='warning'>You failed to pick up anything with [resolve_parent]!</span>")
+		resolve_parent.balloon_alert(user, "nothing to pick up!")
 		return
 
 	var/datum/progressbar/progress = new(user, amount, thing.loc)
 	var/list/rejections = list()
 
-	while(do_after(user, 1 SECONDS, resolve_parent, NONE, FALSE, CALLBACK(src, .proc/handle_mass_pickup, user, turf_things, thing.loc, rejections, progress)))
+	while(do_after(user, 1 SECONDS, resolve_parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), user, turf_things, thing.loc, rejections, progress)))
 		stoplag(1)
 
 	progress.end_progress()
-	to_chat(user, "<span class='notice'>You put everything you could [insert_preposition]to [resolve_parent].</span>")
+	resolve_parent.balloon_alert(user, "picked up")
 
 /// Signal handler for whenever we drag the storage somewhere.
 /datum/storage/proc/on_mousedrop_onto(datum/source, atom/over_object, mob/user)
@@ -696,10 +698,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		if(over_object != user)
 			return
 
-		INVOKE_ASYNC(src, .proc/open_storage, user)
+		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
 
 	else if(!istype(over_object, /atom/movable/screen))
-		INVOKE_ASYNC(src, .proc/dump_content_at, over_object, user)
+		INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, user)
 
 /**
  * Dumps all of our contents at a specific location.
@@ -800,16 +802,16 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(ishuman(user))
 		var/mob/living/carbon/human/hum = user
 		if(hum.l_store == resolve_parent && !hum.get_active_held_item())
-			INVOKE_ASYNC(hum, /mob.proc/put_in_hands, resolve_parent)
+			INVOKE_ASYNC(hum, TYPE_PROC_REF(/mob, put_in_hands), resolve_parent)
 			hum.l_store = null
 			return
 		if(hum.r_store == resolve_parent && !hum.get_active_held_item())
-			INVOKE_ASYNC(hum, /mob.proc/put_in_hands, resolve_parent)
+			INVOKE_ASYNC(hum, TYPE_PROC_REF(/mob, put_in_hands), resolve_parent)
 			hum.r_store = null
 			return
 
 	if(resolve_parent.loc == user)
-		INVOKE_ASYNC(src, .proc/open_storage, user)
+		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
 		return TRUE
 
 /// Generates the numbers on an item in storage to show stacking.
@@ -911,7 +913,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/open_storage_on_signal(datum/source, mob/to_show)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, .proc/open_storage, to_show)
+	INVOKE_ASYNC(src, PROC_REF(open_storage), to_show)
 	return COMPONENT_NO_AFTERATTACK
 
 /// Opens the storage to the mob, showing them the contents to their UI.
