@@ -101,11 +101,14 @@
 #endif
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
+//One LINDA update later, done! ...maybe
+/*
 #define MAX_COMPILER_VERSION 514
 #define MAX_COMPILER_BUILD 1589
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
 #warn WARNING: Your BYOND version is over the recommended version (514.1589)! Stability is not guaranteed.
 #endif
+*/
 //Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
 #if DM_VERSION >= 514 && DM_BUILD >= 1556
 #define SENDMAPS_PROFILE
@@ -138,6 +141,8 @@
 #define CBT
 #endif
 
+
+//Someone else should probably update this once LINDA is fully merged. Probably Bacon or Crossed.
 #if defined(OPENDREAM) && !defined(CIBUILDING)
 #error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)

@@ -434,7 +434,6 @@
 #include "code\controllers\subsystem\autotransfer.dm"
 #include "code\controllers\subsystem\ban_cache.dm"
 #include "code\controllers\subsystem\blackbox.dm"
-#include "code\controllers\subsystem\callback.dm"
 #include "code\controllers\subsystem\chat.dm"
 #include "code\controllers\subsystem\circuit_component.dm"
 #include "code\controllers\subsystem\combat_logging.dm"
