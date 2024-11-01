@@ -31,8 +31,6 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
-	///Used by process() to track if there's a reason to process each tick
-	var/excited = TRUE
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -255,14 +253,11 @@
 		return
 
 	//Allow for reactions
-	excited = (excited | air_contents.react(src))
-	excited = (excited | handle_tolerances(delta_time))
 
-	if(!excited)
+	if(!(air_contents.react(src) || handle_tolerances(delta_time) || leaking))
 		STOP_PROCESSING(SSobj, src)
-	excited = FALSE
 
-	if(QDELETED(src) || !air_contents)
+	if(QDELETED(src) || !air_contents || !leaking)
 		return
 	var/atom/location = loc
 	if(!location)
@@ -311,6 +306,31 @@
 	visible_message("<span class='warning'>[src] springs a leak!</span>")
 	playsound(src, 'sound/effects/spray.ogg', 10, TRUE, -3)
 
+/// Handles rupturing and fragmenting
+/obj/item/tank/atom_destruction(damage_flag)
+	if(!air_contents)
+		return ..()
+
+	var/turf/location = get_turf(src)
+	if(!location)
+		return ..()
+
+	/// Handle fragmentation
+	var/pressure = air_contents.return_pressure()
+	if(pressure > TANK_FRAGMENT_PRESSURE)
+		var/explosion_mod = 1
+		if(!istype(loc, /obj/item/transfer_valve))
+			log_bomber(details = "[src.fingerprintslast] was the last key to touch", bomb = src, additional_details = ", which ruptured explosively")
+		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
+			explosion_mod = TTV_NO_CASING_MOD
+		//Give the gas a chance to build up more pressure through reacting
+		for(var/i in 1 to REACTIONS_BEFORE_EXPLOSION)
+			air_contents.react(src)
+		pressure = air_contents.return_pressure()
+		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
+
+		explosion(location, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
+	return ..()
 
 #undef TTV_NO_CASING_MOD
 #undef REACTIONS_BEFORE_EXPLOSION
