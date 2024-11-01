@@ -137,6 +137,13 @@
 			break
 	. = ..()
 
+//backpack with mildly more slots to accomodate outfit spawning
+/obj/item/storage/backpack/abductor
+
+/obj/item/storage/backpack/abductor/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 30
+	atom_storage.max_total_storage = 30
 
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'

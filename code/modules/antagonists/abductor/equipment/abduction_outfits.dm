@@ -2,7 +2,7 @@
 	name = "Abductor Basic"
 	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/abductor
 	ears = /obj/item/radio/headset/abductor
 	id = /obj/item/card/id/syndicate
 
