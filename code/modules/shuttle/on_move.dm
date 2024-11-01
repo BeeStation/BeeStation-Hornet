@@ -71,12 +71,10 @@ All ShuttleMove procs go here
 			sanity.Insert(inject_index, /turf/baseturf_skipover/shuttle)
 			newT.baseturfs = baseturfs_string_list(sanity, newT)
 
-	if(isopenturf(src))
-		var/turf/open/after_src_terf = src
-
-	//Air stuff
-	newT.air_update_turf(TRUE, FALSE)
 	air_update_turf(TRUE, TRUE)
+	if(isopenturf(src))
+		var/turf/open/new_open = newT
+		new_open.copy_air_with_tile(src)
 
 	return TRUE
 
