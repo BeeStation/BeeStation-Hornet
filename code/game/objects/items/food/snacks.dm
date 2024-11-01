@@ -16,6 +16,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/sosjerky
 	name = "\improper Scaredy's Private Reserve Beef Jerky"
@@ -31,6 +32,7 @@
 	tastes = list("dried meat" = 1)
 	w_class = WEIGHT_CLASS_SMALL
 	foodtypes = JUNKFOOD | MEAT | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/sosjerky/healthy
 	name = "homemade beef jerky"
@@ -72,6 +74,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	custom_price = PAYCHECK_MEDIUM * 0.7
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/no_raisin/healthy
 	name = "homemade raisins"

@@ -7,9 +7,10 @@
 	bite_consumption = 5
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3)
 	tastes = list("donut" = 1)
-	foodtypes = JUNKFOOD | GRAIN | FRIED | SUGAR | BREAKFAST
+	foodtypes = JUNKFOOD | GRAIN | SUGAR | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 	var/decorated_icon = "donut_homer"
 	var/is_decorated = FALSE
 	var/extra_reagent = null
@@ -76,6 +77,7 @@
 	bite_consumption = 10
 	tastes = list("donut" = 3, "chaos" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/chaos/Initialize(mapload)
 	. = ..()
@@ -105,6 +107,7 @@
 	tastes = list("meat" = 1)
 	foodtypes = JUNKFOOD | MEAT | GORE | FRIED | BREAKFAST
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/berry
 	name = "pink donut"
@@ -117,6 +120,7 @@
 		/datum/reagent/consumable/sprinkles = 1
 	) //Extra sprinkles to reward frosting
 	decorated_icon = "donut_homer"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/trumpet
 	name = "spaceman's donut"
@@ -129,6 +133,7 @@
 	)
 	tastes = list("donut" = 3, "violets" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/apple
 	name = "apple donut"
@@ -142,6 +147,7 @@
 	)
 	tastes = list("donut" = 3, "green apples" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/caramel
 	name = "caramel donut"
@@ -155,6 +161,7 @@
 	)
 	tastes = list("donut" = 3, "buttery sweetness" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/choco
 	name = "chocolate donut"
@@ -168,6 +175,7 @@
 	) //the cocoa reagent is just bitter.
 	tastes = list("donut" = 4, "bitterness" = 1)
 	decorated_icon = "donut_choc_sprinkles"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/blumpkin
 	name = "blumpkin donut"
@@ -181,6 +189,7 @@
 	)
 	tastes = list("donut" = 2, "blumpkin" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/bungo
 	name = "bungo donut"
@@ -194,6 +203,7 @@
 	)
 	tastes = list("donut" = 3, "tropical sweetness" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/matcha
 	name = "matcha donut"
@@ -202,6 +212,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3, /datum/reagent/toxin/teapowder = 3, /datum/reagent/consumable/sprinkles = 1)
 	tastes = list("donut" = 3, "matcha" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 //////////////////////JELLY DONUTS/////////////////////////
 
@@ -218,7 +229,8 @@
 	)
 	extra_reagent = /datum/reagent/consumable/berryjuice
 	tastes = list("jelly" = 1, "donut" = 3)
-	foodtypes = JUNKFOOD | GRAIN | FRIED | FRUIT | SUGAR | BREAKFAST
+	foodtypes = JUNKFOOD | GRAIN | FRUIT | SUGAR | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 // Jelly donuts don't have holes, but look the same on the outside
 /obj/item/food/donut/jelly/in_box_sprite()
@@ -243,6 +255,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //Extra sprinkles to reward frosting.
 	decorated_icon = "jelly_homer"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/trumpet
 	name = "spaceman's jelly donut"
@@ -256,6 +269,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "violets" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/apple
 	name = "apple jelly donut"
@@ -270,6 +284,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "green apples" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/caramel
 	name = "caramel jelly donut"
@@ -284,6 +299,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "buttery sweetness" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/choco
 	name = "chocolate jelly donut"
@@ -298,6 +314,7 @@
 	) //the coco reagent is just bitter.
 	tastes = list("jelly" = 1, "donut" = 4, "bitterness" = 1)
 	decorated_icon = "jelly_choc_sprinkles"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/blumpkin
 	name = "blumpkin jelly donut"
@@ -312,6 +329,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 2, "blumpkin" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/bungo
 	name = "bungo jelly donut"
@@ -326,6 +344,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "tropical sweetness" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/matcha
 	name = "matcha jelly donut"
@@ -340,6 +359,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "matcha" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 //////////////////////////SLIME DONUTS/////////////////////////
 
@@ -348,7 +368,7 @@
 	desc = "You jelly?"
 	icon_state = "jelly"
 	extra_reagent = /datum/reagent/toxin/slimejelly
-	foodtypes = JUNKFOOD | GRAIN | FRIED | TOXIC | SUGAR | BREAKFAST
+	foodtypes = JUNKFOOD | GRAIN | TOXIC | SUGAR | BREAKFAST
 
 /obj/item/food/donut/jelly/slimejelly/plain
 
@@ -363,6 +383,7 @@
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //Extra sprinkles to reward frosting
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/slimejelly/trumpet
 	name = "spaceman's jelly donut"
@@ -376,6 +397,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "violets" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/slimejelly/apple
 	name = "apple jelly donut"
@@ -404,6 +426,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "buttery sweetness" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/slimejelly/choco
 	name = "chocolate jelly donut"
@@ -418,6 +441,7 @@
 	) //the cocoa reagent is just bitter.
 	tastes = list("jelly" = 1, "donut" = 4, "bitterness" = 1)
 	decorated_icon = "jelly_choc_sprinkles"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/slimejelly/blumpkin
 	name = "blumpkin jelly donut"
@@ -432,6 +456,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 2, "blumpkin" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/slimejelly/bungo
 	name = "bungo jelly donut"
@@ -446,6 +471,7 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "tropical sweetness" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/donut/jelly/slimejelly/matcha
 	name = "matcha jelly donut"
@@ -460,5 +486,6 @@
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "matcha" = 1)
 	is_decorated = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 #undef DONUT_SPRINKLE_CHANCE

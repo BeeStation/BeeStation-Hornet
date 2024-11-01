@@ -59,6 +59,7 @@
 	grilled_result.pixel_y = original_object.pixel_y
 
 	grill_source.visible_message("<span class='[positive_result ? "notice" : "warning"]'>[parent] turns into \a [grilled_result]!</span>")
+	original_object.reagents?.trans_to(grilled_result, original_object.reagents.total_volume)
 	SEND_SIGNAL(parent, COMSIG_GRILL_COMPLETED, grilled_result)
 	currently_grilling = FALSE
 	qdel(parent)

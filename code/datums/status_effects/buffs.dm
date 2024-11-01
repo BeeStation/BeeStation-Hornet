@@ -668,3 +668,86 @@
 	name = "Blessing of Dusk and Dawn"
 	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
 	icon_state = "duskndawn"
+
+/// Buffs given by eating hand-crafted food. The duration scales with food complexity.
+/datum/status_effect/food
+	id = "food_buff"
+	duration = 5 MINUTES // Same as food mood buffs
+	status_type = STATUS_EFFECT_REPLACE // Only one food buff allowed
+	/// Buff power
+	var/strength
+
+/datum/status_effect/food/on_creation(mob/living/new_owner, timeout = 1, strength = 1)
+	src.strength = strength
+	//Generate alert when not specified
+	if(alert_type == /atom/movable/screen/alert/status_effect)
+		alert_type = "/atom/movable/screen/alert/status_effect/food/buff_[strength]"
+	if(isnum(timeout))
+		duration *= timeout
+	. = ..()
+
+/atom/movable/screen/alert/status_effect/food
+	name = "Hand-crafted meal"
+	desc = "Eating it made me feel better."
+	icon_state = "food_buff_1"
+
+/atom/movable/screen/alert/status_effect/food/buff_1
+	icon_state = "food_buff_1"
+
+/atom/movable/screen/alert/status_effect/food/buff_2
+	icon_state = "food_buff_2"
+
+/atom/movable/screen/alert/status_effect/food/buff_3
+	icon_state = "food_buff_3"
+
+/atom/movable/screen/alert/status_effect/food/buff_4
+	icon_state = "food_buff_4"
+
+/atom/movable/screen/alert/status_effect/food/buff_5
+	icon_state = "food_buff_5"
+
+/// Makes you gain a trait
+/datum/status_effect/food/trait
+	var/trait = TRAIT_DUMB // You need to override this
+
+/datum/status_effect/food/trait/on_apply()
+	ADD_TRAIT(owner, trait, type)
+	return ..()
+
+/datum/status_effect/food/trait/be_replaced()
+	REMOVE_TRAIT(owner, trait, type)
+	return ..()
+
+/datum/status_effect/food/trait/on_remove()
+	REMOVE_TRAIT(owner, trait, type)
+	return ..()
+
+/// Haste makes the eater move faster
+/datum/status_effect/food/haste
+	var/datum/movespeed_modifier/food_haste/modifier
+
+/datum/status_effect/food/haste/on_apply()
+	modifier = new()
+	modifier.multiplicative_slowdown = -0.04 * strength
+	owner.add_movespeed_modifier(modifier, update = TRUE)
+	return ..()
+
+/datum/status_effect/food/haste/be_replaced()
+	owner.remove_movespeed_modifier(modifier, update = TRUE)
+	return ..()
+
+/datum/status_effect/food/haste/on_remove()
+	owner.remove_movespeed_modifier(modifier, update = TRUE)
+	return ..()
+
+/datum/movespeed_modifier/food_haste
+	multiplicative_slowdown = -0.1
+
+/datum/status_effect/food/trait/shockimmune
+	alert_type = /atom/movable/screen/alert/status_effect/food_trait_shockimmune
+	trait = TRAIT_SHOCKIMMUNE
+
+/atom/movable/screen/alert/status_effect/food_trait_shockimmune
+	name = "Grounded"
+	desc = "That meal made me feel like a superconductor..."
+	icon_state = "food_buff_4"
