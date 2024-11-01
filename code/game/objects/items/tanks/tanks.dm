@@ -257,7 +257,7 @@
 	if(!(air_contents.react(src) || handle_tolerances(delta_time) || leaking))
 		STOP_PROCESSING(SSobj, src)
 
-	if(QDELETED(src) || !air_contents || leaking)
+	if(QDELETED(src) || !air_contents || !leaking)
 		return
 	var/atom/location = loc
 	if(!location)
