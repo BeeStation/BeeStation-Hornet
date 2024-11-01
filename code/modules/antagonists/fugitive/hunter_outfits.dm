@@ -89,10 +89,11 @@
 	suit = /obj/item/clothing/suit/armor/riot
 	glasses = /obj/item/clothing/glasses/eyepatch
 	r_hand = /obj/item/autosurgeon/hydraulic_blade
+	l_hand = /obj/item/bountytrap
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/pinpointer/shuttle = 1,
-		/obj/item/bountytrap = 4
+		/obj/item/bountytrap = 2
 		)
 
 /datum/outfit/bounty/synth/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

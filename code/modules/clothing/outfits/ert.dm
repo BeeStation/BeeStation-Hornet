@@ -270,7 +270,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	suit_store = /obj/item/storage/bag/trash/bluespace
 	glasses = /obj/item/clothing/glasses/night
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 

@@ -26,7 +26,7 @@
 	name = "box"
 	desc = "It's just an ordinary box."
 	icon = 'icons/obj/storage/box.dmi'
-	w_class = WEIGHT_CLASS_LARGE
+	w_class = WEIGHT_CLASS_MEDIUM
 	icon_state = "box"
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
