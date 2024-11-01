@@ -477,6 +477,8 @@
 		// Calling CanAllowThrough introduces side effects
 		if(target.pass_flags_self & pass_flags)
 			return FALSE
+		if ((pass_flags & PASSTRANSPARENT) && target.alpha < 255 && prob(100 - (target.alpha/2.55)))
+			return FALSE
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
@@ -582,14 +584,6 @@
 		return PROJECTILE_PIERCE_HIT
 	if((projectile_phasing & A.pass_flags_self) && (!phasing_ignore_direct_target || original != A))
 		return PROJECTILE_PIERCE_PHASE
-	// Check projectile passthrough
-	if ((pass_flags & PASSTRANSPARENT) && A.alpha < 255)
-		// 50% chance to pass through fully transparent objects
-		var/pass_chance = 0.5 + (1 - (A.alpha / 255)) * 0.5
-		if (prob(pass_chance))
-			// Refract
-			set_angle(Angle + rand(-30 * (A.alpha / 255), 30 * (A.alpha / 255)))
-			return PROJECTILE_PIERCE_PHASE
 	if(ismovable(A))
 		var/atom/movable/AM = A
 		if(AM.throwing)
