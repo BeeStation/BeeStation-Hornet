@@ -125,9 +125,13 @@
 	worn_icon_state = "satchel"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
-	var/is_bluespace = FALSE //If this is TRUE, when picking up ores it picks up ore from neighbouring tiles as well
-	var/bs_range=1	//Range in which the bluespace satchels pick up ores from.
+	///If this is TRUE, when picking up ores it picks up ore from neighbouring tiles as well
+	var/is_bluespace = FALSE
+	///Range in which the bluespace satchels pick up ores from.
+	var/bs_range = 1
 	var/mob/listeningTo
+	///Cooldown on balloon alerts when picking ore
+	COOLDOWN_DECLARE(ore_bag_balloon_cooldown)
 
 /obj/item/storage/bag/ore/Initialize(mapload)
 	. = ..()
@@ -138,6 +142,7 @@
 	atom_storage.allow_quick_empty = TRUE
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.set_holdable(list(/obj/item/stack/ore))
+	atom_storage.silent_for_user = TRUE
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
@@ -173,6 +178,10 @@
 
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
+		if(!COOLDOWN_FINISHED(src, ore_bag_balloon_cooldown))
+			return
+
+		COOLDOWN_START(src, ore_bag_balloon_cooldown, ORE_BAG_BALOON_COOLDOWN)
 		atom_storage.animate_parent()
 		//Handling message perspectives semi-dynamically.
 		var/message_action_pov = box ? "offload" : "scoop up"
@@ -520,3 +529,5 @@
 			/obj/item/rcd_ammo
 			)
 		)
+
+#undef ORE_BAG_BALOON_COOLDOWN

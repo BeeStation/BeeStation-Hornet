@@ -155,7 +155,7 @@
 	//Fill machine with a bag!
 	if(istype(I, /obj/item/storage/bag))
 		var/list/inserted = list()
-		if(I.atom_storage.remove_type(typecache_to_take, src, limit - length(holdingitems), null, null, user, inserted))
+		if(I.atom_storage.remove_type(typecache_to_take, src, limit - length(holdingitems), TRUE, FALSE, user, inserted))
 			for(var/i in inserted)
 				holdingitems[i] = TRUE
 			if(!I.contents.len)

@@ -57,6 +57,8 @@
 
 	/// don't show any chat messages regarding inserting items
 	var/silent = FALSE
+	/// same as above but only for the user, useful to cut on chat spam without removing feedback for other players
+	var/silent_for_user = FALSE
 	/// play a rustling sound when interacting with the bag
 	var/rustle_sound = TRUE
 
@@ -270,7 +272,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
 
 /// Updates the action button for toggling collectmode.
-/datum/storage/proc/update_actions()
+/datum/storage/proc/update_actions(atom/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_parent = parent?.resolve()
@@ -333,7 +335,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return FALSE
 
 	if(resolve_location.contents.len >= max_slots)
-		if(messages && user)
+		if(messages && user && !silent_for_user)
 			to_chat(user, "<span class='warning'>\The [to_insert] can't fit into \the [resolve_parent]! Make some space!</span>")
 		return FALSE
 
@@ -343,7 +345,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		total_weight += thing.w_class
 
 	if(total_weight > max_total_storage)
-		if(messages && user)
+		if(messages && user && !silent_for_user)
 			to_chat(user, "<span class='warning'>\The [to_insert] can't fit into \the [resolve_parent]! Make some space!</span>")
 		return FALSE
 
@@ -460,7 +462,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(rustle_sound)
 		playsound(resolve_parent, "rustle", 50, TRUE, -5)
 
-	to_chat(user, "<span class='notice'>You put [thing] [insert_preposition]to [resolve_parent].</span>")
+	if(!silent_for_user)
+		to_chat(user, "<span class='notice'>You put [thing] [insert_preposition]to [resolve_parent].</span>")
 
 	for(var/mob/viewing in oviewers(user, null))
 		if(in_range(user, viewing))
@@ -547,7 +550,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(!force)
 		if(check_adjacent)
-			if(!user || !user.CanReach(destination) || !user.CanReach(parent))
+			if(!user || !user.CanReach(destination) || !user.CanReach(resolve_location))
 				return FALSE
 	var/list/taking = typecache_filter_list(resolve_location.contents, typecacheof(type))
 	if(taking.len > amount)
@@ -825,7 +828,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	for(var/obj/item/thing in resolve_location.contents)
 		var/total_amnt = 1
 
-		if(istype(thing, /obj/item/stack))
+		if(isstack(thing))
 			var/obj/item/stack/things = thing
 			total_amnt = things.amount
 
@@ -1085,11 +1088,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	collection_mode = (collection_mode+1)%3
 	switch(collection_mode)
 		if(COLLECT_SAME)
-			to_chat(user, "<span class='notice'>[resolve_parent] now picks up all items of a single type at once.</span>")
+			resolve_parent.balloon_alert(user, "will now only pick up a single type")
 		if(COLLECT_EVERYTHING)
-			to_chat(user, "<span class='notice'>[resolve_parent] now picks up all items in a tile at once.</span>")
+			resolve_parent.balloon_alert(user, "will now pick up everything")
 		if(COLLECT_ONE)
-			to_chat(user, "<span class='notice'>[resolve_parent] now picks up one item at a time.</span>")
+			resolve_parent.balloon_alert(user, "will now pick up one at a time")
 
 /// Gives a spiffy animation to our parent to represent opening and closing.
 /datum/storage/proc/animate_parent()
