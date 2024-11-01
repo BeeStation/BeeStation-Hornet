@@ -24,11 +24,9 @@
 #include "crafting_tests.dm"
 #include "create_and_destroy.dm"
 #include "dcs_get_id_from_elements.dm"
-#include "gas_transfer.dm"
-
-
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
+#include "gas_transfer.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"

@@ -1748,7 +1748,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/centcom/evac)
 "gs" = (
 /obj/machinery/vending/cola,
@@ -9214,7 +9214,7 @@
 /area/space)
 "HH" = (
 /obj/structure/shuttle/engine/large,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/centcom/evac)
 "HJ" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -10277,7 +10277,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "Lv" = (
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/centcom/evac)
 "Lx" = (
 /obj/structure/chair,

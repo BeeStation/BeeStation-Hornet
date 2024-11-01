@@ -4729,7 +4729,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "bwK" = (
 /obj/effect/landmark/start/assistant,
@@ -10713,7 +10715,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "dvV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -21836,7 +21840,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "gRR" = (
 /obj/machinery/camera/directional/west{
@@ -26301,7 +26307,7 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "iqg" = (
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "iqm" = (
 /obj/structure/sign/warning/pods,
@@ -31845,7 +31851,9 @@
 "khS" = (
 /obj/machinery/telecomms/processor/preset_exploration,
 /obj/machinery/camera/directional/east,
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "khT" = (
 /obj/structure/disposalpipe/segment{
@@ -48844,7 +48852,7 @@
 /area/security/prison)
 "pyp" = (
 /obj/structure/grille,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "pyt" = (
 /obj/structure/table,
@@ -49100,7 +49108,9 @@
 	pixel_y = -8
 	},
 /obj/item/kirbyplants/random,
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "pCW" = (
 /obj/effect/turf_decal/stripes/line,
@@ -50417,7 +50427,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "pWY" = (
 /obj/effect/landmark/start/chemist,
@@ -51548,7 +51560,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "qpA" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -55310,6 +55324,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "rzL" = (
@@ -70989,7 +71004,9 @@
 /area/security/detectives_office)
 "wHX" = (
 /obj/machinery/telecomms/server/presets/exploration,
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/quartermaster/exploration_prep)
 "wHY" = (
 /obj/structure/closet,
