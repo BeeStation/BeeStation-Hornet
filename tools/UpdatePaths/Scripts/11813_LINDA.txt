@@ -1,0 +1,3 @@
+/turf/@SUBTYPES{initial_temperature=@ANY} : /turf/@SUBTYPES{@OLD; initial_temperature=@SKIP}
+
+#comment - Be aware, this current line breaks the tool and the end result is not a removed line, but rather " = None". I don't know how to fix this, so keep this in mind when updating maps.
