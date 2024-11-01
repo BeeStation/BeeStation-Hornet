@@ -49,7 +49,7 @@
 	icon_state = "clownpack"
 	item_state = "clownpack"
 
-/obj/item/storage/backpack/holding/Initialize()
+/obj/item/storage/backpack/holding/Initialize(mapload)
 	. = ..()
 	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 70, max_slots = 30, type = /datum/storage/bag_of_holding)
 	atom_storage.allow_big_nesting = TRUE
@@ -76,7 +76,7 @@
 	item_flags = NO_MAT_REDEMPTION
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 
-/obj/item/storage/backpack/hammerspace/Initialize()
+/obj/item/storage/backpack/hammerspace/Initialize(mapload)
 	. = ..()
 	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 1000, max_slots = 200, type = /datum/storage/bag_of_holding)
 	atom_storage.allow_big_nesting = TRUE
@@ -96,7 +96,7 @@
 	. = ..()
 	regenerate_presents()
 
-/obj/item/storage/backpack/santabag/Initialize()
+/obj/item/storage/backpack/santabag/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 60
@@ -385,7 +385,7 @@
 	item_state = "mailbag"
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 
-/obj/item/storage/backpack/satchel/mail/Initialize()
+/obj/item/storage/backpack/satchel/mail/Initialize(mapload)
 	. = ..()
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.allow_quick_empty = TRUE
@@ -410,7 +410,7 @@
 	item_state = "duffel"
 	slowdown = 1
 
-/obj/item/storage/backpack/duffelbag/Initialize()
+/obj/item/storage/backpack/duffelbag/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 40
 
@@ -546,7 +546,7 @@
 	slowdown = 0
 	resistance_flags = FIRE_PROOF
 
-/obj/item/storage/backpack/duffelbag/syndie/Initialize()
+/obj/item/storage/backpack/duffelbag/syndie/Initialize(mapload)
 	. = ..()
 	atom_storage.silent = TRUE
 
@@ -711,7 +711,7 @@
 	new /obj/item/storage/firstaid/tactical(src)
 
 // For ClownOps.
-/obj/item/storage/backpack/duffelbag/clown/syndie/Initialize()
+/obj/item/storage/backpack/duffelbag/clown/syndie/Initialize(mapload)
 	. = ..()
 	slowdown = 0
 	atom_storage.silent = TRUE

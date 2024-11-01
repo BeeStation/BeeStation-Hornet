@@ -331,7 +331,7 @@
 	icon_state = "quiver"
 	item_state = "quiver"
 
-/obj/item/storage/backpack/magspear_quiver/Initialize()
+/obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 30
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY

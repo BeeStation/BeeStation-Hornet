@@ -163,7 +163,7 @@
 	throwforce = 18
 	material_flags = NONE
 
-/obj/item/storage/toolbox/syndicate/Initialize()
+/obj/item/storage/toolbox/syndicate/Initialize(mapload)
 	. = ..()
 	atom_storage.silent = TRUE
 
@@ -205,7 +205,7 @@
 	attack_verb_simple = list("robust")
 	material_flags = NONE
 
-/obj/item/storage/toolbox/brass/Initialize()
+/obj/item/storage/toolbox/brass/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 28
@@ -230,7 +230,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
 	material_flags = NONE
 
-/obj/item/storage/toolbox/artistic/Initialize()
+/obj/item/storage/toolbox/artistic/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 20
 	atom_storage.max_slots = 10
@@ -269,7 +269,7 @@
 	name = "ammo crate (.38)"
 	desc = "It contains a few boxes of bullets."
 
-/obj/item/storage/toolbox/ammo/c38/Initialize()
+/obj/item/storage/toolbox/ammo/c38/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 10
 	atom_storage.max_slots = 5

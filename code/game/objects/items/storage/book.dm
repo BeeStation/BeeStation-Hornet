@@ -10,7 +10,7 @@
 	var/title = "book"
 	item_flags = ISWEAPON
 
-/obj/item/storage/book/Initialize()
+/obj/item/storage/book/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 1
 

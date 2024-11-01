@@ -237,7 +237,7 @@
 	item_flags = NO_MAT_REDEMPTION
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 
-/obj/item/storage/backpack/debug/Initialize()
+/obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.allow_big_nesting = TRUE
@@ -250,7 +250,7 @@
 	icon_state = "syndiebox"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/storage/box/debugtools/Initialize()
+/obj/item/storage/box/debugtools/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 1000
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC

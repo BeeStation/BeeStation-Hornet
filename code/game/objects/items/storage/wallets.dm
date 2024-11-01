@@ -10,7 +10,7 @@
 	var/obj/item/card/id/front_id = null
 	var/list/combined_access
 
-/obj/item/storage/wallet/Initialize()
+/obj/item/storage/wallet/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 4
 	atom_storage.set_holdable(list(

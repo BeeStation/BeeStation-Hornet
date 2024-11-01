@@ -97,7 +97,7 @@
 	desc = "A small box specially designed for carrying evidence bags."
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/storage/box/evidence/Initialize()
+/obj/item/storage/box/evidence/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 6
 	atom_storage.set_holdable(list(/obj/item/evidencebag))

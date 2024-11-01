@@ -24,7 +24,7 @@
 	/// Whether the container is open or not
 	var/is_open = FALSE
 
-/obj/item/storage/fancy/Initialize()
+/obj/item/storage/fancy/Initialize(mapload)
 	. = ..()
 
 	atom_storage.max_slots = spawn_count
@@ -80,7 +80,7 @@
 	appearance_flags = KEEP_TOGETHER
 	contents_tag = "donut"
 
-/obj/item/storage/fancy/donut_box/Initialize()
+/obj/item/storage/fancy/donut_box/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/donut))
 
@@ -127,7 +127,7 @@
 	spawn_count = 12
 	contents_tag = "egg"
 
-/obj/item/storage/fancy/egg_box/Initialize()
+/obj/item/storage/fancy/egg_box/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/egg))
 
@@ -173,7 +173,7 @@
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
-/obj/item/storage/fancy/cigarettes/Initialize()
+/obj/item/storage/fancy/cigarettes/Initialize(mapload)
 	. = ..()
 	atom_storage.quickdraw = TRUE
 	atom_storage.set_holdable(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
@@ -314,7 +314,7 @@
 	contents_tag = "rolling paper"
 	spawn_type = /obj/item/rollingpaper
 
-/obj/item/storage/fancy/rollingpapers/Initialize()
+/obj/item/storage/fancy/rollingpapers/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 10
 	atom_storage.set_holdable(list(/obj/item/rollingpaper))
@@ -343,7 +343,7 @@
 	spawn_type = /obj/item/clothing/mask/cigarette/cigar
 	display_cigs = FALSE
 
-/obj/item/storage/fancy/cigarettes/cigars/Initialize()
+/obj/item/storage/fancy/cigarettes/cigars/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/clothing/mask/cigarette/cigar))
 
@@ -392,7 +392,7 @@
 	spawn_type = /obj/item/food/bonbon
 	spawn_count = 8
 
-/obj/item/storage/fancy/heart_box/Initialize()
+/obj/item/storage/fancy/heart_box/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/bonbon))
 
@@ -407,6 +407,6 @@
 	spawn_type = /obj/item/food/nugget
 	spawn_count = 6
 
-/obj/item/storage/fancy/nugget_box/Initialize()
+/obj/item/storage/fancy/nugget_box/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/nugget))

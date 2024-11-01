@@ -65,7 +65,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/firstaid/medical/Initialize()
+/obj/item/storage/firstaid/medical/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
 	atom_storage.max_slots = 12
@@ -144,7 +144,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/firstaid/medical/paramedic/Initialize()
+/obj/item/storage/firstaid/medical/paramedic/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
 	atom_storage.max_slots = 12
@@ -384,7 +384,7 @@
 	item_state = "firstaid-mystery"
 	skin_type = NONE
 
-/obj/item/storage/firstaid/random/Initialize()
+/obj/item/storage/firstaid/random/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
@@ -432,7 +432,7 @@
 	. = ..()
 	icon_state = pick("firstaid-combat","firstaid-combatalt")
 
-/obj/item/storage/firstaid/tactical/Initialize()
+/obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
 	atom_storage.max_slots = 7
@@ -551,7 +551,7 @@
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
-/obj/item/storage/pill_bottle/Initialize()
+/obj/item/storage/pill_bottle/Initialize(mapload)
 	. = ..()
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.set_holdable(list(/obj/item/reagent_containers/pill))

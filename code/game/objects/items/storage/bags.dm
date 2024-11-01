@@ -20,7 +20,7 @@
 /obj/item/storage/bag
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/bag/Initialize()
+/obj/item/storage/bag/Initialize(mapload)
 	. = ..()
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.allow_quick_empty = TRUE
@@ -41,7 +41,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	var/insertable = TRUE
 
-/obj/item/storage/bag/trash/Initialize()
+/obj/item/storage/bag/trash/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 	atom_storage.max_total_storage = 30
@@ -84,7 +84,7 @@
 	icon_state = "bluetrashbag"
 	item_flags = NO_MAT_REDEMPTION
 
-/obj/item/storage/bag/trash/bluespace/Initialize()
+/obj/item/storage/bag/trash/bluespace/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 60
 	atom_storage.max_slots = 60
@@ -97,7 +97,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	icon = 'icons/obj/storage/backpack.dmi'
 
-/obj/item/storage/bag/trash/bluespace/hammerspace/Initialize()
+/obj/item/storage/bag/trash/bluespace/hammerspace/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 1000
 	atom_storage.max_slots = 300
@@ -220,7 +220,7 @@
 	desc = "A revolution in convenience, this satchel allows for huge amounts of ore storage. It's been outfitted with anti-malfunction safety measures."
 	icon_state = "satchel_bspace"
 
-/obj/item/storage/bag/ore/holding/Initialize()
+/obj/item/storage/bag/ore/holding/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = INFINITY
 	atom_storage.max_specific_storage = INFINITY
@@ -239,7 +239,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/bag/plants/Initialize()
+/obj/item/storage/bag/plants/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 100
@@ -274,7 +274,7 @@
 	desc = "Create seeds for your plants in your arm."
 	icon_state = "compactseeder"
 
-/obj/item/storage/bag/plants/portaseeder/compact/Initialize()
+/obj/item/storage/bag/plants/portaseeder/compact/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 10
@@ -298,7 +298,7 @@
 
 	var/capacity = 150 //the number of sheets it can carry.
 
-/obj/item/storage/bag/sheetsnatcher/Initialize()
+/obj/item/storage/bag/sheetsnatcher/Initialize(mapload)
 	. = ..()
 	atom_storage.allow_quick_empty = TRUE
 	atom_storage.allow_quick_gather = TRUE
@@ -328,7 +328,7 @@
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/bag/books/Initialize()
+/obj/item/storage/bag/books/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 21
@@ -440,7 +440,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/bag/chemistry/Initialize()
+/obj/item/storage/bag/chemistry/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 200
 	atom_storage.max_slots = 50
@@ -469,7 +469,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/bag/bio/Initialize()
+/obj/item/storage/bag/bio/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 200
 	atom_storage.max_slots = 25
@@ -503,7 +503,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/bag/construction/Initialize()
+/obj/item/storage/bag/construction/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 100
 	atom_storage.max_slots = 50

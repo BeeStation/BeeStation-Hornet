@@ -530,7 +530,7 @@
 	var/donktype = /obj/item/food/donkpocket
 	donktype = /obj/item/food/donkpocket
 
-/obj/item/storage/box/donkpockets/Initialize()
+/obj/item/storage/box/donkpockets/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/donkpocket))
 
@@ -577,7 +577,7 @@
 	illustration = null
 	var/cube_type = /obj/item/food/monkeycube
 
-/obj/item/storage/box/monkeycubes/Initialize()
+/obj/item/storage/box/monkeycubes/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 7
 	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
@@ -596,7 +596,7 @@
 	icon_state = "monkeycubebox"
 	illustration = null
 
-/obj/item/storage/box/gorillacubes/Initialize()
+/obj/item/storage/box/gorillacubes/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 3
 	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
@@ -761,7 +761,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
 
-/obj/item/storage/box/snappops/Initialize()
+/obj/item/storage/box/snappops/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/toy/snappop))
 	atom_storage.max_slots = 8
@@ -782,7 +782,7 @@
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 
-/obj/item/storage/box/matches/Initialize()
+/obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 10
 	atom_storage.set_holdable(list(/obj/item/match))
@@ -805,7 +805,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
-/obj/item/storage/box/lights/Initialize()
+/obj/item/storage/box/lights/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 21
 	atom_storage.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
@@ -1189,7 +1189,7 @@
 	name = "box of materials"
 	illustration = "implant"
 
-/obj/item/storage/box/material/Initialize()
+/obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.max_specific_storage = 1000
