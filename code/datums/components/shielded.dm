@@ -22,7 +22,7 @@
 	/// Do we still shield if we're being held in-hand? If FALSE, it needs to be equipped to a slot to work
 	var/shield_inhand = FALSE
 	/// Energy shield flags
-	var/shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE
+	var/shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE
 	/// Energy shield alpha
 	var/shield_alpha = 180
 	/// The cooldown tracking when we were last hit
@@ -31,14 +31,6 @@
 	COOLDOWN_DECLARE(charge_add_cd)
 	/// A callback for the sparks/message that play when a charge is used, see [/datum/component/shielded/proc/default_run_hit_callback]
 	var/datum/callback/on_hit_effects
-	/// Have effects been activated
-	VAR_PRIVATE/_effects_activated
-	/// Invoked when the mob equips the shield
-	/// Parameters: mob/living/user, current_integrity
-	var/datum/callback/on_active_effects
-	/// Invoked when the mob unequips the shield
-	/// Parameters: mob/living/user, current_integrity
-	var/datum/callback/on_deactive_effects
 
 /datum/component/shielded/Initialize(
 		max_integrity = 60,
@@ -48,11 +40,9 @@
 		shield_icon_file = 'icons/effects/effects.dmi',
 		shield_icon = "shield-old",
 		shield_inhand = FALSE,
-		shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE,
+		shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE,
 		shield_alpha = 160,
-		run_hit_callback,
-		on_active_effects,
-		on_deactive_effects,
+		run_hit_callback
 		)
 	if(!isitem(parent) || max_integrity <= 0)
 		return COMPONENT_INCOMPATIBLE
@@ -67,8 +57,6 @@
 	src.shield_flags = shield_flags
 	src.shield_alpha = shield_alpha
 	src.on_hit_effects = run_hit_callback || CALLBACK(src, PROC_REF(default_run_hit_callback))
-	src.on_active_effects = on_active_effects
-	src.on_deactive_effects = on_deactive_effects
 
 	current_integrity = max_integrity
 	if(charge_recovery)
@@ -79,9 +67,6 @@
 		shield_icon = "broken"
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
 		wearer.update_appearance(UPDATE_ICON)
-		if (_effects_activated)
-			on_deactive_effects?.Invoke(wearer, current_integrity)
-			_effects_activated = FALSE
 		wearer = null
 	QDEL_NULL(on_hit_effects)
 	return ..()
@@ -118,10 +103,6 @@
 	current_integrity = clamp(current_integrity + change, 0, max_integrity)
 	if(wearer && needs_update)
 		wearer.update_appearance(UPDATE_ICON)
-		// re-add effects when the shield recovers
-		if (!_effects_activated)
-			on_active_effects?.Invoke(wearer, current_integrity)
-			_effects_activated = TRUE
 
 /// Check if we've been equipped to a valid slot to shield
 /datum/component/shielded/proc/on_equipped(datum/source, mob/user, slot)
@@ -132,9 +113,6 @@
 		return
 
 	wearer = user
-	if (!_effects_activated)
-		on_active_effects?.Invoke(user, current_integrity)
-		_effects_activated = TRUE
 	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
 	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
 	if(current_integrity)
@@ -145,9 +123,6 @@
 	SIGNAL_HANDLER
 
 	if(wearer)
-		if (_effects_activated)
-			on_deactive_effects?.Invoke(user, current_integrity)
-			_effects_activated = FALSE
 		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
@@ -155,9 +130,6 @@
 /// Used to draw the shield overlay on the wearer
 /datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
-
-	if (shield_flags & ENERGY_SHIELD_INVISIBLE)
-		return
 
 	var/mutable_appearance/shield_image = mutable_appearance(shield_icon_file, (current_integrity > 0 ? shield_icon : "broken"), MOB_SHIELD_LAYER)
 	shield_image.alpha = shield_alpha
@@ -172,9 +144,9 @@
 
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
 
-	if ((attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && !(shield_flags & ENERGY_SHIELD_BLOCK_PROJECTILES))
+	if ((attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && !(shield_flags & ENERGY_SHEILD_BLOCK_PROJECTILES))
 		return
-	else if (!(attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && !(shield_flags & ENERGY_SHIELD_BLOCK_MELEE))
+	else if (!(attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && !(shield_flags & ENERGY_SHEILD_BLOCK_MELEE))
 		return
 
 	if(current_integrity <= 0)
@@ -191,10 +163,6 @@
 		return
 
 	if (!current_integrity)
-		// Remove effects on shield break
-		if (_effects_activated)
-			on_deactive_effects?.Invoke(wearer)
-			_effects_activated = FALSE
 		wearer.update_appearance(UPDATE_ICON)
 
 	START_PROCESSING(SSdcs, src) // if we DO recharge, start processing so we can do that

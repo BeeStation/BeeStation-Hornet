@@ -408,9 +408,7 @@
 		else //Smart spread
 			sprd = round((((rand_spr/burst_size) * iteration) - (0.5 + (rand_spr * 0.25))) * (randomized_gun_spread + randomized_bonus_spread))
 		sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
-		var/result = before_firing(target,user)
-		if (result & GUN_HIT_SELF)
-			target = user
+		before_firing(target,user)
 		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd, spread_multiplier, src))
 			shoot_with_empty_chamber(user)
 			firing_burst = FALSE
@@ -470,9 +468,7 @@
 					return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (spread + bonus_spread))
 			sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
-			var/result = before_firing(target, user, aimed)
-			if (result & GUN_HIT_SELF)
-				target = user
+			before_firing(target, user, aimed)
 			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, spread_multiplier, src))
 				shoot_with_empty_chamber(user)
 				return
@@ -667,7 +663,6 @@
 	if(aimed == GUN_AIMED_POINTBLANK)
 		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
 		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
-	return SEND_SIGNAL(user, COMSIG_MOB_BEFORE_FIRE_GUN, src, target, aimed)
 
 /////////////
 // ZOOMING //
