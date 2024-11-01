@@ -1123,43 +1123,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, extrapolator, dry_run, .)
 
 /**
-  * Implement the behaviour for when a user click drags a storage object to your atom
-  *
-  * This behaviour is usually to mass transfer, but this is no longer a used proc as it just
-  * calls the underyling /datum/component/storage dump act if a component exists
-  *
-  * TODO these should be purely component items that intercept the atom clicks higher in the
-  * call chain
-  */
-/atom/proc/storage_contents_dump_act(obj/item/src_object, mob/user)
-	if(atom_storage)
-		return component_storage_contents_dump_act(src_object, user)
-	return FALSE
-
-/**
-  * Implement the behaviour for when a user click drags another storage item to you
-  *
-  * In this case we get as many of the tiems from the target items compoent storage and then
-  * put everything into ourselves (or our storage component)
-  *
-  * TODO these should be purely component items that intercept the atom clicks higher in the
-  * call chain
-  */
-/atom/proc/component_storage_contents_dump_act(obj/item/src_object, mob/user)
-	var/list/things = src_object.contents
-	var/datum/progressbar/progress = new(user, things.len, src)
-	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(src_object.atom_storage, /datum/storage.proc/handle_mass_transfer, user, src, /* override = */ TRUE)))
-		stoplag(1)
-	progress.end_progress()
-	to_chat(user, "<span class='notice'>You dump as much of [src_object]'s contents into [atom_storage.insert_preposition]to [src] as you can.</span>")
-	atom_storage.orient_to_hud(user)
-	src_object.atom_storage.orient_to_hud(user)
-	if(user.active_storage) //refresh the HUD to show the transfered contents
-		user.active_storage.refresh_views()
-	return TRUE
-
-///Get the best place to dump the items contained in the source storage item?
-/atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
+ * If someone's trying to dump items onto our atom, where should they be dumped to?
+ *
+ * Return a loc to place objects, or null to stop dumping.
+ */
+/atom/proc/get_dumping_location()
 	return null
 
 /**

@@ -320,15 +320,15 @@
 	throw_range = 4
 	item_flags = NO_PIXEL_RANDOM_DROP
 
+/*
 /obj/item/kirbyplants/Initialize()
 	. = ..()
-	create_storage(type = /datum/storage/implant)
-
+	create_storage(type = /datum/storage/kirbyplants)
+*/
 
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
-	create_storage(type = /datum/storage/implant)
 
 /datum/storage/kirbyplants
 	max_slots = 1

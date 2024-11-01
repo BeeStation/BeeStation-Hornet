@@ -200,9 +200,9 @@
 			//This logic is needed so that we can send both an ore scooping up and the full bag message,
 			//if there are too many ores in a single tile for a normal ore bag to hold
 			if (!item_transferred)
-				item_transferred = atom_storage?.attempt_insert(src, ore, user, TRUE)
+				item_transferred = atom_storage?.attempt_insert(ore, user, TRUE)
 			else
-				atom_storage?.attempt_insert(src, ore, user, TRUE)
+				atom_storage?.attempt_insert(ore, user, TRUE)
 	// Check if any ore exists in the turf
 	for(var/obj/item/stack/ore/ore in turf)
 		ore_found = TRUE

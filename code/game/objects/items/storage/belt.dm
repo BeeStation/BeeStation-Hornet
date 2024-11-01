@@ -400,7 +400,7 @@
 	item_state = "explorer1"
 	worn_icon_state = "explorer1"
 
-/obj/item/storage/belt/mining/ComponentInitialize()
+/obj/item/storage/belt/mining/Initialize()
 	. = ..()
 	atom_storage.set_holdable(list(
 		/obj/item/crowbar,
@@ -769,7 +769,7 @@
 	dying_key = DYE_REGISTRY_FANNYPACK
 	custom_price = 15
 
-/obj/item/storage/belt/fannypack/ComponentInitialize()
+/obj/item/storage/belt/fannypack/Initialize()
 	. = ..()
 	atom_storage.max_slots = 5
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL

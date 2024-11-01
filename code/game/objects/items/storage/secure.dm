@@ -93,7 +93,7 @@
 				l_code = code
 				l_set = 1
 			else if ((code == l_code) && (l_set == 1))
-				atom_storage.locked = TRUE
+				atom_storage.locked = FALSE
 				cut_overlays()
 				add_overlay(icon_opened)
 				code = null
@@ -101,7 +101,7 @@
 				code = "ERROR"
 		else
 			if ((href_list["type"] == "R") && (!l_setshort))
-				atom_storage.locked = FALSE
+				atom_storage.locked = TRUE
 				cut_overlays()
 				code = null
 				atom_storage.hide_contents(usr)

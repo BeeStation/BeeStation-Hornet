@@ -390,24 +390,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/Bless()
 	new /obj/effect/blessing(src)
 
-/turf/storage_contents_dump_act(atom/src_object, mob/user)
-	. = ..()
-	if(.)
-		return
-	if(!src_object.atom_storage)
-		return
-	var/atom/resolve_parent = src_object.atom_storage.real_location?.resolve()
-	if(!resolve_parent)
-		return FALSE
-	if(length(resolve_parent.contents))
-		to_chat(user, "<span class='notice'>You start dumping out the contents of [src_object]...</span>")
-		if(!do_after(user, 20, target=resolve_parent))
-			return FALSE
-
-	src_object.atom_storage.remove_all(src)
-
-	return TRUE
-
 //////////////////////////////
 //Distance procs
 //////////////////////////////

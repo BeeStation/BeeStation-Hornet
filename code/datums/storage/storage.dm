@@ -111,43 +111,47 @@
 		qdel(src)
 		return
 
-	RegisterSignal(resolve_parent, list(COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_ATTACK_HAND), .proc/handle_attack)
-	RegisterSignal(resolve_parent, COMSIG_MOUSEDROP_ONTO, .proc/mousedrop_onto)
-	RegisterSignal(resolve_parent, COMSIG_MOUSEDROPPED_ONTO, .proc/mousedropped_onto)
+	RegisterSignals(resolve_parent, list(COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_ATTACK_HAND), PROC_REF(on_attack))
+	RegisterSignal(resolve_parent, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
+	RegisterSignal(resolve_parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(on_mousedropped_onto))
 
-	RegisterSignal(resolve_parent, COMSIG_ATOM_EMP_ACT, .proc/emp_act)
-	RegisterSignal(resolve_parent, COMSIG_PARENT_ATTACKBY, .proc/attackby)
-	RegisterSignal(resolve_parent, COMSIG_ITEM_PRE_ATTACK, .proc/intercept_preattack)
-	RegisterSignal(resolve_parent, COMSIG_OBJ_DECONSTRUCT, .proc/deconstruct)
+	RegisterSignal(resolve_parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
+	RegisterSignal(resolve_parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(resolve_parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(on_preattack))
+	RegisterSignal(resolve_parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_deconstruct))
 
-	RegisterSignal(resolve_parent, COMSIG_ITEM_ATTACK_SELF, .proc/mass_empty)
+	RegisterSignal(resolve_parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(mass_empty))
 
-	RegisterSignal(resolve_parent, list(/*COMSIG_ATOM_ATTACK_HAND_SECONDARY, */COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_GHOST), .proc/open_storage)
+	RegisterSignals(resolve_parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_GHOST/*, COMSIG_ATOM_ATTACK_HAND_SECONDARY*/), PROC_REF(open_storage_on_signal))
+	//RegisterSignal(resolve_parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(open_storage_attackby_secondary))
 
-	RegisterSignal(resolve_location, COMSIG_ATOM_ENTERED, .proc/handle_enter)
-	RegisterSignal(resolve_location, COMSIG_ATOM_EXITED, .proc/handle_exit)
-	RegisterSignal(resolve_parent, COMSIG_MOVABLE_MOVED, .proc/close_distance)
-	RegisterSignal(resolve_parent, COMSIG_ITEM_EQUIPPED, .proc/update_actions)
+	RegisterSignal(resolve_location, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
+	RegisterSignal(resolve_location, COMSIG_ATOM_EXITED, PROC_REF(handle_exit))
+	RegisterSignal(resolve_parent, COMSIG_MOVABLE_MOVED, PROC_REF(close_distance))
+	RegisterSignal(resolve_parent, COMSIG_ITEM_EQUIPPED, PROC_REF(update_actions))
 
-	RegisterSignal(resolve_parent, COMSIG_TOPIC, .proc/topic_handle)
+	RegisterSignal(resolve_parent, COMSIG_TOPIC, PROC_REF(topic_handle))
 
 	orient_to_hud()
 
 /datum/storage/Destroy()
 	parent = null
 	real_location = null
-	boxes = null
-	closer = null
 
 	for(var/mob/person in is_using)
 		if(person.active_storage == src)
 			person.active_storage = null
+			person.client?.screen -= boxes
+			person.client?.screen -= closer
+
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
 
 	is_using.Cut()
 
 	return ..()
 
-/datum/storage/proc/deconstruct()
+/datum/storage/proc/on_deconstruct()
 	SIGNAL_HANDLER
 
 	remove_all()
@@ -159,10 +163,14 @@
 	if(!istype(arrived))
 		return
 
+	var/atom/resolve_parent = parent?.resolve()
+	if(!resolve_parent)
+		return
+
+	resolve_parent.update_appearance(UPDATE_ICON_STATE)
+
 	arrived.item_flags |= IN_STORAGE
-
 	refresh_views()
-
 	arrived.on_enter_storage(src)
 
 /// Automatically ran on all object removals: flag marking and view refreshing.
@@ -172,10 +180,14 @@
 	if(!istype(gone))
 		return
 
+	var/atom/resolve_parent = parent?.resolve()
+	if(!resolve_parent)
+		return
+
+	resolve_parent.update_appearance(UPDATE_ICON_STATE)
+
 	gone.item_flags &= ~IN_STORAGE
-
 	remove_and_refresh(gone)
-
 	gone.on_exit_storage(src)
 
 /**
@@ -197,7 +209,7 @@
 		return
 
 	if(should_drop)
-		remove_all(src, get_turf(resolve_parent))
+		remove_all(get_turf(resolve_parent))
 
 	resolve_location.flags_1 &= ~HAS_DISASSOCIATED_STORAGE_1
 	real.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
@@ -313,12 +325,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return FALSE
 
 	if(to_insert.w_class > max_specific_storage && !is_type_in_typecache(to_insert, exception_hold))
-		if(messages)
+		if(messages && user)
 			to_chat(user, "<span class='warning'>\The [to_insert] is too big for \the [resolve_parent]!</span>")
 		return FALSE
 
 	if(resolve_location.contents.len >= max_slots)
-		if(messages)
+		if(messages && user)
 			to_chat(user, "<span class='warning'>\The [to_insert] can't fit into \the [resolve_parent]! Make some space!</span>")
 		return FALSE
 
@@ -328,32 +340,37 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		total_weight += thing.w_class
 
 	if(total_weight > max_total_storage)
-		if(messages)
+		if(messages && user)
 			to_chat(user, "<span class='warning'>\The [to_insert] can't fit into \the [resolve_parent]! Make some space!</span>")
 		return FALSE
 
 	if(length(can_hold))
 		if(!is_type_in_typecache(to_insert, can_hold))
-			if(messages)
+			if(messages && user)
 				to_chat(user, "<span class='warning'>\The [resolve_parent] cannot hold \the [to_insert]!</span>")
 			return FALSE
 
 	if(is_type_in_typecache(to_insert, cant_hold) || HAS_TRAIT(to_insert, TRAIT_NO_STORAGE_INSERT) || (can_hold_trait && !HAS_TRAIT(to_insert, can_hold_trait)))
-		if(messages)
+		if(messages && user)
 			to_chat(user, "<span class='warning'>\The [resolve_parent] cannot hold \the [to_insert]!</span>")
+		return FALSE
+
+	if(HAS_TRAIT(to_insert, TRAIT_NODROP))
+		if(messages)
+			to_chat(user, "<span class='warning'>\The [to_insert] is stuck on your hand!</span>")
 		return FALSE
 
 	var/datum/storage/biggerfish = resolve_parent.loc.atom_storage // this is valid if the container our resolve_parent is being held in is a storage item
 
 	if(biggerfish && biggerfish.max_specific_storage < max_specific_storage)
-		if(messages)
+		if(messages && user)
 			to_chat(user, "<span class='warning'>[to_insert] can't fit in [resolve_parent] while [resolve_parent.loc] is in the way!</span>")
 		return FALSE
 
 	if(istype(resolve_parent))
 		var/datum/storage/item_storage = to_insert.atom_storage
 		if((to_insert.w_class >= resolve_parent.w_class) && item_storage && !allow_big_nesting)
-			if(messages)
+			if(messages && user)
 				to_chat(user, "<span class='warning'>[resolve_parent] cannot hold [to_insert] as it's a storage item of the same size!</span>")
 			return FALSE
 
@@ -368,20 +385,18 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * @param override see item_insertion_feedback()
  * @param force bypass locked storage
  */
-/datum/storage/proc/attempt_insert(datum/source, obj/item/to_insert, mob/user, override = FALSE, force = FALSE)
-	SIGNAL_HANDLER
-
+/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = FALSE)
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_location)
-		return
+		return FALSE
 
 	if(!can_insert(to_insert, user, force = force))
 		return FALSE
 
 	to_insert.item_flags |= IN_STORAGE
-
 	to_insert.forceMove(resolve_location)
 	item_insertion_feedback(user, to_insert, override)
+	resolve_location.update_appearance()
 
 	return TRUE
 
@@ -396,11 +411,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  */
 /datum/storage/proc/handle_mass_pickup(mob/user, list/things, atom/thing_loc, list/rejections, datum/progressbar/progress)
 	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
-		return
-
 	var/obj/item/resolve_location = real_location?.resolve()
-	if(!resolve_location)
+	if(!resolve_parent || !resolve_location)
 		return
 
 	for(var/obj/item/thing in things)
@@ -409,7 +421,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			continue
 		if(thing.type in rejections) // To limit bag spamming: any given type only complains once
 			continue
-		if(!attempt_insert(resolve_parent, thing, user, TRUE)) // Note can_be_inserted still makes noise when the answer is no
+		if(!attempt_insert(thing, user, TRUE)) // Note can_be_inserted still makes noise when the answer is no
 			if(resolve_location.contents.len >= max_slots)
 				break
 			rejections += thing.type // therefore full bags are still a little spammy
@@ -421,23 +433,6 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	progress.update(progress.goal - things.len)
 	return FALSE
-
-/**
- * Used to transfer all the items inside of us to another atom
- *
- * @param mob/user the user who is transferring the items
- * @param atom/going_to the atom we're transferring to
- */
-/datum/storage/proc/handle_mass_transfer(mob/user, atom/going_to)
-	var/obj/item/resolve_location = real_location?.resolve()
-	if(!resolve_location)
-		return
-
-	if(!going_to.atom_storage)
-		return
-
-	for (var/atom/thing in resolve_location.contents)
-		going_to.atom_storage.attempt_insert(src, thing, user)
 
 /**
  * Provides visual feedback in chat for an item insertion
@@ -518,11 +513,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  */
 /datum/storage/proc/remove_all(atom/target)
 	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
-		return
-
 	var/obj/item/resolve_location = real_location?.resolve()
-	if(!resolve_location)
+	if(!resolve_parent || !resolve_location)
 		return
 
 	if(!target)
@@ -531,7 +523,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	for(var/obj/item/thing in resolve_location)
 		if(thing.loc != resolve_location)
 			continue
-		attempt_remove(thing, target, silent = TRUE)
+		if(!attempt_remove(thing, target, silent = TRUE))
+			continue
+		thing.pixel_x = thing.base_pixel_x + rand(-8, 8)
+		thing.pixel_y = thing.base_pixel_y + rand(-8, 8)
 
 /**
  * Removes only a specific type of item from our storage
@@ -615,7 +610,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	refresh_views()
 
 /// Signal handler for the emp_act() of all contents
-/datum/storage/proc/emp_act(datum/source, severity)
+/datum/storage/proc/on_emp_act(datum/source, severity)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_location = real_location?.resolve()
@@ -629,21 +624,21 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		thing.emp_act(severity)
 
 /// Signal handler for preattack from an object.
-/datum/storage/proc/intercept_preattack(datum/source, obj/item/thing, mob/user, params)
+/datum/storage/proc/on_preattack(datum/source, obj/item/thing, mob/user, params)
 	SIGNAL_HANDLER
 
 	if(!istype(thing) || !allow_quick_gather || thing.atom_storage)
-		return FALSE
+		return
 
 	if(collection_mode == COLLECT_ONE)
-		attempt_insert(source, thing, user)
-		return TRUE
+		attempt_insert(thing, user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(!isturf(thing.loc))
-		return TRUE
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	INVOKE_ASYNC(src, .proc/collect_on_turf, thing, user)
-	return TRUE
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
  * Collects every item of a type on a turf.
@@ -676,41 +671,35 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	to_chat(user, "<span class='notice'>You put everything you could [insert_preposition]to [resolve_parent].</span>")
 
 /// Signal handler for whenever we drag the storage somewhere.
-/datum/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/user)
+/datum/storage/proc/on_mousedrop_onto(datum/source, atom/over_object, mob/user)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
+	var/obj/item/resolve_location = real_location?.resolve()
+	if(!resolve_parent || !resolve_location)
 		return
 
-	if(!istype(user))
-		return
-	if(!over_object)
-		return
-	if(ismecha(user.loc))
-		return
-	if(user.incapacitated() || !user.canUseStorage())
+	if(ismecha(user.loc) || user.incapacitated() || !user.canUseStorage())
 		return
 
 	resolve_parent.add_fingerprint(user)
 
-	if(over_object == user)
-		open_storage(resolve_parent, user)
-
-	if(!istype(over_object, /atom/movable/screen))
-		INVOKE_ASYNC(src, .proc/dump_content_at, over_object, user)
-		return
-
-	if(resolve_parent.loc != user)
-		return
-
-	if(rustle_sound)
-		playsound(resolve_parent, "rustle", 50, TRUE, -5)
-
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
+
+		if(resolve_parent.loc != user)
+			return
+
 		var/atom/movable/screen/inventory/hand/hand = over_object
 		user.putItemFromInventoryInHandIfPossible(resolve_parent, hand.held_index)
-		return
+
+	else if(ismob(over_object))
+		if(over_object != user)
+			return
+
+		INVOKE_ASYNC(src, .proc/open_storage, user)
+
+	else if(!istype(over_object, /atom/movable/screen))
+		INVOKE_ASYNC(src, .proc/dump_content_at, over_object, user)
 
 /**
  * Dumps all of our contents at a specific location.
@@ -719,39 +708,67 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * @param mob/user the user who is dumping the contents
  */
 /datum/storage/proc/dump_content_at(atom/dest_object, mob/user)
-	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
+	var/obj/item/resolve_parent = parent.resolve()
+	var/obj/item/resolve_location = real_location.resolve()
+
+	if(locked)
+		return
+	if(!user.CanReach(resolve_parent) || !user.CanReach(dest_object))
 		return
 
-	var/obj/item/resolve_location = real_location?.resolve()
-	if(!resolve_location)
+	if(SEND_SIGNAL(dest_object, COMSIG_STORAGE_DUMP_CONTENT, resolve_location, user) & STORAGE_DUMP_HANDLED)
 		return
 
-	if(user.CanReach(resolve_parent) && dest_object && user.CanReach(dest_object))
-		if(locked)
-			return
-		if(dest_object.storage_contents_dump_act(resolve_parent, user))
-			return
+	// Storage to storage transfer is instant
+	if(dest_object.atom_storage)
+		to_chat(user, span_notice("You dump the contents of [resolve_parent] into [dest_object]."))
+
+		if(rustle_sound)
+			playsound(resolve_parent, "rustle", 50, TRUE, -5)
+
+		for(var/obj/item/to_dump in resolve_location)
+			if(to_dump.loc != resolve_location)
+				continue
+			dest_object.atom_storage.attempt_insert(to_dump, user)
+
+		return
+
+	var/atom/dump_loc = dest_object.get_dumping_location()
+	if(isnull(dump_loc))
+		return
+
+	// Storage to loc transfer requires a do_after
+	to_chat(user, span_notice("You start dumping out the contents of [resolve_parent] onto [dest_object]..."))
+	if(!do_after(user, 2 SECONDS, target = dest_object))
+		return
+
+	remove_all(dump_loc)
 
 /// Signal handler for whenever something gets mouse-dropped onto us.
-/datum/storage/proc/mousedropped_onto(datum/source, obj/item/dropping, mob/user)
+/datum/storage/proc/on_mousedropped_onto(datum/source, obj/item/dropping, mob/user)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_parent = parent?.resolve()
-
 	if(!resolve_parent)
 		return
+
 	if(!istype(dropping))
 		return
+	if(dropping != user.get_active_held_item())
+		return
+	if(dropping.atom_storage) // If it has storage it should be trying to dump, not insert.
+		return
 
-	if(iscarbon(user) || isdrone(user))
-		var/mob/living/user_living = user
-		if(!user_living.incapacitated() && dropping == user_living.get_active_held_item())
-			if(!dropping.atom_storage && can_insert(dropping, user)) //If it has storage it should be trying to dump, not insert.
-				attempt_insert(src, dropping, user)
+	if(!iscarbon(user) && !isdrone(user))
+		return
+	var/mob/living/user_living = user
+	if(user_living.incapacitated())
+		return
+
+	attempt_insert(dropping, user)
 
 /// Signal handler for whenever we're attacked by an object.
-/datum/storage/proc/attackby(datum/source, obj/item/thing, mob/user, params)
+/datum/storage/proc/on_attackby(datum/source, obj/item/thing, mob/user, params)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_parent = parent?.resolve()
@@ -764,11 +781,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(iscyborg(user))
 		return TRUE
 
-	attempt_insert(resolve_parent, thing, user)
+	attempt_insert(thing, user)
 	return TRUE
 
 /// Signal handler for whenever we're attacked by a mob.
-/datum/storage/proc/handle_attack(datum/source, mob/user)
+/datum/storage/proc/on_attack(datum/source, mob/user)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_parent = parent?.resolve()
@@ -792,7 +809,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			return
 
 	if(resolve_parent.loc == user)
-		open_storage(resolve_parent, user)
+		INVOKE_ASYNC(src, .proc/open_storage, user)
 		return TRUE
 
 /// Generates the numbers on an item in storage to show stacking.
@@ -883,32 +900,48 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	closer.screen_loc = "[screen_start_x + cols]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y]"
 
-/// Signal handler for when we're showing ourselves to a mob.
-/datum/storage/proc/open_storage(datum/source, mob/toshow)
+
+/// Signal handler for when we get attacked with secondary click by an item.
+/datum/storage/proc/open_storage_attackby_secondary(datum/source, atom/weapon, mob/user)
 	SIGNAL_HANDLER
 
+	return open_storage_on_signal(source, user)
+
+/// Signal handler to open up the storage when we recieve a signal.
+/datum/storage/proc/open_storage_on_signal(datum/source, mob/to_show)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, .proc/open_storage, to_show)
+	return COMPONENT_NO_AFTERATTACK
+
+/// Opens the storage to the mob, showing them the contents to their UI.
+/datum/storage/proc/open_storage(mob/to_show)
 	var/obj/item/resolve_parent = parent?.resolve()
 	if(!resolve_parent)
-		return
+		return FALSE
 
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_location)
-		return
-
-	if(!toshow.CanReach(resolve_parent))
-		resolve_parent.balloon_alert(toshow, "can't reach!")
 		return FALSE
 
-	if(!isliving(toshow) || toshow.incapacitated())
+	if(isobserver(to_show))
+		show_contents(to_show)
+		return FALSE
+
+	if(!to_show.CanReach(resolve_parent))
+		resolve_parent.balloon_alert(to_show, "can't reach!")
+		return FALSE
+
+	if(!isliving(to_show) || to_show.incapacitated())
 		return FALSE
 
 	if(locked)
 		if(!silent)
-			to_chat(toshow, "<span class='warning'>[pick("Ka-chunk!", "Ka-chink!", "Plunk!", "Glorf!")] \The [resolve_parent] appears to be locked!</span>")
+			resolve_parent.balloon_alert(to_show, "locked!")
 		return FALSE
 
-	if(!quickdraw || toshow.get_active_held_item())
-		show_contents(toshow)
+	if(!quickdraw || to_show.get_active_held_item())
+		show_contents(to_show)
 
 		if(animated)
 			animate_parent()
@@ -925,10 +958,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	attempt_remove(to_remove)
 
-	INVOKE_ASYNC(src, .proc/put_in_hands_async, toshow, to_remove)
+	INVOKE_ASYNC(src, PROC_REF(put_in_hands_async), to_show, to_remove)
 
 	if(!silent)
-		toshow.visible_message("<span class='warning'>[toshow] draws [to_remove] from [resolve_parent]!</span>", "<span class='notice'>You draw [to_remove] from [resolve_parent].</span>")
+		to_show.visible_message("<span class='warning'>[to_show] draws [to_remove] from [resolve_parent]!", "<span class='notice'>You draw [to_remove] from [resolve_parent].</span>")
 
 	return TRUE
 
@@ -936,7 +969,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/put_in_hands_async(mob/toshow, obj/item/toremove)
 	if(!toshow.put_in_hands(toremove))
 		if(!silent)
-			to_chat(toshow, "<span class='notice'>You fumble for [toremove] and it falls on the floor.</span>")
+			toremove.balloon_alert(toshow, "fumbled!")
 		return TRUE
 
 /// Signal handler for whenever a mob walks away with us, close if they can't reach us.

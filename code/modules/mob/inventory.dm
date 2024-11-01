@@ -438,7 +438,7 @@
 		if(equip_delay_self)
 			return
 
-	if(M.active_storage?.attempt_insert(M.active_storage, src, M))
+	if(M.active_storage?.attempt_insert(src, M))
 		return TRUE
 
 	var/list/obj/item/possible = list(M.get_inactive_held_item(), M.get_item_by_slot(ITEM_SLOT_BELT), M.get_item_by_slot(ITEM_SLOT_DEX_STORAGE), M.get_item_by_slot(ITEM_SLOT_BACK))
@@ -446,7 +446,7 @@
 		if(!i)
 			continue
 		var/obj/item/I = i
-		if(I.atom_storage?.attempt_insert(I, src, M))
+		if(I.atom_storage?.attempt_insert(src, M))
 			return TRUE
 
 	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
