@@ -22,15 +22,15 @@
 	resistance_flags = NONE
 	max_integrity = 300
 
-/obj/item/storage/backpack/Initialize()
+/obj/item/storage/backpack/Initialize(mapload)
 	. = ..()
-	create_storage(max_slots = 21, max_total_storage = 21)
+	create_storage(max_slots = 25, max_total_storage = 25)
 
 /*
  * Backpack Types
  */
 
-/obj/item/storage/backpack/old/Initialize()
+/obj/item/storage/backpack/old/Initialize(mapload)
 	. = ..()
 	atom_storage.max_total_storage = 12
 
