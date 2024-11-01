@@ -8796,7 +8796,9 @@
 /turf/open/floor/iron/white,
 /area/ctf)
 "Gg" = (
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	temperature = 293.15
+	},
 /area/ctf)
 "Gh" = (
 /obj/item/kirbyplants{
