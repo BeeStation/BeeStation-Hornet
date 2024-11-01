@@ -50742,7 +50742,6 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "qrm" = (
-/obj/machinery/light/small/broken,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
