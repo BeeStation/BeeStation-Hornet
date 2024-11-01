@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/template_noop,
+/turf/template_noop/open,
 /area/lavaland/surface/outdoors)
 "b" = (
 /obj/effect/sliding_puzzle/lavaland,

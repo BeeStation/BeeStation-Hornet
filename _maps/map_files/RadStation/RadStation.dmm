@@ -18722,7 +18722,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"

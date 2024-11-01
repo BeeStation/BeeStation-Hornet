@@ -264,7 +264,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/grass,
+/turf/template_noop/open,
 /area/lavaland/surface/outdoors)
 "kN" = (
 /obj/structure/railing/corner{
@@ -399,7 +399,8 @@
 "qR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/stairs/left{
-	dir = 8
+	dir = 8;
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "qX" = (
@@ -612,7 +613,7 @@
 /obj/structure/railing,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/grass,
+/turf/template_noop/open,
 /area/lavaland/surface/outdoors)
 "Be" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -774,7 +775,8 @@
 "Gt" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/stairs/right{
-	dir = 8
+	dir = 8;
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "Gz" = (
@@ -824,9 +826,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"ID" = (
-/turf/open/floor/grass,
-/area/lavaland/surface/outdoors)
 "IL" = (
 /obj/machinery/light,
 /obj/machinery/vending/hydronutrients,
@@ -1144,8 +1143,8 @@
 /area/ruin/powered/seedvault)
 "Qu" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/grass,
-/area/lavaland/surface/outdoors)
+/turf/open/floor/iron/stairs/left,
+/area/ruin/powered/seedvault)
 "Qv" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
@@ -1689,7 +1688,7 @@ sG
 dK
 rb
 GA
-Nn
+Qu
 Qb
 Ex
 Gz
@@ -1793,7 +1792,7 @@ GC
 GC
 GC
 GC
-Qu
+cp
 aj
 dM
 dM
@@ -1802,7 +1801,7 @@ dw
 dM
 dM
 kG
-ID
+GC
 GC
 GC
 GC
@@ -1823,7 +1822,7 @@ MZ
 MZ
 br
 kq
-Qu
+cp
 GC
 GC
 GC
@@ -1863,7 +1862,7 @@ ab
 GC
 GC
 kN
-ID
+GC
 cp
 uB
 GC
