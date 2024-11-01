@@ -7,6 +7,16 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
 	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/random
+	start_empty = TRUE //We have to handle adding dynamic ammo types on init
+
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/random/Initialize(mapload)
+	var/obj/item/ammo_casing/c38/boolet
+	for(var/i in 1 to max_ammo)
+		boolet = pick(typesof(/obj/item/ammo_casing/c38) -/obj/item/ammo_casing/c38/dart -/obj/item/ammo_casing/caseless/mime)
+		stored_ammo += new boolet(src)
+	. = ..()
+
 /obj/item/ammo_box/magazine/internal/der38
 	name = "derringer internal chambering"
 	ammo_type = /obj/item/ammo_casing/c38/match
