@@ -291,3 +291,5 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define ENERGY_SHIELD_BLOCK_MELEE (1 << 1)
 /// Energy shield will not have a visible shield
 #define ENERGY_SHIELD_INVISIBLE (1 << 2)
+/// Energy shield will take max damage when EMP'd
+#define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)
