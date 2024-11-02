@@ -73,7 +73,7 @@
 			update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!O.tool_start_check(user, amount=0))
 				return
 
@@ -86,7 +86,7 @@
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
-				obj_integrity = max(obj_integrity, max_integrity)
+				atom_integrity = max(atom_integrity, max_integrity)
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")

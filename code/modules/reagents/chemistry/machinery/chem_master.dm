@@ -78,7 +78,7 @@
 
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
-	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
+	for(var/obj/item/reagent_containers/cup/beaker/B in component_parts)
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity, target)
@@ -445,9 +445,9 @@
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("bottle")
-					var/obj/item/reagent_containers/glass/bottle/P
+					var/obj/item/reagent_containers/cup/bottle/P
 					for(var/i in 1 to amount)
-						P = new/obj/item/reagent_containers/glass/bottle(drop_location())
+						P = new/obj/item/reagent_containers/cup/bottle(drop_location())
 						P.name = trim("[name] bottle")
 						P.label_name = trim(name)
 						adjust_item_drop_location(P)
@@ -463,9 +463,9 @@
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("condimentPack")
-					var/obj/item/reagent_containers/food/condiment/pack/P
+					var/obj/item/reagent_containers/condiment/pack/P
 					for(var/i in 1 to amount)
-						P = new/obj/item/reagent_containers/food/condiment/pack(drop_location())
+						P = new/obj/item/reagent_containers/condiment/pack(drop_location())
 						P.originalname = name
 						P.name = trim("[name] pack")
 						P.label_name = trim(name)
@@ -473,9 +473,9 @@
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("condimentBottle")
-					var/obj/item/reagent_containers/food/condiment/P
+					var/obj/item/reagent_containers/condiment/P
 					for(var/i in 1 to amount)
-						P = new/obj/item/reagent_containers/food/condiment(drop_location())
+						P = new/obj/item/reagent_containers/condiment(drop_location())
 						if (style)
 							apply_condi_style(P, style)
 						P.renamedByPlayer = TRUE
@@ -579,11 +579,11 @@
 			"frostoil" = list("icon_state" = "coldsauce", "icon_empty" = "", "name" = "coldsauce bottle", "desc" = "Leaves the tongue numb from its passage."),
 			"mayonnaise" = list("icon_state" = "mayonnaise", "icon_empty" = "", "name" = "mayonnaise bottle", "desc" = "An oily condiment made from egg yolks."),
 			"ketchup" = list("icon_state" = "ketchup", "icon_empty" = "", "name" = "ketchup bottle", "desc" = "A tomato slurry in a tall plastic bottle. Somehow still vaguely American."),
-			"blackpepper" = list("icon_state" = "peppermillsmall", "inhand_icon_state" = "", "icon_empty" = "emptyshaker", "name" = "pepper mill", "desc" = "Often used to flavor food or make people sneeze."),
-			"sodiumchloride" = list("icon_state" = "saltshakersmall", "inhand_icon_state" = "", "icon_empty" = "emptyshaker", "name" = "salt shaker", "desc" = "Salt. From dead crew, presumably."),
+			"blackpepper" = list("icon_state" = "peppermillsmall", "item_state" = "", "icon_empty" = "emptyshaker", "name" = "pepper mill", "desc" = "Often used to flavor food or make people sneeze."),
+			"sodiumchloride" = list("icon_state" = "saltshakersmall", "item_state" = "", "icon_empty" = "emptyshaker", "name" = "salt shaker", "desc" = "Salt. From dead crew, presumably."),
 			"milk" = list("icon_state" = "milk", "icon_empty" = "", "name" = "space milk", "desc" = "It's milk. White and nutritious goodness!"),
 			"soymilk" = list("icon_state" = "soymilk", "icon_empty" = "", "name" = "soy milk", "desc" = "It's soy milk. White and nutritious goodness!"),
-			"soysauce" = list("icon_state" = "soysauce", "inhand_icon_state" = "", "icon_empty" = "", "name" = "soy sauce bottle", "desc" = "A salty soy-based flavoring."),
+			"soysauce" = list("icon_state" = "soysauce", "item_state" = "", "icon_empty" = "", "name" = "soy sauce bottle", "desc" = "A salty soy-based flavoring."),
 			"bbqsauce" = list("icon_state" = "bbqsauce", "icon_empty" = "", "name" = "bbq sauce bottle", "desc" = "Hand wipes not included."),
 			"oliveoil" = list("icon_state" = "oliveoil", "icon_empty" = "", "name" = "olive oil bottle", "desc" = "A delicious oil made from olives."),
 			"cooking_oil" = list("icon_state" = "cooking_oil", "icon_empty" = "", "name" = "cooking oil bottle", "desc" = "A cooking oil for deep frying."),
@@ -633,7 +633,7 @@
   * * container - condiment bottle that gets style applied to it
   * * style - assoc list, must probably one from [/obj/machinery/chem_master/proc/get_condi_styles]
   */
-/obj/machinery/chem_master/proc/apply_condi_style(obj/item/reagent_containers/food/condiment/container, list/style)
+/obj/machinery/chem_master/proc/apply_condi_style(obj/item/reagent_containers/condiment/container, list/style)
 	container.name = style["name"]
 	container.desc = style["desc"]
 	container.icon_state = style["icon_state"]

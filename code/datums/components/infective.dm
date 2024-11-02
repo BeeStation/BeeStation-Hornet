@@ -33,6 +33,8 @@
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(try_infect_equipped))
 		RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
+		if(istype(parent, /obj/item/reagent_containers/cup))
+			RegisterSignal(parent, COMSIG_GLASS_DRANK, PROC_REF(try_infect_drink))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
@@ -43,7 +45,18 @@
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
+/datum/component/infective/proc/try_infect_drink(datum/source, mob/living/drinker, mob/living/feeder)
+	SIGNAL_HANDLER
+
+	for(var/disease in diseases)
+		drinker.ForceContractDisease(disease)
+	var/appendage_zone = feeder.held_items.Find(source)
+	appendage_zone = appendage_zone == 0 ? BODY_ZONE_CHEST : appendage_zone % 2 ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
+	try_infect(feeder, appendage_zone)
+
 /datum/component/infective/proc/clean(datum/source, clean_types)
+	SIGNAL_HANDLER
+
 	if(clean_types & required_clean_types)
 		qdel(src)
 		return TRUE
