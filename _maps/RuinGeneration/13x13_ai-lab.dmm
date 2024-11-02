@@ -48,6 +48,22 @@
 /obj/machinery/light,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
+"hz" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
 "hB" = (
 /obj/item/kirbyplants/photosynthetic{
 	pixel_y = 10
@@ -86,11 +102,6 @@
 	pixel_y = 10
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
-"oe" = (
-/mob/living/silicon/robot/derelict,
-/obj/machinery/recharge_station,
-/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "py" = (
 /obj/structure/sign/warning/electricshock,
@@ -160,6 +171,11 @@
 /obj/effect/decal/cleanable/robot_debris/limb,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
+"uq" = (
+/mob/living/silicon/robot/derelict,
+/obj/machinery/recharge_station,
+/turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
 "uw" = (
 /turf/template_noop,
 /area/template_noop)
@@ -197,25 +213,6 @@
 	},
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
-"Bp" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 6
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
-/area/ruin/unpowered)
-"BF" = (
-/obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/secbot/derelict,
-/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "BT" = (
 /obj/machinery/door/airlock/highsecurity,
@@ -289,6 +286,20 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
+"Lx" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
 /obj/machinery/light,
@@ -340,21 +351,10 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"WV" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
-/turf/open/floor/carpet/black,
+"Tm" = (
+/obj/effect/turf_decal/bot_red,
+/mob/living/simple_animal/bot/secbot/derelict,
+/turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
@@ -409,11 +409,11 @@ JS
 eH
 tj
 er
-oe
+uq
 MV
 JS
 hB
-BF
+Tm
 JG
 Os
 hB
@@ -534,8 +534,8 @@ tO
 KU
 za
 SV
-WV
-Bp
+hz
+Lx
 nN
 JS
 "}

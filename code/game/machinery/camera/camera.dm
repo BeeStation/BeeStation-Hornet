@@ -13,7 +13,7 @@
 	max_integrity = 100
 	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
-	var/list/network = list(CAMERA_NETWORK_STATION)
+	var/list/network
 	var/c_tag = null
 	var/status = TRUE
 	var/current_state = TRUE
@@ -80,7 +80,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		c_tag = "[format_text(camera_area.name)] #[++autonames_in_areas[camera_area]]"
 		if (get_area(src) != camera_area)
 			c_tag = "[c_tag] (External)"
-	network = camera_area.camera_networks
+	if (!islist(network))
+		if (camera_area.camera_networks)
+			network = camera_area.camera_networks
+		else if (is_station_level(z))
+			network = list(CAMERA_NETWORK_STATION)
 	var/obj/structure/camera_assembly/assembly
 	if(CA)
 		assembly = CA
@@ -239,7 +243,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	if(!panel_open)
 		return FALSE
 	toggle_cam(user, 1)
-	obj_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
+	atom_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
 	I.play_tool_sound(src)
 	return TRUE
 
@@ -383,12 +387,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	return ..()
 
-/obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/camera/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
-/obj/machinery/camera/obj_break(damage_flag)
+/obj/machinery/camera/atom_break(damage_flag)
 	if(!status)
 		return
 	. = ..()

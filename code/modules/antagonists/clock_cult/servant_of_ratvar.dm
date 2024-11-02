@@ -56,6 +56,10 @@
 	GLOB.all_servants_of_ratvar -= owner
 	GLOB.human_servants_of_ratvar -= owner
 	GLOB.cyborg_servants_of_ratvar -= owner
+	if(!silent)
+		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!</span>", null, null, null, owner.current)
+		to_chat(owner.current, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of the Clockwork Justicar and all your memories as his servant.</span>")
+		owner.current.log_message("has renounced the cult of Rat'var!", LOG_ATTACK, color="#960000")
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)

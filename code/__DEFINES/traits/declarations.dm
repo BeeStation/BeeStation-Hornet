@@ -92,7 +92,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JOLLY				"jolly"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
-#define TRAIT_NOSLIPALL			"noslip_all"
+/// Stops all slipping and sliding from ocurring
+#define TRAIT_NOSLIPALL "noslip_all"
+
+/// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
+#define TRAIT_NO_GLIDE "no_glide"
+
 #define TRAIT_NODEATH			"nodeath"
 #define TRAIT_NOHARDCRIT		"nohardcrit"
 #define TRAIT_NOSOFTCRIT		"nosoftcrit"
@@ -300,5 +305,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
+
+/// For unit testing, all do_afters set on this mob complete instantly and do not sleep
+#define INSTANT_DO_AFTER "instant_do_after"
 
 // END TRAIT DEFINES
