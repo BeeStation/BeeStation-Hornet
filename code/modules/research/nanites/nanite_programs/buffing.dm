@@ -2,21 +2,22 @@
 
 /datum/nanite_program/nervous
 	name = "Nerve Support"
-	desc = "The nanites act as a secondary nervous system, reducing the amount of time the host is stunned."
+	desc = "The nanites act as a secondary nervous system, completely absorbing stuns while the user is active."
 	use_rate = 1.5
+	maximum_duration = 30 SECONDS
+	trigger_cooldown = 2 MINUTES
 	rogue_types = list(/datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/nervous/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.stun_mod *= 0.5
+	ADD_TRAIT(host_mob, TRAIT_STUNIMMUNE, SOURCE_NANITE_NERVOUS)
+	ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_NERVOUS, "deb440", SKIN_PRIORITY_NANITES)
+
 
 /datum/nanite_program/nervous/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.stun_mod *= 2
+	REMOVE_TRAIT(host_mob, TRAIT_STUNIMMUNE, SOURCE_NANITE_NERVOUS)
+	REMOVE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_NERVOUS)
 
 /datum/nanite_program/adrenaline
 	name = "Adrenaline Burst"
@@ -44,16 +45,14 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 35
-		H.physiology.armor.bullet += 35
+		H.physiology.armor = H.physiology.armor.modifyRating(MELEE = 15, BULLET = 35)
 		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "111111", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 35
-		H.physiology.armor.bullet -= 35
+		H.physiology.armor = H.physiology.armor.modifyRating(MELEE = -15, BULLET = -35)
 		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING)
 
 /datum/nanite_program/refractive
@@ -68,16 +67,14 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 35
-		H.physiology.armor.energy += 35
+		H.physiology.armor = H.physiology.armor.modifyRating(LASER = 35, ENERGY = 35)
 		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_REFRACTION, "c0faff", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 35
-		H.physiology.armor.energy -= 35
+		H.physiology.armor = H.physiology.armor.modifyRating(LASER = -35, ENERGY = -35)
 		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_REFRACTION)
 
 /datum/nanite_program/coagulating

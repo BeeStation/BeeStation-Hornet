@@ -82,6 +82,8 @@
 	// Anything with a maximum duration must be an active ability
 	if (maximum_duration)
 		can_trigger = TRUE
+	if (can_trigger)
+		activated = FALSE
 
 /datum/nanite_program/Destroy()
 	extra_settings = null
