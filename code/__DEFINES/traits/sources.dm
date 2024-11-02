@@ -147,3 +147,4 @@
 #define SOURCE_NANITE_HARDENING "nanite_hardening"
 #define SOURCE_NANITE_REFRACTION "nanite_refraction"
 #define SOURCE_NANITE_BLOOD "nanite_blood"
+#define SOURCE_NANITE_TOMB "nanite_tomb"

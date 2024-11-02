@@ -198,10 +198,10 @@
 
 /datum/nanite_program/defib
 	name = "Defibrillation"
-	desc = "The nanites shock the host's heart when triggered, bringing them back to life if the body can sustain it."
+	desc = "The nanites shock the host's heart when triggered, bringing them back to life if the body can sustain it. This process is expensive and will completely expend the remaining nanites in the user's body."
 	can_trigger = TRUE
-	trigger_cost = 25
-	trigger_cooldown = 120
+	trigger_cost = 100
+	trigger_cooldown = 0
 	rogue_types = list(/datum/nanite_program/shocking)
 
 /datum/nanite_program/defib/on_trigger(comm_message)
@@ -240,5 +240,27 @@
 		C.Jitter(100)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")
+		qdel(nanites)
 	else
 		playsound(C, 'sound/machines/defib_failed.ogg', 50, FALSE)
+
+/datum/nanite_program/nanite_tomb
+	name = "Nanite Tomb"
+	desc = "The nanites replace dead-cells inside the body temporarilly preventing the host from succumbing to death."
+	can_trigger = TRUE
+	use_rate = 20
+	trigger_cooldown = 2 MINUTES
+	maximum_duration = 1 MINUTES
+
+/datum/nanite_program/nanite_tomb/enable_passive_effect()
+	. = ..()
+	ADD_TRAIT(host_mob, TRAIT_NODEATH, SOURCE_NANITE_TOMB)
+	ADD_TRAIT(host_mob, TRAIT_NOHARDCRIT, SOURCE_NANITE_TOMB)
+	ADD_VALUE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_TOMB, "444444", SKIN_PRIORITY_NANITES)
+
+/datum/nanite_program/nanite_tomb/disable_passive_effect()
+	. = ..()
+	REMOVE_TRAIT(host_mob, TRAIT_NODEATH, SOURCE_NANITE_TOMB)
+	REMOVE_TRAIT(host_mob, TRAIT_NOHARDCRIT, SOURCE_NANITE_TOMB)
+	REMOVE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_TOMB)
+

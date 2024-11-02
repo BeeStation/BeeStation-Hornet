@@ -125,7 +125,7 @@
 
 /datum/nanite_program/coagulating/disable_passive_effect()
 	. = ..()
-	REMOVE_TRAIT(host_mob, TRAIT_NO_BLEEDING)
+	REMOVE_TRAIT(host_mob, TRAIT_NO_BLEEDING, SOURCE_NANITE_BLOOD)
 
 /datum/nanite_program/conductive
 	name = "Electric Conduction"
@@ -133,6 +133,8 @@
 	use_rate = 0.20
 	program_flags = NANITE_SHOCK_IMMUNE
 	rogue_types = list(/datum/nanite_program/nerve_decay)
+	maximum_duration = 20 SECONDS
+	trigger_cooldown = 120 SECONDS
 
 /datum/nanite_program/conductive/enable_passive_effect()
 	. = ..()
@@ -147,7 +149,7 @@
 	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
 	can_trigger = TRUE
 	trigger_cost = 10
-	trigger_cooldown = 1200
+	trigger_cooldown = 120 SECONDS
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/haste/on_trigger()
@@ -159,7 +161,8 @@
 	name = "Nanite Blade"
 	desc = "The nanites form a sharp blade around the user's arm when activated."
 	use_rate = 1
-	trigger_cooldown = 10 SECONDS
+	maximum_duration = 30 SECONDS
+	trigger_cooldown = 30 SECONDS
 	rogue_types = list(/datum/nanite_program/necrotic, /datum/nanite_program/skin_decay)
 	var/obj/item/melee/arm_blade/nanite/blade
 
