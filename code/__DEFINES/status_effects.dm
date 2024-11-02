@@ -146,6 +146,14 @@
 #define STATUS_EFFECT_RAINBOWPROTECTION /datum/status_effect/rainbow_protection //! Invulnerable and pacifistic
 #define STATUS_EFFECT_SLIMESKIN /datum/status_effect/slimeskin //! Increased armor
 
+//Incapacitated status effect flags
+/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
+#define IGNORE_RESTRAINTS (1<<0)
+/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
+#define IGNORE_STASIS (1<<1)
+/// If the incapacitated status effect will ignore a mob being agressively grabbed
+#define IGNORE_GRAB (1<<2)
+
 // Grouped effect sources, see also code/__DEFINES/traits.dm
 #define STASIS_MACHINE_EFFECT "stasis_machine"
 

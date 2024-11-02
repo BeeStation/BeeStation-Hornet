@@ -1,11 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"f" = (
+"e" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/closed/wall/mineral/plastic/nodiagonal,
-/area/shuttle/mining)
-"g" = (
-/turf/closed/wall/mineral/plastic,
 /area/shuttle/mining)
 "i" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -13,23 +13,8 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
-"k" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/storage/pod{
-	pixel_x = -26;
-	unlocked = 1
-	},
-/obj/machinery/camera/autoname/directional/south{
-	network = list("ss13","cargo")
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/turf/open/floor/iron/tech/grid,
+"l" = (
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "n" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -50,14 +35,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/shuttle/mining)
-"r" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
-/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "t" = (
 /obj/machinery/requests_console{
@@ -111,7 +88,24 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
-"I" = (
+"B" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/pod{
+	pixel_x = -26;
+	unlocked = 1
+	},
+/obj/machinery/camera/directional/south,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/mining)
+"F" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "J" = (
@@ -131,7 +125,11 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining)
-"K" = (
+"L" = (
+/turf/closed/wall/mineral/plastic,
+/area/shuttle/mining)
+"P" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
@@ -161,15 +159,15 @@
 
 (1,1,1) = {"
 i
-I
-K
+l
+F
 S
 "}
 (2,1,1) = {"
 u
 A
-k
-r
+B
+e
 "}
 (3,1,1) = {"
 q
@@ -178,14 +176,14 @@ Q
 J
 "}
 (4,1,1) = {"
-I
+l
 Y
 t
-f
+P
 "}
 (5,1,1) = {"
-g
+L
 z
 n
-g
+L
 "}

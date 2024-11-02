@@ -42,10 +42,6 @@
 "bm" = (
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"br" = (
-/obj/structure/sign/warning/biohazard,
-/turf/closed/wall/mineral/plastic/nodiagonal,
-/area/ruin/powered/seedvault)
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -72,6 +68,23 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
+"dh" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/cup/bucket{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cup/bucket{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "dw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
@@ -81,9 +94,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"dM" = (
-/turf/closed/wall/mineral/plastic,
 /area/ruin/powered/seedvault)
 "dX" = (
 /obj/machinery/light/broken{
@@ -105,6 +115,9 @@
 /obj/structure/flora/ash/strange,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
+"eB" = (
+/turf/closed/wall/mineral/plastic,
+/area/ruin/powered/seedvault)
 "eP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -308,27 +321,6 @@
 /obj/effect/spawner/lootdrop/seed_vault,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"mW" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/closed/wall/mineral/plastic,
-/area/ruin/powered/seedvault)
-"nO" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bucket{
-	pixel_x = 7
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "oj" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
@@ -368,6 +360,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"pM" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/closed/wall/mineral/plastic,
 /area/ruin/powered/seedvault)
 "pQ" = (
 /obj/machinery/hydroponics/constructable,
@@ -538,6 +534,12 @@
 /obj/structure/beebox/unwrenched,
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
+"xX" = (
+/obj/machinery/biogenerator,
+/obj/item/reagent_containers/cup/bucket,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "yc" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -621,6 +623,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
+"Bn" = (
+/turf/closed/wall/mineral/plastic/nodiagonal,
+/area/ruin/powered/seedvault)
 "Cv" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt,
@@ -639,21 +644,6 @@
 	dir = 1
 	},
 /turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"Da" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/machinery/button{
-	id = "lifebring";
-	pixel_y = 32
-	},
-/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Ds" = (
 /obj/item/caution,
@@ -897,6 +887,21 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"KP" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_y = 32
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "KU" = (
 /obj/structure/table,
 /obj/item/circuitboard/machine/hydroponics{
@@ -965,9 +970,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"MJ" = (
-/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/ruin/powered/seedvault)
 "ML" = (
 /turf/open/floor/pod,
@@ -1288,12 +1290,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Ud" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Us" = (
 /obj/machinery/atmospherics/components/binary/valve,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1360,6 +1356,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"Wp" = (
+/obj/structure/sign/warning/biohazard,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/ruin/powered/seedvault)
 "Wr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -1465,12 +1465,12 @@ ab
 ab
 FY
 FY
-dM
+eB
 yq
 wa
 Po
 yq
-dM
+eB
 FY
 FY
 ab
@@ -1486,14 +1486,14 @@ FY
 FY
 FY
 FY
-dM
-MJ
+eB
+Bn
 Zi
 yG
 Pv
 xB
-MJ
-dM
+Bn
+eB
 FY
 FY
 FY
@@ -1504,32 +1504,32 @@ ab
 (4,1,1) = {"
 FY
 FY
-dM
-dM
-dM
-MJ
-dM
+eB
+eB
+eB
+Bn
+eB
 RA
 aI
 kb
 WD
 NH
 sM
-dM
-MJ
-dM
-dM
-dM
+eB
+Bn
+eB
+eB
+eB
 FY
 FY
 "}
 (5,1,1) = {"
 FY
-dM
-dM
+eB
+eB
 Ih
 yc
-dM
+eB
 ht
 Tv
 sU
@@ -1538,20 +1538,20 @@ MU
 KX
 zr
 vw
-dM
-Da
+eB
+KP
 Jg
-dM
-dM
+eB
+eB
 FY
 "}
 (6,1,1) = {"
 FY
-dM
+eB
 fk
 fC
 Ec
-dM
+eB
 SK
 sG
 ML
@@ -1560,11 +1560,11 @@ pQ
 ML
 AF
 Lb
-dM
+eB
 wP
 Rf
 Im
-dM
+eB
 FY
 "}
 (7,1,1) = {"
@@ -1603,8 +1603,8 @@ Cv
 fe
 ML
 bm
-Ud
-MJ
+xX
+Bn
 SC
 is
 LG
@@ -1634,11 +1634,11 @@ Rh
 FY
 "}
 (10,1,1) = {"
-dM
-MJ
-dM
+eB
+Bn
+eB
 Gz
-dM
+eB
 sN
 wW
 Jr
@@ -1648,15 +1648,15 @@ kt
 JM
 Rv
 IL
-MJ
-dM
+Bn
+eB
 Gz
-dM
-MJ
-dM
+eB
+Bn
+eB
 "}
 (11,1,1) = {"
-dM
+eB
 jY
 Us
 Ed
@@ -1675,10 +1675,10 @@ Wm
 yE
 rF
 jm
-dM
+eB
 "}
 (12,1,1) = {"
-dM
+eB
 vK
 Be
 QJ
@@ -1697,36 +1697,36 @@ Ds
 FB
 ae
 PU
-dM
+eB
 "}
 (13,1,1) = {"
-dM
+eB
 Mc
 Ny
 Nz
-mW
-MJ
-MJ
+pM
+Bn
+Bn
 dX
 bm
 DN
 Nn
 bm
 aY
-MJ
-MJ
-dM
+Bn
+Bn
+eB
 mM
 eP
 KU
-dM
+eB
 "}
 (14,1,1) = {"
-MJ
+Bn
 de
 de
 de
-MJ
+Bn
 GC
 Kj
 QK
@@ -1737,11 +1737,11 @@ NC
 oj
 ck
 UY
-MJ
+Bn
 de
 de
 de
-MJ
+Bn
 "}
 (15,1,1) = {"
 aj
@@ -1751,7 +1751,7 @@ NL
 aj
 GC
 Kj
-nO
+dh
 ZS
 Wr
 UL
@@ -1772,14 +1772,14 @@ GC
 GC
 GC
 kq
-MJ
-MJ
-dM
+Bn
+Bn
+eB
 tE
 tE
-dM
-MJ
-MJ
+eB
+Bn
+Bn
 GC
 GC
 GC
@@ -1795,12 +1795,12 @@ GC
 GC
 Qu
 aj
-dM
-dM
+eB
+eB
 Gm
 dw
-dM
-dM
+eB
+eB
 kG
 ID
 GC
@@ -1818,10 +1818,10 @@ GC
 GC
 GC
 en
-br
+Wp
 MZ
 MZ
-br
+Wp
 kq
 Qu
 GC

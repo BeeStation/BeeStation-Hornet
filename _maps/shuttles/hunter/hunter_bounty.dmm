@@ -19,22 +19,8 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"aw" = (
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
-	},
-/obj/structure/reagent_dispensers/watertank,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/machinery/airalarm/directional/east{
-	req_access = null;
-	req_access_txt = "181"
-	},
-/turf/open/floor/iron/tech,
+"au" = (
+/turf/closed/wall/mineral/plastic,
 /area/shuttle/hunter)
 "az" = (
 /obj/structure/lattice/catwalk/over,
@@ -354,7 +340,7 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
-"nn" = (
+"nI" = (
 /turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/hunter)
 "nL" = (
@@ -529,6 +515,23 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
+"tr" = (
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/machinery/airalarm/directional/east{
+	req_access = null;
+	req_access_txt = "181"
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
@@ -769,9 +772,6 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"Lo" = (
-/turf/closed/wall/mineral/plastic,
 /area/shuttle/hunter)
 "Lr" = (
 /obj/structure/rack,
@@ -1099,11 +1099,11 @@ UI
 UI
 UI
 UI
-nn
+nI
 eM
 qs
 eM
-nn
+nI
 UI
 UI
 UI
@@ -1114,11 +1114,11 @@ UI
 UI
 UI
 kj
-nn
+nI
 Kb
 RD
 ei
-nn
+nI
 kj
 UI
 UI
@@ -1127,65 +1127,65 @@ UI
 (3,1,1) = {"
 UI
 UI
-nn
+nI
 Pl
-nn
+nI
 zh
 IA
 cr
-nn
+nI
 Pl
-nn
+nI
 UI
 UI
 "}
 (4,1,1) = {"
 UI
 kj
-nn
+nI
 De
-nn
+nI
 Mq
 ZJ
 VH
-nn
+nI
 dH
-nn
+nI
 kj
 UI
 "}
 (5,1,1) = {"
-nn
+nI
 Pl
-nn
+nI
 IB
-nn
+nI
 rb
 ZJ
 ZQ
-nn
+nI
 ES
-nn
+nI
 Pl
-nn
+nI
 "}
 (6,1,1) = {"
-nn
+nI
 oH
 Lr
 IB
-nn
-nn
+nI
+nI
 MQ
-nn
-nn
+nI
+nI
 TB
 sZ
 wD
-nn
+nI
 "}
 (7,1,1) = {"
-nn
+nI
 aN
 pC
 jA
@@ -1200,7 +1200,7 @@ Wa
 NG
 "}
 (8,1,1) = {"
-nn
+nI
 jw
 GG
 xf
@@ -1212,50 +1212,50 @@ Fv
 qS
 ls
 Sf
-nn
+nI
 "}
 (9,1,1) = {"
-Lo
-nn
-aw
+au
+nI
+tr
 sS
-nn
+nI
 jl
 jl
-nn
+nI
 YS
 pB
 hn
-nn
-Lo
+nI
+au
 "}
 (10,1,1) = {"
 UI
-Lo
-nn
-nn
-nn
+au
+nI
+nI
+nI
 kL
-nn
-nn
-nn
-nn
-nn
-Lo
+nI
+nI
+nI
+nI
+nI
+au
 UI
 "}
 (11,1,1) = {"
 UI
 UI
-nn
+nI
 ab
 sc
 ri
-nn
+nI
 mn
 fp
 lw
-nn
+nI
 UI
 UI
 "}
@@ -1292,30 +1292,30 @@ UI
 (14,1,1) = {"
 UI
 UI
-nn
+nI
 Hl
 js
 ms
-nn
+nI
 Gx
 BE
 Ly
-nn
+nI
 UI
 UI
 "}
 (15,1,1) = {"
 UI
 UI
-Lo
-nn
-nn
+au
+nI
+nI
 nb
-nn
-nn
-nn
-nn
-Lo
+nI
+nI
+nI
+nI
+au
 UI
 UI
 "}
@@ -1323,7 +1323,7 @@ UI
 UI
 UI
 UI
-nn
+nI
 Nn
 fW
 Yp
@@ -1338,13 +1338,13 @@ UI
 UI
 UI
 UI
-nn
+nI
 bc
 Yj
 MR
 rY
 Uw
-nn
+nI
 UI
 UI
 UI
@@ -1353,13 +1353,13 @@ UI
 UI
 UI
 UI
-Lo
-nn
+au
+nI
 XM
 YJ
 ca
-nn
-Lo
+nI
+au
 UI
 UI
 UI

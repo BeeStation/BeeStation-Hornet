@@ -1,13 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/closed/wall/mineral/plastic/pod,
-/area/survivalpod)
-"b" = (
-/obj/structure/sign/mining/survival{
-	dir = 1
-	},
-/turf/closed/wall/mineral/plastic/pod,
-/area/survivalpod)
 "c" = (
 /obj/machinery/shower,
 /obj/item/soap/deluxe,
@@ -18,12 +9,6 @@
 	open = 0
 	},
 /turf/open/floor/pod,
-/area/survivalpod)
-"d" = (
-/obj/structure/sign/mining/survival{
-	dir = 8
-	},
-/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "e" = (
 /obj/structure/fans,
@@ -37,17 +22,17 @@
 /obj/item/gps/computer,
 /turf/open/floor/pod,
 /area/survivalpod)
+"h" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
+/turf/closed/wall/mineral/plastic/pod,
+/area/survivalpod)
 "i" = (
 /obj/structure/toilet/secret{
 	secret_type = /obj/item/knife/combat/survival
 	},
 /turf/open/floor/pod,
-/area/survivalpod)
-"j" = (
-/obj/structure/sign/mining/survival{
-	dir = 4
-	},
-/turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 "k" = (
 /obj/machinery/stasis/survival_pod,
@@ -106,22 +91,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
-"s" = (
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#DDFFD3"
-	},
-/obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/drinks/bottle/wine{
-	pixel_x = -6;
-	pixel_y = 10
-	},
-/turf/open/floor/carpet/black,
-/area/survivalpod)
 "t" = (
 /obj/machinery/microwave{
 	pixel_y = -2
@@ -160,15 +129,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
-"x" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/effect/spawner/lootdrop/three_course_meal,
-/turf/open/floor/carpet/black,
-/area/survivalpod)
 "y" = (
 /obj/structure/sink/kitchen{
 	dir = 4;
@@ -190,49 +150,89 @@
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
-"C" = (
-/obj/structure/sign/mining/survival,
-/turf/closed/wall/mineral/plastic/pod,
-/area/survivalpod)
 "D" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/survival_pod/glass,
 /turf/open/floor/pod,
 /area/survivalpod)
-"E" = (
+"G" = (
+/obj/structure/sign/mining/survival{
+	dir = 8
+	},
+/turf/closed/wall/mineral/plastic/pod,
+/area/survivalpod)
+"H" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/effect/spawner/lootdrop/three_course_meal,
+/turf/open/floor/carpet/black,
+/area/survivalpod)
+"I" = (
+/turf/closed/wall/mineral/plastic/pod,
+/area/survivalpod)
+"K" = (
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#DDFFD3"
+	},
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/glass/bottle/wine{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/turf/open/floor/carpet/black,
+/area/survivalpod)
+"M" = (
 /obj/structure/sign/mining,
+/turf/closed/wall/mineral/plastic/pod,
+/area/survivalpod)
+"N" = (
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastic/pod,
+/area/survivalpod)
+"R" = (
+/obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/plastic/pod,
 /area/survivalpod)
 
 (1,1,1) = {"
-a
-d
-a
-d
-a
-d
-a
+I
+G
+I
+G
+I
+G
+I
 "}
 (2,1,1) = {"
-b
+N
 e
 k
 p
 t
 y
-C
+R
 "}
 (3,1,1) = {"
-a
+I
 f
 l
 l
 u
 z
-a
+I
 "}
 (4,1,1) = {"
-b
+N
 g
 m
 q
@@ -241,29 +241,29 @@ A
 D
 "}
 (5,1,1) = {"
-a
+I
 c
 n
 r
 w
 A
-a
+I
 "}
 (6,1,1) = {"
-b
+N
 i
 o
-s
-x
+K
+H
 B
-E
+M
 "}
 (7,1,1) = {"
-a
-j
-a
-j
-a
-j
-a
+I
+h
+I
+h
+I
+h
+I
 "}

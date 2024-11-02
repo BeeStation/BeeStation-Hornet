@@ -101,7 +101,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1))
+	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
 		return
 
 	face_atom(A)
@@ -318,8 +318,8 @@
 	A.ShiftClick(src)
 	return
 /atom/proc/ShiftClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user)
-	if(user.client && user.client.eye == user || user.client.eye == user.loc)
+	var/flags = SEND_SIGNAL(user, COMSIG_CLICK_SHIFT, src)
+	if(user.client && (user.client.eye == user || user.client.eye == user.loc || flags & COMPONENT_ALLOW_EXAMINATE))
 		user.examinate(src)
 	return
 

@@ -31,12 +31,6 @@
 	name = "dirt"
 	},
 /area/ruin/powered)
-"i" = (
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/plating/asteroid{
-	name = "dirt"
-	},
-/area/ruin/powered)
 "j" = (
 /obj/structure/sink/puddle,
 /turf/open/floor/plating/asteroid{
@@ -84,9 +78,6 @@
 "s" = (
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"t" = (
-/turf/closed/wall/mineral/plastic/pod,
-/area/ruin/powered)
 "u" = (
 /obj/structure/bed/pod,
 /obj/item/bedsheet/black,
@@ -171,6 +162,9 @@
 	name = "dirt"
 	},
 /area/ruin/powered)
+"N" = (
+/turf/closed/wall/mineral/plastic/pod,
+/area/ruin/powered)
 "P" = (
 /turf/closed/wall/rust,
 /area/ruin/powered)
@@ -181,6 +175,12 @@
 "W" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating/asteroid/basalt,
+/area/ruin/powered)
+"Z" = (
+/obj/item/reagent_containers/cup/bucket,
+/turf/open/floor/plating/asteroid{
+	name = "dirt"
+	},
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -264,11 +264,11 @@ a
 c
 b
 b
-t
-t
-t
-t
-t
+N
+N
+N
+N
+N
 s
 s
 s
@@ -282,11 +282,11 @@ c
 c
 n
 n
-t
+N
 v
 x
 B
-t
+N
 s
 s
 s
@@ -300,7 +300,7 @@ c
 m
 o
 o
-t
+N
 w
 y
 y
@@ -331,15 +331,15 @@ s
 c
 c
 f
-i
+Z
 g
 f
 f
 o
 o
 o
-t
-t
+N
+N
 F
 s
 s

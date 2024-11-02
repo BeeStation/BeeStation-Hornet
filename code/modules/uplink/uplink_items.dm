@@ -257,8 +257,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/bundles_TC/firestarter
 	name = "Spetsnaz Pyro bundle"
-	desc = "For systematic suppression of carbon lifeforms in close quarters: Contains a lethal New Russian backpack spray, Elite hardsuit, \
-			Stechkin APS pistol, two magazines, a minibomb and a stimulant syringe. \
+	desc = "For systematic suppression of carbon lifeforms in close quarters: Contains a lethal Flamethrower, Two plasma tanks, Elite hardsuit, \
+			Stechkin APS pistol, two magazines, a tactical medkit and a stimulant syringe. \
 			Order NOW and comrade Boris will throw in an extra tracksuit."
 	item = /obj/item/storage/backpack/duffelbag/syndie/firestarter
 	cost = 30
@@ -626,7 +626,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	player_minimum = 25
 	restricted = TRUE
 	refundable = TRUE
-	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /**
  * Only allow holoparasites to be refunded if the injector is unused.
@@ -679,6 +678,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/ballistic/automatic/pistol
 	cost = 7
 	purchasable_from = ~UPLINK_CLOWN_OPS
+
+/datum/uplink_item/dangerous/pistolAPS
+	name = "Stechkin APS"
+	desc = "The original Russian version of a widely used Syndicate sidearm. Uses 9mm ammo, not compatible with suppressors."
+	item = /obj/item/gun/ballistic/automatic/pistol/APS
+	purchasable_from = UPLINK_NUKE_OPS
+	cost = 6
+	surplus = 0
 
 /datum/uplink_item/dangerous/derringer
 	name = "'Infiltrator' Coat Pistol"
@@ -921,6 +928,42 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 2
 	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps
+	name = "9mm Handgun Magazine"
+	desc = "An additional 15-round 9mm magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
+	item = /obj/item/ammo_box/magazine/pistolm9mm
+	cost = 2
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps/inc
+	name = "9mm Incendiary Handgun Magazine"
+	desc = "An additional 15-round 9mm Incendiary magazine, compatible with the Stechkin APS pistol."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/inc
+	cost = 2
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps/ap
+	name = "9mm AP Handgun Magazine"
+	desc = "An additional 15-round 9mm AP magazine, compatible with the Stechkin APS pistol."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/ap
+	cost = 2
+	purchasable_from = UPLINK_NUKE_OPS
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolaps/hp
+	name = "9mm HP Handgun Magazine"
+	desc = "An additional 15-round 9mm HP magazine, compatible with the Stechkin APS pistol."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/hp
+	cost = 3
+	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
@@ -1177,15 +1220,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 5
 
-/datum/uplink_item/ammo/pistolaps
-	name = "9mm Handgun Magazine"
-	desc = "An additional 15-round 9mm magazine, compatible with the Stechkin APS pistol, found in the Spetsnaz Pyro bundle."
-	item = /obj/item/ammo_box/magazine/pistolm9mm
-	cost = 2
-	purchasable_from = UPLINK_NUKE_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
 	desc = "A box of 40 Donksoft riot darts, for reloading any compatible foam dart magazine. Don't forget to share!"
@@ -1211,6 +1245,20 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/ammo/dark_gygax/bag
+	name = "Dark Gygax Ammo Bag"
+	desc = "A duffel bag containing ammo for three full reloads of the incendiary carbine and flash bang launcher that are equipped on a standard Dark Gygax exosuit."
+	item = /obj/item/storage/backpack/duffelbag/syndie/ammo/dark_gygax
+	cost = 4
+	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/ammo/mauler/bag
+	name = "Mauler Ammo Bag"
+	desc = "A duffel bag containing ammo for three full reloads of the LMG, scattershot carbine, and SRM-8 missile laucher that are equipped on a standard Mauler exosuit."
+	item = /obj/item/storage/backpack/duffelbag/syndie/ammo/mauler
+	cost = 6
+	purchasable_from = UPLINK_NUKE_OPS
 
 //Grenades and Explosives
 /datum/uplink_item/explosives
@@ -1721,7 +1769,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
 	Insert into an Operating Console to enable the procedure."
 	item = /obj/item/disk/surgery/brainwashing
-	player_minimum = 25
+	player_minimum = 10
 	cost = 5
 
 /datum/uplink_item/device_tools/briefcase_launchpad
@@ -1790,9 +1838,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/device_tools/failsafe/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
-	if(!U)
+	if(!U || !U.unlock_code)
+		to_chat(user, "<span class='warning'>A failsafe code could not be assigned to this uplink.")
 		return
-	U.failsafe_code = U.generate_code()
+	do
+		U.failsafe_code = U.generate_code()
+	while(islist(U.failsafe_code) ? compare_list(U.failsafe_code, U.unlock_code) : U.failsafe_code == U.unlock_code)
 	var/code = "[islist(U.failsafe_code) ? english_list(U.failsafe_code) : U.failsafe_code]"
 	to_chat(user, "<span class='warning'>The new failsafe code for this uplink is now : [code].</span>")
 	if(user.mind)
@@ -1828,6 +1879,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Hypnotic Flash"
 	desc = "A modified flash able to hypnotize targets. If the target is not in a mentally vulnerable state, it will only confuse and pacify them temporarily."
 	item = /obj/item/assembly/flash/hypnotic
+	player_minimum = 20
 	cost = 7
 
 /datum/uplink_item/device_tools/medgun
@@ -1872,6 +1924,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
+/datum/uplink_item/device_tools/medkit_infiltration
+	name = "Syndicate Infiltrator's Medical Kit"
+	desc = "This first aid kit, filled with supplies stolen from Nanotrasen forces, is intended to be \
+			used by infiltrators on enemy stations. It contains some basic first-aid tools for self-treatment \
+			in dire situations. Fits in your bag, but is visually obvious as non-Nanotrasen."
+	item = /obj/item/storage/firstaid/infiltrator
+	cost = 2
 
 /datum/uplink_item/device_tools/soap
 	name = "Syndicate Soap"
@@ -2320,7 +2380,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
 			At least, that's what the label says"
-	item = /obj/item/reagent_containers/glass/bottle/fluspanish
+	item = /obj/item/reagent_containers/cup/bottle/fluspanish
 	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
@@ -2328,7 +2388,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Retrovirus Culture Bottle"
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts. \
 			At least, that's what the label says."
-	item = /obj/item/reagent_containers/glass/bottle/retrovirus
+	item = /obj/item/reagent_containers/cup/bottle/retrovirus
 	cost = 12
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
 
@@ -2336,7 +2396,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Anxiety Culture Bottle"
 	desc = "A bottle of contagious anxiety-inducing virus. \
 			At least, that's what the label says"
-	item = /obj/item/reagent_containers/glass/bottle/anxiety
+	item = /obj/item/reagent_containers/cup/bottle/anxiety
 	cost = 4
 	restricted_roles = list(JOB_NAME_VIROLOGIST)
 
@@ -2368,7 +2428,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)
-	disabled = TRUE	// #11096: Currently in a broken state, cannot recall as they will immediately manifest and cannot move despite having range stats.
 
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
@@ -2518,7 +2577,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Beer"
 	desc = "Syndicate brand 'beer' designed to flush toxins out of your system. \
 			Warning: Do not consume more than one!"
-	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
+	item = /obj/item/reagent_containers/cup/glass/bottle/beer/syndicate
 	cost = 4
 	illegal_tech = FALSE
 

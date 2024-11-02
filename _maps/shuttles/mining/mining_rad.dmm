@@ -1,19 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/item/storage/pod{
-	pixel_x = -25;
-	unlocked = 1
+"b" = (
+/obj/machinery/status_display/evac{
+	pixel_x = 33;
+	pixel_y = 31
 	},
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/loading_area,
-/obj/structure/closet/crate/miningcar{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","cargo")
-	},
-/turf/open/floor/iron/tech/grid,
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "c" = (
 /obj/structure/shuttle/engine/propulsion/burst,
@@ -50,9 +41,6 @@
 /obj/machinery/computer/shuttle_flight/mining,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
-"s" = (
-/turf/closed/wall/mineral/plastic/nodiagonal,
-/area/shuttle/mining)
 "v" = (
 /obj/structure/ore_box,
 /obj/structure/window/reinforced,
@@ -68,6 +56,9 @@
 	pixel_y = -1
 	},
 /turf/open/floor/iron/tech/grid,
+/area/shuttle/mining)
+"w" = (
+/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "C" = (
 /obj/structure/shuttle/engine/heater,
@@ -98,7 +89,7 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/mining)
-"K" = (
+"J" = (
 /turf/closed/wall/mineral/plastic,
 /area/shuttle/mining)
 "O" = (
@@ -107,13 +98,6 @@
 	},
 /obj/effect/turf_decal/box/white,
 /turf/open/floor/iron/tech,
-/area/shuttle/mining)
-"Q" = (
-/obj/machinery/status_display/evac{
-	pixel_x = 33;
-	pixel_y = 31
-	},
-/turf/closed/wall/mineral/plastic/nodiagonal,
 /area/shuttle/mining)
 "S" = (
 /obj/machinery/door/airlock/survival_pod/glass,
@@ -134,6 +118,20 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
+/area/shuttle/mining)
+"W" = (
+/obj/item/storage/pod{
+	pixel_x = -25;
+	unlocked = 1
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/loading_area,
+/obj/structure/closet/crate/miningcar{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/machinery/camera/directional/west,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "X" = (
 /obj/effect/turf_decal/stripes/line{
@@ -158,21 +156,21 @@
 /area/shuttle/mining)
 
 (1,1,1) = {"
-K
-Q
+J
+b
 h
 h
 h
-s
-K
+w
+J
 "}
 (2,1,1) = {"
-s
+w
 I
 e
 e
 X
-a
+W
 j
 "}
 (3,1,1) = {"
@@ -185,7 +183,7 @@ C
 c
 "}
 (4,1,1) = {"
-s
+w
 Y
 O
 O
@@ -194,11 +192,11 @@ v
 G
 "}
 (5,1,1) = {"
-K
-s
+J
+w
 d
 d
 S
-s
-K
+w
+J
 "}

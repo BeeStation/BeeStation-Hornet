@@ -116,12 +116,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
-/obj/machinery/button/attack_ai(mob/user)
+/obj/machinery/button/attack_silicon(mob/user)
 	if(!panel_open)
 		return attack_hand(user)
-
-/obj/machinery/button/attack_robot(mob/user)
-	return attack_ai(user)
 
 /obj/machinery/button/proc/setup_device()
 	if(id && istype(device, /obj/item/assembly/control))
@@ -288,3 +285,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	result_path = /obj/machinery/button
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	pixel_shift = 24
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
+
+/obj/machinery/button/shieldwallgen
+	name = "holofield switch"
+	desc = "A remote switch for a holofield generator"
+	icon_state = "launcher"
+	skin = "launcher"
+	device_type = /obj/item/assembly/control/shieldwallgen
+	req_access = list()
+	id = 1
+
+/obj/machinery/button/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	id = "[REF(port)][id]"

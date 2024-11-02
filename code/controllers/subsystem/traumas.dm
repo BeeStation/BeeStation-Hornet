@@ -101,6 +101,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/security/warden,
 			/obj/item/clothing/under/rank/security/head_of_security, /obj/item/clothing/under/rank/security/detective,
 			/obj/item/melee/baton, /obj/item/gun/energy/taser, /obj/item/restraints/handcuffs,
+			/obj/item/melee/tonfa,
 			/obj/machinery/door/airlock/security, /obj/effect/hallucination/simple/securitron)),
 
 		"clowns"    = typecacheof(list(
@@ -114,7 +115,7 @@ SUBSYSTEM_DEF(traumas)
 
 		"lizards"   = typecacheof(list(
 			/obj/item/toy/plush/lizard_plushie, /obj/item/food/kebab/tail,
-			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),
+			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/cup/glass/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
 			/obj/item/organ/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
@@ -204,7 +205,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/katana,
 			/obj/item/food/sashimi,
 			/obj/item/food/chawanmushi,
-			/obj/item/reagent_containers/food/drinks/bottle/sake,
+			/obj/item/reagent_containers/cup/glass/bottle/sake,
 			/obj/item/throwing_star,
 			/obj/item/clothing/head/costume/kitty/genuine,
 			/obj/item/clothing/suit/space/space_ninja,
