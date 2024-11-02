@@ -380,6 +380,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"

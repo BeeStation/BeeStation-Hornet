@@ -58,8 +58,6 @@
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hats/hopcap
 	l_pocket = /obj/item/melee/classic_baton/police/telescopic
-	backpack_contents = list(
-		/obj/item/storage/box/ids=1,
-		)
+	l_hand = /obj/item/storage/box/ids
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)

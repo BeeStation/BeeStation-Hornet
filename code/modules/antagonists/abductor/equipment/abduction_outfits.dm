@@ -39,10 +39,10 @@
 	suit = /obj/item/clothing/suit/armor/abductor/vest
 	suit_store = /obj/item/abductor/baton
 	belt = /obj/item/storage/belt/military/abductor/full
-	l_pocket = /obj/item/gun/energy/alien
 
 	backpack_contents = list(
 		/obj/item/abductor/silencer = 1
+		/obj/item/gun/energy/alien=1,
 		)
 
 /datum/outfit/abductor/scientist
