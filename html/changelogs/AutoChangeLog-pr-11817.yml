@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Clockcult shadow shackles will now properly prevent the target from moving.
-  - bugfix: Clockwork slab progress bars now display correctly.
