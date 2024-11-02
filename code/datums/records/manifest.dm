@@ -15,7 +15,7 @@
 		if(readied_player.new_character)
 			log_manifest(readied_player.ckey,readied_player.new_character.mind,readied_player.new_character)
 		if(ishuman(readied_player.new_character))
-			inject(readied_player.new_character)
+			inject(readied_player.new_character, TRUE)
 		CHECK_TICK
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
@@ -84,7 +84,7 @@
 	dat = replacetext(dat, "\t", "")
 	return dat
 
-/datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal)
+/datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
 
 	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
