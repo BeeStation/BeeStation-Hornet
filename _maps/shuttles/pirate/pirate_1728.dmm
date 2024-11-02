@@ -1,35 +1,35 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ag" = (
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = -3;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = -6;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = 7;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = 2;
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = 6;
 	pixel_y = 7
 	},
@@ -48,11 +48,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 6;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
 	pixel_x = -6;
 	pixel_y = 8;
@@ -177,7 +177,7 @@
 /area/shuttle/pirate)
 "hj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
 	pixel_x = -6;
 	pixel_y = 8
@@ -363,7 +363,7 @@
 	pixel_x = 1;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/condiment/soymilk{
+/obj/item/reagent_containers/condiment/soymilk{
 	pixel_x = 10;
 	pixel_y = 7
 	},
@@ -521,11 +521,11 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/bottle/black_powder{
+/obj/item/reagent_containers/cup/bottle/black_powder{
 	pixel_x = 7;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/glass/bottle/black_powder{
+/obj/item/reagent_containers/cup/bottle/black_powder{
 	pixel_x = -5;
 	pixel_y = 2
 	},
@@ -626,7 +626,7 @@
 	pixel_x = -6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = 5;
 	pixel_y = 4
 	},
@@ -722,15 +722,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/blank{
+/obj/item/reagent_containers/cup/glass/bottle/blank{
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/bottle/pineapplejuice{
+/obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice{
 	pixel_x = -7;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/glass/bottle/histamine{
+/obj/item/reagent_containers/cup/bottle/histamine{
 	pixel_y = 2
 	},
 /turf/open/floor/wood,
@@ -950,7 +950,7 @@
 	id = "pirate_gun_port_starboard_bow";
 	pixel_y = -8
 	},
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
 	pixel_x = -6;
 	pixel_y = 8
