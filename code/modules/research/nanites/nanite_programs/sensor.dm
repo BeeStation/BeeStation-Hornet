@@ -2,10 +2,21 @@
 	name = "Sensor Nanites"
 	desc = "These nanites send a signal code when a certain condition is met."
 	unique = FALSE
+	/// Whether or not this sensor supports additional rules to be added on
+	/// top of the base condition.
+	/// Not-useful if the sensor detects a boolean state, but useful if the
+	/// condition is continuous and the user might want to detect a range
 	var/can_rule = FALSE
+	/// Private variable for monitoring if we have already triggered or not
+	var/has_triggered = FALSE
+	/// If set to false, then a clear code will be sent when the event is no longer
+	/// detected
+	var/is_discrete = TRUE
 
 /datum/nanite_program/sensor/register_extra_settings()
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+	if (!is_discrete)
+		extra_settings[NES_EVENT_CLEAR_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 
 /datum/nanite_program/sensor/proc/check_event()
 	return FALSE
@@ -16,7 +27,14 @@
 		SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, ES.value, "a [name] program")
 
 /datum/nanite_program/sensor/active_effect()
-	if(check_event())
+	var/event = check_event()
+	if (has_triggered && !event)
+		has_triggered = FALSE
+		if(activated && !is_discrete)
+			var/datum/nanite_extra_setting/ES = extra_settings[NES_EVENT_CLEAR_CODE]
+			SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, ES.value, "a [name] program")
+	else if (!has_triggered && event)
+		has_triggered = TRUE
 		send_code()
 
 /datum/nanite_program/sensor/proc/make_rule(datum/nanite_program/target)
@@ -28,7 +46,6 @@
 	can_trigger = TRUE
 	trigger_cost = 0
 	trigger_cooldown = 10
-	var/spent = FALSE
 
 /datum/nanite_program/sensor/repeat/register_extra_settings()
 	. = ..()
@@ -44,7 +61,6 @@
 	can_trigger = TRUE
 	trigger_cost = 0
 	trigger_cooldown = 10
-	var/spent = FALSE
 
 /datum/nanite_program/sensor/relay_repeat/register_extra_settings()
 	. = ..()
@@ -67,7 +83,7 @@
 	name = "Health Sensor"
 	desc = "The nanites receive a signal when the host's health is above/below a target percentage."
 	can_rule = TRUE
-	var/spent = FALSE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/health/register_extra_settings()
 	. = ..()
@@ -78,22 +94,13 @@
 	var/health_percent = host_mob.health / host_mob.maxHealth * 100
 	var/datum/nanite_extra_setting/percent = extra_settings[NES_HEALTH_PERCENT]
 	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
-	var/detected = FALSE
 	if(direction.get_value())
 		if(health_percent >= percent.get_value())
-			detected = TRUE
+			return TRUE
 	else
 		if(health_percent < percent.get_value())
-			detected = TRUE
-
-	if(detected)
-		if(!spent)
-			spent = TRUE
 			return TRUE
-		return FALSE
-	else
-		spent = FALSE
-		return FALSE
+	return FALSE
 
 /datum/nanite_program/sensor/health/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/health/rule = new(target)
@@ -107,16 +114,10 @@
 	name = "Critical Health Sensor"
 	desc = "The nanites receive a signal when the host first reaches critical health."
 	can_rule = TRUE
-	var/spent = FALSE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/crit/check_event()
-	if(HAS_TRAIT(host_mob, TRAIT_CRITICAL_CONDITION))
-		if(spent)
-			return FALSE
-		spent = TRUE
-		return TRUE
-	spent = FALSE
-	return FALSE
+	return HAS_TRAIT(host_mob, TRAIT_CRITICAL_CONDITION)
 
 /datum/nanite_program/sensor/crit/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/crit/rule = new(target)
@@ -126,7 +127,7 @@
 	name = "Death Sensor"
 	desc = "The nanites receive a signal when they detect the host is dead."
 	can_rule = TRUE
-	var/spent = FALSE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/death/on_death()
 	send_code()
@@ -139,7 +140,7 @@
 	name = "Nanite Volume Sensor"
 	desc = "The nanites receive a signal when the nanite supply is above/below a certain percentage."
 	can_rule = TRUE
-	var/spent = FALSE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/nanite_volume/register_extra_settings()
 	. = ..()
@@ -158,14 +159,7 @@
 		if(nanite_percent < percent.get_value())
 			detected = TRUE
 
-	if(detected)
-		if(!spent)
-			spent = TRUE
-			return TRUE
-		return FALSE
-	else
-		spent = FALSE
-		return FALSE
+	return detected
 
 /datum/nanite_program/sensor/nanite_volume/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/nanites/rule = new(target)
@@ -179,7 +173,7 @@
 	name = "Damage Sensor"
 	desc = "The nanites receive a signal when a host's specific damage type is above/below a target value."
 	can_rule = TRUE
-	var/spent = FALSE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/damage/register_extra_settings()
 	. = ..()
@@ -212,15 +206,7 @@
 	else
 		if(damage_amt < damage.get_value())
 			reached_threshold = TRUE
-
-	if(reached_threshold)
-		if(!spent)
-			spent = TRUE
-			return TRUE
-		return FALSE
-	else
-		spent = FALSE
-		return FALSE
+	return reached_threshold
 
 /datum/nanite_program/sensor/damage/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/damage/rule = new(target)
@@ -340,7 +326,7 @@
 		"Hungry (40%)" = NUTRITION_LEVEL_HUNGRY,
 		"Starving (25%)" = NUTRITION_LEVEL_STARVING
 	)
-	var/spent = TRUE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/nutrition/check_conditions()
 	return ..() && !HAS_TRAIT(host_mob, TRAIT_NOHUNGER)
@@ -362,14 +348,7 @@
 		if(host_mob.nutrition < threshold)
 			detected = TRUE
 
-	if(detected)
-		if(!spent)
-			spent = TRUE
-			return TRUE
-		return FALSE
-	else
-		spent = FALSE
-		return FALSE
+	return detected
 
 /datum/nanite_program/sensor/nutrition/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/nutrition/rule = new(target)
@@ -383,7 +362,7 @@
 	name = "Blood Sensor"
 	desc = "The nanites receive a signal when the host's blood level is above/below a target percentage."
 	can_rule = TRUE
-	var/spent = FALSE
+	is_discrete = FALSE
 
 /datum/nanite_program/sensor/blood/register_extra_settings()
 	. = ..()
@@ -413,14 +392,7 @@
 		if(blood_percent < percent.get_value())
 			detected = TRUE
 
-	if(detected)
-		if(!spent)
-			spent = TRUE
-			return TRUE
-		return FALSE
-	else
-		spent = FALSE
-		return FALSE
+	return detected
 
 /datum/nanite_program/sensor/blood/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/blood/rule = new(target)
@@ -460,3 +432,50 @@
 		return
 	send_code()
 	return TRUE
+
+/datum/nanite_program/sensor/bleeding
+	name = "Bleeding Sensor"
+	desc = "The nanites receive a signal when the host is bleeding."
+	is_discrete = FALSE
+
+/datum/nanite_program/sensor/bleeding/check_conditions()
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!iscarbon(host_mob))
+		return FALSE
+	if(ishuman(host_mob))
+		var/mob/living/carbon/human/host_human = host_mob
+		if(NOBLOOD in host_human.dna?.species?.species_traits)
+			return FALSE
+
+/datum/nanite_program/sensor/bleeding/check_event()
+	var/mob/living/carbon/carbon_host = host_mob
+	return carbon_host.is_bleeding()
+
+/datum/nanite_program/sensor/pressure
+	name = "Pressure Sensor"
+	desc = "The nanites determine the pressure exerted on them and act accordingly."
+	can_rule = TRUE
+	is_discrete = FALSE
+
+/datum/nanite_program/sensor/pressure/register_extra_settings()
+	. = ..()
+	extra_settings[NES_PRESSURE] = new /datum/nanite_extra_setting/number(ONE_ATMOSPHERE, 0, 9999, "kPa")
+	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
+
+/datum/nanite_program/sensor/pressure/check_event()
+	var/turf/open/location = get_turf(host_mob)
+	if (!istype(location))
+		return FALSE
+	var/datum/gas_mixture/air = location.return_air()
+	return extra_settings[NES_DIRECTION] ? (air.return_pressure() > extra_settings[NES_PRESSURE]) : (air.return_pressure() < extra_settings[NES_PRESSURE])
+
+/datum/nanite_program/sensor/pressure/make_rule(datum/nanite_program/target)
+	var/datum/nanite_rule/pressure/rule = new(target)
+	var/datum/nanite_extra_setting/pressure = extra_settings[NES_PRESSURE]
+	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
+	rule.above = direction.get_value()
+	rule.threshold = pressure
+	return rule
+
