@@ -1,4 +1,4 @@
-/obj/machinery/modular_fabricator/autolathe
+/obj/machinery/modular_fabricator/autolathe 
 	name = "autolathe"
 	desc = "It produces items using iron, copper, and glass."
 	icon_state = "autolathe"
