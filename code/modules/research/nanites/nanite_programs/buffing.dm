@@ -23,7 +23,7 @@
 	desc = "The nanites cause a burst of adrenaline when triggered, allowing the user to push their body past its normal limits."
 	can_trigger = TRUE
 	trigger_cost = 20
-	trigger_cooldown = 1200
+	trigger_cooldown = 2 MINUTES
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/adrenaline/on_trigger()
@@ -34,9 +34,11 @@
 
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"
-	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts."
+	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts for 20 seconds."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	activate_cooldown = 60 SECONDS
+	maximum_duration = 20 SECONDS
 
 //TODO on_hit effect that turns skin grey for a moment
 
@@ -44,15 +46,19 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 30
-		H.physiology.armor.bullet += 30
+		H.physiology.armor.melee += 25
+		H.physiology.armor.bullet += 25
+		ADD_TRAIT(H, TRAIT_NANITE_SKIN, SOURCE_NANITES)
+		H.update_body_parts()
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 30
-		H.physiology.armor.bullet -= 30
+		H.physiology.armor.melee -= 25
+		H.physiology.armor.bullet -= 25
+		REMOVE_TRAIT(H, TRAIT_NANITE_SKIN, SOURCE_NANITES)
+		H.update_body_parts()
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
