@@ -84,7 +84,7 @@
 	dat = replacetext(dat, "\t", "")
 	return dat
 
-/datum/manifest/proc/inject(mob/living/carbon/human/person)
+/datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal)
 	set waitfor = FALSE
 
 	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
@@ -138,7 +138,8 @@
 		minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
 		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
 	)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
+	if(!nosignal)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /// Edits the rank of the found record.
 /datum/manifest/proc/modify(name, assignment)
