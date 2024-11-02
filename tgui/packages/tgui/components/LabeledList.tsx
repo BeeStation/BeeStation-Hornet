@@ -93,7 +93,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         color={color}
         textAlign={textAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
-        colSpan={(buttons ? undefined : 2)}
+        colSpan={buttons ? undefined : 2}
         verticalAlign={verticalAlign}>
         {content}
         {children}
@@ -139,23 +139,11 @@ type LabeledListRowProps = Partial<{
 }>;
 
 const LabeledListRow = (props: LabeledListRowProps) => {
-  const {
-    className,
-    color,
-    textAlign,
-    content,
-    children,
-    verticalAlign = 'baseline',
-  } = props;
-
+  const { className, color, textAlign, content, children, verticalAlign = 'baseline' } = props;
 
   return (
     <tr className={classes(['LabeledList__row', className])}>
-      <td
-        color={color}
-        textAlign={textAlign}
-        colSpan={3}
-        verticalAlign={verticalAlign}>
+      <td color={color} textAlign={textAlign} colSpan={3} verticalAlign={verticalAlign}>
         {content}
         {children}
       </td>
