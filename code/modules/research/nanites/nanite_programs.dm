@@ -5,14 +5,27 @@
 	var/datum/component/nanites/nanites
 	var/mob/living/host_mob
 
-	var/use_rate = 0 			//Amount of nanites used while active
-	var/unique = TRUE			//If there can be more than one copy in the same nanites
-	var/can_trigger = FALSE		//If the nanites have a trigger function (used for the programming UI)
-	var/trigger_cost = 0		//Amount of nanites required to trigger
-	var/trigger_cooldown = 50	//Deciseconds required between each trigger activation
-	var/next_trigger = 0		//World time required for the next trigger activation
-	var/activate_cooldown = 0	//Deciseconds required between each activation
+	///Amount of nanites used while active
+	var/use_rate = 0
+	///If there can be more than one copy in the same nanites
+	var/unique = TRUE
+	///If the nanites have a trigger function (used for the programming UI)
+	var/can_trigger = FALSE
+	///Amount of nanites required to trigger
+	var/trigger_cost = 0
+	///Deciseconds required between each trigger activation
+	var/trigger_cooldown = 50
+	///Deciseconds required between each activation
+	var/activate_cooldown = 0
+	/// Maximum duration that this program can be active for before turning off
+	/// If set to null, there will be no maximum duration
+	var/maximum_duration = null
+
+	///World time required for the next trigger activation
+	var/next_trigger = 0
 	COOLDOWN_DECLARE(next_activate)
+	/// Time that the nanite program will be automatically disabled
+	var/disable_time = null
 
 	var/program_flags = NONE
 	var/passive_enabled = FALSE //If the nanites have an on/off-style effect, it's tracked by this var
@@ -183,6 +196,8 @@
 		timer_shutdown_next = world.time + timer_shutdown
 	if(activate_cooldown)
 		COOLDOWN_START(src, next_activate, activate_cooldown)
+	if (!isnull(maximum_duration))
+		disable_time = world.time + maximum_duration
 
 /datum/nanite_program/proc/deactivate()
 	if(passive_enabled)
@@ -190,9 +205,12 @@
 	activated = FALSE
 	if(timer_restart)
 		timer_restart_next = world.time + timer_restart
+	if (!isnull(disable_time))
+		disable_time = null
 
 /// Processes every second
 /datum/nanite_program/proc/on_process()
+	SHOULD_CALL_PARENT(TRUE)
 	if(!activated)
 		if(timer_restart_next && world.time > timer_restart_next)
 			activate()
@@ -225,6 +243,9 @@
 //If false, disables active and passive effects, but doesn't consume nanites
 //Can be used to avoid consuming nanites for nothing
 /datum/nanite_program/proc/check_conditions()
+	// Nanites automatically disabled when time passes the disable timer
+	if (!isnull(disable_time) && world.time > disable_time)
+		return FALSE
 	var/rule_amt = length(rules)
 	if(rule_amt)
 		var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
