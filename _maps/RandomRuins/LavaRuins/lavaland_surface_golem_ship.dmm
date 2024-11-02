@@ -2,9 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/turf/closed/wall/mineral/titanium/survival,
-/area/ruin/powered/golem_ship)
 "ac" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -1048,7 +1045,7 @@ ac
 ap
 aD
 aR
-ab
+Be
 bg
 bt
 aB
@@ -1056,7 +1053,7 @@ aL
 bQ
 bt
 cf
-ab
+Be
 bj
 cy
 bj
@@ -1069,7 +1066,7 @@ ac
 aq
 aJ
 aR
-ab
+Be
 bh
 bu
 bj
@@ -1077,7 +1074,7 @@ aC
 aB
 bZ
 cf
-ab
+Be
 bo
 aL
 cl
@@ -1253,7 +1250,7 @@ ag
 Be
 "}
 (18,1,1) = {"
-ab
+Be
 aF
 aw
 af
@@ -1271,7 +1268,7 @@ ct
 cH
 af
 cL
-ab
+Be
 "}
 (19,1,1) = {"
 Be

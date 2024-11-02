@@ -1,0 +1,2 @@
+/turf/closed/wall/mineral/titanium/survival/@SUBTYPES : /turf/closed/wall/mineral/plastic/@SUBTYPES {@OLD}
+/turf/closed/wall/mineral/titanium/survival : /turf/closed/wall/mineral/plastic {@OLD}
