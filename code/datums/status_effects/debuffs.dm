@@ -983,12 +983,53 @@
 	owner.adjust_bodytemperature(-20)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.silent += 4
+		carbon_owner.silent += 15
 	return ..()
 
-/datum/status_effect/heretic_mark/on_remove(/datum/movespeed_modifier/void_slowdown)
+/datum/status_effect/heretic_mark/on_remove()
 	. = ..()
-	owner.remove_movespeed_modifier()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/void_slowdown)
+
+/datum/status_effect/flesh_decay
+	id = "flesh_decay"
+	status_type = STATUS_EFFECT_UNIQUE
+	tick_interval = 4 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/flesh_decay
+
+/datum/status_effect/flesh_decay/on_apply()
+	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FLESH_DECAY)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/flesh_decay_slowdown)
+	var/mob/living/carbon/target = owner
+	if (!istype(target))
+		qdel(src)
+		return
+	// Add some bleeding so the effect doesn't instantly clear
+	target.add_bleeding(BLEED_SCRATCH)
+	return TRUE
+
+/datum/status_effect/flesh_decay/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FLESH_DECAY)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/flesh_decay_slowdown)
+
+/datum/status_effect/flesh_decay/tick()
+	// When the target enters soft-crit, then disappear
+	if (owner.stat >= SOFT_CRIT)
+		qdel(src)
+		return
+	var/mob/living/carbon/target = owner
+	if (!istype(target))
+		qdel(src)
+		return
+	if (!target.is_bleeding())
+		qdel(src)
+		return
+	target.add_bleeding(max(1 - target.get_bleed_rate(), 0))
+	target.adjustBruteLoss(1)
+
+/atom/movable/screen/alert/status_effect/flesh_decay
+	name = "Flesh Decay"
+	desc = "You are affected by a flesh curse, preventing you from speaking and causing damage over time. Apply bandages to prevent the decay!"
+	icon_state = "flesh_decay"
 
 /datum/status_effect/corrosion_curse
 	id = "corrosion_curse"

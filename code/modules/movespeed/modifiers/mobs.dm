@@ -79,6 +79,9 @@
 	multiplicative_slowdown = 1
 	conflicts_with = MOVE_CONFLICT_TEMPERATURE
 
+/datum/movespeed_modifier/flesh_decay_slowdown
+	multiplicative_slowdown = 0.2
+
 /datum/movespeed_modifier/shove
 	multiplicative_slowdown = SHOVE_SLOWDOWN_STRENGTH
 

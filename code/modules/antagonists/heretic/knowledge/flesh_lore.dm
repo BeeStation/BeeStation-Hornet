@@ -69,8 +69,7 @@
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
-	desc = "Your Mansus Grasp gains the ability to create a single ghoul out of corpse with a soul. \
-		Ghouls have only 25 health and look like husks to the heathens' eyes, but can use Bloody Blades effectively."
+	desc = "Your Mansus Grasp will slow, mute and damage a target over time until they seek medical treatment. It can only affect a single victim at a time."
 	gain_text = "My newfound desires drove me to greater and greater heights."
 	next_knowledge = list(/datum/heretic_knowledge/limited_amount/flesh_ghoul)
 	limit = 1
@@ -86,39 +85,22 @@
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	if(target.stat != DEAD)
+	if (!istype(target))
 		return
 
-	// Skeletons can't become husks, and monkeys are monkeys.
-	if(!ishuman(target) || isskeleton(target) || ismonkey(target))
-		target.balloon_alert(source, "Invalid body")
-		return COMPONENT_BLOCK_CHARGE_USE
+	if(target.stat == DEAD)
+		return
 
-	var/mob/living/carbon/human/human_target = target
-	human_target.grab_ghost()
-	if(!human_target.mind || !human_target.client)
-		target.balloon_alert(source, "No soul")
-		return COMPONENT_BLOCK_CHARGE_USE
-	if(HAS_TRAIT(human_target, TRAIT_HUSK))
-		target.balloon_alert(source, "Husked")
-		return COMPONENT_BLOCK_CHARGE_USE
-	if(LAZYLEN(created_items) >= limit)
-		target.balloon_alert(source, "At ghoul limit")
-		return COMPONENT_BLOCK_CHARGE_USE
+	// Find our current mark and clear it
+	var/datum/weakref/current_target = GET_TRAIT_VALUE(source, TRAIT_VALUE_FLESH_MARK)
+	if (current_target)
+		var/datum/status_effect/previous_effect = current_target.resolve()
+		if (istype(previous_effect))
+			qdel(previous_effect)
 
-	LAZYADD(created_items, WEAKREF(human_target))
-	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
-	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghoul, [ADMIN_LOOKUPFLW(human_target)].")
-
-	RegisterSignal(human_target, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
-	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
-	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
-	human_target.health = GHOUL_MAX_HEALTH
-	human_target.become_husk(MAGIC_TRAIT)
-	human_target.apply_status_effect(/datum/status_effect/ghoul)
-	human_target.faction |= FACTION_HERETIC
-	var/datum/mind/human_target_mind = human_target.mind
-	INVOKE_ASYNC(human_target_mind, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/heretic_monster)
+	// Add the mark to the victim
+	REMOVE_TRAIT(source, TRAIT_VALUE_FLESH_MARK, "flesh_gasp")
+	ADD_VALUE_TRAIT(source, TRAIT_VALUE_FLESH_MARK, "flesh_gasp", WEAKREF(target.apply_status_effect(/datum/status_effect/flesh_decay)), 1)
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/remove_ghoul(mob/living/carbon/human/source)
 	SIGNAL_HANDLER

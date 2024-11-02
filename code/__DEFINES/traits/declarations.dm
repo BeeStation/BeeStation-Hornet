@@ -175,6 +175,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HULK "hulk"
 /// Trait that stores the skin colour of a mob
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
+/// Trait that stores the currently active heretic target
+#define TRAIT_VALUE_FLESH_MARK "v_flesh_mark"
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either

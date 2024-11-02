@@ -133,3 +133,5 @@
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+
+#define TRAIT_FLESH_DECAY "flesh_decay"
