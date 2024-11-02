@@ -132,16 +132,15 @@ type LabeledListRowProps = Partial<{
   /** @deprecated */
   content: any;
   children: InfernoNode;
-  verticalAlign: string;
   tooltip: string;
 }>;
 
 const LabeledListRow = (props: LabeledListRowProps) => {
-  const { className, content, children, verticalAlign = 'baseline' } = props;
+  const { className, content, children } = props;
 
   return (
     <tr className={classes(['LabeledList__row', className])}>
-      <td colSpan={3} verticalAlign={verticalAlign}>
+      <td colSpan={3}>
         {content}
         {children}
       </td>
