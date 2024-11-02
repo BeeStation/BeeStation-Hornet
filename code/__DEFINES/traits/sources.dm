@@ -142,3 +142,8 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
+
+// Nanite sources
+#define SOURCE_NANITE_HARDENING "nanite_hardening"
+#define SOURCE_NANITE_REFRACTION "nanite_refraction"
+#define SOURCE_NANITE_BLOOD "nanite_blood"

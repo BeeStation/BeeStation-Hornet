@@ -95,8 +95,6 @@
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 
-//TODO make it defuse if triggered again
-
 /datum/nanite_program/heart_stop
 	name = "Heart-Stopper"
 	desc = "Stops the host's heart when triggered; restarts it if triggered again."

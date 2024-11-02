@@ -135,6 +135,9 @@ export const NaniteChamberControlContent = (props) => {
                                 {!!program.timer_trigger && (
                                   <LabeledList.Item label="Trigger Repeat Timer">{program.timer_trigger} s</LabeledList.Item>
                                 )}
+                                {!!program.maximum_duration && (
+                                  <LabeledList.Item label="Effect Duration">{program.maximum_duration} s</LabeledList.Item>
+                                )}
                               </LabeledList>
                             </Section>
                           </Grid.Column>
@@ -143,12 +146,10 @@ export const NaniteChamberControlContent = (props) => {
                           <Grid.Column>
                             <Section>
                               <LabeledList>
-                                {/* I mean, bruh, this indentation level
-                                    is ABSOLUTELY INSANE!!! */}
                                 {program.timer_restart && (
                                   <LabeledList.Item label="Restart Timer">{program.timer_restart} s</LabeledList.Item>
                                 )}
-                                {program.timer_shutdown && (
+                                {!program.can_trigger && program.timer_shutdown && (
                                   <LabeledList.Item label="Shutdown Timer">{program.timer_shutdown} s</LabeledList.Item>
                                 )}
                               </LabeledList>
@@ -173,10 +174,10 @@ export const NaniteChamberControlContent = (props) => {
                         <Grid.Column>
                           <Section title="Codes" level={2}>
                             <LabeledList>
-                              {!!program.activation_code && (
+                              {!program.can_trigger && !!program.activation_code && (
                                 <LabeledList.Item label="Activation">{program.activation_code}</LabeledList.Item>
                               )}
-                              {!!program.deactivation_code && (
+                              {!program.can_trigger && !!program.deactivation_code && (
                                 <LabeledList.Item label="Deactivation">{program.deactivation_code}</LabeledList.Item>
                               )}
                               {!!program.kill_code && <LabeledList.Item label="Kill">{program.kill_code}</LabeledList.Item>}

@@ -15,15 +15,12 @@
 	var/trigger_cost = 0
 	///Deciseconds required between each trigger activation
 	var/trigger_cooldown = 50
-	///Deciseconds required between each activation
-	var/activate_cooldown = 0
 	/// Maximum duration that this program can be active for before turning off
 	/// If set to null, there will be no maximum duration
 	var/maximum_duration = null
 
 	///World time required for the next trigger activation
 	var/next_trigger = 0
-	COOLDOWN_DECLARE(next_activate)
 	/// Time that the nanite program will be automatically disabled
 	var/disable_time = null
 
@@ -44,15 +41,16 @@
 	//The following vars are customizable
 	var/activated = TRUE 			//If FALSE, the program won't process, disables passive effects, can't trigger and doesn't consume nanites
 
-	var/timer_restart = 0 			//When deactivated, the program will wait X deciseconds before self-reactivating. Also works if the program begins deactivated.
+	/// When deactivated, the program will wait X deciseconds before self-reactivating. Also works if the program begins deactivated.
+	/// If the nanites are a trigger nanite, then it will trigger instead of activating.
+	var/timer_restart = 0
 	var/timer_shutdown = 0 			//When activated, the program will wait X deciseconds before self-deactivating. Also works if the program begins activated.
-	var/timer_trigger = 0			//[Trigger only] While active, the program will attempt to trigger once every x deciseconds.
 	var/timer_trigger_delay = 0				//[Trigger only] While active, the program will delay trigger signals by X deciseconds.
 
 	//Indicates the next world.time tick where these timers will act
+	/// When should the program re-activate itself automatically.
 	var/timer_restart_next = 0
 	var/timer_shutdown_next = 0
-	var/timer_trigger_next = 0
 	var/timer_trigger_delay_next = 0
 
 	//Signal codes, these handle remote input to the nanites. If set to 0 they'll ignore signals.
@@ -81,6 +79,9 @@
 /datum/nanite_program/New()
 	. = ..()
 	register_extra_settings()
+	// Anything with a maximum duration must be an active ability
+	if (maximum_duration)
+		can_trigger = TRUE
 
 /datum/nanite_program/Destroy()
 	extra_settings = null
@@ -108,7 +109,6 @@
 		target.activated = activated
 	target.timer_restart = timer_restart
 	target.timer_shutdown = timer_shutdown
-	target.timer_trigger = timer_trigger
 	target.timer_trigger_delay = timer_trigger_delay
 	target.activation_code = activation_code
 	target.deactivation_code = deactivation_code
@@ -173,6 +173,9 @@
 
 /datum/nanite_program/proc/on_mob_add()
 	host_mob = nanites.host_mob
+	// Triggered nanite programs can only be triggered and not activated/de-activated
+	if (can_trigger)
+		return
 	if(activated) //apply activation effects depending on initial status; starts the restart and shutdown timers
 		activate()
 	else
@@ -182,20 +185,18 @@
 	return
 
 /datum/nanite_program/proc/toggle()
+	// Triggered nanite programs can only be triggered and not activated/de-activated
+	if (can_trigger)
+		return
 	if(!activated)
 		activate()
 	else
 		deactivate()
 
 /datum/nanite_program/proc/activate()
-	if(!COOLDOWN_FINISHED(src, next_activate))
-		deactivate()
-		return
 	activated = TRUE
 	if(timer_shutdown)
 		timer_shutdown_next = world.time + timer_shutdown
-	if(activate_cooldown)
-		COOLDOWN_START(src, next_activate, activate_cooldown)
 	if (!isnull(maximum_duration))
 		disable_time = world.time + maximum_duration
 
@@ -211,23 +212,29 @@
 /// Processes every second
 /datum/nanite_program/proc/on_process()
 	SHOULD_CALL_PARENT(TRUE)
-	if(!activated)
+	if(!can_trigger && !activated)
 		if(timer_restart_next && world.time > timer_restart_next)
 			activate()
 			timer_restart_next = 0
 		return
 
-	if(timer_shutdown_next && world.time > timer_shutdown_next)
+	if (can_trigger && !activated)
+		if(timer_restart_next && world.time > timer_restart_next)
+			trigger()
+			timer_restart_next = 0
+		return
+
+	if(!can_trigger && timer_shutdown_next && world.time > timer_shutdown_next)
 		deactivate()
 		timer_shutdown_next = 0
 		return
 
-	if(timer_trigger && world.time > timer_trigger_next)
-		trigger()
-		timer_trigger_next = world.time + timer_trigger
+	// Disable time forces deactivation
+	if (!isnull(disable_time) && world.time > disable_time)
+		deactivate()
 		return
 
-	if(timer_trigger_delay_next && world.time > timer_trigger_delay_next)
+	if(can_trigger && timer_trigger_delay_next && world.time > timer_trigger_delay_next)
 		trigger(delayed = TRUE)
 		timer_trigger_delay_next = 0
 		return
@@ -294,21 +301,28 @@
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
-	if(!can_trigger || !activated || world.time < next_trigger)
+	if(!can_trigger || world.time < next_trigger)
+		// If we fail to trigger, then requeue to trigger again
+		if (!timer_restart_next && timer_restart)
+			timer_restart_next = world.time + timer_restart
 		return
 	if(timer_trigger_delay && !delayed)
 		timer_trigger_delay_next = world.time + timer_trigger_delay
 		return
+	// If we don't have a maximum duration, queue up the trigger restart
+	if (!maximum_duration && timer_restart)
+		timer_restart_next = world.time + timer_restart
 	if(!check_conditions())
 		return
 	if(!consume_nanites(trigger_cost))
 		return
-	next_trigger = world.time + trigger_cooldown
+	next_trigger = world.time + trigger_cooldown + maximum_duration
 	on_trigger(comm_message)
 
 //Nanite trigger effect, requires can_trigger to be used
 /datum/nanite_program/proc/on_trigger(comm_message)
-	return
+	if (maximum_duration)
+		activate()
 
 /datum/nanite_program/proc/consume_nanites(amount, force = FALSE)
 	return nanites.consume_nanites(amount, force)
@@ -336,7 +350,7 @@
 
 /datum/nanite_program/proc/software_error(type)
 	if(!type)
-		type = rand(1,5)
+		type = rand(1,4)
 	switch(type)
 		if(1)
 			qdel(src) //kill switch
@@ -347,21 +361,21 @@
 			kill_code = 0
 			trigger_code = 0
 		if(3)
-			toggle() //enable/disable
-		if(4)
 			if(can_trigger)
 				trigger()
-		if(5) //Program is scrambled and does something different
+			else
+				toggle()
+		if(4) //Program is scrambled and does something different
 			var/rogue_type = pick(rogue_types)
 			var/datum/nanite_program/rogue = new rogue_type
 			nanites.add_program(null, rogue, src)
 			qdel(src)
 
 /datum/nanite_program/proc/receive_nanite_signal(code, source)
-	if(activation_code && code == activation_code && !activated)
+	if(activation_code && code == activation_code && !activated && !can_trigger)
 		activate()
 		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
-	else if(deactivation_code && code == deactivation_code && activated)
+	else if(deactivation_code && code == deactivation_code && activated && !can_trigger)
 		deactivate()
 		host_mob.investigate_log("'s [name] nanite program was deactivated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
 	if(can_trigger && trigger_code && code == trigger_code)

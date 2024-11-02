@@ -91,6 +91,7 @@
 			disk_data["can_trigger"] = P.can_trigger
 			disk_data["trigger_cost"] = P.trigger_cost
 			disk_data["trigger_cooldown"] = P.trigger_cooldown / 10
+			disk_data["maximum_duration"] = P.maximum_duration / 10
 
 			disk_data["activated"] = P.activated
 			disk_data["activation_code"] = P.activation_code
@@ -99,7 +100,6 @@
 			disk_data["trigger_code"] = P.trigger_code
 			disk_data["timer_restart"] = P.timer_restart / 10
 			disk_data["timer_shutdown"] = P.timer_shutdown / 10
-			disk_data["timer_trigger"] = P.timer_trigger / 10
 			disk_data["timer_trigger_delay"] = P.timer_trigger_delay / 10
 
 			var/list/extra_settings = P.get_extra_settings_frontend()
@@ -134,10 +134,10 @@
 				cloud_program["can_trigger"] = P.can_trigger
 				cloud_program["trigger_cost"] = P.trigger_cost
 				cloud_program["trigger_cooldown"] = P.trigger_cooldown / 10
+				cloud_program["maximum_duration"] = P.maximum_duration / 10
 				cloud_program["activated"] = P.activated
 				cloud_program["timer_restart"] = P.timer_restart / 10
 				cloud_program["timer_shutdown"] = P.timer_shutdown / 10
-				cloud_program["timer_trigger"] = P.timer_trigger / 10
 				cloud_program["timer_trigger_delay"] = P.timer_trigger_delay / 10
 
 				cloud_program["activation_code"] = P.activation_code

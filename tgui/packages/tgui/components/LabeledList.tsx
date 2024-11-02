@@ -88,7 +88,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         color={color}
         textAlign={textAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
-        colSpan={buttons ? undefined : 2}
+        colSpan={(buttons ? undefined : 2)}
         verticalAlign={verticalAlign}>
         {content}
         {children}
@@ -117,6 +117,8 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
     </tr>
   );
 };
+
+LabeledListDivider.defaultHooks = pureComponentHooks;
 
 LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;

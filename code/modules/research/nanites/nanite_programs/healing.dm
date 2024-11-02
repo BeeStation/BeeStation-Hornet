@@ -5,6 +5,9 @@
 	desc = "The nanites boost the host's natural regeneration, increasing their healing speed. Does not consume nanites if the host is unharmed."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/necrotic)
+	// Heals a total of 20 damage
+	maximum_duration = 40 SECONDS
+	trigger_cooldown = 120 SECONDS
 
 /datum/nanite_program/regenerative/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
@@ -32,8 +35,10 @@
 /datum/nanite_program/temperature
 	name = "Temperature Adjustment"
 	desc = "The nanites adjust the host's internal temperature to an ideal level."
-	use_rate = 3.5
+	use_rate = 1.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	maximum_duration = 2 MINUTES
+	trigger_cooldown = 1 MINUTES
 
 /datum/nanite_program/temperature/check_conditions()
 	if(host_mob.bodytemperature > (host_mob.get_body_temp_normal(apply_change=FALSE) - 30) && host_mob.bodytemperature < (host_mob.get_body_temp_normal(apply_change=FALSE) + 30))
@@ -66,9 +71,11 @@
 
 /datum/nanite_program/brain_heal
 	name = "Neural Regeneration"
-	desc = "The nanites fix neural connections in the host's brain, reversing brain damage and minor traumas."
+	desc = "The nanites fix neural connections in the host's brain, reversing brain damage and minor traumas. Heals a total of 20 brain damage on activation."
 	use_rate = 1.5
 	rogue_types = list(/datum/nanite_program/brain_decay)
+	maximum_duration = 20 SECONDS
+	trigger_cooldown = 2 MINUTES
 
 /datum/nanite_program/brain_heal/check_conditions()
 	var/problems = FALSE
