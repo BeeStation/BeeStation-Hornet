@@ -13,6 +13,7 @@
 	ADD_TRAIT(host_mob, TRAIT_STUNIMMUNE, SOURCE_NANITE_NERVOUS)
 	ADD_VALUE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_NERVOUS, "deb440", SKIN_PRIORITY_NANITES)
 
+
 /datum/nanite_program/nervous/disable_passive_effect()
 	. = ..()
 	REMOVE_TRAIT(host_mob, TRAIT_STUNIMMUNE, SOURCE_NANITE_NERVOUS)
@@ -50,7 +51,6 @@
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.physio_armor.add_other_armor(nanite_armor)
-		ADD_TRAIT(H, TRAIT_NANITE_SKIN, SOURCE_NANITES)
 		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "111111", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/hardening/disable_passive_effect()
@@ -58,7 +58,6 @@
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
-		REMOVE_TRAIT(H, TRAIT_NANITE_SKIN, SOURCE_NANITES)
 		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING)
 
 /datum/nanite_program/refractive
