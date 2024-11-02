@@ -500,7 +500,7 @@
 		C = owner
 		no_update = FALSE
 
-	if(HAS_TRAIT(C, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
+	if(C && HAS_TRAIT(C, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
 		dmg_overlay_type = "" //no damage overlay shown when husked
 		is_husked = TRUE
 	else

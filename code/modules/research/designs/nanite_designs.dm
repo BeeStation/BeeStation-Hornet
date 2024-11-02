@@ -634,11 +634,3 @@
 	id = "unsafe_storage_nanites"
 	program_type = /datum/nanite_program/protocol/unsafe_storage
 	category = list("Protocols_Nanites")
-
-////////////////////NANITE CLASSIFIED//////////////////////////////////////
-/datum/design/nanites/mindshield
-	name = "Mental Barrier"
-	desc = "The nanites form a protective membrane around the host's brain, shielding them from abnormal influences while they're active."
-	id = "mindshield_nanites"
-	program_type = /datum/nanite_program/mindshield
-	category = list("Classified_Nanites")

@@ -93,7 +93,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         color={color}
         textAlign={textAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
-        colSpan={buttons ? undefined : 2}
+        colSpan={(buttons ? undefined : 2)}
         verticalAlign={verticalAlign}>
         {content}
         {children}
@@ -127,5 +127,44 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
 
 LabeledListDivider.defaultHooks = pureComponentHooks;
 
+type LabeledListRowProps = Partial<{
+  className: string | BooleanLike;
+  color: string | BooleanLike;
+  textAlign: string | BooleanLike;
+  /** @deprecated */
+  content: any;
+  children: InfernoNode;
+  verticalAlign: string;
+  tooltip: string;
+}>;
+
+const LabeledListRow = (props: LabeledListRowProps) => {
+  const {
+    className,
+    color,
+    textAlign,
+    content,
+    children,
+    verticalAlign = 'baseline',
+  } = props;
+
+
+  return (
+    <tr className={classes(['LabeledList__row', className])}>
+      <td
+        color={color}
+        textAlign={textAlign}
+        colSpan={3}
+        verticalAlign={verticalAlign}>
+        {content}
+        {children}
+      </td>
+    </tr>
+  );
+};
+
+LabeledListRow.defaultHooks = pureComponentHooks;
+
 LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;
+LabeledList.Row = LabeledListRow;

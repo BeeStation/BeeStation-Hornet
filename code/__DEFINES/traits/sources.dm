@@ -133,3 +133,8 @@
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+
+// Nanite sources
+#define SOURCE_NANITE_HARDENING "nanite_hardening"
+#define SOURCE_NANITE_REFRACTION "nanite_refraction"
+#define SOURCE_NANITE_BLOOD "nanite_blood"

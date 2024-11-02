@@ -446,11 +446,11 @@
 			mob_program["can_trigger"] = program.can_trigger
 			mob_program["trigger_cost"] = program.trigger_cost
 			mob_program["trigger_cooldown"] = program.trigger_cooldown / 10
+			mob_program["maximum_duration"] = program.maximum_duration / 10
 
 		if(scan_level >= 3)
 			mob_program["timer_restart"] = program.timer_restart / 10
 			mob_program["timer_shutdown"] = program.timer_shutdown / 10
-			mob_program["timer_trigger"] = program.timer_trigger / 10
 			mob_program["timer_trigger_delay"] = program.timer_trigger_delay / 10
 			var/list/extra_settings = program.get_extra_settings_frontend()
 			mob_program["extra_settings"] = extra_settings
