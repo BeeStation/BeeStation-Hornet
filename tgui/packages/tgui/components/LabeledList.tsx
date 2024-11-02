@@ -129,7 +129,6 @@ LabeledListDivider.defaultHooks = pureComponentHooks;
 
 type LabeledListRowProps = Partial<{
   className: string | BooleanLike;
-  color: string | null | undefined;
   textAlign: string | BooleanLike;
   /** @deprecated */
   content: any;
@@ -139,11 +138,11 @@ type LabeledListRowProps = Partial<{
 }>;
 
 const LabeledListRow = (props: LabeledListRowProps) => {
-  const { className, color, textAlign, content, children, verticalAlign = 'baseline' } = props;
+  const { className, textAlign, content, children, verticalAlign = 'baseline' } = props;
 
   return (
     <tr className={classes(['LabeledList__row', className])}>
-      <td color={color} textAlign={textAlign} colSpan={3} verticalAlign={verticalAlign}>
+      <td textAlign={textAlign} colSpan={3} verticalAlign={verticalAlign}>
         {content}
         {children}
       </td>
