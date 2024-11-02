@@ -214,7 +214,7 @@
 	name = "Nanite Tomb"
 	desc = "The nanites replace dead-cells inside the body temporarilly preventing the host from succumbing to death."
 	can_trigger = TRUE
-	use_rate = 20
+	use_rate = 5
 	trigger_cooldown = 2 MINUTES
 	maximum_duration = 1 MINUTES
 
