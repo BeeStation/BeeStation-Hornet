@@ -17,6 +17,7 @@
 		if(ishuman(readied_player.new_character))
 			inject(readied_player.new_character)
 		CHECK_TICK
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /// Gets the current manifest.
 /datum/manifest/proc/get_manifest()
