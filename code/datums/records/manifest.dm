@@ -164,7 +164,6 @@
 
 	target.character_appearance = new(person.appearance)
 	target.recreate_manifest_photos(add_height_chart)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 	return TRUE
 
 /**
