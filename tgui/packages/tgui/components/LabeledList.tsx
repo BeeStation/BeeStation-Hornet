@@ -129,7 +129,7 @@ LabeledListDivider.defaultHooks = pureComponentHooks;
 
 type LabeledListRowProps = Partial<{
   className: string | BooleanLike;
-  color: string | BooleanLike;
+  color: string | null | undefined;
   textAlign: string | BooleanLike;
   /** @deprecated */
   content: any;
