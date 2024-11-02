@@ -64,10 +64,10 @@
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
 	if(target.handcuffed)
-		return
+		return FALSE
 
 	if(!user.temporarilyRemoveItemFromInventory(src) && !dispense)
-		return
+		return FALSE
 
 	var/obj/item/restraints/handcuffs/cuffs = src
 	if(trashtype)
@@ -81,7 +81,7 @@
 	target.update_handcuffed()
 	if(trashtype && !dispense)
 		qdel(src)
-	return
+	return TRUE
 
 /obj/item/restraints/handcuffs/cable
 	name = "cable restraints"
