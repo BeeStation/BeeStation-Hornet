@@ -5,10 +5,7 @@ import { Window } from '../layouts';
 const NaniteCodes = (props, context) => {
   const { act } = useBackend(context);
 
-  const {
-    program,
-    read_only,
-  } = props;
+  const { program, read_only } = props;
 
   const {
     name,
@@ -32,67 +29,85 @@ const NaniteCodes = (props, context) => {
       <LabeledList>
         {!can_trigger && (
           <>
-          <LabeledList.Item label="Activation" tooltip='When the program receives this code, the effects will be activated.'>
-            {read_only ? activation_code :
-            <NumberInput
-              value={activation_code}
-              width="47px"
-              minValue={0}
-              maxValue={9999}
-              onChange={(e, value) =>
-                act('set_code', {
-                  target_code: 'activation',
-                  code: value,
-                })
-              }
-            />}
-          </LabeledList.Item>
-          <LabeledList.Item label="Deactivation" tooltip='When the program receives this code, the effects will be deactivated.'>
-          {read_only ? deactivation_code :
-            <NumberInput
-              value={deactivation_code}
-              width="47px"
-              minValue={0}
-              maxValue={9999}
-              onChange={(e, value) =>
-                act('set_code', {
-                  target_code: 'deactivation',
-                  code: value,
-                })
-              }
-            />}
-          </LabeledList.Item>
+            <LabeledList.Item label="Activation" tooltip="When the program receives this code, the effects will be activated.">
+              {read_only ? (
+                activation_code
+              ) : (
+                <NumberInput
+                  value={activation_code}
+                  width="47px"
+                  minValue={0}
+                  maxValue={9999}
+                  onChange={(e, value) =>
+                    act('set_code', {
+                      target_code: 'activation',
+                      code: value,
+                    })
+                  }
+                />
+              )}
+            </LabeledList.Item>
+            <LabeledList.Item
+              label="Deactivation"
+              tooltip="When the program receives this code, the effects will be deactivated.">
+              {read_only ? (
+                deactivation_code
+              ) : (
+                <NumberInput
+                  value={deactivation_code}
+                  width="47px"
+                  minValue={0}
+                  maxValue={9999}
+                  onChange={(e, value) =>
+                    act('set_code', {
+                      target_code: 'deactivation',
+                      code: value,
+                    })
+                  }
+                />
+              )}
+            </LabeledList.Item>
           </>
         )}
         {!!can_trigger && (
-          <LabeledList.Item label="Trigger" tooltip='When the program receives this code, the effect will be activated.'>
-            {read_only ? trigger_code :<NumberInput
-              value={trigger_code}
+          <LabeledList.Item label="Trigger" tooltip="When the program receives this code, the effect will be activated.">
+            {read_only ? (
+              trigger_code
+            ) : (
+              <NumberInput
+                value={trigger_code}
+                width="47px"
+                minValue={0}
+                maxValue={9999}
+                onChange={(e, value) =>
+                  act('set_code', {
+                    target_code: 'trigger',
+                    code: value,
+                  })
+                }
+              />
+            )}
+          </LabeledList.Item>
+        )}
+        <LabeledList.Item
+          label="Kill"
+          tooltip="If set to a non-zero value, when the code is received the program will be removed from the user.">
+          {read_only ? (
+            kill_code
+          ) : (
+            <NumberInput
+              value={kill_code}
               width="47px"
               minValue={0}
               maxValue={9999}
               onChange={(e, value) =>
                 act('set_code', {
-                  target_code: 'trigger',
+                  target_code: 'kill',
                   code: value,
                 })
               }
-            />}
-          </LabeledList.Item>
-        )}
-        <LabeledList.Item label="Kill" tooltip='If set to a non-zero value, when the code is received the program will be removed from the user.'>
-        {read_only ? kill_code :<NumberInput
-            value={kill_code}
-            width="47px"
-            minValue={0}
-            maxValue={9999}
-            onChange={(e, value) =>
-              act('set_code', {
-                target_code: 'kill',
-                code: value,
-              })
-            }
-          />}
+            />
+          )}
         </LabeledList.Item>
       </LabeledList>
     </Section>
@@ -102,10 +117,7 @@ const NaniteCodes = (props, context) => {
 const NaniteDelays = (props, context) => {
   const { act } = useBackend(context);
 
-  const {
-    program,
-    read_only,
-  } = props;
+  const { program, read_only } = props;
 
   const {
     name,
@@ -126,58 +138,80 @@ const NaniteDelays = (props, context) => {
   return (
     <Section title="Delays" level={3} ml={1}>
       <LabeledList>
-        <LabeledList.Item label={can_trigger ? 'Re-trigger Timer' : 'Re-activate Timer'} tooltip={can_trigger ? 'When the effects of this program finish or when a trigger fails, the trigger will be re-attempted after this amount of time forming a loop.' : 'When the program deactivates, it will attempt to reactivate after this amount of time.'}>
-        {read_only ? timer_restart :<NumberInput
-            value={timer_restart}
-            unit="s"
-            width="57px"
-            minValue={0}
-            maxValue={3600}
-            onChange={(e, value) =>
-              act('set_restart_timer', {
-                delay: value,
-              })
-            }
-          />}
+        <LabeledList.Item
+          label={can_trigger ? 'Re-trigger Timer' : 'Re-activate Timer'}
+          tooltip={
+            can_trigger
+              ? 'When the effects of this program finish or when a trigger fails, the trigger will be re-attempted after this amount of time forming a loop.'
+              : 'When the program deactivates, it will attempt to reactivate after this amount of time.'
+          }>
+          {read_only ? (
+            timer_restart
+          ) : (
+            <NumberInput
+              value={timer_restart}
+              unit="s"
+              width="57px"
+              minValue={0}
+              maxValue={3600}
+              onChange={(e, value) =>
+                act('set_restart_timer', {
+                  delay: value,
+                })
+              }
+            />
+          )}
         </LabeledList.Item>
-        {(!read_only && !!timer_restart && (timer_restart < trigger_cooldown) && (
+        {!read_only && !!timer_restart && timer_restart < trigger_cooldown && (
           <LabeledList.Item>
-            <NoticeBox color='red'>
-              <Icon name='warning' color='yellow' mr={1} />
+            <NoticeBox color="red">
+              <Icon name="warning" color="yellow" mr={1} />
               Duration shorter than cooldown
             </NoticeBox>
           </LabeledList.Item>
-        ))}
+        )}
         {!can_trigger && (
-          <LabeledList.Item label="Shutdown Timer" tooltip='After a set amount of seconds, the program will automatically deactivate if this is set.'>
-            {read_only ? timer_shutdown :<NumberInput
-              value={timer_shutdown}
-              unit="s"
-              width="57px"
-              minValue={0}
-              maxValue={3600}
-              onChange={(e, value) =>
-                act('set_shutdown_timer', {
-                  delay: value,
-                })
-              }
-            />}
+          <LabeledList.Item
+            label="Shutdown Timer"
+            tooltip="After a set amount of seconds, the program will automatically deactivate if this is set.">
+            {read_only ? (
+              timer_shutdown
+            ) : (
+              <NumberInput
+                value={timer_shutdown}
+                unit="s"
+                width="57px"
+                minValue={0}
+                maxValue={3600}
+                onChange={(e, value) =>
+                  act('set_shutdown_timer', {
+                    delay: value,
+                  })
+                }
+              />
+            )}
           </LabeledList.Item>
         )}
         {!!can_trigger && (
-          <LabeledList.Item label="Trigger Delay" tooltip='The delay between the trigger signal being received and the effects being activated.'>
-            {read_only ? timer_trigger_delay :<NumberInput
-              value={timer_trigger_delay}
-              unit="s"
-              width="57px"
-              minValue={0}
-              maxValue={3600}
-              onChange={(e, value) =>
-                act('set_timer_trigger_delay', {
-                  delay: value,
-                })
-              }
-            />}
+          <LabeledList.Item
+            label="Trigger Delay"
+            tooltip="The delay between the trigger signal being received and the effects being activated.">
+            {read_only ? (
+              timer_trigger_delay
+            ) : (
+              <NumberInput
+                value={timer_trigger_delay}
+                unit="s"
+                width="57px"
+                minValue={0}
+                maxValue={3600}
+                onChange={(e, value) =>
+                  act('set_timer_trigger_delay', {
+                    delay: value,
+                  })
+                }
+              />
+            )}
           </LabeledList.Item>
         )}
       </LabeledList>
@@ -278,63 +312,7 @@ const NaniteExtraBoolean = (props, context) => {
 
 export const NaniteInfoGrid = (props, context) => {
   const { act } = useBackend(context);
-  const {
-    program,
-    read_only,
-  } = props;
-  const {
-    name,
-    desc,
-    use_rate,
-    can_trigger,
-    trigger_cost,
-    trigger_cooldown,
-    maximum_duration,
-    activated,
-    has_extra_settings,
-    extra_settings = {},
-  } = program;
-
-  return (
-    <Section title={name} buttons={read_only ? (can_trigger ? <Box bold color='orange'>Triggered</Box> : activated ? <Box bold color='green'>Activated</Box> : <Box bold color='red'>Deactivated</Box>) : (can_trigger ? <Box bold color='orange'>Triggered</Box> : <Button
-      icon={activated ? 'power-off' : 'times'}
-      content={activated ? 'Active' : 'Inactive'}
-      selected={activated}
-      color={"bad"}
-      bold
-      onClick={() => act('toggle_active')}
-    />)}>
-      <Grid>
-        <Grid.Column>{desc}</Grid.Column>
-        <Grid.Column size={0.7}>
-          <LabeledList>
-            {(!can_trigger || !maximum_duration) ? (
-              <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
-            ) : (
-              <LabeledList.Item label="Activation Cost">{use_rate * maximum_duration}</LabeledList.Item>
-            )}
-            {!!can_trigger && (
-              <>
-                {(!!trigger_cost || !maximum_duration) && <LabeledList.Item label="Trigger Cost">{trigger_cost}</LabeledList.Item>}
-                <LabeledList.Item label="Trigger Cooldown">{trigger_cooldown}s</LabeledList.Item>
-                {!!maximum_duration && (
-                  <LabeledList.Item label="Effect Duration">{maximum_duration}s</LabeledList.Item>
-                )}
-              </>
-            )}
-          </LabeledList>
-        </Grid.Column>
-      </Grid>
-    </Section>
-  );
-};
-
-export const NaniteSettings = (props, context) => {
-  const {
-    program,
-    read_only,
-  } = props;
-
+  const { program, read_only } = props;
   const {
     name,
     desc,
@@ -350,8 +328,80 @@ export const NaniteSettings = (props, context) => {
 
   return (
     <Section
-      title="Settings"
-      level={2}>
+      title={name}
+      buttons={
+        read_only ? (
+          can_trigger ? (
+            <Box bold color="orange">
+              Triggered
+            </Box>
+          ) : activated ? (
+            <Box bold color="green">
+              Activated
+            </Box>
+          ) : (
+            <Box bold color="red">
+              Deactivated
+            </Box>
+          )
+        ) : can_trigger ? (
+          <Box bold color="orange">
+            Triggered
+          </Box>
+        ) : (
+          <Button
+            icon={activated ? 'power-off' : 'times'}
+            content={activated ? 'Active' : 'Inactive'}
+            selected={activated}
+            color={'bad'}
+            bold
+            onClick={() => act('toggle_active')}
+          />
+        )
+      }>
+      <Grid>
+        <Grid.Column>{desc}</Grid.Column>
+        <Grid.Column size={0.7}>
+          <LabeledList>
+            {!can_trigger || !maximum_duration ? (
+              <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
+            ) : (
+              <LabeledList.Item label="Activation Cost">{use_rate * maximum_duration}</LabeledList.Item>
+            )}
+            {!!can_trigger && (
+              <>
+                {(!!trigger_cost || !maximum_duration) && (
+                  <LabeledList.Item label="Trigger Cost">{trigger_cost}</LabeledList.Item>
+                )}
+                <LabeledList.Item label="Trigger Cooldown">{trigger_cooldown}s</LabeledList.Item>
+                {!!maximum_duration && <LabeledList.Item label="Effect Duration">{maximum_duration}s</LabeledList.Item>}
+              </>
+            )}
+          </LabeledList>
+        </Grid.Column>
+      </Grid>
+    </Section>
+  );
+};
+
+export const NaniteSettings = (props, context) => {
+  const { program, read_only } = props;
+
+  const {
+    name,
+    desc,
+    use_rate,
+    can_trigger,
+    trigger_cost,
+    trigger_cooldown,
+    maximum_duration,
+    activated,
+    has_extra_settings,
+    extra_settings = {},
+  } = program;
+
+  return (
+    <Section title="Settings" level={2}>
       <Grid>
         <Grid.Column>
           <NaniteCodes program={program} read_only={read_only} />
