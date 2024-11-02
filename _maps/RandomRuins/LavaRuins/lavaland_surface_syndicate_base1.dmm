@@ -4407,7 +4407,6 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white/side{
 	dir = 4
