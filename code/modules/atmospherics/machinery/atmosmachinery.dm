@@ -173,6 +173,9 @@
 /obj/machinery/atmospherics/proc/return_pipenet()
 	return
 
+/*
+ * Called by add_machinery_member() in datum_pipeline.dm, returns a list of gas_mixtures and assigns them into other_airs (by add_machinery_member) to allow pressure redistribution for the machineries.
+ */
 /obj/machinery/atmospherics/proc/return_pipenet_airs()
 	return
 
