@@ -2000,10 +2000,12 @@
 	max_supply = 4
 	access = ACCESS_TELEPORTER
 	access = ACCESS_TELEPORTER
-	contains = list(/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen)
+	contains = list(
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen
+	)
 	crate_name = "shield generators crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 

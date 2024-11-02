@@ -306,6 +306,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
 
+/// For unit testing, all do_afters set on this mob complete instantly and do not sleep
+#define INSTANT_DO_AFTER "instant_do_after"
+
 /// We are ignoring gravity
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
 /// We have some form of forced gravity acting on us
