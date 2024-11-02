@@ -102,6 +102,14 @@
 			// We already have enough of this type, skip
 			if(requirements_list[req_type] <= 0)
 				continue
+
+			if (ispath(req_type, /datum/reagent))
+				if (nearby_atom.reagents.get_reagent_amount(req_type))
+					// Can go negative, but doesn't matter. Negative = fulfilled
+					requirements_list[req_type] -= nearby_atom.reagents.get_reagent_amount(req_type)
+					selected_atoms |= nearby_atom
+				continue
+
 			if(!istype(nearby_atom, req_type))
 				continue
 

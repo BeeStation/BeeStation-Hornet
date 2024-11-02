@@ -232,7 +232,7 @@
 		return TRUE
 	return FALSE
 
-/turf/open/space/rust_heretic_act()
+/turf/open/space/rust_heretic_act(intensity)
 	return FALSE
 
 /turf/open/space/ReplaceWithLattice()

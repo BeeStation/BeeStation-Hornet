@@ -145,7 +145,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 		return TRUE
 	return FALSE
 
-/turf/open/openspace/rust_heretic_act()
+/turf/open/openspace/rust_heretic_act(intensity)
 	return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible

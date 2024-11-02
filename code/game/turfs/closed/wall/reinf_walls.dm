@@ -225,11 +225,11 @@
 	if(the_rcd.canRturf)
 		return ..()
 
-/turf/closed/wall/r_wall/rust_heretic_act()
+/turf/closed/wall/r_wall/rust_heretic_act(intensity)
 	if(prob(50))
-		return
+		return TRUE
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		ScrapeAway()
+		take_damage(40 * intensity)
 		return TRUE
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)

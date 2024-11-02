@@ -102,17 +102,6 @@
 	REMOVE_TRAIT(source, TRAIT_VALUE_FLESH_MARK, "flesh_gasp")
 	ADD_VALUE_TRAIT(source, TRAIT_VALUE_FLESH_MARK, "flesh_gasp", WEAKREF(target.apply_status_effect(/datum/status_effect/flesh_decay)), 1)
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp/proc/remove_ghoul(mob/living/carbon/human/source)
-	SIGNAL_HANDLER
-
-	LAZYREMOVE(created_items, WEAKREF(source))
-	source.setMaxHealth(initial(source.maxHealth))
-	source.cure_husk(MAGIC_TRAIT)
-	source.remove_status_effect(/datum/status_effect/ghoul)
-	source.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
-
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
-
 /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	name = "Imperfect Ritual"
 	desc = "Allows you to transmute a corpse and a flower to create a Voiceless Dead. \

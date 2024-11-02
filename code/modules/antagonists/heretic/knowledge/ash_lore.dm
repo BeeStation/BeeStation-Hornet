@@ -57,7 +57,7 @@
 
 /datum/heretic_knowledge/ashen_grasp
 	name = "Grasp of Ash"
-	desc = "Your Mansus Grasp will burn the eyes of the victim, causing damage and blindness."
+	desc = "Your Mansus Grasp blinds the victim and temporarilly disables their headset."
 	gain_text = "The Nightwatcher was the first of them, his treason started it all. \
 		Their lantern, expired to ash - their watch, absent."
 	next_knowledge = list(/datum/heretic_knowledge/spell/ash_passage)
@@ -73,6 +73,9 @@
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
+	if (!istype(target))
+		return
+
 	if(HAS_TRAIT(target, TRAIT_BLIND))
 		return
 
@@ -82,6 +85,11 @@
 	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
 	target.blur_eyes(10)
+
+	if (!istype(target, /mob/living/carbon/human))
+		return
+	var/mob/living/carbon/human/human_target = target
+	human_target.ears?.emp_act(EMP_HEAVY)
 
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Ashen Passage"

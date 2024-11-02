@@ -795,8 +795,8 @@ Class Procs:
 		next_clicksound = world.time + CLICKSOUND_INTERVAL
 		playsound(src, custom_clicksound, clickvol)
 
-/obj/machinery/rust_heretic_act()
-	take_damage(500, BRUTE, MELEE, 1)
+/obj/machinery/rust_heretic_act(intensity)
+	take_damage(10 * intensity, BRUTE, MELEE, 1)
 	return TRUE
 
 /obj/machinery/vv_edit_var(vname, vval)

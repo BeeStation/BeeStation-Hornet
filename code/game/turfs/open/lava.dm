@@ -64,7 +64,7 @@
 		return TRUE
 	return FALSE
 
-/turf/open/lava/rust_heretic_act()
+/turf/open/lava/rust_heretic_act(intensity)
 	return FALSE
 
 /turf/open/lava/singularity_pull(S, current_size)

@@ -286,8 +286,8 @@
 /obj/vehicle/sealed/mecha/get_cell()
 	return cell
 
-/obj/vehicle/sealed/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
+/obj/vehicle/sealed/mecha/rust_heretic_act(intensity)
+	take_damage(20 * intensity,  BRUTE)
 	return TRUE
 
 /obj/vehicle/sealed/mecha/proc/restore_equipment()

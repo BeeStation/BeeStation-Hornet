@@ -587,3 +587,7 @@
 		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(M.melee_damage * 0.1 * hit_amount)
+
+/mob/living/carbon/rust_heretic_act(intensity)
+	ears.emp_act(EMP_HEAVY)
+	return TRUE

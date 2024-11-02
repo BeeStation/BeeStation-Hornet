@@ -404,9 +404,9 @@
 // Rust
 //====================================
 
-/turf/rust_heretic_act()
+/turf/rust_heretic_act(intensity)
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		return
+		return FALSE
 
 	AddElement(/datum/element/rust)
 	return TRUE

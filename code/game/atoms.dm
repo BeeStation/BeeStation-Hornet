@@ -1836,9 +1836,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   * Causes effects when the atom gets hit by a rust effect from heretics
   *
   * Override this if you want custom behaviour in whatever gets hit by the rust
+  *
+  * Intensity will start at 1 and works as a multiplier. This is called every second
+  * that the rust is applied to something which will continue to be called until the
+  * heretic moves away.
+  *
+  * Return true if the effect is valid, or false to cancel
   */
-/atom/proc/rust_heretic_act()
-	return
+/atom/proc/rust_heretic_act(intensity)
+	return FALSE
 
 /**
   * Used to set something as 'open' if it's being used as a supplypod
