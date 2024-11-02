@@ -35,6 +35,7 @@
 #include "food_edibility_check.dm"
 #include "gamemode_sanity.dm"
 #include "greyscale_config.dm"
+#include "handcuff_tests.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"

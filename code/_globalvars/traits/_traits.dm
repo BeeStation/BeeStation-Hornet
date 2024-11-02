@@ -183,6 +183,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	/mob/living/carbon = list(
 		"TRAIT_OVERRIDE_SKIN_COLOUR" = TRAIT_OVERRIDE_SKIN_COLOUR,
+		"INSTANT_DO_AFTER" = INSTANT_DO_AFTER
 	),
 	/obj/item/integrated_circuit = list(
 		"TRAIT_COMPONENT_MMI" = TRAIT_COMPONENT_MMI,
