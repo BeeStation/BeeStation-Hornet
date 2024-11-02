@@ -138,6 +138,7 @@
 		minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
 		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
 	)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /// Edits the rank of the found record.
 /datum/manifest/proc/modify(name, assignment)
@@ -146,6 +147,7 @@
 		return
 
 	target.rank = assignment
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /**
  * Using the name to find the record, and person in reference to the body, we recreate photos for the manifest (and records).
@@ -161,6 +163,7 @@
 
 	target.character_appearance = new(person.appearance)
 	target.recreate_manifest_photos(add_height_chart)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 	return TRUE
 
 /**
