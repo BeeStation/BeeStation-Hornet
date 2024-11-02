@@ -970,6 +970,26 @@
 				thing.take_damage(100)
 	return ..()
 
+/datum/status_effect/heretic_mark/void
+	effect_icon_state = "emark4"
+
+/datum/status_effect/heretic_mark/on_apply()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/void_slowdown)
+	return ..()
+
+/datum/status_effect/heretic_mark/void/on_effect()
+	var/turf/open/turfie = get_turf(owner)
+	turfie.TakeTemperature(-40)
+	owner.adjust_bodytemperature(-20)
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.silent += 4
+	return ..()
+
+/datum/status_effect/heretic_mark/on_remove(/datum/movespeed_modifier/void_slowdown)
+	. = ..()
+	owner.remove_movespeed_modifier()
+
 /datum/status_effect/corrosion_curse
 	id = "corrosion_curse"
 	status_type = STATUS_EFFECT_REPLACE
@@ -1115,18 +1135,6 @@
 	name = "Infected"
 	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
 	icon_state = "grub"
-
-/datum/status_effect/heretic_mark/void
-	effect_icon_state = "emark4"
-
-/datum/status_effect/heretic_mark/void/on_effect()
-	var/turf/open/turfie = get_turf(owner)
-	turfie.TakeTemperature(-40)
-	owner.adjust_bodytemperature(-20)
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.silent += 4
-	return ..()
 
 /datum/status_effect/amok
 	id = "amok"

@@ -73,6 +73,11 @@
 /datum/movespeed_modifier/cold
 	blacklisted_movetypes = FLOATING
 	variable = TRUE
+	conflicts_with = MOVE_CONFLICT_TEMPERATURE
+
+/datum/movespeed_modifier/void_slowdown
+	multiplicative_slowdown = 1
+	conflicts_with = MOVE_CONFLICT_TEMPERATURE
 
 /datum/movespeed_modifier/shove
 	multiplicative_slowdown = SHOVE_SLOWDOWN_STRENGTH

@@ -59,10 +59,18 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
-		loc.balloon_alert(user, "ritual failed, not cold enough!")
+	if(locate(/turf/open/floor/grass/snow) in RANGE_TURFS(1, our_turf))
+		loc.balloon_alert(user, "ritual failed, too much snow!")
 		return FALSE
 
+	return ..()
+
+/datum/heretic_knowledge/limited_amount/base_void/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	// Spawn snow
+	for (var/turf/open/floor/target_floor in view(2, loc))
+		if (prob(100 / get_dist(target_floor, loc)))
+			// The snow coats over the turf
+			target_floor.PlaceOnTop(/turf/open/floor/grass/snow/safe, flags = CHANGETURF_IGNORE_AIR)
 	return ..()
 
 /datum/heretic_knowledge/void_grasp
