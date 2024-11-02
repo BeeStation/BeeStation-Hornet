@@ -82,7 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	growthstages = 1
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/replicapod)
+	mutatelist = list(/obj/item/seeds/dionapod)
 	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/food/grown/cabbage

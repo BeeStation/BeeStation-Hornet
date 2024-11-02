@@ -1,5 +1,7 @@
 /obj/item/clothing/under/color
+	name = "jumpsuit"
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	dying_key = DYE_REGISTRY_UNDER
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
@@ -13,13 +15,11 @@
 	supports_variations = DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/color/jumpskirt
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-	icon_state = "jumpskirt"
-	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_JUMPSKIRT
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	icon_state = "jumpskirt"
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -36,7 +36,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/clothing/under/color/jumpskirt/random
-	icon_state = "random_jumpsuit"		//Skirt variant needed
+	icon_state = "random_jumpsuit" //Skirt variant needed
 
 /obj/item/clothing/under/color/jumpskirt/random/Initialize(mapload)
 	..()

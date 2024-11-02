@@ -3,7 +3,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "c" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -177,7 +177,7 @@
 "R" = (
 /obj/structure/closet/cardboard,
 /obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/obj/item/reagent_containers/cup/glass/bottle/hooch,
 /turf/open/floor/plating,
 /area/template_noop)
 "S" = (

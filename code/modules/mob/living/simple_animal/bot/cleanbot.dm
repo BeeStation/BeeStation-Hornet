@@ -281,7 +281,7 @@
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/atom/Tsec = drop_location()
 
-	new /obj/item/reagent_containers/glass/bucket(Tsec)
+	new /obj/item/reagent_containers/cup/bucket(Tsec)
 
 	new /obj/item/assembly/prox_sensor(Tsec)
 
@@ -434,39 +434,28 @@
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 
-
-/mob/living/simple_animal/bot/cleanbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	// missing bot program name here
-	dat += "<BR>Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>"
-	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
-	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
-
+/mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user)|| IsAdminGhost(user))
-		dat += "<BR>Clean Blood: <A href='?src=[REF(src)];operation=blood'>[blood ? "Yes" : "No"]</A>"
-		dat += "<BR>Clean Trash: <A href='?src=[REF(src)];operation=trash'>[trash ? "Yes" : "No"]</A>"
-		dat += "<BR>Clean Graffiti: <A href='?src=[REF(src)];operation=drawn'>[drawn ? "Yes" : "No"]</A>"
-		dat += "<BR>Exterminate Pests: <A href='?src=[REF(src)];operation=pests'>[pests ? "Yes" : "No"]</A>"
-		dat += "<BR><BR>Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A>"
-	return dat
+		data["custom_controls"]["clean_blood"] = blood
+		data["custom_controls"]["clean_trash"] = trash
+		data["custom_controls"]["clean_graffiti"] = drawn
+		data["custom_controls"]["pest_control"] = pests
+	return data
 
-/mob/living/simple_animal/bot/cleanbot/Topic(href, href_list)
-	if(..())
-		return 1
-	if(href_list["operation"])
-		switch(href_list["operation"])
-			if("blood")
-				blood = !blood
-			if("pests")
-				pests = !pests
-			if("trash")
-				trash = !trash
-			if("drawn")
-				drawn = !drawn
-		get_targets()
-		update_controls()
+/mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
+	if (..())
+		return TRUE
+	switch(action)
+		if("clean_blood")
+			blood = !blood
+		if("clean_trash")
+			trash = !trash
+		if("clean_graffiti")
+			drawn = !drawn
+		if("pest_control")
+			pests = !pests
+	get_targets()
 
 /obj/machinery/bot_core/cleanbot/medbay
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS, ACCESS_MEDICAL)

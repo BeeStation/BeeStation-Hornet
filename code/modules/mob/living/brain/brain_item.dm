@@ -21,8 +21,9 @@
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
-	var/decoy_override = FALSE	//if it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
-	//two variables necessary for calculating whether we get a brain trauma or not
+	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
+	var/decoy_override = FALSE
+	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
 
 	var/list/datum/brain_trauma/traumas = list()
@@ -219,6 +220,18 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
+
+/obj/item/organ/brain/diona
+	name = "diona nymph"
+	desc = "A small mass of roots and plant matter, it looks to be moving."
+	icon_state = "diona_brain"
+	decoy_override = TRUE
+
+/obj/item/organ/brain/diona/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load)
+	if(special)
+		return
+	C.dna.species.spec_death(FALSE, src)
+	QDEL_NULL(src)
 
 /obj/item/organ/brain/positron
 	name = "positronic brain"

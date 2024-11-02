@@ -26,18 +26,22 @@
 	/// Path of the tile that this floor drops
 	var/floor_tile = null
 
+	/// Number of variant states
+	var/variant_states = 0
+	/// Probability of a variant occuring
+	var/variant_probability = 0
+
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
+	if (variant_probability && prob(variant_probability))
+		icon_state = "[icon_state][rand(1, variant_states)]"
 
 	if(mapload && prob(33))
 		MakeDirty()
 
 	if(is_station_level(z))
 		GLOB.station_turfs += src
-
-	//Choose a variant
-	if(variants)
-		icon_state = pick_weight(variants)
 
 /turf/open/floor/Destroy()
 	if(is_station_level(z))
@@ -310,15 +314,6 @@
 			return TRUE
 
 	return FALSE
-
-///Autogenerates the variant list from 1 > max (name, name1, name2, name3)
-/turf/open/floor/proc/auto_gen_variants(max)
-	if(!max)
-		return
-	if(icon_state && icon_state != "")
-		variants += list("[icon_state]" = 1)
-	for(var/i in 1 to max)
-		variants += list("[icon_state][i]" = 1)
 
 /turf/open/floor/material
 	name = "floor"

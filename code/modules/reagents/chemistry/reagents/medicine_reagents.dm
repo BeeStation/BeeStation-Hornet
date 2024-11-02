@@ -1634,18 +1634,7 @@
 	M.dizziness = max(0, M.dizziness-6)
 	M.confused = max(0, M.confused-6)
 	M.disgust = max(0, M.disgust-6)
-	if(dosage >= 25) //45 seconds
-		if(is_hivemember(M))
-			for(var/datum/antagonist/hivemind/hive in GLOB.antagonists)
-				if(hive.hivemembers.Find(M.mind))
-					var/mob/living/carbon/C = hive.owner.current
-					if(C?.mind)
-						to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
-			if(IS_WOKEVESSEL(M))
-				M.mind.remove_antag_datum(/datum/antagonist/hivevessel)
-				ADD_TRAIT(M, TRAIT_HIVE_BURNT, HIVEMIND_TRAIT)
-			to_chat(M, "<span class='assimilator'>You hear supernatural wailing echo throughout your mind as you are finally set free. Deep down, you can feel the lingering presence of those who enslaved you... as can they!</span>")
-			remove_hivemember(M)
+
 
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	if(mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...

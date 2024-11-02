@@ -54,7 +54,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		S.forceMove(src)
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 	update_icon()
 
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
@@ -77,7 +77,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 			playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
 
-/obj/machinery/power/solar/obj_break(damage_flag)
+/obj/machinery/power/solar/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
@@ -458,7 +458,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/machinery/power/solar_control/obj_break(damage_flag)
+/obj/machinery/power/solar_control/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
