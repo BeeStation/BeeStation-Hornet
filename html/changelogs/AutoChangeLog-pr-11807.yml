@@ -1,0 +1,5 @@
+author: ktlwjec
+delete-after: true
+changes:
+  - bugfix: Mysterious bottle can be interacted with.
+  - bugfix: Mysterious bottle isn't empty.
