@@ -88,7 +88,7 @@
 						return BULLET_ACT_BLOCK
 					else
 						P.firer = src
-						P.setAngle(rand(0, 360))//SHING
+						P.set_angle(rand(0, 360))//SHING
 						return BULLET_ACT_FORCE_PIERCE
 
 	if(!(P.original == src && P.firer == src)) //can't block or reflect when shooting yourself
@@ -115,7 +115,7 @@
 					var/new_angle_s = P.Angle + rand(120,240)
 					while(new_angle_s > 180)	// Translate to regular projectile degrees
 						new_angle_s -= 360
-					P.setAngle(new_angle_s)
+					P.set_angle(new_angle_s)
 
 				return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
@@ -154,7 +154,7 @@
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(FALSE, TRUE))
+		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
 			return TRUE
 	return FALSE
 

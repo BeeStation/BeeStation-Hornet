@@ -55,6 +55,10 @@
 	name = "heavy laser"
 	icon_state = "beam_heavy"
 
+/obj/effect/projectile/tracer/laser/emitter
+	name = "emitter beam"
+	icon_state = "emitter"
+
 //BEAM RIFLE
 /obj/effect/projectile/tracer/tracer/beam_rifle
 	icon_state = "tracer_beam"

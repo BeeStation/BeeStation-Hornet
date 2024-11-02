@@ -43,8 +43,8 @@
 	if(has_codewords)
 		data["phrases"] = jointext(GLOB.syndicate_code_phrase, ", ")
 		data["responses"] = jointext(GLOB.syndicate_code_response, ", ")
-	data["code"] = uplink?.unlock_code
-	data["failsafe_code"] = uplink?.failsafe_code
+	data["code"] = islist(uplink?.unlock_code) ? english_list(uplink?.unlock_code) : uplink?.unlock_code
+	data["failsafe_code"] = islist(uplink?.failsafe_code) ? english_list(uplink?.failsafe_code) : uplink?.failsafe_code
 	data["has_uplink"] = uplink ? TRUE : FALSE
 	if(uplink)
 		data["uplink_unlock_info"] = uplink.unlock_text

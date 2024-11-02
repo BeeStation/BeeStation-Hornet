@@ -70,7 +70,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/tracker)
 		deconstruct(TRUE)
 	return TRUE
 
-/obj/machinery/power/tracker/obj_break(damage_flag)
+/obj/machinery/power/tracker/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)

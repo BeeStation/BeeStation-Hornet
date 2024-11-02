@@ -12,6 +12,12 @@
 	//Set the default initial delay, if one isn't provided
 	if (!initial_delay)
 		initial_delay = world.tick_lag
+// Unit tests are not the normal environemnt. The mc can get absolutely thigh crushed, and sleeping procs running for ages is much more common
+// We don't want spurious hard deletes off this, so let's only sleep for the requested period of time here yeah?
+#ifdef UNIT_TESTS
+	sleep(initial_delay)
+	return CEILING(DS2TICKS(initial_delay), 1)
+#else
 	. = 0
 	//Begin tracking if we are in debugging
 	//Calculate the delay in terms of ticks
@@ -26,6 +32,7 @@
 		i *= 2
 	//Repeat until we have some tick left
 	while (TICK_USAGE > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
+#endif
 
 #undef DELTA_CALC
 

@@ -60,7 +60,7 @@
 	name = "Mushroom Bowl"
 	description = "Lieutenant Jeb dropped his favorite mushroom bowl. Cheer him up by shipping a new one, will you?"
 	reward = 7500 //5x mushroom shavings
-	wanted_types = list(/obj/item/reagent_containers/glass/bowl/mushroom_bowl)
+	wanted_types = list(/obj/item/reagent_containers/cup/bowl/mushroom_bowl)
 
 /datum/bounty/item/mining/inocybe_mushroom
 	name = "Mushroom Caps"
