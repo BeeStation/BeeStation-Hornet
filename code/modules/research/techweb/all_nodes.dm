@@ -2174,7 +2174,6 @@
 		"red_diag_nanites",
 		"relay_nanites",
 		"relay_repeater_nanites",
-		"repairing_nanites",
 		"repeater_nanites",
 		"research_nanites",
 		"researchplus_nanites",
@@ -2249,6 +2248,8 @@
 		"sensor_health_nanites",
 		"sensor_nutrition_nanites",
 		"sensor_blood_nanites",
+		"sensor_bleed_nanites",
+		"sensor_pressure_nanites"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 5000
@@ -2310,6 +2311,7 @@
 		"purging_plus_nanites",
 		"sensor_species_nanites",
 		"vampire_nanites",
+		"nanite_tomb",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 3000)
 	export_price = 8000

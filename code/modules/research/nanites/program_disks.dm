@@ -57,9 +57,6 @@
 /obj/item/disk/nanite_program/blood_restoring
 	program_type = /datum/nanite_program/blood_restoring
 
-/obj/item/disk/nanite_program/repairing
-	program_type = /datum/nanite_program/repairing
-
 /obj/item/disk/nanite_program/nervous
 	program_type = /datum/nanite_program/nervous
 

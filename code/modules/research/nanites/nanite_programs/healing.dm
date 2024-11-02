@@ -57,6 +57,8 @@
 	desc = "The nanites purge toxins and chemicals from the host's bloodstream."
 	use_rate = 1
 	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
+	maximum_duration = 20 SECONDS
+	trigger_cooldown = 2 MINUTES
 
 /datum/nanite_program/purging/check_conditions()
 	var/foreign_reagent = length(host_mob.reagents?.reagent_list)
@@ -112,42 +114,6 @@
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
 		C.blood_volume += 2
-
-/datum/nanite_program/repairing
-	name = "Mechanical Repair"
-	desc = "The nanites fix damage in the host's mechanical limbs."
-	use_rate = 0.5
-	rogue_types = list(/datum/nanite_program/necrotic)
-
-/datum/nanite_program/repairing/check_conditions()
-	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
-		return FALSE
-
-	if(iscarbon(host_mob))
-		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
-		if(!parts.len)
-			return FALSE
-	else
-		if(!(host_mob.mob_biotypes & MOB_ROBOTIC))
-			return FALSE
-	return ..()
-
-/datum/nanite_program/repairing/active_effect(mob/living/M)
-	if(iscarbon(host_mob))
-		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
-		if(!parts.len)
-			return
-		var/update = FALSE
-		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ROBOTIC)) //much faster than organic healing
-				update = TRUE
-		if(update)
-			host_mob.update_damage_overlays()
-	else
-		host_mob.adjustBruteLoss(-1.5, TRUE)
-		host_mob.adjustFireLoss(-1.5, TRUE)
 
 /datum/nanite_program/purging_advanced
 	name = "Selective Blood Purification"

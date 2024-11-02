@@ -476,6 +476,6 @@
 	var/datum/nanite_extra_setting/pressure = extra_settings[NES_PRESSURE]
 	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
 	rule.above = direction.get_value()
-	rule.threshold = pressure
+	rule.threshold = pressure.get_value()
 	return rule
 
