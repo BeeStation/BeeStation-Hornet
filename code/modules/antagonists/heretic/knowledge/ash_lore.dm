@@ -102,7 +102,7 @@
 		/datum/heretic_knowledge/essence,
 		/datum/heretic_knowledge/medallion,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/ashen_passage
 	cost = 1
 	route = HERETIC_PATH_ASH
 

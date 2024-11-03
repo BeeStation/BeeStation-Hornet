@@ -295,7 +295,7 @@
 	status_type = STATUS_EFFECT_MULTIPLE
 	tick_interval = 1 SECONDS
 	alert_type = null
-	VAR_PRIVATE/atom/target
+	var/atom/target
 	VAR_PRIVATE/strength = 1
 	// Significant distance to force targets to flee
 	var/max_range = 18
@@ -340,3 +340,69 @@
 	name = "Grasp of Rust"
 	desc = "Rust is spreading across the inorganic materials on you, flee from the source of the rust to prevent it from overwhelming you!"
 	icon_state = "rust_rite"
+
+/datum/status_effect/ashen_passage
+	id = "ashenpassage"
+	duration = 12 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/ashen_passage
+	show_duration = TRUE
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/ashen_passage/on_apply()
+	owner.pass_flags |= PASSDOORS
+	owner.status_flags |= GODMODE
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+	ADD_TRAIT(owner, TRAIT_NOGUNS, type)
+	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(ignore_projectiles))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(cancel_passage))
+	RegisterSignal(owner, COMSIG_MOB_ATTACK_HAND, PROC_REF(cancel_passage))
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	owner.add_filter("ash_jaunt", 1, layering_filter(icon('icons/effects/weather_effects.dmi', "ash_storm"), blend_mode = BLEND_INSET_OVERLAY))
+	playsound(get_turf(owner), 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
+	return TRUE
+
+/datum/status_effect/ashen_passage/on_remove()
+	owner.status_flags &= ~(GODMODE)
+	owner.pass_flags &= ~(PASSDOORS)
+	owner.invisibility = initial(owner.invisibility)
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+	REMOVE_TRAIT(owner, TRAIT_NOGUNS, type)
+	UnregisterSignal(owner, COMSIG_ATOM_BULLET_ACT)
+	owner.remove_filter("ash_jaunt")
+	playsound(get_turf(owner), 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+
+/datum/status_effect/ashen_passage/proc/ignore_projectiles(mob/living/source, obj/projectile/P, def_zone)
+	SIGNAL_HANDLER
+	return BULLET_ACT_FORCE_PIERCE
+
+/datum/status_effect/ashen_passage/proc/cancel_passage(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+	if (!istype(target))
+		return
+	qdel(src)
+
+/datum/status_effect/ashen_passage/proc/on_move(mob/living/source, turf/old_loc, dir, forced)
+	SIGNAL_HANDLER
+	var/turf/new_loc = source.loc
+	if (!istype(old_loc) || !istype(new_loc))
+		return
+	if ((locate(/obj/machinery/door) in new_loc) && !(locate(/obj/machinery/door) in old_loc))
+		new /obj/effect/temp_visual/dir_setting/ash_shift/out(old_loc)
+		owner.invisibility = INVISIBILITY_OBSERVER
+	if (!(locate(/obj/machinery/door) in new_loc) && (locate(/obj/machinery/door) in old_loc))
+		new /obj/effect/temp_visual/dir_setting/ash_shift(new_loc)
+		owner.invisibility = initial(owner.invisibility)
+
+/atom/movable/screen/alert/status_effect/ashen_passage
+	name = "Ashen Passage"
+	desc = "You have turned to ash! You can pass through airlocks freely and you are unable to take any damage until you attack a living entity."
+	icon_state = "ashen_passage"
+
+/obj/effect/temp_visual/dir_setting/ash_shift
+	name = "ash_shift"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "ash_shift2"
+	duration = 13
+
+/obj/effect/temp_visual/dir_setting/ash_shift/out
+	icon_state = "ash_shift"

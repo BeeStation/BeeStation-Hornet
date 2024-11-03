@@ -103,7 +103,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately![ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed_heavy"
 
-	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner))
+	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner) || (status_flags & GODMODE))
 		linked_alert.maptext = MAPTEXT("<s>[owner.get_bleed_rate_string()]</s>")
 	else
 		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
@@ -146,7 +146,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return bleed.bleed_rate > 0
 
 /mob/living/carbon/proc/add_bleeding(bleed_level)
-	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if (HAS_TRAIT(src, TRAIT_NO_BLOOD) || (status_flags & GODMODE))
 		return
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
@@ -331,7 +331,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
-	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !IS_IN_STASIS(src))
+	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !(status_flags & GODMODE) && !IS_IN_STASIS(src))
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER

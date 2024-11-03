@@ -63,8 +63,12 @@
 		var/list/created_atoms = list()
 		for(var/ritual_item_path in knowledge.required_atoms)
 			var/amount_to_create = knowledge.required_atoms[ritual_item_path]
-			for(var/i in 1 to amount_to_create)
-				created_atoms += new ritual_item_path(get_turf(our_heretic))
+			if (ispath(ritual_item_path, /datum/reagent))
+				var/atom/created = new /obj/item/reagent_containers/cup/beaker/bluespace
+				created.reagents.add_reagent(ritual_item_path, amount_to_create)
+			else
+				for(var/i in 1 to amount_to_create)
+					created_atoms += new ritual_item_path(get_turf(our_heretic))
 
 		// Now, we can ACTUALLY run the ritual. Let's do it.
 		// Attempt to run the knowledge via the sacrifice rune.
