@@ -1,3 +1,5 @@
+#define PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT 0
+
 /obj/machinery/portable_atmospherics
 	name = "portable_atmospherics"
 	icon = 'icons/obj/atmos.dmi'
@@ -7,22 +9,29 @@
 	anchored = FALSE
 	interacts_with_air = TRUE
 
-		///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
+	///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
 	var/datum/gas_mixture/air_contents
-
+	///Stores the reference of the connecting port
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
+	///Stores the reference of the tank the machine is holding
 	var/obj/item/tank/holding
-
+	///Volume (in L) of the inside of the machine
 	var/volume = 0
-	var/maximum_pressure = 90 * ONE_ATMOSPHERE
+	///Used to track if anything of note has happen while running process_atmos().
+	///Treat it as a process_atmos() scope var, we just declare it here to pass it between parent calls.
+	///Should be false on start of every process_atmos() proc, since true means we'll process again next tick.
+	var/excited = FALSE
 
-	///Used to track if anything of note has happen while running process_atmos()
-	var/excited = TRUE
+	/// Max amount of heat allowed inside the machine before it starts to melt. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
+	var/temp_limit = 10000
+	/// Max amount of pressure allowed inside of the canister before it starts to break. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
+	var/pressure_limit = 500000
 
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
-	air_contents = new(volume)
-	air_contents.temperature = (T20C)
+	air_contents = new
+	air_contents.volume = volume
+	air_contents.temperature = T20C
 	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/Destroy()
@@ -32,14 +41,13 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
-	if(severity == 1 || target == src)
-		if(resistance_flags & INDESTRUCTIBLE)
-			return //Indestructable cans shouldn't release air
+	if(resistance_flags & INDESTRUCTIBLE)
+		return FALSE //Indestructible cans shouldn't release air
 
+	if(severity == EXPLODE_DEVASTATE || target == src)
 		//This explosion will destroy the can, release its air.
-		var/turf/T = get_turf(src)
-		T.assume_air(air_contents)
-		T.air_update_turf(FALSE, FALSE)
+		var/turf/local_turf = get_turf(src)
+		local_turf.assume_air(air_contents)
 
 	return ..()
 
@@ -53,6 +61,29 @@
 		return PROCESS_KILL
 	excited = FALSE
 
+/// Take damage if a variable is exceeded. Damage is equal to temp/limit * heat/limit.
+/// The damage multiplier is treated as 1 if something is being ignored while the other one is exceeded.
+/// On most cases only one will be exceeded, so the other one is scaled down.
+/obj/machinery/portable_atmospherics/proc/take_atmos_damage()
+	var/taking_damage = FALSE
+
+	var/temp_damage = 1
+	var/pressure_damage = 1
+
+	if(temp_limit != PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT)
+		temp_damage = air_contents.temperature / temp_limit
+		taking_damage = temp_damage > 1
+
+	if(pressure_limit != PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT)
+		pressure_damage = air_contents.return_pressure() / pressure_limit
+		taking_damage = taking_damage || pressure_damage > 1
+
+	if(!taking_damage)
+		return FALSE
+
+	take_damage(clamp(temp_damage * pressure_damage, 5, 50), BURN, 0)
+	return TRUE
+
 /obj/machinery/portable_atmospherics/return_air()
 	SSair.start_processing_machine(src)
 	return air_contents
@@ -60,6 +91,11 @@
 /obj/machinery/portable_atmospherics/return_analyzable_air()
 	return air_contents
 
+/**
+ * Allow the portable machine to be connected to a connector
+ * Arguments:
+ * * new_port - the connector that we trying to connect to
+ */
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
@@ -73,7 +109,8 @@
 	connected_port = new_port
 	connected_port.connected_device = src
 	var/datum/pipeline/connected_port_parent = connected_port.parents[1]
-	connected_port_parent.reconcile_air()
+	if(connected_port_parent)
+		connected_port_parent.reconcile_air()
 
 	set_anchored(TRUE) //Prevent movement
 	pixel_x = new_port.pixel_x
@@ -91,7 +128,7 @@
 /obj/machinery/portable_atmospherics/proc/disconnect()
 	if(!connected_port)
 		return FALSE
-	anchored = FALSE
+	set_anchored(FALSE)
 	connected_port.connected_device = null
 	connected_port = null
 	pixel_x = 0
@@ -115,6 +152,13 @@
 		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>\n"+\
 			"<span class='notice'>Click [src] with another gas tank to hot swap [holding].</span>"
 
+/**
+ * Allow the player to place a tank inside the machine.
+ * Arguments:
+ * * User: the player doing the act
+ * * close_valve: used in the canister.dm file, check if the valve is open or not
+ * * new_tank: the tank we are trying to put in the machine
+ */
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(!user)
 		return FALSE
@@ -124,7 +168,7 @@
 		holding = null
 	if(new_tank)
 		holding = new_tank
-		RegisterSignal(holding, COMSIG_PARENT_QDELETING, .proc/unregister_holding)
+		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
 
 	SSair.start_processing_machine(src)
 	update_appearance()
@@ -179,3 +223,5 @@
 
 	UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
 	holding = null
+
+#undef PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT
