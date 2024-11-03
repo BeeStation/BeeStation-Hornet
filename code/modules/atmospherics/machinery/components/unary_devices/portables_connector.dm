@@ -22,6 +22,13 @@
 	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.volume = 0
+	if(connected_device)
+		var/datum/pipeline/parent = parents[1]
+		if(parent)
+			airs[1] = connected_device.air_contents
+			parent.reconcile_air()
+		else
+			CRASH("FUCKING FUCK FUCK FUCK")
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)

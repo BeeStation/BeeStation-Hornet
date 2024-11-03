@@ -130,7 +130,7 @@
 
 	for(var/i in 1 to device_type)
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connects[i]))
-			if(can_be_node(target, i))
+			if(can_be_node(target))
 				nodes[i] = target
 				break
 	update_icon()

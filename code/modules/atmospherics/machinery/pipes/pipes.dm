@@ -32,11 +32,50 @@
 	if(hide)
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE) //if changing this, change the subtypes RemoveElements too, because thats how bespoke works
 
+/obj/machinery/atmospherics/pipe/on_deconstruction(disassembled)
+	//we delete the parent here so it initializes air_temporary for us. See /datum/pipeline/Destroy() which calls temporarily_store_air()
+	QDEL_NULL(parent)
+
+	if(air_temporary)
+		var/turf/T = loc
+		T.assume_air(air_temporary)
+
+	return ..()
+
+/obj/machinery/atmospherics/pipe/Destroy()
+	QDEL_NULL(parent)
+	return ..()
+
+/obj/machinery/atmospherics/pipe/update_icon()
+	. = ..()
+	update_layer()
+
+/obj/machinery/atmospherics/pipe/proc/update_node_icon()
+	for(var/i in 1 to device_type)
+		if(nodes[i])
+			var/obj/machinery/atmospherics/N = nodes[i]
+			N.update_icon()
+
+/obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == MELEE && damage_amount < 12)
+		return 0
+	. = ..()
+
+/obj/machinery/atmospherics/pipe/paint(paint_color)
+	if(paintable)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		update_node_icon()
+	return paintable
+
+//-----------------
+// PIPENET STUFF
+
 /obj/machinery/atmospherics/pipe/nullify_node(i)
-	var/obj/machinery/atmospherics/oldN = nodes[i]
-	..()
-	if(oldN)
-		SSair.add_to_rebuild_queue(oldN)
+	var/obj/machinery/atmospherics/old_node = nodes[i]
+	. = ..()
+	if(old_node)
+		SSair.add_to_rebuild_queue(old_node)
 
 /obj/machinery/atmospherics/pipe/destroy_network()
 	QDEL_NULL(parent)
@@ -44,7 +83,7 @@
 /obj/machinery/atmospherics/pipe/get_rebuild_targets()
 	if(!QDELETED(parent))
 		return
-	parent = new
+	replace_pipenet(parent, new /datum/pipeline)
 	return list(parent)
 
 /obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
@@ -68,9 +107,9 @@
 		return air_temporary.remove(amount)
 	return parent.air.remove(amount)
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pipe_meter))
-		var/obj/item/pipe_meter/meter = W
+/obj/machinery/atmospherics/pipe/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/pipe_meter))
+		var/obj/item/pipe_meter/meter = item
 		user.dropItemToGround(meter)
 		meter.setAttachLayer(piping_layer)
 	else
@@ -79,44 +118,8 @@
 /obj/machinery/atmospherics/pipe/return_pipenet()
 	return parent
 
-/obj/machinery/atmospherics/pipe/set_pipenet(datum/pipeline/P)
-	parent = P
-
-/obj/machinery/atmospherics/pipe/Destroy()
-	QDEL_NULL(parent)
-
-	releaseAirToTurf()
-	QDEL_NULL(air_temporary)
-
-	var/turf/T = loc
-	for(var/obj/machinery/meter/meter in T)
-		if(meter.target == src)
-			var/obj/item/pipe_meter/PM = new (T)
-			meter.transfer_fingerprints_to(PM)
-			qdel(meter)
-	. = ..()
-
-/obj/machinery/atmospherics/pipe/update_icon()
-	. = ..()
-	update_layer()
-
-/obj/machinery/atmospherics/pipe/proc/update_node_icon()
-	for(var/i in 1 to device_type)
-		if(nodes[i])
-			var/obj/machinery/atmospherics/N = nodes[i]
-			N.update_icon()
+/obj/machinery/atmospherics/pipe/replace_pipenet(datum/pipeline/old_pipenet, datum/pipeline/new_pipenet)
+	parent = new_pipenet
 
 /obj/machinery/atmospherics/pipe/return_pipenets()
 	. = list(parent)
-
-/obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 12)
-		return 0
-	. = ..()
-
-/obj/machinery/atmospherics/pipe/paint(paint_color)
-	if(paintable)
-		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
-		pipe_color = paint_color
-		update_node_icon()
-	return paintable
