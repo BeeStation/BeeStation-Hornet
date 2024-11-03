@@ -93,7 +93,9 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	vis_flags = VIS_INHERIT_PLANE
-	plane = HIGH_GAME_PLANE
+	plane = ATMOS_GROUP_PLANE
+	layer = ATMOS_GROUP_LAYER
+
 /obj/effect/overlay/light_cone
 	name = ""
 	icon = 'icons/effects/light_overlays/light_cone.dmi'

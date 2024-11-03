@@ -28,7 +28,8 @@
 
 #endif //ifdef REFERENCE_TRACKING
 
-//#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
+#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
+#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
 /// Enables BYOND TRACY, which allows profiling using Tracy.
