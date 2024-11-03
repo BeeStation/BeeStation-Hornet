@@ -28,7 +28,7 @@
 			airs[1] = connected_device.air_contents
 			parent.reconcile_air()
 		else
-			CRASH("FUCKING FUCK FUCK FUCK")
+			CRASH("Portable canister without parent pipeline at [COORD(src)]")
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)
