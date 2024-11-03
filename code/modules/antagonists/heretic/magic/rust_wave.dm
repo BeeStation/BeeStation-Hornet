@@ -19,7 +19,7 @@
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, level)
 	. = ..()
-	target_turf.rust_heretic_act(20)
+	target_turf.rust_heretic_act(20, TRUE)
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, level)
 	. = ..()
@@ -100,7 +100,7 @@
 		if(!X || prob(25))
 			continue
 		var/turf/T = X
-		T.rust_heretic_act(20)
+		T.rust_heretic_act(20, TRUE)
 
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short
 	name = "Small Patron's Reach"

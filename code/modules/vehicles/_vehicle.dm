@@ -180,3 +180,9 @@
 	if(trailer && .)
 		var/dir_to_move = get_dir(trailer.loc, newloc)
 		step(trailer, dir_to_move)
+
+/obj/vehicle/rust_heretic_act(intensity, initial, is_source)
+	if (initial)
+		visible_message("<span class='warning'>A rust forms around [src], slowly damaging the internals!</span>")
+	take_damage(5 * intensity)
+	return TRUE

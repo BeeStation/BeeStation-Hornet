@@ -31,7 +31,7 @@
 /turf/open/chasm/MakeDry()
 	return
 
-/turf/open/chasm/rust_heretic_act(intensity)
+/turf/open/chasm/rust_heretic_act(intensity, initial, is_source = TRUE)
 	return FALSE
 
 /turf/open/chasm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)

@@ -127,8 +127,8 @@
 /turf/open/floor/plating/make_plating()
 	return
 
-/turf/open/floor/plating/rust_heretic_act(intensity)
-	if(prob(70))
+/turf/open/floor/plating/rust_heretic_act(intensity, initial, is_source = TRUE)
+	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
 	return ..()
 

@@ -1843,7 +1843,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   *
   * Return true if the effect is valid, or false to cancel
   */
-/atom/proc/rust_heretic_act(intensity)
+/atom/proc/rust_heretic_act(intensity, initial, is_source = TRUE)
 	return FALSE
 
 /**

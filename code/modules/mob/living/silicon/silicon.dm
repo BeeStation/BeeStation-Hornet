@@ -450,8 +450,8 @@
 /mob/living/silicon/handle_high_gravity(gravity)
 	return
 
-/mob/living/silicon/rust_heretic_act(intensity)
-	adjustBruteLoss(5 * intensity)
+/mob/living/silicon/rust_heretic_act(intensity, initial, is_source = TRUE)
+	adjustBruteLoss(10 * intensity)
 	return TRUE
 
 /mob/living/silicon/hears_radio()

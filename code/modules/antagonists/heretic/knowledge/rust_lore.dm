@@ -57,8 +57,8 @@
 
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
-	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
+	desc = "Your Mansus Grasp will apply an effect which causes objects to rust while you are nearby. \
+		Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
@@ -83,7 +83,12 @@
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
 		return
+	// Cannot stack on the same target
+	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
+		if (current_rite.target == target)
+			return
 	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
+	return
 
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"
@@ -361,7 +366,7 @@
 
 /datum/rust_spread/New(loc)
 	centre = get_turf(loc)
-	centre.rust_heretic_act(1)
+	centre.rust_heretic_act(1, TRUE)
 	rusted_turfs += centre
 	START_PROCESSING(SSprocessing, src)
 
@@ -382,7 +387,7 @@
 		if(!length(edge_turfs))
 			break
 		var/turf/afflicted_turf = pick_n_take(edge_turfs)
-		afflicted_turf.rust_heretic_act(1)
+		afflicted_turf.rust_heretic_act(1, TRUE)
 		rusted_turfs |= afflicted_turf
 
 /**

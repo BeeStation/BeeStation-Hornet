@@ -10,8 +10,8 @@
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
 
-/turf/open/floor/iron/rust_heretic_act(intensity)
-	if(prob(70))
+/turf/open/floor/iron/rust_heretic_act(intensity, initial, is_source = TRUE)
+	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
 	var/atom/changed_turf = ChangeTurf(/turf/open/floor/plating)
 	changed_turf.AddElement(/datum/element/rust)

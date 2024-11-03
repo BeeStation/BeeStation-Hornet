@@ -90,10 +90,10 @@
 	. = ..()
 	AddElement(/datum/element/rust)
 
-/turf/closed/wall/rust/rust_heretic_act(intensity)
-	if(prob(70))
+/turf/closed/wall/rust/rust_heretic_act(intensity, initial, is_source = TRUE)
+	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
-	take_damage(40 * intensity)
+	take_damage(90 * intensity)
 	return TRUE
 
 /turf/closed/wall/r_wall/rust
@@ -109,12 +109,10 @@
 	. = ..()
 	AddElement(/datum/element/rust)
 
-/turf/closed/wall/r_wall/rust/rust_heretic_act(intensity)
-	if(prob(50))
-		return TRUE
-	if(prob(70))
+/turf/closed/wall/r_wall/rust/rust_heretic_act(intensity, initial, is_source = TRUE)
+	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
-	take_damage(40 * intensity)
+	take_damage(90 * intensity)
 	return TRUE
 
 /turf/closed/wall/mineral/bronze

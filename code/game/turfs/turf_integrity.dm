@@ -404,7 +404,7 @@
 // Rust
 //====================================
 
-/turf/rust_heretic_act(intensity)
+/turf/rust_heretic_act(intensity, initial, is_source = TRUE)
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		return FALSE
 

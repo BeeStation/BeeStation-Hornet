@@ -85,6 +85,7 @@
 	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
 	target.blur_eyes(10)
+	target.set_blindness(5)
 
 	if (!istype(target, /mob/living/carbon/human))
 		return

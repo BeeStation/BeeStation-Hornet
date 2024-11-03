@@ -82,7 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
 		carbon_hit.adjustBruteLoss(10)
-		carbon_hit.silent = 3 SECONDS
+		carbon_hit.silent = max(carbon_hit.silent, 4)
 
 	use_charge(heretic)
 

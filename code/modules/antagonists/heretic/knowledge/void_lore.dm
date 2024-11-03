@@ -98,9 +98,9 @@
 	var/turf/open/target_turf = get_turf(carbon_target)
 	target_turf.TakeTemperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
-	carbon_target.silent += 12
+	carbon_target.silent = max(8, carbon_target.silent)
 	carbon_target.add_movespeed_modifier(/datum/movespeed_modifier/void_slowdown)
-	addtimer(CALLBACK(src, PROC_REF(clear_slowdown), carbon_target), 8 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(clear_slowdown), carbon_target), 12 SECONDS)
 
 /datum/heretic_knowledge/void_grasp/proc/clear_slowdown(mob/living/carbon/carbon_target)
 	carbon_target.remove_movespeed_modifier(/datum/movespeed_modifier/void_slowdown)

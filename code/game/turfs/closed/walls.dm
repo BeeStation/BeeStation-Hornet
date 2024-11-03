@@ -242,11 +242,11 @@
 
 	add_overlay(dent_decals)
 
-/turf/closed/wall/rust_heretic_act(intensity)
+/turf/closed/wall/rust_heretic_act(intensity, initial, is_source = TRUE)
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		take_damage(40 * intensity)
+		take_damage(90 * intensity)
 		return TRUE
-	if(prob(70))
+	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
 	return ..()
 

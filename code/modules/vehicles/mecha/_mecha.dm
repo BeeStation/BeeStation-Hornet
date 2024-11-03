@@ -286,7 +286,7 @@
 /obj/vehicle/sealed/mecha/get_cell()
 	return cell
 
-/obj/vehicle/sealed/mecha/rust_heretic_act(intensity)
+/obj/vehicle/sealed/mecha/rust_heretic_act(intensity, initial, is_source = TRUE)
 	take_damage(20 * intensity,  BRUTE)
 	return TRUE
 

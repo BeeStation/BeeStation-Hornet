@@ -300,8 +300,13 @@
 	// Significant distance to force targets to flee
 	var/max_range = 18
 
+/datum/status_effect/rust_rite/Destroy()
+	. = ..()
+	// Must clear after ..()
+	target = null
+
 /datum/status_effect/rust_rite/on_creation(mob/living/new_owner, atom/target, strength = 1)
-	if (QDELETED(target) || !target.rust_heretic_act(strength))
+	if (QDELETED(target) || !target.rust_heretic_act(strength, TRUE))
 		qdel(src)
 		return FALSE
 	. = ..()
@@ -309,6 +314,9 @@
 	src.strength = strength
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(target_destroyed))
 	new /obj/effect/temp_visual/glowing_rune(get_turf(target))
+	if (isliving(target))
+		var/mob/living/living_target = target
+		living_target.throw_alert("rust_rite", /atom/movable/screen/alert/status_effect/rust_rite)
 
 /datum/status_effect/rust_rite/tick()
 	if (get_dist(owner, target) > max_range)
@@ -317,8 +325,18 @@
 	if (owner.stat)
 		qdel(src)
 		return
-	target.rust_heretic_act(strength)
+	target.rust_heretic_act(strength, FALSE)
+
+/datum/status_effect/rust_rite/on_remove()
+	if (isliving(target))
+		var/mob/living/living_target = target
+		living_target.clear_alert("rust_rite")
 
 /datum/status_effect/rust_rite/proc/target_destroyed(...)
 	SIGNAL_HANDLER
 	qdel(src)
+
+/atom/movable/screen/alert/status_effect/rust_rite
+	name = "Grasp of Rust"
+	desc = "Rust is spreading across the inorganic materials on you, flee from the source of the rust to prevent it from overwhelming you!"
+	icon_state = "rust_rite"
