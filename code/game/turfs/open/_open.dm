@@ -178,13 +178,13 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	current_cycle = time
 	init_immediate_calculate_adjacent_turfs()
 
-/turf/open/proc/GetHeatCapacity()
+/turf/open/get_heat_capacity()
 	. = air.heat_capacity()
 
-/turf/open/proc/GetTemperature()
+/turf/open/get_temperature()
 	. = air.return_temperature()
 
-/turf/open/proc/TakeTemperature(temp)
+/turf/open/take_temperature(temp)
 	air.temperature = air.return_temperature() + temp
 	air_update_turf(FALSE, FALSE)
 

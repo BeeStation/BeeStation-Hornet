@@ -75,13 +75,13 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/open/lava/GetHeatCapacity()
+/turf/open/lava/get_heat_capacity()
 	. = 700000
 
-/turf/open/lava/GetTemperature()
+/turf/open/lava/get_temperature()
 	. = 5000
 
-/turf/open/lava/TakeTemperature(temp)
+/turf/open/lava/take_temperature(temp)
 
 
 /turf/open/lava/proc/is_safe()

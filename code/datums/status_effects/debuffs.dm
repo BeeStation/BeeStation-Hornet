@@ -1121,7 +1121,7 @@
 
 /datum/status_effect/heretic_mark/void/on_effect()
 	var/turf/open/turfie = get_turf(owner)
-	turfie.TakeTemperature(-40)
+	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner

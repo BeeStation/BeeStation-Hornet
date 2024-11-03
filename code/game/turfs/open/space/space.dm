@@ -89,7 +89,7 @@
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
 
-/turf/open/space/TakeTemperature(temp)
+/turf/open/space/take_temperature(temp)
 
 /turf/open/space/RemoveLattice()
 	return

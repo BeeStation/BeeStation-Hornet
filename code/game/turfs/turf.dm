@@ -522,6 +522,15 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			continue
 		. += turf_to_check
 
+/turf/proc/get_heat_capacity()
+	. = heat_capacity
+
+/turf/proc/get_temperature()
+	. = temperature
+
+/turf/proc/take_temperature(temp)
+	temperature += temp
+
 /turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
 	if(max_amount <= 0)
 		return

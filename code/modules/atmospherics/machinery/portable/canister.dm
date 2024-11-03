@@ -26,6 +26,8 @@
 	var/can_min_release_pressure = (ONE_ATMOSPHERE / 10)
 	var/temperature_resistance = 1000 + T0C
 	var/starter_temp = T20C
+	///Maximum pressure allowed on initialize inside the canister, multiplied by the filled var
+	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 	// Prototype vars
 	var/prototype = FALSE
 	var/valve_timer = null

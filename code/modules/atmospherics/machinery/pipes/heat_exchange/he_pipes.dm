@@ -29,7 +29,7 @@
 			environment_temperature = T.return_temperature()
 		else
 			var/turf/open/OT = T
-			environment_temperature = OT.GetTemperature()
+			environment_temperature = OT.get_temperature()
 	else if(T != null)
 		environment_temperature = T.return_temperature()
 
