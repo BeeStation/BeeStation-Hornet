@@ -227,6 +227,10 @@
 	if(.)
 		update_icon()
 
+/obj/machinery/portable_atmospherics/pump/unregister_holding()
+	on = FALSE
+	return ..()
+
 #undef PUMP_OUT
 #undef PUMP_IN
 #undef PUMP_MAX_PRESSURE

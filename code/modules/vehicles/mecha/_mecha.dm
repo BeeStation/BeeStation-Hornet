@@ -1160,9 +1160,6 @@
 		return t_air.return_temperature()
 	return
 
-/obj/vehicle/sealed/mecha/portableConnectorReturnAir()
-	return internal_tank.return_air()
-
 ///////////////////////
 ////// Ammo stuff /////
 ///////////////////////

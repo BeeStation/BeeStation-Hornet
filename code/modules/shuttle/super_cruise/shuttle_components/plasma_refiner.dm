@@ -62,7 +62,7 @@
 			node.disconnect(src)
 			nodes[1] = null
 		if(parents[1])
-			nullifyPipenet(parents[1])
+			nullify_pipenet(parents[1])
 		atmos_init()
 		node = nodes[1]
 		if(node)

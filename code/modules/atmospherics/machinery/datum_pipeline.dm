@@ -4,6 +4,9 @@
 
 	var/list/obj/machinery/atmospherics/pipe/members
 	var/list/obj/machinery/atmospherics/components/other_atmos_machines
+	/// List of other_atmos_machines that have custom_reconcilation set
+	/// We're essentially caching this to avoid needing to filter over it when processing our machines
+	var/list/obj/machinery/atmospherics/components/require_custom_reconcilation
 
 
 	///Should we equalize air amoung all our members?
@@ -15,6 +18,7 @@
 	other_airs = list()
 	members = list()
 	other_atmos_machines = list()
+	require_custom_reconcilation = list()
 	SSair.networks += src
 
 /datum/pipeline/Destroy()
@@ -29,7 +33,7 @@
 			continue
 		SSair.add_to_rebuild_queue(considered_pipe)
 	for(var/obj/machinery/atmospherics/components/considered_component in other_atmos_machines)
-		considered_component.nullifyPipenet(src)
+		considered_component.nullify_pipenet(src)
 	return ..()
 
 /datum/pipeline/process()
@@ -111,17 +115,19 @@
 
 	air.volume = volume
 
-	/**
-	 *  For a machine to properly "connect" to a pipeline and share gases,
-	 *  the pipeline needs to acknowledge a gas mixture as it's member.
-	 *  This is currently handled by the other_airs list in the pipeline datum.
-	 *
-	 *	Other_airs itself is populated by gas mixtures through the parents list that each machineries have.
-	 *	This parents list is populated when a machinery calls update_parents and is then added into the queue by the controller.
-	 */
+/**
+ *  For a machine to properly "connect" to a pipeline and share gases,
+ *  the pipeline needs to acknowledge a gas mixture as it's member.
+ *  This is currently handled by the other_airs list in the pipeline datum.
+ *
+ *	Other_airs itself is populated by gas mixtures through the parents list that each machineries have.
+	*	This parents list is populated when a machinery calls update_parents and is then added into the queue by the controller.
+	*/
 
 /datum/pipeline/proc/add_machinery_member(obj/machinery/atmospherics/components/considered_component)
 	other_atmos_machines |= considered_component
+	if(considered_component.custom_reconcilation)
+		require_custom_reconcilation |= considered_component
 	var/list/returned_airs = considered_component.return_pipenet_airs(src)
 	if (!length(returned_airs) || (null in returned_airs))
 		stack_trace("add_machinery_member: Nonexistent (empty list) or null machinery gasmix added to pipeline datum from [considered_component] \
@@ -157,10 +163,13 @@
 	air.merge(parent_pipeline.air)
 	for(var/obj/machinery/atmospherics/components/reference_component in parent_pipeline.other_atmos_machines)
 		reference_component.replace_pipenet(parent_pipeline, src)
+		if(reference_component.custom_reconcilation)
+			require_custom_reconcilation |= reference_component
 	other_atmos_machines |= parent_pipeline.other_atmos_machines
 	other_airs |= parent_pipeline.other_airs
 	parent_pipeline.members.Cut()
 	parent_pipeline.other_atmos_machines.Cut()
+	parent_pipeline.require_custom_reconcilation.Cut()
 	update = TRUE
 	qdel(parent_pipeline)
 
@@ -256,10 +265,15 @@
 			continue
 		gas_mixture_list += pipeline.other_airs
 		gas_mixture_list += pipeline.air
+		for(var/obj/machinery/atmospherics/components/atmos_machine as anything in pipeline.require_custom_reconcilation)
+			pipeline_list |= atmos_machine.return_pipenets_for_reconcilation(src)
+			gas_mixture_list += atmos_machine.return_airs_for_reconcilation(src)
+
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0
 	var/datum/gas_mixture/total_gas_mixture = new(0)
 
+	var/list/total_gases = total_gas_mixture.gases
 
 	var/volume_sum = 0
 
@@ -282,13 +296,16 @@
 		for(var/giver_id in giver_gases)
 			var/giver_gas_data = giver_gases[giver_id]
 
-			ADD_MOLES(giver_id, total_gas_mixture, giver_gas_data[MOLES])
+			ASSERT_GAS_IN_LIST(giver_id, total_gases)
+			total_gases[giver_id][MOLES] += giver_gas_data[MOLES]
+
 			heat_capacity += giver_gas_data[MOLES] * giver_gas_data[GAS_META][META_GAS_SPECIFIC_HEAT]
 
 		total_heat_capacity += heat_capacity
 		total_thermal_energy += gas_mixture.temperature * heat_capacity
 
 	total_gas_mixture.temperature = total_heat_capacity ? (total_thermal_energy / total_heat_capacity) : 0
+
 	total_gas_mixture.volume = volume_sum
 	total_gas_mixture.garbage_collect()
 

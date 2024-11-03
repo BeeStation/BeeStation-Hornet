@@ -48,10 +48,9 @@
 		return atmosanalyzer_scan(user, holding, TRUE)
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(!connected_port) // Pipe network handles reactions if connected, and we can't stop processing if there's a port effecting our mix
-		excited = (excited | air_contents.react(src))
-		if(!excited)
-			return PROCESS_KILL
+	excited = (excited | air_contents.react(src))
+	if(!excited)
+		return PROCESS_KILL
 	excited = FALSE
 
 /obj/machinery/portable_atmospherics/return_air()
@@ -102,9 +101,6 @@
 	update_appearance()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/portableConnectorReturnAir()
-	return air_contents
-
 /obj/machinery/portable_atmospherics/AltClick(mob/living/user)
 	. = ..()
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, !ismonkey(user)) || !can_interact(user))
@@ -124,53 +120,49 @@
 		return FALSE
 	if(holding)
 		user.put_in_hands(holding)
+		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
 		holding = null
 	if(new_tank)
 		holding = new_tank
+		RegisterSignal(holding, COMSIG_PARENT_QDELETING, .proc/unregister_holding)
 
 	SSair.start_processing_machine(src)
 	update_appearance()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
-		if(!(machine_stat & BROKEN))
-			var/obj/item/tank/T = W
-			if(!user.transferItemToLoc(T, src))
-				return
-			to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
-			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].", INVESTIGATE_ATMOS)
-			replace_tank(user, FALSE, T)
-			update_appearance()
-	else if(W.tool_behaviour == TOOL_WRENCH)
-		if(!(machine_stat & BROKEN))
-			if(connected_port)
-				investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
-				disconnect()
-				W.play_tool_sound(src)
-				user.visible_message( \
-					"[user] disconnects [src].", \
-					"<span class='notice'>You unfasten [src] from the port.</span>", \
-					"<span class='italics'>You hear a ratchet.</span>")
-				update_appearance()
-				return
-			else
-				var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
-				if(!possible_port)
-					to_chat(user, "<span class='notice'>Nothing happens.</span>")
-					return
-				if(!connect(possible_port))
-					to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
-					return
-				W.play_tool_sound(src)
-				user.visible_message( \
-					"[user] connects [src].", \
-					"<span class='notice'>You fasten [src] to the port.</span>", \
-					"<span class='italics'>You hear a ratchet.</span>")
-				update_appearance()
-				investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
-	else
-		return ..()
+/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/tank))
+		return replace_tank(user, FALSE, item)
+	return ..()
+
+/obj/machinery/portable_atmospherics/wrench_act(mob/living/user, obj/item/wrench)
+	if(machine_stat & BROKEN)
+		return FALSE
+	if(connected_port)
+		investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
+		disconnect()
+		wrench.play_tool_sound(src)
+		user.visible_message( \
+			"[user] disconnects [src].", \
+			"<span class='notice'>You unfasten [src] from the port.</span>", \
+			"<span class='hear'>You hear a ratchet.</span>")
+		update_appearance()
+		return TRUE
+	var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
+	if(!possible_port)
+		to_chat(user, "<span class='notice'>Nothing happens.</span>")
+		return FALSE
+	if(!connect(possible_port))
+		to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
+		return FALSE
+	wrench.play_tool_sound(src)
+	user.visible_message( \
+		"[user] connects [src].", \
+		"<span class='notice'>You fasten [src] to the port.</span>", \
+		"<span class='hear'>You hear a ratchet.</span>")
+	update_appearance()
+	investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
+	return TRUE
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(machine_stat & BROKEN))
@@ -179,3 +171,11 @@
 		investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)
 		add_fingerprint(user)
 		..()
+
+/// Holding tanks can get to zero integrity and be destroyed without other warnings due to pressure change.
+/// This checks for that case and removes our reference to it.
+/obj/machinery/portable_atmospherics/proc/unregister_holding()
+	SIGNAL_HANDLER
+
+	UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+	holding = null

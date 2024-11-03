@@ -13,6 +13,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 	interaction_flags_machine = INTERACT_MACHINE_OFFLINE | INTERACT_MACHINE_OPEN //Intentionally no allow_silicon flag
 	pipe_flags = PIPING_CARDINAL_AUTONORMALIZE
+	custom_reconcilation = TRUE
 
 	var/frequency = 0
 	var/id = null

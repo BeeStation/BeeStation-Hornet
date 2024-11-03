@@ -493,35 +493,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		if("valve")
 			set_valve(usr)
 			. = TRUE
-		/* // Apparently the timer isn't present in TGUI - commenting out so it can't be used via exploits
-		if("timer")
-			if(!prototype)
-				return
-			var/change = params["change"]
-			switch(change)
-				if("reset")
-					timer_set = default_timer_set
-					. = TRUE
-				if("decrease")
-					timer_set = max(minimum_timer_set, timer_set - 10)
-					. = TRUE
-				if("increase")
-					timer_set = min(maximum_timer_set, timer_set + 10)
-					. = TRUE
-				if("input")
-					var/user_input = input(usr, "Set time to valve toggle.", name) as null|num
-					if(!user_input)
-						return
-					var/N = text2num(user_input)
-					if(!N)
-						return
-					timer_set = clamp(N,minimum_timer_set,maximum_timer_set)
-					log_admin("[key_name(usr)] has activated a prototype valve timer")
-					. = TRUE
-				if("toggle_timer")
-					set_active()
-					. = TRUE
-		*/
 		if("eject")
 			if(holding)
 				if(valve_open)
@@ -560,5 +531,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 			logmsg = "Valve was <b>closed</b> by [key_name(user)], stopping the transfer into \the [holding || "air"].<br>"
 	investigate_log(logmsg, INVESTIGATE_ATMOS)
 	release_log += logmsg
+
+/obj/machinery/portable_atmospherics/canister/unregister_holding()
+	valve_open = FALSE
+	return ..()
 
 #undef CAN_DEFAULT_RELEASE_PRESSURE

@@ -99,3 +99,23 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define SET_MOLES(gas, gas_mixture, moles)\
 	ASSERT_GAS(gas, gas_mixture);\
 	gas_mixture.gases[gas][MOLES] = moles;
+
+///Adds moles to a specific gas list in a gas mixture.
+#define ADD_MOLES_LIST(gas_id, gases, moles)\
+	ASSERT_GAS_IN_LIST(gas_id, gases);\
+	gases[gas_id][MOLES] += moles;
+
+///Removes moles while making sure it doesn't go under 0, also a list.
+#define REMOVE_MOLES_LIST(gas_id, gases, moles)\
+	ASSERT_GAS_IN_LIST(gas_id, gases);\
+	gases[gas_id][MOLES] -= max(moles, 0);
+
+/// Basically REMOVE_MOLES but with the thing sign flipped. Use this when sign is unknown AND A LIST
+#define ADJUST_MOLES_LIST(gas_id, gases, moles)\
+	ASSERT_GAS_IN_LIST(gas_id, gases);\
+	gases[gas_id][MOLES] += max(moles, 0);
+
+///Sets the moles of a specific gas in a gas list, asserts the gas is present.
+#define SET_MOLES_LIST(gas_id, gases, moles)\
+	ASSERT_GAS_IN_LIST(gas_id, gases);\
+	gases[gas_id][MOLES] = moles;

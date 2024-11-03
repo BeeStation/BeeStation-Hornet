@@ -94,11 +94,11 @@
 	if(node1)
 		node1.disconnect(src)
 		nodes[1] = null
-		nullifyPipenet(parents[1])
+		nullify_pipenet(parents[1])
 	if(node2)
 		node2.disconnect(src)
 		nodes[2] = null
-		nullifyPipenet(parents[2])
+		nullify_pipenet(parents[2])
 
 	if(anchored)
 		set_init_directions()

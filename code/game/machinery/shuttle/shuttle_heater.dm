@@ -60,7 +60,7 @@
 		nodes[1] = null
 	if(!parents[1])
 		return
-	nullifyPipenet(parents[1])
+	nullify_pipenet(parents[1])
 
 	atmos_init()
 	node = nodes[1]

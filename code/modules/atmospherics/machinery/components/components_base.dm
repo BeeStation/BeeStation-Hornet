@@ -15,6 +15,8 @@
 	var/update_parents_after_rebuild = FALSE
 	///Stores the component gas mixture
 	var/list/datum/gas_mixture/airs
+	///Handles whether the custom reconcilation handling should be used
+	var/custom_reconcilation = FALSE
 
 /obj/machinery/atmospherics/components/New()
 	parents = new(device_type)
@@ -93,7 +95,7 @@
 
 /obj/machinery/atmospherics/components/nullify_node(i)
 	if(parents[i])
-		nullifyPipenet(parents[i])
+		nullify_pipenet(parents[i])
 	QDEL_NULL(airs[i])
 	return ..()
 
@@ -120,16 +122,18 @@
  * Arguments:
  * * -reference: the pipeline the component is attached to
  */
-/obj/machinery/atmospherics/components/proc/nullifyPipenet(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/proc/nullify_pipenet(datum/pipeline/reference)
 	if(!reference)
-		CRASH("nullifyPipenet(null) called by [type] on [COORD(src)]")
+		CRASH("nullify_pipenet(null) called by [type] on [COORD(src)]")
 
-	for (var/i in 1 to parents.len)
+	for (var/i in 1 to length(parents))
 		if (parents[i] == reference)
 			reference.other_airs -= airs[i] // Disconnects from the pipeline side
 			parents[i] = null // Disconnects from the machinery side.
 
 	reference.other_atmos_machines -= src
+	if(custom_reconcilation)
+		reference.require_custom_reconcilation -= src
 
 	/**
 	 *  We explicitly qdel pipeline when this particular pipeline
@@ -141,7 +145,7 @@
 
 	if(!length(reference.other_atmos_machines) && !length(reference.members))
 		if(QDESTROYING(reference))
-			CRASH("nullifyPipenet() called on qdeleting [reference]")
+			CRASH("nullify_pipenet() called on qdeleting [reference]")
 		qdel(reference)
 
 /obj/machinery/atmospherics/components/return_pipenet_airs(datum/pipeline/reference)
@@ -216,6 +220,16 @@
 	. = list()
 	for(var/i in 1 to device_type)
 		. += return_pipenet(nodes[i])
+
+/// When this machine is in a pipenet that is reconciling airs, this proc can add pipelines to the calculation.
+/// Can be either a list of pipenets or a single pipenet.
+/obj/machinery/atmospherics/components/proc/return_pipenets_for_reconcilation(datum/pipeline/requester)
+	return list()
+
+/// When this machine is in a pipenet that is reconciling airs, this proc can add airs to the calculation.
+/// Can be either a list of airs or a single air mix.
+/obj/machinery/atmospherics/components/proc/return_airs_for_reconcilation(datum/pipeline/requester)
+	return list()
 
 // UI Stuff
 

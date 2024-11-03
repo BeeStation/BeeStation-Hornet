@@ -13,13 +13,13 @@
 
 	pipe_flags = PIPING_ONE_PER_TURF
 	pipe_state = "connector"
+	custom_reconcilation = TRUE
 
+	///Reference to the connected device
 	var/obj/machinery/portable_atmospherics/connected_device
 
-	var/obj/machinery/atmospherics/components/unary/portables_connector/connect_to
-
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
-	..()
+	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.volume = 0
 
@@ -39,18 +39,17 @@
 		return
 	update_parents()
 
+/obj/machinery/atmospherics/components/unary/portables_connector/return_airs_for_reconcilation(datum/pipeline/requester)
+	. = ..()
+	if(!connected_device)
+		return
+	. += connected_device.return_air()
+
 /obj/machinery/atmospherics/components/unary/portables_connector/can_unwrench(mob/user)
 	. = ..()
 	if(. && connected_device)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], detach [connected_device] first!</span>")
 		return FALSE
-
-/obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
-	return connected_device.portableConnectorReturnAir()
-
-/obj/proc/portableConnectorReturnAir()
-	return
-
 
 /obj/machinery/atmospherics/components/unary/portables_connector/layer2
 	piping_layer = 2
