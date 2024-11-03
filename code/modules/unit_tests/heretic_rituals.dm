@@ -64,8 +64,9 @@
 		for(var/ritual_item_path in knowledge.required_atoms)
 			var/amount_to_create = knowledge.required_atoms[ritual_item_path]
 			if (ispath(ritual_item_path, /datum/reagent))
-				var/atom/created = new /obj/item/reagent_containers/cup/beaker/bluespace
+				var/atom/created = new /obj/item/reagent_containers/cup/beaker/bluespace(get_turf(our_heretic))
 				created.reagents.add_reagent(ritual_item_path, amount_to_create)
+				created_atoms += created
 			else
 				for(var/i in 1 to amount_to_create)
 					created_atoms += new ritual_item_path(get_turf(our_heretic))
