@@ -277,7 +277,7 @@
 
 /datum/religion_rites/shadow_blessing
 	name = "Shadow Blessing"
-	desc = "Bless someone with the power to walk through shadows, make them immune to all magic, and enthralled by the power of darkness putting them under your command."
+	desc = "Bless someone with the power to walk through shadows, make them immune to all magic, and (if you meet the requirements) enthralled by the power of darkness putting them under your command."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Let the darkness reside within us...",
@@ -325,7 +325,7 @@
 	rite_target.AddSpell(SW)
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
-	if(rite_target == user)
+	if(rite_target == user || !user.mind.special_role)
 		return
 	to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 	var/objective = "You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost!"
