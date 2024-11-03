@@ -47664,7 +47664,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "psB" = (
-/obj/machinery/portable_atmospherics/canister/proto,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -58978,7 +58977,6 @@
 /area/engine/atmos)
 "tbG" = (
 /obj/machinery/light,
-/obj/machinery/portable_atmospherics/canister/proto,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
