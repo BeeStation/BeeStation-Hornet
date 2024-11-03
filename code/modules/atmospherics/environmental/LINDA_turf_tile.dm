@@ -168,7 +168,6 @@
 
 
 /turf/open/proc/update_visuals()
-
 	var/list/atmos_overlay_types = src.atmos_overlay_types // Cache for free performance
 
 	if(!air) // 2019-05-14: was not able to get this path to fire in testing. Consider removing/looking at callers -Naksu

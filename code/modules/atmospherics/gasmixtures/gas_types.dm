@@ -20,13 +20,11 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 		.[gas_path] = gas_info
 
 /proc/generate_gas_overlay(datum/gas/gas_type)
-	var/list/to_return = list()
 	var/fill = list()
-	to_return += list(fill)
 	for(var/j in 1 to TOTAL_VISIBLE_STATES)
 		var/obj/effect/overlay/gas/gas = new (initial(gas_type.gas_overlay), log(4, (j+0.4*TOTAL_VISIBLE_STATES) / (0.35*TOTAL_VISIBLE_STATES)) * 255)
 		fill += gas
-	return to_return
+	return fill
 
 /proc/gas_id2path(id)
 	var/list/meta_gas = GLOB.meta_gas_info
@@ -109,7 +107,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	rarity = 800
 	base_value = 1.5
 	desc = "A flammable gas with many other curious properties. Its research is one of NT's primary objective."
-	primary_color = "#ffc0cb"
+	primary_color = "#A020F0"
 
 /datum/gas/water_vapor
 	id = GAS_WATER_VAPOR
@@ -205,7 +203,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	rarity = 200
 	base_value = 3
 	desc = "An experimental gas that makes you stun and sleep immune and slightly regenerates stamina, but also causes suffocation the longer you've been breathing it."
-	primary_color = "#A020F0"
+	primary_color = "#ffc0cb"
 
 
 /obj/effect/overlay/gas
