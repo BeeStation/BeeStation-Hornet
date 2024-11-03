@@ -122,7 +122,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qa" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 4;
 	initialize_directions = 4
 	},

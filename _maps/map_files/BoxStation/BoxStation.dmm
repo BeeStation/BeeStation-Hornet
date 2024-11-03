@@ -880,7 +880,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "alF" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "alL" = (
@@ -2082,7 +2082,7 @@
 /area/maintenance/disposal/incinerator)
 "aCD" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -4237,7 +4237,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -4404,7 +4404,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "baL" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -10952,7 +10952,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "cdR" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cdU" = (
@@ -23271,7 +23271,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "fXX" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -32767,7 +32767,7 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "jJw" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "jJF" = (

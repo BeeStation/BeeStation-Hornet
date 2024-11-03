@@ -21498,7 +21498,7 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "eYu" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "eYx" = (
@@ -23174,7 +23174,7 @@
 "fzP" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -27808,7 +27808,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -55548,7 +55548,7 @@
 "pXJ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/iron/dark,
 /area/maintenance/port/aft)
 "pXK" = (

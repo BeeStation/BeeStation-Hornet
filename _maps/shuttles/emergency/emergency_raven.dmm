@@ -1459,7 +1459,7 @@
 	name = "Station Intercom (General)";
 	pixel_y = 22
 	},
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "vE" = (

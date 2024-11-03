@@ -12,7 +12,7 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "af" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ag" = (

@@ -3912,7 +3912,7 @@
 /turf/open/floor/grass,
 /area/centcom/evac)
 "pe" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "ph" = (
@@ -5185,7 +5185,7 @@
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "tF" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
 /obj/machinery/firealarm{

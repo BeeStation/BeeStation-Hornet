@@ -222,7 +222,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "jY" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/structure/closet,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)

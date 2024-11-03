@@ -31481,7 +31481,7 @@
 /area/crew_quarters/heads/captain)
 "kaD" = (
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 8;
 	initialize_directions = 8
 	},

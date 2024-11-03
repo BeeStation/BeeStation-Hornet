@@ -265,7 +265,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ca" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
 /turf/open/floor/grass{

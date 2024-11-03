@@ -40,7 +40,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "am" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "an" = (
@@ -1081,7 +1081,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "dS" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/machinery/camera/directional/north,
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -2853,7 +2853,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "XU" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/machinery/light{
 	dir = 1
 	},

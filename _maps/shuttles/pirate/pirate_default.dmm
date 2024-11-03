@@ -1864,7 +1864,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
 "Tl" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{

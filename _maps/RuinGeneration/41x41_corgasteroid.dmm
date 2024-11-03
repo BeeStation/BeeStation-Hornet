@@ -106,7 +106,7 @@
 /obj/structure/sign/warning/vacuum{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/ruin/unpowered)

@@ -46,7 +46,7 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "am" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "an" = (

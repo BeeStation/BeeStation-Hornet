@@ -455,7 +455,7 @@
 	pixel_y = 9
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bC" = (

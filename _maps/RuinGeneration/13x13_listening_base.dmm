@@ -814,7 +814,7 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/listeningstation)
 "Vh" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,

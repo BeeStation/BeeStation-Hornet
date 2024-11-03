@@ -3402,7 +3402,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
 "lw" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
 "lx" = (

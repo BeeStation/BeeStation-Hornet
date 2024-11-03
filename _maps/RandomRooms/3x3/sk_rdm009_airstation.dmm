@@ -17,7 +17,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 8
 	},
 /obj/machinery/light{

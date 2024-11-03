@@ -33211,7 +33211,7 @@
 /obj/structure/sign/warning/vacuum{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -57777,7 +57777,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "sHT" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -57925,7 +57925,7 @@
 /turf/open/floor/iron,
 /area/teleporter)
 "sKh" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
@@ -68753,7 +68753,7 @@
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "wjc" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
