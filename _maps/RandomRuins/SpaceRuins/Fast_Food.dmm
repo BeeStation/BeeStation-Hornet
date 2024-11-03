@@ -787,7 +787,7 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dk" = (
-/obj/machinery/atmospherics/components/unary/tank/oxygen,
+/obj/machinery/atmospherics/components/tank/oxygen,
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dl" = (

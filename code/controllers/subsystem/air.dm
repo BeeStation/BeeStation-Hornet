@@ -847,8 +847,7 @@ GLOBAL_LIST_EMPTY(colored_images)
 	#else
 	data["display_max"] = FALSE
 	#endif
-	var/atom/movable/screen/plane_master/plane = user.hud_used.plane_masters["[ATMOS_GROUP_PLANE]"]
-	data["showing_user"] = (plane.alpha == 255)
+	data["showing_user"] = user.hud_used.atmos_debug_overlays
 	return data
 
 /datum/controller/subsystem/air/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -885,16 +884,12 @@ GLOBAL_LIST_EMPTY(colored_images)
 					group.hide_turfs()
 			return TRUE
 		if("toggle_user_display")
-			var/atom/movable/screen/plane_master/plane = ui.user.hud_used.plane_masters["[ATMOS_GROUP_PLANE]"]
-
-			if(!plane.alpha)
-				if(ui.user.client)
-					ui.user.client.images += GLOB.colored_images
-				plane.alpha = 255
+			var/mob/user = ui.user
+			user.hud_used.atmos_debug_overlays = !user.hud_used.atmos_debug_overlays
+			if(user.hud_used.atmos_debug_overlays)
+				user.client.images += GLOB.colored_images
 			else
-				if(ui.user.client)
-					ui.user.client.images -= GLOB.colored_images
-				plane.alpha = 0
+				user.client.images -= GLOB.colored_images
 			return TRUE
 
 // Supercruise Z-pausing

@@ -67249,7 +67249,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/components/unary/tank/plasma,
+/obj/machinery/atmospherics/components/tank/plasma,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal/incinerator)

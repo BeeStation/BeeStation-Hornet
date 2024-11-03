@@ -69,6 +69,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	// subtypes can override this to force a specific UI style
 	var/ui_style
+	/// If this client is being shown atmos debug overlays or not
+	var/atmos_debug_overlays = FALSE
 
 /datum/hud/New(mob/owner)
 	mymob = owner

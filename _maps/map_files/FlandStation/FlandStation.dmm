@@ -32508,7 +32508,7 @@
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
 "iqL" = (
-/obj/machinery/atmospherics/components/unary/tank/plasma{
+/obj/machinery/atmospherics/components/tank/plasma{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -37813,7 +37813,7 @@
 /area/security/main)
 "jIP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/plasma{
+/obj/machinery/atmospherics/components/tank/plasma{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,

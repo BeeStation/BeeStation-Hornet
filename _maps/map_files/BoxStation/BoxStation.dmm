@@ -50161,7 +50161,7 @@
 /area/crew_quarters/theatre/backstage)
 "qTo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/plasma{
+/obj/machinery/atmospherics/components/tank/plasma{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
