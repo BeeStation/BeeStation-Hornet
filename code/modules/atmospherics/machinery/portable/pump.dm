@@ -1,9 +1,3 @@
-#define PUMP_OUT "out"
-#define PUMP_IN "in"
-#define PUMP_MAX_PRESSURE (ONE_ATMOSPHERE * 25)
-#define PUMP_MIN_PRESSURE (ONE_ATMOSPHERE / 10)
-#define PUMP_DEFAULT_PRESSURE (ONE_ATMOSPHERE)
-
 /obj/machinery/portable_atmospherics/pump
 	name = "portable air pump"
 	desc = "It's a small portable air pump, capable of siphoning or pumping gasses into its surroundings. It has a decent internal gas storage, and a slot for external tanks. It can be wrenched to a connection port to join it into the pipe net."
@@ -230,9 +224,3 @@
 /obj/machinery/portable_atmospherics/pump/unregister_holding()
 	on = FALSE
 	return ..()
-
-#undef PUMP_OUT
-#undef PUMP_IN
-#undef PUMP_MAX_PRESSURE
-#undef PUMP_MIN_PRESSURE
-#undef PUMP_DEFAULT_PRESSURE

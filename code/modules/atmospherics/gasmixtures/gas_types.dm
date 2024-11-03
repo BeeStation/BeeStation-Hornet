@@ -1,32 +1,32 @@
 GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)) //the main four gases, which were at one time hardcoded
-//Now this is what I call history
-GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/pluoxium, /datum/gas/stimulum, /datum/gas/nitryl))) //unable to react amongst themselves
 
 /proc/meta_gas_list()
 	. = subtypesof(/datum/gas)
 	for(var/gas_path in .)
-		var/list/gas_info = new(11)
+		var/list/gas_info = new(13)
 		var/datum/gas/gas = gas_path
-		var/datum/gas/instance = new(gas_path)
 
 		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
 		gas_info[META_GAS_NAME] = initial(gas.name)
 
 		gas_info[META_GAS_MOLES_VISIBLE] = initial(gas.moles_visible)
 		if(initial(gas.moles_visible) != null)
-			gas_info[META_GAS_OVERLAY] = new /list(TOTAL_VISIBLE_STATES)
-			for(var/i in 1 to TOTAL_VISIBLE_STATES)
-				gas_info[META_GAS_OVERLAY][i] = new /obj/effect/overlay/gas(initial(gas.gas_overlay), log(4, (i+0.4*TOTAL_VISIBLE_STATES) / (0.35*TOTAL_VISIBLE_STATES)) * 255)
+			gas_info[META_GAS_OVERLAY] = generate_gas_overlay(gas)
 
 		gas_info[META_GAS_FUSION_POWER] = initial(gas.fusion_power)
 		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
 		gas_info[META_GAS_ID] = initial(gas.id)
-		gas_info[META_GAS_BREATH_ALERT_INFO] = instance.breath_alert_info.Copy()
-		gas_info[META_GAS_BREATH_REAGENT] = initial(gas.breath_reagent)
-		gas_info[META_GAS_BREATH_RESULTS] = initial(gas.breath_results)
-		gas_info[META_GAS_BREATH_REAGENT_DANGEROUS] = initial(gas.breath_reagent_dangerous)
-
+		gas_info[META_GAS_DESC] = initial(gas.desc)
 		.[gas_path] = gas_info
+
+/proc/generate_gas_overlay(datum/gas/gas_type)
+	var/list/to_return = list()
+	var/fill = list()
+	to_return += list(fill)
+	for(var/j in 1 to TOTAL_VISIBLE_STATES)
+		var/obj/effect/overlay/gas/gas = new (initial(gas_type.gas_overlay), log(4, (j+0.4*TOTAL_VISIBLE_STATES) / (0.35*TOTAL_VISIBLE_STATES)) * 255)
+		fill += gas
+	return to_return
 
 /proc/gas_id2path(id)
 	var/list/meta_gas = GLOB.meta_gas_info
@@ -50,135 +50,163 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	var/id = ""
 	var/specific_heat = 0
 	var/name = ""
-	var/gas_overlay = "" //icon_state in icons/effects/atmospherics.dmi
+	///icon_state in icons/effects/atmospherics.dmi
+	var/gas_overlay = ""
 	var/moles_visible = null
-	var/dangerous = FALSE //currently used by canisters
-	var/fusion_power = 0 //How much the gas accelerates a fusion reaction
-	var/rarity = 0 // relative rarity compared to other gases, used when setting up the reactions list.
-	var/list/breath_alert_info = list()
-	var/breath_reagent = null
-	var/breath_results = null
-	var/breath_reagent_dangerous = null
+	///currently used by canisters
+	var/dangerous = FALSE
+	///How much the gas accelerates a fusion reaction
+	var/fusion_power = 0
+	/// relative rarity compared to other gases, used when setting up the reactions list.
+	var/rarity = 0
+	///Can gas of this type can purchased through cargo?
+	var/purchaseable = FALSE
+	///How does a single mole of this gas sell for? Formula to calculate maximum value is in code\modules\cargo\exports\large_objects.dm. Doesn't matter for roundstart gasses.
+	var/base_value = 0
+	//Description
+	var/desc
+	///RGB code for use when a generic color representing the gas is needed. Colors taken from contants.ts
+	var/primary_color
 
 /datum/gas/oxygen
-	id = "o2"
+	id = GAS_O2
 	specific_heat = 20
 	name = "Oxygen"
 	rarity = 900
+	purchaseable = TRUE
+	base_value = 0.2
+	desc = "The gas most life forms need to be able to survive. Also an oxidizer."
+	primary_color = "#0000ff"
 
 /datum/gas/nitrogen
-	id = "n2"
+	id = GAS_N2
 	specific_heat = 20
-	breath_alert_info = list(
-		not_enough_alert = list(
-			alert_category = "not_enough_nitro",
-			alert_type = /atom/movable/screen/alert/not_enough_nitro
-		),
-		too_much_alert = list(
-			alert_category = "too_much_nitro",
-			alert_type = /atom/movable/screen/alert/too_much_nitro
-		)
-	)
 	name = "Nitrogen"
 	rarity = 1000
+	purchaseable = TRUE
+	base_value = 0.1
+	desc = "A very common gas that used to pad artificial atmospheres to habitable pressure."
+	primary_color = "#ffff00"
 
 /datum/gas/carbon_dioxide //what the fuck is this?
-	id = "co2"
+	id = GAS_CO2
 	specific_heat = 30
 	name = "Carbon Dioxide"
-	breath_results = /datum/gas/oxygen
-	breath_alert_info = list(
-		not_enough_alert = list(
-			alert_category = "not_enough_co2",
-			alert_type = /atom/movable/screen/alert/not_enough_co2
-		),
-		too_much_alert = list(
-			alert_category = "too_much_co2",
-			alert_type = /atom/movable/screen/alert/too_much_co2
-		)
-	)
-	fusion_power = 3
+	dangerous = TRUE
 	rarity = 700
+	purchaseable = TRUE
+	base_value = 0.2
+	desc = "What the fuck is carbon dioxide?"
+	primary_color = COLOR_GRAY
 
 /datum/gas/plasma
-	id = "plasma"
+	id = GAS_PLASMA
 	specific_heat = 200
 	name = "Plasma"
 	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
 	rarity = 800
+	base_value = 1.5
+	desc = "A flammable gas with many other curious properties. Its research is one of NT's primary objective."
+	primary_color = "#ffc0cb"
 
 /datum/gas/water_vapor
-	id = "water_vapor"
+	id = GAS_WATER_VAPOR
 	specific_heat = 40
 	name = "Water Vapor"
 	gas_overlay = "water_vapor"
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 8
-	breath_reagent = /datum/reagent/water
 	rarity = 500
+	purchaseable = TRUE
+	base_value = 0.5
+	desc = "Water, in gas form. Makes things slippery."
+	primary_color = "#b0c4de"
 
 /datum/gas/hypernoblium
-	id = "nob"
+	id = GAS_HYPER_NOBLIUM
 	specific_heat = 2000
 	name = "Hyper-noblium"
 	gas_overlay = "freon"
 	moles_visible = MOLES_GAS_VISIBLE
-	dangerous = TRUE
 	fusion_power = 10
 	rarity = 50
+	base_value = 2.5
+	desc = "The most noble gas of them all. High quantities of hyper-noblium actively prevents reactions from occurring."
+	primary_color = COLOR_TEAL
 
 /datum/gas/nitrous_oxide
-	id = "n2o"
+	id = GAS_N2O
 	specific_heat = 40
 	name = "Nitrous Oxide"
 	gas_overlay = "nitrous_oxide"
 	moles_visible = MOLES_GAS_VISIBLE * 2
+	fusion_power = 10
 	dangerous = TRUE
 	rarity = 600
+	purchaseable = TRUE
+	base_value = 1.5
+	desc = "Causes drowsiness, euphoria, and eventually unconsciousness."
+	primary_color = "#ffe4c4"
 
 /datum/gas/nitryl
-	id = "no2"
-	specific_heat = 20
+	id = GAS_NITRYL
+	specific_heat = 10
 	name = "Nitryl"
+	fusion_power = 7
 	gas_overlay = "nitryl"
 	moles_visible = MOLES_GAS_VISIBLE
-	fusion_power = 15
 	dangerous = TRUE
-	rarity = 100
+	rarity = 1
+	base_value = 6
+	desc = "An experimental performance enhancing gas. Nitryl can have amplified effects as more of it gets into your bloodstream."
+	primary_color = "#a52a2a"
 
 /datum/gas/tritium
-	id = "tritium"
+	id = GAS_TRITIUM
 	specific_heat = 10
 	name = "Tritium"
 	gas_overlay = "tritium"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
-	fusion_power = 1
+	fusion_power = 5
 	rarity = 300
+	base_value = 2.5
+	desc = "A highly flammable and radioactive gas."
+	primary_color = "#32cd32"
 
 /datum/gas/bz
-	id = "bz"
+	id = GAS_BZ
 	specific_heat = 20
 	name = "BZ"
 	dangerous = TRUE
 	fusion_power = 8
 	rarity = 400
-
-/datum/gas/stimulum
-	id = "stim"
-	specific_heat = 5
-	name = "Stimulum"
-	fusion_power = 7
-	rarity = 1
+	purchaseable = TRUE
+	base_value = 1.5
+	desc = "A powerful hallucinogenic nerve agent able to induce cognitive damage."
+	primary_color = "#9370db"
 
 /datum/gas/pluoxium
-	id = "pluox"
+	id = GAS_PLUOXIUM
 	specific_heat = 80
 	name = "Pluoxium"
-	fusion_power = 10
+	fusion_power = -10
 	rarity = 200
+	base_value = 2.5
+	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
+	primary_color = "#7b68ee"
+
+/datum/gas/stimulum
+	id = GAS_STIMULUM
+	specific_heat = 80
+	name = "Stimulum"
+	rarity = 200
+	base_value = 3
+	desc = "An experimental gas that makes you stun and sleep immune and slightly regenerates stamina, but also causes suffocation the longer you've been breathing it."
+	primary_color = "#A020F0"
+
 
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'

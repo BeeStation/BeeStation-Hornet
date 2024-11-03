@@ -813,7 +813,7 @@
 	playsound(src, "sparks", 50, 1)
 
 /obj/machinery/advanced_airlock_controller/atom_break(damage_flag)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/machinery/advanced_airlock_controller/deconstruct(disassembled = TRUE)

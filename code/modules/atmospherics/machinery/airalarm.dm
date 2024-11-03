@@ -859,7 +859,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 	playsound(src, "sparks", 50, 1)
 
 /obj/machinery/airalarm/atom_break(damage_flag)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/machinery/airalarm/deconstruct(disassembled = TRUE)
