@@ -103,7 +103,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately![ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed_heavy"
 
-	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner) || (status_flags & GODMODE))
+	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner) || (owner.status_flags & GODMODE))
 		linked_alert.maptext = MAPTEXT("<s>[owner.get_bleed_rate_string()]</s>")
 	else
 		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
