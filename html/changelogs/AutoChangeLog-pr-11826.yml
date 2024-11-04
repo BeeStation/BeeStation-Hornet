@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Dynamic will no longer be forced to run high-impact rulesets after 100
+      minutes, and will instead resort to spawning whatever it wants.
