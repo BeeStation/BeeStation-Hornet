@@ -262,7 +262,6 @@
 
 /obj/vehicle/sealed/mecha/atom_destruction()
 	loc.assume_air(cabin_air)
-	air_update_turf(FALSE, FALSE)
 	Eject()
 	return ..()
 

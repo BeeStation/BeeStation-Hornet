@@ -121,7 +121,6 @@
 		var/turf/location = get_turf(src)
 		if(location)
 			location.assume_air(air_contents)
-			air_update_turf(FALSE, FALSE)
 		playsound(location, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	return ..()
 
@@ -264,7 +263,6 @@
 		return
 	var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
 	location.assume_air(leaked_gas)
-	location.air_update_turf(FALSE, FALSE)
 
 /**
  * Handles the minimum and maximum pressure tolerances of the tank.

@@ -85,7 +85,6 @@
 
 				loc.assume_air_moles(air1, transfer_moles)
 
-				air_update_turf(FALSE, FALSE)
 
 				var/datum/pipeline/parent1 = parents[1]
 				parent1.update = TRUE
@@ -101,7 +100,6 @@
 
 			if(moles_delta > 0)
 				loc.transfer_air(air2, moles_delta)
-				air_update_turf(FALSE, FALSE)
 
 				var/datum/pipeline/parent2 = parents[2]
 				parent2.update = TRUE
