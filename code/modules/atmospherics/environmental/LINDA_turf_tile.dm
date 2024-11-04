@@ -60,11 +60,7 @@
 				var/datum/gas_mixture/immutable/planetary/mix = new
 				mix.parse_string_immutable(initial_gas_mix)
 				SSair.planetary[initial_gas_mix] = mix
-	if(broken)
-		break_tile(TRUE)
-	if(burnt)
-		burn_tile(TRUE)
-	. = ..()
+	return ..()
 
 /turf/open/Destroy()
 	if(active_hotspot)
@@ -93,12 +89,14 @@
 		return FALSE
 	air.merge(giver)
 	update_visuals()
+	air_update_turf(FALSE, FALSE)
 	return TRUE
 
 /turf/open/remove_air(amount)
 	var/datum/gas_mixture/ours = return_air()
 	var/datum/gas_mixture/removed = ours.remove(amount)
 	update_visuals()
+	air_update_turf(FALSE, FALSE)
 	return removed
 
 /turf/open/proc/copy_air_with_tile(turf/open/target_turf)
@@ -130,9 +128,9 @@
 	if(to_be_destroyed && exposed_temperature >= max_fire_temperature_sustained)
 		max_fire_temperature_sustained = min(exposed_temperature, max_fire_temperature_sustained + heat_capacity / 4) //Ramp up to 100% yeah?
 	if(to_be_destroyed && !changing_turf)
-		turf_burn()
+		burn_turf()
 
-/turf/proc/turf_burn()
+/turf/proc/burn_turf()
 	burn_tile()
 	var/chance_of_deletion
 	if (heat_capacity) //beware of division by zero
@@ -145,24 +143,18 @@
 	else
 		to_be_destroyed = FALSE
 
-/turf/open/turf_burn()
-	if(!active_hotspot) //Might not even be needed since excited groups are no longer cringe
-		..()
-
 /turf/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	atmos_expose(air, exposed_temperature)
 
 /turf/open/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	SEND_SIGNAL(src, COMSIG_TURF_EXPOSE, air, exposed_temperature)
-	check_atmos_process(null, air, exposed_temperature) //Manually do this to avoid needing to use elements, don't want 200 second atom init times
+	check_atmos_process(src, air, exposed_temperature) //Manually do this to avoid needing to use elements, don't want 200 second atom init times
 
 /turf/proc/archive()
 	temperature_archived = temperature
 
 /turf/open/archive()
-	air.archive()
-	archived_cycle = SSair.times_fired
-	temperature_archived = temperature
+	LINDA_CYCLE_ARCHIVE(src)
 
 /////////////////////////GAS OVERLAYS//////////////////////////////
 
@@ -257,7 +249,7 @@
 
 /turf/open/process_cell(fire_count)
 	if(archived_cycle < fire_count) //archive self if not already done
-		archive()
+		LINDA_CYCLE_ARCHIVE(src)
 
 	current_cycle = fire_count
 	var/cached_ticker = significant_share_ticker
@@ -290,7 +282,7 @@
 
 		if(fire_count <= enemy_tile.current_cycle)
 			continue
-		enemy_tile.archive()
+		LINDA_CYCLE_ARCHIVE(enemy_tile)
 
 	/******************* GROUP HANDLING START *****************************************************************/
 
@@ -337,7 +329,7 @@
 	if (planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/planetary_mix = SSair.planetary[initial_gas_mix]
 		// archive ourself again so we don't accidentally share more gas than we currently have
-		archive()
+		LINDA_CYCLE_ARCHIVE(src)
 		if(our_air.compare(planetary_mix))
 			if(!our_excited_group)
 				var/datum/excited_group/new_group = new
@@ -352,7 +344,7 @@
 
 	for(var/turf/open/enemy_tile as anything in share_end)
 		var/datum/gas_mixture/enemy_mix = enemy_tile.air
-		archive()
+		LINDA_CYCLE_ARCHIVE(src)
 		// We share 100% of our mix in this step. Let's jive
 		var/difference = our_air.share(enemy_mix, 1, 1)
 		LAST_SHARE_CHECK

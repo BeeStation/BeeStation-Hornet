@@ -329,7 +329,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	return GLOB.default_turf_damage
 
 /turf/open/proc/burnt_states()
-	return GLOB.default_turf_burn
+	return GLOB.default_burn_turf
 
 /turf/open/proc/make_traction(add_visual = TRUE)
 	if(add_visual)

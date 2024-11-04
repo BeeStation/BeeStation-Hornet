@@ -44,6 +44,7 @@
 #include "metabolizing.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
+#include "orphaned_genturf.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"
