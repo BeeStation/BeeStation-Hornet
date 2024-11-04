@@ -12,8 +12,9 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/random/Initialize(mapload)
 	var/obj/item/ammo_casing/c38/boolet
+	var/list/possible_boolets = typesof(/obj/item/ammo_casing/c38) -/obj/item/ammo_casing/c38/dart -/obj/item/ammo_casing/caseless/mime
 	for(var/i in 1 to max_ammo)
-		boolet = pick(typesof(/obj/item/ammo_casing/c38) -/obj/item/ammo_casing/c38/dart -/obj/item/ammo_casing/caseless/mime)
+		boolet = pick(possible_boolets)
 		stored_ammo += new boolet(src)
 	. = ..()
 
