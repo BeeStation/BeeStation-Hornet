@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	// its not that I dont trust coders, its just that I don't trust coders
 	if(!(rating in ARMOR_LIST_ALL()))
 		CRASH("Attempted to get a rating '[rating]' that doesnt exist")
-	return vars[rating]
+	return vars?[rating]
 
 /datum/armor/immune/get_rating(rating)
 	return 100
