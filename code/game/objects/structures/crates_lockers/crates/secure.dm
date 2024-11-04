@@ -8,6 +8,7 @@
 	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
+	damage_deflection = 25
 
 
 /datum/armor/crate_secure
@@ -17,11 +18,6 @@
 	energy = 100
 	fire = 80
 	acid = 80
-
-/obj/structure/closet/crate/secure/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 25)
-		return 0
-	. = ..()
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)

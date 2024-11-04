@@ -12,6 +12,7 @@
 	armor_type = /datum/armor/structure_disposalpipe
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	damage_deflection = 10
 	var/dpdir = NONE					// bitmask of pipe directions
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
@@ -124,13 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 /obj/structure/disposalpipe/contents_explosion(severity, target)
 	for(var/obj/structure/disposalholder/H in src)
 		H.contents_explosion(severity, target)
-
-
-/obj/structure/disposalpipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10)
-		return 0
-	return ..()
-
 
 //welding tool: unfasten and convert to obj/disposalconstruct
 /obj/structure/disposalpipe/welder_act(mob/living/user, obj/item/I)

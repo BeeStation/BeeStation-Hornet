@@ -11,8 +11,8 @@
 	var/armor200 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 200))
 	var/armorN50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = -50))
 	// Run armour checks again without penetration
-	//equip_item(test_dummy, armor50)
-	//TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(50), round(test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE), 1), "Mob wearing 50 armour vest did not return 50 armour.")
+	equip_item(test_dummy, armor50)
+	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(50), round(test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE), 1), "Mob wearing 50 armour vest did not return 50 armour.")
 	equip_item(test_dummy, armor100)
 	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(100), round(test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE), 1), "Mob wearing 100 armour vest did not return 100 armour.")
 	equip_item(test_dummy, armor200)
@@ -78,3 +78,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/suit/test_vest)
 /obj/item/clothing/suit/test_vest/Initialize(mapload, armour_values)
 	armor = armour_values
 	. = ..()
+
+/datum/armor/armor50
+	melee = 50
+
+/datum/armor/armor100
+	melee = 100
+
+/datum/armor/armor200
+	melee = 200
+
+/datum/armor/armorN50
+	melee = -50
