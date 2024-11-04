@@ -352,6 +352,7 @@
 	owner.pass_flags |= PASSDOORS
 	owner.status_flags |= GODMODE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, type)
 	ADD_TRAIT(owner, TRAIT_NOGUNS, type)
 	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(ignore_projectiles))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(cancel_passage))
@@ -366,6 +367,7 @@
 	owner.pass_flags &= ~(PASSDOORS)
 	owner.invisibility = initial(owner.invisibility)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, type)
 	REMOVE_TRAIT(owner, TRAIT_NOGUNS, type)
 	UnregisterSignal(owner, COMSIG_ATOM_BULLET_ACT)
 	owner.remove_filter("ash_jaunt")
