@@ -63,8 +63,6 @@
 		CRASH("/atom/proc/run_atom_armor was called on [src] without being implemented as a type that uses integrity!")
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	if(damage_flag == MELEE && damage_amount < damage_deflection)
-		return 0
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
 	var/armor_protection = 0
