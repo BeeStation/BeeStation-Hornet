@@ -82,7 +82,7 @@
 /obj/machinery/portable_atmospherics/canister/examine(user)
 	. = ..()
 	if(atom_integrity < max_integrity)
-		. += "<span class='notice'>Integrity compromised, repair hull with a welding tool.</span>"
+		. += "<span class='danger'>Integrity compromised, repair hull with a welding tool.</span>"
 	. += "<span class='notice'>A sticker on its side says <b>MAX SAFE PRESSURE: [siunit_pressure(initial(pressure_limit), 0)]; MAX SAFE TEMPERATURE: [siunit(temp_limit, "K", 0)]</b>.</span>"
 	. += "<span class='notice'>The hull is <b>welded</b> together and can be cut apart.</span>"
 	if(internal_cell)
@@ -195,13 +195,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(user.a_intent == INTENT_HARM)
 		return FALSE //We're attacking the canister.
 
+	if(atom_integrity < max_integrity)
+		if(I.use_tool(src, user, 3 SECONDS, volume=50))
+			update_integrity(max_integrity)
+			to_chat(user, "<span class='notice'>You weld [src] back together.</span>")
+
 	var/pressure = air_contents.return_pressure()
 	if(pressure > 300)
 		to_chat(user, "<span class='alert'>The pressure gauge on [src] indicates a high pressure inside... maybe you want to reconsider?</span>")
 		message_admins("[src] deconstructed by [ADMIN_LOOKUPFLW(user)]")
 		user.log_message("deconstructed [src] with a welder.", LOG_GAME)
 	to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
-	if(I.use_tool(src, user, 3 SECONDS, volume=50))
+	if(I.use_tool(src, user, 5 SECONDS, volume=50))
 		to_chat(user, "<span class='notice'>You cut [src] apart.</span>")
 		deconstruct(TRUE)
 
