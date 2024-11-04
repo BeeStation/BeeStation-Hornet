@@ -26,7 +26,7 @@
 #define ATMOS_TANK_STIMULUM			"stim=100000;TEMP=293.15"
 #define ATMOS_TANK_TRITIUM			"tritium=100000;TEMP=293.15"
 #define ATMOS_TANK_H2O				"water_vapor=100000;TEMP=293.15"
-#define ATMOS_TANK_AIRMIX			"o2=2644;n2=10580;TEMP=293.15"
+#define ATMOS_TANK_AIRMIX			"o2=2777;n2=10447;TEMP=293.15" // 21% oxygen, 79% nitrogen. Roughly.
 
 //LAVALAND
 /// what pressure you have to be under to increase the effect of equipment meant for lavaland
