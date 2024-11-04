@@ -26,6 +26,7 @@
 	var/efficiency = 1
 	var/sleep_factor = 0.00125
 	var/unconscious_factor = 0.001
+	/// Our approximation of a mob's heat capacity.
 	var/heat_capacity = 20000
 	var/conduction_coefficient = 0.3
 
@@ -255,10 +256,10 @@
 		if(abs(temperature_delta) > 1)
 			var/air_heat_capacity = air1.heat_capacity()
 
-			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
+			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * CALCULATE_CONDUCTION_ENERGY(temperature_delta, heat_capacity, air_heat_capacity)
 
-			air1.temperature = max(air1.return_temperature() - heat / air_heat_capacity, TCMB)
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
+			air1.temperature = clamp(air1.temperature - heat / air_heat_capacity, TCMB, MAX_TEMPERATURE)
 
 		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 

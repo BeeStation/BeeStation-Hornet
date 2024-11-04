@@ -51,9 +51,9 @@
 		var/input_capacity = remove_input.heat_capacity()
 		var/output_capacity = air_output.heat_capacity()
 
-		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * coolant_temperature_delta * (input_capacity * output_capacity / (input_capacity + output_capacity))
-		remove_input.temperature = (max(remove_input.return_temperature() - (cooling_heat_amount / input_capacity), TCMB))
+		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * CALCULATE_CONDUCTION_ENERGY(coolant_temperature_delta, output_capacity, input_capacity)
 		remove_output.temperature = (max(remove_output.return_temperature() + (cooling_heat_amount / output_capacity), TCMB))
+		remove_input.temperature = max(remove_input.temperature - (cooling_heat_amount / input_capacity), TCMB)
 		update_parents()
 
 

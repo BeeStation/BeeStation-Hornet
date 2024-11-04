@@ -108,6 +108,9 @@
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	balloon_alert(user, "You set the target temperature to [target_temperature] K.")
 
+
+/// Performs heat calculation for the freezer.
+/// We just equalize the gasmix with an object at temp = var/target_temperature and heat cap = var/heat_capacity
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
 	if(!is_operational || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
