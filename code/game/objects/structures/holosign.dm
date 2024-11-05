@@ -191,9 +191,6 @@
 	take_damage(P.damage, BRUTE, MELEE, 1)
 	return BULLET_ACT_HIT
 
-/obj/structure/holosign/barrier/detective/proc/cooldown()
-	shockcd = FALSE
-
 /obj/structure/holosign/barrier/detective/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
@@ -202,7 +199,7 @@
 		return
 	user.electrocute_act(10,"Energy Barrier", flags = SHOCK_NOGLOVES)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5 SECONDS)
 
 /obj/structure/holosign/barrier/detective/Bumped(atom/movable/victim)
 	if(shockcd || !isliving(victim))
@@ -212,6 +209,9 @@
 	living_victim.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES | SHOCK_NOSTUN)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5 SECONDS)
+
+/obj/structure/holosign/barrier/detective/proc/cooldown()
+	shockcd = FALSE
 
 /obj/structure/holosign/barrier/cyborg/hacked
 	name = "Charged Energy Field"
