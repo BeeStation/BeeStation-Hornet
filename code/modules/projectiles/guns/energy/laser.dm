@@ -9,6 +9,9 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 
+/obj/item/gun/energy/laser/off_station
+	pin = /obj/item/firing_pin/off_station
+
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
