@@ -6,7 +6,7 @@
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
-	favor = 100 //Starts off with enough favor to make an obelisk
+	favor = 300 //Starts off with enough favor to make an obelisk
 	max_favor = 50000
 	desired_items = list(
 		/obj/item/flashlight)
@@ -64,6 +64,7 @@
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "shadow-obelisk"
 	anchored = FALSE
+	max_integrity = 80
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
 	var/heal_delay = 20
 	var/last_heal = 0
@@ -234,7 +235,7 @@
 		"... Solidify and grow ...",
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
-	favor_cost = 100 //Sect starts with 100 favor to begin
+	favor_cost = 300 //Sect starts with 300 favor to begin
 
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
@@ -255,7 +256,7 @@
 		"... Kill the light ...",
 		"... Encompass it all in darkness ...")
 	invoke_msg = "Shadows, reach your tendrils from my altar, and extend thy domain."
-	favor_cost = 175
+	favor_cost = 1000
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -286,7 +287,7 @@
 		"... And let the demons know ...",
 		"... That their powers will not work apon us any more...",)
 	invoke_msg = "Bless thy brethen, and grant them immunity!"
-	favor_cost = 10000
+	favor_cost = 35000
 
 /datum/religion_rites/shadow_blessing/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
@@ -299,9 +300,11 @@
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 			return FALSE
-		if(isshadow(user))
-			to_chat(user,"<span class='warning'>You've already blessed yourself. To convert others, they must be buckled to [movable_reltool].</span>")
-			return FALSE
+		var/shadowspell = /obj/effect/proc_holder/spell/targeted/shadowwalk
+		for(var/obj/effect/proc_holder/spell/knownspell in user.mob_spell_list)
+			if(knownspell.type == shadowspell)
+				to_chat(user,"<span class='warning'>You've already blessed yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+				return FALSE
 		to_chat(user,"<span class='warning'>You're going to bless yourself with this ritual.</span>")
 	return ..()
 
@@ -325,11 +328,11 @@
 	rite_target.AddSpell(SW)
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
-	if(rite_target == user || !user.mind.special_role)
+	if(rite_target == user || !user.mind.special_role) //If self, or self is non-antag, early return
 		return
-	to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-	var/objective = "You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost!"
-	brainwash(rite_target, objective, "Shadow Conversion")
+	to_chat(rite_target, "<span class='userdanger'>Bring the world the true darkness, let the world bear the true comfort, deeply, in the faithful way of the shadow.</span>")
+	var/objective = "Bring the world the true darkness, let the world bear the true comfort, deeply, in the faithful way of the shadow."
+	brainwash(rite_target, objective, "Shadow Blessing")
 	log_game("[key_name(rite_target)] has been brainwashed with the objective '[objective]' via the chaplains sect shadow conversion.")
 	return TRUE
 
@@ -342,11 +345,22 @@
 		"... Let it fade ...",
 		"... Let it be consumed ...")
 	invoke_msg = "... So darkness shall prevail!!"
-	favor_cost = 10000
+	favor_cost = 25000
+	var/obj/item/nullrod/rod
+
+/datum/religion_rites/shadow_heart/perform_rite(mob/living/user, atom/religious_tool)
+	rod = locate() in get_turf(religious_tool)
+	if(!rod)
+		to_chat(user, "<span class='warning'>This rite requires you to sacrifice your null-rod, place it apon the altar.</span>")
+		return FALSE
+	return ..()
 
 /datum/religion_rites/shadow_heart/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	..()
+	if(!rod)
+		return FALSE
 	var/altar_turf = get_turf(religious_tool)
+	qdel(rod)
 	new /obj/item/organ/heart/nightmare(altar_turf)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return TRUE
@@ -390,21 +404,24 @@
 			playsound(obs, 'sound/magic/fireball.ogg', 50, TRUE)
 			return
 		var/obelisk_turf = get_turf(obs)
-		if(prob(30))
-			for(var/i in sect.min_summon to sect.max_summon)
-				var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
-				faithful.AddComponent(/datum/component/dark_favor, faithful)
-				faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
-				if(length(candidates))
-					var/mob/dead/observer/selected = pick_n_take(candidates)
-					var/datum/mind/Mind = new /datum/mind(selected.key)
-					faithful.real_name = "Faithful ([rand(1,999)])"
-					Mind.active = 1
-					Mind.transfer_to(faithful)
-					to_chat(faithful, "<span class='userdanger'>You've been summoned into this hellscape by a chaplain bent on murder and destruction, Protect the shadow people, and kill the rest.</span>")
-					var/objective = "You've been summoned into this hellscape by a chaplain bent on murder and destruction, Protect the shadow people, and kill the rest!"
-					brainwash(faithful, objective, "Final Darkness Rite")
-					log_game("[key_name(faithful)] has been given the objective '[objective]' via the chaplains final darkness rite.")
-		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+		if(!prob(30))
+			continue
+		for(var/i in sect.min_summon to sect.max_summon)
+			var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
+			faithful.AddComponent(/datum/component/dark_favor, faithful)
+			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
+			playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+			if(!length(candidates))
+				continue
+			var/mob/dead/observer/selected = pick_n_take(candidates)
+			var/datum/mind/Mind = new /datum/mind(selected.key)
+			faithful.real_name = "Faithful ([rand(1,999)])"
+			Mind.active = 1
+			Mind.transfer_to(faithful)
+			to_chat(faithful, "<span class='userdanger'>You've been summoned into this hellscape by a chaplain bent on murder and destruction, Protect the shadow people, and kill the rest.</span>")
+			var/objective = "You've been summoned into this hellscape by a chaplain bent on murder and destruction, Protect the shadow people, and kill the rest!"
+			brainwash(faithful, objective, "Final Darkness Rite")
+			log_game("[key_name(faithful)] has been given the objective '[objective]' via the chaplains final darkness rite.")
+
 
 #undef DARKNESS_INVERSE_COLOR
