@@ -2952,11 +2952,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
-"aDQ" = (
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
 "aDT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -4332,12 +4327,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"aTd" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
 "aTe" = (
 /obj/machinery/flasher{
 	id = "AI";
@@ -4424,16 +4413,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
-"aUq" = (
-/obj/machinery/light/small,
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
 "aUz" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
@@ -4764,9 +4743,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "aYG" = (
 /obj/machinery/computer/card/minor/rd{
@@ -4937,8 +4914,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai_upload)
 "aZS" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/lab)
@@ -5005,8 +4983,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai_upload)
 "baC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -5535,9 +5514,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "bfU" = (
 /obj/effect/landmark/blobstart,
@@ -7579,9 +7556,7 @@
 "byY" = (
 /obj/structure/flora/grass/jungle,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "bzb" = (
 /obj/structure/table,
@@ -8336,9 +8311,7 @@
 "bFR" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "bFU" = (
 /obj/machinery/light/small{
@@ -8987,8 +8960,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+/turf/open/floor/plating{
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "bNm" = (
@@ -9202,19 +9175,11 @@
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
 /area/hallway/secondary/entry)
-"bQb" = (
-/obj/structure/flora/rock,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
 "bQc" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/remains/xeno,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "bQg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -9231,9 +9196,7 @@
 "bQq" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "bQr" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -9274,9 +9237,7 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "bQO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9308,9 +9269,7 @@
 "bRy" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "bRA" = (
 /obj/machinery/status_display/evac,
@@ -9858,7 +9817,8 @@
 "bZy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
-/turf/open/floor/plating/airless,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bZD" = (
 /obj/machinery/button/door{
@@ -11621,11 +11581,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
-"crn" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/space/nearstation)
 "crq" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall/rust,
@@ -12156,7 +12111,9 @@
 /obj/item/wallframe/light_fixture/small{
 	pixel_y = -14
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/quartermaster/warehouse)
 "cxo" = (
 /obj/effect/spawner/room/tenxten,
@@ -12250,9 +12207,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cze" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12375,6 +12330,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/fore)
+"cAt" = (
+/turf/open/floor/catwalk_floor{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/quartermaster/warehouse)
 "cAy" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -14809,9 +14769,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "cVZ" = (
 /obj/item/kirbyplants/random,
@@ -15823,9 +15781,7 @@
 /area/engine/engineering)
 "dmA" = (
 /obj/effect/turf_decal/box/corners,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "dmJ" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -17315,12 +17271,6 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/brig/aft)
-"dLt" = (
-/obj/item/flashlight/lantern,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
 "dLv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -17415,8 +17365,8 @@
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+/turf/open/floor/plating{
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "dLX" = (
@@ -18820,6 +18770,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -20030,7 +19981,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/stack/rods/ten,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "eAv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21476,7 +21427,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/dark/airless,
 /area/quartermaster/warehouse)
 "eYs" = (
 /obj/machinery/atmospherics/components/binary/pump{
@@ -22265,9 +22216,7 @@
 	},
 /area/hallway/primary/central)
 "fkv" = (
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "fkw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24610,9 +24559,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "fWS" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -24805,9 +24752,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "gaQ" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
@@ -25057,9 +25002,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "geV" = (
 /obj/machinery/power/apc{
@@ -25605,9 +25548,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "goQ" = (
 /obj/effect/turf_decal/box/corners{
@@ -25769,9 +25710,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "grE" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -26612,9 +26551,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "gHx" = (
 /obj/structure/filingcabinet,
@@ -26711,7 +26648,7 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk{
 	environment_smash = 0
 	},
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/plating/asteroid,
 /area/quartermaster/warehouse)
 "gKd" = (
 /obj/machinery/clonepod/prefilled,
@@ -27140,9 +27077,7 @@
 "gQV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/jungle/b,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "gRe" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -27160,9 +27095,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "gRv" = (
 /obj/machinery/computer/card/minor/hos{
@@ -28214,9 +28147,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "hhY" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
@@ -28734,9 +28665,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "hqB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -30258,12 +30187,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
-"hPF" = (
-/obj/item/pickaxe,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
 "hPN" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -31085,9 +31008,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "icc" = (
 /obj/machinery/door/firedoor,
@@ -31277,8 +31198,8 @@
 	pixel_x = -25;
 	req_access_txt = "49"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+/turf/open/floor/plating{
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "igj" = (
@@ -33136,7 +33057,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/dark/airless,
 /area/quartermaster/warehouse)
 "iKB" = (
 /obj/machinery/telecomms/server/presets/exploration,
@@ -34031,9 +33952,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "iXp" = (
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "iXC" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -35119,9 +35038,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "jsj" = (
 /obj/machinery/door/firedoor,
@@ -36773,9 +36690,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "jSa" = (
 /obj/machinery/meter/atmos/distro_loop,
@@ -37179,8 +37094,8 @@
 /obj/structure/sign/warning/securearea{
 	pixel_x = 32
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+/turf/open/floor/plating{
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "jZU" = (
@@ -37476,9 +37391,7 @@
 	pixel_y = -25;
 	req_access_txt = "19"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "kgm" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -38413,9 +38326,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/glowstick,
 /obj/structure/grille/broken,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "kvl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -39999,7 +39910,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "kZz" = (
 /obj/machinery/holopad,
@@ -42326,7 +42237,9 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	burnt = 1;
+	initial_gas_mix = n2=100;
+	TEMP=80
 	},
 /area/tcommsat/server)
 "lLq" = (
@@ -42754,7 +42667,7 @@
 /obj/item/storage/toolbox/emergency{
 	pixel_y = 5
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "lUc" = (
 /obj/machinery/door/airlock/maintenance{
@@ -42983,9 +42896,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "lXy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -43476,9 +43387,7 @@
 /area/hallway/primary/port)
 "mdx" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "mdB" = (
 /turf/open/floor/plating{
@@ -44017,9 +43926,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "mmO" = (
 /obj/structure/disposalpipe/segment{
@@ -44082,9 +43989,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "mnW" = (
 /obj/structure/grille/broken,
@@ -44219,9 +44124,7 @@
 "mpg" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "mpi" = (
 /obj/machinery/power/apc{
@@ -44341,9 +44244,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "mrO" = (
 /obj/structure/cable/yellow{
@@ -45304,7 +45205,7 @@
 "mHw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "mHC" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -46634,9 +46535,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "nhh" = (
 /obj/structure/sign/poster/contraband/random{
@@ -47114,17 +47013,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
-"npe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/maintenance/port/aft)
 "npg" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -48592,9 +48480,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "nPI" = (
 /obj/structure/table,
@@ -50119,9 +50005,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "ono" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -50481,9 +50365,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "otk" = (
 /obj/structure/disposalpipe/segment,
@@ -50665,9 +50547,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/wardrobe/green,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "ouU" = (
 /obj/structure/table,
@@ -51215,9 +51096,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "oDt" = (
 /obj/structure/table,
@@ -52475,7 +52354,7 @@
 /area/maintenance/port/aft)
 "oYK" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/plating/asteroid,
 /area/quartermaster/warehouse)
 "oYL" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -52528,9 +52407,7 @@
 	dir = 5
 	},
 /obj/machinery/light/small,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "oZK" = (
 /obj/item/radio/intercom{
@@ -52717,9 +52594,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "pcx" = (
 /obj/effect/mapping_helpers/airlock/locked,
@@ -52826,9 +52701,7 @@
 /area/maintenance/fore)
 "peL" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "peN" = (
 /obj/machinery/status_display/ai{
@@ -54789,9 +54662,7 @@
 /area/hallway/primary/starboard)
 "pJN" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating/airless,
 /area/engine/atmos)
 "pJP" = (
 /obj/effect/turf_decal/bot,
@@ -56695,6 +56566,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"qpn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "qpr" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
@@ -56745,9 +56621,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "qqf" = (
 /obj/structure/extinguisher_cabinet{
@@ -58507,9 +58381,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "qUP" = (
 /turf/closed/wall/r_wall,
@@ -58670,9 +58542,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "qWI" = (
 /obj/machinery/door/firedoor,
@@ -59614,9 +59484,7 @@
 "rmu" = (
 /obj/structure/flora/ausbushes/palebush,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "rmD" = (
 /obj/structure/cable/yellow{
@@ -60405,9 +60273,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "rAJ" = (
 /obj/structure/cable/yellow{
@@ -61112,6 +60978,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
+"rMt" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/airless,
+/area/quartermaster/warehouse)
 "rMy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
@@ -61973,9 +61843,7 @@
 /area/maintenance/port)
 "saY" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "sbv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -62901,6 +62769,9 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
+"srV" = (
+/turf/open/floor/plating/airless,
+/area/quartermaster/warehouse)
 "ssg" = (
 /obj/machinery/door/airlock/engineering,
 /obj/structure/barricade/wooden/crude,
@@ -63094,9 +62965,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "svS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -63114,9 +62983,7 @@
 "swh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "sws" = (
 /obj/effect/decal/cleanable/dirt,
@@ -63680,9 +63547,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "sDD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -64147,9 +64012,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "sLJ" = (
 /obj/effect/landmark/start/station_engineer,
@@ -64918,9 +64781,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "sWQ" = (
 /obj/effect/spawner/randomvend/cola,
@@ -66881,7 +66742,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/quartermaster/warehouse)
 "tFf" = (
 /obj/structure/rack,
@@ -67029,9 +66892,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "tHq" = (
 /obj/machinery/computer/mecha{
@@ -67994,9 +67856,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "ucl" = (
 /obj/machinery/light{
@@ -69014,9 +68874,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "uqQ" = (
 /obj/machinery/firealarm{
@@ -69210,9 +69068,7 @@
 "utn" = (
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "utp" = (
 /obj/structure/table,
@@ -69470,9 +69326,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "uwn" = (
 /obj/machinery/rnd/production/techfab/department/medical,
@@ -69655,9 +69509,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid/airless,
 /area/docking/arrival)
 "uzO" = (
 /obj/structure/table/wood/fancy,
@@ -70604,8 +70456,8 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+/turf/open/floor/plating{
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "uQe" = (
@@ -72139,6 +71991,12 @@
 	broken = 1
 	},
 /area/maintenance/aft)
+"vpt" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/quartermaster/warehouse)
 "vpA" = (
 /obj/machinery/status_display/evac{
 	pixel_x = 32;
@@ -74563,7 +74421,7 @@
 	},
 /area/maintenance/starboard/fore)
 "waD" = (
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/plating/asteroid,
 /area/quartermaster/warehouse)
 "waG" = (
 /obj/structure/chair/office/light{
@@ -74868,9 +74726,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "wgX" = (
 /turf/closed/wall/r_wall/rust,
@@ -75295,9 +75151,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 4
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "wnB" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
@@ -76745,9 +76599,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "wLe" = (
 /obj/effect/decal/cleanable/dirt,
@@ -77097,9 +76949,7 @@
 "wPY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "wQt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -77975,9 +77825,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/docking/arrival)
 "xbp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93143,7 +92991,7 @@ aeU
 aeu
 aeu
 aeu
-bKl
+aUz
 aeu
 aeu
 bUG
@@ -93655,8 +93503,8 @@ aUz
 aeU
 aeu
 aeu
-bKl
-aDQ
+aUz
+aeU
 aeu
 aeu
 aeu
@@ -94170,7 +94018,7 @@ aeu
 aeu
 aeu
 bQc
-aDQ
+aeU
 aeu
 aeu
 aeu
@@ -94425,8 +94273,8 @@ aeU
 aeu
 aeu
 aeu
-aDQ
-aDQ
+aeU
+aeU
 aeu
 aeu
 aeu
@@ -94683,8 +94531,8 @@ aeu
 aeu
 aeu
 aeu
-aDQ
-aDQ
+aeU
+aeU
 aeu
 aeu
 aeu
@@ -94938,11 +94786,11 @@ cwp
 aeu
 aeu
 aeu
-aDQ
-bKl
+aeU
+aUz
 bQq
-bQb
-aDQ
+coy
+aeU
 aeu
 aeu
 amA
@@ -95194,12 +95042,12 @@ czz
 cwq
 aeu
 aeu
-bKl
-aDQ
-dLt
-aDQ
-aDQ
-aDQ
+aUz
+aeU
+oxq
+aeU
+aeU
+aeU
 aeu
 aeu
 amR
@@ -95451,12 +95299,12 @@ cwp
 cwp
 cwp
 cwp
-aDQ
-aDQ
-aTd
-bKl
-hPF
-aDQ
+aeU
+aeU
+aoz
+aUz
+mkf
+aeU
 aeu
 aeu
 amA
@@ -95708,11 +95556,11 @@ jen
 wgZ
 dpG
 emS
-aDQ
-aDQ
-bQb
-aDQ
-aDQ
+aeU
+aeU
+coy
+aeU
+aeU
 amA
 amR
 amA
@@ -95965,11 +95813,11 @@ wgZ
 oTh
 wgZ
 emS
-aDQ
+aeU
 aeu
-aDQ
-aDQ
-aUq
+aeU
+aeU
+sRS
 amA
 mGY
 hzg
@@ -96011,8 +95859,8 @@ lRg
 jtU
 jtU
 idS
-jtU
-jtU
+cnm
+cnm
 ajd
 cmU
 aeU
@@ -96225,7 +96073,7 @@ cwp
 aeu
 aeu
 aeu
-aDQ
+aeU
 aYE
 uQQ
 iMQ
@@ -96269,7 +96117,7 @@ jtU
 jtU
 ajd
 mHw
-jtU
+cnm
 ajd
 cmU
 coy
@@ -96526,7 +96374,7 @@ cJr
 cJr
 cJr
 eAp
-jtU
+cnm
 ajd
 cmU
 aeU
@@ -96783,7 +96631,7 @@ dgY
 oWY
 cJr
 kZj
-jtU
+cnm
 ajd
 cmU
 aeU
@@ -97040,11 +96888,11 @@ cjw
 clQ
 cJr
 lTS
-jtU
+cnm
 ajd
 cmU
 aeU
-crn
+aeU
 aeu
 aeu
 cnS
@@ -97554,7 +97402,7 @@ fGu
 uVf
 lXJ
 cJI
-jtU
+qpn
 ajd
 mvK
 xbl
@@ -97811,7 +97659,7 @@ jLI
 xDP
 wBA
 cJr
-cnm
+qpn
 gfk
 vNp
 nnW
@@ -105502,7 +105350,7 @@ bIV
 bIV
 cza
 nha
-npe
+svy
 fKt
 dku
 gMg
@@ -107049,7 +106897,7 @@ rZP
 ylu
 ajd
 nmt
-bMR
+cnm
 aaY
 aaY
 axB
@@ -107850,7 +107698,7 @@ aMY
 aFM
 acK
 bHB
-crn
+cko
 cko
 acm
 aaa
@@ -132644,8 +132492,8 @@ aeu
 aeu
 aeu
 act
-nDJ
-cCI
+vpt
+srV
 tEO
 abq
 aeu
@@ -132901,8 +132749,8 @@ aeu
 aeu
 aeu
 act
-fyQ
-cCU
+cAt
+rMt
 cxg
 act
 aeu

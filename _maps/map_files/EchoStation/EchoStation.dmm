@@ -388,7 +388,9 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "aky" = (
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "akz" = (
 /obj/effect/turf_decal/bot,
@@ -4546,7 +4548,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "cbi" = (
 /obj/structure/closet/cardboard,
@@ -6142,7 +6146,9 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "cUy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6408,7 +6414,9 @@
 "cZA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/greenglow,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "dav" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8010,7 +8018,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "dPH" = (
 /obj/structure/railing/corner{
@@ -8573,7 +8583,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "efr" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -11823,7 +11835,9 @@
 "fJV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/beacon,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "fJW" = (
 /obj/structure/table/wood,
@@ -13615,7 +13629,9 @@
 "gBy" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "gBH" = (
 /obj/item/kirbyplants/random{
@@ -14536,7 +14552,9 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "han" = (
 /obj/structure/closet/firecloset/full,
@@ -16207,7 +16225,9 @@
 /turf/open/floor/iron/half,
 /area/engine/engineering)
 "hQk" = (
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "hRb" = (
 /obj/effect/landmark/start/shaft_miner,
@@ -16296,7 +16316,9 @@
 /area/maintenance/department/engine)
 "hSS" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "hST" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
@@ -16418,7 +16440,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "hVs" = (
 /obj/effect/spawner/room/fivexthree,
@@ -16592,7 +16616,9 @@
 "ibz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "ibQ" = (
 /obj/machinery/vending/wardrobe/hydro_wardrobe,
@@ -17334,7 +17360,9 @@
 /obj/machinery/camera/preset/toxins{
 	dir = 4
 	},
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "iwM" = (
 /obj/effect/turf_decal/stripes/line{
@@ -19312,7 +19340,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "jCZ" = (
 /obj/machinery/button/door{
@@ -21030,7 +21060,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "krL" = (
 /obj/structure/lattice/catwalk/over,
@@ -23925,7 +23957,9 @@
 /area/crew_quarters/dorms)
 "lQm" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "lQo" = (
 /obj/effect/turf_decal/sand/plating,
@@ -25668,7 +25702,9 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "mIh" = (
 /obj/structure/lattice,
@@ -31158,7 +31194,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "pxs" = (
 /turf/closed/mineral/bscrystal,
@@ -33474,7 +33512,9 @@
 "qOu" = (
 /obj/item/target,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "qOE" = (
 /obj/structure/stairs,
@@ -35867,7 +35907,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "rVy" = (
 /obj/structure/cable{
@@ -37098,7 +37140,9 @@
 "sBs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/molten_object/large,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "sBt" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -43426,7 +43470,9 @@
 /area/engine/atmos)
 "vFT" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/mixing)
 "vGc" = (
 /obj/structure/cable/yellow{
@@ -44279,7 +44325,9 @@
 "wdl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "wdv" = (
 /obj/structure/cable/yellow{
@@ -46648,7 +46696,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/science/test_area)
 "xoG" = (
 /obj/machinery/holopad,
