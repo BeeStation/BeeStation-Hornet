@@ -175,6 +175,8 @@
 	for(var/a in id_card.access)
 		if(a in operation_req_access)
 			continue
+		if(!(a in get_mech_accesses()))
+			continue
 		var/a_name = get_access_desc(a)
 		if(!a_name)
 			continue //there's some strange access without a name

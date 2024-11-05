@@ -358,3 +358,6 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	if(I_hud)
 		return I_hud
 	return "unknown"
+
+/proc/get_mech_accesses()
+	return list(ACCESS_MECH_ENGINE, ACCESS_MECH_MEDICAL, ACCESS_MECH_MINING, ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY, ACCESS_SYNDICATE, ACCESS_CENT_SPECOPS)
