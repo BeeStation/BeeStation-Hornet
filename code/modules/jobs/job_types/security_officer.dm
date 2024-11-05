@@ -23,7 +23,7 @@
 	/// These accesses will be given in after_spawn()
 	var/list/dept_access_supply = list(ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_AUX_BASE)
 	var/list/dept_access_medical = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING)
-	var/list/dept_access_science = list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_AUX_BASE)
+	var/list/dept_access_science = list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 	var/list/dept_access_engineering = list(ACCESS_ENGINE, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
 
 	departments = DEPT_BITFLAG_SEC
