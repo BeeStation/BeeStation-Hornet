@@ -3957,7 +3957,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "aWW" = (
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
@@ -7430,7 +7430,9 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "ceo" = (
 /obj/machinery/power/apc/auto_name/directional/east,
@@ -10786,7 +10788,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "dpG" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -12819,7 +12823,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "dYI" = (
 /obj/item/kirbyplants/random,
@@ -19812,7 +19818,9 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "gpP" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -21156,7 +21164,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "gMB" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23082,7 +23092,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "hsd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -27179,7 +27191,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "iEX" = (
 /obj/structure/disposalpipe/segment{
@@ -37630,7 +37644,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "mca" = (
 /obj/structure/disposalpipe/segment{
@@ -39297,12 +39313,6 @@
 	},
 /turf/open/floor/wood,
 /area/security/prison)
-"mAy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/space/nearstation)
 "mAF" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Medbay Break Room"
@@ -45101,7 +45111,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "ovu" = (
 /obj/effect/turf_decal/stripes/line{
@@ -45119,7 +45131,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "ovw" = (
 /obj/effect/turf_decal/siding/dark{
@@ -52766,7 +52780,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "rca" = (
 /obj/structure/railing/corner{
@@ -54698,7 +54714,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "rIq" = (
 /obj/item/radio/intercom{
@@ -56161,7 +56177,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "shn" = (
 /obj/structure/chair/stool,
@@ -61068,7 +61086,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "tMA" = (
 /obj/machinery/door/poddoor{
@@ -74910,7 +74930,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/tcommsat/server)
 "ylE" = (
 /obj/effect/turf_decal/stripes/line,
@@ -99155,7 +99177,7 @@ aMT
 aMT
 aMT
 agE
-mAy
+xOI
 oCW
 hfp
 oCW
@@ -99412,7 +99434,7 @@ aMT
 aMT
 aMT
 agE
-mAy
+xOI
 oCW
 bCW
 oCW

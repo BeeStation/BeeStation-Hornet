@@ -9635,7 +9635,7 @@
 /area/hallway/secondary/service)
 "bWB" = (
 /obj/machinery/telecomms/processor/preset_four,
-/turf/open/floor/circuit/green,
+/turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bWC" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -53057,7 +53057,7 @@
 /area/crew_quarters/fitness)
 "rTt" = (
 /obj/machinery/telecomms/bus/preset_four,
-/turf/open/floor/circuit/green,
+/turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "rTw" = (
 /obj/structure/table,
