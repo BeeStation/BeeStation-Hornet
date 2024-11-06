@@ -79,8 +79,15 @@
 	return ..()
 	//return QDEL_HINT_FINDREFERENCE
 
+/**
+ * Called by the machinery disconnect(), custom for each type
+ */
 /obj/machinery/atmospherics/proc/destroy_network()
 	return
+
+/obj/machinery/atmospherics/proc/set_on(active)
+	on = active
+	SEND_SIGNAL(src, COMSIG_ATMOS_MACHINE_SET_ON, on)
 
 /// This should only be called by SSair as part of the rebuild queue.
 /// Handles rebuilding pipelines after init or they've been changed.

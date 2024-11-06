@@ -48,50 +48,19 @@
 		ui_update()
 	return
 
-
-/obj/machinery/atmospherics/components/binary/pump/Destroy()
-	SSradio.remove_object(src,frequency)
-	if(radio_connection)
-		radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/components/binary/pump/update_icon_nopipes()
 	icon_state = "pump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /obj/machinery/atmospherics/components/binary/pump/process_atmos()
-//	..()
 	if(!on || !is_operational)
 		return
+
 	var/datum/gas_mixture/input_air = airs[1]
 	var/datum/gas_mixture/output_air = airs[2]
+	var/datum/gas_mixture/output_pipenet_air = parents[2].air
 
-	if(input_air.pump_gas_to(output_air, target_pressure))
+	if(input_air.pump_gas_to(output_air, target_pressure, output_pipenet_air = output_pipenet_air))
 		update_parents()
-
-/obj/machinery/atmospherics/components/binary/pump/proc/set_on(active)
-	on = active
-	SEND_SIGNAL(src, COMSIG_PUMP_SET_ON, on)
-
-//Radio remote control
-/obj/machinery/atmospherics/components/binary/pump/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
-
-/obj/machinery/atmospherics/components/binary/pump/proc/broadcast_status()
-	if(!radio_connection)
-		return
-
-	var/datum/signal/signal = new(list(
-		"tag" = id,
-		"device" = "AGP",
-		"power" = on,
-		"target_output" = target_pressure,
-		"sigtype" = "status"
-	))
-	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
-
 
 /obj/machinery/atmospherics/components/binary/pump/ui_state(mob/user)
 	return GLOB.default_state
