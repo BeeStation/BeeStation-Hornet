@@ -193,7 +193,7 @@
 	return 1
 
 
-/obj/machinery/embedded_controller/radio/airlock_controller
+/obj/machinery/airlock_controller
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 
@@ -210,7 +210,7 @@
 	var/sensor_tag
 	var/sanitize_external
 
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix
+/obj/machinery/airlock_controller/incinerator_toxmix
 	name = "Incinerator Access Console"
 	airpump_tag = INCINERATOR_TOXMIX_DP_VENTPUMP
 	exterior_door_tag = INCINERATOR_TOXMIX_AIRLOCK_EXTERIOR
@@ -219,7 +219,7 @@
 	sanitize_external = TRUE
 	sensor_tag = INCINERATOR_TOXMIX_AIRLOCK_SENSOR
 
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos
+/obj/machinery/airlock_controller/incinerator_atmos
 	name = "Incinerator Access Console"
 	airpump_tag = INCINERATOR_ATMOS_DP_VENTPUMP
 	exterior_door_tag = INCINERATOR_ATMOS_AIRLOCK_EXTERIOR
@@ -228,7 +228,7 @@
 	sanitize_external = TRUE
 	sensor_tag = INCINERATOR_ATMOS_AIRLOCK_SENSOR
 
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_syndicatelava
+/obj/machinery/airlock_controller/incinerator_syndicatelava
 	name = "Incinerator Access Console"
 	airpump_tag = INCINERATOR_SYNDICATELAVA_DP_VENTPUMP
 	exterior_door_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_EXTERIOR
@@ -237,7 +237,7 @@
 	sanitize_external = TRUE
 	sensor_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR
 
-/obj/machinery/embedded_controller/radio/airlock_controller/Initialize(mapload)
+/obj/machinery/airlock_controller/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		return
@@ -254,7 +254,7 @@
 	new_prog.master = src
 	program = new_prog
 
-/obj/machinery/embedded_controller/radio/airlock_controller/update_icon()
+/obj/machinery/airlock_controller/update_icon()
 	if(on && program)
 		if(program.memory["processing"])
 			icon_state = "airlock_control_process"
@@ -264,7 +264,7 @@
 		icon_state = "airlock_control_off"
 
 
-/obj/machinery/embedded_controller/radio/airlock_controller/return_text()
+/obj/machinery/airlock_controller/return_text()
 	var/state_options = null
 
 	var/state = 0

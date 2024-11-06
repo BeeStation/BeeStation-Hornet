@@ -49330,7 +49330,7 @@
 "pTo" = (
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+/obj/machinery/airlock_controller/incinerator_atmos{
 	pixel_x = -23;
 	pixel_y = 1
 	},
@@ -65392,7 +65392,7 @@
 	dir = 1
 	},
 /obj/machinery/meter,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_y = 27
 	},
 /turf/open/floor/catwalk_floor/flat_white,

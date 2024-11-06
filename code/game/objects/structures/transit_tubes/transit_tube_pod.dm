@@ -194,7 +194,7 @@
 		return
 
 /obj/structure/transit_tube_pod/return_temperature()
-	return air_contents.temperature()
+	return air_contents.temperature
 
 #undef MOVE_ANIMATION_STAGE_ONE
 #undef MOVE_ANIMATION_STAGE_TWO

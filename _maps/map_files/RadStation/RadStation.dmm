@@ -28668,7 +28668,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+/obj/machinery/airlock_controller/incinerator_atmos{
 	pixel_x = 6;
 	pixel_y = 28
 	},
@@ -62691,7 +62691,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_x = -24
 	},
 /turf/open/floor/iron/dark/side{

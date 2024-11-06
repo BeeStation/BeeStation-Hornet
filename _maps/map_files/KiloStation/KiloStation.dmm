@@ -73057,7 +73057,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+/obj/machinery/airlock_controller/incinerator_atmos{
 	pixel_x = -24;
 	pixel_y = 6
 	},
@@ -73655,7 +73655,7 @@
 /area/janitor)
 "vOC" = (
 /obj/machinery/atmospherics/components/binary/valve,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_y = 26
 	},
 /obj/machinery/light/small{

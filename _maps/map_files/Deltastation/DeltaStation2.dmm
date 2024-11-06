@@ -959,7 +959,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+/obj/machinery/airlock_controller/incinerator_atmos{
 	pixel_y = 27
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -35289,7 +35289,7 @@
 /area/crew_quarters/heads/cmo)
 "fsz" = (
 /obj/machinery/atmospherics/components/binary/valve,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_y = 26
 	},
 /obj/effect/decal/cleanable/dirt,

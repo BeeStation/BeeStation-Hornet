@@ -42099,7 +42099,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+/obj/machinery/airlock_controller/incinerator_atmos{
 	pixel_x = 38;
 	pixel_y = 6
 	},
@@ -58075,7 +58075,7 @@
 "qJb" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/machinery/meter,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow{

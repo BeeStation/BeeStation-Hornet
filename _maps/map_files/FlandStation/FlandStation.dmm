@@ -47237,7 +47237,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+/obj/machinery/airlock_controller/incinerator_atmos{
 	pixel_y = 27
 	},
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
@@ -65768,7 +65768,7 @@
 "qTZ" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -85540,7 +85540,7 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine)
 "vLy" = (
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
+/obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_y = 26
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
