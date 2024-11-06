@@ -221,3 +221,11 @@
 		var/mob/living/carbon/M = target
 		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
 		M.gib()
+
+/obj/projectile/beam/lasergun/captain
+	tracer_type = /obj/effect/projectile/tracer/laser
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	impact_type = /obj/effect/projectile/impact/laser
+	hitscan_light_color_override = LIGHT_COLOR_RED
+	hitscan = TRUE
+	damage = 16

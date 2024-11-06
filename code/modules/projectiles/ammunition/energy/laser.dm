@@ -11,7 +11,8 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/captain
-	e_cost = 100 // Older technology is less efficient
+	projectile_type = /obj/projectile/beam/lasergun/captain
+	e_cost = 85 // Older technology is less efficient
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/projectile/beam/laser
