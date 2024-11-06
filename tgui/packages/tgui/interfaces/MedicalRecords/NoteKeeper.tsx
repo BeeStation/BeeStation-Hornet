@@ -59,7 +59,7 @@ export const NoteKeeper = (props, context) => {
 const NoteTabs = (props, context) => {
   const foundRecord = getMedicalRecord(context);
   if (!foundRecord) return <> </>;
-  const { notes } = foundRecord;
+  const { medical_notes } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<MedicalNote | undefined>(context, 'selectedNote', undefined);
   const [writing, setWriting] = useLocalState(context, 'note', false);
@@ -81,15 +81,17 @@ const NoteTabs = (props, context) => {
 
   return (
     <Tabs>
-      {notes.map((note, index) => (
-        <Tabs.Tab
-          key={index}
-          label={index + 1}
-          onClick={() => setNote(note)}
-          selected={selectedNote?.note_ref === note.note_ref}>
-          {index + 1}
-        </Tabs.Tab>
-      ))}
+      {medical_notes !== null
+        ? medical_notes.map((note, index) => (
+          <Tabs.Tab
+            key={index}
+            label={index + 1}
+            onClick={() => setNote(note)}
+            selected={selectedNote?.note_ref === note.note_ref}>
+            {index + 1}
+          </Tabs.Tab>
+        ))
+        : null}
       <Tooltip content={multiline`Add a new note. Press enter or escape to exit view.`} position="bottom">
         <Tabs.Tab onClick={composeNew} selected={writing}>
           <Icon name="plus" /> New

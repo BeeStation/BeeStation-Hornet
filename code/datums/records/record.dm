@@ -138,7 +138,7 @@
 /datum/record/crew/proc/get_info_list()
 	var/list/list_of_medical_notes
 	for(var/datum/medical_note/medical_note in medical_notes)
-		list_of_medical_notes += medical_note.get_info_list()
+		list_of_medical_notes += list(medical_note.get_info_list())
 
 	return list(
 		age = src.age,
@@ -154,7 +154,7 @@
 		quirk_notes = src.quirk_notes,
 		rank = src.rank,
 		species = src.species,
-		list_of_medical_notes
+		medical_notes = list_of_medical_notes
 		)
 
 
