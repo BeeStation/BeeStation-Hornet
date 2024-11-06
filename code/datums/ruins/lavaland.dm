@@ -61,7 +61,7 @@
 	suffix = "lavaland_surface_syndicate_base1.dmm"
 	cost = 5
 	allow_duplicates = FALSE
-	never_spawn_with = list{/datum/map_template/ruin/lavaland/syndicate_shuttle}
+	never_spawn_with = list(/datum/map_template/ruin/lavaland/syndicate_shuttle)
 
 /datum/map_template/ruin/lavaland/syndicate_shuttle
 	name = "Syndicate Lava Shuttle"
@@ -70,7 +70,7 @@
 	suffix = "lavaland_surface_syndicate_base2.dmm"
 	cost = 5
 	allow_duplicates = FALSE
-	never_spawn_with = list{/datum/map_template/ruin/lavaland/syndicate_base}
+	never_spawn_with = list(/datum/map_template/ruin/lavaland/syndicate_base)
 
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
