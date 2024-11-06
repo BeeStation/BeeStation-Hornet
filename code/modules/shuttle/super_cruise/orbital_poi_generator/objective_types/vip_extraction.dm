@@ -87,6 +87,7 @@
 	back = /obj/item/storage/backpack
 	r_hand = /obj/item/gps
 
+
 /datum/outfit/vip_target/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
@@ -96,6 +97,8 @@
 		if(I)
 			I.registered_name = H.real_name
 			I.update_label()
+
+	implants = list(/obj/item/implant/tracking)
 
 
 //=====================
