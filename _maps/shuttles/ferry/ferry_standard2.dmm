@@ -26,11 +26,10 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/transport)
 "e" = (
-/obj/machinery/porta_turret/syndicate/energy/raven{
-	req_access = list(101);
+/obj/machinery/porta_turret/centcom_shuttle{
 	dir = 4
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/transport)
 "f" = (
 /obj/structure/chair/fancy/shuttle{
@@ -68,7 +67,7 @@
 	},
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating/airless,
-/area/space)
+/area/shuttle/transport)
 "k" = (
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium/white,
@@ -92,9 +91,6 @@
 /obj/structure/table/optable,
 /obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"r" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/transport)
 "s" = (
 /obj/structure/table/reinforced,
@@ -134,8 +130,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/transport)
 "y" = (
-/obj/machinery/porta_turret/syndicate/energy/raven{
-	req_access = list(101);
+/obj/machinery/porta_turret/centcom_shuttle{
 	dir = 9
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -144,9 +139,6 @@
 /obj/machinery/computer/operating,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"B" = (
-/turf/closed/wall/mineral/titanium,
-/area/space)
 "C" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Ferry Shuttle Airlock"
@@ -252,8 +244,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "W" = (
-/obj/machinery/porta_turret/syndicate/energy/raven{
-	req_access = list(101);
+/obj/machinery/porta_turret/centcom_shuttle{
 	dir = 10
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -329,7 +320,7 @@ O
 q
 l
 s
-B
+O
 "}
 (9,1,1) = {"
 J
@@ -361,9 +352,9 @@ O
 "}
 (13,1,1) = {"
 e
-r
+O
 I
-r
+O
 e
 "}
 (14,1,1) = {"
