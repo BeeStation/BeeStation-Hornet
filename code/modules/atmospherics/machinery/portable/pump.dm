@@ -90,7 +90,7 @@
 	return GLOB.physical_state
 
 /obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_upda	te_ui(user, src, ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PortablePump")
 		ui.open()

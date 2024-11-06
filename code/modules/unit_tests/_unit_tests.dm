@@ -29,7 +29,6 @@
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 
-
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"
 #endif
@@ -73,7 +72,6 @@
 #include "walls_have_sheets.dm"
 #include "wizard.dm"
 #include "worn_icons.dm"
-
 
 /*
 #include "__DEFINES\test_defines.dm"
