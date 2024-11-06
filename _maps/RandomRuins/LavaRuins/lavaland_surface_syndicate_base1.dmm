@@ -20,7 +20,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ak" = (
 /obj/machinery/vending/boozeomat/syndicate_access,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "ap" = (
 /obj/machinery/light/small{
@@ -721,8 +721,9 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "fX" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
 	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -1130,6 +1131,13 @@
 "jy" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"jz" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/deepfryer,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "jO" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
@@ -1180,10 +1188,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/item/soap/syndie,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "kH" = (
@@ -1871,15 +1879,16 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "sB" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/rollingpin,
-/obj/item/knife/kitchen{
-	pixel_x = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
+	},
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/kitchen/rollingpin,
+/obj/item/knife/kitchen{
+	pixel_x = 6
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -1984,6 +1993,9 @@
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance{
 	req_access = null
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "uc" = (
@@ -2086,6 +2098,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "uJ" = (
@@ -2169,7 +2182,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "vv" = (
-/obj/machinery/deepfryer,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/oven,
 /turf/open/floor/iron/white/airless,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "vA" = (
@@ -3379,7 +3395,6 @@
 /obj/item/storage/box/stockparts/deluxe,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/circuitboard/machine/processor,
 /obj/item/circuitboard/machine/gibber,
 /obj/item/circuitboard/machine/deep_fryer,
 /obj/item/circuitboard/machine/cell_charger,
@@ -3813,17 +3828,6 @@
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/science)
-"LI" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered/syndicate_lava_base/bar)
 "LL" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -4295,8 +4299,8 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "PW" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
+/obj/machinery/door/window/westright{
+	name = "Kitchen"
 	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -4708,7 +4712,7 @@
 "Ti" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/computer/atmos_control/tank{
-	dir = 1;
+	dir = 8;
 	frequency = 1442;
 	name = "Toxins Supply Control";
 	output_tag = "syndie_lavaland_tox_out";
@@ -4905,11 +4909,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Vw" = (
-/obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/soap/syndie,
-/obj/item/mop,
-/obj/item/reagent_containers/cup/bucket,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/processor,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "VN" = (
@@ -4992,14 +4996,13 @@
 /turf/open/floor/noslip/standard,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Wz" = (
-/obj/machinery/door/window/southleft{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Kitchen"
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 6
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -6541,7 +6544,7 @@ hz
 Pz
 RZ
 CL
-LI
+iA
 sB
 Wz
 ak
@@ -6590,7 +6593,7 @@ cu
 hz
 jy
 jy
-jy
+jz
 PW
 hN
 pq
@@ -6950,7 +6953,7 @@ UX
 lJ
 bs
 kQ
-ab
+ac
 ab
 ab
 ab
@@ -7050,7 +7053,7 @@ WY
 kQ
 kQ
 ac
-ab
+ac
 ab
 ab
 ab
@@ -7099,7 +7102,7 @@ ge
 DQ
 kQ
 ac
-ab
+ac
 ab
 ab
 ab
