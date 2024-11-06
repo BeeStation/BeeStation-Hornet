@@ -706,7 +706,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	stun_projectile_sound = 'sound/weapons/gunshot.ogg'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
-	faction = list(FACTION_SYNDICATE)
+	faction = list(FACTION_SYNDICATE, "syndicate")
 	desc = "A ballistic machine gun auto-turret."
 
 /obj/machinery/porta_turret/syndicate/ComponentInitialize()
