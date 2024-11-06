@@ -288,6 +288,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+	
 	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/i in contents)
 			if(QDELETED(mover))

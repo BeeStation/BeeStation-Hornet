@@ -1224,9 +1224,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(3)
 			take_damage(20, BRUTE, BOMB, 0)
 
-///obj/item/get_armor_rating(d_type, mob/wearer)
-//	return armor.getRating(d_type)
-
 ///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
 /obj/item/proc/isEmbedHarmless()
 	if(embedding)
