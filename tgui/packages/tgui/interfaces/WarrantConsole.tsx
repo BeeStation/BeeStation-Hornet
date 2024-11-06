@@ -9,7 +9,7 @@ type Data = {
 };
 
 type WarrantRecord = {
-  recipient: string;
+  crew_name: string;
   citations: Crime[];
   name: string;
   record_ref: string;
@@ -55,8 +55,6 @@ const RecordList = (props, context) => {
   const { records = [] } = data;
   const sorted = sortBy((record: WarrantRecord) => record.name)(records);
 
-  const [search, setSearch] = useLocalState(context, 'search', '');
-
   const [selectedRecord, setSelectedRecord] = useLocalState<WarrantRecord | undefined>(context, 'warrantRecord', undefined);
 
   const selectHandler = (record: WarrantRecord) => {
@@ -82,7 +80,7 @@ const RecordList = (props, context) => {
                 key={index}
                 onClick={() => selectHandler(record)}
                 selected={selectedRecord?.record_ref === record.record_ref}>
-                {record.recipient}: {record.citations.length}
+                {record.crew_name}: {record.citations.length}
               </Tabs.Tab>
             ))}
           </Tabs>

@@ -215,12 +215,19 @@
 	return TRUE
 
 /// Voids crimes, or sets someone to discharged if they have none left.
-/datum/record/crew/proc/invalidate_crime(mob/user, crime_ref)
+/datum/record/crew/proc/invalidate_crime(mob/user, crime_ref, list/crimes, list/citations)
 	var/acquitted = TRUE
-	var/datum/crime_record/to_void = crime_ref
-	if(istype(to_void, /datum/crime_record/citation))
-		// No need to change status after invalidatation of citation
-		acquitted = FALSE
+	var/datum/crime_record/to_void
+
+	for(var/datum/crime_record/crime in crimes)
+		if(crime.crime_ref == crime_ref)
+			to_void = crime
+
+	for(var/datum/crime_record/citation/citation in citations)
+		if(citation.crime_ref == crime_ref)
+			to_void = citation
+			acquitted = FALSE
+
 	if(!to_void)
 		return FALSE
 
@@ -290,11 +297,17 @@
 
 /// Handles editing a crime on a particular record. Also includes citations.
 /datum/record/crew/proc/edit_crime(mob/user, name, description, crime_ref)
-	var/datum/crime_record/editing_crime = crime_ref
-	if(!editing_crime?.valid)
-		editing_crime = crime_ref //One last hail mary.
-		if(!editing_crime?.valid)
-			return FALSE
+	var/datum/crime_record/editing_crime
+	for(var/datum/crime_record/crime in crimes)
+		if(crime.crime_ref == crime_ref)
+			editing_crime = crime
+
+	for(var/datum/crime_record/citation/citation in citations)
+		if(citation.crime_ref == crime_ref)
+			editing_crime = citation
+
+	if(!editing_crime?.valid)s
+		return FALSE
 
 	if(user != editing_crime.author && !has_armory_access(user)) // only warden/hos/command can edit crimes they didn't author
 		return FALSE
