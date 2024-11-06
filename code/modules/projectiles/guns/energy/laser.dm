@@ -50,7 +50,7 @@
 	if (!ammo_type || !cell)
 		name = "\improper broken antique laser gun"
 		desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It was decorated with leather and chrome. Seems too be damaged to the point of not functioning, but still valuable."
-		icon_state = "caplaser"
+		icon_state = "caplaser_broken"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
