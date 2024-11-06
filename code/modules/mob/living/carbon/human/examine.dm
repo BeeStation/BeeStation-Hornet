@@ -109,7 +109,7 @@
 	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
 		appears_dead = TRUE
 
-		if(isliving(user) && HAS_TRAIT(user, TRAIT_NAIVE))
+		if(isliving(user) && HAS_TRAIT(user.mind, TRAIT_NAIVE))
 			just_sleeping = TRUE
 
 		if(!just_sleeping)

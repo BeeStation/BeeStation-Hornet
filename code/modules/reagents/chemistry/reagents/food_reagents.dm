@@ -115,12 +115,12 @@
 	name = "Cooking Oil"
 	description = "A variety of cooking oil derived from fat or plants. Used in food preparation and frying."
 	color = "#EADD6B" //RGB: 234, 221, 107 (based off of canola oil)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_mult = 0.8
 	taste_description = "oil"
 	nutriment_factor = 7 * REAGENTS_METABOLISM //Not very healthy on its own
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/exposed_obj, reac_volume)
 	if(!holder || (holder.chem_temp <= fry_temperature))
@@ -371,24 +371,6 @@
 	if(iscatperson(M))
 		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
 		M.vomit(20)
-
-
-
-/datum/reagent/consumable/cocoa/hot_cocoa
-	name = "Hot Chocolate"
-	description = "Made with love! And cocoa beans."
-	reagent_state = LIQUID
-	nutriment_factor = 3 * REAGENTS_METABOLISM
-	color = "#403010" // rgb: 64, 48, 16
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "creamy chocolate"
-	glass_icon_state  = "chocolateglass"
-	glass_name = "glass of chocolate"
-	glass_desc = "Tasty."
-
-/datum/reagent/consumable/cocoa/hot_cocoa/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
-	..()
 
 /datum/reagent/drug/mushroomhallucinogen
 	name = "Mushroom Hallucinogen"

@@ -47,16 +47,51 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 		D = new
 		GLOB.human_dummy_list[slotkey] = D
 		GLOB.dummy_mob_list += D
+	else
+		D.regenerate_icons() //they were cut in wipe_state()
 	D.in_use = TRUE
 	return D
 
-/proc/unset_busy_human_dummy(slotnumber)
-	if(!slotnumber)
+/proc/generate_dummy_lookalike(slotkey, mob/target)
+	if(!istype(target))
+		return generate_or_wait_for_human_dummy(slotkey)
+
+	var/mob/living/carbon/human/dummy/copycat = generate_or_wait_for_human_dummy(slotkey)
+
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.dna.transfer_identity(copycat, transfer_SE = TRUE)
+
+		if(ishuman(target))
+			var/mob/living/carbon/human/human_target = target
+			human_target.copy_clothing_prefs(copycat)
+
+		copycat.updateappearance(icon_update=TRUE, mutcolor_update=TRUE, mutations_overlay_update=TRUE)
+	else
+		//even if target isn't a carbon, if they have a client we can make the
+		//dummy look like what their human would look like based on their prefs
+		target?.client?.prefs?.apply_prefs_to(copycat, TRUE)
+
+	return copycat
+
+/proc/unset_busy_human_dummy(slotkey)
+	if(!slotkey)
 		return
-	var/mob/living/carbon/human/dummy/D = GLOB.human_dummy_list[slotnumber]
+	var/mob/living/carbon/human/dummy/D = GLOB.human_dummy_list[slotkey]
 	if(istype(D))
 		D.wipe_state()
 		D.in_use = FALSE
+
+/proc/clear_human_dummy(slotkey)
+	if(!slotkey)
+		return
+
+	var/mob/living/carbon/human/dummy/dummy = GLOB.human_dummy_list[slotkey]
+
+	GLOB.human_dummy_list -= slotkey
+	if(istype(dummy))
+		GLOB.dummy_mob_list -= dummy
+		qdel(dummy)
 
 /mob/living/carbon/human/dummy/add_to_mob_list()
 	return
@@ -111,6 +146,12 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /// Provides a dummy for unit_tests that functions like a normal human, but with a standardized appearance
 /// Copies the stock dna setup from the dummy/consistent type
 /mob/living/carbon/human/consistent
+	next_click = -1
+	next_move = -1
+
+/mob/living/carbon/human/consistent/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, INSTANT_DO_AFTER, INNATE_TRAIT)
 
 /mob/living/carbon/human/consistent/setup_human_dna()
 	create_consistent_human_dna(src)
@@ -118,3 +159,8 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/domutcheck()
 	return // We skipped adding any mutations so this runtimes
+
+/mob/living/carbon/human/consistent/ClickOn(atom/A, params)
+	next_click = -1
+	next_move = -1
+	. = ..()

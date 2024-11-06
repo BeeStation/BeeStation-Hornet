@@ -51,7 +51,8 @@
 
 ///Override for checkliked in edible component, because all cops LOVE donuts
 /obj/item/food/donut/proc/check_liked(fraction, mob/living/carbon/human/H)
-	if(!HAS_TRAIT(H, TRAIT_AGEUSIA) && H.mind && HAS_TRAIT(H.mind, TRAIT_DONUT_LOVER))
+	var/obj/item/organ/liver/liver = H.getorganslot(ORGAN_SLOT_LIVER)
+	if(!HAS_TRAIT(H, TRAIT_AGEUSIA) && liver && HAS_TRAIT(liver, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		return FOOD_LIKED
 
 //Regular, tasty donut.
@@ -126,7 +127,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/medicine/polypyr = 3,
 		/datum/reagent/consumable/sprinkles = 1
 	)
 	tastes = list("donut" = 3, "violets" = 1)
@@ -165,7 +165,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/cocoa/hot_cocoa = 3,
+		/datum/reagent/consumable/hot_cocoa = 3,
 		/datum/reagent/consumable/sprinkles = 1
 	) //the cocoa reagent is just bitter.
 	tastes = list("donut" = 4, "bitterness" = 1)
@@ -253,7 +253,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/medicine/polypyr = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
@@ -295,7 +294,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/cocoa/hot_cocoa = 3,
+		/datum/reagent/consumable/hot_cocoa = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //the coco reagent is just bitter.
@@ -374,7 +373,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/medicine/polypyr = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
@@ -416,7 +414,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/cocoa/hot_cocoa = 3,
+		/datum/reagent/consumable/hot_cocoa = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //the cocoa reagent is just bitter.

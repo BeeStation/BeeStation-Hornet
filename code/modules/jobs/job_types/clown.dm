@@ -18,6 +18,7 @@
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
+	mind_traits = list(TRAIT_NAIVE)
 	liver_traits = list(TRAIT_COMEDY_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
@@ -78,4 +79,3 @@
 
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
 	H.dna.add_mutation(CLOWNMUT)
-	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
