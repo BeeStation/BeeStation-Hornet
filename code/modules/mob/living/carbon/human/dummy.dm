@@ -146,6 +146,12 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /// Provides a dummy for unit_tests that functions like a normal human, but with a standardized appearance
 /// Copies the stock dna setup from the dummy/consistent type
 /mob/living/carbon/human/consistent
+	next_click = -1
+	next_move = -1
+
+/mob/living/carbon/human/consistent/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, INSTANT_DO_AFTER, INNATE_TRAIT)
 
 /mob/living/carbon/human/consistent/setup_human_dna()
 	create_consistent_human_dna(src)
@@ -153,3 +159,8 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/domutcheck()
 	return // We skipped adding any mutations so this runtimes
+
+/mob/living/carbon/human/consistent/ClickOn(atom/A, params)
+	next_click = -1
+	next_move = -1
+	. = ..()
