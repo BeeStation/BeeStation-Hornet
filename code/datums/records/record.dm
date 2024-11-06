@@ -552,10 +552,10 @@
 /datum/record/cloning
 
 	var/id
-	var/datum/dna/dna
+	var/datum/weakref/weakref_dna
 	var/uni_identity
 	var/SE
-	var/datum/mind/mind /// Mind datum
+	var/datum/weakref/weakref_mind
 	var/last_death
 	var/factions
 	var/traumas
@@ -589,10 +589,10 @@
 	)
 	. = ..()
 	src.id = id
-	src.dna = dna
+	src.weakref_dna = WEAKREF(dna)
 	src.uni_identity = uni_identity
 	src.SE = SE
-	src.mind = mind
+	src.weakref_mind = WEAKREF(mind)
 	src.last_death = last_death
 	src.factions = factions
 	src.traumas = traumas
@@ -606,5 +606,21 @@
 /datum/record/cloning/Destroy()
 	GLOB.manifest.cloning -= src
 	return ..()
+
+/datum/record/cloning/proc/resolve_dna()
+	var/datum/dna/dna = weakref_dna.resolve()
+	return dna
+
+/datum/record/cloning/proc/resolve_dna_features()
+	var/datum/dna/dna = weakref_dna.resolve()
+	return dna.features
+
+/datum/record/cloning/proc/resolve_mind()
+	var/datum/mind/mind = weakref_mind.resolve()
+	return mind
+
+/datum/record/cloning/proc/resolve_mind_account_id()
+	var/datum/mind/mind = weakref_mind.resolve()
+	return mind.account_id
 
 #undef MAX_CRIME_NAME_LEN

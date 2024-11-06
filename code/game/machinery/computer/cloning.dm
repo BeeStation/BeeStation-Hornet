@@ -64,7 +64,7 @@
 				. = pod
 
 /proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/cloning_record, experimental)
-	return pod.growclone(cloning_record.name, cloning_record.uni_identity, cloning_record.SE, cloning_record.mind, cloning_record.last_death, cloning_record.species, cloning_record.dna.features, cloning_record.factions, cloning_record.mind.account_id, cloning_record.traumas, cloning_record.body_only, experimental)
+	return pod.growclone(cloning_record.name, cloning_record.uni_identity, cloning_record.SE, cloning_record.resolve_mind(), cloning_record.last_death, cloning_record.species, cloning_record.resolve_dna_features(), cloning_record.factions, cloning_record.resolve_mind_account_id(), cloning_record.traumas, cloning_record.body_only, experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -75,7 +75,7 @@
 		ui_update()
 
 	for(var/datum/record/cloning/cloning_record in records)
-		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(cloning_record.mind)
+		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(cloning_record.resolve_mind())
 
 		if(!pod)
 			return
@@ -86,7 +86,7 @@
 		var/result = grow_clone_from_record(pod, cloning_record, experimental)
 		if(result & CLONING_SUCCESS)
 			temp = "[cloning_record.name] => Cloning cycle in progress..."
-			log_cloning("Cloning of [key_name(cloning_record.mind)] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
+			log_cloning("Cloning of [key_name(cloning_record.resolve_mind())] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
 			SStgui.update_uis(src)
 		if(result & CLONING_DELETE_RECORD)
 			records -= cloning_record
@@ -224,11 +224,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	diskette.data.name = GRAB.name
 	diskette.data.rank = GRAB.rank
 	diskette.data.species = GRAB.species
-	diskette.data.dna = GRAB.dna
+	diskette.data.weakref_dna = GRAB.weakref_dna
 	diskette.data.uni_identity = GRAB.uni_identity
 	diskette.data.SE = GRAB.SE
 	diskette.data.UE = GRAB.UE
-	diskette.data.mind = GRAB.mind
+	diskette.data.weakref_mind = GRAB.weakref_mind
 	diskette.data.last_death = GRAB.last_death
 	diskette.data.factions = GRAB.factions
 	diskette.data.traumas = GRAB.traumas
@@ -283,10 +283,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	cloning_record.initial_rank = diskette.data.initial_rank
 	cloning_record.name = diskette.data.name
 	cloning_record.species = diskette.data.species
-	cloning_record.dna = diskette.data.dna
+	cloning_record.weakref_dna = diskette.data.weakref_dna
 	cloning_record.uni_identity = diskette.data.uni_identity
 	cloning_record.SE = diskette.data.SE
-	cloning_record.mind = diskette.data.mind
+	cloning_record.weakref_mind = diskette.data.weakref_mind
 	cloning_record.last_death = diskette.data.last_death
 	cloning_record.factions = diskette.data.factions
 	cloning_record.traumas = diskette.data.traumas
@@ -325,7 +325,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.mind, clone_record.last_death, clone_record.species, clone_record.dna.features, clone_record.factions, clone_record.mind.account_id, clone_record.traumas, clone_record.body_only, experimental))
+			switch(pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.last_death, clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas, clone_record.body_only, experimental))
 				if(CLONING_SUCCESS)
 					temp = "Notice: [clone_record.name] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
@@ -645,7 +645,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	cloning_record.uni_identity = dna.uni_identity
 	cloning_record.SE = dna.mutation_index
 	cloning_record.blood_type = dna.blood_type
-	cloning_record.dna = dna
+	cloning_record.weakref_dna = WEAKREF(dna)
 	cloning_record.factions = mob_occupant.faction
 	cloning_record.traumas = list()
 	cloning_record.age = human_mob.age
@@ -665,7 +665,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	cloning_record.bank_account = has_bank_account
 	if(!experimental)
-		cloning_record.mind = mob_occupant.mind
+		cloning_record.weakref_mind = WEAKREF(mob_occupant.mind)
 		cloning_record.last_death = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
 		cloning_record.body_only = body_only
 	else
