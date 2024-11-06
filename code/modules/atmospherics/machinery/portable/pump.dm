@@ -73,7 +73,7 @@
 	if(prob(100 / severity))
 		direction = PUMP_OUT
 	target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
-		update_icon()
+	update_icon()
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
 	. = ..()
@@ -102,7 +102,7 @@
 	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
 	data["connected"] = connected_port ? TRUE : FALSE
 	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["target_pressure"] = round(pump.target_pressure ? pump.target_pressure : 0)
+	data["target_pressure"] = round(target_pressure ? target_pressure : 0)
 	data["default_pressure"] = round(PUMP_DEFAULT_PRESSURE)
 	data["min_pressure"] = round(PUMP_MIN_PRESSURE)
 	data["max_pressure"] = round(PUMP_MAX_PRESSURE)
@@ -156,14 +156,13 @@
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				pump.target_pressure = clamp(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
-				investigate_log("was set to [pump.target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
+				target_pressure = clamp(pressure, PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
+				investigate_log("was set to [target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("eject")
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	if(.)
-		update_icon()
+	update_icon()
 
 /obj/machinery/portable_atmospherics/pump/unregister_holding()
 	on = FALSE
