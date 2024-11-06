@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/bundles_TC/machoman
 	name = "The Macho Wrestler Bundle"
-	desc = "For the STRONGEST operatives! Master your wrastling abilities with this bundle. \
+	desc = "For the STRONGEST operatives! Master your wrasslin' abilities with this bundle. \
 			Contains: A wrestling belt, only for the strongest machos, an adrenaline implanter, a luchador mask to strike fear into your enemies, and a combat hypospray!"
 	item = /obj/item/storage/backpack/duffelbag/syndie/macho
 	cost = 18
