@@ -4422,6 +4422,9 @@
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"Ra" = (
+/turf/closed/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/medbay)
 "Rf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -4839,6 +4842,9 @@
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
+"UP" = (
+/turf/closed/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/virology)
 "UT" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -6067,7 +6073,7 @@ ab
 ab
 ab
 ac
-eh
+UP
 qK
 Sc
 MM
@@ -6622,7 +6628,7 @@ HK
 Px
 Mq
 vp
-hz
+hO
 ga
 Gi
 hz
@@ -6838,7 +6844,7 @@ Vw
 kQ
 kQ
 kQ
-kQ
+Ra
 kT
 Sq
 jb
@@ -7123,7 +7129,7 @@ dy
 gO
 un
 wn
-dy
+dP
 dy
 iq
 en
