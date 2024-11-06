@@ -212,7 +212,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "cz" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms{
 	dir = 8
@@ -446,7 +446,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "eh" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "el" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing{
@@ -468,7 +468,7 @@
 	},
 /obj/item/stack/tile/iron,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "en" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/vault{
@@ -689,7 +689,7 @@
 "fD" = (
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "fL" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -841,7 +841,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "gO" = (
 /obj/structure/sign/departments/cargo,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -1580,7 +1580,7 @@
 /obj/structure/frame/machine,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "pl" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "lavalandsyndi_bar"
@@ -1599,7 +1599,7 @@
 /turf/open/floor/iron/stairs/left{
 	dir = 4
 	},
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "pz" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable/yellow{
@@ -1712,7 +1712,7 @@
 /turf/open/floor/iron/stairs/right{
 	dir = 4
 	},
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "qr" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1754,7 +1754,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "qR" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -1778,7 +1778,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "rw" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "rx" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small,
@@ -1923,14 +1923,14 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "tq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "ts" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1972,7 +1972,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "tV" = (
 /mob/living/simple_animal/chicken/rabbit/normal{
 	faction = list("Syndicate");
@@ -2006,7 +2006,7 @@
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "uk" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/light/small{
@@ -2015,7 +2015,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "ul" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/spawner/structure/window/plastitanium,
@@ -2100,7 +2100,7 @@
 "uL" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "uM" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -2306,7 +2306,7 @@
 	},
 /obj/structure/floodlight_frame,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "wT" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2354,7 +2354,7 @@
 	pixel_x = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "xC" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /obj/structure/disposalpipe/segment,
@@ -2376,7 +2376,7 @@
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "xU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -2464,7 +2464,7 @@
 	pixel_x = 25
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "yR" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
@@ -2676,7 +2676,7 @@
 "Aq" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Au" = (
 /obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/dirt,
@@ -2886,7 +2886,7 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Cp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -2979,7 +2979,7 @@
 /obj/item/book/manual/wiki/xenoarchaeology,
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Dv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3065,7 +3065,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "EL" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade{
@@ -3160,7 +3160,7 @@
 	id = "lavalandsyndi_science"
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "FX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -3470,7 +3470,7 @@
 "It" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "IA" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -3481,7 +3481,7 @@
 	},
 /obj/item/stack/tile/iron,
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "IE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -3812,7 +3812,7 @@
 	dir = 10
 	},
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "LI" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/chef_recipes{
@@ -3841,7 +3841,7 @@
 	},
 /obj/item/clothing/gloves/artifact_pinchers,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "LW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/layer_manifold{
@@ -3872,7 +3872,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Mu" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3965,7 +3965,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "MN" = (
 /obj/structure/closet/secure_closet/medical1{
 	req_access = null;
@@ -3988,7 +3988,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "MV" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -4034,7 +4034,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Nv" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -4080,7 +4080,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Ob" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -4151,7 +4151,7 @@
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "OJ" = (
 /obj/machinery/light/small,
 /obj/structure/bed/roller,
@@ -4268,7 +4268,7 @@
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "PC" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/chair/stool/bar/directional/east,
@@ -4329,7 +4329,7 @@
 "Qi" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Qj" = (
 /obj/machinery/door/poddoor{
 	id = "lavalandsyndi_arrivals"
@@ -4385,7 +4385,7 @@
 /obj/structure/chair/office/light,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "QP" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -4448,7 +4448,7 @@
 /obj/item/storage/firstaid/regular,
 /obj/structure/table_frame,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Ru" = (
 /obj/structure/table/glass,
 /obj/item/stack/sheet/mineral/plasma{
@@ -4545,7 +4545,7 @@
 "Sc" = (
 /obj/item/healthanalyzer,
 /turf/open/floor/plating,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Sd" = (
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/item/food/chocolatebar,
@@ -4558,13 +4558,13 @@
 /obj/item/xenoartifact,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Sl" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 10
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "So" = (
 /obj/structure/chair{
 	dir = 4
@@ -4844,7 +4844,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "UP" = (
 /turf/closed/wall/mineral/plastitanium/explosive,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "UT" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -5236,7 +5236,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "YU" = (
 /obj/structure/chair{
 	dir = 4
@@ -5355,7 +5355,7 @@
 	},
 /obj/item/xenoartifact_labeler,
 /turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/virology)
+/area/ruin/unpowered/syndicate_lava_base/science)
 "Zw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
