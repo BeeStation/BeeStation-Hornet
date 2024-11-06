@@ -158,20 +158,20 @@
 		)
 
 
-/datum/record/crew/proc/add_medical_note(list/params)
-	if(!params["content"])
+/datum/record/crew/proc/add_medical_note(content_to_add, author_name = "Anonymous")
+	if(!content_to_add)
 		return FALSE
-	var/content = STRIP_HTML_FULL(params["content"], MAX_MESSAGE_LEN)
+	var/content = STRIP_HTML_FULL(content_to_add, MAX_MESSAGE_LEN)
 
-	var/datum/medical_note/new_note = new(usr.name, content)
+	var/datum/medical_note/new_note = new(author_name, content)
 	while(length(medical_notes) > 2)
 		medical_notes.Cut(1, 2)
 
 	medical_notes += new_note
 	return TRUE
 
-/datum/record/crew/proc/delete_medical_note(list/params)
-	var/datum/medical_note/old_note = locate(params["note_ref"]) in medical_notes
+/datum/record/crew/proc/delete_medical_note(note_ref)
+	var/datum/medical_note/old_note = note_ref
 	if(isnull(old_note))
 		return FALSE
 
@@ -179,16 +179,14 @@
 	qdel(old_note)
 	return TRUE
 
-/datum/record/crew/proc/set_physical_status(list/params)
-	var/new_physical_status = params["physical_status"]
+/datum/record/crew/proc/set_physical_status(new_physical_status)
 	if(!new_physical_status || !(new_physical_status in PHYSICAL_STATUSES))
 		return FALSE
 
 	physical_status = new_physical_status
 	return TRUE
 
-/datum/record/crew/proc/set_mental_status(list/params)
-	var/new_mental_status = params["mental_status"]
+/datum/record/crew/proc/set_mental_status(new_mental_status)
 	if(!new_mental_status || !(new_mental_status in MENTAL_STATUSES))
 		return FALSE
 
@@ -257,24 +255,24 @@
 	return TRUE
 
 /// Handles adding a crime to a particular record.
-/datum/record/crew/proc/add_crime(mob/user, list/params)
-	var/input_name = trim(params["name"], MAX_CRIME_NAME_LEN)
+/datum/record/crew/proc/add_crime(mob/user, crime_name, fine_amount, details)
+	var/input_name = trim(crime_name, MAX_CRIME_NAME_LEN)
 	if(!input_name)
 		to_chat(user, "<span class='warning'>You must enter a name for the crime.</span>")
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
 	var/max = CONFIG_GET(number/maxfine)
-	if(params["fine"] > max)
+	if(fine_amount > max)
 		to_chat(user, "<span class='warning'>The maximum fine is [max] credits.</span>")
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
 	var/input_details
-	if(params["details"])
-		input_details = trim(params["details"], MAX_MESSAGE_LEN)
+	if(details)
+		input_details = trim(details, MAX_MESSAGE_LEN)
 
-	if(params["fine"] == 0)
+	if(fine_amount == 0)
 		var/datum/crime_record/new_crime = new(name = input_name, details = input_details, author = user)
 		crimes += new_crime
 		wanted_status = WANTED_ARREST
@@ -283,11 +281,11 @@
 		update_matching_security_huds(name)
 		return TRUE
 
-	var/datum/crime_record/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = params["fine"])
+	var/datum/crime_record/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = fine_amount)
 
 	citations += new_citation
-	new_citation.alert_owner(user, src, name, "You have been issued a [params["fine"]]cr citation for [input_name]. Fines are payable at Security.")
-	user.investigate_log("New Citation: <strong>[input_name]</strong> Fine: [params["fine"]] | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
+	new_citation.alert_owner(user, src, name, "You have been issued a [fine_amount]cr citation for [input_name]. Fines are payable at Security.")
+	user.investigate_log("New Citation: <strong>[input_name]</strong> Fine: [fine_amount] | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
 
 	return TRUE
 

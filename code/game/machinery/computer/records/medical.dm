@@ -73,19 +73,19 @@
 
 	switch(action)
 		if("add_note")
-			target_record.add_medical_note(params)
+			target_record.add_medical_note(params["content"], usr.name)
 			return TRUE
 
 		if("delete_note")
-			target_record.delete_medical_note(params)
+			target_record.delete_medical_note(params["note_ref"])
 			return TRUE
 
 		if("set_physical_status")
-			target_record.set_physical_status(params)
+			target_record.set_physical_status(params["physical_status"])
 			return TRUE
 
 		if("set_mental_status")
-			target_record.set_mental_status(params)
+			target_record.set_mental_status(params["mental_status"])
 			return TRUE
 
 	return FALSE
