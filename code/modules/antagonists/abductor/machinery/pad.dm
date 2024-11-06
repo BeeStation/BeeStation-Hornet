@@ -21,7 +21,7 @@
 		//If the target is wearing an abductor vest, increase the stimulant cooldown
 		if (ishuman(target))
 			var/mob/living/carbon/human/abductor = target
-			var/obj/item/clothing/suit/armor/abductor/vest/abductor_vest = abductor.wear_suit
+			var/obj/item/clothing/suit/armor/abductor_vest/abductor_vest = abductor.wear_suit
 			if (istype(abductor_vest))
 				//Set a minimum 6 second cooldown
 				abductor_vest.combat_cooldown = max(abductor_vest.combat_cooldown, 6)

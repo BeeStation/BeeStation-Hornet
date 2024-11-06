@@ -3,6 +3,7 @@
 	icon = 'icons/effects/cult_effects.dmi'
 	randomdir = FALSE
 	duration = 10
+	abstract_type = /obj/effect/temp_visual/cult
 
 /obj/effect/temp_visual/cult/sparks
 	randomdir = 1

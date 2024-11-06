@@ -66,6 +66,7 @@
 	layer = FULLSCREEN_LAYER
 	plane = FULLSCREEN_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	abstract_type = /atom/movable/screen/fullscreen
 	var/view = 7
 	var/severity = 0
 	var/show_when_dead = FALSE

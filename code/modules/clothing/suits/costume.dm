@@ -1,6 +1,7 @@
 /obj/item/clothing/suit/costume
 	icon = 'icons/obj/clothing/suits/costume.dmi'
 	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
+	abstract_type = /obj/item/clothing/suit/costume
 
 /obj/item/clothing/suit/hooded/flashsuit
 	name = "flashy costume"
@@ -341,7 +342,6 @@
 	name = "pharoah tunic"
 	desc = "Lavish space tomb not included."
 	icon_state = "pharoah"
-	icon_state = null
 	body_parts_covered = CHEST|GROIN
 
 /obj/item/clothing/suit/costume/bronze

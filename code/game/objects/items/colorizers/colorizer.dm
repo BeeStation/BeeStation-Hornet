@@ -4,6 +4,7 @@
 	desc = "This colorizer will apply a new set of colors to an item."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "rainbowcan"
+	abstract_type = /obj/item/colorizer
 	var/uses_left = 1
 
 	var/list/allowed_targets = list()

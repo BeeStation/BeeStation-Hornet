@@ -16,6 +16,7 @@
 	cost = 250
 	source = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical
+	abstract_type = /obj/item/stack/medical
 	///What reagent does it apply?
 	var/list/reagent
 	///Is this for bruises?

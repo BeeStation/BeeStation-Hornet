@@ -2,6 +2,7 @@
 
 /atom/movable/screen/pai
 	icon = 'icons/hud/screen_pai.dmi'
+	abstract_type = /atom/movable/screen/pai
 	var/required_software
 
 /atom/movable/screen/pai/Click()

@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 			|| is_type_in_typecache(weapon, GLOB.oilfry_blacklisted_items) \
 			|| weapon.GetComponent(/datum/component/storage) \
 			|| HAS_TRAIT(weapon, TRAIT_NODROP) \
-			|| (weapon.item_flags & (ABSTRACT|DROPDEL)))
+			|| (weapon.item_flags & (PSEUDO_ITEM|DROPDEL)))
 			return ..()
 		// Do the frying.
 		else if(!frying && user.transferItemToLoc(weapon, src))

@@ -785,7 +785,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		for(var/i in T)
 			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
-				if(!(W.flags_1 & ADMIN_SPAWNED_1) && !(W.flags_1 & HOLOGRAM_1) && !(W.item_flags & ABSTRACT))
+				if(!(W.flags_1 & ADMIN_SPAWNED_1) && !(W.flags_1 & HOLOGRAM_1) && !(W.item_flags & PSEUDO_ITEM))
 					L += W
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)

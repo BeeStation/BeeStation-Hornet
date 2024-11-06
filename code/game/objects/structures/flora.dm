@@ -2,6 +2,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 20
 	anchored = TRUE
+	abstract_type = /obj/structure/flora
 
 //trees
 /obj/structure/flora/tree
@@ -10,6 +11,7 @@
 	density = TRUE
 	pixel_x = -16
 	layer = FLY_LAYER
+	abstract_type = /obj/structure/flora/tree
 	var/log_amount = 10
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)

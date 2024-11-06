@@ -211,7 +211,7 @@
 	if(W.is_hot())
 		StartBurning()
 	if(grill)
-		if(user.a_intent != INTENT_HARM && !(W.item_flags & ABSTRACT))
+		if(user.a_intent != INTENT_HARM && !(W.item_flags & PSEUDO_ITEM))
 			if(user.temporarilyRemoveItemFromInventory(W))
 				W.forceMove(get_turf(src))
 				var/list/modifiers = params2list(params)

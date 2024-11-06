@@ -9,6 +9,7 @@
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND
+	abstract_type = /atom
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
@@ -229,6 +230,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
+
+#if DEBUG
+	if (IS_ABSTRACT(src))
+		CRASH("Attempting to initialize abstract object of type [type]. This is not allowed.")
+#endif
 
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_CREATED, src) /// Sends a signal that the new atom `src`, has been created at `loc`

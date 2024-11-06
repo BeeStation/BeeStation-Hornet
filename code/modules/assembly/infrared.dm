@@ -49,7 +49,7 @@
 		return FALSE
 	if(isitem(beam_atom))
 		var/obj/item/beam_item = beam_atom
-		if(beam_item.item_flags & ABSTRACT)
+		if(beam_item.item_flags & PSEUDO_ITEM)
 			return FALSE
 
 	return TRUE

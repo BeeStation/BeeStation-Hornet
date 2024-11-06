@@ -31,6 +31,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 100
+	abstract_type = /obj/structure/barricade
 	///probability that projectiles will pass the cover
 	var/proj_pass_rate = 50
 	///determines how and if the barricade can be repaired

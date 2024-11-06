@@ -7,6 +7,7 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5
 	pass_flags_self = PASSSTRUCTURE
+	abstract_type = /obj/structure
 	var/broken = FALSE
 
 /obj/structure/Initialize(mapload)

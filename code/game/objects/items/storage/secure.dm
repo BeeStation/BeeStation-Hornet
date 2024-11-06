@@ -13,6 +13,7 @@
 /obj/item/storage/secure
 	name = "secstorage"
 	icon = 'icons/obj/storage/case.dmi'
+	abstract_type = /obj/item/storage/secure
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"

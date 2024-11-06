@@ -6,6 +6,7 @@
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = 0
+	abstract_type = /obj/effect/projectile
 
 /obj/effect/projectile/singularity_pull()
 	return

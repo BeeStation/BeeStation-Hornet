@@ -18,7 +18,7 @@
 	icon_state = "console"
 	density = TRUE
 	var/obj/item/abductor/gizmo/gizmo
-	var/obj/item/clothing/suit/armor/abductor/vest/vest
+	var/obj/item/clothing/suit/armor/abductor_vest/vest
 	var/obj/machinery/abductor/experiment/experiment
 	var/obj/machinery/abductor/pad/pad
 	var/obj/machinery/computer/camera_advanced/abductor/camera
@@ -246,7 +246,7 @@
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
-	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
+	else if(istype(O, /obj/item/clothing/suit/armor/abductor_vest) && AddVest(O))
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
 	else
 		return ..()

@@ -5,6 +5,7 @@
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_room"
 	dir = NORTH
+	abstract_type = /obj/effect/spawner/room
 	var/room_width = 0
 	var/room_height = 0
 	///List of room IDs we want

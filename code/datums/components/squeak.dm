@@ -86,7 +86,7 @@
 
 	if(isitem(arrived))
 		var/obj/item/I = arrived
-		if(I.item_flags & ABSTRACT)
+		if(I.item_flags & PSEUDO_ITEM)
 			return
 		else if(istype(arrived, /obj/projectile))
 			var/obj/projectile/P = arrived

@@ -17,3 +17,5 @@
 		return 1
 	else
 		return 0
+
+#define IS_ABSTRACT(datum) datum.type == datum.abstract_type

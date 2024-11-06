@@ -4,6 +4,7 @@
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	abstract_type = /obj/effect/temp_visual
 	var/duration = 10 //in deciseconds
 	var/randomdir = TRUE
 	var/timerid

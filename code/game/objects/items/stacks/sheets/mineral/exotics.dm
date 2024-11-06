@@ -6,6 +6,9 @@ Exotic mineral Sheets
 		- Alien Alloy
 **********************/
 
+/obj/item/stack/sheet/mineral
+	abstract_type = /obj/item/stack/sheet/mineral
+
 /* Bananium */
 
 /obj/item/stack/sheet/mineral/bananium

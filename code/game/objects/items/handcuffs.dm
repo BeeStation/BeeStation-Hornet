@@ -1,4 +1,5 @@
 /obj/item/restraints
+	abstract_type = /obj/item/restraints
 	breakouttime = 600
 	item_flags = ISWEAPON
 

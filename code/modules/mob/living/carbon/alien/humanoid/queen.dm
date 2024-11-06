@@ -150,7 +150,7 @@
 	name = "\improper royal parasite"
 	desc = "Inject this into one of your grown children to promote her to a Praetorian!"
 	icon_state = "alien_medal"
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = PSEUDO_ITEM | DROPDEL
 	icon = 'icons/mob/alien.dmi'
 
 /obj/item/queenpromote/Initialize(mapload)

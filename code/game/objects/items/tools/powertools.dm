@@ -10,6 +10,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
+	abstract_type = /obj/item/powertool
 
 /obj/item/powertool/attack_self(mob/user)
 	toggle_mode(user)

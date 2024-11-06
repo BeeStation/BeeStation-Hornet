@@ -6,7 +6,7 @@
 	item_state = "cluwne"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = MASKINTERNALS
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = PSEUDO_ITEM | DROPDEL
 	flags_inv = HIDEEARS|HIDEEYES
 	var/voicechange = TRUE
 	var/last_sound = 0
@@ -63,7 +63,7 @@
 	name = "Happy Cluwne Mask"
 	desc = "The mask of a poor cluwne that has been scrubbed of its curse by the Nanotrasen supernatural machinations division. Guaranteed to be %99 curse free and %99.9 not haunted. "
 	flags_1 = MASKINTERNALS
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 	var/can_cluwne = FALSE
 	var/is_cursed = FALSE //i don't care that this is *slightly* memory wasteful, it's just one more byte and it's not like some madman is going to spawn thousands of these
 	var/is_very_cursed = FALSE

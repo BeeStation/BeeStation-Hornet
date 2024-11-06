@@ -12,6 +12,7 @@
 	)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 5)
 	slot_flags = ITEM_SLOT_OCLOTHING
+	abstract_type = /obj/item/clothing/suit
 	var/blood_overlay_type = "suit"
 	var/move_sound = null
 	var/footstep = 0

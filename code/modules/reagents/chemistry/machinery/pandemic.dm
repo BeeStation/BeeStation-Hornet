@@ -248,7 +248,7 @@
 			. = TRUE
 
 /obj/machinery/computer/pandemic/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/reagent_containers) && !CHECK_BITFIELD(item.item_flags, ABSTRACT) && item.is_open_container())
+	if(istype(item, /obj/item/reagent_containers) && !CHECK_BITFIELD(item.item_flags, PSEUDO_ITEM) && item.is_open_container())
 		. = TRUE //no afterattack
 		if(CHECK_BITFIELD(machine_stat, (NOPOWER|BROKEN)))
 			return

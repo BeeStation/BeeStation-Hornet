@@ -53,6 +53,7 @@
 /obj/item/clothing/suit/hooded/cloak
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+	abstract_type = /obj/item/clothing/suit/hooded/cloak
 
 /obj/item/clothing/head/hooded/cloakhood
 	icon = 'icons/obj/clothing/head/helmet.dmi'

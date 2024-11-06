@@ -6,6 +6,7 @@
 	var/mobs_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
 	anchored = TRUE
+	abstract_type = /obj/effect/step_trigger
 
 /obj/effect/step_trigger/Initialize(mapload)
 	. = ..()

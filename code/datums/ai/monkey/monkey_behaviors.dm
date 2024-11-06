@@ -152,7 +152,7 @@
 		// check if target has a weapon
 		var/obj/item/W
 		for(var/obj/item/I in target.held_items)
-			if(!(I.item_flags & ABSTRACT))
+			if(!(I.item_flags & PSEUDO_ITEM))
 				W = I
 				break
 

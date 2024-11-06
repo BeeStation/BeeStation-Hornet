@@ -28,7 +28,7 @@
 		while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
 			if(isitem(item_to_retrieve.loc))
 				var/obj/item/I = item_to_retrieve.loc
-				if(I.item_flags & ABSTRACT) //Being able to summon abstract things because your item happened to get placed there is a no-no
+				if(I.item_flags & PSEUDO_ITEM) //Being able to summon abstract things because your item happened to get placed there is a no-no
 					break
 			if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 				var/mob/M = item_to_retrieve.loc

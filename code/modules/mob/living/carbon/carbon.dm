@@ -160,7 +160,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				if(start_T && end_T)
 					log_combat(src, throwable_mob, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
 
-	else if(!CHECK_BITFIELD(I.item_flags, ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
+	else if(!CHECK_BITFIELD(I.item_flags, PSEUDO_ITEM) && !HAS_TRAIT(I, TRAIT_NODROP))
 		thrown_thing = I
 		var/pacifist = FALSE
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
@@ -369,7 +369,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return TRUE
 
 /mob/living/carbon/proc/accident(obj/item/I)
-	if(!I || (I.item_flags & ABSTRACT) || HAS_TRAIT(I, TRAIT_NODROP))
+	if(!I || (I.item_flags & PSEUDO_ITEM) || HAS_TRAIT(I, TRAIT_NODROP))
 		return
 
 	dropItemToGround(I)

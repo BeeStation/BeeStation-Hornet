@@ -3,6 +3,7 @@
 	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	color = "#00FF00"
+	abstract_type = /obj/effect/spawner/bundle
 
 	var/list/items
 

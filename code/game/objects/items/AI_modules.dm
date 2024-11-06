@@ -20,6 +20,7 @@ AI MODULES
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
+	abstract_type = /obj/item/aiModule
 	var/list/laws = list()
 	var/bypass_law_amt_check = 0
 	custom_materials = list(/datum/material/gold = 50)

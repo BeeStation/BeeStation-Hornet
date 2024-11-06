@@ -544,7 +544,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "mounted_chainsaw"
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
-	item_flags = ABSTRACT | DROPDEL | ISWEAPON
+	item_flags = PSEUDO_ITEM | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	block_upgrade_walk = 2
 	block_power = 20
@@ -823,7 +823,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "madeyoulook"
 	force = 0
 	throwforce = 0
-	item_flags = DROPDEL | ABSTRACT | ISWEAPON
+	item_flags = DROPDEL | PSEUDO_ITEM | ISWEAPON
 	attack_verb_continuous = list("bops")
 	attack_verb_simple = list("bop")
 
@@ -834,7 +834,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "nothing"
 	force = 0
 	throwforce = 0
-	item_flags = DROPDEL | ABSTRACT | ISWEAPON
+	item_flags = DROPDEL | PSEUDO_ITEM | ISWEAPON
 	attack_verb_continuous = list("slaps")
 	attack_verb_simple = list("slap")
 	hitsound = 'sound/effects/snap.ogg'
@@ -927,7 +927,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/punchmiss.ogg'
 	force = 0
 	throwforce = 0
-	item_flags = DROPDEL | ABSTRACT | ISWEAPON
+	item_flags = DROPDEL | PSEUDO_ITEM | ISWEAPON
 	attack_verb_simple = list("is left hanging by")
 
 /obj/item/highfive/attack(mob/target, mob/user)

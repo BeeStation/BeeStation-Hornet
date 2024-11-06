@@ -19,6 +19,7 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
+	abstract_type = /obj/item/stack
 	///The name of the thing when it's singular
 	var/singular_name
 	///The amount of thing in the stack

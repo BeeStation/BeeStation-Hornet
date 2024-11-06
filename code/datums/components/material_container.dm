@@ -78,7 +78,7 @@
 	var/list/tc = allowed_typecache
 	if(!(mat_container_flags & MATCONTAINER_ANY_INTENT) && user.a_intent != INTENT_HELP)
 		return
-	if(I.item_flags & ABSTRACT)
+	if(I.item_flags & PSEUDO_ITEM)
 		return
 	if((I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (tc && !is_type_in_typecache(I, tc)))
 		if(!(mat_container_flags & MATCONTAINER_SILENT))

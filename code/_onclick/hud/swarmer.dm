@@ -2,6 +2,7 @@
 
 /atom/movable/screen/swarmer
 	icon = 'icons/mob/swarmer.dmi'
+	abstract_type = /atom/movable/screen/swarmer
 
 /atom/movable/screen/swarmer/FabricateTrap
 	icon_state = "ui_trap"

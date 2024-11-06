@@ -24,7 +24,7 @@
 		if(!marked_item && allow_change) //linking item to the spell
 			message = "<span class='notice'>"
 			for(var/obj/item/item in hand_items)
-				if(item.item_flags & ABSTRACT)
+				if(item.item_flags & PSEUDO_ITEM)
 					continue
 				if(SEND_SIGNAL(item, COMSIG_ITEM_MARK_RETRIEVAL) & COMPONENT_BLOCK_MARK_RETRIEVAL)
 					continue
@@ -69,7 +69,7 @@
 				while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
 					if(isitem(item_to_retrieve.loc))
 						var/obj/item/I = item_to_retrieve.loc
-						if(I.item_flags & ABSTRACT) //Being able to summon abstract things because your item happened to get placed there is a no-no
+						if(I.item_flags & PSEUDO_ITEM) // Pseudo items ignore the ability to be transferred around
 							break
 					if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 						var/mob/M = item_to_retrieve.loc

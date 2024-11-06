@@ -15,6 +15,7 @@
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
+	abstract_type = /atom/movable/screen
 	/// A reference to the owner HUD, if any.
 	var/datum/hud/hud = null
 	/**

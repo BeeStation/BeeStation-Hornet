@@ -1,5 +1,6 @@
 /atom/movable/screen/robot
 	icon = 'icons/hud/screen_cyborg.dmi'
+	abstract_type = /atom/movable/screen/robot
 
 /atom/movable/screen/robot/module
 	name = "cyborg module"

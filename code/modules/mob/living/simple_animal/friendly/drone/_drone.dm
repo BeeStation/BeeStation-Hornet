@@ -169,15 +169,15 @@
 
 	//Hands
 	for(var/obj/item/I in held_items)
-		if(!(I.item_flags & ABSTRACT))
+		if(!(I.item_flags & PSEUDO_ITEM))
 			. += "It has [I.get_examine_string(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
 
 	//Internal storage
-	if(internal_storage && !(internal_storage.item_flags & ABSTRACT))
+	if(internal_storage && !(internal_storage.item_flags & PSEUDO_ITEM))
 		. += "It is holding [internal_storage.get_examine_string(user)] in its internal storage."
 
 	//Cosmetic hat - provides no function other than looks
-	if(head && !(head.item_flags & ABSTRACT))
+	if(head && !(head.item_flags & PSEUDO_ITEM))
 		. += "It is wearing [head.get_examine_string(user)] on its head."
 
 	//Braindead

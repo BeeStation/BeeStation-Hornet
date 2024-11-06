@@ -252,6 +252,7 @@
 
 /atom/movable/screen/parallax_layer
 	icon = 'icons/effects/parallax.dmi'
+	abstract_type = /atom/movable/screen/parallax_layer
 	var/speed = 1
 	var/offset_x = 0
 	var/offset_y = 0

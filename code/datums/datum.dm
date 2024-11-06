@@ -47,6 +47,9 @@
 	/// A weak reference to another datum
 	var/datum/weakref/weak_reference
 
+	/// The abstract type, if this is set to itself then the item will be treated as something that should be unable to be spawned.
+	var/abstract_type = /datum
+
 	/*
 	* Lazy associative list of currently active cooldowns.
 	*
@@ -70,6 +73,14 @@
 
 #ifdef DATUMVAR_DEBUGGING_MODE
 	var/list/cached_vars
+#endif
+
+#if TESTING
+// When building CI and running tests, lets add this check to prevent abstract datums being initialised.
+/datum/New()
+	if (type == abstract_type)
+		CRASH("An abstract datum was initialised. Abstract items should never be initialised and shouldn't be created through any means.")
+	return ..()
 #endif
 
 /**

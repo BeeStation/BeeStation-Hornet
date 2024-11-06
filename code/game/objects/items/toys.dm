@@ -32,6 +32,7 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 0
+	abstract_type = /obj/item/toy
 
 /*
  * Empty plushies before stuffing

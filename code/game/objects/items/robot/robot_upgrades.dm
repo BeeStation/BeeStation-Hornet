@@ -9,6 +9,7 @@
 	desc = "Protected by FRM."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
+	abstract_type = /obj/item/borg/upgrade
 	var/locked = FALSE
 	var/installed = 0
 	var/require_module = 0

@@ -4,6 +4,7 @@
 /obj/item/book/granter
 	due_date = 0 // Game time in deciseconds
 	unique = 1   // 0  Normal book, 1  Should not be treated as normal book, unable to be copied, unable to be modified
+	abstract_type = /obj/item/book/granter
 	var/list/remarks = list() //things to read about while learning.
 	var/pages_to_mastery = 3 //Essentially controls how long a mob must keep the book in his hand to actually successfully learn
 	var/reading = FALSE //sanity
@@ -65,6 +66,7 @@
 ///ACTION BUTTONS///
 
 /obj/item/book/granter/action
+	abstract_type = /obj/item/book/granter/action
 	var/granted_action
 	var/actionname = "catching bugs" //might not seem needed but this makes it so you can safely name action buttons toggle this or that without it fucking up the granter, also caps
 
@@ -116,6 +118,7 @@
 ///SPELLS///
 
 /obj/item/book/granter/spell
+	abstract_type = /obj/item/book/granter/spell
 	var/spell
 	var/spellname = "conjure bugs"
 
@@ -313,6 +316,7 @@
 ///MARTIAL ARTS///
 
 /obj/item/book/granter/martial
+	abstract_type = /obj/item/book/granter/martial
 	var/martial
 	var/martialname = "bug jitsu"
 	var/greet = "You feel like you have mastered the art in breaking code. Nice work, jackass."

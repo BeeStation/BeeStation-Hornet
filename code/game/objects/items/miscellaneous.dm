@@ -19,6 +19,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-blue"
 	item_state = "radio"
+	abstract_type = /obj/item/choice_beacon
 	var/uses = 1
 
 /obj/item/choice_beacon/attack_self(mob/user)
@@ -68,6 +69,7 @@
 /obj/item/choice_beacon/radial
 	name = "multi-choice beacon"
 	desc = "Summons a variety of items"
+	abstract_type = /obj/item/choice_beacon/radial
 
 /obj/item/choice_beacon/radial/proc/generate_item_list()
 	return list()

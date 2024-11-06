@@ -709,7 +709,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	Consume(nom)
 
 /obj/machinery/power/supermatter_crystal/attackby(obj/item/W, mob/living/user, params)
-	if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
+	if(!istype(W) || (W.item_flags & PSEUDO_ITEM) || !istype(user))
 		return
 	if(is_type_in_typecache(W, not_dustable))
 		return ..()

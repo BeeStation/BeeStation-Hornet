@@ -1,6 +1,7 @@
 /obj/item/melee/transforming
 	sharpness = IS_SHARP
 	bleed_force = 0
+	abstract_type = /obj/item/melee/transforming
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions

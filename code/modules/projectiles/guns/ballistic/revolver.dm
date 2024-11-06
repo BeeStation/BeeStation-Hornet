@@ -312,7 +312,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime
 	lefthand_file = null
 	righthand_file = null
-	item_flags = DROPDEL | ABSTRACT
+	item_flags = DROPDEL | PSEUDO_ITEM
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0

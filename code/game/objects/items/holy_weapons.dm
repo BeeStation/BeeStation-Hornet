@@ -282,7 +282,7 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	name = "god hand"
 	desc = "This hand of yours glows with an awesome power!"
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = PSEUDO_ITEM | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
@@ -578,7 +578,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT | ISWEAPON
+	item_flags = PSEUDO_ITEM | ISWEAPON
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
@@ -673,7 +673,7 @@
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	slot_flags = null
-	item_flags = ABSTRACT | ISWEAPON
+	item_flags = PSEUDO_ITEM | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT

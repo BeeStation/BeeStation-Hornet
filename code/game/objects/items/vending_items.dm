@@ -18,6 +18,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30, STAMINA = 0, BLEED = 0)
+	abstract_type = /obj/item/vending_refill
 
 	// Built automatically from the corresponding vending machine.
 	// If null, considered to be full. Otherwise, is list(/typepath = amount).

@@ -1,6 +1,7 @@
 
 /atom/movable/screen/blob
 	icon = 'icons/hud/actions/actions_blob.dmi'
+	abstract_type = /atom/movable/screen/blob
 
 /atom/movable/screen/blob/MouseEntered(location,control,params)
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")

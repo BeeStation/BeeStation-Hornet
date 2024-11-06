@@ -26,7 +26,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 		righthand_file = rh_icon
 	if(worn_slot_flags)
 		slot_flags = worn_slot_flags
-	item_flags &= ~(ABSTRACT)
+	item_flags &= ~(PSEUDO_ITEM)
 	deposit(M)
 
 /obj/item/clothing/head/mob_holder/Destroy()

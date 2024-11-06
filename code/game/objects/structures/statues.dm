@@ -8,6 +8,7 @@
 	anchored = FALSE
 	max_integrity = 100
 	CanAtmosPass = ATMOS_PASS_DENSITY
+	abstract_type = /obj/structure/statue
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/iron
 	CanAtmosPass = ATMOS_PASS_DENSITY

@@ -747,7 +747,7 @@
 		else
 			what = get_item_by_slot(slot)
 		if(what)
-			if(!(what.item_flags & ABSTRACT))
+			if(!(what.item_flags & PSEUDO_ITEM))
 				usr.stripPanelUnequip(what,src,slot)
 		else
 			usr.stripPanelEquip(what,src,slot)

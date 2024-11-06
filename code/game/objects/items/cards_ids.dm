@@ -17,6 +17,7 @@
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
+	abstract_type = /obj/item/card
 
 	var/list/files = list()
 

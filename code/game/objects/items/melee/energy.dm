@@ -9,6 +9,7 @@
 	light_range = 3
 	light_power = 1
 	light_on = FALSE
+	abstract_type = /obj/item/melee/transforming/energy
 	var/sword_color
 
 /obj/item/melee/transforming/energy/Initialize(mapload)

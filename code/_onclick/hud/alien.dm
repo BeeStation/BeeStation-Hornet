@@ -1,5 +1,6 @@
 /atom/movable/screen/alien
 	icon = 'icons/hud/screen_alien.dmi'
+	abstract_type = /atom/movable/screen/alien
 
 /atom/movable/screen/alien/leap
 	name = "toggle leap"

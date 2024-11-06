@@ -1005,7 +1005,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/actual_file_name
 	for(var/test_obj in subtypesof(/obj/item))
 		var/obj/item/sprite = new test_obj
-		if(!sprite.slot_flags || (sprite.item_flags & ABSTRACT))
+		if(!sprite.slot_flags || (sprite.item_flags & PSEUDO_ITEM))
 			continue
 		//Is there an explicit worn_icon to pick against the worn_icon_state? Easy street expected behavior.
 		if(sprite.worn_icon)

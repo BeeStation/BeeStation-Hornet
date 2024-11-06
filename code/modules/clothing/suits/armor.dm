@@ -14,6 +14,7 @@
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 50)
 	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
+	abstract_type = /obj/item/clothing/suit/armor
 
 /obj/item/clothing/suit/armor/Initialize(mapload)
 	. = ..()
@@ -217,6 +218,7 @@
 	slowdown = 0.3
 
 /obj/item/clothing/suit/armor/tdome
+	abstract_type = /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -238,6 +240,7 @@
 
 /obj/item/clothing/suit/armor/tdome/holosuit
 	name = "thunderdome suit"
+	abstract_type = /obj/item/clothing/suit/armor/tdome/holosuit
 	armor = list(MELEE = 10,  BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 	cold_protection = null
 	heat_protection = null

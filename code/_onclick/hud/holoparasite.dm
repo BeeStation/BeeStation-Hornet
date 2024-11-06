@@ -106,6 +106,7 @@
 
 /atom/movable/screen/holoparasite
 	icon = 'icons/mob/holoparasite.dmi'
+	abstract_type = /atom/movable/screen/holoparasite
 	var/mob/living/simple_animal/hostile/holoparasite/owner
 	var/can_toggle = FALSE
 	var/last_params

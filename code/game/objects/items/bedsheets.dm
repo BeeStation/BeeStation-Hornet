@@ -257,7 +257,7 @@
 	icon_state = "random_bedsheet"
 	name = "random bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 
 /obj/item/bedsheet/random/Initialize(mapload)
 	..()
@@ -269,7 +269,7 @@
 	icon_state = "random_bedsheet"
 	name = "random dorms bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 	slot_flags = null
 
 /obj/item/bedsheet/dorms/Initialize(mapload)
@@ -496,7 +496,7 @@
 	name = "random double bedsheet"
 	icon_state = "random_doublesheet"
 	desc = "If you're reading this description ingame, something has gone wrong twice! Honk!"
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 
 /obj/item/bedsheet/double/random/Initialize(mapload)
 	..()
@@ -508,7 +508,7 @@
 	name = "random double dorms bedsheet"
 	icon_state = "random_doublesheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 
 /obj/item/bedsheet/double/dorms/Initialize(mapload)
 	..()

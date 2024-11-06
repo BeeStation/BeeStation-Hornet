@@ -2,6 +2,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	abstract_type = /obj/item/storage
 	var/rummage_if_nodrop = TRUE
 	var/component_type = /datum/component/storage/concrete
 	var/empty = FALSE

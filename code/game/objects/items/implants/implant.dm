@@ -5,8 +5,9 @@
 	name = "implant"
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "generic" //Shows up as the action button icon
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = PSEUDO_ITEM | DROPDEL
 	actions_types = list(/datum/action/item_action/hands_free/activate)
+	abstract_type = /obj/item/implant
 	var/activated = TRUE //1 for implant types that can be activated, 0 for ones that are "always on" like mindshield implants
 	var/mob/living/imp_in = null
 	var/implant_color = "b"

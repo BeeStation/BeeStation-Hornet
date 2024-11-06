@@ -19,6 +19,7 @@
 //  Generic non-item
 /obj/item/storage/bag
 	slot_flags = ITEM_SLOT_BELT
+	abstract_type = /obj/item/storage/bag
 
 /obj/item/storage/bag/ComponentInitialize()
 	. = ..()

@@ -3,7 +3,7 @@
 ***********************************************************************/
 /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
-
+	abstract_type = /obj/item/borg
 
 /obj/item/borg/stun
 	name = "electrically-charged arm"

@@ -433,7 +433,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 	var/roomNumber
 	var/obj/item/hilbertshotel/parentSphere
 

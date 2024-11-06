@@ -3,6 +3,7 @@
 	desc = "A sleek, sturdy box."
 	icon_state = "syndiebox"
 	illustration = "writing_syndie"
+	abstract_type = /obj/item/storage/box/syndie_kit
 
 /obj/item/storage/box/syndie_kit/bundle_A/PopulateContents()
 	switch (pick_weight(list("recon" = 2, "bloodyspai" = 3, "stealth" = 2, "screwed" = 2, "sabotage" = 3, "guns" = 2, "murder" = 2, "implant" = 1, "hacker" = 3, "sniper" = 1, "metaops" = 1)))

@@ -7,6 +7,7 @@
 	block_power = 50
 	max_integrity =  75
 	item_flags = ISWEAPON
+	abstract_type = /obj/item/shield
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
 

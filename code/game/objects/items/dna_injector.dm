@@ -9,6 +9,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+	abstract_type = /obj/item/dnainjector
 
 	var/damage_coeff  = 1
 	var/list/fields

@@ -1,0 +1,10 @@
+/obj/item/clothing/suit/jacket/officer/blue : /obj/item/clothing/suit/jacket/blue_officer { @OLD }
+/obj/item/clothing/suit/jacket/officer/tan : /obj/item/clothing/suit/jacket/tan_officer { @OLD }
+/obj/item/clothing/suit/jacket/warden/blue : /obj/item/clothing/suit/jacket/blue_warden { @OLD }
+/obj/item/clothing/suit/jacket/warden/tan : /obj/item/clothing/suit/jacket/tan_warden { @OLD }
+/obj/item/clothing/suit/armor/abductor/vest : /obj/item/clothing/suit/armor/abductor_vest { @OLD }
+
+# Delete abstract instances
+/obj/item/clothing/suit/jacket/officer : @DELETE
+/obj/item/clothing/suit/jacket/warden : @DELETE
+/obj/item/clothing/suit/armor/abductor : @DELETE

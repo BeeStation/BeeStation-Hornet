@@ -194,7 +194,7 @@
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
-			if(chameleon_blacklist[V] || (initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
+			if(chameleon_blacklist[V] || (initial(I.item_flags) & PSEUDO_ITEM) || !initial(I.icon_state))
 				continue
 			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
 			chameleon_list[chameleon_item_name] = I
@@ -442,7 +442,7 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/suit
 	chameleon_action.chameleon_name = "Suit"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/suit/armor/abductor, /obj/item/clothing/suit/changeling), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/suit/armor/abductor_vest, /obj/item/clothing/suit/changeling), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
 /obj/item/clothing/suit/chameleon/emp_act(severity)
@@ -681,7 +681,7 @@
 	tongue_list = list()
 	for(var/found_var in predefined_tongues)
 		found_item = found_var
-		if((initial(found_item.item_flags) & ABSTRACT) || !initial(found_item.icon_state))
+		if((initial(found_item.item_flags) & PSEUDO_ITEM) || !initial(found_item.icon_state))
 			continue
 		tongue_name = "[initial(found_item.name)] ([initial(found_item.icon_state)])"
 		temporary_list[tongue_name] = found_item

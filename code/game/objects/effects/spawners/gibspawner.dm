@@ -1,5 +1,6 @@
 
 /obj/effect/gibspawner
+	abstract_type = /obj/effect/gibspawner
 	var/sparks = 0 //whether sparks spread
 	var/virusProb = 20 //the chance for viruses to spread on the gibs
 	var/gib_mob_type  //generate a fake mob to transfer DNA from if we weren't passed a mob.

@@ -229,7 +229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 				tablepush(user, carried_mob)
 		return TRUE
 
-	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT))
+	if(user.a_intent != INTENT_HARM && !(I.item_flags & PSEUDO_ITEM))
 		if(user.transferItemToLoc(I, drop_location(), silent = FALSE))
 			//Center the icon where the user clicked.
 			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))

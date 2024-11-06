@@ -26,11 +26,6 @@
 	//generate_possible_icon_states_list("your/folder/path/")
 	var/list/bad_list = list()
 	for(var/obj/obj_path as anything in subtypesof(/obj))
-		if(ispath(obj_path, /obj/item))
-			var/obj/item/item_path = obj_path
-			if(initial(item_path.item_flags) & ABSTRACT)
-				continue
-
 		if(initial(obj_path.greyscale_colors) && initial(obj_path.greyscale_config)) //GAGS has its own unit test.
 			continue
 

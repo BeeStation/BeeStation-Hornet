@@ -140,6 +140,7 @@
 	. = names
 
 /datum/barsign
+	abstract_type = /datum/barsign
 	var/name = "Name"
 	var/icon = "Icon"
 	var/desc = "desc"

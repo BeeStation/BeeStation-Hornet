@@ -6,6 +6,7 @@
 	desc = "This is rubbish."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	abstract_type = /obj/item/trash
 
 /obj/item/trash/attack(mob/M, mob/living/user)
 	return

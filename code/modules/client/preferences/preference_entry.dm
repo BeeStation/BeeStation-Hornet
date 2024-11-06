@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/category = "misc"
 
 	/// Do not instantiate if type matches this.
-	var/abstract_type = /datum/preference
+	abstract_type = /datum/preference
 
 	/// What location should this preference be read from?
 	/// Valid values are PREFERENCE_CHARACTER and PREFERENCE_PLAYER.

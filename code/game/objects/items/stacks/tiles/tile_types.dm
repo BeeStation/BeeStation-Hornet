@@ -18,6 +18,7 @@
 	max_amount = 60
 	novariants = TRUE
 	material_flags = MATERIAL_EFFECTS
+	abstract_type = /obj/item/stack/tile
 	/// What type of turf does this tile produce.
 	var/turf_type = null
 	/// What dir will the turf have?

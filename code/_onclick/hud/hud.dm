@@ -19,6 +19,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	return GLOB.available_ui_styles[ui_style] || GLOB.available_ui_styles[GLOB.available_ui_styles[1]]
 
 /datum/hud
+	abstract_type = /datum/hud
 	var/mob/mymob
 
 	var/hud_shown = TRUE			//Used for the HUD toggle (F12)

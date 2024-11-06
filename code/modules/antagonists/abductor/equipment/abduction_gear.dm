@@ -6,7 +6,7 @@
 #define MIND_DEVICE_CONTROL 2
 
 //AGENT VEST
-/obj/item/clothing/suit/armor/abductor/vest
+/obj/item/clothing/suit/armor/abductor_vest
 	name = "agent vest"
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	icon = 'icons/obj/abductor.dmi'
@@ -32,12 +32,12 @@
 	var/stealth_armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30, BLEED = 40)
 	var/combat_armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90, STAMINA = 60, BLEED = 80)
 
-/obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
+/obj/item/clothing/suit/armor/abductor_vest/Initialize(mapload)
 	. = ..()
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
+/obj/item/clothing/suit/armor/abductor_vest/proc/toggle_nodrop()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
 		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	else
@@ -45,7 +45,7 @@
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>Your vest is now [HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "locked" : "unlocked"].</span>")
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
+/obj/item/clothing/suit/armor/abductor_vest/proc/flip_mode()
 	switch(mode)
 		if(VEST_STEALTH)
 			mode = VEST_COMBAT
@@ -61,14 +61,14 @@
 		H.update_inv_wear_suit()
 	update_action_buttons()
 
-/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
+/obj/item/clothing/suit/armor/abductor_vest/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
+/obj/item/clothing/suit/armor/abductor_vest/proc/SetDisguise(datum/icon_snapshot/entry)
 	disguise = entry
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/ActivateStealth()
+/obj/item/clothing/suit/armor/abductor_vest/proc/ActivateStealth()
 	if(disguise == null)
 		return
 	stealth_active = 1
@@ -82,7 +82,7 @@
 		M.add_overlay(disguise.overlays)
 		M.update_inv_hands()
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
+/obj/item/clothing/suit/armor/abductor_vest/proc/DeactivateStealth()
 	if(!stealth_active)
 		return
 	stealth_active = 0
@@ -93,13 +93,13 @@
 		M.cut_overlays()
 		M.regenerate_icons()
 
-/obj/item/clothing/suit/armor/abductor/vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/abductor_vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	DeactivateStealth()
 
-/obj/item/clothing/suit/armor/abductor/vest/IsReflect()
+/obj/item/clothing/suit/armor/abductor_vest/IsReflect()
 	DeactivateStealth()
 
-/obj/item/clothing/suit/armor/abductor/vest/ui_action_click()
+/obj/item/clothing/suit/armor/abductor_vest/ui_action_click()
 	switch(mode)
 		if(VEST_COMBAT)
 			Adrenaline()
@@ -109,7 +109,7 @@
 			else
 				ActivateStealth()
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
+/obj/item/clothing/suit/armor/abductor_vest/proc/Adrenaline()
 	if(ishuman(loc))
 		if(combat_cooldown < initial(combat_cooldown))
 			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
@@ -124,12 +124,12 @@
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/armor/abductor/vest/process(delta_time)
+/obj/item/clothing/suit/armor/abductor_vest/process(delta_time)
 	combat_cooldown += delta_time
 	if(combat_cooldown >= initial(combat_cooldown))
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/armor/abductor/Destroy()
+/obj/item/clothing/suit/armor/abductor_vest/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == src)

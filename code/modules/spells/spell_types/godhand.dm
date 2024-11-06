@@ -9,7 +9,8 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
+	item_flags = NEEDS_PERMIT | PSEUDO_ITEM | DROPDEL | ISWEAPON
+	abstract_type = /obj/item/melee/touch_attack
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0

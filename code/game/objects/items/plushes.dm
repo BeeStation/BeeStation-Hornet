@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	resistance_flags = FLAMMABLE
+	abstract_type = /obj/item/toy/plush
 	var/list/squeak_override //Weighted list; If you want your plush to have different squeak sounds use this
 	var/stuffed = TRUE //If the plushie has stuffing in it
 	var/obj/item/grenade/grenade //You can remove the stuffing from a plushie and add a grenade to it for *nefarious uses*
@@ -585,7 +586,7 @@
 	name = "\improper Random Slimeplush"
 	icon_state = "slimeplush"
 	desc = "An undefined slime plushie. It looks like but isn't a normal slime plushie! (if you see this, contact an upper being as soon as possible)."
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 
 /obj/item/toy/plush/slimeplushie/random/Initialize(mapload)
 	var sloime_type = pick(subtypesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random/)
@@ -674,7 +675,7 @@
 	name = "\improper Random Mothplush"
 	icon_state = "moffplush_random"
 	desc = "An undefined mothperson plushie. It's a debuggable bug! (if you see this, contact an upper beign as soon as possible)."
-	item_flags = ABSTRACT
+	item_flags = PSEUDO_ITEM
 
 /obj/item/toy/plush/moth/random/Initialize(mapload)
 	var moff_type = pick(subtypesof(/obj/item/toy/plush/moth) - /obj/item/toy/plush/moth/random/)

@@ -5,6 +5,7 @@
 	name = "\improper Random mail spawner"
 	icon = 'icons/effects/landmarks_spawners.dmi'
 	icon_state = "random_loot"
+	abstract_type = /obj/effect/spawner/mail
 
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"

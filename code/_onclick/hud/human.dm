@@ -1,5 +1,6 @@
 /atom/movable/screen/human
 	icon = 'icons/hud/style/screen_midnight.dmi'
+	abstract_type = /atom/movable/screen/human
 
 /atom/movable/screen/human/toggle
 	name = "toggle"

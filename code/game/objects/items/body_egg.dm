@@ -4,6 +4,7 @@
 	icon_state = "innards"
 	zone = BODY_ZONE_CHEST
 	slot = "parasite_egg"
+	abstract_type = /obj/item/organ/body_egg
 
 /obj/item/organ/body_egg/on_find(mob/living/finder)
 	..()

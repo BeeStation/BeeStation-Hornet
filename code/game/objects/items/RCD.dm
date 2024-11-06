@@ -26,6 +26,7 @@ RLD
 	req_access_txt = "11"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
+	abstract_type = /obj/item/construction
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
 	var/max_matter = 100
@@ -1094,6 +1095,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	desc = "It seems to be empty."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	abstract_type = /obj/item/rcd_upgrade
 	var/upgrade
 
 /obj/item/rcd_upgrade/frames

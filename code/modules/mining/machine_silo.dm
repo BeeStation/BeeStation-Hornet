@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	// stolen from /datum/component/material_container/proc/OnAttackBy
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(I.item_flags & ABSTRACT)
+	if(I.item_flags & PSEUDO_ITEM)
 		return
 	if(!istype(I) || (I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION))
 		to_chat(user, "<span class='warning'>[M] won't accept [I]!</span>")

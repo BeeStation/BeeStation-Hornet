@@ -5,7 +5,7 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "rare_pepe"
 	w_class = WEIGHT_CLASS_SMALL
-	item_flags = ABSTRACT
+	abstract_type = /obj/item/clockwork
 	var/clockwork_desc = "A fabled artifact from beyond the stars. Contains concentrated meme essence." //Shown to clockwork cultists instead of the normal description
 
 /obj/item/clockwork/examine(mob/user)

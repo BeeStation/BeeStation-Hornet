@@ -179,14 +179,14 @@
 	item_state = null
 	body_parts_covered = CHEST|ARMS
 
-/obj/item/clothing/suit/jacket/warden/blue
+/obj/item/clothing/suit/jacket/blue_warden
 	name = "warden's jacket"
 	desc = "Perfectly suited for the warden that wants to leave an impression of style on those who visit the brig."
 	icon_state = "wardenbluejacket"
 	item_state = null
 	body_parts_covered = CHEST|ARMS
 
-/obj/item/clothing/suit/jacket/warden/tan
+/obj/item/clothing/suit/jacket/tan_warden
 	name = "warden's jacket"
 	desc = "Perfectly suited for the warden that wants to leave an impression of style on those who visit the brig."
 	icon_state = "wardenbluejacket"

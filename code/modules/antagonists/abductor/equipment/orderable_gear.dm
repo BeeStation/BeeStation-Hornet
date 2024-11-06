@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(abductor_gear, subtypesof(/datum/abductor_gear))
 	name = "Agent Vest"
 	description = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	id = "agent_vest"
-	build_path = /obj/item/clothing/suit/armor/abductor/vest
+	build_path = /obj/item/clothing/suit/armor/abductor_vest
 
 /datum/abductor_gear/radio_silencer
 	name = "Radio Silencer"

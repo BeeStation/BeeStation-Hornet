@@ -59,7 +59,7 @@
 			update_appearance()
 			return
 	else if(IS_EDIBLE(I))
-		if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
+		if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (PSEUDO_ITEM | DROPDEL)))
 			return ..()
 		else if(!grill_fuel)
 			to_chat(user, "<span class='notice'>There is not enough fuel.</span>")

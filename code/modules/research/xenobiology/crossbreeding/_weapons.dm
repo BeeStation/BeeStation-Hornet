@@ -93,7 +93,7 @@ Slimecrossing Weapons
 	item_state = "bloodgun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = PSEUDO_ITEM | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = NONE
 	force = 5

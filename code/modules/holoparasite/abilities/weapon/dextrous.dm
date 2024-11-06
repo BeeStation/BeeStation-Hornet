@@ -219,11 +219,11 @@
 	var/t_their = owner.p_their()
 	var/t_is = owner.p_are()
 	for(var/obj/item/item in owner.held_items)
-		if(CHECK_BITFIELD(item.item_flags, ABSTRACT | EXAMINE_SKIP))
+		if(CHECK_BITFIELD(item.item_flags, PSEUDO_ITEM | EXAMINE_SKIP))
 			continue
 		text += "<span class='notice'>[t_they] [t_is] holding <b>[item.get_examine_string(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].</span>"
 	if(internal_storage)
-		if(CHECK_BITFIELD(internal_storage.item_flags, ABSTRACT | EXAMINE_SKIP))
+		if(CHECK_BITFIELD(internal_storage.item_flags, PSEUDO_ITEM | EXAMINE_SKIP))
 			return
 		if((!owner.has_matching_summoner(user) && !isobserver(user)) && get_dist(owner, user) > HOLOPARA_DEXTROUS_EXAMINE_DISTANCE)
 			text += "<span class='notice'>[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.</span>"

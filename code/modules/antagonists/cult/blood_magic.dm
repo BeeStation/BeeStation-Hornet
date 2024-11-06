@@ -346,7 +346,8 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
+	item_flags = NEEDS_PERMIT | PSEUDO_ITEM | DROPDEL
+	abstract_type = /obj/item/melee/blood_magic
 
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0

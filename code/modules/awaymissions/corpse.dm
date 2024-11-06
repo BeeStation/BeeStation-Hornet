@@ -8,6 +8,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	name = "Unknown"
 	density = TRUE
 	anchored = TRUE
+	abstract_type = /obj/effect/mob_spawn
 	var/mob_type = null
 	var/mob_name = ""
 	var/mob_gender = null

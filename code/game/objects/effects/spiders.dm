@@ -6,7 +6,7 @@
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 15
-
+	abstract_type = /obj/structure/spider
 
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
