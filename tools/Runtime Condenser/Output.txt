@@ -177,7 +177,7 @@ proc name: show (/datum/html_interface/proc/show)
 
 
 The following runtime has occurred 1 time(s).
-runtime error: Cannot execute null.get_atmos_adjacent_turfs().
+runtime error: Cannot execute null.GetAtmosAdjacentTurfs().
 proc name: spread smoke (/obj/effect/particle_effect/smoke/proc/spread_smoke)
   source file: effects_smoke.dm,74
   usr: null

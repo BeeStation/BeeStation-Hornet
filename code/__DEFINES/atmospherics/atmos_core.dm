@@ -286,8 +286,9 @@
 #define PUMP_MAX_PRESSURE (PUMP_DEFAULT_PRESSURE * 25)
 ///Minimum settable pressure
 #define PUMP_MIN_PRESSURE (PUMP_DEFAULT_PRESSURE / 10)
-///What direction is the machine pumping (into pump/port or out to the tank/area)?
+///The machine pumps from the turf to the internal tank
 #define PUMP_IN TRUE
+///The machine pumps from the internal source to the turf
 #define PUMP_OUT FALSE
 
 ///Max allowed pressure for canisters to release air per tick

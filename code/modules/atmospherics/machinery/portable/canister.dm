@@ -38,8 +38,7 @@
 	var/obj/item/stock_parts/cell/internal_cell
 	///used while processing to update appearance only when its pressure state changes
 	var/current_pressure_state
-
-	var/update = 0
+	///List of all the gases, used in labelling the canisters
 	var/static/list/label2types = list(
 		"n2" = /obj/machinery/portable_atmospherics/canister/nitrogen,
 		"o2" = /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -93,11 +92,11 @@
 		. += "<span class='notice'>Hatch open, close it with a screwdriver.</span>"
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
+	. = ..()
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")
 		playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 		return
-	..()
 
 /obj/machinery/portable_atmospherics/canister/vv_get_dropdown()
 	. = ..()
@@ -192,6 +191,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	return TRUE
 
 /obj/machinery/portable_atmospherics/canister/welder_act(mob/living/user, obj/item/I)
+	. = ..()
 	if(user.a_intent == INTENT_HARM)
 		return FALSE //We're attacking the canister.
 
@@ -231,6 +231,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		return
 	canister_break()
 
+/**
+ * Handle canisters disassemble, releases the gas content in the turf
+ */
 /obj/machinery/portable_atmospherics/canister/proc/canister_break()
 	disconnect()
 	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())

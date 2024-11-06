@@ -125,6 +125,9 @@
 	if(.)
 		disconnect()
 
+/**
+ * Allow the portable machine to be disconnected from the connector
+ */
 /obj/machinery/portable_atmospherics/proc/disconnect()
 	if(!connected_port)
 		return FALSE
@@ -142,15 +145,17 @@
 	. = ..()
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, !ismonkey(user)) || !can_interact(user))
 		return
-	if(holding)
-		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
-		replace_tank(user, TRUE)
+	if(!holding)
+		return
+	to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+	replace_tank(user, TRUE)
 
 /obj/machinery/portable_atmospherics/examine(mob/user)
 	. = ..()
-	if(holding)
-		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>\n"+\
-			"<span class='notice'>Click [src] with another gas tank to hot swap [holding].</span>"
+	if(!holding)
+		return
+	. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"+\
+		"<span class='notice'>Click [src] with another gas tank to hot swap [holding].</span>"
 
 /**
  * Allow the player to place a tank inside the machine.

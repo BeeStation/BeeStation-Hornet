@@ -5,17 +5,20 @@
 	density = TRUE
 
 
-
+	///Is the machine on?
 	var/on = FALSE
+	///the rate the machine will scrub air
 	var/volume_rate = 500
+	///Multiplier with ONE_ATMOSPHERE, if the enviroment pressure is higher than that, the scrubber won't work
 	var/overpressure_m = 80
-	volume = 1000
-
+	///List of gases that can be scrubbed
 	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor)
 
-/obj/machinery/portable_atmospherics/scrubber/Destroy()
-	var/turf/T = get_turf(src)
-	T.assume_air(air_contents)
+	volume = 2000
+
+/obj/machinery/portable_atmospherics/scrubber/on_deconstruction(disassembled)
+	var/turf/local_turf = get_turf(src)
+	local_turf.assume_air(air_contents)
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon()
@@ -28,24 +31,65 @@
 		add_overlay("scrubber-connector")
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
-	. = ..()
+	if(take_atmos_damage())
+		excited = TRUE
+		return ..()
+
 	if(!on)
-		return
+		return ..()
 
-	if(holding)
+	excited = TRUE
+
+	if(!isnull(holding))
 		scrub(holding.return_air())
-	else
-		var/turf/T = get_turf(src)
-		scrub(T.return_air())
+		return ..()
+
+	var/turf/epicentre = get_turf(src)
+	if(isopenturf(epicentre))
+		scrub(epicentre.return_air())
+	for(var/turf/open/openturf as anything in epicentre.get_atmos_adjacent_turfs(alldir = TRUE))
+		scrub(openturf.return_air())
+	return ..()
 
 
+/**
+ * Called in process_atmos(), handles the scrubbing of the given gas_mixture
+ * Arguments:
+ * * mixture: the gas mixture to be scrubbed
+ */
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture)
 	if(air_contents.return_pressure() >= overpressure_m * ONE_ATMOSPHERE)
 		return
 
-	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
-	if(!holding)
-		air_update_turf(FALSE, FALSE)
+	var/list/env_gases = environment.gases
+
+	//contains all of the gas we're sucking out of the tile, gets put into our parent pipenet
+	var/datum/gas_mixture/filtered_out = new
+	var/list/filtered_gases = filtered_out.gases
+	filtered_out.temperature = environment.temperature
+
+	//maximum percentage of the turfs gas we can filter
+	var/removal_ratio =  min(1, volume_rate / environment.volume)
+
+	var/total_moles_to_remove = 0
+	for(var/gas in scrubbing & env_gases)
+		total_moles_to_remove += env_gases[gas][MOLES]
+
+	if(total_moles_to_remove == 0)//sometimes this gets non gc'd values
+		environment.garbage_collect()
+		return FALSE
+
+	for(var/gas in scrubbing & env_gases)
+		filtered_out.add_gas(gas)
+		var/transferred_moles = max(QUANTIZE(env_gases[gas][MOLES] * removal_ratio * (env_gases[gas][MOLES] / total_moles_to_remove)), min(MOLAR_ACCURACY*1000, env_gases[gas][MOLES]))
+
+		filtered_gases[gas][MOLES] = transferred_moles
+		env_gases[gas][MOLES] -= transferred_moles
+
+	environment.garbage_collect()
+
+	//Remix the resulting gases
+	air_contents.merge(filtered_out)
 
 /obj/machinery/portable_atmospherics/scrubber/emp_act(severity)
 	. = ..()
@@ -160,8 +204,9 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user)
-	if(default_unfasten_wrench(user, W))
+	. = ..()
+	if(default_unfasten_wrench(user, tool))
 		if(!movable)
 			on = FALSE
-	else
-		return ..()
+		return TRUE
+	return FALSE
