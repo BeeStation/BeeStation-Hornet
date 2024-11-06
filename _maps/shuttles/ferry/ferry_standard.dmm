@@ -11,7 +11,8 @@
 	dwidth = 2;
 	dir = 8;
 	id = "ferry";
-	preferred_direction = 4
+	preferred_direction = 4;
+	dheight = 5
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/transport)
@@ -30,6 +31,9 @@
 	},
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"g" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/transport)
 "i" = (
 /obj/structure/closet/crate/freezer/blood,
@@ -79,10 +83,10 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/medical,
-/obj/effect/loot_jobscale/medical/brute_kit,
-/obj/effect/loot_jobscale/medical/burn_kit,
-/obj/effect/loot_jobscale/medical/oxy_kit,
-/obj/effect/loot_jobscale/medical/tox_kit,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/o2,
+/obj/item/storage/firstaid/toxin,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "r" = (
@@ -336,11 +340,11 @@ Y
 X
 "}
 (13,1,1) = {"
-X
+g
 X
 v
 X
-X
+g
 "}
 (14,1,1) = {"
 P
