@@ -70,7 +70,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		for(var/datum/crime_record/citation/warrant in target.citations)
 			citations += list(list(
 				author = warrant.author,
-				crime_ref = REF(warrant),
+				crime_ref = FAST_REF(warrant),
 				details = warrant.details,
 				fine = warrant.fine,
 				name = warrant.name,
@@ -84,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		for(var/datum/crime_record/crime in target.crimes)
 			crimes += list(list(
 				author = crime.author,
-				crime_ref = REF(crime),
+				crime_ref = FAST_REF(crime),
 				details = crime.details,
 				name = crime.name,
 				time = crime.time,
@@ -140,23 +140,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			return TRUE
 
 		if("edit_crime")
-			target_record.edit_crime(user, params)
+			target_record.edit_crime(user, params["name"], params["description"], params["crime_ref"])
 			return TRUE
 
 		if("invalidate_crime")
-			target_record.invalidate_crime(user, params)
+			target_record.invalidate_crime(user, params["crime_ref"])
 			return TRUE
 
 		if("print_record")
-			print_record(user, target_record, params)
+			print_record(user, target_record, params["alias"], params["desc"], params["head"], params["type"])
 			return TRUE
 
 		if("set_note")
-			target_record.set_security_note(params)
+			target_record.set_security_note(params["security_note"])
 			return TRUE
 
 		if("set_wanted")
-			target_record.set_wanted_status(params)
+			target_record.set_wanted_status(params["status"])
 			return TRUE
 
 	return FALSE
@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	return TRUE
 
 /// Handles printing records via UI. Takes the params from UI_act.
-/obj/machinery/computer/records/security/proc/print_record(mob/user, datum/record/crew/target, list/params)
+/obj/machinery/computer/records/security/proc/print_record(mob/user, datum/record/crew/target, alias, description, header, type)
 	if(printing)
 		balloon_alert(user, "printer busy")
 		playsound(src, 'sound/machines/terminal_error.ogg', 100, TRUE)
@@ -181,11 +181,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	playsound(src, 'sound/items/taperecorder/taperecorder_print.ogg', 100, TRUE)
 
 	var/obj/item/printable
-	var/input_alias = trim(params["alias"], MAX_NAME_LEN) || target.name
-	var/input_description = trim(params["desc"], MAX_BROADCAST_LEN) || "No further details."
-	var/input_header = trim(params["head"], 8) || capitalize(params["type"])
+	var/input_alias = trim(alias, MAX_NAME_LEN) || target.name
+	var/input_description = trim(description, MAX_BROADCAST_LEN) || "No further details."
+	var/input_header = trim(header, 8) || capitalize(type)
 
-	switch(params["type"])
+	switch(type)
 		if("missing")
 			var/obj/item/photo/mugshot = target.get_front_photo()
 			var/obj/item/poster/wanted/missing/missing_poster = new(null, mugshot.picture.picture_image, input_alias, input_description, input_header)

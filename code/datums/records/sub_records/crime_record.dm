@@ -20,12 +20,14 @@
 	var/icon
 	var/sentence
 	var/category
+	var/crime_ref
 
 /datum/crime_record/New(name = "Crime", details = "No details provided.", author = "Anonymous")
 	src.author = author
 	src.details = details
 	src.name = name
 	src.time = station_time_timestamp()
+	src.crime_ref = FAST_REF(src)
 
 /datum/crime_record/citation
 	/// Fine for the crime
