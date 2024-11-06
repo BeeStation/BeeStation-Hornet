@@ -147,6 +147,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			target_record.invalidate_crime(user, params["crime_ref"], target_record.crimes, target_record.citations)
 			return TRUE
 
+		if("delete_crime")
+			target_record.delete_crime(user, params["crime_ref"], target_record.crimes, target_record.citations)
+			return TRUE
+
 		if("print_record")
 			print_record(user, target_record, params["alias"], params["desc"], params["head"], params["type"])
 			return TRUE

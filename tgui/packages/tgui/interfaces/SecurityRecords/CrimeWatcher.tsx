@@ -133,6 +133,17 @@ const CrimeDisplay = ({ item }: { item: Crime }, context) => {
                 })
               }
             />
+            <Button.Confirm
+              content="Delete"
+              disabled={!higher_access && author !== current_user}
+              icon="trash"
+              onClick={() =>
+                act('delete_crime', {
+                  record_ref: record_ref,
+                  crime_ref: crime_ref,
+                })
+              }
+            />
           </Box>
         ) : (
           <>

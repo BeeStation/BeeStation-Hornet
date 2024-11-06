@@ -252,6 +252,30 @@
 
 	return TRUE
 
+/// Voids crimes, or sets someone to discharged if they have none left.
+/datum/record/crew/proc/delete_crime(mob/user, crime_ref, list/crimes, list/citations)
+	var/deleted = TRUE
+	for(var/datum/crime_record/crime in crimes)
+		if(crime.crime_ref == crime_ref)
+			qdel(crime)
+			crimes.Remove(crime)
+	for(var/datum/crime_record/citation/citation in citations)
+		if(citation.crime_ref == crime_ref)
+			qdel(citation)
+			citations.Remove(citation)
+
+	for(var/datum/crime_record/incident in crimes)
+		if(!incident.valid)
+			continue
+		deleted = FALSE
+		break
+	if(deleted)
+		wanted_status = WANTED_DISCHARGED
+		user.investigate_log("[key_name(user)] has deleted [name]'s last valid crime. Their status is now [WANTED_DISCHARGED].", INVESTIGATE_RECORDS)
+
+	update_matching_security_huds(name)
+	return TRUE
+
 /// Deletes security information from a record.
 /datum/record/crew/proc/delete_security_record()
 	citations.Cut()
@@ -306,7 +330,7 @@
 		if(citation.crime_ref == crime_ref)
 			editing_crime = citation
 
-	if(!editing_crime?.valid)s
+	if(!editing_crime?.valid)
 		return FALSE
 
 	if(user != editing_crime.author && !has_armory_access(user)) // only warden/hos/command can edit crimes they didn't author
