@@ -42238,8 +42238,7 @@
 	},
 /turf/open/floor/plating{
 	burnt = 1;
-	initial_gas_mix = n2=100;
-	TEMP=80
+	initial_gas_mix = "n2=100;TEMP=80";
 	},
 /area/tcommsat/server)
 "lLq" = (
