@@ -13,9 +13,9 @@
 
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
-	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*air_contents.volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	SET_MOLES(/datum/gas/nitrogen, air_contents, 6*ONE_ATMOSPHERE*air_contents.volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
-
+	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
+	air_contents.gases[/datum/gas/oxygen][MOLES] = MOLES_O2STANDARD
+	air_contents.gases[/datum/gas/nitrogen][MOLES] = MOLES_N2STANDARD
 	air_contents.temperature = T20C
 
 
@@ -163,23 +163,8 @@
 /obj/structure/transit_tube_pod/assume_air(datum/gas_mixture/giver)
 	return air_contents.merge(giver)
 
-/obj/structure/transit_tube_pod/assume_air_moles(datum/gas_mixture/giver, moles)
-	return giver.transfer_to(air_contents, moles)
-
-/obj/structure/transit_tube_pod/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	return giver.transfer_ratio_to(air_contents, ratio)
-
 /obj/structure/transit_tube_pod/remove_air(amount)
-	return remove_air(amount)
-
-/obj/structure/transit_tube_pod/remove_air_ratio(ratio)
-	return remove_air_ratio(ratio)
-
-/obj/structure/transit_tube_pod/transfer_air(datum/gas_mixture/taker, moles)
-	return air_contents.transfer_to(taker, moles)
-
-/obj/structure/transit_tube_pod/transfer_air_ratio(datum/gas_mixture/taker, ratio)
-	return air_contents.transfer_ratio_to(taker, ratio)
+	return air_contents.remove(amount)
 
 
 /obj/structure/transit_tube_pod/relaymove(mob/living/user, direction)
@@ -209,7 +194,7 @@
 		return
 
 /obj/structure/transit_tube_pod/return_temperature()
-	return air_contents.return_temperature()
+	return air_contents.temperature()
 
 #undef MOVE_ANIMATION_STAGE_ONE
 #undef MOVE_ANIMATION_STAGE_TWO
