@@ -104,8 +104,10 @@
 //Middle right (status indicators)
 #define ui_healthdoll "EAST-1:28,CENTER-2:13"
 #define ui_health "EAST-1:28,CENTER-1:15"
-#define ui_internal "EAST-1:28,CENTER:17"
-#define ui_mood "EAST-1:28,CENTER-3:10"
+#define ui_internal "EAST-1:28,CENTER+1:17"
+#define ui_mood "EAST-1:28,CENTER:17"
+#define ui_spacesuit "EAST-1:28,CENTER-4:10"
+#define ui_stamina "EAST-1:28,CENTER-3:10"
 
 //borgs
 #define ui_borg_health "EAST-1:28,CENTER-1:15"		//borgs have the health display where humans have the pressure damage indicator.
@@ -175,12 +177,24 @@
 
 //Ghosts
 
-#define ui_ghost_jumptomob "SOUTH:6,CENTER-2:24"
-#define ui_ghost_orbit "SOUTH:6,CENTER-1:24"
-#define ui_ghost_reenter_corpse "SOUTH:6,CENTER:24"
-#define ui_ghost_teleport "SOUTH:6,CENTER+1:24"
+#define ui_ghost_jumptomob "SOUTH:6,CENTER-3:24"
+#define ui_ghost_orbit "SOUTH:6,CENTER-2:24"
+#define ui_ghost_reenter_corpse "SOUTH:6,CENTER-1:24"
+#define ui_ghost_teleport "SOUTH:6,CENTER:24"
+#define ui_ghost_spawners_menu "SOUTH:6,CENTER+1:24"
 #define ui_ghost_pai "SOUTH: 6, CENTER+2:24"
+#define ui_ghost_language_menu "SOUTH:21, CENTER+3:7"
 
 //Team finder
 
 #define ui_team_finder "CENTER,CENTER"
+
+// Holoparasites
+#define ui_holopara_l_hand			"CENTER:8,SOUTH+1:4"
+#define ui_holopara_r_hand			"CENTER+1:8,SOUTH+1:4"
+#define ui_holopara_pull			"CENTER:24,SOUTH:20"
+#define ui_holopara_pull_dex		"CENTER-1:9,SOUTH+1:2"
+#define ui_holopara_swap_l			"CENTER:8,SOUTH+2:4"
+#define ui_holopara_swap_r			"CENTER+1:8,SOUTH+2:4"
+#define ui_holopara_button(pos)		"CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH:5"
+#define ui_holopara_hand(pos)		"CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH+1:4"

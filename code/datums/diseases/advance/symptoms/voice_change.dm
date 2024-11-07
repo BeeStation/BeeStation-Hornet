@@ -32,8 +32,8 @@ Bonus
 	var/scramble_language = FALSE
 	var/datum/language/current_language
 	threshold_desc = "<b>Transmission 10:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
-					  <b>Stage Speed 7:</b> Changes voice more often.<br>\
-					  <b>Stealth 3:</b> The symptom remains hidden until active."
+						<b>Stage Speed 7:</b> Changes voice more often.<br>\
+						<b>Stealth 3:</b> The symptom remains hidden until active."
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
@@ -57,6 +57,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(base_message_chance) && !suppress_warning)

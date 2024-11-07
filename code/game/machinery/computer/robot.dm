@@ -70,7 +70,7 @@
 		data["can_hack"] = TRUE
 
 	data["cyborgs"] = list()
-	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 		if(!can_control(user, R))
 			continue
 		if(get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
@@ -88,15 +88,15 @@
 		data["cyborgs"] += list(cyborg_data)
 
 	data["drones"] = list()
-	for(var/mob/living/simple_animal/drone/D in GLOB.drones_list)
-		if(D.hacked)
+	for(var/mob/living/simple_animal/drone/drone in GLOB.drones_list)
+		if(drone.hacked)
 			continue
-		if(get_virtual_z_level() != (get_turf(D)).get_virtual_z_level())
+		if(get_virtual_z_level() != (get_turf(drone)).get_virtual_z_level())
 			continue
 		var/list/drone_data = list(
-			name = D.name,
-			status = D.stat,
-			ref = REF(D)
+			name = drone.name,
+			status = drone.stat,
+			ref = REF(drone)
 		)
 		data["drones"] += list(drone_data)
 
@@ -128,18 +128,18 @@
 	switch(action)
 		if("killbot")
 			if(allowed(usr))
-				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.cyborg_list
 				if(can_control(usr, R) && !..())
 					R.self_destruct(usr)
 			else
 				to_chat(usr, "<span class='danger'>Access Denied.</span>")
 		if("stopbot")
 			if(allowed(usr))
-				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.cyborg_list
 				if(can_control(usr, R) && !..())
 					message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!</span>")
 					log_game("[key_name(usr)] [!R.lockcharge ? "locked down" : "released"] [key_name(R)]!")
-					log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] cyborg")
+					log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] cyborg", important = FALSE)
 					R.SetLockdown(!R.lockcharge)
 					to_chat(R, "[!R.lockcharge ? "<span class='notice'>Your lockdown has been lifted!" : "<span class='alert'>You have been locked down!"]</span>")
 					if(R.connected_ai)
@@ -149,7 +149,7 @@
 		if("magbot")
 			var/mob/living/silicon/S = usr
 			if((istype(S) && S.hack_software) || IsAdminGhost(usr))
-				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.cyborg_list
 				if(istype(R) && !R.emagged && (R.connected_ai == usr || IsAdminGhost(usr)) && !R.scrambledcodes && can_control(usr, R))
 					log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
 					message_admins("[ADMIN_LOOKUPFLW(usr)] emagged cyborg [key_name_admin(R)] using robotic console!")
@@ -168,6 +168,7 @@
 					s.set_up(3, TRUE, D)
 					s.start()
 					D.visible_message("<span class='danger'>\the [D] self-destructs!</span>")
+					D.investigate_log("has been gibbed by a robotics console.", INVESTIGATE_DEATHS)
 					D.gib()
 		if("extract")
 			if(!GLOB.upload_code)

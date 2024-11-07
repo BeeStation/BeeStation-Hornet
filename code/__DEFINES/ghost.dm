@@ -10,21 +10,13 @@
 /// Ghosts will orbit objects in a pentagon
 #define GHOST_ORBIT_PENTAGON "pentagon"
 
-/////////   Ghost showing preferences SQL values:   /////////
-/// The main player's ghost will display as a simple white ghost
-#define GHOST_ACCS_NONE 1
-/// The main player's ghost will display as a transparent mob
-#define GHOST_ACCS_DIR 50
-/// The main player's ghost will display as a transparent mob with clothing
-#define GHOST_ACCS_FULL 100
-
 /////////   Ghost showing preferences   /////////
 /// The main player's ghost will display as a simple white ghost
-#define GHOST_ACCS_NONE_NAME "Default sprites"
+#define GHOST_ACCS_NONE "Default sprites"
 /// The main player's ghost will display as a transparent mob
-#define GHOST_ACCS_DIR_NAME "Only directional sprites"
+#define GHOST_ACCS_DIR "Only directional sprites"
 /// The main player's ghost will display as a transparent mob with clothing
-#define GHOST_ACCS_FULL_NAME "Full accessories"
+#define GHOST_ACCS_FULL "Full accessories"
 
 /// The default ghost display selection for the main player
 #define GHOST_ACCS_DEFAULT_OPTION	GHOST_ACCS_FULL
@@ -34,25 +26,14 @@ GLOBAL_LIST_INIT(ghost_accs_options, list(GHOST_ACCS_NONE, GHOST_ACCS_DIR, GHOST
 
 /////////   Ghost viewing others preferences   /////////
 /// The other players ghosts will display as a simple white ghost
-#define GHOST_OTHERS_SIMPLE 1
+#define GHOST_OTHERS_SIMPLE "White ghosts"
 /// The other players ghosts will display as transparent mobs
-#define GHOST_OTHERS_DEFAULT_SPRITE 50
+#define GHOST_OTHERS_DEFAULT_SPRITE "Default sprites"
 /// The other players ghosts will display as transparent mobs with clothing
-#define GHOST_OTHERS_THEIR_SETTING 100
-
-/////////   Ghost viewing others preferences human-readable:   /////////
-/// The other players ghosts will display as a simple white ghost
-#define GHOST_OTHERS_SIMPLE_NAME 			"white ghost"
-/// The other players ghosts will display as transparent mobs
-#define GHOST_OTHERS_DEFAULT_SPRITE_NAME 	"default sprites"
-/// The other players ghosts will display as transparent mobs with clothing
-#define GHOST_OTHERS_THEIR_SETTING_NAME 	"their setting"
+#define GHOST_OTHERS_THEIR_SETTING "Their sprites"
 
 /// The default ghost view others for the main player
 #define GHOST_OTHERS_DEFAULT_OPTION GHOST_OTHERS_THEIR_SETTING
-
-GLOBAL_LIST_INIT(ghost_others_options, list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DEFAULT_SPRITE, GHOST_OTHERS_THEIR_SETTING)) //Same as ghost_accs_options.
-
 
 // DEADCHAT MESSAGE TYPES //
 /// Deadchat notification for new players who join the round at arrivals
@@ -76,3 +57,32 @@ GLOBAL_LIST_INIT(ghost_others_options, list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DE
 /// Pictures taken by a camera will display ghosts and their orbits
 #define CAMERA_SEE_GHOSTS_ORBIT 2 // this doesn't do anything right now as of Mar 2023
 
+GLOBAL_LIST_INIT(ghost_forms, list(
+	"catghost" = "Cat",
+	"ghost" = "Default",
+	"ghost_black" = "Black",
+	"ghost_blazeit" = "Blaze it",
+	"ghost_blue" = "Blue",
+	"ghost_camo" = "Camo",
+	"ghost_cyan" = "Cyan",
+	"ghost_dblue" = "Dark blue",
+	"ghost_dcyan" = "Dark cyan",
+	"ghost_dgreen" = "Dark green",
+	"ghost_dpink" = "Dark pink",
+	"ghost_dred" = "Dark red",
+	"ghost_dyellow" = "Dark yellow",
+	"ghost_fire" = "Fire",
+	"ghost_funkypurp" = "Funky purple",
+	"ghost_green" = "Green",
+	"ghost_grey" = "Grey",
+	"ghost_mellow" = "Mellow",
+	"ghost_pink" = "Pink",
+	"ghost_pinksherbert" = "Pink Sherbert",
+	"ghost_purpleswirl" = "Purple Swirl",
+	"ghost_rainbow" = "Rainbow",
+	"ghost_red" = "Red",
+	"ghost_yellow" = "Yellow",
+	"ghostian2" = "Ian",
+	"ghostking" = "King",
+	"skeleghost" = "Skeleton",
+))

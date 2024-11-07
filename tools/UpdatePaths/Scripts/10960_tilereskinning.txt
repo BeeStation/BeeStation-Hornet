@@ -1,0 +1,10 @@
+/turf/open/floor/iron/cult : /turf/open/floor/cult{@OLD}
+
+/turf/open/floor/iron/airless/solarpanel : /turf/open/floor/iron/solarpanel/airless{@OLD}
+/turf/open/floor/iron/airless/white : /turf/open/floor/iron/white/airless{@OLD}
+/turf/open/floor/iron/airless/dark : /turf/open/floor/iron/dark/airless{@OLD}
+
+/obj/item/stack/tile/mineral/titanium/alt : /obj/item/stack/tile/mineral/titanium/tiled{@OLD}
+
+/turf/open/floor/iron/elevatorshaft : /turf/open/floor/plating/elevatorshaft{@OLD}
+/turf/open/floor/iron/rockvault/sandstone : /turf/open/floor/vault/sandstone{@OLD}

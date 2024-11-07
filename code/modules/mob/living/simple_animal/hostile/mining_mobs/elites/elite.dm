@@ -15,7 +15,7 @@
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station, we'll make sure they can smash minerals fine below.
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	layer = LARGE_MOB_LAYER
 	sentience_type = SENTIENCE_BOSS
 	hud_type = /datum/hud/lavaland_elite
@@ -66,7 +66,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	icon_icon = 'icons/mob/actions/actions_elites.dmi'
+	icon_icon = 'icons/hud/actions/actions_elites.dmi'
 	button_icon_state = ""
 	background_icon_state = "bg_default"
 	var/chosen_message
@@ -114,7 +114,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
 	desc = "An odd, pulsing tumor sticking out of the ground.  You feel compelled to reach out and touch it..."
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/lavaland/tumor.dmi'
 	icon_state = "tumor"
@@ -156,7 +156,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message("<span class='boldwarning'>Something within [src] stirs...</span>")
-				var/list/candidates = pollCandidatesForMob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
+				var/list/candidates = poll_candidates_for_mob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
 				if(candidates.len)
 					audible_message("<span class='boldwarning'>The stirring sounds increase in volume!</span>")
 					elitemind = pick(candidates)
@@ -177,6 +177,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.key = elitemind.key
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", source = mychild, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Lavaland Elite awakened")
+	mychild.log_message("has been awakened by [key_name(activator)]!", LOG_GAME, color="#960000")
+	activator.log_message("has awakened [key_name(mychild)]!", LOG_GAME, color="#960000")
 	icon_state = "tumor_popped"
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
@@ -189,6 +191,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.maxHealth = mychild.maxHealth * 2
 		mychild.health = mychild.maxHealth
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", source = mychild, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Lavaland Elite challenged")
+	mychild.log_message("has been challenged by [key_name(activator)]!", LOG_GAME, color="#960000")
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
@@ -304,14 +307,26 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+	var/using = FALSE
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
-		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
-			user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
+		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS)
+			user.visible_message("<span class='notice'>[E] does not respond to [src].</span>")
 			return
+		if(!E.key && !using)
+			using = TRUE //No ghost poll spam please.
+			user.visible_message("<span class='notice'>[E] stirs briefly...</span>")
+			var/list/candidates = poll_candidates_for_mob("Do you want to take over as [E] (Lavaland Elite), silent servant of [user]?", ROLE_SENTIENCE, null, 15 SECONDS, E)
+			if(length(candidates))
+				var/mob/dead/observer/C = pick(candidates)
+				E.key = C.key
+			else
+				user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
+				using = FALSE
+				return
 		E.faction = list("neutral")
 		E.revive(full_heal = TRUE, admin_revive = TRUE)
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
@@ -342,6 +357,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/mob/living/carbon/human/activator = null
 	var/mob/living/simple_animal/hostile/asteroid/elite/ourelite = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/elite_tumor_wall)
+
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
@@ -357,3 +374,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	. = ..()
 	if(mover == ourelite || mover == activator)
 		return FALSE
+
+#undef TUMOR_INACTIVE
+#undef TUMOR_ACTIVE
+#undef TUMOR_PASSIVE

@@ -164,27 +164,26 @@
 			diskette = W
 			to_chat(user, "<span class='notice'>You insert [W].</span>")
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-	else if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/clonepod))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
-				P.buffer = null
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			var/obj/machinery/clonepod/pod = P.buffer
-			if(pod.connected)
-				pod.connected.DetachCloner(pod)
-			AttachCloner(pod)
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
-		return
 	else
 		return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/cloning)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
+	if(istype(buffer, /obj/machinery/clonepod))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
+			FLUSH_BUFFER(buffer_parent)
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		var/obj/machinery/clonepod/pod = buffer
+		if(pod.connected)
+			pod.connected.DetachCloner(pod)
+		AttachCloner(pod)
+	else
+		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()
@@ -625,7 +624,7 @@
 		R.fields["body_only"] = 0
 
 	if(!body_only || experimental && mob_occupant.stat != DEAD)
-	    //Add an implant if needed
+		//Add an implant if needed
 		var/obj/item/implant/health/imp
 		for(var/obj/item/implant/health/HI in mob_occupant.implants)
 			imp = HI
@@ -659,3 +658,5 @@
 	circuit = /obj/item/circuitboard/computer/cloning/prototype
 	clonepod_type = /obj/machinery/clonepod/experimental
 	experimental = TRUE
+
+#undef AUTOCLONING_MINIMAL_LEVEL

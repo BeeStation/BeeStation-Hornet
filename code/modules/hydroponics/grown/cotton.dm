@@ -27,7 +27,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 2
 	throw_range = 3
-	attack_verb = list("pomfed")
+	attack_verb_continuous = list("pomfs")
+	attack_verb_simple = list("pomf")
 	var/cotton_type = /obj/item/stack/sheet/cotton
 	var/cotton_name = "raw cotton"
 
@@ -48,7 +49,7 @@
 //reinforced mutated variant
 /obj/item/seeds/cotton/durathread
 	name = "pack of durathread seeds"
-	desc = "A pack of seeds that'll grow into an extremely durable thread that could easily rival plasteel if woven properly."
+	desc = "A pack of seeds that'll grow into an extremely durable thread that could easily rival plasteel if woven properly. In its woven state, it is incredibly effective at resisting high-energy ballistic attacks making it sought after by organisations that specialise in personal defense."
 	icon_state = "seed-durathread"
 	species = "durathread"
 	plantname = "Durathread"
@@ -74,7 +75,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 3
-	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "whack")
 	cotton_type = /obj/item/stack/sheet/cotton/durathread
 	cotton_name = "raw durathread"
 	discovery_points = 300

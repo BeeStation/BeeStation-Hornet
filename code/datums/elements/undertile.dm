@@ -23,6 +23,11 @@
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
+	var/atom/movable/target_as_atom = target
+
+	if(target_as_atom.density)
+		return ELEMENT_INCOMPATIBLE
+
 	RegisterSignal(target, COMSIG_OBJ_HIDE, PROC_REF(hide))
 
 	src.invisibility_trait = invisibility_trait
@@ -31,38 +36,55 @@
 	src.use_alpha = use_alpha
 	src.use_anchor = use_anchor
 
+
 ///called when a tile has been covered or uncovered
-/datum/element/undertile/proc/hide(atom/movable/source, covered)
+/datum/element/undertile/proc/hide(atom/movable/source, underfloor_accessibility)
+	SIGNAL_HANDLER
 
+	if(source.density)
+		stack_trace("([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
+		return //Returning to actually prevent this from happening
 
-	source.invisibility = covered ? invisibility_level : 0
+	source.invisibility = underfloor_accessibility < UNDERFLOOR_VISIBLE ? invisibility_level : 0
 
 	var/turf/T = get_turf(source)
 
-	if(covered)
-		if(invisibility_trait)
-			ADD_TRAIT(source, invisibility_trait, TRAIT_GENERIC)
+	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+		source.plane = FLOOR_PLANE // We do this so that turfs that allow you to see what's underneath them don't have to be on the game plane (which causes ambient occlusion weirdness)
+
 		if(tile_overlay)
 			T.add_overlay(tile_overlay)
-		if(use_alpha)
-			source.alpha = ALPHA_UNDERTILE
+
 		if(use_anchor)
-			source.anchored = TRUE
+			source.set_anchored(TRUE)
+
+		if(underfloor_accessibility < UNDERFLOOR_VISIBLE)
+			if(use_alpha)
+				source.alpha = ALPHA_UNDERTILE
+
+			if(invisibility_trait)
+				ADD_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
 
 	else
+		source.plane = initial(source.plane)
+
 		if(invisibility_trait)
-			REMOVE_TRAIT(source, invisibility_trait, TRAIT_GENERIC)
+			REMOVE_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
+
 		if(tile_overlay)
 			T.overlays -= tile_overlay
-		if(use_alpha)
-			source.alpha = 255
-		if(use_anchor)
-			source.anchored = FALSE
 
-/datum/element/undertile/Detach(atom/movable/AM, visibility_trait, invisibility_level = INVISIBILITY_MAXIMUM)
+		if(use_alpha)
+			source.alpha = initial(source.alpha)
+
+		if(use_anchor)
+			source.set_anchored(FALSE)
+
+
+/datum/element/undertile/Detach(atom/movable/source, visibility_trait, invisibility_level = INVISIBILITY_MAXIMUM)
 	. = ..()
 
-	hide(AM, FALSE)
+	hide(source, UNDERFLOOR_INTERACTABLE)
 
 
 #undef ALPHA_UNDERTILE

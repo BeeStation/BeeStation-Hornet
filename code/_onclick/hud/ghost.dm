@@ -1,5 +1,5 @@
 /atom/movable/screen/ghost
-	icon = 'icons/mob/screen_ghost.dmi'
+	icon = 'icons/hud/screen_ghost.dmi'
 
 /atom/movable/screen/ghost/MouseEntered()
 	flick(icon_state + "_anim", src)
@@ -44,6 +44,14 @@
 	var/mob/dead/observer/G = usr
 	G.register_pai()
 
+/atom/movable/screen/ghost/spawners_menu
+	name = "Spawners Menu"
+	icon_state = "spawners_menu"
+
+/atom/movable/screen/ghost/spawners_menu/Click()
+	var/mob/dead/observer/G = usr
+	G.open_spawners_menu()
+
 /datum/hud/ghost/New(mob/owner)
 	..()
 	var/atom/movable/screen/using
@@ -73,8 +81,14 @@
 	using.hud = src
 	static_inventory += using
 
+	using = new /atom/movable/screen/ghost/spawners_menu()
+	using.screen_loc = ui_ghost_spawners_menu
+	using.hud = src
+	static_inventory += using
+
 	using = new /atom/movable/screen/language_menu
 	using.icon = ui_style
+	using.screen_loc = ui_ghost_language_menu
 	using.hud = src
 	static_inventory += using
 
@@ -89,10 +103,10 @@
 	if(!.)
 		return
 	var/mob/screenmob = viewmob || mymob
-	if(!(screenmob.client.prefs.toggles2 & PREFTOGGLE_2_GHOST_HUD))
-		screenmob.client.screen -= static_inventory
-	else
+	if(screenmob.client.prefs.read_player_preference(/datum/preference/toggle/ghost_hud))
 		screenmob.client.screen += static_inventory
+	else
+		screenmob.client.screen -= static_inventory
 
 //We should only see observed mob alerts.
 /datum/hud/ghost/reorganize_alerts(mob/viewmob)

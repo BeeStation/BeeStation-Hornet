@@ -23,13 +23,12 @@
 //>necessary
 //I'm not fixing it because i'm fucking bored of this code already, but someone should just reroute these to the parent turret's procs.
 
-/obj/machinery/porta_turret_cover/attack_ai(mob/user)
+/obj/machinery/porta_turret_cover/attack_silicon(mob/user)
 	. = ..()
 	if(.)
 		return
 
 	return parent_turret.attack_ai(user)
-
 
 /obj/machinery/porta_turret_cover/attack_hand(mob/user)
 	. = ..()
@@ -43,34 +42,36 @@
 	if(I.tool_behaviour == TOOL_WRENCH && !parent_turret.on)
 		if(parent_turret.raised)
 			return
-
 		if(!parent_turret.anchored)
-			parent_turret.setAnchored(TRUE)
+			parent_turret.set_anchored(TRUE)
 			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
 			parent_turret.invisibility = 0
-			parent_turret.update_icon()
+			parent_turret.update_appearance()
 		else
-			parent_turret.setAnchored(FALSE)
+			parent_turret.set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 			parent_turret.invisibility = INVISIBILITY_MAXIMUM
-			parent_turret.update_icon()
+			parent_turret.update_appearance()
 			qdel(src)
+		return
 
-	else if(I.GetID())
+	if(I.GetID())
 		if(parent_turret.allowed(user))
 			parent_turret.locked = !parent_turret.locked
 			to_chat(user, "<span class='notice'>Controls are now [parent_turret.locked ? "locked" : "unlocked"].</span>")
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
-	else if(I.tool_behaviour == TOOL_MULTITOOL && !parent_turret.locked)
-		if(!multitool_check_buffer(user, I))
-			return
-		var/obj/item/multitool/M = I
-		M.buffer = parent_turret
-		to_chat(user, "<span class='notice'>You add [parent_turret] to multitool buffer.</span>")
 	else
 		return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, parent_turret))
+		to_chat(user, "<span class='notice'>You add [parent_turret] to multitool buffer.</span>")
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /obj/machinery/porta_turret_cover/attacked_by(obj/item/I, mob/user)
 	parent_turret.attacked_by(I, user)

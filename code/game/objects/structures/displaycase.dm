@@ -6,9 +6,9 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 30,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 30,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_integrity = 200
-	integrity_failure = 25
+	integrity_failure = 0.25
 	var/obj/item/showpiece = null
 	///This allows for showpieces that can only hold items if they're the same istype as this.
 	var/obj/item/showpiece_type = null
@@ -99,7 +99,8 @@
 			trigger_alarm()
 	qdel(src)
 
-/obj/structure/displaycase/obj_break(damage_flag)
+/obj/structure/displaycase/atom_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		set_density(FALSE)
 		broken = TRUE
@@ -142,19 +143,19 @@
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user, "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else if(security_level_locked > GLOB.security_level || !allowed(user))
+		else if(security_level_locked > SSsecurity_level.get_current_level_as_number() || !allowed(user))
 			to_chat(user, "<span class='alert'>Access denied.</span>")
 		else
 			to_chat(user, "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
 				return
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(W.use_tool(src, user, 40, amount=5, volume=50))
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				update_icon()
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
@@ -189,7 +190,7 @@
 		if(do_after(user, 20, target = src))
 			G.use(2)
 			broken = FALSE
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			update_icon()
 	else
 		return ..()
@@ -208,19 +209,19 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if (showpiece && (broken || open))
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
-		log_combat(user, src, "deactivates the hover field of")
+		log_combat(user, src, "deactivates the hover field of", important = FALSE)
 		dump()
 		add_fingerprint(user)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if (!Adjacent(user))
 			return
 		if (user.a_intent == INTENT_HELP)
 			user.examinate(src)
 			return
 		user.visible_message("<span class='danger'>[user] kicks the display case.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		log_combat(user, src, "kicks")
+		log_combat(user, src, "kicks", important = FALSE)
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 		take_damage(2)
 
@@ -402,6 +403,8 @@
 /obj/item/showpiece_dummy
 	name = "Cheap replica"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
+
 /obj/item/showpiece_dummy/Initialize(mapload, path)
 	. = ..()
 	var/obj/item/I = path
@@ -560,11 +563,11 @@
 
 /obj/structure/displaycase/forsale/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(obj_integrity <= (integrity_failure *  max_integrity))
+	if(atom_integrity <= (integrity_failure * max_integrity))
 		to_chat(user, "<span class='notice'>You start recalibrating [src]'s hover field...</span>")
 		if(do_after(user, 20, target = src))
 			broken = FALSE
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			update_icon()
 			ui_update()
 			return TRUE
@@ -583,7 +586,7 @@
 				to_chat(user, "<span class='notice'>You unsecure [src].</span>")
 			else
 				to_chat(user, "<span class='notice'>You secure [src].</span>")
-			anchored = !anchored
+			set_anchored(!anchored)
 			return TRUE
 	else if(!open && user.a_intent == INTENT_HELP)
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")
@@ -603,7 +606,7 @@
 	if(broken)
 		. += "<span class='notice'>[src] is sparking and the hover field generator seems to be overloaded. Use a multitool to fix it.</span>"
 
-/obj/structure/displaycase/forsale/obj_break(damage_flag)
+/obj/structure/displaycase/forsale/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE

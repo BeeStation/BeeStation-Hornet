@@ -8,15 +8,14 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "strikes"
+	response_harm_continuous = "strikes"
+	response_harm_simple = "strike"
 	status_flags = 0
 	a_intent = INTENT_HARM
 	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/fromtendril = FALSE
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE //nasty_blocks wont help you here
@@ -35,7 +34,7 @@
 		return
 	icon_state = icon_living
 
-/mob/living/simple_animal/hostile/asteroid/bullet_act(obj/item/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
+/mob/living/simple_animal/hostile/asteroid/bullet_act(obj/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
 	if(!stat)
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE)

@@ -47,10 +47,18 @@
 /proc/ui_status_user_is_abled(mob/user, atom/source)
 	return user.shared_ui_interaction(source)
 
+/// Return UI_INTERACTIVE if the user is strictly adjacent to the target atom, whether they can see it or not.
+/// Return UI_CLOSE otherwise.
+/proc/ui_status_user_strictly_adjacent(mob/user, atom/target)
+	if(get_dist(target, user) > 1)
+		return UI_CLOSE
+
+	return UI_INTERACTIVE
+
 /// Returns a UI status such that advanced tool users will be able to update,
 /// but everyone else can only watch.
 /proc/ui_status_user_is_advanced_tool_user(mob/user, atom/source)
-	return (user.canUseTopic(source, BE_CLOSE) && !HAS_TRAIT(user, TRAIT_MONKEYLIKE)) ? UI_INTERACTIVE : UI_UPDATE
+	return (user.canUseTopic(source, BE_CLOSE) && !HAS_TRAIT(user, TRAIT_DISCOORDINATED)) ? UI_INTERACTIVE : UI_UPDATE
 
 /// Returns a UI status such that silicons will be able to interact with whatever
 /// they would have access to if this was a machine. For example, AIs can
@@ -93,6 +101,6 @@
 		return UI_UPDATE
 
 	var/mob/living/living_user = user
-	return (!(living_user.mobility_flags & MOBILITY_STAND) && living_user.stat == CONSCIOUS) \
+	return (living_user.body_position == LYING_DOWN && living_user.stat == CONSCIOUS) \
 		? UI_INTERACTIVE \
 		: UI_UPDATE

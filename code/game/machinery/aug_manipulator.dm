@@ -4,7 +4,6 @@
 	icon = 'icons/obj/robotics.dmi'
 	icon_state = "robocolorer"
 	density = TRUE
-	obj_integrity = 200
 	max_integrity = 200
 	var/obj/item/bodypart/storedpart
 	var/initial_icon_state
@@ -16,8 +15,8 @@
 		. += "<span class='notice'>Alt-click to eject the limb.</span>"
 
 /obj/machinery/aug_manipulator/Initialize(mapload)
-    initial_icon_state = initial(icon_state)
-    return ..()
+	initial_icon_state = initial(icon_state)
+	return ..()
 
 /obj/machinery/aug_manipulator/update_icon()
 	cut_overlays()
@@ -74,7 +73,7 @@
 			update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!O.tool_start_check(user, amount=0))
 				return
 
@@ -87,7 +86,7 @@
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
-				obj_integrity = max(obj_integrity, max_integrity)
+				atom_integrity = max(atom_integrity, max_integrity)
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
@@ -127,7 +126,3 @@
 		return
 	else
 		eject_part(user)
-
-/obj/machinery/aug_manipulator/power_change()
-	..()
-	update_icon()

@@ -16,6 +16,7 @@
 #define POLL_IGNORE_SPIDER "spider"
 #define POLL_IGNORE_MRAT "mrat"
 #define POLL_IGNORE_WIZARD_HELPER "wizard_helper"
+#define POLL_IGNORE_MONKEY_HELMET "monkey_helmet"
 
 GLOBAL_LIST_INIT(poll_ignore_list, list(
 	POLL_IGNORE_ALIEN_LARVA,
@@ -34,6 +35,7 @@ GLOBAL_LIST_INIT(poll_ignore_list, list(
 	POLL_IGNORE_SPIDER,
 	POLL_IGNORE_MRAT,
 	POLL_IGNORE_WIZARD_HELPER,
+	POLL_IGNORE_MONKEY_HELMET,
 ))
 GLOBAL_LIST_INIT(poll_ignore, init_poll_ignore())
 

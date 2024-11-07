@@ -1,6 +1,6 @@
 import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
-import { Section, TextArea, Button } from '../components';
+import { Section, BufferedTextArea, Button } from '../components';
 
 export const NtosNotepad = (props, context) => {
   const { act, data } = useBackend(context);
@@ -13,15 +13,13 @@ export const NtosNotepad = (props, context) => {
           buttons={!!has_paper && <Button icon="file-alt" content="Show Scanned Paper" onClick={() => act('ShowPaper')} />}
           fill
           fitted>
-          <TextArea
+          <BufferedTextArea
             fluid
             style={{ height: '100%' }}
             backgroundColor="black"
             textColor="white"
-            onInput={(_, value) => {
-              act('UpdateNote', { newnote: value });
-            }}
             value={note}
+            updateValue={(value) => act('UpdateNote', { newnote: value })}
           />
         </Section>
       </NtosWindow.Content>

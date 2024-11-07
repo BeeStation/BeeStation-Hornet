@@ -14,6 +14,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole_1"
+
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	// circuit = /obj/item/circuitboard/cryopodcontrol
 	density = FALSE
 	layer = ABOVE_WINDOW_LAYER
@@ -37,8 +43,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	GLOB.cryopod_computers -= src
 	..()
 
-/obj/machinery/computer/cryopod/attack_ai()
-	attack_hand()
+/obj/machinery/computer/cryopod/attack_silicon()
+	return attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -129,7 +135,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	updateUsrDialog()
 	return
 /* Should more cryos be buildable?
-    /obj/item/circuitboard/cryopodcontrol
+	/obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
@@ -338,6 +344,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	if(mob_occupant.mind)
+		mob_occupant.mind.cryoed = TRUE
 		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(occupant)
 	open_machine()
@@ -347,6 +354,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
+	if(!target.mind)
+		to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
+		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
@@ -370,7 +380,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
 		var/caught = FALSE
 		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
-		if(target.mind.assigned_role in GLOB.command_positions)
+		if(target.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
 		if(A)

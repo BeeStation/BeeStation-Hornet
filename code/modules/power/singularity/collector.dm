@@ -16,7 +16,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 //	use_power = NO_POWER_USE
 	max_integrity = 350
-	integrity_failure = 80
+	integrity_failure = 0.2
 	circuit = /obj/item/circuitboard/machine/rad_collector
 	rad_insulation = RAD_EXTREME_INSULATION
 	var/obj/item/tank/internals/plasma/loaded_tank = null
@@ -38,8 +38,9 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/power/rad_collector/anchored
-	anchored = TRUE
+/obj/machinery/power/rad_collector/anchored/Initialize(mapload)
+	. = ..()
+	set_anchored(TRUE)
 
 /obj/machinery/power/rad_collector/Destroy()
 	QDEL_NULL(radio)
@@ -99,13 +100,14 @@
 		return FAILED_UNFASTEN
 	return ..()
 
-/obj/machinery/power/rad_collector/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
+/obj/machinery/power/rad_collector/set_anchored(anchorvalue)
 	. = ..()
-	if(. == SUCCESSFUL_UNFASTEN)
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
+	if(isnull(.))
+		return //no need to process if we didn't change anything.
+	if(anchorvalue)
+		connect_to_network()
+	else
+		disconnect_from_network()
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals/plasma))
@@ -197,7 +199,7 @@
 		else
 			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Research point production mode. Please insert <b>Tritium</b> and <b>Oxygen</b>. Use a multitool to change production modes.\"</span>"
 
-/obj/machinery/power/rad_collector/obj_break(damage_flag)
+/obj/machinery/power/rad_collector/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		eject()

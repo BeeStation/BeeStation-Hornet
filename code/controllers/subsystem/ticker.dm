@@ -1,4 +1,5 @@
 #define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
+GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
@@ -66,7 +67,7 @@ SUBSYSTEM_DEF(ticker)
 	var/fail_counter
 	var/emergency_start = FALSE
 
-/datum/controller/subsystem/ticker/Initialize(timeofday)
+/datum/controller/subsystem/ticker/Initialize()
 	load_mode()
 
 	var/list/byond_sound_formats = list(
@@ -89,7 +90,7 @@ SUBSYSTEM_DEF(ticker)
 	var/use_rare_music = prob(1)
 
 	for(var/S in provisional_title_music)
-		var/lower = lowertext(S)
+		var/lower = LOWER_TEXT(S)
 		var/list/L = splittext(lower,"+")
 		switch(L.len)
 			if(3) //rare+MAP+sound.ogg or MAP+rare.sound.ogg -- Rare Map-specific sounds
@@ -113,7 +114,7 @@ SUBSYSTEM_DEF(ticker)
 	for(var/S in music)
 		var/list/L = splittext(S,".")
 		if(L.len >= 2)
-			var/ext = lowertext(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
+			var/ext = LOWER_TEXT(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
 			if(byond_sound_formats[ext])
 				continue
 		music -= S
@@ -147,7 +148,7 @@ SUBSYSTEM_DEF(ticker)
 	else if(CONFIG_GET(flag/shift_time_realtime))
 		gametime_offset = world.timeofday
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
@@ -332,20 +333,22 @@ SUBSYSTEM_DEF(ticker)
 
 	transfer_characters()	//transfer keys to the new mobs
 
+	log_world("Game start took [(world.timeofday - init_start)/10]s")
+	round_start_time = world.time
+	round_start_timeofday = world.timeofday
+	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundStart))
+
+	current_state = GAME_STATE_PLAYING
+
+	// Now that nothing can enter the callback list, fire them off
 	for(var/I in round_start_events)
 		var/datum/callback/cb = I
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_start_events)
 
-	log_world("Game start took [(world.timeofday - init_start)/10]s")
-	round_start_time = world.time
-	round_start_timeofday = world.timeofday
-	SSdbcore.SetRoundStart()
-
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
 	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound()))
 
-	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	if(SSevents.holidays)
@@ -357,25 +360,23 @@ SUBSYSTEM_DEF(ticker)
 	//Setup orbits.
 	SSorbits.post_load_init()
 
+	// Store areas where lights need to stay on
+	var/list/lightup_area_typecache = list()
+	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		var/role = player.mind?.assigned_role
+		if(!role)
+			continue
+		var/datum/job/job = SSjob.GetJob(role)
+		if(!job)
+			continue
+		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
+	var/list/target_area_list = typecache_filter_list(GLOB.areas, lightup_area_typecache)
+	if(length(target_area_list))
+		GLOB.roundstart_areas_lights_on.Add(target_area_list)
+
 	PostSetup()
 	SSstat.clear_global_alert()
-
-//Toggle lightswitches on in occupied departments
-	var/discrete_areas = list()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		var/area/A = get_area(H)
-		if(!(A in discrete_areas)) //We've already added their department
-			discrete_areas += get_department_areas(H)
-	for(var/area/area in discrete_areas)
-		if(area.lights_always_start_on)
-			continue
-		area.lightswitch = TRUE
-		area.update_appearance()
-
-		for(var/obj/machinery/light_switch/L in area)
-			L.update_appearance()
-
-		area.power_change()
 
 	return TRUE
 
@@ -444,15 +445,16 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
-		if(istype(player) && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == JOB_NAME_CAPTAIN)
+		var/datum/mind/mind = player?.mind
+		if(istype(player) && mind && mind.assigned_role)
+			if(mind.assigned_role == JOB_NAME_CAPTAIN)
 				captainless = FALSE
 				spare_id_candidates += N
-			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
+			else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
 				if(!enforce_coc)
 					spare_id_candidates += N
 				else
-					var/spare_id_priority = SSjob.chain_of_command[player.mind.assigned_role]
+					var/spare_id_priority = SSjob.chain_of_command[mind.assigned_role]
 					if(spare_id_priority)
 						if(spare_id_priority < highest_rank)
 							spare_id_candidates.Cut()
@@ -460,10 +462,10 @@ SUBSYSTEM_DEF(ticker)
 							highest_rank = spare_id_priority
 						else if(spare_id_priority == highest_rank)
 							spare_id_candidates += N
-			if(player.mind.assigned_role != player.mind.special_role)
-				SSjob.EquipRank(N, player.mind.assigned_role, FALSE)
-			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
-				SSquirks.AssignQuirks(player.mind, N.client, TRUE)
+			if(mind.assigned_role != mind.special_role)
+				SSjob.EquipRank(N, mind.assigned_role, FALSE)
+			if(CONFIG_GET(flag/roundstart_traits))
+				SSquirks.AssignQuirks(mind, N.client, TRUE)
 		CHECK_TICK
 	if(length(spare_id_candidates))			//No captain, time to choose acting captain
 		if(!enforce_coc)
@@ -650,7 +652,9 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		SStopic.crosscomms_send("news_report", news_message, news_source)
+		if(!AWAIT(SStopic.crosscomms_send_async("news_report", news_message, news_source), 10 SECONDS))
+			message_admins("Failed to send news report through crosscomms. The sending task expired.")
+			log_game("Failed to send news report through crosscomms. The sending task expired.")
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))
@@ -737,3 +741,5 @@ SUBSYSTEM_DEF(ticker)
 
 	SEND_SOUND(world, sound(round_end_sound))
 	rustg_file_append(login_music, "data/last_round_lobby_music.txt")
+
+#undef ROUND_START_MUSIC_LIST

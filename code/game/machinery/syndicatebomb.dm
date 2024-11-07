@@ -37,6 +37,9 @@
 	wires = new /datum/wires/syndicatebomb(src)
 	if(payload)
 		payload = new payload(src)
+		if (istype(payload, /obj/item/bombcore))
+			var/obj/item/bombcore/installed_bomb = payload
+			installed_bomb.installed = TRUE
 	update_icon()
 	countdown = new(src)
 	end_processing()
@@ -56,11 +59,11 @@
 			var/obj/item/transfer_valve/valve_payload = payload
 			valve_payload.toggle_valve()
 
-/obj/machinery/syndicatebomb/obj_break()
+/obj/machinery/syndicatebomb/atom_break()
 	if(!try_detonate())
 		..()
 
-/obj/machinery/syndicatebomb/obj_destruction()
+/obj/machinery/syndicatebomb/atom_destruction()
 	if(!try_detonate())
 		..()
 
@@ -106,6 +109,7 @@
 		try_detonate(TRUE)
 
 /obj/machinery/syndicatebomb/examine(mob/user)
+	balloon_alert(user, "[seconds_remaining()]")
 	. = ..()
 	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
@@ -126,14 +130,14 @@
 			else
 				to_chat(user, "<span class='notice'>You firmly wrench the bomb to the floor.</span>")
 				I.play_tool_sound(src)
-				setAnchored(TRUE)
+				set_anchored(TRUE)
 				if(active)
 					to_chat(user, "<span class='notice'>The bolts lock in place.</span>")
 		else
 			if(!active)
 				to_chat(user, "<span class='notice'>You wrench the bomb from the floor.</span>")
 				I.play_tool_sound(src)
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 			else
 				to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
 
@@ -150,6 +154,9 @@
 			if(payload)
 				to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
 				payload.forceMove(drop_location())
+				var/obj/item/bombcore/bomb_payload = payload
+				if (istype(bomb_payload))
+					bomb_payload.installed = FALSE
 				payload = null
 			else
 				to_chat(user, "<span class='warning'>There isn't anything in here to remove!</span>")
@@ -162,6 +169,9 @@
 			if(!user.transferItemToLoc(I, src))
 				return
 			payload = I
+			var/obj/item/bombcore/bomb_payload = payload
+			if (istype(bomb_payload))
+				bomb_payload.installed = TRUE
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[payload] is already loaded into [src]! You'll have to remove it first.</span>")
@@ -183,11 +193,11 @@
 			to_chat(user, "<span class='notice'>You need at least [PLASTEEL_REPAIR_AMOUNT] sheets of plasteel to repair [src].</span>")
 			return
 		if(do_after(user, delay = 2.5 SECONDS, target = src) && stack_sheets.use(PLASTEEL_REPAIR_AMOUNT))
-			obj_integrity = min(obj_integrity + 100, max_integrity)
+			atom_integrity = min(atom_integrity + 100, max_integrity)
 	else
-		var/old_integ = obj_integrity
+		var/old_integ = atom_integrity
 		. = ..()
-		if((old_integ > obj_integrity) && active  && (payload in src))
+		if((old_integ > atom_integrity) && active  && (payload in src))
 			to_chat(user, "<span class='warning'>That seems like a really bad idea...</span>")
 
 /obj/machinery/syndicatebomb/interact(mob/user)
@@ -212,7 +222,7 @@
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
 	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
-		timer_set = CLAMP(new_timer, minimum_timer, maximum_timer)
+		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message("<span class='notice'>[icon2html(src, viewers(src))] timer set for [timer_set] seconds.</span>")
 	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && in_range(src, user) && isliving(user))
 		if(active)
@@ -220,7 +230,7 @@
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] must be anchored in order to arm!</span>")
 			return
-		if(obj_integrity != max_integrity)
+		if(atom_integrity != max_integrity)
 			to_chat(user, "<span class='warning'>[src] must be undamaged in order to arm!</span>")
 			return
 		visible_message("<span class='danger'>[icon2html(src, viewers(loc))] [timer_set] seconds until detonation, please clear the area.</span>")
@@ -263,7 +273,7 @@
 
 /obj/machinery/syndicatebomb/empty/Initialize(mapload)
 	. = ..()
-	wires.cut_all()
+	wires.cut_all(null)
 
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self-destruct device"
@@ -282,7 +292,10 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // We detonate upon being exploded.
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
+	/// Indicates if the bombcore is inside a valid bomb and is ready to explode. Set this to true to allow for activation.
+	var/installed = FALSE
 	var/adminlog = null
 	var/range_heavy = 3
 	var/range_medium = 9
@@ -299,7 +312,7 @@
 /obj/item/bombcore/proc/detonate()
 	if(!loc)
 		return
-	if(!istype(loc, /obj/machinery/syndicatebomb))
+	if(!installed)
 		qdel(src)
 		return
 
@@ -362,7 +375,7 @@
 	qdel(src)
 
 /obj/item/bombcore/badmin/summon
-	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
+	var/summon_path = /obj/item/food/cookie
 	var/amt_summon = 1
 
 /obj/item/bombcore/badmin/summon/detonate()
@@ -431,12 +444,12 @@
 
 	var/list/reactants = list()
 
-	for(var/obj/item/reagent_containers/glass/G in beakers)
+	for(var/obj/item/reagent_containers/cup/G in beakers)
 		reactants += G.reagents
 
 	for(var/obj/item/slime_extract/S in beakers)
 		if(S.Uses)
-			for(var/obj/item/reagent_containers/glass/G in beakers)
+			for(var/obj/item/reagent_containers/cup/G in beakers)
 				G.reagents.trans_to(S, G.reagents.total_volume)
 
 			if(S?.reagents?.total_volume)
@@ -463,7 +476,7 @@
 			B.forceMove(drop_location())
 			beakers -= B
 		return
-	else if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
+	else if(istype(I, /obj/item/reagent_containers/cup/beaker) || istype(I, /obj/item/reagent_containers/cup/bottle))
 		if(beakers.len < max_beakers)
 			if(!user.transferItemToLoc(I, src))
 				return
@@ -493,7 +506,7 @@
 		if(istype(G, /obj/item/grenade/chem_grenade/adv_release))
 			time_release += 50 // A typical bomb, using basic beakers, will explode over 2-4 seconds. Using two will make the reaction last for less time, but it will be more dangerous overall.
 
-		for(var/obj/item/reagent_containers/glass/B in G)
+		for(var/obj/item/reagent_containers/cup/B in G)
 			if(beakers.len < max_beakers)
 				beakers += B
 				B.forceMove(src)

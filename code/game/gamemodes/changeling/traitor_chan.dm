@@ -35,7 +35,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 
@@ -57,13 +57,18 @@
 			changeling.special_role = ROLE_CHANGELING
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
-		return ..()
+		. = ..()
+		if(.)	//To ensure the game mode is going ahead
+			for(var/antag in changelings)
+				GLOB.pre_setup_antags += antag
+		return
 	else
-		return 0
+		return FALSE
 
 /datum/game_mode/traitor/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
+		GLOB.pre_setup_antags -= changeling
 	return ..()
 
 /datum/game_mode/traitor/changeling/make_antag_chance(mob/living/carbon/human/character) //Assigns changeling to latejoiners

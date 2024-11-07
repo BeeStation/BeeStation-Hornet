@@ -58,7 +58,7 @@
 					break dir_loop
 
 	if(!terminal)
-		set_machine_stat(machine_stat | BROKEN)
+		atom_break()
 		return
 	terminal.master = src
 	update_icon()
@@ -120,7 +120,7 @@
 			return
 
 		var/turf/T = get_turf(user)
-		if (T.intact) //is the floor plating removed ?
+		if (T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE) //can we get to the underfloor?
 			to_chat(user, "<span class='warning'>You must first remove the floor plating!</span>")
 			return
 
@@ -205,7 +205,7 @@
 	if(terminal)
 		terminal.master = null
 		terminal = null
-		set_machine_stat(machine_stat | BROKEN)
+		atom_break()
 
 
 /obj/machinery/power/smes/update_icon()

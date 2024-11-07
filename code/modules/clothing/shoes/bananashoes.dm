@@ -10,25 +10,29 @@
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(/datum/material/bananium), 200000, TRUE, /obj/item/stack)
-	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1),  75)
+	AddComponent(/datum/component/material_container, list(/datum/material/bananium), 200000, MATCONTAINER_EXAMINE|MATCONTAINER_ANY_INTENT|MATCONTAINER_SILENT, /obj/item/stack)
+	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 75, falloff_exponent = 20)
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 	if(always_noslip)
 		clothing_flags |= NOSLIP
 
-/obj/item/clothing/shoes/clown_shoes/banana_shoes/step_action()
-	. = ..()
+/obj/item/clothing/shoes/clown_shoes/banana_shoes/proc/on_step()
+	SIGNAL_HANDLER
+
 	var/mob/wearer = loc
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
-	if(on && istype(wearer))
-		if(bananium.get_material_amount(/datum/material/bananium) < 100)
-			on = !on
-			if(!always_noslip)
-				clothing_flags &= ~NOSLIP
-			update_icon()
-			to_chat(loc, "<span class='warning'>You ran out of bananium!</span>")
-		else
-			new /obj/item/grown/bananapeel/specialpeel(get_step(src,turn(wearer.dir, 180))) //honk
-			bananium.use_amount_mat(100, /datum/material/bananium)
+	if(!on || !istype(wearer))
+		return
+
+	if(bananium.get_material_amount(/datum/material/bananium) < 100)
+		on = !on
+		if(!always_noslip)
+			clothing_flags &= ~NOSLIP
+		update_icon()
+		to_chat(loc, "<span class='warning'>You ran out of bananium!</span>")
+	else
+		new /obj/item/grown/bananapeel/specialpeel(get_step(src,turn(wearer.dir, 180))) //honk
+		bananium.use_amount_mat(100, /datum/material/bananium)
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/attack_self(mob/user)
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
@@ -62,6 +66,4 @@
 	else
 		icon_state = "clown_prototype_off"
 	usr.update_inv_shoes()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()

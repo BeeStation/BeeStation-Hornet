@@ -1,7 +1,8 @@
 /obj/machinery/computer/bank_machine
 	name = "bank machine"
 	desc = "A machine used to deposit and withdraw station funds."
-	icon = 'goon/icons/obj/goon_terminals.dmi'
+	icon_screen = "vault"
+	icon_keyboard = "ratvar_key1"
 	idle_power_usage = 100
 	var/siphoning = FALSE
 	var/next_warning = 0
@@ -15,6 +16,7 @@
 	radio = new(src)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
+	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 
 /obj/machinery/computer/bank_machine/Destroy()

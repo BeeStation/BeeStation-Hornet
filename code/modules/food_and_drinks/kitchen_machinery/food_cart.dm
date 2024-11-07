@@ -5,7 +5,7 @@
 /obj/machinery/food_cart
 	name = "food cart"
 	desc = "New generation hot dog stand."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "foodcart"
 	density = TRUE
 	anchored = FALSE
@@ -34,17 +34,17 @@
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, 0)
 		return TRUE
-	if(istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = O
+	if(istype(O, /obj/item/reagent_containers/cup/glass/drinkingglass))
+		var/obj/item/reagent_containers/cup/glass/drinkingglass/DG = O
 		if(!DG.reagents.total_volume) //glass is empty
 			qdel(DG)
 			glasses++
 			to_chat(user, "<span class='notice'>[src] accepts the drinking glass, sterilizing it.</span>")
-	else if(istype(O, /obj/item/reagent_containers/food/snacks))
+	else if(IS_EDIBLE(O))
 		if(isFull())
 			to_chat(user, "<span class='warning'>[src] is at full capacity.</span>")
 		else
-			var/obj/item/reagent_containers/food/snacks/S = O
+			var/obj/item/S = O
 			if(!user.transferItemToLoc(S, src))
 				return
 			if(stored_food[sanitize(S.name)])
@@ -59,11 +59,13 @@
 			to_chat(user, "<span class='notice'>[src] accepts a sheet of glass.</span>")
 	else if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/bag/tray/T = O
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/item/S in T.contents)
 			if(isFull())
 				to_chat(user, "<span class='warning'>[src] is at full capacity.</span>")
 				break
 			else
+				if(!IS_EDIBLE(S))
+					continue
 				if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
 					if(stored_food[sanitize(S.name)])
 						stored_food[sanitize(S.name)]++
@@ -123,14 +125,14 @@
 					break
 
 	if(href_list["portion"])
-		portion = CLAMP(input("How much drink do you want to dispense per glass?") as num, 0, 50)
+		portion = clamp(input("How much drink do you want to dispense per glass?") as num, 0, 50)
 
 	if(href_list["pour"] || href_list["m_pour"])
 		if(glasses-- <= 0)
 			to_chat(usr, "<span class='warning'>There are no glasses left!</span>")
 			glasses = 0
 		else
-			var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = new(loc)
+			var/obj/item/reagent_containers/cup/glass/drinkingglass/DG = new(loc)
 			if(href_list["pour"])
 				reagents.trans_id_to(DG, reagents.reagent_list[text2num(href_list["pour"])]?.type, portion)
 			if(href_list["m_pour"])

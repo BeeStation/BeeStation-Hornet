@@ -62,6 +62,8 @@
 	var/start_sound = 'sound/items/airhorn2.ogg'
 	var/start_sound_volume = 50
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
+
 /obj/machinery/computer/arena/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	LoadDefaultArenas()
@@ -191,7 +193,7 @@
 	if(!isobserver(oldbody))
 		return
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(spawnpoint))
-	oldbody.client.prefs.active_character.copy_to(M)
+	oldbody.client.prefs.safe_transfer_prefs_to(M)
 	M.set_species(/datum/species/human) // Could use setting per team
 	M.equipOutfit(outfits[team] ? outfits[team] : default_outfit)
 	M.faction += team //In case anyone wants to add team based stuff to arena special effects
@@ -328,7 +330,7 @@
 	var/arena_turfs = get_arena_turfs()
 	for(var/mob/living/L in GLOB.mob_living_list)
 		if(L.stat != DEAD && (get_turf(L) in arena_turfs))
-			var/obj/item/reagent_containers/food/drinks/trophy/gold_cup/G = new(get_turf(L))
+			var/obj/item/reagent_containers/cup/glass/trophy/gold_cup/G = new(get_turf(L))
 			G.name = "[L.real_name]'s Trophy"
 
 /obj/machinery/computer/arena/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)

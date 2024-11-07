@@ -8,14 +8,14 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pushes"
-	response_disarm = "shoves"
-	response_harm = "hits"
+	response_help_continuous = "pushes"
+	response_help_simple = "push"
 	speed = 0
 	maxHealth = 100
 	health = 100
 	melee_damage = 10
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -35,11 +35,12 @@
 	icon_dead = "piratemelee_dead"
 	melee_damage = 30
 	armour_penetration = 35
-	attacktext = "slashes"
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/blade1.ogg'
 	var/obj/effect/light_emitter/red_energy_sword/sord
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/pirate/melee/space
@@ -76,7 +77,7 @@
 	rapid_fire_delay = 6
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/item/projectile/beam/laser
+	projectiletype = /obj/projectile/beam/laser
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged,
 			/obj/item/gun/energy/laser)
 

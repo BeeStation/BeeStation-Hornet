@@ -3,6 +3,7 @@
 /datum/quirk/badback
 	name = "Bad Back"
 	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evently weighted objects are fine, though."
+	icon = "hiking"
 	value = -2
 	mood_quirk = TRUE
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
@@ -19,6 +20,7 @@
 /datum/quirk/blooddeficiency
 	name = "Blood Deficiency"
 	desc = "Your body can't produce enough blood to sustain itself."
+	icon = "tint"
 	value = -2
 	gain_text = "<span class='danger'>You feel your vigor slowly fading away.</span>"
 	lose_text = "<span class='notice'>You feel vigorous again.</span>"
@@ -27,7 +29,7 @@
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_target
-	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
+	if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
 		return
 	else if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
 		H.blood_volume -= 0.275 * delta_time
@@ -35,6 +37,7 @@
 /datum/quirk/blindness
 	name = "Blind"
 	desc = "You are completely blind, nothing can counteract this."
+	icon = "eye-slash"
 	value = -4
 	gain_text = "<span class='danger'>You can't see anything.</span>"
 	lose_text = "<span class='notice'>You miraculously gain back your vision.</span>"
@@ -56,6 +59,7 @@
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Thankfully, you start with a bottle of mannitol pills."
+	icon = "brain"
 	mob_trait = TRAIT_BRAIN_TUMOR
 	value = -3
 	gain_text = "<span class='danger'>You feel smooth.</span>"
@@ -100,6 +104,7 @@
 /datum/quirk/deafness
 	name = "Deaf"
 	desc = "You are incurably deaf."
+	icon = "deaf"
 	value = -2
 	mob_trait = TRAIT_DEAF
 	gain_text = "<span class='danger'>You can't hear anything.</span>"
@@ -109,6 +114,7 @@
 /datum/quirk/depression
 	name = "Depression"
 	desc = "You sometimes just hate life."
+	icon = "frown"
 	mob_trait = TRAIT_DEPRESSION
 	value = -1
 	gain_text = "<span class='danger'>You start feeling depressed.</span>"
@@ -124,6 +130,7 @@
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
+	icon = "toolbox"
 	value = -1
 	mood_quirk = TRUE
 	process = TRUE
@@ -134,7 +141,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/heirloom_type
 
-	if(is_species(H, /datum/species/moth) && prob(50))
+	if((ismoth(H)) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
 		switch(quirk_holder.assigned_role)
@@ -144,17 +151,17 @@
 			if(JOB_NAME_MIME)
 				heirloom_type = /obj/item/food/baguette/mime
 			if(JOB_NAME_JANITOR)
-				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
+				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/cup/bucket)
 			if(JOB_NAME_COOK)
-				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/chefhat)
+				heirloom_type = pick(/obj/item/reagent_containers/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/utility/chefhat)
 			if(JOB_NAME_BOTANIST)
-				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
+				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/cup/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
 			if(JOB_NAME_BARTENDER)
-				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/that, /obj/item/reagent_containers/food/drinks/shaker)
+				heirloom_type = pick(/obj/item/reagent_containers/cup/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/cup/glass/shaker)
 			if(JOB_NAME_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
 			if(JOB_NAME_CHAPLAIN)
-				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
+				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/cup/glass/bottle/holywater)
 			if(JOB_NAME_ASSISTANT)
 				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
 			if(JOB_NAME_BARBER)
@@ -163,7 +170,7 @@
 				heirloom_type = /obj/item/gun/magic/wand
 			//Security/Command
 			if(JOB_NAME_CAPTAIN)
-				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
+				heirloom_type = /obj/item/reagent_containers/cup/glass/flask/gold
 			if(JOB_NAME_HEADOFSECURITY)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
 			if(JOB_NAME_WARDEN)
@@ -171,36 +178,36 @@
 			if(JOB_NAME_SECURITYOFFICER)
 				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
 			if(JOB_NAME_DETECTIVE)
-				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
+				heirloom_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
 			if(JOB_NAME_LAWYER)
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
 			if(JOB_NAME_BRIGPHYSICIAN)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if(JOB_NAME_RESEARCHDIRECTOR)
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_SCIENTIST)
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_ROBOTICIST)
-				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
+				heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
 			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
-				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
+				heirloom_type = /obj/item/reagent_containers/cup/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if(JOB_NAME_GENETICIST)
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering
 			if(JOB_NAME_CHIEFENGINEER)
-				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/clothing/head/utility/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			if(JOB_NAME_STATIONENGINEER)
-				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/clothing/head/utility/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			if(JOB_NAME_ATMOSPHERICTECHNICIAN)
 				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
 			//Supply
@@ -235,8 +242,8 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder, family_name)
-	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
-		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+	if(istype(heirloom, /obj/item/reagent_containers/cup/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/cup/chem_heirloom/H = heirloom
 		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
@@ -250,6 +257,7 @@
 /datum/quirk/frail
 	name = "Frail"
 	desc = "Your bones might as well be made of glass! Your limbs can take less damage before they become disabled."
+	icon = "skull"
 	value = -2
 	mob_trait = TRAIT_EASYLIMBDISABLE
 	gain_text = "<span class='danger'>You feel frail.</span>"
@@ -259,6 +267,7 @@
 /datum/quirk/foreigner
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
+	icon = "question-circle"
 	value = -1
 	gain_text = "<span class='notice'>The words being spoken around you don't make any sense."
 	lose_text = "<span class='notice'>You've developed fluency in Galactic Common."
@@ -279,6 +288,7 @@
 /datum/quirk/heavy_sleeper
 	name = "Heavy Sleeper"
 	desc = "You sleep like a rock! Whenever you're put to sleep or knocked unconscious, you take a little bit longer to wake up."
+	icon = "bed"
 	value = -1
 	mob_trait = TRAIT_HEAVY_SLEEPER
 	gain_text = "<span class='danger'>You feel sleepy.</span>"
@@ -287,24 +297,16 @@
 
 /datum/quirk/hypersensitive
 	name = "Hypersensitive"
-	desc = "For better or worse, everything seems to affect your mood more than it should."
+	desc = "Bad things affect your mood more than they should."
+	icon = "flushed"
 	value = -1
 	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
 
-/datum/quirk/hypersensitive/add()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier += 0.5
-
-/datum/quirk/hypersensitive/remove()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier -= 0.5
-
 /datum/quirk/light_drinker
 	name = "Light Drinker"
 	desc = "You just can't handle your drinks and get drunk very quickly."
+	icon = "cocktail"
 	value = -1
 	mob_trait = TRAIT_LIGHT_DRINKER
 	gain_text = "<span class='notice'>Just the thought of drinking alcohol makes your head spin.</span>"
@@ -313,6 +315,7 @@
 /datum/quirk/nearsighted //t. errorage
 	name = "Nearsighted"
 	desc = "You are nearsighted without prescription glasses, but spawn with a pair."
+	icon = "glasses"
 	value = -1
 	gain_text = "<span class='danger'>Things far away from you start looking blurry.</span>"
 	lose_text = "<span class='notice'>You start seeing faraway things normally again.</span>"
@@ -334,6 +337,7 @@
 /datum/quirk/nyctophobia
 	name = "Nyctophobia"
 	desc = "As far as you can remember, you've always been afraid of the dark. While in the dark without a light source, you instinctually act careful, and constantly feel a sense of dread."
+	icon = "lightbulb"
 	value = -1
 	process = TRUE
 
@@ -342,7 +346,7 @@
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_target)
-	if(T.get_lumcount() <= 0.2)
+	if(T.get_lumcount() <= LIGHTING_TILE_IS_DARK)
 		if(quirk_target.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_target, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_target.toggle_move_intent()
@@ -353,6 +357,7 @@
 /datum/quirk/nonviolent
 	name = "Pacifist"
 	desc = "The thought of violence makes you sick. So much so, in fact, that you can't hurt anyone."
+	icon = "peace"
 	value = -2
 	mob_trait = TRAIT_PACIFISM
 	gain_text = "<span class='danger'>You feel repulsed by the thought of violence!</span>"
@@ -362,6 +367,7 @@
 /datum/quirk/trauma/paraplegic
 	name = "Paraplegic"
 	desc = "Your legs do not function. Nothing will ever fix this. But hey, free wheelchair!"
+	icon = "wheelchair"
 	value = -3
 	medical_record_text = "Patient has an untreatable impairment in motor function in the lower extremities."
 	trauma_type = /datum/brain_trauma/severe/paralysis/paraplegic/
@@ -389,6 +395,7 @@
 /datum/quirk/poor_aim
 	name = "Poor Aim"
 	desc = "You're terrible with guns and can't line up a straight shot to save your life. Dual-wielding is right out."
+	icon = "bullseye"
 	value = -1
 	mob_trait = TRAIT_POOR_AIM
 	medical_record_text = "Patient possesses a strong tremor in both hands."
@@ -396,6 +403,7 @@
 /datum/quirk/prosopagnosia
 	name = "Prosopagnosia"
 	desc = "You have a mental disorder that prevents you from being able to recognize faces at all."
+	icon = "user-secret"
 	value = -1
 	mob_trait = TRAIT_PROSOPAGNOSIA
 	medical_record_text = "Patient suffers from prosopagnosia and cannot recognize faces."
@@ -403,11 +411,12 @@
 /datum/quirk/prosthetic_limb
 	name = "Prosthetic Limb"
 	desc = "An accident caused you to lose one of your limbs. Because of this, you now have a random prosthetic!"
+	icon = "tg-prosthetic-leg"
 	value = -1
 	var/slot_string = "limb"
 
 /datum/quirk/prosthetic_limb/on_spawn()
-	var/limb_slot = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/limb_slot = read_choice_preference(/datum/preference/choiced/quirk/prosthetic_limb_location) || pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
@@ -435,6 +444,7 @@
 /datum/quirk/pushover
 	name = "Pushover"
 	desc = "Your first instinct is always to let people push you around. Resisting out of grabs will take conscious effort."
+	icon = "handshake"
 	value = -2
 	mob_trait = TRAIT_GRABWEAKNESS
 	gain_text = "<span class='danger'>You feel like a pushover.</span>"
@@ -443,7 +453,8 @@
 
 /datum/quirk/insanity
 	name = "Reality Dissociation Syndrome"
-	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. <b>This is not a license to grief.</b>"
+	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. This is NOT a license to grief."
+	icon = "grin-tongue-wink"
 	value = -2
 	//no mob trait because it's handled uniquely
 	gain_text = "<span class='userdanger'>...</span>"
@@ -470,6 +481,7 @@
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
+	icon = "comment-slash"
 	value = -1
 	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
 	lose_text = "<span class='notice'>You feel comfortable with talking again.</span>" //if only it were that easy!
@@ -501,6 +513,7 @@
 /datum/quirk/junkie
 	name = "Junkie"
 	desc = "You can't get enough of hard drugs."
+	icon = "pills"
 	value = -2
 	gain_text = "<span class='danger'>You suddenly feel the craving for drugs.</span>"
 	lose_text = "<span class='notice'>You feel like you should kick your drug habit.</span>"
@@ -518,6 +531,7 @@
 
 /datum/quirk/junkie/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
+	reagent_type = reagent_type || read_choice_preference(/datum/preference/choiced/quirk/junkie_drug)
 	if (!reagent_type)
 		reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
@@ -569,6 +583,7 @@
 /datum/quirk/junkie/smoker
 	name = "Smoker"
 	desc = "Sometimes you just really want a smoke. Probably not great for your lungs."
+	icon = "smoking"
 	value = -1
 	gain_text = "<span class='danger'>You could really go for a smoke right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit smoking.</span>"
@@ -578,12 +593,9 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-	drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/fancy/cigarettes/cigpack_midori,
-		/obj/item/storage/fancy/cigarettes/cigpack_uplift,
-		/obj/item/storage/fancy/cigarettes/cigpack_robust,
-		/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-		/obj/item/storage/fancy/cigarettes/cigpack_carp)
+	drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
+	if(!drug_container_type)
+		drug_container_type = pick(GLOB.smoker_cigarettes)
 	. = ..()
 
 /datum/quirk/junkie/smoker/announce_drugs()
@@ -604,25 +616,28 @@
 /datum/quirk/alcoholic
 	name = "Alcoholic"
 	desc = "You can't stand being sober."
+	icon = "angry"
 	value = -1
 	gain_text = "<span class='danger'>You could really go for a drink right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit drinking.</span>"
 	medical_record_text = "Patient is an alcohol abuser."
 	process = TRUE
 	var/where_drink //Where the bottle spawned
-	var/drink_types = list(/obj/item/reagent_containers/food/drinks/bottle/ale,
-					/obj/item/reagent_containers/food/drinks/bottle/beer,
-					/obj/item/reagent_containers/food/drinks/bottle/gin,
-		            /obj/item/reagent_containers/food/drinks/bottle/whiskey,
-					/obj/item/reagent_containers/food/drinks/bottle/vodka,
-					/obj/item/reagent_containers/food/drinks/bottle/rum,
-					/obj/item/reagent_containers/food/drinks/bottle/applejack)
+	var/drink_types = list(/obj/item/reagent_containers/cup/glass/bottle/ale,
+					/obj/item/reagent_containers/cup/glass/bottle/beer,
+					/obj/item/reagent_containers/cup/glass/bottle/gin,
+					/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+					/obj/item/reagent_containers/cup/glass/bottle/vodka,
+					/obj/item/reagent_containers/cup/glass/bottle/rum,
+					/obj/item/reagent_containers/cup/glass/bottle/applejack)
 	var/need = 0 // How much they crave alcohol at the moment
 	var/tick_number = 0 // Keeping track of how many ticks have passed between a check
-	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
+	var/obj/item/reagent_containers/cup/glass/bottle/drink_instance
 
 /datum/quirk/alcoholic/on_spawn()
-	drink_instance = pick(drink_types)
+	drink_instance = read_choice_preference(/datum/preference/choiced/quirk/alcohol_type)
+	if(!drink_instance)
+		drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
 	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
@@ -664,6 +679,7 @@
 /datum/quirk/unstable
 	name = "Unstable"
 	desc = "Due to past troubles, you are unable to recover your sanity if you lose it. Be very careful managing your mood!"
+	icon = "cloud-rain"
 	value = -2
 	mob_trait = TRAIT_UNSTABLE
 	gain_text = "<span class='danger'>There's a lot on your mind right now.</span>"
@@ -673,6 +689,7 @@
 /datum/quirk/trauma //Generic for quirks that apply a brain trauma
 	name = "Phobia"
 	desc = "Because of a traumatic event in your past you have developed a strong phobia."
+	icon = "spider"
 	value = -2
 	gain_text = null // these are handled by the trauma itself
 	lose_text = null
@@ -681,7 +698,7 @@
 	var/trauma
 
 /datum/quirk/trauma/add()
-	trauma = new trauma_type
+	trauma = new trauma_type(read_choice_preference(/datum/preference/choiced/quirk/phobia))
 	var/mob/living/carbon/human/H = quirk_target
 	H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 

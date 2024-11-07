@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 #ifndef TESTING
 	//disable the integrated byond vv in the client side debugging tools since it doesn't respect vv read protections
-	if (lowertext(hsrc_command) == "_debug")
+	if (LOWER_TEXT(hsrc_command) == "_debug")
 		return
 #endif
 
@@ -122,13 +122,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
-		if("prefs")
-			if (inprefs)
-				return
-			inprefs = TRUE
-			. = prefs.process_link(usr,href_list)
-			inprefs = FALSE
-			return
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
 
@@ -142,11 +135,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()	//redirect to hsrc.Topic()
 
+/// If this client is BYOND member.
 /client/proc/is_content_unlocked()
-	if(!prefs.unlock_content)
-		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. Only 10 bucks for 3 months! <a href=\"https://secure.byond.com/membership\">Click Here to find out more</a>.")
-		return 0
-	return 1
+	return prefs.unlock_content
+
 /*
  * Call back proc that should be checked in all paths where a client can send messages
  *
@@ -215,6 +207,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src, "browseroutput")
 
 	tgui_say = new(src, "tgui_say")
+	tgui_asay = new(src, "tgui_asay")
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -248,20 +241,26 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				to_chat_immediate(src, "<span class='userdanger'>Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab.</span>")
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
+
+	// This needs to go after admin loading but before prefs
+	assign_mentor_datum_if_exists()
+
 	// Retrieve cached metabalance
 	get_metabalance_db()
 	// Retrieve cached antag token count
 	get_antag_token_count_db()
+	if(!src) // Yes this is possible, because the procs above sleep.
+		return
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(prefs)
 		prefs.parent = src
+		prefs.apply_all_client_preferences()
 	else
 		prefs = new /datum/preferences(src)
 		GLOB.preferences_datums[ckey] = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	fps = prefs.clientfps
 
 	prefs.handle_donator_items()
 
@@ -349,6 +348,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	// Initialize tgui panel
 	tgui_panel.Initialize()
 	tgui_say.initialize()
+	tgui_asay.initialize()
 
 	if(alert_mob_dupe_login && !holder)
 		var/dupe_login_message = "Your ComputerID has already logged in with another key this round, please log out of this one NOW or risk being banned!"
@@ -365,6 +365,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
 	var/breaking_version = CONFIG_GET(number/client_error_version)
 	var/breaking_build = CONFIG_GET(number/client_error_build)
 	var/warn_version = CONFIG_GET(number/client_warn_version)
@@ -414,7 +415,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		add_admin_verbs()
 		to_chat(src, get_message_output("memo"))
 		adminGreet()
-
 	add_verbs_from_config()
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
 
@@ -440,6 +440,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	get_message_output("watchlist entry", ckey)
 	check_ip_intel()
 	validate_key_in_db()
+	// If we aren't already generating a ban cache, fire off a build request
+	// This way hopefully any users of request_ban_cache will never need to yield
+	if(!ban_cache_start && SSban_cache?.query_started)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
 
 	fetch_uuid()
 	add_verb(/client/proc/show_account_identifier)
@@ -467,8 +471,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
-	update_ambience_pref()
-
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
@@ -491,6 +493,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
 	mob.UpdateMobStat(TRUE)
+	fully_created = TRUE
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
@@ -513,7 +516,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!SSdbcore.Connect())
 		return FALSE
 
-	var/datum/DBQuery/query_update_uuid = SSdbcore.NewQuery(
+	var/datum/db_query/query_update_uuid = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET uuid = :uuid WHERE ckey = :ckey",
 		list("uuid" = uuid, "ckey" = ckey)
 	)
@@ -531,7 +534,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!SSdbcore.Connect())
 		return FALSE
 
-	var/datum/DBQuery/query_get_uuid = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_uuid = SSdbcore.NewQuery(
 		"SELECT uuid FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -552,6 +555,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //////////////
 
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
+	GLOB.clients -= src
+	GLOB.directory -= ckey
+	GLOB.mentors -= src
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
@@ -579,16 +590,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			send2tgs("Server", "[cheesy_message] (No admins online)")
 
+	if(isatom(eye)) // admeme vv failproof. eye must be atom
+		var/atom/eye_thing = eye
+		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
-	GLOB.directory -= ckey
-	GLOB.clients -= src
-	GLOB.mentors -= src
-	SSambience.remove_ambience_client(src)
-	QDEL_LIST_ASSOC_VAL(char_render_holders)
-	Master.UpdateTickRate()
-	return ..()
 
-/client/Destroy()
+	SSambience.remove_ambience_client(src)
+	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -597,7 +605,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 	if(!SSdbcore.Connect())
 		return
-	var/datum/DBQuery/query_get_related_ip = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_related_ip = SSdbcore.NewQuery(
 		"SELECT ckey FROM [format_table_name("player")] WHERE ip = INET_ATON(:address) AND ckey != :ckey",
 		list("address" = address, "ckey" = ckey)
 	)
@@ -608,7 +616,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	while(query_get_related_ip.NextRow())
 		related_accounts_ip += "[query_get_related_ip.item[1]], "
 	qdel(query_get_related_ip)
-	var/datum/DBQuery/query_get_related_cid = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_related_cid = SSdbcore.NewQuery(
 		"SELECT ckey FROM [format_table_name("player")] WHERE computerid = :computerid AND ckey != :ckey",
 		list("computerid" = computer_id, "ckey" = ckey)
 	)
@@ -626,7 +634,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
 			return
 	var/new_player
-	var/datum/DBQuery/query_client_in_db = SSdbcore.NewQuery(
+	var/datum/db_query/query_client_in_db = SSdbcore.NewQuery(
 		"SELECT 1 FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -668,7 +676,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!client_is_in_db)
 		new_player = 1
 		account_join_date = findJoinDate()
-		var/datum/DBQuery/query_add_player = SSdbcore.NewQuery({"
+		var/datum/db_query/query_add_player = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, `firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
 			VALUES (:ckey, :key, Now(), :round_id, Now(), :round_id, INET_ATON(:ip), :computerid, :adminrank, :account_join_date)
 		"}, list("ckey" = ckey, "key" = key, "round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = account_join_date || null))
@@ -681,7 +689,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			account_join_date = "Error"
 			account_age = -1
 	qdel(query_client_in_db)
-	var/datum/DBQuery/query_get_client_age = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_client_age = SSdbcore.NewQuery(
 		"SELECT firstseen, DATEDIFF(Now(),firstseen), accountjoindate, DATEDIFF(Now(),accountjoindate) FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -699,7 +707,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				if(!account_join_date)
 					account_age = -1
 				else
-					var/datum/DBQuery/query_datediff = SSdbcore.NewQuery(
+					var/datum/db_query/query_datediff = SSdbcore.NewQuery(
 						"SELECT DATEDIFF(Now(), :account_join_date)",
 						list("account_join_date" = account_join_date)
 					)
@@ -711,7 +719,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 					qdel(query_datediff)
 	qdel(query_get_client_age)
 	if(!new_player)
-		var/datum/DBQuery/query_log_player = SSdbcore.NewQuery(
+		var/datum/db_query/query_log_player = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET lastseen = Now(), lastseen_round_id = :round_id, ip = INET_ATON(:ip), computerid = :computerid, lastadminrank = :admin_rank, accountjoindate = :account_join_date WHERE ckey = :ckey",
 			list("round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "admin_rank" = admin_rank, "account_join_date" = account_join_date || null, "ckey" = ckey)
 		)
@@ -724,7 +732,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	var/ssqlname = CONFIG_GET(string/serversqlname)
 
-	var/datum/DBQuery/query_log_connection = SSdbcore.NewQuery({"
+	var/datum/db_query/query_log_connection = SSdbcore.NewQuery({"
 		INSERT INTO `[format_table_name("connection_log")]` (`id`,`datetime`,`server_name`,`server_ip`,`server_port`,`round_id`,`ckey`,`ip`,`computerid`)
 		VALUES(null,Now(),:server_name,INET_ATON(:internet_address),:port,:round_id,:ckey,INET_ATON(:ip),:computerid)
 	"}, list("server_name" = ssqlname, "internet_address" = world.internet_address || "0", "port" = world.port, "round_id" = GLOB.round_id, "ckey" = ckey, "ip" = address, "computerid" = computer_id))
@@ -751,7 +759,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/validate_key_in_db()
 	var/sql_key
-	var/datum/DBQuery/query_check_byond_key = SSdbcore.NewQuery(
+	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
 		"SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -773,7 +781,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			var/regex/R = regex("\\tkey = \"(.+)\"")
 			if(R.Find(F))
 				var/web_key = R.group[1]
-				var/datum/DBQuery/query_update_byond_key = SSdbcore.NewQuery(
+				var/datum/db_query/query_update_byond_key = SSdbcore.NewQuery(
 					"UPDATE [format_table_name("player")] SET byond_key = :byond_key WHERE ckey = :ckey",
 					list("byond_key" = web_key, "ckey" = ckey)
 				)
@@ -793,7 +801,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/static/tokens = list()
 	var/static/cidcheck_failedckeys = list() //to avoid spamming the admins if the same guy keeps trying.
 	var/static/cidcheck_spoofckeys = list()
-	var/datum/DBQuery/query_cidcheck = SSdbcore.NewQuery(
+	var/datum/db_query/query_cidcheck = SSdbcore.NewQuery(
 		"SELECT computerid FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -815,7 +823,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			sleep(15 SECONDS) //Longer sleep here since this would trigger if a client tries to reconnect manually because the inital reconnect failed
 
-			 //we sleep after telling the client to reconnect, so if we still exist something is up
+			//we sleep after telling the client to reconnect, so if we still exist something is up
 			log_access("Forced disconnect: [key] [computer_id] [address] - CID randomizer check")
 
 			qdel(src)
@@ -872,7 +880,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/add_system_note(system_ckey, message)
 	//check to see if we noted them in the last day.
-	var/datum/DBQuery/query_get_notes = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery(
 		"SELECT id FROM [format_table_name("messages")] WHERE type = 'note' AND targetckey = :targetckey AND adminckey = :adminckey AND timestamp + INTERVAL 1 DAY < NOW() AND deleted = 0 AND (expire_timestamp > NOW() OR expire_timestamp IS NULL)",
 		list("targetckey" = ckey, "adminckey" = system_ckey)
 	)
@@ -955,13 +963,33 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, "<span class='danger'>Your previous click was ignored because you've done too many in a second</span>")
 			return
 
-	if (prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
+	if (hotkeys)
 		// If hotkey mode is enabled, then clicking the map will automatically
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
 		winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]")
+	else
+		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
 
 	..()
+
+/// Sets client eye to 1st param.
+/// * WARN: Do not change old_eye. Check client/var/eye_weakref
+/client/proc/set_eye(atom/new_eye, atom/old_eye = src.eye)
+	if(new_eye == old_eye)
+		return
+
+	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
+		LAZYREMOVE(old_eye.eye_users, src)
+
+	eye = new_eye
+	eye_weakref = WEAKREF(eye)
+
+	if(isatom(new_eye))
+		LAZYADD(new_eye.eye_users, src)
+
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
+
 
 /client/proc/add_verbs_from_config()
 	if (interviewee)
@@ -1042,8 +1070,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT)
-		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
+	attempt_auto_fit_viewport()
 
 /client/proc/generate_clickcatcher()
 	if(!void)
@@ -1056,36 +1083,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/AnnouncePR(announcement)
-	if(prefs && prefs.chat_toggles & CHAT_PULLR)
+	if(prefs && prefs.read_player_preference(/datum/preference/toggle/chat_pullr))
 		to_chat(src, announcement)
-
-/client/proc/show_character_previews(mutable_appearance/source)
-	LAZYINITLIST(char_render_holders)
-	if(!LAZYLEN(char_render_holders))
-		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
-			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
-			screen |= plane_master
-			plane_master.screen_loc = "character_preview_map:0,CENTER"
-
-	var/pos = 0
-	for(var/D in GLOB.cardinals)
-		pos++
-		var/atom/movable/screen/O = LAZYACCESS(char_render_holders, "[D]")
-		if(!O)
-			O = new
-			LAZYSET(char_render_holders, "[D]", O)
-			screen |= O
-		O.appearance = source
-		O.dir = D
-		O.screen_loc = "character_preview_map:0,[pos]"
-
-/client/proc/clear_character_previews()
-	for(var/index in char_render_holders)
-		var/atom/movable/screen/S = char_render_holders[index]
-		screen -= S
-		qdel(S)
-	char_render_holders = null
 
 /client/proc/show_account_identifier()
 	set name = "Show Account Identifier"
@@ -1134,7 +1133,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(response.errored || response.status_code != 200 || response.body == "[]")
 		return
 
-	bans = json_decode(response["body"])
+	bans = json_decode(response.body)
 	for(var/list/ban in bans)
 		var/list/ban_attributes = ban["banAttributes"]
 		if(ban_attributes["BeeStationGlobal"])
@@ -1156,14 +1155,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.particool = new /datum/particle_editor(in_atom)
 		holder.particool.ui_interact(mob)
 
-/client/proc/update_ambience_pref()
-	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
-		SSambience.add_ambience_client(src)
-	else
-		SSambience.remove_ambience_client(src)
-
 /client/proc/give_award(achievement_type, mob/user)
 	return player_details.achievements.unlock(achievement_type, user)
 
 /client/proc/increase_score(achievement_type, mob/user, value)
 	return player_details.achievements.increase_score(achievement_type, user, value)
+
+#undef LIMITER_SIZE
+#undef CURRENT_SECOND
+#undef SECOND_COUNT
+#undef CURRENT_MINUTE
+#undef MINUTE_COUNT
+#undef ADMINSWARNED_AT

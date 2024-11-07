@@ -33,6 +33,32 @@
 	throw_range = 7
 	force = 0
 
+/*
+ * Empty plushies before stuffing
+ */
+/obj/item/toy/empty_plush //not a plushie subtype because of all the code regarding breeding and weird jokes, this is just a transitory state
+	name = "plush fabric"
+	desc = "An empty plush fabric. Ready to be stuffed with cotton."
+	icon = 'icons/obj/plushes.dmi'
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	icon_state = "debug"
+
+/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton))
+		var/obj/item/stack/S = I
+		if(S.amount< 3)
+			to_chat(user, "<span class'danger'>You need three stacks of cotton to stuff a plush!</span>")
+			return
+		if(do_after(user, 3 SECONDS))
+			var/obj/item/toy/plush/P = pick(subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp)
+			new P(get_turf(src))
+			to_chat(user, "<span class='notice'>You make a new plush.</span>")
+			S.use(3)
+			qdel(src)
+			return
+	. = ..()
+
 
 /*
  * Balloons
@@ -69,7 +95,7 @@
 			update_icon()
 
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents)
 			if(I.reagents.total_volume <= 0)
 				to_chat(user, "<span class='warning'>[I] is empty.</span>")
@@ -162,13 +188,15 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
+	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(/datum/material/iron=10, /datum/material/glass=10)
-	attack_verb = list("struck", "pistol whipped", "hit", "bashed")
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
+	attack_verb_continuous = list("strikes", "pistol whips", "hits", "bashes")
+	attack_verb_simple = list("strike", "pistol whip", "hit", "bash")
 	var/bullets = 7
 
 /obj/item/toy/gun/examine(mob/user)
@@ -213,7 +241,7 @@
 	src.bullets--
 	user.visible_message("<span class='danger'>[user] fires [src] at [target]!</span>", \
 						"<span class='danger'>You fire [src] at [target]!</span>", \
-						 "<span class='italics'>You hear a gunshot!</span>")
+						"<span class='italics'>You hear a gunshot!</span>")
 
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"
@@ -221,11 +249,12 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "357OLD-7"
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron=10, /datum/material/glass=10)
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
 	var/amount_left = 7
 
-/obj/item/toy/ammo/gun/update_icon()
-	src.icon_state = "357OLD-[src.amount_left]"
+/obj/item/toy/ammo/gun/update_icon_state()
+	icon_state = "357OLD-[amount_left]"
+	return ..()
 
 /obj/item/toy/ammo/gun/examine(mob/user)
 	. = ..()
@@ -244,7 +273,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	var/active = 0
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("attacked", "struck", "hit")
+	attack_verb_continuous = list("attacks", "strikes", "hits")
+	attack_verb_simple = list("attack", "strike", "hit")
 	var/hacked = FALSE
 	var/saber_color
 
@@ -307,7 +337,8 @@
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-	attack_verb = list("pricked", "absorbed", "gored")
+	attack_verb_continuous = list("pricks", "absorbs", "gores")
+	attack_verb_simple = list("prick", "absorb", "gore")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	item_flags = ISWEAPON
@@ -323,7 +354,8 @@
 	item_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	attack_verb = list("batonged", "stunned", "hit")
+	attack_verb_continuous = list("batongs", "stuns", "hits")
+	attack_verb_simple = list("batong", "stun", "hit")
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 
@@ -339,7 +371,8 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
-	attack_verb = list("robusted")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	item_flags = ISWEAPON
 
 /obj/item/toy/windupToolbox/attack_self(mob/user)
@@ -386,10 +419,16 @@
 	throw_speed = 3
 	throw_range = 5
 	twohand_force = 0
-	attack_verb = list("attacked", "struck", "hit")
+	attack_verb_continuous = list("attacks", "strikes", "hits")
+	attack_verb_simple = list("attack", "strike", "hit")
 	block_upgrade_walk = 0
 	block_level = 0
 	item_flags = ISWEAPON
+
+/obj/item/dualsaber/toy/on_wield(obj/item/source, mob/living/carbon/user)
+	. = ..()
+	sharpness = IS_BLUNT
+	bleed_force = 0
 
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
@@ -415,10 +454,13 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices")
+	attack_verb_simple = list("attack", "slash", "stab", "slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
 	item_flags = ISWEAPON
+	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 
 /*
  * Snap pops
@@ -484,89 +526,194 @@
 /*
  * Mech prizes
  */
-/obj/item/toy/prize
+/obj/item/toy/mecha
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "ripleytoy"
+	icon_state = "fivestarstoy"
+	verb_say = "beeps"
+	verb_ask = "beeps"
+	verb_exclaim = "beeps"
+	verb_yell = "beeps"
+	w_class = WEIGHT_CLASS_TINY
 	var/timer = 0
 	var/cooldown = 30
-	var/quiet = 0
+	var/quiet = FALSE
+
+/obj/item/toy/mecha/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/series, /obj/item/toy/mecha, "Mini-Mecha action figures")
 
 //all credit to skasi for toy mech fun ideas
-/obj/item/toy/prize/attack_self(mob/user)
+/obj/item/toy/mecha/attack_self(mob/user)
 	if(timer < world.time)
 		to_chat(user, "<span class='notice'>You play with [src].</span>")
 		timer = world.time + cooldown
 		if(!quiet)
-			playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
+			playsound(user, 'sound/mecha/mechstep.ogg', 20, TRUE)
 	else
 		. = ..()
 
-/obj/item/toy/prize/attack_hand(mob/user)
+/obj/item/toy/mecha/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
 	if(loc == user)
 		attack_self(user)
 
-/obj/item/toy/prize/ripley
-	name = "toy Ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 1/12."
+/obj/item/toy/mecha/ripley
+	name = "toy Ripley MK-I"
+	icon_state = "ripleytoy"
+	//max_combat_health = 4 //200 integrity
+	//special_attack_type = SPECIAL_ATTACK_DAMAGE
+	//special_attack_cry = "CLAMP SMASH"
 
-/obj/item/toy/prize/fireripley
-	name = "toy firefighting Ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 2/12."
-	icon_state = "fireripleytoy"
+/obj/item/toy/mecha/ripleymkii
+	name = "toy Ripley MK-II"
+	icon_state = "ripleymkiitoy"
+	//max_combat_health = 5 //250 integrity
+	//special_attack_type = SPECIAL_ATTACK_DAMAGE
+	//special_attack_cry = "GIGA DRILL BREAK"
 
-/obj/item/toy/prize/deathripley
-	name = "toy deathsquad Ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 3/12."
-	icon_state = "deathripleytoy"
+/obj/item/toy/mecha/hauler
+	name = "toy Hauler"
+	icon_state = "haulertoy"
+	//max_combat_health = 3 //100 integrity?
+	//special_attack_type = SPECIAL_ATTACK_UTILITY
+	//special_attack_cry = "HAUL AWAY"
 
-/obj/item/toy/prize/gygax
-	name = "toy Gygax"
-	desc = "Mini-Mecha action figure! Collect them all! 4/12."
-	icon_state = "gygaxtoy"
+/obj/item/toy/mecha/clarke
+	name = "toy Clarke"
+	icon_state = "clarketoy"
+	//max_combat_health = 4 //200 integrity
+	//special_attack_type = SPECIAL_ATTACK_UTILITY
+	//special_attack_cry = "ROLL OUT"
 
-/obj/item/toy/prize/durand
-	name = "toy Durand"
-	desc = "Mini-Mecha action figure! Collect them all! 5/12."
-	icon_state = "durandprize"
-
-/obj/item/toy/prize/honk
-	name = "toy H.O.N.K."
-	desc = "Mini-Mecha action figure! Collect them all! 6/12."
-	icon_state = "honkprize"
-
-/obj/item/toy/prize/marauder
-	name = "toy Marauder"
-	desc = "Mini-Mecha action figure! Collect them all! 7/12."
-	icon_state = "marauderprize"
-
-/obj/item/toy/prize/seraph
-	name = "toy Seraph"
-	desc = "Mini-Mecha action figure! Collect them all! 8/12."
-	icon_state = "seraphprize"
-
-/obj/item/toy/prize/mauler
-	name = "toy Mauler"
-	desc = "Mini-Mecha action figure! Collect them all! 9/12."
-	icon_state = "maulerprize"
-
-/obj/item/toy/prize/odysseus
+/obj/item/toy/mecha/odysseus
 	name = "toy Odysseus"
-	desc = "Mini-Mecha action figure! Collect them all! 10/12."
-	icon_state = "odysseusprize"
+	icon_state = "odysseustoy"
+	//max_combat_health = 4 //120 integrity
+	//special_attack_type = SPECIAL_ATTACK_HEAL
+	//special_attack_cry = "MECHA BEAM"
 
-/obj/item/toy/prize/phazon
+/obj/item/toy/mecha/gygax
+	name = "toy Gygax"
+	icon_state = "gygaxtoy"
+	//max_combat_health = 5 //250 integrity
+	//special_attack_type = SPECIAL_ATTACK_UTILITY
+	//special_attack_cry = "SUPER SERVOS"
+
+/obj/item/toy/mecha/durand
+	name = "toy Durand"
+	icon_state = "durandtoy"
+	//max_combat_health = 6 //400 integrity
+	//special_attack_type = SPECIAL_ATTACK_HEAL
+	//special_attack_cry = "SHIELD OF PROTECTION"
+
+/* We dont have this one, dont reference yet.
+/obj/item/toy/mecha/savannahivanov
+	name = "toy Savannah-Ivanov"
+	icon_state = "savannahivanovtoy"
+	//max_combat_health = 7 //450 integrity
+	//special_attack_type = SPECIAL_ATTACK_UTILITY
+	//special_attack_cry = "SKYFALL!! IVANOV STRIKE"
+*/
+
+/obj/item/toy/mecha/phazon
 	name = "toy Phazon"
-	desc = "Mini-Mecha action figure! Collect them all! 11/12."
-	icon_state = "phazonprize"
+	icon_state = "phazontoy"
+	//max_combat_health = 6 //200 integrity
+	//special_attack_type = SPECIAL_ATTACK_UTILITY
+	//special_attack_cry = "NO-CLIP"
 
-/obj/item/toy/prize/reticence
+/obj/item/toy/mecha/honk
+	name = "toy H.O.N.K."
+	icon_state = "honktoy"
+	//max_combat_health = 4 //140 integrity
+	//special_attack_type = SPECIAL_ATTACK_OTHER
+	//special_attack_type_message = "puts the opposing mech's special move on cooldown and heals this mech."
+	//special_attack_cry = "MEGA HORN"
+
+/*
+/obj/item/toy/mecha/honk/super_special_attack(obj/item/toy/mecha/victim)
+	playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 20, TRUE)
+	victim.special_attack_cooldown += 3 //Adds cooldown to the other mech and gives a minor self heal
+	combat_health++
+*/
+
+/obj/item/toy/mecha/darkgygax
+	name = "toy Dark Gygax"
+	icon_state = "darkgygaxtoy"
+	//max_combat_health = 6 //300 integrity
+	//special_attack_type = SPECIAL_ATTACK_UTILITY
+	//special_attack_cry = "ULTRA SERVOS"
+
+/obj/item/toy/mecha/mauler
+	name = "toy Mauler"
+	icon_state = "maulertoy"
+	//max_combat_health = 7 //500 integrity
+	//special_attack_type = SPECIAL_ATTACK_DAMAGE
+	//special_attack_cry = "BULLET STORM"
+
+/obj/item/toy/mecha/darkhonk
+	name = "toy Dark H.O.N.K."
+	icon_state = "darkhonktoy"
+	//max_combat_health = 5 //300 integrity
+	//special_attack_type = SPECIAL_ATTACK_DAMAGE
+	//special_attack_cry = "BOMBANANA SPREE"
+
+/obj/item/toy/mecha/deathripley
+	name = "toy Death-Ripley"
+	icon_state = "deathripleytoy"
+	//max_combat_health = 5 //250 integrity
+	//special_attack_type = SPECIAL_ATTACK_OTHER
+	//special_attack_type_message = "instantly destroys the opposing mech if its health is less than this mech's health."
+	//special_attack_cry = "KILLER CLAMP"
+
+/*
+/obj/item/toy/mecha/deathripley/super_special_attack(obj/item/toy/mecha/victim)
+	playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 20, TRUE)
+	if(victim.combat_health < combat_health) //Instantly kills the other mech if it's health is below our's.
+		say("EXECUTE!!")
+		victim.combat_health = 0
+	else //Otherwise, just deal one damage.
+		victim.combat_health--
+*/
+
+/obj/item/toy/mecha/reticence
 	name = "toy Reticence"
-	desc = "Mini-Mecha action figure! Collect them all! 12/12."
-	icon_state = "reticenceprize"
-	quiet = 1
+	icon_state = "reticencetoy"
+	quiet = TRUE
+	//max_combat_health = 4 //100 integrity
+	//special_attack_type = SPECIAL_ATTACK_OTHER
+	//special_attack_type_message = "has a lower cooldown than normal special moves, increases the opponent's cooldown, and deals damage."
+	//special_attack_cry = "*wave"
+
+/*
+/obj/item/toy/mecha/reticence/super_special_attack(obj/item/toy/mecha/victim)
+	special_attack_cooldown-- //Has a lower cooldown...
+	victim.special_attack_cooldown++ //and increases the opponent's cooldown by 1...
+	victim.combat_health-- //and some free damage.
+*/
+
+/obj/item/toy/mecha/marauder
+	name = "toy Marauder"
+	icon_state = "maraudertoy"
+	//max_combat_health = 7 //500 integrity
+	//special_attack_type = SPECIAL_ATTACK_DAMAGE
+	//special_attack_cry = "BEAM BLAST"
+
+/obj/item/toy/mecha/seraph
+	name = "toy Seraph"
+	icon_state = "seraphtoy"
+	//max_combat_health = 8 //550 integrity
+	//special_attack_type = SPECIAL_ATTACK_DAMAGE
+	//special_attack_cry = "ROCKET BARRAGE"
+
+/obj/item/toy/mecha/firefighter //rip
+	name = "toy Firefighter"
+	icon_state = "firefightertoy"
+	//max_combat_health = 5 //250 integrity?
+	//special_attack_type = SPECIAL_ATTACK_HEAL
+	//special_attack_cry = "FIRE SHIELD"
 
 
 /obj/item/toy/talking
@@ -642,17 +789,8 @@
 	user.visible_message(
 		"<span class='notice'>[user] presses the button on \the [src].</span>",
 		"<span class='notice'>You press the button on \the [src].</span>",
-		"<span class='notice'>You hear a soft click.</span>")
-
-/obj/item/toy/talking/codex_gigas/generate_messages()
-	var/datum/fakeDevil/devil = new
-	var/list/messages = list()
-	messages += "Some fun facts about: [devil.truename]"
-	messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-	messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-	messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-	messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-	return messages
+		"<span class='notice'>You hear a soft click...</span>",
+		"<span class='notice'>Nothing happens, maybe it's broken?</span>",)
 
 /obj/item/toy/talking/owl
 	name = "owl action figure"
@@ -674,6 +812,8 @@
 || A Deck of Cards for playing various games of chance ||
 */
 
+
+
 /obj/item/toy/cards
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -685,12 +825,13 @@
 	var/card_throwforce = 0
 	var/card_throw_speed = 3
 	var/card_throw_range = 7
-	var/list/card_attack_verb = list("attacked")
+	var/list/card_attack_verb_continuous = list("attacks")
+	var/list/card_attack_verb_simple = list("attack")
 	var/card_sharpness
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!</span>")
-	playsound(src, 'sound/items/cardshuffle.ogg', 50, 1)
+	playsound(src, 'sound/items/cardshuffle.ogg', 50, TRUE)
 	return BRUTELOSS
 
 /obj/item/toy/cards/proc/apply_card_vars(obj/item/toy/cards/newobj, obj/item/toy/cards/sourceobj) // Applies variables for supporting multiple types of card deck
@@ -713,29 +854,15 @@
 	. = ..()
 	populate_deck()
 
+///Generates all the cards within the deck.
 /obj/item/toy/cards/deck/proc/populate_deck()
 	icon_state = "deck_[deckstyle]_full"
-	for(var/i in 2 to 10)
-		cards += "[i] of Hearts"
-		cards += "[i] of Spades"
-		cards += "[i] of Clubs"
-		cards += "[i] of Diamonds"
-	cards += "King of Hearts"
-	cards += "King of Spades"
-	cards += "King of Clubs"
-	cards += "King of Diamonds"
-	cards += "Queen of Hearts"
-	cards += "Queen of Spades"
-	cards += "Queen of Clubs"
-	cards += "Queen of Diamonds"
-	cards += "Jack of Hearts"
-	cards += "Jack of Spades"
-	cards += "Jack of Clubs"
-	cards += "Jack of Diamonds"
-	cards += "Ace of Hearts"
-	cards += "Ace of Spades"
-	cards += "Ace of Clubs"
-	cards += "Ace of Diamonds"
+	for(var/suit in list("Hearts", "Spades", "Clubs", "Diamonds"))
+		cards += "Ace of [suit]"
+		for(var/i in 2 to 10)
+			cards += "[i] of [suit]"
+		for(var/person in list("Jack", "Queen", "King"))
+			cards += "[person] of [suit]"
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 //ATTACK HAND NOT CALLING PARENT
@@ -748,7 +875,7 @@
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
 			return
 	var/choice = null
-	if(!LAZYLEN(cards))
+	if(cards.len == 0)
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
 		return
 	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(user.loc)
@@ -759,25 +886,29 @@
 	H.parentdeck = src
 	var/O = src
 	H.apply_card_vars(H,O)
-	cards.Cut(1,2) //Removes the top card from the list
+	popleft(cards)
+	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
+	return H
 
-/obj/item/toy/cards/deck/update_icon()
-	if(LAZYLEN(cards) > original_size/2)
-		icon_state = "deck_[deckstyle]_full"
-	else if(LAZYLEN(cards) > original_size/4)
-		icon_state = "deck_[deckstyle]_half"
-	else if(LAZYLEN(cards))
-		icon_state = "deck_[deckstyle]_low"
-	else if(!LAZYLEN(cards))
-		icon_state = "deck_[deckstyle]_empty"
+/obj/item/toy/cards/deck/update_icon_state()
+	switch(cards.len)
+		if(27 to INFINITY)
+			icon_state = "deck_[deckstyle]_full"
+		if(11 to 27)
+			icon_state = "deck_[deckstyle]_half"
+		if(1 to 11)
+			icon_state = "deck_[deckstyle]_low"
+		else
+			icon_state = "deck_[deckstyle]_empty"
+	return ..()
 
 /obj/item/toy/cards/deck/attack_self(mob/user)
 	if(cooldown < world.time - 50)
 		cards = shuffle(cards)
-		playsound(src, 'sound/items/cardshuffle.ogg', 50, 1)
+		playsound(src, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		user.visible_message("<span class='notice'>[user] shuffles the deck.</span>", "<span class='notice'>You shuffle the deck.</span>")
 		cooldown = world.time
 
@@ -833,61 +964,48 @@
 	name = "hand of cards"
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "none"
+	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
 	var/list/currenthand = list()
 	var/choice = null
 
-
 /obj/item/toy/cards/cardhand/attack_self(mob/user)
-	user.set_machine(src)
+	var/list/handradial = list()
 	interact(user)
 
-/obj/item/toy/cards/cardhand/ui_interact(mob/user)
-	. = ..()
-	var/dat = "You have:<BR>"
 	for(var/t in currenthand)
-		dat += "<A href='?src=[REF(src)];pick=[t]'>A [t].</A><BR>"
-	dat += "Which card will you remove next?"
-	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_content(dat)
-	popup.open()
+		handradial[t] = image(icon = src.icon, icon_state = "sc_[t]_[deckstyle]")
 
-/obj/item/toy/cards/cardhand/Topic(href, href_list)
-	if(..())
-		return
 	if(usr.stat || !ishuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	if(!(cardUser.mobility_flags & MOBILITY_USE))
 		return
 	var/O = src
-	if(href_list["pick"])
-		if (cardUser.is_holding(src))
-			var/choice = href_list["pick"]
-			if(!(choice in src.currenthand))
-				log_href_exploit(usr)
-				return
-			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
-			src.currenthand -= choice
-			C.parentdeck = src.parentdeck
-			C.cardname = choice
-			C.apply_card_vars(C,O)
-			cardUser.put_in_hands(C)
-			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
+	var/choice = show_radial_menu(usr,src, handradial, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
+	if(!choice)
+		return FALSE
+	var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
+	currenthand -= choice
+	handradial -= choice
+	C.parentdeck = parentdeck
+	C.cardname = choice
+	C.apply_card_vars(C,O)
+	C.pickup(cardUser)
+	cardUser.put_in_hands(C)
+	cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
-			interact(cardUser)
-			update_sprite()
-			if(src.currenthand.len == 1)
-				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(src.loc)
-				N.parentdeck = src.parentdeck
-				N.cardname = src.currenthand[1]
-				N.apply_card_vars(N,O)
-				qdel(src)
-				cardUser.put_in_hands(N)
-				to_chat(cardUser, "<span class='notice'>You also take [currenthand[1]] and hold it.</span>")
-				cardUser << browse(null, "window=cardhand")
-		return
+	interact(cardUser)
+	update_sprite()
+	if(length(currenthand) == 1)
+		var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(loc)
+		N.parentdeck = parentdeck
+		N.cardname = currenthand[1]
+		N.apply_card_vars(N,O)
+		qdel(src)
+		N.pickup(cardUser)
+		cardUser.put_in_hands(N)
+		to_chat(cardUser, "<span class='notice'>You also take [currenthand[1]] and hold it.</span>")
 
 /obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
 	if(istype(C))
@@ -911,9 +1029,26 @@
 	newobj.card_throwforce = sourceobj.card_throwforce
 	newobj.card_throw_speed = sourceobj.card_throw_speed
 	newobj.card_throw_range = sourceobj.card_throw_range
-	newobj.card_attack_verb = sourceobj.card_attack_verb
+	newobj.card_attack_verb_continuous = sourceobj.card_attack_verb_continuous
+	newobj.card_attack_verb_simple = sourceobj.card_attack_verb_simple
 	newobj.resistance_flags = sourceobj.resistance_flags
 
+/**
+  * check_menu: Checks if we are allowed to interact with a radial menu
+  *
+  * Arguments:
+  * * user The mob interacting with a menu
+  */
+/obj/item/toy/cards/cardhand/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	return TRUE
+
+/**
+  * This proc updates the sprite for when you create a hand of cards
+  */
 /obj/item/toy/cards/cardhand/proc/update_sprite()
 	cut_overlays()
 	var/overlay_cards = currenthand.len
@@ -925,10 +1060,10 @@
 
 /obj/item/toy/cards/singlecard
 	name = "card"
-	desc = "a card"
+	desc = "A playing card used to play card games like poker."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "singlecard_down_nanotrasen"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	var/cardname = null
 	var/flipped = 0
 	pixel_x = -5
@@ -983,6 +1118,7 @@
 			to_chat(user, "<span class='notice'>You combine the [C.cardname] and the [src.cardname] into a hand.</span>")
 			qdel(C)
 			qdel(src)
+			H.pickup(user)
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
@@ -1019,14 +1155,14 @@
 	newobj.throw_speed = newobj.card_throw_speed
 	newobj.card_throw_range = sourceobj.card_throw_range
 	newobj.throw_range = newobj.card_throw_range
-	newobj.card_attack_verb = sourceobj.card_attack_verb
-	newobj.attack_verb = newobj.card_attack_verb
-
+	newobj.card_attack_verb_continuous = sourceobj.card_attack_verb_continuous
+	newobj.attack_verb_continuous = newobj.card_attack_verb_continuous
+	newobj.card_attack_verb_simple = sourceobj.card_attack_verb_simple
+	newobj.attack_verb_simple = newobj.card_attack_verb_simple
 
 /*
 || Syndicate playing cards, for pretending you're Gambit and playing poker for the nuke disk. ||
 */
-
 /obj/item/toy/cards/deck/syndicate
 	name = "suspicious looking deck of cards"
 	desc = "A deck of space-grade playing cards. They seem unusually rigid."
@@ -1038,8 +1174,10 @@
 	card_throw_speed = 6
 	embedding = list("pain_mult" = 1, "embed_chance" = 80, "max_damage_mult" = 8, "fall_chance" = 0, "embed_chance_turf_mod" = 15, "armour_block" = 60) //less painful than throwing stars
 	card_sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	card_throw_range = 7
-	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+	card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
+	card_attack_verb_simple = list("attack", "slice", "dice", "slash", "cut")
 	resistance_flags = NONE
 
 /*
@@ -1093,7 +1231,7 @@
  */
 /obj/item/toy/redbutton
 	name = "big red button"
-	desc = "A big, plastic red button. Reads 'From HonkCo Pranks?' on the back."
+	desc = "A big, plastic red button. Reads 'From Honk Co. Pranks?' on the back."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	w_class = WEIGHT_CLASS_SMALL
@@ -1264,7 +1402,6 @@
 
 /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
-	desc = null
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 	w_class = WEIGHT_CLASS_TINY
@@ -1283,190 +1420,206 @@
 		playsound(user, toysound, 20, 1)
 
 /obj/item/toy/figure/cmo
-	name = "Chief Medical Officer action figure"
+	name = "\improper Chief Medical Officer action figure"
 	icon_state = "cmo"
 	toysay = "Suit sensors!"
 
 /obj/item/toy/figure/assistant
-	name = "Assistant action figure"
+	name = "\improper Assistant action figure"
 	icon_state = "assistant"
-	toysay = "Grey tide world wide!"
+	item_state = "doll"
+	toysay = "Greytide world wide!"
 
 /obj/item/toy/figure/atmos
-	name = "Atmospheric Technician action figure"
+	name = "\improper Atmospheric Technician action figure"
 	icon_state = "atmos"
 	toysay = "Glory to Atmosia!"
 
 /obj/item/toy/figure/bartender
-	name = "Bartender action figure"
+	name = "\improper Bartender action figure"
 	icon_state = "bartender"
 	toysay = "Where is Pun Pun?"
 
 /obj/item/toy/figure/borg
-	name = "Cyborg action figure"
+	name = "\improper Cyborg action figure"
 	icon_state = "borg"
 	toysay = "I. LIVE. AGAIN."
 	toysound = 'sound/voice/liveagain.ogg'
 
 /obj/item/toy/figure/botanist
-	name = "Botanist action figure"
+	name = "\improper Botanist action figure"
 	icon_state = "botanist"
 	toysay = "Blaze it!"
 
 /obj/item/toy/figure/captain
-	name = "Captain action figure"
+	name = "\improper Captain action figure"
 	icon_state = "captain"
 	toysay = "Any heads of staff?"
 
 /obj/item/toy/figure/cargotech
-	name = "Cargo Technician action figure"
+	name = "\improper Cargo Technician action figure"
 	icon_state = "cargotech"
 	toysay = "For Cargonia!"
 
 /obj/item/toy/figure/ce
-	name = "Chief Engineer action figure"
+	name = "\improper Chief Engineer action figure"
 	icon_state = "ce"
 	toysay = "Wire the solars!"
 
 /obj/item/toy/figure/chaplain
-	name = "Chaplain action figure"
+	name = "\improper Chaplain action figure"
 	icon_state = "chaplain"
 	toysay = "Praise Space Jesus!"
 
 /obj/item/toy/figure/chef
-	name = "Chef action figure"
+	name = "\improper Cook action figure"
 	icon_state = "chef"
-	toysay = " I'll make you into a burger!"
+	toysay = "I'll make you into a burger!"
 
 /obj/item/toy/figure/chemist
-	name = "Chemist action figure"
+	name = "\improper Chemist action figure"
 	icon_state = "chemist"
 	toysay = "Get your pills!"
 
 /obj/item/toy/figure/clown
-	name = "Clown action figure"
+	name = "\improper Clown action figure"
 	icon_state = "clown"
 	toysay = "Honk!"
 	toysound = 'sound/items/bikehorn.ogg'
 
 /obj/item/toy/figure/ian
-	name = "Ian action figure"
+	name = "\improper Ian action figure"
 	icon_state = "ian"
 	toysay = "Arf!"
 
 /obj/item/toy/figure/detective
-	name = "Detective action figure"
+	name = "\improper Detective action figure"
 	icon_state = "detective"
 	toysay = "This airlock has grey jumpsuit and insulated glove fibers on it."
 
 /obj/item/toy/figure/dsquad
-	name = "Death Squad Officer action figure"
+	name = "\improper Deathsquad Officer action figure"
 	icon_state = "dsquad"
-	toysay = "Kill em all!"
+	toysay = "Kill 'em all!"
 
 /obj/item/toy/figure/engineer
-	name = "Engineer action figure"
+	name = "\improper Station Engineer action figure"
 	icon_state = "engineer"
 	toysay = "Oh god, the singularity is loose!"
 
 /obj/item/toy/figure/geneticist
-	name = "Geneticist action figure"
+	name = "\improper Geneticist action figure"
 	icon_state = "geneticist"
 	toysay = "Smash!"
 
 /obj/item/toy/figure/hop
-	name = "Head of Personnel action figure"
+	name = "\improper Head of Personnel action figure"
 	icon_state = "hop"
 	toysay = "Giving out all access!"
 
 /obj/item/toy/figure/hos
-	name = "Head of Security action figure"
+	name = "\improper Head of Security action figure"
 	icon_state = "hos"
 	toysay = "Go ahead, make my day."
 
 /obj/item/toy/figure/qm
-	name = "Quartermaster action figure"
+	name = "\improper Quartermaster action figure"
 	icon_state = "qm"
 	toysay = "Please sign this form in triplicate and we will see about geting you a welding mask within 3 business days."
 
 /obj/item/toy/figure/janitor
-	name = "Janitor action figure"
+	name = "\improper Janitor action figure"
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
 /obj/item/toy/figure/lawyer
-	name = "Lawyer action figure"
+	name = "\improper Lawyer action figure"
 	icon_state = "lawyer"
 	toysay = "My client is a dirty traitor!"
 
 /obj/item/toy/figure/curator
-	name = "Curator action figure"
+	name = "\improper Curator action figure"
 	icon_state = "curator"
 	toysay = "One day while..."
 
 /obj/item/toy/figure/md
-	name = "Medical Doctor action figure"
+	name = "\improper Medical Doctor action figure"
 	icon_state = "md"
 	toysay = "The patient is already dead!"
 
+/obj/item/toy/figure/paramedic
+	name = "\improper Paramedic action figure"
+	icon_state = "paramedic"
+	toysay = "And the best part? I'm not even a real doctor!"
+
+/obj/item/toy/figure/psychologist
+	name = "\improper Psychologist action figure"
+	icon_state = "psychologist"
+	toysay = "Alright, just take these happy pills!"
+
+/obj/item/toy/figure/prisoner
+	name = "\improper Prisoner action figure"
+	icon_state = "prisoner"
+	toysay = "I did not hit her! I did not!"
+
 /obj/item/toy/figure/mime
-	name = "Mime action figure"
+	name = "\improper Mime action figure"
 	icon_state = "mime"
 	toysay = "..."
 	toysound = null
 
 /obj/item/toy/figure/miner
-	name = "Shaft Miner action figure"
+	name = "\improper Shaft Miner action figure"
 	icon_state = "miner"
 	toysay = "COLOSSUS RIGHT OUTSIDE THE BASE!"
 
 /obj/item/toy/figure/ninja
-	name = "Ninja action figure"
+	name = "\improper Space Ninja action figure"
 	icon_state = "ninja"
-	toysay = "Oh god! Stop shooting, I'm friendly!"
+	toysay = "I am the shadow warrior!"
 
 /obj/item/toy/figure/wizard
-	name = "Wizard action figure"
+	name = "\improper Wizard action figure"
 	icon_state = "wizard"
-	toysay = "Ei Nath!"
+	toysay = "EI NATH!"
 	toysound = 'sound/magic/disintegrate.ogg'
 
 /obj/item/toy/figure/rd
-	name = "Research Director action figure"
+	name = "\improper Research Director action figure"
 	icon_state = "rd"
 	toysay = "Blowing all of the borgs!"
 
 /obj/item/toy/figure/roboticist
-	name = "Roboticist action figure"
+	name = "\improper Roboticist action figure"
 	icon_state = "roboticist"
 	toysay = "Big stompy mechs!"
 	toysound = 'sound/mecha/mechstep.ogg'
 
 /obj/item/toy/figure/scientist
-	name = "Scientist action figure"
+	name = "\improper Scientist action figure"
 	icon_state = "scientist"
 	toysay = "I call toxins."
 	toysound = 'sound/effects/explosionfar.ogg'
 
 /obj/item/toy/figure/syndie
-	name = "Nuclear Operative action figure"
+	name = "\improper Nuclear Operative action figure"
 	icon_state = "syndie"
 	toysay = "Get that fucking disk!"
 
 /obj/item/toy/figure/secofficer
-	name = "Security Officer action figure"
+	name = "\improper Security Officer action figure"
 	icon_state = "secofficer"
 	toysay = "I am the law!"
 	toysound = 'sound/voice/complionator/dredd.ogg'
 
 /obj/item/toy/figure/virologist
-	name = "Virologist action figure"
+	name = "\improper Virologist action figure"
 	icon_state = "virologist"
 	toysay = "It's beneficial! Mostly."
 	toysound = 'sound/ambience/antag/ling_aler.ogg'
 
 /obj/item/toy/figure/warden
-	name = "Warden action figure"
+	name = "\improper Warden action figure"
 	icon_state = "warden"
 	toysay = "Seventeen minutes for coughing at an officer!"
 
@@ -1475,8 +1628,8 @@
 	name = "ventriloquist dummy"
 	desc = "It's a dummy, dummy."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "assistant"
-	item_state = "doll"
+	icon_state = "puppet"
+	item_state = "puppet"
 	var/doll_name = "Dummy"
 
 //Add changing looks when i feel suicidal about making 20 inhands for these.
@@ -1509,7 +1662,8 @@
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
+	attack_verb_continuous = list("sacrifices", "transmutes", "grasps", "curses")
+	attack_verb_simple = list("sacrifice", "transmute", "grasp", "curse")
 	var/open = FALSE
 
 /obj/item/toy/eldrich_book/attack_self(mob/user)

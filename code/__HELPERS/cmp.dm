@@ -98,6 +98,9 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_advdisease_resistance_asc(datum/disease/advance/A, datum/disease/advance/B)
 	return A.resistance - B.resistance
 
+/proc/cmp_advdisease_symptomid_asc(datum/symptom/A, datum/symptom/B)
+	return sorttext(B.id, A.id)
+
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
 	var/a_sign = SIGN(initial(A.value) * -1)
 	var/b_sign = SIGN(initial(B.value) * -1)

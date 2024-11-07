@@ -2,6 +2,7 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
+	worn_icon_state = "pda"
 	icon_state_unpowered = "tablet"
 	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
@@ -107,11 +108,11 @@
 			return
 	..()
 
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
+/obj/item/modular_computer/tablet/attack_atom(obj/target, mob/living/user)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the gas scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
+		if(thread.use_attack_obj && !thread.attack_atom(target, user))
 			return
 	..()
 
@@ -273,7 +274,7 @@
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)
 				self_monitoring = null
-				CRASH("Cyborg [borgo]'s tablet hard drive rejected recieving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
+				CRASH("Cyborg [borgo]'s tablet hard drive rejected receiving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
 	return self_monitoring
 
 //Makes the light settings reflect the borg's headlamp settings
@@ -322,7 +323,7 @@
 	theme_locked = TRUE
 
 
-/obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
+/obj/item/modular_computer/tablet/integrated/syndicate/Initialize(mapload)
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
@@ -363,13 +364,10 @@
 	equipped = TRUE
 	if(!user.client.prefs)
 		return
-	var/pref_theme = user.client.prefs.pda_theme
-	if(!theme_locked && !ignore_theme_pref)
-		for(var/key in allowed_themes) // i am going to scream. DM lists stop sucking please
-			if(allowed_themes[key] == pref_theme)
-				device_theme = pref_theme
-				break
-	classic_color = user.client.prefs.pda_color
+	var/pref_theme = user.client.prefs.read_character_preference(/datum/preference/choiced/pda_theme)
+	if(!theme_locked && !ignore_theme_pref && (pref_theme in allowed_themes))
+		device_theme = allowed_themes[pref_theme]
+	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
 /obj/item/modular_computer/tablet/pda/update_icon()
 	..()
@@ -386,7 +384,7 @@
 		add_overlay(mutable_appearance(init_icon, "light_overlay"))
 
 
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
+/obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 

@@ -35,6 +35,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambient_music_index = AMBIENCE_SPACE
 	ambient_buzz = null //Space is deafeningly quiet
 	sound_environment = SOUND_AREA_SPACE
+	fullbright_type = FULLBRIGHT_STARLIGHT
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -51,6 +52,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/testroom
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	name = "Test Room"
 	icon_state = "storage"
 
@@ -59,24 +61,50 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid
 	name = "Asteroid"
 	icon_state = "asteroid"
-	requires_power = FALSE
+	always_unpowered = TRUE
 	has_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_MINING
 	sound_environment = SOUND_AREA_ASTEROID
 	area_flags = UNIQUE_AREA
+	fullbright_type = FULLBRIGHT_STARLIGHT
 
 /area/asteroid/nearstation
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambience_index = AMBIENCE_RUINS
-	always_unpowered = FALSE
-	requires_power = TRUE
 	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-//STATION13
+/area/asteroid/paradise
+	name = "paradise"
+	icon_state = "asteroid"
+	outdoors = TRUE
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
+/area/asteroid/paradise/surface
+	name = "paradise surface"
+	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	sound_environment = null
+
+/area/asteroid/paradise/surface/sand
+	name = "paradise surface sand"
+	map_generator = /datum/map_generator/grass_generator
+
+/area/asteroid/paradise/surface/water
+	name = "paradise surface water"
+	ambientsounds = list('sound/ambience/shore.ogg')
+	mood_bonus = 1
+	mood_message = "<span class='warning'>The waves sound nice.\n</span>"
+
+/area/asteroid/paradise/surface/grass
+	name = "paradise surface grass"
+	map_generator = /datum/map_generator/grass_generator
+
+
+//STATION13
 //Docking Areas
 
 /area/docking
@@ -86,6 +114,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#1c748a"
 	lighting_colour_bulb = "#1c748a"
 	lights_always_start_on = TRUE
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/docking/arrival
 	name = "Arrival Docking Area"
@@ -108,6 +137,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#1c748a"
 	lighting_colour_bulb = "#1c748a"
 	lights_always_start_on = TRUE
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/drydock/security
 	name = "Security Shuttle drydock"
@@ -119,6 +149,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_MAINT
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
 	ambient_buzz_vol = 20
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	rare_ambient_sounds = list(
 		'sound/machines/airlock.ogg',
 		'sound/effects/snap.ogg',
@@ -142,23 +173,31 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_reverse = TRUE
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/maintenance/get_turf_textures()
+	return GLOB.turf_texture_maint
 
 //Maintenance - Departmental
 
 /area/maintenance/department/chapel
 	name = "Chapel Maintenance"
 	icon_state = "maint_chapel"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/maintenance/department/chapel/monastery
 	name = "Monastery Maintenance"
 	icon_state = "maint_monastery"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/maintenance/department/crew_quarters/bar
 	name = "Bar Maintenance"
 	icon_state = "maint_bar"
 	sound_environment = SOUND_AREA_WOODFLOOR
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/maintenance/department/crew_quarters/dorms
 	name = "Dormitory Maintenance"
@@ -175,14 +214,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/department/engine/atmos
 	name = "Atmospherics Maintenance"
 	icon_state = "maint_atmos"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/maintenance/department/security
 	name = "Security Maintenance"
 	icon_state = "maint_sec"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/maintenance/department/security/brig
 	name = "Brig Maintenance"
 	icon_state = "maint_brig"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/maintenance/department/medical
 	name = "Medbay Maintenance"
@@ -200,6 +242,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Science Maintenance"
 	icon_state = "maint_sci"
 
+/area/maintenance/department/science/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/maintenance/department/science/central
 	name = "Central Science Maintenance"
 	icon_state = "maint_sci_central"
@@ -211,6 +256,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/department/bridge
 	name = "Bridge Maintenance"
 	icon_state = "maint_bridge"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/maintenance/department/engine
 	name = "Engineering Maintenance"
@@ -365,13 +412,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Hallway
 /area/hallway
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
-
-/area/hallway
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/hallway/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/hallway/primary
 	name = "Primary Hallway"
@@ -399,6 +449,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway/secondary/command
 	name = "Command Hallway"
 	icon_state = "bridge_hallway"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/hallway/secondary/construction
 	name = "Construction Area"
@@ -451,6 +502,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway/upper/secondary/command
 	name = "Upper Command Hallway"
 	icon_state = "bridge_hallway"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/hallway/upper/secondary/construction
 	name = "Upper Construction Area"
@@ -486,6 +538,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
+	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
+
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
 	icon_state = "meeting"
@@ -501,12 +556,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "showroom"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
+/area/crew_quarters
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
 /area/crew_quarters/heads/captain
 	name = "Captain's Office"
 	icon_state = "captain"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 	lights_always_start_on = FALSE
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/crew_quarters/heads/captain/private
 	name = "Captain's Quarters"
@@ -514,36 +574,43 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 	lights_always_start_on = FALSE
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/crew_quarters/heads/chief
 	name = "Chief Engineer's Office"
 	icon_state = "ce_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = FALSE
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/crew_quarters/heads/cmo
 	name = "Chief Medical Officer's Office"
 	icon_state = "cmo_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = FALSE
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/crew_quarters/heads/hop
 	name = "Head of Personnel's Office"
 	icon_state = "hop_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = FALSE
+	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/crew_quarters/heads/hos
 	name = "Head of Security's Office"
 	icon_state = "hos_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = FALSE
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/crew_quarters/heads/hor
 	name = "Research Director's Office"
 	icon_state = "rd_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = FALSE
+	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/comms
 	name = "Communications Relay"
@@ -553,6 +620,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/server
 	name = "Messaging Server Room"
@@ -560,22 +628,32 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 //Crew
 
 /area/crew_quarters
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/warm_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/crew_quarters/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/crew_quarters/dorms
 	name = "Dormitories"
 	icon_state = "dorms"
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
+
+/area/commons
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/commons/dorms/barracks
 	name = "Sleep Barracks"
@@ -646,7 +724,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "fitness"
 
 /area/crew_quarters/park
-	name = "Recrational Park"
+	name = "Recreational Park"
 	icon_state = "fitness"
 	lighting_colour_bulb = "#80aae9"
 	lighting_colour_tube = "#80aae9"
@@ -655,7 +733,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/cafeteria
 	name = "Cafeteria"
 	icon_state = "cafeteria"
-	lights_always_start_on = FALSE
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/crew_quarters/kitchen
 	name = "Kitchen"
@@ -663,22 +741,25 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e3ffff"
 	lighting_colour_bulb = "#d5ffff"
 	lights_always_start_on = FALSE
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/crew_quarters/kitchen/coldroom
 	name = "Kitchen Cold Room"
 	icon_state = "kitchen_cold"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	color_correction = /datum/client_colour/area_color/cold
 
 /area/crew_quarters/bar
 	name = "Bar"
 	icon_state = "bar"
 	mood_bonus = 5
 	mood_message = "<span class='nicegreen'>I love being in the bar!\n</span>"
+	lights_always_start_on = TRUE
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
-	lights_always_start_on = FALSE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
 	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
@@ -686,15 +767,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	return ..()
 
 /area/crew_quarters/bar/lounge
-	name = "Bar lounge"
+	name = "Bar Lounge"
 	icon_state = "lounge"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/crew_quarters/bar/Initialize(mapload)
-	. = ..()
-	GLOB.bar_areas += src
-
-/area/service/bar/Initialize(mapload)
 	. = ..()
 	GLOB.bar_areas += src
 
@@ -718,26 +795,31 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Theatre"
 	icon_state = "theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR
-	lights_always_start_on = FALSE
+	color_correction = /datum/client_colour/area_color/clown
 
 /area/crew_quarters/theatre/backstage
 	name = "Backstage"
 	icon_state = "theatre_back"
 	sound_environment = SOUND_AREA_WOODFLOOR
+	lights_always_start_on = FALSE
 
 /area/crew_quarters/theatre/abandoned
 	name = "Abandoned Theatre"
 	icon_state = "theatre"
+	lights_always_start_on = FALSE
 
 /area/library
 	name = "Library"
 	icon_state = "library"
 	flags_1 = NONE
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
+	color_correction = /datum/client_colour/area_color/warm_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/library/lounge
 	name = "Library Lounge"
@@ -752,11 +834,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/chapel
 	icon_state = "chapel"
 	ambience_index = AMBIENCE_HOLY
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	flags_1 = NONE
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "The consecration here prevents you from warping in."
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/chapel/main
 	name = "Chapel"
@@ -785,6 +869,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "law"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 
 //Engineering
@@ -795,6 +881,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffce93"
 	lighting_colour_bulb = "#ffbc6f"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	color_correction = /datum/client_colour/area_color/warm_yellow
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
 
 /area/engine/engine_smes
 	name = "Engineering SMES"
@@ -804,9 +892,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering"
 	icon_state = "engine"
 
+/area/engine/engineering/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/engineering/hallway
 	name = "Engineering Hallway"
 	icon_state = "engine_hallway"
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
 
 /area/engine/atmos
 	name = "Atmospherics"
@@ -819,6 +911,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/engine/engine_room //donut station specific
 	name = "Engine Room"
@@ -828,6 +921,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Supermatter External Access"
 	icon_state = "engine_foyer"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/engine/supermatter
 	name = "Supermatter Engine"
@@ -835,6 +929,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/engine/break_room
 	name = "Engineering Foyer"
@@ -849,6 +944,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "The gravitons generated here could throw off your warp's destination and possibly throw you into deep space."
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/engine/storage
 	name = "Engineering Storage"
@@ -922,6 +1018,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/solars
 	name = "Solar Maintenance"
 	icon_state = "yellow"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
 
 /area/maintenance/solars/port
 	name = "Port Solar Maintenance"
@@ -954,6 +1052,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "teleporter"
 	ambience_index = AMBIENCE_ENGI
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH)
 
 /area/gateway
 	name = "Gateway"
@@ -961,12 +1060,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH)
 
 //MedBay
 
 /area/medical
 	name = "Medical"
 	icon_state = "medbay"
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	ambience_index = AMBIENCE_MEDICAL
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	mood_bonus = 2
@@ -974,6 +1075,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MEDICAL)
 
 /area/medical/medbay/zone2
 	name = "Medbay"
@@ -1006,10 +1109,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/storage
 	name = "Medbay Storage"
 	icon_state = "med_storage"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/office
 	name = "Medical Office"
 	icon_state = "med_office"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/break_room
 	name = "Medical Break Room"
@@ -1038,6 +1143,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_VIROLOGY
 	flags_1 = NONE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/morgue
 	name = "Morgue"
@@ -1052,6 +1158,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Chemistry"
 	icon_state = "chem"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/chemistry/upper
 	name = "Upper Chemistry"
@@ -1065,6 +1172,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Surgery"
 	icon_state = "surgery"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/surgery/aux
 	name = "Auxillery Surgery"
@@ -1073,6 +1181,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/cryo
 	name = "Cryogenics"
 	icon_state = "cryo"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/exam_room
 	name = "Exam Room"
@@ -1082,6 +1191,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Genetics Lab"
 	icon_state = "genetics"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/medical/genetics/cloning
 	name = "Cloning Lab"
@@ -1090,6 +1200,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/sleeper
 	name = "Medbay Treatment Center"
 	icon_state = "exam_room"
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
 
 //Security
@@ -1102,6 +1213,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffeee2"
 	lighting_colour_bulb = "#ffdfca"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	color_correction = /datum/client_colour/area_color/warm_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/security/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/security/main
 	name = "Security Office"
@@ -1116,11 +1232,21 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
 
+/area/security/brig/dock
+	name = "Brig Dock"
+
+/area/security/brig/medbay
+	name = "Brig Bay"
+
+/area/security/brig/aft
+	name = "Brig Aft"
+
 /area/security/courtroom
 	name = "Courtroom"
 	icon_state = "courtroom"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_COURT)
 
 /area/security/prison
 	name = "Prison Wing"
@@ -1129,6 +1255,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
+	camera_networks = list(CAMERA_NETWORK_PRISON)
 
 /area/security/prison/shielded
 	name = "Prison Wing Shielded area"
@@ -1137,6 +1264,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"
+	camera_networks = list(CAMERA_NETWORK_PRISON)
 
 /area/security/processing/cremation
 	name = "Security Crematorium"
@@ -1147,6 +1275,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig Control"
 	icon_state = "Warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+	camera_networks = list(CAMERA_NETWORK_PRISON)
 
 /area/security/detectives_office
 	name = "Detective's Office"
@@ -1177,11 +1306,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Vault"
 	icon_state = "nuke_storage"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
+	camera_networks = list(CAMERA_NETWORK_VAULT)
 
 /area/ai_monitored/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
+	camera_networks = list(CAMERA_NETWORK_VAULT)
 
 /area/security/checkpoint
 	name = "Security Checkpoint"
@@ -1254,7 +1385,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffe3cc"
 	lighting_colour_bulb = "#ffdbb8"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	color_correction = /datum/client_colour/area_color/warm_yellow
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/quartermaster/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -1278,15 +1414,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/cargo/lobby
 	name = "\improper Cargo Lobby"
 	icon_state = "cargo_lobby"
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	color_correction = /datum/client_colour/area_color/warm_yellow
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
 	icon_state = "quart_office"
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 
 /area/quartermaster/qm_bedroom
 	name = "Quartermaster's Bedroom"
 	icon_state = "quart_private"
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 
 /area/quartermaster/miningdock
 	name = "Mining Dock"
@@ -1317,13 +1457,24 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/janitor/custodian
+	name = "Custodial Closet"
+	icon_state = "janitor"
 
 /area/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
+	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
+
+/area/hydroponics/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/hydroponics/garden
 	name = "Garden"
@@ -1350,6 +1501,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#e4f7ff"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH)
+
+/area/science/aft
+	name = "Science Aft"
 
 /area/science/lobby
 	name = "\improper Science Lobby"
@@ -1382,6 +1538,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "tox_test"
 	lights_always_start_on = TRUE
+	always_unpowered = TRUE
 
 /area/science/mixing
 	name = "Toxins Mixing Lab"
@@ -1414,6 +1571,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Robotics"
 	icon_state = "robotics"
 
+/area/science/robotics/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/science/robotics/mechbay
 	name = "Mech Bay"
 	icon_state = "mechbay"
@@ -1442,8 +1602,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Storage
 /area/storage
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/warm_yellow
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/storage/tools
 	name = "Auxiliary Tool Storage"
@@ -1453,6 +1615,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
 
+/area/storage/primary/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/storage/art
 	name = "Art Supply Storage"
 	icon_state = "art_storage"
@@ -1461,11 +1626,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Telecomms Storage"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "green"
+	camera_networks = list(CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 
 /area/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
 	clockwork_warp_allowed = FALSE
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/storage/emergency/starboard
 	name = "Starboard Emergency Storage"
@@ -1486,12 +1653,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
 
 /area/construction/mining/aux_base
 	name = "Auxiliary Base Construction"
 	icon_state = "aux_base_construction"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
+	camera_networks = list(CAMERA_NETWORK_AUXBASE)
 
 /area/construction/storage_wing
 	name = "Storage Wing"
@@ -1503,6 +1672,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	ambience_index = AMBIENCE_MAINT
 	icon_state = "vacant_room"
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/vacant_room/office
 	name = "Vacant Office"
@@ -1534,6 +1704,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/cold
+	camera_networks = list(CAMERA_NETWORK_MINISAT)
 
 /area/ai_monitored/security/armory
 	name = "Armory"
@@ -1542,11 +1714,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_WARDEN)
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>It's good to be home.</span>"
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambience_index = AMBIENCE_DANGER
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
@@ -1565,11 +1739,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
 	mood_bonus = 4
 	mood_message = "<span class='nicegreen'>The AI will bend to my will!\n</span>"
+	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_AI_UPLOAD)
 
 /area/ai_monitored/turret_protected/ai_upload_foyer
 	name = "AI Upload Access"
 	icon_state = "ai_upload_foyer"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_AI_UPLOAD)
 
 /area/ai_monitored/turret_protected/ai
 	name = "AI Chamber"
@@ -1600,6 +1776,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "AI Satellite Exterior"
 	icon_state = "yellow"
 	lights_always_start_on = TRUE
+	camera_networks = list(CAMERA_NETWORK_MINISAT)
 
 /area/ai_monitored/turret_protected/aisat/maint
 	name = "AI Satellite Maintenance"
@@ -1628,6 +1805,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 	network_root_id = STATION_NETWORK_ROOT	// They should of unpluged the router before they left
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 
 /area/tcommsat/computer
 	name = "Telecomms Control Room"

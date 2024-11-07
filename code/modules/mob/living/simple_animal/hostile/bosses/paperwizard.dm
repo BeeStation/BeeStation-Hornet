@@ -17,19 +17,19 @@
 	health = 1000
 	maxHealth = 1000
 	loot = list(/obj/effect/temp_visual/paperwiz_dying)
-	projectiletype = /obj/item/projectile/temp
+	projectiletype = /obj/projectile/temp
 	projectilesound = 'sound/weapons/emitter.ogg'
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	var/list/copies = list()
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 
 //Summon Ability
 //Lets the wizard summon his art to fight for him
 /datum/action/boss/wizard_summon_minions
 	name = "Summon Minions"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "art_summon"
 	usage_probability = 40
 	boss_cost = 30
@@ -57,7 +57,7 @@
 //Hitting the wizard himself destroys all decoys
 /datum/action/boss/wizard_mimic
 	name = "Craft Mimicry"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "mimic_summon"
 	usage_probability = 30
 	boss_cost = 40

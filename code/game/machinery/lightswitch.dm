@@ -2,7 +2,7 @@
 /obj/machinery/light_switch
 	name = "light switch"
 	icon = 'icons/obj/power.dmi'
-	icon_state = "light1"
+	icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
@@ -10,6 +10,8 @@
 	/// instead of the switch's location.
 	var/area/area = null
 	var/screwdrivered = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
@@ -23,42 +25,43 @@
 	if(!name)
 		name = "light switch ([area.name])"
 
-	update_icon()
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
+	if(CONFIG_GET(flag/dark_unstaffed_departments))
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(turn_off))
 	return
 
-/obj/machinery/light_switch/LateInitialize()
-	if(!is_station_level(z))
-		return
-	var/area/source_area = get_area(get_turf(src))
-	if(source_area.lights_always_start_on)
-		return
-	turn_off()
-
-/obj/machinery/light_switch/update_icon()
+/obj/machinery/light_switch/update_overlays()
+	. = ..()
 	if(machine_stat & NOPOWER || screwdrivered)
-		icon_state = "light-p"
-	else
-		if(area.lightswitch)
-			icon_state = "light1"
-		else
-			icon_state = "light0"
+		return
+	var/state = "light-[area.lightswitch ? "on" : "off"]"
+	. += mutable_appearance(icon, state)
+	. += emissive_appearance(icon, state, layer, alpha = src.alpha)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/light_switch/proc/turn_off()
-	if(!area.lightswitch)
+	if(!is_station_level(z))//Only affects on-station lights
 		return
-	area.lightswitch = FALSE
-	area.update_icon()
+	if(!area.lightswitch)//Lights already off
+		return
+	if(area.lights_always_start_on)//Public hallway or some other place where lights should start on
+		return
+	if(length(GLOB.roundstart_areas_lights_on))
+		if(area in GLOB.roundstart_areas_lights_on)//Department is staffed, lights should shart on
+			return
+	area.lightswitch = FALSE //All checks failed, department is not staffed, lights get turned off
 
-	for(var/obj/machinery/light_switch/L in area)
-		L.update_icon()
-
+	for(var/obj/machinery/light_switch/L in GLOB.machines)
+		if(L.area == area)
+			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	area.power_change()
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += "It is [area.lightswitch ? "on" : "off"]."
+	if(screwdrivered)
+		. += "Its panel appears to be unscrewed."
+		. += "It looks like it could be <b>pried</b> off the wall."
 
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
@@ -67,10 +70,10 @@
 		return
 	area.lightswitch = !area.lightswitch
 	play_click_sound("button")
-	area.update_icon()
 
-	for(var/obj/machinery/light_switch/L in area)
-		L.update_icon()
+	for(var/obj/machinery/light_switch/L in GLOB.machines)
+		if(L.area == area)
+			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 	area.power_change()
 
@@ -80,7 +83,7 @@
 		user.visible_message("<span class='notice'>[user] [screwdrivered ? "un" : ""]secures [name].</span>", \
 		"<span class='notice'>You [screwdrivered ? "un" : ""]secure [name].</span>")
 		I.play_tool_sound(src)
-		update_icon()
+		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 		return
 	if(I.tool_behaviour == TOOL_CROWBAR && screwdrivered)
 		I.play_tool_sound(src)
@@ -90,13 +93,9 @@
 		return
 
 /obj/machinery/light_switch/power_change()
+	SHOULD_CALL_PARENT(FALSE)
 	if(area == get_area(src))
-		if(powered(AREA_USAGE_LIGHT))
-			set_machine_stat(machine_stat & ~NOPOWER)
-		else
-			set_machine_stat(machine_stat | NOPOWER)
-
-		update_icon()
+		return ..()
 
 /obj/machinery/light_switch/emp_act(severity)
 	. = ..()
@@ -120,4 +119,4 @@
 	desc = "Used for building wall-mounted light switches."
 	icon_state = "lightswitch"
 	result_path = /obj/machinery/light_switch
-	pixel_shift = -26
+	pixel_shift = 26

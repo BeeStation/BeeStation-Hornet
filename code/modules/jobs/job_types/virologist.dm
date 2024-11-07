@@ -1,6 +1,7 @@
 /datum/job/virologist
 	title = JOB_NAME_VIROLOGIST
-	flag = VIROLOGIST
+	description = "Collect virus samples from dormant viruses, old blood, and crusty vomit from around the station, isolate the symptoms and use them to create useful healing viruses for the crew."
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -12,10 +13,9 @@
 	exp_type_department = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+	extra_access = list(ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS, ACCESS_CLONING)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
@@ -28,6 +28,18 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/virologist
 	)
 	biohazard = 75 //duh
+
+	lightup_areas = list(
+		/area/medical/morgue,
+		/area/medical/surgery,
+		/area/medical/genetics,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
+	minimal_lightup_areas = list(/area/medical/virology)
+
+/datum/job/virologist/config_check()
+	return CONFIG_GET(flag/allow_virologist)
 
 /datum/outfit/job/virologist
 	name = JOB_NAME_VIROLOGIST

@@ -465,17 +465,20 @@
 	contraband = TRUE
 	to_chat(user, "<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
 
+/obj/item/circuitboard/computer/cargo/configure_machine(obj/machinery/computer/cargo/machine)
+	if(!istype(machine))
+		CRASH("Cargo board attempted to configure incorrect machine type: [machine] ([machine?.type])")
+
+	machine.contraband = contraband
+	if (obj_flags & EMAGGED)
+		machine.obj_flags |= EMAGGED
+	else
+		machine.obj_flags &= ~EMAGGED
+
 /obj/item/circuitboard/computer/cargo/express
 	name = "express supply console (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo/express
-
-/obj/item/circuitboard/computer/cargo/express/multitool_act(mob/living/user)
-	if (!(obj_flags & EMAGGED))
-		to_chat(user, "<span class='notice'>Routing protocols are already set to: \"factory defaults\".</span>")
-	else
-		to_chat(user, "<span class='notice'>You reset the routing protocols to: \"factory defaults\".</span>")
-		obj_flags &= ~EMAGGED
 
 /obj/item/circuitboard/computer/cargo/express/on_emag(mob/user)
 	..()

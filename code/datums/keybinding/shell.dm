@@ -14,7 +14,7 @@
 
 /datum/keybinding/shell/undeploy
 	category = CATEGORY_AI
-	key = "="
+	keys = list("=")
 	name = "undeploy"
 	full_name = "Disconnect from shell"
 	description = "Returns you to your AI core"

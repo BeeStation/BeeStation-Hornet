@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_map"
+	base_icon_state = "conveyor"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
 	layer = BELOW_OPEN_DOOR_LAYER
@@ -35,6 +36,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 // Auto conveyour is always on unless unpowered
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor/auto)
+
 /obj/machinery/conveyor/auto/Initialize(mapload, newdir)
 	. = ..()
 	set_operating(TRUE)
@@ -42,22 +45,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	begin_processing()
 
 /obj/machinery/conveyor/auto/update()
-	if(machine_stat & BROKEN)
-		icon_state = "conveyor-broken"
-		set_operating(FALSE)
-		return
-	else if(!operable)
-		set_operating(FALSE)
-	else if(machine_stat & NOPOWER)
-		set_operating(FALSE)
-	else
+	. = ..()
+	if(.)
 		set_operating(TRUE)
-	icon_state = "conveyor[operating * verted]"
-	if(operating)
-		for(var/atom/movable/movable in get_turf(src))
-			start_conveying(movable)
 
 // create a conveyor
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
+
 /obj/machinery/conveyor/Initialize(mapload, newdir, newid)
 	. = ..()
 	if(newdir)
@@ -153,6 +147,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
+
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
@@ -163,11 +158,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
+/obj/machinery/conveyor/update_icon_state()
+	icon_state = "[base_icon_state][(machine_stat & BROKEN) ? "-broken" : (operating * verted)]"
+	return ..()
+
 /obj/machinery/conveyor/proc/set_operating(new_value)
 	if(operating == new_value)
 		return
 	operating = new_value
-	update_icon_state()
+	update_appearance()
 	update_move_direction()
 	//If we ever turn off, disable moveloops
 	if(!operating)
@@ -175,18 +174,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			stop_conveying(movable)
 
 /obj/machinery/conveyor/proc/update()
-	if(machine_stat & BROKEN)
-		icon_state = "conveyor-broken"
-		set_operating(FALSE)
-		return
-	if(!operable)
-		set_operating(FALSE)
+	. = TRUE
 	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
-	icon_state = "conveyor[operating * verted]"
-	if(operating)
-		for(var/atom/movable/movable in get_turf(src))
-			start_conveying(movable)
+		return FALSE
+
+	if(!operating) //If we're on, start conveying so moveloops on our tile can be refreshed if they stopped for some reason
+		return
+	for(var/atom/movable/movable in get_turf(src))
+		start_conveying(movable)
 
 /obj/machinery/conveyor/proc/conveyable_enter(datum/source, atom/convayable)
 	SIGNAL_HANDLER
@@ -227,10 +223,12 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			set_operating(FALSE)
 			if(!(machine_stat & BROKEN))
 				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
-				if(!QDELETED(C)) //God I hate stacks
+				if(QDELETED(C))
+					C = locate(/obj/item/stack/conveyor) in loc
+				if(C)
 					transfer_fingerprints_to(C)
-			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 
+			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
@@ -251,19 +249,19 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	else
 		return ..()
 
-/obj/machinery/conveyor/multitool_act(mob/living/user, obj/item/multitool/tool)
-	if(!multitool_check_buffer(user, tool)) //make sure it has a data buffer
-		return TRUE
-	var/obj/machinery/conveyor_switch/cswitch = tool.buffer
+REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
+	var/obj/machinery/conveyor_switch/cswitch = buffer
 	if(!cswitch || !istype(cswitch))
-		return TRUE
+		return NONE
 
 	// Set up the conveyor with our new ID
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 	id = cswitch.id
 	LAZYADD(GLOB.conveyors_by_id[id], src)
 	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
-	return TRUE
+	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user)
@@ -275,7 +273,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
-	set_machine_stat(machine_stat | BROKEN)
+	atom_break()
 	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)
@@ -301,7 +299,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		C.set_operable(stepdir, id, op)
 
 /obj/machinery/conveyor/power_change()
-	..()
+	. = ..()
 	update()
 
 // the conveyor control switch
@@ -321,6 +319,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/invert_icon = FALSE		// If the level points the opposite direction when it's turned on.
 
 	var/id = "" 				// must match conveyor IDs to control them
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 
 /obj/machinery/conveyor_switch/Initialize(mapload, newid)
 	. = ..()
@@ -376,20 +376,35 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		CHECK_TICK
 
 /// Updates the switch's `position` and `last_pos` variable. Useful so that the switch can properly cycle between the forwards, backwards and neutral positions.
-/obj/machinery/conveyor_switch/proc/update_position()
-	if(position == 0)
-		if(oneway)   //is it a oneway switch
-			position = oneway
-		else
-			if(last_pos < 0)
-				position = 1
-				last_pos = 0
-			else
-				position = -1
-				last_pos = 0
-	else
+/// If set direction == false, this behaves like the normal switch. If it is set to true
+/// attempt to set the switch to the indicated direction.
+/obj/machinery/conveyor_switch/proc/update_position(set_direction = FALSE, direction = 0)
+	if(set_direction)
 		last_pos = position
-		position = 0
+		position = 0 //Default to stopped.
+		if(direction > 0)
+			position = 1 //Positive values moves the switch to forward
+		if(direction < 0)
+			position = -1 //Negative values moves the switch to reverse.
+
+		//Run sanity check on the switch for one way direction.
+		if(oneway)
+			if(SIGN(position) != SIGN(oneway)) //If our signs don't match...
+				position = 0 // Set position to zero to stop the conveyor since we can't go that way.
+	else
+		if(position == 0)
+			if(oneway)   //is it a oneway switch
+				position = oneway
+			else
+				if(last_pos < 0)
+					position = 1
+					last_pos = 0
+				else
+					position = -1
+					last_pos = 0
+		else
+			last_pos = position
+			position = 0
 
 /// Called when a user clicks on this switch with an open hand.
 /obj/machinery/conveyor_switch/interact(mob/user)
@@ -409,12 +424,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	qdel(src)
 	return TRUE
 
-/obj/machinery/conveyor_switch/multitool_act(mob/living/user, obj/item/multitool/tool)
-	if(!istype(tool))
-		return
-	tool.buffer = src
-	to_chat(user, "<span class='notice'>You store [src] in [tool]'s buffer.</span>")
-	return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)
 	var/newdirtext = ""
@@ -487,6 +503,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/id = ""
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
+
 /obj/item/stack/conveyor/Initialize(mapload, new_amount, merge = TRUE, mob/user = null, _id)
 	. = ..()
 	id = _id
@@ -523,13 +541,27 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/item/circuit_component/conveyor_switch
 	display_name = "Conveyor Switch"
 	desc = "Allows to control connected conveyor belts."
-	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	//This input works the same way as clicking on a switch.
+	var/datum/port/input/toggle_trigger
+	//Direction of the belt to set.
+	var/datum/port/input/set_direction
+	//This input sets the direction of the belt
+	var/datum/port/input/set_direction_trigger
 
 	var/datum/port/output/direction
+	var/datum/port/output/triggered
+
 	var/obj/machinery/conveyor_switch/attached_switch
 
+
 /obj/item/circuit_component/conveyor_switch/populate_ports()
+	toggle_trigger = add_input_port("Toggle Switch", PORT_TYPE_SIGNAL)
+	set_direction = add_input_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	set_direction_trigger = add_input_port("Set Direction", PORT_TYPE_SIGNAL)
+
 	direction = add_output_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/conveyor_switch/get_ui_notices()
 	. = ..()
@@ -548,17 +580,25 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(!attached_switch)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(update_conveyors), port)
-
-/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(datum/port/input/port)
-	if(!attached_switch)
+	if(COMPONENT_TRIGGERED_BY(port, toggle_trigger))
+		INVOKE_ASYNC(src, PROC_REF(update_conveyors))
 		return
 
-	attached_switch.update_position()
+	if(COMPONENT_TRIGGERED_BY(port, set_direction_trigger))
+		INVOKE_ASYNC(src, PROC_REF(update_conveyors), TRUE, set_direction.value)
+		return
+
+/// If set direction == false, this behaves like the normal switch. If it is set to true
+/// attempt to set the switch to the indicated direction.
+/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(set_direction = FALSE, direction_in = 0)
+	if(!attached_switch)
+		return
+	attached_switch.update_position(set_direction, direction_in)
 	attached_switch.update_icon()
 	attached_switch.update_icon_state()
 	attached_switch.update_linked_conveyors()
 	attached_switch.update_linked_switches()
 	direction.set_output(attached_switch.position)
+	triggered.set_output(COMPONENT_SIGNAL)
 
 #undef MAX_CONVEYOR_ITEMS_MOVE

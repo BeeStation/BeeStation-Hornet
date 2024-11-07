@@ -38,7 +38,11 @@
 	if(!QDELETED(ai_hologram))
 		ai_hologram.say(message, language = language, source=current_holopad)
 		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
-		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
+		ai_hologram.create_private_chat_message(
+			message = message,
+			message_language = language,
+			hearers = list(src),
+			includes_ghosts = FALSE) // ghosts already see this except for you...
 
 		// duplication part from `game/say.dm` to make a language icon
 		var/language_icon = ""
@@ -46,15 +50,15 @@
 		if(istype(D) && D.display_icon(src))
 			language_icon = "[D.get_icon()] "
 
-		message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
+		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
+		message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
-			if(!each_ghost.client || !(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+			if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
 				continue
-			var/follow_link = FOLLOW_LINK(each_ghost, ai_hologram)
-			message = "[follow_link] [message]"
-			to_chat(each_ghost, message)
+			var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_hologram)
+			to_chat(each_ghost, "[follow_link] [message]")
 	else
 		to_chat(src, "No holopad connected.")
 
@@ -78,7 +82,7 @@
 	<LI>You can only say 30 words for every announcement.</LI>
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI>
 	<LI>Numbers are in word format, e.g. eight, sixty, etc </LI>
-	<LI>Sound effects begin with an 's' before the actual word, e.g. scensor</LI>
+	<LI>Sound effects begin with 'sound' before the actual word, e.g. soundcensor. They're all at the top of the list.</LI>
 	<LI>Use Ctrl+F to see if a word exists in the list.</LI></UL><HR>
 	"}
 
@@ -121,7 +125,7 @@
 		words.len = 30
 
 	for(var/word in words)
-		word = lowertext(trim(word))
+		word = LOWER_TEXT(trim(word))
 		if(!word)
 			words -= word
 			continue
@@ -143,7 +147,7 @@
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
-	word = lowertext(word)
+	word = LOWER_TEXT(word)
 
 	if(GLOB.vox_sounds[word])
 
@@ -151,11 +155,11 @@
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 
- 		// If there is no single listener, broadcast to everyone in the same z level
+		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.can_hear() && (M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS))
+				if(M.client && M.can_hear() && M.client.prefs.read_player_preference(/datum/preference/toggle/sound_vox))
 					var/turf/T = get_turf(M)
 					if(T.get_virtual_z_level() == z_level)
 						SEND_SOUND(M, voice)

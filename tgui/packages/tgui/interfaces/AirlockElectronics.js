@@ -1,11 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Input, Section } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 
 export const AirlockElectronics = (props, context) => {
   const { act, data } = useBackend(context);
-  const { oneAccess, unres_direction } = data;
+  const { oneAccess, unres_direction, passedName, passedCycleId } = data;
   const regions = data.regions || [];
   const accesses = data.accesses || [];
   return (
@@ -58,6 +58,30 @@ export const AirlockElectronics = (props, context) => {
                 onClick={() =>
                   act('direc_set', {
                     unres_direction: '8',
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Airlock Name">
+              <Input
+                fluid
+                maxLength={30}
+                value={passedName}
+                onChange={(e, value) =>
+                  act('passedName', {
+                    passedName: value,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Cycling Id">
+              <Input
+                fluid
+                maxLength={30}
+                value={passedCycleId}
+                onChange={(e, value) =>
+                  act('passedCycleId', {
+                    passedCycleId: value,
                   })
                 }
               />

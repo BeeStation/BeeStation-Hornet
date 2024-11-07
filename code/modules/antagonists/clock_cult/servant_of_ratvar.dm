@@ -24,7 +24,7 @@
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', vol = 60, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
 	to_chat(owner.current, "<span class='heavy_brass'><font size='7'>You feel a flash of light and the world spin around you!</font></span>")
 	to_chat(owner.current, "<span class='brass'><font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font></span>")
 	to_chat(owner.current, "<span class='brass'>Use Rat'varian observation consoles to monitor the crew and warp to the station.</span>")
@@ -56,6 +56,10 @@
 	GLOB.all_servants_of_ratvar -= owner
 	GLOB.human_servants_of_ratvar -= owner
 	GLOB.cyborg_servants_of_ratvar -= owner
+	if(!silent)
+		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!</span>", null, null, null, owner.current)
+		to_chat(owner.current, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of the Clockwork Justicar and all your memories as his servant.</span>")
+		owner.current.log_message("has renounced the cult of Rat'var!", LOG_ATTACK, color="#960000")
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)

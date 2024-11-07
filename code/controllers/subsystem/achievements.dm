@@ -11,9 +11,9 @@ SUBSYSTEM_DEF(achievements)
 	///List of all awards
 	var/list/datum/award/awards = list()
 
-/datum/controller/subsystem/achievements/Initialize(timeofday)
+/datum/controller/subsystem/achievements/Initialize()
 	if(!SSdbcore.Connect())
-		return ..()
+		return SS_INIT_NO_NEED
 	achievements_enabled = TRUE
 
 	for(var/T in subtypesof(/datum/award/achievement))
@@ -30,10 +30,10 @@ SUBSYSTEM_DEF(achievements)
 
 	for(var/i in GLOB.clients)
 		var/client/C = i
-		if(!C.player_details.achievements.initialized)
+		if(C?.player_details && !C.player_details.achievements.initialized)
 			C.player_details.achievements.InitializeData()
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/achievements/Shutdown()
 	save_achievements_to_db()
@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(achievements)
 /datum/controller/subsystem/achievements/proc/update_metadata()
 	var/list/current_metadata = list()
 	//select metadata here
-	var/datum/DBQuery/Q = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
+	var/datum/db_query/Q = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
 	if(!Q.Execute(async = TRUE))
 		qdel(Q)
 		return

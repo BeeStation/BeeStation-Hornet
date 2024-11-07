@@ -2,19 +2,21 @@
 #define PCANNON_FIREALL 1
 #define PCANNON_FILO 2
 #define PCANNON_FIFO 3
+
 /obj/item/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	force = 8 //Very heavy
-	attack_verb = list("bludgeoned", "smashed", "beaten")
+	attack_verb_continuous = list("bludgeons", "smashes", "beats")
+	attack_verb_simple = list("bludgeon", "smash", "beat")
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0, BLEED = 0)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -164,7 +166,7 @@
 		discharge = 1
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-				    		 "<span class='danger'>You fire \the [src]!</span>")
+							"<span class='danger'>You fire \the [src]!</span>")
 	log_combat(user, target, "fired at", src)
 	var/turf/T = get_target(target, get_turf(src))
 	playsound(src, fire_sound, 50, 1)
@@ -206,8 +208,8 @@
 		return target
 	var/x_o = (target.x - starting.x)
 	var/y_o = (target.y - starting.y)
-	var/new_x = CLAMP((starting.x + (x_o * range_multiplier)), 0, world.maxx)
-	var/new_y = CLAMP((starting.y + (y_o * range_multiplier)), 0, world.maxy)
+	var/new_x = clamp((starting.x + (x_o * range_multiplier)), 0, world.maxx)
+	var/new_y = clamp((starting.y + (y_o * range_multiplier)), 0, world.maxy)
 	var/turf/newtarget = locate(new_x, new_y, starting.z)
 	return newtarget
 
@@ -224,7 +226,7 @@
 	name = "improvised pneumatic cannon"
 	desc = "A gas-powered, object-firing cannon made out of common parts."
 	force = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	maxWeightClass = 7
 	gasPerThrow = 5
 	fire_mode = PCANNON_FIFO
@@ -247,11 +249,11 @@
 		tank = thetank
 	update_icon()
 
-/obj/item/pneumatic_cannon/update_icon()
-	cut_overlays()
+/obj/item/pneumatic_cannon/update_overlays()
+	. = ..()
 	if(!tank)
 		return
-	add_overlay(tank.icon_state)
+	. += tank.icon_state
 
 /obj/item/pneumatic_cannon/proc/fill_with_type(type, amount)
 	if(!ispath(type, /obj) && !ispath(type, /mob))
@@ -275,9 +277,9 @@
 	range_multiplier = 3
 	fire_mode = PCANNON_FIFO
 	throw_amount = 1
-	maxWeightClass = 150	//50 pies. :^)
+	maxWeightClass = 200	//50 pies. :^)
 	clumsyCheck = FALSE
-	var/static/list/pie_typecache = typecacheof(/obj/item/reagent_containers/food/snacks/pie)
+	var/static/list/pie_typecache = typecacheof(/obj/item/food/pie)
 
 /obj/item/pneumatic_cannon/pie/Initialize(mapload)
 	. = ..()
@@ -286,8 +288,8 @@
 /obj/item/pneumatic_cannon/pie/selfcharge
 	automatic = TRUE
 	selfcharge = TRUE
-	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream
-	maxWeightClass = 60	//20 pies.
+	charge_type = /obj/item/food/pie/cream
+	maxWeightClass = 80	//20 pies.
 
 /obj/item/pneumatic_cannon/pie/selfcharge/compact
 	name = "honkinator-4 compact pie cannon"
@@ -297,8 +299,8 @@
 /obj/item/pneumatic_cannon/pie/selfcharge/cyborg
 	name = "low velocity pie cannon"
 	automatic = FALSE
-	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream/nostun
-	maxWeightClass = 6		//2 pies
+	charge_type = /obj/item/food/pie/cream/nostun
+	maxWeightClass = 8		//2 pies
 	charge_ticks = 2		//4 second/pie
 
 /obj/item/pneumatic_cannon/speargun
@@ -315,7 +317,7 @@
 	pressureSetting = 2
 	range_multiplier = 3
 	throw_amount = 1
-	maxWeightClass = 4 //a single magspear or spear
+	maxWeightClass = WEIGHT_CLASS_BULKY //a single magspear or spear
 	spin_item = FALSE
 	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twenty, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/spear/explosive, /obj/item/clockwork/weapon/brass_spear))
 
@@ -333,7 +335,8 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 30
-	STR.max_combined_w_class = 120
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.max_combined_w_class = STR.max_w_class*STR.max_items
 	STR.display_numerical_stacking = TRUE
 	STR.can_hold = typecacheof(list(
 		/obj/item/throwing_star/magspear
@@ -342,3 +345,7 @@
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)
 		new /obj/item/throwing_star/magspear(src)
+
+#undef PCANNON_FIREALL
+#undef PCANNON_FILO
+#undef PCANNON_FIFO

@@ -1,7 +1,13 @@
 /obj/structure/girder
 	name = "girder"
-	icon_state = "girder"
-	desc = "A large structural assembly made out of iron; It requires a layer of iron before it can be considered a wall."
+	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall."
+	icon = 'icons/obj/smooth_structures/girders/girder.dmi'
+	icon_state = "girder-0"
+	base_icon_state = "girder"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_GIRDER)
+	canSmoothWith = list(SMOOTH_GROUP_GIRDER)
+
 	anchored = TRUE
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
@@ -168,7 +174,7 @@
 						qdel(src)
 					return
 
-		if(S.sheettype && S.sheettype != "runed")
+		if(S.sheettype != "runed")
 			var/M = S.sheettype
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
@@ -195,7 +201,16 @@
 					S.use(2)
 					balloon_alert(user, "You add plating.")
 					var/turf/T = get_turf(src)
-					T.PlaceOnTop(text2path("/turf/closed/wall/mineral/[M]"))
+					if(S.walltype)
+						T.PlaceOnTop(S.walltype)
+					else
+						var/turf/newturf = T.PlaceOnTop(/turf/closed/wall/material)
+						var/list/material_list = list()
+						if(S.material_type)
+							material_list[SSmaterials.GetMaterialRef(S.material_type)] = MINERAL_MATERIAL_AMOUNT * 2
+						if(material_list)
+							newturf.set_custom_materials(material_list)
+
 					transfer_fingerprints_to(T)
 					qdel(src)
 				return
@@ -285,7 +300,7 @@
 
 /obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/item/projectile))
+	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/projectile))
 		return prob(girderpasschance)
 
 /obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
@@ -303,30 +318,43 @@
 	new /obj/structure/girder/cult(loc)
 	qdel(src)
 
+// Displaced girder
 /obj/structure/girder/displaced
 	name = "displaced girder"
-	icon_state = "displaced"
+	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall. This one has unachored from the ground."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "displaced_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120
 
+// Reinforced girder
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
-	icon_state = "reinforced"
+	desc = "A large structural frame made out of iron; This one has been reinforced and It requires a layer of plasteel before it can be considered a reinforced wall."
+	icon = 'icons/obj/smooth_structures/girders/reinforced_girder.dmi'
+	icon_state = "reinforced_girder-0"
+	base_icon_state = "reinforced_girder"
 	state = GIRDER_REINF
 	girderpasschance = 0
 	max_integrity = 350
 
-
-
-//////////////////////////////////////////// cult girder //////////////////////////////////////////////
-
+//////////////////////////////////////////// cult girders //////////////////////////////////////////////
+///they will get a proper smoothing icon later :D, but not today, courier pigeon's word! 4/09/24
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
-	icon = 'icons/obj/cult.dmi'
-	icon_state= "cultgirder"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "bloodcult_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	can_displace = FALSE
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
@@ -338,14 +366,22 @@
 		balloon_alert(user, "You start slicing apart [src]...")
 		if(W.use_tool(src, user, 40, volume=50))
 			balloon_alert(user, "You slice [src] apart.")
-			var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 1)
-			transfer_fingerprints_to(R)
+			var/drop_loc = drop_location()
+			var/obj/item/stack/sheet/runed_metal/R = new(drop_loc, 1)
+			if(QDELETED(R))
+				R = locate(/obj/item/stack/sheet/runed_metal) in drop_loc
+			if(R)
+				transfer_fingerprints_to(R)
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through [src]!</span>")
-		var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 2)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/item/stack/sheet/runed_metal/R = new(drop_loc, 2)
+		if(QDELETED(R))
+			R = locate(/obj/item/stack/sheet/runed_metal) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		W.play_tool_sound(src)
 		qdel(src)
 
@@ -378,7 +414,10 @@
 /obj/structure/girder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
-			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 8)
+			return rcd_result_with_memory(
+				list("mode" = RCD_FLOORWALL, "delay" = 2 SECONDS, "cost" = 8),
+				get_turf(src), RCD_MEMORY_WALL,
+			)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 13)
 	return FALSE
@@ -388,11 +427,16 @@
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			balloon_alert(user, "You finish the wall.")
+			log_attack("[key_name(user)] has constructed a wall at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
+			if(overlapping_lattice)
+				qdel(overlapping_lattice) // Don't need lattice burried under the wall, or in the case of catwalk - on top of it.
 			T.PlaceOnTop(/turf/closed/wall)
 			qdel(src)
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			balloon_alert(user, "You deconstruct [src].")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 	return FALSE
@@ -400,8 +444,12 @@
 /obj/structure/girder/bronze
 	name = "wall gear"
 	desc = "A girder made out of sturdy bronze, made to resemble a gear."
-	icon = 'icons/obj/clockwork_objects.dmi'
-	icon_state = "wall_gear"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "clockcult_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	can_displace = FALSE
 
 /obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, params)
@@ -412,14 +460,22 @@
 		balloon_alert(user, "You start slicing apart [src]...")
 		if(W.use_tool(src, user, 40, volume=50))
 			balloon_alert(user, "You slice apart [src].")
-			var/obj/item/stack/sheet/bronze/B = new(drop_location(), 2)
-			transfer_fingerprints_to(B)
+			var/drop_loc = drop_location()
+			var/obj/item/stack/sheet/bronze/B = new(drop_loc, 2)
+			if(QDELETED(B))
+				B = locate(/obj/item/stack/sheet/bronze) in drop_loc
+			if(B)
+				transfer_fingerprints_to(B)
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through [src]!</span>")
-		var/obj/item/stack/sheet/bronze/B = new(drop_location(), 2)
-		transfer_fingerprints_to(B)
+		var/drop_loc = drop_location()
+		var/obj/item/stack/sheet/bronze/B = new(drop_loc, 2)
+		if(QDELETED(B))
+			B = locate(/obj/item/stack/sheet/bronze) in drop_loc
+		if(B)
+			transfer_fingerprints_to(B)
 		W.play_tool_sound(src)
 		qdel(src)
 

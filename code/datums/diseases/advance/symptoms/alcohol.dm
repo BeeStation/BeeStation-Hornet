@@ -12,7 +12,7 @@
 	prefixes = list("Drunken ", "Alcoholic ")
 	var/target = 30 //how drunk should the target get? by default, its *just* below enough to cause vomiting
 	threshold_desc = "<b>Stealth 3:</b> The host only reaches a slight buzz.<br>\
-					  <b>Stage Speed 6:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold.<br>"
+						<b>Stage Speed 6:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold.<br>"
 
 /datum/symptom/alcohol/severityset(datum/disease/advance/A)
 	. = ..()
@@ -34,6 +34,8 @@
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	var/list/warningstrings = list()
+	if(M.stat == DEAD)
+		return
 	switch(A.stage + severity)
 		if(6 to 7)
 			warningstrings = list("You feel drunk", "You feel a bit woozy")
@@ -41,6 +43,6 @@
 			warningstrings = list("ahyguabngaghabyugbauwf", "You feel sick", "It feels like you drank too much", "You feel like doing something unwise")
 		else
 			warningstrings = list("You feel buzzed", "You feel a bit tipsy")
-	M.drunkenness = CLAMP(M.drunkenness + target * ((A.stage - 1) * 0.1), M.drunkenness, target)
+	M.drunkenness = clamp(M.drunkenness + target * ((A.stage - 1) * 0.1), M.drunkenness, target)
 	if(prob(5 * A.stage))
 		to_chat(M, "<span class='warning'>[pick(warningstrings)]</span>")

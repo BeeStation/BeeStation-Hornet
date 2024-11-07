@@ -14,19 +14,22 @@
 	var/morelube = FALSE
 	var/clownshoes = FALSE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
+						<b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= 10 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.transmission >= 8))
 		severity += 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Transmission 8:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
+						<b>Resistance 8:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 10)
+	if(A.transmission >= 10 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.transmission >= 8))
 		morelube = TRUE
-	if(A.resistance >= 14)
+	if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 		clownshoes = TRUE
 
 /datum/symptom/lubefeet/Activate(datum/disease/advance/A)
@@ -35,17 +38,19 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1, 2)
-			if(prob(15))
+			if(prob(15) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
 		if(3, 4)
-			to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
 					makelube(M, 40)
 				else
 					makelube(M, 20)
 		if(5)
-			to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
 					makelube(M, 80)
@@ -59,7 +64,8 @@
 	if(prob(chance))
 		var/turf/open/OT = get_turf(M)
 		if(istype(OT))
-			to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
 			OT.MakeSlippery(TURF_WET_LUBE, min_wet_time = 20 SECONDS, wet_time_to_add = 10 SECONDS)
 
 /datum/symptom/lubefeet/End(datum/disease/advance/A)

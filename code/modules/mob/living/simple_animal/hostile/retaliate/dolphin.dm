@@ -8,10 +8,13 @@
 	icon_gib = "dolphin_gib"
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/dolphinmeat = 2)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "hits"
+	butcher_results = list(/obj/item/food/meat/slab/dolphinmeat = 2)
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
 	speed = 0
@@ -23,7 +26,8 @@
 	environment_smash = 0
 	melee_damage = 15
 	pass_flags = PASSTABLE
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("chitters", "squeeks", "clicks")
 

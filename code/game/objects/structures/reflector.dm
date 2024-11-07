@@ -14,7 +14,7 @@
 	var/framebuildstackamount = 5
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 0
-	var/list/allowed_projectile_typecache = list(/obj/item/projectile/beam)
+	var/list/allowed_projectile_typecache = list(/obj/projectile/beam)
 	var/rotation_angle = -1
 
 /obj/structure/reflector/Initialize(mapload)
@@ -26,9 +26,9 @@
 		add_overlay(deflector_overlay)
 
 	if(rotation_angle == -1)
-		setAngle(dir2angle(dir))
+		set_angle(dir2angle(dir))
 	else
-		setAngle(rotation_angle)
+		set_angle(rotation_angle)
 
 	if(admin)
 		can_rotate = FALSE
@@ -39,11 +39,12 @@
 		. += "It is set to [rotation_angle] degrees, and the rotation is [can_rotate ? "unlocked" : "locked"]."
 		if(!admin)
 			if(can_rotate)
-				. += "<span class='notice'>Alt-click to adjust its direction.</span>"
+				. += "<span class='notice'>Use your <b>hand</b> to adjust its direction.</span>"
+				. += "<span class='notice'>Use a <b>screwdriver</b> to lock the rotation.</span>"
 			else
-				. += "<span class='notice'>Use screwdriver to unlock the rotation.</span>"
+				. += "<span class='notice'>Use <b>screwdriver</b> to unlock the rotation.</span>"
 
-/obj/structure/reflector/proc/setAngle(new_angle, force_rotate = FALSE)
+/obj/structure/reflector/proc/set_angle(new_angle, force_rotate = FALSE)
 	if(can_rotate || force_rotate)
 		rotation_angle = new_angle
 		if(deflector_overlay)
@@ -54,7 +55,7 @@
 /obj/structure/reflector/shuttleRotate(rotation, params=ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
 	. = ..()
 	if(params & ROTATE_DIR)
-		setAngle(rotation_angle + rotation, TRUE)
+		set_angle(rotation_angle + rotation, TRUE)
 
 /obj/structure/reflector/setDir(new_dir)
 	return ..(NORTH)
@@ -62,7 +63,7 @@
 /obj/structure/reflector/proc/dir_map_to_angle(dir)
 	return 0
 
-/obj/structure/reflector/bullet_act(obj/item/projectile/P)
+/obj/structure/reflector/bullet_act(obj/projectile/P)
 	var/pdir = P.dir
 	var/pangle = P.Angle
 	var/ploc = get_turf(P)
@@ -72,7 +73,7 @@
 		return ..()
 	return BULLET_ACT_FORCE_PIERCE
 
-/obj/structure/reflector/proc/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
+/obj/structure/reflector/proc/auto_reflect(obj/projectile/P, pdir, turf/ploc, pangle)
 	P.ignore_source_check = TRUE
 	P.range = P.decayedRange
 	P.decayedRange = max(P.decayedRange--, 0)
@@ -100,7 +101,7 @@
 				new buildstacktype(drop_location(), buildstackamount)
 			qdel(src)
 	else if(W.tool_behaviour == TOOL_WELDER)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
 				return
 
@@ -108,7 +109,7 @@
 								"<span class='notice'>You begin repairing [src]...</span>",
 								"<span class='italics'>You hear welding.</span>")
 			if(W.use_tool(src, user, 40, volume=40))
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				user.visible_message("[user] has repaired [src].", \
 									"<span class='notice'>You finish repairing [src].</span>")
 
@@ -120,7 +121,7 @@
 								"<span class='notice'>You start to weld [src] to the floor...</span>",
 								"<span class='italics'>You hear welding.</span>")
 			if (W.use_tool(src, user, 20, volume=50))
-				setAnchored(TRUE)
+				set_anchored(TRUE)
 				to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
 		else
 			if(!W.tool_start_check(user, amount=0))
@@ -130,7 +131,7 @@
 								"<span class='notice'>You start to cut [src] free from the floor...</span>",
 								"<span class='italics'>You hear welding.</span>")
 			if (W.use_tool(src, user, 20, volume=50))
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 				to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
 
 	//Finishing the frame
@@ -167,15 +168,8 @@
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(!isnull(new_angle))
-		setAngle(SIMPLIFY_DEGREES(new_angle))
+		set_angle(SIMPLIFY_DEGREES(new_angle))
 	return TRUE
-
-/obj/structure/reflector/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-	else if(finished)
-		rotate(user)
-
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX
 
@@ -197,12 +191,12 @@
 	admin = TRUE
 	anchored = TRUE
 
-/obj/structure/reflector/single/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
+/obj/structure/reflector/single/auto_reflect(obj/projectile/P, pdir, turf/ploc, pangle)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(rotation_angle, (P.Angle + 180))
 	if(abs(incidence) > 90 && abs(incidence) < 270)
 		return FALSE
 	var/new_angle = SIMPLIFY_DEGREES(rotation_angle + incidence)
-	P.setAngle(new_angle)
+	P.set_angle_centered(new_angle)
 	return ..()
 
 //DOUBLE
@@ -223,10 +217,10 @@
 	admin = TRUE
 	anchored = TRUE
 
-/obj/structure/reflector/double/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
+/obj/structure/reflector/double/auto_reflect(obj/projectile/P, pdir, turf/ploc, pangle)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(rotation_angle, (P.Angle + 180))
 	var/new_angle = SIMPLIFY_DEGREES(rotation_angle + incidence)
-	P.setAngle(new_angle)
+	P.set_angle_centered(new_angle)
 	return ..()
 
 //BOX
@@ -247,8 +241,8 @@
 	admin = TRUE
 	anchored = TRUE
 
-/obj/structure/reflector/box/auto_reflect(obj/item/projectile/P)
-	P.setAngle(rotation_angle)
+/obj/structure/reflector/box/auto_reflect(obj/projectile/P)
+	P.set_angle(rotation_angle)
 	return ..()
 
 /obj/structure/reflector/ex_act()
@@ -265,3 +259,55 @@
 		return
 	else
 		return ..()
+
+// tgui menu
+
+/obj/structure/reflector/ui_interact(mob/user, datum/tgui/ui)
+	if(!finished)
+		user.balloon_alert(user, "nothing to rotate!")
+		return
+	if(!can_rotate)
+		user.balloon_alert(user, "can't rotate!")
+		return
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Reflector")
+		ui.open()
+
+/obj/structure/reflector/attack_robot(mob/user)
+	ui_interact(user)
+	return
+
+/obj/structure/reflector/ui_state(mob/user)
+	return GLOB.physical_state //Prevents borgs from adjusting this at range
+
+/obj/structure/reflector/ui_data(mob/user)
+	var/list/data = list()
+	data["rotation_angle"] = rotation_angle
+	data["reflector_name"] = name
+
+	return data
+
+/obj/structure/reflector/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("rotate")
+			if (!can_rotate || admin)
+				return FALSE
+			var/new_angle = text2num(params["rotation_angle"])
+			if(isnull(new_angle))
+				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the rotate UI, somehow.")
+				return FALSE
+			set_angle(SIMPLIFY_DEGREES(new_angle))
+			return TRUE
+		if("calculate")
+			if (!can_rotate || admin)
+				return FALSE
+			var/new_angle = rotation_angle + text2num(params["rotation_angle"])
+			if(isnull(new_angle))
+				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the calculate UI, somehow.")
+				return FALSE
+			set_angle(SIMPLIFY_DEGREES(new_angle))
+			return TRUE

@@ -14,8 +14,8 @@
 	var/trauma_heal_mild = FALSE
 	var/trauma_heal_severe = FALSE
 	threshold_desc = "<b>Resistance 6:</b> Heals minor brain traumas.<br>\
-					  <b>Resistance 9:</b> Heals severe brain traumas.<br>\
-					  <b>Transmission 8:</b> Purges alcohol in the bloodstream."
+						<b>Resistance 9:</b> Heals severe brain traumas.<br>\
+						<b>Transmission 8:</b> Purges alcohol in the bloodstream."
 
 /datum/symptom/mind_restoration/Start(datum/disease/advance/A)
 	if(!..())
@@ -90,12 +90,14 @@
 
 			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
 				if(prob(20))
-					to_chat(M, "<span class='notice'>Your vision slowly returns...</span>")
+					if(M.stat != DEAD)
+						to_chat(M, "<span class='notice'>Your vision slowly returns...</span>")
 					M.cure_blind(EYE_DAMAGE)
 					M.cure_nearsighted(EYE_DAMAGE)
 					M.blur_eyes(35)
 			else if(HAS_TRAIT_FROM(M, TRAIT_NEARSIGHT, EYE_DAMAGE))
-				to_chat(M, "<span class='notice'>You can finally focus your eyes on distant objects.</span>")
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='notice'>You can finally focus your eyes on distant objects.</span>")
 				M.cure_nearsighted(EYE_DAMAGE)
 				M.blur_eyes(10)
 			else if(M.is_blind() || M.eye_blurry)
@@ -104,7 +106,7 @@
 			else if(eyes.damage > 0)
 				eyes.applyOrganDamage(-1)
 		else
-			if(prob(base_message_chance))
+			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]</span>")
 
 
@@ -123,7 +125,7 @@
 	var/curing = FALSE
 	var/regenorgans = FALSE
 	threshold_desc = "<b>Stealth 4:</b> The host will regenerate missing organs over a long period of time.<br>\
-					  <b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
+						<b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
 
 /datum/symptom/organ_restoration/severityset(datum/disease/advance/A)
 	. = ..()
@@ -200,15 +202,6 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
-				if(!M.getorgan(/obj/item/organ/tail))
-					if(S.mutanttail)
-						var/obj/item/organ/tail/O = new S.mutanttail()
-						O.Insert(M, drop_if_replaced = FALSE)
-						M.adjustOrganLoss(ORGAN_SLOT_TAIL, 200)
-						M.visible_message("<span class='notice'>[M] sprouts a new tail!", "<span_class='userdanger'>You sprout a new tail!.</span>")
-						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
-						M.add_splatter_floor(get_turf(M))
-						return
 				if(!M.getorgan(/obj/item/organ/wings))
 					if(S.mutantwings)
 						var/obj/item/organ/wings/O = new S.mutantwings()
@@ -218,5 +211,5 @@
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
 						return
-	if(prob(2))
+	if(prob(2) && M.stat != DEAD)
 		to_chat(M, "<span class='notice'>[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]</span>")

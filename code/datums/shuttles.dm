@@ -77,7 +77,7 @@
 		turfs[turf] = turf.loc
 	. = ..(T, centered, init_atmos, finalize, register, turfs)
 
-/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+/datum/map_template/shuttle/on_placement_completed(datum/async_map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	if(!.)
 		log_runtime("Failed to load shuttle [map_gen.get_name()].")
@@ -158,7 +158,10 @@
 
 		if(!islist(shuttle_turf.baseturfs))
 			shuttle_turf.baseturfs = list(shuttle_turf.baseturfs)
-		shuttle_turf.baseturfs.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+
+		var/list/sanity = shuttle_turf.baseturfs.Copy()
+		sanity.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+		shuttle_turf.baseturfs = baseturfs_string_list(sanity, shuttle_turf)
 
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)
@@ -276,6 +279,13 @@
 	Has medical facilities."
 	credit_cost = 5000
 
+/datum/map_template/shuttle/emergency/theatre
+	suffix = "theatre"
+	name = "The Emergency Fancy Theatre"
+	description = "Put on your best show with the emergency theatre on the couple minutes it takes you to get to CentCom! Includes a medbay, cockpit, brig and tons of fancy stuff for the crew"
+	admin_notes = "Theatre with seats, brig, cockpit and medbay included, for shows or improvisation by the crewmembers"
+	credit_cost = 5000
+
 /datum/map_template/shuttle/emergency/pod
 	suffix = "pod"
 	name = "Emergency Pods"
@@ -307,6 +317,14 @@
 	extra_desc = "This shuttle costs 500 credits to board."
 	admin_notes = "Due to the limited space for non paying crew, this shuttle may cause a riot."
 	credit_cost = 10000
+	danger_level = SHUTTLE_DANGER_SUBPAR
+
+/datum/map_template/shuttle/emergency/funnypod
+	suffix = "funnypod"
+	name = "Comically Large Escape Pod"
+	description = "A bunch of scrapped escape pods glued together."
+	admin_notes = "This shuttle will 100% cause mayhem, as the space avaiable is 1x23 and anyone can open the door in the end."
+	credit_cost = 2000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/discoinferno
@@ -441,6 +459,13 @@
 	name = "Pubby Station Emergency Shuttle"
 	description = "A train but in space! Complete with a first, second class, brig and storage area."
 	admin_notes = "Choo choo motherfucker!"
+	credit_cost = 1000
+
+/datum/map_template/shuttle/emergency/tiny
+	suffix = "tiny"
+	name = "Echo Station Emergency Shuttle"
+	description = "A small emergancy escape shuttle"
+	admin_notes = "A *very* small shuttle"
 	credit_cost = 1000
 
 /datum/map_template/shuttle/emergency/cere
@@ -594,6 +619,15 @@
 	admin_notes = "Has an on-board experimental cloner that creates copies of its user, alien surgery tools, and a void core that provides unlimited power."
 	credit_cost = 8000
 
+/datum/map_template/shuttle/emergency/ragecage
+	suffix = "ragecage"
+	name = "THE RAGE CAGE"
+	description = "An abandoned underground electrified fight arena turned into a shuttle. Comes with a Brig, Medbay and Cockpit included."
+	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma included."
+	credit_cost = 7500
+	danger_level = SHUTTLE_DANGER_SUBPAR
+
+
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
 		return TRUE
@@ -647,9 +681,17 @@
 	suffix = "rad"
 	name = "mining shuttle (Rad)"
 
+/datum/map_template/shuttle/mining/tiny
+	suffix = "tiny"
+	name = "mining shuttle (Tiny)"
+
 /datum/map_template/shuttle/cargo/rad
 	suffix = "rad"
 	name = "cargo ferry (Rad)"
+
+/datum/map_template/shuttle/cargo/tiny
+	suffix = "tiny"
+	name = "cargo ferry (Tiny)"
 
 /datum/map_template/shuttle/science
 	port_id = "science"
@@ -702,6 +744,10 @@
 /datum/map_template/shuttle/arrival/pubby
 	suffix = "pubby"
 	name = "arrival shuttle (Pubby)"
+
+/datum/map_template/shuttle/arrival/tiny
+	suffix = "tiny"
+	name = "arrival shuttle (Tiny)"
 
 /datum/map_template/shuttle/arrival/omega
 	suffix = "omega"

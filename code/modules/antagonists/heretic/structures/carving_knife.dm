@@ -7,11 +7,13 @@
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	throwforce = 20
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	actions_types = list(/datum/action/item_action/rune_shatter)
 	embedding = list(
 		ignore_throwspeed_threshold = TRUE,
@@ -126,7 +128,7 @@
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_ecult"
 	button_icon_state = "rune_break"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_heretic.dmi'
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -165,11 +167,13 @@
 /obj/structure/trap/eldritch
 	name = "elder carving"
 	desc = "A collection of unknown symbols, they remind you of days long gone..."
-	icon = 'icons/obj/heretic.dmi'
+	icon = 'icons/obj/hand_of_god_structures.dmi'
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()
@@ -240,6 +244,6 @@
 	carbon_victim.stuttering += 30
 	carbon_victim.Jitter(10)
 	carbon_victim.Dizzy(20)
-	carbon_victim.blind_eyes(2)
+	carbon_victim.adjust_blindness(2)
 	SEND_SIGNAL(carbon_victim, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

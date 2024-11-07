@@ -1,6 +1,3 @@
-#define EMOTE_AUDIBLE (1<<0)
-#define EMOTE_ANIMATED (1<<1)
-
 /datum/emote
 	var/key = "" //What calls the emote
 	var/key_third_person = "" //This will also call the emote
@@ -17,7 +14,8 @@
 	var/message_param = "" //Message to display if a param was given
 	/// Emote flags (EMOTE_AUDIBLE and EMOTE_ANIMATED)
 	var/emote_type = 0
-	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
+	/// Checks if the mob can use its hands before performing the emote.
+	var/hands_use_check = FALSE
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
 	var/list/mob_type_allowed_typecache = /mob //Types that are allowed to use that emote
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
@@ -87,10 +85,8 @@
 
 	user.log_message(msg, LOG_EMOTE)
 
-	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : null
-	var/end = copytext(msg, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-")))
-		msg += "."
+	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
+	msg = punctuate(msg)
 
 	var/dchatmsg = "<b>[user]</b>[space][msg]"
 
@@ -98,8 +94,8 @@
 		if(!M.client || isnewplayer(M))
 			continue
 		var/T = get_turf(user)
-		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
-			if(user.mind || (M.client.prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS))
+		if(M.stat == DEAD && M?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
+			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
 				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 			else
 				M.show_message("[dchatmsg]")
@@ -140,9 +136,9 @@
 		. = message_monkey
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
-	else if((ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach)) && message_insect)
+	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
 		. = message_insect
-	else if(isanimal(user) && message_simple)
+	else if((isanimal(user) || isbasicmob(user)) && message_simple)
 		. = message_simple
 
 /datum/emote/proc/select_param(mob/user, params)
@@ -161,23 +157,15 @@
 			switch(user.stat)
 				if(SOFT_CRIT)
 					to_chat(user, "<span class='notice'>You cannot [key] while in a critical condition.</span>")
-				if(UNCONSCIOUS)
+				if(UNCONSCIOUS, HARD_CRIT)
 					to_chat(user, "<span class='notice'>You cannot [key] while unconscious.</span>")
 				if(DEAD)
 					to_chat(user, "<span class='notice'>You cannot [key] while dead.</span>")
 			return FALSE
-		if(restraint_check)
-			if(isliving(user))
-				var/mob/living/L = user
-				if(L.IsParalyzed() || L.IsStun())
-					if(!intentional)
-						return FALSE
-					to_chat(user, "<span class='notice'>You cannot [key] while stunned.</span>")
-					return FALSE
-		if(restraint_check && user.restrained())
+		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			if(!intentional)
 				return FALSE
-			to_chat(user, "<span class='notice'>You cannot [key] while restrained.</span>")
+			to_chat(user, "<span class='warning'>You cannot use your hands to [key] right now!</span>")
 			return FALSE
 
 	if(isliving(user))
@@ -202,8 +190,8 @@
 		for(var/mob/ghost as anything in GLOB.dead_mob_list)
 			if(!ghost.client || isnewplayer(ghost))
 				continue
-			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
-				if(mind || (ghost.client.prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS))
+			if(ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(ghost in viewers(origin_turf, null)))
+				if(mind || ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
 					ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
 				else
 					ghost.show_message("[ghost_text]")

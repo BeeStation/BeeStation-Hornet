@@ -2,7 +2,7 @@
 	var/picture_name = "picture"
 	var/picture_desc = "This is a picture."
 	var/list/mobs_seen = list()
-	var/list/dead_seen = list()
+	var/list/minds_seen = list()
 	var/caption
 	var/icon/picture_image
 	var/icon/picture_icon
@@ -12,15 +12,15 @@
 	var/logpath						//If the picture has been logged this is the path.
 	var/id							//this var is NOT protected because the worst you can do with this that you couldn't do otherwise is overwrite photos, and photos aren't going to be used as attack logs/investigations anytime soon.
 
-/datum/picture/New(name, desc, mobs_spotted, dead_spotted, image, icon, size_x, size_y, bp, caption_, autogenerate_icon)
+/datum/picture/New(name, desc, mobs_spotted, minds_spotted, image, icon, size_x, size_y, bp, caption_, autogenerate_icon)
 	if(!isnull(name))
 		picture_name = name
 	if(!isnull(desc))
 		picture_desc = desc
 	if(!isnull(mobs_spotted))
 		mobs_seen = mobs_spotted
-	if(!isnull(dead_spotted))
-		dead_seen = dead_spotted
+	if(!isnull(minds_spotted))
+		minds_seen = minds_spotted
 	if(!isnull(image))
 		picture_image = image
 	if(!isnull(icon))
@@ -158,6 +158,8 @@
 	var/datum/picture/P = new
 	P.picture_name = picture_name
 	P.picture_desc = picture_desc
+	P.mobs_seen = mobs_seen.Copy()
+	P.minds_seen = minds_seen.Copy()
 	if(picture_image)
 		P.picture_image = icon(picture_image)	//Copy, not reference.
 	if(picture_icon)

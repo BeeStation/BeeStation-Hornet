@@ -1,6 +1,6 @@
 /obj/item/sharpener
 	name = "whetstone"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "sharpener"
 	desc = "A block that makes things sharp."
 	force = 5
@@ -40,6 +40,7 @@
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 	I.sharpness = IS_SHARP_ACCURATE
+	I.bleed_force *= 1.1
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
 	name = "worn out [name]"

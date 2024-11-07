@@ -11,7 +11,8 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 5
-	friendly = "floats near"
+	friendly_verb_continuous = "floats near"
+	friendly_verb_simple = "float near"
 	speak_emote = list("puffs")
 	vision_range = 5
 	speed = 0
@@ -21,7 +22,8 @@
 	base_pixel_x = -16
 	obj_damage = 0
 	melee_damage = 0
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "is avoided by the"
 	vision_range = 5
@@ -61,7 +63,7 @@
 	E.Activate()
 
 /datum/action/innate/fugu
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"
@@ -120,7 +122,12 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
-	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/guardian)
+	var/list/datum/disease/fugu_diseases = list()
+	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/holoparasite)
+
+/obj/item/fugu_gland/Initialize(mapload)
+	. = ..()
+	fugu_diseases += new /datum/disease/advance/random(rand(1, 6), 4 + (rand(1, 5)), guaranteed_symptoms = list(/datum/symptom/growth))
 
 /obj/item/fugu_gland/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
@@ -138,11 +145,6 @@
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
 
-/obj/item/fugu_gland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(scan)
-		to_chat(user, "<span class='info'>[src] has potential for extrapolation.</span>")
-	else
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 4+(rand(1, 5)), /datum/symptom/growth)
-		if(E.create_culture(R, user))
-			qdel(src)
-	return TRUE
+/obj/item/fugu_gland/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., fugu_diseases)

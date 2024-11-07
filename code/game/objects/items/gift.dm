@@ -12,8 +12,8 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 /obj/item/a_gift
 	name = "gift"
-	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/storage.dmi'
+	desc = "PRESENTS!!!! yippie!"
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "giftdeliverypackage3"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE
@@ -28,9 +28,9 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 	contains_type = get_gift_type()
 
-/obj/item/a_gift/suicide_act(mob/user)
+/obj/item/a_gift/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] peeks inside [src] and cries [user.p_them()]self to death! It looks like [user.p_they()] [user.p_were()] on the naughty list...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/a_gift/examine(mob/M)
 	. = ..()
@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 	var/obj/item/I = new contains_type(get_turf(M))
 	M.visible_message("<span class='notice'>[M] unwraps \the [src], finding \a [I] inside!</span>")
-	I.investigate_log("([I.type]) was found in a present by [key_name(M)].", INVESTIGATE_PRESENTS)
+	M.investigate_log("has unwrapped a present containing [I.type].", INVESTIGATE_PRESENTS)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 
@@ -72,8 +72,8 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 		/obj/item/toy/beach_ball,
 		/obj/item/toy/beach_ball/holoball,
 		/obj/item/banhammer,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+		/obj/item/food/grown/ambrosia/deus,
+		/obj/item/food/grown/ambrosia/vulgaris,
 		/obj/item/paicard,
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,
@@ -81,11 +81,11 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 		/obj/item/clothing/neck/tie/horrible,
 		/obj/item/clothing/suit/jacket/leather,
 		/obj/item/clothing/suit/jacket/leather/overcoat,
-		/obj/item/clothing/suit/poncho,
-		/obj/item/clothing/suit/poncho/green,
-		/obj/item/clothing/suit/poncho/red,
-		/obj/item/clothing/suit/snowman,
-		/obj/item/clothing/head/snowman,
+		/obj/item/clothing/suit/costume/poncho,
+		/obj/item/clothing/suit/costume/poncho/green,
+		/obj/item/clothing/suit/costume/poncho/red,
+		/obj/item/clothing/suit/costume/snowman,
+		/obj/item/clothing/head/costume/snowman,
 		/obj/item/stack/sheet/mineral/coal)
 
 	gift_type_list += subtypesof(/obj/item/clothing/head/collectable)

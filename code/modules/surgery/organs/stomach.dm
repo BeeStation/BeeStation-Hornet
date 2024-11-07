@@ -4,7 +4,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
-	attack_verb = list("gored", "squished", "slapped", "digested")
+	attack_verb_continuous = list("gores", "squishes", "slaps", "digests")
+	attack_verb_simple = list("gore", "squish", "slap", "digest")
 	desc = "Onaka ga suite imasu."
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -42,6 +43,9 @@
 			H.vomit(damage)
 			to_chat(H, "<span class='warning'>Your stomach reels in pain as you're incapable of holding down all that food!</span>")
 
+/obj/item/organ/stomach/get_availability(datum/species/S)
+	return !(NOSTOMACH in S.species_traits)
+
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H)
 	if(H.disgust)
 		var/pukeprob = 5 + 0.05 * H.disgust
@@ -77,7 +81,7 @@
 			H.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
 		H.clear_alert("disgust")
@@ -101,12 +105,12 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = 0
@@ -151,7 +155,8 @@
 	name = "micro-cell"
 	icon_state = "microcell"
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("assault and battery'd")
+	attack_verb_continuous = list("assault and batteries")
+	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
@@ -173,18 +178,18 @@
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 
-/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	return ..()
 
-/obj/item/organ/stomach/battery/ethereal/proc/on_electrocute(datum/source, shock_damage, shock_source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
+/obj/item/organ/stomach/battery/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
 
-	if(illusion)
+	if(flags & SHOCK_ILLUSION)
 		return
 	adjust_charge(shock_damage * siemens_coeff * 20)
 	to_chat(owner, "<span class='notice'>You absorb some of the shock into your body!</span>")
@@ -215,3 +220,8 @@
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_FAILING //Starts organ failure - gonna need replacing soon.
+
+/obj/item/organ/stomach/diona
+	name = "nutrient vessel"
+	desc = "A group of plant matter and vines, useful for digestion of light and radiation."
+	icon_state = "diona_stomach"

@@ -1,81 +1,81 @@
 /*
 Overview:
-   Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
-   stores a reference to src machine in global 'machines list'.  Default definition
-   of 'Destroy' removes reference to src machine in global 'machines list'.
+	Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
+	stores a reference to src machine in global 'machines list'.  Default definition
+	of 'Destroy' removes reference to src machine in global 'machines list'.
 
 Class Variables:
-   use_power (num)
-      current state of auto power use.
-      Possible Values:
-         NO_POWER_USE -- no auto power use
-         IDLE_POWER_USE -- machine is using power at its idle power level
-         ACTIVE_POWER_USE -- machine is using power at its active power level
+	use_power (num)
+		current state of auto power use.
+		Possible Values:
+		NO_POWER_USE -- no auto power use
+		IDLE_POWER_USE -- machine is using power at its idle power level
+		ACTIVE_POWER_USE -- machine is using power at its active power level
 
-   active_power_usage (num)
-      Value for the amount of power to use when in active power mode
+	active_power_usage (num)
+		Value for the amount of power to use when in active power mode
 
-   idle_power_usage (num)
-      Value for the amount of power to use when in idle power mode
+	idle_power_usage (num)
+		Value for the amount of power to use when in idle power mode
 
-   power_channel (num)
-      What channel to draw from when drawing power for power mode
-      Possible Values:
-         AREA_USAGE_EQUIP:0 -- Equipment Channel
-         AREA_USAGE_LIGHT:2 -- Lighting Channel
-         AREA_USAGE_ENVIRON:3 -- Environment Channel
+	power_channel (num)
+		What channel to draw from when drawing power for power mode
+		Possible Values:
+			AREA_USAGE_EQUIP:0 -- Equipment Channel
+			AREA_USAGE_LIGHT:2 -- Lighting Channel
+			AREA_USAGE_ENVIRON:3 -- Environment Channel
 
-   component_parts (list)
-      A list of component parts of machine used by frame based machines.
+	component_parts (list)
+		A list of component parts of machine used by frame based machines.
 
-   machine_stat (bitflag)
-      Machine status bit flags.
-      Possible bit flags:
-         BROKEN -- Machine is broken
-         NOPOWER -- No power is being supplied to machine.
-         MAINT -- machine is currently under going maintenance.
-         EMPED -- temporary broken by EMP pulse
+	machine_stat (bitflag)
+		Machine status bit flags.
+		Possible bit flags:
+			BROKEN -- Machine is broken
+			NOPOWER -- No power is being supplied to machine.
+			MAINT -- machine is currently under going maintenance.
+			EMPED -- temporary broken by EMP pulse
 
 Class Procs:
-   Initialize()                     'game/machinery/machine.dm'
+	Initialize()                     'game/machinery/machine.dm'
 
-   Destroy()                   'game/machinery/machine.dm'
+	Destroy()                   'game/machinery/machine.dm'
 
-   auto_use_power()            'game/machinery/machine.dm'
-      This proc determines how power mode power is deducted by the machine.
-      'auto_use_power()' is called by the 'master_controller' game_controller every
-      tick.
+	auto_use_power()            'game/machinery/machine.dm'
+		This proc determines how power mode power is deducted by the machine.
+		'auto_use_power()' is called by the 'master_controller' game_controller every
+		tick.
 
-      Return Value:
-         return:1 -- if object is powered
-         return:0 -- if object is not powered.
+		Return Value:
+			return:1 -- if object is powered
+			return:0 -- if object is not powered.
 
-      Default definition uses 'use_power', 'power_channel', 'active_power_usage',
-      'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
+		Default definition uses 'use_power', 'power_channel', 'active_power_usage',
+		'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
 
-   powered(chan = -1)         'modules/power/power.dm'
-      Checks to see if area that contains the object has power available for power
-      channel given in 'chan'. -1 defaults to power_channel
+	powered(chan = -1)         'modules/power/power.dm'
+		Checks to see if area that contains the object has power available for power
+		channel given in 'chan'. -1 defaults to power_channel
 
-   use_power(amount, chan=-1)   'modules/power/power.dm'
-      Deducts 'amount' from the power channel 'chan' of the area that contains the object.
+	use_power(amount, chan=-1)   'modules/power/power.dm'
+		Deducts 'amount' from the power channel 'chan' of the area that contains the object.
 
-   power_change()               'modules/power/power.dm'
-      Called by the area that contains the object when ever that area under goes a
-      power state change (area runs out of power, or area channel is turned off).
+	power_change()               'modules/power/power.dm'
+		Called by the area that contains the object when ever that area under goes a
+		power state change (area runs out of power, or area channel is turned off).
 
-   RefreshParts()               'game/machinery/machine.dm'
-      Called to refresh the variables in the machine that are contributed to by parts
-      contained in the component_parts list. (example: glass and material amounts for
-      the autolathe)
+	RefreshParts()               'game/machinery/machine.dm'
+		Called to refresh the variables in the machine that are contributed to by parts
+		contained in the component_parts list. (example: glass and material amounts for
+		the autolathe)
 
-      Default definition does nothing.
+		Default definition does nothing.
 
-   process()                  'game/machinery/machine.dm'
-      Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
+	process()                  'game/machinery/machine.dm'
+		Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
 
-   process_atmos()
-      Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
+	process_atmos()
+		Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
 
 	Compiled by Aygar
 */
@@ -87,7 +87,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
-	pass_flags_self = PASSMACHINE
+	pass_flags_self = PASSMACHINE | LETPASSCLICKS
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -120,7 +120,6 @@ Class Procs:
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
-	var/damage_deflection = 0
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
@@ -148,25 +147,24 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0)
 	. = ..()
 	GLOB.machines += src
 
 	if(ispath(circuit, /obj/item/circuitboard))
-		circuit = new circuit
+		circuit = new circuit(src)
 		circuit.apply_default_parts(src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
-
-	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 	if(!seller_department)
 		seller_department = dept_req_for_free
+
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -184,15 +182,18 @@ Class Procs:
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
 
+/obj/machinery/LateInitialize()
+	. = ..()
+	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
+
 /obj/machinery/Destroy()
 	GLOB.machines.Remove(src)
 	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
 		end_processing()
-	dropContents()
-	if(length(component_parts))
-		for(var/atom/A in component_parts)
-			qdel(A)
-		component_parts.Cut()
+	dump_inventory_contents()
+	QDEL_LIST(component_parts)
+	QDEL_NULL(circuit)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -236,26 +237,76 @@ Class Procs:
 	//Update power
 	power_change()
 
+/**
+  * Opens the machine.
+  *
+  * Will update the machine icon and any user interfaces currently open.
+  * Arguments:
+  * * drop - Boolean. Whether to drop any stored items in the machine. Does not include components.
+  */
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
 	set_density(FALSE)
 	if(drop)
-		dropContents()
+		dump_inventory_contents()
 	update_icon()
 	updateUsrDialog()
 	ui_update()
 
-/obj/machinery/proc/dropContents(list/subset = null)
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/A in contents)
-		if(subset && !(A in subset))
-			continue
-		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_mobility()
+/**
+  * Drop every movable atom in the machine's contents list, including any components and circuit.
+  */
+/obj/machinery/dump_contents()
+	// Start by calling the dump_inventory_contents proc. Will allow machines with special contents
+	// to handle their dropping.
+	dump_inventory_contents()
+
+	// Then we can clean up and drop everything else.
+	var/turf/this_turf = get_turf(src)
+	for(var/atom/movable/movable_atom in contents)
+		movable_atom.forceMove(this_turf)
+
+	// We'll have dropped the occupant, circuit and component parts as part of this.
 	set_occupant(null)
+	circuit = null
+	LAZYCLEARLIST(component_parts)
+
+/**
+  * Drop every movable atom in the machine's contents list that is not a component_part.
+  *
+  * Proc does not drop components and will skip over anything in the component_parts list.
+  * Call dump_contents() to drop all contents including components.
+  * Arguments:
+  * * subset - If this is not null, only atoms that are also contained within the subset list will be dropped.
+  */
+/obj/machinery/proc/dump_inventory_contents(list/subset = null)
+	var/turf/this_turf = get_turf(src)
+	for(var/atom/movable/movable_atom in contents)
+		if(subset && !(movable_atom in subset))
+			continue
+
+		if(movable_atom in component_parts)
+			continue
+
+		movable_atom.forceMove(this_turf)
+
+		if(occupant == movable_atom)
+			occupant = null
+
+/**
+ * Puts passed object in to user's hand
+ *
+ * Puts the passed object in to the users hand if they are adjacent.
+ * If the user is not adjacent then place the object on top of the machine.
+ *
+ * Vars:
+ * * object (obj) The object to be moved in to the users hand.
+ * * user (mob/living) The user to recive the object
+ */
+/obj/machinery/proc/try_put_in_hand(obj/object, mob/living/user)
+	if(!user.CanReach(src) || !user.put_in_hands(object))
+		object.forceMove(drop_location())
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -309,7 +360,7 @@ Class Procs:
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
-	var/living = isliving(user)
+	var/living = ishuman(user) // /mob/living/carbon/HUMANS, not /mob/living.
 
 	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
@@ -407,21 +458,37 @@ Class Procs:
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, MELEE, 1)
+		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		user.visible_message("<span class='danger'>[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
+	if(isAI(user))
+		CRASH("An AI just tried to run attack_robot().") // They should not be running the same procs anymore.
+	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
+	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
+		if(buckled_mobs.len > 1)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
+			if(user_unbuckle_mob(unbuckled,user))
+				return TRUE
+		else
+			if(user_unbuckle_mob(buckled_mobs[1],user))
+				return TRUE
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
+	if(iscyborg(user))
+		CRASH("A cyborg just tried to run attack_ai().") // They should not be running the same procs anymore.
+	. = ..()
+	if(.)
+		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
-	if(iscyborg(user))// For some reason attack_robot doesn't work
-		return attack_robot(user)
-	else
-		return _try_interact(user)
+
+	return _try_interact(user)
 
 /obj/machinery/_try_interact(mob/user)
 	if((interaction_flags_machine & INTERACT_MACHINE_WIRES_IF_OPEN) && panel_open && (attempt_wire_interaction(user) == WIRE_INTERACTION_BLOCK))
@@ -449,14 +516,18 @@ Class Procs:
 		deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		on_deconstruction()
-		if(component_parts?.len)
-			spawn_frame(disassembled)
-			for(var/obj/item/I in component_parts)
-				I.forceMove(loc)
-				component_parts.Cut()
-	qdel(src)
+	if(flags_1 & NODECONSTRUCT_1)
+		return ..()
+
+	on_deconstruction()
+	if(!LAZYLEN(component_parts))
+		return ..() //We have no parts
+	spawn_frame(disassembled)
+
+	for(var/obj/item/I in component_parts)
+		I.forceMove(loc)
+	LAZYCLEARLIST(component_parts)
+	return ..()
 
 /**
  * Spawns a frame where this machine is. If the machine was not disassmbled, the
@@ -481,12 +552,12 @@ Class Procs:
 
 	new_frame.icon_state = "box_1"
 	. = new_frame
-	new_frame.anchored = TRUE
+	new_frame.set_anchored(TRUE)
 	if(!disassembled)
-		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
+		new_frame.update_integrity(new_frame.max_integrity * 0.5) //the frame is already half broken
 	transfer_fingerprints_to(new_frame)
 
-/obj/machinery/obj_break(damage_flag)
+/obj/machinery/atom_break(damage_flag)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
@@ -503,8 +574,18 @@ Class Procs:
 		set_occupant(null)
 		update_icon()
 		updateUsrDialog()
+		return ..()
 
-/obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
+	// The circuit should also be in component parts, so don't early return.
+	if(A == circuit)
+		circuit = null
+	if((A in component_parts) && !QDELETED(src))
+		component_parts.Remove(A)
+		// It would be unusual for a component_part to be qdel'd ordinarily.
+		deconstruct(FALSE)
+	return ..()
+
+/obj/machinery/run_atom_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	return ..()
@@ -515,18 +596,24 @@ Class Procs:
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
+			set_machine_stat(machine_stat & MAINT)
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE
 			icon_state = icon_state_closed
+			set_machine_stat(machine_stat & ~MAINT)
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+/**
+ * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
+ */
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I, turns = 1)
+	turns *= -90
 	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
 		I.play_tool_sound(src, 50)
-		setDir(turn(dir,-90))
+		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
 	return 0
@@ -559,7 +646,7 @@ Class Procs:
 		to_chat(user, "<span class='notice'>You fail to secure [src].</span>")
 		return CANT_UNFASTEN
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-	setAnchored(!anchored)
+	set_anchored(!anchored)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, anchored)
 	return SUCCESSFUL_UNFASTEN
@@ -605,6 +692,13 @@ Class Procs:
 						break
 				for(var/obj/item/B in W.contents)
 					if(istype(B, P) && istype(A, P))
+						// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+						if(istype(B, /obj/item/stock_parts/cell) && W.works_from_distance)
+							var/obj/item/stock_parts/cell/checked_cell = B
+							// If it's rigged or corrupted, max the charge. Then explode it.
+							if(checked_cell.rigged || checked_cell.corrupted)
+								checked_cell.charge = checked_cell.maxcharge
+								checked_cell.explode()
 						if(B.get_part_rating() > A.get_part_rating())
 							if(istype(B,/obj/item/stack)) //conveniently this will mean A is also a stack and I will kill the first person to prove me wrong
 								var/obj/item/stack/SA = A
@@ -617,7 +711,7 @@ Class Procs:
 							else
 								if(SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE, B, src))
 									component_parts += B
-									B.moveToNullspace()
+									B.forceMove(src)
 							SEND_SIGNAL(W, COMSIG_TRY_STORAGE_INSERT, A, null, null, TRUE)
 							component_parts -= A
 							to_chat(user, "<span class='notice'>[capitalize(A.name)] replaced with [B.name].</span>")
@@ -645,7 +739,7 @@ Class Procs:
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
 			. += "<span class='warning'>It's on fire!</span>"
-		var/healthpercent = (obj_integrity/max_integrity) * 100
+		var/healthpercent = (atom_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
 				. += "It looks slightly damaged."
@@ -660,6 +754,8 @@ Class Procs:
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
+	if(circuit)
+		circuit.configure_machine(src)
 	return
 
 //called on deconstruction before the final deletion
@@ -672,7 +768,7 @@ Class Procs:
 /obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
 	..()
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
 		take_damage(power/2000, BURN, ENERGY)
 		if(prob(40))
@@ -682,6 +778,9 @@ Class Procs:
 	. = ..()
 	if (gone == occupant)
 		set_occupant(null)
+	if(gone == circuit)
+		LAZYREMOVE(component_parts, gone)
+		circuit = null
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

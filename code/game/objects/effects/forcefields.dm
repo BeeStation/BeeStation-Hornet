@@ -9,6 +9,8 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/timeleft = 300 //Set to 0 for permanent forcefields (ugh)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/forcefield)
+
 /obj/effect/forcefield/Initialize(mapload, ntimeleft)
 	. = ..()
 	if(isnum_safe(ntimeleft))
@@ -38,3 +40,9 @@
 	name = "invisible blockade"
 	desc = "You're gonna be here awhile."
 	timeleft = 600
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/forcefield/mime)
+
+/obj/effect/forcefield/mime/Initialize(mapload, ntimeleft)
+	. = ..()
+	SSvis_overlays.add_obj_alpha(src, 'icons/turf/walls/snow_wall.dmi', "snow_wall-0")

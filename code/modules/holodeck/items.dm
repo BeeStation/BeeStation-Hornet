@@ -126,7 +126,7 @@
 		..()
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if (isitem(AM) && !istype(AM,/obj/item/projectile))
+	if (isitem(AM) && !istype(AM,/obj/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
@@ -157,7 +157,7 @@
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 
-/obj/machinery/readybutton/attack_ai(mob/user as mob)
+/obj/machinery/readybutton/attack_silicon(mob/user as mob)
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 

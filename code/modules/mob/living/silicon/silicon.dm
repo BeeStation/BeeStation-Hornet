@@ -6,7 +6,7 @@
 	verb_exclaim = "declares"
 	verb_yell = "alarms"
 	initial_language_holder = /datum/language_holder/synthetic
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	bubble_icon = "machine"
 	weather_immunities = list("ash")
 	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
@@ -24,7 +24,7 @@
 	var/obj/item/camera/siliconcam/aicamera = null //photography
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
-	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
+	var/obj/item/radio/borg/radio = null ///If this is a path, this gets created as an object in Initialize.
 
 	var/list/alarm_types_show = list(ALARM_ATMOS = 0, ALARM_FIRE = 0, ALARM_POWER = 0, ALARM_CAMERA = 0, ALARM_MOTION = 0)
 	var/list/alarm_types_clear = list(ALARM_ATMOS = 0, ALARM_FIRE = 0, ALARM_POWER = 0, ALARM_CAMERA = 0, ALARM_MOTION = 0)
@@ -60,6 +60,8 @@
 	. = ..()
 	GLOB.silicon_mobs += src
 	faction += "silicon"
+	if(ispath(radio))
+		radio = new radio(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
@@ -163,7 +165,7 @@
 	for(var/key in alarm_types_clear)
 		alarm_types_clear[key] = 0
 
-/mob/living/silicon/can_inject(mob/user, error_msg)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
@@ -233,12 +235,6 @@
 	var/number = 1
 
 	var/list/laws_to_state = list()
-
-	if (length(laws.devillaws))
-		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (force || devillawcheck[index] == "Yes")
-				laws_to_state += "666. [laws.devillaws[index]]"
-				total_laws_count++
 
 	if (laws.zeroth)
 		if (force || lawcheck[1] == "Yes")
@@ -319,12 +315,6 @@
 
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"
 
-	if (laws.devillaws && laws.devillaws.len)
-		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (!devillawcheck[index])
-				devillawcheck[index] = "No"
-			list += {"<A href='byond://?src=[REF(src)];lawdevil=[index]'>[devillawcheck[index]] 666:</A> <font color='#cc5500'>[laws.devillaws[index]]</font><BR>"}
-
 	if (laws.zeroth)
 		if (!lawcheck[1])
 			lawcheck[1] = "No" //Given Law 0's usual nature, it defaults to NOT getting reported. --NeoFite
@@ -372,15 +362,10 @@
 	usr << browse(list, "window=laws")
 
 /mob/living/silicon/proc/ai_roster()
-	if(!client)
+	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))
 		return
-	if(world.time < client.crew_manifest_delay)
-		return
-	client.crew_manifest_delay = world.time + (1 SECONDS)
-
-	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
-	popup.set_content(GLOB.data_core.get_manifest_html())
-	popup.open()
+	COOLDOWN_START(client, crew_manifest_delay, 1 SECONDS)
+	GLOB.crew_manifest_tgui.ui_interact(src)
 
 /mob/living/silicon/proc/set_autosay() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).
 	if(!radio)
@@ -394,7 +379,7 @@
 		return
 	if(Autochan == "Default") //Autospeak on whatever frequency to which the radio is set, usually Common.
 		radiomod = ";"
-		Autochan += " ([radio.frequency])"
+		Autochan += " ([radio.get_frequency()])"
 	else if(Autochan == "None") //Prevents use of the radio for automatic annoucements.
 		radiomod = ""
 	else	//For department channels, if any, given by the internal radio.
@@ -471,6 +456,18 @@
 
 /mob/living/silicon/hears_radio()
 	return FALSE
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
 
 /**
  * Records an IC event log entry in the cyborg's internal tablet.

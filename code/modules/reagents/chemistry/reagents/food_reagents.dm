@@ -57,6 +57,9 @@
 	..()
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
+	. = ..()
+	if(!data)
+		return
 	// taste data can sometimes be ("salt" = 3, "chips" = 1)
 	// and we want it to be in the form ("salt" = 0.75, "chips" = 0.25)
 	// which is called "normalizing"
@@ -102,51 +105,69 @@
 		M.satiety += 30
 	. = ..()
 
+/datum/reagent/consumable/nutriment/protein //this is from a tg pr that actually makes use of this reagent. At the moment that I am porting newfood, we are just using it as filler to have something other than vitamins and nutriments.
+	name = "Protein"
+	description = "A natural polyamide made up of amino acids. An essential constituent of mosts known forms of life."
+	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
+	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
+
 /datum/reagent/consumable/cooking_oil
 	name = "Cooking Oil"
 	description = "A variety of cooking oil derived from fat or plants. Used in food preparation and frying."
 	color = "#EADD6B" //RGB: 234, 221, 107 (based off of canola oil)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_mult = 0.8
 	taste_description = "oil"
 	nutriment_factor = 7 * REAGENTS_METABOLISM //Not very healthy on its own
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
-	var/boiling //Used in mob life to determine if the oil kills, and only on touch application
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 
-/datum/reagent/consumable/cooking_oil/reaction_obj(obj/O, reac_volume)
-	if(holder && holder.chem_temp >= fry_temperature)
-		if(isitem(O) && !istype(O, /obj/item/food/deepfryholder))
-			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
-			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
-			var/obj/item/food/deepfryholder/F = new(O.drop_location(), O)
-			F.fry(volume)
-			F.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
-
-/datum/reagent/consumable/cooking_oil/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if(!istype(M))
+/datum/reagent/consumable/cooking_oil/reaction_obj(obj/exposed_obj, reac_volume)
+	if(!holder || (holder.chem_temp <= fry_temperature))
 		return
-	if(holder && holder.chem_temp >= fry_temperature)
-		boiling = TRUE
-	if(method == VAPOR || method == TOUCH) //Directly coats the mob, and doesn't go into their bloodstream
-		if(boiling)
-			M.visible_message("<span class='warning'>The boiling oil sizzles as it covers [M]!</span>", \
-			"<span class='userdanger'>You're covered in boiling oil!</span>")
-			M.emote("scream")
-			playsound(M, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
-			var/oil_damage = (holder.chem_temp / fry_temperature) * 0.33 //Damage taken per unit
-			M.adjustFireLoss(min(35, oil_damage * reac_volume)) //Damage caps at 35
-	else
-		..()
+	if(!isitem(exposed_obj) || HAS_TRAIT(exposed_obj, TRAIT_FOOD_FRIED))
+		return
+	// if the fried obj is indestructible or under the fry blacklist (His Grace), we dont want it to be fried, for obvious reasons
+	if(is_type_in_typecache(exposed_obj, GLOB.oilfry_blacklisted_items) || (exposed_obj.resistance_flags & INDESTRUCTIBLE))
+		exposed_obj.visible_message("<span class='notice'>The hot oil has no effect on [exposed_obj]!</span>")
+		return
+	// if we are holding an item/atom inside, we dont want to arbitrarily fry this item
+	if(SEND_SIGNAL(exposed_obj, COMSIG_CONTAINS_STORAGE))
+		exposed_obj.visible_message("<span class='notice'>The hot oil splatters about as [exposed_obj] touches it. It seems too full to cook properly!</span>")
+		return
+
+	log_game("[exposed_obj.name] ([exposed_obj.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(exposed_obj)].")
+	exposed_obj.visible_message("<span class='warning'>[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow.</span>")
+	exposed_obj.AddElement(/datum/element/fried_item, volume)
+	exposed_obj.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
+
+/datum/reagent/consumable/cooking_oil/reaction_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	if(!(method == VAPOR || method == TOUCH) || isnull(holder) || (holder.chem_temp < fry_temperature))
+		return
+
+	var/oil_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
+	if(method & TOUCH)
+		oil_damage *= max(1 - touch_protection, 0)
+	var/FryLoss = round(min(38, oil_damage * reac_volume))
+	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
+		exposed_mob.visible_message("<span class='warning'>The boiling oil sizzles as it covers [exposed_mob]!</span>", \
+		"<span class='userdanger'>You're covered in boiling oil!</span>")
+		if(FryLoss)
+			exposed_mob.emote("scream")
+		playsound(exposed_mob, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
+		ADD_TRAIT(exposed_mob, TRAIT_OIL_FRIED, "cooking_oil_react")
+		addtimer(CALLBACK(exposed_mob, TYPE_PROC_REF(/mob/living, unfry_mob)), 3)
+	if(FryLoss)
+		exposed_mob.adjustFireLoss(FryLoss)
 	return TRUE
 
-/datum/reagent/consumable/cooking_oil/reaction_turf(turf/open/T, reac_volume)
-	if(!istype(T) || isgroundlessturf(T))
+/datum/reagent/consumable/cooking_oil/reaction_turf(turf/open/exposed_turf, reac_volume)
+	if(!istype(exposed_turf) || isgroundlessturf(exposed_turf) || (reac_volume < 5))
 		return
-	if(reac_volume >= 5)
-		T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume * 1.5 SECONDS)
-		T.name = "deep-fried [initial(T.name)]"
-		T.add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY)
+
+	exposed_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume * 1.5 SECONDS)
+	exposed_turf.name = "deep-fried [initial(exposed_turf.name)]"
+	exposed_turf.add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY)
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"
@@ -162,11 +183,11 @@
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, "<span class='userdanger'>You go into hyperglycaemic shock! Lay off the twinkies!</span>")
-	M.AdjustSleeping(600, FALSE)
+	M.AdjustSleeping(600)
 	. = 1
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M)
-	M.AdjustSleeping(40, FALSE)
+	M.AdjustSleeping(40)
 	..()
 	. = 1
 
@@ -296,14 +317,15 @@
 		//check for protection
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
+			victim.emote("cry")
 			victim.blur_eyes(5) // 10 seconds
-			victim.blind_eyes(3) // 6 seconds
+			victim.adjust_blindness(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
 			victim.confused = max(M.confused, 5) // 10 seconds
-			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
-			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
+			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
+			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
@@ -319,11 +341,6 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
-/datum/reagent/consumable/sodiumchloride/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M))
-		return
-	if(M.has_bane(BANE_SALT))
-		M.mind.disrupt_spells(-200)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
@@ -355,24 +372,6 @@
 		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
 		M.vomit(20)
 
-
-
-/datum/reagent/consumable/cocoa/hot_cocoa
-	name = "Hot Chocolate"
-	description = "Made with love! And cocoa beans."
-	reagent_state = LIQUID
-	nutriment_factor = 3 * REAGENTS_METABOLISM
-	color = "#403010" // rgb: 64, 48, 16
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "creamy chocolate"
-	glass_icon_state  = "chocolateglass"
-	glass_name = "glass of chocolate"
-	glass_desc = "Tasty."
-
-/datum/reagent/consumable/cocoa/hot_cocoa/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
-	..()
-
 /datum/reagent/drug/mushroomhallucinogen
 	name = "Mushroom Hallucinogen"
 	description = "A strong hallucinogenic drug derived from certain species of mushroom."
@@ -382,6 +381,8 @@
 	taste_description = "mushroom"
 
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M)
+	if(ispsyphoza(M))
+		return
 	if(!M.slurring)
 		M.slurring = 1
 	switch(current_cycle)
@@ -635,7 +636,7 @@
 		else
 			if(!M.eye_blurry)
 				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 			M.blur_eyes(5)
 	..()
 
@@ -645,7 +646,7 @@
 		M.blur_eyes(4)
 		if(prob(10))
 			to_chat(M, "<span class = 'warning'>Your eyes sting!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized
@@ -659,6 +660,20 @@
 /datum/reagent/consumable/nutriment/stabilized/on_mob_life(mob/living/carbon/M)
 	if(M.nutrition > NUTRITION_LEVEL_FULL - 25)
 		M.adjust_nutrition(-3*nutriment_factor)
+	..()
+
+/datum/reagent/consumable/maltodextrin
+	name = "Maltodextrin"
+	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
+	color = "#ffffff"
+	chem_flags = CHEMICAL_RNG_GENERAL
+	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
+	taste_description = "processed goodness"
+	nutriment_factor = 0
+	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
+
+/datum/reagent/consumable/maltodextrin/on_mob_life(mob/living/carbon/M)
+	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
 	..()
 
 ////Lavaland Flora Reagents////
@@ -758,6 +773,14 @@
 		M.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
 		playsound(M, "sparks", 50, 1)
 	return ..()
+
+/datum/reagent/consumable/chlorophyll
+	name = "Liquid Chlorophyll"
+	description = "A plant-specific elixir of life."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#00df30"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "bitter, dry, broccoli soup"
 
 /datum/reagent/consumable/astrotame
 	name = "Astrotame"

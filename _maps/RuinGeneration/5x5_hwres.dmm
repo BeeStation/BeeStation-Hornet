@@ -1,14 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "f" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "q" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "w" = (
 /turf/closed/wall,
@@ -17,13 +17,13 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "P" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -49,9 +49,9 @@ q
 "}
 (4,1,1) = {"
 w
+f
+f
 a
-f
-f
 w
 "}
 (5,1,1) = {"

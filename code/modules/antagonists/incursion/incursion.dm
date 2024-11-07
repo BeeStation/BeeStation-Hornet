@@ -82,7 +82,7 @@
 
 /datum/antagonist/incursion/proc/finalize_incursion()
 	equip()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/incursion.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
@@ -142,14 +142,17 @@
 
 	var/purchases = ""
 	var/TC_uses = 0
+	var/effective_tc = 0
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 	for(var/I in members)
 		var/datum/mind/syndicate = I
 		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
 		if(H)
 			TC_uses += H.total_spent
+			effective_tc += H.effective_amount
 			purchases += H.generate_render(show_key = FALSE)
-	parts += "(Syndicates used [TC_uses] TC) [purchases]"
+	var/effective_message = TC_uses < effective_tc ? " / effectively worth [effective_tc] TC" : ""
+	parts += "(Syndicates used [TC_uses] TC[effective_message]) [purchases]"
 
 	if(win)
 		parts += "<span class='greentext'>The Syndicate were successful with their operation!</span>"
@@ -171,7 +174,7 @@
 	objectives = list()
 	var/is_hijacker = GLOB.player_details.len >= 35 ? prob(15) : 0
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
-		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
+		forge_single_objective(clamp((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in objectives))
 			add_objective(new/datum/objective/hijack)
@@ -179,7 +182,7 @@
 		add_objective(new/datum/objective/escape/single, FALSE)
 
 /datum/team/incursion/proc/forge_single_objective(difficulty=1, list/restricted_jobs)
-	difficulty = CLAMP(difficulty, 1, 3)
+	difficulty = clamp(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
 			if(LAZYLEN(active_ais()) && prob(25))	//25 %

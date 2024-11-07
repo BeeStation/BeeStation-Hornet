@@ -1,4 +1,4 @@
-/obj/item/clothing/accessory //Ties moved to neck slot items, but as there are still things like medals and armbands, this accessory system is being kept as-is
+/obj/item/clothing/accessory
 	name = "Accessory"
 	desc = "Something has gone wrong!"
 	icon = 'icons/obj/clothing/accessories.dmi'
@@ -10,6 +10,7 @@
 	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
 	var/datum/component/storage/detached_pockets
 	var/attachment_slot = CHEST
+	appearance_flags = TILE_BOUND | RESET_COLOR
 
 /obj/item/clothing/accessory/Destroy()
 	set_detached_pockets(null)
@@ -33,14 +34,19 @@
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
 	if(minimize_when_attached)
-		transform *= 0.5	//halve the size so it doesn't overpower the under
+		transform *= 0.5 //halve the size so it doesn't overpower the under
 		pixel_x += 8
 		pixel_y -= 8
 	U.add_overlay(src)
 
-	if (islist(U.armor) || isnull(U.armor)) 										// This proc can run before /obj/Initialize has run for U and src,
-		U.armor = getArmor(arglist(U.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
-																					// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
+	/**
+	** This proc can run before /obj/Initialize has run for U and src,
+	** we have to check that the armor list has been transformed into a datum before we try to call a proc on it
+	** This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
+	**/
+	if (islist(U.armor) || isnull(U.armor))
+		U.armor = getArmor(arglist(U.armor))
+
 	if (islist(armor) || isnull(armor))
 		armor = getArmor(arglist(armor))
 
@@ -123,7 +129,7 @@
 	name = "bronze medal"
 	desc = "A bronze medal."
 	icon_state = "bronze"
-	materials = list(/datum/material/iron=1000)
+	custom_materials = list(/datum/material/iron=1000)
 	resistance_flags = FIRE_PROOF
 	var/medaltype = "medal" //Sprite used for medalbox
 	var/commended = FALSE
@@ -144,7 +150,7 @@
 				delay = 0
 			else
 				user.visible_message("[user] is trying to pin [src] on [M]'s chest.", \
-									 "<span class='notice'>You try to pin [src] on [M]'s chest.</span>")
+									"<span class='notice'>You try to pin [src] on [M]'s chest.</span>")
 			var/input
 			if(!commended && user != M)
 				input = stripped_input(user,"Please input a reason for this commendation, it will be recorded by Nanotrasen.", ,"", 140)
@@ -154,7 +160,7 @@
 						to_chat(user, "<span class='notice'>You attach [src] to [U].</span>")
 					else
 						user.visible_message("[user] pins \the [src] on [M]'s chest.", \
-											 "<span class='notice'>You pin \the [src] on [M]'s chest.</span>")
+											"<span class='notice'>You pin \the [src] on [M]'s chest.</span>")
 						if(input)
 							SSblackbox.record_feedback("associative", "commendation", 1, list("commender" = "[user.real_name]", "commendee" = "[M.real_name]", "medal" = "[src]", "reason" = input))
 							GLOB.commendations += "[user.real_name] awarded <b>[M.real_name]</b> the <span class='medaltext'>[name]</span>! \n- [input]"
@@ -191,7 +197,7 @@
 	desc = "A silver medal."
 	icon_state = "silver"
 	medaltype = "medal-silver"
-	materials = list(/datum/material/silver=1000)
+	custom_materials = list(/datum/material/silver=1000)
 
 /obj/item/clothing/accessory/medal/silver/valor
 	name = "medal of valor"
@@ -210,7 +216,7 @@
 	desc = "A prestigious golden medal."
 	icon_state = "gold"
 	medaltype = "medal-gold"
-	materials = list(/datum/material/gold=1000)
+	custom_materials = list(/datum/material/gold=1000)
 
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
@@ -227,8 +233,8 @@
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
 	medaltype = "medal-plasma"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0) //It's made of plasma. Of course it's flammable.
-	materials = list(/datum/material/plasma=1000)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0, BLEED = 0) //It's made of plasma. Of course it's flammable.
+	custom_materials = list(/datum/material/plasma=1000)
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -265,12 +271,14 @@
 /obj/item/clothing/accessory/armband/blue
 	name = "blue armband"
 	desc = "A fancy blue armband!"
-	color = list(0,0,1, 0,1,0, 1,0,0)
+	icon_state = "medband"
+	color = "#0000ff"
 
 /obj/item/clothing/accessory/armband/green
 	name = "green armband"
 	desc = "A fancy green armband!"
-	color = list(0,1,0, 1,0,0, 0,0,1)
+	icon_state = "medband"
+	color = "#00ff00"
 
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"
@@ -358,7 +366,7 @@
 	name = "bone talisman"
 	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
 	icon_state = "talisman"
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10)
+	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10, BLEED = 10)
 	attachment_slot = null
 
 /obj/item/clothing/accessory/skullcodpiece
@@ -366,7 +374,7 @@
 	desc = "A skull shaped ornament, intended to protect the important things in life."
 	icon_state = "skull"
 	above_suit = TRUE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10)
+	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10, BLEED = 10)
 	attachment_slot = GROIN
 
 /obj/item/clothing/accessory/holster
@@ -374,7 +382,9 @@
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
 	icon_state = "holster"
 	item_state = "holster"
+	worn_icon_state = "holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
+	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"
@@ -383,8 +393,6 @@
 /obj/item/clothing/accessory/holster/detective/Initialize(mapload)
 	. = ..()
 	new /obj/item/gun/ballistic/revolver/detective(src)
-	new /obj/item/ammo_box/c38/match/bouncy(src)
-	new /obj/item/ammo_box/c38/match/bouncy(src)
 
 //Poppy Pin
 /obj/item/clothing/accessory/poppy_pin

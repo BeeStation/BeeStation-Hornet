@@ -4,7 +4,7 @@
 /obj/structure/sign/departments/medbay{
 	pixel_y = 32
 	},
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -24,15 +24,15 @@
 /area/template_noop)
 "d" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 6;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -4;
 	pixel_y = 6
 	},
@@ -43,7 +43,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/item/reagent_containers/glass/bottle/toxin{
+/obj/item/reagent_containers/cup/bottle/toxin{
 	pixel_x = 4;
 	pixel_y = 2
 	},
@@ -76,12 +76,12 @@
 /area/template_noop)
 "j" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "k" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "l" = (

@@ -75,11 +75,14 @@
 					adjustOxyLoss(200/damage_mod)
 
 				if(damagetype & MANUAL_SUICIDE)	//Assume the object will handle the death.
+					investigate_log("has died from committing suicide[held_item ? " with [held_item]" : ""].", INVESTIGATE_DEATHS)
 					return
 
 				//If something went wrong, just do normal oxyloss
 				if(!(damagetype & (BRUTELOSS | FIRELOSS | TOXLOSS | OXYLOSS) ))
 					adjustOxyLoss(max(200 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+
+				investigate_log("has died from committing suicide[held_item ? " with [held_item]" : ""].", INVESTIGATE_DEATHS)
 
 				death(FALSE)
 				ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
@@ -113,6 +116,7 @@
 		suicide_log()
 
 		adjustOxyLoss(max(200 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+		investigate_log("has died from committing suicide[held_item ? " with [held_item]" : ""].", INVESTIGATE_DEATHS)
 		death(FALSE)
 
 /mob/living/brain/verb/suicide()
@@ -194,7 +198,7 @@
 	if(confirm == "Yes")
 		var/turf/T = get_turf(src.loc)
 		T.visible_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", null, \
-		 "<span class='notice'>[src] bleeps electronically.</span>")
+			"<span class='notice'>[src] bleeps electronically.</span>")
 
 		suicide_log()
 
@@ -241,6 +245,7 @@
 		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/proc/suicide_log()
+	investigate_log("has died from committing suicide.", INVESTIGATE_DEATHS)
 	log_game("[key_name(src)] committed suicide at [AREACOORD(src)] as [src.type].")
 	if(CONFIG_GET(flag/restricted_suicide))
 		message_admins("[key_name(src)] committed suicide at [AREACOORD(src)] as [src.type].")
@@ -256,7 +261,7 @@
 			return TRUE
 		if(SOFT_CRIT)
 			to_chat(src, "You can't commit suicide while in a critical condition!")
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			to_chat(src, "You need to be conscious to commit suicide!")
 		if(DEAD)
 			to_chat(src, "You're already dead!")

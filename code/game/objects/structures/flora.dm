@@ -1,6 +1,6 @@
 /obj/structure/flora
 	resistance_flags = FLAMMABLE
-	max_integrity = 150
+	max_integrity = 20
 	anchored = TRUE
 
 //trees
@@ -354,6 +354,7 @@
 	if(!states)
 		generate_states()
 	icon_state = pick(states)
+	update_appearance()
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()

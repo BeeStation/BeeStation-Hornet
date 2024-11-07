@@ -6,7 +6,7 @@
 	icon_living = "cat_butcher"
 	icon_dead = "syndicate_dead"
 	icon_gib = "syndicate_gib"
-	projectiletype = /obj/item/projectile/bullet/dart/tranq
+	projectiletype = /obj/projectile/bullet/dart/tranq
 	projectilesound = 'sound/items/syringeproj.ogg'
 	retreat_distance = 3
 	ranged = TRUE
@@ -14,16 +14,14 @@
 	ranged_cooldown_time = 30
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
 	melee_damage = 15
-	attacktext = "slashes at"
+	attack_verb_continuous = "slashes at"
+	attack_verb_simple = "slash at"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
@@ -84,11 +82,11 @@
 	L.reagents.remove_reagent(/datum/reagent/toxin/chloralhydrate, 100)
 	if(L.blood_volume <= 500) //bandage them up and give em some blood if they're bleeding
 		L.blood_volume += 30
-		L.suppress_bloodloss(1800)
+		L.suppress_bloodloss(BLEED_DEEP_WOUND)
 	if(L.getBruteLoss() >= 50)
 		var/healing = min(L.getBruteLoss(), 120)
 		L.adjustBruteLoss(-healing)
-		L.suppress_bloodloss(1800)//bandage their ass
+		L.suppress_bloodloss(BLEED_DEEP_WOUND)//bandage their ass
 	FindTarget()
 
 /mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(var/mob/living/carbon/human/L)
@@ -104,7 +102,7 @@
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
 		switch(LAZYLEN(victims))
 			if(2)
-				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
+				projectiletype = /obj/projectile/bullet/dart/tranq/plus
 			if(4)//gain space adaptation to make cheesing harder
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 				icon_state = "cat_butcher_fire"
@@ -114,7 +112,7 @@
 				rapid_melee = 3
 				transform *= 1.25
 			if(8)
-				projectiletype = /obj/item/projectile/bullet/dart/tranq/plusplus
+				projectiletype = /obj/projectile/bullet/dart/tranq/plusplus
 			if(10)
 				ranged_cooldown_time = 10
 			if(15)//if he's gotten this powerful, someone has really fucked up
@@ -172,7 +170,7 @@
 				continue
 			else
 				var/healthdiff = 10-round(H.health/10)
-				Targets[H] = CLAMP(healthdiff,1,12)
+				Targets[H] = clamp(healthdiff,1,12)
 	if(!Targets.len)//sanity check
 		return
 	return pick_weight(Targets)//Pick the remaining targets (if any) at random

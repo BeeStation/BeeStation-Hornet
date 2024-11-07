@@ -20,7 +20,7 @@
 	name = "Bluespace Storage Capsule"
 	description = "Nanotrasen would make good use of compact, high-capacity storage devices. If you have any, please ship them."
 	reward = 10000
-	wanted_types = list(/obj/item/deployable/capsule)
+	wanted_types = list(/obj/item/bluespace_capsule)
 
 /datum/bounty/item/science/nightvision_goggles
 	name = "Night Vision Goggles"
@@ -39,7 +39,7 @@
 	name = "Cryostasis Beaker"
 	description = "Chemists at Central Command have discovered a new chemical that can only be held in cryostasis beakers. The only problem is they don't have any! Rectify this to receive payment."
 	reward = 10000
-	wanted_types = list(/obj/item/reagent_containers/glass/beaker/noreact)
+	wanted_types = list(/obj/item/reagent_containers/cup/beaker/noreact)
 
 /datum/bounty/item/science/diamond_drill
 	name = "Diamond Mining Drill"

@@ -1,6 +1,7 @@
 /datum/job/chemist
 	title = JOB_NAME_CHEMIST
-	flag = CHEMIST
+	description = "Create healing medicines and fullfill other requests when medicine isn't needed. Label everything you produce correctly to prevent confusion."
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -11,10 +12,9 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chemist
 
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
+	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
+	extra_access = list(ACCESS_SURGERY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_CLONING)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
@@ -27,6 +27,17 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
 	)
 	biohazard = 25
+
+	lightup_areas = list(
+		/area/medical/surgery,
+		/area/medical/virology,
+		/area/medical/genetics
+	)
+	minimal_lightup_areas = list(
+		/area/medical/morgue,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
 
 /datum/outfit/job/chemist
 	name = JOB_NAME_CHEMIST

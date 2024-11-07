@@ -9,7 +9,7 @@
 	var/list/octaves = list(3, 3, 3, 3, 3, 3, 3)
 	var/list/accents = list("n", "n", "n", "n", "n", "n", "n")
 	for(var/line in lines)
-		var/list/chords = splittext(lowertext(line), ",")
+		var/list/chords = splittext(LOWER_TEXT(line), ",")
 		for(var/chord in chords)
 			var/list/compiled_chord = list()
 			var/tempodiv = 1
@@ -65,9 +65,9 @@
 		if(user && HAS_TRAIT(user, TRAIT_MUSICIAN) && isliving(M))
 			var/mob/living/L = M
 			L.apply_status_effect(STATUS_EFFECT_GOOD_MUSIC)
-		if(!(M?.client?.prefs?.toggles & PREFTOGGLE_SOUND_INSTRUMENTS))
+		if(!M?.client?.prefs.read_player_preference(/datum/preference/toggle/sound_instruments))
 			continue
-		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, INSTRUMENT_DISTANCE_NO_FALLOFF, channel, null, copy, distance_multiplier = INSTRUMENT_DISTANCE_FALLOFF_BUFF)
+		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, null, channel, null, copy)
 		// Could do environment and echo later but not for now
 
 /**

@@ -28,7 +28,6 @@
 		if(distance > max_radius)
 			continue
 		//Change area
-		asteroid_area.contents += T
 		T.change_area(T.loc, asteroid_area)
 		//Check if we are closed or not (Cave generation)
 		var/closed = text2num(generated_string[world.maxx * (T.y - 1) + T.x])

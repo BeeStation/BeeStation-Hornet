@@ -24,7 +24,7 @@
 				filtering_step_type,
 				/datum/surgery_step/close)
 
-/datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(HAS_TRAIT(target, TRAIT_HUSK)) //Can't filter husk
 		return FALSE
 	var/datum/surgery_step/filter_blood/filtering_step = filtering_step_type
@@ -42,7 +42,7 @@
 	var/chem_purge_factor = 0.2
 	var/tox_heal_factor = 0
 
-/datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery,/datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		if(!the_surgery.antispam)
@@ -50,13 +50,13 @@
 		"<span class='notice'>[user] uses [tool] to filtering your blood.</span>",
 		"<span class='notice'>[user] uses [tool] on [target]'s chest.</span>")
 
-/datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+/datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
 		while(target.reagents.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
 			if(!..())
 				break
 
-/datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/tox_loss = target.getToxLoss()
 	if(target.reagents.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
 		for(var/blood_chem in target.reagents.reagent_list)
@@ -86,7 +86,7 @@
 		the_surgery.antispam = TRUE
 	return TRUE
 
-/datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='warning'>You screw up, brusing [target]'s chest!</span>",
 		"<span class='warning'>[user] screws up, brusing [target]'s chest!</span>",
 		"<span class='warning'>[user] screws up!</span>")

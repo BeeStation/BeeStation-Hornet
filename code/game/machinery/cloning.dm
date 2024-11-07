@@ -76,7 +76,7 @@
 	efficiency = 0
 	reagents.maximum_volume = 0
 	fleshamnt = 1
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
@@ -105,7 +105,7 @@
 	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
-/obj/machinery/clonepod/attack_ai(mob/user)
+/obj/machinery/clonepod/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/clonepod/examine(mob/user)
@@ -178,9 +178,6 @@
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
-
-/obj/machinery/clonepod/attack_ai(mob/user)
-	return examine(user)
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
@@ -278,8 +275,6 @@
 
 	if(H)
 		H.faction |= factions
-		remove_hivemember(H)
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
@@ -296,7 +291,7 @@
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key
@@ -354,7 +349,7 @@
 		else if(mob_occupant && mob_occupant.cloneloss > (100 - heal_level))
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult), TRUE, TRUE)
 			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 				reagents.remove_reagent(/datum/reagent/medicine/synthflesh, fleshamnt)
@@ -404,6 +399,25 @@
 			icon_state = "pod_0"
 		use_power(200)
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/clonepod)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
+	if(istype(buffer, /obj/machinery/computer/cloning))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
+			FLUSH_BUFFER(buffer_parent)
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		var/obj/machinery/computer/cloning/comp = buffer
+		if(connected)
+			connected.DetachCloner(src)
+		comp.AttachCloner(src)
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	else
+		return NONE
+	return COMPONENT_BUFFER_RECEIVED
+
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
 	if(!(occupant || mess))
@@ -411,26 +425,6 @@
 			return
 
 	if(default_deconstruction_crowbar(W))
-		return
-
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/computer/cloning))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
-				P.buffer = null
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			var/obj/machinery/computer/cloning/comp = P.buffer
-			if(connected)
-				connected.DetachCloner(src)
-			comp.AttachCloner(src)
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
 		return
 
 	var/mob/living/mob_occupant = occupant
@@ -448,7 +442,7 @@
 			to_chat(user, "<span class='notice'>You force an emergency ejection. </span>")
 			go_out()
 			log_cloning("[key_name(user)] manually ejected [key_name(mob_occupant)] from [src] at [AREACOORD(src)].")
-			log_combat(user, mob_occupant, "ejected", W, "from [src]")
+			log_combat(user, mob_occupant, "ejected", W, "from [src]", important = FALSE)
 	else
 		return ..()
 
@@ -461,7 +455,7 @@
 	malfunction()
 	add_fingerprint(user)
 	log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
-	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null)
+	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null, important = FALSE)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
@@ -590,7 +584,7 @@
 	playsound(src,'sound/hallucinations/wail.ogg', 100, TRUE)
 
 /obj/machinery/clonepod/deconstruct(disassembled = TRUE)
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	if(occupant)
 		var/mob/living/mob_occupant = occupant

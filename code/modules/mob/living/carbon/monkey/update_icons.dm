@@ -34,7 +34,7 @@
 			hair_hidden = 1
 	if(!hair_hidden)
 		if(!getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
-			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/human_face.dmi', "debrained", -HAIR_LAYER)
+			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/human_face.dmi', "debrained", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 			apply_overlay(HAIR_LAYER)
 
 
@@ -44,7 +44,7 @@
 /mob/living/carbon/monkey/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 	if(legcuffed)
-		var/mutable_appearance/legcuff_overlay = mutable_appearance('icons/mob/mob.dmi', "legcuff1", -LEGCUFF_LAYER)
+		var/mutable_appearance/legcuff_overlay = mutable_appearance('icons/mob/mob.dmi', "legcuff1", CALCULATE_MOB_OVERLAY_LAYER(LEGCUFF_LAYER))
 		legcuff_overlay.pixel_y = 8
 		overlays_standing[LEGCUFF_LAYER] = legcuff_overlay
 	apply_overlay(LEGCUFF_LAYER)

@@ -8,6 +8,8 @@
 	var/modifies_speech = FALSE
 	var/mask_adjusted = 0
 	var/adjusted_flags = null
+	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
+	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -26,18 +28,26 @@
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
+/obj/item/clothing/mask/Destroy()
+	chosen_tongue = null
+	. = ..()
+
 /obj/item/clothing/mask/proc/handle_speech()
 	SIGNAL_HANDLER
-/obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+
+/obj/item/clothing/mask/proc/get_name(mob/user, default_name)
+	return default_name
+
+/obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask")
+				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
 			if(HAS_BLOOD_DNA(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood")
+				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
-/obj/item/clothing/mask/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
@@ -76,14 +86,15 @@
 		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
 
 /obj/item/clothing/mask/compile_monkey_icon()
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
 	//If the icon, for this type of item, is already made by something else, don't make it again
-	if(GLOB.monkey_icon_cache[type])
-		monkey_icon = GLOB.monkey_icon_cache[type]
+	if(GLOB.monkey_icon_cache[identity])
+		monkey_icon = GLOB.monkey_icon_cache[identity]
 		return
 
 	//Start with two sides
-	var/icon/main = icon('icons/mob/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
-	var/icon/sub = icon('icons/mob/mask.dmi', icon_state)
+	var/icon/main = icon('icons/mob/clothing/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/mask.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
@@ -94,7 +105,7 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//Flip it facing west, due to a spriting quirk
-	sub = icon('icons/mob/mask.dmi', icon_state, dir = EAST)
+	sub = icon('icons/mob/clothing/mask.dmi', icon_state, dir = EAST)
 	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)
@@ -105,4 +116,4 @@
 
 	//Finished
 	monkey_icon = main
-	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
+	GLOB.monkey_icon_cache[identity] = icon(monkey_icon)

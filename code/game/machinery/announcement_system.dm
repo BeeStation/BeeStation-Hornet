@@ -54,10 +54,6 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	GLOB.announcement_systems -= src //"OH GOD WHY ARE THERE 100,000 LISTED ANNOUNCEMENT SYSTEMS?!!"
 	return ..()
 
-/obj/machinery/announcement_system/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/announcement_system/attackby(obj/item/P, mob/user, params)
 	if(P.tool_behaviour == TOOL_SCREWDRIVER)
 		P.play_tool_sound(src)
@@ -159,19 +155,17 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 			update_icon()
 			. = TRUE
 
-/obj/machinery/announcement_system/attack_robot(mob/living/silicon/user)
-	. = attack_ai(user)
-
-/obj/machinery/announcement_system/attack_ai(mob/user)
+/obj/machinery/announcement_system/attack_silicon(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	if(machine_stat & BROKEN)
 		to_chat(user, "<span class='warning'>[src]'s firmware appears to be malfunctioning!</span>")
 		return
 	interact(user)
+	return TRUE
 
 /obj/machinery/announcement_system/proc/act_up() //does funny breakage stuff
-	if(!obj_break()) // if badmins flag this unbreakable or its already broken
+	if(!atom_break()) // if badmins flag this unbreakable or its already broken
 		return
 
 	arrival = pick("#!@%ERR-34%2 CANNOT LOCAT@# JO# F*LE!", "CRITICAL ERROR 99.", "ERR)#: DA#AB@#E NOT F(*ND!")

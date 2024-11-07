@@ -56,15 +56,15 @@
 		if(WIRE_PROCEED)
 			holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] The bomb buzzes ominously!</span>")
 			playsound(B, 'sound/machines/buzz-sigh.ogg', 30, 1)
-			var/seconds = B.seconds_remaining()
-			if(seconds >= LONG_FUSE_THRESHOLD) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
+			var/seconds_left = B.seconds_remaining()
+			if(seconds_left >= LONG_FUSE_THRESHOLD) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
 				B.detonation_timer = world.time + 60 SECONDS
-			else if(seconds >= MEDIUM_FUSE_THRESHOLD)
+			else if(seconds_left >= MEDIUM_FUSE_THRESHOLD)
 				if(time_cut)
 					return
-				B.detonation_timer *= 0.5
+				B.detonation_timer -= seconds_left * 0.5 SECONDS
 				time_cut = TRUE
-			else if(seconds >= SHORT_FUSE_THRESHOLD) // Both to prevent negative timers and to have a little mercy.
+			else if(seconds_left >= SHORT_FUSE_THRESHOLD) // Both to prevent negative timers and to have a little mercy.
 				B.detonation_timer = world.time + 10 SECONDS
 		if(WIRE_ACTIVATE)
 			if(!B.active)
@@ -78,7 +78,7 @@
 				B.detonation_timer += 10 SECONDS
 				delayed_hesitate = TRUE
 
-/datum/wires/syndicatebomb/on_cut(wire, mend)
+/datum/wires/syndicatebomb/on_cut(wire, mob/user, mend)
 	var/obj/machinery/syndicatebomb/B = holder
 	switch(wire)
 		if(WIRE_BOOM)
@@ -90,7 +90,7 @@
 			if(!mend && B.anchored)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The bolts lift out of the ground!</span>")
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
-				B.anchored = FALSE
+				B.set_anchored(FALSE)
 		if(WIRE_PROCEED)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")

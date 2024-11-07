@@ -12,15 +12,14 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
 	/client/proc/secrets,				/*from useful quick commands, to memes*/
-	/client/proc/toggle_hear_radio,		/*allows admins to hide all radio output*/
 	/client/proc/reload_admins,
 	/client/proc/reestablish_db_connection, /*reattempt a connection to the database*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
+	/client/proc/tag_datum_mapview,
 	/client/proc/requests,
-	/client/proc/fax_manager
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -68,13 +67,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/toggle_combo_hud, // toggle display of the combination pizza antag and taco sci/med/eng hud
 	/client/proc/toggle_AI_interact, /*toggle admin ability to interact with machines as an AI*/
 	/datum/admins/proc/open_shuttlepanel, /* Opens shuttle manipulator UI */
-	/client/proc/deadchat,
-	/client/proc/toggleprayers,
-	/client/proc/toggle_prayer_sound,
-	/client/proc/colorasay,
-	/client/proc/resetasaycolor,
-	/client/proc/toggleadminhelpsound,
-	/client/proc/toggleadminalertsound,
 	/client/proc/respawn_character,
 	/datum/admins/proc/open_borgopanel,
 	/datum/admins/proc/view_all_circuits,
@@ -84,13 +76,15 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/battle_royale,
 	/client/proc/delete_book,
 	/client/proc/cmd_admin_send_pda_msg,
+	/client/proc/fax_panel, /*send a paper to fax*/
+	/datum/admins/proc/display_tags,
 	)
-GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
+GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/old_ban_panel))
 GLOBAL_PROTECT(admin_verbs_ban)
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_sound, /client/proc/set_round_end_sound, /client/proc/play_soundtrack))
 GLOBAL_PROTECT(admin_verbs_sounds)
 GLOBAL_LIST_INIT(admin_verbs_fun, list(
-	/client/proc/cmd_admin_dress,
+	/client/proc/cmd_select_equipment,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/set_dynex_scale,
@@ -111,7 +105,6 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/polymorph_all,
 	/client/proc/show_tip,
 	/client/proc/smite,
-	/client/proc/admin_away,
 	/client/proc/load_circuit,
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
@@ -186,6 +179,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/jump_to_ruin,
 	/client/proc/generate_ruin,
 	/client/proc/clear_dynamic_transit,
+	/client/proc/run_empty_query,
 	/client/proc/fucky_wucky,
 	/client/proc/toggle_medal_disable,
 	/client/proc/view_runtimes,
@@ -197,6 +191,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/create_or_modify_area,
 	/datum/admins/proc/fixcorruption,
 	#ifdef TESTING
+	/client/proc/check_missing_sprites,
 	/client/proc/run_dynamic_simulations,
 	#endif
 	#ifdef SENDMAPS_PROFILE
@@ -204,7 +199,9 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	#endif
 	/client/proc/toggle_cdn,
 	/client/proc/check_timer_sources,
-	/client/proc/test_dview_to_lum_changes
+	/client/proc/test_dview_to_lum_changes,
+	/client/proc/cmd_regenerate_asset_cache,
+	/client/proc/cmd_clear_smart_asset_cache,
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
@@ -239,7 +236,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/play_sound,
 	/client/proc/set_round_end_sound,
 	/client/proc/play_soundtrack,
-	/client/proc/cmd_admin_dress,
+	/client/proc/cmd_select_equipment,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/drop_dynex_bomb,
@@ -455,6 +452,14 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 	holder.ban_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Banning Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/old_ban_panel()
+	set name = "Old Banning Panel"
+	set category = "Admin"
+	if(!check_rights(R_BAN))
+		return
+	holder.old_ban_panel()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Old Banning Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/unban_panel()
 	set name = "Unbanning Panel"
@@ -826,7 +831,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(!bookid)
 		return
 
-	var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+	var/datum/db_query/query_library_print = SSdbcore.NewQuery(
 		"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 		list("id" = bookid)
 	)
@@ -838,7 +843,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/title = query_library_print.item[3]
 	var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
 	if(confirmation == "Yes")
-		var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
+		var/datum/db_query/query_burn_book = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
 			list("id" = bookid)
 		)

@@ -32,7 +32,7 @@
 	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
 		return
 	var/turf/T = get_turf(X.loc)
-	AM.anchored = FALSE
+	AM.set_anchored(FALSE)
 	AM.forceMove(T)
 	if(spawn_russian)
 		new /mob/living/simple_animal/hostile/russian(T)
@@ -98,14 +98,14 @@
 		victim.IgniteMob()
 		return
 	//otherwise shoot laser
-	var/obj/item/projectile/A
+	var/obj/projectile/A
 	switch(X.charge)
 		if(0 to 24)
-			A = new /obj/item/projectile/beam/disabler
+			A = new /obj/projectile/beam/disabler
 		if(25 to 79)
-			A = new /obj/item/projectile/beam/laser
+			A = new /obj/projectile/beam/laser
 		if(80 to 200)
-			A = new /obj/item/projectile/beam/laser/heavylaser
+			A = new /obj/projectile/beam/laser/heavylaser
 	//If target is our own turf, aka someone probably threw us, target a random direction to avoid always shooting east
 	if(istype(target, /turf) && X.loc == target)
 		target = get_edge_target_turf(pick(NORTH, EAST, SOUTH, WEST))
@@ -198,7 +198,7 @@
 ///============
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
-	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
+	label_desc = "Transparent: The shape of the Artifact is difficult to perceive. You feel the need to call it, precious..."
 	weight = 25
 	var/list/victims = list()
 

@@ -7,18 +7,18 @@
 
 /datum/species/moth
 	name = "\improper Mothman"
+	plural_form = "Mothpeople"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
 	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutant_bodyparts = list("moth_wings", "moth_antennae", "moth_markings")
-	default_features = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	var/datum/action/innate/cocoon/cocoon_action
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/moth
+	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
 	mutanttongue = /obj/item/organ/tongue/moth
@@ -33,6 +33,8 @@
 	species_r_arm = /obj/item/bodypart/r_arm/moth
 	species_l_leg = /obj/item/bodypart/l_leg/moth
 	species_r_leg = /obj/item/bodypart/r_leg/moth
+
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 /datum/species/moth/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.moth_first)]"
@@ -80,9 +82,9 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/H = owner
@@ -152,7 +154,7 @@
 	icon_state = "cocoon_moth"
 	anchored = TRUE
 	max_integrity = 10
-    ///Determines whether or not the mothperson is still regenerating their wings
+	///Determines whether or not the mothperson is still regenerating their wings
 	var/done_regenerating = FALSE
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -196,3 +198,35 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+
+/datum/species/moth/get_species_description()
+	return "Mothpeople are an intelligent species, known for their affinity to all things moth - lights, cloth, wings, and friendship."
+
+/datum/species/moth/get_species_lore()
+	return null
+
+/datum/species/moth/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "feather-alt",
+			SPECIES_PERK_NAME = "Precious Wings",
+			SPECIES_PERK_DESC = "Moths can fly in pressurized, zero-g environments and safely land short falls using their wings.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "tshirt",
+			SPECIES_PERK_NAME = "Meal Plan",
+			SPECIES_PERK_DESC = "Moths can eat clothes for nourishment.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "fire",
+			SPECIES_PERK_NAME = "Ablazed Wings",
+			SPECIES_PERK_DESC = "Moth wings are fragile, and can be easily burnt off. However, moths can spin a cooccon to restore their wings if necessary.",
+		),
+	)
+
+	return to_add

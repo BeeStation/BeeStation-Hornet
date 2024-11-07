@@ -5,8 +5,9 @@
 	switch(M.a_intent)
 		if("help")
 			if (health > 0)
-				visible_message("<span class='notice'>[M] [response_help] [src].</span>", \
-					"<span class='notice'>[M] [response_help] you.</span>")
+				visible_message("<span class='notice'>[M] [response_help_continuous] [src].</span>", \
+								"<span class='notice'>[M] [response_help_continuous] you.</span>", null, null, M)
+				to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if("grab")
@@ -17,12 +18,12 @@
 			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			var/shove_dir = get_dir(M, src)
 			if(!Move(get_step(src, shove_dir), shove_dir))
-				log_combat(M, src, "shoved", "failing to move it")
+				log_combat(M, src, "shoved", "disarm", "failing to move it")
 				M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
 					"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
 				to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
 				return TRUE
-			log_combat(M, src, "shoved", "pushing it")
+			log_combat(M, src, "shoved", "disarm", "pushing it")
 			M.visible_message("<span class='danger'>[M.name] shoves [src], pushing [p_them()]!</span>",
 				"<span class='danger'>You shove [src], pushing [p_them()]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
 			to_chat(src, "<span class='userdanger'>You're pushed by [name]!</span>")
@@ -33,11 +34,12 @@
 				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
-				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
+			visible_message("<span class='danger'>[M] [response_harm_continuous] [src]!</span>",\
+							"<span class='userdanger'>[M] [response_harm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, "<span class='danger'>You [response_harm_simple] [src]!</span>")
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(M.dna.species.punchdamage)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", "harm")
 			updatehealth()
 			return TRUE
 
@@ -49,7 +51,8 @@
 		..(user, 1)
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] punches [src]!</span>", \
-			"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
+				"<span class='userdanger'>You're punched by [user]!</span>", null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='danger'>You punch [src]!</span>")
 		adjustBruteLoss(15)
 		return TRUE
 
@@ -61,8 +64,9 @@
 			return 1
 	if (M.a_intent == INTENT_HELP)
 		if (health > 0)
-			visible_message("<span class='notice'>[M.name] [response_help] [src].</span>", \
-				"<span class='notice'>[M.name] [response_help] you.</span>")
+			visible_message("<span class='notice'>[M.name] [response_help_continuous] [src].</span>", \
+							"<span class='notice'>[M.name] [response_help_continuous] you.</span>", null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 
@@ -70,16 +74,18 @@
 	if(..()) //if harm or disarm intent.
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", \
-					"<span class='userdanger'>[M] [response_disarm] you!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(M, src, "disarmed")
+			visible_message("<span class='danger'>[M] [response_disarm_continuous] [name]!</span>", \
+							"<span class='userdanger'>[M] [response_disarm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, "<span class='danger'>You [response_disarm_simple] [name]!</span>")
+			log_combat(M, src, "disarmed", "disarm")
 		else
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
-					"<span class='userdanger'>[M] slashes at you!</span>", null, COMBAT_MESSAGE_RANGE)
+							"<span class='userdanger'>You're slashed at by [M]!</span>", null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, "<span class='danger'>You slash at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			attack_threshold_check(damage)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", "harm")
 		return 1
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
@@ -89,6 +95,11 @@
 		. = attack_threshold_check(damage)
 		if(.)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+
+/mob/living/simple_animal/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	. = ..()
+	if(.)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -118,13 +129,20 @@
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message("<span class='warning'>[src] looks unharmed!</span>")
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
+/mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, Proj, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	apply_damage(Proj.damage, Proj.damage_type)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
@@ -141,6 +159,7 @@
 			if(prob(bomb_armor))
 				adjustBruteLoss(500)
 			else
+				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
 				return
 		if (EXPLODE_HEAVY)

@@ -116,7 +116,7 @@
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
-	candidates = pollGhostCandidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
+	candidates = poll_ghost_candidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
 
 	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
@@ -202,7 +202,6 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
@@ -366,7 +365,7 @@
 	minimum_round_time = 35 MINUTES
 	weight = 3
 	cost = 12
-	minimum_players = 25
+	minimum_players = 22
 	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
@@ -390,7 +389,7 @@
 	minimum_round_time = 40 MINUTES
 	weight = 3
 	cost = 12
-	minimum_players = 25
+	minimum_players = 22
 	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/vents
 
@@ -490,7 +489,7 @@
 	required_candidates = 1
 	weight = 4
 	cost = 11
-	minimum_players = 25
+	minimum_players = 22
 	repeatable = TRUE
 	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/spawn_locs
@@ -524,7 +523,6 @@
 //           ABDUCTORS    (GHOST)           //
 //                                          //
 //////////////////////////////////////////////
-#define ABDUCTOR_MAX_TEAMS 4
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors
 	name = "Abductors"
@@ -536,7 +534,7 @@
 	required_applicants = 2
 	weight = 4
 	cost = 7
-	minimum_players = 25
+	minimum_players = 22
 	repeatable = TRUE
 	var/datum/team/abductor_team/new_team
 
@@ -550,8 +548,6 @@
 	else // Our second guy is the agent, team is already created, don't need to make another one.
 		var/datum/antagonist/abductor/agent/new_role = new
 		new_character.mind.add_antag_datum(new_role, new_team)
-
-#undef ABDUCTOR_MAX_TEAMS
 
 //////////////////////////////////////////////
 //                                          //
@@ -602,7 +598,11 @@
 	return TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/revenant/generate_ruleset_body(mob/applicant)
-	var/mob/living/simple_animal/revenant/revenant = new(pick(spawn_locs))
+	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locs)
+	if(!spawnable_turf)
+		message_admins("Failed to find a proper spawn location because there are a lot of blessed tiles. We'll spawn it anyway.")
+		spawnable_turf = pick(spawn_locs)
+	var/mob/living/simple_animal/revenant/revenant = new(spawnable_turf)
 	revenant.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(revenant)] has been made into a revenant by the midround ruleset.")
 	log_game("[key_name(revenant)] was spawned as a revenant by the midround ruleset.")
@@ -623,7 +623,7 @@
 	required_candidates = 0
 	weight = 4
 	cost = 8
-	minimum_players = 27
+	minimum_players = 25
 	repeatable = FALSE
 
 /datum/dynamic_ruleset/midround/pirates/acceptable(population=0, threat=0)
@@ -662,7 +662,7 @@
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !SSjob.GetJob(candidate.mind.assigned_role) \
-			|| (candidate.mind.assigned_role in GLOB.nonhuman_positions) \
+			|| (candidate.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)) \
 		)
 			candidates -= candidate
 
@@ -691,7 +691,7 @@
 	cost = 11
 	repeatable = TRUE
 	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
-	minimum_players = 27
+	minimum_players = 25
 	var/fed = 1
 	var/list/vents
 	var/datum/team/spiders/spider_team
@@ -758,8 +758,11 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
-	if(!GLOB.the_gateway)
+	if(isnull(GLOB.the_gateway))
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
+		return FALSE
+	if(!GLOB.the_gateway.active)
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no ACTIVE gateway on map).")
 		return FALSE
 	return TRUE
 
@@ -816,6 +819,52 @@
 	log_game("DYNAMIC: [key_name(S)] was spawned as a Morph by the midround ruleset.")
 	return S
 
+
+//////////////////////////////////////////////
+//                                          //
+//           PRISONER  (GHOST)            	//
+//                                          //
+//////////////////////////////////////////////
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners
+	name = "Prisoners"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	role_preference = /datum/role_preference/midround_ghost/prisoner
+	required_type = /mob/dead/observer
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY)
+	required_enemies = list(3,1,1,0,0,0,0,0,0,0)
+	required_candidates = 1
+	weight = 2
+	cost = 6
+	minimum_players = 20
+	repeatable = FALSE
+	var/list/spawn_locs
+
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners/acceptable(population=0, threat=0)
+	if (!SSmapping.empty_space)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners/ready(forced = FALSE)
+	if(!..())
+		return FALSE
+	spawn_locs = list()
+	for(var/obj/effect/landmark/prisonspawn/L in GLOB.landmarks_list)
+		if(isturf(L.loc))
+			spawn_locs += L.loc
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
+		return FALSE
+	return TRUE
+
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners/review_applications()
+	var/turf/landing_turf = pick(spawn_locs)
+	var/result = spawn_prisoners(landing_turf, candidates, list())
+	if(result == NOT_ENOUGH_PLAYERS)
+		message_admins("Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
+		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
+		return FALSE
+	return TRUE
+
 //////////////////////////////////////////////
 //                                          //
 //           FUGITIVES  (GHOST)             //
@@ -865,3 +914,59 @@
 		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
 		return FALSE
 	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
+//           NINJA      (GHOST)             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja
+	name = "Space Ninja"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	role_preference = /datum/role_preference/midround_ghost/ninja
+	required_type = /mob/dead/observer
+	antag_datum = /datum/antagonist/ninja
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(2,2,2,2,2,2,2,2,2,2)
+	required_candidates = 1
+	weight = 3
+	cost = 9
+	minimum_players = 20
+	repeatable = TRUE
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
+	var/spawn_loc
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)
+	if (!..())
+		return FALSE
+	//selecting a spawn_loc
+	var/list/spawn_locs = list()
+	for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
+		if(isturf(L.loc))
+			spawn_locs += L.loc
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations (#1).")
+		return FALSE
+	spawn_loc = pick(spawn_locs)
+	return TRUE
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/generate_ruleset_body(mob/applicant)
+	//spawn the ninja and assign the candidate
+	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
+
+	//Prepare ninja player mind
+	// Dynamic's finish_setup proc will handle application of antagonist datums
+	var/datum/mind/Mind = new /datum/mind(applicant.key)
+	Mind.active = TRUE
+	Mind.transfer_to(Ninja)
+
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by the midround ruleset")
+	log_game("[key_name(Ninja)] was spawned as a ninja by the midround ruleset.")
+
+	return Ninja
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/finish_setup(mob/new_character, index)
+	. = ..()
+	// Set their job in addition to their antag role to be a space ninja for logging purposes
+	new_character.mind.assigned_role = ROLE_NINJA

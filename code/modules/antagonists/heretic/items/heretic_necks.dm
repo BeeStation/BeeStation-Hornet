@@ -15,6 +15,7 @@
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	/// Clothing trait only applied to heretics.
 	var/heretic_only_trait = TRAIT_THERMAL_VISION
 

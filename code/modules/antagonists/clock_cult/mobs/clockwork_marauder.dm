@@ -16,13 +16,14 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	pass_flags = PASSTABLE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
-	attacktext = "slices"
+	attack_verb_continuous = "slices"
+	attack_verb_simple = "slice"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	chat_color = "#CAA25B"
 	mobchatspan = "brassmobsay"
@@ -49,6 +50,8 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 
 /mob/living/simple_animal/hostile/clockwork_marauder/Login()
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	add_servant_of_ratvar(src)
 	to_chat(src, "<span class='brass'>You can block up to 4 attacks with your shield, however it requires a welder to be repaired.</span>")
 
@@ -71,7 +74,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		return
 	. = ..()
 
-/mob/living/simple_animal/hostile/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/clockwork_marauder/bullet_act(obj/projectile/Proj)
 	//Block Ranged Attacks
 	if(shield_health > 0)
 		damage_shield()

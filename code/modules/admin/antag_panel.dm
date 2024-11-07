@@ -97,7 +97,7 @@ GLOBAL_VAR(antag_prototypes)
 		alert("This mind doesn't have a mob, or is deleted! For some reason!", "Edit Memory")
 		return
 
-	var/out = "<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
+	var/out = "[TOOLTIP_CSS_SETUP]<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
 	out += "Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
@@ -168,7 +168,7 @@ GLOBAL_VAR(antag_prototypes)
 		if(pref_source.banning_key)
 			if(is_banned_from(src.key, pref_source.banning_key))
 				antag_header_parts += "<span class='bad'><b>\[BANNED\]</b></span>"
-			else if(current.client)
+			else if(current?.client)
 				var/list/related_preferences = list()
 				for(var/datum/role_preference/role_pref_type as anything in GLOB.role_preference_entries)
 					if(initial(role_pref_type.antag_datum) == pref_source.type)

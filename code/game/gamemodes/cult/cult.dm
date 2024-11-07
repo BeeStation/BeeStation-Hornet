@@ -22,7 +22,7 @@
 			return FALSE
 		if(is_servant_of_ratvar(M))
 			return FALSE
-		if(M.mind.enslaved_to && !iscultist(M.mind.enslaved_to))
+		if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/cult))
 			return FALSE
 		if(M.mind.unconvertable)
 			return FALSE
@@ -71,7 +71,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	//cult scaling goes here
 	recommended_enemies = 1 + round(num_players()/CULT_SCALING_COEFFICIENT)
@@ -95,6 +95,8 @@
 		log_game("[key_name(cultist)] has been selected as a cultist")
 
 	if(cultists_to_cult.len>=required_enemies)
+		for(var/antag in cultists_to_cult)
+			GLOB.pre_setup_antags += antag
 		return TRUE
 	else
 		setup_error = "Not enough cultist candidates"
@@ -106,6 +108,7 @@
 
 	for(var/datum/mind/cult_mind in cultists_to_cult)
 		add_cultist(cult_mind, 0, equip=TRUE, cult_team = main_cult)
+		GLOB.pre_setup_antags -= cult_mind
 
 	main_cult.setup_objectives() //Wait until all cultists are assigned to make sure none will be chosen as sacrifice.
 

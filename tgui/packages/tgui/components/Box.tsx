@@ -10,7 +10,7 @@ import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
 import { CSS_COLORS } from '../constants';
 import type { Inferno, InfernoNode } from 'inferno';
 
-export interface BoxProps {
+export type BoxProps = {
   [key: string]: any;
   as?: string;
   className?: string | BooleanLike;
@@ -57,7 +57,7 @@ export interface BoxProps {
   textColor?: string | BooleanLike;
   backgroundColor?: string | BooleanLike;
   fillPositionedParent?: boolean;
-}
+};
 
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
@@ -238,7 +238,7 @@ export const computeBoxClassName = (props: BoxProps) => {
   return classes([isColorClass(color) && 'color-' + color, isColorClass(backgroundColor) && 'color-bg-' + backgroundColor]);
 };
 
-export const Box = (props: BoxProps) => {
+export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
   const { as = 'div', className, children, ...rest } = props;
   // Render props
   if (typeof children === 'function') {

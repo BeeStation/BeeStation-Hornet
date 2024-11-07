@@ -9,7 +9,7 @@ import { useDispatch } from 'common/redux';
 import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { Component } from 'inferno';
 import { backendSuspendStart, useBackend } from '../backend';
-import { Icon, Flex } from '../components';
+import { Icon } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
 import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
@@ -69,7 +69,7 @@ export class Window extends Component {
       <Layout className="Window" theme={theme} style={override_bg ? { 'background-color': `${override_bg} !important` } : null}>
         <TitleBar
           className="Window__titleBar"
-          title={!suspended && (title || decodeHtmlEntities(config.title))}
+          title={!suspended && decodeHtmlEntities(title || config.title)}
           status={config.status}
           fancy={fancy}
           onDragStart={dragStartHandler}

@@ -6,18 +6,20 @@
 	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 40
+	force = 25
 	throwforce = 20
 	block_power = 50
 	block_level = 1
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	armour_penetration = 50
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/datum/effect_system/spark_spread/spark_system
@@ -47,13 +49,16 @@
 
 /obj/item/energy_katana/pickup(mob/living/user)
 	..()
-	jaunt.Grant(user, src)
+	if(jaunt)
+		jaunt.Grant(user, src)
+	if(user.client)
+		playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 	user.update_icons()
-	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 
 /obj/item/energy_katana/dropped(mob/user)
 	..()
-	jaunt.Remove(user)
+	if(jaunt)
+		jaunt.Remove(user)
 	user.update_icons()
 
 //If we hit the Ninja who owns this Katana, they catch it.

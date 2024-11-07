@@ -14,15 +14,13 @@
 	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 	if(announce && last_lawchange_announce != world.time)
 		to_chat(src, "<b>Your laws have been changed.</b>")
+		overlay_fullscreen("law_change", /atom/movable/screen/fullscreen/law_change, 1)
 		// lawset modules cause this function to be executed multiple times in a tick, so we wait for the next tick in order to be able to see the entire lawset
 		addtimer(CALLBACK(src, PROC_REF(show_laws)), 0)
 		addtimer(CALLBACK(src, PROC_REF(deadchat_lawchange)), 0)
+		// Wait a tick and clear the vignette
+		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "law_change"), 0.2 SECONDS)
 		last_lawchange_announce = world.time
-
-/mob/living/silicon/proc/set_law_sixsixsix(law, announce = TRUE)
-	laws_sanity_check()
-	laws.set_law_sixsixsix(law)
-	post_lawchange(announce)
 
 /mob/living/silicon/proc/set_zeroth_law(law, law_borg, announce = TRUE)
 	laws_sanity_check()
@@ -99,7 +97,3 @@
 	laws.clear_zeroth_law(force)
 	post_lawchange(announce)
 
-/mob/living/silicon/proc/clear_law_sixsixsix(force, announce = TRUE)
-	laws_sanity_check()
-	laws.clear_law_sixsixsix(force)
-	post_lawchange(announce)

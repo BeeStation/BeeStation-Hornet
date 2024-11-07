@@ -9,8 +9,9 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/wrapping_paper
 
-/obj/item/stack/wrapping_paper/use(used, transfer)
+/obj/item/stack/wrapping_paper/use(used, transfer, check = TRUE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
@@ -29,6 +30,7 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/package_wrap
 
 /obj/item/stack/package_wrap/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -43,16 +45,18 @@
 		return SHAME
 
 /obj/item/proc/can_be_package_wrapped() //can the item be wrapped with package wrapper into a delivery package
-	return 1
+	if(w_class >= WEIGHT_CLASS_GIGANTIC)
+		return FALSE
+	return TRUE
 
 /obj/item/storage/can_be_package_wrapped()
-	return 0
+	return FALSE
 
 /obj/item/storage/box/can_be_package_wrapped()
-	return 1
+	return TRUE
 
 /obj/item/small_delivery/can_be_package_wrapped()
-	return 0
+	return FALSE
 
 /obj/item/stack/package_wrap/afterattack(obj/target, mob/user, proximity)
 	. = ..()
@@ -109,7 +113,7 @@
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
-/obj/item/stack/package_wrap/use(used, transfer = FALSE)
+/obj/item/stack/package_wrap/use(used, transfer = FALSE, check = TRUE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)

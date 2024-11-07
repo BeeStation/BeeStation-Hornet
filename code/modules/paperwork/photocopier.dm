@@ -1,18 +1,18 @@
 /// For use with the `color_mode` var. Photos will be printed in greyscale while the var has this value.
-#define PHOTO_GREYSCALE	"Greyscale"
+#define PHOTO_GREYSCALE "Greyscale"
 /// For use with the `color_mode` var. Photos will be printed in full color while the var has this value.
-#define PHOTO_COLOR		"Color"
+#define PHOTO_COLOR "Color"
 
 /// How much toner is used for making a copy of a paper.
-#define PAPER_TONER_USE		0.125
+#define PAPER_TONER_USE 0.125
 /// How much toner is used for making a copy of a photo.
-#define PHOTO_TONER_USE		0.625
+#define PHOTO_TONER_USE 0.625
 /// How much toner is used for making a copy of a document.
-#define DOCUMENT_TONER_USE	0.75
+#define DOCUMENT_TONER_USE 0.75
 /// How much toner is used for making a copy of an ass.
-#define ASS_TONER_USE		0.625
+#define ASS_TONER_USE 0.625
 /// The maximum amount of copies you can make with one press of the copy button.
-#define MAX_COPIES_AT_ONCE	10
+#define MAX_COPIES_AT_ONCE 10
 
 /obj/machinery/photocopier
 	name = "photocopier"
@@ -25,7 +25,7 @@
 	active_power_usage = 200
 	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
-	integrity_failure = 100
+	integrity_failure = 0.33
 	/// A reference to an `/obj/item/paper` inside the copier, if one is inserted. Otherwise null.
 	var/obj/item/paper/paper_copy
 	/// A reference to an `/obj/item/photo` inside the copier, if one is inserted. Otherwise null.
@@ -45,8 +45,9 @@
 	/// Variable needed to determine the selected category of forms on Photocopier.js
 	var/category
 
-/obj/machinery/photocopier/Initialize()
+/obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/payment, 5, SSeconomy.get_budget_account(ACCOUNT_CIV_ID), PAYMENT_CLINICAL)
 	toner_cartridge = new(src)
 
 /obj/machinery/photocopier/handle_atom_del(atom/deleting_atom)
@@ -111,7 +112,8 @@
 	return data
 
 /obj/machinery/photocopier/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
@@ -127,10 +129,6 @@
 				// Basic paper
 				if(istype(paper_copy, /obj/item/paper))
 					do_copy_loop(CALLBACK(src, PROC_REF(make_paper_copy)), usr)
-					return TRUE
-				// Devil contract paper.
-				if(istype(paper_copy, /obj/item/paper/contract/employment))
-					do_copy_loop(CALLBACK(src, PROC_REF(make_devil_paper_copy)), usr)
 					return TRUE
 			// Copying photo.
 			if(photo_copy)
@@ -245,6 +243,8 @@
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
 			break
+		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE)
+			break
 		addtimer(copy_cb, i SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), i SECONDS)
 
@@ -263,21 +263,8 @@
  * * copied_item - The paper, document, or photo that was just spawned on top of the printer.
  */
 /obj/machinery/photocopier/proc/give_pixel_offset(obj/item/copied_item)
-	copied_item.pixel_x = rand(-10, 10)
-	copied_item.pixel_y = rand(-10, 10)
-
-/**
- * Handles the copying of devil contract paper. Transfers all the text, stamps and so on from the old paper, to the copy.
- *
- * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
- * Does not check if it has enough toner because devil contracts cost no toner to print.
- */
-/obj/machinery/photocopier/proc/make_devil_paper_copy()
-	if(!paper_copy)
-		return
-	var/obj/item/paper/contract/employment/E = paper_copy
-	var/obj/item/paper/contract/employment/C = new(loc, E.target.current)
-	give_pixel_offset(C)
+	copied_item.pixel_x = copied_item.base_pixel_x + rand(-10, 10)
+	copied_item.pixel_y = copied_item.base_pixel_y + rand(-10, 10)
 
 /**
  * Handles the copying of paper. Transfers all the text, stamps and so on from the old paper, to the copy.
@@ -287,7 +274,7 @@
 /obj/machinery/photocopier/proc/make_paper_copy()
 	if(!paper_copy || !toner_cartridge)
 		return
-	var/copy_colour = toner_cartridge.charges > 10 ? COLOR_FULL_TONER_BLACK : COLOR_GRAY;
+	var/copy_colour = toner_cartridge.charges > 1 ? COLOR_FULL_TONER_BLACK : COLOR_GRAY;
 
 	var/obj/item/paper/copied_paper = paper_copy.copy(/obj/item/paper, loc, FALSE, copy_colour)
 
@@ -389,21 +376,18 @@
 		object.forceMove(drop_location())
 	to_chat(user, "<span class='notice'>You take [object] out of [src]. [busy ? "The [src] comes to a halt." : ""]</span>")
 
-/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
-	if(default_unfasten_wrench(user, O))
-		return
+/obj/machinery/photocopier/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	else if(istype(O, /obj/item/paper))
+/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/paper))
 		if(copier_empty())
-			if(istype(O, /obj/item/paper/contract/infernal))
-				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
-				resistance_flags |= FLAMMABLE
-				fire_act()
-			else
-				if(!user.temporarilyRemoveItemFromInventory(O))
-					return
-				paper_copy = O
-				do_insertion(O, user)
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
+			paper_copy = O
+			do_insertion(O, user)
 		else
 			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
 
@@ -438,7 +422,7 @@
 	else
 		return ..()
 
-/obj/machinery/photocopier/obj_break(damage_flag)
+/obj/machinery/photocopier/atom_break(damage_flag)
 	. = ..()
 	if(. && toner_cartridge.charges)
 		new /obj/effect/decal/cleanable/oil(get_turf(src))
@@ -529,6 +513,7 @@
  */
 /obj/item/toner
 	name = "toner cartridge"
+	desc = "A small, lightweight cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
@@ -541,7 +526,7 @@
 
 /obj/item/toner/large
 	name = "large toner cartridge"
-	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A hefty cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	grind_results = list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
 	charges = 25
 	max_charges = 25

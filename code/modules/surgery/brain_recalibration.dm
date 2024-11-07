@@ -21,18 +21,18 @@
 	success_sound = 'sound/surgery/hemostat1.ogg'
 	failure_sound = 'sound/surgery/organ2.ogg'
 
-/datum/surgery/brain_recalibration/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/brain_recalibration/can_start(mob/user, mob/living/carbon/target, target_zone)
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!B)
 		return FALSE
 	return TRUE
 
-/datum/surgery_step/fix_brain/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fix_brain/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You begin to fix [target]'s brain...</span>",
 		"[user] begins to fix [target]'s brain.",
 		"[user] begins to perform surgery on [target]'s brain.")
 
-/datum/surgery_step/fix_brain/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fix_brain/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You succeed in fixing [target]'s brain.</span>",
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
@@ -44,7 +44,7 @@
 		to_chat(user, "<span class='notice'>It looks like [target]'s brain could be fixed further.</span>")
 	return TRUE
 
-/datum/surgery_step/fix_brain/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fix_brain/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(target.getorganslot(ORGAN_SLOT_BRAIN))
 		display_results(user, target, "<span class='warning'>You screw up, causing more damage!</span>",
 			"<span class='warning'>[user] screws up, causing brain damage!</span>",

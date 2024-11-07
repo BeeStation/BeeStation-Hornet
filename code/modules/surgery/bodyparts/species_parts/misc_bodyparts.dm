@@ -116,27 +116,6 @@
 	limb_id = "zombie"
 	should_draw_greyscale = FALSE
 
-///PODPEOPLE
-/obj/item/bodypart/head/pod
-	limb_id = "pod"
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/chest/pod
-	limb_id = "pod"
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/l_arm/pod
-	limb_id = "pod"
-
-/obj/item/bodypart/r_arm/pod
-	limb_id = "pod"
-
-/obj/item/bodypart/l_leg/pod
-	limb_id = "pod"
-
-/obj/item/bodypart/r_leg/pod
-	limb_id = "pod"
-
 ///FLY
 /obj/item/bodypart/head/fly
 	limb_id = "fly"
@@ -514,6 +493,18 @@
 	limb_id = "pumpkin_man"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	item_flags = ISCARVABLE
+	///Carved overlay
+	var/image/carved_overlay
+
+/obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
+	. = ..()
+	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", -BODY_LAYER)
+
+/obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
+	. = ..()
+	owner.cut_overlay(carved_overlay)
+	. += carved_overlay
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"

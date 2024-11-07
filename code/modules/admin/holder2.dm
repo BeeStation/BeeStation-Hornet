@@ -36,6 +36,12 @@ GLOBAL_PROTECT(href_token)
 	/// Player panel
 	var/datum/admin_player_panel/player_panel
 
+	/// Banning Panel
+	var/datum/admin_ban_panel/ban_panel
+
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
+
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
@@ -85,7 +91,7 @@ GLOBAL_PROTECT(href_token)
 	deadmined = FALSE
 	if (GLOB.directory[target])
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
-
+	load_mentors()
 
 /datum/admins/proc/deactivate()
 	if(IsAdminAdvancedProcCall())
@@ -100,6 +106,8 @@ GLOBAL_PROTECT(href_token)
 	if ((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
 		C.add_verb(/client/proc/readmin)
+		C.update_special_keybinds()
+	load_mentors()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
@@ -120,6 +128,7 @@ GLOBAL_PROTECT(href_token)
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
 		owner.remove_verb(/client/proc/readmin)
+		owner.update_special_keybinds()
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()

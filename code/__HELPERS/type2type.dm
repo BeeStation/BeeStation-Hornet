@@ -86,8 +86,9 @@
 			return NORTH
 
 /// Converts an angle to a cardinal ss13 direction bitmask
-/proc/angle2dir_cardinal(angle)
-	switch(SIMPLIFY_DEGREES(round(angle, 0.1)))
+/proc/angle2dir_cardinal(degree)
+	degree = SIMPLIFY_DEGREES(degree)
+	switch(round(degree, 0.1))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)
@@ -173,6 +174,22 @@
 	if(!.)
 		. = "NONE"
 	return .
+
+/// For finding out what body parts a body zone covers, the inverse of the below basically
+/proc/body_zone2cover_flags(def_zone)
+	switch(def_zone)
+		if(BODY_ZONE_CHEST)
+			return CHEST|GROIN
+		if(BODY_ZONE_HEAD)
+			return HEAD
+		if(BODY_ZONE_L_ARM)
+			return ARM_LEFT|HAND_LEFT
+		if(BODY_ZONE_R_ARM)
+			return ARM_RIGHT|HAND_RIGHT
+		if(BODY_ZONE_L_LEG)
+			return LEG_LEFT|FOOT_LEFT
+		if(BODY_ZONE_R_LEG)
+			return LEG_RIGHT|FOOT_RIGHT
 
 /// Converts an RGB color to an HSL color
 /proc/rgb2hsl(red, green, blue)
@@ -395,7 +412,6 @@
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
-
 /// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
 	if(!color)
@@ -441,10 +457,8 @@
 		else
 			return "#FFFFFF"
 
-
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
-
 It's only a proc because it's used in more than one place
 
 Takes a string and a datum. The string is well, obviously the string being checked. The datum is used as a source for var names, to check validity. Otherwise every single word could technically be a variable!
@@ -475,15 +489,6 @@ Takes a string and a datum. The string is well, obviously the string being check
 				for(var/A in value)
 					if(var_source.vars.Find(A))
 						. += A
-
-/// Converts a hex code to a number
-/proc/color_hex2num(A)
-	if(!A || length(A) != length_char(A))
-		return 0
-	var/R = hex2num(copytext(A, 2, 4))
-	var/G = hex2num(copytext(A, 4, 6))
-	var/B = hex2num(copytext(A, 6, 8))
-	return R+G+B
 
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)
@@ -540,7 +545,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 		if(/turf)
 			return "turf"
 		else //regex everything else (works for /proc too)
-			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
+			return LOWER_TEXT(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
 
 /// Return html to load a url.
 /// for use inside of browse() calls to html assets that might be loaded on a cdn.

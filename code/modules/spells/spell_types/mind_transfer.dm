@@ -66,13 +66,13 @@ Also, you never added distance checking after target is selected. I've went ahea
 			to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is resisting your spell!</span>")
 		return
 
-	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(target, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
 		to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!</span>")
 		return
 
-	if(istype(target, /mob/living/simple_animal/hostile/guardian))
-		var/mob/living/simple_animal/hostile/guardian/stand = target
+	if(istype(target, /mob/living/simple_animal/hostile/holoparasite))
+		var/mob/living/simple_animal/hostile/holoparasite/stand = target
 		if(stand.summoner)
 			if(stand.summoner == user)
 				if(!silent)
@@ -90,7 +90,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/caster = user//The wizard/whomever doing the body transferring.
 
 	//MIND TRANSFER BEGIN
-	var/mob/dead/observer/ghost = victim.ghostize(0)
+	var/mob/dead/observer/ghost = victim.ghostize(FALSE)
 	caster.mind.transfer_to(victim)
 
 	ghost.mind.transfer_to(caster)

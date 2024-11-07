@@ -1,6 +1,7 @@
 /datum/job/botanist
 	title = JOB_NAME_BOTANIST
-	flag = BOTANIST
+	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew. Clone people with Replica Pods when needed."
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -10,10 +11,9 @@
 
 	outfit = /datum/outfit/job/botanist
 
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
+	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
+	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
@@ -24,6 +24,8 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
+
+	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
 
 /datum/outfit/job/botanist
 	name = JOB_NAME_BOTANIST

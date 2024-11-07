@@ -12,10 +12,11 @@
 	light_range = 3
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
-	stat_attack = DEAD
+	stat_attack = HARD_CRIT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
@@ -104,30 +105,15 @@
 	if(recovery_time >= world.time)
 		return
 	. = ..()
-	if(. && isliving(target))
-		var/mob/living/L = target
-		if(L.stat != DEAD)
-			if(!client && ranged && ranged_cooldown <= world.time)
-				OpenFire()
+	if(!. || !isliving(target))
+		return
 
-			if(L.health <= HEALTH_THRESHOLD_DEAD && HAS_TRAIT(L, TRAIT_NODEATH)) //Nope, it still gibs yall
-				devour(L)
-		else
-			devour(L)
+	var/mob/living/L = target
+	if(L.stat == DEAD)
+		return
 
-/mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
-	if(!L)
-		return FALSE
-	visible_message(
-		"<span class='danger'>[src] devours [L]!</span>",
-		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
-	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
-		adjustBruteLoss(-L.maxHealth/2)
-	for(var/obj/item/W in L)
-		if(!L.dropItemToGround(W))
-			qdel(W)
-	L.gib()
-	return TRUE
+	if(!client && ranged && ranged_cooldown <= world.time)
+		OpenFire()
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
 	switch (severity)
@@ -163,7 +149,7 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = ""
 	var/chosen_message
 	var/chosen_attack_num = 0

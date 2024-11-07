@@ -1,0 +1,2 @@
+/obj/item/kitchen/knife : /obj/item/knife/kitchen{@OLD}
+/obj/item/kitchen/knife/@SUBTYPES : /obj/item/knife/@SUBTYPES{@OLD}

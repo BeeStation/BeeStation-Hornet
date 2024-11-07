@@ -32,13 +32,11 @@
 	switch(action)
 		if("ejectBeaker")
 			if(beaker)
-				beaker.forceMove(drop_location())
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(beaker)
+				try_put_in_hand(beaker, usr)
 				beaker = null
 				. = TRUE
 		if("input")
-			var/input_reagent = replacetext(lowertext(capped_input(usr, "Enter the name of any reagent", "Input")), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+			var/input_reagent = replacetext(LOWER_TEXT(capped_input(usr, "Enter the name of any reagent", "Input")), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
 
 			if (isnull(input_reagent))
 				return
@@ -60,7 +58,7 @@
 		if("makecup")
 			if(beaker)
 				return
-			beaker = new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+			beaker = new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 			visible_message("<span class='notice'>[src] dispenses a bluespace beaker.</span>")
 			. = TRUE
 		if("amount")

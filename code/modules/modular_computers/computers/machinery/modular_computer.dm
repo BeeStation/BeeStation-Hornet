@@ -72,7 +72,7 @@
 		else
 			add_overlay(screen_icon_state_menu)
 
-	if(cpu && cpu.obj_integrity <= cpu.integrity_failure)
+	if(cpu && cpu.get_integrity() <= cpu.integrity_failure * cpu.max_integrity)
 		add_overlay("bsod")
 		add_overlay("broken")
 
@@ -111,8 +111,7 @@
 		set_machine_stat(machine_stat & ~NOPOWER)
 		update_icon()
 		return
-	..()
-	update_icon()
+	. = ..()
 
 /obj/machinery/modular_computer/screwdriver_act(mob/user, obj/item/tool)
 	if(cpu)
@@ -148,6 +147,6 @@
 // "Stun" weapons can cause minor damage to components (short-circuits?)
 // "Burn" damage is equally strong against internal components and exterior casing
 // "Brute" damage mostly damages the casing.
-/obj/machinery/modular_computer/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/modular_computer/bullet_act(obj/projectile/Proj)
 	if(cpu)
 		cpu.bullet_act(Proj)

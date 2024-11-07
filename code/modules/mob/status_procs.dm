@@ -21,63 +21,60 @@
 
 /////////////////////////////////// EYE_BLIND ////////////////////////////////////
 
-/mob/proc/blind_eyes(amount)
-	if(amount>0)
-		var/old_eye_blind = eye_blind
-		eye_blind = max(eye_blind, amount)
-		if(!old_eye_blind)
-			if(stat == CONSCIOUS || stat == SOFT_CRIT)
-				throw_alert("blind", /atom/movable/screen/alert/blind)
-			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
-
 /**
   * Adjust a mobs blindness by an amount
   *
   * Will apply the blind alerts if needed
   */
-/mob/proc/adjust_blindness(amount)
-	if(amount>0)
-		var/old_eye_blind = eye_blind
-		eye_blind += amount
-		if(!old_eye_blind)
-			if(stat == CONSCIOUS || stat == SOFT_CRIT)
-				throw_alert("blind", /atom/movable/screen/alert/blind)
-			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
-	else if(eye_blind)
-		var/blind_minimum = 0
-		if((stat != CONSCIOUS && stat != SOFT_CRIT))
-			blind_minimum = 1
-		if(isliving(src))
-			var/mob/living/L = src
-			if(HAS_TRAIT(L, TRAIT_BLIND))
-				blind_minimum = 1
-		eye_blind = max(eye_blind+amount, blind_minimum)
-		if(!eye_blind)
-			clear_alert("blind")
-			clear_fullscreen("blind")
+/mob/proc/adjust_blindness(amount, force)
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
+	var/old_eye_blind = eye_blind
+	eye_blind = max(eye_blind + amount, 0)
+	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
+		update_blindness()
+
 /**
   * Force set the blindness of a mob to some level
   */
-/mob/proc/set_blindness(amount)
-	if(amount>0)
-		var/old_eye_blind = eye_blind
-		eye_blind = amount
-		if(client && !old_eye_blind)
-			if(stat == CONSCIOUS || stat == SOFT_CRIT)
+/mob/proc/set_blindness(amount, force)
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
+	var/old_eye_blind = eye_blind
+	eye_blind = max(amount, 0)
+	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
+		update_blindness()
+
+/// proc that adds and removes blindness overlays when necessary
+/mob/proc/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color = TRUE, can_see = TRUE)
+	switch(stat)
+		if(CONSCIOUS, SOFT_CRIT)
+			if(HAS_TRAIT(src, TRAIT_BLIND) || eye_blind && istype(overlay, /atom/movable/screen/alert))
 				throw_alert("blind", /atom/movable/screen/alert/blind)
-			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
-	else if(eye_blind)
-		var/blind_minimum = 0
-		if(stat != CONSCIOUS && stat != SOFT_CRIT)
-			blind_minimum = 1
-		if(isliving(src))
-			var/mob/living/L = src
-			if(HAS_TRAIT(L, TRAIT_BLIND))
-				blind_minimum = 1
-		eye_blind = blind_minimum
-		if(!eye_blind)
-			clear_alert("blind")
-			clear_fullscreen("blind")
+				do_set_blindness(FALSE, overlay, add_color)
+			else
+				do_set_blindness(TRUE, overlay, add_color)
+		if(UNCONSCIOUS, HARD_CRIT)
+			do_set_blindness(FALSE, overlay, add_color)
+		if(DEAD)
+			do_set_blindness(TRUE, overlay, add_color)
+
+///Proc that handles adding and removing the blindness overlays.
+/mob/proc/do_set_blindness(can_see, overlay_setter, add_color_setter)
+	if(!can_see)
+		overlay_fullscreen("blind", overlay_setter)
+		// You are blind why should you be able to make out details like color, only shapes near you
+		if(add_color_setter)
+			add_client_colour(/datum/client_colour/monochrome/blind)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
+		if(!B && !QDELING(src) && !QDELETED(src))
+			AddComponent(/datum/component/blind_sense)
+	else
+		clear_alert("blind")
+		clear_fullscreen("blind")
+		remove_client_colour(/datum/client_colour/monochrome/blind)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
+		B?.RemoveComponent()
 
 /**
   * Make the mobs vision blurry
@@ -101,7 +98,7 @@
 
 ///Apply the blurry overlays to a mobs clients screen
 /mob/proc/update_eye_blur()
-	if(!client)
+	if(!hud_used)
 		return
 	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	if(eye_blurry)
@@ -128,4 +125,4 @@
 ///Adjust the body temperature of a mob, with min/max settings
 /mob/proc/adjust_bodytemperature(amount,min_temp=0,max_temp=INFINITY)
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
-		bodytemperature = CLAMP(bodytemperature + amount,min_temp,max_temp)
+		bodytemperature = clamp(bodytemperature + amount,min_temp,max_temp)

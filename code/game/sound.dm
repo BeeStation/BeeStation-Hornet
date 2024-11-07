@@ -42,6 +42,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 */
 
 /proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
+
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -50,30 +52,39 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if (!turf_source || !soundin || !vol)
 		return
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
+
 	var/maxdistance = (SOUND_RANGE + extrarange)
 	var/source_z = turf_source.z
 
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
- 	// Looping through the player list has the added bonus of working for mobs inside containers
+	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	/// Everyone that actually heard the sound
 	var/list/hearers = list()
-	var/turf/above_turf = SSmapping.get_turf_above(turf_source)
-	var/turf/below_turf = SSmapping.get_turf_below(turf_source)
+	var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+	var/turf/below_turf = GET_TURF_BELOW(turf_source)
+
 	if(ignore_walls)
+
 		if(above_turf && istransparentturf(above_turf))
 			listeners += SSmobs.clients_by_zlevel[above_turf.z]
+
 		if(below_turf && istransparentturf(turf_source))
 			listeners += SSmobs.clients_by_zlevel[below_turf.z]
+
 	else //these sounds don't carry through walls
 		listeners = get_hearers_in_view(maxdistance, turf_source)
+
 		if(above_turf && istransparentturf(above_turf))
 			listeners += get_hearers_in_view(maxdistance, above_turf)
+
 		if(below_turf && istransparentturf(turf_source))
 			listeners += get_hearers_in_view(maxdistance, below_turf)
+
 	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
 		if(get_dist(listening_mob, turf_source) <= maxdistance)
 			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
@@ -110,11 +121,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
-	if(vary)
-		if(frequency)
-			S.frequency = frequency
-		else
-			S.frequency = get_rand_frequency()
+	if(frequency)
+		S.frequency = frequency
+	else if(vary)
+		S.frequency = get_rand_frequency()
 
 	if(isturf(turf_source))
 		var/turf/T = get_turf(src)
@@ -208,7 +218,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		if (!M.client)
 			continue
 
-		if (!ignore_prefs && !(M.client.prefs?.toggles2 & PREFTOGGLE_2_SOUNDTRACK))
+		if (!ignore_prefs && !M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
 			continue
 
 		if (!play_to_lobby && isnewplayer(M))
@@ -254,7 +264,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
-	if(prefs && (prefs.toggles & PREFTOGGLE_SOUND_LOBBY))
+	if(prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
 /proc/get_rand_frequency()

@@ -1,6 +1,7 @@
 /datum/job/clown
 	title = JOB_NAME_CLOWN
-	flag = CLOWN
+	description = "Be the life and soul of the station. Entertain the crew with your hilarious jokes and silly antics, including slipping, pie-ing and honking around. Remember your job is to keep things funny for others, not just yourself."
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -10,10 +11,9 @@
 
 	outfit = /datum/outfit/job/clown
 
-	access = list(ACCESS_THEATRE)
-	minimal_access = list(ACCESS_THEATRE)
+	base_access = list(ACCESS_THEATRE)
+	extra_access = list()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
@@ -26,9 +26,16 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
-/datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)
+	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+
+/datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
-	H.apply_pref_name("clown", M.client)
+	if(!ishuman(H))
+		return
+	if(!M.client || on_dummy)
+		return
+	H.apply_pref_name(/datum/preference/name/clown, preference_source)
+
 
 /datum/outfit/job/clown
 	name = JOB_NAME_CLOWN
@@ -44,7 +51,7 @@
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		)
 
@@ -54,7 +61,7 @@
 	satchel = /obj/item/storage/backpack/clown
 	duffelbag = /obj/item/storage/backpack/duffelbag/clown //strangely has a duffel
 
-	box = /obj/item/storage/box/hug/survival
+	box = /obj/item/storage/box/survival/hug
 
 	chameleon_extras = /obj/item/stamp/clown
 

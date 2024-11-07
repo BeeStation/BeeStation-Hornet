@@ -2,12 +2,6 @@
  *! Here be dragons.
  */
 
-/// The multiplication factor for openturf shadower darkness. Lighting will be multiplied by this.
-#define SHADOWER_DARKENING_FACTOR 0.8
-/// The above, but as an RGB string for lighting-less turfs.
-#define SHADOWER_DARKENING_COLOR "#CCCCCC"
-#define READ_BASETURF(T) (islist(T.baseturfs) ? T.baseturfs[length(T.baseturfs)] : T.baseturfs)
-
 SUBSYSTEM_DEF(zcopy)
 	name = "Z-Copy"
 	wait = 1
@@ -122,7 +116,7 @@ SUBSYSTEM_DEF(zcopy)
 		"\tT: { T: [openspace_turfs] O: [openspace_overlays] } Sk: { T: [multiqueue_skips_turf] O: [multiqueue_skips_object] }",
 		"\tF: { H: [fixup_hit] M: [fixup_miss] N: [fixup_noop] FC: [fixup_cache.len] FKG: [fixup_known_good.len] }",	// Fixup stats.
 	)
-	return ..() + entries.Join("\n")
+	return ..(entries.Join("\n"))
 
 // 1, 2, 3..=7, 8
 /datum/controller/subsystem/zcopy/proc/build_zstack_display()
@@ -143,11 +137,11 @@ SUBSYSTEM_DEF(zcopy)
 	while (idx <= zlev_maximums.len)
 	return jointext(zmx, ", ")
 
-/datum/controller/subsystem/zcopy/Initialize(timeofday)
+/datum/controller/subsystem/zcopy/Initialize()
 	calculate_zstack_limits()
 	// Flush the queue.
 	fire(FALSE, TRUE)
-	return ..()
+	return SS_INIT_SUCCESS
 
 // If you add a new Zlevel or change Z-connections, call this.
 /datum/controller/subsystem/zcopy/proc/calculate_zstack_limits()
@@ -567,7 +561,7 @@ SUBSYSTEM_DEF(zcopy)
 				fixed_underlays[i] = fixed_appearance
 
 		if (mutated)
-			for (var/i in 1 to fixed_overlays.len)
+			for (var/i in 1 to fixed_underlays.len)
 				if (fixed_underlays[i] == null)
 					fixed_underlays[i] = appearance:underlays[i]
 
@@ -728,7 +722,7 @@ SUBSYSTEM_DEF(zcopy)
 
 	out += "</body>"
 
-	usr << browse(out.Join("<br>"), "size=980x580;window=openturfanalysis-\ref[T]")
+	usr << browse(out.Join("<br>"), "size=980x580;window=openturfanalysis-[REF(T)]")
 
 	for (var/item in temp_objects)
 		qdel(item)
@@ -789,4 +783,3 @@ SUBSYSTEM_DEF(zcopy)
 		out += "<em>No atoms.</em>"
 
 #undef FMT_DEPTH
-#undef READ_BASETURF

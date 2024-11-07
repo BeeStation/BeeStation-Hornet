@@ -33,7 +33,7 @@ Difficulty: Medium
 	speak_emote = list("roars")
 	speed = 3
 	move_to_delay = 3
-	projectiletype = /obj/item/projectile/kinetic/miner
+	projectiletype = /obj/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
@@ -55,7 +55,7 @@ Difficulty: Medium
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "falls to the ground, decaying into glowing particles."
 	deathsound = "bodyfall"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
@@ -66,7 +66,7 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now dashing to your target.</span>"
 	chosen_attack_num = 1
@@ -112,7 +112,7 @@ Difficulty: Medium
 	..()
 	target.stun_absorption -= "miner"
 
-/obj/item/projectile/kinetic/miner
+/obj/projectile/kinetic/miner
 	damage = 20
 	speed = 0.9
 	icon_state = "ka_tracer"
@@ -152,14 +152,6 @@ Difficulty: Medium
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			visible_message("<span class='danger'>[src] butchers [L]!</span>",
-			"<span class='userdanger'>You butcher [L], restoring your health!</span>")
-			if(!is_station_level(z) || client) //NPC monsters won't heal while on station
-				if(guidance)
-					adjustHealth(-L.maxHealth)
-				else
-					adjustHealth(-(L.maxHealth * 0.5))
-			L.gib()
 			return TRUE
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
@@ -258,6 +250,8 @@ Difficulty: Medium
 /obj/effect/temp_visual/dir_setting/miner_death
 	icon_state = "miner_death"
 	duration = 15
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/miner_death)
 
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()

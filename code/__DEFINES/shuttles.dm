@@ -37,7 +37,7 @@
 #define TRANSIT_REQUEST 1
 #define TRANSIT_READY 2
 
-#define SHUTTLE_TRANSIT_BORDER 8
+#define SHUTTLE_TRANSIT_BORDER 16
 
 #define PARALLAX_LOOP_TIME 25
 #define HYPERSPACE_END_TIME 5
@@ -52,6 +52,14 @@
 #define ENGINE_COEFF_MIN 0.5
 #define ENGINE_COEFF_MAX 2
 #define ENGINE_DEFAULT_MAXSPEED_ENGINES 5
+
+// Alert level related
+#define ALERT_COEFF_AUTOEVAC_NORMAL 2.5
+#define ALERT_COEFF_GREEN 2
+#define ALERT_COEFF_BLUE 1
+#define ALERT_COEFF_RED 0.5
+#define ALERT_COEFF_AUTOEVAC_CRITICAL 0.4
+#define ALERT_COEFF_DELTA 0.25
 
 //Docking error flags
 #define DOCKING_SUCCESS				0
@@ -93,3 +101,9 @@
 #define SHUTTLE_DANGER_SUBPAR 1
 /// Possibility for most people on this shuttle to die with little effort
 #define SHUTTLE_DANGER_HIGH 2
+
+#define CUSTOM_SHUTTLE_ACCELERATION_SCALE 10
+#define CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT 1
+
+#define SHUTTLE_CREATOR_MAX_SIZE CONFIG_GET(number/max_shuttle_size)
+#define CUSTOM_SHUTTLE_LIMIT CONFIG_GET(number/max_shuttle_count)

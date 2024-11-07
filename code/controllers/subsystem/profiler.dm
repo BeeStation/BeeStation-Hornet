@@ -10,21 +10,20 @@ SUBSYSTEM_DEF(profiler)
 	init_order = INIT_ORDER_PROFILER
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	wait = 3000
-	flags = SS_NO_TICK_CHECK
 	var/fetch_cost = 0
 	var/write_cost = 0
 
 /datum/controller/subsystem/profiler/stat_entry(msg)
 	msg += "F:[round(fetch_cost,1)]ms"
 	msg += "|W:[round(write_cost,1)]ms"
-	..(msg)
+	return ..(msg)
 
 /datum/controller/subsystem/profiler/Initialize()
 	if(CONFIG_GET(flag/auto_profile))
 		StartProfiling()
 	else
 		StopProfiling() //Stop the early start from world/New
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/profiler/fire()
 	if(CONFIG_GET(flag/auto_profile))
@@ -84,3 +83,6 @@ SUBSYSTEM_DEF(profiler)
 #endif
 	write_cost = MC_AVERAGE(write_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 #endif
+
+#undef PROFILER_FILENAME
+#undef SENDMAPS_FILENAME

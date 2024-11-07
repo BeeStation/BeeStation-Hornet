@@ -10,7 +10,7 @@
 
 
 
-	var/list/network = list("ss13")
+	var/list/network = list(CAMERA_NETWORK_STATION)
 	var/obj/machinery/camera/active_camera
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
@@ -21,8 +21,7 @@
 	var/map_name
 	var/atom/movable/screen/map_view/cam_screen
 	/// All the plane masters that need to be applied.
-	var/list/cam_plane_masters
-	var/atom/movable/screen/plane_master/o_light_visual/visual_plane_master
+	var/datum/remote_view/remote_view
 	var/atom/movable/screen/background/cam_background
 
 /obj/machinery/computer/security/Initialize(mapload)
@@ -34,35 +33,21 @@
 	// Convert networks to lowercase
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.name = "screen"
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-		var/atom/movable/screen/plane_master/instance = new plane()
-		if(instance.blend_mode_override)
-			instance.blend_mode = instance.blend_mode_override
-		instance.assigned_map = map_name
-		instance.del_on_map_removal = FALSE
-		instance.screen_loc = "[map_name]:CENTER"
-		cam_plane_masters += instance
-	visual_plane_master = new
-	visual_plane_master.name = "plane_master"
-	visual_plane_master.assigned_map = map_name
-	visual_plane_master.del_on_map_removal = FALSE
-	visual_plane_master.screen_loc = "[map_name]:CENTER"
+	remote_view = new(map_name)
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
 	QDEL_NULL(cam_screen)
-	QDEL_LIST(cam_plane_masters)
-	QDEL_NULL(visual_plane_master)
+	QDEL_NULL(remote_view)
 	QDEL_NULL(cam_background)
 	return ..()
 
@@ -100,10 +85,8 @@
 			use_power(active_power_usage)
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
-		for(var/plane in cam_plane_masters)
-			user.client.register_map_obj(plane)
-		user.client.register_map_obj(visual_plane_master)
 		user.client.register_map_obj(cam_background)
+		remote_view.join(user.client)
 		// Open UI
 		ui = new(user, src, "CameraConsole")
 		ui.open()
@@ -193,7 +176,7 @@
 	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
 	// Unregister map objects
-	user.client.clear_map(map_name)
+	remote_view.leave(user.client)
 	// Turn off the console
 	if(length(concurrent_users) == 0 && is_living)
 		active_camera = null
@@ -227,6 +210,13 @@
 	icon_state = "television"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
@@ -236,32 +226,47 @@
 	desc = "Used to access the various cameras on the outpost."
 	icon_screen = "mining"
 	icon_keyboard = "mining_key"
-	network = list("mine", "auxbase")
+	network = list(CAMERA_NETWORK_MINE, CAMERA_NETWORK_AUXBASE)
 	circuit = /obj/item/circuitboard/computer/mining
 
 /obj/machinery/computer/security/research
 	name = "research camera console"
 	desc = "Used to access the various cameras in science."
-	network = list("rd")
+	network = list(CAMERA_NETWORK_RESEARCH)
 	circuit = /obj/item/circuitboard/computer/research
+
+/obj/machinery/computer/security/security
+	name = "internal security camera console"
+	desc = "Accesses various cameras on the security camera network."
+	network = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /obj/machinery/computer/security/hos
 	name = "\improper Head of Security's camera console"
 	desc = "A custom security console with added access to the labor camp network."
-	network = list("ss13", "labor")
+	network = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 	circuit = null
 
 /obj/machinery/computer/security/labor
 	name = "labor camp monitoring"
 	desc = "Used to access the various cameras on the labor camp."
-	network = list("labor")
+	network = list(CAMERA_NETWORK_LABOR)
 	circuit = null
 
 /obj/machinery/computer/security/qm
 	name = "\improper Quartermaster's camera console"
 	desc = "A console with access to the mining, auxillary base and vault camera networks."
-	network = list("mine", "auxbase", "vault")
+	network = list(CAMERA_NETWORK_MINE, CAMERA_NETWORK_VAULT, CAMERA_NETWORK_AUXBASE)
 	circuit = null
+
+/obj/machinery/computer/security/medbay
+	name = "medbay camera console"
+	desc = "A console to access the medical camera network"
+	network = list(CAMERA_NETWORK_MEDICAL)
+
+/obj/machinery/computer/security/caravansyndicate
+	name = "shuttle camera console"
+	desc = "A console to monitor the outside status of the shuttle."
+	network = list(CAMERA_NETWORK_CARAVAN_SYNDICATE)
 
 // TELESCREENS
 
@@ -270,8 +275,15 @@
 	desc = "Used for watching an empty arena."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	layer = SIGN_LAYER
-	network = list("thunder")
+	network = list(CAMERA_NETWORK_THUNDERDOME)
 	density = FALSE
 	circuit = null
 	clockwork = TRUE //it'd look very weird
@@ -289,12 +301,14 @@
 	desc = "Damn, they better have the beestation channel on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment_blank"
-	network = list("thunder")
+	network = list(CAMERA_NETWORK_THUNDERDOME, CAMERA_NETWORK_COURT)
 	density = FALSE
 	circuit = null
 	long_ranged = TRUE
 	var/icon_state_off = "entertainment_blank"
 	var/icon_state_on = "entertainment"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertainment, 32)
 
 //Can use this telescreen at long range.
 /obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
@@ -318,37 +332,43 @@
 /obj/machinery/computer/security/telescreen/rd
 	name = "\improper Research Director's telescreen"
 	desc = "Used for watching the AI and the RD's goons from the safety of his office."
-	network = list("rd", "aicore", "aiupload", "minisat", "xeno", "test")
+	// Can't see minisat since it would expose the AI core
+	network = list(CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_AI_UPLOAD)
 
 /obj/machinery/computer/security/telescreen/research
 	name = "research telescreen"
 	desc = "A telescreen with access to the research division's camera network."
-	network = list("rd")
+	network = list(CAMERA_NETWORK_RESEARCH)
 
 /obj/machinery/computer/security/telescreen/ce
 	name = "\improper Chief Engineer's telescreen"
 	desc = "Used for watching the engine, telecommunications and the minisat."
-	network = list("engine", "singularity", "tcomms", "minisat")
+	network = list(CAMERA_NETWORK_ENGINEERING)
 
 /obj/machinery/computer/security/telescreen/cmo
 	name = "\improper Chief Medical Officer's telescreen"
 	desc = "A telescreen with access to the medbay's camera network."
-	network = list("medbay")
+	network = list(CAMERA_NETWORK_MEDICAL)
+
+/obj/machinery/computer/security/telescreen/medical
+	name = "medical telescreen"
+	desc = "A telescreen with access to the medbay's camera network."
+	network = list(CAMERA_NETWORK_MEDICAL)
 
 /obj/machinery/computer/security/telescreen/vault
 	name = "vault monitor"
 	desc = "A telescreen that connects to the vault's camera network."
-	network = list("vault")
+	network = list(CAMERA_NETWORK_VAULT)
 
 /obj/machinery/computer/security/telescreen/toxins
 	name = "bomb test site monitor"
 	desc = "A telescreen that connects to the bomb test site's camera."
-	network = list("toxins")
+	network = list(CAMERA_NETWORK_TOXINS_TEST)
 
 /obj/machinery/computer/security/telescreen/engine
 	name = "engine monitor"
 	desc = "A telescreen that connects to the engine's camera network."
-	network = list("engine")
+	network = list(CAMERA_NETWORK_ENGINEERING)
 
 /obj/machinery/computer/security/telescreen/turbine
 	name = "turbine monitor"
@@ -358,26 +378,51 @@
 /obj/machinery/computer/security/telescreen/interrogation
 	name = "interrogation room monitor"
 	desc = "A telescreen that connects to the interrogation room's camera."
-	network = list("interrogation")
+	network = list(CAMERA_NETWORK_INTERROGATION)
 
 /obj/machinery/computer/security/telescreen/prison
 	name = "prison monitor"
 	desc = "A telescreen that connects to the permabrig's camera network."
-	network = list("prison")
+	network = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /obj/machinery/computer/security/telescreen/auxbase
 	name = "auxillary base monitor"
 	desc = "A telescreen that connects to the auxillary base's camera."
-	network = list("auxbase")
+	network = list(CAMERA_NETWORK_AUXBASE)
 
 /obj/machinery/computer/security/telescreen/minisat
 	name = "minisat monitor"
 	desc = "A telescreen that connects to the minisat's camera network."
-	network = list("minisat")
+	network = list(CAMERA_NETWORK_MINISAT)
 
 /obj/machinery/computer/security/telescreen/aiupload
 	name = "\improper AI upload monitor"
 	desc = "A telescreen that connects to the AI upload's camera network."
-	network = list("aiupload")
+	network = list(CAMERA_NETWORK_AI_UPLOAD)
+
+/obj/machinery/computer/security/telescreen/tcomms
+	name = "telecommunications monitor"
+	desc = "A telescreen that connects to the telecommunications camera network."
+	network = list(CAMERA_NETWORK_TCOMMS)
+
+/obj/machinery/computer/security/telescreen/court
+	name = "court monitor"
+	desc = "A telescreen that connects to the courtrooms's camera network."
+	network = list(CAMERA_NETWORK_COURT)
+
+/obj/machinery/computer/security/telescreen/evac
+	name = "evacuation shuttle monitor"
+	desc = "A telescreen that connects to the camera network of the evacuation shuttle."
+	network = list(CAMERA_NETWORK_EVAC)
+
+/obj/machinery/computer/security/telescreen/bunker
+	name = "bunker monitor"
+	desc = "A telescreen that connects to the camera network of the bunker."
+	network = list(CAMERA_NETWORK_BUNKER)
+
+/obj/machinery/computer/security/telescreen/station
+	name = "station monitor"
+	desc = "A telescreen that monitors the station's camera network."
+	network = list(CAMERA_NETWORK_STATION)
 
 #undef DEFAULT_MAP_SIZE

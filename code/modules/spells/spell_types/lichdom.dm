@@ -17,7 +17,7 @@
 	cooldown_min = 10
 	include_user = TRUE
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "skeleton"
 
 /obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)
@@ -26,10 +26,10 @@
 		if(iscarbon(M))
 			hand_items = list(M.get_active_held_item(),M.get_inactive_held_item())
 		if(!hand_items.len)
-			to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
+			to_chat(M, "<span class='warning'>You must hold an item you wish to make your phylactery...</span>")
 			return
 		if(!M.mind.hasSoul)
-			to_chat(user, "<span class='caution'>You do not possess a soul.</span>")
+			to_chat(user, "<span class='warning'>You do not possess a soul.</span>")
 			return
 
 		var/obj/item/marked_item
@@ -90,6 +90,8 @@
 	var/respawn_time = 1800
 
 	var/static/active_phylacteries = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/phylactery)
 
 /obj/item/phylactery/Initialize(mapload, datum/mind/newmind)
 	. = ..()

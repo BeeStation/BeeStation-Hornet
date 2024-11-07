@@ -7,6 +7,10 @@
 	break_sound = 'sound/hallucinations/veryfar_noise.ogg'
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
+/obj/structure/destructible/cult/Initialize(mapload)
+	. = ..()
+	generate_psychic_mask()
+
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
 	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")
@@ -38,21 +42,28 @@
 	if(iscultist(user) || isobserver(user))
 		var/t_It = p_they(TRUE)
 		var/t_is = p_are()
-		return "<span class='cult'>[t_It] [t_is] at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
+		return "<span class='cult'>[t_It] [t_is] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.</span>"
 	return ..()
 
 /obj/structure/destructible/cult/attack_animal(mob/living/simple_animal/M)
-	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
-		if(obj_integrity < max_integrity)
+	if(istype(M, /mob/living/simple_animal/hostile/construct/artificer))
+		if(atom_integrity < max_integrity)
 			M.changeNext_move(CLICK_CD_MELEE)
-			obj_integrity = min(max_integrity, obj_integrity + 5)
+			atom_integrity = min(max_integrity, atom_integrity + 5)
 			Beam(M, icon_state="sendbeam", time=4)
 			M.visible_message("<span class='danger'>[M] repairs \the <b>[src]</b>.</span>", \
-				"<span class='cult'>You repair <b>[src]</b>, leaving [p_they()] at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>")
+				"<span class='cult'>You repair <b>[src]</b>, leaving [p_they()] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.</span>")
 		else
 			to_chat(M, "<span class='cult'>You cannot repair [src], as [p_theyre()] undamaged!</span>")
 	else
 		..()
+
+/obj/structure/destructible/cult/proc/check_menu(mob/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
 
 /obj/structure/destructible/cult/talisman
 	name = "altar"
@@ -73,7 +84,12 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
-	var/choice = alert(user,"You study the schematics etched into the altar...",,"Eldritch Whetstone","Construct Shell","Flask of Unholy Water")
+	var/list/items = list(
+		"Eldritch Whetstone" = image(icon = 'icons/obj/cult.dmi', icon_state = "cult_sharpener"),
+		"Construct Shell" = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct_cult"),
+		"Flask of Unholy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask")
+		)
+	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	var/list/pickedtype = list()
 	switch(choice)
 		if("Eldritch Whetstone")
@@ -81,7 +97,9 @@
 		if("Construct Shell")
 			pickedtype += /obj/structure/constructshell
 		if("Flask of Unholy Water")
-			pickedtype += /obj/item/reagent_containers/glass/beaker/unholywater
+			pickedtype += /obj/item/reagent_containers/cup/glass/bottle/unholywater
+		else
+			return
 	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
@@ -109,11 +127,12 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
-	var/choice
-	if(user.mind.has_antag_datum(/datum/antagonist/cult/master))
-		choice = alert(user,"You study the schematics etched into the forge...",,"Shielded Robe","Flagellant's Robe","Mirror Shield")
-	else
-		choice = alert(user,"You study the schematics etched into the forge...",,"Shielded Robe","Flagellant's Robe","Mirror Shield")
+	var/list/items = list(
+		"Shielded Robe" = image(icon = 'icons/obj/clothing/suits/armor.dmi', icon_state = "cult_armor"),
+		"Flagellant's Robe" = image(icon = 'icons/obj/clothing/suits/armor.dmi', icon_state = "cultrobes"),
+		"Mirror Shield" = image(icon = 'icons/obj/shields.dmi', icon_state = "mirror_shield")
+		)
+	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	var/list/pickedtype = list()
 	switch(choice)
 		if("Shielded Robe")
@@ -122,6 +141,8 @@
 			pickedtype += /obj/item/clothing/suit/hooded/cultrobes/berserker
 		if("Mirror Shield")
 			pickedtype += /obj/item/shield/mirror
+		else
+			return
 	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
@@ -167,11 +188,13 @@
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 			if(ishuman(L))
+				var/mob/living/carbon/C = L
 				L.adjustBruteLoss(-5*delta_time, 0)
 				L.adjustFireLoss(-5*delta_time, 0)
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+					L.blood_volume += 20
+				C.cauterise_wounds(1.4)
 			else if(isshade(L) || isconstruct(L))
 				var/mob/living/simple_animal/M = L
 				M.adjustHealth(-15*delta_time)
@@ -232,7 +255,12 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
-	var/choice = alert(user,"You flip through the black pages of the archives...",,"Zealot's Blindfold","Shuttle Curse","Veil Walker Set")
+	var/list/items = list(
+		"Zealot's Blindfold" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "blindfold"),
+		"Shuttle Curse" = image(icon = 'icons/obj/cult.dmi', icon_state = "shuttlecurse"),
+		"Veil Walker Set" = image(icon = 'icons/obj/cult.dmi', icon_state = "shifter")
+		)
+	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	var/list/pickedtype = list()
 	switch(choice)
 		if("Zealot's Blindfold")
@@ -242,6 +270,8 @@
 		if("Veil Walker Set")
 			pickedtype += /obj/item/cult_shift
 			pickedtype += /obj/item/flashlight/flare/culttorch
+		else
+			return
 	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)

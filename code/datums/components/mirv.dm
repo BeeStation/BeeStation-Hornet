@@ -32,7 +32,7 @@
 	var/turf/target_turf = get_turf(target)
 	for(var/turf/shootat_turf in RANGE_TURFS(radius, target) - RANGE_TURFS(radius-1, target))
 
-		var/obj/item/projectile/P = new projectile_type(target_turf)
+		var/obj/projectile/P = new projectile_type(target_turf)
 		//Shooting Code:
 		P.range = radius+1
 		if(override_projectile_range)

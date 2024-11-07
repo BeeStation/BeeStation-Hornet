@@ -11,7 +11,7 @@
 	density = TRUE
 
 	max_integrity = 250
-	integrity_failure = 80
+	integrity_failure = 0.33
 
 	// These allow for different icons when creating custom dispensers
 	var/icon_off = "off"
@@ -50,7 +50,7 @@
 
 /obj/machinery/droneDispenser/Initialize(mapload)
 	. = ..()
-	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass), MINERAL_MATERIAL_AMOUNT * MAX_STACK_SIZE * 2, TRUE, /obj/item/stack)
+	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass), MINERAL_MATERIAL_AMOUNT * MAX_STACK_SIZE * 2, MATCONTAINER_EXAMINE|BREAKDOWN_FLAGS_DRONE_DISPENSER, /obj/item/stack)
 	materials.insert_amount_mat(starting_amount)
 	materials.precise_insertion = TRUE
 	using_materials = list(/datum/material/iron = iron_cost, /datum/material/glass = glass_cost)
@@ -106,36 +106,10 @@
 	recharge_sound = null
 	recharge_message = null
 
-/obj/machinery/droneDispenser/swarmer
-	name = "swarmer fabricator"
-	desc = "An alien machine of unknown origin. It whirs and hums with green-blue light, the air above it shimmering."
-	icon = 'icons/obj/machines/gateway.dmi'
-	icon_state = "toffcenter"
-	icon_off = "toffcenter"
-	icon_on = "toffcenter"
-	icon_recharging = "toffcenter"
-	icon_creating = "offcenter"
-	iron_cost = 0
-	glass_cost = 0
-	cooldownTime = 300 //30 seconds
-	maximum_idle = 0 // Swarmers have no restraint
-	dispense_type = /obj/effect/mob_spawn/swarmer
-	begin_create_message = "hums softly as an interface appears above it, scrolling by at unreadable speed."
-	end_create_message = "materializes a strange shell, which drops to the ground."
-	recharging_text = "Its lights are slowly increasing in brightness."
-	work_sound = 'sound/effects/empulse.ogg'
-	create_sound = 'sound/effects/phasein.ogg'
-	break_sound = 'sound/effects/empulse.ogg'
-	break_message = "slowly falls dark, lights stuttering."
-
 /obj/machinery/droneDispenser/examine(mob/user)
 	. = ..()
 	if((mode == DRONE_RECHARGING) && !machine_stat && recharging_text)
 		. += "<span class='warning'>[recharging_text]</span>"
-
-/obj/machinery/droneDispenser/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/droneDispenser/process()
 	if((machine_stat & (NOPOWER|BROKEN)) || !anchored)
@@ -231,12 +205,12 @@
 			"<span class='notice'>You restore [src] to operation.</span>")
 
 		set_machine_stat(machine_stat & ~BROKEN)
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 		update_icon()
 	else
 		return ..()
 
-/obj/machinery/droneDispenser/obj_break(damage_flag)
+/obj/machinery/droneDispenser/atom_break(damage_flag)
 	. = ..()
 	if(!.)
 		return

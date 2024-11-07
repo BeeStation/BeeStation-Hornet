@@ -37,7 +37,7 @@ GLOBAL_LIST(end_titles)
 
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
 			C.screen += new /atom/movable/screen/credit/title_card(null, null, SSticker.mode.title_icon)
 	sleep(CREDIT_SPAWN_SPEED * 3)
 	for(var/i in 1 to GLOB.end_titles.len)
@@ -60,6 +60,8 @@ GLOBAL_LIST(end_titles)
 	plane = SPLASHSCREEN_PLANE
 	var/matrix/target
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
+
 /atom/movable/screen/credit/Initialize(mapload, credited)
 	. = ..()
 	maptext = MAPTEXT("<font face='Verdana'>[credited]</font>")
@@ -75,7 +77,7 @@ GLOBAL_LIST(end_titles)
 
 /atom/movable/screen/credit/proc/add_to_clients()
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
 			C.screen += src
 
 /atom/movable/screen/credit/Destroy()
@@ -85,6 +87,8 @@ GLOBAL_LIST(end_titles)
 /atom/movable/screen/credit/title_card
 	icon = 'icons/title_cards.dmi'
 	screen_loc = "4,1"
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit/title_card)
 
 /atom/movable/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
 	icon_state = title_icon_state
@@ -101,3 +105,8 @@ GLOBAL_LIST(end_titles)
 		contribs.Cut(21)
 
 	return contribs
+
+#undef CREDIT_ROLL_SPEED
+#undef CREDIT_SPAWN_SPEED
+#undef CREDIT_ANIMATE_HEIGHT
+#undef CREDIT_EASE_DURATION

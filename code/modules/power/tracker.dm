@@ -11,11 +11,13 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	integrity_failure = 50
+	integrity_failure = 0.2
 
 	var/id = 0
 	var/sun_angle = 0		// sun angle as set by sun datum
 	var/obj/machinery/power/solar_control/control = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/tracker)
 
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
@@ -45,7 +47,7 @@
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
 		S.tracker = 1
-		S.anchored = TRUE
+		S.set_anchored(TRUE)
 	S.forceMove(src)
 	update_icon()
 
@@ -68,7 +70,7 @@
 		deconstruct(TRUE)
 	return TRUE
 
-/obj/machinery/power/tracker/obj_break(damage_flag)
+/obj/machinery/power/tracker/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)

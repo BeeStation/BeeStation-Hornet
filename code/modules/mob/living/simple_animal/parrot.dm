@@ -51,18 +51,23 @@
 
 	speak_chance = 1 //1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker/ = 1)
+	butcher_results = list(/obj/item/food/cracker/ = 1)
 	melee_damage = 5
 
-	response_help  = "pets"
-	response_disarm = "gently moves aside"
-	response_harm   = "swats"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently moves aside"
+	response_disarm_simple = "gently move aside"
+	response_harm_continuous = "swats"
+	response_harm_simple = "swat"
 	stop_automated_movement = 1
 	a_intent = INTENT_HARM //parrots now start "aggressive" since only player parrots will nuzzle.
-	attacktext = "chomps"
-	friendly = "grooms"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
+	friendly_verb_continuous = "grooms"
+	friendly_verb_simple = "groom"
 	mob_size = MOB_SIZE_SMALL
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#A6E398"
 	mobchatspan = "curator"
@@ -118,11 +123,11 @@
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
 	add_verb(list(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
-			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
-			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			  /mob/living/simple_animal/parrot/proc/perch_player, \
-			  /mob/living/simple_animal/parrot/proc/toggle_mode,
-			  /mob/living/simple_animal/parrot/proc/perch_mob_player))
+				/mob/living/simple_animal/parrot/proc/steal_from_mob, \
+				/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
+				/mob/living/simple_animal/parrot/proc/perch_player, \
+				/mob/living/simple_animal/parrot/proc/toggle_mode,
+				/mob/living/simple_animal/parrot/proc/perch_mob_player))
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
 
 /mob/living/simple_animal/parrot/examine(mob/user)
@@ -329,7 +334,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 //Mobs with objects
 /mob/living/simple_animal/parrot/attackby(obj/item/O, mob/living/user, params)
-	if(!stat && !client && !istype(O, /obj/item/stack/medical) && !istype(O, /obj/item/reagent_containers/food/snacks/cracker))
+	if(!stat && !client && !istype(O, /obj/item/stack/medical) && !istype(O, /obj/item/food/cracker))
 		if(O.force)
 			if(parrot_state == PARROT_PERCH)
 				parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
@@ -342,7 +347,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 				parrot_state |= PARROT_FLEE
 			icon_state = icon_living
 			drop_held_item(0)
-	else if(istype(O, /obj/item/reagent_containers/food/snacks/cracker)) //Poly wants a cracker.
+	else if(istype(O, /obj/item/food/cracker)) //Poly wants a cracker.
 		qdel(O)
 		if(health < maxHealth)
 			adjustBruteLoss(-10)
@@ -353,7 +358,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	return
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/parrot/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(!stat && !client)
 		if(parrot_state == PARROT_PERCH)
@@ -593,7 +598,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 					parrot_state = PARROT_WANDER
 				return
 
-			attacktext = pick("claws at", "chomps")
+			attack_verb_continuous = pick("claws at", "chomps")
+			attack_verb_simple = pick("claw at", "chomp")
 			L.attack_animal(src)//Time for the hurt to begin!
 		//Otherwise, fly towards the mob!
 		else
@@ -770,7 +776,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 
 //parrots will eat crackers instead of dropping them
-	if(istype(held_item, /obj/item/reagent_containers/food/snacks/cracker) && (drop_gently))
+	if(istype(held_item, /obj/item/food/cracker) && (drop_gently))
 		qdel(held_item)
 		held_item = null
 		if(health < maxHealth)
@@ -1026,3 +1032,11 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	deathsound = 'sound/magic/clockwork/anima_fragment_death.ogg'
+
+#undef PARROT_PERCH
+#undef PARROT_SWOOP
+#undef PARROT_WANDER
+#undef PARROT_STEAL
+#undef PARROT_ATTACK
+#undef PARROT_RETURN
+#undef PARROT_FLEE

@@ -1,8 +1,9 @@
+import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Box, Button, Section, Tabs, LabeledList } from '../components';
+import { Input, Button, Section, Tabs, LabeledList, Box, Icon } from '../components';
 
-export const Morph = (props, context) => {
+export const Morph = () => {
   return (
     <Window theme="generic" width={650} height={650}>
       <Window.Content scrollable>
@@ -12,14 +13,29 @@ export const Morph = (props, context) => {
   );
 };
 
-const MorphContents = (props, context) => {
+const MorphContents = (_props, context) => {
   const { data } = useBackend(context);
   const [tab, setTab] = useLocalState(context, 'tab', 'living');
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const favorites = Object.values(data.contents.living)
     .concat(Object.values(data.contents.items))
     .filter((A) => A.favorite);
+  const stomachSearch = createSearch(searchText, (item) => {
+    return item.name;
+  });
   return (
-    <Section title="Morph Stomach">
+    <Section
+      title="Morph Stomach"
+      buttons={
+        <>
+          <Box inline>
+            <Icon name="search" mr={1} />
+          </Box>
+          <Box inline>
+            <Input placeholder="Search..." width="200px" value={searchText} onInput={(_, value) => setSearchText(value)} />
+          </Box>
+        </>
+      }>
       <Tabs>
         <Tabs.Tab selected={tab === 'living'} onClick={() => setTab('living')}>
           Mobs ({Object.keys(data.contents.living).length})
@@ -33,9 +49,11 @@ const MorphContents = (props, context) => {
       </Tabs>
       <LabeledList>
         {tab === 'favorites' ? (
-          favorites.map((A) => <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />)
+          favorites.filter(stomachSearch).map((A) => <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />)
         ) : data.contents[tab] ? (
-          Object.values(data.contents[tab]).map((A) => <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />)
+          Object.values(data.contents[tab])
+            .filter(stomachSearch)
+            .map((A) => <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />)
         ) : (
           <span>
             <strong>Your stomach is empty!</strong>
@@ -46,7 +64,7 @@ const MorphContents = (props, context) => {
   );
 };
 
-const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }, context) => {
+const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }) => {
   return (
     <LabeledList.Item
       label={

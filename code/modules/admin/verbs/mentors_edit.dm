@@ -19,7 +19,7 @@ its mentors, not actual dangerous perms
 	html += "<table style='width: 100%' border=1>\n"
 	html += "<tr><th>Mentor Ckey</th><th>Remove</th></tr>\n"
 
-	var/datum/DBQuery/query_mentor_list = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
+	var/datum/db_query/query_mentor_list = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
 	if(!query_mentor_list.warn_execute())
 		to_chat(src, "<span class='danger'>Unable to pull the mentor list from the database.</span>")
 		qdel(query_mentor_list)
@@ -45,7 +45,10 @@ its mentors, not actual dangerous perms
 
 		if(href_list["mentor_edit"] == "add")
 			var/newguy = input("Enter the key of the mentor you wish to add.", "")
-			var/datum/DBQuery/query_add_mentor = SSdbcore.NewQuery(
+			if(!length(newguy))
+				to_chat(usr, "<span class='admin'>Failed to add empty mentor. Please specify a ckey.</span>")
+				return
+			var/datum/db_query/query_add_mentor = SSdbcore.NewQuery(
 				"INSERT INTO [format_table_name("mentor")] (ckey) VALUES (:newguy)",
 				list("newguy" = newguy)
 			)
@@ -60,7 +63,7 @@ its mentors, not actual dangerous perms
 
 		if(href_list["mentor_edit"] == "remove")
 			var/removed_mentor = href_list["mentor_ckey"]
-			var/datum/DBQuery/query_remove_mentor = SSdbcore.NewQuery(
+			var/datum/db_query/query_remove_mentor = SSdbcore.NewQuery(
 				"DELETE FROM [format_table_name("mentor")] WHERE ckey = :removed_mentor",
 				list("removed_mentor" = removed_mentor)
 			)

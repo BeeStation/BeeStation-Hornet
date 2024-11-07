@@ -6,15 +6,18 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer
 	name = "modular microcomputer"
 	desc = "A small portable microcomputer."
-	light_system = MOVABLE_LIGHT
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "laptop"
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
 	light_color = "#FFFFFF"
 	light_on = FALSE
 
-
-	var/enabled = 0											// Whether the computer is turned on.
-	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
+	// Whether the computer is turned on.
+	var/enabled = 0
+	// Whether the computer is active/opened/it's screen is on.
+	var/screen_on = 1
 	/// If it's bypassing the set icon state
 	var/bypass_state = FALSE
 	/// Whether or not the computer can be upgraded
@@ -30,7 +33,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// List of themes for this device to allow.
 	var/list/allowed_themes
 	/// Color used for the Thinktronic Classic theme.
-	var/classic_color = "#808000"
+	var/classic_color = COLOR_OLIVE
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
 	var/hardware_flag = 0									// A flag that describes this device type
 	var/last_power_usage = 0
@@ -45,17 +48,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
 	// If you create a program which is limited to Laptops and Consoles you don't have to add it's icon_state overlay for Tablets too, for example.
 
-	icon = 'icons/obj/computer.dmi'
-	icon_state = "laptop-open"
 	var/icon_state_unpowered = null							// Icon state when the computer is turned off.
 	var/icon_state_powered = null							// Icon state when the computer is turned on.
 	var/icon_state_menu = "menu"							// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
 	var/max_hardware_size = 0								// Maximal hardware w_class. Tablets/PDAs have 1, laptops 2, consoles 4.
 	var/steel_sheet_cost = 5								// Amount of steel sheets refunded when disassembling an empty frame of this computer.
 
-	integrity_failure = 50
+	integrity_failure = 0.5
 	max_integrity = 100
-	armor = list(MELEE = 0,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -234,7 +235,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return attack_self(M)
 	return ..()
 
-/obj/item/modular_computer/attack_ai(mob/user)
+/obj/item/modular_computer/attack_silicon(mob/user)
 	return attack_self(user)
 
 /obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
@@ -279,9 +280,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
-	if(obj_integrity <= integrity_failure)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		. += "<span class='danger'>It is heavily damaged!</span>"
-	else if(obj_integrity < max_integrity)
+	else if(atom_integrity < max_integrity)
 		. += "<span class='warning'>It is damaged.</span>"
 
 	. += get_modular_computer_parts_examine(user)
@@ -301,7 +302,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(can_store_pai && stored_pai_card)
 		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
 
-	if(obj_integrity <= integrity_failure)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		add_overlay(mutable_appearance(init_icon, "bsod"))
 		add_overlay(mutable_appearance(init_icon, "broken"))
 
@@ -311,7 +312,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			ui_interact(user)
 		return TRUE
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
-	if(obj_integrity <= integrity_failure)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		if(issynth)
 			to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but it responds with an error code. It must be damaged.</span>")
 		else
@@ -346,7 +347,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		last_power_usage = 0
 		return 0
 
-	if(obj_integrity <= integrity_failure)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		shutdown_computer()
 		return 0
 
@@ -671,7 +672,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 
 	if(attacking_item.tool_behaviour == TOOL_WELDER)
-		if(obj_integrity == max_integrity)
+		if(atom_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
 			return
 
@@ -680,7 +681,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
 		return

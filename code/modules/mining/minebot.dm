@@ -36,11 +36,13 @@
 	stop_automated_movement_when_pulled = TRUE
 	wander = FALSE
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
-						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
+							/obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
+							/obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
 	// Response verbs
-	response_help = "pets"
-	attacktext = "drills"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	attack_verb_continuous = "drills"
+	attack_verb_simple = "drill"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	speak_emote = list("states")
 	// Light handling
@@ -58,6 +60,9 @@
 
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
+
+	AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, vary = TRUE)
+
 	// Setup equipment
 	stored_pka = new(src)
 	stored_drill = new(src)
@@ -319,14 +324,14 @@
 /// Minebot passthrough handling (for the PKA upgrade and crushers)
 /mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/kinetic_proj = mover
+	if(istype(mover, /obj/projectile/kinetic))
+		var/obj/projectile/kinetic/kinetic_proj = mover
 		if(kinetic_proj.kinetic_gun)
 			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
 				var/obj/item/borg/upgrade/modkit/modkit = A
 				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
-	else if(istype(mover, /obj/item/projectile/destabilizer))
+	else if(istype(mover, /obj/projectile/destabilizer))
 		return TRUE
 
 /**********************Minebot Attack Handling**********************/
@@ -492,7 +497,7 @@
 
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
 
 /// Toggles a minebot's inbuilt meson scanners.
@@ -651,7 +656,7 @@
 	desc = "Allows a sentient minebot to carry and administer a medipen."
 	var/obj/item/reagent_containers/hypospray/medipen/stored_medipen
 
-/obj/item/minebot_upgrade/medical/Initialize()
+/obj/item/minebot_upgrade/medical/Initialize(mapload)
 	. = ..()
 	stored_medipen = new /obj/item/reagent_containers/hypospray/medipen(src)
 

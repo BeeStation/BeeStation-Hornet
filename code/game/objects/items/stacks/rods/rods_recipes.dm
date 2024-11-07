@@ -5,14 +5,14 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new/datum/stack_recipe("scooter frame", /obj/item/scooter_frame, 10, one_per_turf = FALSE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("linen bin", /obj/structure/bedsheetbin/empty, 2, one_per_turf = FALSE, time = 0.5 SECONDS), \
 	new/datum/stack_recipe("railing", /obj/structure/railing, 3, window_checks = TRUE, time = 1.8 SECONDS), \
+	new/datum/stack_recipe("catwalk floor tile", /obj/item/stack/tile/catwalk_tile, 1, 4, 20), \
 	))
 
 /obj/item/stack/rods/cyborg
-	materials = list()
-	is_cyborg = 1
-	cost = 250
+	merge_type = /obj/item/stack/rods
 
-/obj/item/stack/rods/cyborg/update_icon()
-	return
+/obj/item/stack/rods/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_blocker)
 
 STACKSIZE_MACRO(/obj/item/stack/rods)

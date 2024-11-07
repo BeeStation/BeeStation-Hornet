@@ -5,14 +5,18 @@
 #define PAYCHECK_EASY 15
 #define PAYCHECK_MEDIUM 40
 #define PAYCHECK_HARD 70
-#define PAYCHECK_COMMAND_NT   20 // given from nanotrasen to heads
-#define PAYCHECK_COMMAND_DEPT 80 // given from department budget
+// given from nanotrasen to heads
+#define PAYCHECK_COMMAND_NT 20
+// given from department budget
+#define PAYCHECK_COMMAND_DEPT 80
+// Command Total
+#define PAYCHECK_COMMAND 100
 #define PAYCHECK_VIP 2000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
-		  or be targeted by antags for their money - oh, my, being rich isn't always good.
-		  The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
-		  but if you decrease their payment too much, they'll be no longer interested.
-		  I recommend to nerf their gimmick spawn chance instead. */
+			or be targeted by antags for their money - oh, my, being rich isn't always good.
+			The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
+			but if you decrease their payment too much, they'll be no longer interested.
+			I recommend to nerf their gimmick spawn chance instead. */
 
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
@@ -21,7 +25,6 @@
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
 #define BUDGET_RATIO_TYPE_DOUBLE 2 // and for the rest
-
 
 #define ACCOUNT_CIV_ID "Civilian"
 #define ACCOUNT_CIV_NAME "Civil Budget"
@@ -72,3 +75,8 @@
 /// used for custom_currency
 #define ACCOUNT_CURRENCY_MINING "mining points"
 #define ACCOUNT_CURRENCY_EXPLO "exploration points"
+
+//These defines are to be used to with the payment component, determines which lines will be used during a transaction. If in doubt, go with clinical.
+#define PAYMENT_CLINICAL "clinical"
+#define PAYMENT_FRIENDLY "friendly"
+#define PAYMENT_ANGRY "angry"

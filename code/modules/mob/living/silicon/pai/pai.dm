@@ -13,6 +13,8 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	radio = /obj/item/radio/headset/silicon/pai
+	can_buckle_to = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -107,12 +109,6 @@
 	var/atom/movable/screen/ai/modpc/interface_button
 
 
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
-
 /mob/living/silicon/pai/handle_atom_del(atom/A)
 	if(A == hacking_cable)
 		hacking_cable = null
@@ -163,8 +159,6 @@
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	atmos_analyzer = new /obj/item/analyzer(src)
-	if(!radio)
-		radio = new /obj/item/radio/headset/silicon/pai(src)
 	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)
@@ -176,6 +170,11 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
+
+	if(!holoform)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
+
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -215,15 +214,17 @@
 	return TRUE
 
 /mob/living/silicon/pai/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = JOB_NAME_PAI
 	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
-		client.eye = src
+		client.set_eye(src)
 	else
-		client.eye = card
+		client.set_eye(card)
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -232,9 +233,6 @@
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
-
-/mob/living/silicon/pai/restrained(ignore_grab)
-	. = FALSE
 
 // See software.dm for Topic()
 
@@ -255,7 +253,7 @@
 
 /datum/action/innate/pai
 	name = "PAI Action"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	var/mob/living/silicon/pai/P
 
 /datum/action/innate/pai/Trigger()
@@ -300,11 +298,11 @@
 
 /datum/action/innate/pai/rest/Trigger()
 	..()
-	P.lay_down()
+	P.toggle_resting()
 
 /datum/action/innate/pai/light
 	name = "Toggle Integrated Lights"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "emp"
 	background_icon_state = "bg_tech"
 
@@ -315,9 +313,9 @@
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(!.)
-		add_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE, 100, multiplicative_slowdown = 2)
+		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 		return TRUE
-	remove_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE)
+	remove_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 	return TRUE
 
 /mob/living/silicon/pai/examine(mob/user)
@@ -342,11 +340,12 @@
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
 		return
-	health = maxHealth - getBruteLoss() - getFireLoss()
+	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat()
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
 
 /mob/living/silicon/pai/process(delta_time)
-	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
+	emitterhealth = clamp((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
 /mob/living/silicon/pai/can_interact_with(atom/A)
 	if(A == signaler) // Bypass for signaler

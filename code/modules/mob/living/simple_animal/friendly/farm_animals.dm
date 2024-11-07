@@ -13,14 +13,18 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	butcher_results = list(/obj/item/food/meat/slab = 4)
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	faction = list("neutral")
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	attack_same = 1
-	attacktext = "kicks"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
@@ -29,19 +33,13 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/udder = null
 	chat_color = "#B2CEB3"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
-	udder = new()
+	AddComponent(/datum/component/udder)
 	. = ..()
-
-/mob/living/simple_animal/hostile/retaliate/goat/Destroy()
-	qdel(udder)
-	udder = null
-	return ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life()
 	. = ..()
@@ -54,15 +52,18 @@
 			clear_enemies()
 			LoseTarget()
 			src.visible_message("<span class='notice'>[src] calms down.</span>")
-	if(stat == CONSCIOUS)
-		udder.generateMilk()
-		eat_plants()
-		if(!pulledby)
-			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-				var/step = get_step(src, direction)
-				if(step)
-					if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-						Move(step, get_dir(src, step))
+	if(stat != CONSCIOUS)
+		return
+
+	eat_plants()
+	if(pulledby)
+		return
+
+	for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
+		var/step = get_step(src, direction)
+		if(step)
+			if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
+				Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
@@ -88,22 +89,14 @@
 	if(eaten && prob(10))
 		INVOKE_ASYNC(src, /atom/movable/proc/say, "Nom")
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		return 1
-	else
-		return ..()
-
-
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(istype(H.dna.species, /datum/species/pod))
+		if(isdiona(H))
 			var/obj/item/bodypart/NB = pick(H.bodyparts)
 			H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", \
-								  "<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
+									"<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
 			NB.dismember()
 //cow
 /mob/living/simple_animal/cow
@@ -123,41 +116,27 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
+	butcher_results = list(/obj/item/food/meat/slab = 6)
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
-	var/obj/item/udder/udder = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#FFFFFF"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/cow/Initialize(mapload)
-	udder = new()
+	AddComponent(/datum/component/udder)
 	. = ..()
-
-/mob/living/simple_animal/cow/Destroy()
-	qdel(udder)
-	udder = null
-	return ..()
-
-/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		return 1
-	else
-		return ..()
-
-/mob/living/simple_animal/cow/Life()
-	. = ..()
-	if(stat == CONSCIOUS)
-		udder.generateMilk()
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
@@ -208,21 +187,25 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 1)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
+	butcher_results = list(/obj/item/food/meat/slab/chicken = 1)
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/amount_grown = 0
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
@@ -269,13 +252,17 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 2)
-	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
-	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
+	butcher_results = list(/obj/item/food/meat/slab/chicken = 2)
+	var/egg_type = /obj/item/food/egg
+	var/food_type = /obj/item/food/grown/wheat
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
+	attack_verb_continuous = "kicks"
+	attack_verb_simple = "kick"
 	health = 15
 	maxHealth = 15
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -295,7 +282,7 @@
 	chat_color = "#FFDC9B"
 	mobchatspan = "stationengineer"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
@@ -345,8 +332,8 @@
 			if(prob(25))
 				START_PROCESSING(SSobj, E)
 
-/obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
-/obj/item/reagent_containers/food/snacks/egg/process(delta_time)
+/obj/item/food/egg/var/amount_grown = 0
+/obj/item/food/egg/process(delta_time)
 	if(isturf(loc))
 		amount_grown += rand(1,2) * delta_time
 		if(amount_grown >= 200)
@@ -372,7 +359,8 @@
 	health = 15
 	maxHealth = 15
 	egg_type = null
-	attacktext = "pecks"
+	attack_verb_continuous = "pecks"
+	attack_verb_simple = "peck"
 	attack_sound = 'sound/creatures/turkey.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
 	icon_prefix = "turkey"
@@ -380,26 +368,3 @@
 	validColors = list("plain")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
-
-/obj/item/udder
-	name = "udder"
-
-/obj/item/udder/Initialize(mapload)
-	create_reagents(50)
-	reagents.add_reagent(/datum/reagent/consumable/milk, 20)
-	. = ..()
-
-/obj/item/udder/proc/generateMilk()
-	if(prob(5))
-		reagents.add_reagent(/datum/reagent/consumable/milk, rand(5, 10))
-
-/obj/item/udder/proc/milkAnimal(obj/O, mob/user)
-	var/obj/item/reagent_containers/glass/G = O
-	if(G.reagents.total_volume >= G.volume)
-		to_chat(user, "<span class='danger'>[O] is full.</span>")
-		return
-	var/transfered = reagents.trans_to(O, rand(5,10))
-	if(transfered)
-		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
-	else
-		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")

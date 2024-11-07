@@ -31,7 +31,7 @@ Bonus
 	suffixes = list(" Fever")
 	var/unsafe = FALSE //over the heat threshold
 	threshold_desc = "<b>Resistance 5:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
-					  <b>Resistance 10:</b> Further increases fever intensity."
+						<b>Resistance 10:</b> Further increases fever intensity."
 
 /datum/symptom/fever/severityset(datum/disease/advance/A)
 	. = ..()
@@ -55,17 +55,36 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	if(!unsafe || A.stage < 4)
 		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
 	else
 		to_chat(M, "<span class='userdanger'>[pick("You feel too hot.", "You feel like your blood is boiling.")]</span>")
-	if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || unsafe)
-		Heat(M, A)
+	set_body_temp(A.affected_mob, A)
 
-/datum/symptom/fever/proc/Heat(mob/living/M, datum/disease/advance/A)
-	var/get_heat = 6 * power
+/**
+ * set_body_temp Sets the body temp change
+ *
+ * Sets the body temp change to the mob based on the stage and resistance of the disease
+ * arguments:
+ * * mob/living/M The mob to apply changes to
+ * * datum/disease/advance/A The disease applying the symptom
+ */
+/datum/symptom/fever/proc/set_body_temp(mob/living/M, datum/disease/advance/A)
 	if(!unsafe)
-		M.adjust_bodytemperature(get_heat * A.stage, 0, BODYTEMP_HEAT_DAMAGE_LIMIT - 1)
+		M.add_body_temperature_change("fever", max((6 * power) * A.stage, (BODYTEMP_HEAT_DAMAGE_LIMIT - 1)))
 	else
-		M.adjust_bodytemperature(get_heat * A.stage)
-	return 1
+		M.add_body_temperature_change("fever", max((6 * power) * A.stage, (BODYTEMP_HEAT_DAMAGE_LIMIT + 20)))
+
+/// Update the body temp change based on the new stage
+/datum/symptom/fever/on_stage_change(datum/disease/advance/A)
+	. = ..()
+	if(.)
+		set_body_temp(A.affected_mob, A)
+
+/// remove the body temp change when removing symptom
+/datum/symptom/fever/End(datum/disease/advance/A)
+	var/mob/living/carbon/M = A.affected_mob
+	if(M)
+		M.remove_body_temperature_change("fever")

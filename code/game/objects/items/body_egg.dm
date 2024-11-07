@@ -14,7 +14,7 @@
 		src.Insert(loc)
 	return ..()
 
-/obj/item/organ/body_egg/Insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/body_egg/Insert(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	ADD_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
 	ADD_TRAIT(owner, TRAIT_XENO_IMMUNE, "xeno immune")
@@ -22,7 +22,7 @@
 	owner.med_hud_set_status()
 	INVOKE_ASYNC(src, PROC_REF(AddInfectionImages), owner)
 
-/obj/item/organ/body_egg/Remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/body_egg/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(owner)
 		REMOVE_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
 		REMOVE_TRAIT(owner, TRAIT_XENO_IMMUNE, "xeno immune")

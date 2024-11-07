@@ -184,7 +184,7 @@
 			if("red")
 				return "#ff0000"
 		return P.colour
-	else if(istype(I, /obj/item/soap) || istype(I, /obj/item/reagent_containers/glass/rag))
+	else if(istype(I, /obj/item/soap) || istype(I, /obj/item/reagent_containers/cup/rag))
 		return canvas_color
 
 /obj/item/canvas/proc/try_rename(mob/user)
@@ -238,10 +238,11 @@
 	name = "painting frame"
 	desc = "The perfect showcase for your favorite deathtrap memories."
 	icon = 'icons/obj/decals.dmi'
+	custom_materials = list(/datum/material/wood = 2000)
 	flags_1 = NONE
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/painting
-	pixel_shift = -32
+	pixel_shift = 30
 
 /obj/structure/sign/painting
 	name = "Painting"
@@ -249,6 +250,7 @@
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
 	base_icon_state = "frame" //temporal replacement before the update_appearance() port
+	custom_materials = list(/datum/material/wood = 2000)
 	buildable_sign = FALSE
 	///Canvas we're currently displaying.
 	var/obj/item/canvas/current_canvas
@@ -256,9 +258,12 @@
 	var/desc_with_canvas
 	var/persistence_id
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/painting)
+
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	SSpersistence.painting_frames += src
+	AddElement(/datum/element/art, OK_ART)
 
 /obj/structure/sign/painting/Destroy()
 	. = ..()
@@ -378,7 +383,7 @@
 	if(!current_canvas.painting_name)
 		current_canvas.painting_name = "Untitled Artwork"
 	var/data = current_canvas.get_data_string()
-	var/md5 = md5(lowertext(data))
+	var/md5 = md5(LOWER_TEXT(data))
 	var/list/current = SSpersistence.paintings[persistence_id]
 	if(!current)
 		current = list()
@@ -431,7 +436,7 @@
 		if(!persistence_id || !current_canvas)
 			to_chat(user,"<span class='notice'>This is not a persistent painting.</span>")
 			return
-		var/md5 = md5(lowertext(current_canvas.get_data_string()))
+		var/md5 = md5(LOWER_TEXT(current_canvas.get_data_string()))
 		var/author = current_canvas.author_ckey
 		var/list/current = SSpersistence.paintings[persistence_id]
 		if(current)

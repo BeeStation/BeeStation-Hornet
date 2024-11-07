@@ -20,7 +20,7 @@
 	user.client.prefs.pai_name = name
 	user.client.prefs.pai_description = description
 	user.client.prefs.pai_comment = comments
-	user.client.prefs.save_preferences()
+	user.client.prefs.mark_undatumized_dirty_player()
 	to_chat(usr, "<span class='boldnotice'>You have saved pAI information.</span>")
 	return TRUE
 

@@ -3,7 +3,7 @@
 	name = "Entropic Plume"
 	desc = "Spews forth a disorienting plume that causes enemies to strike each other, briefly blinds them (increasing with range) and poisons them (decreasing with range). Also spreads rust in the path of the plume."
 	action_background_icon_state = "bg_ecult"
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "entropic_plume"
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
@@ -62,17 +62,17 @@
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
-	proj_type = /obj/item/projectile/magic/spell/rust_wave
+	proj_type = /obj/projectile/magic/spell/rust_wave
 	requires_heretic_focus = TRUE
 	charge_max = 350
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "rust_wave"
 	action_background_icon_state = "bg_ecult"
 	invocation = "SPR'D TH' WO'D"
 	invocation_type = INVOCATION_WHISPER
 
-/obj/item/projectile/magic/spell/rust_wave
+/obj/projectile/magic/spell/rust_wave
 	name = "Patron's Reach"
 	icon_state = "eldritch_projectile"
 	alpha = 180
@@ -84,7 +84,7 @@
 	range = 15
 	speed = 1
 
-/obj/item/projectile/magic/spell/rust_wave/Moved(atom/OldLoc, Dir)
+/obj/projectile/magic/spell/rust_wave/Moved(atom/OldLoc, Dir)
 	. = ..()
 	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()
@@ -104,8 +104,8 @@
 
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short
 	name = "Small Patron's Reach"
-	proj_type = /obj/item/projectile/magic/spell/rust_wave/short
+	proj_type = /obj/projectile/magic/spell/rust_wave/short
 
-/obj/item/projectile/magic/spell/rust_wave/short
+/obj/projectile/magic/spell/rust_wave/short
 	range = 7
 	speed = 2

@@ -1,11 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/chair/comfy,
-/turf/open/floor/plasteel,
+/obj/structure/chair/fancy/comfy,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/spawner/structure/window,
@@ -13,44 +13,44 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "v" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "C" = (
 /turf/template_noop,
 /area/template_noop)
 "G" = (
-/obj/machinery/vending/snack/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/snack,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "J" = (
 /obj/structure/table/wood,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "O" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
-/obj/machinery/vending/cola/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/cola,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "R" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Y" = (
 /turf/closed/wall,

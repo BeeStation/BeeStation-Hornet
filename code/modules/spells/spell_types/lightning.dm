@@ -28,7 +28,7 @@
 	halo = halo || mutable_appearance('icons/effects/effects.dmi', "electricity", EFFECTS_LAYER)
 	user.add_overlay(halo)
 	playsound(get_turf(user), Snd, 50, 0)
-	if(do_after(user, 10 SECONDS, timed_action_flags = UNINTERRUPTIBLE))
+	if(do_after(user, 10 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM)))
 		if(ready && cast_check(skipcharge=1))
 			choose_targets()
 		else
@@ -69,10 +69,10 @@
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		current.visible_message("<span class='warning'>[current] absorbs the spell, remaining unharmed!</span>", "<span class='userdanger'>You absorb the spell, remaining unharmed!</span>")
 	else if(bounces < 1)
-		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		current.electrocute_act(bolt_energy,"Lightning Bolt",flags = SHOCK_NOGLOVES)
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
-		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		current.electrocute_act(bolt_energy,"Lightning Bolt",flags = SHOCK_NOGLOVES)
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))

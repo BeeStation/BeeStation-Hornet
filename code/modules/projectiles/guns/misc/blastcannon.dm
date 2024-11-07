@@ -4,7 +4,7 @@
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
 	item_state = "blastcannon_empty"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	item_flags = NONE
@@ -54,24 +54,25 @@
 		name = initial(name)
 		desc = initial(desc)
 
-/obj/item/gun/blastcannon/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/transfer_valve))
-		var/obj/item/transfer_valve/T = O
-		if(!T.tank_one || !T.tank_two)
-			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
-			return FALSE
-		if(!user.transferItemToLoc(T, src))
-			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
-			return FALSE
-		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
-		bomb = T
-		update_icon()
-		return TRUE
-	return ..()
+/obj/item/gun/blastcannon/attackby(obj/item/transfer_valve/bomb_to_attach, mob/user)
+	if(!istype(bomb_to_attach))
+		return ..()
+
+	if(!bomb_to_attach.ready())
+		to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
+		return FALSE
+	if(!user.transferItemToLoc(bomb_to_attach, src))
+		to_chat(user, "<span class='warning'>[bomb_to_attach] seems to be stuck to your hand!</span>")
+		return FALSE
+
+	user.visible_message("<span class='warning'>[user] attaches [bomb_to_attach] to [src]!</span>")
+	bomb = bomb_to_attach
+	update_icon()
+	return TRUE
 
 //returns the third value of a bomb blast
 /obj/item/gun/blastcannon/proc/calculate_bomb()
-	if(!istype(bomb) || !istype(bomb.tank_one) || !istype(bomb.tank_two))
+	if(!istype(bomb) || !bomb.ready())
 		return 0
 	var/datum/gas_mixture/temp = new(max(reaction_volume_mod, 0))
 	bomb.merge_gases(temp)
@@ -83,7 +84,6 @@
 	for(var/i in 1 to reaction_cycles)
 		temp.react(src)
 	var/pressure = temp.return_pressure()
-	qdel(temp)
 	if(pressure < TANK_FRAGMENT_PRESSURE)
 		return 0
 	return ((pressure - TANK_FRAGMENT_PRESSURE) / TANK_FRAGMENT_SCALE)
@@ -104,12 +104,12 @@
 	var/turf/targturf = get_turf(target)
 	message_admins("Blast wave fired from [ADMIN_VERBOSEJMP(starting)] at [ADMIN_VERBOSEJMP(targturf)] ([target.name]) by [ADMIN_LOOKUPFLW(user)] with power [heavy]/[medium]/[light].")
 	log_game("Blast wave fired from [AREACOORD(starting)] at [AREACOORD(targturf)] ([target.name]) by [key_name(user)] with power [heavy]/[medium]/[light].")
-	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
+	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.hugbox = hugbox
 	BW.preparePixelProjectile(target, get_turf(src), params, 0)
 	BW.fire()
 
-/obj/item/projectile/blastwave
+/obj/projectile/blastwave
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
@@ -122,13 +122,15 @@
 	var/hugbox = TRUE
 	range = 150
 
-/obj/item/projectile/blastwave/Initialize(mapload, _h, _m, _l)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
+
+/obj/projectile/blastwave/Initialize(mapload, _h, _m, _l)
 	heavyr = _h
 	mediumr = _m
 	lightr = _l
 	return ..()
 
-/obj/item/projectile/blastwave/Range()
+/obj/projectile/blastwave/Range()
 	..()
 	var/amount_destruction = EXPLODE_NONE
 	var/wallbreak_chance = 0
@@ -149,7 +151,7 @@
 				if(prob(wallbreak_chance))
 					W.dismantle_wall(TRUE, TRUE)
 		else
-			loc.ex_act(amount_destruction)
+			EX_ACT(loc, amount_destruction)
 	else
 		qdel(src)
 
@@ -157,5 +159,5 @@
 	mediumr = max(mediumr - 1, 0)
 	lightr = max(lightr - 1, 0)
 
-/obj/item/projectile/blastwave/ex_act()
+/obj/projectile/blastwave/ex_act()
 	return

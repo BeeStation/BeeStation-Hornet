@@ -11,7 +11,7 @@
 	icon_state = "papercorner"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "cL" = (
@@ -44,13 +44,13 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "gy" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
-/obj/item/kitchen/knife{
+/obj/item/knife/kitchen{
 	pixel_x = 18;
 	pixel_y = 8
 	},
@@ -168,7 +168,7 @@
 /area/template_noop)
 "oq" = (
 /obj/structure/railing,
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 8
 	},
 /area/template_noop)
@@ -176,7 +176,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 8
 	},
 /area/template_noop)
@@ -186,7 +186,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "qv" = (
@@ -199,7 +199,7 @@
 	icon_state = "papercorner"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "qH" = (
@@ -221,7 +221,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/template_noop)
 "rU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -252,7 +252,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "vA" = (
@@ -268,7 +268,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "yf" = (
@@ -309,7 +309,7 @@
 	icon_state = "papercorner"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "AX" = (
@@ -354,13 +354,13 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/template_noop)
 "EK" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 1
 	},
 /area/template_noop)
@@ -428,7 +428,7 @@
 /area/template_noop)
 "IC" = (
 /obj/structure/railing,
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 4
 	},
 /area/template_noop)
@@ -469,14 +469,14 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "Mo" = (
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 4
 	},
 /area/template_noop)
@@ -527,7 +527,7 @@
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/britcup,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "Ra" = (
@@ -549,7 +549,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "RT" = (
@@ -611,7 +611,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "WJ" = (
@@ -626,7 +626,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "Yg" = (
@@ -636,7 +636,7 @@
 	icon_state = "paperstack"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "YS" = (
@@ -649,7 +649,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 1
 	},
 /area/template_noop)

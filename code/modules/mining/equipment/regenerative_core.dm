@@ -15,7 +15,9 @@
 	if(C.preserved)
 		to_chat(user, "<span class='notice'>[M] is already stabilised.")
 		return
-
+	if(C.inert)
+		to_chat(user, "<span class='notice'>[M] is inert, it's not worth it to stabilize a nonfunctional one.")
+		return
 	C.preserved()
 	to_chat(user, "<span class='notice'>You inject [M] with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
@@ -26,6 +28,7 @@
 	desc = "All that remains of a hivelord. It can be used to heal completely, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
 	item_flags = NOBLUDGEON
+	organ_flags = null
 	slot = "hivecore"
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
@@ -41,7 +44,6 @@
 		go_inert()
 
 /obj/item/organ/regenerative_core/proc/preserved(implanted = 0)
-	inert = FALSE
 	preserved = TRUE
 	update_icon()
 	desc = "All that remains of a hivelord. It is preserved, allowing you to use it to heal completely without danger of decay."
@@ -109,13 +111,13 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
+/obj/item/organ/regenerative_core/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(!preserved && !inert)
 		preserved(TRUE)
 		owner.visible_message("<span class='notice'>[src] stabilizes as it's inserted.</span>")
 
-/obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(!inert && !special)
 		owner.visible_message("<span class='notice'>[src] rapidly decays as it's removed.</span>")
 		go_inert()
@@ -128,16 +130,16 @@
 
 /obj/item/organ/regenerative_core/legion/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/obj/item/organ/regenerative_core/update_icon()
+/obj/item/organ/regenerative_core/update_icon_state()
 	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-	cut_overlays()
+	return ..()
+
+/obj/item/organ/regenerative_core/update_overlays()
+	. = ..()
 	if(!inert && !preserved)
-		add_overlay("legion_soul_crackle")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		. += "legion_soul_crackle"
 
 /obj/item/organ/regenerative_core/legion/go_inert()
 	..()

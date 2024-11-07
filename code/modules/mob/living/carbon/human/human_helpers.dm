@@ -1,13 +1,7 @@
-
-/mob/living/carbon/human/restrained(ignore_grab)
-	. = ((wear_suit && wear_suit.breakouttime) || ..())
-
-
 /mob/living/carbon/human/canBeHandcuffed()
-	if(get_num_arms(FALSE) >= 2)
-		return TRUE
-	else
+	if(num_hands < 2)
 		return FALSE
+	return TRUE
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
@@ -180,7 +174,7 @@
 			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
 			if(!found_item) //Empty ID slot, skip it
 				continue
-				
+
 		// we store detected cards and holochips into the returning list
 		if(istype(found_item, /obj/item/card/id))
 			var/obj/item/card/id/found_id = found_item
@@ -200,7 +194,7 @@
 		return null
 
 /mob/living/carbon/human/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
+	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED))
 		return FALSE
 	return TRUE//Humans can use guns and such
 
@@ -218,26 +212,6 @@
 			return FALSE
 
 	return ..()
-
-/mob/living/carbon/human/get_permeability_protection()
-	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
-	for(var/obj/item/I in get_equipped_items())
-		if(I.body_parts_covered & HANDS)
-			prot["hands"] = max(1 - I.permeability_coefficient, prot["hands"])
-		if(I.body_parts_covered & CHEST)
-			prot["chest"] = max(1 - I.permeability_coefficient, prot["chest"])
-		if(I.body_parts_covered & GROIN)
-			prot["groin"] = max(1 - I.permeability_coefficient, prot["groin"])
-		if(I.body_parts_covered & LEGS)
-			prot["legs"] = max(1 - I.permeability_coefficient, prot["legs"])
-		if(I.body_parts_covered & FEET)
-			prot["feet"] = max(1 - I.permeability_coefficient, prot["feet"])
-		if(I.body_parts_covered & ARMS)
-			prot["arms"] = max(1 - I.permeability_coefficient, prot["arms"])
-		if(I.body_parts_covered & HEAD)
-			prot["head"] = max(1 - I.permeability_coefficient, prot["head"])
-	var/protection = (prot["head"] + prot["arms"] + prot["feet"] + prot["legs"] + prot["groin"] + prot["chest"] + prot["hands"])/7
-	return protection
 
 /mob/living/carbon/human/can_use_guns(obj/item/G)
 	. = ..()
@@ -288,3 +262,23 @@
 		return TRUE
 	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_BOOZEPOWER))
 		return TRUE
+
+///copies over clothing preferences like underwear to another human
+/mob/living/carbon/human/proc/copy_clothing_prefs(mob/living/carbon/human/destination)
+	destination.underwear = underwear
+	destination.underwear_color = underwear_color
+	destination.undershirt = undershirt
+	destination.socks = socks
+	destination.jumpsuit_style = jumpsuit_style
+
+
+/// Fully randomizes everything according to the given flags.
+/mob/living/carbon/human/proc/randomize_human_appearance(randomize_flags = ALL)
+	var/datum/preferences/preferences = new
+
+	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+		if (!preference.included_in_randomization_flags(randomize_flags))
+			continue
+
+		if (preference.is_randomizable())
+			preferences.write_preference(preference, preference.create_random_value(preferences))

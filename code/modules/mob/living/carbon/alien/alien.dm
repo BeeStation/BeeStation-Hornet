@@ -10,21 +10,23 @@
 	verb_say = "hisses"
 	initial_language_holder = /datum/language_holder/alien
 	bubble_icon = "alien"
-	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/xeno
+	type_of_meat = /obj/item/food/meat/slab/xeno
 	status_flags = CANUNCONSCIOUS|CANPUSH
 	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
 	unique_name = 1
 	mobchatspan = "alienmobsay"
 
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
-	var/heat_protection = 0.5
+	heat_protection = 0.5 // minor heat insulation
+
 	var/leaping = FALSE
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
+
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
 	return ..()
@@ -42,22 +44,9 @@
 	return -10
 
 /mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
-		return
-
-	var/loc_temp = get_temperature(environment)
-
-	// Aliens are now weak to fire.
-	//After then, it reacts to the surrounding atmosphere based on your thermal protection
-
-	if(!on_fire) // If you're on fire, ignore local air temperature
-		if(loc_temp > bodytemperature)
-			//Place is hotter than we are
-			var/thermal_protection = heat_protection //This returns a 0 - 1 value, which corresponds to the percentage of heat protection.
-			if(thermal_protection < 1)
-				adjust_bodytemperature((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
-		else
-			adjust_bodytemperature(1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
+	// Run base mob body temperature proc before taking damage
+	// this balances body temp to the enviroment and natural stabilization
+	. = ..()
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
 		//Body temperature is too hot.
@@ -116,6 +105,8 @@ Des: Removes all infected images from the alien.
 	return
 
 /mob/living/carbon/alien/canBeHandcuffed()
+	if(num_hands < 2)
+		return FALSE
 	return TRUE
 
 /mob/living/carbon/alien/proc/alien_evolve(mob/living/carbon/alien/new_xeno)
@@ -131,3 +122,11 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/can_hold_items()
 	return has_fine_manipulation
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	update_icons()
+
+/mob/living/carbon/alien/on_standing_up()
+	. = ..()
+	update_icons()

@@ -12,7 +12,7 @@
 /// Returns a movement type that is allowed, given a source and target turf.
 /// pre_move controls if things like fuel are consumed for jetpacks.
 /mob/living/canZMove(dir, turf/source, turf/target, pre_move = TRUE)
-	if(incapacitated(check_immobilized = TRUE) || resting || zmoving || IsKnockdown())
+	if(incapacitated() || resting || zmoving || IsKnockdown())
 		return MOVETYPE_NONE
 	if(incorporeal_move || (movement_type & PHASING))
 		return MOVETYPE_JAUNT
@@ -64,6 +64,7 @@
 		if(MOVETYPE_NONE_JUMP)
 			visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
 			do_jump_animation()
+			adjustStaminaLoss(15, forced = TRUE)
 			return FALSE
 		if(MOVETYPE_JAUNT)
 			move_verb = "moving"
@@ -170,3 +171,5 @@
 #undef MOVETYPE_JETPACK
 #undef MOVETYPE_FLOAT
 #undef MOVETYPE_JAUNT
+
+#undef MOVETYPE_NONE_JUMP

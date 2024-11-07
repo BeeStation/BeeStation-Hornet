@@ -11,7 +11,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "c" = (
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
 	},
 /turf/open/floor/plating/beach/sand,
@@ -35,7 +35,7 @@
 /turf/open/floor/wood,
 /area/tdome/arena)
 "h" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy,
+/obj/item/reagent_containers/cup/soda_cans/monkey_energy,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "i" = (
@@ -51,11 +51,11 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "k" = (
-/obj/item/reagent_containers/food/snacks/meat/crab,
+/obj/item/food/meat/crab,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "l" = (
-/obj/item/reagent_containers/food/snacks/burger/crab,
+/obj/item/food/burger/crab,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "m" = (
@@ -65,21 +65,21 @@
 /area/tdome/arena)
 "n" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "o" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "p" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "q" = (
-/obj/item/reagent_containers/food/snacks/crab_rangoon,
+/obj/item/food/crab_rangoon,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "r" = (
@@ -91,9 +91,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "t" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "u" = (

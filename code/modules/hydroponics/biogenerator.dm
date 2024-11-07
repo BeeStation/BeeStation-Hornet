@@ -10,7 +10,7 @@
 
 
 	var/processing = FALSE
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/points = 0
 	var/efficiency = 0
 	var/productivity = 0
@@ -19,6 +19,8 @@
 	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials")
 	/// Currently selected category in the UI
 	var/selected_cat
+	/// Cooldown for creating materials
+	COOLDOWN_DECLARE(production_cooldown)
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -89,7 +91,7 @@
 
 	if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
 		if(beaker)
-			var/obj/item/reagent_containers/glass/B = beaker
+			var/obj/item/reagent_containers/cup/B = beaker
 			B.forceMove(drop_location())
 			beaker = null
 			ui_update()
@@ -99,7 +101,7 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(istype(O, /obj/item/reagent_containers/glass))
+	if(istype(O, /obj/item/reagent_containers/cup))
 		. = 1 //no afterattack
 		if(!panel_open)
 			if(beaker)
@@ -118,12 +120,12 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/bag/plants/PB = O
 		var/i = 0
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in contents)
+		for(var/obj/item/food/grown/G in contents)
 			i++
 		if(i >= max_items)
 			to_chat(user, "<span class='warning'>The biogenerator is already full! Activate it.</span>")
 		else
-			for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
+			for(var/obj/item/food/grown/G in PB.contents)
 				if(i >= max_items)
 					break
 				if(SEND_SIGNAL(PB, COMSIG_TRY_STORAGE_TAKE, G, src))
@@ -137,9 +139,9 @@
 		ui_update()
 		return TRUE //no afterattack
 
-	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
+	else if(istype(O, /obj/item/food/grown))
 		var/i = 0
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in contents)
+		for(var/obj/item/food/grown/G in contents)
 			i++
 		if(i >= max_items)
 			to_chat(user, "<span class='warning'>The biogenerator is full! Activate it.</span>")
@@ -184,7 +186,7 @@
 		to_chat(user, "<span class='warning'>The biogenerator is in the process of working.</span>")
 		return
 	var/S = 0
-	for(var/obj/item/reagent_containers/food/snacks/grown/I in contents)
+	for(var/obj/item/food/grown/I in contents)
 		S += 5
 		if(I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) < 0.1)
 			points += 1 * productivity
@@ -205,13 +207,13 @@
 		update_icon()
 
 /obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = TRUE)
-	if(materials.len != 1 || materials[1] != getmaterialref(/datum/material/biomass))
+	if(materials.len != 1 || materials[1] != SSmaterials.GetMaterialRef(/datum/material/biomass))
 		return FALSE
-	if (materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency > points)
+	if (materials[SSmaterials.GetMaterialRef(/datum/material/biomass)]*multiplier/efficiency > points)
 		return FALSE
 	else
 		if(remove_points)
-			points -= materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency
+			points -= materials[SSmaterials.GetMaterialRef(/datum/material/biomass)]*multiplier/efficiency
 			ui_update()
 		update_icon()
 		return TRUE
@@ -271,7 +273,7 @@
 
 /obj/machinery/biogenerator/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/research_designs),
+		get_asset_datum(/datum/asset/spritesheet_batched/research_designs),
 	)
 
 
@@ -289,7 +291,7 @@
 	data["beaker"] = beaker ? TRUE : FALSE
 	data["biomass"] = points
 	data["processing"] = processing
-	if(locate(/obj/item/reagent_containers/food/snacks/grown) in contents)
+	if(locate(/obj/item/food/grown) in contents)
 		data["can_process"] = TRUE
 	else
 		data["can_process"] = FALSE
@@ -317,7 +319,7 @@
 			cat["items"] += list(list(
 				"id" = D.id,
 				"name" = D.name,
-				"cost" = D.materials[getmaterialref(/datum/material/biomass)]/efficiency,
+				"cost" = D.materials[SSmaterials.GetMaterialRef(/datum/material/biomass)]/efficiency,
 			))
 		data["categories"] += list(cat)
 
@@ -336,9 +338,15 @@
 			return TRUE
 		if("create")
 			var/amount = text2num(params["amount"])
+			if(amount > 10)
+				log_href_exploit(usr, " attempted to create [amount] of [params["id"]] in the biogenerator. Setting it to 10.")
 			amount = clamp(amount, 1, 10)
 			if(!amount)
 				return
+			if(!COOLDOWN_FINISHED(src, production_cooldown))
+				say("Warning: Biogenerator is cooling down.")
+				return
+			COOLDOWN_START(src, production_cooldown, 5 SECONDS)
 			var/id = params["id"]
 			if(!stored_research.researched_designs.Find(id))
 				stack_trace("ID did not map to a researched datum [id]")

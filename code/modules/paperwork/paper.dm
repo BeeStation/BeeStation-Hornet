@@ -16,6 +16,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	worn_icon_state = "paper"
 	custom_fire_overlay = "paper_onfire_overlay"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -31,6 +33,7 @@
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
 	color = COLOR_WHITE
+	dye_color = DYE_WHITE
 
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs
@@ -60,6 +63,9 @@
 	/// The paper is located in nullspace, and holds a weak ref to the camera that once contained it so the paper can do some
 	/// state checking on if it should be shown to a viewer.
 	var/datum/weakref/camera_holder
+
+	///If TRUE, staff can read paper everywhere, but usually from requests panel.
+	var/request_state = FALSE
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
@@ -156,14 +162,16 @@
  * * text - The text to append to the paper.
  * * font - The font to use.
  * * color - The font color to use.
- * * bold - Whether this text should be rendered completely bold.
+ * * bold - Whether this text should be rendered completely bold
+ * * advanced_html - Boolean that is true when the writer has R_FUN permission, which sanitizes less HTML (such as images) from the new paper_input.
  */
-/obj/item/paper/proc/add_raw_text(text, font, color, bold)
+/obj/item/paper/proc/add_raw_text(text, font, color, bold, advanced_html)
 	var/new_input_datum = new /datum/paper_input(
 		text,
 		font,
 		color,
 		bold,
+		advanced_html,
 	)
 
 	input_field_count += get_input_field_count(text)
@@ -283,7 +291,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -298,9 +306,9 @@
 	add_fingerprint(usr)
 	update_static_data()
 
-/obj/item/paper/suicide_act(mob/user)
+/obj/item/paper/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -316,11 +324,11 @@
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
-	if(camera_holder && can_show_to_mob_through_camera(user))
+	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
 	if(!in_range(user,src))
 		return UI_CLOSE
-	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
@@ -373,7 +381,7 @@
 		return
 
 	// Handle writing items.
-	var/writing_stats = attacking_item.get_writing_implement_details()
+	var/writing_stats = istype(attacking_item) ? attacking_item.get_writing_implement_details() : null
 
 	if(!writing_stats)
 		ui_interact(user)
@@ -476,7 +484,7 @@
 		if(clipboard.pen)
 			holding = clipboard.pen
 
-	data["held_item_details"] = holding?.get_writing_implement_details()
+	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
 
 	// If the paper is on an unwritable noticeboard, clear the held item details so it's read-only.
 	if(istype(loc, /obj/structure/noticeboard))
@@ -513,7 +521,7 @@
 			var/stamp_x = text2num(params["x"])
 			var/stamp_y = text2num(params["y"])
 
-			//var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+			//var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_rotation = text2num(params["rotation"])
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
 
@@ -563,7 +571,7 @@
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
 			var/writing_implement_data = holding.get_writing_implement_details()
 
-			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"])
+			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
 
 			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
 			to_chat(user, "You have added to your paper masterpiece!");
@@ -647,15 +655,18 @@
 	var/colour = ""
 	/// Whether to render the font bold or not.
 	var/bold = FALSE
+	/// Whether the creator has R_FUN permission, which allows for less sanitised HTML.
+	var/advanced_html = FALSE
 
-/datum/paper_input/New(_raw_text, _font, _colour, _bold)
+/datum/paper_input/New(_raw_text, _font, _colour, _bold, _advanced_html)
 	raw_text = _raw_text
 	font = _font
 	colour = _colour
 	bold = _bold
+	advanced_html = _advanced_html
 
 /datum/paper_input/proc/make_copy()
-	return new /datum/paper_input(raw_text, font, colour, bold);
+	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html);
 
 /datum/paper_input/proc/to_list()
 	return list(
@@ -663,6 +674,7 @@
 		font = font,
 		color = colour,
 		bold = bold,
+		advanced_html = advanced_html,
 	)
 
 /// A single instance of a saved stamp on paper.

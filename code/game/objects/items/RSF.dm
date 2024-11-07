@@ -14,7 +14,7 @@ RSF
 	density = FALSE
 	anchored = FALSE
 	item_flags = NOBLUDGEON
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 	var/matter = 0
 	var/mode = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -89,7 +89,7 @@ RSF
 	switch(mode)
 		if(1)
 			to_chat(user, "Dispensing Drinking Glass...")
-			new /obj/item/reagent_containers/food/drinks/drinkingglass(T)
+			new /obj/item/reagent_containers/cup/glass/drinkingglass(T)
 			use_matter(20, user)
 		if(2)
 			to_chat(user, "Dispensing Paper Sheet...")
@@ -187,7 +187,7 @@ RSF
 	var/turf/T = get_turf(A)
 	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
 	to_chat(user, "Fabricating Cookie..")
-	var/obj/item/reagent_containers/food/snacks/cookie/S = new /obj/item/reagent_containers/food/snacks/cookie(T)
+	var/obj/item/food/cookie/S = new /obj/item/food/cookie(T)
 	if(toxin)
 		S.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 10)
 	if (iscyborg(user))

@@ -112,14 +112,14 @@
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
 	update_icon()
 
-/obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/user, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/user, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
 	register_hand(user, owner.hand_bodyparts[side])
 	RegisterSignal(user, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 	RegisterSignal(user, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(limb_attached))
 
-/obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/user, special = 0)
+/obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/user, special = 0, pref_load = FALSE)
 	Retract()
 	unregister_hand(user)
 	UnregisterSignal(user, list(COMSIG_KB_MOB_DROPITEM_DOWN, COMSIG_CARBON_POST_ATTACH_LIMB))

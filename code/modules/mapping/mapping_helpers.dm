@@ -1,6 +1,6 @@
 //Landmarks and other helpers which speed up the mapping process and reduce the number of unique instances/subtypes of items/turf/ect
 
-
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 
 /obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
 	name = "baseturf editor"
@@ -34,11 +34,12 @@
 	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
-	var/list/baseturf_cache = thing.baseturfs
-	if(length(baseturf_cache))
+	if(length(thing.baseturfs))
+		var/list/baseturf_cache = thing.baseturfs.Copy()
 		for(var/i in baseturf_cache)
 			if(baseturf_to_replace[i])
 				baseturf_cache -= i
+		thing.baseturfs = baseturfs_string_list(baseturf_cache, thing)
 		if(!baseturf_cache.len)
 			thing.assemble_baseturfs(baseturf)
 		else
@@ -86,6 +87,7 @@
 	name = "lavaland baseturf editor"
 	baseturf = /turf/open/lava/smooth/lava_land_surface
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -124,6 +126,16 @@
 	else
 		airlock.cyclelinkeddir = dir
 
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi
+	name = "airlock multi-cyclelink helper"
+	icon_state = "airlock_multicyclelink_helper"
+	var/cycle_id
+
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.closeOtherId)
+		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] closeOtherId, but it's already set!")
+	else
+		airlock.closeOtherId = cycle_id
 
 /obj/effect/mapping_helpers/airlock/locked
 	name = "airlock lock helper"
@@ -235,26 +247,456 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Dead Body placer"
 	late = TRUE
 	icon_state = "deadbodyplacer"
-	var/bodycount = 2 //number of bodies to spawn
+	/// number of bodies to spawn
+	var/bodycount = 1
+	/// -1: area search (VERY expensive - do not use this in maint/ruin type)
+	/// 0: spawns onto itself
+	/// +1: turfs from this dead body placer
+	var/search_view_range = 0
+	/// the list of container typepath which accepts dead bodies
+	var/list/accepted_list = list(
+		/obj/structure/bodycontainer/morgue,
+		/obj/structure/closet
+	)
+
+/// as long as this body placer is contained within medbay morgue, this is fine to be expensive.
+/// DO NOT USE this outside of medbay morgue
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue
+	bodycount = 2
+	accepted_list = list(/obj/structure/bodycontainer/morgue)
+	search_view_range = -1
+
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue
+	bodycount = 2
+	accepted_list = list(/obj/structure/bodycontainer/morgue)
+	search_view_range = 7
+
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge
+	bodycount = 2
+	accepted_list = list(/obj/structure/closet)
+	search_view_range = 0
 
 /obj/effect/mapping_helpers/dead_body_placer/LateInitialize()
-	var/area/a = get_area(src)
-	var/list/trays = list()
-	for (var/i in a.contents)
-		if (istype(i, /obj/structure/bodycontainer/morgue))
-			trays += i
-	if(!trays.len)
-		log_mapping("[src] at [x],[y] could not find any morgues.")
-		return
-	for (var/i = 1 to bodycount)
-		var/obj/structure/bodycontainer/morgue/j = pick(trays)
-		var/mob/living/carbon/human/h = new /mob/living/carbon/human(j, 1)
-		h.death()
-		for (var/part in h.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
-			if (prob(40))
-				qdel(part)
-			else
-				var/obj/item/organ/O = part
-				O.organ_flags |= ORGAN_FROZEN
-		j.update_icon()
+	var/area/current_area = get_area(src)
+	var/list/found_container = list()
+
+	// search_view_range
+	//   [Negative]: area search, get_contained_turfs()
+	if(search_view_range < 0)
+		for(var/turf/each_turf in current_area.get_contained_turfs())
+			for(var/obj/each_container in each_turf)
+				for(var/acceptable_path in accepted_list)
+					if(istype(each_container, acceptable_path))
+						found_container += each_container
+						break
+	//  [Positive]: view range search, view()
+	//      [Zero]: onto itself, get_turf()
+	else
+		for(var/obj/each_container in (search_view_range ? view(search_view_range, get_turf(src)) : get_turf(src)))
+			if(get_area(each_container) != current_area)
+				continue // we don't want to put a deadbody to a wrong area
+			for(var/acceptable_path in accepted_list)
+				if(istype(each_container, acceptable_path))
+					found_container += each_container
+					break
+
+	while(bodycount-- > 0)
+		if(length(found_container))
+			spawn_dead_human_in_tray(pick(found_container))
+		else // if we have found no container, just spawn onto a turf
+			spawn_dead_human_in_tray(get_turf(src))
+
 	qdel(src)
+
+/obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(atom/container)
+	var/mob/living/carbon/human/corpse = new(container)
+	var/list/possible_alt_species = GLOB.roundstart_races.Copy() - list(SPECIES_HUMAN, SPECIES_IPC, SPECIES_DIONA)
+	if(prob(15) && length(possible_alt_species))
+		corpse.set_species(GLOB.species_list[pick(possible_alt_species)])
+	corpse.regenerate_organs()
+	corpse.give_random_dormant_disease(25, min_symptoms = 1, max_symptoms = 5) // slightly more likely that an average stationgoer to have a dormant disease, bc who KNOWS how they died?
+	corpse.death()
+	for (var/obj/item/organ/organ in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
+		if (prob(40))
+			qdel(organ)
+		else
+			organ.organ_flags |= ORGAN_FROZEN
+	container.update_icon()
+
+/obj/effect/mapping_helpers/simple_pipes
+	name = "Simple Pipes"
+	late = TRUE
+	icon_state = "pipe-3"
+	alpha = 175
+	layer = GAS_PIPE_VISIBLE_LAYER
+	var/piping_layer = 3
+	var/pipe_color = ""
+	var/hide = FALSE
+
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_AUTO,\
+		pipe_interference_group = "atmos-[piping_layer]"\
+	)
+
+	var/list/pipe_types = list(
+		/obj/machinery/atmospherics/pipe/simple/general/visible,
+		/obj/machinery/atmospherics/pipe/simple/general/visible,
+		/obj/machinery/atmospherics/pipe/manifold/general/visible,
+		/obj/machinery/atmospherics/pipe/manifold4w/general/visible
+	)
+
+/obj/effect/mapping_helpers/simple_pipes/Initialize(mapload)
+	preform_layer(piping_layer, pipe_color)
+	qdel(src)
+
+/obj/effect/mapping_helpers/simple_pipes/proc/preform_layer(override_layer, override_color, override_name = null)
+	var/list/connections = list( dir2text(NORTH)  = FALSE, dir2text(SOUTH) = FALSE , dir2text(EAST) = FALSE , dir2text(WEST) = FALSE)
+	var/list/valid_connectors = typecacheof(/obj/machinery/atmospherics)
+	var/connection_num = 0
+	for(var/direction in connections)
+		var/turf/T = get_step(src,  text2dir(direction))
+		for(var/thing in T.contents)
+			// If it is a mapping helper
+			if(istype(thing, /obj/effect/mapping_helpers/simple_pipes))
+				var/obj/effect/mapping_helpers/simple_pipes/found = thing
+
+				// If it is a supply_scrubber mapping helper
+				if(istype(found, /obj/effect/mapping_helpers/simple_pipes/supply_scrubber))
+					if(override_layer != 2 && override_layer != 4 && !istype(src, /obj/effect/mapping_helpers/simple_pipes/supply_scrubber))
+						continue // We allow it if we're also a supply_scrubber helper, otherwise we gotta be on layers 2 or 4.
+
+				// If it is a regular mapping helper
+				else
+					if(found.piping_layer != override_layer)
+						continue // We have to have the same layer to allow it.
+
+				connections[direction] = TRUE
+				connection_num++
+				break
+
+			if(!is_type_in_typecache(thing, valid_connectors))
+				continue
+
+			var/obj/machinery/atmospherics/AM = thing
+			if(AM.piping_layer != override_layer && !istype(AM, /obj/machinery/atmospherics/pipe/layer_manifold))
+				continue
+
+			if(angle2dir(dir2angle(text2dir(direction))+180) & AM.initialize_directions)
+				connections[direction] = TRUE
+				connection_num++
+				break
+
+	switch(connection_num)
+		if(1)
+			for(var/direction in connections)
+				if(connections[direction] != TRUE)
+					continue
+				spawn_pipe(direction, connection_num, override_layer, override_color, override_name)
+				return
+		if(2)
+			for(var/direction in connections)
+				if(connections[direction] != TRUE)
+					continue
+				//Detects straight pipes connected from east to west , north to south etc.
+				if(connections[dir2text(angle2dir(dir2angle(text2dir(direction))+180))] == TRUE)
+					spawn_pipe(direction, connection_num, override_layer, override_color, override_name)
+					return
+
+				for(var/direction2 in (connections - direction))
+					if(connections[direction2] != TRUE)
+						continue
+					spawn_pipe(dir2text(text2dir(direction)+text2dir(direction2)), connection_num, override_layer, override_color, override_name)
+					return
+		if(3)
+			for(var/direction in connections)
+				if(connections[direction] == FALSE)
+					spawn_pipe(direction, connection_num, override_layer, override_color, override_name)
+					return
+		if(4)
+			spawn_pipe(dir2text(NORTH), connection_num, override_layer, override_color, override_name)
+			return
+
+/// Spawn the pipe on the layer we specify
+/obj/effect/mapping_helpers/simple_pipes/proc/spawn_pipe(direction, connection_num, override_layer, override_color, override_name = null)
+	var/T = pipe_types[connection_num]
+	var/obj/machinery/atmospherics/pipe/pipe = new T(get_turf(src), TRUE, text2dir(direction))
+
+	if(!isnull(override_name))
+		pipe.name = override_name
+	pipe.piping_layer = override_layer
+	pipe.update_layer()
+	pipe.paint(override_color)
+	// prevents duplicates on the station blueprints mode since the effect is on
+	pipe.obj_flags &= ~ON_BLUEPRINTS
+
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber
+	name = "Simple Supply/Scrubber Pipes"
+	icon_state = "pipe-2-4"
+	color = rgb(128, 0, 128) // purple in-between pipe
+
+// Instead of using our current layer, we use
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/Initialize(mapload)
+	preform_layer(2, rgb(0, 0, 255), override_name = "air supply pipe")
+	preform_layer(4, rgb(255, 0, 0), override_name = "scrubbers pipe")
+
+	qdel(src)
+
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden
+	name = "Hidden Simple Supply/Scrubber Pipes"
+	hide = TRUE
+	pipe_types = list(
+		/obj/machinery/atmospherics/pipe/simple/general/hidden,
+		/obj/machinery/atmospherics/pipe/simple/general/hidden,
+		/obj/machinery/atmospherics/pipe/manifold/general/hidden,
+		/obj/machinery/atmospherics/pipe/manifold4w/general/hidden
+	)
+
+//Color correction helper - only use of these per area, it will convert the entire area
+/obj/effect/mapping_helpers/color_correction
+	name = "color correction helper"
+	icon_state = "color_correction"
+	late = TRUE
+	var/color_correction = /datum/client_colour/area_color/cold
+
+/obj/effect/mapping_helpers/color_correction/LateInitialize()
+	var/area/A = get_area(get_turf(src))
+	A.color_correction = color_correction
+	qdel(src)
+
+//Make any turf non-slip
+/obj/effect/mapping_helpers/make_non_slip
+	name = "non slip helper"
+	icon_state = "no_slip"
+	late = TRUE
+	///Do we add the grippy visual
+	var/grip_visual = TRUE
+
+/obj/effect/mapping_helpers/make_non_slip/LateInitialize()
+	var/turf/open/T = get_turf(src)
+	if(isopenturf(T))
+		T?.make_traction(grip_visual)
+	qdel(src)
+
+//Change this areas turf texture
+/obj/effect/mapping_helpers/tile_breaker
+	name = "area turf texture helper"
+	icon_state = "tile_breaker"
+	late = TRUE
+
+/obj/effect/mapping_helpers/tile_breaker/LateInitialize()
+	var/turf/open/floor/T = get_turf(src)
+	if(istype(T, /turf/open/floor))
+		T.break_tile()
+	qdel(src)
+
+//Virology helper- if virologist is enabled, set airlocks to virology access, set
+/obj/effect/mapping_helpers/virology
+	name = "virology mapping helper"
+	desc = "Place this on each viro airlock to change its access, a smoke machine to turn it to a pet, and a plant to turn it to a virodrobe when virologist is enabled."
+/obj/effect/mapping_helpers/virology/Initialize(mapload)
+	.=..()
+	if(CONFIG_GET(flag/allow_virologist))
+		for(var/obj/A in loc)
+			if(istype(A, /obj/machinery/door/airlock/))
+				var/obj/machinery/door/airlock/airlock = A
+				airlock.req_access_txt = "39"
+				if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
+					airlock.name = "Virology Maintenance"
+				else
+					airlock.name = "Virology Lab"
+			if(istype(A, /obj/machinery/smoke_machine))
+				qdel(A)
+				new /obj/structure/bed/dogbed/vector(src.loc)
+				new /mob/living/simple_animal/pet/hamster/vector(src.loc)
+			if(istype(A, /obj/item/kirbyplants/random))
+				qdel(A)
+				new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
+
+// automatically connects any portable atmospherics to the connector on the same tile
+/obj/effect/mapping_helpers/atmos_auto_connect
+	name = "atmos auto-connect helper"
+	desc = "Place this on a portable atmospherics like canister to automatically connect it to the connector on the same tile."
+	late = TRUE
+
+/obj/effect/mapping_helpers/atmos_auto_connect/LateInitialize()
+	. = ..()
+	var/obj/machinery/portable_atmospherics/PortAtmos = locate(/obj/machinery/portable_atmospherics) in loc
+	var/obj/machinery/atmospherics/components/unary/portables_connector/Connector = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
+	if(PortAtmos && Connector)
+		Connector.connect_to = PortAtmos
+		qdel(src)
+		return
+	CRASH("Failed to find a portable atmospherics or a portables connector at [AREACOORD(src)]")
+
+// This will put directional windows to adjucant turfs if airs will likely be vaccuumed.
+// Putting this on a space turf is recommended. If you put this on an open tile, it will place directional windows anyway.
+// If a turf is not valid to put a tile, it will automatically make a turf for failsafe.
+// NOTE: This helper is specialised for space-proof, not just for standard mapping.
+/obj/effect/mapping_helpers/space_window_placer
+	name = "Placer: Spaceproof directional windows"
+	icon_state = "space_directional_window_placer"
+	late = TRUE
+
+	/** Mapper options **/
+	/// Determines which window type it will create
+	var/window_type = /obj/structure/window/reinforced
+
+	/** internal code variables - not for mappers **/
+	/// used to skip a direction on a turf
+	var/skip_direction
+	/// there are a few stuff that "CanAtmosPass()" is not reliable
+	var/static/list/unliable_atmos_blockers
+
+
+/obj/effect/mapping_helpers/space_window_placer/Initialize(mapload)
+	. = ..()
+	if(!unliable_atmos_blockers)
+		unliable_atmos_blockers = typecacheof(list(/obj/machinery/door))
+
+/obj/effect/mapping_helpers/space_window_placer/LateInitialize()
+	. = ..()
+	if(!z || !x || !y)
+		CRASH("It's not unable to place Spaceproof directional windoe placer - xyz is null.")
+
+	var/turf/my_turf = get_turf(src)
+	if(!my_turf)
+		CRASH("Spaceproof directional windoe placer failed to find a turf.")
+
+	// checks if turfs are fine to place a directional window
+	var/unliable_atmos_blocking
+	for(var/turf/each_turf in get_adjacent_open_turfs(my_turf))
+		if(isspaceturf(each_turf) || isopenspace(each_turf))
+			continue
+
+		if(!each_turf.CanAtmosPass(my_turf))
+			for(var/atom/movable/movable_content as anything in each_turf.contents)
+				if(is_type_in_typecache(movable_content, unliable_atmos_blockers))
+					unliable_atmos_blocking = TRUE
+					break
+			if(unliable_atmos_blocking)
+				break
+
+	var/list/nearby_turfs = list()
+	for(var/turf/each_turf in get_adjacent_open_turfs(my_turf))
+		if(unliable_atmos_blocking)
+			var/obj/effect/mapping_helpers/space_window_placer/nearby_placer = locate() in each_turf
+			if(nearby_placer) // we don't place windows there + give a value to skip directon
+				nearby_placer.skip_direction |= get_dir(each_turf, my_turf)
+				continue
+			if(skip_direction & get_dir(my_turf, each_turf))
+				continue
+		nearby_turfs += each_turf
+
+
+	// well, it's a bad idea to put a directional window here. Mapping failsafe process here.
+	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
+		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/iron), flags = CHANGETURF_INHERIT_AIR)
+		for(var/turf/each_turf in nearby_turfs)
+			if(isspaceturf(each_turf) || isopenspace(each_turf))
+				var/obj/d_glass = new window_type(my_turf)
+				d_glass.dir = get_dir(my_turf, each_turf)
+			else
+				var/improper_dir = get_dir(each_turf, my_turf)
+				for(var/obj/structure/window/d_glass in each_turf.contents)
+					if(d_glass.dir == improper_dir)
+						qdel(d_glass)
+		qdel(src)
+		return
+
+	// puts a directional window for each direction.
+	for(var/turf/each_turf in nearby_turfs)
+		if(!each_turf.CanAtmosPass(my_turf) || isspaceturf(each_turf) || isopenspace(each_turf))
+			continue
+
+		var/obj/d_glass = new window_type(each_turf)
+		d_glass.dir = get_dir(d_glass, my_turf)
+
+	qdel(src)
+
+/obj/effect/mapping_helpers/group_window_placer
+	name = "Placer: Grouped directional windows"
+	icon_state = "group_directional_window_placer"
+	late = TRUE
+
+	/** Mapper options **/
+	/// Determines which window type it will create.
+	/// Make a subtype of this mapping helper to change this value instead of manual change in DMM.
+	var/window_type = /obj/structure/window/reinforced
+	/// Directional window will not be placed to a direction from the adjacent turf where a fulltile glass exists.
+	/// If you set this TRUE, the windows will be placed.
+	var/place_onto_fulltile_window
+	/// Set TRUE to ignore group chain initialization
+	var/single
+
+	/** internal code variables - not for mappers **/
+	/// failsafe var to prevent it to run a code
+	var/to_be_initialized
+	/// a list of mappers that will be initialized together.
+	var/list/init_group
+
+/obj/effect/mapping_helpers/group_window_placer/LateInitialize()
+	. = ..()
+	if(to_be_initialized)
+		return
+
+	if(!z || !x || !y)
+		CRASH("It's not unable to use group_window_placer - xyz is null.")
+
+	var/turf/my_turf = get_turf(src)
+	if(!my_turf)
+		CRASH("group_window_placer failed to find a turf.")
+
+	if(single)
+		to_be_initialized = TRUE
+		finish_late_init(list(WEAKREF(src)))
+		return
+
+	init_group = list()
+	build_group(init_group)
+	finish_late_init()
+
+/obj/effect/mapping_helpers/group_window_placer/proc/build_group(list/chain_init_group)
+	if(to_be_initialized) // shouldn't reach here but just in case
+		return
+	to_be_initialized = TRUE
+	chain_init_group[WEAKREF(src)] = TRUE
+	for(var/turf/each_turf in get_adjacent_open_turfs(get_turf(src)))
+		var/obj/effect/mapping_helpers/group_window_placer/placer = locate() in each_turf
+		if(!placer || chain_init_group[WEAKREF(placer)] || placer.to_be_initialized)
+			continue
+		placer.build_group(chain_init_group)
+
+/obj/effect/mapping_helpers/group_window_placer/proc/finish_late_init()
+	for(var/datum/weakref/each_ref in init_group)
+		var/obj/effect/mapping_helpers/group_window_placer/each_placer = each_ref.resolve()
+		var/turf/my_turf = get_turf(each_placer)
+		var/list/nearby_turfs = list()
+		for(var/turf/each_turf in get_adjacent_open_turfs(my_turf))
+			if(each_turf.density)
+				continue
+			if(locate(/obj/effect/mapping_helpers/group_window_placer) in each_turf)
+				continue
+				// skip this - that direction should be connected
+			if(locate(/obj/effect/mapping_helpers/space_window_placer) in each_turf)
+				continue
+				// skip this - you won't want to have two directional window in the same directional spot.
+				// NOTE: this is "SPACE" window placer, not "GROUP"
+			if(place_onto_fulltile_window)
+				var/is_fulltile
+				for(var/obj/structure/window/window_on_turf in my_turf.contents)
+					if(window_on_turf.fulltile)
+						is_fulltile = TRUE
+						break
+				if(is_fulltile)
+					continue
+			nearby_turfs += each_turf
+
+		for(var/turf/each_turf in nearby_turfs)
+			var/obj/d_glass = new each_placer.window_type(my_turf)
+			d_glass.dir = get_dir(my_turf, each_turf)
+
+	for(var/datum/weakref/each_ref in init_group)
+		var/obj/effect/mapping_helpers/group_window_placer/each_placer = each_ref.resolve()
+		qdel(each_placer)
+	init_group.Cut()
+

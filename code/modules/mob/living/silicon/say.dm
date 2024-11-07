@@ -10,24 +10,41 @@
 	if(issilicon(src))
 		var/mob/living/silicon/S = src
 		desig = trim_left(S.designation + " " + S.job)
-	var/message_a = say_quote(message)
-	var/rendered = "Robotic Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span>"
+	var/large_message_a = say_quote(message, list("robot big"))
+	var/message_a = say_quote(message, list("robot"))
+	var/mob/living/silicon/ai/true_ai_core
+	if(iscyborg(src))  // this detects if a borg is AI shell, so that they can be loud always
+		var/mob/living/silicon/robot/ai_shell = src
+		true_ai_core = ai_shell.mainframe
 	for(var/mob/M in GLOB.player_list)
 		if(M.binarycheck())
 			if(isAI(M))
-				var/renderedAI = "<span class='binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span>"
-				to_chat(M, renderedAI)
+				var/loud = FALSE
+				if(M == src) //AI hears only itself on loud mode.
+					loud = TRUE
+				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> [loud ? "[large_message_a]" : "[message_a]"]</span>"
+				to_chat(M, rendered)
+			else if(iscyborg(M))
+				var/mob/living/silicon/robot/borg = M
+				var/loud = FALSE
+				if((src == borg.connected_ai) || (true_ai_core == borg.connected_ai)) //Cyborg only hears master AI on loud mode.
+					loud = TRUE
+				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>"
+				to_chat(M, rendered)
 			else
-				to_chat(M, "<span class='binarysay'>[rendered]</span>")
+				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [message_a]</span>"
+				to_chat(M, rendered)
 		if(isobserver(M))
 			var/following = src
+			var/loud = isAI(src) || true_ai_core
 			// If the AI talks on binary chat, we still want to follow
 			// it's camera eye, like if it talked on the radio
 			if(isAI(src))
 				var/mob/living/silicon/ai/ai = src
 				following = ai.eyeobj
 			var/link = FOLLOW_LINK(M, following)
-			to_chat(M, "<span class='binarysay'>[link] [rendered]</span>")
+			var/rendered = "<span class='srt_radio binarysay'>[link] Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>" //Observers hear all AI on loud mode.
+			to_chat(M, rendered)
 
 /mob/living/silicon/binarycheck()
 	return 1

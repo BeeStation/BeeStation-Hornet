@@ -31,6 +31,7 @@
 		assigned += M.mind
 		M.mind.special_role = ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 
@@ -69,6 +70,7 @@
 			team.add_member(bro.mind)
 			bro.mind.special_role = ROLE_BROTHER
 			bro.mind.restricted_roles = restricted_roles
+			GLOB.pre_setup_antags += bro.mind
 		pre_brother_teams += team
 	return TRUE
 
@@ -78,6 +80,7 @@
 		team.forge_brother_objectives()
 		for(var/datum/mind/M in team.members)
 			M.add_antag_datum(/datum/antagonist/brother, team)
+			GLOB.pre_setup_antags -= M
 		team.update_name()
 	mode.brother_teams += pre_brother_teams
 	return DYNAMIC_EXECUTE_SUCCESS
@@ -111,6 +114,7 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = ROLE_CHANGELING
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 //////////////////////////////////////////////
@@ -144,6 +148,7 @@
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 		picked_candidate.mind.special_role = ROLE_HERETIC
+		GLOB.pre_setup_antags += picked_candidate.mind
 	return TRUE
 
 
@@ -182,6 +187,7 @@
 		assigned += M.mind
 		M.mind.assigned_role = ROLE_WIZARD
 		M.mind.special_role = ROLE_WIZARD
+		GLOB.pre_setup_antags += M.mind
 
 	return TRUE
 
@@ -225,6 +231,7 @@
 		assigned += M.mind
 		M.mind.special_role = ROLE_CULTIST
 		M.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute(forced = FALSE)
@@ -234,6 +241,7 @@
 		new_cultist.cult_team = main_cult
 		new_cultist.give_equipment = TRUE
 		M.add_antag_datum(new_cultist)
+		GLOB.pre_setup_antags -= M
 	main_cult.setup_objectives()
 	return DYNAMIC_EXECUTE_SUCCESS
 
@@ -281,6 +289,7 @@
 		assigned += M.mind
 		M.mind.assigned_role = ROLE_OPERATIVE
 		M.mind.special_role = ROLE_OPERATIVE
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute(forced = FALSE)
@@ -293,6 +302,7 @@
 		else
 			var/datum/antagonist/nukeop/new_op = new antag_datum()
 			M.add_antag_datum(new_op)
+		GLOB.pre_setup_antags -= M
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
@@ -348,7 +358,6 @@
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
 	/// How much threat should be injected when the revolution wins?
@@ -366,6 +375,7 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = ROLE_REV_HEAD
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute(forced = FALSE)
@@ -380,10 +390,10 @@
 		else
 			assigned -= M
 			log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
+		GLOB.pre_setup_antags -= M
 	if(revolution.members.len)
 		revolution.update_objectives()
 		revolution.update_heads()
-		SSshuttle.registerHostileEnvironment(revolution)
 		return DYNAMIC_EXECUTE_SUCCESS
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
 	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
@@ -458,59 +468,8 @@
 		for(var/datum/mind/V in assigned)
 			V.assigned_role = "Clown Operative"
 			V.special_role = "Clown Operative"
+			GLOB.pre_setup_antags += V
 
-//////////////////////////////////////////////
-//                                          //
-//               DEVIL                      //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/devil
-	name = "Devil"
-	role_preference = /datum/role_preference/antagonist/devil
-	antag_datum = /datum/antagonist/devil
-	restricted_roles = list(JOB_NAME_LAWYER, JOB_NAME_CURATOR, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
-	required_candidates = 1
-	weight = 3
-	cost = 0
-	flags = LONE_RULESET
-	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	antag_cap = list("denominator" = 30)
-
-/datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
-	. = ..()
-	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
-
-	for(var/j = 0, j < num_devils, j++)
-		if (candidates.len <= 0)
-			break
-		var/mob/devil = antag_pick_n_take(candidates)
-		assigned += devil.mind
-		devil.mind.special_role = ROLE_DEVIL
-		devil.mind.restricted_roles = restricted_roles
-
-		log_game("[key_name(devil)] has been selected as a devil")
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/devil/execute(forced = FALSE)
-	for(var/datum/mind/devil in assigned)
-		add_devil(devil.current, ascendable = TRUE)
-		add_devil_objectives(devil,2)
-	return DYNAMIC_EXECUTE_SUCCESS
-
-/datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
-	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
-	var/datum/antagonist/devil/D = devil_mind.has_antag_datum(/datum/antagonist/devil)
-	for(var/i = 1 to quantity)
-		var/type = pick(validtypes)
-		var/datum/objective/devil/objective = new type(null)
-		objective.owner = devil_mind
-		D.objectives += objective
-		if(!istype(objective, /datum/objective/devil/buy_target))
-			validtypes -= type
-		else
-			objective.find_target()
-		log_objective(D, objective.explanation_text)
 
 //////////////////////////////////////////////
 //                                          //
@@ -531,11 +490,11 @@
 	var/rampupdelta = 5
 
 /datum/dynamic_ruleset/roundstart/meteor/rule_process()
-	if(nometeors || meteordelay > world.time - SSticker.round_start_time)
+	if(nometeors || meteordelay > (mode.simulated_time || world.time) - SSticker.round_start_time)
 		return
 
 	var/list/wavetype = GLOB.meteors_normal
-	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 10 / 60
+	var/meteorminutes = ((mode.simulated_time || world.time) - SSticker.round_start_time - meteordelay) / 10 / 60
 
 	if (prob(meteorminutes))
 		wavetype = GLOB.meteors_threatening
@@ -543,7 +502,7 @@
 	if (prob(meteorminutes/2))
 		wavetype = GLOB.meteors_catastrophic
 
-	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)
+	var/ramp_up_final = clamp(round(meteorminutes/rampupdelta), 1, 10)
 
 	spawn_meteors(ramp_up_final, wavetype)
 
@@ -582,6 +541,7 @@
 		assigned += servant.mind
 		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
 		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += servant.mind
 	//Generate scriptures
 	generate_clockcult_scriptures()
 	return TRUE
@@ -592,12 +552,18 @@
 	main_cult.setup_objectives()
 	//Create team
 	for(var/datum/mind/servant_mind in assigned)
+		if(!ismob(servant_mind?.current)) // user disconnected and was not assigned a mob.
+			log_game("DYNAMIC: Clockcult mind \"[servant_mind?.key]\" was lost during execute() - adding a cogscarab.")
+			assigned -= servant_mind
+			new /obj/effect/mob_spawn/drone/cogscarab(pick_n_take(spawns))
+			continue
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= servant_mind
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return DYNAMIC_EXECUTE_SUCCESS
@@ -632,7 +598,7 @@
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
-	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	required_candidates = clamp(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 	return ..()
 
 /datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)
@@ -644,6 +610,7 @@
 		assigned += M.mind
 		M.mind.special_role = ROLE_INCURSION
 		M.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
@@ -654,6 +621,7 @@
 		new_incursionist.team = incursion_team
 		incursion_team.add_member(M)
 		M.add_antag_datum(new_incursionist)
+		GLOB.pre_setup_antags -= M
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/incursion/round_result()
@@ -662,31 +630,3 @@
 		SSticker.mode_result = "win - incursion win"
 	else
 		SSticker.mode_result = "loss - staff stopped the incursion"
-
-//////////////////////////////////////////////
-//                                          //
-//             ASSIMILATION                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/hivemind
-	name = "Assimilation"
-	role_preference = /datum/role_preference/antagonist/hivemind_host
-	antag_datum = /datum/antagonist/hivemind
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	required_candidates = 3
-	weight = 3
-	cost = 30
-	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-
-/datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
-	. = ..()
-	var/num_hosts = max( 3 , rand(0,1) + min(8, round(population / 8) ) )
-	for (var/i = 1 to num_hosts)
-		var/mob/M = antag_pick_n_take(candidates)
-		assigned += M.mind
-		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = ROLE_HIVE
-	return TRUE

@@ -16,7 +16,7 @@
 
 /obj/item/mjolnir/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjolnir1", attacksound="sparks")
+	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
 
 /obj/item/mjolnir/update_icon_state()
 	icon_state = "mjollnir0"
@@ -31,7 +31,6 @@
 	. = ..()
 
 /obj/item/mjolnir/proc/shock(mob/living/target)
-	target.Stun(60)
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)
 	s.start()
@@ -51,7 +50,7 @@
 /obj/item/mjolnir/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, quickstart)
 	thrower.visible_message("<span class='warning'>[thrower] throws [src] with impossible strength!</span>", "<span class='notice'>You lightly throw [src] and it accelerates out of your hand!</span>")
 	//Create the mjolnir projectile
-	var/obj/item/projectile/created = new /obj/item/projectile/mjolnir(get_turf(src), src)
+	var/obj/projectile/created = new /obj/projectile/mjolnir(get_turf(src), src)
 	created.preparePixelProjectile(target, thrower)
 	created.firer = thrower
 	created.fire()
@@ -83,6 +82,8 @@
 	layer = HIGH_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/obj/item/mjolnir/contained
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 
 /obj/structure/anchored_mjolnir/Initialize(mapload, obj/item/mjolnir/god_hammer)
 	. = ..()
@@ -127,7 +128,7 @@
 		user.visible_message("<span class='notice'>[user] attempts to lift [contained], but its too heavy!</span>", "<span class='userdanger'>[contained] is too heavy!</span>")
 
 
-/obj/item/projectile/mjolnir
+/obj/projectile/mjolnir
 	name = "mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir"
@@ -139,24 +140,26 @@
 	speed = 0.3
 	var/obj/item/mjolnir/contained
 
-/obj/item/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/mjolnir)
+
+/obj/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
 	. = ..()
 	contained = contained_hammer
 	if (contained_hammer)
 		contained_hammer.forceMove(src)
 
-/obj/item/projectile/mjolnir/Destroy()
+/obj/projectile/mjolnir/Destroy()
 	if (contained)
 		new /obj/structure/anchored_mjolnir(loc, contained)
 		contained = null
 	. = ..()
 
-/obj/item/projectile/mjolnir/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/mjolnir/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if (isobj(target))
 		var/obj/hit_structure = target
 		hit_structure.take_damage(120)
-		if (hit_structure.obj_integrity > 0)
+		if (hit_structure.get_integrity() > 0)
 			qdel(src)
 	if (isliving(target))
 		var/mob/living/hit_mob = target

@@ -12,9 +12,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
+	appearance_flags = PIXEL_SCALE // no tile bound to allow distortion to render outside of direct view
 	var/uid = 1
 	var/static/gl_uid = 1
 	light_range = 4
+	// this thing bright as hell (to increase bloom)
+	light_power = 5
+	light_color = "#ffe016"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
@@ -43,6 +47,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/lastwarning = 0				// Time in 1/10th of seconds since the last sent warning
 	var/power = 0
+
+	/// Determines the maximum rate of positive change in gas comp values
+	var/gas_change_rate = 0.05
 
 	var/n2comp = 0					// raw composition of each gas in the chamber, ranges from 0 to 1
 
@@ -116,6 +123,23 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	/// don't let these to be consumed by SM
 	var/static/list/not_dustable
 
+	///Effect holder for the displacement filter to distort the SM based on its activity level
+	var/atom/movable/distortion_effect/distort
+
+	var/last_status
+
+/atom/movable/distortion_effect
+	name = ""
+	plane = GRAVITY_PULSE_PLANE
+	// Changing the colour of this based on the parent will cause issues with the displacement effect
+	// so we need to ensure that it always has the default colour (clear).
+	appearance_flags = PIXEL_SCALE | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | NO_CLIENT_COLOR
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "SM_base"
+	pixel_x = -32
+	pixel_y = -32
+
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	uid = gl_uid++
@@ -125,8 +149,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	AddElement(/datum/element/point_of_interest)
 	radio = new(src)
 	radio.keyslot = new radio_key
-	radio.listening = 0
+	radio.set_listening(FALSE)
 	radio.recalculateChannels()
+	distort = new(src)
+	add_emitter(/obj/emitter/sparkle, "supermatter_sparkle")
 	investigate_log("has been created.", INVESTIGATE_ENGINES)
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
@@ -152,10 +178,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
+	distort.icon = 'icons/effects/32x32.dmi'
+	distort.icon_state = "SM_remnant"
+	distort.pixel_x = 0
+	distort.pixel_y = 0
+	distort.forceMove(get_turf(src))
+	distort = null
 	return ..()
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
 	. = ..()
+	if(!user?.mind) // ghosts don't have mind
+		return .
 	var/immune = HAS_TRAIT(user, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_MADNESS_IMMUNE)
 	if (!isliving(user) && !immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
@@ -233,11 +267,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/proc/alarm()
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
-			playsound(src, 'sound/misc/bloblarm.ogg', 100)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(SUPERMATTER_EMERGENCY)
-			playsound(src, 'sound/machines/engine_alert1.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_DANGER)
-			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
@@ -250,8 +284,54 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/update_overlays()
 	. = ..()
+	. += get_displacement_icon()
 	if(final_countdown)
-		. += "casuality_field"
+		. += "causality_field"
+
+// Switches the overlay based on the supermatter's current state; only called when the status has changed
+/obj/machinery/power/supermatter_crystal/proc/get_displacement_icon()
+	switch(last_status)
+		if(SUPERMATTER_INACTIVE)
+			distort.icon = 'icons/effects/96x96.dmi'
+			distort.icon_state = "SM_base"
+			distort.pixel_x = -32
+			distort.pixel_y = -32
+			light_range = 4
+			light_power = 5
+			light_color = "#ffe016"
+		if(SUPERMATTER_NORMAL, SUPERMATTER_NOTIFY, SUPERMATTER_WARNING)
+			distort.icon = 'icons/effects/96x96.dmi'
+			distort.icon_state = "SM_base_active"
+			distort.pixel_x = -32
+			distort.pixel_y = -32
+			light_range = 4
+			light_power = 7
+			light_color = "#ffe016"
+		if(SUPERMATTER_DANGER)
+			distort.icon = 'icons/effects/160x160.dmi'
+			distort.icon_state = "SM_delam_1"
+			distort.pixel_x = -64
+			distort.pixel_y = -64
+			light_range = 5
+			light_power = 10
+			light_color = "#ffb516"
+		if(SUPERMATTER_EMERGENCY)
+			distort.icon = 'icons/effects/224x224.dmi'
+			distort.icon_state = "SM_delam_2"
+			distort.pixel_x = -96
+			distort.pixel_y = -96
+			light_range = 6
+			light_power = 10
+			light_color = "#ff9208"
+		if(SUPERMATTER_DELAMINATING)
+			distort.icon = 'icons/effects/288x288.dmi'
+			distort.icon_state = "SM_delam_3"
+			distort.pixel_x = -128
+			distort.pixel_y = -128
+			light_range = 7
+			light_power = 15
+			light_color = "#ff5006"
+	return distort
 
 /obj/machinery/power/supermatter_crystal/proc/countdown()
 	set waitfor = FALSE
@@ -323,7 +403,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		power_changes = TRUE //Atmos has run at least one full tick recently, resume processing.
 
 	if(power)
-		soundloop.volume = CLAMP((50 + (power / 50)), 50, 100)
+		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
 	if(damage >= 300)
 		soundloop.mid_sounds = list('sound/machines/sm/loops/delamming.ogg' = 1)
 	else
@@ -332,9 +412,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(last_accent_sound < world.time && prob(20))
 		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
 		if(damage >= 300)
-			playsound(src, "smdelam", max(50, aggression), FALSE, 10)
+			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10)
 		else
-			playsound(src, "smcalm", max(50, aggression), FALSE, 10)
+			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10)
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
@@ -357,7 +437,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else
 		if(takes_damage)
 			//causing damage
-			damage = max(damage + (max(CLAMP(removed.total_moles() / 200, 0.5, 1) * removed.return_temperature() - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.return_temperature() - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			damage = max(damage + (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0)/80) * DAMAGE_INCREASE_MULTIPLIER, 0)
 
@@ -371,15 +451,21 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//calculating gas related values
 		combined_gas = max(removed.total_moles(), 0)
 
-		plasmacomp = max(removed.get_moles(GAS_PLASMA)/combined_gas, 0)
-		o2comp = max(removed.get_moles(GAS_O2)/combined_gas, 0)
-		co2comp = max(removed.get_moles(GAS_CO2)/combined_gas, 0)
-		pluoxiumcomp = max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0)
-		tritiumcomp = max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0)
-		bzcomp = max(removed.get_moles(GAS_BZ)/combined_gas, 0)
+		//This is more error prevention, according to all known laws of atmos, gas_mix.remove() should never make negative mol values.
+		//But this is tg
+		//Lets get the proportions of the gasses in the mix and then slowly move our comp to that value
+		//Can cause an overestimation of mol count, should stabalize things though.
+		//Prevents huge bursts of gas/heat when a large amount of something is introduced
+		//They range between 0 and 1
+		plasmacomp += clamp(max(removed.get_moles(GAS_PLASMA)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
+		o2comp += clamp(max(removed.get_moles(GAS_O2)/combined_gas, 0) - o2comp, -1, gas_change_rate)
+		co2comp += clamp(max(removed.get_moles(GAS_CO2)/combined_gas, 0) - co2comp, -1, gas_change_rate)
+		pluoxiumcomp += clamp(max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
+		tritiumcomp += clamp(max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
+		bzcomp += clamp(max(removed.get_moles(GAS_BZ)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
 
-		n2ocomp = max(removed.get_moles(GAS_NITROUS)/combined_gas, 0)
-		n2comp = max(removed.get_moles(GAS_N2)/combined_gas, 0)
+		n2ocomp += clamp(max(removed.get_moles(GAS_NITROUS)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
+		n2comp += clamp(max(removed.get_moles(GAS_N2)/combined_gas, 0) - n2comp, -1, gas_change_rate)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
@@ -392,10 +478,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
 
 		if (combined_gas > POWERLOSS_INHIBITION_MOLE_THRESHOLD && co2comp > POWERLOSS_INHIBITION_GAS_THRESHOLD)
-			powerloss_dynamic_scaling = CLAMP(powerloss_dynamic_scaling + CLAMP(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
+			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
 		else
-			powerloss_dynamic_scaling = CLAMP(powerloss_dynamic_scaling - 0.05,0, 1)
-		powerloss_inhibitor = CLAMP(1-(powerloss_dynamic_scaling * CLAMP(combined_gas/POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD,1 ,1.5)),0 ,1)
+			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling - 0.05,0, 1)
+		powerloss_inhibitor = clamp(1-(powerloss_dynamic_scaling * clamp(combined_gas/POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD,1 ,1.5)),0 ,1)
 
 		if(matter_power)
 			var/removed_matter = max(matter_power/MATTER_POWER_CONVERSION, 40)
@@ -444,15 +530,22 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			air_update_turf()
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
-		if(HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE))
+		if(HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || (l.mind && HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE)))
 			continue
 		var/D = sqrt(1 / max(1, get_dist(l, src)))
 		l.hallucination += power * config_hallucination_power * D
-		l.hallucination = CLAMP(0, 200, l.hallucination)
+		l.hallucination = clamp(0, 200, l.hallucination)
+
+	// Checks if the status has changed, in order to update the displacement effect
+	var/current_status = get_status()
+	if(current_status != last_status)
+		last_status = current_status
+		update_icon(UPDATE_OVERLAYS)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
-	power =  max(power - min(((power/500)**3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor),1)
+	if(is_power_processing())
+		power =  max(power - min(((power/500)**3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor),0)
 
 	if(power > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point)
 
@@ -466,7 +559,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 					supermatter_zap(src, 5, min(power*2, 20000))
 		else if (damage > damage_penalty_point && prob(20))
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, 1, extrarange = 10)
-			supermatter_zap(src, 5, CLAMP(power*2, 4000, 20000))
+			supermatter_zap(src, 5, clamp(power*2, 4000, 20000))
 
 		if(prob(15) && power > POWER_PENALTY_THRESHOLD)
 			supermatter_pull(src, power/750)
@@ -516,7 +609,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	last_complete_process = world.time
 	return 1
 
-/obj/machinery/power/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/power/supermatter_crystal/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))
 		return FALSE
@@ -545,27 +638,31 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	qdel(src)
 	return gain
 
-/obj/machinery/power/supermatter_crystal/blob_act(obj/structure/blob/B)
-	if(B && !isspaceturf(loc)) //does nothing in space
-		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
-		damage += B.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
-		if(B.obj_integrity > 100)
-			B.visible_message("<span class='danger'>\The [B] strikes at \the [src] and flinches away!</span>",\
-			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
-			B.take_damage(100, BURN)
-		else
-			B.visible_message("<span class='danger'>\The [B] strikes at \the [src] and rapidly flashes to ash.</span>",\
-			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
-			Consume(B)
+/obj/machinery/power/supermatter_crystal/blob_act(obj/structure/blob/blob)
+	if(!blob || isspaceturf(loc)) //does nothing in space
+		return
+	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+	damage += blob.get_integrity() * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
+	if(blob.get_integrity() > 100)
+		blob.visible_message("<span class='danger'>\The [blob] strikes at \the [src] and flinches away!</span>",\
+		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		blob.take_damage(100, BURN)
+	else
+		blob.visible_message("<span class='danger'>\The [blob] strikes at \the [src] and rapidly flashes to ash.</span>",\
+		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		Consume(blob)
 
 /obj/machinery/power/supermatter_crystal/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a really dense idea.</span>")
-		C.ghostize()
-		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		rip_u.Remove(C)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, "<span class='userdanger'>That was a really dense idea.</span>")
+	jedi.ghostize()
+	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
+	if(rip_u)
+		rip_u.Remove(jedi)
 		qdel(rip_u)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/power/supermatter_crystal/attack_paw(mob/user)
 	dust_mob(user, cause = "monkey attack")
@@ -576,9 +673,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/attack_animal(mob/living/simple_animal/S)
 	var/murder
 	if(!S.melee_damage)
-		murder = S.friendly
+		murder = S.friendly_verb_continuous
 	else
-		murder = S.attacktext
+		murder = S.attack_verb_continuous
 	dust_mob(S, \
 	"<span class='danger'>[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!</span>", \
 	"<span class='userdanger'>You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops.</span>", \
@@ -705,6 +802,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			return
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", INVESTIGATE_ENGINES)
+		user.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		user.dust(force = TRUE)
 		if(is_power_processing())
 			matter_power += 200
@@ -783,15 +881,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	icon_state = "darkmatter"
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 10)
-	playsound(src.loc, 'sound/weapons/marauder.ogg', 100, 1, extrarange = 7)
+	playsound(src.loc, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = 7)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if(P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG) //move resist memes.
 			return
 		if(ishuman(P))
 			var/mob/living/carbon/human/H = P
-			if(H.incapacitated() || !(H.mobility_flags & MOBILITY_STAND) || H.mob_negates_gravity())
+			if(H.incapacitated() || H.body_position == LYING_DOWN || H.mob_negates_gravity())
 				return //You can't knock down someone who is already knocked down or has immunity to gravity
-			H.visible_message("<span class='danger'>[H] is suddenly knocked down, as if [H.p_their()] [(H.get_num_legs() == 1) ? "leg had" : "legs have"] been pulled out from underneath [H.p_them()]!</span>",\
+			H.visible_message("<span class='danger'>[H] is suddenly knocked down, as if [H.p_their()] [(H.usable_legs == 1) ? "leg had" : "legs have"] been pulled out from underneath [H.p_them()]!</span>",\
 				"<span class='userdanger'>A sudden gravitational pulse knocks you down!</span>",\
 				"<span class='italics'>You hear a thud.</span>")
 			H.apply_effect(40, EFFECT_PARALYZE, 0)
@@ -805,21 +903,21 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/turf/local_turf = pick(RANGE_TURFS(anomalyrange, anomalycenter) - anomalycenter)
 	if(!local_turf)
 		return
-
+	var/faked_reality_spawn = pick(0, 1)
 	switch(type)
 		if(ANOMALY_BIOSCRAMBLER)
-			new /obj/effect/anomaly/bioscrambler(local_turf, null)
+			new /obj/effect/anomaly/bioscrambler(local_turf, null, faked_reality_spawn)
 		if(ANOMALY_FLUX)
 			var/explosive = has_weak_lifespan ? ANOMALY_FLUX_NO_EXPLOSION : ANOMALY_FLUX_LOW_EXPLOSIVE
-			new /obj/effect/anomaly/flux(local_turf, has_weak_lifespan ? rand(250, 300) : null, TRUE, explosive)
+			new /obj/effect/anomaly/flux(local_turf, has_weak_lifespan ? rand(250, 300) : null, TRUE, explosive, faked_reality_spawn)
 		if(ANOMALY_GRAVITATIONAL)
-			new /obj/effect/anomaly/grav(local_turf, has_weak_lifespan ? rand(200, 300) : null)
+			new /obj/effect/anomaly/grav(local_turf, has_weak_lifespan ? rand(200, 300) : null, faked_reality_spawn)
 		if(ANOMALY_HALLUCINATION)
-			new /obj/effect/anomaly/hallucination(local_turf, has_weak_lifespan ? rand(150, 250) : null)
+			new /obj/effect/anomaly/hallucination(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
 		if(ANOMALY_PYRO)
-			new /obj/effect/anomaly/pyro(local_turf, has_weak_lifespan ? rand(150, 250) : null)
+			new /obj/effect/anomaly/pyro(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
 		if(ANOMALY_VORTEX)
-			new /obj/effect/anomaly/bhole(local_turf, 20)
+			new /obj/effect/anomaly/bhole(local_turf, 20, faked_reality_spawn)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart, range = 3, power)
 	. = zapstart.dir
@@ -868,7 +966,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			. = zapdir
 
 	if(target_mob)
-		target_mob.electrocute_act(rand(5,10), "Supermatter Discharge Bolt", 1, stun = 0)
+		target_mob.electrocute_act(rand(5,10), "Supermatter Discharge Bolt", 1, SHOCK_NOSTUN)
 		if(prob(15))
 			supermatter_zap(target_mob, 5, power / 2)
 			supermatter_zap(target_mob, 5, power / 2)
@@ -899,3 +997,5 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return TRUE
 
 #undef HALLUCINATION_RANGE
+
+#undef CRITICAL_TEMPERATURE

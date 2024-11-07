@@ -64,7 +64,7 @@
 			) // see, my quartermaster taught me a few things too
 		if((P.hidden) || (P.special)) // like, how not to rip the manifest
 			continue// by using someone else's crate
-		if(!(obj_flags & EMAGGED) && P.contraband) // will you show me?
+		if(!((obj_flags & EMAGGED) || contraband) && P.contraband) // will you show me?
 			continue // i'd be right happy to
 		meme_pack_data[P.group]["packs"] += list(list(
 			"name" = P.name,
@@ -186,7 +186,7 @@
 						if (!landingzone)
 							WARNING("[src] couldnt find a Quartermaster/Storage (aka cargobay) area on the station, and as such it has set the supplypod landingzone to the area it resides in.")
 							landingzone = get_area(src)
-						for(var/turf/open/floor/T in landingzone.contents)//uses default landing zone
+						for(var/turf/open/floor/T in landingzone.get_contained_turfs())//uses default landing zone
 							if(T.is_blocked_turf())
 								continue
 							LAZYADD(empty_turfs, T)
@@ -205,7 +205,7 @@
 			else
 				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check && SO.pack.current_supply >= 0) // bulk discount :^)
 					landingzone = GLOB.areas_by_type[pick(GLOB.the_station_areas)]  //override default landing zone
-					for(var/turf/open/floor/T in landingzone.contents)
+					for(var/turf/open/floor/T in landingzone.get_contained_turfs())
 						if(T.is_blocked_turf())
 							continue
 						LAZYADD(empty_turfs, T)

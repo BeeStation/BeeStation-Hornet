@@ -36,7 +36,7 @@
 	var/pop = GLOB.player_details.len
 	var/team_size = (2 * pop) / ((2 * cost_base) + ((pop - 1) * cost_increment))
 	log_game("Spawning [team_size] incursionists.")
-	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	team_size = clamp(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
 		var/datum/mind/incursion = antag_pick(antag_candidates, /datum/role_preference/antagonist/incursionist)
@@ -47,6 +47,7 @@
 		team.add_member(incursion)
 		incursion.special_role = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
+		GLOB.pre_setup_antags += incursion
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
 	gamemode_ready = TRUE
@@ -57,6 +58,7 @@
 	team.forge_team_objectives()
 	for(var/datum/mind/M in team.members)
 		M.add_antag_datum(/datum/antagonist/incursion, team)
+		GLOB.pre_setup_antags -= M
 	incursion_team = pre_incursionist_team
 	return ..()
 

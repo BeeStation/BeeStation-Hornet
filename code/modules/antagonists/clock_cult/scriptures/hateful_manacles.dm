@@ -30,9 +30,12 @@
 	if(do_after(invoker, 30, target=M))
 		if(M.handcuffed)
 			return FALSE
-		M.handcuffed = new /obj/item/restraints/handcuffs/clockwork(M)
-		M.update_handcuffed()
-		log_combat(invoker, M, "handcuffed")
+		var/obj/item/restraints/handcuffs/clockwork/restraints = new(M)
+		if (!restraints.apply_cuffs(M, invoker))
+			qdel(restraints)
+			return TRUE
+		restraints.item_flags |= DROPDEL
+		log_combat(invoker, M, "handcuffed", src)
 		return TRUE
 	return FALSE
 
@@ -40,4 +43,3 @@
 	name = "replicant manacles"
 	desc = "Heavy manacles made out of freezing-cold metal. It looks like brass, but feels much more solid."
 	icon_state = "brass_manacles"
-	item_flags = DROPDEL

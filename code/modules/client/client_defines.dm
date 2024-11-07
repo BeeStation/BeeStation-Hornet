@@ -8,15 +8,23 @@
 		//ADMIN THINGS//
 		////////////////
 
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE
+
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
+
+	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the client is a mentor.
+	var/datum/mentors/mentor_datum = null
 
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 
 	/// Used to cache this client's bans to save on DB queries
 	var/ban_cache = null
+	///If we are currently building this client's ban cache, this var stores the timeofday we started at
+	var/ban_cache_start = 0
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message	= ""
 	/// How many messages sent in the last 10 seconds
@@ -38,10 +46,12 @@
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
 
-	/// The next world.time this client is allowed to move
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
 	var/move_delay = 0
-
-	var/area			= null
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
+	///Current area of the controlled mob
+	var/area = null
 
 	var/buzz_playing = null
 		////////////
@@ -96,14 +106,12 @@
 	/// These persist between logins/logouts during the same round.
 	var/datum/player_details/player_details
 
-	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = atom/movable/screen.
-
 	var/client_keysend_amount = 0
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
 
-	var/datum/viewData/view_size
+	var/datum/view_data/view_size
 
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
@@ -114,10 +122,16 @@
 	var/last_completed_asset_job = 0
 
 	/// rate limiting for the crew manifest
-	var/crew_manifest_delay
+	COOLDOWN_DECLARE(crew_manifest_delay)
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
 
 	/// If the client is currently under the restrictions of the interview system
 	var/interviewee = FALSE
+
+	/// Whether or not this client has standard hotkeys enabled
+	var/hotkeys = TRUE
+
+	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
+	var/datum/weakref/eye_weakref

@@ -32,7 +32,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ah" = (
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ai" = (
@@ -99,7 +99,7 @@
 /area/ruin/powered/snow_biodome)
 "ax" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/canned/beans,
+/obj/item/food/canned/beans,
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "ay" = (
@@ -136,7 +136,7 @@
 /area/ruin/powered/snow_biodome)
 "aF" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa,
+/obj/item/reagent_containers/cup/glass/mug/cocoa,
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "aG" = (

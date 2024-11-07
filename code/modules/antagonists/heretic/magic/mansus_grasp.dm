@@ -4,7 +4,7 @@
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	charge_max = 100
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "mansus_grasp"
 	action_background_icon_state = "bg_ecult"
 
@@ -16,7 +16,9 @@
 	catchphrase = "R'CH T'H TR'TH!"
 	on_use_sound = 'sound/items/welder.ogg'
 
-/obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
+
+/obj/item/melee/touch_attack/mansus_fist/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
 	AddComponent(/datum/component/effect_remover, \
 		success_feedback = "You remove %THEEFFECT.", \
@@ -86,7 +88,7 @@
 
 	return TRUE
 
-/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
+/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	if(!IS_HERETIC(user))

@@ -1,13 +1,21 @@
 /mob/dead/new_player/Login()
+	if(!client)
+		return
 	if(CONFIG_GET(flag/use_exp_tracking))
 		client.set_exp_from_db()
+		if(!client) // client null during sleep
+			return
 		client.set_db_player_flags()
+		if(!client) // client null during sleep
+			return
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = TRUE
 		mind.set_current(src)
 
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 
 	var/motd = global.config.motd
 	if(motd)

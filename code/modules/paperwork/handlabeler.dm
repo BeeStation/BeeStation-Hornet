@@ -9,7 +9,7 @@
 	var/labels_left = 30
 	var/mode = 0
 
-/obj/item/hand_labeler/suicide_act(mob/user)
+/obj/item/hand_labeler/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is pointing [src] at [user.p_them()]self. [user.p_theyre(TRUE)] going to label [user.p_them()]self as a suicide!</span>")
 	labels_left = max(labels_left - 1, 0)
 
@@ -57,7 +57,7 @@
 		return
 
 	user.visible_message("[user] labels [A] as [label].", \
-						 "<span class='notice'>You label [A] as [label].</span>")
+						"<span class='notice'>You label [A] as [label].</span>")
 	A.name = "[A.name] ([label])"
 	labels_left--
 

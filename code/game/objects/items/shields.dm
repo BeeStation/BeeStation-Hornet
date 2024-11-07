@@ -20,7 +20,7 @@
 	if(durability)
 		var/attackforce = 0
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
+			var/obj/projectile/P = hitby
 			if(P.damage_type != STAMINA)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
 		else if(isitem(hitby))
@@ -42,10 +42,10 @@
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 		if(attackforce)
 			owner.changeNext_move(CLICK_CD_MELEE)
-		if (obj_integrity <= attackforce)
+		if (atom_integrity <= attackforce)
 			var/turf/T = get_turf(owner)
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
-			obj_integrity = 1
+			atom_integrity = 1
 			shatter(owner)
 			return FALSE
 		take_damage(attackforce * ((100-(block_power))/100))
@@ -55,13 +55,13 @@
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
 	if(istype(W))
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is welding the [src].", \
 									"<span class='notice'>You begin repairing the [src]]...</span>")
 			if(W.use_tool(src, user, 40, volume=50))
-				obj_integrity += 10
+				atom_integrity += 10
 				user.visible_message("[user.name] has repaired some dents on [src].", \
 									"<span class='notice'>You finish repairing some of the dents on [src].</span>")
 			else
@@ -70,7 +70,7 @@
 
 /obj/item/shield/examine(mob/user)
 	. = ..()
-	var/healthpercent = round((obj_integrity/max_integrity) * 100, 1)
+	var/healthpercent = round((atom_integrity/max_integrity) * 100, 1)
 	switch(healthpercent)
 		if(50 to 99)
 			. += "<span class='info'>It looks slightly damaged.</span>"
@@ -97,24 +97,25 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
-	materials = list(/datum/material/glass=7500, /datum/material/iron=1000)
-	attack_verb = list("shoved", "bashed")
+	custom_materials = list(/datum/material/glass=7500, /datum/material/iron=1000)
+	attack_verb_continuous = list("shoves", "bashes")
+	attack_verb_simple = list("shove", "bash")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee/baton))
+	if(istype(W, /obj/item/melee) && W.sharpness == IS_BLUNT)
 		if(cooldown < world.time - 25)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
-		if (obj_integrity >= max_integrity)
+		if (atom_integrity >= max_integrity)
 			to_chat(user, "<span class='notice'>[src] is already in perfect condition.</span>")
 		else
 			var/obj/item/stack/sheet/mineral/titanium/T = W
 			T.use(1)
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair [src] with [T].</span>")
 	else
 		return ..()
@@ -127,7 +128,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	transparent = FALSE
-	materials = list(/datum/material/iron=8500)
+	custom_materials = list(/datum/material/iron=8500)
 	max_integrity = 65
 
 /obj/item/shield/riot/roman/fake
@@ -150,7 +151,7 @@
 	block_upgrade_walk = 1
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
-	materials = list()
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 10)
 	resistance_flags = FLAMMABLE
 	transparent = FALSE
 	max_integrity = 55
@@ -170,7 +171,7 @@
 	block_upgrade_walk = 1
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
-	materials = list ()
+	custom_materials = null
 	transparent = FALSE
 	block_power = 25
 	max_integrity = 70
@@ -192,6 +193,10 @@
 /obj/item/shield/riot/flash/Initialize(mapload)
 	. = ..()
 	embedded_flash = new(src)
+
+/obj/item/shield/riot/flash/ComponentInitialize()
+	. = .. ()
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/shield/riot/flash/attack(mob/living/M, mob/user)
 	. =  embedded_flash.attack(M, user)
@@ -232,13 +237,14 @@
 	embedded_flash.emp_act(severity)
 	update_icon()
 
-/obj/item/shield/riot/flash/update_icon()
+/obj/item/shield/riot/flash/update_icon_state()
 	if(!embedded_flash || embedded_flash.burnt_out)
 		icon_state = "riot"
 		item_state = "riot"
 	else
 		icon_state = "flashshield"
 		item_state = "flashshield"
+	return ..()
 
 /obj/item/shield/riot/flash/examine(mob/user)
 	. = ..()
@@ -251,7 +257,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("shoved", "bashed")
+	attack_verb_continuous = list("shoves", "bashes")
+	attack_verb_simple = list("shove", "bash")
 	throw_range = 5
 	force = 3
 	throwforce = 3
@@ -286,10 +293,10 @@
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
+			var/obj/projectile/P = hitby
 			if(P.reflectable)
 				P.firer = src
-				P.setAngle(get_dir(owner, hitby))
+				P.set_angle(get_dir(owner, hitby))
 				return 1
 		return ..()
 	return 0
@@ -309,8 +316,8 @@
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] is now active and back at full power.</span>")
-		if(obj_integrity <= 1)
-			obj_integrity = max_integrity
+		if(atom_integrity <= 1)
+			atom_integrity = max_integrity
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)

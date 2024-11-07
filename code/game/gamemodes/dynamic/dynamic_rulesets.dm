@@ -1,6 +1,3 @@
-#define REVOLUTION_VICTORY 1
-#define STATION_VICTORY 2
-
 /datum/dynamic_ruleset
 	/// For admin logging and round end screen.
 	// If you want to change this variable name, the force latejoin/midround rulesets
@@ -83,14 +80,17 @@
 	/// Whether repeated_mode_adjust weight changes have been logged already.
 	var/logged_repeated_mode_adjust = FALSE
 
+	/// Was this ruleset spawned from the lategame mode?
+	var/lategame_spawned = FALSE
 
-/datum/dynamic_ruleset/New()
+
+/datum/dynamic_ruleset/New(datum/game_mode/dynamic/dynamic_mode)
 	// Rulesets can be instantiated more than once, such as when an admin clicks
 	// "Execute Midround Ruleset". Thus, it would be wrong to perform any
 	// side effects here. Dynamic rulesets should be stateless anyway.
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	mode = SSticker.mode
+	mode = dynamic_mode
 	..()
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
@@ -112,10 +112,12 @@
 		log_game("DYNAMIC: FAIL: [src] failed acceptable: maximum_players ([maximum_players]) < population ([population])")
 		return FALSE
 
+
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
 	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
-	if (threat_level < requirements[indice_pop])
-		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirements[indice_pop]])")
+	var/requirement = requirements[indice_pop]
+	if (threat_level < requirement)
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirement])")
 		return FALSE
 
 	return TRUE
@@ -162,6 +164,7 @@
 /datum/dynamic_ruleset/proc/execute(forced = FALSE)
 	for(var/datum/mind/M in assigned)
 		M.add_antag_datum(antag_datum)
+		GLOB.pre_setup_antags -= M
 	return TRUE
 
 /// Here you can perform any additional checks you want. (such as checking the map etc)
@@ -173,7 +176,8 @@
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
 /datum/dynamic_ruleset/proc/clean_up()
-	mode.refund_threat(cost + (scaled_times * scaling_cost))
+	if(!lategame_spawned) // lategame execute failures shouldn't refund
+		mode.refund_threat(cost + (scaled_times * scaling_cost))
 	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
 	mode.threat_log += "[worldtime2text()]: [msg]"
 	message_admins(msg)
@@ -227,6 +231,9 @@
 
 /// Checks if the ruleset is "dead", where all the antags are either dead or deconverted.
 /datum/dynamic_ruleset/proc/is_dead()
+	// Don't let dead threats affect simulation results
+	if (mode.simulated)
+		return FALSE
 	for(var/datum/mind/mind in assigned)
 		var/mob/living/body = mind.current
 		// If they have no body, they're dead for realsies.
@@ -247,7 +254,7 @@
 			if(body.soul_departed() || mind.hellbound)
 				continue
 			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
-			if(world.time <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
+			if((mode.simulated_time || world.time) <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
 				log_undead()
 				return FALSE
 		else

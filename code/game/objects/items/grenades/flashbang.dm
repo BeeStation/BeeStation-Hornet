@@ -66,13 +66,13 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/flashbang_range = 1 //how many tiles away the mob will be stunned.
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 	shrapnel_radius = 5
 	custom_premium_price = 700 // mostly gotten through cargo, but throw in one for the sec vendor ;)
 
 /obj/item/grenade/stingbang/mega
 	name = "mega stingbang"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball/mega
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball/mega
 	shrapnel_radius = 12
 
 /obj/item/grenade/stingbang/prime(mob/living/lanced_by)
@@ -133,7 +133,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/rots_per_mag = 3 /// how many times we need to "rotate" the charge in hand per extra tile of magnitude
-	shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/rots = 1 /// how many times we've "rotated" the charge
 
 /obj/item/grenade/primer/attack_self(mob/user)
@@ -156,4 +156,4 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	rots_per_mag = 2
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball

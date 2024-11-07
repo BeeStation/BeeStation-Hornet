@@ -1,12 +1,9 @@
 
-/mob
-	var/bloody_hands = 0
-
 /obj/item/clothing/gloves
 	var/transfer_blood = 0
 
 
-/obj/item/reagent_containers/glass/rag
+/obj/item/reagent_containers/cup/rag
 	name = "damp rag"
 	desc = "For cleaning up messes, you suppose."
 	w_class = WEIGHT_CLASS_TINY
@@ -19,11 +16,11 @@
 	volume = 5
 	spillable = FALSE
 
-/obj/item/reagent_containers/glass/rag/suicide_act(mob/user)
+/obj/item/reagent_containers/cup/rag/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
-/obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area, mob/user,proximity)
+/obj/item/reagent_containers/cup/rag/afterattack(atom/A as obj|turf|area, mob/user,proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -46,7 +43,7 @@
 		user.visible_message("[user] starts to wipe down [A] with [src]!", "<span class='notice'>You start to wipe down [A] with [src]...</span>")
 		if(do_after(user,30, target = A))
 			user.visible_message("[user] finishes wiping off [A]!", "<span class='notice'>You finish wiping off [A].</span>")
-			SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
+			A.wash(CLEAN_SCRUB)
 			A.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			if(isclothing(A) && HAS_TRAIT(A, TRAIT_SPRAYPAINTED))
 				var/obj/item/clothing/C = A

@@ -19,10 +19,6 @@
 	if(bound_bank_account && !istype(bound_bank_account))
 		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force=TRUE) // grabbing united budget will be bad for this. "force=TRUE" will always grab the correct budget.
 
-/obj/machinery/vendor/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/vendor/update_icon()
 	if(powered())
 		icon_state = initial(icon_state)
@@ -31,7 +27,7 @@
 
 /obj/machinery/vendor/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/vending),
+		get_asset_datum(/datum/asset/spritesheet_batched/vending),
 	)
 
 
@@ -133,7 +129,7 @@
 				return
 			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
 			var/obj/created = new prize.equipment_path(loc)
-			if (M.CanReach(src))
+			if (M.CanReach(src) && isitem(created))
 				M.put_in_hands(created)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
@@ -168,7 +164,7 @@
 		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
 	//Assorted other equipment
 		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
-		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							500),
+		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/knife/combat/survival,							500),
 		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
 		new /datum/data/vendor_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/vendor_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
@@ -206,7 +202,6 @@
 		new /datum/data/vendor_equipment("Mining Bot Companion",		/mob/living/simple_animal/hostile/mining_drone,						800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Armor",		/obj/item/minebot_upgrade/health,									400),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Ore Scoop",	/obj/item/minebot_upgrade/ore_pickup,								400),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Cooldown",	/obj/item/borg/upgrade/modkit/cooldown/minebot,						600),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Medical",	/obj/item/minebot_upgrade/medical,									800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: A.I.",		/obj/item/slimepotion/slime/sentience/mining,						1000),
 		new /datum/data/vendor_equipment("Minebot Weatherproof Chassis",/obj/item/minebot_upgrade/antiweather,								1200),
@@ -215,8 +210,8 @@
 		new /datum/data/vendor_equipment("Point Transfer Card",			/obj/item/card/mining_point_card,									500),
 		new /datum/data/vendor_equipment("GAR Mesons",					/obj/item/clothing/glasses/meson/gar,								500),
 		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
-		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			100),
-		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	100),
+		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/cup/glass/bottle/whiskey,			100),
+		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,	100),
 		new /datum/data/vendor_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						150),
 		new /datum/data/vendor_equipment("Soap",						/obj/item/soap/nanotrasen,											200),
 		new /datum/data/vendor_equipment("Laser Pointer",				/obj/item/laser_pointer,											300),
@@ -255,7 +250,7 @@
 		if("Minebot Kit")
 			new /mob/living/simple_animal/hostile/mining_drone(drop_location)
 			new /obj/item/weldingtool/hugetank(drop_location)
-			new /obj/item/clothing/head/welding(drop_location)
+			new /obj/item/clothing/head/utility/welding(drop_location)
 			new /obj/item/borg/upgrade/modkit/minebot_passthrough(drop_location)
 		if("Extraction and Rescue Kit")
 			new /obj/item/extraction_pack(drop_location)
@@ -282,7 +277,7 @@
 	prize_list += list(
 		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
 		new /datum/data/vendor_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
-		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
+		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/food/monkeycube,        	300),
 		new /datum/data/vendor_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
 		new /datum/data/vendor_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
 		new /datum/data/vendor_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
@@ -331,7 +326,7 @@
 /obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
+	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_GATEWAY)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"

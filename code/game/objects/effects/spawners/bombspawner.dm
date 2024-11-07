@@ -5,7 +5,7 @@
 
 /obj/effect/spawner/newbomb
 	name = "bomb"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x"
 	var/temp_p = 1500
 	var/temp_o = 1000	// tank temperatures
@@ -36,8 +36,6 @@
 		A.holder = V
 
 	V.update_icon()
-
-	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/newbomb/timer/syndicate/Initialize(mapload)
 	temp_p = (OPTIMAL_TEMP_K_PLA_BURN_SCALE(pressure_p, pressure_o, temp_o)/2 + OPTIMAL_TEMP_K_PLA_BURN_RATIO(pressure_p, pressure_o, temp_o)/2) - T0C

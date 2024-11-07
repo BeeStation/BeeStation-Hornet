@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/item/warp_cube,
 		/obj/machinery/rnd/production, //print tracking beacons, send shuttle
 		/obj/machinery/modular_fabricator/autolathe, //same
-		/obj/item/projectile/beam/wormhole,
+		/obj/projectile/beam/wormhole,
 		/obj/effect/portal,
 		/obj/item/shared_storage,
 		/obj/structure/extraction_point,
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				continue
 			if(bounty_ship_item_and_contents(AM, dry_run = FALSE))
 				matched_bounty = TRUE
-			if(!AM.anchored || istype(AM, /obj/mecha))
+			if(!AM.anchored || istype(AM, /obj/vehicle/sealed/mecha))
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 			else if(!ismachinery(AM))
 				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold

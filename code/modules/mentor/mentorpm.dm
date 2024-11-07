@@ -31,7 +31,7 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = trim(tgui_input_text(src, "Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name_mentor(recipient, FALSE)].", multiline = TRUE))
+		msg = tgui_input_text(src, "Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name_mentor(recipient, FALSE)].", multiline = TRUE)
 		if(!msg)
 			return
 		// we need to not HTML encode again or you get &#39;s instead of 's

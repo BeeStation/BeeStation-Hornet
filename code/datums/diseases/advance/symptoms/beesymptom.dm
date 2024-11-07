@@ -14,27 +14,29 @@
 	prefixes = list("Hive ")
 	bodies = list("Bees", "Hive")
 	threshold_desc = "<b>Resistance 12:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
-					  <b>Transmission 10:</b> Bees now contain a completely random toxin."
+						<b>Transmission 8:</b> Bees now contain a completely random toxin."
 
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= 8)
 		severity += 2
-		if(A.resistance >= 12)
-			severity -= 4
+	if(A.resistance >= 12)
+		severity -= 4
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.resistance >= 12)
 		honey = TRUE
-	if(A.transmission >= 10)
+	if(A.transmission >= 8)
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(2)
 			if(prob(2))
@@ -65,12 +67,12 @@
 					M.updatehealth()
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] buzzes.</span>", \
-								  "<span class='userdanger'>Your stomach buzzes violently!</span>")
+									"<span class='userdanger'>Your stomach buzzes violently!</span>")
 			if(prob(15))
 				to_chat(M, "<span class='danger'>You feel something moving in your throat.</span>")
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] coughs up a bee!</span>", \
-								  "<span class='userdanger'>You cough up a bee!</span>")
+									"<span class='userdanger'>You cough up a bee!</span>")
 				if(toxic_bees)
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
 				else if(honey)

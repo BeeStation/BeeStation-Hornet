@@ -15,18 +15,18 @@
 	name = "\improper CentCom identification console"
 	desc = "You can use this to change ID's."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer-0"
 
 /obj/structure/showcase/fakeid/Initialize(mapload)
 	. = ..()
 	add_overlay("id")
-	add_overlay("id_key")
+	add_overlay("generic_key")
 
 /obj/structure/showcase/fakesec
 	name = "\improper CentCom security records"
 	desc = "Used to view and edit personnel's security records."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer-0"
 
 /obj/structure/showcase/fakesec/Initialize(mapload)
 	. = ..()
@@ -77,8 +77,8 @@
 /obj/structure/showcase/machinery/microwave
 	name = "\improper Nanotrasen-brand microwave"
 	desc = "The famous Nanotrasen-brand microwave, the multi-purpose cooking appliance every station needs! This one appears to be drawn onto a cardboard box."
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "mw"
+	icon = 'icons/obj/machines/microwave.dmi'
+	icon_state = "map_icon"
 
 /obj/structure/showcase/machinery/cloning_pod
 	name = "cloning pod exhibit"
@@ -140,3 +140,6 @@
 			. += "The showcase has its screws loosened."
 		else
 			. += "If you see this, something is wrong."
+
+#undef SHOWCASE_CONSTRUCTED
+#undef SHOWCASE_SCREWDRIVERED

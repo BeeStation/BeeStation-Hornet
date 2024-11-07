@@ -11,21 +11,21 @@
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(!wtime)
 		wtime = world.time
-	return time2text(wtime, format, 0)
+	return time2text(wtime - GLOB.timezoneOffset, format)
 
 /// Returns the station time in deciseconds
 /proc/station_time(display_only = FALSE, wtime=world.time)
-	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % 864000
+	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % DECISECONDS_IN_DAY
 
 /// Returns the station time in hh:mm:ss
 /proc/station_time_timestamp(format = "hh:mm:ss", wtime)
-	return time2text(station_time(TRUE, wtime), format, 0)
+	return time2text(station_time(TRUE, wtime), format)
 
 /proc/station_time_debug(force_set)
 	if(isnum_safe(force_set))
 		SSticker.gametime_offset = force_set
 		return
-	SSticker.gametime_offset = rand(0, 864000)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
+	SSticker.gametime_offset = rand(0, DECISECONDS_IN_DAY)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
 	if(prob(50))
 		SSticker.gametime_offset = FLOOR(SSticker.gametime_offset, 3600)
 	else
@@ -98,4 +98,4 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 
 /// Returns the time in an ISO-8601 friendly format. Used when dumping data into external services such as ElasticSearch
 /proc/iso_timestamp(timevar)
-    return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss")
+	return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss")

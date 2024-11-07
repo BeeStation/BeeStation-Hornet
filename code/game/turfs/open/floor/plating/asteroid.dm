@@ -4,28 +4,23 @@
 /turf/open/floor/plating/asteroid //floor piece
 	gender = PLURAL
 	name = "asteroid sand"
-	baseturfs = /turf/open/floor/plating/asteroid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
+	resistance_flags = INDESTRUCTIBLE
 	postdig_icon_change = TRUE
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	damage_deflection = 0
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/open/floor/plating/asteroid //Because caves do whacky shit to revert to normal
-	var/floor_variance = 20 //probability floor has a different icon state
 	attachment_holes = FALSE
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
-
-/turf/open/floor/plating/asteroid/Initialize(mapload)
-	var/proper_name = name
-	. = ..()
-	name = proper_name
-	if(prob(floor_variance))
-		icon_state = "[environment_type][rand(0,12)]"
+	variant_probability = 30
+	variant_states = 12
 
 /turf/open/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
@@ -53,6 +48,9 @@
 /turf/open/floor/plating/asteroid/MakeDry()
 	return
 
+/turf/open/floor/plating/asteroid/crush()
+	return
+
 /turf/open/floor/plating/asteroid/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(!.)
@@ -76,9 +74,25 @@
 			for(var/obj/item/stack/ore/O in src)
 				SEND_SIGNAL(W, COMSIG_PARENT_ATTACKBY, O)
 
-/turf/open/floor/plating/asteroid/ex_act(severity, target)
-	. = SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
-	contents_explosion(severity, target)
+/turf/open/floor/plating/asteroid/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	if(the_rcd.canRturf)
+		return ..()
+
+
+/turf/open/floor/plating/asteroid/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	if(the_rcd.canRturf)
+		return ..()
+
+/turf/open/floor/plating/asteroid/planetary
+	var/static/datum/gas_mixture/immutable/planetary/GM
+
+/turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
+	if(!GM)
+		GM = new
+	. = ..()
+	air = GM
+	update_air_ref(2)
+	return
 
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -90,7 +104,7 @@
 	icon_state = "basalt"
 	icon_plating = "basalt"
 	environment_type = "basalt"
-	floor_variance = 15
+	variant_states = 12
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/open/floor/plating/asteroid/basalt/lava //lava underneath
@@ -126,14 +140,22 @@
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
 
+/turf/open/floor/plating/asteroid/basalt/planetary
+	resistance_flags = INDESTRUCTIBLE
+	var/static/datum/gas_mixture/immutable/planetary/GM
+
+/turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
+	if(!GM)
+		GM = new
+	. = ..()
+	air = GM
+	update_air_ref(2)
+	return
+
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	turf_type = /turf/open/floor/plating/asteroid/airless
-
-// / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
-#define BREATH_OXY		/datum/breathing_class/oxygen
-#define BREATH_PLASMA	/datum/breathing_class/plasma
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
@@ -147,10 +169,13 @@
 	environment_type = "snow"
 	flags_1 = NONE
 	planetary_atmos = TRUE
-	burnt_states = list("snow_dug")
+	use_burnt_literal = TRUE
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/snow
+
+/turf/open/floor/plating/asteroid/snow/burnt_states()
+	return list("snow_dug")
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
@@ -166,7 +191,8 @@
 	desc = "Looks colder."
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
-	floor_variance = 0
+	variant_states = 0
+	variant_probability = 0
 	icon_state = "snow-ice"
 	icon_plating = "snow-ice"
 	environment_type = "snow_cavern"

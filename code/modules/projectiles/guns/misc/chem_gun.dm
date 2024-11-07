@@ -5,11 +5,11 @@
 	desc = "A Nanotrasen syringe gun, modified to automatically synthesise chemical darts, and instead hold reagents."
 	icon_state = "chemgun"
 	item_state = "chemgun"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	throw_speed = 3
 	throw_range = 7
 	force = 4
-	materials = list(/datum/material/iron=2000)
+	custom_materials = list(/datum/material/iron=2000)
 	clumsy_check = FALSE
 	fire_sound = 'sound/items/syringeproj.ogg'
 	fire_rate = 1.5

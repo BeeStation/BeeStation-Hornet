@@ -3,9 +3,12 @@
 /datum/quirk
 	var/name = "Test Quirk"
 	var/desc = "This is a test quirk."
+	/// The icon to show in the preferences menu.
+	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
+	var/icon
 	var/value = 0
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
-	var/list/restricted_species //specifies valid species, use /datum/species/ 
+	var/list/restricted_species //specifies valid species, use /datum/species/
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
 	var/gain_text
 	var/lose_text
@@ -15,6 +18,7 @@
 	var/process = FALSE // Does this quirk use on_process()?
 	var/datum/mind/quirk_holder // The mind that contains this quirk
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
+	var/abstract_parent_type = /datum/quirk
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
 	..()
@@ -130,6 +134,12 @@
 		if(!length(dat))
 			return "None"
 		return dat.Join("<br>")
+
+/datum/quirk/proc/read_choice_preference(path)
+	var/client/qclient = GLOB.directory[ckey(quirk_holder.key)]
+	var/pref = qclient?.prefs.read_character_preference(path)
+	if(pref != "Random")
+		return pref
 
 /*
 

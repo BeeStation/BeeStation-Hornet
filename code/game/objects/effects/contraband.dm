@@ -12,6 +12,8 @@
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
+
 /obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
 	. = ..()
 	poster_structure = new_poster_structure
@@ -153,15 +155,16 @@
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target=src))
-		if(!D || QDELETED(D))
+		if(QDELETED(D))
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
 			to_chat(user, "<span class='notice'>You place the poster!</span>")
 			return
 
-	to_chat(user, "<span class='notice'>The poster falls down!</span>")
-	D.roll_and_drop(temp_loc)
+	if(D.loc == src) //Would do QDELETED, but it's also possible the poster gets taken down by dismantling the wall
+		to_chat(user, "<span class='notice'>The poster falls down!</span>")
+		D.roll_and_drop(temp_loc)
 
 // Various possible posters follow
 
@@ -170,6 +173,9 @@
 	icon_state = "poster_ripped"
 	name = "ripped poster"
 	desc = "You can't make out anything from the poster's original print. It's ruined."
+
+/obj/structure/sign/poster/ripped/roll_and_drop()
+	qdel(src) //We shouldn't be an item
 
 /obj/structure/sign/poster/random
 	name = "random poster" // could even be ripped
@@ -599,7 +605,7 @@
 
 /obj/structure/sign/poster/official/no_erp
 	name = "No ERP"
-	desc = "This poster reminds the crew that Eroticism, Rape and Pornography are banned on Nanotrasen stations."
+	desc = "This poster reminds the crew that Eroticism, Reproduction and Pornography are banned on Nanotrasen stations."
 	icon_state = "poster34_legit"
 
 /obj/structure/sign/poster/official/wtf_is_co2
@@ -663,8 +669,8 @@
 	icon_state = "poster49"
 
 /obj/structure/sign/poster/official/suit_sensors
-	name = "Turn on your suit sensors"
-	desc = "A poster begging you to turn on your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
+	name = "Suit Sensors"
+	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
 
 #undef PLACE_SPEED

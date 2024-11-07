@@ -432,10 +432,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.age = record_found.fields["age"]
 		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"], null)
 	else
-		var/datum/character_save/CS = new()
-		CS.randomise()
-		CS.pref_species.random_name(CS.gender, TRUE)
-		CS.copy_to(new_character)
+		randomize_human(new_character)
+		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
+		new_character.name = new_character.real_name
 		new_character.dna.update_dna_identity()
 
 	new_character.name = new_character.real_name
@@ -546,9 +545,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!mob)
 		return
 	if(!istype(M))
-		alert("Cannot revive a ghost")
+		tgui_alert(usr, "Cannot revive a ghost")
 		return
-	M.revive(full_heal = 1, admin_revive = 1)
+	// We query the admin who sent the adminheal if they are sure
+	if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
+		return
+	M.revive(full_heal = TRUE, admin_revive = TRUE)
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
 	var/msg = "<span class='danger'>Admin [key_name_admin(usr)] healed / revived [ADMIN_LOOKUPFLW(M)]!</span>"
@@ -838,13 +840,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/level = input("Select security level to change to","Set Security Level") as null|anything in list("green","blue","red","delta")
-	if(level)
-		set_security_level(level)
+	var/level = tgui_input_list(usr, "Select Security Level:", "Set Security Level", SSsecurity_level.available_levels)
 
-		log_admin("[key_name(usr)] changed the security level to [level]")
-		message_admins("[key_name_admin(usr)] changed the security level to [level]")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	if(!level)
+		return
+
+	SSsecurity_level.set_level(level)
+
+	log_admin("[key_name(usr)] changed the security level to [level]")
+	message_admins("[key_name_admin(usr)] changed the security level to [level]")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_nuke(obj/machinery/nuclearbomb/N in GLOB.nuke_list)
 	set name = "Toggle Nuke"
@@ -881,7 +886,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	for(var/datum/atom_hud/antag/H in GLOB.huds) // add antag huds
 		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
 
-	if(prefs.toggles & PREFTOGGLE_COMBOHUD_LIGHTING)
+	if(prefs?.read_player_preference(/datum/preference/toggle/combohud_lighting))
 		if(adding_hud)
 			mob.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 		else
@@ -1098,7 +1103,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(src)] punished [key_name(whom)] with [punishment].")
 
 /mob/living/carbon/proc/give_cookie(var/client/admin_client)
-	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)
+	var/obj/item/food/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
 		if(ishuman(src))
 			src.update_inv_hands()
@@ -1208,6 +1213,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/source = "adminabuse"
 	switch(add_or_remove)
 		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
+			if(GLOB.movement_type_trait_to_flag[chosen_trait]) //include the required element.
+				D.AddElement(/datum/element/movetype_handler)
 			ADD_TRAIT(D,chosen_trait,source)
 		if("Remove")
 			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")

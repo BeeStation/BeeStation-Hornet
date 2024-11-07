@@ -3,10 +3,11 @@
 
 /datum/species/shadow
 	// Humans cursed to stay in the darkness, lest their life forces drain. They regain health in shadow and die in light.
-	name = "???"
+	name = "\improper Shadow"
+	plural_form = "Shadowpeople"
 	id = SPECIES_SHADOWPERSON
 	sexes = 0
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/shadow
+	meat = /obj/item/food/meat/slab/human/mutant/shadow
 	species_traits = list(NOBLOOD,NOEYESPRITES,NOFLASH)
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH)
 	inherent_factions = list("faithless")
@@ -37,16 +38,66 @@
 		return TRUE
 	return ..()
 
+/datum/species/shadow/get_species_description()
+	return "Victims of a long extinct space alien. Their flesh is a sickly \
+		seethrough filament, their tangled insides in clear view. Their form \
+		is a mockery of life, leaving them mostly unable to work with others under \
+		normal circumstances."
+
+/datum/species/shadow/get_species_lore()
+	return list(
+		"Long ago, the Spinward Sector used to be inhabited by terrifying aliens aptly named \"Shadowlings\" \
+		after their control over darkness, and tendancy to kidnap victims into the dark maintenance shafts. \
+		Around 2558, the long campaign Nanotrasen waged against the space terrors ended with the full extinction of the Shadowlings.",
+
+		"Victims of their kidnappings would become brainless thralls, and via surgery they could be freed from the Shadowling's control. \
+		Those more unlucky would have their entire body transformed by the Shadowlings to better serve in kidnappings. \
+		Unlike the brain tumors of lesser control, these greater thralls could not be reverted.",
+
+		"With Shadowlings long gone, their will is their own again. But their bodies have not reverted, burning in exposure to light. \
+		Nanotrasen has assured the victims that they are searching for a cure. No further information has been given, even years later. \
+		Most shadowpeople now assume Nanotrasen has long since shelfed the project.",
+	)
+
+/datum/species/shadow/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "moon",
+			SPECIES_PERK_NAME = "Shadowborn",
+			SPECIES_PERK_DESC = "Their skin blooms in the darkness. All kinds of damage, \
+				no matter how extreme, will heal over time as long as there is no light.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "eye",
+			SPECIES_PERK_NAME = "Nightvision",
+			SPECIES_PERK_DESC = "Their eyes are adapted to the night, and can see in the dark with no problems.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "sun",
+			SPECIES_PERK_NAME = "Lightburn",
+			SPECIES_PERK_DESC = "Their flesh withers in the light. Any exposure to light is \
+				incredibly painful for the shadowperson, charring their skin.",
+		),
+	)
+
+	return to_add
+
 /datum/species/shadow/nightmare
 	name = "Nightmare"
 	id = "nightmare"
 	burnmod = 1.5
-	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
+	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOHUNGER)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
-	mutant_organs = list(/obj/item/organ/heart/nightmare)
-	mutant_brain = /obj/item/organ/brain/nightmare
+	mutantheart = /obj/item/organ/heart/nightmare
+	mutantbrain = /obj/item/organ/brain/nightmare
+	nojumpsuit = 1
 
 	var/info_text = "You are a <span class='danger'>Nightmare</span>. The ability <span class='warning'>shadow walk</span> allows unlimited, unrestricted movement in the dark while activated. \
 					Your <span class='warning'>light eater</span> will destroy any light producing objects you attack, as well as destroy any lights a living creature may be holding. You will automatically dodge gunfire and melee attacks when on a dark tile. If killed, you will eventually revive if left in darkness."
@@ -57,7 +108,7 @@
 
 	C.fully_replace_character_name(null, pick(GLOB.nightmare_names))
 
-/datum/species/shadow/nightmare/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+/datum/species/shadow/nightmare/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
@@ -78,7 +129,7 @@
 	icon_state = "brain-x-d"
 	var/obj/effect/proc_holder/spell/targeted/shadowwalk/shadowwalk
 
-/obj/item/organ/brain/nightmare/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/brain/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(M.dna.species.id != "nightmare")
 		M.set_species(/datum/species/shadow/nightmare)
@@ -88,7 +139,7 @@
 	shadowwalk = SW
 
 
-/obj/item/organ/brain/nightmare/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/brain/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(shadowwalk)
 		M.RemoveSpell(shadowwalk)
 	..()
@@ -109,22 +160,22 @@
 	if(M != user)
 		return ..()
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
-						 "<span class='danger'>[src] feels unnaturally cold in your hands. You raise [src] your mouth and devour it!</span>")
+						"<span class='danger'>[src] feels unnaturally cold in your hands. You raise [src] your mouth and devour it!</span>")
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
 
 
 	user.visible_message("<span class='warning'>Blood erupts from [user]'s arm as it reforms into a weapon!</span>", \
-						 "<span class='userdanger'>Icy blood pumps through your veins as your arm reforms itself!</span>")
+						"<span class='userdanger'>Icy blood pumps through your veins as your arm reforms itself!</span>")
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/heart/nightmare/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(special != HEART_SPECIAL_SHADOWIFY)
 		blade = new/obj/item/light_eater
 		M.put_in_hands(blade)
 
-/obj/item/organ/heart/nightmare/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	respawn_progress = 0
 	if(blade && special != HEART_SPECIAL_SHADOWIFY)
 		M.visible_message("<span class='warning'>\The [blade] disintegrates!</span>")
@@ -174,6 +225,7 @@
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()
@@ -201,6 +253,15 @@
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	if(pulling)
 		pulling.lighteater_act(light_eater)
+
+/obj/effect/decal/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	if(!light_range || !light_power || !light_on)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>[src] is disintegrated by [light_eater]!</span>")
+	qdel(src)
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
 /mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()

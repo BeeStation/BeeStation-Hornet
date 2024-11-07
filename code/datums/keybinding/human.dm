@@ -7,7 +7,7 @@
 
 
 /datum/keybinding/human/quick_equip
-	key = "E"
+	keys = list("E")
 	name = "quick_equip"
 	full_name = "Quick equip"
 	description = ""
@@ -23,7 +23,7 @@
 
 
 /datum/keybinding/human/quick_equip_belt
-	key = "Shift-E"
+	keys = list("ShiftE")
 	name = "quick_equip_belt"
 	full_name = "Put Item In Belt"
 	description = ""
@@ -34,6 +34,8 @@
 	if(.)
 		return
 	var/mob/living/carbon/human/H = user.mob
+	if (HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/equipped_belt = H.get_item_by_slot(ITEM_SLOT_BELT)
 	if(!equipped_belt) // We also let you equip a belt like this
@@ -56,6 +58,9 @@
 	if(!equipped_belt.contents.len) // nothing to take out
 		to_chat(user, "<span class='notice'>There's nothing in your belt to take out.</span>")
 		return TRUE
+	var/datum/component/storage/STR = equipped_belt.GetComponent(/datum/component/storage)
+	if(!STR.can_be_opened)
+		return FALSE
 	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
 	if(!stored || stored.on_found(H))
 		return TRUE
@@ -64,7 +69,7 @@
 
 
 /datum/keybinding/human/quick_equip_backpack
-	key = "Shift-B"
+	keys = list("ShiftB")
 	name = "quick_equip_backpack"
 	full_name = "Put Item In Backpack"
 	description = ""
@@ -75,6 +80,8 @@
 	if(.)
 		return
 	var/mob/living/carbon/human/H = user.mob
+	if (HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/equipped_back = H.get_item_by_slot(ITEM_SLOT_BACK)
 	if(!equipped_back) // We also let you equip a backpack like this
@@ -105,7 +112,7 @@
 
 
 /datum/keybinding/human/quick_equip_suit_storage
-	key = "Shift-Q"
+	keys = list("ShiftQ")
 	name = "quick_equip_suit_storage"
 	full_name = "Put Item In Suit Storage"
 	description = ""
@@ -116,6 +123,8 @@
 	if(.)
 		return
 	var/mob/living/carbon/human/H = user.mob
+	if (HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/stored = H.get_item_by_slot(ITEM_SLOT_SUITSTORE)
 	if(!stored)

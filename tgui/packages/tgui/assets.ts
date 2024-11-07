@@ -5,7 +5,7 @@
  */
 
 const EXCLUDED_PATTERNS = [/v4shim/i];
-const loadedMappings = {};
+export const loadedMappings = {};
 
 export const resolveAsset = (name) => loadedMappings[name] || name;
 

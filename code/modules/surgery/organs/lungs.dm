@@ -1,3 +1,7 @@
+// / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
+#define BREATH_OXY		/datum/breathing_class/oxygen
+#define BREATH_PLASMA	/datum/breathing_class/plasma
+
 /obj/item/organ/lungs
 	var/failed = FALSE
 	var/operated = FALSE	//whether we can still have our damages fixed through surgery
@@ -68,11 +72,26 @@
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_type = BURN
 
+	var/list/thrown_alerts
+
 	var/crit_stabilizing_reagent = /datum/reagent/medicine/epinephrine
 
 /obj/item/organ/lungs/New()
 	. = ..()
 	populate_gas_info()
+
+/obj/item/organ/lungs/Insert(mob/living/carbon/M, special, drop_if_replaced, pref_load)
+	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
+	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
+	var/new_owner = QDELETED(owner) || owner != M
+	..()
+	if(new_owner)
+		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
+
+/obj/item/organ/lungs/Remove(mob/living/carbon/M, special, pref_load)
+	. = ..()
+	UnregisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
+	LAZYNULL(thrown_alerts)
 
 /obj/item/organ/lungs/proc/populate_gas_info()
 	gas_min[breathing_class] = safe_breath_min
@@ -82,6 +101,30 @@
 		max = safe_breath_dam_max,
 		damage_type = safe_damage_type
 	)
+
+/obj/item/organ/lungs/proc/on_nobreath(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	var/static/list/breath_moodlets = list("chemical_euphoria", "suffocation") // Moodlets directly caused by breathing
+	if(!istype(source))
+		return
+	source.failed_last_breath = FALSE
+	for(var/alert_category in thrown_alerts)
+		source.clear_alert(alert_category)
+	LAZYNULL(thrown_alerts)
+	for(var/moodlet in breath_moodlets)
+		SEND_SIGNAL(source, COMSIG_CLEAR_MOOD_EVENT, moodlet)
+
+/obj/item/organ/lungs/proc/throw_alert_for(mob/living/carbon/target, alert_category, alert_type)
+	if(!istype(target) || !alert_category || !alert_type)
+		return
+	target.throw_alert(alert_category, alert_type)
+	LAZYOR(thrown_alerts, alert_category)
+
+/obj/item/organ/lungs/proc/clear_alert_for(mob/living/carbon/target, alert_category)
+	if(!istype(target) || !alert_category)
+		return
+	target.clear_alert(alert_category)
+	LAZYREMOVE(thrown_alerts, alert_category)
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 //TODO: add lung damage = less oxygen gains
@@ -112,8 +155,7 @@
 				var/list/alert = breath_alert_info[breathing_class]["not_enough_alert"]
 				alert_category = alert["alert_category"]
 				alert_type = alert["alert_type"]
-		if(alert_category)
-			H.throw_alert(alert_category, alert_type)
+		throw_alert_for(H, alert_category, alert_type)
 		return FALSE
 
 	#define PP_MOLES(X) ((X / total_moles) * pressure)
@@ -165,14 +207,12 @@
 				multiplier /= required_moles
 			for(var/adjustment in mole_adjustments)
 				mole_adjustments[adjustment] *= multiplier
-			if(alert_category)
-				H.throw_alert(alert_category, alert_type)
+			throw_alert_for(H, alert_category, alert_type)
 		else
 			H.failed_last_breath = FALSE
 			if(H.health >= H.crit_threshold)
 				H.adjustOxyLoss(-breathModifier)
-			if(alert_category)
-				H.clear_alert(alert_category)
+			clear_alert_for(H, alert_category)
 	var/list/danger_reagents = GLOB.gas_data.breath_reagents_dangerous
 	for(var/entry in gas_max)
 		var/found_pp = 0
@@ -199,10 +239,9 @@
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
 			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
-			if(alert_category && alert_type)
-				H.throw_alert(alert_category, alert_type)
-		else if(alert_category)
-			H.clear_alert(alert_category)
+			throw_alert_for(H, alert_category, alert_type)
+		else
+			clear_alert_for(H, alert_category)
 	var/list/breath_reagents = GLOB.gas_data.breath_reagents
 	for(var/gas in breath.get_gases())
 		if(gas in breath_reagents)
@@ -314,6 +353,9 @@
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
 
+	// The air you breathe out should match your body temperature
+	breath.set_temperature(H.bodytemperature)
+
 /obj/item/organ/lungs/on_life()
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
@@ -324,6 +366,8 @@
 		failed = FALSE
 	return
 
+/obj/item/organ/lungs/get_availability(datum/species/S)
+	return !(TRAIT_NOBREATH in S.species_traits)
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
@@ -389,5 +433,14 @@
 		GAS_CO2 = 45,
 		GAS_PLASMA = MOLES_GAS_VISIBLE
 	)
+
+/obj/item/organ/lungs/diona
+	name = "diona leaves"
+	desc = "A small mass concentrated leaves, used for breathing."
+	icon_state = "diona_lungs"
+
 #undef PP
 #undef PP_MOLES
+
+#undef BREATH_OXY
+#undef BREATH_PLASMA

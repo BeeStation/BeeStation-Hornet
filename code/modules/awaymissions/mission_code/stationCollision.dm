@@ -43,7 +43,7 @@
 	name ="retro laser"
 	icon_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces."
-//	projectile_type = "/obj/item/projectile/practice"
+//	projectile_type = "/obj/projectile/practice"
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
@@ -133,6 +133,6 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 	l_set = 1
 	new /obj/item/gun/energy/mindflayer(src)
 	new /obj/item/soulstone(src)
-	new /obj/item/clothing/suit/space/hardsuit/cult(src)
+	new /obj/item/clothing/suit/hooded/cultrobes(src)
 	//new /obj/item/teleportation_scroll(src)
 	new /obj/item/stack/ore/diamond(src)

@@ -16,10 +16,18 @@
 	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
 	var/beating = 1
 	var/icon_base = "heart"
-	attack_verb = list("beat", "thumped")
-	var/beat = BEAT_NONE//is this mob having a heatbeat sound played? if so, which?
-	var/failed = FALSE		//to prevent constantly running failing code
-	var/operated = FALSE	//whether the heart's been operated on to fix some of its damages
+	attack_verb_continuous = list("beats", "thumps")
+	attack_verb_simple = list("beat", "thump")
+	//is this mob having a heatbeat sound played? if so, which?
+	var/beat = BEAT_NONE
+	//to prevent constantly running failing code
+	var/failed = FALSE
+	//whether the heart's been operated on to fix some of its damages
+	var/operated = FALSE
+	///Color of the heart, is set by the species on gain
+	//var/ethereal_color = "#9c3030"
+
+
 
 /obj/item/organ/heart/update_icon()
 	if(beating)
@@ -27,7 +35,7 @@
 	else
 		icon_state = "[icon_base]-off"
 
-/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(!special)
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
@@ -90,6 +98,11 @@
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
+/obj/item/organ/heart/get_availability(datum/species/S)
+	if(S.mutantheart)
+		return TRUE //always give heart if mutant is defined
+	return !(NOBLOOD in S.species_traits)
+
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
 	desc = "A heart that, when inserted, will force you to pump it manually."
@@ -129,12 +142,12 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(owner)
 		to_chat(owner, "<span class ='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
 
-/obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	M.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 
@@ -173,7 +186,8 @@
 /obj/item/organ/heart/cybernetic
 	name = "cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
-	icon_state = "heart-c"
+	icon_state = "heart-c-on"
+	icon_base = "heart-c"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	var/dose_available = TRUE
@@ -198,7 +212,8 @@
 /obj/item/organ/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
-	icon_state = "heart-c-u"
+	icon_state = "heart-c-u-on"
+	icon_base = "heart-c-u"
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
@@ -227,3 +242,8 @@
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
 			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
+
+/obj/item/organ/heart/diona
+	name = "polypment segment"
+	desc = "A segment of plant matter that is resposible for pumping nutrients around the body."
+	icon_state = "diona_heart"

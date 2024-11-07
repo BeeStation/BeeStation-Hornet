@@ -22,11 +22,11 @@ GLOBAL_LIST_INIT(cable_colors, list(
 /* Cable directions (d1 and d2)
 
 
-  9   1   5
+	9   1   5
 	\ | /
-  8 - 0 - 4
+	8 - 0 - 4
 	/ | \
-  10  2   6
+	10  2   6
 
 If d1 = 0 and d2 = 0, there's no cable
 If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
@@ -84,6 +84,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = "#ffffff"
 
 // the power cable object
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
+
 /obj/structure/cable/Initialize(mapload, param_color)
 	. = ..()
 
@@ -112,8 +114,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(loc)
 		if(T)
-			var/obj/item/stack/cable_coil/temp_item = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
-			transfer_fingerprints_to(temp_item)
+			var/obj/R = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
+			if(QDELETED(R)) // the coil merged with something on the tile
+				R = locate(/obj/item/stack/cable_coil) in T
+			if(R)
+				transfer_fingerprints_to(R)
 		var/turf/T_below = T.below()
 		if((d1 == DOWN || d2 == DOWN) && T_below)
 			for(var/obj/structure/cable/C in T_below)
@@ -132,7 +137,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/handlecable(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(d1 == UP || d2 == UP)
@@ -216,7 +221,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/surplus()
 	if(powernet)
-		return CLAMP(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -232,7 +237,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/delayed_surplus()
 	if(powernet)
-		return CLAMP(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
@@ -477,45 +482,49 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
 	item_state = "coil"
+	novariants = FALSE
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	max_amount = MAXCOIL
 	amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
-	var/cable_color = "red"
 	desc = "A coil of insulated power cable."
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=10, /datum/material/glass=5)
+	mats_per_unit = list(/datum/material/iron=10, /datum/material/glass=5)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
+	attack_verb_continuous = list("whips", "lashes", "disciplines", "flogs")
+	attack_verb_simple = list("whip", "lash", "discipline", "flog")
 	singular_name = "cable piece"
 	full_w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/copper = 2) //2 copper per cable in the coil
 	usesound = 'sound/items/deconstruct.ogg'
-
-/obj/item/stack/cable_coil/cyborg
-	is_cyborg = 1
-	materials = list()
 	cost = 1
+	source = /datum/robot_energy_storage/wire
+	var/cable_color = "red"
 
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
+/obj/item/stack/cable_coil/attack_self(mob/user)
+	if(!iscyborg(user))
+		. = ..()
+		return
 	var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	cable_color = picked
 	update_icon()
 
-/obj/item/stack/cable_coil/suicide_act(mob/user)
+/obj/item/stack/cable_coil/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
 		user.visible_message("<span class='suicide'>[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(OXYLOSS)
+	return OXYLOSS
 
 /obj/item/stack/cable_coil/get_recipes()
 	return GLOB.cable_coil_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
@@ -571,7 +580,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if(!isturf(user.loc))
 		return
 
-	if(!isturf(T) || T.intact || !T.can_have_cabling())
+	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
 		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
 		return
 
@@ -654,7 +663,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	var/turf/T = C.loc
 
-	if(!isturf(T) || T.intact)		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE) // sanity checks, also stop use interacting with T-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
@@ -674,20 +683,20 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	// one end of the clicked cable is pointing towards us and no direction was supplied
 	if((C.d1 == dirn || C.d2 == dirn) && !forceddir)
-		if(!U.can_have_cabling())						//checking if it's a plating or catwalk
+		if(!U.can_have_cabling()) //checking if it's a plating or catwalk
 			if (showerror)
 				to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
 			return
-		if(U.intact)						//can't place a cable if it's a plating with a tile on it
+		if(U.underfloor_accessibility < UNDERFLOOR_INTERACTABLE) //can't place a cable if it's a plating with a tile on it
 			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
 		else
 			// cable is pointing at us, we're standing on an open tile
 			// so create a stub pointing at the clicked cable on our tile
 
-			var/fdirn = dir_inverse_multiz(dirn)		// the opposite direction
+			var/fdirn = dir_inverse_multiz(dirn) // the opposite direction
 
-			for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
+			for(var/obj/structure/cable/LC in U) // check to make sure there's not a cable there already
 				if(LC.d1 == fdirn || LC.d2 == fdirn)
 					if (showerror)
 						to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
@@ -818,13 +827,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/cut
 	amount = null
 	icon_state = "coil2"
+	worn_icon_state = "coil"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
-	. = ..()
 	if(!amount)
 		amount = rand(1,2)
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-2, 2)
+	pixel_y = base_pixel_y + rand(-2, 2)
 	update_icon()
 
 /obj/item/stack/cable_coil/cut/red

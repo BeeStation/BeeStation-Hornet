@@ -11,8 +11,10 @@
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 
-	response_help = "touches"
-	response_disarm = "pushes"
+	response_help_continuous = "touches"
+	response_help_simple = "touch"
+	response_disarm_continuous = "pushes"
+	response_disarm_simple = "push"
 
 	speed = -1
 	maxHealth = 50000
@@ -21,7 +23,8 @@
 
 	obj_damage = 100
 	melee_damage = 70
-	attacktext = "claws"
+	attack_verb_continuous = "claws"
+	attack_verb_simple = "claw"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -53,6 +56,8 @@
 	discovery_points = 10000
 
 // No movement while seen code.
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
@@ -126,9 +131,11 @@
 		for(var/mob/living/M in viewers(getexpandedview(world.view, 1, 1), check))
 			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.is_blind())
 				return M
-		for(var/obj/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
-			if(M.occupant?.client && !M.occupant.is_blind())
-				return M.occupant
+		for(var/obj/vehicle/sealed/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
+			for(var/O in M.occupants)
+				var/mob/mechamob = O
+				if(mechamob?.client && !mechamob.is_blind())
+					return mechamob
 	return null
 
 // Cannot talk
@@ -188,7 +195,7 @@
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.blind_eyes(4)
+			L.adjust_blindness(4)
 	return
 
 //Toggle Night Vision
@@ -222,8 +229,3 @@
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
-
-/mob/living/simple_animal/hostile/statue/restrained(ignore_grab)
-	. = ..()
-	if(can_be_seen(loc))
-		return 1

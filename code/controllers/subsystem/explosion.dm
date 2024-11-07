@@ -153,12 +153,12 @@ SUBSYSTEM_DEF(explosions)
 		A.color = null
 		A.maptext = ""
 
-/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, smoke = TRUE, list/explosion_multiplier = list(1, 1, 1, 1))
+/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, explosion_type = /datum/effect_system/explosion/smoke, list/explosion_multiplier = list(1, 1, 1, 1))
 	if(!power)
 		return
 	var/range = 0
 	range = round((2 * power)**GLOB.DYN_EX_SCALE)
-	explosion(epicenter, round(range * 0.25 * explosion_multiplier[1]), round(range * 0.5 * explosion_multiplier[2]), round(range * explosion_multiplier[3]), flash_range * range * explosion_multiplier[4], adminlog, ignorecap, flame_range*range, silent, smoke)
+	explosion(epicenter, round(range * 0.25 * explosion_multiplier[1]), round(range * 0.5 * explosion_multiplier[2]), round(range * explosion_multiplier[3]), flash_range * range * explosion_multiplier[4], adminlog, ignorecap, flame_range*range, silent, explosion_type)
 
 // Using default dyn_ex scale:
 // 100 explosion power is a (5, 10, 20) explosion.
@@ -169,7 +169,7 @@ SUBSYSTEM_DEF(explosions)
 // 5 explosion power is a (0, 1, 3) explosion.
 // 1 explosion power is a (0, 0, 1) explosion.
 
-/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE, magic = FALSE, holy = FALSE, cap_modifier = 1)
+/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, explosion_type = /datum/effect_system/explosion, magic = FALSE, holy = FALSE, cap_modifier = 1)
 	. = SSexplosions.explode(arglist(args))
 
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
@@ -182,7 +182,7 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, magic, holy, cap_modifier, explode_z = TRUE)
+/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, explosion_type, magic, holy, cap_modifier, explode_z = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -293,11 +293,7 @@ SUBSYSTEM_DEF(explosions)
 
 
 	if(heavy_impact_range > 1)
-		var/datum/effect_system/explosion/E
-		if(smoke)
-			E = new /datum/effect_system/explosion/smoke
-		else
-			E = new
+		var/datum/effect_system/explosion/E = new explosion_type
 		E.set_up(epicenter)
 		E.start()
 
@@ -431,7 +427,6 @@ SUBSYSTEM_DEF(explosions)
 				ignorecap,
 				max(flame_range - z_reduction, 0),
 				silent = TRUE,
-				smoke = FALSE,
 				explode_z = FALSE)
 
 	var/took = (REALTIMEOFDAY - started_at) / 10
@@ -530,7 +525,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in low_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_LIGHT)
-			turf_thing.ex_act(EXPLODE_LIGHT)
+			EX_ACT(turf_thing, EXPLODE_LIGHT)
 			lowturf -= turf_thing
 		cost_lowturf = MC_AVERAGE(cost_lowturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -540,7 +535,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in med_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_HEAVY)
-			turf_thing.ex_act(EXPLODE_HEAVY)
+			EX_ACT(turf_thing, EXPLODE_HEAVY)
 			medturf -= turf_thing
 		cost_medturf = MC_AVERAGE(cost_medturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -550,7 +545,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in high_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_DEVASTATE)
-			turf_thing.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(turf_thing, EXPLODE_DEVASTATE)
 			highturf -= turf_thing
 		cost_highturf = MC_AVERAGE(cost_highturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -563,7 +558,9 @@ SUBSYSTEM_DEF(explosions)
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
-		if (low_turf.len || med_turf.len || high_turf.len)
+		// If a significant amount of turfs change, then we will run lighter for the rest of the tick
+		// because maptick is going to have an unexpected increase.
+		if (low_turf.len + med_turf.len + high_turf.len > 10)
 			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)
@@ -576,7 +573,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(movable_thing, EXPLODE_DEVASTATE)
 			high_mov_atom -= movable_thing
 		cost_high_mov_atom = MC_AVERAGE(cost_high_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -587,7 +584,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_HEAVY)
+			EX_ACT(movable_thing, EXPLODE_HEAVY)
 			med_mov_atom -= movable_thing
 		cost_med_mov_atom = MC_AVERAGE(cost_med_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -598,7 +595,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_LIGHT)
+			EX_ACT(movable_thing, EXPLODE_LIGHT)
 			low_mov_atom -= movable_thing
 		cost_low_mov_atom = MC_AVERAGE(cost_low_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -629,3 +626,7 @@ SUBSYSTEM_DEF(explosions)
 	currentpart = SSEXPLOSIONS_TURFS
 
 #undef SSAIR_REBUILD_PIPENETS
+
+#undef EXPLOSION_THROW_SPEED
+#undef SSEX_TURF
+#undef SSEX_OBJ

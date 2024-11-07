@@ -10,7 +10,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Alien Power"
 	panel = "Alien"
 	base_action = /datum/action/spell_action/alien
-	action_icon = 'icons/mob/actions/actions_xeno.dmi'
+	action_icon = 'icons/hud/actions/actions_xeno.dmi'
 	action_background_icon_state = "bg_alien"
 	var/plasma_cost = 0
 	var/check_turf = FALSE
@@ -221,7 +221,7 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 
 	user.visible_message("<span class='danger'>[user] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
-	var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(user.loc)
+	var/obj/projectile/bullet/neurotoxin/A = new /obj/projectile/bullet/neurotoxin(user.loc)
 	A.preparePixelProjectile(target, user, params)
 	A.firer = user
 	A.fire()

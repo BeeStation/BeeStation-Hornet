@@ -124,13 +124,13 @@
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-			var/new_sec_level = seclevel2num(params["newSecurityLevel"])
+			var/new_sec_level = SSsecurity_level.text_level_to_number(params["newSecurityLevel"])
 			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
 				return
-			if (GLOB.security_level == new_sec_level)
+			if (SSsecurity_level.get_current_level_as_number() == new_sec_level)
 				return
 
-			set_security_level(new_sec_level)
+			SSsecurity_level.set_level(new_sec_level)
 
 			to_chat(usr, "<span class='notice'>Authorization confirmed. Modifying security level.</span>")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -153,10 +153,11 @@
 		if ("makePriorityAnnouncement")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
-			make_announcement(usr)
+			var/emagged = obj_flags & EMAGGED
+			make_announcement(usr, emagged)
 			. = TRUE
 		if ("messageAssociates")
-			if (!authenticated(usr) || issilicon(usr) || (GLOB.security_level < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
+			if (!authenticated(usr) || issilicon(usr) || (SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -249,7 +250,7 @@
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
-			SStopic.crosscomms_send("comms_console", message, station_name())
+			SStopic.crosscomms_send_async("comms_console", message, station_name())
 			minor_announce(message, title = "Outgoing message to allied station", html_encode = FALSE)
 			usr.log_talk(message, LOG_SAY, tag="message to the other server")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has sent a message to the other server.")
@@ -271,11 +272,10 @@
 		if ("setStatusMessage")
 			if (!authenticated(usr))
 				return
-			var/line_one = reject_bad_text(params["lineOne"] || "", MAX_STATUS_LINE_LENGTH)
-			var/line_two = reject_bad_text(params["lineTwo"] || "", MAX_STATUS_LINE_LENGTH)
+			var/line_one = reject_bad_text(params["upperText"] || "", MAX_STATUS_LINE_LENGTH)
+			var/line_two = reject_bad_text(params["lowerText"] || "", MAX_STATUS_LINE_LENGTH)
 			message_admins("[ADMIN_LOOKUPFLW(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
 			log_game("[key_name(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
-			post_status("alert", "blank")
 			post_status("message", line_one, line_two)
 			last_status_display = list(line_one, line_two)
 			playsound(src, "terminal_type", 50, FALSE)
@@ -284,9 +284,23 @@
 			if (!authenticated(usr))
 				return
 			var/picture = params["picture"]
-			if (!(picture in GLOB.approved_status_pictures))
+			if (!(picture in GLOB.status_display_approved_pictures))
 				return
-			post_status("alert", picture)
+			if(picture in GLOB.status_display_state_pictures)
+				post_status(picture)
+			else
+				if(picture == "currentalert") // You cannot set Code Blue display during Code Red and similiar
+					switch(SSsecurity_level.get_current_level_as_number())
+						if(SEC_LEVEL_DELTA)
+							post_status("alert", "deltaalert")
+						if(SEC_LEVEL_RED)
+							post_status("alert", "redalert")
+						if(SEC_LEVEL_BLUE)
+							post_status("alert", "bluealert")
+						if(SEC_LEVEL_GREEN)
+							post_status("alert", "greenalert")
+				else
+					post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("toggleAuthentication")
@@ -349,7 +363,7 @@
 		//Main section is always visible when authenticated
 		data["canBuyShuttles"] = can_buy_shuttles(user)
 		data["canMakeAnnouncement"] = FALSE
-		data["canMessageAssociates"] = !issilicon(user) && GLOB.security_level >= SEC_LEVEL_RED
+		data["canMessageAssociates"] = !issilicon(user) && SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED
 		data["canRecallShuttles"] = !issilicon(user)
 		data["canRequestNuke"] = FALSE
 		data["canSendToSectors"] = FALSE
@@ -359,7 +373,7 @@
 		data["shuttleCalled"] = FALSE
 		data["shuttleLastCalled"] = FALSE
 
-		data["alertLevel"] = get_security_level()
+		data["alertLevel"] = SSsecurity_level.get_current_level_as_text()
 		data["authorizeName"] = authorize_name
 		data["canLogOut"] = !issilicon(user)
 		data["shuttleCanEvacOrFailReason"] = SSshuttle.canEvac(user)
@@ -424,8 +438,8 @@
 				data["budget"] = bank_account.account_balance
 				data["shuttles"] = shuttles
 			if (STATE_CHANGING_STATUS)
-				data["lineOne"] = last_status_display ? last_status_display[1] : ""
-				data["lineTwo"] = last_status_display ? last_status_display[2] : ""
+				data["upperText"] = last_status_display ? last_status_display[1] : ""
+				data["lowerText"] = last_status_display ? last_status_display[2] : ""
 
 	return data
 
@@ -487,7 +501,7 @@
 
 	return length(CONFIG_GET(keyed_list/cross_server)) > 0
 
-/obj/machinery/computer/communications/proc/make_announcement(mob/living/user)
+/obj/machinery/computer/communications/proc/make_announcement(mob/living/user, syndicate)
 	var/is_ai = issilicon(user)
 	if(!SScommunications.can_announce(user, is_ai))
 		to_chat(user, "<span class='alert'>Intercomms recharging. Please stand by.</span>")
@@ -498,7 +512,7 @@
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, "<span class='warning'>You cannot send an announcement that contains prohibited words.</span>")
 		return
-	SScommunications.make_announcement(user, is_ai, input)
+	SScommunications.make_announcement(user, is_ai, input, null, syndicate)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> made a priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)
@@ -511,8 +525,8 @@
 	var/datum/signal/status_signal = new(list("command" = command))
 	switch(command)
 		if("message")
-			status_signal.data["msg1"] = data1
-			status_signal.data["msg2"] = data2
+			status_signal.data["top_text"] = data1
+			status_signal.data["bottom_text"] = data2
 		if("alert")
 			status_signal.data["picture_state"] = data1
 

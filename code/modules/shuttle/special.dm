@@ -8,7 +8,7 @@
 /obj/machinery/power/emitter/energycannon/magical
 	name = "wabbajack statue"
 	desc = "Who am I? What is my purpose in life? What do I mean by who am I?"
-	projectile_type = /obj/item/projectile/magic/change
+	projectile_type = /obj/projectile/magic/change
 	icon = 'icons/obj/machines/magic_emitter.dmi'
 	icon_state = "wabbajack_statue"
 	icon_state_on = "wabbajack_statue_on"
@@ -184,6 +184,8 @@
 	max_integrity = 1000
 	var/boot_dir = 1
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
+
 /obj/structure/table/wood/bar/Initialize(mapload, _buildstack)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -335,3 +337,5 @@
 	setDir(angle2dir(rotation+dir2angle(dir))) // No parentcall, rest of the rotate code breaks the pixel offset.
 
 #undef BASE_BEAR_DIVISOR
+
+#undef LUXURY_MESSAGE_COOLDOWN

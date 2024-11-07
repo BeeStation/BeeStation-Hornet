@@ -157,20 +157,9 @@
 	weight = 4
 	max_occurrences = 1
 
-/datum/map_template/ruin_part/gateway
-	file_name = "5x9_gateway"
-	weight = 1
-	max_occurrences = 1
-
 /datum/map_template/ruin_part/shower
 	file_name = "5x5_shower"
 	weight = 2
-
-//its 13x13 lol
-// !! Map file uses broken turbo-lift components !!
-/*/datum/map_template/ruin_part/elevator
-	file_name = "9x9_elevator"
-	weight = 4*/
 
 /datum/map_template/ruin_part/hallwaymaints
 	file_name = "9x5_hallwaymaints"
