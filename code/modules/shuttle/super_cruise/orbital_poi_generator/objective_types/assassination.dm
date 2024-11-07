@@ -93,7 +93,12 @@
 	belt = /obj/item/storage/belt/military
 	l_pocket = /obj/item/ammo_box/magazine/m10mm
 	r_pocket = /obj/item/grenade/smokebomb
-	r_hand = /obj/item/knife/combat
+	backpack_contents = list(
+		/obj/item/knife/combat,
+		/obj/item/storage/firstaid/infiltrator,
+		/obj/item/flashlight
+	)
+
 	id = /obj/item/card/id/syndicate_command
 
 //=====================
@@ -116,6 +121,11 @@
 	id = /obj/item/card/id/away/old
 	neck = /obj/item/clothing/neck/crucifix
 	head = /obj/item/clothing/head/hats/hos/beret/syndicate
+
+	backpack_contents = list(
+		/obj/item/storage/firstaid/infiltrator,
+		/obj/item/flashlight
+	)
 
 //=====================
 // Super Spy
@@ -141,8 +151,10 @@
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol, //They do not get an extra magazine like the other two
 		/obj/item/suppressor,
-		/obj/item/storage/box/rxglasses/spyglasskit
-		/obj/item/switchblade/plastitanium
+		/obj/item/storage/box/rxglasses/spyglasskit,
+		/obj/item/switchblade/plastitanium,
+		/obj/item/storage/firstaid/infiltrator,
+		/obj/item/flashlight
 	)
 
 //=====================
@@ -164,6 +176,8 @@
 		/obj/item/reagent_containers/spray/waterflower/lube = 1,
 		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
+		/obj/item/storage/firstaid/infiltrator,
+		/obj/item/flashlight
 		)
 
 	implants = list(/obj/item/implant/sad_trombone)
