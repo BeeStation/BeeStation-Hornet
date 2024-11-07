@@ -8,9 +8,6 @@
 	can_unwrench = TRUE
 	var/transfer_rate = MAX_TRANSFER_RATE
 	var/filter_type = null
-	var/frequency = 0
-	var/datum/radio_frequency/radio_connection
-
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "filter"
 
@@ -29,16 +26,6 @@
 		update_icon()
 		ui_update()
 	return
-
-/obj/machinery/atmospherics/components/trinary/filter/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
-/obj/machinery/atmospherics/components/trinary/filter/Destroy()
-	SSradio.remove_object(src,frequency)
-	return ..()
 
 /obj/machinery/atmospherics/components/trinary/filter/update_icon()
 	cut_overlays()
@@ -114,11 +101,6 @@
 	air3.merge(removed)
 
 	update_parents()
-
-/obj/machinery/atmospherics/components/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	return ..()
-
 
 /obj/machinery/atmospherics/components/trinary/filter/ui_state(mob/user)
 	return GLOB.default_state

@@ -117,8 +117,6 @@
 		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
 
 	wires = set_wires(wire_security_level)
-	if(frequency)
-		set_frequency(frequency)
 	if(glass)
 		airlock_material = "glass"
 	if(security_level > AIRLOCK_SECURITY_IRON)

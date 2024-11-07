@@ -96,6 +96,12 @@
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas
 
+	/// List of all air vents in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_pump/air_vents = list()
+
+	/// List of all air scrubbers in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_scrubber/air_scrubbers = list()
+
 	var/list/power_usage
 
 	var/lighting_colour_tube = "#FFF6ED"
@@ -346,6 +352,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(fire)
 		STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(alarm_manager)
+	air_vents = null
 	return ..()
 
 /**

@@ -22380,7 +22380,7 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "gZx" = (
-/obj/machinery/air_sensor/atmos/oxygen_tank,
+/obj/machinery/air_sensor/oxygen_tank,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "gZQ" = (
@@ -26591,7 +26591,7 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "ivH" = (
-/obj/machinery/air_sensor/atmos/air_tank,
+/obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "ivY" = (
@@ -29054,7 +29054,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "jlM" = (
-/obj/machinery/air_sensor/atmos/sm_core,
+/obj/machinery/air_sensor/sm_core,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "jlP" = (
@@ -45898,7 +45898,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "oFY" = (
-/obj/machinery/air_sensor/atmos/plasma_tank,
+/obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "oGm" = (
@@ -48808,7 +48808,7 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "pxB" = (
-/obj/machinery/air_sensor/atmos/carbon_tank,
+/obj/machinery/air_sensor/carbon_tank,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "pxM" = (
@@ -49328,7 +49328,7 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "pGp" = (
-/obj/machinery/air_sensor/atmos/mix_tank,
+/obj/machinery/air_sensor/mix_tank,
 /turf/open/floor/engine/airless,
 /area/engine/atmos)
 "pGt" = (
@@ -49807,7 +49807,7 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "pNR" = (
-/obj/machinery/air_sensor/atmos/nitrogen_tank,
+/obj/machinery/air_sensor/nitrogen_tank,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "pOc" = (
@@ -63810,7 +63810,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "uiP" = (
-/obj/machinery/air_sensor/atmos/nitrous_tank,
+/obj/machinery/air_sensor/nitrous_tank,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "uiZ" = (

@@ -2854,7 +2854,7 @@
 /turf/open/floor/iron/dark,
 /area/lawoffice)
 "aKi" = (
-/obj/machinery/air_sensor/atmos/sm_core,
+/obj/machinery/air_sensor/sm_core,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "aKm" = (
@@ -14980,7 +14980,7 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "eMp" = (
-/obj/machinery/air_sensor/atmos/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_mixing_tank,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "eMt" = (
@@ -38466,7 +38466,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "mnA" = (
-/obj/machinery/air_sensor/atmos/oxygen_tank,
+/obj/machinery/air_sensor/oxygen_tank,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "mnO" = (
@@ -43461,7 +43461,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "nRU" = (
-/obj/machinery/air_sensor/atmos/nitrogen_tank,
+/obj/machinery/air_sensor/nitrogen_tank,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "nSi" = (
@@ -59546,7 +59546,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/igniter/incinerator_atmos,
-/obj/machinery/air_sensor/atmos/incinerator_tank{
+/obj/machinery/air_sensor/incinerator_tank{
 	pixel_x = 32;
 	pixel_y = -32
 	},
@@ -69598,7 +69598,7 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "wxJ" = (
-/obj/machinery/air_sensor/atmos/air_tank,
+/obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "wxT" = (

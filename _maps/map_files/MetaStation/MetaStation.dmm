@@ -11656,7 +11656,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bEd" = (
-/obj/machinery/air_sensor/atmos/mix_tank,
+/obj/machinery/air_sensor/mix_tank,
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "bEe" = (
@@ -12714,7 +12714,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bKH" = (
-/obj/machinery/air_sensor/atmos/nitrous_tank,
+/obj/machinery/air_sensor/nitrous_tank,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bKJ" = (
@@ -13707,7 +13707,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bQX" = (
-/obj/machinery/air_sensor/atmos/plasma_tank,
+/obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bQZ" = (
@@ -14752,7 +14752,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVN" = (
-/obj/machinery/air_sensor/atmos/carbon_tank,
+/obj/machinery/air_sensor/carbon_tank,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bVP" = (
@@ -16024,7 +16024,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "chO" = (
-/obj/machinery/air_sensor/atmos/nitrogen_tank,
+/obj/machinery/air_sensor/nitrogen_tank,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "chP" = (
@@ -16040,7 +16040,7 @@
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "chR" = (
-/obj/machinery/air_sensor/atmos/oxygen_tank,
+/obj/machinery/air_sensor/oxygen_tank,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "chS" = (
@@ -16056,7 +16056,7 @@
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "chU" = (
-/obj/machinery/air_sensor/atmos/air_tank,
+/obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "chV" = (
@@ -74780,7 +74780,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "wLZ" = (
-/obj/machinery/air_sensor/atmos/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_mixing_tank,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "wMy" = (

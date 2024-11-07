@@ -10381,7 +10381,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
 	},
-/obj/machinery/air_sensor/atmos/sm_core,
+/obj/machinery/air_sensor/sm_core,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cKl" = (
@@ -33550,7 +33550,7 @@
 	},
 /area/ai_monitored/turret_protected/ai)
 "iEQ" = (
-/obj/machinery/air_sensor/atmos/air_tank,
+/obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air/light,
 /area/engine/atmos)
 "iES" = (
@@ -33904,7 +33904,7 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "iIU" = (
-/obj/machinery/air_sensor/atmos/nitrogen_tank,
+/obj/machinery/air_sensor/nitrogen_tank,
 /turf/open/floor/engine/n2/light,
 /area/engine/atmos)
 "iIX" = (
@@ -36217,7 +36217,7 @@
 /turf/open/floor/iron/dark,
 /area/hydroponics)
 "jot" = (
-/obj/machinery/air_sensor/atmos/mix_tank,
+/obj/machinery/air_sensor/mix_tank,
 /turf/open/floor/engine/vacuum/light,
 /area/engine/atmos)
 "joE" = (
@@ -48750,7 +48750,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/apothecary)
 "mwq" = (
-/obj/machinery/air_sensor/atmos/plasma_tank,
+/obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)
 "mwr" = (
@@ -63268,7 +63268,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "qpm" = (
-/obj/machinery/air_sensor/atmos/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_mixing_tank,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "qpD" = (
@@ -65438,7 +65438,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "qRb" = (
-/obj/machinery/air_sensor/atmos/nitrous_tank,
+/obj/machinery/air_sensor/nitrous_tank,
 /turf/open/floor/engine/n2o/light,
 /area/engine/atmos)
 "qRg" = (
@@ -69939,7 +69939,7 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/department/engine)
 "rXD" = (
-/obj/machinery/air_sensor/atmos/carbon_tank,
+/obj/machinery/air_sensor/carbon_tank,
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
 "rXH" = (
@@ -82261,7 +82261,7 @@
 /area/storage/tools)
 "vby" = (
 /obj/machinery/igniter/incinerator_atmos,
-/obj/machinery/air_sensor/atmos/incinerator_tank{
+/obj/machinery/air_sensor/incinerator_tank{
 	pixel_x = 32;
 	pixel_y = 32
 	},
@@ -94371,7 +94371,7 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "xIu" = (
-/obj/machinery/air_sensor/atmos/oxygen_tank,
+/obj/machinery/air_sensor/oxygen_tank,
 /turf/open/floor/engine/o2/light,
 /area/engine/atmos)
 "xIB" = (

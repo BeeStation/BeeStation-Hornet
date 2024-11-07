@@ -6,7 +6,7 @@ import { getGasLabel } from '../../constants';
 export const Vent = (props, context) => {
   const { vent } = props;
   const { act } = useBackend(context);
-  const { id_tag, long_name, power, checks, excheck, incheck, direction, external, internal, extdefault, intdefault } = vent;
+  const { ref, long_name, power, checks, excheck, incheck, direction, external, internal, extdefault, intdefault } = vent;
   return (
     <Section
       level={2}
@@ -18,7 +18,7 @@ export const Vent = (props, context) => {
           content={power ? 'On' : 'Off'}
           onClick={() =>
             act('power', {
-              id_tag,
+              ref,
               val: Number(!power),
             })
           }
@@ -32,7 +32,7 @@ export const Vent = (props, context) => {
             color={!direction && 'danger'}
             onClick={() =>
               act('direction', {
-                id_tag,
+                ref,
                 val: Number(!direction),
               })
             }
@@ -45,7 +45,7 @@ export const Vent = (props, context) => {
             selected={incheck}
             onClick={() =>
               act('incheck', {
-                id_tag,
+                ref,
                 val: checks,
               })
             }
@@ -56,7 +56,7 @@ export const Vent = (props, context) => {
             selected={excheck}
             onClick={() =>
               act('excheck', {
-                id_tag,
+                ref,
                 val: checks,
               })
             }
@@ -73,7 +73,7 @@ export const Vent = (props, context) => {
               maxValue={5066}
               onChange={(e, value) =>
                 act('set_internal_pressure', {
-                  id_tag,
+                  ref,
                   value,
                 })
               }
@@ -84,7 +84,7 @@ export const Vent = (props, context) => {
               content="Reset"
               onClick={() =>
                 act('reset_internal_pressure', {
-                  id_tag,
+                  ref,
                 })
               }
             />
@@ -101,7 +101,7 @@ export const Vent = (props, context) => {
               maxValue={5066}
               onChange={(e, value) =>
                 act('set_external_pressure', {
-                  id_tag,
+                  ref,
                   value,
                 })
               }
@@ -112,7 +112,7 @@ export const Vent = (props, context) => {
               content="Reset"
               onClick={() =>
                 act('reset_external_pressure', {
-                  id_tag,
+                  ref,
                 })
               }
             />
@@ -126,7 +126,7 @@ export const Vent = (props, context) => {
 export const Scrubber = (props, context) => {
   const { scrubber } = props;
   const { act } = useBackend(context);
-  const { long_name, power, scrubbing, id_tag, widenet, filter_types } = scrubber;
+  const { long_name, power, scrubbing, ref, widenet, filter_types } = scrubber;
   return (
     <Section
       level={2}
@@ -138,7 +138,7 @@ export const Scrubber = (props, context) => {
           selected={power}
           onClick={() =>
             act('power', {
-              id_tag,
+              ref,
               val: Number(!power),
             })
           }
@@ -152,7 +152,7 @@ export const Scrubber = (props, context) => {
             content={scrubbing ? 'Scrubbing' : 'Siphoning'}
             onClick={() =>
               act('scrubbing', {
-                id_tag,
+                ref,
                 val: Number(!scrubbing),
               })
             }
@@ -163,7 +163,7 @@ export const Scrubber = (props, context) => {
             content={widenet ? 'Expanded range' : 'Normal range'}
             onClick={() =>
               act('widenet', {
-                id_tag,
+                ref,
                 val: Number(!widenet),
               })
             }
@@ -180,7 +180,7 @@ export const Scrubber = (props, context) => {
                 selected={filter.enabled}
                 onClick={() =>
                   act('toggle_filter', {
-                    id_tag,
+                    ref,
                     val: filter.gas_id,
                   })
                 }

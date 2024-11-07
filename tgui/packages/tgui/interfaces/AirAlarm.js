@@ -157,7 +157,7 @@ const AirAlarmControlVents = (props, context) => {
   if (!vents || vents.length === 0) {
     return 'Nothing to show';
   }
-  return vents.map((vent) => <Vent key={vent.id_tag} vent={vent} />);
+  return vents.map((vent) => <Vent key={vent.ref} vent={vent} />);
 };
 
 //  Scrubbers
@@ -169,7 +169,7 @@ const AirAlarmControlScrubbers = (props, context) => {
   if (!scrubbers || scrubbers.length === 0) {
     return 'Nothing to show';
   }
-  return scrubbers.map((scrubber) => <Scrubber key={scrubber.id_tag} scrubber={scrubber} />);
+  return scrubbers.map((scrubber) => <Scrubber key={scrubber.ref} scrubber={scrubber} />);
 };
 
 //  Modes

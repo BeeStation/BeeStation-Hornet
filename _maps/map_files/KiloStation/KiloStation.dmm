@@ -3374,7 +3374,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "aGV" = (
-/obj/machinery/air_sensor/atmos/nitrogen_tank,
+/obj/machinery/air_sensor/nitrogen_tank,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "aGW" = (
@@ -3390,7 +3390,7 @@
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "aGY" = (
-/obj/machinery/air_sensor/atmos/oxygen_tank,
+/obj/machinery/air_sensor/oxygen_tank,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "aGZ" = (
@@ -3406,7 +3406,7 @@
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "aHb" = (
-/obj/machinery/air_sensor/atmos/air_tank,
+/obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "aHc" = (
@@ -3422,7 +3422,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aHe" = (
-/obj/machinery/air_sensor/atmos/carbon_tank,
+/obj/machinery/air_sensor/carbon_tank,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aHf" = (
@@ -3438,7 +3438,7 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aHh" = (
-/obj/machinery/air_sensor/atmos/plasma_tank,
+/obj/machinery/air_sensor/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aHi" = (
@@ -3454,7 +3454,7 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "aHk" = (
-/obj/machinery/air_sensor/atmos/nitrous_tank,
+/obj/machinery/air_sensor/nitrous_tank,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "aHl" = (
@@ -3470,7 +3470,7 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "aHn" = (
-/obj/machinery/air_sensor/atmos/mix_tank,
+/obj/machinery/air_sensor/mix_tank,
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "aHo" = (
@@ -5093,7 +5093,7 @@
 	},
 /area/maintenance/port/fore)
 "bbt" = (
-/obj/machinery/air_sensor/atmos/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_mixing_tank,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
@@ -13778,7 +13778,7 @@
 /obj/machinery/igniter{
 	id = "Incinerator"
 	},
-/obj/machinery/air_sensor/atmos/incinerator_tank{
+/obj/machinery/air_sensor/incinerator_tank{
 	pixel_x = -32;
 	pixel_y = -32
 	},
