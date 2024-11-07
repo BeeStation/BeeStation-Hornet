@@ -1,5 +1,3 @@
-#define FIREALARM_COOLDOWN 67 // Chosen fairly arbitrarily, it is the length of the audio in FireAlarm.ogg. The actual track length is 7 seconds 8ms but but the audio stops at 6s 700ms
-
 /obj/item/electronics/firealarm
 	name = "fire alarm electronics"
 	custom_price = 5
@@ -34,58 +32,122 @@
 	light_range = 7
 	light_color = "#ff3232"
 
-	var/detecting = 1
-	var/buildstage = 2 // 2 = complete, 1 = no wires, 0 = circuit gone
-	COOLDOWN_DECLARE(last_alarm)
-	var/area/myarea = null
-	var/locked = FALSE //Are we locked?
+	//We want to use area sensitivity, let us
+	always_area_sensitive = TRUE
+	///Buildstate for contruction steps
+	var/buildstage = FIRE_ALARM_BUILD_SECURED
+	///Our home area, set in Init. Due to loading step order, this seems to be null very early in the server setup process, which is why some procs use `my_area?` for var or list checks.
+	var/area/my_area = null
+	///looping sound datum for our fire alarm siren.
+	var/datum/looping_sound/firealarm/soundloop
+	//Is the fire alarm locked?
+	var/locked = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
-	if (!req_access)
-		req_access = list(ACCESS_ATMOSPHERICS)
+	id_tag = assign_random_name()
 	if(building)
-		buildstage = 0
-		panel_open = TRUE
-	update_appearance()
-	myarea = get_area(src)
-	LAZYADD(myarea.firealarms, src)
+		buildstage = FIRE_ALARM_BUILD_NO_CIRCUIT
+		set_panel_open(TRUE)
+	if(name == initial(name))
+		update_name()
+	my_area = get_area(src)
+	LAZYADD(my_area.firealarms, src)
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
-/obj/machinery/firealarm/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/atmos_sensitive, mapload)
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
+	soundloop = new(src, FALSE)
 
-/obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
-	SIGNAL_HANDLER
-	if(is_station_level(z))
-		update_appearance()
+	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/firealarm))
+	update_icon()
 
 /obj/machinery/firealarm/Destroy()
-	myarea.firereset(src)
-	LAZYREMOVE(myarea.firealarms, src)
+	if(my_area)
+		LAZYREMOVE(my_area.firealarms, src)
+		my_area = null
+	QDEL_NULL(soundloop)
+	return ..()
+
+// Area sensitivity is traditionally tied directly to power use, as an optimization
+// But since we want it for fire reacting, we disregard that
+/obj/machinery/firealarm/setup_area_power_relationship()
+	. = ..()
+	if(!.)
+		return
+	var/area/our_area = get_area(src)
+	RegisterSignal(our_area, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+	handle_fire(our_area, our_area.fire)
+
+/obj/machinery/firealarm/on_enter_area(datum/source, area/area_to_register)
+	//were already registered to an area. exit from here first before entering into an new area
+	if(!isnull(my_area))
+		return
+	. = ..()
+
+	my_area = area_to_register
+	LAZYADD(my_area.firealarms, src)
+
+	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+	handle_fire(area_to_register, area_to_register.fire)
+	update_appearance()
+
+/obj/machinery/firealarm/update_name(updates)
+	. = ..()
+	name = "[get_area_name(my_area)] [initial(name)] [id_tag]"
+
+/obj/machinery/firealarm/on_exit_area(datum/source, area/area_to_unregister)
+	//we cannot unregister from an area we never registered to in the first place
+	if(my_area != area_to_unregister)
+		return
+	. = ..()
+
+	UnregisterSignal(area_to_unregister, COMSIG_AREA_FIRE_CHANGED)
+	LAZYREMOVE(my_area.firealarms, src)
+	my_area = null
+
+/obj/machinery/firealarm/proc/handle_fire(area/source, new_fire)
+	SIGNAL_HANDLER
+	set_status()
+
+/**
+ * Sets the sound state, and then calls update_icon()
+ *
+ * This proc exists to be called by areas and firelocks
+ * so that it may update its icon and start or stop playing
+ * the alarm sound based on the state of an area variable.
+ */
+/obj/machinery/firealarm/proc/set_status()
+	if(!(my_area.fire || LAZYLEN(my_area.active_firelocks)) || (obj_flags & EMAGGED))
+		soundloop.stop()
+	update_appearance()
+
+/obj/machinery/firealarm/update_appearance(updates)
+	. = ..()
+	if((my_area?.fire || LAZYLEN(my_area?.active_firelocks)) && !(obj_flags & EMAGGED) && !(machine_stat & (BROKEN|NOPOWER)))
+		set_light(l_range = 2.5, l_power = 1.5)
+	else
+		set_light(l_range = 1.6, l_power = 1)
+
+/obj/machinery/firealarm/update_icon_state()
+	if(panel_open)
+		icon_state = "fire_b[buildstage]"
+		return ..()
+	if(machine_stat & BROKEN)
+		icon_state = "firex"
+		return ..()
+	icon_state = "fire0"
 	return ..()
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
-	var/area/A = src.loc
-	A = A.loc
 	if(machine_stat & NOPOWER)
 		return
 
-	. += "fire_overlay"
-	if(is_station_level(z))
-		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
-		. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
-		. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	else
-		. += "fire_[SEC_LEVEL_GREEN]"
-		. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
-		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = 255)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	if(panel_open)
+		return
 
 	if(obj_flags & EMAGGED)
 		. += "fire_emagged"
@@ -93,12 +155,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		. += emissive_appearance(icon, "fire_emagged", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 		return //If it's emagged, don't do anything else for overlays.
-	if(locked)
-		. += "fire_locked"
-		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
-		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	if(detecting && A.fire)
+	else if(!(my_area?.fire || LAZYLEN(my_area?.active_firelocks)))
+		if(my_area?.fire_detect) //If this is false, someone disabled it. Leave the light missing, a good hint to anyone paying attention.
+			if(is_station_level(z))
+				. += "fire_[SSsecurity_level.get_current_level_as_number()]"
+				. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
+				. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
+				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+			else
+				. += "fire_[SEC_LEVEL_GREEN]"
+				. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
+				. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = 255)
+				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		else
+			. += mutable_appearance(icon, "fire_disabled")
+			. += emissive_appearance(icon, "fire_level_e", src, alpha = src.alpha)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	else if(my_area?.fire_detect && my_area?.fire)
 		. += "fire_on"
 		. += mutable_appearance(icon, "fire_on", layer + 2) //If we are locked and there is a fire, overlay the fire detection overlay ontop of the locked one.
 		. += emissive_appearance(icon, "fire_on", layer, alpha = 255)
@@ -108,6 +181,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		. += mutable_appearance(icon, "fire_off")
 		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
+	if(locked)
+		. += "fire_locked"
+		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
+		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
 
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()
@@ -123,7 +203,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	update_appearance()
 	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 							"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+	if(user)
+		balloon_alert(user, "speaker disabled")
+		user.log_message("emagged [src].", LOG_ATTACK)
 	playsound(src, "sparks", 50, 1)
+	set_status()
+	return TRUE
 
 /obj/machinery/firealarm/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
@@ -160,6 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	update_appearance()
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 
 /obj/machinery/firealarm/proc/reset(mob/user)
 	if(!is_operational)
