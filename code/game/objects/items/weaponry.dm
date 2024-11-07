@@ -975,7 +975,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = initial(force)
 	armour_penetration = initial(armour_penetration)
 	if(isstructure(A) || ismachinery(A) || isturf(A))
-		force *= 4
+		force *= 2
 		armour_penetration += 50
 		// To prevent unnecessary force string calculation (we want this to be treated
 		// as if it wasn't changed)
