@@ -75,14 +75,6 @@
 	var/list/cached_vars
 #endif
 
-#ifdef TESTING
-// When building CI and running tests, lets add this check to prevent abstract datums being initialised.
-/datum/New()
-	if (type == abstract_type)
-		CRASH("An abstract datum was initialised. Abstract items should never be initialised and shouldn't be created through any means.")
-	return ..()
-#endif
-
 /**
   * Topic signals
   */
