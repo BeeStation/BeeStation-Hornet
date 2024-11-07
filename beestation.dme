@@ -4353,6 +4353,7 @@
 #include "code\modules\xenoarchaeology\traits\malfunction\malfunctions.dm"
 #include "code\modules\xenoarchaeology\traits\malfunction\uranium.dm"
 #include "code\modules\xenoarchaeology\traits\minors\bluespace.dm"
+#include "code\modules\xenoarchaeology\traits\minors\charged.dm"
 #include "code\modules\xenoarchaeology\traits\minors\minors.dm"
 #include "code\modules\xenoarchaeology\traits\minors\plasma.dm"
 #include "code\modules\zombie\items.dm"
