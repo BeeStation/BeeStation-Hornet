@@ -270,7 +270,7 @@
 
 /datum/effect_system/smoke_spread/chem/New()
 	..()
-	chemholder = new /obj()
+	chemholder = new /obj/effect/reagent_holder()
 	var/datum/reagents/R = new/datum/reagents(500)
 	chemholder.reagents = R
 	R.my_atom = chemholder

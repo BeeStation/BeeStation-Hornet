@@ -56,7 +56,7 @@
 					if(ismob(A) && !(A in flashers)) // don't flash if we're already doing an effect
 						var/mob/M = A
 						if(M.client)
-							var/obj/blueeffect = new /obj(src)
+							var/obj/blueeffect = new /obj/effect/temp_appearance_holder(src)
 							blueeffect.screen_loc = "WEST,SOUTH to EAST,NORTH"
 							blueeffect.icon = 'icons/effects/effects.dmi'
 							blueeffect.icon_state = "shieldsparkles"

@@ -239,7 +239,7 @@
 
 /datum/effect_system/foam_spread/New()
 	..()
-	chemholder = new /obj()
+	chemholder = new /obj/effect/reagent_holder()
 	var/datum/reagents/R = new/datum/reagents(1000)
 	chemholder.reagents = R
 	R.my_atom = chemholder
