@@ -21,6 +21,7 @@
 	item_flags = NEEDS_PERMIT || ISWEAPON
 	attack_verb_continuous = list("strikes", "hits", "bashes")
 	attack_verb_simple = list("strike", "hit", "bash")
+	abstract_type = /obj/item/gun
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE

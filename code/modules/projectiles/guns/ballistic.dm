@@ -3,6 +3,7 @@
 	name = "projectile gun"
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_LARGE
+	abstract_type = /obj/item/gun/ballistic
 
 	//sound info vars
 	var/load_sound = "gun_insert_full_magazine"
