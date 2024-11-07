@@ -19,3 +19,4 @@
 		return 0
 
 #define IS_ABSTRACT(datum) datum.type == datum.abstract_type
+#define IS_ABSTRACT_PATH(path) path == initial(path.abstract_type)

@@ -7,7 +7,13 @@
 	var/static/create_object_html = null
 	if (!create_object_html)
 		var/objectjs = null
-		objectjs = jointext(typesof(/obj), ";")
+		var/list/allowed_objects = list()
+		for (var/obj/object_path as anything in typesof(/obj))
+			// Skip abstract objects, these aren't allowed to spawn
+			if (initial(object_path.abstract_type) == object_path)
+				continue
+			allowed_objects += object_path
+		objectjs = jointext(allowed_objects, ";")
 		create_object_html = rustg_file_read('html/create_object.html')
 		create_object_html = replacetext(create_object_html, "null /* object types */", "\"[objectjs]\"")
 

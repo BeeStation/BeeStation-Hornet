@@ -231,7 +231,7 @@
 	G.console = src
 	return TRUE
 
-/obj/machinery/abductor/console/proc/AddVest(obj/item/clothing/suit/armor/abductor/vest/V)
+/obj/machinery/abductor/console/proc/AddVest(obj/item/clothing/suit/armor/abductor_vest/V)
 	if(vest == V)
 		return FALSE
 

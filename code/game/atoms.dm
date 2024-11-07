@@ -231,7 +231,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-#if DEBUG
+#ifdef DEBUG
 	if (IS_ABSTRACT(src))
 		CRASH("Attempting to initialize abstract object of type [type]. This is not allowed.")
 #endif

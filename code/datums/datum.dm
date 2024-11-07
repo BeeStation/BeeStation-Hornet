@@ -75,7 +75,7 @@
 	var/list/cached_vars
 #endif
 
-#if TESTING
+#ifdef TESTING
 // When building CI and running tests, lets add this check to prevent abstract datums being initialised.
 /datum/New()
 	if (type == abstract_type)
