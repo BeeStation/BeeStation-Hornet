@@ -93,6 +93,7 @@
 	belt = /obj/item/storage/belt/military
 	l_pocket = /obj/item/ammo_box/magazine/m10mm
 	r_pocket = /obj/item/grenade/smokebomb
+	r_hand = /obj/item/knife/combat
 	id = /obj/item/card/id/syndicate_command
 
 //=====================
@@ -126,6 +127,7 @@
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
 	shoes = /obj/item/clothing/shoes/chameleon
+	mask = /obj/item/clothing/mask/chameleon
 	gloves = /obj/item/clothing/gloves/chameleon
 	ears = /obj/item/radio/headset/chameleon
 	glasses = /obj/item/clothing/glasses/chameleon
@@ -136,6 +138,12 @@
 	neck = /obj/item/clothing/neck/chameleon
 	head = /obj/item/clothing/head/chameleon
 	back = /obj/item/storage/backpack/chameleon
+	backpack_contents = list(
+		/obj/item/gun/ballistic/automatic/pistol, //They do not get an extra magazine like the other two
+		/obj/item/suppressor,
+		/obj/item/storage/box/rxglasses/spyglasskit
+		/obj/item/switchblade/plastitanium
+	)
 
 //=====================
 // Clown
@@ -147,13 +155,13 @@
 	id = /obj/item/card/id/job/clown
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/clown
-	shoes = /obj/item/clothing/shoes/clown_shoes
+	shoes = /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
 	back = /obj/item/storage/backpack/clown
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
-		/obj/item/reagent_containers/spray/waterflower = 1,
+		/obj/item/reagent_containers/spray/waterflower/lube = 1,
 		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		)
@@ -162,4 +170,3 @@
 
 /datum/outfit/vip_target/clown/post_equip(mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
-	H.dna.add_mutation(CLOWNMUT)
