@@ -165,14 +165,14 @@
 	blood_overlay_type = "armor" //it's the less thing that I can put here
 
 //Security
-/obj/item/clothing/suit/jacket/officer/blue
+/obj/item/clothing/suit/jacket/blue_officer
 	name = "security officer's jacket"
 	desc = "This jacket is for those special occasions when a security officer isn't required to wear their armor."
 	icon_state = "officerbluejacket"
 	item_state = null
 	body_parts_covered = CHEST|ARMS
 
-/obj/item/clothing/suit/jacket/officer/tan
+/obj/item/clothing/suit/jacket/tan_officer
 	name = "security officer's jacket"
 	desc = "This jacket is for those special occasions when a security officer isn't required to wear their armor."
 	icon_state = "officertanjacket"

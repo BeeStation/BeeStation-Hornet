@@ -73,7 +73,7 @@
 	color = "#0000FF"
 	hat = /obj/item/clothing/head/helmet/rus_ushanka
 	outfit = /obj/item/clothing/under/color/darkblue
-	suit = /obj/item/clothing/suit/jacket/officer/tan
+	suit = /obj/item/clothing/suit/jacket/tan_officer
 
 /datum/team/gang/donk
 	name = "Donk"

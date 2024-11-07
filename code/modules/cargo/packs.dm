@@ -429,8 +429,8 @@
 	max_supply = 3
 	contains = list(/obj/item/clothing/under/rank/security/officer/formal,
 					/obj/item/clothing/under/rank/security/officer/formal,
-					/obj/item/clothing/suit/jacket/officer/blue,
-					/obj/item/clothing/suit/jacket/officer/blue,
+					/obj/item/clothing/suit/jacket/blue_officer,
+					/obj/item/clothing/suit/jacket/blue_officer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/under/rank/security/warden/formal,
