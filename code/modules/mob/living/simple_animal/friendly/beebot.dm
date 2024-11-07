@@ -1,5 +1,4 @@
 //BEEBOT
-
 /mob/living/simple_animal/pet/beebot
 	name = "Beebot"
 	desc = "The happy bee bot pet of the Research Director"
@@ -22,17 +21,18 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
-	ai_controller = /datum/ai_controller/beebot
 	can_be_held = TRUE
 	chat_color = "#ffd000"
 	mobchatspan = "beebot"
 	held_state = "beebot"
 	worn_slot_flags = ITEM_SLOT_HEAD
-	footstep_type = FOOTSTEP_OBJ_MACHINE
+	footstep_type = FOOTSTEP_OBJ_ROBOT
+
 
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
-
+	var/blood_state
+	blood_state = BLOOD_STATE_OIL
 /mob/living/simple_animal/pet/beebot/update_resting()
 	. = ..()
 	if(stat == DEAD)
