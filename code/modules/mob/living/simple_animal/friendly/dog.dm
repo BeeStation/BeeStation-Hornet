@@ -783,3 +783,15 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(inventory_back && inventory_back.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
+
+/mob/living/simple_animal/pet/dog/corgi/beebot
+	name = "Beebot"
+	real_name = "Beebot"
+	desc = "Beebot."
+	icon_state = "beebot"
+	icon_living = "beebot"
+	icon_dead = "beebot_dead"
+	held_state = null
+	can_be_held = FALSE
+	butcher_results = list()
+	childtype = list()
