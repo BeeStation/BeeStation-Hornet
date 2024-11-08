@@ -118,7 +118,7 @@
 		if(fail_reasons && has_worn_icons(item_path))
 			TEST_FAIL(fail_reasons)
 
-/datum/unit_test/worn_icons/proc/has_no_worn_icons(path)
+/datum/unit_test/worn_icons/proc/has_worn_icons(path)
 	var/atom/created = allocate(path)
 	if (QDELETED(created))
 		return FALSE
