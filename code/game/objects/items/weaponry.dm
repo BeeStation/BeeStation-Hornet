@@ -974,16 +974,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/club/pre_attack(atom/A, mob/living/user, params)
 	force = initial(force)
 	armour_penetration = initial(armour_penetration)
-	if(isstructure(A))
-		force *= 2
+	if(isstructure(A) || ismachinery(A))
+		force *= 2.5
 		armour_penetration += 50
 		// To prevent unnecessary force string calculation (we want this to be treated
 		// as if it wasn't changed)
-		last_force_string_check = force
-		return ..()
-	else if(ismachinery(A))
-		force *= 2.5
-		armour_penetration += 50
 		last_force_string_check = force
 		return ..()
 	else if(isturf(A))
