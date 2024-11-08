@@ -384,10 +384,10 @@
  * Admin locked record
  */
 /datum/record/locked
-	/// Mob's dna
-	var/datum/dna/dna
-	/// Mind datum
-	var/datum/mind/mind
+	/// Mob's dna weakref
+	var/datum/weakref/weakref_dna
+	/// Mind datum weakref
+	var/datum/weakref/weakref_mind
 
 /datum/record/locked/New(
 	age = 18,
@@ -401,12 +401,12 @@
 	rank = "Unassigned",
 	species = "Human",
 	/// Locked specific
-	datum/dna/dna,
-	datum/mind/mind,
+	weakref_dna,
+	weakref_mind,
 )
 	. = ..()
-	src.dna = dna
-	src.mind = mind
+	src.weakref_dna = weakref_dna
+	src.weakref_mind = weakref_mind
 
 	GLOB.manifest.locked += src
 
@@ -612,10 +612,10 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	species = "Unknown",
-	datum/dna/dna,
+	weakref_dna,
 	uni_identity,
 	SE,
-	datum/mind/mind,
+	weakref_mind,
 	last_death,
 	factions,
 	traumas,
@@ -626,10 +626,10 @@
 	)
 	. = ..()
 	src.id = id
-	src.weakref_dna = WEAKREF(dna)
+	src.weakref_dna = weakref_dna
 	src.uni_identity = uni_identity
 	src.SE = SE
-	src.weakref_mind = WEAKREF(mind)
+	src.weakref_mind = weakref_mind
 	src.last_death = last_death
 	src.factions = factions
 	src.traumas = traumas
@@ -643,6 +643,30 @@
 /datum/record/cloning/Destroy()
 	GLOB.manifest.cloning -= src
 	return ..()
+
+// Copy the record's data to the target.
+/datum/record/cloning/proc/copy_to(datum/record/cloning/target)
+	id = target.id
+	age = target.age
+	blood_type = target.blood_type
+	dna_string = target.dna_string
+	fingerprint = target.fingerprint
+	gender = target.gender
+	initial_rank = target.initial_rank
+	name = target.name
+	rank = target.rank
+	species = target.species
+	weakref_dna = target.weakref_dna
+	uni_identity = target.uni_identity
+	SE = target.SE
+	UE = target.UE
+	weakref_mind = target.weakref_mind
+	last_death = target.last_death
+	factions = target.factions
+	traumas = target.traumas
+	body_only = target.body_only
+	implant = target.implant
+	return
 
 /datum/record/cloning/proc/resolve_dna()
 	var/datum/dna/dna = weakref_dna.resolve()

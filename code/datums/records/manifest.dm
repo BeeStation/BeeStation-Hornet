@@ -114,8 +114,8 @@
 		rank = assignment,
 		species = record_dna.species.name,
 		// Locked specifics
-		dna = record_dna,
-		mind = person.mind,
+		weakref_dna = WEAKREF(record_dna),
+		weakref_mind = WEAKREF(person.mind),
 	)
 
 	new /datum/record/crew(

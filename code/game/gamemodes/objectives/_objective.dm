@@ -127,7 +127,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
 	for(var/datum/record/locked/target in GLOB.manifest.locked)
-		var/datum/mind/mind = target.mind
+		var/datum/mind/mind = target.weakref_mind.resolve()
 		if(mind)
 			. += mind
 

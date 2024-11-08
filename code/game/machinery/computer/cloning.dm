@@ -197,14 +197,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		. = TRUE
 
 /obj/machinery/computer/cloning/proc/Save(mob/user, target)
-	var/datum/record/cloning/GRAB = null
+	var/datum/record/cloning/cloning_record_copy = null
 	for(var/datum/record/cloning/record in records)
 		if(record.id == target)
-			GRAB = record
+			cloning_record_copy = record
 			break
 		else
 			continue
-	if(!GRAB)
+	if(!cloning_record_copy)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Failed saving to disk: Data Corruption"
 		return FALSE
@@ -214,26 +214,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		return
 
 	diskette.data = new()
-	diskette.data.id = GRAB.id
-	diskette.data.age = GRAB.age
-	diskette.data.blood_type = GRAB.blood_type
-	diskette.data.dna_string = GRAB.dna_string
-	diskette.data.fingerprint = GRAB.fingerprint
-	diskette.data.gender = GRAB.gender
-	diskette.data.initial_rank = GRAB.initial_rank
-	diskette.data.name = GRAB.name
-	diskette.data.rank = GRAB.rank
-	diskette.data.species = GRAB.species
-	diskette.data.weakref_dna = GRAB.weakref_dna
-	diskette.data.uni_identity = GRAB.uni_identity
-	diskette.data.SE = GRAB.SE
-	diskette.data.UE = GRAB.UE
-	diskette.data.weakref_mind = GRAB.weakref_mind
-	diskette.data.last_death = GRAB.last_death
-	diskette.data.factions = GRAB.factions
-	diskette.data.traumas = GRAB.traumas
-	diskette.data.body_only = GRAB.body_only
-	diskette.data.implant = GRAB.implant
+	diskette.data.copy_to(cloning_record_copy)
 
 	diskette.name = "data disk - '[src.diskette.data.name]'"
 	scantemp = "Saved to disk successfully."
@@ -241,22 +222,22 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/DeleteRecord(mob/user, target)
-	var/datum/record/cloning/GRAB = null
+	var/datum/record/cloning/cloning_record_copy = null
 	for(var/datum/record/cloning/record in records)
 		if(record.id == target)
-			GRAB = record
+			cloning_record_copy = record
 			break
 		else
 			continue
-	if(!GRAB)
+	if(!cloning_record_copy)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Cannot delete: Data Corrupted."
 		return FALSE
 	var/obj/item/card/id/C = usr.get_idcard(hand_first = TRUE)
 	if(istype(C) || istype(C, /obj/item/modular_computer/tablet))
 		if(check_access(C))
-			scantemp = "[GRAB.name] => Record deleted."
-			records.Remove(GRAB)
+			scantemp = "[cloning_record_copy.name] => Record deleted."
+			records.Remove(cloning_record_copy)
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			var/obj/item/circuitboard/computer/cloning/board = circuit
 			board.records = records
@@ -274,27 +255,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
 	var/datum/record/cloning/cloning_record = new()
-	cloning_record.id = diskette.data.id
-	cloning_record.age = diskette.data.age
-	cloning_record.blood_type = diskette.data.blood_type
-	cloning_record.dna_string = diskette.data.dna_string
-	cloning_record.fingerprint = diskette.data.fingerprint
-	cloning_record.gender = diskette.data.gender
-	cloning_record.initial_rank = diskette.data.initial_rank
-	cloning_record.name = diskette.data.name
-	cloning_record.species = diskette.data.species
-	cloning_record.weakref_dna = diskette.data.weakref_dna
-	cloning_record.uni_identity = diskette.data.uni_identity
-	cloning_record.SE = diskette.data.SE
-	cloning_record.weakref_mind = diskette.data.weakref_mind
-	cloning_record.last_death = diskette.data.last_death
-	cloning_record.factions = diskette.data.factions
-	cloning_record.traumas = diskette.data.traumas
-	cloning_record.body_only = diskette.data.body_only
-	cloning_record.implant = diskette.data.implant
-	cloning_record.UE = diskette.data.UE
-	cloning_record.bank_account = diskette.data.bank_account
-
+	diskette.data.copy_to(cloning_record)
 
 	records += cloning_record
 	scantemp = "Loaded into internal storage successfully."
@@ -623,7 +584,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
-	var/datum/record/cloning/cloning_record = new()
+	var/datum/record/cloning/cloning_record = new(null, human_mob.age, dna.blood_type, dna.unique_enzymes, md5(dna.uni_identity), human_mob.gender, human_mob.mind.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.uni_identity, dna.mutation_index, WEAKREF(human_mob.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+
 	if(dna.species)
 		// We store the instance rather than the path, because some
 		// species (abductors, slimepeople) store state in their
@@ -641,21 +603,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β" //beta
 	else
 		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
-	cloning_record.UE = dna.unique_enzymes
-	cloning_record.uni_identity = dna.uni_identity
-	cloning_record.SE = dna.mutation_index
-	cloning_record.blood_type = dna.blood_type
-	cloning_record.weakref_dna = WEAKREF(dna)
-	cloning_record.factions = mob_occupant.faction
-	cloning_record.traumas = list()
-	cloning_record.age = human_mob.age
-	cloning_record.dna_string = dna.unique_enzymes
-	cloning_record.fingerprint = md5(dna.uni_identity)
-	cloning_record.gender = human_mob.gender
-	cloning_record.initial_rank = human_mob.mind.assigned_role
-
-
-
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
 		cloning_record.traumas = human_brain.get_traumas()
