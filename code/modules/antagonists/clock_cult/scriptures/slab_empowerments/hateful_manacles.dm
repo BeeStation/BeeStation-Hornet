@@ -41,8 +41,12 @@
 		to_chat(L, ("<span class='userdanger'>[caller] begins forming manacles around your wrists!</span>"))
 		if(do_after(caller, 3 SECONDS, L))
 			if(!(istype(L.handcuffed,/obj/item/restraints/handcuffs/clockwork)))
-				L.set_handcuffed(new /obj/item/restraints/handcuffs/clockwork(L))
-				L.update_handcuffed()
+				var/obj/item/restraints/handcuffs/clockwork/restraints = new(L)
+				if (!restraints.apply_cuffs(L, caller))
+					qdel(restraints)
+					return TRUE
+				restraints.item_flags |= DROPDEL
+
 				to_chat(caller, ("<span class='neovgre_small'>You shackle [L].</span>"))
 				log_combat(caller, L, "handcuffed")
 		else
