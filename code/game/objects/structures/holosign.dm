@@ -239,7 +239,6 @@
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/victim)
 	if(shockcd)
 		return
-
 	if(!isliving(victim))
 		return
 
