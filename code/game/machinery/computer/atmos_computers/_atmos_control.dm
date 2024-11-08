@@ -55,22 +55,22 @@
 
 	return TRUE
 
-REGISTER_BUFFER_HANDLER(/obj/machinery/air_sensor)
 
-DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
-	if(istype(buffer, /obj/machinery/computer/atmos_control))
-		to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
-		var/obj/machinery/computer/atmos_control/sensor = buffer
-		if(!was_multi_tooled)
-			connected_sensors = connected_sensors.Copy()
-			was_multi_tooled = TRUE
-			//register the sensor's unique ID with its assositated chamber
-			connected_sensors[sensor.chamber_id] = sensor.id_tag
-	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
-	else
-		return NONE
-	return COMPONENT_BUFFER_RECEIVED
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
+	if (istype(buffer,/obj/machinery/air_sensor))
+		var/obj/machinery/air_sensor/sensor = buffer
+		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
+		connected_sensors = connected_sensors.Copy()
+		was_multi_tooled = TRUE
+		//register the sensor's unique ID with its assositated chamber
+		connected_sensors[sensor.chamber_id] = sensor.id_tag
+		ui_update()
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
+
 
 /obj/machinery/computer/atmos_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

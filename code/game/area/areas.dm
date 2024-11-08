@@ -38,6 +38,12 @@
 	var/list/firealarms = list()
 	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
 	var/list/active_alarms = list()
+	/// The current alarm fault status
+	var/fault_status = AREA_FAULT_NONE
+	/// The source machinery for the area's fault status
+	var/fault_location
+	///List of all lights in our area
+	var/list/lights = list()
 	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing
 	var/datum/alarm_handler/alarm_manager
 
@@ -96,10 +102,7 @@
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	var/list/firedoors
 	var/list/cameras
-	var/list/firealarms
-	var/firedoors_last_closed_on = 0
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas
 
@@ -386,9 +389,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
 	//Trigger alarm effect
-	set_fire_alarm_effect()
+	set_fire_effect(TRUE)
 	for(var/obj/machinery/door/door in src)
 		close_and_lock_door(door)
+
+/**
+ * Set the fire alarm visual affects in an area
+ *
+ * Allows interested parties (lights and fire alarms) to react
+ */
+/area/proc/set_fire_effect(new_fire, fault_type, fault_source)
+	if(new_fire == fire)
+		return
+	fire = new_fire
+	fault_status = fault_type
+	if(fire)
+		fault_location = fault_source
+	else
+		fault_location = null
+	SEND_SIGNAL(src, COMSIG_AREA_FIRE_CHANGED, fire)
 
 /area/proc/set_pressure_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE

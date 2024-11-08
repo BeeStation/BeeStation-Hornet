@@ -24,12 +24,15 @@
 	var/external_pressure_bound = ONE_ATMOSPHERE
 	///The internal pressure threshold (default 0 kPa)
 	var/internal_pressure_bound = 0
-
 	// ATMOS_EXTERNAL_BOUND: Do not pass external_pressure_bound
 	// ATMOS_INTERNAL_BOUND: Do not pass internal_pressure_bound
 	// NO_BOUND: Do not pass either
 
-	var/obj/machinery/advanced_airlock_controller/aac = null
+	/// id of air sensor its connected to
+	var/chamber_id
+
+	///area this vent is assigned to
+	var/area/assigned_area
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Initialize(mapload)
 	. = ..()

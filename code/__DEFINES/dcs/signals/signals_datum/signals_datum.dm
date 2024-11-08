@@ -106,12 +106,6 @@
 
 /// signals from globally accessible objects
 
-// Alarm listener datum signals
-///Sent when an alarm is fired (alarm, area/source_area)
-#define COMSIG_ALARM_TRIGGERED "comsig_alarm_triggered"
-///Send when an alarm source is cleared (alarm_type, area/source_area)
-#define COMSIG_ALARM_CLEARED "comsig_alarm_clear"
-
 // Radio jammer signals
 /// Calls something to toggle its jamming ability. (mob/user, silent = FALSE)
 #define COMSIG_TOGGLE_JAMMER "toggle_jammer"

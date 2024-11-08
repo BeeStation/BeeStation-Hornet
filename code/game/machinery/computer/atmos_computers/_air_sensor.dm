@@ -27,14 +27,6 @@
 		inlet_id = CHAMBER_INPUT_FROM_ID(chamber_id)
 		outlet_id = CHAMBER_OUTPUT_FROM_ID(chamber_id)
 
-	var/static/list/multitool_tips = list(
-		TOOL_MULTITOOL = list(
-			SCREENTIP_CONTEXT_LMB = "Link logged injectors/vents",
-			SCREENTIP_CONTEXT_RMB = "Reset all I/O ports",
-		)
-	)
-	AddElement(/datum/element/contextual_screentip_tools, multitool_tips)
-
 	return ..()
 
 /obj/machinery/air_sensor/Destroy()
@@ -45,7 +37,6 @@
 	if(!on)
 		return
 	. = ..()
-	use_energy(active_power_usage) //use power for analyzing gases
 
 /obj/machinery/air_sensor/process()
 	//update appearance according to power state
@@ -92,34 +83,13 @@
 	reset()
 	return TRUE
 
-/obj/machinery/air_sensor/multitool_act(mob/living/user, obj/item/multitool/multi_tool)
-	. = ..()
+REGISTER_BUFFER_HANDLER(/obj/machinery/air_sensor)
 
-	if(istype(multi_tool.buffer, /obj/machinery/atmospherics/components/unary/outlet_injector))
-		var/obj/machinery/atmospherics/components/unary/outlet_injector/input = multi_tool.buffer
-		inlet_id = input.id_tag
-		multi_tool.set_buffer(src)
-		balloon_alert(user, "connected to input")
-
-	else if(istype(multi_tool.buffer, /obj/machinery/atmospherics/components/unary/vent_pump))
-		var/obj/machinery/atmospherics/components/unary/vent_pump/output = multi_tool.buffer
-		//so its no longer controlled by air alarm
-		output.disconnect_from_area()
-		//configuration copied from /obj/machinery/atmospherics/components/unary/vent_pump/siphon but with max pressure
-		output.pump_direction = ATMOS_DIRECTION_SIPHONING
-		output.pressure_checks = ATMOS_INTERNAL_BOUND
-		output.internal_pressure_bound = MAX_OUTPUT_PRESSURE
-		output.external_pressure_bound = 0
-		//finally assign it to this sensor
-		outlet_id = output.id_tag
-		multi_tool.set_buffer(src)
-		balloon_alert(user, "connected to output")
-
-	else
-		multi_tool.set_buffer(src)
-		balloon_alert(user, "sensor added to buffer")
-
-	return ITEM_INTERACT_SUCCESS
+DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /**
  * A portable version of the /obj/machinery/air_sensor
@@ -132,7 +102,7 @@
 	desc = "A device designed to detect gases and their concentration in an area."
 	icon = 'icons/obj/wallmounts.dmi'
 	icon_state = "gsensor0"
-	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	/// The injector linked with this sensor
 	var/input_id
 	/// The vent pump linked with this sensor
@@ -140,23 +110,8 @@
 
 /obj/item/air_sensor/Initialize(mapload, inlet, outlet)
 	. = ..()
-	register_context()
 	input_id = inlet
 	output_id = outlet
-
-/obj/item/air_sensor/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	if(isnull(held_item))
-		return NONE
-
-	if(held_item.tool_behaviour == TOOL_WRENCH)
-		context[SCREENTIP_CONTEXT_LMB] = anchored ? "Unwrench" : "Wrench"
-		return CONTEXTUAL_SCREENTIP_SET
-
-	if(held_item.tool_behaviour == TOOL_WELDER && !anchored)
-		context[SCREENTIP_CONTEXT_LMB] = "Dismantle"
-		return CONTEXTUAL_SCREENTIP_SET
-
-	return NONE
 
 /obj/item/air_sensor/examine(mob/user)
 	. = ..()
@@ -214,19 +169,19 @@
 
 /obj/item/air_sensor/wrench_act(mob/living/user, obj/item/tool)
 	if(default_unfasten_wrench(user, tool) == SUCCESSFUL_UNFASTEN)
-		return ITEM_INTERACT_SUCCESS
+		return TRUE
 
 /obj/item/air_sensor/welder_act(mob/living/user, obj/item/tool)
 	if(!tool.tool_start_check(user, amount = 1))
-		return ITEM_INTERACT_BLOCKING
+		return TRUE
 
 	loc.balloon_alert(user, "dismantling sensor")
 	if(!tool.use_tool(src, user, 2 SECONDS, volume = 30, amount = 1))
-		return ITEM_INTERACT_BLOCKING
+		return TRUE
 	loc.balloon_alert(user, "sensor dismanteled")
 
 	deconstruct(TRUE)
-	return ITEM_INTERACT_SUCCESS
+	return TRUE
 
 /obj/item/air_sensor/atom_deconstruct(disassembled)
 	new /obj/item/analyzer(loc)
