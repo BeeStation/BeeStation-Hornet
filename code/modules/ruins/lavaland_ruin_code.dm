@@ -144,9 +144,9 @@
 
 /datum/outfit/lavaland_syndicate/officer
 	name = "Lavaland Syndicate Officer"
-	r_hand = /obj/item/gun/ballistic/sniper_rifle
+	r_hand = null
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/armor/hos
+	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/syndicate/alt
