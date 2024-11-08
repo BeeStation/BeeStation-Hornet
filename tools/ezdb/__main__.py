@@ -2,7 +2,7 @@ import argparse
 from .steps import STEPS
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--port", type = int, default = 1338)
+parser.add_argument("--port", type = int, default = 3306)
 
 args = parser.parse_args()
 

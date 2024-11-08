@@ -41,6 +41,6 @@ class InstallDatabase(Step):
             file.write(f"PORT {args.port}\n")
             file.write(f"FEEDBACK_LOGIN root\n")
             file.write(f"FEEDBACK_PASSWORD {password}\n")
-            file.write("FEEDBACK_DATABASE beestation\n")
-            file.write("FEEDBACK_TABLEPREFIX\n")
+            file.write("FEEDBACK_DATABASE ss13beedb\n")
+            file.write("FEEDBACK_TABLEPREFIX SS13_\n")
             file.write(f"DB_DAEMON {str(get_mariadb_daemon_path())}")
