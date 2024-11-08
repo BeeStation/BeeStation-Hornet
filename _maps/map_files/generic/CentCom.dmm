@@ -235,7 +235,7 @@
 "aH" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/centcom/holding)
@@ -353,7 +353,7 @@
 	pixel_y = 1;
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/drinks/mug/tea{
+/obj/item/reagent_containers/cup/glass/mug/tea{
 	pixel_x = 11
 	},
 /turf/open/floor/monotile/dark,
@@ -1604,19 +1604,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/supply)
-"ec" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/mob/living/simple_animal/bot/medbot/nukie{
-	name = "\improper Hijikata";
-	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis.";
-	radio_key = null
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "ed" = (
 /obj/machinery/status_display/ai{
 	pixel_y = 32
@@ -4505,25 +4492,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/control)
-"lQ" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/obj/item/toy/cards/deck/syndicate{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/telecrystal/five,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/space/basic,
-/area/space)
 "lR" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -5557,11 +5525,11 @@
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "oC" = (
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -5
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5649,7 +5617,7 @@
 	pixel_y = -8;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/cup/glass/mug{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -6667,13 +6635,7 @@
 /area/centcom/evac)
 "ry" = (
 /obj/structure/table/wood,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/sake,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "rz" = (
@@ -8160,11 +8122,11 @@
 "vq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate{
 	pixel_x = 9;
 	pixel_y = 19
 	},
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate{
 	pixel_x = 5;
 	pixel_y = 15
 	},
@@ -9504,16 +9466,16 @@
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/cup/glass/bottle/wine{
 	pixel_y = 3;
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -9
 	},
 /obj/machinery/light/small,
@@ -10912,7 +10874,7 @@
 /area/centcom/ferry)
 "CO" = (
 /obj/effect/turf_decal/weather/dirt,
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 9;
 	pixel_y = 22
 	},
@@ -11777,7 +11739,7 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
-/obj/item/reagent_containers/food/condiment/mayonnaise{
+/obj/item/reagent_containers/condiment/mayonnaise{
 	pixel_y = 9;
 	pixel_x = -7
 	},
@@ -11840,16 +11802,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/control)
-"Fn" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker,
-/turf/open/space/basic,
-/area/space)
 "Fo" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 5
@@ -12240,7 +12192,6 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/crate/hydroponics,
@@ -14474,7 +14425,7 @@
 "LI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -14538,12 +14489,12 @@
 /area/syndicate_mothership/control)
 "LR" = (
 /obj/structure/closet/crate/secure/gear,
-/obj/item/reagent_containers/food/drinks/syndicatebeer,
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate,
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate{
 	pixel_x = 10;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate{
 	pixel_x = -8;
 	pixel_y = 2
 	},
@@ -15644,7 +15595,7 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = -8;
 	pixel_y = 3
 	},
@@ -15947,7 +15898,7 @@
 "Pn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = -8;
 	pixel_y = 6
 	},
@@ -16321,7 +16272,7 @@
 /area/syndicate_mothership/control)
 "Qj" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/sake,
+/obj/item/reagent_containers/cup/glass/bottle/sake,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Qk" = (
@@ -16355,7 +16306,7 @@
 /obj/item/clothing/head/cone{
 	pixel_y = 21
 	},
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
+/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate{
 	pixel_x = -5;
 	pixel_y = 19
 	},
@@ -16802,13 +16753,6 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	locked = 0
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "Rr" = (
@@ -17463,18 +17407,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/centcom/evac)
-"SS" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/reagent_containers/condiment/enzyme,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/structure/closet/crate,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "ST" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -17513,17 +17445,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/centcom/evac)
-"SW" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/structure/table/wood,
-/turf/open/space/basic,
-/area/space)
 "SX" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/dark/corner{
@@ -17918,7 +17839,7 @@
 "TX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = -9;
 	pixel_y = 3
 	},
@@ -17962,20 +17883,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
-"Ub" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/mob/living/simple_animal/bot/medbot/nukie{
-	name = "\improper Hattori";
-	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern.";
-	radio_key = null;
-	radio_channel = null
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Uc" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -18330,15 +18237,15 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = -9;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
+/obj/item/reagent_containers/cup/glass/bottle/tequila{
 	pixel_x = 9;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/bottle/cognac{
+/obj/item/reagent_containers/cup/glass/bottle/cognac{
 	pixel_x = 13;
 	pixel_y = 7
 	},
@@ -18943,19 +18850,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"Wy" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/cup/beaker/large,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/holding)
 "Wz" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -19225,8 +19119,8 @@
 /obj/item/wrench,
 /obj/item/watertank,
 /obj/item/cultivator,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/centcom/holding)
@@ -19807,8 +19701,8 @@
 /turf/open/water/air,
 /area/syndicate_mothership/control)
 "YJ" = (
-/obj/item/reagent_containers/food/condiment/enzyme,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/condiment/enzyme,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/book/manual/wiki/barman_recipes,
 /obj/structure/closet/crate,
 /turf/open/floor/iron/cafeteria,
@@ -19854,7 +19748,7 @@
 /area/centcom/supplypod/loading/four)
 "YQ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "YR" = (
@@ -37664,7 +37558,7 @@ aa
 aa
 aa
 aa
-SW
+aa
 aa
 aa
 aa
@@ -37923,7 +37817,7 @@ aa
 aa
 aa
 aa
-Fn
+aa
 aa
 aa
 aa
@@ -38432,7 +38326,7 @@ aa
 aa
 aa
 aa
-lQ
+aa
 aa
 aa
 aa
@@ -45129,7 +45023,7 @@ Rk
 Nd
 WO
 aT
-Wy
+aT
 aT
 aT
 aT
@@ -46947,7 +46841,7 @@ Sd
 Sd
 Re
 Xk
-ec
+Xk
 Xk
 NT
 vt
@@ -47983,7 +47877,7 @@ Sd
 Sd
 Sd
 MM
-Ub
+Xk
 Nd
 Rk
 aa
@@ -48732,7 +48626,7 @@ Xk
 Nd
 TB
 Fh
-SS
+Fh
 GL
 Xk
 Eu
