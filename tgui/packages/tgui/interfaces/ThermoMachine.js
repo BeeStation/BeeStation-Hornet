@@ -31,14 +31,6 @@ export const ThermoMachine = (props, context) => {
             />
           }>
           <LabeledList>
-            <LabeledList.Item label="Setting">
-              <Button
-                icon={data.cooling ? 'cooling' : 'heating'}
-                content={data.cooling ? 'Cooling' : 'Heating'}
-                selected={data.cooling}
-                onClick={() => act('cooling')}
-              />
-            </LabeledList.Item>
             <LabeledList.Item label="Target Temperature">
               <NumberInput
                 animated

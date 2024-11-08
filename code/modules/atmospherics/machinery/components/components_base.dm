@@ -242,3 +242,129 @@
 
 /obj/machinery/atmospherics/components/return_analyzable_air()
 	return airs
+
+/**
+ * Handles machinery deconstruction and unsafe pressure release
+ */
+/obj/machinery/atmospherics/components/proc/crowbar_deconstruction_act(mob/living/user, obj/item/tool, internal_pressure = 0)
+	if(!panel_open)
+		balloon_alert(user, "open panel!")
+		return ITEM_INTERACT_SUCCESS
+
+	var/unsafe_wrenching = FALSE
+	var/filled_pipe = FALSE
+	var/datum/gas_mixture/environment_air = loc.return_air()
+
+	for(var/i in 1 to device_type)
+		var/datum/gas_mixture/inside_air = airs[i]
+		if(inside_air.total_moles() > 0 || internal_pressure)
+			filled_pipe = TRUE
+		if(!nodes[i] || (istype(nodes[i], /obj/machinery/atmospherics/components/unary/portables_connector) && !portable_device_connected(i)))
+			internal_pressure = internal_pressure > airs[i].return_pressure() ? internal_pressure : airs[i].return_pressure()
+
+	if(!filled_pipe)
+		default_deconstruction_crowbar(tool)
+		return ITEM_INTERACT_SUCCESS
+
+	to_chat(user, span_notice("You begin to unfasten \the [src]..."))
+
+	internal_pressure -= environment_air.return_pressure()
+
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		to_chat(user, span_warning("As you begin deconstructing \the [src] a gush of air blows in your face... maybe you should reconsider?"))
+		unsafe_wrenching = TRUE
+
+	if(!do_after(user, 2 SECONDS, src))
+		return
+	if(unsafe_wrenching)
+		unsafe_pressure_release(user, internal_pressure)
+	tool.play_tool_sound(src, 50)
+	deconstruct(TRUE)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/machinery/atmospherics/components/default_change_direction_wrench(mob/user, obj/item/I)
+	. = ..()
+	if(!.)
+		return FALSE
+	set_init_directions()
+	reconnect_nodes()
+	return TRUE
+
+/obj/machinery/atmospherics/components/proc/reconnect_nodes()
+	for(var/i in 1 to device_type)
+		var/obj/machinery/atmospherics/node = nodes[i]
+		if(node)
+			if(src in node.nodes)
+				node.disconnect(src)
+			nodes[i] = null
+		if(parents[i])
+			nullify_pipenet(parents[i])
+	for(var/i in 1 to device_type)
+		var/obj/machinery/atmospherics/node = nodes[i]
+		atmos_init()
+		node = nodes[i]
+		if(node)
+			node.atmos_init()
+			node.add_member(src)
+			update_parents()
+		SSair.add_to_rebuild_queue(src)
+
+/**
+ * Disconnects all nodes from ourselves, remove us from the node's nodes.
+ * Nullify our parent pipenet
+ */
+/obj/machinery/atmospherics/components/proc/disconnect_nodes()
+	for(var/i in 1 to device_type)
+		var/obj/machinery/atmospherics/node = nodes[i]
+		if(node)
+			if(src in node.nodes) //Only if it's actually connected. On-pipe version would is one-sided.
+				node.disconnect(src)
+			nodes[i] = null
+		if(parents[i])
+			nullify_pipenet(parents[i])
+
+/**
+ * Connects all nodes to ourselves, add us to the node's nodes.
+ * Calls atmos_init() on the node and on us.
+ */
+/obj/machinery/atmospherics/components/proc/connect_nodes()
+	atmos_init()
+	for(var/i in 1 to device_type)
+		var/obj/machinery/atmospherics/node = nodes[i]
+		if(node)
+			node.atmos_init()
+			node.add_member(src)
+	SSair.add_to_rebuild_queue(src)
+
+/**
+ * Easy way to toggle nodes connection and disconnection.
+ *
+ * Arguments:
+ * * disconnect - if TRUE, disconnects all nodes. If FALSE, connects all nodes.
+ */
+/obj/machinery/atmospherics/components/proc/change_nodes_connection(disconnect)
+	if(disconnect)
+		disconnect_nodes()
+		return
+	connect_nodes()
+
+/obj/machinery/atmospherics/components/update_layer()
+	layer = (showpipe ? initial(layer) : ABOVE_OPEN_TURF_LAYER) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE + (GLOB.pipe_colors_ordered[pipe_color] * 0.001)
+
+/**
+ * Handles air relocation to the pipenet/environment
+ */
+/obj/machinery/atmospherics/components/proc/relocate_airs(datum/gas_mixture/to_release)
+	var/turf/local_turf = get_turf(src)
+	for(var/i in 1 to device_type)
+		var/datum/gas_mixture/air = airs[i]
+		if(!nodes[i] || (istype(nodes[i], /obj/machinery/atmospherics/components/unary/portables_connector) && !portable_device_connected(i)))
+			if(!to_release)
+				to_release = air
+				continue
+			to_release.merge(air)
+			continue
+		var/datum/gas_mixture/parents_air = parents[i].air
+		parents_air.merge(air)
+	if(to_release)
+		local_turf.assume_air(to_release)
