@@ -19,6 +19,16 @@
 	/// Whether we are allowed to reconnect.
 	var/reconnecting = TRUE
 
+	/// Was this computer multitooled before. If so copy the list connected_sensors as it now maintain's its own sensors independent of the map loaded one's
+	var/was_multi_tooled = FALSE
+
+	/// list of all sensors[key is chamber id, value is id of air sensor linked to this chamber] monitered by this computer
+	var/list/connected_sensors
+
+/obj/machinery/computer/atmos_control/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/buffer)
+
 /// Reconnect only works for station based chambers.
 /obj/machinery/computer/atmos_control/proc/reconnect(mob/user)
 	if(!reconnecting)
@@ -45,19 +55,22 @@
 
 	return TRUE
 
-/obj/machinery/computer/atmos_control/multitool_act(mob/living/user, obj/item/multitool/multi_tool)
-	. = ..()
+REGISTER_BUFFER_HANDLER(/obj/machinery/air_sensor)
 
-	if(istype(multi_tool.buffer, /obj/machinery/air_sensor))
-		var/obj/machinery/air_sensor/sensor = multi_tool.buffer
-		//computers reference a global map loaded list of sensor's but as soon a user attempt's to edit it, make a copy of that list so other computers aren't affected
+DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
+	if(istype(buffer, /obj/machinery/computer/atmos_control))
+		to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+		var/obj/machinery/computer/atmos_control/sensor = buffer
 		if(!was_multi_tooled)
 			connected_sensors = connected_sensors.Copy()
 			was_multi_tooled = TRUE
-		//register the sensor's unique ID with its assositated chamber
-		connected_sensors[sensor.chamber_id] = sensor.id_tag
-		user.balloon_alert(user, "sensor connected to [src]")
-	return TRUE
+			//register the sensor's unique ID with its assositated chamber
+			connected_sensors[sensor.chamber_id] = sensor.id_tag
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+	else
+		return NONE
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/computer/atmos_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -72,7 +85,6 @@
 	data["maxOutput"] = MAX_OUTPUT_PRESSURE
 	data["control"] = control
 	data["reconnecting"] = reconnecting
-	data += return_atmos_handbooks()
 	return data
 
 /obj/machinery/computer/atmos_control/ui_data(mob/user)

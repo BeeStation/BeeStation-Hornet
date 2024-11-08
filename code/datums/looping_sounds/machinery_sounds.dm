@@ -89,3 +89,10 @@
 	falloff_exponent = 5
 	falloff_distance = 3
 	volume = 150
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/firealarm
+	mid_sounds = 'goon/sound/machinery/FireAlarm.ogg'
+	mid_length = 7 SECONDS
+	volume = 30

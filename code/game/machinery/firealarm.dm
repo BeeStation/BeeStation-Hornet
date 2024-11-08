@@ -50,7 +50,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	id_tag = assign_random_name()
 	if(building)
 		buildstage = FIRE_ALARM_BUILD_NO_CIRCUIT
-		set_panel_open(TRUE)
+		panel_open = TRUE
 	if(name == initial(name))
 		update_name()
 	my_area = get_area(src)
@@ -235,26 +235,51 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if(is_station_level(z))
 		update_appearance()
 
+/**
+ * Sounds the fire alarm and closes all firelocks in the area. Also tells the area to color the lights red.
+ *
+ * Arguments:
+ * * mob/user is the user that pulled the alarm.
+ */
 /obj/machinery/firealarm/proc/alarm(mob/user)
-	if(!is_operational || !COOLDOWN_FINISHED(src, last_alarm))
+	if(!is_operational)
 		return
-	COOLDOWN_START(src, last_alarm, FIREALARM_COOLDOWN)
-	var/area/A = get_area(src)
-	A.firealert(src)
-	playsound(loc, 'goon/sound/machinery/FireAlarm.ogg', 75)
-	update_appearance()
-	if(user)
-		log_game("[user] triggered a fire alarm at [COORD(src)]")
-	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 
+	if(my_area.fire)
+		return //area alarm already active
+	my_area.alarm_manager.send_alarm(ALARM_FIRE, my_area)
+	// This'll setup our visual effects, so we only need to worry about the alarm
+	for(var/obj/machinery/door/firedoor/firelock in my_area.firedoors)
+		firelock.activate(FIRELOCK_ALARM_TYPE_GENERIC)
+	if(user)
+		balloon_alert(user, "triggered alarm!")
+		user.log_message("triggered a fire alarm.", LOG_GAME)
+	my_area.fault_status = AREA_FAULT_MANUAL
+	my_area.fault_location = name
+	soundloop.start() //Manually pulled fire alarms will make the sound, rather than the doors.
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
+	update_use_power(ACTIVE_POWER_USE)
+
+/**
+ * Resets all firelocks in the area. Also tells the area to disable alarm lighting, if it was enabled.
+ *
+ * Arguments:
+ * * mob/user is the user that reset the alarm.
+ */
 /obj/machinery/firealarm/proc/reset(mob/user)
 	if(!is_operational)
 		return
-	var/area/A = get_area(src)
-	A.firereset(src)
-	update_appearance()
+	my_area.alarm_manager.clear_alarm(ALARM_FIRE, my_area)
+	// Clears all fire doors and their effects for now
+	// They'll reclose if there's a problem
+	for(var/obj/machinery/door/firedoor/firelock in my_area.firedoors)
+		firelock.crack_open()
 	if(user)
-		log_game("[user] reset a fire alarm at [COORD(src)]")
+		balloon_alert(user, "reset alarm")
+		user.log_message("reset a fire alarm.", LOG_GAME)
+	soundloop.stop()
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
+	update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/firealarm/proc/try_lock(mob/user, force_lock = FALSE)
 	if(allowed(user) || !user || force_lock)
@@ -321,15 +346,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		switch(buildstage)
 			if(2)
 				if(W.tool_behaviour == TOOL_MULTITOOL)
-					detecting = !detecting
-					if (src.detecting)
-						user.visible_message("[user] has reconnected [src]'s detecting unit!", "<span class='notice'>You reconnect [src]'s detecting unit.</span>")
-					else
-						user.visible_message("[user] has disconnected [src]'s detecting unit!", "<span class='notice'>You disconnect [src]'s detecting unit.</span>")
+					toggle_fire_detect(user)
 					return
 
 				else if(W.tool_behaviour == TOOL_WIRECUTTER)
-					buildstage = 1
+					buildstage = AIR_ALARM_BUILD_NO_WIRES
 					W.play_tool_sound(src)
 					new /obj/item/stack/cable_coil(user.loc, 5)
 					to_chat(user, "<span class='notice'>You cut the wires from \the [src].</span>")
@@ -350,7 +371,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 						to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 					else
 						coil.use(5)
-						buildstage = 2
+						buildstage = AIR_ALARM_BUILD_COMPLETE
 						to_chat(user, "<span class='notice'>You wire \the [src].</span>")
 						update_appearance()
 					return
@@ -366,14 +387,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 							else
 								to_chat(user, "<span class='notice'>You pry out the circuit.</span>")
 								new /obj/item/electronics/firealarm(user.loc)
-							buildstage = 0
+							buildstage = FIRE_ALARM_BUILD_NO_WIRES
 							update_appearance()
 					return
 			if(0)
 				if(istype(W, /obj/item/electronics/firealarm))
 					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
 					qdel(W)
-					buildstage = 1
+					buildstage = FIRE_ALARM_BUILD_NO_WIRES
 					update_appearance()
 					return
 
@@ -383,7 +404,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 						return
 					user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 					"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
-					buildstage = 1
+					buildstage = AIR_ALARM_BUILD_NO_WIRES
 					update_appearance()
 					return
 
@@ -398,10 +419,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 	return ..()
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
-
 /obj/machinery/firealarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
+	if((buildstage == FIRE_ALARM_BUILD_NO_CIRCUIT) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
 		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
 	return FALSE
 
@@ -410,7 +429,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 		if(RCD_UPGRADE_SIMPLE_CIRCUITS)
 			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
-			buildstage = 1
+			buildstage = FIRE_ALARM_BUILD_NO_WIRES
 			update_appearance()
 			return TRUE
 	return FALSE
@@ -418,7 +437,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.) //damage received
-		if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != 0)
+		if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)
 			if(prob(33))
 				alarm()
 
@@ -428,29 +447,51 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 	..()
 
 /obj/machinery/firealarm/atom_break(damage_flag)
-	if(buildstage == 0) //can't break the electronics if there isn't any inside.
+	if(buildstage == FIRE_ALARM_BUILD_NO_CIRCUIT) //can't break the electronics if there isn't any inside.
 		return
-	. = ..()
-	if(.)
-		LAZYREMOVE(myarea.firealarms, src)
+	return ..()
+
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		new /obj/item/stack/sheet/iron(loc, 1)
-		if(!(machine_stat & BROKEN))
-			var/obj/item/I = new /obj/item/electronics/firealarm(loc)
-			if(!disassembled)
-				I.update_integrity(I.max_integrity * 0.5)
-		new /obj/item/stack/cable_coil(loc, 3)
+		if(buildstage > FIRE_ALARM_BUILD_NO_CIRCUIT)
+		var/obj/item/item = new /obj/item/electronics/firealarm(loc)
+		if(!disassembled)
+			item.update_integrity(item.max_integrity * 0.5)
+		if(buildstage > FIRE_ALARM_BUILD_NO_WIRES)
+			new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(fire == !!light_power)
-		return  // do nothing if we're already active
-	if(fire)
-		set_light(l_power = 0.8)
+
+// Allows users to examine the state of the thermal sensor
+/obj/machinery/firealarm/examine(mob/user)
+	. = ..()
+	if((my_area?.fire || LAZYLEN(my_area?.active_firelocks)))
+		. += "The local area hazard light is flashing."
+		. += "The fault location display is [my_area.fault_location] ([my_area.fault_status == AREA_FAULT_AUTOMATIC ? "Automatic Detection" : "Manual Trigger"])."
+		if(is_station_level(z))
+			. += "The station security alert level is [SSsecurity_level.get_current_level_as_text()]."
+		. += "<b>Left-Click</b> to activate all firelocks in this area."
+		. += "<b>Right-Click</b> to reset firelocks in this area."
 	else
-		set_light(l_power = 0)
+		if(is_station_level(z))
+			. += "The station security alert level is [SSsecurity_level.get_current_level_as_text()]."
+		. += "The local area thermal detection light is [my_area.fire_detect ? "lit" : "unlit"]."
+		. += "<b>Left-Click</b> to activate all firelocks in this area."
+
+/obj/machinery/firealarm/proc/toggle_fire_detect(mob/user)
+	my_area.fire_detect = !my_area.fire_detect
+	for(var/obj/machinery/firealarm/fire_panel in my_area.firealarms)
+		fire_panel.update_icon()
+	// Used to force all the firelocks to update, if the zone is not manually activated
+	if (my_area.fault_status != AREA_FAULT_MANUAL)
+		reset() // Don't send user to prevent double balloon_alert() and the action is already logged in this proc.
+	if (user)
+		balloon_alert(user, "thermal sensors [my_area.fire_detect ? "enabled" : "disabled"]")
+		user.log_message("[ my_area.fire_detect ? "enabled" : "disabled" ] firelock sensors using [src].", LOG_GAME)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 
 /*
  * Return of Party button
@@ -483,5 +524,64 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 	if (!party_overlay)
 		party_overlay = iconstate2appearance('icons/turf/areas.dmi', "party")
 	A.add_overlay(party_overlay)
+
+/////////////////////// CIRCUITS //////////////////////////////////////
+
+/obj/item/circuit_component/firealarm
+	display_name = "Fire Alarm"
+	desc = "Allows you to interface with the Fire Alarm."
+
+	var/datum/port/input/alarm_trigger
+	var/datum/port/input/reset_trigger
+
+	/// Returns a boolean value of 0 or 1 if the fire alarm is on or not.
+	var/datum/port/output/is_on
+	/// Returns when the alarm is turned on
+	var/datum/port/output/triggered
+	/// Returns when the alarm is turned off
+	var/datum/port/output/reset
+
+	var/obj/machinery/firealarm/attached_alarm
+
+/obj/item/circuit_component/firealarm/populate_ports()
+	alarm_trigger = add_input_port("Set", PORT_TYPE_SIGNAL)
+	reset_trigger = add_input_port("Reset", PORT_TYPE_SIGNAL)
+
+	is_on = add_output_port("Is On", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
+	reset = add_output_port("Reset", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/firealarm/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/firealarm))
+		attached_alarm = parent
+		RegisterSignal(parent, COMSIG_FIREALARM_ON_TRIGGER, PROC_REF(on_firealarm_triggered))
+		RegisterSignal(parent, COMSIG_FIREALARM_ON_RESET, PROC_REF(on_firealarm_reset))
+
+/obj/item/circuit_component/firealarm/unregister_usb_parent(atom/movable/parent)
+	attached_alarm = null
+	UnregisterSignal(parent, COMSIG_FIREALARM_ON_TRIGGER)
+	UnregisterSignal(parent, COMSIG_FIREALARM_ON_RESET)
+	return ..()
+
+/obj/item/circuit_component/firealarm/proc/on_firealarm_triggered(datum/source)
+	SIGNAL_HANDLER
+	is_on.set_output(1)
+	triggered.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/firealarm/proc/on_firealarm_reset(datum/source)
+	SIGNAL_HANDLER
+	is_on.set_output(0)
+	reset.set_output(COMPONENT_SIGNAL)
+
+
+/obj/item/circuit_component/firealarm/input_received(datum/port/input/port)
+	if(COMPONENT_TRIGGERED_BY(alarm_trigger, port))
+		attached_alarm?.alarm()
+
+	if(COMPONENT_TRIGGERED_BY(reset_trigger, port))
+		attached_alarm?.reset()
+
+
 
 #undef FIREALARM_COOLDOWN

@@ -1,37 +1,67 @@
-
 /obj/machinery/air_sensor/plasma_tank
 	name = "plasma tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_PLASMA
-/obj/machinery/air_sensor/toxins_mixing_tank
-	name = "toxins mixing gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB
+	chamber_id = ATMOS_GAS_MONITOR_PLAS
+
 /obj/machinery/air_sensor/oxygen_tank
 	name = "oxygen tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_O2
+	chamber_id = ATMOS_GAS_MONITOR_O2
+
 /obj/machinery/air_sensor/nitrogen_tank
 	name = "nitrogen tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_N2
+	chamber_id = ATMOS_GAS_MONITOR_N2
+
 /obj/machinery/air_sensor/mix_tank
 	name = "mix tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_MIX
+	chamber_id = ATMOS_GAS_MONITOR_MIX
+
 /obj/machinery/air_sensor/nitrous_tank
 	name = "nitrous oxide tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_N2O
+	chamber_id = ATMOS_GAS_MONITOR_N2O
+
 /obj/machinery/air_sensor/air_tank
 	name = "air mix tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_AIR
+	chamber_id = ATMOS_GAS_MONITOR_AIR
+
 /obj/machinery/air_sensor/carbon_tank
 	name = "carbon dioxide tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_CO2
+	chamber_id = ATMOS_GAS_MONITOR_CO2
+
+/obj/machinery/air_sensor/bz_tank
+	name = "bz tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_BZ
+
+/obj/machinery/air_sensor/hypernoblium_tank
+	name = "hypernoblium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
+
+/obj/machinery/air_sensor/nitryl_tank
+	name = "nitryl tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_NITRYL
+
+/obj/machinery/air_sensor/pluoxium_tank
+	name = "pluoxium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_PLUOXIUM
+
+/obj/machinery/air_sensor/tritium_tank
+	name = "tritium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_TRITIUM
+
+/obj/machinery/air_sensor/water_vapor_tank
+	name = "water vapor tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_H2O
+
 /obj/machinery/air_sensor/incinerator_tank
 	name = "incinerator chamber gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_INCINERATOR
-/obj/machinery/air_sensor/toxins_waste
-	name = "toxins waste sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE
-/obj/machinery/air_sensor/sm_core
-	name = "supermatter gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM
-/obj/machinery/air_sensor/sm_waste
-	name = "supermatter waste sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM_WASTE
+	chamber_id = ATMOS_GAS_MONITOR_INCINERATOR
+
+/obj/machinery/air_sensor/ordnance_burn_chamber
+	name = "ordnance burn chamber gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_ORDNANCE_BURN
+
+/obj/machinery/air_sensor/ordnance_freezer_chamber
+	name = "ordnance freezer chamber gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_ORDNANCE_FREEZER
+
+/obj/machinery/air_sensor/engine_chamber
+	name = "supermatter engine chamber gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_ENGINE

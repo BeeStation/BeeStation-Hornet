@@ -193,10 +193,10 @@
 	var/new_power_usage = 0
 	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
 		new_power_usage = idle_power_usage + idle_power_usage * length(filter_types)
-		update_use_power(IDLE_POWER_USE)
+		active_power_usage = IDLE_POWER_USE
 	else
 		new_power_usage = active_power_usage
-		update_use_power(ACTIVE_POWER_USE)
+		active_power_usage = ACTIVE_POWER_USE
 	if(widenet)
 		new_power_usage += new_power_usage * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
 	update_mode_power_usage(scrubbing == ATMOS_DIRECTION_SCRUBBING ? IDLE_POWER_USE : ACTIVE_POWER_USE, new_power_usage)
@@ -293,20 +293,13 @@
 	update_parents()
 	return TRUE
 
-//There is no easy way for an object to be notified of changes to atmos can pass flags
-//	So we check every machinery process (2 seconds)
-/obj/machinery/atmospherics/components/unary/vent_scrubber/process()
-	if(widenet)
-		check_turfs()
-
 //we populate a list of turfs with nonatmos-blocked cardinal turfs AND
 //	diagonal turfs that can share atmos with *both* of the cardinal turfs
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		adjacent_turfs = T.get_atmos_adjacent_turfs(alldir = 1)
+	var/turf/local_turf = get_turf(src)
+	adjacent_turfs = local_turf.get_atmos_adjacent_turfs(alldir = TRUE)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/power_change()
 	. = ..()

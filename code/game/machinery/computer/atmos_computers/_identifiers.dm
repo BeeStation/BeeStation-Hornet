@@ -3,23 +3,25 @@
 // They last three adds _sensor, _in, and _out respectively to the id_tag variable.
 // Dont put underscores here, we use them as delimiters.
 
-#define ATMOS_GAS_MONITOR_O2 "o2"
-#define ATMOS_GAS_MONITOR_PLAS "plas"
-#define ATMOS_GAS_MONITOR_AIR "air"
+#define ATMOS_GAS_MONITOR_O2 GAS_O2
+#define ATMOS_GAS_MONITOR_PLAS GAS_PLASMA
+#define ATMOS_GAS_MONITOR_AIR GAS_AIR
 #define ATMOS_GAS_MONITOR_MIX "mix"
-#define ATMOS_GAS_MONITOR_N2O "n2o"
-#define ATMOS_GAS_MONITOR_N2 "n2"
-#define ATMOS_GAS_MONITOR_CO2 "co2"
-#define ATMOS_GAS_MONITOR_BZ "bz"
-#define ATMOS_GAS_MONITOR_HYPERNOBLIUM "hypernoblium"
-#define ATMOS_GAS_MONITOR_NITRYL "nitryl"
-#define ATMOS_GAS_MONITOR_PLUOXIUM "pluoxium"
-#define ATMOS_GAS_MONITOR_TRITIUM "tritium"
-#define ATMOS_GAS_MONITOR_H2O "h2o"
+#define ATMOS_GAS_MONITOR_N2O GAS_N2O
+#define ATMOS_GAS_MONITOR_N2 GAS_N2
+#define ATMOS_GAS_MONITOR_CO2 GAS_CO2
+#define ATMOS_GAS_MONITOR_BZ GAS_BZ
+#define ATMOS_GAS_MONITOR_H2 GAS_HYDROGEN
+#define ATMOS_GAS_MONITOR_HYPERNOBLIUM GAS_HYPER_NOBLIUM
+#define ATMOS_GAS_MONITOR_PLUOXIUM GAS_PLUOXIUM
+#define ATMOS_GAS_MONITOR_TRITIUM GAS_TRITIUM
+#define ATMOS_GAS_MONITOR_H2O GAS_WATER_VAPOR
 #define ATMOS_GAS_MONITOR_INCINERATOR "incinerator"
-#define ATMOS_GAS_MONITOR_ORDNANCE_LAB "ordnancelab"
+#define ATMOS_GAS_MONITOR_ORDNANCE_BURN "ordnanceburn"
+#define ATMOS_GAS_MONITOR_ORDNANCE_FREEZER "ordnancefreezer"
 #define ATMOS_GAS_MONITOR_DISTRO "distro"
 #define ATMOS_GAS_MONITOR_WASTE "waste"
+#define ATMOS_GAS_MONITOR_ENGINE "engine"
 
 // Human-readble names of these funny tags.
 GLOBAL_LIST_INIT(station_gas_chambers, list(
@@ -40,4 +42,5 @@ GLOBAL_LIST_INIT(station_gas_chambers, list(
 	ATMOS_GAS_MONITOR_ORDNANCE_LAB = "Ordnance Chamber",
 	ATMOS_GAS_MONITOR_DISTRO = "Distribution Loop",
 	ATMOS_GAS_MONITOR_WASTE = "Waste Loop",
+	ATMOS_GAS_MONITOR_ENGINE = "Supermatter Engine Chamber",
 ))

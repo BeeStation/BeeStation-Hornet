@@ -59,7 +59,7 @@
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
-	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
+	heat_capacity = 7500 * ((calculated_bin_rating - 1) ** 2)
 	min_temperature = T20C
 	max_temperature = T20C
 	if(cooling)
@@ -94,7 +94,7 @@
 	. = ..()
 	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C-target_temperature)*-1]C).</span>"
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity/5000)*100]%</b>.</span>"
+		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity/7500)*100]%</b>.</span>"
 		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.</span>"
 
 /obj/machinery/atmospherics/components/unary/thermomachine/AltClick(mob/living/user)
@@ -112,28 +112,40 @@
 /// Performs heat calculation for the freezer.
 /// We just equalize the gasmix with an object at temp = var/target_temperature and heat cap = var/heat_capacity
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
-	..()
-	if(!is_operational || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
+	if(!on)
 		return
-	else if(is_operational && was_on == TRUE)  //if it was switched on before it turned off due to no power, turn the machine back on
-		on = TRUE
-	var/datum/gas_mixture/air_contents = airs[1]
 
-	var/air_heat_capacity = air_contents.heat_capacity()
-	var/combined_heat_capacity = heat_capacity + air_heat_capacity
-	var/old_temperature = air_contents.return_temperature()
+	var/turf/local_turf = get_turf(src)
 
-	if(combined_heat_capacity > 0)
-		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.return_temperature()
-		air_contents.temperature = (combined_energy/combined_heat_capacity)
+	if(!is_operational || !local_turf)
+		on = FALSE
+		update_appearance()
+		return
 
-	var/temperature_delta = abs(old_temperature - air_contents.return_temperature())
-	if(temperature_delta > 1)
-		active_power_usage = (heat_capacity * temperature_delta) / 10 + idle_power_usage
-		update_parents()
-	else
-		active_power_usage = idle_power_usage
-	return TRUE //kills atmos process
+	// The gas we want to cool/heat
+	var/datum/gas_mixture/port = airs[1]
+
+	if(!port.total_moles()) // Nothing to cool? go home lad
+		return
+
+	var/port_capacity = port.heat_capacity()
+
+	// The difference between target and what we need to heat/cool. Positive if heating, negative if cooling.
+	var/temperature_target_delta = target_temperature - port.temperature
+
+	// We perfectly can do W1+W2 / C1+C2 here but this lets us count the power easily.
+	var/heat_amount = CALCULATE_CONDUCTION_ENERGY(temperature_target_delta, port_capacity, heat_capacity)
+
+	port.temperature = max(((port.temperature * port_capacity) + heat_amount) / port_capacity, TCMB)
+
+	heat_amount = min(abs(heat_amount), 1e8) * THERMOMACHINE_POWER_CONVERSION
+
+	// This produces a nice curve that scales decently well for really hot stuff, and is nice to not fusion. It'll do
+	var/power_usage = idle_power_usage + (heat_amount * 0.05) ** (1.05 - (5e7 * 0.16 / max(heat_amount, 5e7)))
+
+	active_power_usage = power_usage
+	update_parents()
+
 
 /obj/machinery/atmospherics/components/unary/thermomachine/attackby(obj/item/I, mob/user, params)
 	if(!on)
