@@ -9,14 +9,14 @@
 		message_admins("Debug mode enabled, call not blocked. Please ask your coders to review this round's logs.")
 		log_world("UAH: [href]")
 		return TRUE
-	log_admin_private("[key_name(usr)] clicked an href with [msg] authorization key! [href]")
+	log_admin_private("[key_name(src.owner)] clicked an href with [msg] authorization key! [href]")
 
 /datum/admins/Topic(href, href_list)
 	..()
 
 	if(usr.client != src.owner || !check_rights(0))
 		message_admins("[usr.key] has attempted to override the admin panel!")
-		log_admin("[key_name(usr)] tried to use the admin panel without authorization.")
+		log_admin("[key_name(src.owner)] tried to use the admin panel without authorization.")
 		return
 
 	if(!CheckAdminHref(href, href_list))
@@ -70,106 +70,106 @@
 					return
 				if(src.makeTraitors(maxCount))
 					message_admins("[key_name_admin(usr)] created [maxCount] traitor(s).")
-					log_admin("[key_name(usr)] created [maxCount] traitor(s).")
+					log_admin("[key_name(src.owner)] created [maxCount] traitor(s).")
 				else
 					message_admins("[key_name_admin(usr)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create [maxCount] traitor(s).")
+					log_admin("[key_name(src.owner)] failed to create [maxCount] traitor(s).")
 			if("changelings")
 				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
 				if (!maxCount)
 					return
 				if(src.makeChangelings(maxCount))
-					message_admins("[key_name(usr)] created [maxCount] changelings.")
-					log_admin("[key_name(usr)] created [maxCount] changelings.")
+					message_admins("[key_name(src.owner)] created [maxCount] changelings.")
+					log_admin("[key_name(src.owner)] created [maxCount] changelings.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create [maxCount] changelings.")
+					log_admin("[key_name(src.owner)] failed to create [maxCount] changelings.")
 			if("revs")
 				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
 				if (!maxCount)
 					return
 				if(src.makeRevs(maxCount))
-					message_admins("[key_name(usr)] started a revolution with [maxCount] freedom fighters.")
-					log_admin("[key_name(usr)] started a [maxCount] freedom fighters.")
+					message_admins("[key_name(src.owner)] started a revolution with [maxCount] freedom fighters.")
+					log_admin("[key_name(src.owner)] started a [maxCount] freedom fighters.")
 				else
 					message_admins("[key_name_admin(usr)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to start a revolution with [maxCount] freedom fighters.")
+					log_admin("[key_name(src.owner)] failed to start a revolution with [maxCount] freedom fighters.")
 			if("cult")
 				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
 				if (!maxCount)
 					return
 				if(src.makeCult(maxCount))
-					message_admins("[key_name(usr)] started a cult with [maxCount] cultists.")
-					log_admin("[key_name(usr)] started a cult with [maxCount] cultists.")
+					message_admins("[key_name(src.owner)] started a cult with [maxCount] cultists.")
+					log_admin("[key_name(src.owner)] started a cult with [maxCount] cultists.")
 				else
 					message_admins("[key_name_admin(usr)] tried to start a cult with [maxCount] cultists. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to start a cult with [maxCount] cultists.")
+					log_admin("[key_name(src.owner)] failed to start a cult with [maxCount] cultists.")
 			if("wizard")
-				message_admins("[key_name(usr)] is creating a wizard...")
+				message_admins("[key_name(src.owner)] is creating a wizard...")
 				if(src.makeWizard())
-					message_admins("[key_name(usr)] created a wizard.")
-					log_admin("[key_name(usr)] created a wizard.")
+					message_admins("[key_name(src.owner)] created a wizard.")
+					log_admin("[key_name(src.owner)] created a wizard.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create a wizard. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create a wizard.")
+					log_admin("[key_name(src.owner)] failed to create a wizard.")
 			if("nukeops")
-				message_admins("[key_name(usr)] is creating a nuke team...")
+				message_admins("[key_name(src.owner)] is creating a nuke team...")
 				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
 				if (!maxCount)
 					message_admins("[key_name_admin(usr)] has cancelled the creation of a Nuke team.")
 					return
 				if(src.makeNukeTeam(maxCount))
-					message_admins("[key_name(usr)] created a nuke team with [maxCount] operatives")
-					log_admin("[key_name(usr)] created a nuke team with [maxCount] operatives")
+					message_admins("[key_name(src.owner)] created a nuke team with [maxCount] operatives")
+					log_admin("[key_name(src.owner)] created a nuke team with [maxCount] operatives")
 				else
 					message_admins("[key_name_admin(usr)] tried to create a nuke team with [maxCount] operatives Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(usr)] failed to create a nuke team with [maxCount] operatives.")
+					log_admin("[key_name(src.owner)] failed to create a nuke team with [maxCount] operatives.")
 			if("ninja")
-				message_admins("[key_name(usr)] spawned a ninja.")
-				log_admin("[key_name(usr)] spawned a ninja.")
+				message_admins("[key_name(src.owner)] spawned a ninja.")
+				log_admin("[key_name(src.owner)] spawned a ninja.")
 				src.makeSpaceNinja()
 			if("aliens")
-				message_admins("[key_name(usr)] started an alien infestation.")
-				log_admin("[key_name(usr)] started an alien infestation.")
+				message_admins("[key_name(src.owner)] started an alien infestation.")
+				log_admin("[key_name(src.owner)] started an alien infestation.")
 				src.makeAliens()
 			if("deathsquad")
-				message_admins("[key_name(usr)] is creating a death squad...")
+				message_admins("[key_name(src.owner)] is creating a death squad...")
 				if(src.makeDeathsquad())
-					message_admins("[key_name(usr)] created a death squad.")
-					log_admin("[key_name(usr)] created a death squad.")
+					message_admins("[key_name(src.owner)] created a death squad.")
+					log_admin("[key_name(src.owner)] created a death squad.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create a death squad. Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(usr)] failed to create a death squad.")
+					log_admin("[key_name(src.owner)] failed to create a death squad.")
 			if("blob")
 				var/strength = input("Set Blob Resource Gain Rate","Set Resource Rate",1) as num|null
 				if(!strength)
 					return
-				message_admins("[key_name(usr)] spawned a blob with base resource gain [strength].")
-				log_admin("[key_name(usr)] spawned a blob with base resource gain [strength].")
+				message_admins("[key_name(src.owner)] spawned a blob with base resource gain [strength].")
+				log_admin("[key_name(src.owner)] spawned a blob with base resource gain [strength].")
 				new/datum/round_event/ghost_role/blob(TRUE, strength)
 			if("centcom")
-				message_admins("[key_name(usr)] is creating a CentCom response team...")
+				message_admins("[key_name(src.owner)] is creating a CentCom response team...")
 				if(src.makeEmergencyresponseteam())
-					message_admins("[key_name(usr)] created a CentCom response team.")
-					log_admin("[key_name(usr)] created a CentCom response team.")
+					message_admins("[key_name(src.owner)] created a CentCom response team.")
+					log_admin("[key_name(src.owner)] created a CentCom response team.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(usr)] failed to create a CentCom response team.")
+					log_admin("[key_name(src.owner)] failed to create a CentCom response team.")
 			if("abductors")
-				message_admins("[key_name(usr)] is creating an abductor team...")
+				message_admins("[key_name(src.owner)] is creating an abductor team...")
 				if(src.makeAbductorTeam())
-					message_admins("[key_name(usr)] created an abductor team.")
-					log_admin("[key_name(usr)] created an abductor team.")
+					message_admins("[key_name(src.owner)] created an abductor team.")
+					log_admin("[key_name(src.owner)] created an abductor team.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create an abductor team. Unfortunately there were not enough candidates available.")
-					log_admin("[key_name(usr)] failed to create an abductor team.")
+					log_admin("[key_name(src.owner)] failed to create an abductor team.")
 			if("revenant")
 				if(src.makeRevenant())
-					message_admins("[key_name(usr)] created a revenant.")
-					log_admin("[key_name(usr)] created a revenant.")
+					message_admins("[key_name(src.owner)] created a revenant.")
+					log_admin("[key_name(src.owner)] created a revenant.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create a revenant. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create a revenant.")
+					log_admin("[key_name(src.owner)] failed to create a revenant.")
 
 	else if(href_list["forceevent"])
 		if(!check_rights(R_FUN))
@@ -192,7 +192,7 @@
 				event.on_admin_trigger()
 				event.processing = TRUE
 			message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])")
-			log_admin("[key_name(usr)] has triggered an event. ([E.name])")
+			log_admin("[key_name(src.owner)] has triggered an event. ([E.name])")
 		return
 
 	else if(href_list["editrightsbrowser"])
@@ -232,8 +232,8 @@
 		var/added_rule = input(usr,"What ruleset do you want to force? This will bypass threat level and population restrictions.", "Rigging Roundstart", null) as null|anything in roundstart_rules
 		if (added_rule)
 			GLOB.dynamic_forced_roundstart_ruleset += roundstart_rules[added_rule]
-			log_admin("[key_name(usr)] set [added_rule] to be a forced roundstart ruleset.")
-			message_admins("[key_name(usr)] set [added_rule] to be a forced roundstart ruleset.", 1)
+			log_admin("[key_name(src.owner)] set [added_rule] to be a forced roundstart ruleset.")
+			message_admins("[key_name(src.owner)] set [added_rule] to be a forced roundstart ruleset.", 1)
 			Game()
 
 	else if(href_list["f_dynamic_roundstart_clear"])
@@ -241,8 +241,8 @@
 			return
 		GLOB.dynamic_forced_roundstart_ruleset = list()
 		Game()
-		log_admin("[key_name(usr)] cleared the rigged roundstart rulesets. The mode will pick them as normal.")
-		message_admins("[key_name(usr)] cleared the rigged roundstart rulesets. The mode will pick them as normal.", 1)
+		log_admin("[key_name(src.owner)] cleared the rigged roundstart rulesets. The mode will pick them as normal.")
+		message_admins("[key_name(src.owner)] cleared the rigged roundstart rulesets. The mode will pick them as normal.", 1)
 
 	else if(href_list["f_dynamic_roundstart_remove"])
 		if(!check_rights(R_ADMIN))
@@ -250,8 +250,8 @@
 		var/datum/dynamic_ruleset/roundstart/rule = locate(href_list["f_dynamic_roundstart_remove"])
 		GLOB.dynamic_forced_roundstart_ruleset -= rule
 		Game()
-		log_admin("[key_name(usr)] removed [rule] from the forced roundstart rulesets.")
-		message_admins("[key_name(usr)] removed [rule] from the forced roundstart rulesets.", 1)
+		log_admin("[key_name(src.owner)] removed [rule] from the forced roundstart rulesets.")
+		message_admins("[key_name(src.owner)] removed [rule] from the forced roundstart rulesets.", 1)
 
 	else if(href_list["f_dynamic_latejoin"])
 		if(!check_rights(R_ADMIN))
@@ -269,8 +269,8 @@
 		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in latejoin_rules
 		if (added_rule)
 			mode.forced_latejoin_rule = latejoin_rules[added_rule]
-			log_admin("[key_name(usr)] set [added_rule] to proc on the next latejoin.")
-			message_admins("[key_name(usr)] set [added_rule] to proc on the next latejoin.", 1)
+			log_admin("[key_name(src.owner)] set [added_rule] to proc on the next latejoin.")
+			message_admins("[key_name(src.owner)] set [added_rule] to proc on the next latejoin.", 1)
 			Game()
 
 	else if(href_list["f_dynamic_latejoin_clear"])
@@ -280,8 +280,8 @@
 			var/datum/game_mode/dynamic/mode = SSticker.mode
 			mode.forced_latejoin_rule = null
 			Game()
-			log_admin("[key_name(usr)] cleared the forced latejoin ruleset.")
-			message_admins("[key_name(usr)] cleared the forced latejoin ruleset.", 1)
+			log_admin("[key_name(src.owner)] cleared the forced latejoin ruleset.")
+			message_admins("[key_name(src.owner)] cleared the forced latejoin ruleset.", 1)
 
 	else if(href_list["f_dynamic_midround"])
 		if(!check_rights(R_ADMIN))
@@ -298,8 +298,8 @@
 			midround_rules[newrule.name] = rule
 		var/added_rule = input(usr,"What ruleset do you want to force right now? This will bypass threat level and population restrictions.", "Execute Ruleset", null) as null|anything in midround_rules
 		if (added_rule)
-			log_admin("[key_name(usr)] executed the [added_rule] ruleset.")
-			message_admins("[key_name(usr)] executed the [added_rule] ruleset.", 1)
+			log_admin("[key_name(src.owner)] executed the [added_rule] ruleset.")
+			message_admins("[key_name(src.owner)] executed the [added_rule] ruleset.", 1)
 			mode.picking_specific_rule(midround_rules[added_rule],1)
 
 	else if (href_list["f_dynamic_options"])
@@ -321,8 +321,8 @@
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
-		log_admin("[key_name(usr)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
-		message_admins("[key_name(usr)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
+		log_admin("[key_name(src.owner)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
+		message_admins("[key_name(src.owner)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
 		dynamic_mode_options(usr)
 
 	else if(href_list["f_dynamic_no_stacking"])
@@ -333,8 +333,8 @@
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
-		log_admin("[key_name(usr)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
-		message_admins("[key_name(usr)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
+		log_admin("[key_name(src.owner)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
+		message_admins("[key_name(src.owner)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
 		dynamic_mode_options(usr)
 
 	else if(href_list["f_dynamic_stacking_limit"])
@@ -345,8 +345,8 @@
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
-		log_admin("[key_name(usr)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
-		message_admins("[key_name(usr)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
+		log_admin("[key_name(src.owner)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
+		message_admins("[key_name(src.owner)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
 		dynamic_mode_options(usr)
 
 	else if(href_list["f_dynamic_forced_threat"])
@@ -364,8 +364,8 @@
 			return alert(usr, "The value must be be under 100.", null, null, null, null)
 		GLOB.dynamic_forced_threat_level = new_value
 
-		log_admin("[key_name(usr)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
-		message_admins("[key_name(usr)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
+		log_admin("[key_name(src.owner)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
+		message_admins("[key_name(src.owner)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
 		dynamic_mode_options(usr)
 
 	else if(href_list["call_shuttle"])
@@ -378,7 +378,7 @@
 				if(EMERGENCY_AT_LEAST_DOCKED)
 					return
 				SSshuttle.emergency.request()
-				log_admin("[key_name(usr)] called the Emergency Shuttle.")
+				log_admin("[key_name(src.owner)] called the Emergency Shuttle.")
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station.</span>")
 
 			if("2")
@@ -387,11 +387,11 @@
 				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_CALL)
 						SSshuttle.emergency.cancel()
-						log_admin("[key_name(usr)] sent the Emergency Shuttle back.")
+						log_admin("[key_name(src.owner)] sent the Emergency Shuttle back.")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] sent the Emergency Shuttle back.</span>")
 					else
 						SSshuttle.emergency.cancel()
-						log_admin("[key_name(usr)] called the Emergency Shuttle.")
+						log_admin("[key_name(src.owner)] called the Emergency Shuttle.")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station.</span>")
 
 
@@ -404,7 +404,7 @@
 		if(!timer)
 			return
 		SSshuttle.emergency.setTimer(timer*10)
-		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds.")
+		log_admin("[key_name(src.owner)] edited the Emergency Shuttle's timeleft to [timer] seconds.")
 		minor_announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds.</span>")
 	else if(href_list["trigger_centcom_recall"])
@@ -509,7 +509,7 @@
 			if("Yes")
 				delmob = TRUE
 
-		log_admin("[key_name(usr)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]")
+		log_admin("[key_name(src.owner)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]</span>")
 		switch(href_list["simplemake"])
 			if("observer")
@@ -583,7 +583,7 @@
 				to_chat(usr, "<span class='danger'>Error: [M] no longer has a client!</span>")
 				return
 			to_chat(M, "<span class='danger'>You have been kicked from the server by [usr.client.holder.fakekey ? "an Administrator" : "[usr.client.key]"].</span>")
-			log_admin("[key_name(usr)] kicked [key_name(M)].")
+			log_admin("[key_name(src.owner)] kicked [key_name(M)].")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] kicked [key_name_admin(M)].</span>")
 			qdel(M.client)
 
@@ -768,7 +768,7 @@
 		GLOB.master_mode = href_list["c_mode2"]
 		//Disable presetup so their gamemode gets loaded.
 		SSticker.pre_setup_completed = FALSE
-		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
+		log_admin("[key_name(src.owner)] set the mode as [GLOB.master_mode].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='adminnotice'><b>The mode is now: [GLOB.master_mode]</b></span>")
 		Game() // updates the main game menu
@@ -783,7 +783,7 @@
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		GLOB.secret_force_mode = href_list["f_secret2"]
-		log_admin("[key_name(usr)] set the forced secret mode as [GLOB.secret_force_mode].")
+		log_admin("[key_name(src.owner)] set the forced secret mode as [GLOB.secret_force_mode].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>")
 		Game() // updates the main game menu
 		HandleFSecret()
@@ -797,7 +797,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
 
-		log_admin("[key_name(usr)] attempting to monkeyize [key_name(H)].")
+		log_admin("[key_name(src.owner)] attempting to monkeyize [key_name(H)].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to monkeyize [key_name_admin(H)].</span>")
 		H.monkeyize()
 
@@ -810,7 +810,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/monkey.")
 			return
 
-		log_admin("[key_name(usr)] attempting to humanize [key_name(Mo)].")
+		log_admin("[key_name(src.owner)] attempting to humanize [key_name(Mo)].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to humanize [key_name_admin(Mo)].</span>")
 		Mo.humanize()
 
@@ -823,7 +823,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon.")
 			return
 
-		log_admin("[key_name(usr)] attempting to corgize [key_name(C)].")
+		log_admin("[key_name(src.owner)] attempting to corgize [key_name(C)].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to corgize [key_name_admin(C)].</span>")
 		C.corgize()
 
@@ -841,7 +841,7 @@
 			return
 		M.say(speech, forced = "admin speech")
 		speech = sanitize(speech) // Nah, we don't trust them
-		log_admin("[key_name(usr)] forced [key_name(M)] to say: [speech]")
+		log_admin("[key_name(src.owner)] forced [key_name(M)] to say: [speech]")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]</span>")
 
 	else if(href_list["sendtoprison"])
@@ -862,7 +862,7 @@
 		M.forceMove(pick(GLOB.prisonwarp))
 		to_chat(M, "<span class='adminnotice'>You have been sent to Prison!</span>")
 
-		log_admin("[key_name(usr)] has sent [key_name(M)] to Prison!")
+		log_admin("[key_name(src.owner)] has sent [key_name(M)] to Prison!")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to Prison!")
 
 	else if(href_list["sendbacktolobby"])
@@ -882,8 +882,8 @@
 		if(tgui_alert(usr, "Send [key_name(M)] back to Lobby?", "Message", list("Yes", "No")) != "Yes")
 			return
 
-		log_admin("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
-		message_admins("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
+		log_admin("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
+		message_admins("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 
 		var/mob/dead/new_player/NP = new()
 		NP.ckey = M.ckey
@@ -913,7 +913,7 @@
 		L.forceMove(pick(GLOB.tdome1))
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
-		log_admin("[key_name(usr)] has sent [key_name(L)] to the thunderdome. (Team 1)")
+		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Team 1)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Team 1)")
 
 	else if(href_list["tdome2"])
@@ -940,7 +940,7 @@
 		L.forceMove(pick(GLOB.tdome2))
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
-		log_admin("[key_name(usr)] has sent [key_name(L)] to the thunderdome. (Team 2)")
+		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Team 2)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Team 2)")
 
 	else if(href_list["tdomeadmin"])
@@ -964,7 +964,7 @@
 		L.forceMove(pick(GLOB.tdomeadmin))
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
-		log_admin("[key_name(usr)] has sent [key_name(L)] to the thunderdome. (Admin.)")
+		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Admin.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Admin.)")
 
 	else if(href_list["tdomeobserve"])
@@ -995,7 +995,7 @@
 		L.forceMove(pick(GLOB.tdomeobserve))
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
-		log_admin("[key_name(usr)] has sent [key_name(L)] to the thunderdome. (Observer.)")
+		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Observer.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Observer.)")
 
 	else if(href_list["revive"])
@@ -1012,7 +1012,7 @@
 			return
 		L.revive(full_heal = 1, admin_revive = 1)
 		message_admins("<span class='danger'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(L)]!</span>")
-		log_admin("[key_name(usr)] healed / Revived [key_name(L)].")
+		log_admin("[key_name(src.owner)] healed / Revived [key_name(L)].")
 
 	else if(href_list["makeai"])
 		if(!check_rights(R_SPAWN))
@@ -1024,7 +1024,7 @@
 			return
 
 		message_admins("<span class='danger'>Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!</span>")
-		log_admin("[key_name(usr)] AIized [key_name(H)].")
+		log_admin("[key_name(src.owner)] AIized [key_name(H)].")
 		H.AIize(TRUE, H.client)
 
 	else if(href_list["makepai"])
@@ -1035,7 +1035,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob.")
 			return
 		message_admins("<span class='danger'>Admin [key_name_admin(usr)] PAI'd [key_name_admin(H)]!</span>")
-		log_admin("[key_name(usr)] PAI'd [key_name(H)].")
+		log_admin("[key_name(src.owner)] PAI'd [key_name(H)].")
 		H.makePAI(TRUE)
 
 	else if(href_list["makealien"])
@@ -1078,8 +1078,8 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
-		message_admins("[key_name(usr)] cluwned [key_name(H)]")
-		log_admin("[key_name(usr)] cluwned [key_name(H)]")
+		message_admins("[key_name(src.owner)] cluwned [key_name(H)]")
+		log_admin("[key_name(src.owner)] cluwned [key_name(H)]")
 		H.cluwne()
 
 	else if(href_list["makerobot"])
@@ -1499,13 +1499,13 @@
 		var/turf/T = get_turf(usr.loc) // get admin's LOC as a turf
 
 		if (number == 1)
-			log_admin("[key_name(usr)] created a [english_list(paths)] at [AREACOORD(T)]")
+			log_admin("[key_name(src.owner)] created a [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
 					message_admins("[key_name_admin(usr)] created a [english_list(paths)]")
 					break
 		else
-			log_admin("[key_name(usr)] created [number]ea [english_list(paths)] at [AREACOORD(T)]")
+			log_admin("[key_name(src.owner)] created [number]ea [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
 					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]")
@@ -1531,7 +1531,7 @@
 			for(var/name in listkicked)
 				strkicked += "[name], "
 			message_admins("[key_name_admin(usr)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
-			log_admin("[key_name(usr)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
+			log_admin("[key_name(src.owner)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 		else
 			to_chat(usr, "You may only use this when the game is running.")
 
@@ -1561,7 +1561,7 @@
 			if(!description)
 				return
 			G.report_message = description
-		message_admins("[key_name(usr)] created \"[G.name]\" station goal.")
+		message_admins("[key_name(src.owner)] created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
 		modify_goals()
 
@@ -1810,7 +1810,7 @@
 			return
 		var/turf/T = get_turf(tear.old_loc)
 		message_admins("The items consumed by the BoH tear at [ADMIN_VERBOSEJMP(T)] were retrieved by [key_name_admin(usr)].")
-		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(usr)].", INVESTIGATE_ENGINES)
+		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(src.owner)].", INVESTIGATE_ENGINES)
 		tear.retrieve_consumed_items()
 
 	else if(href_list["beakerpanel"])
@@ -1920,7 +1920,7 @@
 		if(choice != null)
 			GLOB.fugitive_backstory_selection = list(choice)
 			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
-			log_admin("[key_name(usr)] selected backstory: [choice]")
+			log_admin("[key_name(src.owner)] selected backstory: [choice]")
 
 	else if(href_list["show_paper"])
 		if(!check_rights(R_ADMIN))
@@ -1952,7 +1952,7 @@
 			else
 				return
 		message_admins("[key_name_admin(usr)] force-cryoed [ADMIN_LOOKUPFLW(target)]].")
-		log_admin("[key_name(usr)] force-cryoed [key_name(target)]].")
+		log_admin("[key_name(src.owner)] force-cryoed [key_name(target)]].")
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
