@@ -23,12 +23,12 @@
 	var/name = "Unknown"
 	/// The character's rank
 	var/rank
+	/// The character's species
+	var/species
 	/// The character's HUD icon
 	var/hud
 	/// The character's department
 	var/active_department
-	/// The character's species
-	var/species
 
 /datum/record/New(
 	age = 18,
@@ -40,9 +40,9 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	rank = "Unassigned",
-	hud = "None",
 	active_department = NONE,
 	species = "Human",
+	hud = "None"
 )
 	src.age = age
 	src.blood_type = blood_type
@@ -101,9 +101,9 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	rank = "Unassigned",
-	hud = "None",
 	active_department = NONE,
 	species = "Human",
+	hud = "None",
 	/// Crew specific
 	lock_ref,
 	medical_notes,
@@ -399,7 +399,9 @@
 	initial_rank = "Unassigned",
 	name = "Unknown",
 	rank = "Unassigned",
+	active_department = NONE,
 	species = "Human",
+	hud = "None",
 	/// Locked specific
 	weakref_dna,
 	weakref_mind,

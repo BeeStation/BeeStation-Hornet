@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 
-/obj/item/proc/GetJobIcon() //Used in secHUD icon generation (the new one)
+/obj/item/proc/get_item_job_icon() //Used in secHUD icon generation (the new one)
 	var/obj/item/card/id/I = GetID()
 	if(!I)
 		return

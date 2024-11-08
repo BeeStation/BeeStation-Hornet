@@ -241,6 +241,15 @@
 
 	return FALSE
 
+/mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
+	var/obj/item/card/id/I = wear_id.GetID()
+	if(!I)
+		return
+	var/I_hud = I.hud_state
+	if(I_hud)
+		return I_hud
+	return "unknown"
+
 /mob/living/carbon/human/can_see_reagents()
 	. = ..()
 	if(.) //No need to run through all of this if it's already true.

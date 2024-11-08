@@ -112,7 +112,8 @@
 		initial_rank = assignment,
 		name = person.real_name,
 		rank = assignment,
-		species = record_dna.species.name,
+		species = record_dna.species,
+		hud = person.get_job_id(),
 		// Locked specifics
 		weakref_dna = WEAKREF(record_dna),
 		weakref_mind = WEAKREF(person.mind),
@@ -128,7 +129,7 @@
 		initial_rank = assignment,
 		name = person.real_name,
 		rank = assignment,
-		species = record_dna.species.name,
+		species = record_dna.species,
 		active_department = bank_account.active_departments,
 		// Crew specific
 		lock_ref = FAST_REF(lockfile),
@@ -137,6 +138,7 @@
 		minor_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, from_scan = TRUE),
 		minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
 		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
+		hud = person.get_job_id(),
 	)
 	if(!nosignal)
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
