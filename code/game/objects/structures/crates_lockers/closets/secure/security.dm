@@ -252,7 +252,7 @@
 	..()
 	new /obj/item/clothing/accessory/armband/science(src)
 	new /obj/item/encryptionkey/headset_sci(src)
-	new /obj/item/gun/energy/laser/off_station(src)
+	new /obj/item/gun/energy/laser(src)
 
 /obj/structure/closet/secure_closet/security/med
 
