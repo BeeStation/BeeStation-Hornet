@@ -1,0 +1,5 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - balance: reduced the billy club's structure damage, you can no longer destroy
+      reinforced walls with it.
