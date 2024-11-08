@@ -4,7 +4,7 @@
 	if(.)
 		return
 	var/msg = !auth ? "no" : "a bad"
-	message_admins("[key_name_admin(usr)] clicked an href with [msg] authorization key!")
+	message_admins("[key_name_admin(src.owner)] clicked an href with [msg] authorization key!")
 	if(CONFIG_GET(flag/debug_admin_hrefs))
 		message_admins("Debug mode enabled, call not blocked. Please ask your coders to review this round's logs.")
 		log_world("UAH: [href]")
@@ -69,10 +69,10 @@
 				if (!maxCount)
 					return
 				if(src.makeTraitors(maxCount))
-					message_admins("[key_name_admin(usr)] created [maxCount] traitor(s).")
+					message_admins("[key_name_admin(src.owner)] created [maxCount] traitor(s).")
 					log_admin("[key_name(src.owner)] created [maxCount] traitor(s).")
 				else
-					message_admins("[key_name_admin(usr)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
 					log_admin("[key_name(src.owner)] failed to create [maxCount] traitor(s).")
 			if("changelings")
 				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
@@ -82,7 +82,7 @@
 					message_admins("[key_name(src.owner)] created [maxCount] changelings.")
 					log_admin("[key_name(src.owner)] created [maxCount] changelings.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(src.owner)] failed to create [maxCount] changelings.")
 			if("revs")
 				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
@@ -92,7 +92,7 @@
 					message_admins("[key_name(src.owner)] started a revolution with [maxCount] freedom fighters.")
 					log_admin("[key_name(src.owner)] started a [maxCount] freedom fighters.")
 				else
-					message_admins("[key_name_admin(usr)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(src.owner)] failed to start a revolution with [maxCount] freedom fighters.")
 			if("cult")
 				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
@@ -102,7 +102,7 @@
 					message_admins("[key_name(src.owner)] started a cult with [maxCount] cultists.")
 					log_admin("[key_name(src.owner)] started a cult with [maxCount] cultists.")
 				else
-					message_admins("[key_name_admin(usr)] tried to start a cult with [maxCount] cultists. Unfortunately, there were no candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to start a cult with [maxCount] cultists. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(src.owner)] failed to start a cult with [maxCount] cultists.")
 			if("wizard")
 				message_admins("[key_name(src.owner)] is creating a wizard...")
@@ -110,19 +110,19 @@
 					message_admins("[key_name(src.owner)] created a wizard.")
 					log_admin("[key_name(src.owner)] created a wizard.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a wizard. Unfortunately, there were no candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create a wizard. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(src.owner)] failed to create a wizard.")
 			if("nukeops")
 				message_admins("[key_name(src.owner)] is creating a nuke team...")
 				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
 				if (!maxCount)
-					message_admins("[key_name_admin(usr)] has cancelled the creation of a Nuke team.")
+					message_admins("[key_name_admin(src.owner)] has cancelled the creation of a Nuke team.")
 					return
 				if(src.makeNukeTeam(maxCount))
 					message_admins("[key_name(src.owner)] created a nuke team with [maxCount] operatives")
 					log_admin("[key_name(src.owner)] created a nuke team with [maxCount] operatives")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a nuke team with [maxCount] operatives Unfortunately, there were not enough candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create a nuke team with [maxCount] operatives Unfortunately, there were not enough candidates available.")
 					log_admin("[key_name(src.owner)] failed to create a nuke team with [maxCount] operatives.")
 			if("ninja")
 				message_admins("[key_name(src.owner)] spawned a ninja.")
@@ -138,7 +138,7 @@
 					message_admins("[key_name(src.owner)] created a death squad.")
 					log_admin("[key_name(src.owner)] created a death squad.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a death squad. Unfortunately, there were not enough candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create a death squad. Unfortunately, there were not enough candidates available.")
 					log_admin("[key_name(src.owner)] failed to create a death squad.")
 			if("blob")
 				var/strength = input("Set Blob Resource Gain Rate","Set Resource Rate",1) as num|null
@@ -153,7 +153,7 @@
 					message_admins("[key_name(src.owner)] created a CentCom response team.")
 					log_admin("[key_name(src.owner)] created a CentCom response team.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
 					log_admin("[key_name(src.owner)] failed to create a CentCom response team.")
 			if("abductors")
 				message_admins("[key_name(src.owner)] is creating an abductor team...")
@@ -161,14 +161,14 @@
 					message_admins("[key_name(src.owner)] created an abductor team.")
 					log_admin("[key_name(src.owner)] created an abductor team.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create an abductor team. Unfortunately there were not enough candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create an abductor team. Unfortunately there were not enough candidates available.")
 					log_admin("[key_name(src.owner)] failed to create an abductor team.")
 			if("revenant")
 				if(src.makeRevenant())
 					message_admins("[key_name(src.owner)] created a revenant.")
 					log_admin("[key_name(src.owner)] created a revenant.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a revenant. Unfortunately, there were no candidates available.")
+					message_admins("[key_name_admin(src.owner)] tried to create a revenant. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(src.owner)] failed to create a revenant.")
 
 	else if(href_list["forceevent"])
@@ -191,7 +191,7 @@
 						event.announceChance = 0
 				event.on_admin_trigger()
 				event.processing = TRUE
-			message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])")
+			message_admins("[key_name_admin(src.owner)] has triggered an event. ([E.name])")
 			log_admin("[key_name(src.owner)] has triggered an event. ([E.name])")
 		return
 
@@ -379,7 +379,7 @@
 					return
 				SSshuttle.emergency.request()
 				log_admin("[key_name(src.owner)] called the Emergency Shuttle.")
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station.</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] called the Emergency Shuttle to the station.</span>")
 
 			if("2")
 				if(EMERGENCY_AT_LEAST_DOCKED)
@@ -388,11 +388,11 @@
 					if(SHUTTLE_CALL)
 						SSshuttle.emergency.cancel()
 						log_admin("[key_name(src.owner)] sent the Emergency Shuttle back.")
-						message_admins("<span class='adminnotice'>[key_name_admin(usr)] sent the Emergency Shuttle back.</span>")
+						message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] sent the Emergency Shuttle back.</span>")
 					else
 						SSshuttle.emergency.cancel()
 						log_admin("[key_name(src.owner)] called the Emergency Shuttle.")
-						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station.</span>")
+						message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] called the Emergency Shuttle to the station.</span>")
 
 
 
@@ -406,7 +406,7 @@
 		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(src.owner)] edited the Emergency Shuttle's timeleft to [timer] seconds.")
 		minor_announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds.</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] edited the Emergency Shuttle's timeleft to [timer] seconds.</span>")
 	else if(href_list["trigger_centcom_recall"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -422,7 +422,7 @@
 		else
 			continuous[SSticker.mode.config_tag] = FALSE
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] toggled the round to [continuous[SSticker.mode.config_tag] ? "continue if all antagonists die" : "end with the antagonists"].</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] toggled the round to [continuous[SSticker.mode.config_tag] ? "continue if all antagonists die" : "end with the antagonists"].</span>")
 		check_antagonists()
 
 	else if(href_list["toggle_midround_antag"])
@@ -435,7 +435,7 @@
 		else
 			midround_antag[SSticker.mode.config_tag] = FALSE
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] toggled the round to [midround_antag[SSticker.mode.config_tag] ? "use" : "skip"] the midround antag system.</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] toggled the round to [midround_antag[SSticker.mode.config_tag] ? "use" : "skip"] the midround antag system.</span>")
 		check_antagonists()
 
 	else if(href_list["alter_midround_time_limit"])
@@ -446,7 +446,7 @@
 		if(!timer)
 			return
 		CONFIG_SET(number/midround_antag_time_check, timer)
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the maximum midround antagonist time to [timer] minutes.</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] edited the maximum midround antagonist time to [timer] minutes.</span>")
 		check_antagonists()
 
 	else if(href_list["alter_midround_life_limit"])
@@ -458,7 +458,7 @@
 			return
 		CONFIG_SET(number/midround_antag_life_check, ratio / 100)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the midround antagonist living crew ratio to [ratio]% alive.</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] edited the midround antagonist living crew ratio to [ratio]% alive.</span>")
 		check_antagonists()
 
 	else if(href_list["toggle_noncontinuous_behavior"])
@@ -470,7 +470,7 @@
 		else
 			SSticker.mode.round_ends_with_antag_death = 0
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the midround antagonist system to [SSticker.mode.round_ends_with_antag_death ? "end the round" : "continue as extended"] upon failure.</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] edited the midround antagonist system to [SSticker.mode.round_ends_with_antag_death ? "end the round" : "continue as extended"] upon failure.</span>")
 		check_antagonists()
 
 	else if(href_list["delay_round_end"])
@@ -482,16 +482,16 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] is considering ending the round.</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] is considering ending the round.</span>")
 		if(alert(usr, "This will end the round, are you SURE you want to do this?", "Confirmation", "Yes", "No") == "Yes")
 			if(alert(usr, "Final Confirmation: End the round NOW?", "Confirmation", "Yes", "No") == "Yes")
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] has ended the round.</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] has ended the round.</span>")
 				SSticker.force_ending = 1 //Yeah there we go APC destroyed mission accomplished
 				return
 			else
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] decided against ending the round.</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] decided against ending the round.</span>")
 		else
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] decided against ending the round.</span>")
+			message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] decided against ending the round.</span>")
 
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))
@@ -510,7 +510,7 @@
 				delmob = TRUE
 
 		log_admin("[key_name(src.owner)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]</span>")
 		switch(href_list["simplemake"])
 			if("observer")
 				M.change_mob_type( /mob/dead/observer , null, null, delmob )
@@ -584,7 +584,7 @@
 				return
 			to_chat(M, "<span class='danger'>You have been kicked from the server by [usr.client.holder.fakekey ? "an Administrator" : "[usr.client.key]"].</span>")
 			log_admin("[key_name(src.owner)] kicked [key_name(M)].")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] kicked [key_name_admin(M)].</span>")
+			message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] kicked [key_name_admin(M)].</span>")
 			qdel(M.client)
 
 	else if(href_list["addmessage"])
@@ -769,7 +769,7 @@
 		//Disable presetup so their gamemode gets loaded.
 		SSticker.pre_setup_completed = FALSE
 		log_admin("[key_name(src.owner)] set the mode as [GLOB.master_mode].")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='adminnotice'><b>The mode is now: [GLOB.master_mode]</b></span>")
 		Game() // updates the main game menu
 		HandleCMode()
@@ -784,7 +784,7 @@
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		GLOB.secret_force_mode = href_list["f_secret2"]
 		log_admin("[key_name(src.owner)] set the forced secret mode as [GLOB.secret_force_mode].")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] set the forced secret mode as [GLOB.secret_force_mode].</span>")
 		Game() // updates the main game menu
 		HandleFSecret()
 
@@ -798,7 +798,7 @@
 			return
 
 		log_admin("[key_name(src.owner)] attempting to monkeyize [key_name(H)].")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to monkeyize [key_name_admin(H)].</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] attempting to monkeyize [key_name_admin(H)].</span>")
 		H.monkeyize()
 
 	else if(href_list["humanone"])
@@ -811,7 +811,7 @@
 			return
 
 		log_admin("[key_name(src.owner)] attempting to humanize [key_name(Mo)].")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to humanize [key_name_admin(Mo)].</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] attempting to humanize [key_name_admin(Mo)].</span>")
 		Mo.humanize()
 
 	else if(href_list["corgione"])
@@ -824,7 +824,7 @@
 			return
 
 		log_admin("[key_name(src.owner)] attempting to corgize [key_name(C)].")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to corgize [key_name_admin(C)].</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] attempting to corgize [key_name_admin(C)].</span>")
 		C.corgize()
 
 
@@ -842,7 +842,7 @@
 		M.say(speech, forced = "admin speech")
 		speech = sanitize(speech) // Nah, we don't trust them
 		log_admin("[key_name(src.owner)] forced [key_name(M)] to say: [speech]")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(src.owner)] forced [key_name_admin(M)] to say: [speech]</span>")
 
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))
@@ -863,7 +863,7 @@
 		to_chat(M, "<span class='adminnotice'>You have been sent to Prison!</span>")
 
 		log_admin("[key_name(src.owner)] has sent [key_name(M)] to Prison!")
-		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to Prison!")
+		message_admins("[key_name_admin(src.owner)] has sent [key_name_admin(M)] to Prison!")
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
@@ -914,7 +914,7 @@
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Team 1)")
-		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Team 1)")
+		message_admins("[key_name_admin(src.owner)] has sent [key_name_admin(L)] to the thunderdome. (Team 1)")
 
 	else if(href_list["tdome2"])
 		if(!check_rights(R_FUN))
@@ -941,7 +941,7 @@
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Team 2)")
-		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Team 2)")
+		message_admins("[key_name_admin(src.owner)] has sent [key_name_admin(L)] to the thunderdome. (Team 2)")
 
 	else if(href_list["tdomeadmin"])
 		if(!check_rights(R_FUN))
@@ -965,7 +965,7 @@
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Admin.)")
-		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Admin.)")
+		message_admins("[key_name_admin(src.owner)] has sent [key_name_admin(L)] to the thunderdome. (Admin.)")
 
 	else if(href_list["tdomeobserve"])
 		if(!check_rights(R_FUN))
@@ -996,7 +996,7 @@
 		spawn(50)
 			to_chat(L, "<span class='adminnotice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(src.owner)] has sent [key_name(L)] to the thunderdome. (Observer.)")
-		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Observer.)")
+		message_admins("[key_name_admin(src.owner)] has sent [key_name_admin(L)] to the thunderdome. (Observer.)")
 
 	else if(href_list["revive"])
 		if(!check_rights(R_ADMIN))
@@ -1011,7 +1011,7 @@
 		if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
 			return
 		L.revive(full_heal = 1, admin_revive = 1)
-		message_admins("<span class='danger'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(L)]!</span>")
+		message_admins("<span class='danger'>Admin [key_name_admin(src.owner)] healed / revived [key_name_admin(L)]!</span>")
 		log_admin("[key_name(src.owner)] healed / Revived [key_name(L)].")
 
 	else if(href_list["makeai"])
@@ -1023,7 +1023,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
 
-		message_admins("<span class='danger'>Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!</span>")
+		message_admins("<span class='danger'>Admin [key_name_admin(src.owner)] AIized [key_name_admin(H)]!</span>")
 		log_admin("[key_name(src.owner)] AIized [key_name(H)].")
 		H.AIize(TRUE, H.client)
 
@@ -1034,7 +1034,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob.")
 			return
-		message_admins("<span class='danger'>Admin [key_name_admin(usr)] PAI'd [key_name_admin(H)]!</span>")
+		message_admins("<span class='danger'>Admin [key_name_admin(src.owner)] PAI'd [key_name_admin(H)]!</span>")
 		log_admin("[key_name(src.owner)] PAI'd [key_name(H)].")
 		H.makePAI(TRUE)
 
@@ -1502,13 +1502,13 @@
 			log_admin("[key_name(src.owner)] created a [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
-					message_admins("[key_name_admin(usr)] created a [english_list(paths)]")
+					message_admins("[key_name_admin(src.owner)] created a [english_list(paths)]")
 					break
 		else
 			log_admin("[key_name(src.owner)] created [number]ea [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
-					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]")
+					message_admins("[key_name_admin(src.owner)] created [number]ea [english_list(paths)]")
 					break
 		return
 
@@ -1530,7 +1530,7 @@
 			var/strkicked = ""
 			for(var/name in listkicked)
 				strkicked += "[name], "
-			message_admins("[key_name_admin(usr)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
+			message_admins("[key_name_admin(src.owner)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 			log_admin("[key_name(src.owner)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 		else
 			to_chat(usr, "You may only use this when the game is running.")
@@ -1541,7 +1541,7 @@
 		var/code = random_code(5)
 		for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
 			SD.r_code = code
-		message_admins("[key_name_admin(usr)] has set the self-destruct \
+		message_admins("[key_name_admin(src.owner)] has set the self-destruct \
 			code to \"[code]\".")
 
 	else if(href_list["add_station_goal"])
@@ -1809,7 +1809,7 @@
 		if(confirm != "Yes")
 			return
 		var/turf/T = get_turf(tear.old_loc)
-		message_admins("The items consumed by the BoH tear at [ADMIN_VERBOSEJMP(T)] were retrieved by [key_name_admin(usr)].")
+		message_admins("The items consumed by the BoH tear at [ADMIN_VERBOSEJMP(T)] were retrieved by [key_name_admin(src.owner)].")
 		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(src.owner)].", INVESTIGATE_ENGINES)
 		tear.retrieve_consumed_items()
 
@@ -1919,7 +1919,7 @@
 		var/choice = input(usr, "Select backstory to use", "Select backstory") as null|anything in L
 		if(choice != null)
 			GLOB.fugitive_backstory_selection = list(choice)
-			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
+			message_admins("[key_name_admin(src.owner)] selected backstory: [choice]")
 			log_admin("[key_name(src.owner)] selected backstory: [choice]")
 
 	else if(href_list["show_paper"])
@@ -1951,7 +1951,7 @@
 				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(instant_force_cryo), target)
 			else
 				return
-		message_admins("[key_name_admin(usr)] force-cryoed [ADMIN_LOOKUPFLW(target)]].")
+		message_admins("[key_name_admin(src.owner)] force-cryoed [ADMIN_LOOKUPFLW(target)]].")
 		log_admin("[key_name(src.owner)] force-cryoed [key_name(target)]].")
 
 /datum/admins/proc/HandleCMode()
