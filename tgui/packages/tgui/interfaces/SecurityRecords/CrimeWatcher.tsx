@@ -79,7 +79,7 @@ const CrimeDisplay = ({ item }: { item: Crime }, context) => {
 
   let displayTitle = name;
   if (fine !== undefined) {
-    displayTitle = name.slice(0, 18) + showFine;
+    displayTitle = name.slice(0, 48) + showFine;
   }
 
   const [editing, setEditing] = useLocalState(context, `editing_${crime_ref}`, false);
@@ -222,7 +222,7 @@ const CrimeAuthor = (props, context) => {
     <Stack fill vertical>
       <Stack.Item color="label">
         Name
-        <Input fluid maxLength={25} onChange={(_, value) => setCrimeName(value)} placeholder="Brief overview" />
+        <Input fluid maxLength={48} onChange={(_, value) => setCrimeName(value)} placeholder="Brief overview" />
       </Stack.Item>
       <Stack.Item color="label">
         Details
