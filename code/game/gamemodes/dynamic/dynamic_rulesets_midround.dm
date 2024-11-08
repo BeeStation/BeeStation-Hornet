@@ -297,7 +297,7 @@
 	weight = 1
 	cost = 15
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
-	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if(!length(GLOB.wizardstart))
@@ -366,7 +366,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 22
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -390,7 +390,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 22
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/vents
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/acceptable(population=0, threat=0)
@@ -491,7 +491,7 @@
 	cost = 11
 	minimum_players = 22
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/spawn_locs
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced = FALSE)
@@ -625,7 +625,6 @@
 	cost = 8
 	minimum_players = 25
 	repeatable = FALSE
-	flags = LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/pirates/acceptable(population=0, threat=0)
 	if (!SSmapping.empty_space)
@@ -691,7 +690,7 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	minimum_players = 25
 	var/fed = 1
 	var/list/vents
@@ -759,8 +758,11 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
-	if(!GLOB.the_gateway)
+	if(isnull(GLOB.the_gateway))
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
+		return FALSE
+	if(!GLOB.the_gateway.active)
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no ACTIVE gateway on map).")
 		return FALSE
 	return TRUE
 
@@ -933,7 +935,6 @@
 	minimum_players = 20
 	repeatable = TRUE
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
-	flags = LATEGAME_RULESET
 	var/spawn_loc
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)
