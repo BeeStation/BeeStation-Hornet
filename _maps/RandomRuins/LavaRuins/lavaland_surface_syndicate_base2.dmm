@@ -3437,8 +3437,7 @@
 "Id" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing{
-	dir = 8;
-	layer = 3
+	dir = 8
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -5142,8 +5141,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Zi" = (
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 4;
-	layer = 2
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
