@@ -50,7 +50,7 @@
 	cut_overlays()
 	if(showpipe)
 		// everything is already shifted so don't shift the cap
-		add_overlay(get_pipe_image(icon, "inje_cap", initialize_directions))
+		add_overlay(get_pipe_image(icon, "inje_cap", initialize_directions, pipe_color))
 
 	if(!nodes[1] || !on || !is_operational)
 		icon_state = "inje_off"
@@ -207,75 +207,3 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4
 	piping_layer = 4
 	icon_state = "inje_map-4"
-
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos
-	frequency = FREQ_ATMOS_STORAGE
-	on = TRUE
-	volume_rate = MAX_TRANSFER_RATE
-
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste
-	name = "atmos waste outlet injector"
-	id =  ATMOS_GAS_MONITOR_WASTE_ATMOS
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste
-	name = "engine outlet injector"
-	id = ATMOS_GAS_MONITOR_WASTE_ENGINE
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input
-	name = "plasma tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_PLASMA
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input
-	name = "oxygen tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_O2
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input
-	name = "nitrogen tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_N2
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/mix_input
-	name = "mix tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_MIX
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrous_input
-	name = "nitrous oxide tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_N2O
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input
-	name = "air mix tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_AIR
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/carbon_input
-	name = "carbon dioxide tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_CO2
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input
-	name = "incinerator chamber input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_INCINERATOR
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input
-	name = "toxins mixing input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_LAB
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_waste_input
-	name = "toxins waste input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input
-	name = "supermatter waste input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
-
-
-#define LAYER_HELPER(FULLPATH)\
-##FULLPATH/layer2 {\
-	piping_layer = 2;\
-	icon_state = "inje_map-2";\
-}\
-##FULLPATH/layer4 {\
-	piping_layer = 4;\
-	icon_state = "inje_map-4";\
-}
-
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/mix_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrous_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/carbon_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_waste_input)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input)
-
-#undef LAYER_HELPER

@@ -12,7 +12,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	shift_underlay_only = FALSE
 
 	interaction_flags_machine = INTERACT_MACHINE_OFFLINE | INTERACT_MACHINE_OPEN //Intentionally no allow_silicon flag
-	pipe_flags = PIPING_CARDINAL_AUTONORMALIZE
+	pipe_flags = PIPING_CARDINAL_AUTONORMALIZE | PIPING_BRIDGE
 	custom_reconcilation = TRUE
 
 	var/frequency = 0

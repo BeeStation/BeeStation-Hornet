@@ -47,11 +47,11 @@
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
 	var/turf/T = get_turf(src)
 	for(var/obj/machinery/atmospherics/pipe/multiz/above in GET_TURF_ABOVE(T))
-		if(above.piping_layer == piping_layer)
+		if(is_connectable(above, piping_layer))
 			nodes += above
 			above.nodes += src // Two way travel :)
 	for(var/obj/machinery/atmospherics/pipe/multiz/below in GET_TURF_BELOW(T))
-		if(below.piping_layer == piping_layer)
+		if(is_connectable(below, piping_layer))
 			below.pipeline_expansion() // If we've got one below us, force it to add us on facebook
 	return ..()
 

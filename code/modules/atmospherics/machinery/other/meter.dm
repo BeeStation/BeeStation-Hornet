@@ -3,27 +3,17 @@
 	desc = "It measures something."
 	icon = 'icons/obj/atmospherics/pipes/meter.dmi'
 	icon_state = "meterX"
-	layer = GAS_PUMP_LAYER
+	layer = HIGH_PIPE_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 9
 	max_integrity = 150
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0, STAMINA = 0, BLEED = 0)
-	var/frequency = 0
+	greyscale_config = /datum/greyscale_config/meter
+	greyscale_colors = COLOR_GRAY
 	var/obj/machinery/atmospherics/pipe/target
 	var/target_layer = PIPING_LAYER_DEFAULT
-
-/obj/machinery/meter/atmos
-	frequency = FREQ_ATMOS_STORAGE
-
-/obj/machinery/meter/atmos/atmos_waste_loop
-	name = "waste loop gas flow meter"
-	id_tag = ATMOS_GAS_MONITOR_LOOP_ATMOS_WASTE
-
-/obj/machinery/meter/atmos/distro_loop
-	name = "distribution loop gas flow meter"
-	id_tag = ATMOS_GAS_MONITOR_LOOP_DISTRIBUTION
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 
@@ -37,7 +27,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 
 /obj/machinery/meter/Destroy()
 	SSair.stop_processing_machine(src)
-	target = null
+	if(!isnull(target))
+		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		target = null
 	return ..()
 
 /obj/machinery/meter/proc/reattach_to_layer()
@@ -107,20 +99,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 	if(new_greyscale != greyscale_colors)//dont update if nothing has changed since last update
 		greyscale_colors = new_greyscale
 		set_greyscale(greyscale_colors)
-
-	if(frequency)
-		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
-
-		if(!radio_connection)
-			return
-
-		var/datum/signal/signal = new(list(
-			"id_tag" = id_tag,
-			"device" = "AM",
-			"pressure" = round(env_pressure),
-			"sigtype" = "status"
-		))
-		radio_connection.post_signal(src, signal)
 
 /obj/machinery/meter/proc/status()
 	if (target)

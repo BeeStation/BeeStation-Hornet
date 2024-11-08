@@ -208,11 +208,11 @@
 
 // mapping
 
-/obj/machinery/atmospherics/components/unary/vent_pump/layer1
+/obj/machinery/atmospherics/components/unary/vent_pump/layer2
 	piping_layer = 2
 	icon_state = "vent_map-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/layer3
+/obj/machinery/atmospherics/components/unary/vent_pump/layer4
 	piping_layer = 4
 	icon_state = "vent_map-4"
 
@@ -253,38 +253,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer4
 	piping_layer = 4
 	icon_state = "vent_map_siphon_on-4"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos
-	frequency = FREQ_ATMOS_STORAGE
-	on = TRUE
-	icon_state = "vent_map_siphon_on-3"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output
-	name = "plasma tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_PLASMA
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output
-	name = "oxygen tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_O2
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output
-	name = "nitrogen tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_N2
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/mix_output
-	name = "mix tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_MIX
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output
-	name = "nitrous oxide tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_N2O
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output
-	name = "carbon dioxide tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_CO2
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/incinerator_output
-	name = "incinerator chamber output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_INCINERATOR
-	frequency = FREQ_ATMOS_CONTROL
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxins_mixing_output
-	name = "toxins mixing output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_LAB
-	frequency = FREQ_ATMOS_CONTROL
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer2
 	piping_layer = 2
@@ -332,41 +300,4 @@
 	piping_layer = 4
 	icon_state = "vent_map_siphon_on-4"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos
-	frequency = FREQ_ATMOS_STORAGE
-	on = TRUE
-	icon_state = "vent_map_siphon_on-3"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/air_output
-	name = "air mix tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_AIR
-
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/toxins_waste_output
-	name = "toxins waste output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
-
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste
-	name = "supermatter waste output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
-
-#define LAYER_HELPER(FULLPATH)\
-##FULLPATH/layer2 {\
-	piping_layer = 2;\
-	icon_state = "vent_map_siphon_on-2";\
-}\
-##FULLPATH/layer4 {\
-	piping_layer = 4;\
-	icon_state = "vent_map_siphon_on-4";\
-}
-
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/mix_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/incinerator_output)
-LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxins_mixing_output)
-
-#undef LAYER_HELPER
 #undef NO_BOUND

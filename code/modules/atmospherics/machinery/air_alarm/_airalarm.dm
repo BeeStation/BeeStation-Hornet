@@ -1,56 +1,8 @@
-/datum/tlv
-	var/min2
-	var/min1
-	var/max1
-	var/max2
-
-/datum/tlv/New(min2 as num, min1 as num, max1 as num, max2 as num)
-	if(min2) src.min2 = min2
-	if(min1) src.min1 = min1
-	if(max1) src.max1 = max1
-	if(max2) src.max2 = max2
-
-/datum/tlv/proc/get_danger_level(val as num)
-	if(max2 != -1 && val >= max2)
-		return 2
-	if(min2 != -1 && val <= min2)
-		return 2
-	if(max1 != -1 && val >= max1)
-		return 1
-	if(min1 != -1 && val <= min1)
-		return 1
-	return 0
-
-/datum/tlv/no_checks
-	min2 = -1
-	min1 = -1
-	max1 = -1
-	max2 = -1
-
-/datum/tlv/dangerous
-	min2 = -1
-	min1 = -1
-	max1 = 0.2
-	max2 = 0.5
-
-/obj/item/electronics/airalarm
-	name = "air alarm electronics"
-	custom_price = 5
-	icon_state = "airalarm_electronics"
-
-/obj/item/wallframe/airalarm
-	name = "air alarm frame"
-	desc = "Used for building Air Alarms."
-	icon = 'icons/obj/monitors.dmi'
-	icon_state = "alarm_bitem"
-	result_path = /obj/machinery/airalarm
-	pixel_shift = 24
-
 #define AIRALARM_WARNING_COOLDOWN (10 SECONDS)
 
 /obj/machinery/airalarm
 	name = "air alarm"
-	desc = "A machine that monitors atmosphere levels and alerts if the area is dangerous."
+	desc = "A machine that monitors atmosphere levels. Goes off if the area is dangerous."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
@@ -65,48 +17,79 @@
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 
+	/// Current alert level of our air alarm.
+	/// [AIR_ALARM_ALERT_NONE], [AIR_ALARM_ALERT_MINOR], [AIR_ALARM_ALERT_SEVERE]
+	var/danger_level = AIR_ALARM_ALERT_NONE
 
-	var/danger_level = 0
-	var/mode = AALARM_MODE_SCRUBBING
+	/// Currently selected mode of the alarm. An instance of [/datum/air_alarm_mode].
+	var/datum/air_alarm_mode/selected_mode
+	///A reference to the area we are in
+	var/area/my_area
 
+	/// Boolean for whether the current air alarm can be tweaked by players or not.
 	var/locked = TRUE
-	var/aidisabled = 0
-	var/shorted = 0
-	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
+	/// Boolean to prevent AI from tampering with this alarm.
+	var/aidisabled = FALSE
+	/// Boolean of whether alarm is currently shorted. Mess up some functionalities.
+	var/shorted = FALSE
+
+	/// Current build stage. [AIRALARM_BUILD_COMPLETE], [AIRALARM_BUILD_NO_WIRES], [AIRALARM_BUILD_NO_CIRCUIT]
+	var/buildstage = AIR_ALARM_BUILD_COMPLETE
 
 	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
 	var/datum/alarm_handler/alarm_manager
 
-	var/list/TLV = list( // Breathable air.
-		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa. Values are min2, min1, max1, max2
-		"temperature"				= new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66),
-		/datum/gas/oxygen			= new/datum/tlv(16, 19, 40, 50), // Partial pressure, kpa
-		/datum/gas/nitrogen			= new/datum/tlv(-1, -1, 1000, 1000),
-		/datum/gas/carbon_dioxide	= new/datum/tlv(-1, -1, 5, 10),
-		/datum/gas/plasma			= new/datum/tlv/dangerous,
-		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
-		/datum/gas/bz				= new/datum/tlv/dangerous,
-		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
-		/datum/gas/water_vapor		= new/datum/tlv/dangerous,
-		/datum/gas/tritium			= new/datum/tlv/dangerous,
-		/datum/gas/stimulum			= new/datum/tlv/dangerous,
-		/datum/gas/nitryl			= new/datum/tlv/dangerous,
-		/datum/gas/pluoxium			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
-	)
+	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = PROC_REF(check_danger))
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
+	/// An assoc list of [datum/tlv]s, indexed by "pressure", "temperature", and [datum/gas] typepaths.
+	var/list/datum/tlv/tlv_collection
+
+	/// Used for air alarm helper called unlocked to make air alarm unlocked.
+	var/unlocked = FALSE
+	/// Used for air alarm helper called syndicate_access to make air alarm's required access syndicate_access.
+	var/syndicate_access = FALSE
+	/// Used for air alarm helper called away_general_access to make air alarm's required access away_general_access.
+	var/away_general_access = FALSE
+	/// Used for air alarm helper called engine_access to make air alarm's required access one of ACCESS_ATMOSPHERICS & ACCESS_ENGINEERING.
+	var/engine_access = FALSE
+	/// Used for air alarm helper called mixingchamber_access to make air alarm's required access one of ACCESS_ATMOSPHERICS & ACCESS_ORDNANCE.
+	var/mixingchamber_access = FALSE
+	/// Used for air alarm helper called all_access to remove air alarm's required access.
+	var/all_access = FALSE
+
+	/// Used for air alarm helper called tlv_cold_room to adjust alarm thresholds for cold room.
+	var/tlv_cold_room = FALSE
+	/// Used for air alarm helper called tlv_no_ckecks to remove alarm thresholds.
+	var/tlv_no_checks = FALSE
+
+
+	///Warning message spoken by air alarms
+	var/warning_message = null
+
+	//Stops the air alarm from talking about their atmos problems.
+	var/speaker_enabled = TRUE
+
+	///Cooldown on sending warning messages
+	COOLDOWN_DECLARE(warning_cooldown)
+
+	/// Used for connecting air alarm to a remote tile/zone via air sensor instead of the tile/zone of the air alarm
+	var/obj/machinery/air_sensor/connected_sensor
+	/// Used to link air alarm to air sensor via map helpers
+	var/air_sensor_chamber_id = ""
+	/// Whether it is possible to link/unlink this air alarm from a sensor
+	var/allow_link_change = TRUE
+
 GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
-	set_wires(new /datum/wires/airalarm(src))
+	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
 
 	if(nbuild)
 		buildstage = AIR_ALARM_BUILD_NO_CIRCUIT
-		set_panel_open(TRUE)
+		panel_open = TRUE
 
 	if(name == initial(name))
 		name = "[get_area_name(src)] Air Alarm"
@@ -140,7 +123,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	GLOB.air_alarms += src
 	find_and_hang_on_wall()
-	register_context()
 	check_enviroment()
 
 /obj/machinery/airalarm/process()
@@ -154,7 +136,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	if(my_area)
 		my_area = null
 	if(connected_sensor)
-		UnregisterSignal(connected_sensor, COMSIG_QDELETING)
+		UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
 		UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)
 		connected_sensor.connected_airalarm = null
 		connected_sensor = null
@@ -185,19 +167,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	. = ..()
 
 	my_area = connected_sensor ? get_area(connected_sensor) : area_to_register
-	update_icon()
-
-/obj/machinery/airalarm/update_name(updates)
-	. = ..()
-	name = "[get_area_name(my_area)] Air Alarm"
-
-/obj/machinery/airalarm/on_enter_area(datum/source, area/area_to_register)
-	//were already registered to an area. exit from here first before entering into an new area
-	if(!isnull(my_area))
-		return
-	. = ..()
-
-	my_area = connected_sensor ? get_area(connected_sensor) : area_to_register
 	update_appearance()
 
 /obj/machinery/airalarm/update_name(updates)
@@ -216,11 +185,11 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_BUILD_NO_CIRCUIT)
-			. += "<span class='notice'>It is missing air alarm electronics.</span>"
+			. += span_notice("It is missing air alarm electronics.")
 		if(AIR_ALARM_BUILD_NO_WIRES)
-			. += "<span class='notice'>It is missing wiring.</span>"
+			. += span_notice("It is missing wiring.")
 		if(AIR_ALARM_BUILD_COMPLETE)
-			. += "<span class='notice'>Alt-click to [locked ? "unlock" : "lock"] the interface.</span>"
+			. += span_notice("Right-click to [locked ? "unlock" : "lock"] the interface.")
 
 /obj/machinery/airalarm/ui_status(mob/user, datum/ui_state/state)
 	if(HAS_SILICON_ACCESS(user) && aidisabled)
@@ -240,24 +209,20 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 		if(!allow_link_change)
 			balloon_alert(user, "linking disabled")
-			return TRUE
+			return ITEM_INTERACT_BLOCKING
 		if(connected_sensor || sensor.connected_airalarm)
 			balloon_alert(user, "sensor already connected!")
-			return TRUE
+			return ITEM_INTERACT_BLOCKING
 
 		connect_sensor(sensor)
 		balloon_alert(user, "connected sensor")
-		return TRUE
-
-/obj/machinery/airalarm/ui_state(mob/user)
-	return GLOB.default_state
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/airalarm/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AirAlarm")
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
-		ui.set_autoupdate(TRUE) // Turf gas mixture
 
 /obj/machinery/airalarm/ui_static_data(mob/user)
 	var/list/data = list()
@@ -392,8 +357,10 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	if(. || buildstage != AIR_ALARM_BUILD_COMPLETE)
 		return
-	if((locked && !usr.has_unlimited_silicon_privilege) || (usr.has_unlimited_silicon_privilege && aidisabled))
+	var/mob/user = ui.user
+	if((locked && !HAS_SILICON_ACCESS(user)) || (HAS_SILICON_ACCESS(user) && aidisabled))
 		return
+
 	var/area/area = connected_sensor ? get_area(connected_sensor) : get_area(src)
 
 	ASSERT(!isnull(area))
@@ -404,18 +371,19 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	if(!isnull(ref))
 		scrubber = locate(ref) in area.air_scrubbers
 		vent = locate(ref) in area.air_vents
+
 	switch (action)
 		if ("power")
 			var/obj/machinery/atmospherics/components/powering = vent || scrubber
 			powering.on = !!params["val"]
 			powering.atmos_conditions_changed()
-			powering.update_icon()
+			powering.update_appearance(UPDATE_ICON)
 
 		if("overclock")
 			if(isnull(vent))
 				return TRUE
 			vent.toggle_overclock(source = key_name(user))
-			vent.update_icon()
+			vent.update_appearance(UPDATE_ICON)
 			return TRUE
 
 		if ("direction")
@@ -426,21 +394,21 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 			if (value == ATMOS_DIRECTION_SIPHONING || value == ATMOS_DIRECTION_RELEASING)
 				vent.pump_direction = value
-				vent.update_icon()
+				vent.update_appearance(UPDATE_ICON)
 		if ("incheck")
 			if (isnull(vent))
 				return TRUE
 
 			var/new_checks = clamp((text2num(params["val"]) || 0) ^ ATMOS_INTERNAL_BOUND, NONE, ATMOS_BOUND_MAX)
 			vent.pressure_checks = new_checks
-			vent.update_icon()
+			vent.update_appearance(UPDATE_ICON)
 		if ("excheck")
 			if (isnull(vent))
 				return TRUE
 
 			var/new_checks = clamp((text2num(params["val"]) || 0) ^ ATMOS_EXTERNAL_BOUND, NONE, ATMOS_BOUND_MAX)
 			vent.pressure_checks = new_checks
-			vent.update_icon()
+			vent.update_appearance(UPDATE_ICON)
 		if ("set_internal_pressure")
 			if (isnull(vent))
 				return TRUE
@@ -469,7 +437,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 			vent.external_pressure_bound = new_pressure
 			vent.investigate_log("external pressure was set to [new_pressure] by [key_name(user)]", INVESTIGATE_ATMOS)
-			vent.update_icon()
+			vent.update_appearance(UPDATE_ICON)
 		if ("reset_external_pressure")
 			if (isnull(vent))
 				return TRUE
@@ -479,7 +447,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 			vent.external_pressure_bound = ATMOS_PUMP_MAX_PRESSURE
 			vent.investigate_log("internal pressure was reset by [key_name(user)]", INVESTIGATE_ATMOS)
-			vent.update_icon()
+			vent.update_appearance(UPDATE_ICON)
 		if ("scrubbing")
 			if (isnull(scrubber))
 				return TRUE
@@ -537,7 +505,10 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 		if ("lock")
 			togglelock(user)
 			return TRUE
+
 	update_appearance()
+
+	return TRUE
 
 /obj/machinery/airalarm/update_appearance(updates)
 	. = ..()
@@ -554,7 +525,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	else
 		color = "#00FFCC" // teal
 
-	set_light(1.4, 1, color)
+	set_light(1.5, 1, color)
 
 /obj/machinery/airalarm/update_icon_state()
 	if(panel_open)
@@ -586,7 +557,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	. += mutable_appearance(icon, state)
 	. += emissive_appearance(icon, state, src, alpha = src.alpha)
-
 
 /// Check the current air and update our danger level.
 /// [/obj/machinery/airalarm/var/danger_level]
@@ -667,6 +637,8 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 		selected_mode.apply(my_area)
 	SEND_SIGNAL(src, COMSIG_AIRALARM_UPDATE_MODE, source)
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
+
 /obj/machinery/airalarm/proc/speak(warning_message)
 	if(machine_stat & (BROKEN|NOPOWER))
 		return
@@ -740,7 +712,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	sensor.connected_airalarm = src
 	connected_sensor = sensor
 
-	RegisterSignal(connected_sensor, COMSIG_QDELETING, PROC_REF(disconnect_sensor))
+	RegisterSignal(connected_sensor, COMSIG_PARENT_QDELETING, PROC_REF(disconnect_sensor))
 
 	// Transfer signal from air alarm to sensor
 	UnregisterSignal(loc, COMSIG_TURF_EXPOSE)
@@ -755,7 +727,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 ///Used to reset the air alarm to default configuration after disconnecting from air sensor
 /obj/machinery/airalarm/proc/disconnect_sensor()
-	UnregisterSignal(connected_sensor, COMSIG_QDELETING)
+	UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
 
 	// Transfer signal from sensor to air alarm
 	UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)
@@ -769,162 +741,5 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	update_appearance()
 	update_name()
-
-/obj/machinery/airalarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	if((buildstage == AIR_ALARM_BUILD_NO_CIRCUIT) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
-		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
-	return FALSE
-
-/obj/machinery/airalarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_UPGRADE_SIMPLE_CIRCUITS)
-			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
-			"<span class='notice'>You adapt an air alarm circuit and slot it into the assembly.</span>")
-			buildstage = AIR_ALARM_BUILD_NO_WIRES
-			update_icon()
-			return TRUE
-	return FALSE
-
-/obj/machinery/airalarm/server // No checks here.
-	TLV = list(
-		"pressure"					= new/datum/tlv/no_checks,
-		"temperature"				= new/datum/tlv/no_checks,
-		/datum/gas/oxygen			= new/datum/tlv/no_checks,
-		/datum/gas/nitrogen			= new/datum/tlv/no_checks,
-		/datum/gas/carbon_dioxide	= new/datum/tlv/no_checks,
-		/datum/gas/plasma			= new/datum/tlv/no_checks,
-		/datum/gas/nitrous_oxide	= new/datum/tlv/no_checks,
-		/datum/gas/bz				= new/datum/tlv/no_checks,
-		/datum/gas/hypernoblium		= new/datum/tlv/no_checks,
-		/datum/gas/water_vapor		= new/datum/tlv/no_checks,
-		/datum/gas/tritium			= new/datum/tlv/no_checks,
-		/datum/gas/stimulum			= new/datum/tlv/no_checks,
-		/datum/gas/nitryl			= new/datum/tlv/no_checks,
-		/datum/gas/pluoxium			= new/datum/tlv/no_checks
-	)
-
-/obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15 K.
-	TLV = list(
-		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
-		"temperature"				= new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
-		/datum/gas/oxygen			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-		/datum/gas/nitrogen			= new/datum/tlv(-1, -1, 1000, 1000),
-		/datum/gas/carbon_dioxide	= new/datum/tlv(-1, -1, 5, 10),
-		/datum/gas/plasma			= new/datum/tlv/dangerous,
-		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
-		/datum/gas/bz				= new/datum/tlv/dangerous,
-		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
-		/datum/gas/water_vapor		= new/datum/tlv/dangerous,
-		/datum/gas/tritium			= new/datum/tlv/dangerous,
-		/datum/gas/stimulum			= new/datum/tlv/dangerous,
-		/datum/gas/nitryl			= new/datum/tlv/dangerous,
-		/datum/gas/pluoxium			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
-	)
-
-/obj/machinery/airalarm/unlocked
-	locked = FALSE
-
-/obj/machinery/airalarm/engine
-	name = "engine air alarm"
-	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
-
-/obj/machinery/airalarm/mixingchamber
-	name = "chamber air alarm"
-	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX, ACCESS_TOX_STORAGE)
-
-/obj/machinery/airalarm/all_access
-	name = "all-access air alarm"
-	desc = "This particular atmospherics control unit appears to have no access restrictions."
-	locked = FALSE
-	req_access = null
-	req_one_access = null
-
-/obj/machinery/airalarm/syndicate //general syndicate access
-	req_access = list(ACCESS_SYNDICATE)
-
-/obj/machinery/airalarm/away //general away mission access
-	req_access = list(ACCESS_AWAY_GENERAL)
-
-///////////////////////////// CIRCUIT COMPONENTS ///////////////////////////////////////
-
-/obj/item/circuit_component/air_alarm
-	display_name = "Air Alarm"
-	desc = "Controls levels of gases and their temperature as well as all vents and scrubbers in the room."
-
-	var/datum/port/input/option/air_alarm_options
-
-	var/datum/port/input/min_2
-	var/datum/port/input/min_1
-	var/datum/port/input/max_1
-	var/datum/port/input/max_2
-
-	var/datum/port/input/request_data
-
-	var/datum/port/output/pressure
-	var/datum/port/output/temperature
-	var/datum/port/output/gas_amount
-
-	var/obj/machinery/airalarm/connected_alarm
-	var/list/options_map
-
-/obj/item/circuit_component/air_alarm/populate_ports()
-	min_2 = add_input_port("Min 2", PORT_TYPE_NUMBER)
-	min_1 = add_input_port("Min 1", PORT_TYPE_NUMBER)
-	max_1 = add_input_port("Max 1", PORT_TYPE_NUMBER)
-	max_2 = add_input_port("Max 2", PORT_TYPE_NUMBER)
-	request_data = add_input_port("Request Atmosphere Data", PORT_TYPE_SIGNAL)
-
-	pressure = add_output_port("Pressure", PORT_TYPE_NUMBER)
-	temperature = add_output_port("Temperature", PORT_TYPE_NUMBER)
-	gas_amount = add_output_port("Chosen Gas Amount", PORT_TYPE_NUMBER)
-
-/obj/item/circuit_component/air_alarm/populate_options()
-	var/static/list/component_options
-
-	if(!component_options)
-		component_options = list(
-			"Pressure" = "pressure",
-			"Temperature" = "temperature"
-		)
-
-		for(var/gas in subtypesof(/datum/gas))
-			component_options[GLOB.meta_gas_info[gas][META_GAS_NAME]] = GLOB.meta_gas_info[gas][META_GAS_ID]
-
-	air_alarm_options = add_option_port("Air Alarm Options", component_options)
-	options_map = component_options
-
-/obj/item/circuit_component/air_alarm/register_usb_parent(atom/movable/parent)
-	. = ..()
-	if(istype(parent, /obj/machinery/airalarm))
-		connected_alarm = parent
-
-/obj/item/circuit_component/air_alarm/unregister_usb_parent(atom/movable/parent)
-	connected_alarm = null
-	return ..()
-
-/obj/item/circuit_component/air_alarm/input_received(datum/port/input/port)
-	if(!connected_alarm || connected_alarm.locked)
-		return
-
-	var/current_option = air_alarm_options.value
-
-	if(COMPONENT_TRIGGERED_BY(request_data, port))
-		var/turf/alarm_turf = get_turf(connected_alarm)
-		var/datum/gas_mixture/environment = alarm_turf.return_air()
-		pressure.set_output(round(environment.return_pressure()))
-		temperature.set_output(round(environment.return_temperature()))
-		if(ispath(options_map[current_option]))
-			gas_amount.set_output(round(GET_MOLES(current_option, environment)))
-		return
-
-	var/datum/tlv/settings = connected_alarm.TLV[options_map[current_option]]
-	settings.min2 = min_2
-	settings.min1 = min_1
-	settings.max1 = max_1
-	settings.max2 = max_2
 
 #undef AIRALARM_WARNING_COOLDOWN

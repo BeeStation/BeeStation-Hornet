@@ -25,7 +25,7 @@
 	///Bitflag of the initialized directions (NORTH | SOUTH | EAST | WEST)
 	var/initialize_directions = 0
 	///The color of the pipe
-	var/pipe_color
+	var/pipe_color = COLOR_VERY_LIGHT_GRAY
 	///What layer the pipe is in (from 1 to 5, default 3)
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	///The flags of the pipe/component (PIPING_ALL_LAYER | PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY | PIPING_CARDINAL_AUTONORMALIZE)
@@ -54,13 +54,16 @@
 	///Check if the device should be on or off (mostly used in processing for machines)
 	var/on = FALSE
 	///Whether it can be painted
-	var/paintable = FALSE
+	var/paintable = TRUE
 
 	///Is the thing being rebuilt by SSair or not. Prevents list bloat
 	var/rebuilding = FALSE
 
 	///The bitflag that's being checked on ventcrawling. Default is to allow ventcrawling and seeing pipes.
 	var/vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE
+
+	///Store the smart pipes connections, used for pipe construction
+	var/connection_num = 0
 
 	///keeps the name of the object from being overridden if it's vareditted.
 	var/override_naming
@@ -212,9 +215,10 @@
  */
 /obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
 	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
-		if(target.initialize_directions & get_dir(target,src) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
-			if(connection_check(target, prompted_layer))
-				return target
+		if(!(target.initialize_directions & get_dir(target,src)))
+			continue
+		if(connection_check(target, prompted_layer))
+			return target
 
 /**
  * Check the connection between two nodes
@@ -231,7 +235,7 @@
 	return FALSE
 
 /**
- * check if the piping layer are the same on both sides
+ * check if the piping layer and color are the same on both sides (grey can connect to all colors)
  * returns TRUE or FALSE if the connection is possible or not
  * Arguments:
  * * obj/machinery/atmospherics/target - the machinery we want to connect to
@@ -240,7 +244,44 @@
 /obj/machinery/atmospherics/proc/is_connectable(obj/machinery/atmospherics/target, given_layer)
 	if(isnull(given_layer))
 		given_layer = piping_layer
-	if((target.piping_layer == given_layer) || (target.pipe_flags & PIPING_ALL_LAYER))
+
+	// you can't place the machine on the same location as the target cause it blocks
+	if(target.loc == loc)
+		return FALSE
+
+	//if the target is not in the same piping layer & it does not have the all layer connection flag[which allows it to be connected regardless of layer] then we are out
+	if(target.pipe_flags & PIPING_DISTRO_AND_WASTE_LAYERS)
+		if(ISODD(given_layer))
+			return FALSE
+	else if(target.piping_layer != given_layer && !(target.pipe_flags & PIPING_ALL_LAYER))
+		return FALSE
+
+	//if the target does not have the same color and it does not have all color connection flag[which allows it to be connected regardless of color] & one of the pipes is not gray[allowing for connection regardless] then we are out
+	if(target.pipe_color != pipe_color && !((target.pipe_flags | pipe_flags) & PIPING_ALL_COLORS) && target.pipe_color != COLOR_VERY_LIGHT_GRAY && pipe_color != COLOR_VERY_LIGHT_GRAY)
+		return FALSE
+
+	return TRUE
+/**
+ * check if the piping layer are the same on both sides or one of them has the PIPING_ALL_LAYER flag
+ * returns TRUE if one of the parameters is TRUE
+ * called by isConnectable()
+ * Arguments:
+ * * obj/machinery/atmospherics/target - the machinery we want to connect to
+ * * given_layer - the piping_layer we are connecting to
+ */
+/obj/machinery/atmospherics/proc/check_connectable_layer(obj/machinery/atmospherics/target, given_layer)
+	if(target.piping_layer == given_layer || (target.pipe_flags | pipe_flags) & PIPING_ALL_LAYER)
+		return TRUE
+	return FALSE
+
+/**
+ * check if the color are the same on both sides or if one of the pipes are grey or have the PIPING_ALL_COLORS flag
+ * returns TRUE if one of the parameters is TRUE
+ * Arguments:
+ * * obj/machinery/atmospherics/target - the machinery we want to connect to
+ */
+/obj/machinery/atmospherics/proc/check_connectable_color(obj/machinery/atmospherics/target)
+	if(lowertext(target.pipe_color) == lowertext(pipe_color) || ((target.pipe_flags | pipe_flags) & PIPING_ALL_COLORS) || lowertext(target.pipe_color) == lowertext(COLOR_VERY_LIGHT_GRAY) || lowertext(pipe_color == COLOR_VERY_LIGHT_GRAY))
 		return TRUE
 	return FALSE
 
@@ -386,7 +427,7 @@
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(can_unwrench)
-			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src)
+			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src, pipe_color)
 			stored.set_piping_layer(piping_layer)
 			if(!disassembled)
 				stored.take_damage(stored.max_integrity * 0.5, sound_effect=FALSE)
@@ -422,6 +463,14 @@
 		PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
 		if(trinary && (piping_layer == 1 || piping_layer == 5))
 			PIPING_FORWARD_SHIFT(pipe_overlay, piping_layer, 2)
+
+///Similar to getpipeimage(); will create an image from the set_icon and set_state; mostly used to create overlays for connections.
+/obj/machinery/atmospherics/proc/pipe_overlay(set_icon, set_state, direction, color = COLOR_VERY_LIGHT_GRAY, piping_layer = 3, set_layer = PIPE_VISIBLE_LEVEL)
+	var/image/pipe_overlay
+	pipe_overlay = image(icon = set_icon, icon_state = set_state, layer = set_layer, dir = direction)
+	pipe_overlay.color = color
+	PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
+	return pipe_overlay
 
 /obj/machinery/atmospherics/on_construction(obj_color, set_layer)
 	if(can_unwrench)
@@ -512,14 +561,30 @@
  * Update the layer in which the pipe/device is in, that way pipes have consistent layer depending on piping_layer
  */
 /obj/machinery/atmospherics/proc/update_layer()
-	layer = initial(layer) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE
+	layer = initial(layer) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE + (GLOB.pipe_colors_ordered[pipe_color] * 0.01)
 
 /**
- * Called by the RPD.dm pre_attack(), overriden by pipes.dm
+ * Called by the RPD.dm pre_attack()
  * Arguments:
  * * paint_color - color that the pipe will be painted in (colors in hex like #4f4f4f)
  */
 /obj/machinery/atmospherics/proc/paint(paint_color)
+	if(paintable)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		set_pipe_color(paint_color)
+		update_node_icon()
+	return paintable
+
+/// Setter for pipe color, so we can ensure it's all uniform and save cpu time
+/obj/machinery/atmospherics/proc/set_pipe_color(pipe_colour)
+	src.pipe_color = uppertext(pipe_colour)
+	update_name()
+
+/// Return TRUE if there is device connected to portables_connector
+/obj/machinery/atmospherics/proc/portable_device_connected(node)
+	var/obj/machinery/atmospherics/components/unary/portables_connector/portable_devices_connector = nodes[node]
+	if(portable_devices_connector.connected_device)
+		return TRUE
 	return FALSE
 
 #undef PIPE_VISIBLE_LEVEL

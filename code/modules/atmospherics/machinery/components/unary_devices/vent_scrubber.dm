@@ -199,7 +199,7 @@
 		active_power_usage = ACTIVE_POWER_USE
 	if(widenet)
 		new_power_usage += new_power_usage * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
-	update_mode_power_usage(scrubbing == ATMOS_DIRECTION_SCRUBBING ? IDLE_POWER_USE : ACTIVE_POWER_USE, new_power_usage)
+	active_power_usage = new_power_usage
 
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/set_scrubbing(scrubbing, mob/user)

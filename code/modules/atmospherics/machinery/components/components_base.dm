@@ -55,24 +55,32 @@
 
 	underlays.Cut()
 
-	plane = showpipe ? GAME_PLANE : FLOOR_PLANE
+	color = null
 
 	if(!showpipe)
 		return ..()
+	if(pipe_flags & PIPING_DISTRO_AND_WASTE_LAYERS)
+		return ..()
 
 	var/connected = 0 //Direction bitset
+
+	var/underlay_pipe_layer = shift_underlay_only ? piping_layer : 3
 
 	for(var/i in 1 to device_type) //adds intact pieces
 		if(!nodes[i])
 			continue
 		var/obj/machinery/atmospherics/node = nodes[i]
-		var/image/img = get_pipe_underlay("pipe_intact", get_dir(src, node), node.pipe_color)
-		underlays += img
-		connected |= img.dir
+		var/node_dir = get_dir(src, node)
+		var/mutable_appearance/pipe_appearance = mutable_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "intact_[node_dir]_[underlay_pipe_layer]")
+		pipe_appearance.color = node.pipe_color
+		underlays += pipe_appearance
+		connected |= node_dir
 
 	for(var/direction in GLOB.cardinals)
 		if((initialize_directions & direction) && !(connected & direction))
-			underlays += get_pipe_underlay("pipe_exposed", direction)
+			var/mutable_appearance/pipe_appearance = mutable_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "exposed_[direction]_[underlay_pipe_layer]")
+			pipe_appearance.color = pipe_color
+			underlays += pipe_appearance
 
 	if(!shift_underlay_only)
 		PIPING_LAYER_SHIFT(src, piping_layer)
@@ -100,7 +108,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/on_construction()
-	..()
+	. = ..()
 	update_parents()
 
 /obj/machinery/atmospherics/components/rebuild_pipes()
@@ -243,13 +251,20 @@
 /obj/machinery/atmospherics/components/return_analyzable_air()
 	return airs
 
+/obj/machinery/atmospherics/components/paint(paint_color)
+	if(paintable)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		update_node_icon()
+	return paintable
+
 /**
  * Handles machinery deconstruction and unsafe pressure release
  */
 /obj/machinery/atmospherics/components/proc/crowbar_deconstruction_act(mob/living/user, obj/item/tool, internal_pressure = 0)
 	if(!panel_open)
 		balloon_alert(user, "open panel!")
-		return ITEM_INTERACT_SUCCESS
+		return TRUE
 
 	var/unsafe_wrenching = FALSE
 	var/filled_pipe = FALSE
@@ -264,14 +279,14 @@
 
 	if(!filled_pipe)
 		default_deconstruction_crowbar(tool)
-		return ITEM_INTERACT_SUCCESS
+		return TRUE
 
-	to_chat(user, span_notice("You begin to unfasten \the [src]..."))
+	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 
 	internal_pressure -= environment_air.return_pressure()
 
 	if(internal_pressure > 2 * ONE_ATMOSPHERE)
-		to_chat(user, span_warning("As you begin deconstructing \the [src] a gush of air blows in your face... maybe you should reconsider?"))
+		to_chat(user, "<span class='warning'>As you begin deconstructing \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 		unsafe_wrenching = TRUE
 
 	if(!do_after(user, 2 SECONDS, src))
@@ -280,7 +295,7 @@
 		unsafe_pressure_release(user, internal_pressure)
 	tool.play_tool_sound(src, 50)
 	deconstruct(TRUE)
-	return ITEM_INTERACT_SUCCESS
+	return TRUE
 
 /obj/machinery/atmospherics/components/default_change_direction_wrench(mob/user, obj/item/I)
 	. = ..()

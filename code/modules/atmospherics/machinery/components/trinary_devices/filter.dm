@@ -27,22 +27,13 @@
 		ui_update()
 	return
 
-/obj/machinery/atmospherics/components/trinary/filter/update_icon()
-	cut_overlays()
+/obj/machinery/atmospherics/components/trinary/filter/update_overlays()
+	. = ..()
 	for(var/direction in GLOB.cardinals)
 		if(!(direction & initialize_directions))
 			continue
-		var/obj/machinery/atmospherics/node = find_connecting(direction)
 
-		var/image/cap
-		if(node)
-			cap = get_pipe_image(icon, "cap", direction, node.pipe_color, piping_layer = piping_layer, trinary = TRUE)
-		else
-			cap = get_pipe_image(icon, "cap", direction, piping_layer = piping_layer, trinary = TRUE)
-
-		add_overlay(cap)
-
-	return ..()
+		. += get_pipe_image(icon, "cap", direction, pipe_color, piping_layer, TRUE)
 
 /obj/machinery/atmospherics/components/trinary/filter/update_icon_nopipes()
 	var/on_state = on && nodes[1] && nodes[2] && nodes[3] && is_operational
