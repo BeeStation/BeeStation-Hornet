@@ -328,6 +328,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
+
+/// For unit testing, all do_afters set on this mob complete instantly and do not sleep
+#define INSTANT_DO_AFTER "instant_do_after"
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 // END TRAIT DEFINES
