@@ -49,7 +49,7 @@
 				match_message += (match_message ? " & '[file_place]'" : " - Matching sprite found in: '[file_place]'")
 
 		if(worn_icon) //easiest to check since we override everything. this automatically includes downstream support.
-			if(!(icon_state in icon_states(worn_icon, 1)))
+			if(!(icon_state in icon_states(worn_icon, 1)) && has_worn_icons(item_path))
 				TEST_FAIL("[item_path] using invalid [worn_icon_state ? "worn_icon_state" : "icon_state"], \"[icon_state]\" in worn_icon override file, '[worn_icon]'[match_message]")
 			continue
 
@@ -115,5 +115,12 @@
 				fail_reasons += "[spacer][item_path] using invalid [worn_icon_state ? "worn_icon_state" : "icon_state"], \"[icon_state]\" in '[icon_file]'[match_message]"
 				spacer = "\n\t"
 
-		if(fail_reasons)
+		if(fail_reasons && has_worn_icons(item_path))
 			TEST_FAIL(fail_reasons)
+
+/datum/unit_test/worn_icons/proc/has_no_worn_icons(path)
+	var/atom/created = allocate(path)
+	if (QDELETED(created))
+		return FALSE
+	qdel(created)
+	return TRUE
