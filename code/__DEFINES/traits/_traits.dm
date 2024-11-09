@@ -13,9 +13,6 @@
 	src.source = source
 	src.value = value
 
-/datum/trait/proc/operator~=(b)
-	return source == b
-
 /datum/trait/priority
 	/// The priority of this value trait, or null if there is no value
 	var/priority
@@ -29,18 +26,8 @@
 	var/mult_cum = 1
 
 /datum/trait/add
-	var/add_value
-
-/datum/trait/add/New(source, value = null, add_value = 0)
-	. = ..()
-	src.add_value = add_value
 
 /datum/trait/multiply
-	var/multiply_value
-
-/datum/trait/multiply/New(source, value = null, multiply_value = 1)
-	. = ..()
-	src.multiply_value = multiply_value
 
 // TODO: Figure out a way of merging ADD_TRAIT and ADD_VALUE_TRAIT with variadic macros
 // without making the opendream/dreamchecker unhappy through the use of compile-time
@@ -72,11 +59,11 @@
 /// 3: The source of the trait
 /// 4: The priority of the trait value
 /// 5: The value stored in the trait
-#define ADD_VALUE_TRAIT(target, _trait, source, _trait_value, _trait_priority) do { \
-		if (!target.status_traits) { \
-			target.status_traits = list(); \
+#define ADD_VALUE_TRAIT(_target, _trait, source, _trait_value, _trait_priority) do { \
+		if (!_target.status_traits) { \
+			_target.status_traits = list(); \
 		}; \
-		var/list/_L = target.status_traits; \
+		var/list/_L = _target.status_traits; \
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
 			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority);\
@@ -84,8 +71,8 @@
 			target_heap = list(); \
 			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority);\
 			_L[_trait] = target_heap;\
-			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(_trait), _trait); \
-			SEND_SIGNAL(target, SIGNAL_UPDATETRAIT(_trait), _trait); \
+			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} \
 	} while (0)
 
@@ -101,16 +88,16 @@
 /// 3: The source of the trait
 /// 4: The amount to add to the trait
 #define ADD_CUMULATIVE_TRAIT(_target, _trait, _source, _additive_amount) do { \
-		if (!target.status_traits) { \
-			target.status_traits = list(); \
+		if (!_target.status_traits) { \
+			_target.status_traits = list(); \
 		}; \
-		var/list/_L = target.status_traits; \
+		var/list/_L = _target.status_traits; \
 		var/list/_target_list = _L[_trait];\
 		if (_target_list != null) { \
 			var/datum/trait/value_head/_head = _target_list[1];\
 			_head.add_cum += _additive_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
-			_target_list += new /datum/trait/add(_trait, _source, _additive_amount);\
+			_target_list += new /datum/trait/add(_source, _additive_amount);\
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
@@ -118,11 +105,12 @@
 			var/datum/trait/value_head/_head = _target_list[1];\
 			_head.add_cum += _additive_amount;\
 			_head.value = _additive_amount;\
-			_target_list += new /datum/trait/add(_trait, _source, _additive_amount);\
-			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(_trait), _trait); \
-			SEND_SIGNAL(target, SIGNAL_UPDATETRAIT(_trait), _trait); \
+			_target_list += new /datum/trait/add(_source, _additive_amount);\
+			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} \
 	} while (0)
+
 /// Add a multiplicative trait to the target, this allows you to perform cross-module independance sums
 /// that support multiplicative modification, for example:
 /// - Add 5 movespeed
@@ -135,16 +123,16 @@
 /// 3: The source of the trait
 /// 4: The amount to multiply the trait by
 #define ADD_MULTIPLICATIVE_TRAIT(_target, _trait, _source, _multiplicative_amount) do { \
-		if (!target.status_traits) { \
-			target.status_traits = list(); \
+		if (!_target.status_traits) { \
+			_target.status_traits = list(); \
 		}; \
-		var/list/_L = target.status_traits; \
+		var/list/_L = _target.status_traits; \
 		var/list/_target_list = _L[_trait];\
 		if (_target_list != null) { \
 			var/datum/trait/value_head/_head = _target_list[1];\
 			_head.mult_cum *= _multiplicative_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
-			_target_list += new /datum/trait/multiply(_trait, _source, _multiplicative_amount);\
+			_target_list += new /datum/trait/multiply(_source, _multiplicative_amount);\
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
@@ -152,9 +140,9 @@
 			var/datum/trait/value_head/_head = _target_list[1];\
 			_head.mult_cum *= _multiplicative_amount;\
 			_head.value = 0;\
-			_target_list += new /datum/trait/multiply(_trait, _source, _multiplicative_amount);\
-			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(_trait), _trait); \
-			SEND_SIGNAL(target, SIGNAL_UPDATETRAIT(_trait), _trait); \
+			_target_list += new /datum/trait/multiply(_source, _multiplicative_amount);\
+			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} \
 	} while (0)
 
@@ -170,10 +158,9 @@
 				} \
 			}\
 		} else if (istype(_cached_source, /datum/trait/priority)) { \
-			for (var/_trait_datum in _trait_list) { \
-				var/_T = _trait_datum:source;\
+			for (var/datum/trait/_trait_datum as anything in _trait_list) { \
+				var/_T = _trait_datum.source;\
 				if (##_condition) { \
-					REMOVE_HEAP(_trait_list, _trait_datum, priority); \
 					if (length(_trait_list) && _trait_list[1] != _cached_source) {\
 						SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 					}\
@@ -181,32 +168,34 @@
 			}\
 		} else if (istype(_cached_source, /datum/trait/value_head)) { \
 			var/_changed = FALSE;\
-			for (var/__i = 2; __i <= length(_trait_list); __i++) {\
-				var/_trait_datum = _trait_list[__i]; \
-				var/_T = _trait_datum:source;\
+			for (var/__i = length(_trait_list); __i >= 2; __i--) {\
+				var/datum/trait/_trait_datum = _trait_list[__i]; \
+				var/_T = _trait_datum.source;\
 				if (##_condition) { \
 					_trait_list -= _trait_datum;\
 					_changed = TRUE;\
 				} \
 			} /* We have to perform a full recalculation as infinity and 0 lose precision */ \
 			if (_changed) {\
-				_trait_list[1]:add_cum = 0;\
-				_trait_list[1]:mult_cum = 1;\
+				var/datum/trait/value_head/value_head = _trait_list[1];\
+				value_head.add_cum = 0;\
+				value_head.mult_cum = 1;\
 				for (var/__j = 2; __j <= length(_trait_list); __j++) {\
+					var/datum/trait/scanned_trait = _trait_list[__j];\
 					if (istype(_trait_list[__j], /datum/trait/add)) {\
-						_trait_list[1]:add_cum += _trait_list[__j]:add_value;\
+						value_head.add_cum += scanned_trait.value;\
 					} else {\
-						_trait_list[1]:mult_cum *= _trait_list[__j]:multiply_value;\
+						value_head.mult_cum *= scanned_trait.value;\
 					}\
 				}\
-				_trait_list[1]:value = _trait_list[1]:add_cum * _trait_list[1]:mult_cum;\
+				value_head.value = value_head.add_cum * value_head.mult_cum;\
 				SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 			}\
 			if (length(_trait_list) == 1) {\
 				_trait_list.Cut();\
 			}\
 		} else { \
-			stack_trace("Invalid trait type found in trait list, [_cached_source] ([isdatum(_cached_source) && _cached_source:type])"); \
+			stack_trace("Invalid trait type found in trait list, [_cached_source]"); \
 		} \
 	}
 
@@ -222,7 +211,7 @@
 		}; \
 		if (_L && _L[_trait]) { \
 			var/list/_heap = _L[_trait];\
-			REMOVE_TRAIT_IF(_target, _trait, _heap, (!_S && (!(_T ~= ROUNDSTART_TRAIT))) || (_T in _S)); \
+			REMOVE_TRAIT_IF(_target, _trait, _heap, (!_S && (!(_T == ROUNDSTART_TRAIT))) || (_T in _S)); \
 			if (!length(_heap)) { \
 				_L -= _trait; \
 				SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait), _trait); \
@@ -246,7 +235,7 @@
 		}; \
 		if (_L && _L[_trait]) { \
 			var/list/_heap = _L[_trait];\
-			REMOVE_TRAIT_IF(_target, _trait, _heap, !((istype(_T, /datum/trait/priority) ? _T:source : _T) in _sources_list)); \
+			REMOVE_TRAIT_IF(_target, _trait, _heap, !(_T in _S)); \
 			if (!length(_heap)) { \
 				_L -= _trait; \
 				SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait), _trait); \
@@ -267,7 +256,7 @@
 		if (_L) { \
 			for (var/_trait_key as anything in _L) { \
 				var/list/_heap = _L[_trait_key];\
-				REMOVE_TRAIT_IF(_target, _trait_key, _heap, !((istype(_T, /datum/trait/priority) ? _T:source : _T) in _sources_list)); \
+				REMOVE_TRAIT_IF(_target, _trait_key, _heap, !(_T in _sources_list)); \
 				if (!length(_heap)) { \
 					_L -= _trait_key; \
 					SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait_key), _trait_key); \
@@ -288,7 +277,7 @@
 		if (_L) { \
 			for (var/_trait_key as anything in _L) { \
 				var/list/_heap = _L[_trait_key];\
-				REMOVE_TRAIT_IF(_target, _trait_key, _heap, ((istype(_T, /datum/trait/priority) ? _T:source : _T) in _sources_list)); \
+				REMOVE_TRAIT_IF(_target, _trait_key, _heap, (_T in _sources_list)); \
 				if (!length(_heap)) { \
 					_L -= _trait_key; \
 					SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait_key), _trait_key); \
@@ -313,9 +302,11 @@
 /// Slightly slower than HAS_TRAIT and should be avoided when proc-overhead matters (roughly >1000 calls per second)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) has_trait_not_from(target, trait, source)
 
+GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
+
 // Note: a?:b is used because : alone breaks the terniary operator
 /// Get the value of the specified trait
-#define GET_TRAIT_VALUE(target, trait) (target.status_traits ? (length(target.status_traits[trait]) ? (target.status_traits[trait][1]?:value) : null) : null)
+#define GET_TRAIT_VALUE(target, trait) (target.status_traits ? (length(target.status_traits[trait]) ? ((GLOB._trait_located = target.status_traits[trait][1]) && GLOB._trait_located.value) : null) : null)
 
 /proc/has_trait_not_from(datum/target, trait, source)
 	var/list/heap
