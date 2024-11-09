@@ -181,7 +181,7 @@
 	var/stamina_damage = 55 // Do we deal stamina damage.
 	var/affect_silicon = FALSE // Does it stun silicons.
 	var/on_sound // "On" sound, played when switching between able to stun or not.
-	var/on_stun_sound = "sound/effects/woodhit.ogg" // Default path to sound for when we stun.
+	var/on_stun_sound = 'sound/effects/woodhit.ogg' // Default path to sound for when we stun.
 	var/stun_animation = FALSE // Do we animate the "hit" when stunning.
 	var/on = TRUE // Are we on or off
 
@@ -299,6 +299,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
+					log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -339,178 +340,6 @@
 	cooldown = 10
 	stamina_damage = 20
 	stun_animation = TRUE
-
-//Former Wooden Baton
-/obj/item/melee/classic_baton/police/tonfa
-	name = "Police Tonfa"
-	desc = "Favored by hot headed Security Officers who don't want to get in trouble with CentCom but still want to get that nostalgic feeling of beating some criminal scum upside the head with a chunk of wood."
-	icon_state = "beater"
-	item_state = "beater"
-	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	force = 8
-	throwforce = 7
-	cooldown = 0
-	stamina_damage = 30 // 4 hits to stamcrit < that was a lie
-	stun_animation = TRUE
-	/// Per-mob paralyze cooldowns.
-	/// [mob] = [world.time where the cooldown ends]
-	var/static/list/paralyze_cooldowns = list()
-	/// Per-mob trip cooldowns.
-	/// [mob] = [world.time where the cooldown ends]
-	var/static/list/trip_cooldowns = list()
-
-/obj/item/melee/classic_baton/police/tonfa/attack(mob/living/target, mob/living/user)
-	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
-
-	add_fingerprint(user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
-		user.adjustStaminaLoss(stamina_damage)
-
-		additional_effects_carbon(user) // user is the target here
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
-		else
-			user.take_bodypart_damage(2*force)
-		return
-	if(!isliving(target))
-		return
-	if(iscyborg(target))
-		if (user.a_intent != INTENT_HARM)
-			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
-			user.do_attack_animation(target) // The attacker cuddles the Cyborg, awww. No damage here.
-			return
-		return ..()
-	if (user.a_intent == INTENT_HARM)
-		if(!..())
-			target.apply_damage(force, STAMINA, blocked = def_check)
-			return
-	else if(cooldown_check > world.time)
-		var/wait_desc = get_wait_description()
-		if (wait_desc)
-			to_chat(user, wait_desc)
-		return
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			return
-		if(check_martial_counter(H, user))
-			return
-
-		var/list/desc = get_stun_description(target, user)
-		var/obj/item/bodypart/La = target.get_bodypart(BODY_ZONE_L_ARM)
-		var/obj/item/bodypart/Ra = target.get_bodypart(BODY_ZONE_R_ARM)
-		var/obj/item/bodypart/Ll = target.get_bodypart(BODY_ZONE_L_LEG)
-		var/obj/item/bodypart/Rl = target.get_bodypart(BODY_ZONE_R_LEG)
-		var/mob/living/carbon/human/T = target
-
-		user.do_attack_animation(target)
-		playsound(get_turf(src), on_stun_sound, 75, 1, -1)
-		additional_effects_carbon(target, user)
-		if(user.is_zone_selected(BODY_ZONE_CHEST) || user.is_zone_selected(BODY_ZONE_PRECISE_GROIN))
-			target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
-			log_combat(user, target, "stunned", src)
-			target.visible_message(desc["visiblestun"], desc["localstun"])
-
-		else if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_PRECISE_EYES) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
-			target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_HEAD, def_check) // 90 : 5 = 18 , 5 hits to KnockOut
-
-			if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_PARALYZED) && (!paralyze_cooldowns[target] || COOLDOWN_FINISHED(src, paralyze_cooldowns[target])))
-				T.force_say(user)
-				target.balloon_alert_to_viewers("Knock-Down!")
-				if(!target.has_status_effect(STATUS_EFFECT_PARALYZED))
-					target.Paralyze(80)
-					target.setStaminaLoss(0)
-					playsound(usr.loc, "sound/machines/bellsound.ogg", 15, 1)
-					log_combat(user, target, "Knocked-Down", src)
-				if(CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND)) //this is here so the "falls" message doesn't appear if the target is already on the floor
-					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground.","got [T.p_their()] dome rung in."))]</span>")
-				else
-					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("goes limp.","falls flat."))]</span>")
-				COOLDOWN_START(src, paralyze_cooldowns[target], 16 SECONDS)
-			else
-				log_combat(user, target, "stunned", src)
-				target.visible_message(desc["visiblestun"], desc["localstun"])
-
-		else if(user.is_zone_selected(BODY_ZONE_L_LEG))
-			log_combat(user, target, "stunned", src)
-			target.visible_message(desc["visibleleg"], desc["localleg"])
-			if (Rl.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
-				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_L_LEG, def_check)
-			else
-				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_L_LEG, def_check)
-			if (Ll.get_staminaloss() == 50)
-				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
-			else
-				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
-
-			if(Ll.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || COOLDOWN_FINISHED(src, trip_cooldowns[target])))
-				target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
-				target.balloon_alert_to_viewers("Tripped!")
-				target.Knockdown(7)
-				log_combat(user, target, "tripped", src)
-				target.visible_message(desc["visibletrip"], desc["localtrip"])
-				playsound(usr.loc, "sound/misc/slip.ogg", 30, 1)
-				COOLDOWN_START(src, trip_cooldowns[target], 3 SECONDS)
-
-		else if(user.is_zone_selected(BODY_ZONE_R_LEG))
-			log_combat(user, target, "stunned", src)
-			target.visible_message(desc["visibleleg"], desc["localleg"])
-			if (Ll.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
-				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_R_LEG, def_check)
-			else
-				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_R_LEG, def_check)
-			if (Rl.get_staminaloss() == 50)
-				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
-			else
-				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
-
-			if(Rl.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || COOLDOWN_FINISHED(src, trip_cooldowns[target])))
-				target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
-				target.balloon_alert_to_viewers("Tripped!")
-				target.Knockdown(7)
-				log_combat(user, target, "tripped", src)
-				playsound(usr.loc, "sound/misc/slip.ogg", 30, 1)
-				target.visible_message(desc["visibletrip"], desc["localtrip"])
-				COOLDOWN_START(src, trip_cooldowns[target], 3 SECONDS)
-
-		else if(user.is_zone_selected(BODY_ZONE_L_ARM))
-			if(!La.get_staminaloss() == 50)
-				log_combat(user, target, "stunned", src)
-				target.visible_message(desc["visiblearm"], desc["localarm"])
-			else
-				log_combat(user, target, "disarmed", src)
-				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-			if (Ra.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
-				target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_L_ARM, def_check)
-			else
-				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_L_ARM, def_check)
-			if (La.get_staminaloss() == 50)
-				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
-			else
-				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
-
-		else if(user.is_zone_selected(BODY_ZONE_R_ARM))
-			if(!Ra.get_staminaloss() == 50)
-				log_combat(user, target, "stunned", src)
-				target.visible_message(desc["visiblearm"], desc["localarm"])
-			else
-				log_combat(user, target, "disarmed", src)
-				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-			if (La.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
-				target.apply_damage(stamina_damage*0.8, STAMINA, BODY_ZONE_R_ARM, def_check)
-			else
-				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_R_ARM, def_check)
-			if (Ra.get_staminaloss() == 50)
-				target.apply_damage(stamina_damage*0.5, STAMINA, BODY_ZONE_CHEST, def_check)
-			else
-				target.apply_damage(stamina_damage*0.2, STAMINA, BODY_ZONE_CHEST, def_check)
-
-		add_fingerprint(user)
-
-		COOLDOWN_START(src, cooldown_check, cooldown)
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -711,6 +540,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
+					log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -935,6 +765,7 @@
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "roastingstick_0"
 	item_state = null
 	worn_icon_state = "tele_baton"
@@ -1017,7 +848,7 @@
 		return
 	if(is_type_in_typecache(target, ovens))
 		if(held_sausage && held_sausage.roasted)
-			to_chat("Your [held_sausage] has already been cooked.")
+			to_chat(user, "Your [held_sausage] has already been cooked.")
 			return
 		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
@@ -1074,3 +905,95 @@
 		target.throw_at(throw_at, throw_range, 3)
 
 		cooldown = world.time + 15
+
+//Former Wooden Baton
+/obj/item/melee/tonfa
+	name = "Police Tonfa"
+	desc = "A traditional police baton for gaining the submission of an uncooperative target without the use of lethal-force. \
+		As with all traditional weapons, the target will find themselves bruised, but alive. It has proven to be effective in preventing \
+		repeat offenses and has brought employment to lawyers for decades."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "beater"
+	item_state = "beater"
+	worn_icon_state = "classic_baton"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	force = 12
+	throwforce = 7
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_LARGE
+	hitsound = 'sound/effects/woodhit.ogg'
+	/// Damage dealt while on help intent
+	var/non_harm_force = 3
+	/// Stamina damage dealt
+	var/stamina_force = 25
+
+// #11200 Review - TEMP: Hacky code to deal with force string for this item.
+/obj/item/melee/tonfa/openTip(location, control, params, mob/user)
+	if (user != null && user.a_intent != INTENT_HARM)
+		force = non_harm_force
+	else
+		force = initial(force)
+	return ..()
+
+/obj/item/melee/tonfa/attack(mob/living/target, mob/living/user)
+	var/target_zone = user.get_combat_bodyzone(target)
+	var/armour_level = target.getarmor(target_zone, STAMINA, penetration = armour_penetration - 15)
+
+	add_fingerprint(user)
+	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+		user.adjustStaminaLoss(stamina_force)
+
+		// Deal full damage
+		force = initial(force)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+		else
+			user.take_bodypart_damage(2*force)
+		return
+	if(!isliving(target))
+		return ..()
+	if(iscyborg(target))
+		if (user.a_intent != INTENT_HARM)
+			playsound(get_turf(src), hitsound, 75, 1, -1)
+			user.do_attack_animation(target) // The attacker cuddles the Cyborg, awww. No damage here.
+			return
+	if (user.a_intent != INTENT_HARM)
+		force = non_harm_force
+	else
+		force = initial(force)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			return
+		if(check_martial_counter(H, user))
+			log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
+			return
+
+		target.visible_message("[user] strikes [target] in the [parse_zone(target_zone)].", "You strike [target] in the [parse_zone(target_zone)].")
+		log_combat(user, target, "attacked", src)
+
+		// If the target has a lot of stamina loss, knock them down
+		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.getStaminaLoss() > 22)
+			var/effectiveness = CLAMP01((target.getStaminaLoss() - 22) / 50)
+			log_combat(user, target, "knocked-down", src, "(additional effect)")
+			// Move the target back upon knockdown, to give them some time to recover
+			var/shove_dir = get_dir(user.loc, target.loc)
+			var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+			var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+			if (target_collateral_human && target_shove_turf != get_turf(user))
+				target.Knockdown(max(0.5 SECONDS, effectiveness * 4 SECONDS * (100-armour_level)/100))
+				target_collateral_human.Knockdown(0.5 SECONDS)
+			else
+				target.Knockdown(effectiveness * 4 SECONDS * (100-armour_level)/100)
+			target.Move(target_shove_turf, shove_dir)
+		if (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG) || user.is_zone_selected(BODY_ZONE_L_ARM) || user.is_zone_selected(BODY_ZONE_R_ARM))
+			// 4-5 hits on an unarmoured target
+			target.apply_damage(stamina_force*0.6, STAMINA, target_zone, armour_level)
+		else
+			// 4-5 hits on an unarmoured target
+			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
+
+	return ..()

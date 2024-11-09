@@ -180,6 +180,8 @@
 	var/RPpos = null
 	var/attached = TRUE //if the gun arg isn't included initially, then the chronofield will work without one
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
+
 /obj/structure/chrono_field/Initialize(mapload, mob/living/target, obj/item/gun/energy/chrono_gun/G)
 	if(target && isliving(target))
 		if(!G)

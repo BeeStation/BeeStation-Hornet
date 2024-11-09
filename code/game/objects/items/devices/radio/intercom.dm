@@ -12,6 +12,8 @@
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
+
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()
 	var/area/current_area = get_area(src)
@@ -54,7 +56,7 @@
 		return
 	return ..()
 
-/obj/item/radio/intercom/attack_ai(mob/user)
+/obj/item/radio/intercom/attack_silicon(mob/user)
 	interact(user)
 
 /obj/item/radio/intercom/attack_paw(mob/user)
@@ -159,6 +161,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 26)
 /obj/item/radio/intercom/chapel
 	name = "Confessional intercom"
 	anonymize = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom/chapel)
 
 /obj/item/radio/intercom/chapel/Initialize(mapload, ndir, building)
 	. = ..()

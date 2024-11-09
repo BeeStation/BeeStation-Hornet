@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/max_wash_capacity = 5
 	var/datum/looping_sound/washing_machine/soundloop
 
-/obj/machinery/washing_machine/Initialize()
+/obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	soundloop = new(src,  FALSE)
 
@@ -330,9 +330,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
-	else
-		appearance_change(src)
-		src.desc = initial(src)
+		return
+	appearance_change(src)
+	desc = initial(desc)
 
 /obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
 	. = ..()
@@ -423,7 +423,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 					to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/glass/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W

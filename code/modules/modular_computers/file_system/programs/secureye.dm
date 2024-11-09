@@ -13,7 +13,7 @@
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"
 
-	var/list/network = list("ss13")
+	var/list/network = list(CAMERA_NETWORK_STATION)
 	var/obj/machinery/camera/active_camera
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
@@ -34,7 +34,7 @@
 	// Convert networks to lowercase
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.name = "screen"
@@ -185,3 +185,5 @@
 			continue
 		camlist["[cam.c_tag]"] = cam
 	return camlist
+
+#undef DEFAULT_MAP_SIZE

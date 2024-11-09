@@ -284,8 +284,8 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels && channels.len > 0)
-		if(channel == MODE_DEPARTMENT)
+	if(channel && channels)
+		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
 		if(istype(talking_movable, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
@@ -572,6 +572,8 @@
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	dog_fashion = /datum/dog_fashion/back
 
-/obj/item/radio/off/Initialize()
+/obj/item/radio/off/Initialize(mapload)
 	. = ..()
 	set_listening(FALSE)
+
+#undef FREQ_LISTENING

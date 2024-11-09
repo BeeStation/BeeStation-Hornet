@@ -5,14 +5,12 @@
 "c" = (
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo1";
-	layer = 3.9;
 	name = "photon torpedo button";
 	pixel_x = -16;
 	pixel_y = -5
 	},
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo2";
-	layer = 3.9;
 	name = "photon torpedo button";
 	pixel_x = 16;
 	pixel_y = -5
@@ -68,8 +66,7 @@
 /area/template_noop)
 "n" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -205,8 +202,7 @@
 /obj/item/clothing/under/trek/engsec,
 /obj/item/clothing/under/trek/engsec,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4

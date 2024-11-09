@@ -7,7 +7,6 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/shower{
 	dir = 8;
-	layer = 4;
 	name = "emergency shower";
 	pixel_y = 6
 	},
@@ -176,7 +175,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/visible/layer2{
 	dir = 5
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},

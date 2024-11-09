@@ -107,10 +107,10 @@
 
 /datum/component/storage/concrete/pockets/helmet/Initialize()
 	. = ..()
-	can_hold = typecacheof(list(/obj/item/reagent_containers/food/drinks/bottle/vodka,
-					  /obj/item/reagent_containers/food/drinks/bottle/molotov,
-					  /obj/item/reagent_containers/food/drinks/drinkingglass,
-					  /obj/item/ammo_box/a762))
+	can_hold = typecacheof(list(/obj/item/reagent_containers/cup/glass/bottle/vodka,
+						/obj/item/reagent_containers/cup/glass/bottle/molotov,
+						/obj/item/reagent_containers/cup/glass/drinkingglass,
+						/obj/item/ammo_box/a762))
 
 /datum/component/storage/concrete/pockets/void_cloak
 	quickdraw = TRUE

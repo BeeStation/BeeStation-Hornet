@@ -121,11 +121,22 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
-	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
-	var/list/targeted_by
-
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
+
+	///any atom that uses integrity and can be damaged must set this to true, otherwise the integrity procs will throw an error
+	var/uses_integrity = FALSE
+
+	var/datum/armor/armor
+	VAR_PRIVATE/atom_integrity //defaults to max_integrity
+	var/max_integrity = 500
+	var/integrity_failure = 0 //0 if we have no special broken behavior, otherwise is a percentage of at what point the atom breaks. 0.5 being 50%
+	///Damage under this value will be completely ignored
+	var/damage_deflection = 0
+	/// Maximum damage that can be taken in a single hit
+	var/max_hit_damage = null
+
+	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
@@ -212,6 +223,8 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
+CREATION_TEST_IGNORE_SUBTYPES(/atom)
+
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -232,6 +245,15 @@
 
 	// apply materials properly from the default custom_materials value
 	set_custom_materials(custom_materials)
+
+	if(uses_integrity)
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+		else if (!istype(armor, /datum/armor))
+			stack_trace("Invalid type [armor.type] found in .armor during /atom Initialize()")
+		atom_integrity = max_integrity
 
 	ComponentInitialize()
 	InitializeAIController()
@@ -308,12 +330,6 @@
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
 
-	for(var/i in targeted_by)
-		var/mob/M = i
-		LAZYREMOVE(M.do_afters, src)
-
-	targeted_by = null
-
 	return ..()
 
 /atom/proc/handle_ricochet(obj/projectile/P)
@@ -328,7 +344,7 @@
 		if((a_incidence_s < 90 && a_incidence_s < 90 - P.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > P.ricochet_incidence_leeway))
 			return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.setAngle(new_angle_s)
+	P.set_angle(new_angle_s)
 	return TRUE
 
 /// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
@@ -610,7 +626,11 @@
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	var/examine_string = get_examine_string(user, thats = TRUE)
+	if(examine_string)
+		. = list("[examine_string].")
+	else
+		. = list()
 
 	if(desc)
 		. += desc
@@ -679,6 +699,21 @@
 			to_chat(user, "\t<span class='notice'><span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/**
+ * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
+ *
+ * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
+ * moments, while allowing people to manually double-examine to take a closer look
+ *
+ * Produces a signal [COMSIG_PARENT_EXAMINE_MORE]
+ */
+/atom/proc/examine_more(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
+	. = list()
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 
 /**
  * Updates the appearance of the icon
@@ -1007,6 +1042,27 @@
   */
 /atom/proc/teleport_act()
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
+
+/**
+ * Intercept our atom being teleported if we need to
+ *
+ * return COMPONENT_BLOCK_TELEPORT to explicity block teleportation
+ */
+/atom/proc/intercept_teleport(channel, turf/origin, turf/destination)
+	. = SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, origin, destination)
+
+	if(. == COMPONENT_BLOCK_TELEPORT)
+		return
+
+	// Recursively check contents by default. This can be overriden if we want different behavior.
+	for(var/atom/thing in contents)
+		// For the purposes of intercepting teleports, mobs on the turf don't count.
+		// We're already doing logic for intercepting teleports on the teleatom-level
+		if(isturf(src) && ismob(thing))
+			continue
+		var/result = thing.intercept_teleport(channel, origin, destination)
+		if(result == COMPONENT_BLOCK_TELEPORT)
+			return result
 
 /**
   * Respond to our atom being checked by a virus extrapolator.

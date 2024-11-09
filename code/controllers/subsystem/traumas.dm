@@ -101,6 +101,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/security/warden,
 			/obj/item/clothing/under/rank/security/head_of_security, /obj/item/clothing/under/rank/security/detective,
 			/obj/item/melee/baton, /obj/item/gun/energy/taser, /obj/item/restraints/handcuffs,
+			/obj/item/melee/tonfa,
 			/obj/machinery/door/airlock/security, /obj/effect/hallucination/simple/securitron)),
 
 		"clowns"    = typecacheof(list(
@@ -114,7 +115,7 @@ SUBSYSTEM_DEF(traumas)
 
 		"lizards"   = typecacheof(list(
 			/obj/item/toy/plush/lizard_plushie, /obj/item/food/kebab/tail,
-			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),
+			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/cup/glass/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
 			/obj/item/organ/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
@@ -204,7 +205,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/katana,
 			/obj/item/food/sashimi,
 			/obj/item/food/chawanmushi,
-			/obj/item/reagent_containers/food/drinks/bottle/sake,
+			/obj/item/reagent_containers/cup/glass/bottle/sake,
 			/obj/item/throwing_star,
 			/obj/item/clothing/head/costume/kitty/genuine,
 			/obj/item/clothing/suit/space/space_ninja,
@@ -231,13 +232,12 @@ SUBSYSTEM_DEF(traumas)
 						)
 
 	phobia_species = list("lizards" = typecacheof(list(/datum/species/lizard)),
-						  "skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
-						  "conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
-						  "robots" = typecacheof(list(/datum/species/android)),
-						  "the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
-						  "aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
-						  /datum/species/shadow)),
-						  "anime" = typecacheof(list(/datum/species/human/felinid))
-						 )
+							"skeletons" = typecacheof(list(/datum/species/skeleton, /datum/species/plasmaman)),
+							"conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
+							"robots" = typecacheof(list(/datum/species/android)),
+							"the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
+							"aliens" = typecacheof(list(/datum/species/abductor, /datum/species/diona, /datum/species/shadow)),
+							"anime" = typecacheof(list(/datum/species/human/felinid))
+						)
 
 	return SS_INIT_SUCCESS

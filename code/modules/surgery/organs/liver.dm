@@ -67,6 +67,9 @@
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN
 
+/obj/item/organ/liver/get_availability(datum/species/S)
+	return !(TRAIT_NOMETABOLISM in S.species_traits)
+
 /obj/item/organ/liver/fly
 	name = "insectoid liver"
 	icon_state = "liver-x" //xenomorph liver? It's just a black liver so it fits.
@@ -132,3 +135,11 @@
 			owner.toxloss += 15
 		if(2)
 			owner.toxloss += 5
+
+/obj/item/organ/liver/diona
+	name = "liverwort"
+	desc = "A mass of plant vines and leaves, seeming to be responsible for chemical digestion."
+	icon_state = "diona_liver"
+
+#undef LIVER_DEFAULT_TOX_TOLERANCE
+#undef LIVER_DEFAULT_TOX_LETHALITY

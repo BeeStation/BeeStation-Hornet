@@ -204,8 +204,7 @@
 /area/shuttle/pirate)
 "hO" = (
 /obj/structure/railing{
-	dir = 9;
-	layer = 4.1
+	dir = 9
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -230,7 +229,7 @@
 	dir = 8;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/bottle/hooch{
+/obj/item/reagent_containers/cup/glass/bottle/hooch{
 	pixel_x = 8;
 	pixel_y = 4
 	},
@@ -274,8 +273,7 @@
 /area/shuttle/pirate)
 "jT" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -404,7 +402,7 @@
 	pixel_x = 8;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = -9;
 	pixel_y = -7
 	},
@@ -417,9 +415,8 @@
 /turf/open/floor/grass/no_border,
 /area/shuttle/pirate)
 "mV" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
-	dir = 4;
-	piping_layer = 4
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste/layer4{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/pirate)
@@ -597,7 +594,7 @@
 	pixel_x = -8;
 	pixel_y = 14
 	},
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/cup/glass/mug{
 	pixel_x = -14;
 	pixel_y = 1
 	},
@@ -694,8 +691,7 @@
 /area/shuttle/pirate)
 "sS" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -874,7 +870,7 @@
 	pixel_y = 10;
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = 2;
 	pixel_x = -7
 	},
@@ -919,8 +915,7 @@
 /area/shuttle/pirate)
 "zL" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -934,7 +929,7 @@
 	pixel_x = 6;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/cup/glass/coffee{
 	pixel_x = 10;
 	pixel_y = 19
 	},
@@ -1050,8 +1045,7 @@
 	pixel_x = 10
 	},
 /obj/structure/sign/departments/cargo{
-	pixel_y = 32;
-	layer = 2.8
+	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -1248,7 +1242,7 @@
 	},
 /area/shuttle/pirate)
 "FZ" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/structure/railing,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -1336,8 +1330,7 @@
 	aidisabled = 1;
 	dir = 1;
 	name = "Pirate Corvette APC";
-	pixel_y = 24;
-	req_access = null
+	pixel_y = 24
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
@@ -1646,8 +1639,7 @@
 /area/shuttle/pirate)
 "Py" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/restraints/legcuffs/bola/tactical,
 /obj/item/restraints/legcuffs/bola{
@@ -1688,8 +1680,7 @@
 /area/shuttle/pirate)
 "QI" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/ammo_box/magazine/m12g/breacher{
 	pixel_x = -7;
@@ -2013,7 +2004,7 @@
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 4
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/item/storage/bag/trash{
 	pixel_x = 4;
@@ -2107,40 +2098,40 @@
 /area/shuttle/pirate)
 "Wx" = (
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/drinks/bottle/moonshine{
+/obj/item/reagent_containers/cup/glass/bottle/moonshine{
 	pixel_x = 7;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 1
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -6;
 	pixel_x = 1
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -8;
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -10;
 	pixel_x = -3
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_y = -8;
 	pixel_x = 8
 	},
@@ -2225,8 +2216,7 @@
 	dir = 8
 	},
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/structure/table_frame/wood,
 /obj/item/restraints/handcuffs/cable/white,

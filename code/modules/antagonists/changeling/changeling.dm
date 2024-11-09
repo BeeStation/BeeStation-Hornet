@@ -1,7 +1,3 @@
-#define LING_FAKEDEATH_TIME					600 //1 minute.
-#define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
-#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
-
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category  = "changelings"
@@ -33,6 +29,7 @@
 	var/islinking = 0
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
+
 	var/mimicing = ""
 	var/canrespec = FALSE//set to TRUE in absorb.dm
 	var/changeling_speak = 0
@@ -42,6 +39,21 @@
 	var/datum/action/innate/cellular_emporium/emporium_action
 
 	var/static/list/all_powers = typecacheof(/datum/action/changeling,TRUE)
+
+	var/static/list/slot2type = list(
+		"head" = /obj/item/clothing/head/changeling,
+		"wear_mask" = /obj/item/clothing/mask/changeling,
+		"back" = /obj/item/changeling,
+		"wear_suit" = /obj/item/clothing/suit/changeling,
+		"w_uniform" = /obj/item/clothing/under/changeling,
+		"shoes" = /obj/item/clothing/shoes/changeling,
+		"belt" = /obj/item/changeling,
+		"gloves" = /obj/item/clothing/gloves/changeling,
+		"glasses" = /obj/item/clothing/glasses/changeling,
+		"ears" = /obj/item/changeling,
+		"wear_id" = /obj/item/card/id/changeling,
+		"s_store" = /obj/item/changeling,
+	)
 
 /datum/antagonist/changeling/New()
 	. = ..()
@@ -354,7 +366,7 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(isipc(C))
+	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
 		C.set_species(/datum/species/human)
 		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/data/record/E in GLOB.data_core.general)

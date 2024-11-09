@@ -3,7 +3,7 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
 	desc = "From BlenderTech. Will It Blend? Let's test it out!"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "juicer1"
 	base_icon_state = "juicer"
 	layer = BELOW_OBJ_LAYER
@@ -20,18 +20,18 @@
 	var/list/holdingitems
 	var/static/list/typecache_to_take
 
-	var/static/radial_examine = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_examine")
-	var/static/radial_eject = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject")
-	var/static/radial_grind = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_grind")
-	var/static/radial_juice = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_juice")
-	var/static/radial_mix = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_mix")
+	var/static/radial_examine = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_examine")
+	var/static/radial_eject = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_eject")
+	var/static/radial_grind = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_grind")
+	var/static/radial_juice = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_juice")
+	var/static/radial_mix = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_mix")
 
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/food/grown)
 	holdingitems = list()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 	beaker.desc += " May contain blended dust. Don't breathe this in!"
 
 /obj/machinery/reagentgrinder/constructed/Initialize(mapload)
@@ -328,3 +328,5 @@
 			var/amount = beaker.reagents.get_reagent_amount(/datum/reagent/consumable/eggyolk)
 			beaker.reagents.remove_reagent(/datum/reagent/consumable/eggyolk, amount)
 			beaker.reagents.add_reagent(/datum/reagent/consumable/mayonnaise, amount)
+
+#undef MILK_TO_BUTTER_COEFF

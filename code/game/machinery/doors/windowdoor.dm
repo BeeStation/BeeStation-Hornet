@@ -25,6 +25,8 @@
 	var/rods = 2
 	var/cable = 1
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
+
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
 	if(set_dir)
@@ -60,7 +62,7 @@
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	air_update_turf(1)
-	if(obj_integrity == 0)
+	if(atom_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
 	return ..()
@@ -284,7 +286,7 @@
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] removes the electronics from the [name].", \
-									 "<span class='notice'>You start to remove electronics from the [name]...</span>")
+									"<span class='notice'>You start to remove electronics from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -380,8 +382,8 @@
 		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = LOWER_TEXT(data.data["data"])
+	var/command_value = LOWER_TEXT(data.data["data_secondary"])
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -496,7 +498,7 @@
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] begins to deconstruct [name].", \
-									 "<span class='notice'>You start to deconstruct from the [name]...</span>")
+									"<span class='notice'>You start to deconstruct from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						qdel(src)

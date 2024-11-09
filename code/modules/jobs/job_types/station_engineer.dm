@@ -1,7 +1,7 @@
 /datum/job/station_engineer
 	title = JOB_NAME_STATIONENGINEER
 	description = "Ensure the station has an adequate power supply, repair and build new machinery, repair wiring chewed up by mice."
-	department_for_prefs = DEPT_BITFLAG_ENG
+	department_for_prefs = DEPT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"

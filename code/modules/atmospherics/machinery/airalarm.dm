@@ -180,6 +180,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
+
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
 	wires = new /datum/wires/airalarm(src)
@@ -856,7 +858,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 
-/obj/machinery/airalarm/obj_break(damage_flag)
+/obj/machinery/airalarm/atom_break(damage_flag)
 	..()
 	update_icon()
 

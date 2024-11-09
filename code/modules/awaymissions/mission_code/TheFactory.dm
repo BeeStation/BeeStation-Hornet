@@ -717,18 +717,18 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/Shoot()
 	var/static/list/allowed_projectile_types = list(/obj/item/ammo_casing/shotgun/beanbag,
-										 /obj/item/ammo_casing/shotgun, /obj/item/ammo_casing/shotgun/incendiary,
-										 /obj/item/ammo_casing/shotgun/dragonsbreath,
-										 /obj/item/ammo_casing/shotgun/meteorslug,
-										 /obj/item/ammo_casing/shotgun/pulseslug,
-										 /obj/item/ammo_casing/shotgun/frag12,
-										 /obj/item/ammo_casing/shotgun/buckshot,
-										 /obj/item/ammo_casing/shotgun/rubbershot,
-										 /obj/item/ammo_casing/shotgun/incapacitate,
-										 /obj/item/ammo_casing/shotgun/improvised,
-										 /obj/item/ammo_casing/shotgun/ion,
-										 /obj/item/ammo_casing/shotgun/laserslug,
-										 /obj/item/ammo_casing/shotgun/breacher)
+										/obj/item/ammo_casing/shotgun, /obj/item/ammo_casing/shotgun/incendiary,
+										/obj/item/ammo_casing/shotgun/dragonsbreath,
+										/obj/item/ammo_casing/shotgun/meteorslug,
+										/obj/item/ammo_casing/shotgun/pulseslug,
+										/obj/item/ammo_casing/shotgun/frag12,
+										/obj/item/ammo_casing/shotgun/buckshot,
+										/obj/item/ammo_casing/shotgun/rubbershot,
+										/obj/item/ammo_casing/shotgun/incapacitate,
+										/obj/item/ammo_casing/shotgun/improvised,
+										/obj/item/ammo_casing/shotgun/ion,
+										/obj/item/ammo_casing/shotgun/laserslug,
+										/obj/item/ammo_casing/shotgun/breacher)
 	casingtype = pick(allowed_projectile_types)
 	..()
 	sleep(5)

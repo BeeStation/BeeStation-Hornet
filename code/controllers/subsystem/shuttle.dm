@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(shuttle)
 	for(var/s in stationary)
 		var/obj/docking_port/stationary/S = s
 		S.load_roundstart()
-		CHECK_TICK
+	SSasync_map_generator.run_to_completion()
 
 /datum/controller/subsystem/shuttle/fire()
 	for(var/thing in mobile)
@@ -366,13 +366,13 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.sound_played = FALSE
 		priority_announce("Hostile environment detected. \
 			Departure has been postponed indefinitely pending \
-			conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
+			conflict resolution.", null, 'sound/misc/notice1.ogg', ANNOUNCEMENT_TYPE_PRIORITY)
 	if(!emergencyNoEscape && (emergency.mode == SHUTTLE_STRANDED))
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.setTimer(emergencyDockTime)
 		priority_announce("Hostile environment resolved. \
 			You have 3 minutes to board the Emergency Shuttle.",
-			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
+			null, ANNOUNCER_SHUTTLEDOCK, ANNOUNCEMENT_TYPE_PRIORITY)
 
 /datum/controller/subsystem/shuttle/proc/checkInfestedEnvironment()
 	for(var/mob/d in infestedEnvironments)
@@ -904,3 +904,5 @@ SUBSYSTEM_DEF(shuttle)
 	preview_shuttle = loaded_shuttle_reference.value
 	if(loaded_shuttle)
 		user.forceMove(get_turf(loaded_shuttle))
+
+#undef MAX_TRANSIT_REQUEST_RETRIES

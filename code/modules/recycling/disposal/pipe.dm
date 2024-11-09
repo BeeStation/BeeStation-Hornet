@@ -17,6 +17,8 @@
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
+
 /obj/structure/disposalpipe/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 
@@ -45,6 +47,11 @@
 		H.active = FALSE
 		expel(H, get_turf(src), 0)
 	return ..()
+
+/obj/structure/disposalpipe/proc/can_enter_from_dir(dir)
+	if(dir & dpdir)
+		return TRUE
+	return FALSE
 
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions
@@ -109,7 +116,7 @@
 		H.contents_explosion(severity, target)
 
 
-/obj/structure/disposalpipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/disposalpipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 10)
 		return 0
 	return ..()

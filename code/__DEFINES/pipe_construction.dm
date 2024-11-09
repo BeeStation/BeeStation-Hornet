@@ -75,6 +75,15 @@
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
 
+/// Safe proc to remove a destination for /datum/map_adjustment.
+/proc/exclude_tagger_destination(name_to_remove)
+	GLOB.disabled_tagger_locations += name_to_remove
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	GLOB.tagger_destination_areas -= name_to_remove // unit test only
+#endif
+
+GLOBAL_LIST_INIT(disabled_tagger_locations, list())
+
 GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
 	"Disposals",
 	"Cargo Bay",
@@ -153,7 +162,7 @@ MAPPING_HELPER_SORT(detective_office, 30)
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
 GLOBAL_LIST_INIT(tagger_destination_areas, list(
-	"Disposals" = list(/area/maintenance/disposal, /area/quartermaster/sorting),
+	"Disposals" = list(/area/maintenance/disposal, /area/quartermaster/sorting, /area/janitor),
 	"Cargo Bay"  = list(/area/quartermaster),
 	"QM Office" = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom),
 	"Engineering" = list(/area/engine, /area/engineering),
@@ -171,14 +180,14 @@ GLOBAL_LIST_INIT(tagger_destination_areas, list(
 	"Library" = list(/area/library),
 	"Chapel" = list(/area/chapel),
 	"Theatre" = list(/area/crew_quarters/theatre),
-	"Bar" = list(/area/crew_quarters/bar),
+	"Bar" = list(/area/crew_quarters/bar, /area/crew_quarters/cafeteria),
 	"Kitchen" = list(/area/crew_quarters/kitchen),
 	"Hydroponics" = list(/area/hydroponics),
 	"Janitor Closet" = list(/area/janitor),
 	"Genetics" = list(/area/medical/genetics),
 	"Testing Range" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
 	"Toxins" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
-	"Dormitories" = list(/area/crew_quarters/dorms, /area/commons/dorms),
+	"Dormitories" = list(/area/crew_quarters/dorms, /area/commons/dorms, /area/crew_quarters/fitness),
 	"Virology" = list(/area/medical/virology),
 	"Xenobiology" = list(/area/science/xenobiology),
 	"Law Office" = list(/area/lawoffice),

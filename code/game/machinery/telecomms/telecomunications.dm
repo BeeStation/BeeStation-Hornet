@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			send_data["efficiency"] = get_efficiency()
 			send_data["overheated"] = (machine_stat & OVERHEATED)
 
-			ntnet_send(send_data, data["sender_id"])
+			ntnet_send(send_data, data.data["sender_id"])
 
 /obj/machinery/telecomms/update_icon()
 	if(on)
@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(traffic > 0)
 		traffic -= netspeed * delta_time
 
-/obj/machinery/telecomms/obj_break(damage_flag)
+/obj/machinery/telecomms/atom_break(damage_flag)
 	. = ..()
 	update_power()
 

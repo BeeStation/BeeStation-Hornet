@@ -33,13 +33,13 @@
 			msg = "Wow, [source.p_they()] sucks."
 
 	user.visible_message("<span class='notice'>[user] stops and looks intently at [source].</span>", \
-						 "<span class='notice'>You appraise [source]... [msg]</span>")
+						"<span class='notice'>You appraise [source]... [msg]</span>")
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 	if(!isliving(user))
 		return
-	if(!INTERACTING_WITH(user, source))
+	if(!DOING_INTERACTION_WITH_TARGET(user, source))
 		INVOKE_ASYNC(src, PROC_REF(appraise), source, user) //Do not sleep the proc.
 
 /datum/element/art/proc/appraise(atom/source, mob/user)
