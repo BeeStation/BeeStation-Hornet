@@ -1356,9 +1356,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton
 
-/mob/living/carbon/human/species/supersoldier
-	race = /datum/species/human/supersoldier
-
 /mob/living/carbon/human/species/vampire
 	race = /datum/species/vampire
 
