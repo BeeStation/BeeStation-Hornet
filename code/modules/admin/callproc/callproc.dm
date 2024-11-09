@@ -39,7 +39,7 @@
 	var/proctype = ("verb" in proclist) ? "verb" :"proc"
 
 	// absolutely not
-	if(findtextEx(trim(lowertext(procname)), "rustg"))
+	if(findtextEx(trim(LOWER_TEXT(procname)), "rustg"))
 		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call rust-g procs. Inform the host <u>at once</u>.</span>")
 		log_admin("[key_name(src)] attempted to proc call rust-g procs. Inform the host at once.")
 		send2tgs("SECURITY ALERT", "[key_name(src)] attempted to proc call rustg things. Inform the host at once.")
