@@ -120,7 +120,7 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost && !(obj_flags & OBJ_EMPED))
 		turned_on = !turned_on
-		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
+		balloon_alert(user, "You turn [src] [turned_on ? "on" : "off"].")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE

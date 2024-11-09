@@ -23,6 +23,7 @@ Dockerfile @crossedfall
 # crossedfall (explicitly disowned)
 
 /tools/UpdatePaths/Scripts/
+/tools/maplint/lints/
 
 # powerfulbacon
 

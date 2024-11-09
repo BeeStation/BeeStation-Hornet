@@ -1,7 +1,7 @@
 /datum/job/shaft_miner
 	title = JOB_NAME_SHAFTMINER
 	description = "Collect resources for the station, redeem them for points, and purchase gear to collect even more ores."
-	department_for_prefs = DEPT_BITFLAG_CAR
+	department_for_prefs = DEPT_NAME_CARGO
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
@@ -12,7 +12,7 @@
 
 	outfit = /datum/outfit/job/miner
 
-	base_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
+	base_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_GATEWAY)
 	extra_access = list(ACCESS_QM, ACCESS_CARGO, ACCESS_MAINT_TUNNELS)
 
 	departments = DEPT_BITFLAG_CAR

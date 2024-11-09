@@ -41,7 +41,7 @@
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			if (istype(charging, /obj/item/ammo_box/magazine/recharge))
 				var/obj/item/ammo_box/magazine/recharge/magazine = charging
-				. += "<span class='notice'>- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo]%</b>.</span>"
+				. += "<span class='notice'>- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo * 100]%</b>.</span>"
 			else if(C)
 				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
 			else

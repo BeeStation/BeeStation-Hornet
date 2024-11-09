@@ -227,7 +227,7 @@
 				. = TRUE
 		if("select_stencil")
 			var/stencil = params["item"]
-			if(stencil in all_drawables + randoms)
+			if(stencil in (all_drawables + randoms))
 				drawtype = stencil
 				. = TRUE
 				text_buffer = ""
@@ -263,6 +263,9 @@
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!proximity || !check_allowed_items(target))
+		return
+
+	if(is_capped)
 		return
 
 	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
@@ -316,7 +319,7 @@
 		temp = "symbol"
 	else if(drawing in drawings)
 		temp = "drawing"
-	else if(drawing in graffiti|oriented)
+	else if(drawing in (graffiti | oriented))
 		temp = "graffiti"
 	var/gang_check = hippie_gang_check(user,target) // hippie start -- gang check and temp setting
 	if(!gang_check) return // hippie end
@@ -584,6 +587,7 @@
 	icon_uncapped = "spraycan"
 	use_overlays = TRUE
 	paint_color = null
+	drawtype = "splatter"
 
 	item_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'

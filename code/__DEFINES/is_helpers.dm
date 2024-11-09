@@ -80,9 +80,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
+#define isashwalker(A) (is_species(A, /datum/species/lizard/ashwalker))
 #define islizard(A) (is_species(A, /datum/species/lizard))
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
-#define ispodperson(A) (is_species(A, /datum/species/pod))
+#define isdiona(A) (is_species(A, /datum/species/diona))
 #define isflyperson(A) (is_species(A, /datum/species/fly))
 #define isslimeperson(A) (is_species(A, /datum/species/oozeling/slime))
 #define isluminescent(A) (is_species(A, /datum/species/oozeling/luminescent))
@@ -96,6 +97,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
 #define isethereal(A) (is_species(A, /datum/species/ethereal))
 #define isvampire(A) (is_species(A,/datum/species/vampire))
+#define isdullahan(A) (is_species(A, /datum/species/dullahan))
 #define isipc(A) (is_species(A, /datum/species/ipc))
 #define isapid(A) (is_species(A, /datum/species/apid))
 #define isandroid(A) (is_species(A, /datum/species/android))
@@ -121,6 +123,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/royal/queen))
 
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
+
+#define isnymph(A) (istype(A, /mob/living/simple_animal/hostile/retaliate/nymph))
 
 //Silicon mobs
 #define issilicon(A) (istype(A, /mob/living/silicon))
@@ -210,6 +214,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
+#define ismedicalmecha(A) (istype(A, /obj/vehicle/sealed/mecha/medical))
+
 #define ismopable(A) (A && (A.layer <= HIGH_SIGIL_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
 
 #define isorgan(A) (istype(A, /obj/item/organ))
@@ -229,6 +235,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 #define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
 
 //Assemblies
 #define isassembly(O) (istype(O, /obj/item/assembly))

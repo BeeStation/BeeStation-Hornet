@@ -366,6 +366,8 @@
 		failed = FALSE
 	return
 
+/obj/item/organ/lungs/get_availability(datum/species/S)
+	return !(TRAIT_NOBREATH in S.species_traits)
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
@@ -431,6 +433,12 @@
 		GAS_CO2 = 45,
 		GAS_PLASMA = MOLES_GAS_VISIBLE
 	)
+
+/obj/item/organ/lungs/diona
+	name = "diona leaves"
+	desc = "A small mass concentrated leaves, used for breathing."
+	icon_state = "diona_lungs"
+
 #undef PP
 #undef PP_MOLES
 

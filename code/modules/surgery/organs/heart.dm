@@ -98,6 +98,11 @@
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
+/obj/item/organ/heart/get_availability(datum/species/S)
+	if(S.mutantheart)
+		return TRUE //always give heart if mutant is defined
+	return !(NOBLOOD in S.species_traits)
+
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
 	desc = "A heart that, when inserted, will force you to pump it manually."
@@ -181,7 +186,8 @@
 /obj/item/organ/heart/cybernetic
 	name = "cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
-	icon_state = "heart-c"
+	icon_state = "heart-c-on"
+	icon_base = "heart-c"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	var/dose_available = TRUE
@@ -206,7 +212,8 @@
 /obj/item/organ/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
-	icon_state = "heart-c-u"
+	icon_state = "heart-c-u-on"
+	icon_base = "heart-c-u"
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
@@ -235,3 +242,8 @@
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
 			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
+
+/obj/item/organ/heart/diona
+	name = "polypment segment"
+	desc = "A segment of plant matter that is resposible for pumping nutrients around the body."
+	icon_state = "diona_heart"
