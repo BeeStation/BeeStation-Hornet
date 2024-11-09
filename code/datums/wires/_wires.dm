@@ -200,6 +200,7 @@
 	var/obj/item/assembly/S = get_attached(color)
 	if(S && istype(S))
 		assemblies -= color
+		S.connected = null
 		S.on_detach() // Notify the assembly.  This should remove the reference to our holder
 		ui_update()
 		return S

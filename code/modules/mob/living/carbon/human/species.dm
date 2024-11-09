@@ -156,6 +156,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
+	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	var/prevent_perspective_change = FALSE
+
 ///////////
 // PROCS //
 ///////////
@@ -1135,6 +1138,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
+	return
+
+/datum/species/proc/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	var/prev_lying = H.lying_prev
+	if(H.stat != DEAD)
+		H.death(TRUE)
+
+	if(!prev_lying)
+		H.gib_animation()
+
+	H.spill_organs(no_brain, no_organs, no_bodyparts)
+
+	if(!no_bodyparts)
+		H.spread_bodyparts(no_brain, no_organs)
+
+	H.spawn_gibs(no_bodyparts)
+	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
 	return
 
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
@@ -2479,6 +2499,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /// Given a human, will adjust it before taking a picture for the preferences UI.
 /// This should create a CONSISTENT result, so the icons don't randomly change.
 /datum/species/proc/prepare_human_for_preview(mob/living/carbon/human/human)
+	return
+
+/**
+ * Owner login
+ */
+
+/**
+ * A simple proc to be overwritten if something needs to be done when a mob logs in. Does nothing by default.
+ *
+ * Arguments:
+ * * owner - The owner of our species.
+ */
+/datum/species/proc/on_owner_login(mob/living/carbon/human/owner)
 	return
 
 /**
