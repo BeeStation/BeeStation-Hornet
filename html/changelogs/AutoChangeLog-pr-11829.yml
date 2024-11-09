@@ -1,0 +1,6 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: simplemobs should be able to break down walls again
+  - bugfix: champagne can be poured again
+  - admin: fixed debug id not working with vending machines
