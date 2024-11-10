@@ -124,74 +124,266 @@ const RadCounter = (props, context) => {
 };
 
 const HealthAnalyzer = (props, context) => {
-  const { active, userhealth, usermaxhealth, userbrute, userburn, usertoxin, useroxy } = props;
+  const {
+    active,
+    show_vitals,
+    userhealth,
+    usermaxhealth,
+    userbrute,
+    userburn,
+    usertoxin,
+    useroxy,
+  } = props;
+  return (
+    <Section>
+      {show_vitals ? (
+        <>
+          <Section title="Health">
+            <ProgressBar
+              value={active ? userhealth / usermaxhealth : 0}
+              ranges={{
+                good: [0.5, Infinity],
+                average: [0.2, 0.5],
+                bad: [-Infinity, 0.2],
+              }}>
+              <AnimatedNumber value={active ? userhealth : 0} />
+            </ProgressBar>
+          </Section>
+          <Stack textAlign="center">
+            <Stack.Item grow>
+              <Section title="Brute">
+                <ProgressBar
+                  value={active ? userbrute / usermaxhealth : 0}
+                  ranges={{
+                    good: [-Infinity, 0.2],
+                    average: [0.2, 0.5],
+                    bad: [0.5, Infinity],
+                  }}>
+                  <AnimatedNumber value={active ? userbrute : 0} />
+                </ProgressBar>
+              </Section>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Section title="Burn">
+                <ProgressBar
+                  value={active ? userburn / usermaxhealth : 0}
+                  ranges={{
+                    good: [-Infinity, 0.2],
+                    average: [0.2, 0.5],
+                    bad: [0.5, Infinity],
+                  }}>
+                  <AnimatedNumber value={active ? userburn : 0} />
+                </ProgressBar>
+              </Section>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Section title="Toxin">
+                <ProgressBar
+                  value={active ? usertoxin / usermaxhealth : 0}
+                  ranges={{
+                    good: [-Infinity, 0.2],
+                    average: [0.2, 0.5],
+                    bad: [0.5, Infinity],
+                  }}>
+                  <AnimatedNumber value={active ? usertoxin : 0} />
+                </ProgressBar>
+              </Section>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Section title="Suffocation">
+                <ProgressBar
+                  value={active ? useroxy / usermaxhealth : 0}
+                  ranges={{
+                    good: [-Infinity, 0.2],
+                    average: [0.2, 0.5],
+                    bad: [0.5, Infinity],
+                  }}>
+                  <AnimatedNumber value={active ? useroxy : 0} />
+                </ProgressBar>
+              </Section>
+            </Stack.Item>
+          </Stack>
+        </>
+      ) : (
+        <Section>
+          {'Health Analyzer Vitals Readout Disabled In Settings'}
+        </Section>
+      )}
+    </Section>
+  );
+};
+
+const StatusReadout = (props, context) => {
+  const {
+    active,
+    show_time,
+    statustime,
+    statusid,
+    statushealth,
+    statusmaxhealth,
+    statusbrute,
+    statusburn,
+    statustoxin,
+    statusoxy,
+    statustemp,
+    statusnutrition,
+    statusfingerprints,
+    statusdna,
+    statusviruses,
+  } = props;
   return (
     <>
+      {!!show_time && (
+        <Stack textAlign="center">
+          <Stack.Item grow>
+            <Section title="Operation Time">
+              {active ? statustime : '00:00:00'}
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section title="Operation Number">
+              {active ? statusid : '???'}
+            </Section>
+          </Stack.Item>
+        </Stack>
+      )}
       <Section title="Health">
         <ProgressBar
-          value={active ? userhealth / usermaxhealth : 0}
+          value={active ? statushealth / statusmaxhealth : 0}
           ranges={{
             good: [0.5, Infinity],
             average: [0.2, 0.5],
             bad: [-Infinity, 0.2],
           }}>
-          <AnimatedNumber value={userhealth} />
+          <AnimatedNumber value={active ? statushealth : 0} />
         </ProgressBar>
       </Section>
-      <Stack fill textAlign="center">
+      <Stack textAlign="center">
         <Stack.Item grow>
           <Section title="Brute">
             <ProgressBar
-              value={active ? userbrute / usermaxhealth : 0}
+              value={active ? statusbrute / statusmaxhealth : 0}
               ranges={{
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
               }}>
-              <AnimatedNumber value={userbrute} />
+              <AnimatedNumber value={active ? statusbrute : 0} />
             </ProgressBar>
           </Section>
         </Stack.Item>
         <Stack.Item grow>
           <Section title="Burn">
             <ProgressBar
-              value={active ? userburn / usermaxhealth : 0}
+              value={active ? statusburn / statusmaxhealth : 0}
               ranges={{
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
               }}>
-              <AnimatedNumber value={userburn} />
+              <AnimatedNumber value={active ? statusburn : 0} />
             </ProgressBar>
           </Section>
         </Stack.Item>
         <Stack.Item grow>
           <Section title="Toxin">
             <ProgressBar
-              value={active ? usertoxin / usermaxhealth : 0}
+              value={active ? statustoxin / statusmaxhealth : 0}
               ranges={{
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
               }}>
-              <AnimatedNumber value={usertoxin} />
+              <AnimatedNumber value={statustoxin} />
             </ProgressBar>
           </Section>
         </Stack.Item>
         <Stack.Item grow>
           <Section title="Suffocation">
             <ProgressBar
-              value={active ? useroxy / usermaxhealth : 0}
+              value={active ? statusoxy / statusmaxhealth : 0}
               ranges={{
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
               }}>
-              <AnimatedNumber value={useroxy} />
+              <AnimatedNumber value={statusoxy} />
             </ProgressBar>
           </Section>
         </Stack.Item>
       </Stack>
+      <Stack textAlign="center">
+        <Stack.Item grow>
+          <Section title="Body Temperature">{active ? statustemp : 0}</Section>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section title="Nutrition Status">
+            {active ? statusnutrition : 0}
+          </Section>
+        </Stack.Item>
+      </Stack>
+      <Section title="DNA">
+        <LabeledList>
+          <LabeledList.Item label="Fingerprints">
+            {active ? statusfingerprints : '???'}
+          </LabeledList.Item>
+          <LabeledList.Item label="Unique Enzymes">
+            {active ? statusdna : '???'}
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
+      {!!active && !!statusviruses && (
+        <Section title="Diseases">
+          <Table>
+            <Table.Row header>
+              <Table.Cell textAlign="center">
+                <Button
+                  color="transparent"
+                  icon="signature"
+                  tooltip="Name"
+                  tooltipPosition="top"
+                />
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <Button
+                  color="transparent"
+                  icon="wind"
+                  tooltip="Type"
+                  tooltipPosition="top"
+                />
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <Button
+                  color="transparent"
+                  icon="bolt"
+                  tooltip="Stage"
+                  tooltipPosition="top"
+                />
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <Button
+                  color="transparent"
+                  icon="flask"
+                  tooltip="Cure"
+                  tooltipPosition="top"
+                />
+              </Table.Cell>
+            </Table.Row>
+            {statusviruses.map((virus) => {
+              return (
+                <Table.Row key={virus.name}>
+                  <Table.Cell textAlign="center">{virus.name}</Table.Cell>
+                  <Table.Cell textAlign="center">{virus.type}</Table.Cell>
+                  <Table.Cell textAlign="center">
+                    {virus.stage}/{virus.maxstage}
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">{virus.cure}</Table.Cell>
+                </Table.Row>
+              );
+            })}
+          </Table>
+        </Section>
+      )}
     </>
   );
 };
@@ -199,6 +391,7 @@ const HealthAnalyzer = (props, context) => {
 const ID2MODULE = {
   rad_counter: RadCounter,
   health_analyzer: HealthAnalyzer,
+  status_readout: StatusReadout,
 };
 
 const LockedInterface = () => (

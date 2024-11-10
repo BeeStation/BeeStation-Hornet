@@ -1305,6 +1305,16 @@
 	department_type = MODULE_SECURITY
 */
 
+/datum/design/module/statusreadout
+	name = "Status Readout Module"
+	id = "mod_statusreadout"
+	materials = list(
+		/datum/material/iron = 1500,
+		/datum/material/glass = 500,
+		/datum/material/titanium = 800,
+	)
+	build_path = /obj/item/mod/module/status_readout
+
 //MODsuit bepis modules
 
 /datum/design/module/disposal
