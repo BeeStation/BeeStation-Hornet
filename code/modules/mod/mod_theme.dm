@@ -1297,6 +1297,8 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/assembly/flash,
 		/obj/item/melee/baton,
+		/obj/item/storage/bag/trash,
+		/obj/item/construction,
 	)
 	variants = list(
 		"responsory" = list(

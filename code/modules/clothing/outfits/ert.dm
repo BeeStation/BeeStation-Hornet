@@ -140,19 +140,18 @@
 	name = "ERT Engineer"
 
 	id = /obj/item/card/id/ert/Engineer
-	suit_store = /obj/item/tank/internals/oxygen
+	suit_store = /obj/item/melee/baton/loaded
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	l_hand = /obj/item/gun/energy/e_gun
 	r_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/melee/baton/loaded=1,
-		/obj/item/construction/rcd/loaded = 1,
 		/obj/item/bluespace_anchor=1
 	)
 	belt = /obj/item/storage/belt/utility/full/powertools
 	glasses =  /obj/item/clothing/glasses/meson/engine
 	l_pocket = /obj/item/rcd_ammo/large
+	l_hand = /obj/item/construction/rcd/loaded
 
 /datum/outfit/centcom/ert/engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -289,11 +288,10 @@
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/grenade/clusterbuster/cleaner=1,
-		/obj/item/choice_beacon/janicart
+		/obj/item/reagent_containers/cup/bucket=1,
 		)
 	belt = /obj/item/storage/belt/janitor/full
 	glasses = /obj/item/clothing/glasses/night
-	r_pocket = /obj/item/reagent_containers/cup/bucket
 	r_hand = /obj/item/choice_beacon/janicart
 	l_hand = /obj/item/mop/advanced
 
@@ -322,7 +320,8 @@
 	r_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_hand = /obj/item/scythe
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/choice_beacon/pet/goat,
 		/obj/item/grenade/clusterbuster/antiweed=2)
