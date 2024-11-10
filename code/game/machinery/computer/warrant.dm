@@ -29,9 +29,6 @@
 		var/list/citations = list()
 
 		for(var/datum/crime_record/citation/warrant as anything in target.citations)
-			if(!warrant.valid)
-				continue
-
 			var/list/entry = list(list(
 				author = warrant.author,
 				details = warrant.details,
@@ -41,7 +38,6 @@
 				paid = warrant.paid,
 				time = warrant.time,
 			))
-
 			citations += entry
 
 		var/list/record = list(list(
@@ -51,8 +47,8 @@
 			notes = target.security_note,
 			rank = target.rank,
 		))
-
 		records += record
+
 	data["records"] = records
 
 	return data
