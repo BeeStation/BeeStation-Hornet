@@ -161,6 +161,7 @@
 			for (var/datum/trait/_trait_datum as anything in _trait_list) { \
 				var/_T = _trait_datum.source;\
 				if (##_condition) { \
+					REMOVE_HEAP(_trait_list, _trait_datum, priority); \
 					if (length(_trait_list) && _trait_list[1] != _cached_source) {\
 						SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 					}\
@@ -211,7 +212,7 @@
 		}; \
 		if (_L && _L[_trait]) { \
 			var/list/_heap = _L[_trait];\
-			REMOVE_TRAIT_IF(_target, _trait, _heap, (!_S && (!(_T == ROUNDSTART_TRAIT))) || (_T in _S)); \
+			REMOVE_TRAIT_IF(_target, _trait, _heap, (!_S && (_T != ROUNDSTART_TRAIT)) || (_T in _S)); \
 			if (!length(_heap)) { \
 				_L -= _trait; \
 				SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait), _trait); \
