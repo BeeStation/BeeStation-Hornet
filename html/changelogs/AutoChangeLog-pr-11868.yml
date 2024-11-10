@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: minor notification for proc call warning
