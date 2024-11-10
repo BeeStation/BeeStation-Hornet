@@ -9,8 +9,7 @@
 	name = "MOD health analyzer module"
 	desc = "A module installed into the glove of the suit. This is a high-tech biological scanning suite, \
 		allowing the user indepth information on the vitals and injuries of others even at a distance, \
-		all with the flick of the wrist. Data is displayed in a convenient package on HUD in the helmet, \
-		but it's up to you to do something with it."
+		all with the flick of the wrist. Data is displayed in a convenient package, but it's up to you to do something with it."
 	icon_state = "health"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -18,6 +17,7 @@
 	incompatible_modules = list(/obj/item/mod/module/health_analyzer)
 	cooldown_time = 0.5 SECONDS
 	tgui_id = "health_analyzer"
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// Scanning mode, changes how we scan something.
 	var/mode = HEALTH_SCAN
 	/// List of all scanning modes.
@@ -73,6 +73,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/quick_carry, /obj/item/mod/module/constructor)
+	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/quick_carry/on_suit_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_QUICKER_CARRY, MOD_TRAIT)
@@ -106,6 +107,7 @@
 	device = /obj/item/reagent_containers/syringe/mod
 	incompatible_modules = list(/obj/item/mod/module/injector)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/reagent_containers/syringe/mod
 	name = "MOD injector syringe"
@@ -132,6 +134,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/organ_thrower, /obj/item/mod/module/microwave_beam)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// How many organs the module can hold.
 	var/max_organs = 5
 	/// A list of all our organs.
@@ -249,6 +252,7 @@
 	device = /obj/item/shockpaddles/mod
 	incompatible_modules = list(/obj/item/mod/module/defibrillator)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
 	var/defib_cooldown = 5 SECONDS
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
@@ -282,6 +286,7 @@
 	incompatible_modules = list(/obj/item/mod/module/thread_ripper)
 	cooldown_time = 1.5 SECONDS
 	overlay_state_inactive = "module_threadripper"
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// An associated list of ripped clothing and the body part covering slots they covered before
 	var/list/ripped_clothing = list()
 
@@ -331,7 +336,7 @@
 		playsound(src, 'sound/items/zip.ogg', 25, TRUE)
 		balloon_alert(mod.wearer, "clothing mended")
 
-/obj/item/mod/module/thread_ripper/on_suit_deactivation(deleting)
+/obj/item/mod/module/thread_ripper/on_suit_deactivation(deleting = FALSE)
 	if(!length(ripped_clothing))
 		return
 	for(var/obj/item/clothing as anything in ripped_clothing)

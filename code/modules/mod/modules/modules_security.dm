@@ -13,15 +13,13 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 5 SECONDS
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
 	var/stealth_alpha = 50
 
 /obj/item/mod/module/stealth/on_activation()
-	. = ..()
-	if(!.)
-		return
 	if(bumpoff)
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
@@ -31,9 +29,6 @@
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
 	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED))
@@ -45,7 +40,7 @@
 	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!</span>")
 	do_sparks(2, TRUE, src)
 	drain_power(use_power_cost)
-	on_deactivation(display_message = TRUE, deleting = FALSE)
+	deactivate()
 
 /obj/item/mod/module/stealth/proc/on_unarmed_attack(datum/source, atom/target)
 	SIGNAL_HANDLER
@@ -83,6 +78,7 @@
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/magnetic_harness)
+	required_slots = list(ITEM_SLOT_OCLOTHING)
 	/// Time before we activate the magnet.
 	var/magnet_delay = 0.8 SECONDS
 	/// The typecache of all guns we allow.
@@ -96,13 +92,19 @@
 		guns_typecache = typecacheof(list(/obj/item/gun/ballistic, /obj/item/gun/energy, /obj/item/gun/grenadelauncher, /obj/item/gun/chem, /obj/item/gun/syringe))
 
 /obj/item/mod/module/magnetic_harness/on_install()
-	already_allowed_guns = guns_typecache & mod.chestplate.allowed
-	mod.chestplate.allowed |= guns_typecache
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
+	if(!istype(suit))
+		return
+	already_allowed_guns = guns_typecache & suit.allowed
+	suit.allowed |= guns_typecache
 
 /obj/item/mod/module/magnetic_harness/on_uninstall(deleting = FALSE)
 	if(deleting)
 		return
-	mod.chestplate.allowed -= (guns_typecache - already_allowed_guns)
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
+	if(!istype(suit))
+		return
+	suit.allowed -= (guns_typecache - already_allowed_guns)
 
 /obj/item/mod/module/magnetic_harness/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_dropped_item))
@@ -141,6 +143,7 @@
 	cooldown_time = 5 SECONDS
 	overlay_state_inactive = "module_pepper"
 	overlay_state_use = "module_pepper_used"
+	required_slots = list(ITEM_SLOT_OCLOTHING)
 
 /obj/item/mod/module/pepper_shoulders/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_shields))
@@ -149,9 +152,6 @@
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
 /obj/item/mod/module/pepper_shoulders/on_use()
-	. = ..()
-	if(!.)
-		return
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	var/datum/reagents/capsaicin_holder = new(10)
 	capsaicin_holder.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 10)
@@ -167,7 +167,7 @@
 	if(!check_power(use_power_cost))
 		return
 	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a smoke of pepper spray!"), span_notice("Your [src] releases a cloud of pepper spray!"))
-	on_use()
+	used()
 
 */
 
@@ -184,13 +184,11 @@
 	incompatible_modules = list(/obj/item/mod/module/holster)
 	cooldown_time = 0.5 SECONDS
 	allowed_inactive = TRUE
+	required_slots = list(ITEM_SLOT_OCLOTHING|ITEM_SLOT_GLOVES|ITEM_SLOT_FEET)
 	/// Gun we have holstered.
 	var/obj/item/gun/holstered
 
 /obj/item/mod/module/holster/on_use()
-	. = ..()
-	if(!.)
-		return
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_held_item()
 		if(!holding)

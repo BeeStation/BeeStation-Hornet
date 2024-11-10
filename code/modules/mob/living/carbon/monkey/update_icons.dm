@@ -77,16 +77,16 @@
 		client.screen += I
 
 //Update uniform in compliance with monkey icons
-/mob/living/carbon/monkey/update_inv_w_uniform()
+/mob/living/carbon/monkey/update_inv_w_uniform(update_obscured)
 	update_clothing_icons(UNIFORM_LAYER)
 
-/mob/living/carbon/monkey/update_inv_head()
+/mob/living/carbon/monkey/update_inv_head(update_obscured)
 	update_clothing_icons(HEAD_LAYER)
 
-/mob/living/carbon/monkey/update_inv_back()
+/mob/living/carbon/monkey/update_inv_back(update_obscured)
 	update_clothing_icons(BACK_LAYER)
 
-/mob/living/carbon/monkey/update_inv_wear_mask()
+/mob/living/carbon/monkey/update_inv_wear_mask(update_obscured)
 	update_clothing_icons(FACEMASK_LAYER)
 
 //used to handle monkey clothing

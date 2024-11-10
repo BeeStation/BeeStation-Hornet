@@ -127,7 +127,7 @@
 	deployed = add_output_port("Deployed", PORT_TYPE_NUMBER)
 	activated = add_output_port("Activated", PORT_TYPE_NUMBER)
 	selected_module = add_output_port("Selected Module", PORT_TYPE_STRING)
-	deployed_parts = add_output_port("Deployed Parts", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	deployed_parts = add_output_port("Deployed Parts", PORT_TYPE_LIST)
 	// Output Signals
 	on_module_selected = add_output_port("On Module Selected", PORT_TYPE_SIGNAL)
 	on_deploy = add_output_port("On Deploy", PORT_TYPE_SIGNAL)
@@ -209,7 +209,7 @@
 	SIGNAL_HANDLER
 	var/string_list = list()
 	var/is_deployed = TRUE
-	for(var/obj/item/part as anything in attached_module.mod.mod_parts)
+	for(var/obj/item/part as anything in attached_module.mod.get_parts())
 		if(part.loc == attached_module.mod)
 			is_deployed = FALSE
 		else

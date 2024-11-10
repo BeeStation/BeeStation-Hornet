@@ -8,6 +8,7 @@
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
+	required_slots = list(ITEM_SLOT_BACK)
 	/// The storage component of the module.
 	var/datum/component/storage/concrete/storage
 	/// Max weight class of items in the storage.
@@ -32,18 +33,22 @@
 	modstorage.max_combined_w_class = max_combined_w_class
 	modstorage.max_items = max_items
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
-	RegisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP,  PROC_REF(on_chestplate_unequip))
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
+	if(istype(suit))
+		RegisterSignal(suit, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_suit_unequip))
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
 	var/datum/component/storage/modstorage = mod.GetComponent(/datum/component/storage)
 	storage.slaves -= modstorage
 	qdel(modstorage)
-	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
+	if(istype(suit))
+		UnregisterSignal(suit, COMSIG_ITEM_PRE_UNEQUIP)
 	if(!deleting)
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_QUICK_EMPTY, drop_location())
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 
-/obj/item/mod/module/storage/proc/on_chestplate_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
+/obj/item/mod/module/storage/proc/on_suit_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
 	if(QDELETED(source) || !mod.wearer || newloc == mod.wearer || !mod.wearer.s_store)
 		return
 	to_chat(mod.wearer, "<span class='notice'>[src] tries to store [mod.wearer.s_store] inside itself.</span>")
@@ -92,6 +97,7 @@
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Do we stop the wearer from gliding in space.
 	var/stabilizers = FALSE
 	/// Do we give the wearer a speed buff.
@@ -110,9 +116,6 @@
 	return ..()
 
 /obj/item/mod/module/jetpack/on_activation()
-	. = ..()
-	if(!.)
-		return
 	ion_trail.start()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED,  PROC_REF(move_react))
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE,  PROC_REF(pre_move_react))
@@ -121,9 +124,6 @@
 		mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/mod/module/jetpack/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	ion_trail.stop()
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE)
@@ -195,6 +195,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Does this show damage types, body temp, satiety
 	var/display_detailed_vitals = TRUE
 	/// Does this show DNA data
@@ -272,22 +273,41 @@
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/mouthhole)
 	overlay_state_inactive = "module_apparatus"
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// Former flags of the helmet.
-	var/former_flags = NONE
+	var/former_helmet_flags = NONE
 	/// Former visor flags of the helmet.
-	var/former_visor_flags = NONE
+	var/former_visor_helmet_flags = NONE
+	/// Former flags of the mask.
+	var/former_mask_flags = NONE
+	/// Former visor flags of the mask.
+	var/former_visor_mask_flags = NONE
 
 /obj/item/mod/module/mouthhole/on_install()
-	former_flags = mod.helmet.flags_cover
-	former_visor_flags = mod.helmet.visor_flags_cover
-	mod.helmet.flags_cover &= ~HEADCOVERSMOUTH
-	mod.helmet.visor_flags_cover &= ~HEADCOVERSMOUTH
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(helmet))
+		former_helmet_flags = helmet.flags_cover
+		former_visor_helmet_flags = helmet.visor_flags_cover
+		helmet.flags_cover &= ~(HEADCOVERSMOUTH)
+		helmet.visor_flags_cover &= ~(HEADCOVERSMOUTH)
+	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
+	if(istype(mask))
+		former_mask_flags = mask.flags_cover
+		former_visor_mask_flags = mask.visor_flags_cover
+		mask.flags_cover &= ~(MASKCOVERSMOUTH)
+		mask.visor_flags_cover &= ~(MASKCOVERSMOUTH)
 
 /obj/item/mod/module/mouthhole/on_uninstall(deleting = FALSE)
 	if(deleting)
 		return
-	mod.helmet.flags_cover |= former_flags
-	mod.helmet.visor_flags_cover |= former_visor_flags
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(helmet))
+		helmet.flags_cover |= former_helmet_flags
+		helmet.visor_flags_cover |= former_visor_helmet_flags
+	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
+	if(istype(mask))
+		mask.flags_cover |= former_mask_flags
+		mask.visor_flags_cover |= former_visor_mask_flags
 
 ///EMP Shield - Protects the suit from EMPs.
 /obj/item/mod/module/emp_shield
@@ -299,6 +319,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/emp_shield)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/emp_shield/on_install()
 	mod.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_WIRES|EMP_PROTECT_CONTENTS)
@@ -324,6 +345,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// Charge drain per range amount.
 	var/base_power = DEFAULT_CHARGE_DRAIN * 0.1
 	/// Minimum range we can set.
@@ -332,17 +354,11 @@
 	var/max_range = 5
 
 /obj/item/mod/module/flashlight/on_activation()
-	. = ..()
-	if(!.)
-		return
 	set_light_flags(light_flags | LIGHT_ATTACHED)
 	set_light_on(active)
 	active_power_cost = base_power * light_range
 
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	set_light_flags(light_flags & ~LIGHT_ATTACHED)
 	set_light_on(active)
 
@@ -391,15 +407,13 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// Path we dispense.
 	var/dispense_type = /obj/item/food/burger/plain
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 
 /obj/item/mod/module/dispenser/on_use()
-	. = ..()
-	if(!.)
-		return
 	if(dispense_time && !do_after(mod.wearer, dispense_time, target = mod))
 		balloon_alert(mod.wearer, "interrupted!")
 		return FALSE
@@ -420,6 +434,7 @@
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/longfall)
+	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/longfall/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT,  PROC_REF(z_impact_react))
@@ -447,6 +462,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/thermal_regulator)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// The temperature we are regulating to.
 	var/temperature_setting = BODYTEMP_NORMAL
 	/// Minimum temperature we can set.
@@ -494,9 +510,6 @@
 	//UnregisterSignal(mod, COMSIG_ATOM_EMAG_ACT)
 
 /obj/item/mod/module/dna_lock/on_use()
-	. = ..()
-	if(!.)
-		return
 	dna = mod.wearer.dna.unique_enzymes
 	balloon_alert(mod.wearer, "dna updated")
 	drain_power(use_power_cost)
@@ -552,6 +565,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
 	overlay_state_inactive = "module_plasma"
+	required_slots = list(ITEM_SLOT_HEAD)
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()
 	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION, MOD_TRAIT)

@@ -28,23 +28,26 @@
 	var/list/spaceproofed = list()
 
 /obj/item/mod/module/armor_booster/on_suit_activation()
-	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(istype(head_cover))
+		head_cover.flash_protect = FLASH_PROTECTION_WELDER
 
 /obj/item/mod/module/armor_booster/on_suit_deactivation(deleting = FALSE)
 	if(deleting)
 		return
-	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(istype(head_cover))
+		head_cover.flash_protect = initial(head_cover.flash_protect)
 
 /obj/item/mod/module/armor_booster/on_activation()
-	. = ..()
-	if(!.)
-		return
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
 	mod.slowdown -= actual_speed_added
 	mod.wearer.update_equipment_speed_mods()
-	var/list/parts = mod.mod_parts + mod
-	for(var/obj/item/part as anything in parts)
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(istype(head_cover))
+		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.armor = part.armor.modifyRating(arglist(armor_values))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
@@ -54,18 +57,17 @@
 			spaceproofed[clothing_part] = TRUE
 
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	mod.slowdown += actual_speed_added
 	mod.wearer.update_equipment_speed_mods()
-	var/list/parts = mod.mod_parts + mod
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(istype(head_cover))
+		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
 	var/list/removed_armor = armor_values.Copy()
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
-	for(var/obj/item/part as anything in parts)
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.armor = part.armor.modifyRating(arglist(removed_armor))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
@@ -91,6 +93,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/energy_shield)
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Max charges of the shield.
 	var/max_charges = 3
 	/// The time it takes for the first charge to recover.
@@ -146,6 +149,7 @@
 	shield_icon_file = 'icons/obj/magic.dmi'
 	shield_icon = "mageshield"
 	recharge_path = /obj/item/wizard_armour_charge
+	required_slots = list()
 
 ///Magic Nullifier - Protects you from magic.
 /obj/item/mod/module/anti_magic
@@ -158,6 +162,7 @@
 	icon_state = "magic_nullifier"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/anti_magic)
+	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/anti_magic/on_suit_activation()
 	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = TRUE, _holy = FALSE)
@@ -178,6 +183,7 @@
 		The field will neutralize all magic that comes into contact with the user. \
 		It will not protect the caster from social ridicule."
 	icon_state = "magic_neutralizer"
+	required_slots = list()
 
 /obj/item/mod/module/anti_magic/wizard/on_suit_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
@@ -235,6 +241,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/noslip)
+	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/noslip/on_suit_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
@@ -254,6 +261,7 @@
 	cooldown_time = 2.5 SECONDS
 	overlay_state_inactive = "module_flamethrower"
 	overlay_state_active = "module_flamethrower_on"
+	required_slots = list(ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING)
 
 /obj/item/mod/module/flamethrower/on_select_use(atom/target)
 	. = ..()
@@ -279,6 +287,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/power_kick)
 	cooldown_time = 5 SECONDS
+	required_slots = list(ITEM_SLOT_FEET)
 	/// Damage on kick.
 	var/damage = 20
 	/// The wound bonus of the kick.
@@ -358,13 +367,13 @@
 		return_look()
 	possible_disguises = null
 
-/obj/item/mod/module/chameleon/on_use()
+/obj/item/mod/module/chameleon/used()
 	if(mod.active || mod.activating)
 		balloon_alert(mod.wearer, "suit active!")
-		return
-	. = ..()
-	if(!.)
-		return
+		return FALSE
+	return ..()
+
+/obj/item/mod/module/chameleon/on_use()
 	if(current_disguise)
 		return_look()
 		return
@@ -392,10 +401,9 @@
 	mod.name = "[mod.theme.name] [initial(mod.name)]"
 	mod.desc = "[initial(mod.desc)] [mod.theme.desc]"
 	mod.icon_state = "[mod.skin]-[initial(mod.icon_state)]"
-	var/list/mod_skin = mod.theme.skins[mod.skin]
+	var/list/mod_skin = mod.theme.variants[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	mod.worn_icon = mod_skin[MOD_WORN_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	mod.alternate_worn_layer = mod_skin[CONTROL_LAYER]
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
 	mod.worn_icon_state = null

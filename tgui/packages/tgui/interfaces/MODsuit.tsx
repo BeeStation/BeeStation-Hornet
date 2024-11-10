@@ -9,15 +9,17 @@ type MODsuitData = {
   ui_theme: string;
   control: string;
   complexity_max: number;
-  helmet: string;
-  chestplate: string;
-  gauntlets: string;
-  boots: string;
+  parts: PartData[];
   // Dynamic
   suit_status: SuitStatus;
   user_status: UserStatus;
   module_custom_status: ModuleCustomStatus;
   module_info: Module[];
+};
+
+type PartData = {
+  slot: string;
+  name: string;
 };
 
 type SuitStatus = {
@@ -147,9 +149,9 @@ const ConfigureNumberEntry = (props, context) => {
       width="39px"
       onChange={(e, value) =>
         act('configure', {
-          'key': name,
-          'value': value,
-          'ref': module_ref,
+          key: name,
+          value: value,
+          ref: module_ref,
         })
       }
     />
@@ -164,9 +166,9 @@ const ConfigureBoolEntry = (props, context) => {
       checked={value}
       onClick={() =>
         act('configure', {
-          'key': name,
-          'value': !value,
-          'ref': module_ref,
+          key: name,
+          value: !value,
+          ref: module_ref,
         })
       }
     />
@@ -182,8 +184,8 @@ const ConfigureColorEntry = (props, context) => {
         icon="paint-brush"
         onClick={() =>
           act('configure', {
-            'key': name,
-            'ref': module_ref,
+            key: name,
+            ref: module_ref,
           })
         }
       />
@@ -201,9 +203,9 @@ const ConfigureListEntry = (props, context) => {
       options={values}
       onSelected={(value) =>
         act('configure', {
-          'key': name,
-          'value': value,
-          'ref': module_ref,
+          key: name,
+          value: value,
+          ref: module_ref,
         })
       }
     />
@@ -374,7 +376,7 @@ const SuitStatusSection = (props, context) => {
 
 const HardwareSection = (props, context) => {
   const { act, data } = useBackend<MODsuitData>(context);
-  const { control, helmet, chestplate, gauntlets, boots } = data;
+  const { control } = data;
   const { ai_name, core_name } = data.suit_status;
   return (
     <Section title="Hardware" style={{ 'text-transform': 'capitalize' }}>
@@ -382,12 +384,25 @@ const HardwareSection = (props, context) => {
         <LabeledList.Item label="AI Card">{ai_name || 'No AI Card Detected'}</LabeledList.Item>
         <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
         <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
-        <LabeledList.Item label="Helmet">{helmet || 'None'}</LabeledList.Item>
-        <LabeledList.Item label="Chestplate">{chestplate || 'None'}</LabeledList.Item>
-        <LabeledList.Item label="Gauntlets">{gauntlets || 'None'}</LabeledList.Item>
-        <LabeledList.Item label="Boots">{boots || 'None'}</LabeledList.Item>
+        <ModParts />
       </LabeledList>
     </Section>
+  );
+};
+
+const ModParts = (props, context) => {
+  const { act, data } = useBackend<MODsuitData>(context);
+  const { parts } = data;
+  return (
+    <>
+      {parts.map((part) => {
+        return (
+          <LabeledList.Item key={part.slot} label={part.slot + ' Slot'}>
+            {part.name}
+          </LabeledList.Item>
+        );
+      })}
+    </>
   );
 };
 
