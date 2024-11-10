@@ -73,7 +73,7 @@
 		if(overslot)
 			overslotting_parts[part] = overslot
 			wearer.transferItemToLoc(overslot, part, force = TRUE)
-			RegisterSignal(part, COMSIG_ATOM_EXITED, .proc/on_overslot_exit)
+			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
 	if(wearer.equip_to_slot_if_possible(part, part.slot_flags, qdel_on_fail = FALSE, disable_warning = TRUE))
 		ADD_TRAIT(part, TRAIT_NODROP, MOD_TRAIT)
 		if(!user)
@@ -197,6 +197,7 @@
 		part.clothing_flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
+		part.alternate_worn_layer = mod_parts[part]
 	if(part == boots)
 		wearer.update_inv_shoes()
 	if(part == gauntlets)
@@ -208,7 +209,10 @@
 		wearer.update_inv_head()
 		wearer.update_inv_wear_mask()
 		wearer.update_inv_glasses()
-		wearer.update_hair()
+		wearer.update_body_parts()
+		// Close internal air tank if MOD helmet is unsealed and was the only breathing apparatus.
+		if (!seal && wearer?.invalid_internals())
+			wearer.cutoff_internals()
 
 /// Finishes the suit's activation, starts processing
 /obj/item/mod/control/proc/finish_activation(on)

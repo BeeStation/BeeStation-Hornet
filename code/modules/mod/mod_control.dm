@@ -79,8 +79,6 @@
 	var/list/mod_parts = list()
 	/// Associated list of parts that can overslot to their overslot (overslot means the part can cover another layer of clothing).
 	var/list/overslotting_parts = list()
-	/// Modules the MOD should spawn with.
-	var/list/initial_modules = list()
 	/// Modules the MOD currently possesses.
 	var/list/modules = list()
 	/// Currently used module.
@@ -88,7 +86,7 @@
 	/// AI mob inhabiting the MOD.
 	var/mob/living/silicon/ai/ai
 	/// Delay between moves as AI.
-	var/movedelay = 0
+	var/static/movedelay = 0
 	/// Cooldown for AI moves.
 	COOLDOWN_DECLARE(cooldown_mod_move)
 	/// Person wearing the MODsuit.
@@ -96,6 +94,8 @@
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
+	if(!movedelay)
+		movedelay = CONFIG_GET(number/movedelay/run_delay)
 	if(new_theme)
 		theme = new_theme
 	theme = GLOB.mod_themes[theme]
@@ -106,7 +106,6 @@
 	complexity_max = theme.complexity_max
 	ui_theme = theme.ui_theme
 	charge_drain = theme.charge_drain
-	initial_modules += theme.inbuilt_modules
 	wires = new /datum/wires/mod(src)
 	if(length(req_access))
 		locked = TRUE
@@ -134,16 +133,15 @@
 		part.permeability_coefficient = theme.permeability_coefficient
 		part.siemens_coefficient = theme.siemens_coefficient
 	for(var/obj/item/part as anything in mod_parts)
-		RegisterSignal(part, COMSIG_ATOM_DESTRUCTION, .proc/on_part_destruction)
-		RegisterSignal(part, COMSIG_PARENT_QDELETING, .proc/on_part_deletion)
+		RegisterSignal(part, COMSIG_ATOM_DESTRUCTION, PROC_REF(on_part_destruction))
+		RegisterSignal(part, COMSIG_QDELETING, PROC_REF(on_part_deletion))
 	set_mod_skin(new_skin || theme.default_skin)
 	update_speed()
-	for(var/obj/item/mod/module/module as anything in initial_modules)
-		module = new module(src)
-		install(module)
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 	RegisterSignal(src, COMSIG_SPEED_POTION_APPLIED, PROC_REF(on_potion))
-	movedelay = CONFIG_GET(number/movedelay/run_delay)
+	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
+		module = new module(src)
+		install(module)
 
 /obj/item/mod/control/Destroy()
 	if(active)
@@ -446,11 +444,11 @@
 	icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 
-/obj/item/mod/control/proc/set_wearer(mob/user)
+/obj/item/mod/control/proc/set_wearer(mob/living/carbon/human/user)
 	wearer = user
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-	RegisterSignal(wearer, COMSIG_SPECIES_GAIN, .proc/on_species_gain)
+	RegisterSignal(wearer, COMSIG_SPECIES_GAIN, PROC_REF(on_species_gain))
 	update_charge_alert()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()
@@ -534,11 +532,6 @@
 				balloon_alert(user, "[new_module] incompatible with [old_module]!")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
-	if(is_type_in_list(new_module, theme.module_blacklist))
-		if(user)
-			balloon_alert(user, "[src] doesn't accept [new_module]!")
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return
 	var/complexity_with_module = complexity
 	complexity_with_module += new_module.complexity
 	if(complexity_with_module > complexity_max)
@@ -637,7 +630,7 @@
 	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 		part.worn_icon = used_skin[MOD_WORN_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-		part.icon_state = "[skin]-[initial(part.icon_state)]"
+		part.icon_state = "[skin]-[part.base_icon_state]"
 	for(var/obj/item/clothing/part as anything in mod_parts)
 		var/used_category
 		if(part == helmet)
