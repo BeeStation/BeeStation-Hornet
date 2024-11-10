@@ -324,7 +324,7 @@
 /datum/outfit/nuclear_operative
 	name = "Nuclear Operative (Preview only)"
 
-	back = /obj/item/mod/control/pre_equipped/syndicate_empty
+	back = /obj/item/mod/control/pre_equipped/empty/syndicate
 
 /datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
@@ -334,7 +334,7 @@
 /datum/outfit/nuclear_operative_elite
 	name = "Nuclear Operative (Elite, Preview only)"
 
-	back = /obj/item/mod/control/pre_equipped/syndicate_empty/elite
+	back = /obj/item/mod/control/pre_equipped/empty/elite
 	l_hand = /obj/item/modular_computer/tablet/nukeops
 	r_hand = /obj/item/shield/energy
 

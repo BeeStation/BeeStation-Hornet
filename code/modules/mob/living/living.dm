@@ -1105,7 +1105,7 @@
 		return FALSE
 	if(invisibility || alpha == 0)//cloaked
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, args) & COMPONENT_CANT_TRACK)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, user) & COMPONENT_CANT_TRACK)
 		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
