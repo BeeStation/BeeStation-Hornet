@@ -54,8 +54,8 @@
 	var/list/data = list()
 	data["min_age"] = AGE_MIN
 	data["max_age"] = AGE_MAX
-	data["physical_statuses"] = PHYSICAL_STATUSES
-	data["mental_statuses"] = MENTAL_STATUSES
+	data["physical_statuses"] = PHYSICAL_STATUSES()
+	data["mental_statuses"] = MENTAL_STATUSES()
 	data["character_preview_view"] = character_preview_view.assigned_map
 	return data
 

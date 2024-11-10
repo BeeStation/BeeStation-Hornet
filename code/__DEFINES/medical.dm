@@ -5,7 +5,7 @@
 #define PHYSICAL_DECEASED "Deceased"
 
 /// List of available physical statuses
-#define PHYSICAL_STATUSES list(\
+#define PHYSICAL_STATUSES(...) list(\
 	PHYSICAL_ACTIVE, \
 	PHYSICAL_DEBILITATED, \
 	PHYSICAL_UNCONSCIOUS, \
@@ -19,7 +19,7 @@
 #define MENTAL_INSANE "Insane"
 
 /// List of available mental statuses
-#define MENTAL_STATUSES list(\
+#define MENTAL_STATUSES(...) list(\
 	MENTAL_STABLE, \
 	MENTAL_WATCH, \
 	MENTAL_UNSTABLE, \

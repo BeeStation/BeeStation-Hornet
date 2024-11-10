@@ -180,14 +180,14 @@
 	return TRUE
 
 /datum/record/crew/proc/set_physical_status(new_physical_status)
-	if(!new_physical_status || !(new_physical_status in PHYSICAL_STATUSES))
+	if(!new_physical_status || !(new_physical_status in PHYSICAL_STATUSES()))
 		return FALSE
 
 	physical_status = new_physical_status
 	return TRUE
 
 /datum/record/crew/proc/set_mental_status(new_mental_status)
-	if(!new_mental_status || !(new_mental_status in MENTAL_STATUSES))
+	if(!new_mental_status || !(new_mental_status in MENTAL_STATUSES()))
 		return FALSE
 
 	mental_status = new_mental_status

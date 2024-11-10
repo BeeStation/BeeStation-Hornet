@@ -232,7 +232,7 @@
 				if(getToxLoss() > 20)
 					to_chat(human_user, "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>")
 			if(href_list["physical_status"])
-				var/physical_status = tgui_input_list(human_user, "Specify a new physical status for this person.", "Medical HUD", PHYSICAL_STATUSES, target_record.physical_status)
+				var/physical_status = tgui_input_list(human_user, "Specify a new physical status for this person.", "Medical HUD", PHYSICAL_STATUSES(), target_record.physical_status)
 				if(!physical_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 					return
 
@@ -240,7 +240,7 @@
 				return
 
 			if(href_list["mental_status"])
-				var/mental_status = tgui_input_list(human_user, "Specify a new mental status for this person.", "Medical HUD", MENTAL_STATUSES, target_record.mental_status)
+				var/mental_status = tgui_input_list(human_user, "Specify a new mental status for this person.", "Medical HUD", MENTAL_STATUSES(), target_record.mental_status)
 				if(!mental_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 					return
 
