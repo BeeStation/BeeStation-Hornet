@@ -219,8 +219,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/detectiveboard, 32)
 				to_evidence.connections += from_evidence
 			return TRUE
 
-
-return FALSE
+	return FALSE
 
 /obj/structure/detectiveboard/update_overlays()
 	. = ..()
