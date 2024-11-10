@@ -1,6 +1,0 @@
-author: MarkusLarsson421
-delete-after: true
-changes:
-  - rscadd: TriaMed bag (40u Bicaridine, 40u Kelotane, 20u Epi).
-  - balance: Chemists start with a TriaMed bag and also one in their preloaded fridges.
-  - balance: Replaces all Medbay Medibots with filled (TriaMed) variants.
