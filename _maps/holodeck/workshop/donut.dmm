@@ -174,13 +174,11 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "N" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/item/toy/figure/chef,
-/obj/item/reagent_containers/condiment/enzyme,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/oven,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "P" = (
@@ -188,6 +186,13 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/toy/figure/chef{
+	pixel_x = 6
 	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)

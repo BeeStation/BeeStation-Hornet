@@ -89,12 +89,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	radio_channel = RADIO_CHANNEL_SYNDICATE
 	heal_threshold = 30
 	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
+	faction = list(FACTION_SYNDICATE, "neutral", "silicon")
 
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
 	declare_crit = TRUE
-	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/kelobic
+	reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
@@ -190,9 +191,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 // Actions received from TGUI
 /mob/living/simple_animal/bot/medbot/ui_act(action, params)
-	. = ..()
-	if(. || (locked && !usr.has_unlimited_silicon_privilege))
-		return
+	if(..())
+		return TRUE
 	switch(action)
 		if("eject")
 			if (!isnull(reagent_glass))
