@@ -1,0 +1,9 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - tweak: Moths now see better in the dark
+  - balance: Moths can now eat fruit with ease.
+  - balance: Clothing is now contains microplastics
+  - rscadd: Adds microplastics reagent as a subtype of maltodextrin, with half the
+      power and half the metabolization rate. Also makes the mob ingesting them weaker
+      to toxin damage.
