@@ -31,7 +31,7 @@ const RestrictedView = (props, context) => {
         </Stack.Item>
         <Stack.Item align="center" grow>
           <Box color="red" fontSize="18px" bold mt={5}>
-            Nanotrasen SecurityHUB
+            Nanotrasen Security Records
           </Box>
         </Stack.Item>
         <Stack.Item>
