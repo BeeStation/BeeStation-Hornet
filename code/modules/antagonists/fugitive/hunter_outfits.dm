@@ -1,5 +1,5 @@
 /datum/outfit/spacepol
-	name = "Spacepol Nobody(Preview)"
+	name = "Spacepol Nobody (Preview)"
 
 	id = /obj/item/card/id/silver/spacepol
 	uniform = /obj/item/clothing/under/syndicate/combat
@@ -50,6 +50,8 @@
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
 /datum/outfit/bounty
+	name = "Bounty Hunter"
+
 	uniform = /obj/item/clothing/under/rank/prisoner
 	id = /obj/item/card/id/silver/bounty
 	back = /obj/item/storage/backpack
@@ -100,6 +102,8 @@
 	eyes.Insert(H, drop_if_replaced = FALSE)
 
 /datum/outfit/russian_hunter
+	name = "Russian Hunter"
+
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/russian
 	head = /obj/item/clothing/head/costume/bearpelt
@@ -129,6 +133,8 @@
 		uniform = /obj/item/clothing/under/syndicate/rus_army
 
 /datum/outfit/russian_hunter/leader
+	name = "Russian Hunter - Leader"
+
 	uniform = /obj/item/clothing/under/costume/russian_officer
 	suit = /obj/item/clothing/suit/jacket/officer/tan
 	head = /obj/item/clothing/head/helmet/rus_ushanka

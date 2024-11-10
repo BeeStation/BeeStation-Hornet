@@ -5,7 +5,9 @@
 	if (!outfit_item) { \
 		TEST_FAIL("[outfit.name]'s [#outfit_key] is invalid! Could not equip a [outfit.##outfit_key] into that slot."); \
 	} \
-	outfit_item.on_outfit_equip(H, FALSE, ##slot_name); \
+	else { \
+		outfit_item.on_outfit_equip(H, FALSE, ##slot_name); \
+	} \
 }
 
 /datum/unit_test/outfit_sanity/Run()
@@ -19,6 +21,7 @@
 			qdel(I)
 
 		var/datum/outfit/outfit = new outfit_type
+
 		if(outfit.name == prototype_name)
 			TEST_FAIL("[outfit.type]'s name is invalid! Uses default outfit name!")
 		outfit.pre_equip(H, TRUE)
