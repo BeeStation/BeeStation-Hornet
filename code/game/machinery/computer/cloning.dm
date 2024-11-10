@@ -286,7 +286,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.last_death, clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas, clone_record.body_only, experimental))
+			var/cloning_attempt_result = pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.last_death, clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas, clone_record.body_only, experimental)
+			switch(cloning_attempt_result)
 				if(CLONING_SUCCESS)
 					temp = "Notice: [clone_record.name] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
