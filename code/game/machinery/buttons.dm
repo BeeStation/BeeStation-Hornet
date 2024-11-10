@@ -199,9 +199,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 			device = C
 	..()
 
-/obj/machinery/button/door/incinerator_vent_toxmix
+/obj/machinery/button/door/incinerator_vent_ordmix
 	name = "combustion chamber vent control"
-	id = INCINERATOR_TOXMIX_VENT
+	id = INCINERATOR_ORDMIX_VENT
 	req_access = list(ACCESS_TOX)
 
 /obj/machinery/button/door/incinerator_vent_atmos_main

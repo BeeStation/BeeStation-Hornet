@@ -29,6 +29,8 @@
 	var/leaking = FALSE
 	/// The pressure of the gases this tank supplies to internals.
 	var/distribute_pressure = ONE_ATMOSPHERE
+	//Used by process() to track if there's a reason to process each tick
+	var/excited = TRUE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
 
@@ -206,9 +208,6 @@
 	START_PROCESSING(SSobj, src)
 	return air_contents.remove(amount)
 
-/obj/item/tank/remove_air_ratio(ratio)
-	return remove_air_ratio(ratio)
-
 /obj/item/tank/return_air()
 	START_PROCESSING(SSobj, src)
 	return air_contents
@@ -222,39 +221,42 @@
 	handle_tolerances(ASSUME_AIR_DT_FACTOR)
 	return TRUE
 
-/obj/item/tank/assume_air_moles(datum/gas_mixture/giver, moles)
-	START_PROCESSING(SSobj, src)
-	giver.transfer_to(air_contents, moles)
-	handle_tolerances(ASSUME_AIR_DT_FACTOR)
-	return TRUE
-
-/obj/item/tank/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	START_PROCESSING(SSobj, src)
-	giver.transfer_ratio_to(air_contents, ratio)
-	handle_tolerances(ASSUME_AIR_DT_FACTOR)
-	return TRUE
-
+/**
+ * Removes some volume of the tanks gases as the tanks distribution pressure.
+ *
+ * Arguments:
+ * - volume_to_return: The amount of volume to remove from the tank.
+ */
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
 		return null
 
 	var/tank_pressure = air_contents.return_pressure()
-	if(tank_pressure < distribute_pressure)
-		distribute_pressure = tank_pressure
+	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.return_temperature())
+	// Lets do some algebra to understand why this works, yeah?
+	// R_IDEAL_GAS_EQUATION is (kPa * L) / (K * mol) by the by, so the units in this equation look something like this
+	// kpa * L / (R_IDEAL_GAS_EQUATION * K)
+	// Or restated (kpa * L / K) * 1/R_IDEAL_GAS_EQUATION
+	// (kpa * L * K * mol) / (kpa * L * K)
+	// If we cancel it all out, we get moles, which is the expected unit
+	// This sort of thing comes up often in atmos, keep the tool in mind for other bits of code
+	var/moles_needed = actual_distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	return remove_air(moles_needed)
-
 
 /obj/item/tank/process(delta_time)
 	if(!air_contents)
 		return
 
 	//Allow for reactions
+	excited = (excited | air_contents.react(src))
+	excited = (excited | handle_tolerances(delta_time))
+	excited = (excited | leaking)
 
-	if(!(air_contents.react(src) || handle_tolerances(delta_time) || leaking))
+	if(!excited)
 		STOP_PROCESSING(SSobj, src)
+	excited = FALSE
 
 	if(QDELETED(src) || !air_contents || !leaking)
 		return

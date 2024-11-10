@@ -35,9 +35,9 @@
 	var/on = TRUE // Reviewer: I can't find any way to turn this thing off but it stays
 	var/alert = FALSE
 
-/obj/machinery/airlock_sensor/incinerator_toxmix
-	id_tag = INCINERATOR_TOXMIX_AIRLOCK_SENSOR
-	master_tag = INCINERATOR_TOXMIX_AIRLOCK_CONTROLLER
+/obj/machinery/airlock_sensor/incinerator_ordmix
+	id_tag = INCINERATOR_ORDMIX_AIRLOCK_SENSOR
+	master_tag = INCINERATOR_ORDMIX_AIRLOCK_CONTROLLER
 
 /obj/machinery/airlock_sensor/incinerator_atmos
 	id_tag = INCINERATOR_ATMOS_AIRLOCK_SENSOR

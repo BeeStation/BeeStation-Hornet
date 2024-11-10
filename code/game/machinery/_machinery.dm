@@ -243,7 +243,6 @@ Class Procs:
 	// If we're always area sensitive, and this is called while we have no power usage, do nothing and return
 	if(always_area_sensitive && use_power == NO_POWER_USE)
 		return
-	update_current_power_usage()
 	power_change()
 	RegisterSignal(area_to_register, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
 
@@ -252,7 +251,6 @@ Class Procs:
 	// If we're always area sensitive, and this is called while we have no power usage, do nothing and return
 	if(always_area_sensitive && use_power == NO_POWER_USE)
 		return
-	unset_static_power()
 	UnregisterSignal(area_to_unregister, COMSIG_AREA_POWER_CHANGE)
 
 /obj/machinery/proc/locate_machinery()
@@ -419,7 +417,6 @@ Class Procs:
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
-	var/living = isliving(user) // /mob/living/carbon/HUMANS, not /mob/living.
 
 	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
