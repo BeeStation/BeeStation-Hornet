@@ -169,11 +169,10 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
-		/obj/item/construction/rcd/combat=1,
 		/obj/item/bluespace_anchor=1
 		)
+	l_hand = /obj/item/construction/rcd/combat
 
 
 /datum/outfit/centcom_official
@@ -287,11 +286,11 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
-		/obj/item/grenade/clusterbuster/cleaner=1,
 		/obj/item/reagent_containers/cup/bucket=1,
 		)
 	belt = /obj/item/storage/belt/janitor/full
 	glasses = /obj/item/clothing/glasses/night
+	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_hand = /obj/item/choice_beacon/janicart
 	l_hand = /obj/item/mop/advanced
 

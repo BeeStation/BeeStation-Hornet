@@ -396,10 +396,12 @@
 	id = "comp_bci_action"
 	build_path = /obj/item/circuit_component/equipment_action/bci
 
+/*
 /datum/design/component/mod_action
 	name = "MOD Action Component"
 	id = "comp_mod_action"
 	build_path = /obj/item/circuit_component/equipment_action/mod
+*/
 
 /datum/design/component/bci/object_overlay
 	name = "Object Overlay Component"
@@ -553,6 +555,7 @@
 	build_type = IMPRINTER | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
 
+/*
 /datum/design/mod_module_shell
 	name = "MOD Module Shell"
 	desc = "A module shell that allows a circuit to be inserted into, and interface with, a MODsuit."
@@ -561,3 +564,4 @@
 	build_path = /obj/item/mod/module/circuit
 	build_type = MECHFAB | COMPONENT_PRINTER
 	category = list("MOD Modules", WIREMOD_SHELLS)
+*/
