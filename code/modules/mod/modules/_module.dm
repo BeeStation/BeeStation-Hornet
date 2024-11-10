@@ -41,10 +41,8 @@
 	var/used_signal
 	/// List of mobs we are pinned to, linked with their action buttons
 	var/list/pinned_to = list()
-	/// If we're allowed to use this module while phased out.
-	var/allowed_in_phaseout = FALSE
-	/// If we're allowed to use this module while the suit is disabled.
-	var/allowed_inactive = FALSE
+	/// flags that let the module ability be used in odd circumstances
+	var/allow_flags = NONE
 	/// A list of slots required in the suit to work. Formatted like list(x|y, z, ...) where either x or y are required and z is required.
 	var/list/required_slots = list()
 	/// Timer for the cooldown
@@ -74,7 +72,7 @@
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += (length(slot_list) == 1 ? "" : "one of ") + english_list(slot_list, and_text = " or ")
-		. += "<span class='notice'Requires the MOD unit to have the following slots: [english_list(slot_strings)]</span>"
+		. += "<span class='notice'>Requires the MOD unit to have the following slots: [english_list(slot_strings)]</span>"
 	if(HAS_TRAIT(user, TRAIT_DIAGNOSTIC_HUD))
 		. += "<span class='notice'>Complexity level: [complexity]</span>"
 
@@ -102,9 +100,19 @@
 		if(ismob(mod.loc))
 			balloon_alert(mod.loc, "not equipped!")
 		return
-	if(((!mod.active || mod.activating) && !allowed_inactive) || module_type == MODULE_PASSIVE)
+	if(((!mod.active || mod.activating) && !(allow_flags & MODULE_ALLOW_INACTIVE)) || module_type == MODULE_PASSIVE)
 		if(mod.wearer)
 			balloon_alert(mod.wearer, "not active!")
+		return
+	if(!has_required_parts(mod.mod_parts, need_extended = TRUE))
+		if(mod.wearer)
+			balloon_alert(mod.wearer, "required parts inactive!")
+			var/list/slot_strings = list()
+			for(var/slot in required_slots)
+				var/list/slot_list = parse_slot_flags(slot)
+				slot_strings += (length(slot_list) == 1 ? "" : "one of ") + english_list(slot_list, and_text = " or ")
+			to_chat(mod.wearer, "<span class='notice'>[src] requires these slots to be deployed: [english_list(slot_strings)]</span>")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(module_type != MODULE_USABLE)
 		if(active)
@@ -123,7 +131,7 @@
 	if(!mod.active || mod.activating || !mod.get_charge())
 		balloon_alert(mod.wearer, "unpowered!")
 		return FALSE
-	if(!allowed_in_phaseout && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
+	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
 		to_chat(mod.wearer, "<span class='warning'>You cannot activate this right now.</span>")
 		return FALSE
@@ -178,7 +186,7 @@
 	if(!check_power(use_power_cost))
 		balloon_alert(mod.wearer, "not enough charge!")
 		return FALSE
-	if(!allowed_in_phaseout && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
+	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
 		to_chat(mod.wearer, "<span class='warning'>You cannot activate this right now.</span>")
 		return FALSE

@@ -16,6 +16,13 @@
 /// Actively usable module, you may only have one selected at a time.
 #define MODULE_ACTIVE 3
 
+/// This module can be used during phaseout
+#define MODULE_ALLOW_PHASEOUT (1<<0)
+/// This module can be used while incapacitated
+#define MODULE_ALLOW_INCAPACITATED (1<<1)
+/// This module can be used while the suit is off
+#define MODULE_ALLOW_INACTIVE (1<<2)
+
 #define UNSEALED_LAYER "unsealed_layer"
 #define SEALED_LAYER "sealed_layer"
 #define UNSEALED_CLOTHING "unsealed_clothing"

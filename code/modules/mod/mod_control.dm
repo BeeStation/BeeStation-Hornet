@@ -204,6 +204,10 @@
 /obj/item/mod/control/allow_attack_hand_drop(mob/user)
 	if(user != wearer)
 		return ..()
+	if(active)
+		balloon_alert(wearer, "deactivate the suit first!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
+		return
 	for(var/obj/item/part as anything in get_parts())
 		if(part.loc != src)
 			balloon_alert(user, "retract parts first!")
@@ -540,7 +544,7 @@
 		var/datum/action/item_action/mod/pinned_module/action = new_module.pinned_to[REF(ai)]
 		if(action)
 			action.Grant(ai)
-	if(active)
+	if(active && new_module.has_required_parts(mod_parts, need_extended = TRUE))
 		new_module.on_suit_activation()
 	if(user)
 		balloon_alert(user, "[new_module] added")
@@ -636,9 +640,6 @@
 			part.forceMove(src)
 			return
 		retract(wearer, part)
-		if(active)
-			INVOKE_ASYNC(src, PROC_REF(toggle_activate), wearer, TRUE)
-		return
 
 /obj/item/mod/control/proc/on_part_destruction(obj/item/part, damage_flag)
 	SIGNAL_HANDLER
