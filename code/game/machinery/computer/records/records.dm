@@ -47,8 +47,8 @@
 			var/field = params["field"]
 			if(!field || !(field in target_record?.vars))
 				return FALSE
-
-			var/value = trim(params["value"], MAX_BROADCAST_LEN)
+			var/text = "[params["value"]]" //Converts the value to a string, due to fuckery in TGUI.
+			var/value = trim(text, MAX_BROADCAST_LEN)
 			target_record.vars[field] = value || null
 
 			return TRUE

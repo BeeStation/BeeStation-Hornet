@@ -14,7 +14,7 @@ type Props = {
  *
  * When user presses ENTER, this is called to Byond:
  * ```
- * act('edit_field', { field: field, ref: target_ref, value: value })
+ * act('edit_field', { field: field, record_ref: target_ref, value: value })
  * ```
  * Ensure that you have the corresponding action case in your Byond code.
  *
@@ -35,7 +35,7 @@ export const EditableText = (props: Props, context) => {
       onEscape={() => setEditing(false)}
       onEnter={(event, value) => {
         setEditing(false);
-        act('edit_field', { field: field, ref: target_ref, value: value });
+        act('edit_field', { field: field, record_ref: target_ref, value: value });
       }}
       value={text}
     />
@@ -60,7 +60,7 @@ export const EditableText = (props: Props, context) => {
           color="transparent"
           icon="backspace"
           ml={1}
-          onClick={() => act('edit_field', { field: field, ref: target_ref, value: '' })}
+          onClick={() => act('edit_field', { field: field, record_ref: target_ref, value: '' })}
           tooltip="Clear"
           tooltipPosition="bottom"
         />
