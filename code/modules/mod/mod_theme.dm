@@ -1047,6 +1047,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/assembly/flash,
 		/obj/item/melee/baton,
+		/obj/item/storage/bag/trash,
 	)
 	skins = list(
 		"responsory" = list(

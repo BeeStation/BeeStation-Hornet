@@ -76,10 +76,11 @@
 	l_hand = /obj/item/gun/energy/e_gun/stun
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/storage/box/handcuffs=1,
 	)
 	belt = /obj/item/storage/belt/security/full
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	l_pocket = /obj/item/restraints/handcuffs
+	r_pocket = /obj/item/restraints/handcuffs
 
 /datum/outfit/centcom/ert/security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -96,10 +97,6 @@
 
 	l_hand = /obj/item/gun/energy/pulse/carbine/loyalpin
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	backpack_contents = list(
-		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/storage/box/handcuffs=1,
-		)
 
 
 /datum/outfit/centcom/ert/medic
@@ -231,14 +228,13 @@
 /datum/outfit/centcom/ert/security/inquisitor
 	name = "Inquisition Security"
 
-	suit_store = /obj/item/construction/rcd/loaded
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
-
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/handcuffs=1,
-		/obj/item/melee/baton/loaded=1,
+		/obj/item/construction/rcd/loaded=1,
 		)
+	r_hand = /obj/item/construction/rcd/loaded
 
 /datum/outfit/centcom/ert/medic/inquisitor
 	name = "Inquisition Medic"
@@ -297,7 +293,6 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
-		/obj/item/melee/baton/loaded=1,
 		/obj/item/grenade/clusterbuster/cleaner=1,
 		/obj/item/choice_beacon/janicart
 		)
@@ -334,7 +329,6 @@
 	l_hand = /obj/item/scythe
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
-		/obj/item/melee/baton/loaded=1,
 		/obj/item/choice_beacon/pet/goat,
 		/obj/item/grenade/clusterbuster/antiweed=2)
 

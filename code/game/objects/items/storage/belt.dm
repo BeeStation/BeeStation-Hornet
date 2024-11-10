@@ -708,6 +708,7 @@
 	new /obj/item/soap/nanotrasen(src)
 	new /obj/item/holosign_creator/janibarrier(src)
 	new /obj/item/melee/flyswatter(src)
+	new /obj/item/melee/baton/loaded(src)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
