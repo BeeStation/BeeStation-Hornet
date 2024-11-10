@@ -907,9 +907,13 @@
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
-
-/obj/item/clothing/suit/space/hardsuit/shielded/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = shield_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = shield_integrity, \
+		recharge_start_delay = recharge_delay, \
+		charge_increment_delay = recharge_rate, \
+		shield_icon = shield_icon \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -933,9 +937,20 @@
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
+	var/shield_integrity = 150
+	var/charge_recovery = 30
+	var/recharge_start_delay = 20 SECONDS
+	var/charge_increment_delay = 1 SECONDS
 
-/obj/item/clothing/suit/armor/vest/ctf/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 150, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
+/obj/item/clothing/suit/armor/vest/ctf/Initialize(mapload)
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = shield_integrity, \
+		charge_recovery = charge_recovery, \
+		recharge_start_delay = recharge_start_delay, \
+		charge_increment_delay = charge_increment_delay, \
+		shield_icon = team_shield_icon \
+	)
 
 // LIGHT SHIELDED VEST
 
@@ -946,9 +961,7 @@
 	greyscale_config = /datum/greyscale_config/ctf_light
 	greyscale_config_worn = /datum/greyscale_config/ctf_light_worn
 	slowdown = -0.25
-
-/obj/item/clothing/suit/armor/vest/ctf/light/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 50, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
+	shield_integrity = 50
 
 // RED TEAM SUITS
 
@@ -1004,8 +1017,16 @@
 	)
 	jetpack = /obj/item/tank/jetpack/suit
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 60, charge_recovery = 20, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 60, \
+		charge_recovery = 20, \
+		recharge_start_delay = 20 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-red" \
+	)
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
@@ -1054,8 +1075,16 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
-/obj/item/clothing/suit/space/hardsuit/shielded/swat/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 80, charge_recovery = 20, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 80, \
+		charge_recovery = 20, \
+		recharge_start_delay = 1.5 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-old" \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
@@ -1099,8 +1128,16 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 20, charge_recovery = 20, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 20, \
+		charge_recovery = 20, \
+		recharge_start_delay = 1 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-old" \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"

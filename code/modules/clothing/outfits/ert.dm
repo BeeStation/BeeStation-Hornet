@@ -229,11 +229,6 @@
 	name = "Inquisition Security"
 
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
-	backpack_contents = list(
-		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/storage/box/handcuffs=1,
-		/obj/item/construction/rcd/loaded=1,
-		)
 	r_hand = /obj/item/construction/rcd/loaded
 
 /datum/outfit/centcom/ert/medic/inquisitor

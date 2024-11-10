@@ -448,10 +448,6 @@
 	icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 
-/obj/item/mod/control/update_icon_state()
-	icon_state = "[skin]-control[active ? "-sealed" : ""]"
-	return ..()
-
 /obj/item/mod/control/proc/set_wearer(mob/user)
 	wearer = user
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
