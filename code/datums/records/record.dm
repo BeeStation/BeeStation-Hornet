@@ -285,7 +285,7 @@
 	return TRUE
 
 /// Handles adding a crime to a particular record.
-/datum/record/crew/proc/add_crime(mob/user, crime_name, fine_amount, details)
+/datum/record/crew/proc/add_crime(mob/user, crime_name, fine_amount, details, crime_console)
 	var/input_name = trim(crime_name, MAX_CRIME_NAME_LEN)
 	if(!input_name)
 		to_chat(user, "<span class='warning'>You must enter a name for the crime.</span>")
@@ -314,7 +314,7 @@
 	var/datum/crime_record/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = fine_amount)
 
 	citations += new_citation
-	new_citation.alert_owner(user, src, name, "You have been issued a [fine_amount]cr citation for [input_name]. Fines are payable at Security.")
+	new_citation.alert_owner(user, crime_console, name, "You have been issued a [fine_amount]cr citation for [input_name]. Fines are payable at Security.")
 	user.investigate_log("New Citation: <strong>[input_name]</strong> Fine: [fine_amount] | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
 
 	return TRUE

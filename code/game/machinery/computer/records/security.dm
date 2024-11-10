@@ -131,7 +131,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 	switch(action)
 		if("add_crime")
-			target_record.add_crime(user, params["name"], params["fine"], params["details"])
+			target_record.add_crime(user, params["name"], params["fine"], params["details"], src)
 			return TRUE
 
 		if("delete_record")
