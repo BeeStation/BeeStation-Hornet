@@ -277,7 +277,7 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_CENT_GENERAL)
 	applied_modules = list(
-		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,

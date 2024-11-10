@@ -96,12 +96,7 @@ export const MODsuit = (props, context) => {
   const { ui_theme } = data;
   const { interface_break } = data.suit_status;
   return (
-    <Window
-      width={600}
-      height={600}
-      theme={ui_theme}
-      title="MOD Interface Panel"
-      resizable>
+    <Window width={600} height={600} theme={ui_theme} title="MOD Interface Panel" resizable>
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
       </Window.Content>
@@ -223,11 +218,7 @@ const ConfigureDataEntry = (props, context) => {
     color: <ConfigureColorEntry {...props} />,
     list: <ConfigureListEntry {...props} />,
   };
-  return (
-    <LabeledList.Item label={display_name}>
-      {configureEntryTypes[type]}
-    </LabeledList.Item>
-  );
+  return <LabeledList.Item label={display_name}>{configureEntryTypes[type]}</LabeledList.Item>;
 };
 
 const LockedInterface = () => (
@@ -315,26 +306,15 @@ const SuitStatusSection = (props, context) => {
     ai_name,
   } = data.suit_status;
   const { display_time, shift_time, shift_id } = data.module_custom_status;
-  const status = malfunctioning
-    ? 'Malfunctioning'
-    : active
-      ? 'Active'
-      : 'Inactive';
-  const charge_percent = Math.round(
-    (100 * cell_charge_current) / cell_charge_max
-  );
+  const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
+  const charge_percent = Math.round((100 * cell_charge_current) / cell_charge_max);
 
   return (
     <Section
       title="Suit Status"
       fill
       buttons={
-        <Button
-          icon="power-off"
-          color={active ? 'good' : 'default'}
-          content={status}
-          onClick={() => act('activate')}
-        />
+        <Button icon="power-off" color={active ? 'good' : 'default'} content={status} onClick={() => act('activate')} />
       }>
       <LabeledList>
         <LabeledList.Item label="Charge">
@@ -354,11 +334,7 @@ const SuitStatusSection = (props, context) => {
                 ? 'Power Cell Missing'
                 : cell_charge_current === 1e31
                   ? 'Infinite'
-                  : `${formatSiUnit(
-                    cell_charge_current * 1000,
-                    0,
-                    'J'
-                  )} of ${formatSiUnit(
+                  : `${formatSiUnit(cell_charge_current * 1000, 0, 'J')} of ${formatSiUnit(
                     cell_charge_max * 1000,
                     0,
                     'J'
@@ -383,19 +359,13 @@ const SuitStatusSection = (props, context) => {
             <Box color="red">Shorted</Box>
           </LabeledList.Item>
         )}
-        {!!ai_name && (
-          <LabeledList.Item label="AI Core">{ai_name}</LabeledList.Item>
-        )}
+        {!!ai_name && <LabeledList.Item label="AI Core">{ai_name}</LabeledList.Item>}
       </LabeledList>
 
       {!!display_time && (
         <Section title="Operation" mt={2}>
-          <LabeledList.Item label="Time">
-            {active ? shift_time : '00:00:00'}
-          </LabeledList.Item>
-          <LabeledList.Item label="Number">
-            {active && shift_id ? shift_id : '???'}
-          </LabeledList.Item>
+          <LabeledList.Item label="Time">{active ? shift_time : '00:00:00'}</LabeledList.Item>
+          <LabeledList.Item label="Number">{active && shift_id ? shift_id : '???'}</LabeledList.Item>
         </Section>
       )}
     </Section>
@@ -409,20 +379,12 @@ const HardwareSection = (props, context) => {
   return (
     <Section title="Hardware" style={{ 'text-transform': 'capitalize' }}>
       <LabeledList>
-        <LabeledList.Item label="AI Card">
-          {ai_name || 'No AI Card Detected'}
-        </LabeledList.Item>
-        <LabeledList.Item label="Core">
-          {core_name || 'No Core Detected'}
-        </LabeledList.Item>
+        <LabeledList.Item label="AI Card">{ai_name || 'No AI Card Detected'}</LabeledList.Item>
+        <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
         <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
         <LabeledList.Item label="Helmet">{helmet || 'None'}</LabeledList.Item>
-        <LabeledList.Item label="Chestplate">
-          {chestplate || 'None'}
-        </LabeledList.Item>
-        <LabeledList.Item label="Gauntlets">
-          {gauntlets || 'None'}
-        </LabeledList.Item>
+        <LabeledList.Item label="Chestplate">{chestplate || 'None'}</LabeledList.Item>
+        <LabeledList.Item label="Gauntlets">{gauntlets || 'None'}</LabeledList.Item>
         <LabeledList.Item label="Boots">{boots || 'None'}</LabeledList.Item>
       </LabeledList>
     </Section>
@@ -524,28 +486,20 @@ const UserStatusSection = (props, context) => {
             ) : is_user_irradiated ? (
               <NoticeBox danger>User Irradiated</NoticeBox>
             ) : background_radiation_level ? (
-              <NoticeBox>
-                {`Background: ${radiationLevels(background_radiation_level)}`}
-              </NoticeBox>
+              <NoticeBox>{`Background: ${radiationLevels(background_radiation_level)}`}</NoticeBox>
             ) : (
               <NoticeBox info>Not Detected</NoticeBox>
             )}
           </LabeledList.Item>
         )}
         {body_temperature !== undefined && (
-          <LabeledList.Item label="Body Temp">
-            {`${active ? Math.round(body_temperature) : 0} K`}
-          </LabeledList.Item>
+          <LabeledList.Item label="Body Temp">{`${active ? Math.round(body_temperature) : 0} K`}</LabeledList.Item>
         )}
         {nutrition !== undefined && (
-          <LabeledList.Item label="Satiety Level">
-            {`${active ? Math.round(nutrition) : 0}`}
-          </LabeledList.Item>
+          <LabeledList.Item label="Satiety Level">{`${active ? Math.round(nutrition) : 0}`}</LabeledList.Item>
         )}
         <LabeledList.Item label="Name">{user_name}</LabeledList.Item>
-        <LabeledList.Item label="Assignment">
-          {user_assignment}
-        </LabeledList.Item>
+        <LabeledList.Item label="Assignment">{user_assignment}</LabeledList.Item>
         {dna_unique_identity !== undefined && (
           <LabeledList.Item label="Fingerprints">
             <Box
@@ -575,9 +529,7 @@ const UserStatusSection = (props, context) => {
             return (
               <Collapsible title={virus.name} key={virus.name}>
                 <LabeledList>
-                  <LabeledList.Item label="Spread">
-                    {virus.type}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Spread">{virus.type}</LabeledList.Item>
                   <LabeledList.Item label="Stage">
                     {virus.stage}/{virus.maxstage}
                   </LabeledList.Item>
@@ -596,16 +548,9 @@ const ModuleSection = (props, context) => {
   const { act, data } = useBackend<MODsuitData>(context);
   const { complexity_max, module_info } = data;
   const { complexity } = data.suit_status;
-  const [configureState, setConfigureState] = useLocalState(
-    context,
-    'module_configuration',
-    ''
-  );
+  const [configureState, setConfigureState] = useLocalState(context, 'module_configuration', '');
   return (
-    <Section
-      title="Modules"
-      fill
-      buttons={`${complexity} of ${complexity_max} complexity used`}>
+    <Section title="Modules" fill buttons={`${complexity} of ${complexity_max} complexity used`}>
       {!module_info.length ? (
         <NoticeBox>No Modules Detected</NoticeBox>
       ) : (
@@ -614,36 +559,16 @@ const ModuleSection = (props, context) => {
             <Table.Cell colspan={3}>Actions</Table.Cell>
             <Table.Cell>Name</Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button
-                color="transparent"
-                icon="plug"
-                tooltip="Idle Power Cost"
-                tooltipPosition="top"
-              />
+              <Button color="transparent" icon="plug" tooltip="Idle Power Cost" tooltipPosition="top" />
             </Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button
-                color="transparent"
-                icon="lightbulb"
-                tooltip="Active Power Cost"
-                tooltipPosition="top"
-              />
+              <Button color="transparent" icon="lightbulb" tooltip="Active Power Cost" tooltipPosition="top" />
             </Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button
-                color="transparent"
-                icon="bolt"
-                tooltip="Use Power Cost"
-                tooltipPosition="top"
-              />
+              <Button color="transparent" icon="bolt" tooltip="Use Power Cost" tooltipPosition="top" />
             </Table.Cell>
             <Table.Cell width={1} textAlign="center">
-              <Button
-                color="transparent"
-                icon="save"
-                tooltip="Complexity"
-                tooltipPosition="top"
-              />
+              <Button color="transparent" icon="save" tooltip="Complexity" tooltipPosition="top" />
             </Table.Cell>
           </Table.Row>
           {module_info.map((module) => {
@@ -652,13 +577,7 @@ const ModuleSection = (props, context) => {
                 <Table.Cell width={1}>
                   <Button
                     onClick={() => act('select', { 'ref': module.ref })}
-                    icon={
-                      module.module_type === 3
-                        ? module.module_active
-                          ? 'check-square-o'
-                          : 'square-o'
-                        : 'power-off'
-                    }
+                    icon={module.module_type === 3 ? (module.module_active ? 'check-square-o' : 'square-o') : 'power-off'}
                     selected={module.module_active}
                     tooltip={moduleTypeAction(module.module_type)}
                     tooltipPosition="left"
@@ -667,11 +586,7 @@ const ModuleSection = (props, context) => {
                 </Table.Cell>
                 <Table.Cell width={1}>
                   <Button
-                    onClick={() =>
-                      setConfigureState(
-                        configureState === module.ref ? '' : module.ref
-                      )
-                    }
+                    onClick={() => setConfigureState(configureState === module.ref ? '' : module.ref)}
                     icon="cog"
                     selected={configureState === module.ref}
                     tooltip="Configure"
@@ -690,9 +605,7 @@ const ModuleSection = (props, context) => {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <Collapsible
-                    title={module.module_name}
-                    color={module.module_active ? 'green' : 'default'}>
+                  <Collapsible title={module.module_name} color={module.module_active ? 'green' : 'default'}>
                     <Section mr={-19}>{module.description}</Section>
                   </Collapsible>
                   {configureState === module.ref && (
@@ -704,13 +617,9 @@ const ModuleSection = (props, context) => {
                   )}
                 </Table.Cell>
                 <Table.Cell textAlign="center">{module.idle_power}</Table.Cell>
-                <Table.Cell textAlign="center">
-                  {module.active_power}
-                </Table.Cell>
+                <Table.Cell textAlign="center">{module.active_power}</Table.Cell>
                 <Table.Cell textAlign="center">{module.use_power}</Table.Cell>
-                <Table.Cell textAlign="center">
-                  {module.module_complexity}
-                </Table.Cell>
+                <Table.Cell textAlign="center">{module.module_complexity}</Table.Cell>
               </Table.Row>
             );
           })}

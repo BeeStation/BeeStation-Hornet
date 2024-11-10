@@ -554,6 +554,8 @@
 		var/datum/action/item_action/mod/pinned_module/action = new_module.pinned_to[REF(ai)]
 		if(action)
 			action.Grant(ai)
+	if(active)
+		new_module.on_suit_activation()
 	if(user)
 		balloon_alert(user, "[new_module] added")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -561,6 +563,8 @@
 /obj/item/mod/control/proc/uninstall(obj/item/mod/module/old_module, deleting = FALSE)
 	modules -= old_module
 	complexity -= old_module.complexity
+	if(wearer)
+		old_module.on_unequip()
 	if(active)
 		old_module.on_suit_deactivation(deleting = deleting)
 		if(old_module.active)

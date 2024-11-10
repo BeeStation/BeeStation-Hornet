@@ -34,7 +34,7 @@
 	. = ..()
 	paddles = make_paddles()
 	update_power()
-	RegisterSignal(paddles, COMSIG_DEFIBRILLATOR_SUCCESS, .proc/on_defib_success)
+	RegisterSignal(paddles, COMSIG_DEFIBRILLATOR_SUCCESS, PROC_REF(on_defib_success))
 
 /obj/item/defibrillator/loaded/Initialize(mapload) //starts with hicap
 	. = ..()
@@ -315,7 +315,7 @@
 	var/busy = FALSE
 	var/obj/item/defibrillator/defib
 	var/req_defib = TRUE // Whether or not the paddles require a defibrilator object
-	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: .proc/do_success
+	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: do_success
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
 	var/grab_ghost = TRUE
 	var/tlimit = DEFIB_TIME_LIMIT * 10
@@ -371,7 +371,7 @@
 		return
 	cooldown = TRUE
 	update_appearance()
-	addtimer(CALLBACK(src, .proc/finish_recharge), time)
+	addtimer(CALLBACK(src, PROC_REF(finish_recharge)), time)
 
 /obj/item/shockpaddles/proc/finish_recharge()
 	var/turf/current_turf = get_turf(src)
@@ -555,7 +555,7 @@
 		"<span class='warning'>You overcharge the paddles and begin to place them onto [H]'s chest...</span>")
 	busy = TRUE
 	update_icon()
-	if(do_after(user, 1.5 SECONDS, H, extra_checks = CALLBACK(src, .proc/is_wielded)))
+	if(do_after(user, 1.5 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded))))
 		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>",
 			"<span class='warning'>You place [src] on [H]'s chest and begin to charge them.</span>")
 		var/turf/T = get_turf(defib)
@@ -564,7 +564,7 @@
 			T.audible_message("<span class='warning'>\The [defib] lets out an urgent beep and lets out a steadily rising hum...</span>")
 		else
 			user.audible_message("<span class='warning'>[src] let out an urgent beep.</span>")
-		if(do_after(user, 1.5 SECONDS, H, extra_checks = CALLBACK(src, .proc/is_wielded))) //Takes longer due to overcharging
+		if(do_after(user, 1.5 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //Takes longer due to overcharging
 			if(!H)
 				do_cancel()
 				return
@@ -595,14 +595,14 @@
 	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>", "<span class='warning'>You begin to place [src] on [H]'s chest...</span>")
 	busy = TRUE
 	update_appearance()
-	if(do_after(user, 3 SECONDS, H, extra_checks = CALLBACK(src, .proc/is_wielded))) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+	if(do_after(user, 3 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>", "<span class='warning'>You place [src] on [H]'s chest.</span>")
 		playsound(src, 'sound/machines/defib_charge.ogg', 75, 0)
 		var/total_burn	= 0
 		var/total_brute	= 0
 		var/tplus = world.time - H.timeofdeath	//length of time spent dead
 		var/obj/item/organ/heart = H.getorgan(/obj/item/organ/heart)
-		if(do_after(user, 2 SECONDS, H, extra_checks = CALLBACK(src, .proc/is_wielded))) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+		if(do_after(user, 2 SECONDS, H, extra_checks = CALLBACK(src, PROC_REF(is_wielded)))) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 			for(var/obj/item/carried_item in H.contents)
 				if(istype(carried_item, /obj/item/clothing/suit/space))
 					if((!combat && !req_defib) || (req_defib && !defib.combat))

@@ -333,7 +333,7 @@
 	if(slot != ITEM_SLOT_HANDS)
 		UnregisterSignal(user, COMSIG_SURGERY_STARTING)
 		return
-	RegisterSignal(user, COMSIG_SURGERY_STARTING, .proc/check_surgery)
+	RegisterSignal(user, COMSIG_SURGERY_STARTING, PROC_REF(check_surgery))
 
 /obj/item/surgical_processor/dropped(mob/user, silent)
 	. = ..()

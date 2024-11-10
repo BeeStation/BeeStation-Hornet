@@ -253,7 +253,7 @@
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
 	. = ..()
-	RegisterSignal(device, COMSIG_DEFIBRILLATOR_SUCCESS, .proc/on_defib_success)
+	RegisterSignal(device, COMSIG_DEFIBRILLATOR_SUCCESS, PROC_REF(on_defib_success))
 
 /obj/item/mod/module/defibrillator/proc/on_defib_success(obj/item/shockpaddles/source)
 	drain_power(use_power_cost)
