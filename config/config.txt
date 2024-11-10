@@ -609,6 +609,9 @@ AUTOTRANSFER_DECAY_START 24000
 ## How much is subtracted from the percentage above every time the vote ticks (ticks are every five minutes)
 AUTOTRANSFER_DECAY_AMOUNT 0.025
 
+## What time the shuttle is forcibly called, votes be damned
+AUTOTRANSFER_FORCE_CALL 60000
+
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
 
