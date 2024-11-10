@@ -41,6 +41,7 @@
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
+		/obj/item/tank/jetpack/oxygen/captain,
 		)
 	slowdown = 1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10, BLEED = 50)
