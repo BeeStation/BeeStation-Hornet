@@ -7,7 +7,7 @@
 
 /obj/item/mod/control
 	name = "MOD control unit"
-	desc = "The control unit of a Modular Outerwear Device, a powered, back-mounted suit that protects against various environments."
+	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
 	icon_state = "standard-control"
 	item_state = "mod_control"
 	base_icon_state = "control"
@@ -99,6 +99,7 @@
 	if(new_theme)
 		theme = new_theme
 	theme = GLOB.mod_themes[theme]
+	slot_flags = theme.slot_flags
 	extended_desc = theme.extended_desc
 	slowdown_inactive = theme.slowdown_inactive
 	slowdown_active = theme.slowdown_active
@@ -201,7 +202,8 @@
 		. += "<span class='notice'>Charge: [core ? "[get_charge_percent()]%" : "No core"].</span>"
 		. += "<span class='notice'>Selected module: [selected_module || "None"].</span>"
 	if(!open && !active)
-		. += "<span class='notice'>You could put it on your <b>back</b> to turn it on.</span>"
+		if(!wearer)
+			. += "<span class='notice'>You could equip it to turn it on.</span>"
 		. += "<span class='notice'>You could open the cover with a <b>screwdriver</b>.</span>"
 	else if(open)
 		. += "<span class='notice'>You could close the cover with a <b>screwdriver</b>.</span>"
@@ -240,7 +242,7 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot == ITEM_SLOT_BACK)
+	if(slot == slot_flags)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
@@ -251,7 +253,7 @@
 		unset_wearer()
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_BACK)
+	if(slot == slot_flags)
 		return TRUE
 
 

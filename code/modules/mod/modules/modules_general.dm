@@ -296,7 +296,7 @@
 				balloon_alert(mod.wearer, "too dark!")
 				return
 			set_light_color(value)
-			mod.wearer.update_inv_back()
+			mod.wearer.update_clothing(mod.slot_flags)
 		if("light_range")
 			set_light_range(clamp(value, min_range, max_range))
 
