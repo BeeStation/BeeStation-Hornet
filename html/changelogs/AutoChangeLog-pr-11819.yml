@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Gatfruit now spawn .38 revolvers instead of .357. Gatfruit revolvers
+      will have random ammunition loaded into them.
