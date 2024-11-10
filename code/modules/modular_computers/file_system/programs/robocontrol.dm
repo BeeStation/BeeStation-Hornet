@@ -92,7 +92,7 @@
 			if(!computer || !card_slot)
 				return
 			if(id_card)
-				GLOB.manifest.modify(id_card.registered_name, id_card.assignment)
+				GLOB.manifest.modify(id_card.registered_name, id_card.assignment, id_card.hud_state)
 				card_slot.try_eject(current_user)
 			else
 				playsound(get_turf(computer.ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)

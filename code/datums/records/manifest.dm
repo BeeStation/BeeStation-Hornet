@@ -144,12 +144,13 @@
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /// Edits the rank of the found record.
-/datum/manifest/proc/modify(name, assignment)
+/datum/manifest/proc/modify(name, assignment, hud_state)
 	var/datum/record/crew/target = find_record(name, GLOB.manifest.general)
 	if(!target)
 		return
 
 	target.rank = assignment
+	target.hud = hud_state
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /**

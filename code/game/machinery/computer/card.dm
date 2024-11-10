@@ -181,7 +181,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 
 /obj/machinery/computer/card/proc/update_modify_manifest()
-	GLOB.manifest.modify(inserted_modify_id.registered_name, inserted_modify_id.assignment)
+	GLOB.manifest.modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
 
 /obj/machinery/computer/card/AltClick(mob/user)
 	..()
