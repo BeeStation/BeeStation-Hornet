@@ -1,0 +1,7 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - tweak: Tweaked Fland a bunch.
+  - bugfix: Removed double plasteel in Robotics.
+  - tweak: Added a second thermo machine in toxins.
+  - tweak: Added Pipe Dispenser to Exploration.
