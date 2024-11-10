@@ -696,6 +696,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
+/obj/machinery/airalarm/server{
+	pixel_x = -22;
+	dir = 8
+	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "aoY" = (
@@ -42771,7 +42775,6 @@
 	pixel_x = -23;
 	pixel_y = 25
 	},
-/obj/machinery/airalarm/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
