@@ -677,6 +677,9 @@
 		uninstall(part)
 		return
 	if(part in mod_parts)
+		if(!wearer)
+			part.forceMove(src)
+			return
 		retract(wearer, part)
 		if(active)
 			INVOKE_ASYNC(src, PROC_REF(toggle_activate), wearer, TRUE)
