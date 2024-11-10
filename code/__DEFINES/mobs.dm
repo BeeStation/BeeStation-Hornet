@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SHOES_LAYER 18
 /// Ears layer (Spessmen have ears? Wow)
 #define EARS_LAYER 17
-/// Suit layer (armor, hardsuits, etc.)
+/// Suit layer (armor, coats, etc.)
 #define SUIT_LAYER 16
 /// Glasses layer
 #define GLASSES_LAYER 15

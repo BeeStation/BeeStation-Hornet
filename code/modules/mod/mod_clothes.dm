@@ -11,7 +11,6 @@
 	cold_protection = HEAD
 	dynamic_hair_suffix = ""
 	obj_flags = IMMUTABLE_SLOW
-	var/alternate_layer = NECK_LAYER
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"

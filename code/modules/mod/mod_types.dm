@@ -233,11 +233,12 @@
 
 /obj/item/mod/control/pre_equipped/responsory/commander
 	insignia_type = /obj/item/mod/module/insignia/commander
-	additional_module = /obj/item/mod/module/noslip
+	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/responsory/security
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/gps
+	//additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
@@ -272,11 +273,12 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 	insignia_type = /obj/item/mod/module/insignia/commander
-	additional_module = /obj/item/mod/module/noslip
+/obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/gps
+	//additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
