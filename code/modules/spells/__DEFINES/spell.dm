@@ -210,23 +210,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 		var/mob/living/carbon/human/H = user
 
-		var/static/list/casting_clothes = typecacheof(list(/obj/item/clothing/suit/wizrobe, /obj/item/clothing/head/wizard))
-
-		if((invocation_type == "whisper" || invocation_type == "shout") && !H.can_speak_vocal())
-			to_chat(user, "<span class='notice'>You can't get the words out!</span>")
-			return FALSE
-
-		if(clothes_req) //clothes check
-			var/passes_req = FALSE
-			if(istype(H.back, /obj/item/mod/control))
-				var/obj/item/mod/control/mod = H.back
-				if(istype(mod.theme, /datum/mod_theme/enchanted))
-					passes_req = TRUE
-			if(!passes_req && !is_type_in_typecache(H.wear_suit, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my robe.</span>")
+		if(clothes_req)
+			if(!(H.wear_suit?.clothing_flags & CASTING_CLOTHES))
+				to_chat(H, "<span class='notice'>You don't feel strong enough without your robe.</span>")
 				return FALSE
-			if(!passes_req && !is_type_in_typecache(H.head, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my hat.</span>")
+			if(!(H.head?.clothing_flags & CASTING_CLOTHES))
+				to_chat(H, "<span class='notice'>You don't feel strong enough without your hat.</span>")
 				return FALSE
 	else
 		if(clothes_req || human_req)
