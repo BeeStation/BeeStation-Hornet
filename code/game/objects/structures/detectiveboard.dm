@@ -8,7 +8,7 @@
 /obj/structure/detectiveboard
 	name = "detective notice board"
 	desc = "A board for linking evidence to crimes."
-	icon = 'icons/obj/structures/wallmounts.dmi'
+	icon = 'icons/obj/detectiveboard.dmi'
 	icon_state = "noticeboard"
 	density = FALSE
 	anchored = TRUE
@@ -61,13 +61,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/detectiveboard, 32)
 		cases[current_case].notices++
 		var/datum/evidence/evidence = new (name, desc, item)
 		cases[current_case].evidences += evidence
-		to_chat(user, span_notice("You pin the [item] to the detective board."))
+		to_chat(user, "<span class='notice'>You pin the [item] to the detective board.</span>")
 		attaching_evidence = FALSE
 		update_appearance(UPDATE_ICON)
 		return
 	return ..()
 
-/obj/structure/detectiveboard/wrench_act_secondary(mob/living/user, obj/item/tool)
+/obj/structure/detectiveboard/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	balloon_alert(user, "[anchored ? "un" : ""]securing...")
 	tool.play_tool_sound(src)
@@ -242,22 +242,20 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/detectiveboard, 32)
 	cases[current_case].notices--
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/detectiveboard/atom_deconstruct(disassembled = TRUE)
+/obj/structure/detectiveboard/deconstruct(disassembled = TRUE)
 	if(!disassembled)
-		new /obj/item/stack/sheet/mineral/wood(loc)
+		new /obj/item/stack/sheet/wood(get_turf(src), 2)
 	else
-		new /obj/item/wallframe/detectiveboard(loc)
+		new /obj/item/wallframe/detectiveboard(get_turf(src))
 	for(var/obj/item/content in contents)
 		remove_item(content)
 
 /obj/item/wallframe/detectiveboard
 	name = "detective notice board"
 	desc = "A board for linking evidence to crimes."
-	icon = 'icons/obj/structures/wallmounts.dmi'
+	icon = 'icons/obj/detectiveboard.dmi'
 	icon_state = "noticeboard"
-	custom_materials = list(
-		/datum/material/wood = SHEET_MATERIAL_AMOUNT,
-	)
+	custom_materials = list(/datum/material/wood = 2)
 	resistance_flags = FLAMMABLE
 	result_path = /obj/structure/detectiveboard
 
