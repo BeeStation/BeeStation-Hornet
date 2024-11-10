@@ -38,9 +38,9 @@
 		return
 
 	var/area/destination_area = get_area(eject_spot)
-	if(destination_area.area_flags & NOTELEPORT)
+	if(destination_area.area_flags & TELEPORT_ALLOW_NONE)
 		// this ONLY happens if someone uses a phasing effect
-		// to try to land in a NOTELEPORT zone after it is created, AKA trying to exploit.
+		// to try to land in a TELEPORT_ALLOW_NONE zone after it is created, AKA trying to exploit.
 		if(isliving(jaunter))
 			var/mob/living/living_cheaterson = jaunter
 			to_chat(living_cheaterson, ("<span class='userdanger'>This area has a heavy universal force occupying it, and you are scattered to the cosmos!</span>"))
@@ -82,7 +82,7 @@
 	if(newloc.flags_1 & NOJAUNT_1)
 		to_chat(user, ("<span class='warning'>Some strange aura is blocking the way.</span>"))
 		return
-	if(destination_area.area_flags & NOTELEPORT || SSmapping.level_trait(newloc.z, ZTRAIT_NOPHASE))
+	if(destination_area.area_flags & TELEPORT_ALLOW_NONE || SSmapping.level_trait(newloc.z, ZTRAIT_NOPHASE))
 		to_chat(user, ("<span class='danger'>Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous.</span>"))
 		return
 	return newloc

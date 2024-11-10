@@ -10,7 +10,7 @@
 
 	/// What channel the teleport is done under.
 	var/teleport_channel = TELEPORT_CHANNEL_MAGIC
-	/// Whether we force the teleport to happen (ie, it cannot be blocked by noteleport areas or blessings or whatever)
+	/// Whether we force the teleport to happen (ie, it cannot be blocked by TELEPORT_ALLOW_NONE areas or blessings or whatever)
 	var/force_teleport = FALSE
 	/// A list of flags related to determining if our destination target is valid or not.
 	var/destination_flags = NONE
@@ -89,7 +89,7 @@
  * to a random turf within a selected (or random) area.
  */
 /datum/action/cooldown/spell/teleport/area_teleport
-	force_teleport = TRUE // Forced, as the Wizard Den is noteleport and wizards couldn't escape otherwise.
+	force_teleport = TRUE // Forced, as the Wizard Den is TELEPORT_ALLOW_NONE and wizards couldn't escape otherwise.
 	destination_flags = TELEPORT_SPELL_SKIP_BLOCKED
 	/// The last area we chose to teleport / where we're currently teleporting to, if mid-cast
 	var/last_chosen_area_name

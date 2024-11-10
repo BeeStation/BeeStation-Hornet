@@ -99,20 +99,18 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOB_SPAWN_ALLOWED			(1<<4)
 /// If megafauna can be spawned by natural random generation
 #define MEGAFAUNA_SPAWN_ALLOWED		(1<<5)
-/// Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
-#define NOTELEPORT (1<<6)
 /// Hides area from player Teleport function.
-#define HIDDEN_AREA					(1<<7)
+#define HIDDEN_AREA					(1<<6)
 /// If false, loading multiple maps with this area type will create multiple instances.
-#define UNIQUE_AREA					(1<<8)
+#define UNIQUE_AREA					(1<<7)
 /// If people are allowed to suicide in it. Mostly for OOC stuff like minigames
-#define BLOCK_SUICIDE				(1<<9)
+#define BLOCK_SUICIDE				(1<<8)
 /// Can the Xenobio management console transverse this area by default?
-#define XENOBIOLOGY_COMPATIBLE		(1<<10)
+#define XENOBIOLOGY_COMPATIBLE		(1<<9)
 /// Are hidden stashes allowed to spawn here?
-#define HIDDEN_STASH_LOCATION		(1<<11)
+#define HIDDEN_STASH_LOCATION		(1<<10)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
-#define REMOTE_APC					(1<<12)
+#define REMOTE_APC					(1<<11)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)
