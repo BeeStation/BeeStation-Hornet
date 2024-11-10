@@ -39,6 +39,7 @@
 #define BZ_RESEARCH_SCALE					4
 #define BZ_RESEARCH_MAX_AMOUNT				400
 #define STIMULUM_RESEARCH_AMOUNT			50
+#define PLUOXIUM_TEMP_CAP 200
 //Plasma fusion properties
 #define FUSION_ENERGY_THRESHOLD				3e9 	//! Amount of energy it takes to start a fusion reaction
 #define FUSION_MOLE_THRESHOLD				250 	//! Mole count required (tritium/plasma) to start a fusion reaction

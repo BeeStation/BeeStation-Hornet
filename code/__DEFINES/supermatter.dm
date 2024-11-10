@@ -5,7 +5,7 @@
 #define CO2_HEAT_PENALTY 0.1
 #define NITROGEN_HEAT_PENALTY -1.5
 #define BZ_HEAT_PENALTY 5
-#define PLUOXIUM_HEAT_PENALTY -1
+#define PLUOXIUM_HEAT_PENALTY  -0.5 //Better then co2, worse then n2
 #define TRITIUM_HEAT_PENALTY 10
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.

@@ -274,7 +274,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/rad_act(pulse_strength)
 	. = ..()
-	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen])
+	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen] && air.temperature <= PLUOXIUM_TEMP_CAP)
 		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
 		REMOVE_MOLES(/datum/gas/carbon_dioxide, air, (pulse_strength/1000))
 		REMOVE_MOLES(/datum/gas/oxygen, air, (pulse_strength/2000))
