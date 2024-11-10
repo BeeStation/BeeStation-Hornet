@@ -5,6 +5,10 @@
 	/// The character preview view for the UI.
 	var/atom/movable/screen/map_view/character_preview_view/character_preview_view
 
+/obj/machinery/computer/records/Initialize(mapload)
+	. = ..()
+	character_preview_view = new(null, src)
+
 /obj/machinery/computer/records/ui_data(mob/user)
 	var/list/data = list()
 
@@ -15,9 +19,16 @@
 
 /obj/machinery/computer/records/ui_close(mob/user)
 	. = ..()
-	user.client?.screen_maps -= character_preview_view.remote_view
-	if((LAZYLEN(SStgui.open_uis) <= 1) && character_preview_view) //only delete the preview if we're the last one to close the console.
-		QDEL_NULL(character_preview_view)
+	character_preview_view.unregister_from_client(user.client)
+
+/obj/machinery/computer/records/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
+	if(.)
+		return
+	ui = SStgui.try_update_ui(user, src, ui)
+	// If you leave and come back, re-register the character preview. This also runs the first time it's opened
+	if (!isnull(character_preview_view) && istype(user.client) && !(character_preview_view in user.client.screen))
+		character_preview_view.register_to_client(user.client)
 
 /obj/machinery/computer/records/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
