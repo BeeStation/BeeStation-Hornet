@@ -693,7 +693,7 @@
 	color = "#dbd6cb"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // The funny
 	taste_description = "Plastic"
-	nutriment_factor = -0.1 // it's plastic after all, it taste really good and it's real special!
+	nutriment_factor = -0.15 // it's plastic after all, it taste really good and it's real special!
 	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin
 
 /datum/reagent/consumable/maltodextrin/microplastics/on_mob_metabolize(mob/living/carbon/human/H)
@@ -873,8 +873,8 @@
 	color = "#c2bbb7"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "a roll of gauze"
-	metabolization_rate = 4 * REAGENTS_METABOLISM //speedy metabolization (per tick)
+	metabolization_rate = 2 * REAGENTS_METABOLISM //speedy metabolization (per tick)
 
 /datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/M)
-	holder.add_reagent(/datum/reagent/consumable/nutriment, 0.7)
-	holder.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 0.3)
+	holder.add_reagent(/datum/reagent/consumable/nutriment, 1)
+	holder.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)
