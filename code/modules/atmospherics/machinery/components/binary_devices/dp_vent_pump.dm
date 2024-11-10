@@ -157,7 +157,7 @@
 	icon_state = "dpvent_map_on-4"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix
-	id_tag = INCINERATOR_TOXMIX_DP_VENTPUMP
+	id_tag = INCINERATOR_ORDMIX_DP_VENTPUMP
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos
 	id_tag = INCINERATOR_ATMOS_DP_VENTPUMP

@@ -10,7 +10,7 @@
 
 	hide = FALSE
 	layer = HIGH_OBJ_LAYER
-	device_type = UNARY
+	device_type = TRINARY
 	paintable = FALSE
 
 	construction_type = /obj/item/pipe/directional
@@ -48,8 +48,8 @@
 	var/turf/T = get_turf(src)
 	for(var/obj/machinery/atmospherics/pipe/multiz/above in GET_TURF_ABOVE(T))
 		if(is_connectable(above, piping_layer))
-			nodes += above
-			above.nodes += src // Two way travel :)
+			nodes[2] = above
+			above.nodes[3] = src //Two way travel :)
 	for(var/obj/machinery/atmospherics/pipe/multiz/below in GET_TURF_BELOW(T))
 		if(is_connectable(below, piping_layer))
 			below.pipeline_expansion() // If we've got one below us, force it to add us on facebook

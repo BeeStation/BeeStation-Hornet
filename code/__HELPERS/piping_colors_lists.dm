@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(pipe_colors_ordered, sort_list(list(
 )))
 
 ///Names shown in the examine for every colored atmos component
-GLOBAL_LIST_INIT(pipe_color_name, sortList(list(
+GLOBAL_LIST_INIT(pipe_color_name, sort_list(list(
 	COLOR_VERY_LIGHT_GRAY = "grey",
 	COLOR_BLUE = "blue",
 	COLOR_RED = "red",

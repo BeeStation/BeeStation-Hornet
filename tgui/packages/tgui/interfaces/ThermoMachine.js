@@ -1,12 +1,13 @@
 import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
 import { AnimatedNumber, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ThermoMachine = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ThermoMachine = (props) => {
+  const { act, data } = useBackend();
   return (
-    <Window width={300} height={250}>
+    <Window width={300} height={350}>
       <Window.Content>
         <Section title="Status">
           <LabeledList>
@@ -41,7 +42,7 @@ export const ThermoMachine = (props, context) => {
                 maxValue={Math.round(data.max)}
                 step={5}
                 stepPixelSize={3}
-                onDrag={(e, value) =>
+                onDrag={(value) =>
                   act('target', {
                     target: value,
                   })

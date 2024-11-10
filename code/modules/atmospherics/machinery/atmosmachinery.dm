@@ -235,9 +235,14 @@
  * * given_layer - the piping_layer we are checking
  */
 /obj/machinery/atmospherics/proc/connection_check(obj/machinery/atmospherics/target, given_layer)
-	if(is_connectable(target, given_layer) && target.is_connectable(src, given_layer) && (target.initialize_directions & get_dir(target,src) || istype(target, /obj/machinery/atmospherics/pipe/multiz)))
-		return TRUE
-	return FALSE
+	//check if the target & src connect in the same direction
+	if(!((initialize_directions & get_dir(src, target)) && (target.initialize_directions & get_dir(target, src))))
+		return FALSE
+
+	//both target & src can't be connected either way
+	if(!is_connectable(target, given_layer) || !target.is_connectable(src, given_layer))
+		return FALSE
+	return TRUE
 
 /**
  * check if the piping layer and color are the same on both sides (grey can connect to all colors)

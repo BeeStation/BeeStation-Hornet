@@ -5,6 +5,8 @@
 	icon_state = "thermo_base"
 
 	name = "Thermomachine"
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+
 	desc = "Heats or cools gas in connected pipes."
 
 	density = TRUE
@@ -29,11 +31,12 @@
 	var/interactive = TRUE // So mapmakers can disable interaction.
 	var/base_heating = 140
 	var/base_cooling = 170
+	var/color_index = 1
 
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()
 	RefreshParts()
-	update_appearance()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/is_connectable()
 	if(!anchored)
@@ -58,6 +61,7 @@
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
+	. = ..()
 	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
 
 	var/calculated_laser_rating = 0
@@ -105,12 +109,19 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>With the panel open:</span>"
+	. += "<span class='notice'> -Use a wrench to rotate [src].</span>"
+	. += "<span class='notice'> -Use a multitool to change the piping color.</span>"
+	. += "<span class='notice'> -<b>AltClick</b> to cycle between temperaure ranges.</span>"
+	. += "<span class='notice'> -<b>CtrlClick</b> to toggle on/off.</span>"
 	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C-target_temperature)*-1]C).</span>"
+
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity/7500)*100]%</b>.</span>"
+		. += "<span class='notice'>Heat capacity at <b>[heat_capacity] Joules per Kelvin</b>.</span>"
 		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.</span>"
 
 /obj/machinery/atmospherics/components/unary/thermomachine/AltClick(mob/living/user)
+	. = ..()
 	if(panel_open)
 		balloon_alert(user, "close panel!")
 		return TRUE
@@ -124,7 +135,8 @@
 
 	investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	balloon_alert(user, "temperature reset to [target_temperature] K")
-	update_appearance()
+	update_icon()
+	return TRUE
 
 /// Performs heat calculation for the freezer.
 /// We just equalize the gasmix with an object at temp = var/target_temperature and heat cap = var/heat_capacity
@@ -136,7 +148,7 @@
 
 	if(!is_operational || !local_turf)
 		on = FALSE
-		update_appearance()
+		update_icon()
 		return
 
 	// The gas we want to cool/heat
@@ -160,29 +172,38 @@
 	// This produces a nice curve that scales decently well for really hot stuff, and is nice to not fusion. It'll do
 	var/power_usage = idle_power_usage + (heat_amount * 0.05) ** (1.05 - (5e7 * 0.16 / max(heat_amount, 5e7)))
 
-	active_power_usage = power_usage
+	use_power = power_usage
 	update_parents()
 
+/obj/machinery/atmospherics/components/unary/thermomachine/screwdriver_act(mob/living/user, obj/item/tool)
+	if(on)
+		balloon_alert(user, "turn off!")
+		return TRUE
+	if(!anchored)
+		balloon_alert(user, "anchor!")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "thermo-open", "thermo-0", tool))
+		update_icon()
+		return TRUE
 
-/obj/machinery/atmospherics/components/unary/thermomachine/attackby(obj/item/tool, mob/user, params)
-	if(!on)
-		if(default_deconstruction_screwdriver(user, "thermo-open", "thermo-0", tool))
-			return
-	if(default_change_direction_wrench(user, tool))
-		return
-	if(default_deconstruction_crowbar(tool))
-		return
-	return ..()
+/obj/machinery/atmospherics/components/unary/thermomachine/wrench_act(mob/living/user, obj/item/tool)
+	return default_change_direction_wrench(user, tool)
+
+/obj/machinery/atmospherics/components/unary/thermomachine/crowbar_act(mob/living/user, obj/item/tool)
+	return crowbar_deconstruction_act(user, tool)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/multitool_act(mob/living/user, obj/item/multitool/multitool)
+	. = ..()
 	if(!panel_open)
 		balloon_alert(user, "open panel!")
 		return TRUE
-	piping_layer = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
-	to_chat(user, "<span class='notice'>You change the circuitboard to layer [piping_layer].</span>")
+	color_index = (color_index >= GLOB.pipe_paint_colors.len) ? (color_index = 1) : (color_index = 1 + color_index)
+	set_pipe_color(GLOB.pipe_paint_colors[GLOB.pipe_paint_colors[color_index]])
+	visible_message("<span class='notice'>[user] set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]].</span>", ignored_mobs = user)
+	to_chat(user, "<span class='notice'>You set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]].</span>")
 	if(anchored)
 		reconnect_nodes()
-	update_appearance()
+	update_icon()
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/check_pipe_on_turf()
@@ -193,20 +214,18 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/components/unary/thermomachine/ui_status(mob/user)
+/obj/machinery/atmospherics/components/unary/thermomachine/ui_status(mob/user, datum/ui_state/state)
 	if(interactive)
 		return ..()
 	return UI_CLOSE
 
-/obj/machinery/atmospherics/components/unary/thermomachine/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_interact(mob/user, datum/tgui/ui)
+	if(panel_open)
+		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ThermoMachine")
+		ui = new(user, src, "ThermoMachine", name)
 		ui.open()
-		ui.set_autoupdate(TRUE) // Air temperature and pressure
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_data(mob/user)
 	var/list/data = list()
@@ -217,14 +236,14 @@
 	data["target"] = target_temperature
 	data["initial"] = initial(target_temperature)
 
-	var/datum/gas_mixture/air1 = airs[1]
-	data["temperature"] = air1.return_temperature()
-	data["pressure"] = air1.return_pressure()
+	var/datum/gas_mixture/port = airs[1]
+	data["temperature"] = port.temperature
+	data["pressure"] = port.return_pressure()
 	return data
 
-/obj/machinery/atmospherics/components/unary/thermomachine/ui_act(action, params)
-
-	if(..())
+/obj/machinery/atmospherics/components/unary/thermomachine/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
@@ -251,7 +270,8 @@
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 	update_icon()
 
-/obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
+/obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/user)
+	. = ..()
 	if(!anchored)
 		return TRUE
 	if(panel_open)
@@ -318,26 +338,4 @@
 	on = TRUE
 	icon_state = "thermo_base_1"
 
-#define QUICK_LAYER_HELPER(PATH)\
-##PATH/layer_1 {\
-	piping_layer = 1;\
-}\
-##PATH/layer_2 {\
-	piping_layer = 2;\
-}\
-##PATH/layer_4 {\
-	piping_layer = 4;\
-}\
-##PATH/layer_5 {\
-	piping_layer = 5;\
-}
-
-QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/heater)
-QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/heater/on)
-QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/on)
-QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer)
-QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on)
-QUICK_LAYER_HELPER(/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom)
-
-#undef QUICK_LAYER_HELPER
 #undef THERMOMACHINE_POWER_CONVERSION

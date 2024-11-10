@@ -183,6 +183,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 	deconstruct(TRUE)
 	return TRUE
 
-/obj/item/air_sensor/atom_deconstruct(disassembled)
+/obj/item/air_sensor/deconstruct(disassembled)
+	. = ..()
 	new /obj/item/analyzer(loc)
 	new /obj/item/stack/sheet/iron(loc, 1)
