@@ -4019,9 +4019,11 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	dir = 4;
-	pixel_x = -23
+	pixel_x = -23;
+	 = None;
+	locked = FALSE
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8

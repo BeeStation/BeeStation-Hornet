@@ -333,7 +333,6 @@
 /area/shuttle/exploration)
 "OE" = (
 /obj/structure/closet/emcloset/anchored,
-/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "OU" = (

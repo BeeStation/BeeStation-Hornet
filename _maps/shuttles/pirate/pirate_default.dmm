@@ -415,7 +415,7 @@
 /turf/open/floor/grass/no_border,
 /area/shuttle/pirate)
 "mV" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste/layer4{
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste/layer4{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,

@@ -541,9 +541,6 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bQ" = (
-/obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden{
 	dir = 10

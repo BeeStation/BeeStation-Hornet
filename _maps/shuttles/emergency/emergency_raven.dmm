@@ -1357,20 +1357,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"rD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
-	dir = 9
-	},
-/obj/machinery/advanced_airlock_controller{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "sH" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 10
@@ -1397,19 +1383,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"tP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
-	dir = 6
-	},
-/obj/machinery/advanced_airlock_controller{
-	dir = 4;
-	pixel_x = -24
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "tX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1434,19 +1407,6 @@
 "vc" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"vr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
-	dir = 5
-	},
-/obj/machinery/advanced_airlock_controller{
-	dir = 4;
-	pixel_x = -24
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "vD" = (
 /obj/structure/cable/yellow{
@@ -1809,19 +1769,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"NQ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
-	dir = 10
-	},
-/obj/machinery/advanced_airlock_controller{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Ot" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2116,13 +2063,13 @@ ax
 bV
 Xx
 zx
-rD
+QD
 ax
 ax
 aj
 ax
 ax
-NQ
+Xx
 zx
 ED
 du
@@ -2660,13 +2607,13 @@ ax
 cb
 Jn
 Vm
-vr
+kI
 ax
 ax
 ao
 ax
 ax
-tP
+Ic
 Vm
 kI
 dz

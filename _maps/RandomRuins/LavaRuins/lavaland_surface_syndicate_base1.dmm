@@ -1485,7 +1485,7 @@
 /turf/open/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "oB" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos{
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
 	dir = 1;
 	id = "syndie_lavaland_inc_in"
 	},
@@ -3920,7 +3920,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ME" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_syndicatelava{
+/obj/machinery/airlock_controller/incinerator_syndicatelava{
 	pixel_x = -8;
 	pixel_y = -26
 	},
@@ -4196,7 +4196,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Pv" = (
-/obj/machinery/computer/atmos_control/tank{
+/obj/machinery/computer/atmos_control{
 	dir = 8;
 	frequency = 1442;
 	name = "Nitrogen Supply Control";
@@ -4711,7 +4711,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Ti" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/atmos_control/tank{
+/obj/machinery/computer/atmos_control{
 	dir = 8;
 	frequency = 1442;
 	name = "Toxins Supply Control";
@@ -5156,7 +5156,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Ye" = (
-/obj/machinery/computer/atmos_control/tank{
+/obj/machinery/computer/atmos_control{
 	dir = 8;
 	frequency = 1442;
 	name = "Oxygen Supply Control";

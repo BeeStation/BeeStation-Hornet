@@ -418,9 +418,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible{
 	dir = 8
 	},
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -24;
+	 = None;
+	locked = FALSE
 	},
 /obj/machinery/light{
 	dir = 8

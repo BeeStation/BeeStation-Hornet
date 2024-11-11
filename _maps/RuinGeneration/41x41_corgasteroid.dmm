@@ -408,7 +408,6 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "wr" = (
-/obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden{
 	dir = 10
 	},
@@ -1022,7 +1021,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
 	},
-/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Wn" = (

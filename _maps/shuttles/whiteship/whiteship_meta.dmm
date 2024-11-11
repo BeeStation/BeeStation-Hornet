@@ -157,7 +157,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)
 "ax" = (
@@ -695,7 +694,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/advanced_airlock_controller/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "cj" = (
@@ -1324,7 +1322,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer2,
-/obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/bar)

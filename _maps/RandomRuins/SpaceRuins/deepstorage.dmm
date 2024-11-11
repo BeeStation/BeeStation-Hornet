@@ -2331,7 +2331,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "fC" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored{
 	dir = 8;
 	id_tag = "o2_out_bunker";
 	name = "oxygen out"
@@ -2380,7 +2380,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fJ" = (
-/obj/machinery/computer/atmos_control/tank{
+/obj/machinery/computer/atmos_control{
 	dir = 8;
 	input_tag = "o2_in_bunker";
 	name = "Oxygen Supply Control";
@@ -2545,7 +2545,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "gd" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos{
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
 	dir = 8;
 	id = "n2_in_bunker"
 	},
@@ -2678,7 +2678,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gv" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored{
 	dir = 8;
 	id_tag = "n2_out_bunker";
 	name = "nitrogen out"
@@ -2736,7 +2736,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gC" = (
-/obj/machinery/computer/atmos_control/tank{
+/obj/machinery/computer/atmos_control{
 	dir = 8;
 	input_tag = "n2_in_bunker";
 	name = "Nitrogen Supply Control";
@@ -2827,7 +2827,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gP" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos{
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
 	dir = 8;
 	id = "o2_in_bunker"
 	},
