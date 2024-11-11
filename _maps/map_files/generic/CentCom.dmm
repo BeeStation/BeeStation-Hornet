@@ -324,6 +324,9 @@
 "bi" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/constructor,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
 "bj" = (
@@ -7344,6 +7347,7 @@
 "zM" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/elite/flamethrower,
+/obj/machinery/light,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
 "zN" = (
@@ -10814,6 +10818,12 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space)
+"Md" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/paint,
+/obj/machinery/light,
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/control)
 "Mf" = (
 /obj/effect/turf_decal/siding/blue/corner,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -11523,6 +11533,9 @@
 "Ok" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/antigrav,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
 "Ol" = (
@@ -55269,7 +55282,7 @@ OE
 VQ
 bQ
 Qm
-la
+Md
 Ep
 EG
 Ev
