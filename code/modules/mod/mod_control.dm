@@ -588,7 +588,7 @@
 		if(old_module.active)
 			old_module.deactivate(display_message = !deleting, deleting = deleting)
 	old_module.on_uninstall(deleting = deleting)
-	QDEL_LIST(old_module.pinned_to)
+	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
 
 /// Intended for callbacks, don't use normally, just get wearer by itself.
