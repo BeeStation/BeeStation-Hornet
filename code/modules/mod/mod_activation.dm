@@ -288,14 +288,12 @@
 				continue
 			module.on_part_activation()
 			module.part_activated = TRUE
-		START_PROCESSING(SSobj, src)
 	else
 		for(var/obj/item/mod/module/module as anything in modules)
 			if(!module.part_activated || module.has_required_parts(mod_parts, need_active = TRUE))
 				continue
 			module.on_part_deactivation()
 			module.part_activated = FALSE
-		STOP_PROCESSING(SSobj, src)
 	update_speed()
 	update_charge_alert()
 	update_appearance(UPDATE_ICON_STATE)

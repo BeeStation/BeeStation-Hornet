@@ -103,6 +103,7 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/mod/control/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -164,9 +165,11 @@
 /obj/item/mod/control/process(delta_time)
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified--
+	if(!active)
+		return
 	if(!get_charge() && active && !activating)
 		power_off()
-		return PROCESS_KILL
+		return
 	var/malfunctioning_charge_drain = 0
 	if(malfunctioning)
 		malfunctioning_charge_drain = rand(1,20)
