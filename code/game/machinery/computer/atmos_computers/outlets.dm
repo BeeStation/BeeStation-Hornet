@@ -71,7 +71,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored
 	on = TRUE
 	icon_state = "vent_map_siphon_on-3"
-	var/chamber_id
 
 // Same as the rest, but bigger volume.
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/Initialize(mapload)
