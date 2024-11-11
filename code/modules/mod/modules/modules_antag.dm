@@ -69,7 +69,7 @@
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor?.modifyRating(arglist(removed_armor))
+		part.armor = part.armor.modifyRating(arglist(removed_armor))
 		part.slowdown += speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue

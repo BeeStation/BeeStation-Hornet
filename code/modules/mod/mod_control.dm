@@ -106,7 +106,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mod/control/Destroy()
-	STOP_PROCESSING(SSobj, src)
+	if(active)
+		STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
 	if(core)
