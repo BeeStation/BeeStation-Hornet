@@ -60,13 +60,13 @@
 	name = "incinerator chamber output inlet"
 	chamber_id = ATMOS_GAS_MONITOR_INCINERATOR
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/ordnance_burn_chamber_output
-	name = "ordnance burn chamber output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_ORDNANCE_BURN
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/toxins_burn_chamber_output
+	name = "toxins burn chamber output inlet"
+	chamber_id = ATMOS_GAS_MONITOR_TOXINS_BURN
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/ordnance_freezer_chamber_output
-	name = "ordnance freezer chamber output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_ORDNANCE_FREEZER
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/toxins_freezer_chamber_output
+	name = "toxins freezer chamber output inlet"
+	chamber_id = ATMOS_GAS_MONITOR_TOXINS_FREEZER
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored
 	on = TRUE

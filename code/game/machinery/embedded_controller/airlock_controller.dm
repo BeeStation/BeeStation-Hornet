@@ -264,7 +264,7 @@
 	last_pressure = air?.return_pressure()
 	return last_pressure
 
-/obj/machinery/airlock_controller/incinerator_ordmix
+/obj/machinery/airlock_controller/incinerator_toxmix
 	name = "Incinerator Access Console"
 	airpump_tag = INCINERATOR_TOXMIX_DP_VENTPUMP
 	exterior_door_tag = INCINERATOR_TOXMIX_AIRLOCK_EXTERIOR

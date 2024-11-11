@@ -18,8 +18,8 @@
 #define ATMOS_GAS_MONITOR_TRITIUM GAS_TRITIUM
 #define ATMOS_GAS_MONITOR_H2O GAS_WATER_VAPOR
 #define ATMOS_GAS_MONITOR_INCINERATOR "incinerator"
-#define ATMOS_GAS_MONITOR_ORDNANCE_BURN "ordnanceburn"
-#define ATMOS_GAS_MONITOR_ORDNANCE_FREEZER "ordnancefreezer"
+#define ATMOS_GAS_MONITOR_TOXINS_BURN "toxinsburn"
+#define ATMOS_GAS_MONITOR_TOXINS_FREEZER "toxinsfreezer"
 #define ATMOS_GAS_MONITOR_DISTRO "distro"
 #define ATMOS_GAS_MONITOR_WASTE "waste"
 #define ATMOS_GAS_MONITOR_ENGINE "engine"
@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(station_gas_chambers, list(
 	ATMOS_GAS_MONITOR_H2O = "Water Vapor Supply",
 	ATMOS_GAS_MONITOR_MIX = "Mix Chamber",
 	ATMOS_GAS_MONITOR_INCINERATOR = "Incinerator Chamber",
-	ATMOS_GAS_MONITOR_ORDNANCE_LAB = "Ordnance Chamber",
+	ATMOS_GAS_MONITOR_TOXINS_LAB = "Toxins Chamber",
 	ATMOS_GAS_MONITOR_DISTRO = "Distribution Loop",
 	ATMOS_GAS_MONITOR_WASTE = "Waste Loop",
 	ATMOS_GAS_MONITOR_ENGINE = "Supermatter Engine Chamber",

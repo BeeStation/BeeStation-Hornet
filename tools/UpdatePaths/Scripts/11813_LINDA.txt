@@ -27,3 +27,7 @@
 /obj/machinery/computer/atmos_control/tank/@SUBTYPES : /obj/machinery/computer/atmos_control/@SUBTYPES{@OLD}
 
 /obj/machinery/airalarm/unlocked : /obj/machinery/airalarm{@OLD; locked = FALSE}
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/engine_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_mixing_input : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input{@OLD}

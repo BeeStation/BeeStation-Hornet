@@ -72,12 +72,12 @@
 	name = "incinerator chamber input injector"
 	chamber_id = ATMOS_GAS_MONITOR_INCINERATOR
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/ordnance_burn_chamber_input
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input
 	on = FALSE
-	name = "ordnance burn chamber input injector"
-	chamber_id = ATMOS_GAS_MONITOR_ORDNANCE_BURN
+	name = "toxins burn chamber input injector"
+	chamber_id = ATMOS_GAS_MONITOR_TOXINS_BURN
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/ordnance_freezer_chamber_input
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_freezer_chamber_input
 	on = FALSE
-	name = "ordnance freezer chamber input injector"
-	chamber_id = ATMOS_GAS_MONITOR_ORDNANCE_FREEZER
+	name = "toxins freezer chamber input injector"
+	chamber_id = ATMOS_GAS_MONITOR_TOXINS_FREEZER

@@ -52,7 +52,7 @@
 	var/away_general_access = FALSE
 	/// Used for air alarm helper called engine_access to make air alarm's required access one of ACCESS_ATMOSPHERICS & ACCESS_ENGINEERING.
 	var/engine_access = FALSE
-	/// Used for air alarm helper called mixingchamber_access to make air alarm's required access one of ACCESS_ATMOSPHERICS & ACCESS_ORDNANCE.
+	/// Used for air alarm helper called mixingchamber_access to make air alarm's required access one of ACCESS_ATMOSPHERICS & ACCESS_TOXINS.
 	var/mixingchamber_access = FALSE
 	/// Used for air alarm helper called all_access to remove air alarm's required access.
 	var/all_access = FALSE

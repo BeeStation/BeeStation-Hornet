@@ -73,10 +73,10 @@
 	circuit = /obj/item/circuitboard/computer/atmos_control/nocontrol/incinerator
 	atmos_chambers = list(ATMOS_GAS_MONITOR_INCINERATOR = "Incinerator Chamber")
 
-/obj/machinery/computer/atmos_control/ordnancemix
-	name = "Ordnance Chamber Control"
-	circuit = /obj/item/circuitboard/computer/atmos_control/ordnancemix
+/obj/machinery/computer/atmos_control/toxinsmix
+	name = "Toxins Chamber Control"
+	circuit = /obj/item/circuitboard/computer/atmos_control/toxinsmix
 	atmos_chambers = list(
-		ATMOS_GAS_MONITOR_ORDNANCE_BURN = "Ordnance Burn Chamber",
-		ATMOS_GAS_MONITOR_ORDNANCE_FREEZER = "Ordnance Freezer Chamber",
+		ATMOS_GAS_MONITOR_TOXINS_BURN = "Toxins Burn Chamber",
+		ATMOS_GAS_MONITOR_TOXINS_FREEZER = "Toxins Freezer Chamber",
 	)

@@ -106,9 +106,9 @@
 	name = "Incinerator Chamber Monitor"
 	build_path = /obj/machinery/computer/atmos_control/nocontrol/incinerator
 
-/obj/item/circuitboard/computer/atmos_control/ordnancemix
-	name = "Ordnance Chamber Control"
-	build_path = /obj/machinery/computer/atmos_control/ordnancemix
+/obj/item/circuitboard/computer/atmos_control/toxinsmix
+	name = "Toxins Chamber Control"
+	build_path = /obj/machinery/computer/atmos_control/toxinsmix
 
 /obj/item/circuitboard/computer/atmos_control/oxygen_tank
 	name = "Oxygen Supply Control"
