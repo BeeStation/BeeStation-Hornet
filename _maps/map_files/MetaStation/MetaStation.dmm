@@ -1793,6 +1793,7 @@
 /area/hallway/secondary/command)
 "aqq" = (
 /obj/item/cigbutt,
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "aqs" = (
@@ -10796,12 +10797,12 @@
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
 	},
-/turf/open/floor/iron,
-/area/engine/atmos)
-"bzh" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Atmospherics - Distro Loop"
 	},
+/turf/open/floor/iron,
+/area/engine/atmos)
+"bzh" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -11085,6 +11086,7 @@
 	name = "Pure to Engine";
 	dir = 1
 	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bAR" = (
@@ -11904,6 +11906,9 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bFS" = (
@@ -18975,13 +18980,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cPz" = (
@@ -22480,10 +22482,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/wood,
 /area/library)
-"dDm" = (
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/catwalk_floor/iron/airless,
-/area/engine/atmos/spaced)
 "dDu" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
@@ -47913,23 +47911,17 @@
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "ncc" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
+	dir = 4
+	},
 /obj/machinery/door/airlock/external{
 	name = "Atmospherics Internal Airlock";
 	req_access_txt = "24"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -78907,18 +78899,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics";
 	req_access_txt = "24"
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "yeq" = (
@@ -122577,7 +122564,7 @@ sAM
 bVK
 bVK
 bVK
-dDm
+bYw
 uJx
 bZH
 cbg
