@@ -122,7 +122,6 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	))
 
 	GLOB.air_alarms += src
-	find_and_hang_on_wall()
 	check_enviroment()
 
 /obj/machinery/airalarm/process()
@@ -192,31 +191,29 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 			. += "<span class = 'notice'>Right-click to [locked ? "unlock" : "lock"] the interface.</span>"
 
 /obj/machinery/airalarm/ui_status(mob/user, datum/ui_state/state)
-	if(HAS_SILICON_ACCESS(user) && aidisabled)
+	if(issiliconoradminghost(user) && aidisabled)
 		to_chat(user, "AI control has been disabled.")
 	else if(!shorted)
 		return ..()
 	return UI_CLOSE
 
-/obj/machinery/airalarm/multitool_act(mob/living/user, obj/item/multitool/multi_tool)
-	.= ..()
+REGISTER_BUFFER_HANDLER(/obj/machinery/airalarm)
 
-	if (!istype(multi_tool) || locked)
-		return .
+DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
+	if(!istype(buffer, /obj/machinery/air_sensor))
+		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
+		return NONE
+	var/obj/machinery/air_sensor/sensor = buffer
+	if(!allow_link_change)
+		balloon_alert(user, "linking disabled")
+		return TRUE
+	if(connected_sensor || sensor.connected_airalarm)
+		balloon_alert(user, "sensor already connected!")
+		return TRUE
 
-	if(istype(multi_tool.buffer, /obj/machinery/air_sensor))
-		var/obj/machinery/air_sensor/sensor = multi_tool.buffer
-
-		if(!allow_link_change)
-			balloon_alert(user, "linking disabled")
-			return ITEM_INTERACT_BLOCKING
-		if(connected_sensor || sensor.connected_airalarm)
-			balloon_alert(user, "sensor already connected!")
-			return ITEM_INTERACT_BLOCKING
-
-		connect_sensor(sensor)
-		balloon_alert(user, "connected sensor")
-		return ITEM_INTERACT_SUCCESS
+	connect_sensor(sensor)
+	balloon_alert(user, "connected sensor")
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/airalarm/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -239,7 +236,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	var/data = list()
 
 	data["locked"] = locked
-	data["siliconUser"] = HAS_SILICON_ACCESS(user)
+	data["siliconUser"] = issiliconoradminghost(user)
 	data["emagged"] = (obj_flags & EMAGGED ? 1 : 0)
 	data["dangerLevel"] = danger_level
 	data["atmosAlarm"] = !!my_area.active_alarms[ALARM_ATMOS]
@@ -300,15 +297,13 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 		singular_tlv["hazard_max"] = tlv.hazard_max
 		data["tlvSettings"] += list(singular_tlv)
 
-	if(!locked || HAS_SILICON_ACCESS(user))
+	if(!locked || issiliconoradminghost(user))
 		data["vents"] = list()
 		for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in my_area.air_vents)
 			data["vents"] += list(list(
 				"refID" = REF(vent),
 				"long_name" = sanitize(vent.name),
 				"power" = vent.on,
-				"overclock" = vent.fan_overclocked,
-				"integrity" = vent.get_integrity_percentage(),
 				"checks" = vent.pressure_checks,
 				"excheck" = vent.pressure_checks & ATMOS_EXTERNAL_BOUND,
 				"incheck" = vent.pressure_checks & ATMOS_INTERNAL_BOUND,
@@ -358,7 +353,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	if(. || buildstage != AIR_ALARM_BUILD_COMPLETE)
 		return
 	var/mob/user = ui.user
-	if((locked && !HAS_SILICON_ACCESS(user)) || (HAS_SILICON_ACCESS(user) && aidisabled))
+	if((locked && !issiliconoradminghost(user)) || (issiliconoradminghost(user) && aidisabled))
 		return
 
 	var/area/area = connected_sensor ? get_area(connected_sensor) : get_area(src)
@@ -377,14 +372,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 			var/obj/machinery/atmospherics/components/powering = vent || scrubber
 			powering.on = !!params["val"]
 			powering.atmos_conditions_changed()
-			powering.update_appearance(UPDATE_ICON)
-
-		if("overclock")
-			if(isnull(vent))
-				return TRUE
-			vent.toggle_overclock(source = key_name(user))
-			vent.update_appearance(UPDATE_ICON)
-			return TRUE
+			powering.update_icon()
 
 		if ("direction")
 			if (isnull(vent))
@@ -394,21 +382,21 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 			if (value == ATMOS_DIRECTION_SIPHONING || value == ATMOS_DIRECTION_RELEASING)
 				vent.pump_direction = value
-				vent.update_appearance(UPDATE_ICON)
+				vent.update_icon()
 		if ("incheck")
 			if (isnull(vent))
 				return TRUE
 
 			var/new_checks = clamp((text2num(params["val"]) || 0) ^ ATMOS_INTERNAL_BOUND, NONE, ATMOS_BOUND_MAX)
 			vent.pressure_checks = new_checks
-			vent.update_appearance(UPDATE_ICON)
+			vent.update_icon()
 		if ("excheck")
 			if (isnull(vent))
 				return TRUE
 
 			var/new_checks = clamp((text2num(params["val"]) || 0) ^ ATMOS_EXTERNAL_BOUND, NONE, ATMOS_BOUND_MAX)
 			vent.pressure_checks = new_checks
-			vent.update_appearance(UPDATE_ICON)
+			vent.update_icon()
 		if ("set_internal_pressure")
 			if (isnull(vent))
 				return TRUE
@@ -437,7 +425,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 			vent.external_pressure_bound = new_pressure
 			vent.investigate_log("external pressure was set to [new_pressure] by [key_name(user)]", INVESTIGATE_ATMOS)
-			vent.update_appearance(UPDATE_ICON)
+			vent.update_icon()
 		if ("reset_external_pressure")
 			if (isnull(vent))
 				return TRUE
@@ -447,7 +435,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 			vent.external_pressure_bound = ATMOS_PUMP_MAX_PRESSURE
 			vent.investigate_log("internal pressure was reset by [key_name(user)]", INVESTIGATE_ATMOS)
-			vent.update_appearance(UPDATE_ICON)
+			vent.update_icon()
 		if ("scrubbing")
 			if (isnull(scrubber))
 				return TRUE
@@ -666,14 +654,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINEERING)
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 ///Used for mixingchamber_access air alarm helper, which set air alarm's required access to away_general_access.
 /obj/machinery/airalarm/proc/give_mixingchamber_access()
 	name = "chamber air alarm"
 	locked = FALSE
 	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ORDNANCE)
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX)
 
 ///Used for all_access air alarm helper, which set air alarm's required access to null.
 /obj/machinery/airalarm/proc/give_all_access()

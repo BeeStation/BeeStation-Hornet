@@ -249,7 +249,7 @@
 	X.visible_message("<space class='warning'>[X] begins to vacuum nearby gasses!</span>")
 	var/turf/T = get_turf(X)
 	var/datum/gas_mixture/mixture = T.return_air()
-	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
+	mixture.merge(air_contents)
 	X.air_update_turf(FALSE, FALSE)
 
 //Throw sucked gas into our tile when we die

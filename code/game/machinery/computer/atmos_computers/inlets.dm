@@ -54,7 +54,7 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitryl_input
 	name = "nitryl tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_NITRIUM
+	chamber_id = ATMOS_GAS_MONITOR_NITRYL
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/pluoxium_input
 	name = "pluoxium tank input injector"

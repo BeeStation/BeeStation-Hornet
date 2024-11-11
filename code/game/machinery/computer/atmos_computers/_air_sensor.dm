@@ -43,10 +43,10 @@
 	if(machine_stat & NOPOWER)
 		if(on)
 			on = FALSE
-			update_appearance()
+			update_icon()
 	else if(!on)
 		on = TRUE
-		update_appearance()
+		update_icon()
 
 /obj/machinery/air_sensor/examine(mob/user)
 	. = ..()
