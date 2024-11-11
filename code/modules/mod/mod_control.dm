@@ -105,8 +105,7 @@
 		install(module)
 
 /obj/item/mod/control/Destroy()
-	if(active)
-		STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
 	if(core)

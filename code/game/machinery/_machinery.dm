@@ -193,7 +193,8 @@ Class Procs:
 		end_processing()
 	dump_inventory_contents()
 	QDEL_LIST(component_parts)
-	QDEL_NULL(circuit)
+	if(isnull(circuit)) //Some roundstart things dont have a circuit
+		QDEL_NULL(circuit)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
