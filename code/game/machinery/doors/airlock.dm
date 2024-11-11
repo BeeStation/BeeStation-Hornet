@@ -387,28 +387,6 @@
 		note = null
 		update_icon()
 
-/obj/machinery/door/airlock/Bumped(atom/movable/AM)
-	if(operating)
-		return
-	if(ismecha(AM))
-		var/obj/vehicle/sealed/mecha/mecha = AM
-		if(density)
-			if(mecha.occupants)
-				//Occupants are a list. Bump vars are stored on mobs, so we check those instead of mecha.occupants
-				for(var/mob/living/mecha_mobs in mecha.occupants)
-					if(world.time - mecha_mobs.last_bumped <= 10)
-						return
-					mecha_mobs.last_bumped = world.time
-			if(locked && (allowed(mecha.occupants) || check_access_list(mecha.operation_req_access)) && aac)
-				aac.request_from_door(src)
-				return
-			if(mecha.occupants && (src.allowed(mecha.occupants) || src.check_access_list(mecha.operation_req_access)))
-				open()
-			else
-				do_animate("deny")
-		return
-	. = ..()
-
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
 		if(isElectrified())
@@ -441,9 +419,6 @@
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
 				addtimer(CALLBACK(cyclelinkedairlock, PROC_REF(close)), 2)
-	if(locked && aac && allowed(user))
-		aac.request_from_door(src)
-		return
 	..()
 
 /obj/machinery/door/airlock/proc/isElectrified()
@@ -842,9 +817,6 @@
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
-		. = TRUE
-	else if(locked && aac && allowed(user))
-		aac.request_from_door(src)
 		. = TRUE
 	else
 		. = ..()

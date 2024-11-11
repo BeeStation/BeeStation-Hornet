@@ -38,13 +38,13 @@
 //AIRLOCK CONTROLLER TAGS
 
 //RnD ordnance burn chamber
-#define INCINERATOR_ORDMIX_IGNITER "ordmix_igniter"
-#define INCINERATOR_ORDMIX_VENT "ordmix_vent"
-#define INCINERATOR_ORDMIX_DP_VENTPUMP "ordmix_airlock_pump"
-#define INCINERATOR_ORDMIX_AIRLOCK_SENSOR "ordmix_airlock_sensor"
-#define INCINERATOR_ORDMIX_AIRLOCK_CONTROLLER "ordmix_airlock_controller"
-#define INCINERATOR_ORDMIX_AIRLOCK_INTERIOR "ordmix_airlock_interior"
-#define INCINERATOR_ORDMIX_AIRLOCK_EXTERIOR "ordmix_airlock_exterior"
+#define INCINERATOR_TOXMIX_IGNITER "toxmix_igniter"
+#define INCINERATOR_TOXMIX_VENT "toxmix_vent"
+#define INCINERATOR_TOXMIX_DP_VENTPUMP "toxmix_airlock_pump"
+#define INCINERATOR_TOXMIX_AIRLOCK_SENSOR "toxmix_airlock_sensor"
+#define INCINERATOR_TOXMIX_AIRLOCK_CONTROLLER "toxmix_airlock_controller"
+#define INCINERATOR_TOXMIX_AIRLOCK_INTERIOR "toxmix_airlock_interior"
+#define INCINERATOR_TOXMIX_AIRLOCK_EXTERIOR "toxmix_airlock_exterior"
 
 //Atmospherics/maintenance incinerator
 #define INCINERATOR_ATMOS_IGNITER "atmos_incinerator_igniter"

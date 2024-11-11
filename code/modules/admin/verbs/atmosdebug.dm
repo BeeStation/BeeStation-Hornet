@@ -22,7 +22,7 @@
 	for(var/obj/machinery/atmospherics/node1 in GLOB.machines)
 		for(var/obj/machinery/atmospherics/node2 in node1.nodes)
 			if(!(node1 in node2.nodes))
-				to_chat(usr, "One-way connection in [node1.name] located at [ADMIN_VERBOSEJMP(node1)]", confidential = TRUE)
+				to_chat(usr, "One-way connection in [node1.name] located at [ADMIN_VERBOSEJMP(node1)]")
 
 /client/proc/powerdebug()
 	set category = "Mapping"
