@@ -544,7 +544,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		state = "alarm0"
 
 	. += mutable_appearance(icon, state)
-	. += emissive_appearance(icon, state, src, alpha = src.alpha)
+	. += emissive_appearance(icon, state, layer, alpha = src.alpha)
 
 /// Check the current air and update our danger level.
 /// [/obj/machinery/airalarm/var/danger_level]

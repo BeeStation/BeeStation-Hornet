@@ -60,13 +60,24 @@
 	disconnect_from_area()
 	assign_to_area()
 
-/obj/machinery/atmospherics/components/unary/vent_pump/proc/assign_to_area()
-	var/area/area = get_area(src)
-	area?.air_vents += src
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/assign_to_area(area/target_area = get_area(src))
+	//this vent is already assigned to an area. Unassign it from here first before reassigning it to an new area
+	if(isnull(target_area) || !isnull(assigned_area))
+		return
+	assigned_area = target_area
+	assigned_area.air_vents += src
+	update_name()
 
-/obj/machinery/atmospherics/components/unary/vent_pump/proc/disconnect_from_area()
-	var/area/area = get_area(src)
-	area?.air_vents -= src
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/disconnect_from_area(area/target_area = get_area(src))
+	//you cannot unassign from an area we never were assigned to
+	if(isnull(target_area) || assigned_area != target_area)
+		return
+	assigned_area.air_vents -= src
+	assigned_area = null
+
+/obj/machinery/atmospherics/components/unary/vent_pump/on_exit_area(datum/source, area/area_to_unregister)
+	. = ..()
+	disconnect_from_area(area_to_unregister)
 
 /obj/machinery/atmospherics/components/unary/vent_pump/update_icon_nopipes()
 	cut_overlays()
