@@ -1,4 +1,3 @@
-disabled: true
 help: "Please don't pixel shift tables."
 /obj/structure/table:
   banned_variables:
