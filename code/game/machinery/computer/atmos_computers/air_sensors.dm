@@ -54,12 +54,12 @@
 	name = "incinerator chamber gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_INCINERATOR
 
-/obj/machinery/air_sensor/ordnance_burn_chamber
-	name = "ordnance burn chamber gas sensor"
+/obj/machinery/air_sensor/toxins_burn_chamber
+	name = "toxins burn chamber gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_TOXINS_BURN
 
-/obj/machinery/air_sensor/ordnance_freezer_chamber
-	name = "ordnance freezer chamber gas sensor"
+/obj/machinery/air_sensor/toxins_freezer_chamber
+	name = "toxins freezer chamber gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_TOXINS_FREEZER
 
 /obj/machinery/air_sensor/engine_chamber
