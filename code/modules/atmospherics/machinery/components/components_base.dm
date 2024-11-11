@@ -46,8 +46,9 @@
 /**
  * Called in Initialize(), set the showpipe var to true or false depending on the situation, calls update_icon()
  */
-/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, covered)
-	showpipe = !!covered
+/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, underfloor_accessibility)
+	SIGNAL_HANDLER
+	showpipe = !!underfloor_accessibility
 	update_appearance()
 
 /obj/machinery/atmospherics/components/update_icon()
