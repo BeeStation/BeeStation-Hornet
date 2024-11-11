@@ -67,6 +67,9 @@
 	floor_tile = /obj/item/stack/tile/catwalk_tile/iron
 	catwalk_type = "iron"
 
+/turf/open/floor/catwalk_floor/iron/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
 
 /turf/open/floor/catwalk_floor/iron_white
 	name = "white plated catwalk floor"
