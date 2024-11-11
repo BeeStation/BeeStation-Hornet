@@ -25292,7 +25292,7 @@
 "myX" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes{
-	pixel_y = 0
+	pixel_y = 1
 	},
 /obj/machinery/light,
 /obj/item/clothing/gloves/color/latex{
