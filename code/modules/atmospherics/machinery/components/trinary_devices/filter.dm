@@ -52,17 +52,22 @@
 	var/datum/gas_mixture/air2 = airs[2]
 	var/datum/gas_mixture/air3 = airs[3]
 
-	var/output_starting_pressure = air3.return_pressure()
-
-	if(output_starting_pressure >= MAX_OUTPUT_PRESSURE)
-		//No need to transfer if target is already full!
-		return
-
 	var/transfer_ratio = transfer_rate / air1.volume
 
-	//Actually transfer the gas
-
 	if(transfer_ratio <= 0)
+		return
+
+	// Attempt to transfer the gas.
+
+	// If the main output is full, we try to send filtered output to the side port (air2).
+	// If the side output is full, we try to send the non-filtered gases to the main output port (air3).
+	// Any gas that can't be moved due to its destination being too full is sent back to the input (air1).
+
+	var/side_output_full = air2.return_pressure() >= MAX_OUTPUT_PRESSURE
+	var/main_output_full = air3.return_pressure() >= MAX_OUTPUT_PRESSURE
+
+	// If both output ports are full, there's nothing we can do. Don't bother removing anything from the input.
+	if (side_output_full && main_output_full)
 		return
 
 	var/datum/gas_mixture/removed = air1.remove_ratio(transfer_ratio)
