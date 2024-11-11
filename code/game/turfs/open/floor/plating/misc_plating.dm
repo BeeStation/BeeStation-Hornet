@@ -400,7 +400,7 @@
 /turf/open/floor/plating/snowed/colder
 	temperature = 140
 
-/turf/open/floor/plating/snowed/temperatre
+/turf/open/floor/plating/snowed/temperate
 	temperature = 255.37
 
 /turf/open/floor/plating/elevatorshaft
