@@ -38,14 +38,14 @@
 	var/list/firealarms = list()
 	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
 	var/list/active_alarms = list()
+	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing. Fire alarms and fire locks will set and clear alarms.
+	var/datum/alarm_handler/alarm_manager
 	/// The current alarm fault status
 	var/fault_status = AREA_FAULT_NONE
 	/// The source machinery for the area's fault status
 	var/fault_location
 	///List of all lights in our area
 	var/list/lights = list()
-	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing
-	var/datum/alarm_handler/alarm_manager
 
 	var/lightswitch = TRUE
 	var/vacuum = null

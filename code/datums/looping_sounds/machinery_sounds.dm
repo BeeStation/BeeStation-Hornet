@@ -93,6 +93,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/firealarm
-	mid_sounds = 'goon/sound/machinery/FireAlarm.ogg'
+	mid_sounds = list('goon/sound/machinery/FireAlarm.ogg' = 1)
 	mid_length = 7 SECONDS
 	volume = 30

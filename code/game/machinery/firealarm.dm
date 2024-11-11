@@ -32,6 +32,9 @@
 	light_range = 7
 	light_color = "#ff3232"
 
+	//Trick to get the glowing overlay visible from a distance
+	luminosity = 1
+
 	//We want to use area sensitivity, let us
 	always_area_sensitive = TRUE
 	///Buildstate for contruction steps
@@ -92,7 +95,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
 	handle_fire(area_to_register, area_to_register.fire)
-	update_appearance()
+	update_icon()
 
 /obj/machinery/firealarm/update_name(updates)
 	. = ..()
@@ -122,9 +125,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 /obj/machinery/firealarm/proc/set_status()
 	if(!(my_area.fire || LAZYLEN(my_area.active_firelocks)) || (obj_flags & EMAGGED))
 		soundloop.stop()
-	update_appearance()
+	update_icon()
 
-/obj/machinery/firealarm/update_appearance(updates)
+/obj/machinery/firealarm/update_icon(updates)
 	. = ..()
 	if((my_area?.fire || LAZYLEN(my_area?.active_firelocks)) && !(obj_flags & EMAGGED) && !(machine_stat & (BROKEN|NOPOWER)))
 		set_light(l_range = 2.5, l_power = 1.5)
@@ -199,10 +202,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		alarm()
 
 /obj/machinery/firealarm/on_emag(mob/user)
-	..()
-	update_appearance()
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	update_icon()
 	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
-							"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+							"<span class='notice'>You override [src], disabling the speaker.</span>")
 	if(user)
 		balloon_alert(user, "speaker disabled")
 		user.log_message("emagged [src].", LOG_ATTACK)
@@ -216,12 +222,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
-/obj/machinery/firealarm/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return (exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && !(obj_flags & EMAGGED) && detecting && !machine_stat
-
-/obj/machinery/firealarm/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	alarm()
-
 /**
  * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
  *
@@ -233,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	SIGNAL_HANDLER
 
 	if(is_station_level(z))
-		update_appearance()
+		update_icon()
 
 /**
  * Sounds the fire alarm and closes all firelocks in the area. Also tells the area to color the lights red.
@@ -258,7 +258,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	my_area.fault_location = name
 	soundloop.start() //Manually pulled fire alarms will make the sound, rather than the doors.
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
-	update_use_power(ACTIVE_POWER_USE)
+	use_power = active_power_usage
 
 /**
  * Resets all firelocks in the area. Also tells the area to disable alarm lighting, if it was enabled.
@@ -279,7 +279,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		user.log_message("reset a fire alarm.", LOG_GAME)
 	soundloop.stop()
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
-	update_use_power(IDLE_POWER_USE)
+	use_power = idle_power_usage
 
 /obj/machinery/firealarm/proc/try_lock(mob/user, force_lock = FALSE)
 	if(allowed(user) || !user || force_lock)
@@ -293,7 +293,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	else
 		balloon_alert(user, "Access Denied!")
 		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
-	update_appearance()
+	update_icon()
 
 /obj/machinery/firealarm/AltClick(mob/user)
 	try_lock(user)
@@ -321,15 +321,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda)) // trying to unlock the cover with an ID card
 		try_lock(user)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER && buildstage == 2)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		W.play_tool_sound(src)
 		panel_open = !panel_open
 		to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
-		update_appearance()
+		update_icon()
 		return
 
 	if(panel_open)
-
 		if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
 			if(atom_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
@@ -344,7 +343,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 			return
 
 		switch(buildstage)
-			if(2)
+			if(FIRE_ALARM_BUILD_SECURED)
 				if(W.tool_behaviour == TOOL_MULTITOOL)
 					toggle_fire_detect(user)
 					return
@@ -354,7 +353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					W.play_tool_sound(src)
 					new /obj/item/stack/cable_coil(user.loc, 5)
 					to_chat(user, "<span class='notice'>You cut the wires from \the [src].</span>")
-					update_appearance()
+					update_icon()
 					return
 
 				else if(W.force) //hit and turn it on
@@ -364,7 +363,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 						alarm()
 					return
 
-			if(1)
+			if(FIRE_ALARM_BUILD_NO_WIRES)
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/coil = W
 					if(coil.get_amount() < 5)
@@ -373,7 +372,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 						coil.use(5)
 						buildstage = AIR_ALARM_BUILD_COMPLETE
 						to_chat(user, "<span class='notice'>You wire \the [src].</span>")
-						update_appearance()
+						update_icon()
 					return
 
 				else if(W.tool_behaviour == TOOL_CROWBAR)
@@ -388,14 +387,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 								to_chat(user, "<span class='notice'>You pry out the circuit.</span>")
 								new /obj/item/electronics/firealarm(user.loc)
 							buildstage = FIRE_ALARM_BUILD_NO_WIRES
-							update_appearance()
+							update_icon()
 					return
-			if(0)
+			if(FIRE_ALARM_BUILD_NO_CIRCUIT)
 				if(istype(W, /obj/item/electronics/firealarm))
 					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
 					qdel(W)
 					buildstage = FIRE_ALARM_BUILD_NO_WIRES
-					update_appearance()
+					update_icon()
 					return
 
 				else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
@@ -405,7 +404,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 					"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
 					buildstage = AIR_ALARM_BUILD_NO_WIRES
-					update_appearance()
+					update_icon()
 					return
 
 				else if(W.tool_behaviour == TOOL_WRENCH)
@@ -430,7 +429,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
 			buildstage = FIRE_ALARM_BUILD_NO_WIRES
-			update_appearance()
+			update_icon()
 			return TRUE
 	return FALSE
 
@@ -508,22 +507,22 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 /obj/machinery/firealarm/partyalarm/reset()
 	if (machine_stat & (NOPOWER|BROKEN))
 		return
-	var/area/A = get_area(src)
-	if (!A || !A.party)
+	var/area/area = get_area(src)
+	if (!area || !area.party)
 		return
-	A.party = FALSE
-	A.cut_overlay(party_overlay)
+	area.party = FALSE
+	area.cut_overlay(party_overlay)
 
 /obj/machinery/firealarm/partyalarm/alarm()
 	if (machine_stat & (NOPOWER|BROKEN))
 		return
-	var/area/A = get_area(src)
-	if (!A || A.party || A.name == "Space")
+	var/area/area = get_area(src)
+	if (!area || area.party || area.name == "Space")
 		return
-	A.party = TRUE
+	area.party = TRUE
 	if (!party_overlay)
 		party_overlay = iconstate2appearance('icons/turf/areas.dmi', "party")
-	A.add_overlay(party_overlay)
+	area.add_overlay(party_overlay)
 
 /////////////////////// CIRCUITS //////////////////////////////////////
 
@@ -582,6 +581,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 	if(COMPONENT_TRIGGERED_BY(reset_trigger, port))
 		attached_alarm?.reset()
 
-
-
-#undef FIREALARM_COOLDOWN

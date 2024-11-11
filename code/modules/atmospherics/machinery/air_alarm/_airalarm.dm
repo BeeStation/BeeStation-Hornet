@@ -185,11 +185,11 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_BUILD_NO_CIRCUIT)
-			. += span_notice("It is missing air alarm electronics.")
+			. += "<span class = 'notice'>It is missing air alarm electronics.</span>"
 		if(AIR_ALARM_BUILD_NO_WIRES)
-			. += span_notice("It is missing wiring.")
+			. += "<span class = 'notice'>It is missing wiring.</span>"
 		if(AIR_ALARM_BUILD_COMPLETE)
-			. += span_notice("Right-click to [locked ? "unlock" : "lock"] the interface.")
+			. += "<span class = 'notice'>Right-click to [locked ? "unlock" : "lock"] the interface.</span>"
 
 /obj/machinery/airalarm/ui_status(mob/user, datum/ui_state/state)
 	if(HAS_SILICON_ACCESS(user) && aidisabled)
