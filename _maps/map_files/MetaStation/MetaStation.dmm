@@ -12194,11 +12194,10 @@
 /turf/open/space/basic,
 /area/engine/atmos/spaced)
 "bHw" = (
-/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
-	id = 1;
+/obj/structure/cable,
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
 	dir = 8
 	},
-/obj/structure/cable,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bHy" = (
@@ -44610,11 +44609,10 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science/xenobiology)
 "lSI" = (
-/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
-	id = 1;
+/obj/structure/cable,
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
 	dir = 4
 	},
-/obj/structure/cable,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "lSR" = (
