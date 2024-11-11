@@ -5,6 +5,7 @@
 /obj/machinery/portable_atmospherics/canister/proto : @DELETE
 /obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{filter_type = "n2"} : /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{@OLD; filter_type = list(/datum/gas/nitrogen)}
+
 /obj/machinery/atmospherics/pipe/simple/@SUBTYPES : /obj/machinery/atmospherics/pipe/smart/manifold4w/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/pipe/manifold/@SUBTYPES : /obj/machinery/atmospherics/pipe/smart/manifold4w/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/pipe/manifold4w/@SUBTYPES : /obj/machinery/atmospherics/pipe/smart/manifold4w/@SUBTYPES{@OLD}
@@ -14,6 +15,15 @@
 /obj/machinery/airalarm/mixingchamber : /obj/machinery/airalarm{@OLD}
 /obj/machinery/airalarm/kitchen_cold_room : /obj/machinery/airalarm{@OLD}
 
+/obj/machinery/advanced_airlock_controller/@SUBTYPES : @DELETE
 /obj/machinery/advanced_airlock_controller : @DELETE
 
 /obj/machinery/air_sensor/sm_core : /obj/machinery/air_sensor/engine_chamber{@OLD}
+/obj/machinery/air_sensor/incinerator_toxmix : /obj/machinery/air_sensor/incinerator_tank{@OLD}
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/@SUBTYPES{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/@SUBTYPES{@OLD}
+/obj/machinery/computer/atmos_control/tank/@SUBTYPES : /obj/machinery/computer/atmos_control/@SUBTYPES{@OLD}
+
+/obj/machinery/airalarm/unlocked : /obj/machinery/airalarm{@OLD; locked = FALSE}
