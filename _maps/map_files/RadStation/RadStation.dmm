@@ -9031,7 +9031,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "cSe" = (
@@ -34194,6 +34193,10 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"kVs" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/plating,
+/area/maintenance/department/medical/morgue)
 "kVP" = (
 /obj/item/cigbutt,
 /obj/item/trash/canned{
@@ -35832,7 +35835,7 @@
 	pixel_x = 32;
 	pixel_y = -3
 	},
-/obj/structure/closet/crate,
+/obj/machinery/suit_storage_unit/industrial/loader,
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "lvp" = (
@@ -55832,7 +55835,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow,
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/iron/tech,
@@ -72748,6 +72750,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "xnE" = (
@@ -109846,7 +109849,7 @@ dFC
 dFC
 wYg
 wYg
-wYg
+kVs
 dFC
 ayJ
 eFL

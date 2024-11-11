@@ -26911,10 +26911,8 @@
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
 "gPN" = (
-/obj/structure/table,
-/obj/item/paper_bin,
 /obj/effect/turf_decal/bot,
-/obj/item/pen,
+/obj/machinery/suit_storage_unit/industrial/loader,
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "gPO" = (
