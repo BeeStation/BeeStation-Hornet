@@ -30,7 +30,7 @@
 	src.integrity_leak_percent = integrity_leak_percent
 	src.leak_rate = leak_rate
 
-/datum/component/gas_leaker/Destroy(force)
+/datum/component/gas_leaker/Destroy(force, silent)
 	SSair.stop_processing_machine(src)
 	return ..()
 

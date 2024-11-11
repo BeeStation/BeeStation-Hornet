@@ -33,6 +33,9 @@
 	nullify_all_nodes()
 	return ..()
 
+/obj/machinery/atmospherics/pipe/layer_manifold/update_pipe_icon()
+	return
+
 /obj/machinery/atmospherics/pipe/layer_manifold/proc/nullify_all_nodes()
 	for(var/obj/machinery/atmospherics/node in nodes)
 		node.disconnect(src)
@@ -89,25 +92,25 @@
 		return TRUE
 	. = ..()
 
-/obj/machinery/atmospherics/pipe/layer_manifold/proc/findAllConnections()
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/find_all_connections()
 	front_nodes = list()
 	back_nodes = list()
-	var/list/new_nodes = list()
+	nodes = list()
 	for(var/iter in PIPING_LAYER_MIN to PIPING_LAYER_MAX)
 		var/obj/machinery/atmospherics/foundfront = find_connecting(dir, iter)
 		var/obj/machinery/atmospherics/foundback = find_connecting(turn(dir, 180), iter)
 		front_nodes += foundfront
 		back_nodes += foundback
 		if(foundfront && !QDELETED(foundfront))
-			new_nodes += foundfront
+			nodes += foundfront
 		if(foundback && !QDELETED(foundback))
-			new_nodes += foundback
-	update_appearance()
-	return new_nodes
+			nodes += foundback
+	update_icon()
+	return nodes
 
 /obj/machinery/atmospherics/pipe/layer_manifold/atmos_init()
 	normalize_cardinal_directions()
-	findAllConnections()
+	find_all_connections()
 
 /obj/machinery/atmospherics/pipe/layer_manifold/set_piping_layer()
 	piping_layer = PIPING_LAYER_DEFAULT
@@ -128,7 +131,7 @@
 		i = back_nodes.Find(reference)
 		if(i)
 			back_nodes[i] = null
-	update_appearance()
+	update_icon()
 
 /obj/machinery/atmospherics/pipe/layer_manifold/relaymove(mob/living/user, direction)
 	if(initialize_directions & direction)

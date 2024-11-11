@@ -251,9 +251,11 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 			gases[gas_id][MOLES] = total_moles * (volume/total_volume)
 			other.gases[gas_id][MOLES] = total_moles * (other.volume/total_volume)
 
+	garbage_collect()
+	other.garbage_collect()
 
-	///Creates new, identical gas mixture
-	///Returns: duplicate gas mixture
+///Creates new, identical gas mixture
+///Returns: duplicate gas mixture
 /datum/gas_mixture/proc/copy()
 	// Type as /list/list to make spacemandmm happy with the inlined access we do down there
 	var/list/list/cached_gases = gases

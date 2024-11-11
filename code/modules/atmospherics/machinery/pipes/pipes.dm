@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/pipe
+	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
 	damage_deflection = 12
 	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
 	var/volume = 0
@@ -14,11 +15,7 @@
 	buckle_requires_restraints = 1
 	buckle_lying = NO_BUCKLE_LYING
 
-	FASTDMM_PROP(\
-		set_instance_vars(\
-			icon_state = INSTANCE_VAR_DEFAULT\
-		),\
-	)
+	vis_flags = VIS_INHERIT_PLANE
 
 /obj/machinery/atmospherics/pipe/New()
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)
@@ -46,8 +43,39 @@
 	QDEL_NULL(parent)
 	return ..()
 
+/obj/machinery/atmospherics/pipe/proc/update_pipe_icon()
+	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
+	var/bitfield = NONE
+	for(var/i in 1 to device_type)
+		if(!nodes[i])
+			continue
+		var/obj/machinery/atmospherics/node = nodes[i]
+		var/connected_dir = get_dir(src, node)
+		switch(connected_dir)
+			if(NORTH)
+				bitfield |= NORTH_FULLPIPE
+			if(SOUTH)
+				bitfield |= SOUTH_FULLPIPE
+			if(EAST)
+				bitfield |= EAST_FULLPIPE
+			if(WEST)
+				bitfield |= WEST_FULLPIPE
+	for(var/cardinal in GLOB.cardinals)
+		if(initialize_directions & cardinal && !(bitfield & cardinal))
+			switch(cardinal)
+				if(NORTH)
+					bitfield |= NORTH_SHORTPIPE
+				if(SOUTH)
+					bitfield |= SOUTH_SHORTPIPE
+				if(EAST)
+					bitfield |= EAST_SHORTPIPE
+				if(WEST)
+					bitfield |= WEST_SHORTPIPE
+	icon_state = "[bitfield]_[piping_layer]"
+
 /obj/machinery/atmospherics/pipe/update_icon()
 	. = ..()
+	update_pipe_icon()
 	update_layer()
 
 /obj/machinery/atmospherics/proc/update_node_icon()

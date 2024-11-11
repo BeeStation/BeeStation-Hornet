@@ -94,7 +94,7 @@
 			if(H.check_shields(src, force))
 				return
 		return ..()
-	if(gasused.total_moles() < gasperfist * fisto_setting)
+	if(!molar_cmp_equals(gasused.total_moles(), gasperfist * fisto_setting))
 		T.assume_air(gasused)
 		to_chat(user, "<span class='warning'>\The [src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
