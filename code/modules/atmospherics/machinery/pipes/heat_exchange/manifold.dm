@@ -27,7 +27,7 @@
 	//Add non-broken pieces
 	for(var/i in 1 to device_type)
 		if(nodes[i])
-			. += getpipeimage(icon, "pipe-[piping_layer]", get_dir(src, nodes[i]))
+			. += get_pipe_image(icon, "pipe-[piping_layer]", get_dir(src, nodes[i]))
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold/layer2
 	piping_layer = 2

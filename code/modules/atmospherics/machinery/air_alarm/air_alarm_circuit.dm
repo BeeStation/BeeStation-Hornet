@@ -226,8 +226,7 @@
 
 	var/current_option = air_alarm_options.value
 
-	var/turf/alarm_turf = get_turf(connected_alarm)
-	var/datum/gas_mixture/environment = alarm_turf.return_air()
+	var/datum/gas_mixture/environment = connected_alarm.get_enviroment()
 	pressure.set_output(round(environment.return_pressure()))
 	temperature.set_output(round(environment.temperature))
 	if(ispath(options_map[current_option]))
@@ -302,7 +301,7 @@
 	scrubbers = add_option_port("Scrubber", null)
 
 /obj/item/circuit_component/air_alarm_scrubbers/populate_ports()
-	gas_filter = add_input_port("Gas To Filter", PORT_TYPE_LIST(PORT_TYPE_STRING), trigger = null)
+	gas_filter = add_input_port("Gas To Filter", PORT_TYPE_STRING, trigger = null)
 	set_gas_filter = add_input_port("Set Filter", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_gas_to_filter))
 	enable_extended_range = add_input_port("Enable Extra Range", PORT_TYPE_SIGNAL, trigger = PROC_REF(toggle_range))
 	disable_extended_range = add_input_port("Disable Extra Range", PORT_TYPE_SIGNAL, trigger = PROC_REF(toggle_range))
@@ -314,7 +313,7 @@
 
 	enabled = add_output_port("Enabled", PORT_TYPE_NUMBER)
 	is_siphoning = add_output_port("Siphoning", PORT_TYPE_NUMBER)
-	filtering = add_output_port("Filtered Gases", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	filtering = add_output_port("Filtered Gases", PORT_TYPE_STRING)
 	update_received = add_output_port("Update Received", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/air_alarm_scrubbers/duplicate
@@ -354,7 +353,7 @@
 	if(length(meta_data) == 0)
 		for(var/typepath as anything in GLOB.meta_gas_info)
 			meta_data += GLOB.meta_gas_info[typepath][META_GAS_ID]
-	. += create_table_notices(meta_data, column_name = "Gas", column_name_plural = "Gases")
+	. += create_table_notices(meta_data)
 
 /obj/item/circuit_component/air_alarm_scrubbers/proc/set_gas_to_filter(datum/port/input/port)
 	CIRCUIT_TRIGGER

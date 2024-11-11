@@ -18,7 +18,7 @@
 	if(buildstage != AIR_ALARM_BUILD_COMPLETE)
 		return
 	tool.play_tool_sound(src)
-	toggle_panel_open()
+	panel_open = !panel_open
 	to_chat(user, "<span class = 'notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
 	update_appearance()
 	return TRUE
@@ -60,14 +60,14 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/airalarm/attack_hand_secondary(mob/user, list/modifiers)
+/obj/machinery/airalarm/AltClick(mob/user)
 	. = ..()
 	if(!can_interact(user))
 		return
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
 	togglelock(user)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return TRUE
 
 /obj/machinery/airalarm/proc/togglelock(mob/living/user)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -79,15 +79,16 @@
 			if(!locked)
 				ui_interact(user)
 		else
-			to_chat(user, span_danger("Access denied."))
+			to_chat(user, "<span class='danger'>Access denied.</span>")
 	return
 
-/obj/machinery/airalarm/emag_act(mob/user)
+/obj/machinery/airalarm/on_emag(mob/user)
+	. = ..()
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
-	visible_message("<span class='warning'>Sparks fly out of [src]!"), "<span class = 'notice'>You emag [src], disabling its safeties.</span></span>"
-	playsound(src, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	visible_message("<span class='warning'>Sparks fly out of [src]!", "<span class = 'notice'>You emag [src], disabling its safeties.</span></span>")
+	playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/airalarm/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -99,7 +100,6 @@
 	qdel(src)
 
 /obj/machinery/airalarm/attackby(obj/item/W, mob/user, params)
-	update_last_used(user)
 	switch(buildstage)
 		if(AIR_ALARM_BUILD_COMPLETE)
 			if(W.GetID())// trying to unlock the interface with an ID card

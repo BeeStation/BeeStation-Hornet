@@ -77,8 +77,9 @@
 		connected_airalarm.allow_link_change = TRUE
 		connected_airalarm = null
 
-///right click with multi tool to disconnect everything
-/obj/machinery/air_sensor/multitool_act_secondary(mob/living/user, obj/item/tool)
+///click with multi tool to disconnect everything
+/obj/machinery/air_sensor/multitool_act(mob/living/user, obj/item/tool)
+	. = ..()
 	balloon_alert(user, "reset ports")
 	reset()
 	return TRUE
