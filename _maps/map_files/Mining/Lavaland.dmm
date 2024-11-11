@@ -218,9 +218,6 @@
 /turf/open/floor/iron/dark/telecomms,
 /area/mine/maintenance)
 "bu" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "EVA Atrium"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -232,6 +229,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "EVA Atrium";
+	req_access_txt = "47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -713,14 +714,15 @@
 /area/mine/gateway)
 "ey" = (
 /obj/effect/decal/cleanable/oil/slippery,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "47"
 	},
 /turf/open/floor/plating,
 /area/mine/science)
@@ -836,7 +838,7 @@
 /area/mine/living_quarters)
 "fh" = (
 /obj/machinery/computer/mecha,
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -1005,10 +1007,11 @@
 /area/mine/living_quarters)
 "gm" = (
 /obj/effect/decal/cleanable/oil/slippery,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab"
-	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "47"
+	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
 "go" = (
@@ -1137,7 +1140,7 @@
 	pixel_y = 1;
 	pixel_x = 2
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "he" = (
 /obj/machinery/door/firedoor,
@@ -1821,12 +1824,13 @@
 /area/mine/science)
 "lV" = (
 /obj/effect/decal/cleanable/oil/slippery,
-/obj/machinery/door/airlock/research{
-	name = "Robotics Lab"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/research{
+	name = "Robotics Lab";
+	req_access_txt = "47"
+	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
 "lX" = (
@@ -2361,6 +2365,9 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /turf/open/floor/iron,
 /area/mine/science)
+"pW" = (
+/turf/open/floor/carpet/purple,
+/area/mine/science)
 "pX" = (
 /turf/closed/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/explored)
@@ -2823,7 +2830,7 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "tU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -3538,7 +3545,7 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/paper_bin,
 /obj/item/pen/fountain,
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "zp" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -4349,7 +4356,7 @@
 /area/mine/eva)
 "Ff" = (
 /obj/structure/chair/wood/wings,
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "Fl" = (
 /obj/structure/stone_tile/block/cracked{
@@ -5035,7 +5042,7 @@
 /area/mine/laborcamp)
 "Jt" = (
 /obj/machinery/computer/rdconsole/core,
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "Ju" = (
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
@@ -6086,11 +6093,12 @@
 /area/mine/science)
 "QN" = (
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/door/airlock/research{
-	name = "tachyon-doppler Array Booth"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/airlock/research{
+	name = "tachyon-doppler Array Booth";
+	req_access_txt = "47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -7212,12 +7220,13 @@
 /area/mine/laborcamp)
 "YD" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/external{
-	name = "Science Outpost Airlock";
-	req_one_access_txt = "54;18;47"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/external{
+	name = "Science Outpost Airlock";
+	req_one_access_txt = "54;18;47";
+	req_access_txt = "47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -7298,7 +7307,7 @@
 /area/mine/science)
 "Zh" = (
 /obj/machinery/computer/security/research,
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/carpet/purple,
 /area/mine/science)
 "Zl" = (
 /obj/structure/extinguisher_cabinet{
@@ -51071,7 +51080,7 @@ sj
 eV
 mp
 Jt
-dt
+pW
 tS
 nw
 aZ
@@ -51585,7 +51594,7 @@ eg
 Od
 mp
 Zh
-dt
+pW
 zn
 tU
 aZ
