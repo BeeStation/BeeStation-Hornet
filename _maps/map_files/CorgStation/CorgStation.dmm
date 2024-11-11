@@ -56930,7 +56930,7 @@
 /area/security/prison)
 "ssV" = (
 /obj/machinery/atmospherics/components/trinary/filter/critical{
-	filter_type = "n2"
+	filter_type = list(/datum/gas/nitrogen)
 	},
 /obj/machinery/light{
 	dir = 4

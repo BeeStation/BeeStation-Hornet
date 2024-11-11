@@ -16033,7 +16033,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4;
-	filter_type = "n2";
+	filter_type = list(/datum/gas/nitrogen);
 	name = "nitrogen filter"
 	},
 /obj/structure/cable{
@@ -31296,7 +31296,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 1;
-	filter_type = "n2";
+	filter_type = list(/datum/gas/nitrogen);
 	name = "nitrogen filter"
 	},
 /turf/open/floor/iron/ameridiner,

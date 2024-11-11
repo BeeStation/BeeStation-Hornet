@@ -38305,7 +38305,7 @@
 /area/ai_monitored/security/armory)
 "goT" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
-	filter_type = "n2";
+	filter_type = list(/datum/gas/nitrogen);
 	name = "nitrogen filter"
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -44582,7 +44582,7 @@
 	},
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4;
-	filter_type = "n2"
+	filter_type = list(/datum/gas/nitrogen)
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,

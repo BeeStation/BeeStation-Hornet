@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	for(var/obj/machinery/door/firedoor/firelock in GLOB.machines)
 		if(!is_station_level(firelock.z))
 			continue
-		firelock.emag_act(owner_AI, src)
+		firelock.on_emag(owner_AI)
 	owner.log_message("activated malf module [name]", LOG_GAME)
 	to_chat(owner, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
