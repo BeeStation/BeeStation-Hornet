@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 /datum/gas/hypernoblium
 	id = GAS_HYPER_NOBLIUM
 	specific_heat = 2000
-	name = "Hyper-noblium"
+	name = "Hypernoblium"
 	gas_overlay = "freon"
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 10

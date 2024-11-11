@@ -11,7 +11,7 @@
 			new /obj/item/electronics/airalarm(drop_location())
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 			buildstage = AIR_ALARM_BUILD_NO_CIRCUIT
-			update_appearance()
+			update_icon()
 	return TRUE
 
 /obj/machinery/airalarm/screwdriver_act(mob/living/user, obj/item/tool)
@@ -20,7 +20,7 @@
 	tool.play_tool_sound(src)
 	panel_open = !panel_open
 	to_chat(user, "<span class = 'notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
-	update_appearance()
+	update_icon()
 	return TRUE
 
 /obj/machinery/airalarm/wirecutter_act(mob/living/user, obj/item/tool)
@@ -31,7 +31,7 @@
 	var/obj/item/stack/cable_coil/cables = new(drop_location(), 5)
 	user.put_in_hands(cables)
 	buildstage = AIR_ALARM_BUILD_NO_WIRES
-	update_appearance()
+	update_icon()
 	return TRUE
 
 /obj/machinery/airalarm/wrench_act(mob/living/user, obj/item/tool)
@@ -47,7 +47,7 @@
 
 /obj/machinery/airalarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if((buildstage == AIR_ALARM_BUILD_NO_CIRCUIT) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
-		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
+		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 2 SECONDS, "cost" = 1)
 	return FALSE
 
 /obj/machinery/airalarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
@@ -56,7 +56,7 @@
 			user.visible_message("<span class = 'notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class = 'notice'>You adapt an air alarm circuit and slot it into the assembly.</span>")
 			buildstage = AIR_ALARM_BUILD_NO_WIRES
-			update_appearance()
+			update_icon()
 			return TRUE
 	return FALSE
 
@@ -64,40 +64,42 @@
 	. = ..()
 	if(!can_interact(user))
 		return
-	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
-		return
 	togglelock(user)
 	return TRUE
 
 /obj/machinery/airalarm/proc/togglelock(mob/living/user)
 	if(machine_stat & (NOPOWER|BROKEN))
-		to_chat(user, "<span class='warning'>It does nothing!</span>")
+		to_chat(user, "<span class = 'warning'>It does nothing!</span>")
 	else
+		if(issiliconoradminghost(user))
+			locked = !locked
+			return
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 			locked = !locked
 			to_chat(user, "<span class = 'notice'>You [ locked ? "lock" : "unlock"] the air alarm interface.</span>")
 			if(!locked)
 				ui_interact(user)
 		else
-			to_chat(user, "<span class='danger'>Access denied.</span>")
-	return
+			to_chat(user, "<span class = 'danger'>Access denied.</span>")
 
 /obj/machinery/airalarm/on_emag(mob/user)
 	. = ..()
 	if(obj_flags & EMAGGED)
-		return
+		return FALSE
 	obj_flags |= EMAGGED
-	visible_message("<span class='warning'>Sparks fly out of [src]!", "<span class = 'notice'>You emag [src], disabling its safeties.</span></span>")
+	visible_message("<span class = 'warning'>Sparks fly out of [src]!</span>")
+	balloon_alert(user, "authentication sensors scrambled")
 	playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	return TRUE
 
-/obj/machinery/airalarm/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/item/stack/sheet/iron(loc, 2)
-		var/obj/item/I = new /obj/item/electronics/airalarm(loc)
+/obj/machinery/airalarm/on_deconstruction(disassembled = TRUE)
+	new /obj/item/stack/sheet/iron(loc, 2)
+	if((buildstage == AIR_ALARM_BUILD_NO_WIRES) || (buildstage == AIR_ALARM_BUILD_COMPLETE))
+		var/obj/item/electronics/airalarm/alarm = new(loc)
 		if(!disassembled)
-			I.take_damage(I.max_integrity * 0.5, sound_effect=FALSE)
+			alarm.take_damage(alarm.max_integrity * 0.5, sound_effect = FALSE)
+	if((buildstage == AIR_ALARM_BUILD_COMPLETE))
 		new /obj/item/stack/cable_coil(loc, 3)
-	qdel(src)
 
 /obj/machinery/airalarm/attackby(obj/item/W, mob/user, params)
 	switch(buildstage)
@@ -112,11 +114,11 @@
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/cable = W
 				if(cable.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the air alarm!</span>")
+					to_chat(user, "<span class = 'warning'>You need five lengths of cable to wire the air alarm!</span>")
 					return
 				user.visible_message("<span class = 'notice'>[user.name] wires the air alarm.</span>", \
 									"<span class = 'notice'>You start wiring the air alarm...</span>")
-				if (do_after(user, 20, target = src))
+				if (do_after(user, 2 SECONDS, target = src))
 					if (cable.get_amount() >= 5 && buildstage == AIR_ALARM_BUILD_NO_WIRES)
 						cable.use(5)
 						to_chat(user, "<span class = 'notice'>You wire the air alarm.</span>")
@@ -127,14 +129,14 @@
 						danger_level = AIR_ALARM_ALERT_NONE
 						buildstage = AIR_ALARM_BUILD_COMPLETE
 						select_mode(user, /datum/air_alarm_mode/filtering)
-						update_appearance()
+						update_icon()
 				return
 		if(AIR_ALARM_BUILD_NO_CIRCUIT)
 			if(istype(W, /obj/item/electronics/airalarm))
 				if(user.temporarilyRemoveItemFromInventory(W))
 					to_chat(user, "<span class = 'notice'>You insert the circuit.</span>")
 					buildstage = AIR_ALARM_BUILD_NO_WIRES
-					update_appearance()
+					update_icon()
 					qdel(W)
 				return
 
@@ -145,7 +147,7 @@
 				user.visible_message("<span class = 'notice'>[user] fabricates a circuit and places it into [src].</span>", \
 				"<span class = 'notice'>You adapt an air alarm circuit and slot it into the assembly.</span>")
 				buildstage = AIR_ALARM_BUILD_NO_WIRES
-				update_appearance()
+				update_icon()
 				return
 
 	return ..()
@@ -155,7 +157,7 @@
 		if(WIRE_POWER)
 			if(!wires.is_cut(WIRE_POWER))
 				shorted = FALSE
-				update_appearance()
+				update_icon()
 		if(WIRE_AI)
 			if(!wires.is_cut(WIRE_AI))
 				aidisabled = FALSE
@@ -183,4 +185,4 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm_bitem"
 	result_path = /obj/machinery/airalarm
-	pixel_shift = 24
+	pixel_shift = 27

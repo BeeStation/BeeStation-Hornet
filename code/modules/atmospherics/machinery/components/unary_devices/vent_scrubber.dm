@@ -1,7 +1,5 @@
-#define SIPHONING	0
-#define SCRUBBING	1
 ///filtered gases at or below this amount automatically get removed from the mix
-#define MINIMUM_MOLES_TO_SCRUB MOLAR_ACCURACY*100
+#define MINIMUM_MOLES_TO_SCRUB (MOLAR_ACCURACY*100)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber
 	icon_state = "scrub_map-3"
@@ -14,28 +12,39 @@
 	can_unwrench = TRUE
 	welded = FALSE
 	layer = GAS_SCRUBBER_LAYER
-	shift_underlay_only = FALSE
 	hide = TRUE
+	shift_underlay_only = FALSE
+	pipe_state = "scrubber"
+	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
 	processing_flags = NONE
 
-	interacts_with_air = TRUE
 
 	///The mode of the scrubber (ATMOS_DIRECTION_SCRUBBING or ATMOS_DIRECTION_SIPHONING)
 	var/scrubbing = ATMOS_DIRECTION_SCRUBBING
 	///The list of gases we are filtering
-	var/list/filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/bz)
+	var/list/filter_types = list(/datum/gas/carbon_dioxide)
 	///Rate of the scrubber to remove gases from the air
 	var/volume_rate = 200
 	///is this scrubber acting on the 3x3 area around it.
-	var/widenet = 0
+	var/widenet = FALSE
 	///List of the turfs near the scrubber, used for widenet
 	var/list/turf/adjacent_turfs = list()
+	///The area this scrubber is assigned to
+	var/area/assigned_area
 
-	pipe_state = "scrubber"
 	COOLDOWN_DECLARE(check_turfs_cooldown)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Initialize(mapload)
+	if(!id_tag)
+		id_tag = assign_random_name()
 	. = ..()
+
+	for(var/to_filter in filter_types)
+		if(istext(to_filter))
+			filter_types -= to_filter
+			filter_types += gas_id2path(to_filter)
+
+	assign_to_area()
 	AddElement(/datum/element/atmos_sensitive, mapload)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
@@ -55,37 +64,28 @@
 	disconnect_from_area()
 	assign_to_area()
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/assign_to_area()
-	var/area/area = get_area(src)
-	area?.air_scrubbers += src
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on_enter_area(datum/source, area/area_to_register)
+	assign_to_area(area_to_register)
+	. = ..()
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/disconnect_from_area()
-	var/area/area = get_area(src)
-	area?.air_scrubbers -= src
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/assign_to_area(area/target_area = get_area(src))
+	//this scrubber is already assigned to an area. Unassign it from here first before reassigning it to an new area
+	if(isnull(target_area) || !isnull(assigned_area))
+		return
+	assigned_area = target_area
+	assigned_area.air_scrubbers += src
+	update_icon()
 
-///adds a gas or list of gases to our filter_types. used so that the scrubber can check if its supposed to be processing after each change
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/add_filters(filter_or_filters)
-	if(!islist(filter_or_filters))
-		filter_or_filters = list(filter_or_filters)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/disconnect_from_area(area/target_area = get_area(src))
+	//you cannot unassign from an area we never were assigned to
+	if(isnull(target_area) || assigned_area != target_area)
+		return
+	assigned_area.air_scrubbers -= src
+	assigned_area = null
 
-	for(var/gas_to_filter in filter_or_filters)
-		var/translated_gas = istext(gas_to_filter) ? gas_id2path(gas_to_filter) : gas_to_filter
-
-		if(ispath(translated_gas, /datum/gas))
-			filter_types |= translated_gas
-			continue
-
-	var/turf/open/our_turf = get_turf(src)
-
-	if(!isopenturf(our_turf))
-		return FALSE
-
-	var/datum/gas_mixture/turf_gas = our_turf.air
-	if(!turf_gas)
-		return FALSE
-
-	check_atmos_process(our_turf, turf_gas, turf_gas.temperature)
-	return TRUE
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on_exit_area(datum/source, area/area_to_unregister)
+	. = ..()
+	disconnect_from_area(area_to_unregister)
 
 ///remove a gas or list of gases from our filter_types.used so that the scrubber can check if its supposed to be processing after each change
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/remove_filters(filter_or_filters)
@@ -99,16 +99,7 @@
 			filter_types -= translated_gas
 			continue
 
-	var/turf/open/our_turf = get_turf(src)
-	var/datum/gas_mixture/turf_gas
-
-	if(isopenturf(our_turf))
-		turf_gas = our_turf.air
-
-	if(!turf_gas)
-		return FALSE
-
-	check_atmos_process(our_turf, turf_gas, turf_gas.temperature)
+	atmos_conditions_changed()
 	return TRUE
 
 // WARNING: This proc takes untrusted user input from toggle_filter in air alarm's ui_act
@@ -125,34 +116,9 @@
 			else
 				filter_types |= translated_gas
 
-	var/turf/open/our_turf = get_turf(src)
-
-	if(!isopenturf(our_turf))
-		return FALSE
-
-	var/datum/gas_mixture/turf_gas = our_turf.air
-
-	if(!turf_gas)
-		return FALSE
-
-	check_atmos_process(our_turf, turf_gas, turf_gas.temperature)
+	atmos_conditions_changed()
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
-	if(!on || welded || !is_operational || !powered(power_channel))
-		return FALSE
-
-	var/amount = idle_power_usage
-
-	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
-		amount += idle_power_usage * length(filter_types)
-	else
-		amount = active_power_usage
-
-	if(widenet)
-		amount += amount * (adjacent_turfs.len * (adjacent_turfs.len / 2))
-	use_power(amount, power_channel)
-	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_icon_nopipes()
 	cut_overlays()
@@ -175,17 +141,25 @@
 			icon_state = "scrub_wide"
 		else
 			icon_state = "scrub_on"
-	else
+	else //scrubbing == SIPHONING
 		icon_state = "scrub_purge"
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/try_update_atmos_process()
-	var/turf/open/turf = get_turf(src)
-	if (!istype(turf))
-		return
-	var/datum/gas_mixture/turf_gas = turf.air
-	if (isnull(turf_gas))
-		return
-	check_atmos_process(turf, turf_gas, turf_gas.temperature)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
+	if(!on || welded || !is_operational || !powered(power_channel))
+		return FALSE
+
+	var/amount = idle_power_usage
+
+	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
+		amount += idle_power_usage * length(filter_types)
+	else
+		amount = active_power_usage
+
+	if(widenet)
+		amount += amount * (adjacent_turfs.len * (adjacent_turfs.len / 2))
+	use_power(amount, power_channel)
+	return TRUE
+
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/update_power_usage()
 	idle_power_usage = initial(idle_power_usage)
@@ -201,25 +175,26 @@
 		new_power_usage += new_power_usage * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
 	active_power_usage = new_power_usage
 
-
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/set_scrubbing(scrubbing, mob/user)
+	if (src.scrubbing != scrubbing)
+		investigate_log("was toggled to [scrubbing ? "scrubbing" : "siphon"] mode by [isnull(user) ? "the game" : key_name(user)]", INVESTIGATE_ATMOS)
+
 	src.scrubbing = scrubbing
-	investigate_log(" was toggled to [scrubbing ? "scrubbing" : "siphon"] mode by [isnull(user) ? "the game" : key_name(user)]", INVESTIGATE_ATMOS)
-	update_appearance(UPDATE_ICON)
-	try_update_atmos_process()
+	atmos_conditions_changed()
 	update_power_usage()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/set_widenet(widenet)
 	src.widenet = widenet
-	update_appearance(UPDATE_ICON)
 	update_power_usage()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_name()
 	. = ..()
 	if(override_naming)
 		return
-	var/area/scrub_area = get_area(src)
-	name = "\proper [scrub_area.name] [name] [id_tag]"
+	name = "\proper [get_area_name(src)] [name] [id_tag]"
+
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	if(welded || !is_operational)
@@ -239,13 +214,15 @@
 	return FALSE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	..()
 	if(welded || !is_operational)
 		return FALSE
 	if(!nodes[1] || !on)
 		on = FALSE
 		return FALSE
-	scrub(loc)
+	var/turf/open/open_turf = loc
+	if(!istype(open_turf))
+		return
+	scrub(open_turf)
 	if(widenet)
 		if(COOLDOWN_FINISHED(src, check_turfs_cooldown))
 			check_turfs()
@@ -254,48 +231,61 @@
 			scrub(tile)
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(var/turf/tile)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(turf/tile)
 	if(!istype(tile))
 		return FALSE
 	var/datum/gas_mixture/environment = tile.return_air()
 	var/datum/gas_mixture/air_contents = airs[1]
 	var/list/env_gases = environment.gases
 
-	if(air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE || !islist(filter_types))
+	if(air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE)
 		return FALSE
 
-	if(scrubbing & SCRUBBING)
-		///contains all of the gas we're sucking out of the tile, gets put into our parent pipenet
-		var/datum/gas_mixture/filtered_out = new
-		var/list/filtered_gases = filtered_out.gases
-		filtered_out.temperature = environment.temperature
-		///maximum percentage of the turfs gas we can filter
-		var/removal_ratio =  min(1, volume_rate / environment.volume)
-		var/total_moles_to_remove = 0
-		for(var/gas in filter_types & env_gases)
-			total_moles_to_remove += env_gases[gas][MOLES]
-		if(total_moles_to_remove == 0)//sometimes this gets non gc'd values
+	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
+		if(length(env_gases & filter_types))
+			///contains all of the gas we're sucking out of the tile, gets put into our parent pipenet
+			var/datum/gas_mixture/filtered_out = new
+			var/list/filtered_gases = filtered_out.gases
+			filtered_out.temperature = environment.temperature
+
+			///maximum percentage of the turfs gas we can filter
+			var/removal_ratio =  min(1, volume_rate / environment.volume)
+
+			var/total_moles_to_remove = 0
+			for(var/gas in filter_types & env_gases)
+				total_moles_to_remove += env_gases[gas][MOLES]
+
+			if(total_moles_to_remove == 0)//sometimes this gets non gc'd values
+				environment.garbage_collect()
+				return FALSE
+
+			for(var/gas in filter_types & env_gases)
+				filtered_out.add_gas(gas)
+				//take this gases portion of removal_ratio of the turfs air, or all of that gas if less than or equal to MINIMUM_MOLES_TO_SCRUB
+				var/transferred_moles = max(QUANTIZE(env_gases[gas][MOLES] * removal_ratio * (env_gases[gas][MOLES] / total_moles_to_remove)), min(MINIMUM_MOLES_TO_SCRUB, env_gases[gas][MOLES]))
+
+				filtered_gases[gas][MOLES] = transferred_moles
+				env_gases[gas][MOLES] -= transferred_moles
+
 			environment.garbage_collect()
-			return FALSE
-		for(var/gas in filter_types & env_gases)
-			filtered_out.add_gas(gas)
-			//take this gases portion of removal_ratio of the turfs air, or all of that gas if less than or equal to MINIMUM_MOLES_TO_SCRUB
-			var/transfered_moles = max(QUANTIZE(env_gases[gas][MOLES] * removal_ratio * (env_gases[gas][MOLES] / total_moles_to_remove)), min(MINIMUM_MOLES_TO_SCRUB, env_gases[gas][MOLES]))
-			filtered_gases[gas][MOLES] = transfered_moles
-			env_gases[gas][MOLES] -= transfered_moles
-		environment.garbage_collect()
-		air_contents.merge(filtered_out)
+
+			//Remix the resulting gases
+			air_contents.merge(filtered_out)
+			update_parents()
 
 	else //Just siphoning all air
+
 		var/transfer_moles = environment.total_moles() * (volume_rate / environment.volume)
+
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+
 		air_contents.merge(removed)
-	update_parents()
+		update_parents()
+
 	return TRUE
 
-//we populate a list of turfs with nonatmos-blocked cardinal turfs AND
-//	diagonal turfs that can share atmos with *both* of the cardinal turfs
-
+///we populate a list of turfs with nonatmos-blocked cardinal turfs AND
+/// diagonal turfs that can share atmos with *both* of the cardinal turfs
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
 	var/turf/local_turf = get_turf(src)
@@ -319,6 +309,7 @@
 		update_icon()
 		pipe_vision_img = image(src, loc, dir = dir)
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
+		investigate_log("was [welded ? "welded shut" : "unwelded"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/can_unwrench(mob/user)
@@ -366,10 +357,8 @@
 	piping_layer = 4
 	icon_state = "scrub_map_on-4"
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/lavaland
-	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
-
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland
-	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/disconnect()
+	..()
+	on = FALSE
 
 #undef MINIMUM_MOLES_TO_SCRUB

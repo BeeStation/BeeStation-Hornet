@@ -11,7 +11,7 @@
 /area/template_noop)
 "c" = (
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -30,7 +30,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
 	dir = 5
 	},
 /turf/open/floor/plating,

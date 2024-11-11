@@ -58,7 +58,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		update_name()
 	my_area = get_area(src)
 	LAZYADD(my_area.firealarms, src)
-	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
 
 	AddElement(/datum/element/atmos_sensitive, mapload)
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
