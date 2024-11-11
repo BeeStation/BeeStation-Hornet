@@ -325,7 +325,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/constructor,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "bj" = (
 /obj/structure/cable/white{
 	icon_state = "4-8"
@@ -499,7 +499,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/core/infinite,
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "bJ" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -561,7 +561,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "bT" = (
 /obj/structure/chair{
 	dir = 1
@@ -605,7 +605,7 @@
 	},
 /obj/effect/turf_decal/tile/techfloor,
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "bX" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck/cas{
@@ -882,7 +882,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
+/area/centcom/control)
 "dc" = (
 /obj/machinery/modular_computer/console/preset/command{
 	dir = 8
@@ -1026,7 +1026,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/kinesis/plus,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "dG" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 4
@@ -1174,7 +1174,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/visor/rave,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "ek" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -1533,7 +1533,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "fk" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -2020,7 +2020,7 @@
 /obj/item/pen/red,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
+/area/centcom/control)
 "gZ" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -2185,7 +2185,7 @@
 /area/tdome/tdomeobserve)
 "hS" = (
 /turf/open/floor/iron/tech,
-/area/space)
+/area/centcom/control)
 "hT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/bottle/beer{
@@ -2361,7 +2361,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/energy_shield,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "iB" = (
 /turf/closed/indestructible/fakedoor{
 	name = "CentCom Cell"
@@ -3125,7 +3125,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/paint,
 /turf/open/floor/iron/dark/smooth_large,
-/area/tdome/tdomeobserve)
+/area/centcom/control)
 "le" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/shipping_container/gorlex/red,
@@ -3681,7 +3681,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/storage/bluespace,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "nu" = (
 /obj/structure/bookcase/manuals,
 /obj/item/instrument/guitar,
@@ -3883,7 +3883,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/corporate,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "oi" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -4083,7 +4083,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/apocryphal,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "oW" = (
 /obj/structure/flora/bush,
 /obj/effect/light_emitter{
@@ -4112,7 +4112,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "pa" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/iron/dark,
@@ -5407,7 +5407,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "tE" = (
 /obj/machinery/computer/monitor/secret{
 	dir = 1
@@ -5745,7 +5745,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/stealth,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "uw" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -7345,7 +7345,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/elite/flamethrower,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "zN" = (
 /obj/structure/bookcase/random/reference,
 /turf/open/floor/engine/cult,
@@ -7380,7 +7380,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/teleporter,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "zT" = (
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
@@ -7424,7 +7424,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "Af" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 1
@@ -7577,7 +7577,7 @@
 /obj/effect/turf_decal/trimline/dark_red/warning,
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "AM" = (
 /obj/machinery/shuttle_manipulator,
 /obj/structure/cable/white{
@@ -8696,15 +8696,6 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
-"EB" = (
-/obj/machinery/door/airlock/centcom{
-	name = "CentCom Security";
-	req_access_txt = "101"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "EC" = (
 /obj/machinery/door/airlock{
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
@@ -9751,7 +9742,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/jetpack/advanced,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "In" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
@@ -9883,7 +9874,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "IF" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -9987,7 +9978,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/skin_applier/honkerative,
 /turf/open/floor/iron/dark/smooth_large,
-/area/tdome/tdomeobserve)
+/area/centcom/control)
 "IW" = (
 /obj/effect/landmark/thunderdome/two,
 /obj/effect/turf_decal/stripes/line{
@@ -10365,7 +10356,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "Kg" = (
 /turf/closed/indestructible/fakedoor{
 	name = "Thunderdome Admin"
@@ -10860,7 +10851,7 @@
 /area/syndicate_mothership/control)
 "Mk" = (
 /turf/open/floor/iron/dark/textured,
-/area/tdome/tdomeobserve)
+/area/centcom/control)
 "Ml" = (
 /obj/structure/chair{
 	dir = 8
@@ -10924,7 +10915,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/traitor,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "Mw" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -11073,7 +11064,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "MP" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -11234,7 +11225,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "Nq" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
@@ -11533,7 +11524,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anomaly_locked/antigrav,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/centcom/control)
 "Ol" = (
 /obj/machinery/plantgenes/seedvault,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -11661,7 +11652,7 @@
 /obj/structure/table/reinforced,
 /obj/item/mod/module/anti_magic,
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "OF" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -12089,7 +12080,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "Qo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/microwave{
@@ -13069,7 +13060,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "TG" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/white/textured,
@@ -13540,7 +13531,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "Vy" = (
 /obj/machinery/computer/security{
 	dir = 1
@@ -13670,7 +13661,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
-/area/space)
+/area/centcom/control)
 "VR" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/white{
@@ -14201,7 +14192,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
+/area/centcom/control)
 "XR" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -14359,17 +14350,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"Yt" = (
-/obj/machinery/door/airlock/centcom{
-	name = "CentCom Security";
-	req_access_txt = "101"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "Yu" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /turf/open/floor/iron/cafeteria,
@@ -14414,6 +14394,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
+"YB" = (
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "YC" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 9
@@ -52741,7 +52724,7 @@ Iv
 Iv
 Iv
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -52969,12 +52952,12 @@ fk
 df
 sG
 mD
-ab
-ab
-ab
-ab
-ab
-ab
+io
+io
+io
+io
+io
+io
 aa
 aa
 aa
@@ -52998,7 +52981,7 @@ Iw
 IR
 Jd
 Jn
-ab
+Iv
 aa
 aa
 aa
@@ -53231,7 +53214,7 @@ bW
 Kf
 tA
 Mu
-Ep
+io
 Ep
 Ep
 Ep
@@ -53255,7 +53238,7 @@ Iv
 Iv
 IR
 IR
-ab
+Iv
 aa
 aa
 aa
@@ -53488,7 +53471,7 @@ TE
 Np
 fj
 zM
-Ep
+io
 sm
 FD
 Gb
@@ -53512,7 +53495,7 @@ WJ
 IS
 Nr
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -53745,7 +53728,7 @@ TE
 hS
 IE
 oV
-Ep
+io
 Yw
 FE
 Gc
@@ -53771,7 +53754,7 @@ Nr
 Nr
 Iv
 Kg
-ab
+Iv
 aa
 aa
 aa
@@ -54002,7 +53985,7 @@ TE
 hS
 IE
 og
-Ep
+io
 dS
 FF
 Gd
@@ -54028,7 +54011,7 @@ Nr
 Nr
 Nr
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -54285,7 +54268,7 @@ Nr
 bd
 Nr
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -54542,7 +54525,7 @@ Iv
 Iv
 JX
 JX
-ab
+Iv
 aa
 aa
 aa
@@ -54801,7 +54784,7 @@ Nr
 Nr
 Iv
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -55058,7 +55041,7 @@ Nr
 Nr
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -55315,7 +55298,7 @@ Nr
 Nr
 IR
 KB
-ab
+Iv
 aa
 aa
 aa
@@ -55572,7 +55555,7 @@ Nr
 Nr
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -55800,7 +55783,7 @@ io
 Dq
 io
 io
-Ep
+io
 Ep
 Ev
 Ep
@@ -55829,7 +55812,7 @@ Nr
 Nr
 Iv
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -56057,7 +56040,7 @@ iu
 pa
 iu
 lN
-Ev
+iu
 Er
 EI
 MW
@@ -56085,7 +56068,7 @@ Iv
 Iv
 Kh
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -56314,7 +56297,7 @@ im
 Wd
 ip
 iu
-Ep
+io
 Es
 EJ
 dP
@@ -56342,7 +56325,7 @@ WN
 bE
 Nr
 eO
-ab
+Iv
 aa
 aa
 aa
@@ -56571,8 +56554,8 @@ Tf
 Xc
 cA
 io
+io
 Ep
-jf
 EK
 Ep
 FK
@@ -56601,7 +56584,7 @@ Nr
 Xp
 KC
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -56829,9 +56812,9 @@ Xc
 Vy
 io
 da
-jf
 XS
 Ev
+YB
 dP
 gc
 Ep
@@ -56858,7 +56841,7 @@ Nr
 dl
 IR
 KG
-ab
+Iv
 aa
 aa
 aa
@@ -57086,9 +57069,9 @@ Qp
 SM
 im
 gY
-jf
 Cj
 Fr
+YB
 cL
 SO
 Ep
@@ -57115,7 +57098,7 @@ Nr
 xE
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -57342,10 +57325,10 @@ Dt
 DH
 iu
 in
-Ev
-jf
+iu
 EN
 Ev
+YB
 cL
 as
 Ep
@@ -57372,7 +57355,7 @@ Nr
 bz
 Iv
 IR
-ab
+Iv
 aa
 aa
 aa
@@ -57600,10 +57583,10 @@ np
 oQ
 iu
 Oc
-jf
 Ey
 Fs
 FM
+cL
 Gk
 Ep
 Ev
@@ -57629,7 +57612,7 @@ Nr
 QP
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -57857,10 +57840,10 @@ jC
 DV
 iu
 Ex
-jf
 hR
 hR
 hR
+cL
 Gl
 Gw
 VN
@@ -57886,7 +57869,7 @@ Nr
 Mo
 IR
 KG
-ab
+Iv
 aa
 aa
 aa
@@ -58114,10 +58097,10 @@ jC
 wH
 Eg
 Ey
-jf
 hR
 Ft
 hR
+cL
 Gm
 Un
 VN
@@ -58143,7 +58126,7 @@ Nr
 ca
 KD
 IR
-ab
+Iv
 aa
 aa
 aa
@@ -58371,10 +58354,10 @@ jC
 DW
 iu
 Ez
-jf
 hR
 hR
 hR
+cL
 Gl
 Gy
 VN
@@ -58400,7 +58383,7 @@ Nr
 Sx
 IR
 KG
-ab
+Iv
 aa
 aa
 aa
@@ -58628,10 +58611,10 @@ np
 nW
 iu
 hZ
-jf
 Ey
 Fu
 FN
+cL
 Gk
 Ep
 Ev
@@ -58657,7 +58640,7 @@ Nr
 QP
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -58884,10 +58867,10 @@ Du
 DI
 iu
 in
-Ev
-jf
+iu
 EN
 Ev
+YB
 cL
 XW
 Ep
@@ -58914,7 +58897,7 @@ Nr
 YD
 Iv
 IR
-ab
+Iv
 aa
 aa
 aa
@@ -59142,9 +59125,9 @@ Bl
 Zv
 im
 gY
-jf
 XI
 Fr
+YB
 cL
 Pt
 Ep
@@ -59171,7 +59154,7 @@ Nr
 dy
 IR
 KG
-ab
+Iv
 aa
 aa
 aa
@@ -59399,9 +59382,9 @@ Xc
 eC
 io
 da
-jf
 eL
 Ev
+YB
 Wk
 ii
 Ep
@@ -59428,7 +59411,7 @@ Nr
 wh
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -59655,8 +59638,8 @@ Xc
 MC
 CU
 io
+io
 Ep
-jf
 EK
 Ep
 FK
@@ -59685,7 +59668,7 @@ Nr
 dH
 KC
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -59912,8 +59895,8 @@ Xc
 ip
 iu
 io
-Er
-jf
+nW
+YB
 ER
 Wk
 MW
@@ -59940,7 +59923,7 @@ WN
 QP
 Nr
 eO
-ab
+Iv
 aa
 aa
 aa
@@ -60169,8 +60152,8 @@ Xc
 iu
 qv
 iu
-Es
-jf
+oQ
+YB
 ES
 VD
 Nc
@@ -60197,7 +60180,7 @@ Iv
 Iv
 Kh
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -60426,10 +60409,10 @@ lT
 io
 io
 io
-Ep
-jf
-Ev
-Ep
+io
+io
+iu
+io
 ai
 GN
 Ep
@@ -60455,7 +60438,7 @@ Nr
 Nr
 Iv
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -60683,10 +60666,10 @@ Xc
 io
 qw
 lL
-Ep
-jf
-ET
-Ev
+lL
+lL
+lL
+iu
 XW
 cL
 EK
@@ -60712,7 +60695,7 @@ Nr
 Nr
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -60940,10 +60923,10 @@ Xc
 io
 iu
 iu
-Ep
-jf
-EU
-Ev
+io
+io
+qv
+iu
 ai
 GN
 Ep
@@ -60969,7 +60952,7 @@ Nr
 Nr
 IR
 KB
-ab
+Iv
 aa
 aa
 aa
@@ -61197,10 +61180,10 @@ Xc
 io
 fm
 Xc
-Ep
-jf
-Ev
-Ep
+io
+io
+iu
+io
 XW
 yi
 Ep
@@ -61226,7 +61209,7 @@ Nr
 Nr
 IR
 KA
-ab
+Iv
 aa
 aa
 aa
@@ -61454,10 +61437,10 @@ fm
 kZ
 Xc
 Xc
-EB
-jf
-WL
-Yt
+Xt
+Xc
+gI
+NG
 ai
 GN
 Gv
@@ -61483,7 +61466,7 @@ Nr
 Nr
 Iv
 Iv
-ab
+Iv
 aa
 aa
 aa
@@ -61711,10 +61694,10 @@ Xc
 io
 Xc
 Xc
-Ep
-jf
+io
+Xc
 XQ
-Ep
+io
 FQ
 FM
 Gv
@@ -61738,7 +61721,7 @@ Iv
 Iv
 JX
 JX
-ab
+Iv
 aa
 aa
 aa
@@ -61968,10 +61951,10 @@ Xc
 io
 io
 io
-Ep
-jf
-Ep
-Ep
+io
+io
+io
+io
 Ep
 Ep
 Ep
@@ -61995,7 +61978,7 @@ Nr
 aR
 Nr
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -62226,7 +62209,7 @@ io
 SH
 UH
 SH
-jf
+SH
 Ep
 NY
 FR
@@ -62252,7 +62235,7 @@ Nr
 Nr
 Nr
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -62483,7 +62466,7 @@ io
 NO
 NO
 NO
-jf
+NO
 Ep
 TS
 FE
@@ -62509,7 +62492,7 @@ Nr
 Nr
 Iv
 Kg
-ab
+Iv
 aa
 aa
 aa
@@ -62740,7 +62723,7 @@ sY
 NO
 NO
 NO
-jf
+NO
 Ep
 Mr
 FS
@@ -62766,7 +62749,7 @@ Nr
 Nr
 Iv
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -62995,9 +62978,9 @@ qx
 Wc
 qx
 Yn
+Yn
 sZ
 Yn
-jf
 Ep
 Ep
 Ep
@@ -63023,7 +63006,7 @@ IR
 IR
 Iv
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -63280,7 +63263,7 @@ Jm
 Jr
 Iv
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -63537,7 +63520,7 @@ Iv
 Iv
 Iv
 Nr
-ab
+Iv
 aa
 aa
 aa
@@ -63794,7 +63777,7 @@ aa
 KH
 Iv
 Kj
-ab
+Iv
 aa
 aa
 aa
