@@ -620,7 +620,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "eh" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -802,7 +802,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/mech_bay_recharge_floor,
 /area/mine/science)
 "eX" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -850,6 +850,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
 /area/mine/science)
 "fk" = (
@@ -1410,7 +1411,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "iV" = (
 /obj/structure/stone_tile/block/cracked,
@@ -1938,7 +1939,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/turf/open/floor/iron,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "mK" = (
 /obj/structure/stone_tile/block{
@@ -2169,7 +2173,7 @@
 /area/mine/science)
 "os" = (
 /obj/structure/tank_dispenser/oxygen,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "ov" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -2648,7 +2652,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "sl" = (
 /obj/structure/cable/yellow{
@@ -5277,7 +5282,10 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "KS" = (
 /obj/structure/stone_tile/block{
@@ -5483,6 +5491,16 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"MA" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/white/full,
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/mine/science)
 "MB" = (
 /obj/structure/table/wood/bar,
 /turf/open/floor/carpet/black,
@@ -5600,7 +5618,7 @@
 "NB" = (
 /obj/structure/chair/foldable,
 /obj/machinery/camera/directional/north,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "ND" = (
 /turf/closed/wall/r_wall,
@@ -5694,7 +5712,7 @@
 /area/mine/science)
 "Od" = (
 /obj/structure/closet/crate/critter,
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/white/textured_large,
 /area/mine/science)
 "Oe" = (
 /obj/structure/cable/yellow{
@@ -51071,7 +51089,7 @@ Zd
 Zd
 Zd
 jq
-hr
+MA
 Ps
 pI
 jh
