@@ -269,6 +269,12 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"acz" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/storage/eva)
 "acA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -14024,6 +14030,9 @@
 /area/maintenance/department/engine)
 "ewi" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "ewt" = (
@@ -26495,7 +26504,7 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
@@ -55835,7 +55844,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow,
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
@@ -72751,6 +72759,9 @@
 	pixel_y = -3
 	},
 /obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "xnE" = (
@@ -106773,7 +106784,7 @@ bGd
 uin
 ykx
 fcP
-mKM
+acz
 ewi
 itk
 rGp
