@@ -813,6 +813,7 @@
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
 /obj/item/storage/box/lights/Initialize(mapload)
