@@ -11072,14 +11072,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
-"bAN" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "bAP" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/on{
 	dir = 8;
@@ -12693,9 +12685,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 6
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/catwalk_floor/iron/airless,
 /area/engine/atmos/spaced)
@@ -12710,8 +12699,10 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bKE" = (
-/obj/machinery/atmospherics/pipe/manifold/dark/visible,
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/manifold/dark/visible{
+	dir = 8
+	},
 /turf/open/floor/catwalk_floor/iron/airless,
 /area/engine/atmos/spaced)
 "bKF" = (
@@ -13862,10 +13853,6 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"bSi" = (
-/obj/machinery/holopad,
-/turf/open/floor/plating,
-/area/engine/atmos/spaced)
 "bSm" = (
 /obj/structure/easel,
 /obj/effect/decal/cleanable/dirt,
@@ -27055,6 +27042,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"ftr" = (
+/obj/machinery/holopad,
+/turf/open/floor/iron,
+/area/engine/atmos/spaced)
 "ftt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -60286,6 +60277,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"rDQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 6
+	},
+/turf/open/floor/catwalk_floor/iron/airless,
+/area/engine/atmos/spaced)
 "rDV" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -71932,6 +71933,12 @@
 	},
 /turf/open/floor/iron,
 /area/construction/storage_wing)
+"vJO" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 9
+	},
+/turf/open/floor/catwalk_floor/iron/airless,
+/area/engine/atmos/spaced)
 "vJP" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -121285,11 +121292,11 @@ bFM
 vGX
 bHu
 bKw
+rDQ
 bVJ
 bVJ
 bVJ
 bPq
-bVJ
 bVJ
 bVJ
 bVJ
@@ -121541,12 +121548,12 @@ aLI
 ufu
 bxd
 bDW
+bDW
 bKx
 bVK
 bVK
 bVK
 bQS
-bVK
 bVK
 bVK
 bVK
@@ -121798,12 +121805,12 @@ bDV
 csF
 lSI
 bYw
+bYw
 bKx
 bVK
 bVK
 bVK
 bQS
-bVK
 bVK
 bVK
 bVK
@@ -122055,12 +122062,12 @@ lPo
 gvf
 mtW
 bYw
+ftr
 bKx
 bVK
 bVK
 bVK
 bQS
-bVK
 bVK
 bVK
 bVK
@@ -122312,12 +122319,12 @@ jCR
 odI
 bHw
 bYw
+bYw
 bKx
 bVK
 bVK
 bVK
 bQU
-bSi
 bVK
 bVK
 bVK
@@ -122569,8 +122576,8 @@ bAR
 bFR
 bAR
 bIU
+bDW
 bKx
-bVK
 bVK
 bVK
 bVK
@@ -122826,8 +122833,8 @@ bDY
 bFS
 bAR
 bIV
+bDW
 bKx
-bVK
 bNU
 bVK
 bVK
@@ -123077,14 +123084,14 @@ bhT
 dOZ
 bAR
 ffd
-bAN
+bCi
 bCu
 bDZ
 bFT
 bza
 bDW
+bDW
 bKx
-bVK
 bVK
 bVK
 bVK
@@ -123341,7 +123348,7 @@ bFU
 bHy
 bZK
 bKE
-bYw
+vJO
 bYw
 bYw
 bYw
