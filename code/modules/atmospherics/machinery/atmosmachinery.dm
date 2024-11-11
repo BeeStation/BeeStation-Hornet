@@ -68,7 +68,7 @@
 
 /obj/machinery/atmospherics/LateInitialize()
 	. = ..()
-	name = "[GLOB.pipe_color_name[pipe_color]] [name]"
+	update_name()
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
@@ -464,6 +464,7 @@
 	if(can_unwrench)
 		add_atom_colour(obj_color, FIXED_COLOUR_PRIORITY)
 		pipe_color = obj_color
+	update_name()
 	set_piping_layer(set_layer)
 	atmos_init()
 	var/list/nodes = pipeline_expansion()
@@ -471,6 +472,10 @@
 		A.atmos_init()
 		A.add_member(src)
 	SSair.add_to_rebuild_queue(src)
+
+/obj/machinery/atmospherics/update_name()
+	name = "[GLOB.pipe_color_name[pipe_color]] [initial(name)]"
+	return ..()
 
 /obj/machinery/atmospherics/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(istype(arrived, /mob/living))

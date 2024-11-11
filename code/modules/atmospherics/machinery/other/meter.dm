@@ -2,7 +2,7 @@
 	name = "gas flow meter"
 	desc = "It measures something."
 	icon = 'icons/obj/atmospherics/pipes/meter.dmi'
-	icon_state = "meterX"
+	icon_state = "meter"
 	layer = HIGH_PIPE_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
@@ -39,7 +39,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 			candidate = pipe
 	if(candidate)
 		target = candidate
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(drop_meter))
 		setAttachLayer(candidate.piping_layer)
+
+///Called when the parent pipe is removed
+/obj/machinery/meter/proc/drop_meter()
+	SIGNAL_HANDLER
+	deconstruct(FALSE)
 
 /obj/machinery/meter/proc/setAttachLayer(new_layer)
 	target_layer = new_layer
@@ -49,26 +55,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 	if(is_operational)
 		SSair.start_processing_machine(src)//dont set icon_state here because it will be reset on next process() if it ever happens
 	else
-		icon_state = "meterX"
+		icon_state = "meter"
 		SSair.stop_processing_machine(src)
+
+/obj/machinery/meter/return_air()
+	return target?.return_air() || ..()
 
 /obj/machinery/meter/process_atmos()
 	var/datum/gas_mixture/pipe_air = target?.return_air()
-	if(!pipe_air)
-		icon_state = "meterX"
+	if(isnull(pipe_air))
+		icon_state = "meter0"
 		return FALSE
 
 	var/env_pressure = pipe_air.return_pressure()
-	if(env_pressure <= 0.15*ONE_ATMOSPHERE)
+	if(env_pressure <= 0.15 * ONE_ATMOSPHERE)
 		icon_state = "meter0"
-	else if(env_pressure <= 1.8*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*0.3) + 0.5)
+	else if(env_pressure <= 1.8 * ONE_ATMOSPHERE)
+		var/val = round(env_pressure / (ONE_ATMOSPHERE * 0.3) + 0.5)
 		icon_state = "meter1_[val]"
-	else if(env_pressure <= 30*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*5)-0.35) + 1
+	else if(env_pressure <= 30 * ONE_ATMOSPHERE)
+		var/val = round(env_pressure / (ONE_ATMOSPHERE * 5) - 0.35) + 1
 		icon_state = "meter2_[val]"
-	else if(env_pressure <= 59*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*5) - 6) + 1
+	else if(env_pressure <= 59 * ONE_ATMOSPHERE)
+		var/val = round(env_pressure / (ONE_ATMOSPHERE * 5) - 6) + 1
 		icon_state = "meter3_[val]"
 	else
 		icon_state = "meter4"
