@@ -25,7 +25,7 @@
 	var/list/datum/ntnet_conversation/conversations = list()
 
 /datum/computer_file/program/chatclient/New()
-	username = "DefaultUser[rand(100, 999)]"
+	username = computer.saved_identification
 
 /datum/computer_file/program/chatclient/Destroy()
 	for(var/datum/ntnet_conversation/discussion as anything in conversations)
