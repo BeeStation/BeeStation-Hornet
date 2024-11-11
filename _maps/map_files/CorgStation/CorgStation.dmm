@@ -12108,9 +12108,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"dMJ" = (
-/turf/open/floor/plating,
-/area/space)
 "dMM" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/engine,
@@ -14809,9 +14806,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
-"eHI" = (
-/turf/closed/wall,
-/area/space)
 "eIv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -118742,11 +118736,11 @@ whZ
 lTv
 hnv
 ivK
-dMJ
-dMJ
-dMJ
-eHI
-eHI
+ivK
+ivK
+ivK
+jdN
+jdN
 mUI
 jdN
 mBF
@@ -118999,11 +118993,11 @@ ivK
 ivK
 pyZ
 ivK
-dMJ
-dMJ
-dMJ
-dMJ
-eHI
+ivK
+ivK
+ivK
+ivK
+jdN
 xoH
 aWM
 aWM

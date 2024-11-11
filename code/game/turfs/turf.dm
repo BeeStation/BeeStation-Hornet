@@ -6,6 +6,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	flags_1 = CAN_BE_DIRTY_1
+	uses_integrity = TRUE
+
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -38,9 +45,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
-
-
-	flags_1 = CAN_BE_DIRTY_1
 
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
