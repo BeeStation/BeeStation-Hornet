@@ -11699,7 +11699,6 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "bDW" = (
