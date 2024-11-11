@@ -15292,8 +15292,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 24;
 	dir = 1;
-	 = None;
-	locked = FALSE
+	locked = "0"
 	},
 /obj/structure/chair/office{
 	dir = 4

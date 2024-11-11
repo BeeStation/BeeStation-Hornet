@@ -25561,8 +25561,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
-	locked = FALSE
+	locked = "0"
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Atmospherics - Turbines";

@@ -26,7 +26,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/@SUBTYPES{@OLD}
 /obj/machinery/computer/atmos_control/tank/@SUBTYPES : /obj/machinery/computer/atmos_control/@SUBTYPES{@OLD}
 
-/obj/machinery/airalarm/unlocked : /obj/machinery/airalarm{@OLD; locked = FALSE}
+/obj/machinery/airalarm/unlocked : /obj/machinery/airalarm{@OLD; locked = "0"}
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/engine_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}

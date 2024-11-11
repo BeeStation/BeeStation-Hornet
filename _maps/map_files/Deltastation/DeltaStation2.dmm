@@ -43623,8 +43623,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
-	locked = FALSE
+	locked = "0"
 	},
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/delivery,

@@ -4022,8 +4022,7 @@
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -23;
-	 = None;
-	locked = FALSE
+	locked = "0"
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8

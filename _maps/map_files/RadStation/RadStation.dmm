@@ -25594,8 +25594,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 22;
 	dir = 1;
-	 = None;
-	locked = FALSE
+	locked = "0"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/atmospherics,

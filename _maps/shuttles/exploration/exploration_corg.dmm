@@ -421,8 +421,7 @@
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -24;
-	 = None;
-	locked = FALSE
+	locked = "0"
 	},
 /obj/machinery/light{
 	dir = 8
