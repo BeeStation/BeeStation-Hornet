@@ -576,9 +576,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The layer above mutant body parts
 #define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
 
-/// We need gloves to layer on top of modsuit chestplates because we need the hole in the suit filled in if the user lacks a limb
-#define MOD_CHESTPLATE_LAYER (GLOVES_LAYER+0.5)
-
 //used by canUseTopic()
 /// If silicons need to be next to the atom to use this
 #define BE_CLOSE TRUE

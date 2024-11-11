@@ -106,10 +106,10 @@
 		return
 	suit.allowed -= (guns_typecache - already_allowed_guns)
 
-/obj/item/mod/module/magnetic_harness/on_suit_activation()
+/obj/item/mod/module/magnetic_harness/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_dropped_item))
 
-/obj/item/mod/module/magnetic_harness/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/magnetic_harness/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM)
 
 /obj/item/mod/module/magnetic_harness/proc/check_dropped_item(datum/source, obj/item/dropped_item, force, new_location)
@@ -145,10 +145,10 @@
 	overlay_state_use = "module_pepper_used"
 	required_slots = list(ITEM_SLOT_OCLOTHING)
 
-/obj/item/mod/module/pepper_shoulders/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_shields))
+/obj/item/mod/module/pepper_shoulders/on_part_activation()
+	RegisterSignal(mod.wearer, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(on_check_block))
 
-/obj/item/mod/module/pepper_shoulders/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/pepper_shoulders/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
 /obj/item/mod/module/pepper_shoulders/on_use()

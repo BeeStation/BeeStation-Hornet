@@ -28,12 +28,12 @@
 	/// List of parts of the suit that are spaceproofed, for giving them back the pressure protection.
 	var/list/spaceproofed = list()
 
-/obj/item/mod/module/armor_booster/on_suit_activation()
+/obj/item/mod/module/armor_booster/on_part_activation()
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		head_cover.flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/mod/module/armor_booster/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/armor_booster/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
@@ -43,38 +43,40 @@
 /obj/item/mod/module/armor_booster/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
-	mod.slowdown -= actual_speed_added
-	mod.wearer.update_equipment_speed_mods()
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
+	var/list/mod_parts = mod.get_parts(all = TRUE)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.armor = part.armor.modifyRating(arglist(armor_values))
+		part.slowdown -= speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
 		if(clothing_part.clothing_flags & STOPSPRESSUREDAMAGE)
 			clothing_part.clothing_flags &= ~STOPSPRESSUREDAMAGE
 			spaceproofed[clothing_part] = TRUE
+	mod.wearer.update_equipment_speed_mods()
 
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	mod.slowdown += actual_speed_added
-	mod.wearer.update_equipment_speed_mods()
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
+	var/list/mod_parts = mod.get_parts(all = TRUE)
 	var/list/removed_armor = armor_values.Copy()
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.armor = part.armor.modifyRating(arglist(removed_armor))
+		part.slowdown += speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
 		if(spaceproofed[clothing_part])
 			clothing_part.clothing_flags |= STOPSPRESSUREDAMAGE
+	mod.wearer.update_equipment_speed_mods()
 	spaceproofed = list()
 
 /obj/item/mod/module/armor_booster/generate_worn_overlay(mutable_appearance/standing)
@@ -118,12 +120,12 @@
 	. = ..()
 	charges = max_charges
 
-/obj/item/mod/module/energy_shield/on_suit_activation()
+/obj/item/mod/module/energy_shield/on_part_activation()
 	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS,  PROC_REF(shield_reaction))
 
-/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_integrity
 	qdel(shield)
@@ -165,14 +167,10 @@
 	incompatible_modules = list(/obj/item/mod/module/anti_magic)
 	required_slots = list(ITEM_SLOT_BACK)
 
-/obj/item/mod/module/anti_magic/on_suit_activation()
-	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = TRUE, _holy = FALSE)
-	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = FALSE, _holy = TRUE)
+/obj/item/mod/module/anti_magic/on_part_activation()
+	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = TRUE, _holy = TRUE)
 
-/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
-	for (var/datum/component/anti_magic/anti_magic in mod.wearer.GetComponents(/datum/component/anti_magic))
-		if (anti_magic.source == MOD_TRAIT)
-			qdel(anti_magic)
+/obj/item/mod/module/anti_magic/on_part_deactivation(deleting = FALSE)
 	for (var/datum/component/anti_magic/anti_magic in mod.wearer.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == MOD_TRAIT)
 			qdel(anti_magic)
@@ -186,10 +184,10 @@
 	icon_state = "magic_neutralizer"
 	required_slots = list()
 
-/obj/item/mod/module/anti_magic/wizard/on_suit_activation()
+/obj/item/mod/module/anti_magic/wizard/on_part_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
 
-/obj/item/mod/module/anti_magic/wizard/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/anti_magic/wizard/on_part_deactivation(deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
 
 ///Insignia - Gives you a skin specific stripe.
@@ -245,10 +243,10 @@
 	incompatible_modules = list(/obj/item/mod/module/noslip)
 	required_slots = list(ITEM_SLOT_FEET)
 
-/obj/item/mod/module/noslip/on_suit_activation()
+/obj/item/mod/module/noslip/on_part_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
 
-/obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/noslip/on_part_deactivation(deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
 
 ///Flamethrower - Launches fire across the area.

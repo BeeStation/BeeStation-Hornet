@@ -483,7 +483,7 @@
 	for(var/obj/item/part as anything in get_parts())
 		retract(null, part)
 	if(active)
-		finish_activation(is_on = FALSE)
+		control_activation(is_on = FALSE)
 	var/mob/old_wearer = wearer
 	unset_wearer()
 	old_wearer.temporarilyRemoveItemFromInventory(src)
@@ -568,8 +568,9 @@
 		var/datum/action/item_action/mod/pinned_module/action = new_module.pinned_to[REF(ai)]
 		if(action)
 			action.Grant(ai)
-	if(active && new_module.has_required_parts(mod_parts, need_extended = TRUE))
-		new_module.on_suit_activation()
+	if(active && new_module.has_required_parts(mod_parts, need_active = TRUE))
+		new_module.on_part_activation()
+		new_module.part_activated = TRUE
 	if(user)
 		balloon_alert(user, "[new_module] added")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -580,7 +581,7 @@
 	if(wearer)
 		old_module.on_unequip()
 	if(active)
-		old_module.on_suit_deactivation(deleting = deleting)
+		old_module.on_part_deactivation(deleting = deleting)
 		if(old_module.active)
 			old_module.deactivate(display_message = !deleting, deleting = deleting)
 	old_module.on_uninstall(deleting = deleting)
@@ -630,7 +631,7 @@
 
 /obj/item/mod/control/proc/update_speed()
 	for(var/obj/item/part as anything in get_parts(all = TRUE))
-		part.slowdown = (active ? slowdown_active : slowdown_inactive) / length(mod_parts)
+		part.slowdown = (get_part_datum(part).sealed ? slowdown_active : slowdown_inactive) / length(mod_parts)
 	wearer?.update_equipment_speed_mods()
 
 /obj/item/mod/control/proc/power_off()
@@ -658,6 +659,9 @@
 		uninstall(part)
 		return
 	if(part in get_parts())
+		var/datum/mod_part/part_datum = get_part_datum(part)
+		if(part_datum.sealed)
+			seal_part(part, is_sealed = FALSE)
 		if(isnull(part.loc))
 			return
 		if(!wearer)
@@ -686,6 +690,7 @@
 	var/datum/mod_part/part_datum = get_part_datum(part)
 	if(overslot != part_datum.overslotting)
 		return
+	UnregisterSignal(part, COMSIG_ATOM_EXITED)
 	part_datum.overslotting = null
 
 /obj/item/mod/control/proc/on_potion(atom/movable/source, obj/item/slimepotion/speed/speed_potion, mob/living/user)

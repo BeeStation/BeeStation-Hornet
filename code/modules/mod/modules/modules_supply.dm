@@ -80,7 +80,7 @@
 	else
 		balloon_alert(mod.wearer, "invalid target!")
 
-/obj/item/mod/module/clamp/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/clamp/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
 	for(var/atom/movable/crate as anything in stored_crates)
@@ -268,10 +268,10 @@
 	. = ..()
 	disposal_tag = pick(GLOB.TAGGERLOCATIONS)
 
-/obj/item/mod/module/disposal_connector/on_suit_activation()
+/obj/item/mod/module/disposal_connector/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
-/obj/item/mod/module/disposal_connector/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/disposal_connector/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_DISPOSING)
 
 /obj/item/mod/module/disposal_connector/get_configuration()
@@ -354,7 +354,7 @@
 	incompatible_modules = list(/obj/item/mod/module/ash_accretion)
 	overlay_state_inactive = "module_ash"
 	use_mod_colors = TRUE
-	required_slots = list(ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	/// How many tiles we can travel to max out the armor.
 	var/max_traveled_tiles = 10
 	/// How many tiles we traveled through.
@@ -392,12 +392,12 @@
 			/turf/open/water,
 		))
 
-/obj/item/mod/module/ash_accretion/on_suit_activation()
+/obj/item/mod/module/ash_accretion/on_part_activation()
 	mod.wearer.weather_immunities += "ash"
 	mod.wearer.weather_immunities += "snow"
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
-/obj/item/mod/module/ash_accretion/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/ash_accretion/on_part_deactivation(deleting = FALSE)
 	mod.wearer.weather_immunities -= "ash"
 	mod.wearer.weather_immunities -= "snow"
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
@@ -464,7 +464,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/sphere_transform)
 	cooldown_time = 1.25 SECONDS
-	required_slots = list(ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	/// Time it takes us to complete the animation.
 	var/animate_time = 0.25 SECONDS
 

@@ -252,10 +252,10 @@
 		if("display_dna")
 			display_dna = text2num(value)
 
-/obj/item/mod/module/status_readout/on_suit_activation()
+/obj/item/mod/module/status_readout/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_LIVING_DEATH, PROC_REF(death_sound))
 
-/obj/item/mod/module/status_readout/on_suit_deactivation(deleting)
+/obj/item/mod/module/status_readout/on_part_deactivation(deleting)
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_DEATH)
 
 /obj/item/mod/module/status_readout/proc/death_sound(mob/living/carbon/human/wearer)
@@ -436,10 +436,10 @@
 	incompatible_modules = list(/obj/item/mod/module/longfall)
 	required_slots = list(ITEM_SLOT_FEET)
 
-/obj/item/mod/module/longfall/on_suit_activation()
+/obj/item/mod/module/longfall/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT,  PROC_REF(z_impact_react))
 
-/obj/item/mod/module/longfall/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/longfall/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT)
 
 /obj/item/mod/module/longfall/proc/z_impact_react(datum/source, levels, turf/fell_on)
