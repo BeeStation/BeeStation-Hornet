@@ -11890,7 +11890,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
