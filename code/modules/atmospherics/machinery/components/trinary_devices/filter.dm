@@ -10,9 +10,7 @@
 	///Rate of transfer of the gases to the outputs
 	var/transfer_rate = MAX_TRANSFER_RATE
 	///What gases are we filtering, by typepath
-	var/filter_type = null
-
-
+	var/list/filter_type = list()
 
 /obj/machinery/atmospherics/components/trinary/filter/CtrlClick(mob/user)
 	if(can_interact(user))
@@ -35,7 +33,7 @@
 		if(!(direction & initialize_directions))
 			continue
 
-		. += get_pipe_image(icon, "cap", direction, pipe_color, piping_layer, TRUE)
+		. += get_pipe_image(icon, "cap", direction, pipe_color, piping_layer, trinary = TRUE)
 
 /obj/machinery/atmospherics/components/trinary/filter/update_icon_nopipes()
 	var/on_state = on && nodes[1] && nodes[2] && nodes[3] && is_operational

@@ -49,7 +49,9 @@ Housekeeping and pipe network stuff
 
 /obj/machinery/atmospherics/components/trinary/proc/set_overlay_offset(var/pipe_layer)
 	switch(pipe_layer)
-		if(1, 5)
-			return pipe_layer
+		if(1)
+			return 1
+		if(5)
+			return 5
 		else
 			return 0
