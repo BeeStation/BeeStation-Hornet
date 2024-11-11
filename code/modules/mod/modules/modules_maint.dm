@@ -11,12 +11,13 @@
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
 	var/set_off = FALSE
+	var/step_change = 0.5
 
 /obj/item/mod/module/springlock/on_install()
-	mod.activation_step_time *= 0.5
+	mod.activation_step_time *= step_change
 
 /obj/item/mod/module/springlock/on_uninstall(deleting = FALSE)
-	mod.activation_step_time *= 2
+	mod.activation_step_time /= step_change
 /*
 /obj/item/mod/module/springlock/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS,  PROC_REF(on_wearer_exposed))

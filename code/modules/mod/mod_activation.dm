@@ -223,7 +223,8 @@
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 		part.alternate_worn_layer = mod_parts[part]
-	wearer.update_clothing(part.slot_flags)
+	generate_suit_mask()
+	wearer.update_clothing(part.slot_flags | slot_flags)
 	wearer.update_obscured_slots(part.visor_flags_inv)
 	if((part.clothing_flags & (MASKINTERNALS|HEADINTERNALS)) && wearer.invalid_internals())
 		wearer.cutoff_internals()
@@ -262,7 +263,9 @@
 			module.on_suit_deactivation()
 		STOP_PROCESSING(SSobj, src)
 	update_speed()
-	update_icon_state()
+	update_charge_alert()
+	update_appearance(UPDATE_ICON_STATE)
+	generate_suit_mask()
 	wearer.update_clothing(slot_flags)
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.
