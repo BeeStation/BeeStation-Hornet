@@ -16,7 +16,7 @@
 
 	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
-	var/max_n_of_items = 1500
+	var/max_n_of_items = 300
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
 	var/visible_contents = TRUE
@@ -37,7 +37,7 @@
 
 /obj/machinery/smartfridge/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
+		max_n_of_items = 300 * B.rating
 
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
