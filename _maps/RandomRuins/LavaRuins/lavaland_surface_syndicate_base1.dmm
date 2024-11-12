@@ -1985,7 +1985,7 @@
 "tV" = (
 /mob/living/simple_animal/chicken/rabbit{
 	faction = list("Syndicate");
-	desc = "Just a mildly evil rabbit."
+	desc = "Mildly evil rabbit."
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
