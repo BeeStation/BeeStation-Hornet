@@ -8,7 +8,7 @@
 		immunity against extremities such as spot and arc welding, solar eclipses, and handheld flashlights."
 	icon_state = "welding"
 	complexity = 1
-	incompatible_modules = list(/obj/item/mod/module/welding)
+	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
 	overlay_state_inactive = "module_welding"
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
@@ -35,7 +35,6 @@
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/t_ray)
-	cooldown_time = 0.5 SECONDS
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 	/// T-ray scan range.
 	var/range = 4
@@ -55,7 +54,6 @@
 	complexity = 2
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/magboot, /obj/item/mod/module/atrocinator)
-	cooldown_time = 0.5 SECONDS
 	required_slots = list(ITEM_SLOT_FEET)
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
@@ -88,7 +86,7 @@
 		these are only capable of working in zero-gravity environments, a blessing to some Engineers."
 	icon_state = "tether"
 	module_type = MODULE_ACTIVE
-	complexity = 3
+	module_type = MODULE_ACTIVE
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/tether)
 	cooldown_time = 1.5 SECONDS
@@ -128,7 +126,7 @@
 
 /obj/projectile/tether/fire(setAngle)
 	if(firer)
-		line = firer.Beam(src, "line", 'icons/obj/clothing/modsuit/mod_modules.dmi')
+		line = firer.Beam(src, "line", 'icons/obj/clothing/modsuit/mod_modules.dmi', emissive = FALSE)
 	..()
 
 /obj/projectile/tether/on_hit(atom/target)
