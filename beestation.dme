@@ -1229,6 +1229,7 @@
 #include "code\game\machinery\doors\shutters.dm"
 #include "code\game\machinery\doors\unpowered.dm"
 #include "code\game\machinery\doors\windowdoor.dm"
+#include "code\game\machinery\embedded_controller\access_controller.dm"
 #include "code\game\machinery\embedded_controller\airlock_controller.dm"
 #include "code\game\machinery\fabricators\autolathe.dm"
 #include "code\game\machinery\fabricators\exosuit_fab.dm"
