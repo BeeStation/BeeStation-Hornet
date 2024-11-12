@@ -298,7 +298,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "mM" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/structure/closet/crate,
@@ -1013,7 +1013,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "Nz" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1031,7 +1031,7 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "NF" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1226,7 +1226,7 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "RR" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1310,7 +1310,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "UL" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1367,7 +1367,7 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "WD" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,

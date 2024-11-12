@@ -1,8 +1,7 @@
 #define AIRLOCK_CONTROL_RANGE 5
 
-// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
+// This code allows for airlocks to be controlled externally by setting an id_tag (disables ID access)
 /obj/machinery/door/airlock
-	var/frequency
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
 /// Forces the airlock to unbolt and open

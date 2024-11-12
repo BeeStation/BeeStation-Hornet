@@ -101,10 +101,7 @@
 /turf/open/floor/iron/white/side,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "bv" = (
-/obj/machinery/air_sensor{
-	frequency = 1442;
-	id_tag = "Syndicate_Construction_o2_sensor"
-	},
+/obj/machinery/air_sensor,
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bA" = (
@@ -1631,10 +1628,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "pK" = (
-/obj/machinery/air_sensor{
-	frequency = 1442;
-	id_tag = "syndie_lavaland_n2_sensor"
-	},
+/obj/machinery/air_sensor ,
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "pM" = (
@@ -2443,10 +2437,7 @@
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yA" = (
-/obj/machinery/air_sensor{
-	frequency = 1442;
-	id_tag = "syndie_lavaland_tox_sensor"
-	},
+/obj/machinery/air_sensor,
 /turf/open/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yG" = (
@@ -3574,8 +3565,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Jm" = (
 /obj/machinery/computer/turbine_computer{
-	dir = 1;
-	id = "syndie_lavaland_incineratorturbine"
+	dir = 1
 	},
 /obj/machinery/button/door/incinerator_vent_syndicatelava_main{
 	pixel_x = 6;
@@ -3607,10 +3597,7 @@
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "Jv" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 8;
-	frequency = 1442;
-	id_tag = "syndie_lavaland_n2_out";
-	name = "nitrogen out"
+	dir = 8
 	},
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4197,11 +4184,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Pv" = (
 /obj/machinery/computer/atmos_control{
-	dir = 8;
-	frequency = 1442;
-	name = "Nitrogen Supply Control";
-	output_tag = "syndie_lavaland_n2_out";
-	sensors = list("syndie_lavaland_n2_sensor"="Tank")
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -4323,10 +4306,7 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Qf" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 1;
-	frequency = 1442;
-	id_tag = "syndie_lavaland_tox_out";
-	name = "toxin out"
+	dir = 1
 	},
 /turf/open/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4712,11 +4692,7 @@
 "Ti" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/computer/atmos_control{
-	dir = 8;
-	frequency = 1442;
-	name = "Toxins Supply Control";
-	output_tag = "syndie_lavaland_tox_out";
-	sensors = list("syndie_lavaland_tox_sensor"="Tank")
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4796,10 +4772,7 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Uh" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 8;
-	frequency = 1442;
-	id_tag = "syndie_lavaland_o2_out";
-	name = "oxygen out"
+	dir = 8
 	},
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -5157,11 +5130,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Ye" = (
 /obj/machinery/computer/atmos_control{
-	dir = 8;
-	frequency = 1442;
-	name = "Oxygen Supply Control";
-	output_tag = "syndie_lavaland_o2_out";
-	sensors = list("syndie_lavaland_o2_sensor"="Tank")
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,

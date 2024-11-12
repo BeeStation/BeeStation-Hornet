@@ -31,3 +31,8 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/engine_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste : /obj/machinery/atmospherics/components/unary/outlet_injector/on{@OLD}
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_mixing_input : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input{@OLD}
+
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland : /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{@OLD}
+
+/obj/machinery/atmospherics/components/unary/@SUBTYPES{frequency=@ANY} : /obj/machinery/atmospherics/components/unary/@SUBTYPES{@OLD; frequency=@SKIP}

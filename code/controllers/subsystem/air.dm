@@ -676,7 +676,7 @@ SUBSYSTEM_DEF(air)
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
 /datum/controller/subsystem/air/proc/setup_pipenets()
-	for (var/obj/machinery/atmospherics/AM in atmos_machinery)
+	for(var/obj/machinery/atmospherics/AM in atmos_machinery)
 		var/list/targets = AM.get_rebuild_targets()
 		for(var/datum/pipeline/build_off as anything in targets)
 			build_off.build_pipeline_blocking(AM)
