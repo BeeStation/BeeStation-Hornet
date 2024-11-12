@@ -24,8 +24,8 @@
 	return ..()
 
 // Returns independent copy of this file.
-/datum/computer_file/proc/clone(rename = 0)
-	var/datum/computer_file/temp = new type
+/datum/computer_file/proc/clone(rename = 0, comp = null)
+	var/datum/computer_file/temp = new type(comp)
 	temp.unsendable = unsendable
 	temp.undeletable = undeletable
 	temp.size = size

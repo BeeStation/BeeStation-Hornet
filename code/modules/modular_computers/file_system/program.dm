@@ -36,19 +36,21 @@
 	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
 
-/datum/computer_file/program/New(obj/item/modular_computer/comp = null)
+/datum/computer_file/program/New(var/comp = null)
 	..()
-	if(istype(comp))
-		computer = comp
-	else if(istype(holder?.holder, /obj/item/modular_computer))
-		computer = holder.holder
+	if(istype(comp, /obj/item/modular_computer))
+		var/obj/item/modular_computer/C = comp
+		computer = C
+	else if(istype(comp, /obj/item/computer_hardware/hard_drive))
+		var/obj/item/computer_hardware/hard_drive/HD = comp
+		computer = HD.holder
 
 /datum/computer_file/program/Destroy()
 	computer = null
 	. = ..()
 
-/datum/computer_file/program/clone()
-	var/datum/computer_file/program/temp = ..()
+/datum/computer_file/program/clone(hard_drive)
+	var/datum/computer_file/program/temp = ..(comp = hard_drive)
 	temp.required_access = required_access
 	temp.filedesc = filedesc
 	temp.program_icon_state = program_icon_state

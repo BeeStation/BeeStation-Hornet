@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, Icon, Input, Section, Stack } from '../components';
+import { Box, Button, Dimmer, Flex, Icon, Input, Section, Stack } from '../components';
 import { NtosWindow } from '../layouts';
 
 // byond defines for the program state
@@ -150,7 +150,12 @@ const ClientList = ({
             {displayed_clients.map((client) => (
               <Stack height="18px" fill key={client.name}>
                 <Stack.Item basis={0} grow>
-                  <font color={'red' || client_color(client)}>⚫</font> {client.name}
+                  <Box inline color={client_color(client)}>
+                    ⚫
+                  </Box>{' '}
+                  <Box inline bold={client.operator} color={client.operator ? 'yellow' : 'white'}>
+                    {client.name}
+                  </Box>
                 </Stack.Item>
                 {client !== this_client && (
                   <>
@@ -271,16 +276,13 @@ export const NtosNetChat = (props, context) => {
     return clientB.status - clientA.status;
   });
   const client_color = (client) => {
-    if (client.operator) {
-      return 'green';
-    }
     switch (client.status) {
       case CLIENT_ONLINE:
-        return 'white';
+        return 'green';
       case CLIENT_AWAY:
         return 'yellow';
       case CLIENT_OFFLINE:
-        return 'gray';
+        return 'red';
       default:
         return 'label';
     }
@@ -292,14 +294,14 @@ export const NtosNetChat = (props, context) => {
     <NtosWindow width={1000} height={675}>
       <NtosWindow.Content>
         <Stack fill>
-          <Stack fill direction="column">
-            <Stack.Item>
+          <Flex fill grow={1} direction="column">
+            <Flex.Item fill>
               <ChannelList all_channels={all_channels} active_channel={active_channel} act={act} />
-            </Stack.Item>
-            <Stack.Item>
+            </Flex.Item>
+            <Flex.Item grow={1} fill>
               <UsernameSection username={username} can_admin={can_admin} adminmode={adminmode} act={act} />
-            </Stack.Item>
-          </Stack>
+            </Flex.Item>
+          </Flex>
           <Stack.Divider />
           <MessageSection
             in_channel={in_channel}

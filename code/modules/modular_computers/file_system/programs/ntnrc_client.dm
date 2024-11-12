@@ -25,7 +25,8 @@
 	var/list/datum/ntnet_conversation/conversations = list()
 
 /datum/computer_file/program/chatclient/New()
-	username = computer.saved_identification
+	. = ..()
+	change_name(computer.saved_identification || "DefaultUser[rand(100, 999)]")
 
 /datum/computer_file/program/chatclient/Destroy()
 	for(var/datum/ntnet_conversation/discussion as anything in conversations)
@@ -58,6 +59,9 @@
 				if(channel.password == message)
 					channel.add_client(src)
 					return TRUE
+				else
+					to_chat(usr, "<span class='warning'>ERROR: Incorrect password.</span>")
+					return
 
 			channel.add_message(message, username)
 			var/mob/living/user = usr
@@ -112,18 +116,7 @@
 				netadmin_mode = TRUE
 				return TRUE
 		if("PRG_changename")
-			var/newname = sanitize(params["new_name"])
-			newname = replacetext(newname, " ", "_")
-			if(!newname || newname == username)
-				return
-			if(OOC_FILTER_CHECK(newname))
-				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in new username.</span>")
-				return
-			for(var/datum/ntnet_conversation/anychannel as anything in SSnetworks.station_network.chat_channels)
-				if(src in anychannel.active_clients)
-					anychannel.add_status_message("[username] is now known as [newname].")
-			username = newname
-			return TRUE
+			return change_name(sanitize(params["new_name"]))
 		if("PRG_savelog")
 			if(!channel)
 				return
@@ -185,6 +178,19 @@
 			var/datum/computer_file/program/chatclient/pinged = locate(params["ref"]) in channel.active_clients + channel.offline_clients
 			channel.ping_user(src, pinged)
 			return TRUE
+
+/datum/computer_file/program/chatclient/proc/change_name(newname)
+	newname = replacetext(newname, " ", "_")
+	if(!newname || newname == username)
+		return
+	if(OOC_FILTER_CHECK(newname))
+		to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in new username.</span>")
+		return
+	for(var/datum/ntnet_conversation/anychannel as anything in SSnetworks.station_network.chat_channels)
+		if(src in anychannel.active_clients)
+			anychannel.add_status_message("[username] is now known as [newname].")
+	username = newname
+	return TRUE
 
 /datum/computer_file/program/chatclient/process_tick()
 	. = ..()
