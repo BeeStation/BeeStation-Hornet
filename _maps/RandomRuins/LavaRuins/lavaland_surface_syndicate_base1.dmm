@@ -5356,7 +5356,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/item/xenoartifact_labeler,
+/obj/item/xenoarchaeology_labeler,
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/science)
 "Zw" = (
