@@ -95,7 +95,7 @@
 	// sigh, ok, so it's not ACTUALLY infinite nutrition. this is so you can eat clothes more than...once.
 	// bite_consumption limits how much you actually get, and the take_damage in after eat makes sure you can't abuse this.
 	// ...maybe this was a mistake after all.
-	food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
+	food_reagents = list(/datum/reagent/consumable/nutriment/cloth = INFINITY)
 	tastes = list("dust" = 1, "lint" = 1)
 	foodtypes = CLOTH
 
@@ -117,11 +117,18 @@
 		after_eat = CALLBACK(src, PROC_REF(after_eat)))
 
 /obj/item/food/clothing/proc/after_eat(mob/eater)
-	var/obj/item/clothing/resolved_clothing = clothing.resolve()
-	if (resolved_clothing)
+	var/resolved_item = clothing.resolve()
+
+	if(istype(resolved_item, /obj/item/clothing))
+		var/obj/item/clothing/resolved_clothing = resolved_item
 		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
-	else
-		qdel(src)
+		return
+	else if(istype(resolved_item, /obj/item/stack/sheet))
+		var/obj/item/stack/sheet/resolved_stack = resolved_item
+		if(resolved_stack.amount > 1)
+			resolved_stack.amount-- //Each bite removes one from the stack.
+			return
+	qdel(resolved_item)
 
 /obj/item/clothing/attack(mob/attacker, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -166,7 +173,7 @@
 /// Set the clothing's integrity back to 100%, remove all damage to bodyparts, and generally fix it up
 /obj/item/clothing/proc/repair(mob/user, params)
 	update_clothes_damaged_state(CLOTHING_PRISTINE)
-	obj_integrity = max_integrity
+	atom_integrity = max_integrity
 	name = initial(name) // remove "tattered" or "shredded" if there's a prefix
 	body_parts_covered = initial(body_parts_covered)
 	slot_flags = initial(slot_flags)
@@ -231,7 +238,7 @@
 		body_parts_covered &= ~i
 
 	if(body_parts_covered == NONE) // if there are no more parts to break then the whole thing is kaput
-		obj_destruction((damage_type == BRUTE ? "melee" : "laser")) // melee/laser is good enough since this only procs from direct attacks anyway and not from fire/bombs
+		atom_destruction((damage_type == BRUTE ? MELEE : LASER)) // melee/laser is good enough since this only procs from direct attacks anyway and not from fire/bombs
 		return
 
 	switch(zones_disabled)
@@ -390,7 +397,7 @@
 		else if (armor_value < compare_value)
 			. = "<span class='red'>[.]</span>"
 
-/obj/item/clothing/obj_break(damage_flag)
+/obj/item/clothing/atom_break(damage_flag)
 	. = ..()
 	update_clothes_damaged_state(CLOTHING_DAMAGED)
 
@@ -544,7 +551,7 @@ BLIND     // can't see anything
 /obj/item/clothing/proc/_spawn_shreds()
 	new /obj/effect/decal/cleanable/shreds(get_turf(src), name)
 
-/obj/item/clothing/obj_destruction(damage_flag)
+/obj/item/clothing/atom_destruction(damage_flag)
 	if(damage_flag == BOMB)
 		//so the shred survives potential turf change from the explosion.
 		addtimer(CALLBACK(src, PROC_REF(_spawn_shreds)), 1)

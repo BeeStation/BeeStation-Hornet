@@ -151,6 +151,7 @@ Striking a noncultist, however, will tear their flesh."}
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	item_state = "cultrobes"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 40, BLEED = 20)
@@ -205,6 +206,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/sharpener/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
+	icon = 'icons/obj/cult.dmi'
 	icon_state = "cult_sharpener"
 	used = 0
 	increment = 5

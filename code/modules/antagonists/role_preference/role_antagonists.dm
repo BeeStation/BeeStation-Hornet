@@ -177,7 +177,6 @@
 	Kill or exile all heads of staff on the station."
 	antag_datum = /datum/antagonist/rev/head
 	preview_outfit = /datum/outfit/revolutionary
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
 
 /datum/outfit/revolutionary
 	name = "Revolutionary (Preview only)"
@@ -286,19 +285,6 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	head = /obj/item/clothing/head/costume/ushanka
 	mask = null
-
-/datum/role_preference/antagonist/gangster
-	name = "Gangster"
-	description = "Convince people to join your gang, wear your uniform, tag turf for the gang, and accomplish your gang's goals."
-	antag_datum = /datum/antagonist/gang
-	preview_outfit = /datum/outfit/gangster_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/gangster_preview
-	name = "Gangster (Preview only)"
-	head = /obj/item/clothing/head/beanie/black
-	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket/bomber
 
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"

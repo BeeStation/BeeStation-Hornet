@@ -113,10 +113,10 @@
 "p" = (
 /obj/structure/table,
 /obj/item/shovel/spade,
-/obj/item/reagent_containers/glass/bottle/nutrient/rh{
+/obj/item/reagent_containers/cup/bottle/nutrient/rh{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+/obj/item/reagent_containers/cup/bottle/nutrient/ez{
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/syringe,
@@ -130,7 +130,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -142,7 +142,7 @@
 /obj/structure/table,
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)

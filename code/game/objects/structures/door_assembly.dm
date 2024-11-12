@@ -64,7 +64,11 @@
 			return TRUE
 
 		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			var/mineral_path
+			if(mineral == "wood")
+				mineral_path = /obj/item/stack/sheet/wood
+			else
+				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			user.visible_message("[user] welds the [mineral] plating off the airlock assembly.", "You start to weld the [mineral] plating off the airlock assembly...")
 			if(W.use_tool(src, user, 40, volume=50))
 				to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
@@ -229,7 +233,7 @@
 								G.use(1)
 								glass = TRUE
 					if(!mineral)
-						if(istype(G, /obj/item/stack/sheet/mineral) && G.sheettype)
+						if((istype(G, /obj/item/stack/sheet/mineral) || istype(G, /obj/item/stack/sheet/wood)) && G.sheettype)
 							var/M = G.sheettype
 							if(G.get_amount() >= 2)
 								playsound(src, 'sound/items/crowbar.ogg', 100, 1)
@@ -342,7 +346,11 @@
 			else
 				new /obj/item/shard(T)
 		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			var/mineral_path
+			if(mineral == "wood")
+				mineral_path = /obj/item/stack/sheet/wood
+			else
+				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)
 	qdel(src)
 
