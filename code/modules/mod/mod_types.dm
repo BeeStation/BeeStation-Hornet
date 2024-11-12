@@ -54,6 +54,9 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
 	)
+	default_pins = list(
+		/obj/item/mod/module/magboot,
+	)
 
 /obj/item/mod/control/pre_equipped/atmospheric
 	theme = /datum/mod_theme/atmospheric
@@ -77,11 +80,11 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/magboot/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/loader
 	theme = /datum/mod_theme/loader
-	applied_cell = /obj/item/stock_parts/cell/high/plus
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
@@ -105,6 +108,8 @@
 		/obj/item/mod/module/drill,
 	)
 	default_pins = list(
+		/obj/item/mod/module/gps,
+		/obj/item/mod/module/drill,
 		/obj/item/mod/module/sphere_transform,
 	)
 
@@ -140,7 +145,6 @@
 
 /obj/item/mod/control/pre_equipped/security
 	theme = /datum/mod_theme/security
-	applied_cell = /obj/item/stock_parts/cell/high/plus
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/magnetic_harness,
@@ -259,7 +263,6 @@
 /obj/item/mod/control/pre_equipped/prototype
 	theme = /datum/mod_theme/prototype
 	req_access = list(ACCESS_AWAY_GENERAL)
-	applied_cell = /obj/item/stock_parts/cell/high/plus
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
@@ -269,7 +272,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/tether,
-		/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype,
+		/obj/item/mod/module/anomaly_locked/kinesis/prototype,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
@@ -286,11 +289,13 @@
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
 	/// Additional module we add, as a treat.
-	var/additional_module = /obj/item/mod/module
+	var/additional_module
 
 /obj/item/mod/control/pre_equipped/responsory/Initialize(mapload, new_theme, new_skin, new_core)
 	applied_modules.Insert(1, insignia_type)
-	applied_modules.Add(additional_module)
+	if(additional_module)
+		applied_modules += additional_module
+		default_pins += additional_module
 	return ..()
 
 /obj/item/mod/control/pre_equipped/responsory/commander
@@ -418,6 +423,12 @@
 		/obj/item/mod/module/quick_carry/advanced,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
+	)
+	default_pins = list(
+		/obj/item/mod/module/stealth/ninja,
+		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)
 
 //these exist for the prefs menu
