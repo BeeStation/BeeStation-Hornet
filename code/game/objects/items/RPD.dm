@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					if(do_after(user, atmos_build_speed, target = attack_target))
 						activate()
 						var/obj/item/pipe_meter/PM = new /obj/item/pipe_meter(get_turf(attack_target))
-						PM.setAttachLayer(piping_layer)
+						PM.set_attach_layer(piping_layer)
 						if(mode & WRENCH_MODE)
 							PM.wrench_act(user, src)
 				else
