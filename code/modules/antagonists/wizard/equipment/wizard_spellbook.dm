@@ -168,6 +168,7 @@
 		individual_entry_data["cooldown"] = entry.cooldown
 		individual_entry_data["cat"] = entry.category
 		individual_entry_data["refundable"] = entry.refundable
+		individual_entry_data["limit"] = entry.limit
 		individual_entry_data["buyword"] = entry.buy_word
 		entry_data += list(individual_entry_data)
 
@@ -218,7 +219,7 @@
 			return TRUE
 
 		if("purchase_loadout")
-			wizard_loadout(wizard, locate(params["id"]))
+			wizard_loadout(wizard, params["id"])
 			return TRUE
 
 /// Attempts to purchased the passed entry [to_buy] for [user].
@@ -325,5 +326,4 @@
 		if(!purchase_entry(entry, wizard))
 			continue
 		entries_copy -= entry
-
 	refunds_allowed = FALSE
