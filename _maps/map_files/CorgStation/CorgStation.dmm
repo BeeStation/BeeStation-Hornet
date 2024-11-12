@@ -41169,7 +41169,7 @@
 /obj/machinery/button/door/directional/east{
 	id = "gateshutter";
 	req_access_txt = "62";
-	req_access = Gateway Shutter Control
+	name = "Gateway Shutter Control"
 	},
 /turf/open/floor/iron,
 /area/gateway)
