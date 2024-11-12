@@ -113,7 +113,7 @@
 	minor_disabilities_desc = "No disabilities have been diagnosed at the moment.",
 	physical_status = PHYSICAL_ACTIVE,
 	mental_status = MENTAL_STABLE,
-	quirk_notes,
+	quirk_notes = "None",
 	security_note,
 	wanted_status = WANTED_NONE,
 )
@@ -200,16 +200,14 @@
 	blood_type = pick(list("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"))
 	dna_string = "Unknown"
 	gender = "Unknown"
-	major_disabilities = ""
-	major_disabilities_desc = ""
 	medical_notes.Cut()
-	minor_disabilities = ""
-	minor_disabilities_desc = ""
-	physical_status = ""
-	mental_status = ""
-	name = "Unknown"
-	quirk_notes = ""
-	rank = "Unknown"
+	major_disabilities = "None"
+	major_disabilities_desc = "No disabilities have been diagnosed at the moment."
+	minor_disabilities = "None"
+	minor_disabilities_desc = "No disabilities have been diagnosed at the moment."
+	physical_status = PHYSICAL_ACTIVE
+	mental_status = MENTAL_STABLE
+	quirk_notes = "None"
 	species = "Unknown"
 
 	return TRUE

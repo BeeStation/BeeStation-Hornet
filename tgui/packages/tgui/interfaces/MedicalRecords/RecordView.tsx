@@ -53,10 +53,10 @@ export const MedicalRecordView = (props, context) => {
         <Section
           buttons={
             <Button.Confirm
-              content="Delete"
-              icon="trash"
-              onClick={() => act('expunge_record', { record_ref: record_ref })}
-              tooltip="Expunge record data."
+              content="Anonymize"
+              icon="mask"
+              onClick={() => act('anonymize_record', { record_ref: record_ref })}
+              tooltip="Anonymize record data."
             />
           }
           fill
@@ -65,10 +65,10 @@ export const MedicalRecordView = (props, context) => {
           wrap>
           <LabeledList>
             <LabeledList.Item label="Name">
-              <EditableText field="name" target_ref={record_ref} text={name} />
+              <Box>{name}</Box>
             </LabeledList.Item>
             <LabeledList.Item label="Job">
-              <EditableText field="job" target_ref={record_ref} text={rank} />
+              <Box>{rank}</Box>
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <RestrictedInput
