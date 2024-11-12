@@ -211,7 +211,7 @@
 	var/atom/atom_parent = component_parent.parent
 	if(!isturf(atom_parent.loc))
 		atom_parent = atom_parent.loc
-	atom_parent.balloon_alert(user, label_name, component_parent.artifact_type.material_color)
+	atom_parent.balloon_alert(user, label_name, component_parent.artifact_material.material_color)
 	//show_in_chat doesn't work
 	to_chat(user, "<span class='notice'>[component_parent.parent] : [label_name]</span>")
 

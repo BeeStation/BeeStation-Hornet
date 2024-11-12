@@ -29,7 +29,7 @@
 #define COMSIG_XENOA_CALCIFIED "COMSIG_XENOA_CALCIFIED"
 
 ///Signal for SS needing new mainc onsole
-#define COMSIG_XENOA_NEW_CONSOLE "COMSIG_XENOA_NEW_CONSOLE"
+#define COMSIG_XENOA_REQUEST_NEW_CONSOLE "COMSIG_XENOA_REQUEST_NEW_CONSOLE"
 
 ///generic starting cooldown timer for triggers
 #define XENOA_GENERIC_COOLDOWN 5 SECONDS

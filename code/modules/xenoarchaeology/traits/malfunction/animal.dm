@@ -77,7 +77,7 @@
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(component_parent.parent))
 	//Setup appearance for evil twin
 	T.appearance = target.appearance
-	T.color = component_parent.artifact_type.material_color
+	T.color = component_parent.artifact_material.material_color
 	//Handle limit and hardel
 	summons += T
 	RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(handle_death))

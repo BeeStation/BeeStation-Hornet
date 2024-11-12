@@ -15,7 +15,7 @@
 	var/instability = 0
 
 	///What type of artifact are we?
-	var/datum/xenoartifact_material/artifact_type
+	var/datum/xenoartifact_material/artifact_material
 
 	///Cooldown logic for uses
 	var/use_cooldown = XENOA_GENERIC_COOLDOWN
@@ -51,7 +51,7 @@
 	var/calibrated = FALSE
 	var/atom/movable/artifact_particle_holder/calibrated_holder
 
-/datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE, patch_traits = TRUE)
+/datum/component/xenoartifact/Initialize(material_type, list/traits, _do_appearance = TRUE, _do_mask = TRUE, patch_traits = TRUE)
 	. = ..()
 	var/atom/atom_parent = parent
 
@@ -59,9 +59,9 @@
 	atom_parent.AddComponent(/datum/component/discoverable/artifact)
 
 	//Setup our typing
-	artifact_type = type || pick_weight(SSxenoarchaeology.xenoartifact_material_weights)
-	artifact_type = new artifact_type()
-	atom_parent.custom_price = atom_parent.custom_price || artifact_type.custom_price
+	artifact_material = material_type || pick_weight(SSxenoarchaeology.xenoartifact_material_weights)
+	artifact_material = new artifact_material()
+	atom_parent.custom_price = atom_parent.custom_price || artifact_material.custom_price
 
 	//Build appearance from material
 	old_appearance = atom_parent.appearance
@@ -71,8 +71,8 @@
 	build_material_appearance()
 
 	//Populate priotity list
-	for(var/i in SSxenoarchaeology.xenoartifact_trait_category_priorities)
-		artifact_traits[i] = list()
+	for(var/each_category  in SSxenoarchaeology.xenoartifact_trait_category_priorities)
+		artifact_traits[each_category ] = list()
 
 	//If we're force-generating traits
 	if(traits)
@@ -82,22 +82,22 @@
 	//Otherwise, randomly generate our own traits - Additional option to patch traits missing from trait list
 	if(!length(traits) || patch_traits)
 		var/list/focus_traits
-		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_type.trait_activators)
+		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_material.trait_activators)
 			//Generate activators
-			focus_traits = artifact_type.get_activators()
-			build_traits(focus_traits, artifact_type.trait_activators - length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
-		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_type.trait_minors)
+			focus_traits = artifact_material.get_activators()
+			build_traits(focus_traits, artifact_material.trait_activators - length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
+		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_material.trait_minors)
 			//Generate minors
-			focus_traits = artifact_type.get_minors()
-			build_traits(focus_traits, artifact_type.trait_minors - length(artifact_traits[TRAIT_PRIORITY_MINOR]))
-		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_type.trait_majors)
+			focus_traits = artifact_material.get_minors()
+			build_traits(focus_traits, artifact_material.trait_minors - length(artifact_traits[TRAIT_PRIORITY_MINOR]))
+		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_material.trait_majors)
 			//Generate majors
-			focus_traits = artifact_type.get_majors()
-			build_traits(focus_traits, artifact_type.trait_majors - length(artifact_traits[TRAIT_PRIORITY_MAJOR]))
-		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_type.trait_malfunctions)
+			focus_traits = artifact_material.get_majors()
+			build_traits(focus_traits, artifact_material.trait_majors - length(artifact_traits[TRAIT_PRIORITY_MAJOR]))
+		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_material.trait_malfunctions)
 			//Generate malfunctions
-			focus_traits = artifact_type.get_malfunctions()
-			build_traits(focus_traits, artifact_type.trait_malfunctions - length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]))
+			focus_traits = artifact_material.get_malfunctions()
+			build_traits(focus_traits, artifact_material.trait_malfunctions - length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]))
 	//Cooldown
 	trait_cooldown = get_extra_cooldowns()
 	//Description
@@ -179,10 +179,10 @@
 	//Instability rolls
 	if(!prob(instability))
 		if(itterate)
-			instability += artifact_type.instability_step
+			instability += artifact_material.instability_step
 		return
 	//Max malfunction checks, against our material
-	if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_type.max_trait_malfunctions)
+	if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_material.max_trait_malfunctions)
 		return
 	//Hint sound
 	var/atom/atom_parent = parent
@@ -190,7 +190,7 @@
 	atom_parent.visible_message("<span class='warning'>[atom_parent] makes a concerning sound, as if something has gone terribly wrong...</span>")
 	//Build malfunctions
 	var/list/focus_traits
-	focus_traits = artifact_type.get_malfunctions()
+	focus_traits = artifact_material.get_malfunctions()
 	build_traits(focus_traits, 1)
 	//Reset instability
 	instability = 0
@@ -280,7 +280,7 @@
 	//Double check our material restrictions
 	var/list/trait_type = list(/datum/xenoartifact_trait/activator, /datum/xenoartifact_trait/minor, /datum/xenoartifact_trait/major, /datum/xenoartifact_trait/malfunction)
 	for(var/datum/xenoartifact_trait/i in trait_type)
-		if(istype(trait, i) && length(artifact_traits[initial(i.priority)]) >= artifact_type)
+		if(istype(trait, i) && length(artifact_traits[initial(i.priority)]) >= artifact_material)
 			return FALSE
 	//We can either pass paths, or initialized traits
 	if(ispath(trait))
@@ -304,7 +304,7 @@
 /datum/component/xenoartifact/proc/calcify(override_cooldown = TRUE)
 	var/atom/movable/atom_parent = parent
 	//Appearnce
-	artifact_type = new /datum/xenoartifact_material/calcified()
+	artifact_material = new /datum/xenoartifact_material/calcified()
 	var/old_mask = do_mask
 	do_mask = FALSE
 	if(do_texture)
@@ -327,7 +327,7 @@
 	//Effect
 	calibrated_holder = new(atom_parent)
 	var/obj/emitter/spiral/S = calibrated_holder.add_emitter(/obj/emitter/spiral, "calibration", 11)
-	S.setup(artifact_type.material_color)
+	S.setup(artifact_material.material_color)
 	atom_parent.vis_contents += calibrated_holder
 
 //Build the artifact's appearance
@@ -342,36 +342,36 @@
 	if(do_mask)
 		var/old_desc = atom_parent.desc
 		//Build the silhouette of the artifact
-		var/mutable_appearance/MA = artifact_type.get_mask()
+		var/mutable_appearance/MA = artifact_material.get_mask()
 		MA.plane = atom_parent.plane //This is important lol
 		MA.layer = atom_parent.layer
 		atom_parent.appearance = MA
 		//Rset name & desc
-		atom_parent.name = "[artifact_type.name] [old_name]"
+		atom_parent.name = "[artifact_material.name] [old_name]"
 		atom_parent.desc = old_desc //Appearance resets this shit
 	if(do_texture)
 		//Overlay the material texture
-		var/icon/I = artifact_type.get_texture()
+		var/icon/I = artifact_material.get_texture()
 		atom_parent.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
 		//Throw on some outlines
 		//TODO: Check if this fix is still needed in 515 - Racc from 514 : PLAYTEST
 		atom_parent.add_filter("outline_fix", 2, outline_filter(0)) //This fixes a weird byond thing. BLEND_INSET_OVERLAY will encrouch on outline 1 if we dont do this
 		atom_parent.add_filter("outline_1", 3, outline_filter(1, "#000", flags = OUTLINE_SHARP))
-		atom_parent.add_filter("outline_2", 4, outline_filter(1, artifact_type.material_color, flags = OUTLINE_SHARP))
+		atom_parent.add_filter("outline_2", 4, outline_filter(1, artifact_material.material_color, flags = OUTLINE_SHARP))
 
 ///Create a hint beam from the artifact to the target
 /datum/component/xenoartifact/proc/create_beam(atom/movable/target)
 	if(!get_turf(target) || locate(parent) in target.contents)
 		return
 	var/atom/atom_parent = parent
-	var/datum/beam/xenoa_beam/B = new((!isturf(atom_parent.loc) ? atom_parent.loc : atom_parent), (!isturf(target.loc) ? target.loc : target), time=1.5 SECONDS, beam_color = artifact_type.material_color, icon='icons/obj/xenoarchaeology/xenoartifact.dmi', icon_state="xenoa_beam", beam_type=/obj/effect/ebeam/xenoa_ebeam)
+	var/datum/beam/xenoa_beam/B = new((!isturf(atom_parent.loc) ? atom_parent.loc : atom_parent), (!isturf(target.loc) ? target.loc : target), time=1.5 SECONDS, beam_color = artifact_material.material_color, icon='icons/obj/xenoarchaeology/xenoartifact.dmi', icon_state="xenoa_beam", beam_type=/obj/effect/ebeam/xenoa_ebeam)
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 
-/datum/component/xenoartifact/proc/anti_check(atom/target, type = XENOA_ACTIVATION_CONTACT)
+/datum/component/xenoartifact/proc/anti_check(atom/target, activation_type = XENOA_ACTIVATION_CONTACT)
 	var/mob/M = target
 	var/slot = ~ITEM_SLOT_GLOVES
 	//Throw you custom clothing block logic here
-	switch(type)
+	switch(activation_type)
 		if(XENOA_ACTIVATION_TOUCH)
 			slot = ITEM_SLOT_GLOVES
 	if(isliving(M) && M.anti_artifact_check(FALSE, slot))

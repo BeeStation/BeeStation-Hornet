@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	var/list/xenoa_structure_incompatible = list()
 
 	///Labeler trait lists, basically just names
-	var/datum/xenoa_material_traits/stats/labeler_traits
+	var/datum/xenoa_material_info_holder/stats/labeler_traits
 	///Other labeler shit
 	var/list/labeler_tooltip_stats = list()
 	var/list/labeler_traits_filter = list()
@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	for(var/datum/xenoartifact_material/material_index as anything in typesof(/datum/xenoartifact_material))
 		if(SSxenoarchaeology.material_traits[initial(material_index.material_parent)])
 			continue
-		var/datum/xenoa_material_traits/material = new()
+		var/datum/xenoa_material_info_holder/material = new()
 		material_traits[material_index] = material
 		//Populate datum fields
 		material.compile_artifact_whitelist(material_index)
@@ -128,7 +128,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	SIGNAL_HANDLER
 
 	main_console = null
-	SEND_SIGNAL(src, COMSIG_XENOA_NEW_CONSOLE)
+	SEND_SIGNAL(src, COMSIG_XENOA_REQUEST_NEW_CONSOLE)
 
 ///Get a trait incompatability list based on the passed type
 /datum/controller/subsystem/xenoarchaeology/proc/get_trait_incompatibilities(atom/type)
@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	Thanks, EvilDragon
 */
 
-/datum/xenoa_material_traits
+/datum/xenoa_material_info_holder
 	///List of traits per category
 	var/list/activators = list()
 	var/list/minors = list()
@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	var/compiled = FALSE
 
 ///Populate our trait lists from a given material path
-/datum/xenoa_material_traits/proc/compile_artifact_whitelist(datum/xenoartifact_material/material)
+/datum/xenoa_material_info_holder/proc/compile_artifact_whitelist(datum/xenoartifact_material/material)
 	for(var/datum/xenoartifact_trait/trait as anything in SSxenoarchaeology.xenoa_all_traits)
 		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
 			continue
@@ -181,9 +181,9 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	compiled = TRUE
 
 //Variant for stats, labeler baking
-/datum/xenoa_material_traits/stats
+/datum/xenoa_material_info_holder/stats
 
-/datum/xenoa_material_traits/stats/compile_artifact_whitelist(datum/xenoartifact_material/material)
+/datum/xenoa_material_info_holder/stats/compile_artifact_whitelist(datum/xenoartifact_material/material)
 	for(var/datum/xenoartifact_trait/trait as anything in SSxenoarchaeology.xenoa_all_traits)
 		if(initial(trait.flags) & XENOA_HIDE_TRAIT)
 			continue

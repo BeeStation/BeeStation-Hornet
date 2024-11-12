@@ -9,13 +9,13 @@
 	desc = "A strange alien artifact. What could it possibly do?"
 	throw_range = 3
 	///What type of artifact
-	var/datum/xenoartifact_material/artifact_type
+	var/datum/xenoartifact_material/artifact_material
 	///Cover some special interactions we fuck up
 	var/transfer_prints = TRUE
 
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
-	artifact_type = _artifact_type || artifact_type
+	artifact_material = _artifact_type || artifact_material
 	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, GENERIC_ITEM_TRAIT)
 
 /obj/item/xenoartifact/ComponentInitialize()
@@ -24,7 +24,7 @@
 
 ///Proc to add your artifact stuff, here so we can override it
 /obj/item/xenoartifact/proc/add_artifact_component()
-	AddComponent(/datum/component/xenoartifact, artifact_type)
+	AddComponent(/datum/component/xenoartifact, artifact_material)
 
 /*
 	Maint variant
@@ -32,7 +32,7 @@
 	Lets crew discover / play with artifacts without blowing shit up
 */
 /obj/item/xenoartifact/maint/ComponentInitialize()
-	artifact_type = prob(90) ? /datum/xenoartifact_material/bluespace : null
+	artifact_material = prob(90) ? /datum/xenoartifact_material/bluespace : null
 	return ..()
 
 /*

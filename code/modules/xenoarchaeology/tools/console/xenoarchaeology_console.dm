@@ -42,7 +42,7 @@
 	//Link up with SS to see if we're the choosen one
 	if(!SSxenoarchaeology.main_console)
 		SSxenoarchaeology.register_console(src)
-	RegisterSignal(SSxenoarchaeology, COMSIG_XENOA_NEW_CONSOLE, PROC_REF(be_the_guy))
+	RegisterSignal(SSxenoarchaeology, COMSIG_XENOA_REQUEST_NEW_CONSOLE, PROC_REF(be_the_guy))
 	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
@@ -218,9 +218,9 @@
 	var/bonus_rate = max(1, 2*(bonus/max(max_score, 1)))
 	//Rewards
 		//Research Points
-	var/rnd_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_type.rnd_rate)*success_rate) * bonus_rate, 1)
+	var/rnd_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_material.rnd_rate)*success_rate) * bonus_rate, 1)
 		//Discovery Points
-	var/dp_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_type.dp_rate)*success_rate) * bonus_rate, 1)
+	var/dp_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_material.dp_rate)*success_rate) * bonus_rate, 1)
 		//Money
 	var/monetary_reward = round(FLOOR(((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1), 1)
 	//Alloctae
