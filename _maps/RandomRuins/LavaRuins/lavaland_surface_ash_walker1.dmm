@@ -18,11 +18,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"aX" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mob_spawn/human/corpse/damaged,
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "bs" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -347,9 +342,13 @@
 	pixel_y = 17;
 	pixel_x = -1
 	},
-/obj/item/reagent_containers/cup/glass/waterbottle/random{
-	pixel_y = 8;
-	pixel_x = -10
+/obj/item/reagent_containers/cup/bottle{
+	pixel_y = 13;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/relic{
+	pixel_y = 4;
+	pixel_x = -11
 	},
 /obj/item/reagent_containers/cup/glass/waterbottle/relic{
 	pixel_x = -8;
@@ -811,6 +810,8 @@
 /obj/item/reagent_containers/cup/bottle,
 /obj/item/reagent_containers/cup/bottle/frostoil,
 /obj/item/reagent_containers/cup/bottle/iron,
+/obj/item/reagent_containers/syringe/crude,
+/obj/item/gun/syringe/blowgun,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Hu" = (
@@ -956,14 +957,6 @@
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"Nl" = (
-/obj/effect/mob_spawn/human/corpse/damaged,
-/obj/effect/decal/cleanable/blood,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "Np" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
@@ -1040,7 +1033,6 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Rh" = (
@@ -1218,6 +1210,10 @@
 /obj/structure/table/wood,
 /obj/item/spear/bonespear,
 /obj/item/clothing/head/helmet/chaplain/ancient,
+/obj/item/toy/plush/lizard_plushie{
+	name = "Sharpens-the-Spears";
+	pixel_x = 5
+	},
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "XG" = (
@@ -1473,7 +1469,7 @@ cK
 Rh
 QB
 yl
-Nl
+at
 EG
 Uo
 nt
@@ -1641,7 +1637,7 @@ ZS
 yl
 yl
 cR
-aX
+cK
 Ul
 Bw
 Zs
