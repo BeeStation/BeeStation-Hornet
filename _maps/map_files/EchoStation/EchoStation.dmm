@@ -228,8 +228,15 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "aeZ" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "afw" = (
@@ -1040,6 +1047,9 @@
 /obj/machinery/airlock_sensor/incinerator_toxmix{
 	pixel_x = -24
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "aul" = (
@@ -1448,9 +1458,6 @@
 "aFj" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "aFp" = (
@@ -3933,6 +3940,9 @@
 	id = "EmergancyescapeShutter";
 	name = "Emergancy Escape Shutters";
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
