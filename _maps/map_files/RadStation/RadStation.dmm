@@ -9369,6 +9369,13 @@
 	},
 /turf/open/floor/carpet,
 /area/crew_quarters/cafeteria)
+"cYu" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
+/area/engine/atmos)
 "cYB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -15843,13 +15850,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
-"eXL" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/engine/atmos)
 "eXP" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -53253,7 +53253,6 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -61211,7 +61210,7 @@
 /area/security/execution/education)
 "twC" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,
@@ -114858,8 +114857,8 @@ jnE
 kvU
 dbF
 ifh
-eXL
 twC
+cYu
 qYZ
 vRh
 keM
