@@ -205,11 +205,13 @@
 	if(!connected_pump)
 		return
 	connected_pump.set_on(TRUE)
+	connected_pump.update_icon()
 
 /obj/item/circuit_component/atmos_pump/proc/set_pump_off()
 	if(!connected_pump)
 		return
 	connected_pump.set_on(FALSE)
+	connected_pump.update_icon()
 
 /obj/item/circuit_component/atmos_pump/proc/request_pump_data()
 	if(!connected_pump)

@@ -175,6 +175,14 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/nap_violation(mob/violator)
 	open_machine()
 
+/obj/machinery/atmospherics/components/unary/cryo_cell/set_on(active)
+	if(on == active)
+		return
+	SEND_SIGNAL(src, COMSIG_CRYO_SET_ON, active)
+	. = on
+	on = active
+	update_appearance()
+
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
 	if(!on)
 		return
@@ -437,7 +445,7 @@
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(user)) && !state_open && occupant != user)
-		on = !on
+		set_on(!on)
 		update_icon()
 	return ..()
 
