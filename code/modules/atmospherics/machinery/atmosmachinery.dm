@@ -88,6 +88,11 @@
 		SSair.start_processing_machine(src)
 	set_init_directions()
 
+/obj/machinery/atmospherics/Initialize(mapload)
+	if(mapload && name != initial(name))
+		override_naming = TRUE
+	return ..()
+
 /obj/machinery/atmospherics/Destroy()
 	for(var/i in 1 to device_type)
 		nullify_node(i)
@@ -490,7 +495,13 @@
 	SSair.add_to_rebuild_queue(src)
 
 /obj/machinery/atmospherics/update_name()
-	name = "[GLOB.pipe_color_name[pipe_color]] [initial(name)]"
+	if(!override_naming)
+		name = "[GLOB.pipe_color_name[pipe_color]] [initial(name)]"
+	return ..()
+
+/obj/machinery/atmospherics/vv_edit_var(vname, vval)
+	if(vname == NAMEOF(src, name))
+		override_naming = TRUE
 	return ..()
 
 /obj/machinery/atmospherics/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
