@@ -36,7 +36,7 @@
 					active_hotspot.volume = exposed_volume
 		return
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (tox > 0.5 || trit > 0.5 ))
+	if((exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST) && (tox > 0.5 || trit > 0.5 ))
 
 		active_hotspot = new /obj/effect/hotspot(src, exposed_volume*25, exposed_temperature)
 
