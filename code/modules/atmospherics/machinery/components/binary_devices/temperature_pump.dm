@@ -49,7 +49,7 @@
 
 	if(coolant_temperature_delta > 0)
 		var/input_capacity = remove_input.heat_capacity()
-		var/output_capacity = air_output.heat_capacity()
+		var/output_capacity = remove_output.heat_capacity()
 
 		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * CALCULATE_CONDUCTION_ENERGY(coolant_temperature_delta, output_capacity, input_capacity)
 		remove_output.temperature = (max(remove_output.return_temperature() + (cooling_heat_amount / output_capacity), TCMB))
