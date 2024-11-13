@@ -219,6 +219,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AirAlarm", name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/airalarm/ui_static_data(mob/user)

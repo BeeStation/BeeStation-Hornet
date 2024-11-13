@@ -114,6 +114,11 @@
 	else
 		. += "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>"
 
+
+/obj/machinery/door/firedoor/update_name(updates)
+	. = ..()
+	name = "[get_area_name(my_area)] [initial(name)] [id_tag]"
+
 /**
  * Calculates what areas we should worry about.
  *

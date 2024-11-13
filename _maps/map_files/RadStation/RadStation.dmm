@@ -15843,6 +15843,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"eXL" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
+/area/engine/atmos)
 "eXP" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -58217,13 +58224,6 @@
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/iron/dark,
 /area/chapel/main)
-"sAM" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/engine/atmos)
 "sBb" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -61211,7 +61211,7 @@
 /area/security/execution/education)
 "twC" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/layer_manifold/supply{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,
@@ -114858,7 +114858,7 @@ jnE
 kvU
 dbF
 ifh
-sAM
+eXL
 twC
 qYZ
 vRh
