@@ -11,7 +11,7 @@ RPD
 #define BUILD_MODE (1<<0)
 #define WRENCH_MODE (1<<1)
 #define DESTROY_MODE (1<<2)
-
+#define REPROGRAM_MODE (1<<3)
 
 GLOBAL_LIST_INIT(atmos_pipe_recipes, list(
 	"Pipes" = list(
@@ -215,26 +215,44 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	custom_materials = list(/datum/material/iron=75000, /datum/material/glass=37500)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
+	///Sparks system used when changing device in the UI
 	var/datum/effect_system/spark_spread/spark_system
-	var/working = 0
+	///Direction of the device we are going to spawn, set up in the UI
 	var/p_dir = NORTH
+	///Initial direction of the smart pipe we are going to spawn, set up in the UI
+	var/p_init_dir = ALL_CARDINALS
+	///Is the device of the flipped type?
 	var/p_flipped = FALSE
+	///Color of the device we are going to spawn
 	var/paint_color = "grey"
+	///Speed of building atmos devices
 	var/atmos_build_speed = 5 //deciseconds (500ms)
+	///Speed of building disposal devices
 	var/disposal_build_speed = 5
+	///Speed of building transit devices
 	var/transit_build_speed = 5
+	///Speed of building plumbing devices
 	var/plumbing_build_speed = 5
-	var/destroy_speed = 5
-	var/paint_speed = 5
+	///Speed of reprogramming connectable directions of smart pipes
+	var/reprogram_speed = 0.5 SECONDS
+	///Category currently active (Atmos, disposal, transit)
 	var/category = ATMOS_CATEGORY
+	///All pipe layers we are going to spawn the atmos devices in
 	var/piping_layer = PIPING_LAYER_DEFAULT
+	///Layer for disposal ducts
 	var/ducting_layer = DUCT_LAYER_DEFAULT
+	///Stores the current device to spawn
 	var/datum/pipe_info/recipe
+	///Stores the first atmos device
 	var/static/datum/pipe_info/first_atmos
+	///Stores the first disposal device
 	var/static/datum/pipe_info/first_disposal
+	///Stores the first transit device
 	var/static/datum/pipe_info/first_transit
+	///Stores the first plumbing device
 	var/static/datum/pipe_info/first_plumbing
-	var/mode = BUILD_MODE | DESTROY_MODE | WRENCH_MODE
+	///The modes that are allowed for the RPD
+	var/mode = BUILD_MODE | DESTROY_MODE | WRENCH_MODE | REPROGRAM_MODE
 	/// Bitflags for upgrades
 	var/upgrade_flags
 	var/locked = FALSE //wheter we can change categories. Useful for the plumber
@@ -382,9 +400,11 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 	return data
 
-/obj/item/pipe_dispenser/ui_act(action, params)
-	if(..())
+/obj/item/pipe_dispenser/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
+
 	var/playeffect = TRUE
 	switch(action)
 		if("color")
@@ -425,15 +445,23 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 			playeffect = FALSE
 			. = TRUE
 		if("mode")
-			var/n = text2num(params["mode"])
+			var/selected_mode = text2num(params["mode"])
+			mode ^= selected_mode
 			. = TRUE
-			if(mode & n)
-				mode &= ~n
+		if("init_dir_setting")
+			var/target_dir = p_init_dir ^ text2dir(params["dir_flag"])
+			// Refuse to create a smart pipe that can only connect in one direction (it would act weirdly and lack an icon)
+			if (ISNOTSTUB(target_dir))
+				p_init_dir = target_dir
 			else
-				mode |= n
+				to_chat(usr, "<span class='warning'>\The [src]'s screen flashes a warning: Can't configure a pipe to only connect in one direction.</span>")
+				playeffect = FALSE
+		if("init_reset")
+			p_init_dir = ALL_CARDINALS
 	if(playeffect && .)
 		spark_system.start()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
+	return TRUE
 
 /obj/item/pipe_dispenser/attack_atom(obj/O, mob/living/user)
 	// don't attempt to attack what we don't want to attack
@@ -476,12 +504,46 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	. = TRUE
 
 	if((mode & DESTROY_MODE) && is_type_in_typecache(A, rpd_targets))
-		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, destroy_speed, target = attack_target))
-			activate()
-			qdel(attack_target)
+		activate()
+		qdel(attack_target)
 		return
+
+	if(mode & REPROGRAM_MODE)
+		var/obj/machinery/atmospherics/pipe/smart/S = attack_target
+		if(istype(S))
+			if (S.dir == ALL_CARDINALS)
+				to_chat(user, "<span class = 'warning'>\The [S] has no unconnected directions!</span>")
+				return
+			var/target_init_dir = S.get_init_directions()
+			if (target_init_dir == p_init_dir)
+				to_chat(user, "<span class = 'warning'>\The [S] is already in this configuration!</span>")
+				return
+			// Check for differences in unconnected directions
+			var/target_differences = (p_init_dir ^ target_init_dir) & ~S.connections
+			if (target_differences)
+				to_chat(user, "<span class = 'notice'>You start reprogramming \the [S]...</span>")
+				playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
+				if(do_after(user, reprogram_speed, target = S))
+					// Double check to make sure that nothing has changed. If anything we were about to change is now connected, abort
+					if (target_differences & S.connections)
+						to_chat(user, "<span class = 'warning'>\The [src]'s screen flashes a warning: Can't configure a pipe in a currently connected direction.</span>")
+						return
+					var/new_dir = (S.get_init_directions() & ~target_differences) | target_differences
+					// Don't make a smart pipe with only one connection
+					if (ISSTUB(new_dir))
+						to_chat(user, "<span class = 'warning'>\The [src]'s screen flashes a warning: Can't configure a pipe to only connect in one direction.</span>")
+						return
+					S.set_init_directions(new_dir)
+					S.update_pipe_icon()
+					user.visible_message("<span class = 'notice'>[user] reprograms the \the [S].</span>","<span class = 'notice'>You reprogram \the [S].</span>")
+				return
+			to_chat(user, "<span class = 'warning'>\The [S] is already in this configuration for its unconnected directions!</span>")
+			return
+		var/obj/item/pipe/quaternary/I = attack_target
+		if(istype(I) && ispath(I.pipe_type, /obj/machinery/atmospherics/pipe/smart))
+			I.p_init_dir = p_init_dir
+			I.update()
 
 	if(mode & BUILD_MODE)
 		switch(category) //if we've gotten this var, the target is valid
@@ -653,6 +715,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 #undef BUILD_MODE
 #undef DESTROY_MODE
 #undef WRENCH_MODE
+#undef REPROGRAM_MODE
 
 /obj/item/rpd_upgrade
 	name = "RPD advanced design disk"
