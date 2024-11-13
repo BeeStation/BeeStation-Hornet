@@ -288,29 +288,6 @@
 		return FALSE
 
 	return TRUE
-/**
- * check if the piping layer are the same on both sides or one of them has the PIPING_ALL_LAYER flag
- * returns TRUE if one of the parameters is TRUE
- * called by isConnectable()
- * Arguments:
- * * obj/machinery/atmospherics/target - the machinery we want to connect to
- * * given_layer - the piping_layer we are connecting to
- */
-/obj/machinery/atmospherics/proc/check_connectable_layer(obj/machinery/atmospherics/target, given_layer)
-	if(target.piping_layer == given_layer || (target.pipe_flags | pipe_flags) & PIPING_ALL_LAYER)
-		return TRUE
-	return FALSE
-
-/**
- * check if the color are the same on both sides or if one of the pipes are grey or have the PIPING_ALL_COLORS flag
- * returns TRUE if one of the parameters is TRUE
- * Arguments:
- * * obj/machinery/atmospherics/target - the machinery we want to connect to
- */
-/obj/machinery/atmospherics/proc/check_connectable_color(obj/machinery/atmospherics/target)
-	if(lowertext(target.pipe_color) == lowertext(pipe_color) || ((target.pipe_flags | pipe_flags) & PIPING_ALL_COLORS) || lowertext(target.pipe_color) == lowertext(COLOR_VERY_LIGHT_GRAY) || lowertext(pipe_color == COLOR_VERY_LIGHT_GRAY))
-		return TRUE
-	return FALSE
 
 /**
  * Called on construction and when expanding the datum_pipeline, returns the nodes of the device
