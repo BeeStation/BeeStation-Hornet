@@ -2546,8 +2546,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "gd" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
-	dir = 8;
-	id = "n2_in_bunker"
+	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
@@ -2828,8 +2827,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "gP" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
-	dir = 8;
-	id = "o2_in_bunker"
+	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)

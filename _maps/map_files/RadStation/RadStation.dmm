@@ -261,7 +261,7 @@
 "acy" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "acA" = (
@@ -1839,7 +1839,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "aBo" = (
@@ -7357,8 +7357,10 @@
 /turf/open/floor/iron/dark,
 /area/science/misc_lab/range)
 "cpb" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "cpx" = (
@@ -10745,7 +10747,10 @@
 "dwf" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/components/unary/thermomachine/heater,
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
+	dir = 4;
+	initialize_directions = 4
+	},
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "dwo" = (
@@ -14087,7 +14092,7 @@
 "exx" = (
 /obj/machinery/meter,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "exY" = (
@@ -14465,7 +14470,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "eDH" = (
@@ -21157,7 +21162,7 @@
 /obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "gGO" = (
@@ -52722,7 +52727,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "qMG" = (
@@ -57669,10 +57674,9 @@
 /area/engine/engineering)
 "spg" = (
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/atmospherics/pipe/bridge_pipe/dark/visible{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "spv" = (
@@ -74784,7 +74788,7 @@
 /turf/open/floor/iron,
 /area/science/lobby)
 "xXT" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "xXY" = (
@@ -75247,7 +75251,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "yhq" = (

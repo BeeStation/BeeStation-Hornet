@@ -28,7 +28,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/outlet_inject
 	if(istype(buffer, /obj/machinery/air_sensor))
 		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
 		var/obj/machinery/air_sensor/sensor = buffer
-		sensor.multitool_act(usr, buffer_parent)
+		sensor.inlet_id = id_tag
+		balloon_alert(user, "input linked to sensor")
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else

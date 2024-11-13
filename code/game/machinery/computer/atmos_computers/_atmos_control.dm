@@ -14,6 +14,9 @@
 	/// Assoc of list[chamber_id] = readable_chamber_name
 	var/list/atmos_chambers
 
+	/// Used when control = FALSE to store the original atmos chambers so they dont get lost when reconnecting
+	var/list/always_displayed_chambers
+
 	/// Whether we can actually adjust the chambers or not.
 	var/control = TRUE
 	/// Whether we are allowed to reconnect.
@@ -29,6 +32,17 @@
 	. = ..()
 	AddComponent(/datum/component/buffer)
 
+	//all newly constructed/round start computers by default have access to this list
+	connected_sensors = GLOB.map_loaded_sensors
+
+	//special case for the station monitering console. We dont want to loose these chambers during reconnecting
+	if(!control && !isnull(atmos_chambers))
+		always_displayed_chambers = atmos_chambers.Copy()
+
+/obj/machinery/computer/atmos_control/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use a multitool to link a air sensor to this computer</span>"
+
 /// Reconnect only works for station based chambers.
 /obj/machinery/computer/atmos_control/proc/reconnect(mob/user)
 	if(!reconnecting)
@@ -37,25 +51,38 @@
 	// We only prompt the user with the sensors that are actually available.
 	var/available_devices = list()
 
-	for (var/chamber_identifier in GLOB.station_gas_chambers)
-		if (!("[chamber_identifier]_in" in GLOB.objects_by_id_tag) && !("[chamber_identifier]_out" in GLOB.objects_by_id_tag))
+	for (var/chamber_identifier in connected_sensors)
+		//this sensor was destroyed at the time of reconnecting
+		var/obj/machinery/sensor = GLOB.objects_by_id_tag[connected_sensors[chamber_identifier]]
+		if(QDELETED(sensor))
+			continue
+
+		//non master computers don't have access to these station moniters. Only done to give master computer's special access to these chambers and make them feel special or something
+		if(chamber_identifier == ATMOS_GAS_MONITOR_DISTRO)
+			continue
+		if(chamber_identifier == ATMOS_GAS_MONITOR_WASTE)
 			continue
 
 		available_devices[GLOB.station_gas_chambers[chamber_identifier]] = chamber_identifier
 
 	// As long as we dont put any funny chars in the strings it should match.
 	var/new_name = tgui_input_list(user, "Select the device set", "Reconnect", available_devices)
+	if(isnull(new_name))
+		return FALSE
 	var/new_id = available_devices[new_name]
 	if(isnull(new_id))
 		return FALSE
 
 	atmos_chambers = list()
+	//these are chambers we always want to display even after reconnecting
+	if(always_displayed_chambers)
+		for(var/chamber_id in always_displayed_chambers)
+			atmos_chambers[chamber_id] = always_displayed_chambers[chamber_id]
 	atmos_chambers[new_id] = new_name
+
 	name = new_name + (control ? " Control" : " Monitor")
 
 	return TRUE
-
-
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 
@@ -63,11 +90,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 	if (istype(buffer,/obj/machinery/air_sensor))
 		var/obj/machinery/air_sensor/sensor = buffer
 		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
-		connected_sensors = connected_sensors.Copy()
-		was_multi_tooled = TRUE
+		if(!was_multi_tooled)
+			connected_sensors = connected_sensors.Copy()
+			was_multi_tooled = TRUE
 		//register the sensor's unique ID with its assositated chamber
 		connected_sensors[sensor.chamber_id] = sensor.id_tag
-		ui_update()
+		user.balloon_alert(user, "sensor connected to [src]")
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
@@ -75,7 +103,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 /obj/machinery/computer/atmos_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AtmosControlConsole")
+		ui = new(user, src, "AtmosControlConsole", name)
 		ui.open()
 		ui.set_autoupdate(TRUE) // Gas sensors
 
@@ -96,20 +124,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 		chamber_info["id"] = chamber_id
 		chamber_info["name"] = atmos_chambers[chamber_id]
 
-		var/obj/machinery/sensor = GLOB.objects_by_id_tag["[chamber_id]_sensor"]
+		var/obj/machinery/sensor = GLOB.objects_by_id_tag[connected_sensors[chamber_id]]
 		if(!QDELETED(sensor))
 			chamber_info["gasmix"] = gas_mixture_parser(sensor.return_air())
 
 		if(istype(sensor, /obj/machinery/air_sensor)) //distro & waste loop are not air sensors and don't have these functions
+			var/obj/machinery/air_sensor/air_sensor = sensor
 
-			var/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/input = GLOB.objects_by_id_tag["[chamber_id]_in"]
+			var/obj/machinery/atmospherics/components/unary/outlet_injector/input = GLOB.objects_by_id_tag[air_sensor.inlet_id || ""]
 			if (!QDELETED(input))
 				chamber_info["input_info"] = list(
 					"active" = input.on,
 					"amount" = input.volume_rate,
 				)
 
-			var/obj/machinery/atmospherics/components/unary/vent_pump/output = GLOB.objects_by_id_tag["[chamber_id]_out"]
+			var/obj/machinery/atmospherics/components/unary/vent_pump/output = GLOB.objects_by_id_tag[air_sensor.outlet_id || ""]
 			if (!QDELETED(output))
 				chamber_info["output_info"] = list(
 					"active" = output.on,
@@ -118,6 +147,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 
 		data["chambers"] += list(chamber_info)
 	return data
+
 /obj/machinery/computer/atmos_control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(. || !(control || reconnecting))
@@ -130,33 +160,66 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 			if (!(chamber in atmos_chambers))
 				return TRUE
 
-			var/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/input = GLOB.objects_by_id_tag["[chamber]_in"]
-			input?.on = !input.on
+			var/obj/machinery/air_sensor/sensor = GLOB.objects_by_id_tag[connected_sensors[chamber]]
+			if(QDELETED(sensor))
+				return TRUE
+
+			var/obj/machinery/atmospherics/components/unary/outlet_injector/input = GLOB.objects_by_id_tag[sensor.inlet_id || ""]
+			if(QDELETED(input))
+				return TRUE
+
+			input.on = !input.on
 			input.update_icon()
 		if("toggle_output")
 			if (!(chamber in atmos_chambers))
 				return TRUE
 
-			var/obj/machinery/atmospherics/components/unary/vent_pump/output = GLOB.objects_by_id_tag["[chamber]_out"]
-			output?.on = !output.on
+			var/obj/machinery/air_sensor/sensor = GLOB.objects_by_id_tag[connected_sensors[chamber]]
+			if(QDELETED(sensor))
+				return TRUE
+
+			var/obj/machinery/atmospherics/components/unary/vent_pump/output = GLOB.objects_by_id_tag[sensor.outlet_id || ""]
+			if(QDELETED(output))
+				return TRUE
+
+			output.on = !output.on
 			output.update_icon()
 		if("adjust_input")
 			if (!(chamber in atmos_chambers))
+				return TRUE
+
+			var/obj/machinery/air_sensor/sensor = GLOB.objects_by_id_tag[connected_sensors[chamber]]
+			if(QDELETED(sensor))
+				return TRUE
+
+			var/obj/machinery/atmospherics/components/unary/outlet_injector/input = GLOB.objects_by_id_tag[sensor.inlet_id || ""]
+			if(QDELETED(input))
 				return TRUE
 
 			var/target = text2num(params["rate"])
 			if(isnull(target))
 				return TRUE
 			target = clamp(target, 0, MAX_TRANSFER_RATE)
-			var/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/input = GLOB.objects_by_id_tag["[chamber]_in"]
-			input?.volume_rate = clamp(target, 0, min(input.airs[1].volume, MAX_TRANSFER_RATE))
+
+			input.volume_rate = clamp(target, 0, min(input.airs[1].volume, MAX_TRANSFER_RATE))
 		if("adjust_output")
+			if (!(chamber in atmos_chambers))
+				return TRUE
+
+			var/obj/machinery/air_sensor/sensor = GLOB.objects_by_id_tag[connected_sensors[chamber]]
+			if(QDELETED(sensor))
+				return TRUE
+
+			var/obj/machinery/atmospherics/components/unary/vent_pump/output = GLOB.objects_by_id_tag[sensor.outlet_id || ""]
+			if(QDELETED(output))
+				return TRUE
+
 			var/target = text2num(params["rate"])
 			if(isnull(target))
 				return TRUE
+			target = clamp(target, 0, ATMOS_PUMP_MAX_PRESSURE)
 
-			var/obj/machinery/atmospherics/components/unary/vent_pump/output = GLOB.objects_by_id_tag["[chamber]_out"]
-			output?.internal_pressure_bound = clamp(target, 0, ATMOS_PUMP_MAX_PRESSURE)
+			output.internal_pressure_bound = target
 		if("reconnect")
 			reconnect(usr)
 

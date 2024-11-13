@@ -5,7 +5,7 @@
 	var/chamber_id
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/Initialize(mapload)
-	id_tag = chamber_id + "_in"
+	id_tag = CHAMBER_INPUT_FROM_ID(chamber_id)
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2

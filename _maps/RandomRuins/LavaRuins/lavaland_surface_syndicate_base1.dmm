@@ -1483,8 +1483,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "oB" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
-	dir = 1;
-	id = "syndie_lavaland_inc_in"
+	dir = 1
 	},
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32

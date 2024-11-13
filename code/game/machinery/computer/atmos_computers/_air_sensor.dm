@@ -37,6 +37,7 @@
 	if(!on)
 		return
 	. = ..()
+	use_power = active_power_usage
 
 /obj/machinery/air_sensor/process()
 	//update appearance according to power state
@@ -87,8 +88,25 @@
 REGISTER_BUFFER_HANDLER(/obj/machinery/air_sensor)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
-	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+	if(istype(buffer, /obj/machinery/atmospherics/components/unary/outlet_injector))
+		var/obj/machinery/atmospherics/components/unary/outlet_injector/input = buffer
+		inlet_id = input.id_tag
+		FLUSH_BUFFER(buffer)
+		balloon_alert(user, "connected to input")
+	else if(istype(buffer, /obj/machinery/atmospherics/components/unary/vent_pump))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/output = buffer
+		output.disconnect_from_area()
+		output.pump_direction = ATMOS_DIRECTION_SIPHONING
+		output.pressure_checks = ATMOS_INTERNAL_BOUND
+		output.internal_pressure_bound = 4000
+		output.external_pressure_bound = 0
+		//finally assign it to this sensor
+		outlet_id = output.id_tag
+		FLUSH_BUFFER(buffer)
+		balloon_alert(user, "connected to output")
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
+		balloon_alert(user, "added to multitool buffer")
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 

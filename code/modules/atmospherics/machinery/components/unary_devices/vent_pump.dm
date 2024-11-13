@@ -116,6 +116,20 @@
 	else // pump_direction == SIPHONING
 		icon_state = "vent_in"
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
+	if(istype(buffer, /obj/machinery/air_sensor))
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		var/obj/machinery/air_sensor/sensor = buffer
+		sensor.outlet_id = id_tag
+		balloon_alert(user, "output linked to sensor")
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	else
+		return NONE
+	return COMPONENT_BUFFER_RECEIVED
+
 /obj/machinery/atmospherics/components/unary/vent_pump/process_atmos()
 	..()
 	if(!is_operational || !isopenturf(loc))
