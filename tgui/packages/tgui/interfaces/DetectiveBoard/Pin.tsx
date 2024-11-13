@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useBackend, useLocalState } from '../../backend';
 
 import { Box, Stack } from '../../components';
 import { DataEvidence } from './DataTypes';
@@ -10,9 +10,9 @@ type PinProps = {
   onMouseUp: Function;
 };
 
-export const Pin = function (props: PinProps) {
+export const Pin = function (props, context: PinProps) {
   const { evidence, onStartConnecting, onConnected, onMouseUp } = props;
-  const [creatingRope, setCreatingRope] = useState(false);
+  const [creatingRope, setCreatingRope] = useLocalState(context, 'creatingRope', false);
 
   const handleMouseDown = function (args) {
     setCreatingRope(true);

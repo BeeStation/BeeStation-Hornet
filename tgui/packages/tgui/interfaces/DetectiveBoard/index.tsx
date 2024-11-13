@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useBackend, useLocalState } from '../../backend';
 
-import { useBackend } from '../../backend';
 import { Box, Button, Icon, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { Connection, Connections, Position } from '../common/Connections';
@@ -27,13 +26,14 @@ export const DetectiveBoard = function (props, context) {
 
   const { cases, current_case } = data;
 
-  const [connectingEvidence, setConnectingEvidence] = useState<DataEvidence | null>(null);
+  const [connectingEvidence, setConnectingEvidence] = useLocalState<DataEvidence | null>(context, 'connectingRope', null);
 
-  const [movingEvidenceConnections, setMovingEvidenceConnections] = useState<TypedConnection[] | null>(null);
+  const [movingEvidenceConnections, setMovingEvidenceConnections] = useLocalState<TypedConnection[] | null>(context, 'movingRope', null);
 
-  const [connection, setConnection] = useState<Connection | null>(null);
+  const [connection, setConnection] = useLocalState<Connection | null>(context, 'setRope', null);
 
-  const [connections, setConnections] = useState<Connection[]>(
+  const [connections, setConnections] = useLocalState<Connection[]>(context,
+    'setRopes',
     current_case - 1 < cases.length ? cases[current_case - 1].connections : []
   );
 
