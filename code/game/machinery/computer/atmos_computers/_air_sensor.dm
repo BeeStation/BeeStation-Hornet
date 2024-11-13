@@ -119,7 +119,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 /obj/item/air_sensor
 	name = "Air Sensor"
 	desc = "A device designed to detect gases and their concentration in an area."
-	icon = 'icons/obj/wallmounts.dmi'
+	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	custom_materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	/// The injector linked with this sensor
