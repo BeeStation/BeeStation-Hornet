@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: VV now shows which color a RGB text refers to.
