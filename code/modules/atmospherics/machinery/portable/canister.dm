@@ -353,10 +353,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 /obj/machinery/portable_atmospherics/canister/ui_data()
 	var/data = list()
-	data["portConnected"] = connected_port ? 1 : 0
+	data["portConnected"] = !!connected_port
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["valveOpen"] = valve_open ? 1 : 0
-	data["hasHoldingTank"] = holding ? 1 : 0
+	data["releasePressure"] = round(release_pressure)
+	data["valveOpen"] = !!valve_open
+	data["hasHoldingTank"] = !!holding
 	if (holding)
 		var/datum/gas_mixture/holding_mix = holding.return_air()
 		data["holdingTank"] = list()
@@ -367,7 +368,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	data["cellCharge"] = internal_cell ? internal_cell.percent() : 0
 	return data
 
-/obj/machinery/portable_atmospherics/canister/ui_act(action, params)
+/obj/machinery/portable_atmospherics/canister/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	switch(action)
@@ -393,14 +394,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 				pressure = CAN_MAX_RELEASE_PRESSURE
 				. = TRUE
 			else if(pressure == "input")
-				pressure = input("New release pressure ([CAN_MIN_RELEASE_PRESSURE]-[CAN_MAX_RELEASE_PRESSURE] kPa):", name, release_pressure) as num|null
-				if(!isnull(pressure) && !..())
+				pressure = tgui_input_number(usr, message = "New release pressure", title = "Canister Pressure", default = release_pressure, max_value = CAN_MAX_RELEASE_PRESSURE, min_value = CAN_MIN_RELEASE_PRESSURE, round_value = FALSE)
+				if(!isnull(pressure))
 					. = TRUE
 			else if(text2num(pressure) != null)
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				release_pressure = clamp(round(pressure), CAN_MIN_RELEASE_PRESSURE, CAN_MAX_RELEASE_PRESSURE)
+				release_pressure = clamp(pressure, CAN_MIN_RELEASE_PRESSURE, CAN_MAX_RELEASE_PRESSURE)
 				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("valve")
 			toggle_valve(usr)

@@ -10,7 +10,6 @@
 	hide = TRUE
 	layer = GAS_SCRUBBER_LAYER
 	pipe_state = "injector"
-	has_cap_visuals = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
 	///Rate of operation of the device
@@ -59,10 +58,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/outlet_inject
 	update_icon()
 	ui_update()
 	return TRUE
-
-/obj/machinery/atmospherics/components/unary/outlet_injector/Destroy()
-	SSradio.remove_object(src,frequency)
-	return ..()
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/update_icon_nopipes()
 	cut_overlays()
