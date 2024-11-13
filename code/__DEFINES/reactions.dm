@@ -22,6 +22,9 @@
 /// The temperature required for water vapor to condense as ice instead of water.
 #define WATER_VAPOR_DEPOSITION_POINT 200
 
+#define OXYGEN_BURN_RATE_BASE				1.4
+#define PLASMA_MINIMUM_OXYGEN_NEEDED		2
+
 // Fire:
 
 // - General:
@@ -48,11 +51,11 @@
 /// The minimum temperature tritium combusts at.
 #define TRITIUM_MINIMUM_BURN_TEMPERATURE FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 /// The amount of energy released by burning one mole of tritium.
-#define FIRE_TRITIUM_ENERGY_RELEASED FIRE_HYDROGEN_ENERGY_RELEASED
+#define FIRE_TRITIUM_ENERGY_RELEASED 2.8e6
 /// Multiplier for TRITIUM fire with O2 moles * TRITIUM_OXYGEN_FULLBURN for the maximum fuel consumption
-#define TRITIUM_OXYGEN_FULLBURN HYDROGEN_OXYGEN_FULLBURN
+#define TRITIUM_OXYGEN_FULLBURN 10
 /// The divisor for the maximum tritium burn rate. (1/2 of the tritium can burn in one reaction tick.)
-#define FIRE_TRITIUM_BURN_RATE_DELTA FIRE_HYDROGEN_BURN_RATE_DELTA
+#define FIRE_TRITIUM_BURN_RATE_DELTA 2
 /// The minimum number of moles of trit that must be burnt for a tritium fire reaction to produce a radiation pulse. (0.01 moles trit or 10 moles oxygen to start producing rads.)
 #define TRITIUM_RADIATION_MINIMUM_MOLES 0.1
 /// The minimum released energy necessary for tritium to release radiation during combustion. (at a mix volume of [CELL_VOLUME]).
@@ -153,8 +156,3 @@
 #define FUSION_RAD_MIDPOINT					15		//! If you decrease this by one, the fusion rads will *triple* and vice versa
 #define FUSION_MIDDLE_ENERGY_REFERENCE		1e6		//! This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
 #define FUSION_BUFFER_DIVISOR				1		//! Increase this to cull unrobust fusions faster
-
-#define PRIORITY_PRE_FORMATION 1
-#define PRIORITY_FORMATION 2
-#define PRIORITY_POST_FORMATION 3
-#define PRIORITY_FIRE 4

@@ -245,7 +245,7 @@
 
 	var/energy_released = FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
 	if(location && burned_fuel > TRITIUM_RADIATION_MINIMUM_MOLES && energy_released > TRITIUM_RADIATION_RELEASE_THRESHOLD * (air.volume / CELL_VOLUME) ** ATMOS_RADIATION_VOLUME_EXP && prob(10))
-		radiation_pulse(location, max_range = min(sqrt(burned_fuel) / TRITIUM_RADIATION_RANGE_DIVISOR, GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE), threshold = TRITIUM_RADIATION_THRESHOLD)
+		radiation_pulse(location, energy_released, min(sqrt(burned_fuel) / TRITIUM_RADIATION_RANGE_DIVISOR, GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE))
 
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -443,8 +443,6 @@
 	cached_gases[/datum/gas/tritium][MOLES] -= produced_amount * 0.01
 	ASSERT_GAS(/datum/gas/pluoxium, air)
 	cached_gases[/datum/gas/pluoxium][MOLES] += produced_amount
-	ASSERT_GAS(/datum/gas/hydrogen, air)
-	cached_gases[/datum/gas/hydrogen][MOLES] += produced_amount * 0.01
 
 	SET_REACTION_RESULTS(produced_amount)
 	var/energy_released = produced_amount * PLUOXIUM_FORMATION_ENERGY
@@ -531,9 +529,8 @@
 		return NO_REACTION
 
 	var/old_heat_capacity = air.heat_capacity()
-	air.assert_gases(/datum/gas/nitrogen, /datum/gas/hydrogen)
+	air.assert_gases(/datum/gas/nitrogen)
 	cached_gases[/datum/gas/nitryl][MOLES] -= heat_efficiency
-	cached_gases[/datum/gas/hydrogen][MOLES] += heat_efficiency
 	cached_gases[/datum/gas/nitrogen][MOLES] += heat_efficiency
 
 	SET_REACTION_RESULTS(heat_efficiency)
