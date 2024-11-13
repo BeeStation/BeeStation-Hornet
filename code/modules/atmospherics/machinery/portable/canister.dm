@@ -414,32 +414,46 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 			. = TRUE
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/proc/toggle_valve(mob/user)
-	var/logmsg
+/obj/machinery/portable_atmospherics/canister/proc/toggle_valve(mob/user, wire_pulsed = FALSE)
 	valve_open = !valve_open
-	if(valve_open)
-		SEND_SIGNAL(src, COMSIG_VALVE_SET_OPEN, TRUE)
-		if(user)
-			logmsg = "Valve was <b>opened</b> by [key_name(user)], starting a transfer into \the [holding || "air"].<br>"
-		if(!holding)
-			var/list/danger = list()
-			for(var/id in air_contents.gases)
-				if(!(GLOB.meta_gas_info[id][META_GAS_DANGER]))
-					continue
-				if(air_contents.gases[id][MOLES] > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.gases[id][MOLES] //ex. "plasma" = 20
+	if(!valve_open)
+		var/logmsg = "valve was <b>closed</b> by [key_name(user)] [wire_pulsed ? "via wire pulse" : ""], stopping the transfer into \the [holding || "air"].<br>"
+		investigate_log(logmsg, INVESTIGATE_ATMOS)
+		release_log += logmsg
+		return
 
-			if(danger.len && user)
-				message_admins("[ADMIN_LOOKUPFLW(user)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")
-				log_admin("[key_name(user)] opened a canister that contains the following at [AREACOORD(src)]:")
-				for(var/name in danger)
-					var/msg = "[name]: [danger[name]] moles."
-					log_admin(msg)
-					message_admins(msg)
-	else
-		SEND_SIGNAL(src, COMSIG_VALVE_SET_OPEN, FALSE)
-		if(user)
-			logmsg = "Valve was <b>closed</b> by [key_name(user)], stopping the transfer into \the [holding || "air"].<br>"
+	SSair.start_processing_machine(src)
+	if(holding)
+		var/logmsg = "Valve was <b>opened</b> by [key_name(user)] [wire_pulsed ? "via wire pulse" : ""], starting a transfer into \the [holding || "air"].<br>"
+		investigate_log(logmsg, INVESTIGATE_ATMOS)
+		release_log += logmsg
+		return
+
+	// Go over the gases in canister, pull all their info and mark the spooky ones
+	var/list/output = list()
+	output += "[key_name(user)] <b>opened</b> a canister [wire_pulsed ? "via wire pulse" : ""] that contains the following:"
+	var/list/admin_output = list()
+	admin_output += "[ADMIN_LOOKUPFLW(user)] <b>opened</b> a canister [wire_pulsed ? "via wire pulse" : ""] that contains the following at [ADMIN_VERBOSEJMP(src)]:"
+	var/list/gases = air_contents.gases
+	var/danger = FALSE
+	for(var/gas_index in 1 to length(gases))
+		var/list/gas_info = gases[gases[gas_index]]
+		var/list/meta = gas_info[GAS_META]
+		var/name = meta[META_GAS_NAME]
+		var/moles = gas_info[MOLES]
+
+		output += "[name]: [moles] moles."
+		if(gas_index <= 5) //the first five gases added
+			admin_output += "[name]: [moles] moles."
+		else if(gas_index == 6) // anddd the warning
+			admin_output += "Too many gases to log. Check investigate log."
+		//if moles_visible is undefined, default to default visibility
+		if(meta[META_GAS_DANGER] && moles > (meta[META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE))
+			danger = TRUE
+
+	if(danger) //sent to admin's chat if contains dangerous gases
+		message_admins(admin_output.Join("\n"))
+	var/logmsg = output.Join("\n")
 	investigate_log(logmsg, INVESTIGATE_ATMOS)
 	release_log += logmsg
 
