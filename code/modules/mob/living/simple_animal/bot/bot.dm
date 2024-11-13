@@ -923,34 +923,36 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 // Actions received from TGUI
 /mob/living/simple_animal/bot/ui_act(action, params)
+	// according to base proc ui_act(),
+	// if interaction is to be denied, return TRUE
+	// if operation was successful, return FALSE
 	. = ..()
 	if(.)
-		return
-	if(!bot_core.allowed(usr) && !usr.has_unlimited_silicon_privilege)
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
-		return
+		return TRUE
 	if(action == "lock")
+		if (!bot_core.allowed(usr) && !usr.has_unlimited_silicon_privilege)
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
+			return TRUE
 		locked = !locked
-	if(locked && !(issilicon(usr) || IsAdminGhost(usr)))
-		return
+		return FALSE
+	if(!usr.has_unlimited_silicon_privilege && locked)
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return TRUE
 	switch(action)
 		if("power")
-			if(bot_core.allowed(usr) || !locked)
-				if (on)
-					turn_off()
-				else
-					boot_up_sequence()
+			if (on)
+				turn_off()
+			else
+				boot_up_sequence()
 		if("maintenance")
 			open = !open
 		if("patrol")
-			if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
-				return TRUE
 			auto_patrol = !auto_patrol
 			bot_reset()
 		if("airplane")
 			remote_disabled = !remote_disabled
 		if("hack")
-			if(!issilicon(usr) && !IsAdminGhost(usr))
+			if(!usr.has_unlimited_silicon_privilege)
 				return TRUE
 			if(emagged != 2)
 				emagged = 2
@@ -969,12 +971,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 				log_game("Safety lock of [src] was re-enabled by [key_name(usr)] in [AREACOORD(src)]")
 				bot_reset()
 		if("eject_pai")
-			if(locked && !(issilicon(usr) || IsAdminGhost(usr)))
-				return
-			if(paicard)
-				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
-				ejectpai(usr)
-	//update_controls()
+			to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
+			ejectpai(usr)
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
