@@ -1627,7 +1627,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "pK" = (
-/obj/machinery/air_sensor ,
+/obj/machinery/air_sensor,
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "pM" = (
