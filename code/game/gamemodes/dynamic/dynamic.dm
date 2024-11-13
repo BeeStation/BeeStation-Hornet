@@ -93,8 +93,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The upper bound for the midround roll time splits.
 	/// This number influences where to place midround rolls, making this larger
 	/// will make midround rolls less frequent, and vice versa.
-	/// Once this time has passed, only midround antags with the LATEGAME_RULESET
-	/// flag may roll, and these will roll independent of threat requirements.
+	/// Once this time has passed, midrounds become free
 	var/midround_upper_bound = 100 MINUTES
 
 	/// The distance between the chosen midround roll point (which is deterministic),
@@ -745,7 +744,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				continue
 			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
 				continue
-			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && (mid_round_budget >= rule.cost || (is_lategame() && (rule.flags & LATEGAME_RULESET))))
+			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && (mid_round_budget >= rule.cost || is_lategame()))
 				// No stacking : only one round-ender, unless threat level > stacking_limit.
 				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
 					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())
