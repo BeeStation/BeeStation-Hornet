@@ -283,10 +283,8 @@
 		return
 	if(external)
 		. = external.remove_air_volume(volume_needed)
-		update_internals_hud_icon(1)
 	else if(internal)
 		. = internal.remove_air_volume(volume_needed)
-		update_internals_hud_icon(1)
 	else
 		// Return without taking a breath if there is no air tank.
 		return
