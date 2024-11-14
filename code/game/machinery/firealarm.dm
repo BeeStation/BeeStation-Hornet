@@ -258,6 +258,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	soundloop.start() //Manually pulled fire alarms will make the sound, rather than the doors.
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 	use_power = active_power_usage
+	update_icon()
 
 /**
  * Resets all firelocks in the area. Also tells the area to disable alarm lighting, if it was enabled.
@@ -279,6 +280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	soundloop.stop()
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
 	use_power = idle_power_usage
+	update_icon()
 
 /obj/machinery/firealarm/proc/try_lock(mob/user, force_lock = FALSE)
 	if(allowed(user) || !user || force_lock)
