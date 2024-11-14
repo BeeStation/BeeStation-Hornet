@@ -648,12 +648,16 @@ GENE SCANNER
 		var/pressure = air_contents.return_pressure()
 		var/volume = air_contents.return_volume() //could just do mixture.volume... but safety, I guess?
 		var/temperature = air_contents.return_temperature()
+		var/heat_capacity = air_contents.heat_capacity()
+		var/thermal_energy = air_contents.thermal_energy()
 		var/cached_scan_results = air_contents.analyzer_results
 
 		if(total_moles > 0)
 			message += "<span class='notice'>Moles: [round(total_moles, 0.01)] mol</span>"
 			message += "<span class='notice'>Volume: [volume] L</span>"
 			message += "<span class='notice'>Pressure: [round(pressure,0.01)] kPa</span>"
+			message += "<span class='notice'>Heat Capacity: [display_joules(heat_capacity)] / K</span>"
+			message += "<span class='notice'>Thermal Energy: [display_joules(thermal_energy)]</span>"
 
 			for(var/id in air_contents.gases)
 				var/gas_concentration = GET_MOLES(id,air_contents)/total_moles
