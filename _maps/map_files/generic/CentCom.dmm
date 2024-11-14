@@ -4431,7 +4431,7 @@
 /area/centcom/control)
 "nM" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id = "XCCsecdepartment";
 	name = "XCC Security Checkpoint Shutters"
 	},
@@ -5716,12 +5716,11 @@
 	},
 /area/centcom/control)
 "rI" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id = "XCCsec3";
 	name = "XCC Checkpoint 3 Shutters"
 	},
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/control)
 "rJ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -7098,11 +7097,11 @@
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
 "vP" = (
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id = "XCCcustoms2";
 	name = "XCC Customs 2 Shutters"
 	},
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/control)
 "vQ" = (
 /obj/effect/turf_decal/tile/blue/half,
@@ -7133,11 +7132,11 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "vU" = (
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id = "XCCcustoms1";
 	name = "XCC Customs 1 Shutters"
 	},
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/evac)
 "vV" = (
 /obj/structure/chair{
@@ -8981,12 +8980,11 @@
 /turf/open/floor/iron/tech,
 /area/centcom/ferry)
 "BE" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters{
-	id = "XCCsec3";
-	name = "CC Main Access Shutters"
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "CC Main Access Shutters";
+	id = "XCCsec3"
 	},
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/control)
 "BF" = (
 /obj/structure/fans/tiny,
