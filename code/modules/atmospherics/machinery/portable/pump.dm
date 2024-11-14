@@ -7,7 +7,7 @@
 
 	///Is the machine on?
 	var/on = FALSE
-	///What direction is the machine pumping (in or out)?
+	///What direction is the machine pumping (into pump/port or out to the tank/area)?
 	var/direction = PUMP_OUT
 	///Player configurable, sets what's the release pressure
 	var/target_pressure = ONE_ATMOSPHERE
@@ -99,8 +99,8 @@
 /obj/machinery/portable_atmospherics/pump/ui_data()
 	var/data = list()
 	data["on"] = on
-	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
-	data["connected"] = connected_port ? TRUE : FALSE
+	data["direction"] = direction
+	data["connected"] = !!connected_port
 	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["target_pressure"] = round(target_pressure ? target_pressure : 0)
 	data["default_pressure"] = round(PUMP_DEFAULT_PRESSURE)
