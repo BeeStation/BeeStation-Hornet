@@ -253,12 +253,11 @@
  * Begins activation process of us and our neighbors.
  *
  * This proc will call activate() on every fire lock (including us) listed
- * in the merge group datum. Returns without doing anything if our alarm_type
- * was already set, as that means that we're already active.
+ * in the merge group datum. Returns without doing anything if we're already active, cause of course
  *
  * Arguments:
- * code should be one of three defined alarm types, or can be not supplied. Will dictate the color of the fire alarm lights, and defults to "firelock_alarm_type_generic"
- */
+ * code should be one of three defined alarm types, or can be not supplied. Will dictate the color of the fire alarm lights, and defaults to "firelock_alarm_type_generic"
+*/
 /obj/machinery/door/firedoor/proc/start_activation_process(code = FIRELOCK_ALARM_TYPE_GENERIC)
 	if(active)
 		return //We're already active
@@ -288,8 +287,7 @@
 /**
  * Proc that handles activation of the firelock and all this details
  *
- * Sets the alarm_type variable based on the single arg, which is in turn
- * used by several procs to understand the intended state of the fire lock.
+ * Sets active and alarm type to properly represent our state.
  * Also calls set_status() on all fire alarms in all affected areas, tells
  * the area the firelock sits in to report the event (AI, alarm consoles, etc)
  * and finally calls correct_state(), which will handle opening or closing
@@ -506,7 +504,7 @@
 			log_game("[key_name(user)] has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using a crowbar")
 			user.log_message("has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using a crowbar", LOG_ATTACK)
 		open()
-		if(alarm_type)
+		if(active)
 			addtimer(CALLBACK(src, PROC_REF(correct_state)), 2 SECONDS, TIMER_UNIQUE)
 	else
 		close()
@@ -559,39 +557,39 @@
 		. += hazards
 
 /**
- * Corrects the current state of the door, based on if alarm_type is set.
+ * Corrects the current state of the door, based on its activity.
  *
  * This proc is called after weld and power restore events. Gives the
  * illusion that the door is constantly attempting to move without actually
- * having to process it. Timers also call this, so that if alarm_type
+ * having to process it. Timers also call this, so that if activity
  * changes during the timer, the door doesn't close or open incorrectly.
  */
 /obj/machinery/door/firedoor/proc/correct_state()
-	if(obj_flags & EMAGGED || being_held_open)
+	if(obj_flags & EMAGGED || being_held_open || QDELETED(src))
 		return //Unmotivated, indifferent, we have no real care what state we're in anymore.
-	if(alarm_type && !density) //We should be closed but we're not
+	if(active && !density) //We should be closed but we're not
 		INVOKE_ASYNC(src, PROC_REF(close))
 		return
-	if(!alarm_type && density) //We should be open but we're not
+	if(!active && density) //We should be open but we're not
 		INVOKE_ASYNC(src, PROC_REF(open))
 		return
 
 /obj/machinery/door/firedoor/open()
 	if(welded)
 		return
-	var/alarm = alarm_type
+	var/old_activity = active
 	if(density && !operating) //This is hacky but gets the sound to play on time.
 		playsound(src, 'sound/machines/firedoor_open.ogg', 30, 1)
 	. = ..()
-	if(alarm != alarm_type) //Something changed while we were sleeping
+	if(old_activity != active) //Something changed while we were sleeping
 		correct_state() //So we should re-evaluate our state
 
 /obj/machinery/door/firedoor/close()
 	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP))
 		return
-	var/alarm = alarm_type
+	var/old_activity = active
 	. = ..()
-	if(alarm != alarm_type) //Something changed while we were sleeping
+	if(old_activity != active) //Something changed while we were sleeping
 		correct_state() //So we should re-evaluate our state
 
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
