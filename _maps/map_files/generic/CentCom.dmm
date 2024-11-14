@@ -2598,6 +2598,9 @@
 /area/ctf)
 "hF" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/tile/red/corner_ramp{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "hH" = (
@@ -3205,6 +3208,9 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/red/corner_ramp{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "jx" = (
@@ -3430,6 +3436,9 @@
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 9
+	},
+/obj/effect/turf_decal/tile/red/corner_ramp/offset{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
@@ -4011,6 +4020,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red/corner_ramp/offset{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "mi" = (
