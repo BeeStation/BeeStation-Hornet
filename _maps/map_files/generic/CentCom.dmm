@@ -1857,6 +1857,9 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 6
 	},
+/obj/effect/turf_decal/tile/red/corner_ramp{
+	dir = 6
+	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "eY" = (
@@ -3178,6 +3181,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp/offset{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "ju" = (
@@ -4022,6 +4028,9 @@
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red/corner_ramp/offset{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/corner_ramp{
+	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
@@ -5210,6 +5219,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "ql" = (
@@ -6248,6 +6260,9 @@
 /area/centcom/ferry)
 "ts" = (
 /obj/effect/turf_decal/siding/thinplating_new,
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "tt" = (
@@ -6301,6 +6316,12 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_blue,
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp/offset{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
+	dir = 6
+	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "tE" = (
@@ -15021,6 +15042,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating_new{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp{
 	dir = 6
 	},
 /turf/open/floor/iron,
