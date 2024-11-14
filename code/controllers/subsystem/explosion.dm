@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(explosions)
 
 	var/list/explosions = list()
 
-	var/currentpart = SSAIR_REBUILD_PIPELINE
+	var/currentpart = SSEXPLOSIONS_TURFS
 
 	var/turf/last_exploded_turf = null
 	var/last_explosion_count = 0
