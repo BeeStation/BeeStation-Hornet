@@ -1836,6 +1836,7 @@
 #include "code\modules\admin\verbs\diagnostics.dm"
 #include "code\modules\admin\verbs\forcecryo.dm"
 #include "code\modules\admin\verbs\fps.dm"
+#include "code\modules\admin\verbs\get_ingame_report.dm"
 #include "code\modules\admin\verbs\getlogs.dm"
 #include "code\modules\admin\verbs\ghost_pool_protection.dm"
 #include "code\modules\admin\verbs\healall.dm"
