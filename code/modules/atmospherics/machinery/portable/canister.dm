@@ -126,7 +126,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 	if(shielding_powered)
 		. += mutable_appearance(canister_overlay_file, "shielding")
-		. += emissive_appearance(canister_overlay_file, "shielding", src)
+		. += emissive_appearance(canister_overlay_file, "shielding", layer)
 
 	if(panel_open)
 		. += mutable_appearance(canister_overlay_file, "cell_hatch")

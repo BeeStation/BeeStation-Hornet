@@ -109,6 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	UnregisterSignal(area_to_unregister, COMSIG_AREA_FIRE_CHANGED)
 	LAZYREMOVE(my_area.firealarms, src)
 	my_area = null
+	update_icon()
 
 /obj/machinery/firealarm/proc/handle_fire(area/source, new_fire)
 	SIGNAL_HANDLER
@@ -189,6 +190,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
 		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	update_icon()
 
 
 /obj/machinery/firealarm/emp_act(severity)
@@ -313,6 +315,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		reset(user)
 	else
 		alarm(user)
+	update_icon()
 
 /obj/machinery/firealarm/attack_silicon(mob/user)
 	return attack_hand(user)
@@ -470,15 +473,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if((my_area?.fire || LAZYLEN(my_area?.active_firelocks)))
 		. += "The local area hazard light is flashing."
 		. += "The fault location display is [my_area.fault_location] ([my_area.fault_status == AREA_FAULT_AUTOMATIC ? "Automatic Detection" : "Manual Trigger"])."
-		if(is_station_level(z))
-			. += "The station security alert level is [SSsecurity_level.get_current_level_as_text()]."
-		. += "<b>Left-Click</b> to activate all firelocks in this area."
-		. += "<b>Right-Click</b> to reset firelocks in this area."
 	else
-		if(is_station_level(z))
-			. += "The station security alert level is [SSsecurity_level.get_current_level_as_text()]."
 		. += "The local area thermal detection light is [my_area.fire_detect ? "lit" : "unlit"]."
-		. += "<b>Left-Click</b> to activate all firelocks in this area."
+	if(is_station_level(z))
+		. += "The station security alert level is [SSsecurity_level.get_current_level_as_text()]."
+	. += "<b>Activate</b> to activate/reset all firelocks in this area."
 
 /obj/machinery/firealarm/proc/toggle_fire_detect(mob/user)
 	my_area.fire_detect = !my_area.fire_detect
