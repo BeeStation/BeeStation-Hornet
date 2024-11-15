@@ -33,7 +33,7 @@
 	. = ..()
 	var/mutable_appearance/center = center_cache["[piping_layer]"]
 	if(!center)
-		center = mutable_appearance(icon, "adapter_center")
+		center = mutable_appearance(initial(icon), "adapter_center")
 		PIPING_LAYER_DOUBLE_SHIFT(center, piping_layer)
 		center_cache["[piping_layer]"] = center
 	. += center
@@ -44,7 +44,7 @@
 	for(var/i in 1 to device_type)
 		if(!nodes[i])
 			continue
-		var/image/pipe = get_pipe_image('icons/obj/atmospherics/pipes/manifold.dmi', "pipe-[piping_layer]", get_dir(src, nodes[i]), nodes[i].pipe_color)
+		var/image/pipe = get_pipe_image('icons/obj/atmospherics/pipes/manifold.dmi', "pipe-3", get_dir(src, nodes[i]), nodes[i].pipe_color)
 		PIPING_LAYER_DOUBLE_SHIFT(pipe, piping_layer)
 		pipe.layer = layer + 0.01
 		. += pipe
