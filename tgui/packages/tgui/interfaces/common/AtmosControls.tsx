@@ -9,8 +9,6 @@ export type VentProps = {
   refID: string;
   long_name: string;
   power: BooleanLike;
-  overclock: BooleanLike;
-  integrity: number;
   checks: number;
   excheck: BooleanLike;
   incheck: BooleanLike;
@@ -36,21 +34,7 @@ export type ScrubberProps = {
 
 export const Vent = (props: VentProps, context) => {
   const { act } = useBackend(context);
-  const {
-    refID,
-    long_name,
-    power,
-    overclock,
-    integrity,
-    checks,
-    excheck,
-    incheck,
-    direction,
-    external,
-    internal,
-    extdefault,
-    intdefault,
-  } = props;
+  const { refID, long_name, power, checks, excheck, incheck, direction, external, internal, extdefault, intdefault } = props;
   return (
     <Section
       title={decodeHtmlEntities(long_name)}
@@ -59,7 +43,6 @@ export const Vent = (props: VentProps, context) => {
           <Button
             icon={power ? 'power-off' : 'times'}
             selected={power}
-            disabled={integrity <= 0}
             content={power ? 'On' : 'Off'}
             onClick={() =>
               act('power', {
@@ -68,28 +51,9 @@ export const Vent = (props: VentProps, context) => {
               })
             }
           />
-          <Button
-            icon="gauge-high"
-            color={overclock ? 'green' : 'yellow'}
-            disabled={integrity <= 0}
-            onClick={() =>
-              act('overclock', {
-                ref: refID,
-              })
-            }
-            tooltip={`${overclock ? 'Disable' : 'Enable'} overclocking`}
-          />
         </>
       }>
       <LabeledList>
-        <LabeledList.Item label="Integrity">
-          <p
-            title={
-              'Overclocking will allow the vent to overpower extreme pressure conditions. However, it will also cause the vent to become damaged over time and eventually fail. The lower the integrity, the less effective the vent will be when in normal operation.'
-            }>
-            {(integrity * 100).toFixed(2)}%
-          </p>
-        </LabeledList.Item>
         <LabeledList.Item label="Mode">
           <Button
             icon="sign-in-alt"

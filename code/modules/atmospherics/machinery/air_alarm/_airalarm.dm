@@ -18,7 +18,7 @@
 	layer = ABOVE_WINDOW_LAYER
 
 	/// Current alert level of our air alarm.
-	/// [AIR_ALARM_ALERT_NONE], [AIR_ALARM_ALERT_MINOR], [AIR_ALARM_ALERT_SEVERE]
+	/// [AIR_ALARM_ALERT_NONE], [AIR_ALARM_ALERT_WARNING], [AIR_ALARM_ALERT_HAZARD]
 	var/danger_level = AIR_ALARM_ALERT_NONE
 
 	/// Currently selected mode of the alarm. An instance of [/datum/air_alarm_mode].
