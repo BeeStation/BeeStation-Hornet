@@ -20,12 +20,7 @@ export const Pin = function (props, context: PinProps) {
       x: args.clientX,
       y: args.clientY,
     });
-  };
 
-  useEffect(() => {
-    if (!creatingRope) {
-      return;
-    }
     const handleMouseUp = (args: MouseEvent) => {
       if (creatingRope) {
         setCreatingRope(false);
@@ -36,13 +31,12 @@ export const Pin = function (props, context: PinProps) {
             y: args.clientY,
           },
         });
+        window.removeEventListener('mouseup', handleMouseUp);
       }
     };
+
     window.addEventListener('mouseup', handleMouseUp);
-    return () => {
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [creatingRope]);
+  };
 
   return (
     <Stack>

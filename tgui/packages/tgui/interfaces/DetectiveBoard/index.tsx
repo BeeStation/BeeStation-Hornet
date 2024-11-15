@@ -27,12 +27,14 @@ export const DetectiveBoard = function (props, context) {
   const { cases, current_case } = data;
 
   const [connectingEvidence, setConnectingEvidence] = useLocalState<DataEvidence | null>(context, 'connectingRope', null);
-
-  const [movingEvidenceConnections, setMovingEvidenceConnections] = useLocalState<TypedConnection[] | null>(context, 'movingRope', null);
-
+  const [movingEvidenceConnections, setMovingEvidenceConnections] = useLocalState<TypedConnection[] | null>(
+    context,
+    'movingRope',
+    null
+  );
   const [connection, setConnection] = useLocalState<Connection | null>(context, 'setRope', null);
-
-  const [connections, setConnections] = useLocalState<Connection[]>(context,
+  const [connections, setConnections] = useLocalState<Connection[]>(
+    context,
     'setRopes',
     current_case - 1 < cases.length ? cases[current_case - 1].connections : []
   );
@@ -87,35 +89,15 @@ export const DetectiveBoard = function (props, context) {
     }
   };
 
-  useEffect(() => {
-    if (!connectingEvidence) {
-      return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
-      };
+  const handleMouseMove = function (args: MouseEvent) {
+    if (connectingEvidence) {
+      setConnection({
+        color: 'red',
+        from: getPinPosition(connectingEvidence),
+        to: { x: args.clientX, y: args.clientY - 60 },
+      });
     }
-
-    const handleMouseMove = function (args: MouseEvent) {
-      if (connectingEvidence) {
-        setConnection({
-          color: 'red',
-          from: getPinPosition(connectingEvidence),
-          to: { x: args.clientX, y: args.clientY - 60 },
-        });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [connectingEvidence]);
-
-  useEffect(() => {
-    setConnections(current_case - 1 < cases.length ? cases[current_case - 1].connections : []);
-  }, [current_case]);
+  };
 
   const handleMouseUp = function (args: MouseEvent) {
     if (movingEvidenceConnections && connectingEvidence) {
@@ -260,13 +242,24 @@ export const DetectiveBoard = function (props, context) {
     return result;
   };
 
+  // Initialize event listeners
+  if (connectingEvidence) {
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  } else {
+    window.removeEventListener('mousemove', handleMouseMove);
+    window.removeEventListener('mouseup', handleMouseUp);
+  }
+
+  // Update connections when current_case changes
+  setConnections(current_case - 1 < cases.length ? cases[current_case - 1].connections : []);
+
   return (
     <Window width={1200} height={800}>
       <Window.Content>
         {cases.length > 0 ? (
           <>
             <BoardTabs />
-
             {cases?.map(
               (item, i) =>
                 current_case - 1 === i && (

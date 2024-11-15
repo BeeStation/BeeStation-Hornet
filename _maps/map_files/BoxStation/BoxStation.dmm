@@ -12342,9 +12342,7 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "con" = (
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
+/obj/structure/detectiveboard/directional/south,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "cos" = (
@@ -38937,14 +38935,11 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "mkw" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/structure/noticeboard{
-	pixel_y = 26
-	},
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#742925"
+	},
+/obj/machinery/newscaster{
+	pixel_y = 32
 	},
 /turf/open/floor/wood,
 /area/security/detectives_office)

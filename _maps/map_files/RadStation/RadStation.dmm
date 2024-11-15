@@ -26338,6 +26338,7 @@
 /obj/machinery/camera/directional/south,
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "iqR" = (
@@ -46193,8 +46194,7 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "oKy" = (
-/obj/machinery/airalarm/directional/west,
-/obj/item/kirbyplants/random,
+/obj/structure/detectiveboard/directional/west,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "oKE" = (
@@ -56688,6 +56688,7 @@
 /area/crew_quarters/heads/cmo)
 "rWl" = (
 /obj/machinery/vending/wardrobe/det_wardrobe,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "rWI" = (

@@ -1,10 +1,11 @@
-import { useBackend, useLocalState } from '../../backend';
+import { useLocalState } from '../../backend';
 
 import { Box, Button, Flex, Stack } from '../../components';
 import { DataEvidence } from './DataTypes';
 import { Pin } from './Pin';
 
 type EvidenceProps = {
+  key: string;
   case_ref: string;
   evidence: DataEvidence;
   act: Function;
@@ -22,7 +23,7 @@ type Position = {
   y: number;
 };
 
-export const Evidence = function (props, context: EvidenceProps) {
+export const Evidence = (props: EvidenceProps, context) => {
   const { evidence, case_ref, act } = props;
 
   const [dragging, setDragging] = useLocalState(context, 'startDraging', false);
@@ -36,7 +37,7 @@ export const Evidence = function (props, context: EvidenceProps) {
 
   const [lastMousePosition, setLastMousePosition] = useLocalState<Position | null>(context, 'lastPosition', null);
 
-  const handleMouseDown = function (args) {
+  const handleMouseDown = (args: MouseEvent) => {
     if (canDrag) {
       setDragging(true);
       props.onStartMoving(evidence);
@@ -44,64 +45,34 @@ export const Evidence = function (props, context: EvidenceProps) {
     }
   };
 
-  useEffect(() => {
-    if (!dragging) {
-      return;
+  const handleMouseUp = (args: MouseEvent) => {
+    if (canDrag && lastMousePosition) {
+      const newX = dragPosition.x - (lastMousePosition.x - args.screenX);
+      const newY = dragPosition.y - (lastMousePosition.y - args.screenY);
+      act('set_evidence_cords', { evidence_ref: evidence.ref, case_ref, rel_x: newX, rel_y: newY });
+      props.onStopMoving({ ...evidence, x: newX, y: newY });
     }
-
-    const handleMouseUp = (args: MouseEvent) => {
-      if (canDrag && dragPosition && dragging && lastMousePosition) {
-        act('set_evidence_cords', {
-          evidence_ref: evidence.ref,
-          case_ref: case_ref,
-          rel_x: dragPosition.x - (lastMousePosition.x - args.screenX),
-          rel_y: dragPosition.y - (lastMousePosition.y - args.screenY),
-        });
-        props.onStopMoving({
-          ...evidence,
-          y: dragPosition.y - (lastMousePosition.y - args.screenY),
-          x: dragPosition.x - (lastMousePosition.x - args.screenX),
-        });
-      }
-      setDragging(false);
-      setLastMousePosition(null);
-    };
-    window.addEventListener('mouseup', handleMouseUp);
-    return () => {
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [dragging]);
-
-  const getPinPositionByPosition = function (evidence: Position) {
-    return { x: evidence.x + 15, y: evidence.y + 45 };
+    setDragging(false);
+    setLastMousePosition(null);
   };
-  useEffect(() => {
-    if (!dragging) {
-      return;
+
+  const onMouseMove = (args: MouseEvent) => {
+    if (canDrag && lastMousePosition) {
+      const newX = dragPosition.x - (lastMousePosition.x - args.screenX);
+      const newY = dragPosition.y - (lastMousePosition.y - args.screenY);
+      setDragPosition({ x: newX, y: newY });
+      props.onMoving(evidence, { x: newX, y: newY });
+      setLastMousePosition({ x: args.screenX, y: args.screenY });
     }
+  };
 
-    const onMouseMove = (args: MouseEvent) => {
-      if (canDrag) {
-        if (lastMousePosition) {
-          setDragPosition({
-            x: dragPosition.x - (lastMousePosition.x - args.screenX),
-            y: dragPosition.y - (lastMousePosition.y - args.screenY),
-          });
-          props.onMoving(evidence, {
-            x: dragPosition.x - (lastMousePosition.x - args.screenX),
-            y: dragPosition.y - (lastMousePosition.y - args.screenY),
-          });
-        }
-
-        setLastMousePosition({ x: args.screenX, y: args.screenY });
-      }
-    };
-
+  if (dragging) {
+    window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('mousemove', onMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-    };
-  }, [evidence.x, evidence.y, dragging]);
+  } else {
+    window.removeEventListener('mouseup', handleMouseUp);
+    window.removeEventListener('mousemove', onMouseMove);
+  }
 
   return (
     <Box position="absolute" left={`${dragPosition.x}px`} top={`${dragPosition.y}px`} onMouseDown={handleMouseDown}>
@@ -112,15 +83,15 @@ export const Evidence = function (props, context: EvidenceProps) {
               <Flex.Item align="left">
                 <Pin
                   evidence={evidence}
-                  onStartConnecting={(evidence: DataEvidence, mousePos: Position) => {
+                  onStartConnecting={(evidence, mousePos) => {
                     setCanDrag(false);
                     props.onPinStartConnecting(evidence, mousePos);
                   }}
-                  onConnected={(evidence: DataEvidence) => {
+                  onConnected={(evidence) => {
                     setCanDrag(true);
                     props.onPinConnected(evidence);
                   }}
-                  onMouseUp={(evidence: DataEvidence, args) => {
+                  onMouseUp={(evidence, args) => {
                     setCanDrag(true);
                     props.onPinMouseUp(evidence, args);
                   }}
@@ -138,21 +109,13 @@ export const Evidence = function (props, context: EvidenceProps) {
                   color="white"
                   onClick={() => {
                     props.onEvidenceRemoved(evidence);
-                    act('remove_evidence', {
-                      evidence_ref: evidence.ref,
-                    });
+                    act('remove_evidence', { evidence_ref: evidence.ref });
                   }}
                   onMouseDown={() => setCanDrag(false)}
                 />
               </Flex.Item>
             </Flex>
-            <Box
-              onClick={() =>
-                act('look_evidence', {
-                  case_ref: case_ref,
-                  evidence_ref: evidence.ref,
-                })
-              }>
+            <Box onClick={() => act('look_evidence', { case_ref, evidence_ref: evidence.ref })}>
               {evidence.type === 'photo' ? (
                 <img className="Evidence__Icon" src={evidence.photo_url} />
               ) : (
@@ -160,7 +123,6 @@ export const Evidence = function (props, context: EvidenceProps) {
                 <div dangerouslySetInnerHTML={{ __html: evidence.text }} />
               )}
             </Box>
-
             <Box className="Evidence__Box__TextBox">{evidence.description}</Box>
           </Box>
         </Stack.Item>
