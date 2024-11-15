@@ -193,14 +193,12 @@
 		return ERROR_MISSING_EXPERIMENTAL_POD
 
 	if(!body_only && !(experimental && experimental_pod))
-		clonemind = locate(mindref) in SSticker.minds
+		clonemind = mindref
 		if(!istype(clonemind))	//not a mind
 			return ERROR_NOT_MIND
 		if(last_death<0) //presaved clone is not clonable
 			return ERROR_PRESAVED_CLONE
 		if(abs(clonemind.last_death - last_death) > 5) //You can't clone old ones. 5 seconds grace because a sync-failure can happen.
-			message_admins("<span class='boldannounce'>Outdated clone error at [src], clonemind.last_death variable: [clonemind.last_death], last_death variable: [last_death], REPORT THIS TO XEON IMMEDIATELY</span>")
-			log_game("Outdated clone error at [src], clonemind.last_death variable: [clonemind.last_death], last_death variable: [last_death]")
 			return ERROR_OUTDATED_CLONE
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
