@@ -133,6 +133,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		set_light(l_range = 2.5, l_power = 1.5)
 	else
 		set_light(l_range = 1.6, l_power = 1)
+	update_overlays()
 
 /obj/machinery/firealarm/update_icon_state()
 	if(panel_open)
@@ -190,7 +191,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		. += mutable_appearance(icon, "fire_locked", layer + 1) //If we are locked, overlay that over the fire_off
 		. += emissive_appearance(icon, "fire_locked", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	update_icon()
 
 
 /obj/machinery/firealarm/emp_act(severity)
