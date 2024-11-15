@@ -749,3 +749,13 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/implanter/sad_trombone(src)
+
+/obj/item/storage/backpack/duffelbag/syndie/macho
+	desc = "Become the ultimate Macho Man!"
+
+/obj/item/storage/backpack/duffelbag/syndie/macho/PopulateContents()
+	new /obj/item/storage/belt/champion/wrestling(src)
+	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/implanter/adrenalin(src)
+	new /obj/item/clothing/mask/luchador/rudos(src)
+

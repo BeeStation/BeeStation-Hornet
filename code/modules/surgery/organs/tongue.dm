@@ -352,8 +352,8 @@
 	desc = "It's long and noodly."
 	say_mod = "flutters"
 	icon_state = "tonguemoth"
-	liked_food = VEGETABLES | DAIRY | CLOTH
-	disliked_food = FRUIT | GROSS | GORE
+	liked_food = FRUIT | VEGETABLES | DAIRY | CLOTH
+	disliked_food = GROSS | GORE
 	toxic_food = MEAT | RAW
 
 /obj/item/organ/tongue/teratoma
