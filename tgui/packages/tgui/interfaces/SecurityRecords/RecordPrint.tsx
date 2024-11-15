@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from 'tgui/backend';
 import { PRINTOUT, SecurityRecordsData } from './types';
-import { Box, Button, Input, Section, Stack } from 'tgui/components';
+import { Box, Button, Input, Section, Stack, NumberInput } from 'tgui/components';
 import { getSecurityRecord, getDefaultPrintDescription, getDefaultPrintHeader } from './helpers';
 
 /** Handles printing posters and rapsheets */
@@ -10,7 +10,8 @@ export const RecordPrint = (props, context) => {
 
   const { record_ref, crimes, name } = foundRecord;
   const innocent = !crimes?.length;
-  const { act } = useBackend<SecurityRecordsData>(context);
+  const { act, data } = useBackend<SecurityRecordsData>(context);
+  const { amount } = data;
 
   const [open, setOpen] = useLocalState<boolean>(context, 'printOpen', true);
   const [alias, setAlias] = useLocalState<string>(context, 'printAlias', name);
@@ -70,6 +71,14 @@ export const RecordPrint = (props, context) => {
     <Section
       buttons={
         <>
+          <NumberInput
+            value={amount}
+            width="48px"
+            minValue={1}
+            maxValue={10}
+            step={1}
+            onChange={(e, value) => act('set_amount', { new_amount: value, record_ref: record_ref })}
+          />
           <Button
             icon="question"
             onClick={() => swapTabs(PRINTOUT.Missing)}

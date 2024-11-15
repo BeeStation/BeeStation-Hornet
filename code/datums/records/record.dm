@@ -348,6 +348,7 @@
 
 /datum/record/crew/proc/set_security_note(new_security_note)
 	security_note = trim(new_security_note, MAX_MESSAGE_LEN)
+	return TRUE
 
 /datum/record/crew/proc/set_wanted_status(new_wanted_status)
 	if(!new_wanted_status || !(new_wanted_status in WANTED_STATUSES()))

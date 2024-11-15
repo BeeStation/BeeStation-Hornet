@@ -15,6 +15,8 @@
 
 	/// The current state of the printer
 	var/printing = FALSE
+	//How many posters to print for this record. Yes i am doing this for you, Ragantis.
+	var/amount = 1
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
@@ -62,6 +64,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	data["available_statuses"] = WANTED_STATUSES()
 	data["current_user"] = user.name
 	data["higher_access"] = has_armory_access(user)
+	data["amount"] = amount
 
 	var/list/records = list()
 	for(var/datum/record/crew/target in GLOB.manifest.general)
@@ -162,13 +165,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			target_record.set_wanted_status(params["status"])
 			return TRUE
 
+		if("set_amount")
+			set_print_amount(params["new_amount"])
+			return TRUE
+
 	return FALSE
 
+
+// Changing how many posters to print.
+/obj/machinery/computer/records/security/proc/set_print_amount(new_amount)
+	var/target = text2num(new_amount)
+	amount = target
+	return TRUE
+
 /// Finishes printing, resets the printer.
-/obj/machinery/computer/records/security/proc/print_finish(obj/item/printable)
+/obj/machinery/computer/records/security/proc/print_finish(list/to_print)
 	printing = FALSE
 	playsound(src, 'sound/machines/terminal_eject.ogg', 100, TRUE)
-	printable.forceMove(loc)
+
+	for(var/obj/item/printable as anything in to_print)
+		printable.forceMove(loc)
 
 	return TRUE
 
@@ -183,47 +199,47 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	balloon_alert(user, "printing")
 	playsound(src, 'sound/items/taperecorder/taperecorder_print.ogg', 100, TRUE)
 
-	var/obj/item/printable
+	var/list/to_print = new()
 	var/input_alias = trim(alias, MAX_NAME_LEN) || target.name
 	var/input_description = trim(description, MAX_BROADCAST_LEN) || "No further details."
 	var/input_header = trim(header, 8) || capitalize(type)
+	for(var/amount_to_print in 1 to amount)
+		switch(type)
+			if("missing")
+				var/obj/item/photo/mugshot = target.get_front_photo()
+				var/obj/item/poster/wanted/missing/missing_poster = new(null, mugshot.picture.picture_image, input_alias, input_description, input_header)
 
-	switch(type)
-		if("missing")
-			var/obj/item/photo/mugshot = target.get_front_photo()
-			var/obj/item/poster/wanted/missing/missing_poster = new(null, mugshot.picture.picture_image, input_alias, input_description, input_header)
+				to_print.Add(missing_poster)
 
-			printable = missing_poster
+			if("wanted")
+				var/list/crimes = target.crimes
+				if(!length(crimes))
+					balloon_alert(user, "no crimes")
+					return FALSE
 
-		if("wanted")
-			var/list/crimes = target.crimes
-			if(!length(crimes))
-				balloon_alert(user, "no crimes")
-				return FALSE
+				input_description += "\n\n<b>WANTED FOR:</b>"
+				for(var/datum/crime_record/incident in crimes)
+					if(!incident.valid)
+						input_description += "<b>--REDACTED--</b>"
+						continue
+					input_description += "\n<bCrime:</b> [incident.name]\n"
+					input_description += "<b>Details:</b> [incident.details]\n"
 
-			input_description += "\n\n<b>WANTED FOR:</b>"
-			for(var/datum/crime_record/incident in crimes)
-				if(!incident.valid)
-					input_description += "<b>--REDACTED--</b>"
-					continue
-				input_description += "\n<bCrime:</b> [incident.name]\n"
-				input_description += "<b>Details:</b> [incident.details]\n"
+				var/obj/item/photo/mugshot = target.get_front_photo()
+				var/obj/item/poster/wanted/wanted_poster = new(null, mugshot.picture.picture_image, input_alias, input_description, input_header)
 
-			var/obj/item/photo/mugshot = target.get_front_photo()
-			var/obj/item/poster/wanted/wanted_poster = new(null, mugshot.picture.picture_image, input_alias, input_description, input_header)
+				to_print.Add(wanted_poster)
 
-			printable = wanted_poster
+			if("rapsheet")
+				var/list/crimes = target.crimes
+				if(!length(crimes))
+					balloon_alert(user, "no crimes")
+					return FALSE
 
-		if("rapsheet")
-			var/list/crimes = target.crimes
-			if(!length(crimes))
-				balloon_alert(user, "no crimes")
-				return FALSE
+				var/obj/item/paper/rapsheet = target.get_rapsheet(input_alias, input_header, input_description)
+				to_print.Add(rapsheet)
 
-			var/obj/item/paper/rapsheet = target.get_rapsheet(input_alias, input_header, input_description)
-			printable = rapsheet
-
-	addtimer(CALLBACK(src, PROC_REF(print_finish), printable), 2 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(print_finish), to_print), 2 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 	return TRUE
 
