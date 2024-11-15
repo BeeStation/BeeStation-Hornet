@@ -1,3 +1,10 @@
+/**
+ * @file
+ * @copyright 2021 watermelon914 (hhtps://github.com/watermelon914)
+ * @changes 2023 MrMelbert (https://github.com/MrMelbert)
+ * @license MIT
+ */
+
 import { classes } from '../../../common/react';
 import { CSS_COLORS } from '../../constants';
 
