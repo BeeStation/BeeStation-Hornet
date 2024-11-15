@@ -417,6 +417,12 @@
 	icon_state = "detbadge"
 	worn_icon_state = "detbadge"
 
+/obj/item/clothing/accessory/badge/officer/hos
+	name = "\improper Head of Security badge"
+	desc = "A badge of the NanoTrasen Security Division, made of gold and set on false black leather."
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"
+
 /obj/item/clothing/accessory/badge/officer
 	name = "\improper Security badge"
 	desc = "A badge of the NanoTrasen Security Division, made of silver and set on false black leather."
