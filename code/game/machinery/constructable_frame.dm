@@ -207,7 +207,7 @@
 							new_machine.component_parts += new_part
 						new_machine.RefreshParts()
 
-						new_machine.on_construction()
+						new_machine.on_construction(user)
 					qdel(src)
 				return
 

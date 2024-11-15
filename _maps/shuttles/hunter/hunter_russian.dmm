@@ -651,7 +651,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible{
 	dir = 1
 	},
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "Hk" = (

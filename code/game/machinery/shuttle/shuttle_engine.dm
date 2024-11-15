@@ -55,7 +55,7 @@
 	. = ..()
 	check_setup()
 
-/obj/machinery/shuttle/engine/on_construction()
+/obj/machinery/shuttle/engine/on_construction(mob/user)
 	. = ..()
 	check_setup()
 

@@ -9,7 +9,7 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner/process_atmos()
 	update_parents()
 
-/obj/machinery/atmospherics/components/unary/plasma_refiner/on_construction()
+/obj/machinery/atmospherics/components/unary/plasma_refiner/on_construction(mob/user)
 	..(dir, dir)
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/attackby(obj/item/W, mob/user, params)

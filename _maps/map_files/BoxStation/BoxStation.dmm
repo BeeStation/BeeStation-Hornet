@@ -9483,21 +9483,21 @@
 	},
 /area/engine/atmos)
 "bVU" = (
-/obj/machinery/pipedispenser/disposal/transit_tube,
+/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVW" = (
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVX" = (
-/obj/machinery/pipedispenser/disposal,
+/obj/machinery/pipe_dispenser/disposal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

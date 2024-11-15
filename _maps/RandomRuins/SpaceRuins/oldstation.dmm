@@ -3458,7 +3458,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)

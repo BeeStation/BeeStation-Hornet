@@ -36,3 +36,5 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland : /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{@OLD}
 
 /obj/machinery/atmospherics/components/unary/@SUBTYPES{frequency=@ANY} : /obj/machinery/atmospherics/components/unary/@SUBTYPES{@OLD; frequency=@SKIP}
+
+/obj/machinery/pipedispenser : /obj/machinery/pipe_dispenser{@OLD}

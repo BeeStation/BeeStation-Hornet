@@ -241,7 +241,7 @@ Buildable meters
 		var/our_init_dirs = SSair.get_init_dirs(pipe_type, fixed_dir(), p_init_dir)
 		if(machine.get_init_directions() & our_init_dirs)
 			// We have a conflict!
-			if (length(potentially_conflicting_machines) != 1 || !try_smart_reconfiguration(machine, our_init_dirs, user))
+			if(length(potentially_conflicting_machines) != 1 || !try_smart_reconfiguration(machine, our_init_dirs, user))
 				// No solutions found
 				to_chat(user, "<span class='warning'>There is already a pipe at that location!</span>")
 				return TRUE
@@ -249,7 +249,7 @@ Buildable meters
 
 	var/obj/machinery/atmospherics/built_machine = new pipe_type(loc, null, fixed_dir(), p_init_dir)
 	build_pipe(built_machine)
-	built_machine.on_construction(pipe_color, piping_layer)
+	built_machine.on_construction(user, pipe_color, piping_layer)
 	transfer_fingerprints_to(built_machine)
 
 	wrench.play_tool_sound(src)
@@ -365,7 +365,7 @@ Buildable meters
 /obj/item/pipe/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The pipe layer is set to [piping_layer].</span>"
-	. += "<span class='notice'>You can change the pipe layer by Right-Clicking the device.</span>"
+	. += "<span class='notice'>You can change the pipe layer by clicking the device.</span>"
 
 /obj/item/pipe/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -374,6 +374,18 @@ Buildable meters
 	var/layer_to_set = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
 	set_piping_layer(layer_to_set)
 	balloon_alert(user, "pipe layer set to [piping_layer]")
+	return TRUE
+
+/obj/item/pipe/trinary/flippable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can flip the device by Alt-Clicking it.</span>"
+
+/obj/item/pipe/trinary/flippable/AltClick(mob/user)
+	. = ..()
+	if(. == TRUE)
+		return
+	do_a_flip()
+	balloon_alert(user, "pipe was flipped")
 	return TRUE
 
 /obj/item/pipe_meter

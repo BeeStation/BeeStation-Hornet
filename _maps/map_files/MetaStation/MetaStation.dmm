@@ -14453,7 +14453,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "bUA" = (
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -14466,7 +14466,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/obj/machinery/pipedispenser/disposal,
+/obj/machinery/pipe_dispenser/disposal,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -14474,7 +14474,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/obj/machinery/pipedispenser/disposal/transit_tube,
+/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},

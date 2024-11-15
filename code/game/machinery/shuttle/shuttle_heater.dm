@@ -45,7 +45,7 @@
 	update_adjacent_engines()
 	GLOB.custom_shuttle_machines -= src
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
+/obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction(mob/user)
 	..(dir, dir)
 	set_init_directions()
 	update_adjacent_engines()

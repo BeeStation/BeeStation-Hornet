@@ -4402,7 +4402,7 @@
 /area/science/shuttle)
 "aZm" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/pipedispenser/disposal,
+/obj/machinery/pipe_dispenser/disposal,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aZB" = (
@@ -31937,7 +31937,7 @@
 /area/quartermaster/storage)
 "igW" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/pipedispenser/disposal/transit_tube,
+/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "iho" = (
@@ -45094,7 +45094,7 @@
 /area/medical/cryo)
 "lsK" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "lsL" = (
@@ -82745,7 +82745,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "vgC" = (

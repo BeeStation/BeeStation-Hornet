@@ -43960,7 +43960,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "nYQ" = (
@@ -63214,7 +63214,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/machinery/pipedispenser/disposal/transit_tube,
+/obj/machinery/pipe_dispenser/disposal/transit_tube,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "ubU" = (
@@ -66207,7 +66207,7 @@
 /area/engine/engine_room)
 "vcG" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/pipedispenser/disposal,
+/obj/machinery/pipe_dispenser/disposal,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "vcJ" = (
