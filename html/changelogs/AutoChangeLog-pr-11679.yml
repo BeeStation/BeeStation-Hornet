@@ -1,6 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - balance: Bloodcrawl now forces you to be in it for at least 5 seconds after entering
-      it.
-  - balance: Now, all slaughter demons drop bodies on death instead of deleting them.
