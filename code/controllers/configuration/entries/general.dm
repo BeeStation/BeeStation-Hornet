@@ -631,6 +631,6 @@
 
 /datum/config_entry/string/discord_ooc_tag
 
-// Showes 'player_report_template.txt' to players, in admin verb tab.
+// Shows 'player_report_template.txt' to players, in admin verb tab.
 /datum/config_entry/flag/use_player_report_template
 	config_entry_value = FALSE

@@ -638,5 +638,5 @@ ENABLE_MRAT
 ## For Beestation, it will be "SA"(sage) and "AC"(acacia) for this value, then it will be `[SA] (OOC) beeboi: I love bee!`
 #DISCORD_OOC_TAG thisServer
 
-## Showes 'template' in admin tab to players.
+## Shows 'player_report_template.txt' to players, in admin verb tab.
 #USE_PLAYER_REPORT_TEMPLATE
