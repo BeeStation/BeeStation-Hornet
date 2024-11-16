@@ -66,6 +66,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	GLOB.poi_list |= src
+	set_playable(BAN_ROLE_ALL_GHOST)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -145,22 +146,8 @@
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/attack_ghost(mob/dead/observer/user)
-	if(client || key || ckey)
-		to_chat(user, "<span class='warning'>\The [src] already has a player.")
-		return
-	if(!is_ghost_spawn || stat == DEAD || is_drone)
-		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
-		return
-	var/control_ask = tgui_alert(usr, "Do you wish to take control of \the [src]", "Chirp Time?", list("Yes", "No"))
-	if(control_ask != "Yes" || !src || QDELETED(src) || QDELETED(user))
-		return FALSE
-	if(QDELETED(src) || QDELETED(user) || !user.client)
-		return
-	var/mob/living/simple_animal/hostile/retaliate/nymph/newnymph = src
-	newnymph.key = user.key
-	newnymph.unique_name = TRUE
-	to_chat(newnymph, "<span class='boldwarning'>Remember that you have forgotten all of your past lives and are a new person!</span>")
+/mob/living/simple_animal/hostile/retaliate/nymph/get_spawner_flavour_text()
+	return "You have inhabited a nymph!"
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/update_progression()
 	if(amount_grown < max_grown)

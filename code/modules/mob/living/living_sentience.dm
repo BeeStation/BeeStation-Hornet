@@ -46,10 +46,10 @@
 	log_game("[key_name(src)] took control of [name].")
 	remove_from_spawner_menu()
 	if(get_spawner_flavour_text())
-		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
+		to_chat(src, "<span class='spawn_message'><span class='big bold'>You are [src]!</span><br/>[get_spawner_flavour_text()]<br>Please do not use memories from previous lives!</span>")
 	return TRUE
 
-/mob/living/proc/set_playable(ban_type = null, poll_ignore_key = null)
+/mob/living/proc/set_playable(ban_type = null)
 	playable = TRUE
 	playable_bantype = ban_type
 	if (!key)	//check if there is nobody already inhibiting this mob
@@ -57,9 +57,6 @@
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()
-	else // it's spawned but someone occupied already
-		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
-
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."

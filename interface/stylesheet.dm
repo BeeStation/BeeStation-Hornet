@@ -103,6 +103,16 @@ h1.alert, h2.alert		{color: #000000;}
 	padding: 10px;
 	margin: 10px 20px;
 }
+.spawn_message {
+	display: block;
+	color: white;
+	text-align: center;
+	background-color: black;
+	border: 2px solid rgb(100, 222, 91);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 20px;
+}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
