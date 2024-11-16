@@ -1,0 +1,10 @@
+author: rkz, Akrilla, Mothblocks, LemonInTheDark, Firecage, MrMelbert
+delete-after: true
+changes:
+  - refactor: Preferences menu will now re-use shared wardrobe items, making previews
+      update faster.
+  - code_imp: Adds unit test for the wardrobe system
+  - refactor: Refactors survivalboxes to be less copypaste
+  - code_imp: Standardizes storage holdability
+  - bugfix: Fixes runtime when loading dummies in prefs or select-equipment context
+      verb
