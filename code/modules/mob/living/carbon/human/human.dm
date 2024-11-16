@@ -262,7 +262,7 @@
 				else //Implant and standard glasses check access
 					if(human_user.wear_id)
 						var/list/access = human_user.wear_id.GetAccess()
-						if(ACCESS_SECURITY in access)
+						if(ACCESS_SEC_RECORDS in access)
 							allowed_access = human_user.get_authentification_name()
 
 				if(!allowed_access)
