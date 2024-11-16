@@ -1,0 +1,24 @@
+// check 'get_ingame_report.dm' for the detail. Enable 'USE_PLAYER_REPORT_TEMPLATE' config if you want to use this. (Also this first is not copied)
+# In-game report: (by In-game template)
+
+&lt!-- [READ ME] Title should be: [Offender's CKEY] Player Report --&gt
+
+CKEY: %CKEY%
+
+Your Character Name: %MOB_NAME%
+
+Your Discord:
+
+Offender's CKEY:
+
+Offender's In-Game Name:
+
+Date (YYYY-MM-DD): (UST) %DATE% (template copied)
+
+Round Number: %ROUND_ID% (%SERVER_NAME%)
+
+Rules Broken:
+
+Incident Description:
+
+Additional Information:

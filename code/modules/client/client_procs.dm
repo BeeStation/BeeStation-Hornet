@@ -242,6 +242,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
 
+	if(!CONFIG_GET(flag/use_player_report_template))
+		remove_verb(/client/verb/get_ingame_report)
+
 	// This needs to go after admin loading but before prefs
 	assign_mentor_datum_if_exists()
 
