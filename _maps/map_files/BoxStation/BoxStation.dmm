@@ -40028,11 +40028,11 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "mKv" = (
-/obj/machinery/airalarm/server{
-	dir = 4;
-	pixel_x = -22
-	},
 /obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/airalarm/server{
+	pixel_x = -22;
 	dir = 8
 	},
 /turf/open/floor/iron/dark/telecomms,
@@ -44859,7 +44859,6 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "oJY" = (
-/obj/machinery/airalarm/directional/south,
 /obj/machinery/light,
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -54831,8 +54830,8 @@
 "sGv" = (
 /obj/machinery/telecomms/processor/preset_exploration,
 /obj/machinery/airalarm/server{
-	dir = 4;
-	pixel_x = -28
+	pixel_x = -22;
+	dir = 8
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/quartermaster/exploration_dock)
@@ -57863,8 +57862,8 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/airalarm/server{
-	dir = 4;
-	pixel_x = -22
+	pixel_x = -22;
+	dir = 8
 	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
