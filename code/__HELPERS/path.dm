@@ -90,9 +90,7 @@
 	heuristic = get_dist(tile, node_goal)
 	f_value = number_tiles + heuristic
 
-/// TODO: Macro this to reduce proc overhead
-/proc/HeapPathWeightCompare(datum/jps_node/a, datum/jps_node/b)
-	return b.f_value - a.f_value
+HEAP_TYPE(/datum/path_heap, f_value)
 
 /// The datum used to handle the JPS pathfinding, completely self-contained
 /datum/pathfind
@@ -103,7 +101,7 @@
 	/// The turf we're trying to path to (note that this won't track a moving target)
 	var/turf/end
 	/// The open list/stack we pop nodes out from (TODO: make this a normal list and macro-ize the heap operations to reduce proc overhead)
-	var/datum/heap/open
+	var/datum/path_heap/open
 	///An assoc list that serves as the closed list & tracks what turfs came from where. Key is the turf, and the value is what turf it came from
 	var/list/sources
 	/// The list we compile at the end if successful to pass back
@@ -124,7 +122,7 @@
 /datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid, avoid_mobs)
 	src.caller = caller
 	end = get_turf(goal)
-	open = new /datum/heap(/proc/HeapPathWeightCompare)
+	open = new /datum/path_heap
 	sources = new()
 	src.id = id
 	src.max_distance = max_distance

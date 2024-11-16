@@ -587,3 +587,14 @@
 		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(M.melee_damage * 0.1 * hit_amount)
+
+/mob/living/carbon/rust_heretic_act(intensity, initial, is_source = TRUE)
+	ears?.emp_act(EMP_HEAVY)
+	// Mobs pass the rust to anything they are holding
+	// This typically won't have any effect, but mobs may contain other mobs in weird cases
+	if (is_source)
+		for (var/atom/contained_atom in GetAllContents())
+			contained_atom.rust_heretic_act(intensity, initial, FALSE)
+		if (buckled)
+			buckled.rust_heretic_act(intensity, initial, FALSE)
+	return TRUE

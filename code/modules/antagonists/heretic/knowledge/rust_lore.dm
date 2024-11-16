@@ -27,7 +27,7 @@
 /datum/heretic_knowledge/limited_amount/base_rust
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. \
-		Allows you to transmute a knife with any trash item into a Rusty Blade. \
+		Allows you to transmute a knife with a container that contains water into a Rusty Blade. \
 		You can only create two at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
 	next_knowledge = list(/datum/heretic_knowledge/rust_fist)
@@ -41,7 +41,7 @@
 		)
 	required_atoms = list(
 		/obj/item/knife = 1,
-		/obj/item/trash = 1,
+		/datum/reagent/water = 5,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	limit = 2
@@ -57,8 +57,8 @@
 
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
-	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
+	desc = "Your Mansus Grasp will apply an effect which causes objects to rust while you are nearby. \
+		Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
@@ -70,7 +70,7 @@
 /datum/heretic_knowledge/rust_fist/on_lose(mob/user)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
-/datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+/datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
 	var/static/list/always_hit_typecache = typecacheof(list(
 		/mob/living/carbon,
@@ -83,8 +83,12 @@
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
 		return
-	return target.rust_heretic_act()
-
+	// Cannot stack on the same target
+	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
+		if (current_rite.target == target)
+			return
+	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
+	return
 
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"
@@ -362,7 +366,7 @@
 
 /datum/rust_spread/New(loc)
 	centre = get_turf(loc)
-	centre.rust_heretic_act()
+	centre.rust_heretic_act(1, TRUE)
 	rusted_turfs += centre
 	START_PROCESSING(SSprocessing, src)
 
@@ -383,7 +387,7 @@
 		if(!length(edge_turfs))
 			break
 		var/turf/afflicted_turf = pick_n_take(edge_turfs)
-		afflicted_turf.rust_heretic_act()
+		afflicted_turf.rust_heretic_act(1, TRUE)
 		rusted_turfs |= afflicted_turf
 
 /**
