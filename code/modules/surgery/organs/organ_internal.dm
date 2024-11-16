@@ -30,6 +30,9 @@
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 
+	///Do we effect the appearance of our mob. Used to save time in preference code
+	var/visual = TRUE
+
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
 // This is also necessary because assets SS is before atoms, and so
@@ -38,6 +41,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
 		initial_reagents = food_reagents,\
@@ -125,9 +129,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		. += "<span class='warning'>[src] is starting to look discolored.</span>"
 	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.</span>"
 
-/obj/item/organ/Initialize(mapload)
-	. = ..()
+///Used as callbacks by object pooling
+/obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+
+//See above
+/obj/item/organ/proc/enter_wardrobe()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/Destroy()
 	if(owner)

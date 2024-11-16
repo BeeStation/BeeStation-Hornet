@@ -62849,15 +62849,15 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "svQ" = (
-/obj/machinery/airalarm/server{
-	dir = 4;
-	pixel_x = -22
-	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 6
 	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
+	},
+/obj/machinery/airalarm/server{
+	dir = 8;
+	pixel_x = -28
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -67061,15 +67061,15 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "tWN" = (
-/obj/machinery/airalarm/server{
-	dir = 4;
-	pixel_x = -22
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Telecomms - Server Room - Aft-Port"
+	},
+/obj/machinery/airalarm/server{
+	dir = 8;
+	pixel_x = -28
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)

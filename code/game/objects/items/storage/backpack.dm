@@ -366,7 +366,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 15
-	STR.cant_hold = typecacheof(list(/obj/item/storage/backpack/satchel/flat)) //muh recursive backpacks
+	STR.set_holdable(null, list(/obj/item/storage/backpack/satchel/flat)) //muh recursive backpacks
 
 /obj/item/storage/backpack/satchel/flat/PopulateContents()
 	var/datum/supply_pack/costumes_toys/randomised/contraband/C = new
@@ -416,7 +416,7 @@
 	STR.max_combined_w_class = 32
 	STR.max_items = 32
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/mail,
 		/obj/item/small_delivery,
 		/obj/item/paper,
@@ -749,3 +749,13 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/implanter/sad_trombone(src)
+
+/obj/item/storage/backpack/duffelbag/syndie/macho
+	desc = "Become the ultimate Macho Man!"
+
+/obj/item/storage/backpack/duffelbag/syndie/macho/PopulateContents()
+	new /obj/item/storage/belt/champion/wrestling(src)
+	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/implanter/adrenalin(src)
+	new /obj/item/clothing/mask/luchador/rudos(src)
+
