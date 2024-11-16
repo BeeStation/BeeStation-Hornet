@@ -309,4 +309,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// For unit testing, all do_afters set on this mob complete instantly and do not sleep
 #define INSTANT_DO_AFTER "instant_do_after"
 
+/// This means the user is currently holding/wearing a "tactical camouflage" item (like a potted plant).
+#define TRAIT_TACTICALLY_CAMOUFLAGED "tactically_camouflaged"
+
+/// The person with this trait always appears as 'unknown'.
+#define TRAIT_UNKNOWN "unknown"
+
 // END TRAIT DEFINES
