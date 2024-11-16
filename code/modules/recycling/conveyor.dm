@@ -198,6 +198,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 		SSmove_manager.stop_looping(convayable, SSconveyors)
 
 /obj/machinery/conveyor/proc/start_conveying(atom/movable/moving)
+	if(QDELETED(moving))
+		return
 	var/datum/move_loop/move/moving_loop = SSmove_manager.processing_on(moving, SSconveyors)
 	if(moving_loop)
 		moving_loop.direction = movedir
