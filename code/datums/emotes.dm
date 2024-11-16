@@ -62,6 +62,7 @@
 		name = key
 
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
 

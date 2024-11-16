@@ -526,11 +526,12 @@
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 	else if(!params)
-		var/custom_emote = stripped_input(usr, "Choose an emote to display.")
+		var/custom_emote = stripped_input(user, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))
-			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable", "Both")
+			var/list/emote_list = list("Audible", "Visible", "Both")
+			var/type = tgui_input_list(user, "Is this a visible or audible emote?", "Emote Type", emote_list)
 			switch(type)
-				if("Hearable")
+				if("Audible")
 					emote_type |= EMOTE_AUDIBLE
 				if("Visible")
 					emote_type |= EMOTE_VISIBLE
@@ -543,7 +544,7 @@
 			emote_type = type_override
 	. = ..()
 	message = null
-	emote_type = 0
+	emote_type = null
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
