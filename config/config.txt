@@ -639,4 +639,4 @@ ENABLE_MRAT
 #DISCORD_OOC_TAG thisServer
 
 ## Showes 'template' in admin tab to players.
-USE_PLAYER_REPORT_TEMPLATE
+#USE_PLAYER_REPORT_TEMPLATE
