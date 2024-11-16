@@ -237,6 +237,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(attack_verb_simple)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
 
+	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, speed = 8 SECONDS * toolspeed)
+
 	. = ..()
 	for(var/path in actions_types)
 		new path(src)
