@@ -29,7 +29,8 @@
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	deathsound = 'sound/creatures/space_dragon_roar.ogg'
 	icon = 'icons/mob/spacedragon.dmi'
@@ -42,6 +43,8 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	melee_damage = 35
 	mob_size = MOB_SIZE_LARGE
+	see_in_dark = NIGHTVISION_FOV_RANGE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	armour_penetration = 30
 	pixel_x = -16
 	turns_per_move = 5
@@ -54,7 +57,8 @@
 	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
-	movement_type = FLYING | FLOATING // fly so you can move without gravity, float so no animation applies
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
@@ -86,6 +90,7 @@
 	small_sprite = new
 	small_sprite.Grant(src)
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER
@@ -380,7 +385,6 @@
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
 	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
-
 /**
  * Remove the speed boost from carps when hit by space dragon's flame breath
  *
@@ -458,7 +462,7 @@
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 

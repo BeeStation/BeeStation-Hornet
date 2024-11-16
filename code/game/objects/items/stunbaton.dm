@@ -11,7 +11,8 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
-	attack_verb = list("enforced the law upon")
+	attack_verb_continuous = list("enforces the law upon")
+	attack_verb_simple = list("enforce the law upon")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
 
 	var/stunforce = 40
@@ -119,7 +120,7 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost && !(obj_flags & OBJ_EMPED))
 		turned_on = !turned_on
-		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
+		balloon_alert(user, "You turn [src] [turned_on ? "on" : "off"].")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE

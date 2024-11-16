@@ -154,6 +154,8 @@
 	var/datum/proximity_monitor/monitor
 	var/datum/callback/callback
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
+
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
 	monitor = _monitor
 	callback = _callback
@@ -185,7 +187,7 @@
 /datum/artifact_effect/projreflect/proc/HasProximity(atom/movable/AM)
 	if(istype(AM, /obj/projectile))
 		var/obj/projectile/P = AM
-		P.setAngle(rand(0, 360))
+		P.set_angle(rand(0, 360))
 		P.ignore_source_check = TRUE //Allow the projectile to hit the shooter after it gets reflected
 
 //===================

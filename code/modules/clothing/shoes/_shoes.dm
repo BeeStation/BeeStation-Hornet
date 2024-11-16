@@ -43,8 +43,8 @@
 		if(HAS_BLOOD_DNA(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
 
-/obj/item/clothing/shoes/equipped(mob/user, slot)
-	. = ..()
+/obj/item/clothing/shoes/visual_equipped(mob/user, slot)
+	..()
 	if(offset && (slot_flags & slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)
@@ -61,7 +61,7 @@
 	if(offset && equipped_before_drop)
 		restore_offsets(user)
 
-/obj/item/clothing/shoes/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/shoes/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc

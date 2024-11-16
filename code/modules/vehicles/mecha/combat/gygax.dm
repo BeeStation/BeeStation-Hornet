@@ -30,7 +30,7 @@
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 5
-	destruction_sleep_duration = 20
+	destruction_knockdown_duration = 2 SECONDS //Syndi mechs get reduced knockdown
 
 /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()
@@ -44,6 +44,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	ME.attach(src)
+	max_ammo()
 
 /obj/vehicle/sealed/mecha/combat/gygax/dark/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)

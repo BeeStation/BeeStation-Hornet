@@ -59,6 +59,8 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
+
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
 	GLOB.allCasters += src
@@ -93,7 +95,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 			. += emissive_appearance(icon, "[base_icon_state]_alert", layer, alpha = src.alpha)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-	var/hp_percent = (obj_integrity * 100) / max_integrity
+	var/hp_percent = (atom_integrity * 100) / max_integrity
 	switch(hp_percent)
 		if(75 to 100)
 			return
@@ -549,7 +551,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				set_machine_stat(machine_stat & ~BROKEN)
 				update_icon()
 		else
@@ -583,7 +585,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 		new /obj/item/shard(loc)
 	qdel(src)
 
-/obj/machinery/newscaster/obj_break(damage_flag)
+/obj/machinery/newscaster/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)

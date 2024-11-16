@@ -47,6 +47,19 @@
 	protection *= 1 - CLAMP01(physiology.armor.getRating(d_type) / 100)
 	return (1 - protection) * 100
 
+///Get all the clothing on a specific body part
+/mob/living/carbon/human/proc/clothingonpart(obj/item/bodypart/def_zone)
+	var/list/covering_part = list()
+	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	for(var/bp in body_parts)
+		if(!bp)
+			continue
+		if(bp && istype(bp , /obj/item/clothing))
+			var/obj/item/clothing/C = bp
+			if(C.body_parts_covered & def_zone.body_part)
+				covering_part += C
+	return covering_part
+
 /mob/living/carbon/human/on_hit(obj/projectile/P)
 	if(dna?.species)
 		dna.species.on_hit(P, src)
@@ -75,7 +88,7 @@
 						return BULLET_ACT_BLOCK
 					else
 						P.firer = src
-						P.setAngle(rand(0, 360))//SHING
+						P.set_angle(rand(0, 360))//SHING
 						return BULLET_ACT_FORCE_PIERCE
 
 	if(!(P.original == src && P.firer == src)) //can't block or reflect when shooting yourself
@@ -102,7 +115,7 @@
 					var/new_angle_s = P.Angle + rand(120,240)
 					while(new_angle_s > 180)	// Translate to regular projectile degrees
 						new_angle_s -= 360
-					P.setAngle(new_angle_s)
+					P.set_angle(new_angle_s)
 
 				return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
@@ -141,7 +154,7 @@
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(FALSE, TRUE))
+		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
 			return TRUE
 	return FALSE
 
@@ -202,10 +215,10 @@
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
 		..(user, 1)
-		playsound(loc, user.dna.species.attack_sound, 25, 1, -1)
-		var/message = "[user] has [hulk_verb]ed [src]!"
-		visible_message("<span class='danger'>[message]</span>", \
-								"<span class='userdanger'>[message]</span>")
+		playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
+		visible_message("<span class='danger'>[user] [hulk_verb]ed [src]!</span>", \
+					"<span class='userdanger'>[user] [hulk_verb]ed [src]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, user)
+		to_chat(user, "<span class='danger'>You [hulk_verb] [src]!</span>")
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
@@ -223,7 +236,8 @@
 /mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/M)
 	if(check_shields(M, 0, "the [M.name]", UNARMED_ATTACK))
 		visible_message("<span class='danger'>[M] attempts to touch [src]!</span>", \
-			"<span class='danger'>[M] attempts to touch you!</span>")
+						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", null, M)
+		to_chat(M, "<span class='warning'>You attempt to touch [src]!</span>")
 		return 0
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
@@ -250,7 +264,8 @@
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(check_shields(M, 20, "the [M.name]", UNARMED_ATTACK))
 		visible_message("<span class='danger'>[M] attempts to touch [src]!</span>", \
-			"<span class='danger'>[M] attempts to touch you!</span>")
+						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", null, M)
+		to_chat(M, "<span class='warning'>You attempt to touch [src]!</span>")
 		return 0
 
 	if(..())
@@ -264,7 +279,8 @@
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
-				"<span class='userdanger'>[M] slashes at you!</span>")
+							"<span class='userdanger'>[M] slashes at you!</span>", "<span class='hear'>You hear a sickening sound of a slice!</span>", null, M)
+			to_chat(M, "<span class='danger'>You slash at [src]!</span>")
 			log_combat(M, src, "attacked", M)
 			if(!dismembering_strike(M, M.get_combat_bodyzone(src))) //Dismemberment successful
 				return 1
@@ -280,7 +296,8 @@
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 			apply_damage(30, STAMINA, affecting, armor_block)
 			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
-					"<span class='userdanger'>[M] tackles you down!</span>")
+					"<span class='userdanger'>[M] tackles you down!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", null, M)
+			to_chat(M, "<span class='danger'>You tackle [src] down!</span>")
 
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
@@ -619,8 +636,6 @@
 				to_chat(src, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
 				remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 			return
-		visible_message("[src] examines [p_them()]self.", \
-			"<span class='notice'>You check yourself for injuries.</span>")
 		check_self_for_injuries()
 
 
@@ -753,8 +768,7 @@
 	var/broken_plural
 	var/damaged_plural
 	//Sets organs into their proper list
-	for(var/O in internal_organs)
-		var/obj/item/organ/organ = O
+	for(var/obj/item/organ/organ as anything in internal_organs)
 		if(organ.organ_flags & ORGAN_FAILING)
 			if(broken.len)
 				broken += ", "

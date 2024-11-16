@@ -7,8 +7,7 @@
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
-	mutant_bodyparts = list("apid_stripes","apid_antenna","apid_headstripes")
-	default_features = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
+	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'

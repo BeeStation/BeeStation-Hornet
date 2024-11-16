@@ -89,7 +89,9 @@
 	clothes_req = FALSE
 	var/datum/mutation/parent_mutation
 
-/obj/effect/proc_holder/spell/targeted/touch/mutation/Initialize(_mapload, datum/mutation/_parent)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/touch/mutation)
+
+/obj/effect/proc_holder/spell/targeted/touch/mutation/Initialize(mapload, datum/mutation/_parent)
 	. = ..()
 	if(!istype(_parent))
 		return INITIALIZE_HINT_QDEL

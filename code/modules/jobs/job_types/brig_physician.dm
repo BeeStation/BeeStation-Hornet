@@ -1,7 +1,7 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
 	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
@@ -51,6 +51,6 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
-	box = /obj/item/storage/box/survival/security
 
+	box = /obj/item/storage/box/survival/security
 	chameleon_extras = /obj/item/gun/syringe

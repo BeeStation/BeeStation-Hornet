@@ -141,7 +141,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/heirloom_type
 
-	if(is_species(H, /datum/species/moth) && prob(50))
+	if((ismoth(H)) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
 		switch(quirk_holder.assigned_role)
@@ -151,17 +151,17 @@
 			if(JOB_NAME_MIME)
 				heirloom_type = /obj/item/food/baguette/mime
 			if(JOB_NAME_JANITOR)
-				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
+				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/cup/bucket)
 			if(JOB_NAME_COOK)
-				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/utility/chefhat)
+				heirloom_type = pick(/obj/item/reagent_containers/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/utility/chefhat)
 			if(JOB_NAME_BOTANIST)
-				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
+				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/cup/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
 			if(JOB_NAME_BARTENDER)
-				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/food/drinks/shaker)
+				heirloom_type = pick(/obj/item/reagent_containers/cup/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/cup/glass/shaker)
 			if(JOB_NAME_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
 			if(JOB_NAME_CHAPLAIN)
-				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
+				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/cup/glass/bottle/holywater)
 			if(JOB_NAME_ASSISTANT)
 				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
 			if(JOB_NAME_BARBER)
@@ -170,7 +170,7 @@
 				heirloom_type = /obj/item/gun/magic/wand
 			//Security/Command
 			if(JOB_NAME_CAPTAIN)
-				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
+				heirloom_type = /obj/item/reagent_containers/cup/glass/flask/gold
 			if(JOB_NAME_HEADOFSECURITY)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
 			if(JOB_NAME_WARDEN)
@@ -178,7 +178,7 @@
 			if(JOB_NAME_SECURITYOFFICER)
 				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
 			if(JOB_NAME_DETECTIVE)
-				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
+				heirloom_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
 			if(JOB_NAME_LAWYER)
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
 			if(JOB_NAME_BRIGPHYSICIAN)
@@ -189,16 +189,16 @@
 			if(JOB_NAME_SCIENTIST)
 				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_ROBOTICIST)
-				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
+				heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
 			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/bodybag)
+				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
-				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
+				heirloom_type = /obj/item/reagent_containers/cup/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if(JOB_NAME_GENETICIST)
@@ -242,8 +242,8 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder, family_name)
-	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
-		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+	if(istype(heirloom, /obj/item/reagent_containers/cup/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/cup/chem_heirloom/H = heirloom
 		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
@@ -346,7 +346,7 @@
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_target)
-	if(T.get_lumcount() <= 0.2)
+	if(T.get_lumcount() <= LIGHTING_TILE_IS_DARK)
 		if(quirk_target.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_target, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_target.toggle_move_intent()
@@ -593,10 +593,10 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-    drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
-    if(!drug_container_type)
-        drug_container_type = pick(GLOB.smoker_cigarettes) 
-    . = ..()
+	drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
+	if(!drug_container_type)
+		drug_container_type = pick(GLOB.smoker_cigarettes)
+	. = ..()
 
 /datum/quirk/junkie/smoker/announce_drugs()
 	to_chat(quirk_target, "<span class='boldnotice'>There is a [initial(drug_container_type.name)] [where_drug], and a lighter [where_accessory]. Make sure you get your favorite brand when you run out.</span>")
@@ -623,16 +623,16 @@
 	medical_record_text = "Patient is an alcohol abuser."
 	process = TRUE
 	var/where_drink //Where the bottle spawned
-	var/drink_types = list(/obj/item/reagent_containers/food/drinks/bottle/ale,
-					/obj/item/reagent_containers/food/drinks/bottle/beer,
-					/obj/item/reagent_containers/food/drinks/bottle/gin,
-		            /obj/item/reagent_containers/food/drinks/bottle/whiskey,
-					/obj/item/reagent_containers/food/drinks/bottle/vodka,
-					/obj/item/reagent_containers/food/drinks/bottle/rum,
-					/obj/item/reagent_containers/food/drinks/bottle/applejack)
+	var/drink_types = list(/obj/item/reagent_containers/cup/glass/bottle/ale,
+					/obj/item/reagent_containers/cup/glass/bottle/beer,
+					/obj/item/reagent_containers/cup/glass/bottle/gin,
+					/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+					/obj/item/reagent_containers/cup/glass/bottle/vodka,
+					/obj/item/reagent_containers/cup/glass/bottle/rum,
+					/obj/item/reagent_containers/cup/glass/bottle/applejack)
 	var/need = 0 // How much they crave alcohol at the moment
 	var/tick_number = 0 // Keeping track of how many ticks have passed between a check
-	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
+	var/obj/item/reagent_containers/cup/glass/bottle/drink_instance
 
 /datum/quirk/alcoholic/on_spawn()
 	drink_instance = read_choice_preference(/datum/preference/choiced/quirk/alcohol_type)

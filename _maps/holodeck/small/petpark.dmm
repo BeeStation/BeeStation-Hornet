@@ -37,7 +37,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "r" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "v" = (
@@ -86,7 +86,7 @@
 /area/template_noop)
 "O" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "R" = (

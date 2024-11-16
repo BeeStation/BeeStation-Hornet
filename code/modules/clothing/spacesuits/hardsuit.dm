@@ -11,7 +11,7 @@
 	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list(MELEE = 10,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 50, ACID = 75, STAMINA = 20, BLEED = 70)
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
@@ -445,7 +445,7 @@
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
 	hardsuit_type = "syndi"
-	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90, STAMINA = 60, BLEED = 70)
+	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 100, STAMINA = 60, BLEED = 70)
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(
@@ -476,7 +476,7 @@
 		if(/datum/action/item_action/toggle_helmet_mode)
 			attack_self(user)
 			return
-	..()
+	. = ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
@@ -535,8 +535,9 @@
 	item_state = "syndie_hardsuit"
 	hardsuit_type = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = ACID_PROOF
 	supports_variations = DIGITIGRADE_VARIATION
-	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90, STAMINA = 60, BLEED = 70)
+	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 55, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 100, STAMINA = 60, BLEED = 70)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
@@ -914,9 +915,22 @@
 	supports_variations = DIGITIGRADE_VARIATION
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 40, BOMB = 10, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 70)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	/// How many charges total the shielding has
+	var/shield_integrity = 60
+	/// How long after we've been shot before we can start recharging.
+	var/recharge_delay = 20 SECONDS
+	/// How quickly the shield recharges each charge once it starts charging
+	var/recharge_rate = 1 SECONDS
+	/// The icon for the shield
+	var/shield_icon = "shield-old"
+
+/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
+	. = ..()
+	if(!allowed)
+		allowed = GLOB.advanced_hardsuit_allowed
 
 /obj/item/clothing/suit/space/hardsuit/shielded/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-old")
+	AddComponent(/datum/component/shielded, max_integrity = shield_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -942,7 +956,7 @@
 	var/team_shield_icon = "shield-old"
 
 /obj/item/clothing/suit/armor/vest/ctf/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 150, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 30, lose_multiple_charges = TRUE, shield_icon = team_shield_icon)
+	AddComponent(/datum/component/shielded, max_integrity = 150, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
 
 // LIGHT SHIELDED VEST
 
@@ -955,7 +969,7 @@
 	slowdown = -0.25
 
 /obj/item/clothing/suit/armor/vest/ctf/light/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 30, lose_multiple_charges = TRUE, shield_icon = team_shield_icon)
+	AddComponent(/datum/component/shielded, max_integrity = 50, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
 
 // RED TEAM SUITS
 
@@ -1012,20 +1026,12 @@
 	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-red")
+	AddComponent(/datum/component/shielded, max_integrity = 60, charge_recovery = 20, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/actiontype)
-	switch(actiontype.type)
-		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
-		if(/datum/action/item_action/toggle_beacon)
-			toggle_beacon(user)
-		if(/datum/action/item_action/toggle_beacon_frequency)
-			set_beacon_freq(user)
 
 //Helmet - With built in HUD
 
@@ -1053,11 +1059,6 @@
 	else
 		AddComponent(/datum/component/team_monitor/worn, "synd", -1)
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/action)
-	switch(action.type)
-		if(/datum/action/item_action/toggle_beacon_hud)
-			toggle_hud(user)
-
 ///SWAT version
 /obj/item/clothing/suit/space/hardsuit/shielded/swat
 	name = "death commando spacesuit"
@@ -1065,6 +1066,8 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	hardsuit_type = "syndi"
+	shield_integrity = 80
+	recharge_delay = 1.5 SECONDS
 	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY =60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100, BLEED = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1073,7 +1076,7 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 /obj/item/clothing/suit/space/hardsuit/shielded/swat/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 4, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-old")
+	AddComponent(/datum/component/shielded, max_integrity = 80, charge_recovery = 20, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
@@ -1108,6 +1111,8 @@
 	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
 	icon_state = "doomguy"
 	item_state = "doomguy"
+	shield_integrity = 20
+	recharge_delay = 100
 	armor = list(MELEE = 135,  BULLET = 135, LASER = 135, ENERGY = 135, BOMB = 135, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100, BLEED = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1116,7 +1121,7 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
-	AddComponent(/datum/component/shielded, max_charges = 1, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, shield_icon = "shield-old")
+	AddComponent(/datum/component/shielded, max_integrity = 20, charge_recovery = 20, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"

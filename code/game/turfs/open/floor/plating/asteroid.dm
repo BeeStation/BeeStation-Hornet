@@ -19,12 +19,8 @@
 	attachment_holes = FALSE
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
-	var/available_states = 12
-
-/turf/open/floor/plating/asteroid/Initialize(mapload)
-	auto_gen_variants(available_states)
-	variants[icon_state] = 20
-	return ..()
+	variant_probability = 30
+	variant_states = 12
 
 /turf/open/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
@@ -50,6 +46,9 @@
 	return
 
 /turf/open/floor/plating/asteroid/MakeDry()
+	return
+
+/turf/open/floor/plating/asteroid/crush()
 	return
 
 /turf/open/floor/plating/asteroid/attackby(obj/item/W, mob/user, params)
@@ -87,7 +86,7 @@
 /turf/open/floor/plating/asteroid/planetary
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/asteroid/planetary/Initialize()
+/turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()
@@ -105,7 +104,7 @@
 	icon_state = "basalt"
 	icon_plating = "basalt"
 	environment_type = "basalt"
-	available_states = 12
+	variant_states = 12
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/open/floor/plating/asteroid/basalt/lava //lava underneath
@@ -145,7 +144,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/asteroid/basalt/planetary/Initialize()
+/turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()
@@ -157,10 +156,6 @@
 	initial_gas_mix = AIRLESS_ATMOS
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	turf_type = /turf/open/floor/plating/asteroid/airless
-
-// / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
-#define BREATH_OXY		/datum/breathing_class/oxygen
-#define BREATH_PLASMA	/datum/breathing_class/plasma
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
@@ -196,7 +191,8 @@
 	desc = "Looks colder."
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
-	available_states = 0
+	variant_states = 0
+	variant_probability = 0
 	icon_state = "snow-ice"
 	icon_plating = "snow-ice"
 	environment_type = "snow_cavern"

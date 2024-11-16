@@ -77,6 +77,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
+	rack_sound = "sound/weapons/deaglerack.ogg"
+	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
+	lock_back_sound = "sound/weapons/deaglelock.ogg"
+	fire_sound = "sound/weapons/deagleshot.ogg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -115,3 +119,48 @@
 		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
 		user.dropItemToGround(src)
 
+
+// ==================================
+// Officer's Pistol
+// ==================================
+
+/obj/item/gun/ballistic/automatic/pistol/service
+	name = "service pistol"
+	desc = "A commemorative pistol given to Nanotrasen officers designed to use higher densities of energy to emulate the ballistic service pistols that they replaced. \
+	It primarilly serves as a symbol of power, but has proven to be an effective tool at enforcing the power that is portrays. \
+	It fires less-lethal rounds which stun the area of the body that they burn."
+	icon_state = "officer"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/recharge/service
+	can_suppress = FALSE
+	fire_sound = 'sound/weapons/laser.ogg'
+	casing_ejector = FALSE
+	fire_rate = 4
+	can_suppress = FALSE
+	worn_icon_state = "officer_pistol"
+	var/stripe_state = "officer_com"
+
+/obj/item/gun/ballistic/automatic/pistol/service/update_icon()
+	. = ..()
+	var/mutable_appearance/stripe = mutable_appearance(icon, stripe_state)
+	if (bolt_locked)
+		stripe.pixel_x = -5
+	add_overlay(stripe)
+
+/obj/item/gun/ballistic/automatic/pistol/service/captain
+	stripe_state = "officer_com"
+
+/obj/item/gun/ballistic/automatic/pistol/service/hop
+	stripe_state = "officer_srv"
+
+/obj/item/gun/ballistic/automatic/pistol/service/hos
+	stripe_state = "officer_sec"
+
+/obj/item/gun/ballistic/automatic/pistol/service/ce
+	stripe_state = "officer_eng"
+
+/obj/item/gun/ballistic/automatic/pistol/service/rd
+	stripe_state = "officer_sci"
+
+/obj/item/gun/ballistic/automatic/pistol/service/cmo
+	stripe_state = "officer_med"

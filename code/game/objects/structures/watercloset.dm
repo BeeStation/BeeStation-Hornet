@@ -38,7 +38,7 @@
 				if(open)
 					GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give you a swirlie...</span>")
 					swirlie = GM
-					if(do_after(user, 30, target = src, timed_action_flags = IGNORE_HELD_ITEM))
+					if(do_after(user, 3 SECONDS, target = src, timed_action_flags = IGNORE_HELD_ITEM))
 						GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives you a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
 						if(iscarbon(GM))
 							var/mob/living/carbon/C = GM
@@ -325,7 +325,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(istype(O, /obj/item/stack/medical/gauze))
 		var/obj/item/stack/medical/gauze/G = O
-		new /obj/item/reagent_containers/glass/rag(src.loc)
+		new /obj/item/reagent_containers/cup/rag(src.loc)
 		to_chat(user, "<span class='notice'>You tear off a strip of gauze and make a rag.</span>")
 		G.use(1)
 		return
@@ -469,13 +469,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	alpha = 255
 
 /obj/structure/curtain/proc/toggle(mob/M)
-    if (check(M))
-        open = !open
-        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-        update_appearance()
+	if (check(M))
+		open = !open
+		playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+		update_appearance()
 
 /obj/structure/curtain/proc/check(mob/M)
-    return TRUE
+	return TRUE
 
 /obj/structure/curtain/directional
 	icon_type = "bounty"

@@ -4,7 +4,7 @@
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	charge_max = 100
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "mansus_grasp"
 	action_background_icon_state = "bg_ecult"
 
@@ -15,6 +15,8 @@
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH!"
 	on_use_sound = 'sound/items/welder.ogg'
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()

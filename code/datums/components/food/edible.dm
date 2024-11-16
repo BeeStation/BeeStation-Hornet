@@ -49,7 +49,7 @@ Behavior that's still missing from this component that original food items had t
 	///The flavortext for taste
 	var/list/tastes
 	///The type of atom this creates when the object is microwaved.
-	var/microwaved_type
+	var/atom/microwaved_type
 
 /datum/component/edible/Initialize(
 	list/initial_reagents,
@@ -157,6 +157,9 @@ Behavior that's still missing from this component that original food items had t
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
+
+	if(microwaved_type)
+		examine_list += "[parent] could be <b>microwaved</b> into [initial(microwaved_type.name)]!"
 
 	if(!(food_flags & FOOD_IN_CONTAINER))
 		switch (bitecount)
@@ -321,11 +324,7 @@ Behavior that's still missing from this component that original food items had t
 		else if(fullness > (600 * (1 + eater.overeatduration / 2000)))	// The more you eat - the more you can eat
 			eater.visible_message("<span class='warning'>[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!</span>", "<span class='warning'>You cannot force any more of \the [parent] to go down your throat!</span>")
 			return
-
-
-
-
-
+			
 	else //If you're feeding it to someone else.
 		if(isbrain(eater))
 			to_chat(feeder, "<span class='warning'>[eater] doesn't seem to have a mouth!</span>")

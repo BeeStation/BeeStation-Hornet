@@ -2,7 +2,7 @@
 ////////////////////////////////////////////SALAD////////////////////////////////////////////
 /obj/item/food/salad
 	icon = 'icons/obj/food/soupsalad.dmi'
-	trash_type = /obj/item/reagent_containers/glass/bowl
+	trash_type = /obj/item/reagent_containers/cup/bowl
 	bite_consumption = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	food_reagents = list(
@@ -19,7 +19,6 @@
 	icon_state = "aesirsalad"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
-		/datum/reagent/medicine/omnizine = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 12
 	)
 	tastes = list("leaves" = 1)
@@ -83,24 +82,24 @@
 	tastes = list("sourness" = 1, "leaves" = 1)
 	foodtypes = FRUIT
 
-/obj/item/food/salad/ricebowl
-	name = "ricebowl"
-	desc = "A bowl of raw rice."
-	icon_state = "ricebowl"
+/obj/item/food/uncooked_rice
+	name = "uncooked rice"
+	desc = "A clump of raw rice."
+	icon_state = "uncooked_rice"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("rice" = 1)
 	foodtypes = GRAIN | RAW
-	microwaved_type = /obj/item/food/salad/boiledrice
+	microwaved_type = /obj/item/food/boiledrice
 
 /*
 /obj/item/food/salad/ricebowl/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/salad/boiledrice)
 */
 
-/obj/item/food/salad/boiledrice
+/obj/item/food/boiledrice
 	name = "boiled rice"
-	desc = "A warm bowl of rice."
-	icon_state = "boiledrice"
+	desc = "A steaming cup of boiled rice. A bit bland by itself, but the basis for something delicious..."
+	icon_state = "cooked_rice"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 2
@@ -145,7 +144,7 @@
 	foodtypes = GRAIN | MEAT //EGG = MEAT -NinjaNomNom 2017
 
 
-/obj/item/reagent_containers/glass/bowl
+/obj/item/reagent_containers/cup/bowl
 	name = "bowl"
 	desc = "A simple bowl, used for soups and salads."
 	icon = 'icons/obj/food/soupsalad.dmi'
@@ -155,7 +154,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = PAYCHECK_EASY * 0.6
 
-/obj/item/reagent_containers/glass/bowl/Initialize()
+/obj/item/reagent_containers/cup/bowl/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/salad/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 6)
 

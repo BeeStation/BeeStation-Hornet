@@ -8,7 +8,7 @@
 
 /obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0)
+	if(. && atom_integrity > 0)
 		spark_system.start()
 		switch(damage_flag)
 			if(FIRE)
@@ -21,7 +21,7 @@
 			to_chat(occupants, "[icon2html(src, occupants)]<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type].", LOG_MECHA)
 
-/obj/vehicle/sealed/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/vehicle/sealed/mecha/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	. = ..()
 	if(!damage_amount)
 		return 0
@@ -74,7 +74,7 @@
 /obj/vehicle/sealed/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].", LOG_MECHA, color="red")
 	if(!user.melee_damage && !user.obj_damage)
-		user.emote("custom", message = "[user.friendly] [src].")
+		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
@@ -171,7 +171,7 @@
 		for(var/occus in occupants)
 			var/mob/living/occupant = occus
 			occupant.update_mouse_pointer()
-	if(!equipment_disabled && occupants) //prevent spamming this message with back-to-back EMPs
+	if(!equipment_disabled && LAZYLEN(occupants)) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupants, "<span=danger>Error -- Connection to equipment control unit has been lost.</span>")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = 1
@@ -193,6 +193,10 @@
 			to_chat(user, "[src]-[W] interface initialized successfully.")
 		else
 			to_chat(user, "[src]-[W] interface initialization failed.")
+		return
+
+	if(istype(W, /obj/item/mecha_ammo))
+		ammo_resupply(W, user)
 		return
 
 	if(W.GetID())
@@ -251,7 +255,7 @@
 		if(construction_state == MECHA_OPEN_HATCH && (internal_damage & MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
 			if(CC.use(2))
-				clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
+				clear_internal_damage(MECHA_INT_SHORT_CIRCUIT)
 				to_chat(user, "<span class='notice'>You replace the fused wires.</span>")
 			else
 				to_chat(user, "<span class='warning'>You need two lengths of cable to fix this mech!</span>")
@@ -290,7 +294,7 @@
 	..()
 	. = TRUE
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)
-		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
+		clear_internal_damage(MECHA_INT_TEMP_CONTROL)
 		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
 		return
 
@@ -302,15 +306,15 @@
 	if(internal_damage & MECHA_INT_TANK_BREACH)
 		if(!W.use_tool(src, user, 0, volume=50, amount=1))
 			return
-		clearInternalDamage(MECHA_INT_TANK_BREACH)
+		clear_internal_damage(MECHA_INT_TANK_BREACH)
 		to_chat(user, "<span class='notice'>You repair the damaged gas tank.</span>")
 		return
-	if(obj_integrity < max_integrity)
+	if(atom_integrity < max_integrity)
 		if(!W.use_tool(src, user, 0, volume=50, amount=1))
 			return
 		user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [src].</span>")
-		obj_integrity += min(10, max_integrity-obj_integrity)
-		if(obj_integrity == max_integrity)
+		atom_integrity += min(10, max_integrity-atom_integrity)
+		if(atom_integrity == max_integrity)
 			to_chat(user, "<span class='notice'>It looks to be fully repaired now.</span>")
 		return
 	to_chat(user, "<span class='warning'>The [name] is at full integrity!</span>")
@@ -333,19 +337,19 @@
 		. = ..()
 
 /obj/vehicle/sealed/mecha/proc/full_repair(charge_cell)
-	obj_integrity = max_integrity
+	atom_integrity = max_integrity
 	if(cell && charge_cell)
 		cell.charge = cell.maxcharge
 	if(internal_damage & MECHA_INT_FIRE)
-		clearInternalDamage(MECHA_INT_FIRE)
+		clear_internal_damage(MECHA_INT_FIRE)
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)
-		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
+		clear_internal_damage(MECHA_INT_TEMP_CONTROL)
 	if(internal_damage & MECHA_INT_SHORT_CIRCUIT)
-		clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
+		clear_internal_damage(MECHA_INT_SHORT_CIRCUIT)
 	if(internal_damage & MECHA_INT_TANK_BREACH)
-		clearInternalDamage(MECHA_INT_TANK_BREACH)
+		clear_internal_damage(MECHA_INT_TANK_BREACH)
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
-		clearInternalDamage(MECHA_INT_CONTROL_LOST)
+		clear_internal_damage(MECHA_INT_CONTROL_LOST)
 
 /obj/vehicle/sealed/mecha/narsie_act()
 	emp_act(EMP_HEAVY)
@@ -362,7 +366,7 @@
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
 
-/obj/vehicle/sealed/mecha/obj_destruction()
+/obj/vehicle/sealed/mecha/atom_destruction()
 	if(wreckage)
 		var/mob/living/silicon/ai/AI
 		for(var/crew in occupants)
@@ -374,10 +378,10 @@
 				AI = crew
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-			if(E.salvageable && prob(30))
+			if(E.detachable && prob(30))
 				WR.crowbar_salvage += E
 				E.detach(WR) //detaches from src into WR
-				E.equip_ready = 1
+				E.activated = TRUE
 			else
 				E.detach(loc)
 				qdel(E)

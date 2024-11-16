@@ -12,16 +12,18 @@
 	speak_chance = 1
 	turns_per_move = 5
 	butcher_results = list(/obj/item/food/meat/slab = 1, /obj/item/clothing/head/franks_hat = 1)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	gold_core_spawnable = NO_SPAWN
 	melee_damage = 0.5
 	health = 2500
 	maxHealth = 2500
 	speed = 4
-	glide_size = 2
 	can_be_held = TRUE
 	chat_color = "#E7D26F"
 

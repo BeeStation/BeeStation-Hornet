@@ -140,7 +140,6 @@
 	icon = initial(icon)
 	icon_state = icon_living
 	density = initial(density)
-	setMovetype(initial(movement_type))
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
@@ -156,8 +155,6 @@
 
 /mob/living/basic/proc/update_basic_mob_varspeed()
 	if(speed == 0)
-		// remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
-		remove_movespeed_modifier(/datum/movespeed_modifier/basicmob_varspeed)
-	// remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
-	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/basicmob_varspeed, multiplicative_slowdown = speed)
+		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)

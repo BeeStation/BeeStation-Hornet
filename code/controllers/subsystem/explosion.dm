@@ -1,4 +1,7 @@
 #define EXPLOSION_THROW_SPEED 4
+/// Max amount of explosions that we accept in a row from the same turf
+#define EXPLOSION_TURF_MAX 100
+
 GLOBAL_LIST_EMPTY(explosions)
 
 SUBSYSTEM_DEF(explosions)
@@ -35,6 +38,8 @@ SUBSYSTEM_DEF(explosions)
 
 	var/currentpart = SSAIR_REBUILD_PIPENETS
 
+	var/turf/last_exploded_turf = null
+	var/last_explosion_count = 0
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
 	msg += "C:{"
@@ -186,6 +191,15 @@ SUBSYSTEM_DEF(explosions)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
+
+	// If we get a lot of explosions on the same turfs, do a lot of explosions but skip some of the ones towards the end
+	if (epicenter == last_exploded_turf)
+		last_explosion_count ++
+		if (last_explosion_count > EXPLOSION_TURF_MAX)
+			return
+	else
+		last_explosion_count = 0
+		last_exploded_turf = epicenter
 
 	if(isnull(flame_range))
 		flame_range = light_impact_range
@@ -626,3 +640,7 @@ SUBSYSTEM_DEF(explosions)
 	currentpart = SSEXPLOSIONS_TURFS
 
 #undef SSAIR_REBUILD_PIPENETS
+#undef EXPLOSION_THROW_SPEED
+#undef EXPLOSION_TURF_MAX
+#undef SSEX_TURF
+#undef SSEX_OBJ

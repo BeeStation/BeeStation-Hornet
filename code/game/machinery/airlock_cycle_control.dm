@@ -812,7 +812,7 @@
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 
-/obj/machinery/advanced_airlock_controller/obj_break(damage_flag)
+/obj/machinery/advanced_airlock_controller/atom_break(damage_flag)
 	..()
 	update_icon()
 
@@ -853,3 +853,18 @@
 		for(var/obj/machinery/door/airlock/A in T)
 			if(A.aac)
 				A.aac.update_docked_status(TRUE)
+
+#undef AIRLOCK_CYCLESTATE_INOPEN
+#undef AIRLOCK_CYCLESTATE_INOPENING
+#undef AIRLOCK_CYCLESTATE_INCLOSING
+#undef AIRLOCK_CYCLESTATE_CLOSED
+#undef AIRLOCK_CYCLESTATE_OUTCLOSING
+#undef AIRLOCK_CYCLESTATE_OUTOPENING
+#undef AIRLOCK_CYCLESTATE_OUTOPEN
+#undef AIRLOCK_CYCLESTATE_DOCKED
+#undef AIRLOCK_CYCLESTATE_ERROR
+
+#undef AIRLOCK_CYCLEROLE_INT_PRESSURIZE
+#undef AIRLOCK_CYCLEROLE_INT_DEPRESSURIZE
+#undef AIRLOCK_CYCLEROLE_EXT_PRESSURIZE
+#undef AIRLOCK_CYCLEROLE_EXT_DEPRESSURIZE

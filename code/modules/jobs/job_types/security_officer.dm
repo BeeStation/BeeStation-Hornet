@@ -1,7 +1,7 @@
 /datum/job/security_officer
 	title = JOB_NAME_SECURITYOFFICER
 	description = "Follow Space Law, patrol the station, arrest criminals and bring them to the Brig."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 /obj/item/radio/headset/headset_sec/alt/department/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/radio(src)
-	secure_radio_connections = new
+	secure_radio_connections = list()
 	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec/alt/department/engi

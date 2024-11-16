@@ -70,6 +70,10 @@
 	if(can_buckle && istype(M) && istype(user))
 		return user_buckle_mob(M, user)
 
+// Mobs have custom behaviour for buckling
+/mob/mouse_buckle_handling(mob/living/M, mob/living/user)
+	return FALSE
+
 /**
   * Returns TRUE if there are mobs buckled to this atom and FALSE otherwise
   */
@@ -108,13 +112,15 @@
 		if (!check_loc && M.loc != loc)
 			M.forceMove(loc)
 
+	if(anchored)
+		ADD_TRAIT(M, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
+	if(!length(buckled_mobs))
+		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	M.set_buckled(src)
 	M.setDir(dir)
 	buckled_mobs |= M
 	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
-	/*
 	M.set_glide_size(glide_size)
-	*/
 
 	//Something has unbuckled us
 	if(!M.buckled)
@@ -151,11 +157,26 @@
 	buckled_mob.set_buckled(null)
 	buckled_mob.set_anchored(initial(buckled_mob.anchored))
 	buckled_mob.clear_alert("buckled")
-	//buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
+	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
 	buckled_mobs -= buckled_mob
+	if(anchored)
+		REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
+	if(!length(buckled_mobs))
+		UnregisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
 
 	post_unbuckle_mob(.)
+
+/atom/movable/proc/on_set_anchored(atom/movable/source, anchorvalue)
+	SIGNAL_HANDLER
+	for(var/_buckled_mob in buckled_mobs)
+		if(!_buckled_mob)
+			continue
+		var/mob/living/buckled_mob = _buckled_mob
+		if(anchored)
+			ADD_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
+		else
+			REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
 
 
 /atom/movable/proc/unbuckle_all_mobs(force=FALSE)
@@ -197,7 +218,7 @@
 		return FALSE
 
 	// If we're checking the loc, make sure the target is on the thing we're bucking them to.
-	if(check_loc && target.loc != loc)
+	if(check_loc && !target.Adjacent(src))
 		return FALSE
 
 	// Make sure the target isn't already buckled to something.

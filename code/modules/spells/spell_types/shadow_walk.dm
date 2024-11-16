@@ -10,7 +10,7 @@
 	include_user = TRUE
 	cooldown_min = 0
 	overlay = null
-	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	action_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	action_icon_state = "ninja_cloak"
 	action_background_icon_state = "bg_alien"
 

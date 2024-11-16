@@ -42,6 +42,8 @@
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
+
 /obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
@@ -424,9 +426,9 @@
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
 /obj/item/voodoo/suicide_act(mob/living/carbon/user)
-    user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-    user.gib()
-    return BRUTELOSS
+	user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.gib()
+	return BRUTELOSS
 
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
@@ -486,7 +488,7 @@
 	while(breakout < 50)
 		var/turf/potential_T = find_safe_turf()
 		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
-			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC)
+			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD)
 			T = potential_T
 			break
 		breakout += 1

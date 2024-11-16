@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	GLOB.req_console_ckey_departments[ckey(department)] = department // and then we set ourselves a listed name
 
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 
 /obj/machinery/requests_console/Destroy()
 	QDEL_NULL(Radio)
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			message = L.treat_message(message)
-		minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
+		minor_announce(message, "[department] Announcement:", html_encode = FALSE, sound_override = 'sound/misc/announce_dig.ogg')
 		GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")

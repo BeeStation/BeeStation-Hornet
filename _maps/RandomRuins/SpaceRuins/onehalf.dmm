@@ -96,7 +96,7 @@
 "as" = (
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone1ext";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -106,7 +106,7 @@
 "at" = (
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone2ext";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -116,7 +116,7 @@
 "au" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "onehalf_drone3ext";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -126,7 +126,7 @@
 "av" = (
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone4ext";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -236,7 +236,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone1int";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/drone_bay)
@@ -244,7 +244,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone2int";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/drone_bay)
@@ -252,7 +252,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone3int";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/drone_bay)
@@ -260,7 +260,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	id = "onehalf_drone4int";
-	name = "mining drone bay blast door"
+	name = "mining Drone Bay Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/drone_bay)
@@ -733,7 +733,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -822,7 +822,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -875,7 +875,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -930,7 +930,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -965,7 +965,7 @@
 "cG" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge"
@@ -982,8 +982,8 @@
 /obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/clothing/suit/space/hardsuit/syndi,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /obj/item/folder/syndicate/mining,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -1055,7 +1055,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -1125,7 +1125,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -1139,7 +1139,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -1153,7 +1153,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
-	name = "bridge blast door"
+	name = "bridge Blast Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)

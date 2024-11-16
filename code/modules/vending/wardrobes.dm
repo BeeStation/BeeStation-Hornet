@@ -310,7 +310,7 @@
 		/obj/item/clothing/suit/apron/purple_bartender = 2,
 		/obj/item/clothing/head/soft/black = 2,
 		/obj/item/clothing/shoes/sneakers/black = 2,
-		/obj/item/reagent_containers/glass/rag = 2,
+		/obj/item/reagent_containers/cup/rag = 2,
 		/obj/item/storage/box/beanbag = 1,
 		/obj/item/clothing/suit/armor/vest/alt = 1,
 		/obj/item/circuitboard/machine/dish_drive = 1,
@@ -348,7 +348,7 @@
 					/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/utility/chefhat = 3,
-					/obj/item/reagent_containers/glass/rag = 1,
+					/obj/item/reagent_containers/cup/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
@@ -534,7 +534,7 @@
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
 	contraband = list(/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
-					/obj/item/clothing/head/bio_hood/plague = 1,
+					/obj/item/clothing/head/costume/plague = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
@@ -547,23 +547,25 @@
 	icon_state = "detdrobe"
 	product_ads = "Apply your brilliant deductive methods in style!"
 	vend_reply = "Thank you for using the DetDrobe!"
-	products = list(/obj/item/clothing/under/rank/security/detective = 2,
-					/obj/item/clothing/under/rank/security/detective/skirt = 2,
-					/obj/item/clothing/shoes/sneakers/brown = 2,
-					/obj/item/clothing/suit/jacket/det_suit = 2,
-					/obj/item/clothing/suit/hooded/wintercoat/detective = 2,
-					/obj/item/clothing/head/fedora/det_hat = 2,
-					/obj/item/clothing/under/rank/security/detective/grey = 2,
-					/obj/item/clothing/under/rank/security/detective/grey/skirt = 2,
-					/obj/item/clothing/accessory/waistcoat = 2,
-					/obj/item/clothing/shoes/laceup = 2,
-					/obj/item/clothing/suit/jacket/det_suit/dark = 1,
-					/obj/item/clothing/suit/jacket/det_suit/noir = 1,
-					/obj/item/clothing/head/fedora/det_hat/noir = 2,
-					/obj/item/clothing/gloves/color/black = 2,
-					/obj/item/clothing/gloves/color/latex = 2,
-					/obj/item/reagent_containers/food/drinks/flask/det = 2,
-					/obj/item/storage/fancy/cigarettes = 5)
+	products = list(
+		/obj/item/clothing/under/rank/security/detective = 2,
+		/obj/item/clothing/under/rank/security/detective/skirt = 2,
+		/obj/item/clothing/shoes/sneakers/brown = 2,
+		/obj/item/clothing/suit/jacket/det_suit = 2,
+		/obj/item/clothing/suit/hooded/wintercoat/detective = 2,
+		/obj/item/clothing/head/fedora/det_hat = 2,
+		/obj/item/clothing/under/rank/security/detective/grey = 2,
+		/obj/item/clothing/under/rank/security/detective/grey/skirt = 2,
+		/obj/item/clothing/accessory/waistcoat = 2,
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/suit/jacket/det_suit/dark = 1,
+		/obj/item/clothing/suit/jacket/det_suit/noir = 1,
+		/obj/item/clothing/head/fedora/det_hat/noir = 2,
+		/obj/item/clothing/gloves/color/black = 2,
+		/obj/item/clothing/gloves/color/latex = 2,
+		/obj/item/reagent_containers/cup/glass/flask/det = 2,
+		/obj/item/storage/fancy/cigarettes = 5
+	)
 	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = 350

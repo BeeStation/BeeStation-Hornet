@@ -44,7 +44,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "l" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "m" = (
@@ -59,7 +59,7 @@
 "o" = (
 /obj/structure/chair/fancy/comfy,
 /obj/item/food/popcorn,
-/obj/item/reagent_containers/food/drinks/soda_cans/shamblers,
+/obj/item/reagent_containers/cup/soda_cans/shamblers,
 /turf/open/floor/wood,
 /area/template_noop)
 "p" = (
@@ -67,7 +67,7 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "q" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "r" = (
@@ -81,11 +81,11 @@
 /area/template_noop)
 "t" = (
 /obj/structure/chair/fancy/comfy,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind,
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind,
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "v" = (

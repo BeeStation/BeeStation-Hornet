@@ -1,7 +1,7 @@
 /datum/job/chemist
 	title = JOB_NAME_CHEMIST
 	description = "Create healing medicines and fullfill other requests when medicine isn't needed. Label everything you produce correctly to prevent confusion."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -54,5 +54,6 @@
 	satchel = /obj/item/storage/backpack/satchel/chem
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe
 

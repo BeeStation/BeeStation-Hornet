@@ -80,7 +80,7 @@
 	name = "Split Body"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimesplit"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/split_body/IsAvailable()
@@ -109,7 +109,7 @@
 
 	H.notransform = TRUE
 
-	if(do_after(owner, delay=60, target=owner, progress=TRUE, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(owner, delay = 6 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 			make_dupe()
 		else
@@ -161,7 +161,7 @@
 	name = "Swap Body"
 	check_flags = NONE
 	button_icon_state = "slimeswap"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/swap_body/Activate()
@@ -309,7 +309,7 @@
 	plural_form = null
 	id = SPECIES_LUMINESCENT
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
-	var/obj/effect/dummy/luminescent_glow/glow
+	var/obj/effect/dummy/lighting_obj/moblight/glow
 	var/obj/item/slime_extract/current_extract
 	var/datum/action/innate/integrate_extract/integrate_extract
 	var/datum/action/innate/use_extract/extract_minor
@@ -319,7 +319,7 @@
 	examine_limb_id = SPECIES_OOZELING
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
-/datum/species/oozeling/luminescent/Destroy(force, ...)
+/datum/species/oozeling/luminescent/Destroy(force)
 	current_extract = null
 	QDEL_NULL(glow)
 	QDEL_NULL(integrate_extract)
@@ -327,9 +327,25 @@
 	QDEL_NULL(extract_minor)
 	return ..()
 
+/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species)
+	..()
+	glow = new_jellyperson.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
+	update_glow(new_jellyperson)
+	integrate_extract = new(src)
+	integrate_extract.Grant(new_jellyperson)
+	extract_minor = new(src)
+	extract_minor.Grant(new_jellyperson)
+	extract_major = new(src)
+	extract_major.Grant(new_jellyperson)
+
+/datum/species/oozeling/luminescent/proc/update_slime_actions()
+	integrate_extract.update_name()
+	integrate_extract.UpdateButtonIcon()
+	extract_minor.UpdateButtonIcon()
+	extract_major.UpdateButtonIcon()
 
 /datum/species/oozeling/luminescent/on_species_loss(mob/living/carbon/C)
-	..()
+	. = ..()
 	if(current_extract)
 		current_extract.forceMove(C.drop_location())
 		current_extract = null
@@ -338,49 +354,18 @@
 	QDEL_NULL(extract_major)
 	QDEL_NULL(extract_minor)
 
-/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
-	glow = new(C)
-	update_glow(C)
-	integrate_extract = new(src)
-	integrate_extract.Grant(C)
-	extract_minor = new(src)
-	extract_minor.Grant(C)
-	extract_major = new(src)
-	extract_major.Grant(C)
-
-/datum/species/oozeling/luminescent/proc/update_slime_actions()
-	integrate_extract.update_name()
-	integrate_extract.UpdateButtonIcon()
-	extract_minor.UpdateButtonIcon()
-	extract_major.UpdateButtonIcon()
-
-/datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/C, intensity)
+/// Updates the glow of our internal glow object
+/datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/human/glowie, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light(glow_intensity, glow_intensity, C.dna.features["mcolor"])
-
-/obj/effect/dummy/luminescent_glow
-	name = "luminescent glow"
-	desc = "Tell a coder if you're seeing this."
-	icon_state = "nothing"
-	light_color = "#FFFFFF"
-	light_range = LUMINESCENT_DEFAULT_GLOW
-	light_system = MOVABLE_LIGHT
-	light_power = 2.5
-
-/obj/effect/dummy/luminescent_glow/Initialize(mapload)
-	. = ..()
-	if(!isliving(loc))
-		return INITIALIZE_HINT_QDEL
-
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features["mcolor"])
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
 	desc = "Eat a slime extract to use its properties."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeconsume"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/integrate_extract/proc/update_name()
@@ -441,7 +426,7 @@
 	desc = "Pulse the slime extract with energized jelly to activate it."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeuse1"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/activation_type = SLIME_ACTIVATE_MINOR
 
@@ -828,7 +813,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Slimelink"
 	desc = "Send a psychic message to everyone connected to your slime link."
 	button_icon_state = "link_speech"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/linked_speech/Activate()
@@ -847,7 +832,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Send Thought"
 	desc = "Send a private psychic message to someone you can see."
 	button_icon_state = "send_mind"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/project_thought/Activate()
@@ -890,7 +875,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Link Minds"
 	desc = "Link someone's mind to your Slime Link, allowing them to communicate telepathically with other linked minds."
 	button_icon_state = "mindlink"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/link_minds/Activate()
@@ -930,7 +915,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Unlink Mind"
 	desc = "Forcefully disconnect a member of your Slime Link, cutting them off from the rest of the link."
 	button_icon_state = "mindunlink"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/unlink_minds/Activate()

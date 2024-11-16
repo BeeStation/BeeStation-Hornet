@@ -19,7 +19,8 @@
 	throw_range = 5
 	force = 5
 	item_flags = NEEDS_PERMIT || ISWEAPON
-	attack_verb = list("struck", "hit", "bashed")
+	attack_verb_continuous = list("strikes", "hits", "bashes")
+	attack_verb_simple = list("strike", "hit", "bash")
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE
@@ -515,7 +516,7 @@
 			return ..()
 	return
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_atom(obj/O, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)
@@ -670,7 +671,7 @@
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 

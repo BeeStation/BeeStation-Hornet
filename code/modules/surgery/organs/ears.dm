@@ -4,6 +4,7 @@
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
+	visual = FALSE
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -96,6 +97,7 @@
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "kitty"
+	visual = TRUE
 	bang_protect = -2
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
@@ -105,8 +107,7 @@
 		return
 	if(istype(H))
 		color = H.hair_color
-		H.dna.species.mutant_bodyparts |= "ears"
-		H.dna.features["ears"] = "Cat"
+		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = "Cat"
 		H.update_body()
 
 /obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
@@ -167,3 +168,8 @@
 			owner.Knockdown(100)
 			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
 			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+
+/obj/item/organ/ears/diona
+	name = "trichomes"
+	icon_state = "diona_ears"
+	desc = "A pair of plant matter based ears."

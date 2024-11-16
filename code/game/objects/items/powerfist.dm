@@ -6,7 +6,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
-	attack_verb = list("whacked", "fisted", "power-punched")
+	attack_verb_continuous = list("whacks", "fists", "power-punches")
+	attack_verb_simple = list("whack", "fist", "power-punch")
 	force = 20
 	attack_weight = 1
 	throwforce = 10

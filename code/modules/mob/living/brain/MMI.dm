@@ -13,11 +13,13 @@
 	var/datum/ai_laws/laws = new()
 	var/force_replace_ai_name = FALSE
 	var/overrides_aicore_laws = FALSE // Whether the laws on the MMI, if any, override possible pre-existing laws loaded on the AI core.
+	///Used to reserve an "original" cyborg name. When this mmi first becomes a cyborg, their name will be stored here in case of deconstruction.
+	var/original_name
 
 /obj/item/mmi/Initialize(mapload)
 	. = ..()
 	radio = new(src) //Spawns a radio inside the MMI.
-	radio.broadcasting = FALSE //researching radio mmis turned the robofabs into radios because this didnt start as 0.
+	radio.set_broadcasting(FALSE) //researching radio mmis turned the robofabs into radios because this didnt start as 0.
 	laws.set_laws_config()
 
 /obj/item/mmi/Destroy()
@@ -101,8 +103,8 @@
 
 /obj/item/mmi/attack_self(mob/user)
 	if(!brain)
-		radio.on = !radio.on
-		to_chat(user, "<span class='notice'>You toggle [src]'s radio system [radio.on==1 ? "on" : "off"].</span>")
+		radio.set_on(!radio.is_on())
+		to_chat(user, "<span class='notice'>You toggle [src]'s radio system [radio.is_on() == TRUE ? "on" : "off"].</span>")
 	else
 		log_attack("[key_name(user)] ejected \the [brainmob] from \the [src] at [AREACOORD(src)].")
 		eject_brain(user)
@@ -197,12 +199,12 @@
 
 	if(brainmob.stat)
 		to_chat(brainmob, "<span class='warning'>Can't do that while incapacitated or dead!</span>")
-	if(!radio.on)
+	if(!radio.is_on())
 		to_chat(brainmob, "<span class='warning'>Your radio is disabled!</span>")
 		return
 
-	radio.listening = !radio.listening
-	to_chat(brainmob, "<span class='notice'>Radio is [radio.listening ? "now" : "no longer"] receiving broadcast.</span>")
+	radio.set_listening(!radio.get_listening())
+	to_chat(brainmob, "<span class='notice'>Radio is [radio.get_listening() ? "now" : "no longer"] receiving broadcast.</span>")
 
 /obj/item/mmi/emp_act(severity)
 	. = ..()
@@ -227,7 +229,7 @@
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There is a switch to toggle the radio system [radio.on ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : null]</span>"
+	. += "<span class='notice'>There is a switch to toggle the radio system [radio.is_on() ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : null]</span>"
 	if(brainmob)
 		var/mob/living/brain/B = brainmob
 		if(!B.key || !B.mind || B.stat == DEAD)
@@ -278,4 +280,4 @@
 /obj/item/mmi/syndie/Initialize(mapload)
 	. = ..()
 	laws = new /datum/ai_laws/syndicate_override()
-	radio.on = FALSE
+	radio.set_on(FALSE)

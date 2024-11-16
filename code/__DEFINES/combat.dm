@@ -40,8 +40,6 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
-/// Involves magic.
-#define MAGIC "magic"
 /// Bleed prevention
 #define BLEED "bleed"
 
@@ -285,3 +283,9 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BULLET_ACT_FORCE_PIERCE		"PIERCE"	//! It pierces through the object regardless of the bullet being piercing by default.
 
 #define NICE_SHOT_RICOCHET_BONUS	10			//if the shooter has the NICE_SHOT trait and they fire a ricocheting projectile, add this to the ricochet chance and auto aim angle
+
+// Flags for energy shields
+/// Energy shields will block projectiles
+#define ENERGY_SHEILD_BLOCK_PROJECTILES (1 << 0)
+/// Energy shields will block melee attacks
+#define ENERGY_SHEILD_BLOCK_MELEE (1 << 1)

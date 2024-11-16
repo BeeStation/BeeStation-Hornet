@@ -64,7 +64,11 @@
 			return
 
 		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			var/mineral_path
+			if(mineral == "wood")
+				mineral_path = /obj/item/stack/sheet/wood
+			else
+				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			user.visible_message("[user] welds the [mineral] plating off the airlock assembly.", "You start to weld the [mineral] plating off the airlock assembly...")
 			if(W.use_tool(src, user, 40, volume=50))
 				to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
@@ -99,8 +103,8 @@
 
 			if(door_check)
 				user.visible_message("[user] secures the airlock assembly to the floor.", \
-									 "<span class='notice'>You start to secure the airlock assembly to the floor...</span>", \
-									 "<span class='italics'>You hear wrenching.</span>")
+									"<span class='notice'>You start to secure the airlock assembly to the floor...</span>", \
+									"<span class='italics'>You hear wrenching.</span>")
 
 				if(W.use_tool(src, user, 40, volume=100))
 					if(anchored)
@@ -113,8 +117,8 @@
 
 		else
 			user.visible_message("[user] unsecures the airlock assembly from the floor.", \
-								 "<span class='notice'>You start to unsecure the airlock assembly from the floor...</span>", \
-								 "<span class='italics'>You hear wrenching.</span>")
+								"<span class='notice'>You start to unsecure the airlock assembly from the floor...</span>", \
+								"<span class='italics'>You hear wrenching.</span>")
 			if(W.use_tool(src, user, 40, volume=100))
 				if(!anchored)
 					return
@@ -229,12 +233,12 @@
 								G.use(1)
 								glass = TRUE
 					if(!mineral)
-						if(istype(G, /obj/item/stack/sheet/mineral) && G.sheettype)
+						if((istype(G, /obj/item/stack/sheet/mineral) || istype(G, /obj/item/stack/sheet/wood)) && G.sheettype)
 							var/M = G.sheettype
 							if(G.get_amount() >= 2)
 								playsound(src, 'sound/items/crowbar.ogg', 100, 1)
 								user.visible_message("[user] adds [G.name] to the airlock assembly.", \
-												 "<span class='notice'>You start to install [G.name] into the airlock assembly...</span>")
+												"<span class='notice'>You start to install [G.name] into the airlock assembly...</span>")
 								if(do_after(user, 40, target = src))
 									if(G.get_amount() < 2 || mineral)
 										return
@@ -252,7 +256,7 @@
 
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
 		user.visible_message("[user] finishes the airlock.", \
-							 "<span class='notice'>You start finishing the airlock...</span>")
+							"<span class='notice'>You start finishing the airlock...</span>")
 
 		if(W.use_tool(src, user, 40, volume=100))
 			if(loc && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
@@ -341,7 +345,11 @@
 			else
 				new /obj/item/shard(T)
 		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			var/mineral_path
+			if(mineral == "wood")
+				mineral_path = /obj/item/stack/sheet/wood
+			else
+				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)
 	qdel(src)
 

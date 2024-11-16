@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	icon_state = "marker"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_on_shuttle = 1
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	invisibility = INVISIBILITY_OBSERVER
 	layer = FLY_LAYER
 
@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	/// The list of strains the blob can reroll for.
 	var/list/strain_choices
 	var/need_reroll_strain = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
@@ -138,7 +140,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		if(!T || !is_station_level(T.z))
 			continue
 
-		if(L in GLOB.overminds || (L.pass_flags & PASSBLOB))
+		if((L in GLOB.overminds) || (L.pass_flags & PASSBLOB))
 			continue
 
 		var/area/Ablob = get_area(T)
