@@ -1,14 +1,16 @@
 //predominantly positive traits
 //this file is named weirdly so that positive traits are listed above negative ones
 
-/datum/quirk/alcohol_tolerance
-	name = "Alcohol Tolerance"
-	desc = "You become drunk more slowly and suffer fewer drawbacks from alcohol."
+/datum/quirk/alcohol_enjoyer
+	name = "Alcohol Enjoyer"
+	desc = "Nothing like a good drink to make you feel on top of the world. You become drunk more slowly, suffer fewer drawbacks from alcohol and whenever you're drunk, you slowly recover from injuries."
 	icon = "beer"
-	value = 1
-	mob_trait = TRAIT_ALCOHOL_TOLERANCE
+	value = 2
+	mob_trait = TRAIT_ALCOHOL_ENJOYER
 	gain_text = "<span class='notice'>You feel like you could drink a whole keg!</span>"
 	lose_text = "<span class='danger'>You don't feel as resistant to alcohol anymore. Somehow.</span>"
+	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
+
 
 /datum/quirk/apathetic
 	name = "Apathetic"
@@ -17,21 +19,11 @@
 	value = 1
 	mood_quirk = TRUE
 
-/datum/quirk/drunkhealing
-	name = "Drunken Resilience"
-	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
-	icon = "wine-bottle"
-	value = 2
-	mob_trait = TRAIT_DRUNK_HEALING
-	gain_text = "<span class='notice'>You feel like a drink would do you good.</span>"
-	lose_text = "<span class='danger'>You no longer feel like drinking would ease your pain.</span>"
-	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
-
 /datum/quirk/empath
 	name = "Empath"
 	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel."
 	icon = "smile-beam"
-	value = 2
+	value = 1
 	mob_trait = TRAIT_EMPATH
 	gain_text = "<span class='notice'>You feel in tune with those around you.</span>"
 	lose_text = "<span class='danger'>You feel isolated from others.</span>"
@@ -40,7 +32,7 @@
 	name = "Freerunning"
 	desc = "You're great at quick moves! You can climb tables more quickly."
 	icon = "running"
-	value = 2
+	value = 1
 	mob_trait = TRAIT_FREERUNNING
 	gain_text = "<span class='notice'>You feel lithe on your feet!</span>"
 	lose_text = "<span class='danger'>You feel clumsy again.</span>"
@@ -76,33 +68,6 @@
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = "<span class='notice'>You walk with a little more litheness.</span>"
 	lose_text = "<span class='danger'>You start tromping around like a barbarian.</span>"
-
-/datum/quirk/musician
-	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
-	icon = "guitar"
-	value = 1
-	mob_trait = TRAIT_MUSICIAN
-	gain_text = "<span class='notice'>You know everything about musical instruments.</span>"
-	lose_text = "<span class='danger'>You forget how musical instruments work.</span>"
-
-/datum/quirk/musician/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
-	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
-
-/datum/quirk/linguist
-	name = "Linguist"
-	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
-	icon = "language"
-	value = 1
-	mob_trait = TRAIT_LINGUIST
-	gain_text = "<span class='notice'>You can recognise the linguistic features of every language.</span>"
-	lose_text = "<span class='danger'>You can no longer recognise linguistic features for each language.</span>"
 
 /datum/quirk/multilingual
 	name = "Multilingual"
@@ -274,21 +239,3 @@
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
-
-/datum/quirk/plushielover
-	name = "Plushie Lover"
-	desc = "You love your squishy friends so much. You start with a plushie delivery beacon."
-	icon = "heart"
-	value = 1
-	mob_trait = TRAIT_PLUSHIELOVER
-	gain_text = "<span class='notice'>You can't wait to hug a plushie!.</span>"
-	lose_text = "<span class='danger'>You don't feel that passion for plushies anymore.</span>"
-
-/datum/quirk/plushielover/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/radial/plushie/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
-	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
