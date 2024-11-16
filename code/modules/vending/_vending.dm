@@ -992,7 +992,8 @@
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
-		else if(!C.registered_account.account_job)
+		// Department cards cannot be used to order stuff in vendors, we make an exception for the debug card
+		else if(!C.registered_account.account_job && !istype(C, /obj/item/card/id/syndicate/debug))
 			say("Departmental accounts have been blacklisted from personal expenses due to embezzlement.")
 			flick(icon_deny, src)
 			vend_ready = TRUE
