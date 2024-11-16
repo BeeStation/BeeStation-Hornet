@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(secsets)
 	name = "Signal dispatch"
 	desc = "Opens up a quick select wheel for reporting crimes, including your current location, to your fellow security officers."
 	button_icon_state = "dispatch"
-	icon_icon = 'icons/mob/actions/hailer_actions.dmi'
+	icon_icon = 'icons/hud/actions/actions_hailer.dmi'
 
 /obj/item/radio/headset/headset_sec/Destroy()
 	GLOB.secsets -= src
@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(secsets)
 		"Falling Back",
 		))
 		//Hardcoded for each icon, not all crimes need emergency callout for more officers
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+		options[option] = image(icon = 'icons/hud/actions/actions_dispatch.dmi', icon_state = option)
 
 	var/message = show_radial_menu(user, user, options)
 	if(!message)
