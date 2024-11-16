@@ -1,7 +1,0 @@
-author: mc-oofert, toastgoats, therealdoooc
-delete-after: true
-changes:
-  - rscadd: Trying to put down a rift as a space dragon in a invalid area now shows
-      a balloon alert.
-  - balance: Dragons now have night vision.
-  - balance: Carp have more health and deal more object damage.

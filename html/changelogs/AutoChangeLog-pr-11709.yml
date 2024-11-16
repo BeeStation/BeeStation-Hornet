@@ -1,5 +1,0 @@
-author: rkz, Ghommie, Tastyfish
-delete-after: true
-changes:
-  - refactor: refactored proximity monitors(AOE spells like timestop, peaceborg dampeners,
-      and facehugger ranges) to be less CPU-intensive
