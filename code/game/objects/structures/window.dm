@@ -188,17 +188,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return TRUE //skip the afterattack
 
 	add_fingerprint(user)
 
-	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+	if(I.tool_behaviour == TOOL_WELDER)
 		if(atom_integrity < max_integrity)
-			if(!I.tool_start_check(user, amount=0))
+			if(!I.tool_start_check(user, amount = 0))
 				return
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-			if(I.use_tool(src, user, 40, volume=50))
+			if(I.use_tool(src, user, 40, volume = 50))
 				atom_integrity = max_integrity
 				update_nearby_icons()
 				to_chat(user, "<span class='notice'>You repair [src].</span>")

@@ -399,7 +399,7 @@
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | ISWEAPON
-	sharpness = SHARP_POINTY
+	sharpness = IS_SHARP_ACCURATE
 	force = 15
 	attack_weight = 2
 
