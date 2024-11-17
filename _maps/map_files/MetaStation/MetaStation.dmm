@@ -24530,6 +24530,9 @@
 /obj/structure/sign/warning/fire{
 	pixel_x = 32
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "emH" = (
@@ -35738,8 +35741,15 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/checkpoint/science/research)
 "iwf" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "iwl" = (
@@ -49733,6 +49743,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 8;
 	pixel_y = -24
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -69456,7 +69469,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
