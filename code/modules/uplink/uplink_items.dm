@@ -264,6 +264,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 30
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/bundles_TC/machoman
+	name = "The Macho Wrestler Bundle"
+	desc = "For the STRONGEST operatives! Master your wrasslin' abilities with this bundle. \
+			Contains: A wrestling belt, only for the strongest machos, an adrenaline implanter, a luchador mask to strike fear into your enemies, and a combat hypospray!"
+	item = /obj/item/storage/backpack/duffelbag/syndie/macho
+	cost = 18
+	purchasable_from = UPLINK_NUKE_OPS
+
 /datum/uplink_item/bundles_TC/contract_kit
 	name = "Contract Kit"
 	desc = "The Syndicate have offered you the chance to become a contractor, take on kidnapping contracts for TC and cash payouts. Upon purchase, \

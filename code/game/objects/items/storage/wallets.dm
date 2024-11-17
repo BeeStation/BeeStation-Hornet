@@ -14,7 +14,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 4
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/stack/spacecash,
 		/obj/item/holochip,
 		/obj/item/card,

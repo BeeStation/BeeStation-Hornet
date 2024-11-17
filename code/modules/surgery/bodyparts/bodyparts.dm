@@ -501,7 +501,7 @@
 		no_update = FALSE
 
 	if(IS_ORGANIC_LIMB(src))
-		if(HAS_TRAIT(C, TRAIT_HUSK))
+		if(C && HAS_TRAIT(C, TRAIT_HUSK))
 			dmg_overlay_type = "" //no damage overlay shown when husked
 			is_husked = TRUE
 		else

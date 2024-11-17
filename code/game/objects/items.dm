@@ -686,6 +686,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -738,10 +739,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	visual_equipped(user, slot, initial)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
+
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to

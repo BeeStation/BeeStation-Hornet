@@ -639,8 +639,6 @@
 				to_chat(src, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
 				remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 			return
-		visible_message("[src] examines [p_them()]self.", \
-			"<span class='notice'>You check yourself for injuries.</span>")
 		check_self_for_injuries()
 
 
@@ -773,8 +771,7 @@
 	var/broken_plural
 	var/damaged_plural
 	//Sets organs into their proper list
-	for(var/O in internal_organs)
-		var/obj/item/organ/organ = O
+	for(var/obj/item/organ/organ as anything in internal_organs)
 		if(organ.organ_flags & ORGAN_FAILING)
 			if(broken.len)
 				broken += ", "

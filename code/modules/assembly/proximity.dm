@@ -35,7 +35,7 @@
 		timing = !timing
 	else
 		scanning = FALSE
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/item/assembly/prox_sensor/dropped()
@@ -79,7 +79,7 @@
 	else
 		START_PROCESSING(SSobj, src)
 		proximity_monitor.set_host(loc,src)
-	update_icon()
+	update_appearance()
 	return secured
 
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM as mob|obj)
@@ -90,7 +90,7 @@
 /obj/item/assembly/prox_sensor/proc/sense()
 	if(!scanning || !secured || next_activate > world.time)
 		return FALSE
-	next_activate = world.time + 30
+	next_activate = world.time + (3 SECONDS)
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
 	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
@@ -163,7 +163,8 @@
 	return data
 
 /obj/item/assembly/prox_sensor/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
@@ -177,7 +178,7 @@
 				. = TRUE
 		if("time")
 			timing = !timing
-			update_icon()
+			update_appearance()
 			. = TRUE
 		if("input")
 			var/value = text2num(params["adjust"])

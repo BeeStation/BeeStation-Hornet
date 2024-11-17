@@ -5,7 +5,7 @@
 	uniform = /obj/item/clothing/under/syndicate/combat
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 	var/assignment
 
 /datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -58,7 +58,7 @@
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -112,7 +112,7 @@
 	ears = /obj/item/radio/headset
 	id = /obj/item/card/id/space_russian
 	back = /obj/item/storage/backpack/satchel/leather
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
