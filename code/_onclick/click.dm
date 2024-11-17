@@ -69,18 +69,17 @@
 		return
 	next_click = world.time + 1
 
-	if(check_click_intercept(params,A))
+	if(check_click_intercept(params,A) || notransform)
 		return
 
-	if(notransform)
-		return
-
-	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
-		return
 	var/list/modifiers = params2list(params)
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-			ShiftMiddleClickOn(A, params)
+			ShiftMiddleClickOn(A)
 			return
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
@@ -90,11 +89,14 @@
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlMiddleClickOn(A)
-			return
-		MiddleClickOn(A, params)
+		else
+			MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)
-		AltClickOn(A)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			alt_click_on_secondary(A)
+		else
+			AltClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
@@ -116,8 +118,9 @@
 		UnarmedAttack(A, FALSE, modifiers)
 		return
 
-	if(throw_mode && throw_item(A))
-		changeNext_move(CLICK_CD_THROW)
+	if(throw_mode)
+		if(throw_item(A))
+			changeNext_move(CLICK_CD_THROW)
 		return
 
 	var/obj/item/W = get_active_held_item()
@@ -140,6 +143,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
+
 			UnarmedAttack(A, FALSE, modifiers)
 		return
 

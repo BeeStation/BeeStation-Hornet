@@ -147,7 +147,7 @@
 
 	return TRUE
 
-/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/mods)
+/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(source.combat_mode)
