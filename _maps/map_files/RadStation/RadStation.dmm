@@ -2118,9 +2118,6 @@
 /area/vacant_room/commissary/commissary1)
 "aGB" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "aGC" = (
@@ -40804,18 +40801,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/suit_storage_unit/standard_unit,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/cable/yellow,
-/obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "mXw" = (
@@ -45759,10 +45747,6 @@
 /obj/item/multitool{
 	pixel_x = -3;
 	pixel_y = -3
-	},
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
@@ -57339,12 +57323,6 @@
 /obj/structure/sign/warning/nosmoking/circle,
 /turf/closed/wall,
 /area/hydroponics)
-"shb" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/storage/eva)
 "shi" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -60123,7 +60101,7 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
@@ -67608,6 +67586,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "vAa" = (
@@ -106795,7 +106774,7 @@ bGd
 uin
 ykx
 fcP
-shb
+mKM
 aGB
 tdH
 mXt
