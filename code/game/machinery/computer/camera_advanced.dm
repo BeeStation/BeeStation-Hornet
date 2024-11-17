@@ -44,7 +44,7 @@
 		if(lock_override & CAMERA_LOCK_CENTCOM)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
 
-/obj/machinery/computer/camera_advanced/attack_ghost(mob/dead/observer/ghost)
+/obj/machinery/computer/camera_advanced/attack_ghost(mob/dead/observer/ghost, direct)
 	. = ..()
 	if(.)
 		return

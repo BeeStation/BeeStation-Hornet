@@ -222,7 +222,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 				obj_flags &= ~IN_USE
 
 
-/obj/attack_ghost(mob/user)
+/obj/attack_ghost(mob/user, direct)
 	. = ..()
 	if(.)
 		return

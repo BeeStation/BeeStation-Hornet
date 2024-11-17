@@ -80,8 +80,7 @@
 /datum/disease/transformation/proc/replace_banned_player(var/mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
-	affected_mob.playable_bantype = bantype
-	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
+	affected_mob.AddComponent(/datum/component/ghost_spawner, bantype, TRUE)
 	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 
 	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [affected_mob.name]?", bantype, null, 7.5 SECONDS, affected_mob, ignore_category = FALSE)

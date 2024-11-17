@@ -45,7 +45,7 @@
 		. += "<b>Alt-click it to quickly activate it!</b>"
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/effect/sound_emitter/attack_ghost(mob/user)
+/obj/effect/sound_emitter/attack_ghost(mob/user, direct)
 	if(!check_rights_for(user.client, R_SOUND))
 		examine(user)
 		return

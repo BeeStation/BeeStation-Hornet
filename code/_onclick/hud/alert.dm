@@ -626,7 +626,10 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/notify_action/Click()
 	if(!usr || !usr.client || usr != owner)
 		return
-	if(!target)
+	// Send the signal to be able to handle additional intercepts
+
+	// If the thing isn't an atom, or is null, stop
+	if(!istype(target))
 		return
 	var/mob/dead/observer/ghost_owner = usr
 	if(!istype(ghost_owner))
@@ -639,7 +642,7 @@ so as to remain in compliance with the most up-to-date laws."
 	//Other additional actions
 	switch(action)
 		if(NOTIFY_ATTACK)
-			target.attack_ghost(ghost_owner)
+			target.attack_ghost(ghost_owner, FALSE)
 		if(NOTIFY_ORBIT)
 			ghost_owner.check_orbitable(target)
 

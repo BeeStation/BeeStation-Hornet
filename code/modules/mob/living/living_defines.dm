@@ -160,8 +160,6 @@
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE
 
-	//is mob player controllable
-	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
 
 	///The y amount a mob's sprite should be offset due to the current position they're in (e.g. lying down moves your sprite down)

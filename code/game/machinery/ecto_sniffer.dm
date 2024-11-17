@@ -27,7 +27,7 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/ecto_sniffer/attack_ghost(mob/user)
+/obj/machinery/ecto_sniffer/attack_ghost(mob/user, direct)
 	if(!on || !sensor_enabled || !is_operational)
 		return
 

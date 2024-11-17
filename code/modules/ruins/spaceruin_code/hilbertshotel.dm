@@ -278,7 +278,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	user.forceMove(get_turf(pickedstart))
 	user.throw_at(pickedgoal, 7, 3)
 
-/turf/closed/indestructible/hoteldoor/attack_ghost(mob/dead/observer/user)
+/turf/closed/indestructible/hoteldoor/attack_ghost(mob/dead/observer/user, direct)
 	if(!isobserver(user) || !parentSphere)
 		return ..()
 	user.forceMove(get_turf(parentSphere))

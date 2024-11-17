@@ -357,7 +357,7 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
+/obj/machinery/power/bluespace_tap/attack_ghost(mob/user, direct)
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_silicon(mob/user)

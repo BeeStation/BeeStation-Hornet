@@ -81,7 +81,7 @@
 	return ..()
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/turf/open/space/attack_ghost(mob/dead/observer/user)
+/turf/open/space/attack_ghost(mob/dead/observer/user, direct)
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)

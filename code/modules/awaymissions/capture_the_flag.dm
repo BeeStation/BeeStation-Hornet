@@ -247,7 +247,7 @@
 	instagib_gear = /datum/outfit/ctf/blue/instagib
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/machinery/capture_the_flag/attack_ghost(mob/user)
+/obj/machinery/capture_the_flag/attack_ghost(mob/user, direct)
 	if(ctf_enabled == FALSE)
 		if(user.client?.holder)
 			var/response = tgui_alert(usr,"Enable this CTF game?", "CTF", list("Yes", "No"))
@@ -352,7 +352,7 @@
 	if(href_list["join"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			attack_ghost(ghost)
+			attack_ghost(ghost, FALSE)
 
 /obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ctf))

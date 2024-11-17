@@ -711,7 +711,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					continue
 				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 					continue
-				L.set_playable(ROLE_SENTIENT_ANIMAL)
+				L.AddComponent(/datum/component/ghost_spawner, ROLE_SENTIENT_ANIMAL)
 
 		if("flipmovement")
 			if(!check_rights(R_FUN))

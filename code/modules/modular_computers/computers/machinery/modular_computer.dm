@@ -40,12 +40,12 @@
 	. = ..()
 	. += get_modular_computer_parts_examine(user)
 
-/obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)
+/obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user, direct)
 	. = ..()
 	if(.)
 		return
 	if(cpu)
-		cpu.attack_ghost(user)
+		cpu.attack_ghost(user, direct)
 
 /obj/machinery/modular_computer/should_emag(mob/user)
 	if(!cpu)

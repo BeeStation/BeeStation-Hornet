@@ -634,6 +634,19 @@ h2.alert {
   padding: 10px;
   margin: 10px 20px;
 }
+.spawn_message {
+	display: block;
+	color: white;
+	text-align: center;
+	background-color: black;
+	border: 2px solid rgb(100, 222, 91);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 20px;
+}
+.spawn_header {
+	color: rgb(100, 222, 91);
+}
 .unconscious {
   color: #0000ff;
   font-weight: bold;

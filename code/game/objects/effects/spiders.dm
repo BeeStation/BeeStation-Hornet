@@ -102,42 +102,14 @@
 	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
 		if(enriched_spawns && prob(enriched_spawn_prob))
 			using_enriched_spawn = TRUE
-		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
-		LAZYADD(GLOB.mob_spawners[name], src)
-		SSmobs.update_spawners()
-		AddElement(/datum/element/point_of_interest)
+		AddComponent(/datum/component/ghost_spawner, ROLE_SPIDER, spawn_proc=CALLBACK(src, PROC_REF(make_spider)), flavour_message=GHOST_SPAWNER_MURDERBONE)
 	if(amount_grown >= grow_time *3)
 		make_AI_spider()
-
-/obj/structure/spider/eggcluster/Topic(href, href_list)
-	if(..())
-		return
-	if(href_list["activate"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
-			attack_ghost(ghost)
-
-/obj/structure/spider/eggcluster/attack_ghost(mob/user)
-	. = ..()
-	if(!user?.client?.can_take_ghost_spawner(ROLE_SPIDER, TRUE, is_ghost_role = FALSE))
-		return
-	if(ghost_ready)
-		make_spider(user)
-	else
-		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
 
 /obj/structure/spider/eggcluster/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)
-
-/obj/structure/spider/eggcluster/Destroy()
-	var/list/spawners = GLOB.mob_spawners[name]
-	LAZYREMOVE(spawners, src)
-	if(!LAZYLEN(spawners))
-		GLOB.mob_spawners -= name
-	SSmobs.update_spawners()
-	return ..()
 
 /**
   * Makes a ghost into a spider based on the type of egg cluster.
@@ -162,7 +134,7 @@
 	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
 	//Player does not get to spawn if the eggs were destroyed or consumed, and we also want to return if no choice was made.
 	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
-		return FALSE
+		return null
 	//if spider chosen is not in the basic spawn list, it is special
 	//turn off enriched spawns so only one special spider per proc activation
 	if(using_enriched_spawn)
@@ -173,20 +145,19 @@
 	//and we don't want them choosing a special spider after the spawn has already been consumed
 	else if(!(spider_list[chosen_spider] in potential_spawns))
 		to_chat(user, "<span class='warning'>Special spawn already used by another player!</span>")
-		return FALSE
+		return null
 	spawns_remaining--
 	// Setup our spooder
 	var/spider_to_spawn = spider_list[chosen_spider]
 	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
 	new_spider.faction = faction.Copy()
-	new_spider.key = user.key
+	new_spider.mind_initialize()
 	var/datum/antagonist/spider/spider_antag = new_spider.mind.has_antag_datum(/datum/antagonist/spider)
 	spider_antag.set_spider_team(spider_team)
-
 	// Check to see if we need to delete ourselves
 	if(!spawns_remaining)
 		qdel(src)
-	return TRUE
+	return new_spider
 
 /obj/structure/spider/eggcluster/proc/make_AI_spider()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/random_spider
@@ -198,7 +169,7 @@
 	random_spider = new random_spider(get_turf(src))
 	random_spider.faction = faction.Copy()
 	random_spider.spider_team = spider_team
-	random_spider.set_playable(ROLE_SPIDER)
+	random_spider.AddComponent(/datum/component/ghost_spawner, ROLE_SPIDER)
 	spawns_remaining--
 	if(!spawns_remaining)
 		qdel(src)

@@ -186,7 +186,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 		return use(R)
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/structure/ladder/attack_ghost(mob/dead/observer/user)
+/obj/structure/ladder/attack_ghost(mob/dead/observer/user, direct)
 	use(user, TRUE)
 	return ..()
 

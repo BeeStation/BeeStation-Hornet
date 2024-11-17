@@ -33,13 +33,13 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attack_sound = 'sound/emotes/diona/hit.ogg'
 	minbodytemp = 2.7
+	unique_name = TRUE
 	var/can_namepick_as_adult = FALSE
 	var/death_msg = "expires with a pitiful chirrup..."
 
 	var/amount_grown = 0
 	var/max_grown = 150
 	var/time_of_birth
-	var/instance_num
 	var/is_ghost_spawn = TRUE //For if a ghost can become this.
 	var/is_drone = FALSE //Is a remote controlled nymph from a diona.
 	var/drone_parent //The diona which can control the nymph, if there is one
@@ -56,9 +56,6 @@
 	time_of_birth = world.time
 	evolve_ability = new
 	evolve_ability.Grant(src)
-	instance_num = rand(1, 1000)
-	name = "[initial(name)] ([instance_num])"
-	real_name = name
 	regenerate_icons()
 	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
 	var/static/list/loc_connections = list(
@@ -66,7 +63,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	GLOB.poi_list |= src
-	set_playable(BAN_ROLE_ALL_GHOST)
+	AddComponent(/datum/component/ghost_spawner, BAN_ROLE_ALL_GHOST)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -147,7 +144,7 @@
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_spawner_flavour_text()
-	return "You have inhabited a nymph!"
+	return "You have inhabited a nymph, you are a plant-like creature waiting to grow up!"
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/update_progression()
 	if(amount_grown < max_grown)

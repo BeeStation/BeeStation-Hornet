@@ -43,11 +43,11 @@
 		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
-	A.attack_ghost(src)
+	A.attack_ghost(src, TRUE)
 
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
-/atom/proc/attack_ghost(mob/dead/observer/user)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+/atom/proc/attack_ghost(mob/dead/observer/user, direct)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user, direct) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
 		if(user.gas_scan && atmosanalyzer_scan(user, src))

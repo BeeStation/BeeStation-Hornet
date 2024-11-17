@@ -35,7 +35,7 @@
 /datum/orbital_objective/assassination/generate_objective_stuff(turf/chosen_turf)
 	var/mob/living/carbon/human/created_human = new(chosen_turf)
 	//Maybe polling ghosts would be better than the shintience code
-	created_human.set_playable(ROLE_SURVIVALIST)
+	created_human.AddComponent(/datum/component/ghost_spawner, ROLE_SURVIVALIST, unique = TRUE)
 	created_human.mind_initialize()
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))

@@ -167,8 +167,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	oldguy = H
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
-	if(!key)
-		set_playable(ROLE_BLOB)
+	AddComponent(/datum/component/ghost_spawner, ROLE_BLOB, unique = TRUE, flavour_message = GHOST_SPAWNER_SLAVE)
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
@@ -256,7 +255,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	pressure_resistance = 50
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
-	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()

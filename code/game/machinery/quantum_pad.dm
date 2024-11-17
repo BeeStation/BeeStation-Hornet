@@ -131,7 +131,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 	s.set_up(5, 1, get_turf(src))
 	s.start()
 
-/obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
+/obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost, direct)
 	. = ..()
 	if(.)
 		return

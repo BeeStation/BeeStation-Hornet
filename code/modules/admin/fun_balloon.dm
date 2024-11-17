@@ -32,7 +32,7 @@
 	qdel(src)
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/effect/fun_balloon/attack_ghost(mob/user)
+/obj/effect/fun_balloon/attack_ghost(mob/user, direct)
 	if(!user.client || !user.client.holder || popped)
 		return
 	var/confirmation = alert("Pop [src]?","Fun Balloon","Yes","No")

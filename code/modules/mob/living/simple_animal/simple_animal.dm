@@ -539,7 +539,7 @@
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
 	UPDATE_OO_IF_PRESENT
 
-/mob/living/simple_animal/proc/sentience_act(mob/user) //Called when a simple animal gains sentience via gold slime potion
+/mob/living/simple_animal/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF) // To prevent any weirdness.
 	can_have_ai = FALSE
 
@@ -689,8 +689,3 @@
 	if (AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
-
-/mob/living/simple_animal/give_mind(mob/user)
-	. = ..()
-	if(.)
-		sentience_act(user)

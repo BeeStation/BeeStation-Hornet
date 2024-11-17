@@ -102,13 +102,9 @@
 		return FALSE
 	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
-	..()
 	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
 	if(spider_antag.spider_team.directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
-	return TRUE
 
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()

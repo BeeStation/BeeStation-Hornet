@@ -680,7 +680,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		ready_to_deploy = TRUE
 		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=[REF(src)];ghostjoin=1>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
 
-/obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
+/obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user, direct)
 	. = ..()
 	if(.)
 		return
@@ -695,7 +695,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(href_list["ghostjoin"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			attack_ghost(ghost)
+			attack_ghost(ghost, FALSE)
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"

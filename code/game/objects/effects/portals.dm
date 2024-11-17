@@ -163,7 +163,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 		linked = null
 	return ..()
 
-/obj/effect/portal/attack_ghost(mob/dead/observer/O)
+/obj/effect/portal/attack_ghost(mob/dead/observer/O, direct)
 	if(!teleport(O, TRUE))
 		return ..()
 

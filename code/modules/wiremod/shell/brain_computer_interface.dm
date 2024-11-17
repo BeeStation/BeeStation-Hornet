@@ -266,7 +266,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 		return
 
 	if (href_list["open_bci"])
-		parent.attack_ghost(usr)
+		parent.attack_ghost(usr, TRUE)
 
 /datum/action/innate/bci_charge_action
 	name = "Check BCI Charge"
