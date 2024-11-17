@@ -172,7 +172,7 @@
 	if(opened)
 		. += "<span class='notice'>The parts are <b>welded</b> together.</span>"
 	else if(secure && !opened)
-		. += "<span class='notice'>Alt-click to [locked ? "unlock" : "lock"].</span>"
+		. += "<span class='notice'>Right-click to [locked ? "unlock" : "lock"].</span>"
 	if(isliving(user))
 		var/mob/living/L = user
 		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
@@ -518,13 +518,10 @@
 	broken = TRUE //applies to secure lockers only
 	open()
 
-/obj/structure/closet/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(loc))
-		return
-	if(opened || !secure)
-		return
-	else
+/obj/structure/closet/RightClick(mob/user, modifiers)
+	if(!opened && secure)
 		togglelock(user)
+	return TRUE
 
 /obj/structure/closet/CtrlShiftClick(mob/living/user)
 	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))

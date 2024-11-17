@@ -144,8 +144,13 @@
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
 /////////////////
-#define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
-#define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
+///from base of atom/Click(): (location, control, params, mob/user)
+#define COMSIG_CLICK "atom_click"
+///from base of atom/RightClick(): (/mob)
+#define COMSIG_CLICK_RIGHT "right_click"
+	#define COMPONENT_CANCEL_CLICK_RIGHT (1<<0)
+///from base of atom/ShiftClick(): (/mob)
+#define COMSIG_CLICK_SHIFT "shift_click"
 	#define COMPONENT_ALLOW_EXAMINATE 1 //Allows the user to examinate regardless of client.eye.
 #define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
