@@ -151,13 +151,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/machinery/turnstile/proc/can_be_rotated(mob/user, rotation_type)
-	if(!anchored && state == TURNSTILE_SHELL)
-		return TRUE
-	to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-	return FALSE
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER

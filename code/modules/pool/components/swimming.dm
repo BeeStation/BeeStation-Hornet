@@ -45,7 +45,7 @@
 	if(istype(C) && C?.dna?.species)
 		component_type = C.dna.species.swimming_component
 	var/mob/M = parent
-	RemoveComponent()
+	ClearFromParent()
 	M.AddComponent(component_type)
 
 /datum/component/swimming/proc/try_leave_pool(datum/source, turf/clicked_turf)
@@ -66,7 +66,7 @@
 /datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
 	L.forceMove(clicked_turf)
 	L.visible_message("<span class='notice'>[parent] climbs out of the pool.</span>")
-	RemoveComponent()
+	ClearFromParent()
 
 /datum/component/swimming/proc/pull_out(var/mob/living/L, turf/clicked_turf)
 	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
@@ -78,7 +78,7 @@
 			L.visible_message("<span class='notice'>[parent] pulls [pulled_object] out of the pool.</span>")
 			var/datum/component/swimming/swimming_comp = pulled_object.GetComponent(/datum/component/swimming)
 			if(swimming_comp)
-				swimming_comp.RemoveComponent()
+				swimming_comp.ClearFromParent()
 
 /datum/component/swimming/UnregisterFromParent()
 	exit_pool()

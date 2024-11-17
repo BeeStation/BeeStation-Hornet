@@ -107,7 +107,7 @@
 	normalize_cardinal_directions()
 	findAllConnections()
 
-/obj/machinery/atmospherics/pipe/layer_manifold/setPipingLayer()
+/obj/machinery/atmospherics/pipe/layer_manifold/set_piping_layer()
 	piping_layer = PIPING_LAYER_DEFAULT
 
 /obj/machinery/atmospherics/pipe/layer_manifold/pipeline_expansion()

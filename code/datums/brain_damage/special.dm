@@ -67,7 +67,7 @@
 /datum/brain_trauma/special/ghost_control/on_lose()
 	var/datum/component/deadchat_control/D = owner.GetComponent(/datum/component/deadchat_control)
 	if(D)
-		D.RemoveComponent()
+		D.ClearFromParent()
 	..()
 
 

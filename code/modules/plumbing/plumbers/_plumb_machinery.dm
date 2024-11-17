@@ -28,7 +28,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 	. = ..()
 	anchored = bolt
 	create_reagents(buffer, reagent_flags)
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
+	AddComponent(/datum/component/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)

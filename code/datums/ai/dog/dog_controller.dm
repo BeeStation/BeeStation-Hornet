@@ -156,8 +156,8 @@
 		return
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
+	. = COMPONENT_CANCEL_CLICK_ALT
 	INVOKE_ASYNC(src, PROC_REF(command_radial), clicker)
-	return COMPONENT_INTERCEPT_ALT
 
 /// Show the command radial menu
 /datum/ai_controller/dog/proc/command_radial(mob/living/clicker)

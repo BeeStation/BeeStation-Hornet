@@ -22,7 +22,7 @@ Everything else should be handled for you. Good luck soldier.
 					return
 			else //They're trying to disable the full auto of a gun. Remove the relevent component
 				if(autofire_component)
-					autofire_component.RemoveComponent()
+					autofire_component.ClearFromParent()
 					qdel(autofire_component)
 					return ..()
 		if(NAMEOF(src, fire_rate))
@@ -58,7 +58,7 @@ Everything else should be handled for you. Good luck soldier.
 	if((!isturf(target) && !isturf(target.loc)) || get_turf(G) == target)
 		return
 	if(!istype(G)) //This should never happen. But let's just be safe.
-		RemoveComponent()
+		ClearFromParent()
 		return FALSE
 	var/mob/living/L = G.loc
 	if(!istype(L))
@@ -81,7 +81,7 @@ Everything else should be handled for you. Good luck soldier.
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.
 	var/obj/item/gun/G = parent
 	if(!istype(G)) //This should never happen. But let's just be safe.
-		RemoveComponent()
+		ClearFromParent()
 		return PROCESS_KILL
 	var/mob/living/L = G.loc
 	if(!istype(L))
@@ -100,7 +100,7 @@ Everything else should be handled for you. Good luck soldier.
 			return
 	G.afterattack(autofire_target,L)
 
-/datum/component/full_auto/RemoveComponent()
+/datum/component/full_auto/ClearFromParent()
 	. = ..()
 	STOP_PROCESSING(SSfastprocess, src) //Just in case.
 

@@ -227,6 +227,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	desc = "A sink frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
 
+/obj/structure/sinkframe/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a sink...")
@@ -241,12 +245,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 /obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-	return !anchored
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()

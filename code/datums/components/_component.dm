@@ -72,7 +72,9 @@
  * * silent - deletes the component without sending a [COMSIG_COMPONENT_REMOVING] signal
  */
 /datum/component/Destroy(force=FALSE, silent=FALSE)
-	if(!force && parent)
+	if(!parent)
+		return ..()
+	if(!force)
 		_RemoveFromParent()
 	if(parent && !silent)
 		SEND_SIGNAL(parent, COMSIG_COMPONENT_REMOVING, src)
@@ -416,12 +418,25 @@
 		return new_comp
 	return old_comp
 
+/**
+ * Get existing component of type, or create it and return a reference to it
+ *
+ * Use this if the item needs to exist at the time of this call, but may not have been created before now
+ *
+ * Arguments:
+ * * component_type The typepath of the component to create or return
+ * * ... additional arguments to be passed when creating the component if it does not exist
+ */
 /datum/proc/_LoadComponent(list/arguments)
 	. = GetComponent(arguments[1])
 	if(!.)
 		return _AddComponent(arguments)
 
-/datum/component/proc/RemoveComponent()
+/**
+ * Removes the component from parent, ends up with a null parent
+ * Used as a helper proc by the component transfer proc, does not clean up the component like Destroy does
+ */
+/datum/component/proc/ClearFromParent()
 	if(!parent)
 		return
 	var/datum/old_parent = parent
@@ -430,11 +445,19 @@
 	parent = null
 	SEND_SIGNAL(old_parent, COMSIG_COMPONENT_REMOVING, src)
 
+/**
+ * Transfer this component to another parent
+ *
+ * Component is taken from source datum
+ *
+ * Arguments:
+ * * datum/component/target Target datum to transfer to
+ */
 /datum/proc/TakeComponent(datum/component/target)
 	if(!target || target.parent == src)
 		return
 	if(target.parent)
-		target.RemoveComponent()
+		target.ClearFromParent()
 	target.parent = src
 	var/result = target.PostTransfer()
 	switch(result)

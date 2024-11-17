@@ -118,7 +118,7 @@
 	owner.dextrous = FALSE
 	owner.combat_mode = initial(owner.combat_mode)
 	var/datum/component/personal_crafting/crafting = owner.GetComponent(/datum/component/personal_crafting)
-	crafting?.RemoveComponent()
+	crafting?.ClearFromParent()
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
 	owner.armour_penetration = initial(owner.armour_penetration)
