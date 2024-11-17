@@ -92,6 +92,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	balloon_alert(user, "transferring [amount_per_transfer_from_this]u")
 	mode_change_message(user)
 
+/obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, params)
+	if (try_splash(user, target))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	return ..()
+
 /// Tries to splash the target. Used on both right-click and normal click when in combat mode.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
 	if (!spillable)
