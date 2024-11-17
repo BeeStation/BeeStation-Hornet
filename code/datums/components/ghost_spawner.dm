@@ -76,9 +76,8 @@
 
 /datum/component/ghost_spawner/proc/remove_from_spawner_menu()
 	_alerted = FALSE
-	var/mob/living/parent_mob = parent
 	for(var/spawner in GLOB.mob_spawners)
-		GLOB.mob_spawners[spawner] -= parent_mob
+		GLOB.mob_spawners[spawner] -= parent
 		if(!length(GLOB.mob_spawners[spawner]))
 			GLOB.mob_spawners -= spawner
 	SSmobs.update_spawners()
@@ -101,7 +100,7 @@
 /datum/component/ghost_spawner/proc/raise_spawner_alert(ignore_key = FALSE)
 	var/mob/living/parent_mob = parent
 	// Don't showcase dead mobs that become controllable
-	if ((!ignore_key && parent_mob.key) || parent_mob.stat == DEAD)
+	if (istype(parent_mob) && ((!ignore_key && parent_mob.key) || parent_mob.stat == DEAD))
 		return
 	if (_alerted)
 		return
@@ -138,10 +137,10 @@
 		return
 	if (!player.client)
 		return
-	var/mob/living/closest_mob = null
+	var/atom/closest_mob = null
 	var/closest_distance = INFINITY
 	// Order by the ones closest to the player
-	for (var/mob/living/target in mob_spawn_group)
+	for (var/atom/target in mob_spawn_group)
 		var/distance = get_dist(target, player)
 		if (distance > closest_distance)
 			continue
@@ -157,13 +156,18 @@
 	// Will perform the role check again to safely handle sleeping code
 	spawn_into_mob(player, closest_mob)
 
-/datum/component/ghost_spawner/proc/spawn_into_mob(mob/dead/observer/player, mob/living/target)
+/datum/component/ghost_spawner/proc/spawn_into_mob(mob/dead/observer/player, atom/target)
 	set waitfor = FALSE
 	if (!player.client)
 		return
 	var/mob/living/parent_mob = target
-	if (can_become_role(player.client, parent_mob) != GHOST_SPAWN_ABLE)
-		return
+	if (istype(parent_mob))
+		if (can_become_role(player.client, parent_mob) != GHOST_SPAWN_ABLE)
+			return
+	else
+		if (can_become_role(player.client, null) != GHOST_SPAWN_ABLE)
+			return
+	var/needs_sentience = FALSE
 	// If the parent is not a mob, then delete it if necessary
 	if (!istype(parent_mob))
 		var/atom/parent_atom = parent
@@ -177,6 +181,7 @@
 			parent_mob = new spawned_type(parent_atom.loc)
 			if (remove_after_spawn)
 				qdel(parent)
+		needs_sentience = TRUE
 	// Perform the spawning
 	parent_mob.key = player.key
 	log_game("[key_name(player)] took control of [parent_mob.name] ([parent_mob.type]) at [COORD(parent_mob)].")
@@ -196,16 +201,20 @@
 	spawn_message += "<font color='red'>Please do not use memories from previous lives!</font>"
 	to_chat(parent_mob, "<span class='spawn_message'>[jointext(spawn_message, "<br />")]</span>")
 	parent_mob.sentience_act()
+	// Add the spawner to the sentience mob
+	if (needs_sentience)
+		parent_mob.AddComponent(/datum/component/ghost_spawner, ban_key, FALSE, flavour_message=flavour_message, master=master)
 
-/datum/component/ghost_spawner/proc/can_become_role(client/user, mob/living/target)
+/datum/component/ghost_spawner/proc/can_become_role(client/user, atom/target)
 	// This sleeps if the DB call isn't cached, so do it first
-	if (!user.can_take_ghost_spawner(ban_key, TRUE, target.flags_1 & ADMIN_SPAWNED_1))
+	if (!user.can_take_ghost_spawner(ban_key, TRUE, target && (target.flags_1 & ADMIN_SPAWNED_1)))
 		return GHOST_SPAWN_CLIENT_LOCKED
 	if (!SSticker.HasRoundStarted())
 		return GHOST_SPAWN_CLIENT_LOCKED
 	if (!user)
 		return GHOST_SPAWN_UNABLE
-	if (target.key)
+	var/mob/living/living_target = target
+	if (istype(living_target) && living_target.key)
 		return GHOST_SPAWN_UNABLE
 	return GHOST_SPAWN_ABLE
 
@@ -219,6 +228,9 @@
 
 /datum/component/ghost_spawner/proc/get_source_name()
 	var/mob/living/parent_mob = parent
-	. = (parent_mob.unique_name && !unique) ? initial(parent_mob.name) : parent_mob.name
+	if (!istype(parent_mob))
+		. = "[parent_mob.name]"
+	else
+		. = (parent_mob.unique_name && !unique) ? initial(parent_mob.name) : parent_mob.name
 	if (master)
 		. += " (Master: [master.name])"
