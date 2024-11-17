@@ -189,7 +189,7 @@
 
 	// Shoving
 	var/list/modifiers = params2list(params)
-	if(modifiers && modifiers["right"])
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		var/shove_dir = get_dir(user.loc, target.loc)
 		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
 		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents

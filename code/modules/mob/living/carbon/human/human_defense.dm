@@ -245,7 +245,7 @@
 		affecting = get_bodypart(BODY_ZONE_CHEST)
 
 
-	if(modifiers && modifiers["right"]) //Always drop item in hand, if no item, get stunned instead.
+	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand, if no item, get stunned instead.
 		dna.species.disarm(M, src)
 		return TRUE
 

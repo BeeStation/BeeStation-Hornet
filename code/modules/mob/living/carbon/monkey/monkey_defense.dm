@@ -82,7 +82,7 @@
 								"<span class='danger'>You avoid [M]'s lunge!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, M)
 				to_chat(M, "<span class='warning'>Your lunge misses [name]!</span>")
 
-		if (modifiers && modifiers["right"])
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			var/obj/item/I = null
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			if(prob(95))

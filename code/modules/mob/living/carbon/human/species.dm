@@ -1720,7 +1720,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
 	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
 
-	if(modifiers && modifiers["right"])
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		disarm(M, H, attacker_style)
 		return // dont attack after
 	if(M.combat_mode)

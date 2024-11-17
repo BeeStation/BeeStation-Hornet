@@ -351,7 +351,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 			discipline_slime(M)
 	else
 		if(stat == DEAD && surgeries.len)
-			if(!M.combat_mode || (modifiers && modifiers["right"]))
+			if(!M.combat_mode || LAZYACCESS(modifiers, RIGHT_CLICK))
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, modifiers))
 						return 1
@@ -367,7 +367,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, params)
 	if(stat == DEAD && surgeries.len)
 		var/list/modifiers = params2list(params)
-		if(!user.combat_mode || (modifiers && modifiers["right"]))
+		if(!user.combat_mode || (LAZYACCESS(modifiers, RIGHT_CLICK)))
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, modifiers))
 					return 1
