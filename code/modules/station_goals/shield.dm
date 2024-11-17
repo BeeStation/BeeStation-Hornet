@@ -121,6 +121,7 @@
 	if(user)
 		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src].</span>")
 	set_anchored(!anchored)
+	return TRUE
 
 /obj/machinery/satellite/update_icon()
 	icon_state = active ? "sat_active" : "sat_inactive"
@@ -151,7 +152,7 @@
 
 /obj/machinery/satellite/meteor_shield/Initialize(mapload)
 	. = ..()
-	proximity_monitor = new(src, kill_range)
+	proximity_monitor = new(src, 0)
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
 	for(var/turf/T in getline(src,meteor))
@@ -169,7 +170,7 @@
 	if(!..(user))
 		return FALSE
 
-	proximity_monitor.set_range(active ? src.kill_range : 0)
+	proximity_monitor.set_range(active ? kill_range : 0)
 
 	if(obj_flags & EMAGGED)
 		if(active)
