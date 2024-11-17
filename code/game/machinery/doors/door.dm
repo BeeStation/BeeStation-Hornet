@@ -255,7 +255,7 @@
 		var/obj/item/crowbar/crowbar = tool
 		forced_open = crowbar.force_opens
 	try_to_crowbar_secondary(tool, user, forced_open)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ..()
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()

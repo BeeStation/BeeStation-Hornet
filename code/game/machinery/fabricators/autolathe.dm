@@ -88,12 +88,8 @@
 		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
 		return TRUE
 
-	if (busy)
-		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return TRUE
-
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		return TRUE
+	if(busy)
+		balloon_alert(user, "it's busy!")
 
 	if(default_deconstruction_crowbar(O))
 		return TRUE
@@ -117,7 +113,29 @@
 		update_viewer_statics()
 		return TRUE
 
+	if(panel_open)
+		balloon_alert(user, "close the panel first!")
+		return FALSE
+
 	return ..()
+
+/obj/machinery/modular_fabricator/autolathe/attackby_secondary(obj/item/weapon, mob/living/user, params)
+	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(busy)
+		balloon_alert(user, "it's busy!")
+		return
+
+	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", weapon))
+		return
+
+	if(machine_stat)
+		return SECONDARY_ATTACK_CALL_NORMAL
+
+	if(panel_open)
+		balloon_alert(user, "close the panel first!")
+		return
+
+	return SECONDARY_ATTACK_CALL_NORMAL
 
 /obj/machinery/modular_fabricator/autolathe/proc/reset(wire)
 	switch(wire)
