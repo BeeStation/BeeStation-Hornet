@@ -88,7 +88,7 @@
 
 	var/nonharmfulhit = FALSE
 
-	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
+	if(!user.combat_mode && !(item_flags & ISWEAPON))
 		nonharmfulhit = TRUE
 	for(var/datum/surgery/S in target_mob.surgeries)
 		if(S.failed_step)
@@ -123,7 +123,7 @@
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
 
-	log_combat(user, target_mob, "[nonharmfulhit ? "poked" : "attacked"]", src, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
+	log_combat(user, target_mob, "[nonharmfulhit ? "poked" : "attacked"]", src, "(COMBAT MODE: [uppertext(user.combat_mode)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
 	add_fingerprint(user)
 
 

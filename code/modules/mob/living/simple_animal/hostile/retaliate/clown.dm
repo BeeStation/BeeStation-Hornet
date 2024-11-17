@@ -16,7 +16,7 @@
 	speak_language = /datum/language/metalanguage // somehow clown speaks in this (same to all clown mobs)
 	emote_see = list("honks", "squeaks")
 	speak_chance = 1
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	maxHealth = 75
 	health = 75
 	speed = 1

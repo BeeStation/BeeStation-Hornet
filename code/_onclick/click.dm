@@ -114,7 +114,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		UnarmedAttack(A)
+		UnarmedAttack(A, FALSE, modifiers)
 		return
 
 	if(throw_mode && throw_item(A))
@@ -136,7 +136,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A)
+			UnarmedAttack(A, FALSE, modifiers)
 		return
 
 	//Can't reach anything else in lockers or other weirdness
@@ -150,7 +150,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A,1)
+			UnarmedAttack(A, TRUE, modifiers)
 	else
 		if(W)
 			W.afterattack(A,src,0,params)
@@ -273,17 +273,19 @@
 	return
 
 
-/**
-  * Translates into [atom/proc/attack_hand], etc.
-  *
-  * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
-  * and usage when clicking on things telekinetically (flag=0).  This proc will
-  * not be called at ranged except with telekinesis.
-  *
-  * proximity_flag is not currently passed to attack_hand, and is instead used
-  * in human click code to allow glove touches only at melee range.
-  */
-/mob/proc/UnarmedAttack(atom/A, proximity_flag)
+/*
+ * Translates into [atom/proc/attack_hand], etc.
+ *
+ * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
+ * and usage when clicking on things telekinetically (flag=0).  This proc will
+ * not be called at ranged except with telekinesis.
+ *
+ * proximity_flag is not currently passed to attack_hand, and is instead used
+ * in human click code to allow glove touches only at melee range.
+ *
+ * modifiers is the click modifiers this attack had, used for
+ */
+/mob/proc/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return

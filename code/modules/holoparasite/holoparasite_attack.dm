@@ -20,8 +20,8 @@
 	holopara_projectile.fire()
 	return holopara_projectile
 
-/mob/living/simple_animal/hostile/holoparasite/UnarmedAttack(atom/target)
-	if(!is_manifested() && a_intent != INTENT_HELP)
+/mob/living/simple_animal/hostile/holoparasite/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
+	if(!is_manifested() && combat_mode)
 		to_chat(src, "<span class='danger bold'>You must be manifested to interact with or attack things!</span>")
 		return
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
@@ -33,11 +33,8 @@
 		. = target.attack_hand(src)
 		update_inv_hands()
 	else
-		switch(a_intent)
-			if(INTENT_HELP)
-				. = target.attack_hand(src)
-				update_inv_hands()
-			if(INTENT_GRAB)
+		if(combat_mode)
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				if(isliving(target))
 					var/mob/living/living_target = target
 					. = living_target.grabbedby(src)
@@ -46,6 +43,10 @@
 				update_inv_hands()
 			else
 				. = harm_attack(target)
+		else
+			. = target.attack_hand(src)
+			update_inv_hands()
+
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
 
 /mob/living/simple_animal/hostile/holoparasite/proc/harm_attack(atom/target)

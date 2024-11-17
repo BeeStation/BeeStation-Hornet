@@ -70,7 +70,7 @@
 			continue
 		syringe_diseases += D
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
+/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/living/user , proximity)
 	. = ..()
 	if(busy)
 		return
@@ -159,7 +159,7 @@
 						return
 				else if(!L.can_inject(user, TRUE))
 					return
-				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
+				if(user.combat_mode && iscarbon(L) && iscarbon(user))
 					L.visible_message("<span class='danger'>[user] lines a syringe up to [L]!", \
 							"<span class='userdanger'>[user] rears their arm back, ready to stab you with [src]</span>")
 					if(do_after(user, 1 SECONDS, L))

@@ -61,7 +61,7 @@
 	response_harm_continuous = "swats"
 	response_harm_simple = "swat"
 	stop_automated_movement = 1
-	a_intent = INTENT_HARM //parrots now start "aggressive" since only player parrots will nuzzle.
+	combat_mode = TRUE //parrots now start "aggressive" since only player parrots will nuzzle.
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
 	friendly_verb_continuous = "grooms"
@@ -157,7 +157,7 @@
 /mob/living/simple_animal/parrot/get_stat_tab_status()
 	var/list/tab_data = ..()
 	tab_data["Held Item"] = GENERATE_STAT_TEXT("[held_item]")
-	tab_data["Mode"] = GENERATE_STAT_TEXT("[a_intent]")
+	tab_data["Combat mode"] = GENERATE_STAT_TEXT("[combat_mode ? "On" : "Off"]")
 	return tab_data
 
 /mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	..()
 	if(client)
 		return
-	if(!stat && M.a_intent == INTENT_HARM)
+	if(!stat && M.combat_mode)
 
 		icon_state = icon_living //It is going to be flying regardless of whether it flees or attacks
 
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		else
 			parrot_state |= PARROT_FLEE		//Otherwise, fly like a bat out of hell!
 			drop_held_item(0)
-	if(stat != DEAD && M.a_intent == INTENT_HELP)
+	if(stat != DEAD && !M.combat_mode)
 		handle_automated_speech(1) //assured speak/emote
 	return
 
@@ -580,7 +580,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		var/mob/living/L = parrot_interest
 		if(melee_damage == 0)
 			melee_damage = parrot_damage_upper
-			a_intent = INTENT_HARM
+			set_combat_mode(TRUE)
 
 		//If the mob is close enough to interact with
 		if(Adjacent(parrot_interest))
@@ -874,13 +874,13 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(stat || !client)
 		return
 
-	if(a_intent != INTENT_HELP)
+	if(combat_mode)
 		melee_damage = 0
-		a_intent = INTENT_HELP
+		set_combat_mode(FALSE)
 	else
 		melee_damage = parrot_damage_upper
-		a_intent = INTENT_HARM
-	to_chat(src, "You will now [a_intent] others.")
+		set_combat_mode(TRUE)
+	to_chat(src, "You will now [combat_mode ? "Harm" : "Help"] others.")
 	return
 
 /*

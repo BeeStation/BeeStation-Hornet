@@ -252,7 +252,7 @@
 	. = TRUE
 	if(!I.tool_start_check(user, amount=0))
 		return
-	if(circuit == null && user.a_intent == INTENT_HARM)
+	if(circuit == null && user.combat_mode)
 		var/obj/item/weldingtool/W = I
 		if(W.use_tool(src, user, 40, volume=50))
 			to_chat(user, "<span class='notice'>You start slicing off the bars of the [src]")

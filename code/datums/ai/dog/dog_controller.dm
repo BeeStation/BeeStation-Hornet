@@ -90,7 +90,7 @@
 /datum/ai_controller/dog/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		unfriend(user)
 	else
 		if(prob(AI_DOG_PET_FRIEND_PROB))

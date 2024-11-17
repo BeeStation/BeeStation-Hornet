@@ -79,8 +79,6 @@
 		/obj/item/stack/sheet/cotton/cloth/durathread			= /datum/species/golem/durathread,
 		/obj/item/stack/sheet/cotton/durathread		= /datum/species/golem/durathread,
 		/obj/item/stack/sheet/snow					= /datum/species/golem/snow,
-		/obj/item/stack/sheet/capitalisium			= /datum/species/golem/capitalist,
-		/obj/item/stack/sheet/stalinium				= /datum/species/golem/soviet,
 		)
 
 	if(istype(I, /obj/item/stack))

@@ -98,7 +98,7 @@ Everything else should be handled for you. Good luck soldier.
 			next_process = world.time + CLICK_CD_MELEE
 			G.attack_atom(autofire_target, L)
 			return
-		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
+		else if(isliving(autofire_target) && L.combat_mode) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)
 			next_process = world.time + CLICK_CD_MELEE
 			return

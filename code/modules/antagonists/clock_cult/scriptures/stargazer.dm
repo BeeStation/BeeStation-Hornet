@@ -95,7 +95,7 @@
 		sg_light.close()
 
 /obj/structure/destructible/clockwork/gear_base/stargazer/attackby(obj/item/I, mob/living/user, params)
-	if(user.a_intent != INTENT_HELP)
+	if(user.combat_mode)
 		. = ..()
 		return
 	if(!anchored)

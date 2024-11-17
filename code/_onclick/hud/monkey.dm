@@ -3,12 +3,12 @@
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
 
-	action_intent = new /atom/movable/screen/act_intent()
-	action_intent.icon = ui_style
-	action_intent.icon_state = mymob.a_intent
-	action_intent.screen_loc = ui_acti
+	action_intent = new /atom/movable/screen/combattoggle/flashy()
 	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_acti
 	static_inventory += action_intent
+
 
 	using = new /atom/movable/screen/mov_intent()
 	using.icon = ui_style

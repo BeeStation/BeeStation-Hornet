@@ -50,7 +50,7 @@
 		M.unequip_everything()
 		var/mob/living/new_mob = new /mob/living/simple_animal/hostile/morph(M.loc)
 		if(istype(new_mob))
-			new_mob.a_intent = INTENT_HARM
+			new_mob.set_combat_mode(TRUE)
 			M.mind.transfer_to(new_mob)
 			new_owner.assigned_role = ROLE_MORPH
 			new_owner.special_role = ROLE_MORPH

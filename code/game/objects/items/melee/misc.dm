@@ -267,7 +267,7 @@
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
-		if (user.a_intent != INTENT_HARM)
+		if (!user.combat_mode)
 			if (affect_silicon)
 				var/list/desc = get_silicon_stun_description(target, user)
 
@@ -287,7 +287,7 @@
 		return
 	if(!isliving(target))
 		return
-	if (user.a_intent == INTENT_HARM)
+	if (user.combat_mode)
 		if(!..())
 			return
 		if(!iscyborg(target))
@@ -508,7 +508,7 @@
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
-		if (user.a_intent != INTENT_HARM)
+		if (!user.combat_mode)
 			if (affect_silicon)
 				var/list/desc = get_silicon_stun_description(target, user)
 
@@ -528,7 +528,7 @@
 		return
 	if(!isliving(target))
 		return
-	if (user.a_intent == INTENT_HARM)
+	if (user.combat_mode)
 		if(!..())
 			return
 		if(!iscyborg(target))
@@ -929,8 +929,8 @@
 	var/stamina_force = 25
 
 // #11200 Review - TEMP: Hacky code to deal with force string for this item.
-/obj/item/melee/tonfa/openTip(location, control, params, mob/user)
-	if (user != null && user.a_intent != INTENT_HARM)
+/obj/item/melee/tonfa/openTip(location, control, params, mob/living/user)
+	if (user != null && !user.combat_mode)
 		force = non_harm_force
 	else
 		force = initial(force)
@@ -956,11 +956,11 @@
 	if(!isliving(target))
 		return ..()
 	if(iscyborg(target))
-		if (user.a_intent != INTENT_HARM)
+		if (!user.combat_mode)
 			playsound(get_turf(src), hitsound, 75, 1, -1)
 			user.do_attack_animation(target) // The attacker cuddles the Cyborg, awww. No damage here.
 			return
-	if (user.a_intent != INTENT_HARM)
+	if (!user.combat_mode)
 		force = non_harm_force
 	else
 		force = initial(force)

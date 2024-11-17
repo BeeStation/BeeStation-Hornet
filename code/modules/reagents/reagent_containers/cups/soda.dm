@@ -46,8 +46,8 @@
 	sleep(20) //dramatic pause
 	return TOXLOSS
 
-/obj/item/reagent_containers/cup/soda_cans/attack(mob/M, mob/user)
-	if(iscarbon(M) && !reagents.total_volume && user.a_intent == INTENT_HARM && user.is_zone_selected(BODY_ZONE_HEAD))
+/obj/item/reagent_containers/cup/soda_cans/attack(mob/M, mob/living/user)
+	if(iscarbon(M) && !reagents.total_volume && user.combat_mode && user.is_zone_selected(BODY_ZONE_HEAD))
 		if(M == user)
 			user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
 		else

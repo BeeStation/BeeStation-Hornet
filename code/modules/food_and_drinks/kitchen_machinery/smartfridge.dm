@@ -74,7 +74,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(obj/item/O, mob/user, params)
+/obj/machinery/smartfridge/attackby(obj/item/O, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, O))
 		cut_overlays()
 		if(panel_open)
@@ -152,7 +152,7 @@
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put into [src]!</span>")
 				return FALSE
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
 		return FALSE
 	else

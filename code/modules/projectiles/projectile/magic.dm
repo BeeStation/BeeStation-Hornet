@@ -286,7 +286,7 @@
 
 	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 
-	new_mob.a_intent = INTENT_HARM
+	new_mob.set_combat_mode(TRUE)
 
 	M.wabbajack_act(new_mob)
 

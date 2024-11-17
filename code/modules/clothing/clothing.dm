@@ -130,10 +130,10 @@
 			return
 	qdel(resolved_item)
 
-/obj/item/clothing/attack(mob/attacker, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return //Harm intent does not eat
-	var/obj/item/organ/tongue/tongue = attacker.getorganslot(ORGAN_SLOT_TONGUE)
+/obj/item/clothing/attack(mob/living/target, mob/living/user, params)
+	if(user.combat_mode)
+		return //combat mode doesnt eat
+	var/obj/item/organ/tongue/tongue = target.getorganslot(ORGAN_SLOT_TONGUE)
 	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
 		return ..() //Not a clotheater tongue? No Clotheating!
 	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) != 0))
@@ -143,7 +143,7 @@
 		moth_snack = new
 		moth_snack.name = name
 		moth_snack.clothing = WEAKREF(src)
-	moth_snack.attack(attacker, user, params)
+	moth_snack.attack(target, user, params)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, repairable_by))

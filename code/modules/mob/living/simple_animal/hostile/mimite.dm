@@ -10,7 +10,7 @@
 	icon_living = "mimite"
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	melee_damage = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

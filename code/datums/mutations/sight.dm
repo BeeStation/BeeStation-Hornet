@@ -78,5 +78,5 @@
 	return visual_indicators[type][1]
 
 /datum/mutation/laser_eyes/on_ranged_attack(atom/target, mouseparams)
-	if(owner.a_intent == INTENT_HARM)
+	if(owner.combat_mode)
 		owner.LaserEyes(target, mouseparams)

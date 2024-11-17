@@ -73,7 +73,7 @@
 	if(!istype(target_mob))
 		return
 
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		//Early terminate, move to afterattack where we splash
 		return
 
@@ -141,7 +141,7 @@
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
 
 	else if(reagents.total_volume)
-		if(user.a_intent == INTENT_HARM)
+		if(user.combat_mode)
 			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 			reagents.reaction(target, TOUCH)
@@ -438,8 +438,8 @@
 		return
 	. = ..()
 
-/obj/item/reagent_containers/cup/waterbottle/afterattack(obj/target, mob/user, proximity)
-	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && user.a_intent == INTENT_HARM)))
+/obj/item/reagent_containers/cup/waterbottle/afterattack(obj/target, mob/living/user, proximity)
+	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && user.combat_mode)))
 		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
 		return
 

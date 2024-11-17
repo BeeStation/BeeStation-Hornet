@@ -65,7 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 				return
 
 /obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 
 /// Tries to splash the target. Used on both right-click and normal click when in combat mode.
