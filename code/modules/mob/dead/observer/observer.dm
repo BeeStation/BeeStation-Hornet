@@ -289,6 +289,8 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(can_reenter_corpse = TRUE,sentience_retention = SENTIENCE_SKIP)
 	SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, can_reenter_corpse, sentience_retention)
+	if (client && !can_reenter_corpse)
+		client.next_ghost_role_tick = max(client.next_ghost_role_tick, world.time + CONFIG_GET(number/ghost_role_cooldown))
 	if(key)
 		if(key[1] != "@") // Skip aghosts.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now

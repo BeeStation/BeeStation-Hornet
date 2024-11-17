@@ -5,6 +5,10 @@
 #define GHOST_SPAWNER_HOSTILE "The station operates as normal while injustice spreads across the world like a plague. Whatever your motive, your actions should be driven by it and it should push your story forward."
 #define GHOST_SPAWNER_SLAVE "You exist to serve your master. Your master's goals are your goals and you pledge eternal servitude towards them."
 
+#define GHOST_SPAWN_UNABLE 0
+#define GHOST_SPAWN_CLIENT_LOCKED 1
+#define GHOST_SPAWN_ABLE 2
+
 /**
  * Attaching this component to an object will cause observers to be able to interact with
  * to spawn in as a provided mob.
@@ -86,7 +90,7 @@
 	if (sentience_retention == SENTIENCE_ERASE)
 		qdel(src)
 		return
-	raise_spawner_alert()
+	raise_spawner_alert(TRUE)
 
 /// When the mob dies, remove from the spawner menu but don't remove this
 /// component.
@@ -94,10 +98,10 @@
 	SIGNAL_HANDLER
 	remove_from_spawner_menu()
 
-/datum/component/ghost_spawner/proc/raise_spawner_alert()
+/datum/component/ghost_spawner/proc/raise_spawner_alert(ignore_key = FALSE)
 	var/mob/living/parent_mob = parent
 	// Don't showcase dead mobs that become controllable
-	if (parent_mob.key || parent_mob.stat == DEAD)
+	if ((!ignore_key && parent_mob.key) || parent_mob.stat == DEAD)
 		return
 	if (_alerted)
 		return
@@ -141,8 +145,11 @@
 		var/distance = get_dist(target, player)
 		if (distance > closest_distance)
 			continue
-		if (!can_become_role(player.client, target))
-			continue
+		switch (can_become_role(player.client, target))
+			if (GHOST_SPAWN_UNABLE)
+				continue
+			if (GHOST_SPAWN_CLIENT_LOCKED)
+				return
 		closest_mob = target
 		closest_distance = distance
 	if (!closest_mob)
@@ -154,8 +161,8 @@
 	set waitfor = FALSE
 	if (!player.client)
 		return
-	var/mob/living/parent_mob = parent
-	if (!can_become_role(player.client, parent_mob))
+	var/mob/living/parent_mob = target
+	if (can_become_role(player.client, parent_mob) != GHOST_SPAWN_ABLE)
 		return
 	// If the parent is not a mob, then delete it if necessary
 	if (!istype(parent_mob))
@@ -193,14 +200,14 @@
 /datum/component/ghost_spawner/proc/can_become_role(client/user, mob/living/target)
 	// This sleeps if the DB call isn't cached, so do it first
 	if (!user.can_take_ghost_spawner(ban_key, TRUE, target.flags_1 & ADMIN_SPAWNED_1))
-		return FALSE
+		return GHOST_SPAWN_CLIENT_LOCKED
 	if (!SSticker.HasRoundStarted())
-		return FALSE
+		return GHOST_SPAWN_CLIENT_LOCKED
 	if (!user)
-		return FALSE
+		return GHOST_SPAWN_UNABLE
 	if (target.key)
-		return FALSE
-	return TRUE
+		return GHOST_SPAWN_UNABLE
+	return GHOST_SPAWN_ABLE
 
 /datum/component/ghost_spawner/Topic(href, list/href_list)
 	if (..())
