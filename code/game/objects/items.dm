@@ -266,7 +266,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		updateEmbedding()
 
 /obj/item/Destroy()
-	item_flags &= ~DROPDEL	//prevent reqdels
+	master = null
 	if(ismob(loc))
 		var/mob/m = loc
 		m.temporarilyRemoveItemFromInventory(src, TRUE)
@@ -686,8 +686,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
-	if(item_flags & DROPDEL)
-		qdel(src)
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -701,6 +700,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	user.update_equipment_speed_mods()
+
+	if(item_flags & DROPDEL && !QDELETED(src))
+		qdel(src)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -737,10 +739,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	visual_equipped(user, slot, initial)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
+
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to
@@ -1201,7 +1205,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/embedded(atom/embedded_target)
 
 /obj/item/proc/unembedded()
-	if(item_flags & DROPDEL)
+	if(item_flags & DROPDEL && !QDELETED(src))
 		QDEL_NULL(src)
 		return TRUE
 
@@ -1239,7 +1243,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 ///In case we want to do something special (like self delete) upon failing to embed in something, return true
 /obj/item/proc/failedEmbed()
-	if(item_flags & DROPDEL)
+	if(item_flags & DROPDEL && !QDELETED(src))
 		QDEL_NULL(src)
 		return TRUE
 	if(istype(src, /obj/item/shrapnel))
@@ -1416,6 +1420,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
 		return TRUE
+
+/// Special stuff you want to do when an outfit equips this item.
+/obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
+	return
 
 /**
  * * Overridden to generate icons for monkey clothing
