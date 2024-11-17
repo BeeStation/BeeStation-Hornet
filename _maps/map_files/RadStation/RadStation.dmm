@@ -3781,7 +3781,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "bhP" = (
-/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/rack,
 /obj/item/computer_hardware/hard_drive/role/lawyer{
 	pixel_x = -4;
@@ -3813,6 +3812,7 @@
 	pixel_y = -3
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/wood,
 /area/lawoffice)
 "bia" = (
@@ -55832,9 +55832,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow,
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "rGC" = (
@@ -70888,13 +70888,13 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wGq" = (
-/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /obj/structure/closet/crate/silvercrate,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "wGw" = (

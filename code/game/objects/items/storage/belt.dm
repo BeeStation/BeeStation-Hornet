@@ -323,15 +323,27 @@
 /obj/item/storage/belt/medical/ert/Initialize(mapload)
 	. = ..()
 	atom_storage.can_hold[/obj/item/gun/medbeam] = TRUE
+	preload = TRUE
 
 /obj/item/storage/belt/medical/ert/PopulateContents()
-	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/surgical_drapes(src)
-	new /obj/item/scalpel/advanced(src)
-	new /obj/item/retractor/advanced(src)
-	new /obj/item/surgicaldrill/advanced(src)
-	new /obj/item/reagent_containers/medspray/sterilizine(src)
-	new /obj/item/gun/medbeam(src)
+	SSwardrobe.provide_type(/obj/item/healthanalyzer/advanced)
+	SSwardrobe.provide_type(/obj/item/surgical_drapes)
+	SSwardrobe.provide_type(/obj/item/scalpel/advanced)
+	SSwardrobe.provide_type(/obj/item/retractor/advanced)
+	SSwardrobe.provide_type(/obj/item/surgicaldrill/advanced)
+	SSwardrobe.provide_type(/obj/item/reagent_containers/medspray/sterilizine)
+	SSwardrobe.provide_type(/obj/item/gun/medbeam)
+
+/obj/item/storage/belt/medical/ert/get_types_to_preload()
+	var/list/to_preload = list()
+	to_preload += /obj/item/healthanalyzer/advanced
+	to_preload += /obj/item/surgical_drapes
+	to_preload += /obj/item/scalpel/advanced
+	to_preload += /obj/item/retractor/advanced
+	to_preload += /obj/item/surgicaldrill/advanced
+	to_preload += /obj/item/reagent_containers/medspray/sterilizine
+	to_preload += /obj/item/gun/medbeam
+	return to_preload
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -371,7 +383,7 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
@@ -382,7 +394,7 @@
 	new /obj/item/restraints/handcuffs/cable(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
@@ -732,10 +744,9 @@
 /obj/item/storage/belt/bandolier/western/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 21
-	var/static/list/can_western_hold = typecacheof(list(
+	atom_storage.set_holdable(list(
 		/obj/item/ammo_casing/c38
 		))
-	atom_storage.can_hold = can_western_hold
 
 /obj/item/storage/belt/bandolier/western/filled/PopulateContents()
 	for(var/i in 1 to 21)

@@ -335,17 +335,9 @@
 	max_specific_storage = WEIGHT_CLASS_NORMAL
 	animated = FALSE
 
-/obj/item/kirbyplants/equipped(mob/living/user)
-	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
-	I.copy_overlays(src)
-	I.override = 1
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
-	I.layer = ABOVE_MOB_LAYER
-	..()
-
-/obj/item/kirbyplants/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("sneaking_mission")
+/obj/item/kirbyplants/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/tactical)
 
 /obj/item/kirbyplants/random
 	icon = 'icons/obj/flora/_flora.dmi'
@@ -387,6 +379,7 @@
 
 //a rock is flora according to where the icon file is
 //and now these defines
+//ah yes, a rock is in fact a plant, sure coders...
 
 /obj/structure/flora/rock
 	icon_state = "basalt"
@@ -470,3 +463,11 @@
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
+
+/obj/structure/flora/rock/icy
+	name = "icy rock"
+	color = rgb(204,233,235)
+
+/obj/structure/flora/rock/pile/icy
+	name = "icey rocks"
+	color = rgb(204,233,235)
