@@ -16,7 +16,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	src.rotation_flags = rotation_flags
-	src.AfterRotation = AfterRotation || CALLBACK(src, .proc/DefaultAfterRotation)
+	src.AfterRotation = AfterRotation || CALLBACK(src, PROC_REF(DefaultAfterRotation))
 
 /datum/component/simple_rotation/proc/AddSignals()
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(RotateLeft))

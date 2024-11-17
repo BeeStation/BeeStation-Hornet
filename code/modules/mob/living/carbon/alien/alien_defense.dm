@@ -41,7 +41,7 @@ In all, this is a lot like the monkey code. /N
 		to_chat(user, "<span class='warning'>[name] is too injured for that.</span>")
 
 
-/mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	return attack_alien(L)
 
 /mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)
@@ -91,7 +91,7 @@ In all, this is a lot like the monkey code. /N
 		if(STAMINA)
 			adjustStaminaLoss(damage)
 
-/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(!..())
 		return //gotta be a successful slime attack
 	var/damage = rand(20)

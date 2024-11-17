@@ -141,7 +141,7 @@
 
 	// Click on the floor to close airlocks
 	var/static/list/connections = list(
-		COMSIG_ATOM_ATTACK_HAND = .proc/on_attack_hand
+		COMSIG_ATOM_ATTACK_HAND = PROC_REF(on_attack_hand)
 	)
 	AddElement(/datum/element/connect_loc, src, connections)
 
@@ -1139,7 +1139,7 @@
 				set_machine_stat(machine_stat & ~BROKEN)
 				user.visible_message("<span class='notice'>[user] finishes welding [src].</span>", \
 									"<span class='notice'>You finish repairing the airlock.</span>")
-				update_icon()
+				update_appearance()
 		else
 			to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
 
@@ -1149,13 +1149,13 @@
 	user.visible_message("<span class='notice'>[user] begins [welded ? "unwelding":"welding"] the airlock.</span>", \
 		"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 		"<span class='hear'>You hear welding.</span>")
-	if(!tool.use_tool(src, user, 40, volume=50, extra_checks = CALLBACK(src, .proc/weld_checks, tool, user)))
+	if(!tool.use_tool(src, user, 40, volume=50, extra_checks = CALLBACK(src, PROC_REF(weld_checks), tool, user)))
 		return
 	welded = !welded
 	user.visible_message("<span class='notice'>[user] [welded? "welds shut":"unwelds"] [src].</span>", \
 		"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 	log_combat(user, tool, "[key_name(user)] [welded ? "welded":"unwelded"] airlock [src] with [tool] at [AREACOORD(src)]", important = FALSE)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/weldingtool/W, mob/user)
 	return !operating && density

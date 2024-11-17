@@ -16,7 +16,7 @@
 
 /obj/structure/c_transit_tube/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, .proc/AfterRotation))
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
 
 /obj/structure/c_transit_tube/proc/can_wrench_in_loc(mob/user)
 	var/turf/source_turf = get_turf(loc)

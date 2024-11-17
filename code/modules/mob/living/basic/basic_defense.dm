@@ -88,7 +88,7 @@
 			log_combat(user, src, "attacked", user)
 		return 1
 
-/mob/living/basic/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/basic/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	. = ..()
 	if(. && stat != DEAD) //successful larva bite
 		var/damage = rand(5, 10)
@@ -108,7 +108,7 @@
 		// var/damage = rand(user.melee_damage_lower, user.melee_damage_upper) // We don't have melee_damage_lower and melee_damage_upper, kept to make this easier to understand and drop-in in the future
 		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
 
-/mob/living/basic/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/basic/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		var/damage = 20
 		if(M.is_adult)
@@ -120,6 +120,11 @@
 /mob/living/basic/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.combat_mode) //No kicking dogs even as a rogue drone. Use a weapon.
 		return
+	return ..()
+
+/mob/living/basic/attack_drone_secondary(mob/living/simple_animal/drone/M)
+	if(M.combat_mode)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
 /mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE, actuallydamage = TRUE)

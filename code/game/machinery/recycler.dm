@@ -110,21 +110,28 @@
 	if(border_dir == eat_dir)
 		return TRUE
 
-/obj/machinery/recycler/proc/on_entered(datum/source, atom/movable/AM)
+/obj/machinery/recycler/proc/on_entered(datum/source, atom/movable/enterer, old_loc)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/eat, AM)
 
-/obj/machinery/recycler/proc/eat(atom/AM0, sound=TRUE)
+	INVOKE_ASYNC(src, PROC_REF(eat), enterer)
+
+/obj/machinery/recycler/proc/eat(atom/movable/morsel, sound=TRUE)
 	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(safety_mode)
 		return
+	if(iseffect(morsel))
+		return
+	if(!isturf(morsel.loc))
+		return
+	if(morsel.resistance_flags & INDESTRUCTIBLE)
+		return
 
 	var/list/to_eat
-	if(istype(AM0, /obj/item))
-		to_eat = AM0.GetAllContents()
+	if(istype(morsel, /obj/item))
+		to_eat = morsel.GetAllContents()
 	else
-		to_eat = list(AM0)
+		to_eat = list(morsel)
 
 	var/items_recycled = 0
 

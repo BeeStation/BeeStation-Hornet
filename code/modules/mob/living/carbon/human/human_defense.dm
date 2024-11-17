@@ -307,8 +307,7 @@
 		apply_damage(20, BRUTE, affecting, armor_block)
 
 
-/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
-
+/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(..()) //successful larva bite.
 		var/damage = rand(1, 3)
 		if(check_shields(L, damage, "the [L.name]"))
@@ -321,7 +320,7 @@
 			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		var/damage = 20
 		if(M.is_adult)

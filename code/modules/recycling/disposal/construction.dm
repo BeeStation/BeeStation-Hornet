@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 
 	pipename = initial(pipe_type.name)
 
-	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, .proc/AfterRotation))
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
 	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidden under floor tiles
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 

@@ -39,14 +39,14 @@
 /obj/structure/signpost/attack_hulk(mob/user, does_attack_animation = 0)
 	return interact(user)
 
-/obj/structure/signpost/attack_larva(mob/user)
+/obj/structure/signpost/attack_larva(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/signpost/attack_robot(mob/user)
 	if (Adjacent(user))
 		return interact(user)
 
-/obj/structure/signpost/attack_slime(mob/user)
+/obj/structure/signpost/attack_slime(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/signpost/attack_animal(mob/user)

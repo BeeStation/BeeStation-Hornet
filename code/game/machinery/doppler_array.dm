@@ -25,7 +25,7 @@
 	printer_ready = world.time + PRINTER_TIMEOUT
 	// Alt clicking when unwrenched does not rotate. (likely from UI not returning the mouse click)
 	// Also there is no sprite change for rotation dir, this shouldn't even have a rotate component tbh
-	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, .proc/RotationMessage))
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(RotationMessage)))
 
 /datum/data/tachyon_record
 	name = "Log Recording"
