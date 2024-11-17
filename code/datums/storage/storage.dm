@@ -83,7 +83,7 @@
 	var/screen_start_x = 4
 	var/screen_start_y = 2
 
-	var/datum/weakref/modeswitch_action_ref
+	var/datum/action/item_action/storage_gather_mode/modeswitch_action_ref
 
 /datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	boxes = new(null, src)
@@ -283,14 +283,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		QDEL_NULL(modeswitch_action_ref)
 		return
 
-	var/datum/action/existing = modeswitch_action_ref?.resolve()
-	if(!QDELETED(existing))
-		return
-
 	var/datum/action/modeswitch_action = new(resolve_parent)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
-	modeswitch_action_ref = WEAKREF(modeswitch_action)
-	modeswitch_action.Grant(usr)
+	//modeswitch_action_ref = WEAKREF(modeswitch_action)
+	if(resolve_parent.item_flags & PICKED_UP)
+		var/mob/M = resolve_parent.loc
+		if(!istype(M))
+			return
+		modeswitch_action.Grant(M)
 
 /// Refreshes and item to be put back into the real world, out of storage.
 /datum/storage/proc/reset_item(obj/item/thing)
