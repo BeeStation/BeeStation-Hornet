@@ -40330,9 +40330,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "kkt" = (
-/obj/structure/table{
-	pixel_y = 1
-	},
+/obj/structure/table,
 /obj/machinery/recharger{
 	pixel_y = 4
 	},

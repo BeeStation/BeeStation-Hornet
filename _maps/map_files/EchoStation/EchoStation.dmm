@@ -25300,16 +25300,14 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/crew_quarters/dorms)
 "myX" = (
-/obj/structure/table/optable{
-	pixel_y = 7
-	},
+/obj/structure/table/optable,
 /obj/item/surgical_drapes{
-	pixel_y = 4
+	pixel_y = 1
 	},
 /obj/machinery/light,
 /obj/item/clothing/gloves/color/latex{
 	pixel_x = -1;
-	pixel_y = -1
+	pixel_y = -3
 	},
 /turf/open/floor/iron,
 /area/medical/surgery)
