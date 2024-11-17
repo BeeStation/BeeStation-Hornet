@@ -124,13 +124,13 @@
 	for(var/datum/mutation/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
-/mob/living/carbon/human/RangedAttack(atom/A, mouseparams)
+/mob/living/carbon/human/RangedAttack(atom/A, modifiers)
 	. = ..()
 	if(.)
 		return
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
-		if(istype(G) && G.Touch(A,0)) // for magic gloves
+		if(istype(G) && G.Touch(A,0,modifiers)) // for magic gloves
 			return TRUE
 
 	if(isturf(A) && get_dist(src,A) <= 1)

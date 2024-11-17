@@ -54,6 +54,9 @@
 	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
 	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
+	var/full_auto = FALSE //Set this if your gun uses full auto. ONLY guns that go brr should use this. Not pistols!
+	var/datum/component/full_auto/autofire_component = null //Repeated calls to getComponent aren't really ideal. So we'll take the memory hit instead.
+
 	var/is_wielded = FALSE
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'

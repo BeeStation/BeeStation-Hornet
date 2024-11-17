@@ -93,7 +93,7 @@
 /datum/mutation/proc/on_attack_hand(atom/target, proximity)
 	return
 
-/datum/mutation/proc/on_ranged_attack(atom/target)
+/datum/mutation/proc/on_ranged_attack(mob/living/carbon/human/source, atom/target, modifiers)
 	return
 
 /datum/mutation/proc/on_move(new_loc)

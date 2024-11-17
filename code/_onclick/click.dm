@@ -158,9 +158,18 @@
 			UnarmedAttack(A, TRUE, modifiers)
 	else
 		if(W)
-			W.afterattack(A,src,0,params)
+			if(modifiers["right"])
+				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
+
+				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
+					W.afterattack(A, src, FALSE, params)
+			else
+				W.afterattack(A,src,0,params)
 		else
-			RangedAttack(A,params)
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				ranged_secondary_attack(A, modifiers)
+			else
+				RangedAttack(A,modifiers)
 
 /// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
@@ -303,8 +312,18 @@
   * for things like ranged glove touches, spitting alien acid/neurotoxin,
   * animals lunging, etc.
   */
-/mob/proc/RangedAttack(atom/A, params)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
+/mob/proc/RangedAttack(atom/A, modifiers)
+	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
+/**
+ * Ranged secondary attack
+ *
+ * If the same conditions are met to trigger RangedAttack but it is
+ * instead initialized via a right click, this will trigger instead.
+ * Useful for mobs that have their abilities mapped to right click.
+ */
+/mob/proc/ranged_secondary_attack(atom/target, modifiers)
 
 /**
   * Middle click
