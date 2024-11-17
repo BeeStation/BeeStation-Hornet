@@ -519,9 +519,14 @@
 	open()
 
 /obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+
+	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(loc))
+		return
+
 	if(!opened && secure)
 		togglelock(user)
-	return TRUE
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/closet/CtrlShiftClick(mob/living/user)
 	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
