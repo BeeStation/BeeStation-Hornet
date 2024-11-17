@@ -121,7 +121,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	amount_per_transfer_from_this = 13
 	volume = 13
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = list(5)
 	ignore_flags = 1 //so you can medipen through hardsuits
 	reagent_flags = DRAWABLE
 	flags_1 = null

@@ -129,6 +129,14 @@
 		return
 	return ..()
 
+/obj/item/reagent_containers/cup/soda_cans/attack_self_secondary(mob/user)
+	if(!is_drainable())
+		playsound(src, 'sound/effects/can_shake.ogg', 50, TRUE)
+		user.visible_message("<span class='danger'>[user] shakes [src]!</span>", "<span class='danger'>You shake up [src]!</span>", vision_distance=2)
+		fizziness += SODA_FIZZINESS_SHAKE
+		return
+	return ..()
+
 /obj/item/reagent_containers/cup/soda_cans/examine_more(mob/user)
 	. = ..()
 	if(!in_range(user, src))
