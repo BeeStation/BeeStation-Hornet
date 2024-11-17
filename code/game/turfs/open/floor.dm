@@ -59,6 +59,13 @@
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
 
+/turf/open/floor/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user, modifiers)
+
 /turf/open/floor/after_damage(damage_amount, damage_type, damage_flag)
 	if (broken || burnt)
 		return

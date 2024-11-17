@@ -139,6 +139,12 @@
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 	RegisterSignal(src, COMSIG_MACHINERY_BROKEN, PROC_REF(on_break))
 
+	// Click on the floor to close airlocks
+	var/static/list/connections = list(
+		COMSIG_ATOM_ATTACK_HAND = .proc/on_attack_hand
+	)
+	AddElement(/datum/element/connect_loc, src, connections)
+
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/airlock/LateInitialize()
@@ -840,6 +846,11 @@
 
 /obj/machinery/door/airlock/attack_paw(mob/user)
 	return attack_hand(user)
+
+/obj/machinery/door/airlock/proc/on_attack_hand(atom/source, mob/user, list/modifiers)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, /atom/proc/attack_hand, user, modifiers)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
