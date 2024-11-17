@@ -287,6 +287,7 @@
 			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
 							"<span class='userdanger'>[M] tackles you down!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", null, M)
 			to_chat(M, "<span class='danger'>You tackle [src] down!</span>")
+		return TRUE
 
 	if(M.combat_mode)
 		if (w_uniform)

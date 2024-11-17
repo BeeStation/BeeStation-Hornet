@@ -44,12 +44,12 @@
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
 	RegisterSignal(shell, COMSIG_CLICK_ALT, PROC_REF(send_alternate_signal))
-	RegisterSignal(shell, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(send_right_signal))
+	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF_SECONDARY, PROC_REF(send_right_signal))
 
 /obj/item/circuit_component/controller/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
 		COMSIG_ITEM_ATTACK_SELF,
-		COMSIG_ATOM_ATTACK_HAND_SECONDARY,
+		COMSIG_ITEM_ATTACK_SELF_SECONDARY,
 		COMSIG_CLICK_CTRL,
 	))
 
@@ -79,7 +79,7 @@
 	return COMPONENT_INTERCEPT_ALT
 
 /**
- * Called when the shell item is ctrl-clicked in active hand
+ * Called when the shell item is right-clicked in active hand
  */
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
