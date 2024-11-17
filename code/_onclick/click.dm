@@ -158,7 +158,7 @@
 			UnarmedAttack(A, TRUE, modifiers)
 	else
 		if(W)
-			if(modifiers["right"])
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
 
 				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
