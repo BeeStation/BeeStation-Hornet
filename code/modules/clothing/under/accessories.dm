@@ -430,6 +430,6 @@
 	worn_icon_state = "officerbadge"
 
 /obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
-    if(Adjacent(user))
-    	user.visible_message("<span class='notice'>[user] shows you \the: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
-    ..()
+	if(Adjacent(user))
+		user.visible_message("<span class='notice'>[user] shows you \the: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
+	..()
