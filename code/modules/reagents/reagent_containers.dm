@@ -6,12 +6,12 @@
 	item_flags = ISWEAPON
 	/// this is to support when you don't want to display "bottle" part with a custom name. i.e.) "Bica-Kelo mix" rather than "Bica-Kelo mix bottle"
 	var/label_name
-	///How many units are we currently transferring?
+	/// The maximum amount of reagents per transfer that will be moved out of this reagent container.
 	var/amount_per_transfer_from_this = 5
+	/// Does this container allow changing transfer amounts at all, the container can still have only one possible transfer value in possible_transfer_amounts at some point even if this is true
+	var/has_variable_transfer_amount = TRUE
 	///Possible amounts of units transfered a click
 	var/list/possible_transfer_amounts = list(5,10,15,20,25,30)
-	/// Where we are in the possible transfer amount list.
-	var/amount_list_position = 1
 	///The amount of reagents this can hold
 	var/volume = 30
 	///Holder for the reagent flags
@@ -46,25 +46,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		reagents.add_reagent(/datum/reagent/blood, disease_amount, data)
 	if(!label_name)
 		label_name = name
-
 	add_initial_reagents()
 
 /obj/item/reagent_containers/examine()
 	. = ..()
-	if(possible_transfer_amounts.len > 1)
-		. += "<span class='notice'>Left-click or right-click in-hand to increase or decrease its transfer amount.</span>"
-	else if(possible_transfer_amounts.len)
-		. += "<span class='notice'>Left-click or right-click in-hand to view its transfer amount.</span>"
+	if(has_variable_transfer_amount)
+		if(possible_transfer_amounts.len > 1)
+			. += "<span class='notice'>Left-click or right-click in-hand to increase or decrease its transfer amount.</span>"
+		else if(possible_transfer_amounts.len)
+			. += "<span class='notice'>Left-click or right-click in-hand to view its transfer amount.</span>"
+
+/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
+	if (!user.combat_mode)
+		return
+	return ..()
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
 /obj/item/reagent_containers/attack_self(mob/user)
-	change_transfer_amount(user, FORWARD)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, FORWARD)
 
 /obj/item/reagent_containers/attack_self_secondary(mob/user)
-	change_transfer_amount(user, BACKWARD)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, BACKWARD)
 
 /obj/item/reagent_containers/proc/mode_change_message(mob/user)
 	return
@@ -73,20 +80,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	var/list_len = length(possible_transfer_amounts)
 	if(!list_len)
 		return
+	var/index = possible_transfer_amounts.Find(amount_per_transfer_from_this) || 1
 	switch(direction)
 		if(FORWARD)
-			amount_list_position = (amount_list_position % list_len) + 1
+			index = (index % list_len) + 1
 		if(BACKWARD)
-			amount_list_position = (amount_list_position - 1) || list_len
+			index = (index - 1) || list_len
 		else
 			CRASH("change_transfer_amount() called with invalid direction value")
-	amount_per_transfer_from_this = possible_transfer_amounts[amount_list_position]
+	amount_per_transfer_from_this = possible_transfer_amounts[index]
 	balloon_alert(user, "transferring [amount_per_transfer_from_this]u")
 	mode_change_message(user)
-
-/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
-	if(user.combat_mode)
-		return ..()
 
 /// Tries to splash the target. Used on both right-click and normal click when in combat mode.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)

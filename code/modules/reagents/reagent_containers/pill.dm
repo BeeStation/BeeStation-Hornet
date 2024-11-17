@@ -6,7 +6,7 @@
 	item_state = "pill_shape_capsule_purple_pink"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	possible_transfer_amounts = list()
+	has_variable_transfer_amount = FALSE
 	volume = 50
 	grind_results = list()
 	var/apply_type = INGEST
