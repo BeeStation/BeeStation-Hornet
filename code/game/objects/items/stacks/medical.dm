@@ -40,7 +40,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		reagents.add_reagent_list(reagent)
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
-	if(!M || !user || (isliving(M) && !M.can_inject(user, TRUE))) //If no mob, user and if we can't inject the mob just return
+	if(!M || !user || (isliving(M) && !M.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))) //If no mob, user and if we can't inject the mob just return
 		return
 
 	if(M.stat == DEAD && !stop_bleeding)

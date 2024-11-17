@@ -164,10 +164,13 @@
 	for(var/key in alarm_types_clear)
 		alarm_types_clear[key] = 0
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+/mob/living/silicon/can_inject(mob/user, target_zone, injection_flags)
 	return FALSE
+
+/mob/living/silicon/try_inject(mob/user, target_zone, injection_flags)
+	. = ..()
+	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
+		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE

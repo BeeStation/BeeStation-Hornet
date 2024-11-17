@@ -55,7 +55,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return
-	if(!target.can_inject(user, TRUE))
+	if(!target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return
 	log_combat(user, target, "attempted to inject", src)
 

@@ -505,8 +505,8 @@ GENE SCANNER
 	if(user.incapacitated())
 		return
 
+	var/message = list()
 	if(istype(M) && M.reagents)
-		var/message = list()
 		if(M.reagents.reagent_list.len)
 			message += "<span class='notice'>Subject contains the following reagents:</span>"
 			for(var/datum/reagent/R in M.reagents.reagent_list)
