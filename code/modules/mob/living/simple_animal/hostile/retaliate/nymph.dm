@@ -63,7 +63,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	GLOB.poi_list |= src
-	AddComponent(/datum/component/ghost_spawner, BAN_ROLE_ALL_GHOST)
+	AddComponent(/datum/component/ghost_spawner, BAN_ROLE_ALL_GHOST, flavour_message=GHOST_SPAWNER_STATION)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()

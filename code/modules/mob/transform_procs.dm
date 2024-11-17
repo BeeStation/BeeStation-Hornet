@@ -559,7 +559,7 @@
 		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
 		key = chosen_candidate.key
 	else
-		AddComponent(/datum/component/ghost_spawner, JOB_NAME_CYBORG, unique = TRUE)
+		AddComponent(/datum/component/ghost_spawner, JOB_NAME_CYBORG, unique = TRUE, flavour_message="You are a cyborg, bound by your laws and master AI.")
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()

@@ -5,5 +5,5 @@
 	. = ..()
 	if(target.key)
 		target.ghostize(FALSE)
-	target.AddComponent(/datum/component/ghost_spawner, BAN_ROLE_ALL_GHOST, TRUE)
+	target.AddComponent(/datum/component/ghost_spawner, BAN_ROLE_ALL_GHOST, TRUE, flavour_message="You have inhabited the body of [target.real_name].")
 

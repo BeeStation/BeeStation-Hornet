@@ -169,7 +169,7 @@
 	random_spider = new random_spider(get_turf(src))
 	random_spider.faction = faction.Copy()
 	random_spider.spider_team = spider_team
-	random_spider.AddComponent(/datum/component/ghost_spawner, ROLE_SPIDER)
+	random_spider.AddComponent(/datum/component/ghost_spawner, ROLE_SPIDER, flavour_message=GHOST_SPAWNER_MURDERBONE)
 	spawns_remaining--
 	if(!spawns_remaining)
 		qdel(src)

@@ -118,7 +118,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	. = ..()
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		AddComponent(/datum/component/ghost_spawner, ROLE_SENTIENCE, flavour_message=GHOST_SPAWNER_SLAVE, master=master?.mind)
+		AddComponent(/datum/component/ghost_spawner, ROLE_SENTIENCE, master=master?.mind)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)

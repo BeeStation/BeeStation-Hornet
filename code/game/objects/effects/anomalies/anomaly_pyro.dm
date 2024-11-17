@@ -33,4 +33,4 @@
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
 	S.flavor_text = FLAVOR_TEXT_EVIL
-	S.AddComponent(/datum/component/ghost_spawner, ROLE_PYRO_SLIME, unique = TRUE)
+	S.AddComponent(/datum/component/ghost_spawner, ROLE_PYRO_SLIME, unique = TRUE, flavour_message=GHOST_SPAWNER_MURDERBONE)

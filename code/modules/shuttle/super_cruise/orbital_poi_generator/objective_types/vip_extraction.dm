@@ -36,7 +36,7 @@
 /datum/orbital_objective/vip_recovery/generate_objective_stuff(turf/chosen_turf)
 	var/mob/living/carbon/human/created_human = new(chosen_turf)
 	//Maybe polling ghosts would be better than the shintience code
-	created_human.AddComponent(/datum/component/ghost_spawner, ROLE_EXPLORATION_VIP, unique = TRUE)
+	created_human.AddComponent(/datum/component/ghost_spawner, ROLE_EXPLORATION_VIP, unique = TRUE, flavour_message=GHOST_SPAWNER_NEUTRAL)
 	created_human.mind_initialize()
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))

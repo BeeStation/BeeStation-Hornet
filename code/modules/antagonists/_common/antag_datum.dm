@@ -153,7 +153,7 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.ghostize(FALSE)
 		owner.current.key = C.key
 	else
-		owner.current.AddComponent(/datum/component/ghost_spawner, banning_key, TRUE)
+		owner.current.AddComponent(/datum/component/ghost_spawner, banning_key, TRUE, flavour_message="You have inhabited the body of [name].")
 		owner.current.ghostize(FALSE)
 
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
