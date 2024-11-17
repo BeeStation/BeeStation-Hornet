@@ -48,7 +48,7 @@
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
 	return ..()
 
-/obj/structure/chair/deconstruct()
+/obj/structure/chair/deconstruct(disassembled)
 	// If we have materials, and don't have the NOCONSTRUCT flag
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(buildstacktype)
@@ -73,12 +73,7 @@
 	qdel(src)
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1))
-		to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-		if(W.use_tool(src, user, 30, volume=50))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			deconstruct(TRUE, 1)
-	else if(istype(W, /obj/item/assembly/shock_kit))
+	if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
 			return
 		var/obj/item/assembly/shock_kit/SK = W
@@ -91,6 +86,14 @@
 		qdel(src)
 	else
 		return ..()
+
+/obj/structure/chair/wrench_act_secondary(mob/living/user, obj/item/weapon)
+	if(flags_1&NODECONSTRUCT_1)
+		return TRUE
+	..()
+	weapon.play_tool_sound(src)
+	deconstruct(disassembled = TRUE)
+	return TRUE
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))

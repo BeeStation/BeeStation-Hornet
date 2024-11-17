@@ -340,6 +340,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/tray/attack_paw(mob/user)
 	return attack_hand(user)
 
+/obj/structure/tray/attack_robot(mob/user, list/modifiers)
+	return attack_hand(user, modifiers)
+
 /obj/structure/tray/attack_hand(mob/user)
 	. = ..()
 	if(.)
