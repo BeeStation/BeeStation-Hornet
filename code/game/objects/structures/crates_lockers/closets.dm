@@ -518,7 +518,7 @@
 	broken = TRUE //applies to secure lockers only
 	open()
 
-/obj/structure/closet/RightClick(mob/user, modifiers)
+/obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
 	if(!opened && secure)
 		togglelock(user)
 	return TRUE

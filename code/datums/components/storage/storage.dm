@@ -881,7 +881,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	return hide_from(target)
 
 /datum/component/storage/proc/open_storage(mob/user)
-	if(!isliving(user) || !user.CanReach(parent))
+	if(!user.CanReach(parent))
+		user.balloon_alert(user, "can't reach!")
+		return FALSE
+	if(!isliving(user) || user.incapacitated())
 		return FALSE
 	if(locked)
 		var/atom/host = parent
@@ -894,16 +897,13 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		A.add_fingerprint(user)
 		user_show_to_mob(user)
 		playsound(A, "rustle", 50, 1, -5)
-		return COMPONENT_INTERCEPT_ALT
-
-	if(user.incapacitated())
 		return
 
 	var/obj/item/to_remove = locate() in real_location()
 	if(!to_remove)
-		return COMPONENT_INTERCEPT_ALT
+		return
+
 	INVOKE_ASYNC(src, PROC_REF(attempt_put_in_hands), to_remove, user)
-	return COMPONENT_INTERCEPT_ALT
 
 /datum/component/storage/proc/on_open_storage_click(datum/source, mob/user, list/modifiers)
 	SIGNAL_HANDLER
