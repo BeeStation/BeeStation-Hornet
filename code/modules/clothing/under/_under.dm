@@ -43,7 +43,7 @@
 	if(!attach_accessory(I, user))
 		return ..()
 
-/obj/item/clothing/under/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/item/clothing/under/attack_hand_secondary(mob/user, params)
 	toggle()
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
