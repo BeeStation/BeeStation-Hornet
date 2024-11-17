@@ -316,6 +316,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/virusfood, 30)
 	default_unfasten_wrench(user, I)
 	return TRUE
 
+/obj/structure/reagent_dispensers/plumbed/storage/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/structure/reagent_dispensers/plumbed/storage
 	name = "stationairy storage tank"
 	icon_state = "tank_stationairy"

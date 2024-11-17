@@ -79,6 +79,9 @@
 		qdel(src)
 	return TRUE
 
+/obj/vehicle/ridden/wheelchair/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/vehicle/ridden/wheelchair/proc/handle_rotation(direction)
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()
@@ -90,7 +93,6 @@
 	cut_overlays()
 	var/image/V = image(icon = icon, icon_state = "wheelchair_overlay", layer = FLY_LAYER, dir = src.dir)
 	add_overlay(V)
-
 
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))

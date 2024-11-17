@@ -87,13 +87,22 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				. += "<span class='notice'>- [R.volume] units of [R.name].</span>"
 
-/obj/machinery/reagentgrinder/AltClick(mob/user)
+/obj/machinery/reagentgrinder/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(!can_interact(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
-	if(operating)//Prevent alt click early removals
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
+		return
+	if(operating)
 		return
 	replace_beaker(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/reagentgrinder/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/reagentgrinder/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	. = ..()
@@ -229,10 +238,7 @@
 			examine(user)
 
 /obj/machinery/reagentgrinder/proc/eject(mob/user)
-	for(var/i in holdingitems)
-		var/obj/item/O = i
-		O.forceMove(drop_location())
-		holdingitems -= O
+	drop_all_items()
 	if(beaker)
 		replace_beaker(user)
 

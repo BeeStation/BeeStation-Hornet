@@ -40,9 +40,20 @@
 			. += "It has a beaker inside it."
 		. += "<span class='info'>Alt-click to eject [is_close ? beaker : "the beaker"].</span>"
 
-/obj/machinery/computer/pandemic/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		eject_beaker()
+/obj/machinery/computer/pandemic/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
+		return
+	eject_beaker()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/computer/pandemic/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/computer/pandemic/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/computer/pandemic/handle_atom_del(atom/thingy)
 	if(thingy == beaker)

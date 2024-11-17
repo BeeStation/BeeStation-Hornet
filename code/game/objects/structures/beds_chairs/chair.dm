@@ -61,6 +61,9 @@
 	B.setDir(dir)
 	qdel(src)
 
+/obj/structure/chair/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
