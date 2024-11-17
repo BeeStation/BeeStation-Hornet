@@ -64,6 +64,9 @@
 #define COMSIG_MOB_DEADSAY "mob_deadsay" // from /mob/say_dead(): (mob/speaker, message)
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT 1
 #define COMSIG_MOB_POINTED "mob_pointed" //from base of /mob/verb/pointed: (atom/A)
+///Mob is trying to open the wires of a target [/atom], from /datum/wires/interactable(): (atom/target)
+#define COMSIG_TRY_WIRES_INTERACT "try_wires_interact"
+	#define COMPONENT_CANT_INTERACT_WIRES (1<<0)
 	/// From base of /client/Move()
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 ///Called after a client connects to a mob and all UI elements have been setup

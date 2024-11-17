@@ -1459,50 +1459,52 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   *
   * Must return  parent proc ..() in the end if overridden
   */
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+/atom/proc/tool_act(mob/living/user, obj/item/tool, tool_type, is_right_clicking)
+	var/act_result
 	var/signal_result
 
-	if(!is_right_clicking) // Left click first for sensibility
-			var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
-		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
+	var/is_left_clicking = !is_right_clicking
+
+	if(is_left_clicking) // Left click first for sensibility
+		var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
+		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, tool, processing_recipes)
+		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
+			return TOOL_ACT_SIGNAL_BLOCKING
 		if(processing_recipes.len)
-			process_recipes(user, I, processing_recipes)
-		if(QDELETED(I))
+			process_recipes(user, tool, processing_recipes)
+		if(QDELETED(tool))
 			return TRUE
-		switch(tool_type)
-			if(TOOL_CROWBAR)
-				. = crowbar_act(user, I)
-			if(TOOL_MULTITOOL)
-				. = multitool_act(user, I)
-			if(TOOL_SCREWDRIVER)
-				. = screwdriver_act(user, I)
-			if(TOOL_WRENCH)
-				. = wrench_act(user, I)
-			if(TOOL_WIRECUTTER)
-				. = wirecutter_act(user, I)
-			if(TOOL_WELDER)
-				. = welder_act(user, I)
-			if(TOOL_ANALYZER)
-				. = analyzer_act(user, I)
 	else
-		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_SECONDARY_TOOL_ACT(tool_type), user, I)
-		switch(tool_type)
-			if(TOOL_CROWBAR)
-				. = crowbar_act_secondary(user, I,)
-			if(TOOL_MULTITOOL)
-				. = multitool_act_secondary(user, I)
-			if(TOOL_SCREWDRIVER)
-				. = screwdriver_act_secondary(user, I)
-			if(TOOL_WRENCH)
-				. = wrench_act_secondary(user, I)
-			if(TOOL_WIRECUTTER)
-				. = wirecutter_act_secondary(user, I)
-			if(TOOL_WELDER)
-				. = welder_act_secondary(user, I)
-			if(TOOL_ANALYZER)
-				. = analyzer_act_secondary(user, I)
-	if(. || signal_result & COMPONENT_BLOCK_TOOL_ATTACK) //Either the proc or the signal handled the tool's events in some way.
-		return TRUE
+		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_SECONDARY_TOOL_ACT(tool_type), user, tool)
+		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
+			return TOOL_ACT_SIGNAL_BLOCKING
+
+	switch(tool_type)
+		if(TOOL_CROWBAR)
+			act_result = is_left_clicking ? crowbar_act(user, tool) : crowbar_act_secondary(user, tool)
+		if(TOOL_MULTITOOL)
+			act_result = is_left_clicking ? multitool_act(user, tool) : multitool_act_secondary(user, tool)
+		if(TOOL_SCREWDRIVER)
+			act_result = is_left_clicking ? screwdriver_act(user, tool) : screwdriver_act_secondary(user, tool)
+		if(TOOL_WRENCH)
+			act_result = is_left_clicking ? wrench_act(user, tool) : wrench_act_secondary(user, tool)
+		if(TOOL_WIRECUTTER)
+			act_result = is_left_clicking ? wirecutter_act(user, tool) : wirecutter_act_secondary(user, tool)
+		if(TOOL_WELDER)
+			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
+		if(TOOL_ANALYZER)
+			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+	if(!act_result)
+		return
+
+	// A tooltype_act has completed successfully
+	if(is_left_clicking)
+		investigate_log("[key_name(user)] used [tool] on [src] at [AREACOORD(src)]", INVESTIGATE_TOOLS)
+		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_PRIMARY(tool_type), src)
+	else
+		investigate_log("[key_name(user)] used [tool] on [src] (right click) at [AREACOORD(src)]", INVESTIGATE_TOOLS)
+		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_SECONDARY(tool_type), src)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /atom/proc/process_recipes(mob/living/user, obj/item/I, list/processing_recipes)
 	//Only one recipe? use the first
