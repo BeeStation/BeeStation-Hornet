@@ -910,6 +910,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(open_storage(user))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
 
 /datum/component/storage/proc/on_open_storage_attackby(datum/source, obj/item/weapon, mob/user, params)
 	SIGNAL_HANDLER
