@@ -8,18 +8,43 @@
   * * [/obj/item/proc/afterattack]. The return value does not matter.
   */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
+	var/is_right_clicking = params2list(params)["right"]
+
 	if(tool_behaviour && target.tool_act(user, src, tool_behaviour))
 		return TRUE
 	if(pre_attack(target, user, params))
 		return TRUE
-	if(target.attackby(src,user, params))
+
+	var/attackby_result
+
+	if (is_right_clicking)
+		switch (target.attackby_alt(src, user, params))
+			if (ALT_ATTACK_CALL_NORMAL)
+				attackby_result = target.attackby(src, user, params)
+			if (ALT_ATTACK_CANCEL_ATTACK_CHAIN)
+				return TRUE
+			if (null)
+				CRASH("attackby_alt must return an ALT_ATTACK_* define, please consult code/__DEFINES/combat.dm")
+	else
+		attackby_result = target.attackby(src, user, params)
+
+	if (attackby_result)
 		return TRUE
+
 	if(QDELETED(src))
 		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain.")
 		return TRUE
 	if(QDELETED(target))
 		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped.")
 		return TRUE
+
+	if (is_right_clicking)
+		var/after_attack_alt_result = afterattack_alt(target, user, TRUE, params)
+
+		// There's no chain left to continue at this point, so CANCEL_ATTACK_CHAIN and CONTINUE_CHAIN are functionally the same.
+		if (after_attack_alt_result == ALT_ATTACK_CANCEL_ATTACK_CHAIN || after_attack_alt_result == ALT_ATTACK_CONTINUE_CHAIN)
+			return TRUE
+
 	return afterattack(target, user, TRUE, params)
 
 
@@ -59,6 +84,19 @@
 		return TRUE
 	return FALSE
 
+/**
+ * Called on an object being right-clicked on by an item
+ *
+ * Arguments:
+ * * obj/item/weapon - The item hitting this atom
+ * * mob/user - The wielder of this item
+ * * params - click params such as alt/shift etc
+ *
+ * See: [/obj/item/proc/melee_attack_chain]
+ */
+/atom/proc/attackby_alt(obj/item/weapon, mob/user, params)
+	return ALT_ATTACK_CALL_NORMAL
+
 /obj/attackby(obj/item/I, mob/living/user, params)
 	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_atom(src, user, params))
 
@@ -66,7 +104,16 @@
 	if(..())
 		return TRUE
 	user.changeNext_move(CLICK_CD_MELEE)
-	return I.attack(src, user)
+	return I.attack(src, user, params)
+
+/mob/living/attackby_alt(obj/item/weapon, mob/living/user, params)
+	var/result = weapon.attack_alt(src, user, params)
+
+	// Normal attackby updates click cooldown, so we have to make up for it
+	if (result != ALT_ATTACK_CALL_NORMAL)
+		user.changeNext_move(CLICK_CD_MELEE)
+
+	return result
 
 /**
  * Called from [/mob/living/proc/attackby]
@@ -126,6 +173,9 @@
 	log_combat(user, target_mob, "[nonharmfulhit ? "poked" : "attacked"]", src, "(COMBAT MODE: [uppertext(user.combat_mode)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
 	add_fingerprint(user)
 
+/// The equivalent of [/obj/item/proc/attack] but for alternate attacks, AKA right clicking
+/obj/item/proc/attack_alt(mob/living/victim, mob/living/user, params)
+	return ALT_ATTACK_CALL_NORMAL
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
 /obj/item/proc/attack_atom(atom/attacked_atom, mob/living/user, params)
@@ -194,6 +244,17 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
 
+/**
+ * Called at the end of the attack chain if the user right-clicked.
+ *
+ * Arguments:
+ * * atom/target - The thing that was hit
+ * * mob/user - The mob doing the hitting
+ * * proximity_flag - is 1 if this afterattack was called on something adjacent, in your square, or on your person.
+ * * click_parameters - is the params string from byond [/atom/proc/Click] code, see that documentation.
+ */
+/obj/item/proc/afterattack_alt(atom/target, mob/user, proximity_flag, click_parameters)
+	return ALT_ATTACK_CALL_NORMAL
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
