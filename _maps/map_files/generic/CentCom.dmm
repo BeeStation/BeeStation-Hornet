@@ -409,9 +409,10 @@
 	},
 /area/tdome/tdomeobserve)
 "bl" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/smooth_half,
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "bm" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -799,9 +800,11 @@
 /turf/open/floor/iron,
 /area/centcom/supply)
 "cj" = (
-/obj/structure/closet/crate/medical,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/smooth_half,
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/obj/structure/closet/crate/large,
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "cm" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -840,7 +843,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -1067,8 +1070,9 @@
 /turf/open/floor/wood,
 /area/centcom/control)
 "cY" = (
-/obj/structure/shipping_container/conarex,
-/turf/open/floor/iron/smooth_half,
+/obj/effect/turf_decal/box/corners,
+/obj/structure/closet/crate/goldcrate,
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "cZ" = (
 /obj/effect/turf_decal/tile/blue{
@@ -2931,7 +2935,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -2947,7 +2951,7 @@
 "iQ" = (
 /obj/structure/railing,
 /obj/item/kirbyplants/random,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "iR" = (
 /obj/effect/turf_decal/siding/red{
@@ -3039,7 +3043,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -3140,7 +3144,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -3152,14 +3156,17 @@
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "jp" = (
-/turf/open/floor/iron/smooth_half,
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "jq" = (
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "jr" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -3241,7 +3248,7 @@
 /obj/machinery/computer/cargo{
 	dir = 4
 	},
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -3276,7 +3283,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -3333,7 +3340,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -3359,7 +3366,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "jO" = (
 /obj/machinery/vending/cola,
@@ -3548,7 +3555,7 @@
 /area/syndicate_mothership/control)
 "kw" = (
 /obj/structure/railing/corner,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "kx" = (
 /obj/structure/filingcabinet/medical,
@@ -3727,7 +3734,7 @@
 /area/centcom/control)
 "ld" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "le" = (
 /obj/structure/shipping_container/gorlex/red,
@@ -4553,7 +4560,7 @@
 /obj/machinery/button/shieldwallgen/directional/west{
 	id = 8
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "oc" = (
 /obj/machinery/power/port_gen/pacman,
@@ -4661,7 +4668,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/turf/open/floor/iron/smooth_edge{
+/turf/open/floor/iron/edge{
 	dir = 4
 	},
 /area/centcom/supply)
@@ -4774,6 +4781,13 @@
 /obj/machinery/door/poddoor/ert,
 /turf/open/floor/iron/techmaint,
 /area/centcom/ferry)
+"oK" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/structure/shipping_container/conarex,
+/turf/open/floor/iron/half,
+/area/centcom/supply)
 "oM" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -4811,7 +4825,7 @@
 /turf/open/floor/carpet/red,
 /area/centcom/evac)
 "oQ" = (
-/turf/open/floor/iron/smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "oS" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -6248,8 +6262,8 @@
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "tq" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/smooth_half,
+/obj/effect/turf_decal/box/corners,
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "tr" = (
 /obj/effect/turf_decal/tile/green{
@@ -7432,7 +7446,7 @@
 /obj/structure/table,
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "wJ" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -9356,7 +9370,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "CA" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
@@ -9569,7 +9583,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "De" = (
 /obj/docking_port/stationary{
@@ -9982,7 +9996,7 @@
 /area/tdome/tdomeobserve)
 "Ew" = (
 /obj/structure/railing,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "Ex" = (
 /obj/structure/chair,
@@ -11012,6 +11026,15 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/tdome/tdomeobserve)
+"HB" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/structure/shipping_container/deforest{
+	density = 1
+	},
+/turf/open/floor/iron/half,
+/area/centcom/supply)
 "HC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11390,7 +11413,7 @@
 /area/centcom/holding)
 "IK" = (
 /obj/machinery/airalarm/directional/east,
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "IL" = (
 /obj/effect/landmark/thunderdome/one,
@@ -11868,6 +11891,13 @@
 	},
 /turf/open/floor/iron/smooth_edge,
 /area/centcom/evac)
+"JW" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/turf/open/floor/iron/half,
+/area/centcom/supply)
 "JX" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -12160,10 +12190,10 @@
 /turf/open/floor/carpet/red,
 /area/centcom/control)
 "KX" = (
-/obj/structure/shipping_container/deforest{
-	density = 1
+/obj/effect/turf_decal/box/corners{
+	dir = 8
 	},
-/turf/open/floor/iron/smooth_half,
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "KZ" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -12410,10 +12440,14 @@
 /turf/open/space,
 /area/space)
 "Md" = (
-/obj/structure/shipping_container/nanotrasen{
-	density = 1
+/turf/open/floor/iron/half,
+/area/centcom/supply)
+"Me" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4
 	},
-/turf/open/floor/iron/smooth_half,
+/obj/structure/closet/crate/medical,
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "Mf" = (
 /obj/effect/turf_decal/siding/blue/corner,
@@ -13253,7 +13287,7 @@
 	id = "XCCQMLoad";
 	pixel_x = 6
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "Oy" = (
 /obj/effect/turf_decal/tile/green,
@@ -13527,7 +13561,7 @@
 /obj/machinery/button/shieldwallgen/directional/east{
 	id = 8
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "Pl" = (
 /obj/structure/window/reinforced,
@@ -13776,7 +13810,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "PU" = (
 /obj/structure/table/reinforced,
@@ -13842,7 +13876,7 @@
 	id = "XCCQMLoad2";
 	pixel_x = 6
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron,
 /area/centcom/supply)
 "Qe" = (
 /turf/open/ai_visible,
@@ -14767,7 +14801,7 @@
 	pixel_x = 8;
 	pixel_y = 9
 	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "SQ" = (
 /turf/closed/indestructible/fakeglass,
@@ -14944,9 +14978,8 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Tp" = (
-/obj/structure/closet/crate/goldcrate,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/smooth_half,
+/obj/structure/closet/crate,
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "Tq" = (
 /obj/structure/table/wood/bar,
@@ -15095,9 +15128,13 @@
 /turf/open/floor/iron/half,
 /area/centcom/supply)
 "TO" = (
-/obj/structure/closet/crate/large,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/smooth_half,
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/structure/shipping_container/nanotrasen{
+	density = 1
+	},
+/turf/open/floor/iron/half,
 /area/centcom/supply)
 "TP" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
@@ -15271,7 +15308,7 @@
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/large,
 /area/centcom/supply)
 "Uq" = (
 /obj/machinery/newscaster{
@@ -57367,19 +57404,19 @@ aa
 cE
 bE
 ob
-je
-je
+oQ
+oQ
 Qd
-je
-je
-je
-je
-je
+oQ
+oQ
+oQ
+oQ
+oQ
 Ow
-je
-je
-je
-je
+oQ
+oQ
+oQ
+oQ
 iX
 me
 gZ
@@ -57623,20 +57660,20 @@ aa
 aa
 cE
 lG
-je
+oQ
 jp
 KX
-je
-cj
-tq
-je
-tq
-TO
-je
 oQ
+jp
+HB
+je
+JW
+KX
+oQ
+hL
 wI
+hL
 oQ
-je
 iX
 TN
 aJ
@@ -57880,17 +57917,17 @@ aa
 aa
 cE
 lG
-je
-jp
-jp
-je
-jp
+oQ
+Md
+Md
+oQ
+Md
 Md
 je
-bl
+Md
 Tp
-je
 oQ
+hL
 ld
 Ew
 sG
@@ -58137,17 +58174,17 @@ aa
 aa
 cE
 lG
-je
-jp
-jp
-je
-jp
-jp
-je
-jp
-cY
-je
 oQ
+bl
+tq
+oQ
+bl
+tq
+je
+cj
+cY
+oQ
+hL
 kw
 PT
 kC
@@ -58394,17 +58431,17 @@ aa
 aa
 cE
 lG
-je
-jp
-Md
-je
-jp
-jp
-je
-jp
-jp
-je
 oQ
+jp
+oK
+oQ
+jp
+KX
+je
+jp
+TO
+oQ
+hL
 iQ
 fl
 ci
@@ -58651,17 +58688,17 @@ aa
 aa
 cE
 lG
-je
-jp
-jp
-je
-TO
-bl
-je
-jp
-jp
-je
 oQ
+Md
+Md
+oQ
+Md
+Md
+je
+Md
+Md
+oQ
+hL
 Cz
 QG
 dK
@@ -58908,17 +58945,17 @@ aa
 aa
 cE
 lG
-je
-jp
-jp
-je
+oQ
+bl
 tq
+oQ
+Me
 tq
 je
 bl
 tq
-je
 oQ
+hL
 SO
 QG
 dK
@@ -59166,14 +59203,14 @@ aa
 cE
 rO
 Pi
-je
-je
+oQ
+oQ
 Dd
 jq
-je
-je
-je
-je
+oQ
+oQ
+oQ
+oQ
 IK
 jN
 Uo
