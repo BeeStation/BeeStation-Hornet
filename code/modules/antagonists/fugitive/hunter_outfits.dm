@@ -1,8 +1,11 @@
 /datum/outfit/spacepol
+	name = "Spacepol Nobody (Preview)"
+
 	id = /obj/item/card/id/silver/spacepol
+	uniform = /obj/item/clothing/under/syndicate/combat
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 	var/assignment
 
 /datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -16,7 +19,6 @@
 /datum/outfit/spacepol/sergeant
 	name = "Spacepol Sergeant"
 	assignment = "Spacepol Sergeant"
-	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/armor/vest/warden/sergeant
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/sergeant
@@ -29,7 +31,6 @@
 /datum/outfit/spacepol/officer
 	name = "Spacepol Officer"
 	assignment = "Spacepol Officer"
-	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/armor/vest/blueshirt
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/spacepol
@@ -49,13 +50,15 @@
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
 /datum/outfit/bounty
+	name = "Bounty Hunter"
+
 	uniform = /obj/item/clothing/under/rank/prisoner
 	id = /obj/item/card/id/silver/bounty
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -99,6 +102,8 @@
 	eyes.Insert(H, drop_if_replaced = FALSE)
 
 /datum/outfit/russian_hunter
+	name = "Russian Hunter"
+
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/russian
 	head = /obj/item/clothing/head/costume/bearpelt
@@ -107,7 +112,7 @@
 	ears = /obj/item/radio/headset
 	id = /obj/item/card/id/space_russian
 	back = /obj/item/storage/backpack/satchel/leather
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -128,6 +133,8 @@
 		uniform = /obj/item/clothing/under/syndicate/rus_army
 
 /datum/outfit/russian_hunter/leader
+	name = "Russian Hunter - Leader"
+
 	uniform = /obj/item/clothing/under/costume/russian_officer
 	suit = /obj/item/clothing/suit/jacket/officer/tan
 	head = /obj/item/clothing/head/helmet/rus_ushanka

@@ -72,11 +72,11 @@
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/med_data
+/datum/design/board/records/medical
 	name = "Computer Design (Medical Records)"
 	desc = "Allows for the construction of circuit boards used to build a medical records console."
-	id = "med_data"
-	build_path = /obj/item/circuitboard/computer/med_data
+	id = "records/medical"
+	build_path = /obj/item/circuitboard/computer/records/medical
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
@@ -132,7 +132,7 @@
 	name = "Computer Design (Security Records Console)"
 	desc = "Allows for the construction of circuit boards used to build a security records console."
 	id = "secdata"
-	build_path = /obj/item/circuitboard/computer/secure_data
+	build_path = /obj/item/circuitboard/computer/records/security
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
