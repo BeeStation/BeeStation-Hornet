@@ -477,8 +477,6 @@
 		// Calling CanAllowThrough introduces side effects
 		if(target.pass_flags_self & pass_flags)
 			return FALSE
-		if ((pass_flags & PASSTRANSPARENT) && target.alpha < 255 && prob(100 - (target.alpha/2.55)))
-			return FALSE
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
