@@ -126,6 +126,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/slowdown = 0
 	/// Percentage of armour effectiveness to remove
 	var/armour_penetration = 0
+	/// The click cooldown given after attacking. Lower numbers means faster attacks
+	var/attack_speed = CLICK_CD_MELEE
+	/// The click cooldown on secondary attacks. Lower numbers mean faster attacks. Will use attack_speed if undefined.
+	var/secondary_attack_speed
 	/// A list of items that can be put in this item for like suit storage or something?? I honestly have no idea.
 	var/list/allowed = null
 	/// In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets etc.

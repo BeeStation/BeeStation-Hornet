@@ -151,10 +151,10 @@
 /obj/attackby(obj/item/I, mob/living/user, params)
 	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_atom(src, user, params))
 
-/mob/living/attackby(obj/item/I, mob/living/user, params)
+/mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(..())
 		return TRUE
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(attacking_item.attack_speed)
 	return I.attack(src, user, params)
 
 /mob/living/attackby_secondary(obj/item/weapon, mob/living/user, params)
@@ -162,7 +162,10 @@
 
 	// Normal attackby updates click cooldown, so we have to make up for it
 	if (result != SECONDARY_ATTACK_CALL_NORMAL)
-		user.changeNext_move(CLICK_CD_MELEE)
+		if(weapon.secondary_attack_speed)
+			user.changeNext_move(weapon.secondary_attack_speed)
+		else
+			user.changeNext_move(weapon.attack_speed)
 
 	return result
 
@@ -242,7 +245,7 @@
 		return
 	if(item_flags & NOBLUDGEON)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(attack_speed)
 	user.do_attack_animation(attacked_atom)
 	attacked_atom.attacked_by(src, user)
 
