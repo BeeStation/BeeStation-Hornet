@@ -155,7 +155,7 @@
 	if(..())
 		return TRUE
 	user.changeNext_move(attacking_item.attack_speed)
-	return I.attack(src, user, params)
+	return attacking_item.attack(src, user, params)
 
 /mob/living/attackby_secondary(obj/item/weapon, mob/living/user, params)
 	var/result = weapon.attack_secondary(src, user, params)
