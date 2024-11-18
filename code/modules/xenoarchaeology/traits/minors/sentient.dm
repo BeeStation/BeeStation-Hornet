@@ -69,8 +69,8 @@
 	//Display traits to sentience
 	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
 	var/trait_dialogue = ""
-	for(var/index in component_parent.artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in component_parent.artifact_traits[index])
+	for(var/index in component_parent.traits_catagories)
+		for(var/datum/xenoartifact_trait/T as() in component_parent.traits_catagories[index])
 			to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
 			var/trait_name = T.label_name
 			trait_name = replacetext(trait_name, "Δ", "delta")

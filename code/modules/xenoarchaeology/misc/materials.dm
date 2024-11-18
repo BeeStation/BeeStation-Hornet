@@ -44,25 +44,25 @@
 	var/material_parent
 
 /datum/xenoartifact_material/proc/get_activators()
-	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_traits[material_parent || type]
+	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_info_list[material_parent || type]
 	if(!traits)
 		CRASH("Unable to find activator traits, for [material_parent || type]. Cosmic rays have fucked your device!")
 	return traits.activators
 
 /datum/xenoartifact_material/proc/get_minors()
-	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_traits[material_parent || type]
+	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_info_list[material_parent || type]
 	if(!traits)
 		CRASH("Unable to find minor traits, for [material_parent || type]. Cosmic rays have fucked your device!")
 	return traits.minors
 
 /datum/xenoartifact_material/proc/get_majors()
-	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_traits[material_parent || type]
+	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_info_list[material_parent || type]
 	if(!traits)
 		CRASH("Unable to find major traits, for [material_parent || type]. Cosmic rays have fucked your device!")
 	return traits.majors
 
 /datum/xenoartifact_material/proc/get_malfunctions()
-	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_traits[material_parent || type]
+	var/datum/xenoa_material_info_holder/traits = SSxenoarchaeology.material_info_list[material_parent || type]
 	if(!traits)
 		CRASH("Unable to find malfunction traits, for [material_parent || type]. Cosmic rays have fucked your device!")
 	return traits.malfunctions

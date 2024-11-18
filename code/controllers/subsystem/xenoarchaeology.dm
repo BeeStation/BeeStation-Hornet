@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	var/list/xenoa_artifact_names = list()
 
 	///Whitelist for traits by material type
-	var/list/material_traits = list()
+	var/list/material_info_list = list()
 
 	///Incompatability lists - Partial future proofing some stuff
 	var/list/xenoa_item_incompatible = list()
@@ -86,12 +86,12 @@ SUBSYSTEM_DEF(xenoarchaeology)
 		QDEL_NULL(trait)
 
 //Populate traits by material
-	material_traits = list()
+	material_info_list = list()
 	for(var/datum/xenoartifact_material/material_index as anything in typesof(/datum/xenoartifact_material))
-		if(SSxenoarchaeology.material_traits[initial(material_index.material_parent)])
+		if(SSxenoarchaeology.material_info_list[initial(material_index.material_parent)])
 			continue
 		var/datum/xenoa_material_info_holder/material = new()
-		material_traits[material_index] = material
+		material_info_list[material_index] = material
 		//Populate datum fields
 		material.compile_artifact_whitelist(material_index)
 
@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	xenoa_all_traits = SSxenoarchaeology.xenoa_all_traits
 	xenoa_all_traits_keyed = SSxenoarchaeology.xenoa_all_traits_keyed
 
-	material_traits = SSxenoarchaeology.material_traits
+	material_info_list = SSxenoarchaeology.material_info_list
 
 	xenoa_item_incompatible = SSxenoarchaeology.xenoa_item_incompatible
 	xenoa_mob_incompatible = SSxenoarchaeology.xenoa_mob_incompatible

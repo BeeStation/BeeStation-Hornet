@@ -74,8 +74,8 @@
 	//Loop through artfact traits
 	var/total_payout = 0
 	var/discovered_trait_count = 0
-	for(var/trait in artifact_datum.artifact_traits)
-		for(var/datum/xenoartifact_trait/trait_datum as anything in artifact_datum.artifact_traits[trait])
+	for(var/trait in artifact_datum.traits_catagories)
+		for(var/datum/xenoartifact_trait/trait_datum as anything in artifact_datum.traits_catagories[trait])
 			//Already scanned another of this type.
 			var/discover_id = get_discover_id?.Invoke() || trait_datum.type
 			if(!unique && linked_techweb.scanned_atoms[discover_id])

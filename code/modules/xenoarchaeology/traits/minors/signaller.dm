@@ -29,7 +29,7 @@
 	if(!component_parent?.parent)
 		return
 	setup_generic_item_hint()
-	if(!(locate(/datum/xenoartifact_trait/activator/signal) in component_parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
+	if(!(locate(/datum/xenoartifact_trait/activator/signal) in component_parent.traits_catagories[TRAIT_PRIORITY_ACTIVATOR]))
 		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 2 SECONDS)
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)

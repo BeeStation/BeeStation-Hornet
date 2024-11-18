@@ -193,8 +193,8 @@
 	var/max_bonus = 0
 	var/attempted_bonus = FALSE
 	var/list/traits_by_type = list()
-	for(var/trait in artifact_component.artifact_traits) //By priority
-		for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[trait]) //By trait in priorty
+	for(var/trait in artifact_component.traits_catagories) //By priority
+		for(var/datum/xenoartifact_trait/trait_datum in artifact_component.traits_catagories[trait]) //By trait in priorty
 			traits_by_type += trait_datum.type
 			if(trait_datum.contribute_calibration)
 				max_score += 1

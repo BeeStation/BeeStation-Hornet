@@ -265,8 +265,8 @@
 		var/score = 0
 		var/max_score = 0
 		if(solid_as) //This is kinda wacky but it's for a player option so idc
-			for(var/trait in artifact_component.artifact_traits)
-				for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[trait])
+			for(var/trait in artifact_component.traits_catagories)
+				for(var/datum/xenoartifact_trait/trait_datum in artifact_component.traits_catagories[trait])
 					if(trait_datum.contribute_calibration)
 						if(!(locate(trait_datum) in label.traits))
 							solid_as = FALSE
@@ -315,8 +315,8 @@
 	//Prompt user to delete or keep malfunctions
 	var/decision = tgui_alert(usr, "Do you want to calcify [atom_target]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
 	if(decision == "Yes")
-		for(var/i in artifact_component.artifact_traits)
-			for(var/datum/xenoartifact_trait/trait_datum in artifact_component.artifact_traits[i])
+		for(var/i in artifact_component.traits_catagories)
+			for(var/datum/xenoartifact_trait/trait_datum in artifact_component.traits_catagories[i])
 				if(istype(trait_datum, /datum/xenoartifact_trait/malfunction))
 					qdel(trait_datum)
 

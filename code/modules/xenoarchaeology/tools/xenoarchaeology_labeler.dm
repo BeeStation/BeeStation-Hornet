@@ -235,13 +235,13 @@
 	if(artifact)
 		old_custom_price = target.custom_price
 		//Build list of artifact's traits
-		var/list/artifact_traits = list()
-		for(var/trait in artifact.artifact_traits)
-			for(var/datum/xenoartifact_trait/trait_datum as anything in artifact.artifact_traits[trait])
-				artifact_traits += trait_datum
+		var/list/traits_catagories = list()
+		for(var/trait in artifact.traits_catagories)
+			for(var/datum/xenoartifact_trait/trait_datum as anything in artifact.traits_catagories[trait])
+				traits_catagories += trait_datum
 		//Compare them to ours
 		for(var/datum/xenoartifact_trait/trait_datum as anything in traits)
-			if(locate(trait_datum) in artifact_traits)
+			if(locate(trait_datum) in traits_catagories)
 				target.custom_price *= XENOA_LABEL_REWARD
 			else
 				target.custom_price *= XENOA_LABEL_PUNISHMENT

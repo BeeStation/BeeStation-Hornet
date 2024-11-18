@@ -4,7 +4,7 @@
 
 /datum/component/xenoartifact
 	///List of artifact-traits we have : list(PRIORITY = list(trait))
-	var/list/artifact_traits = list()
+	var/list/traits_catagories = list()
 	///Blacklist of components this artifact is currently incompatible with
 	var/list/blacklisted_traits = list()
 
@@ -72,7 +72,7 @@
 
 	//Populate priotity list
 	for(var/each_category  in SSxenoarchaeology.xenoartifact_trait_category_priorities)
-		artifact_traits[each_category ] = list()
+		traits_catagories[each_category ] = list()
 
 	//If we're force-generating traits
 	if(traits)
@@ -82,22 +82,22 @@
 	//Otherwise, randomly generate our own traits - Additional option to patch traits missing from trait list
 	if(!length(traits) || patch_traits)
 		var/list/focus_traits
-		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_material.trait_activators)
+		if(length(traits_catagories[TRAIT_PRIORITY_ACTIVATOR]) < artifact_material.trait_activators)
 			//Generate activators
 			focus_traits = artifact_material.get_activators()
-			build_traits(focus_traits, artifact_material.trait_activators - length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
-		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_material.trait_minors)
+			build_traits(focus_traits, artifact_material.trait_activators - length(traits_catagories[TRAIT_PRIORITY_ACTIVATOR]))
+		if(length(traits_catagories[TRAIT_PRIORITY_MINOR]) < artifact_material.trait_minors)
 			//Generate minors
 			focus_traits = artifact_material.get_minors()
-			build_traits(focus_traits, artifact_material.trait_minors - length(artifact_traits[TRAIT_PRIORITY_MINOR]))
-		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_material.trait_majors)
+			build_traits(focus_traits, artifact_material.trait_minors - length(traits_catagories[TRAIT_PRIORITY_MINOR]))
+		if(length(traits_catagories[TRAIT_PRIORITY_MAJOR]) < artifact_material.trait_majors)
 			//Generate majors
 			focus_traits = artifact_material.get_majors()
-			build_traits(focus_traits, artifact_material.trait_majors - length(artifact_traits[TRAIT_PRIORITY_MAJOR]))
-		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_material.trait_malfunctions)
+			build_traits(focus_traits, artifact_material.trait_majors - length(traits_catagories[TRAIT_PRIORITY_MAJOR]))
+		if(length(traits_catagories[TRAIT_PRIORITY_MALFUNCTION]) < artifact_material.trait_malfunctions)
 			//Generate malfunctions
 			focus_traits = artifact_material.get_malfunctions()
-			build_traits(focus_traits, artifact_material.trait_malfunctions - length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]))
+			build_traits(focus_traits, artifact_material.trait_malfunctions - length(traits_catagories[TRAIT_PRIORITY_MALFUNCTION]))
 	//Cooldown
 	trait_cooldown = get_extra_cooldowns()
 	//Description
@@ -119,9 +119,9 @@
 		atom_parent.name = old_name
 		old_appearance = null
 	//Delete our traits
-	for(var/i in artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
-			artifact_traits[i] -= T
+	for(var/i in traits_catagories)
+		for(var/datum/xenoartifact_trait/T as() in traits_catagories[i])
+			traits_catagories[i] -= T
 			if(!QDELETED(T))
 				qdel(T)
 	return ..()
@@ -170,8 +170,8 @@
 
 /datum/component/xenoartifact/proc/get_extra_cooldowns()
 	var/time = 0 SECONDS
-	for(var/i in artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+	for(var/i in traits_catagories)
+		for(var/datum/xenoartifact_trait/T as() in traits_catagories[i])
 			time += T.cooldown
 	return time
 
@@ -182,7 +182,7 @@
 			instability += artifact_material.instability_step
 		return
 	//Max malfunction checks, against our material
-	if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_material.max_trait_malfunctions)
+	if(length(traits_catagories[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_material.max_trait_malfunctions)
 		return
 	//Hint sound
 	var/atom/atom_parent = parent
@@ -230,8 +230,8 @@
 		examine_text += "<span class='notice'>[parent] seems to be made from a [material_description]material.</span>"
 	//Special case for observers that shows all the traits
 	if(isobserver(user))
-		for(var/i in artifact_traits)
-			for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+		for(var/i in traits_catagories)
+			for(var/datum/xenoartifact_trait/T as() in traits_catagories[i])
 				if(T.label_name)
 					examine_text += "<span class='info'>- [T.label_name]</span>"
 
@@ -240,8 +240,8 @@
 	var/temp = ""
 	var/list/description_category = list()
 	//Get descriptions from each category
-	for(var/i in artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+	for(var/i in traits_catagories)
+		for(var/datum/xenoartifact_trait/T as() in traits_catagories[i])
 			if(!description_category[i])
 				description_category[i] = list()
 			if(T.material_desc) //Avoid adding null, so later logic works
@@ -260,16 +260,16 @@
 /datum/component/xenoartifact/proc/get_material_weight()
 	var/total_weight = 0
 	//Get descriptions from each category
-	for(var/i in artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+	for(var/i in traits_catagories)
+		for(var/datum/xenoartifact_trait/T as() in traits_catagories[i])
 			total_weight += T.weight
 	return total_weight
 
 /datum/component/xenoartifact/proc/get_material_conductivity()
 	var/total_conductivity = 0
 	//Get descriptions from each category
-	for(var/i in artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+	for(var/i in traits_catagories)
+		for(var/datum/xenoartifact_trait/T as() in traits_catagories[i])
 			total_conductivity += T.conductivity
 	return total_conductivity
 
@@ -280,7 +280,7 @@
 	//Double check our material restrictions
 	var/list/trait_type = list(/datum/xenoartifact_trait/activator, /datum/xenoartifact_trait/minor, /datum/xenoartifact_trait/major, /datum/xenoartifact_trait/malfunction)
 	for(var/datum/xenoartifact_trait/i in trait_type)
-		if(istype(trait, i) && length(artifact_traits[initial(i.priority)]) >= artifact_material)
+		if(istype(trait, i) && length(traits_catagories[initial(i.priority)]) >= artifact_material)
 			return FALSE
 	//We can either pass paths, or initialized traits
 	if(ispath(trait))
@@ -289,10 +289,10 @@
 		trait.remove_parent()
 		trait.register_parent(src)
 	//List building, handle custom priorities, just appened to the end
-	if(!artifact_traits[trait.priority])
-		artifact_traits[trait.priority] = list()
+	if(!traits_catagories[trait.priority])
+		traits_catagories[trait.priority] = list()
 	//handle adding trait
-	artifact_traits[trait.priority] += trait
+	traits_catagories[trait.priority] += trait
 	blacklisted_traits += trait.blacklist_traits
 	blacklisted_traits += trait.type
 	//Ant-hardel stuff
@@ -387,10 +387,10 @@
 	SIGNAL_HANDLER
 
 	var/datum/xenoartifact_trait/T = source
-	artifact_traits[T.priority] -= T
+	traits_catagories[T.priority] -= T
 
 /datum/component/xenoartifact/proc/remove_individual_trait(datum/xenoartifact_trait/trait, destroy = FALSE)
-	artifact_traits[trait.priority] -= trait
+	traits_catagories[trait.priority] -= trait
 	UnregisterSignal(trait, COMSIG_PARENT_QDELETING)
 	if(destroy)
 		qdel(trait)

@@ -70,8 +70,6 @@
 		for(var/obj/item/sticker/trait_pearl/pearl in item.contents)
 			LAZYADD(trait_list, pearl.stored_trait)
 			qdel(pearl)
-		if(isnull(trait_list))
-			return
 		//Make the item an artifact
 		item.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, trait_list, TRUE, FALSE)
 		playsound(item, 'sound/magic/staff_change.ogg', 50, TRUE)
