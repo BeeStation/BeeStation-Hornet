@@ -270,7 +270,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 		var/datum/computer_file/program/emag_console/emag_console = new(src)
 		emag_console.computer = src
-		emag_console.program_state = PROGRAM_STATE_ACTIVE
+		emag_console.set_program_state(PROGRAM_STATE_ACTIVE)
 		active_program = emag_console
 		ui_interact(user)
 		update_icon()
@@ -500,7 +500,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// The program is already running. Resume it.
 	if(!in_background)
 		if(program in idle_threads)
-			program.program_state = PROGRAM_STATE_ACTIVE
+			program.set_program_state(PROGRAM_STATE_ACTIVE)
 			active_program = program
 			program.alert_pending = FALSE
 			idle_threads.Remove(program)
@@ -525,12 +525,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		program.alert_pending = FALSE
 		ui_interact(user)
 	else
-		program.program_state = PROGRAM_STATE_BACKGROUND
+		program.set_program_state(PROGRAM_STATE_BACKGROUND)
 		idle_threads.Add(program)
 	update_icon()
 	return TRUE
 
-
+// wrapper to send ntnet packets through the network card
+/obj/item/modular_computer/ntnet_send(packet_data, target_id, passkey)
+	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
+	if(!network_card)
+		return NETWORK_ERROR_NOT_ON_NETWORK
+	return network_card.ntnet_send(packet_data, target_id, passkey)
 
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
 /obj/item/modular_computer/proc/get_ntnet_status(specific_action = 0)

@@ -1,0 +1,1 @@
+#define COMSIG_MODPC_PROGRAM_STATE_CHANGED "modpc_program_state_changed"

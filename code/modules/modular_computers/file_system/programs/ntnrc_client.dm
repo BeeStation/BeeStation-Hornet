@@ -23,10 +23,14 @@
 	var/netadmin_mode = FALSE		// Administrator mode (invisible to other users + bypasses passwords)
 	//A list of all the converstations we're a part of
 	var/list/datum/ntnet_conversation/conversations = list()
+	var/list/clients = list()
 
 /datum/computer_file/program/chatclient/New()
 	. = ..()
-	change_name(computer.saved_identification || "DefaultUser[rand(100, 999)]")
+	change_name(computer?.saved_identification || "DefaultUser[rand(100, 999)]")
+	RegisterSignal(src, COMSIG_MODPC_PROGRAM_STATE_CHANGED, PROC_REF(state_change))
+	RegisterSignal(get_network_card(), COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
+	set_program_state(PROGRAM_STATE_BACKGROUND) // auto launches
 
 /datum/computer_file/program/chatclient/Destroy()
 	for(var/datum/ntnet_conversation/discussion as anything in conversations)
@@ -288,3 +292,16 @@
 		data["messages"] = list()
 
 	return data
+
+// used to show if user is online/away/offline, also used to discover this program
+/datum/computer_file/program/chatclient/proc/state_change(datum/source, state)
+	SIGNAL_HANDLER
+	var/data = list()
+	data["type"] = "client_state_change"
+	data["state"] = state
+	ntnet_send(data)
+
+/datum/computer_file/program/chatclient/proc/ntnet_receive(datum/source, datum/netdata/data)
+	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+	to_chat(world, "NTNET_RECEIVE([src]) - source: [source] - receiver_id: [data.receiver_id] - sender_id: [data.sender_id] - hardware_id: [network_card.hardware_id] - identification_string: [network_card.identification_string] - data: [data.data]")
+

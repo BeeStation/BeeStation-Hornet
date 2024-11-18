@@ -65,7 +65,7 @@
 	var/datum/computer_file/program/contract_uplink/uplink = new(src)
 
 	active_program = uplink
-	uplink.program_state = PROGRAM_STATE_ACTIVE
+	uplink.set_program_state(PROGRAM_STATE_ACTIVE)
 	uplink.computer = src
 
 	hard_drive.store_file(uplink)
