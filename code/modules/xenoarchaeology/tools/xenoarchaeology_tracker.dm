@@ -16,6 +16,8 @@
 	var/use_radio = TRUE
 	///Which science server receives points
 	var/datum/techweb/linked_techweb
+	///Artifact component we're tracking
+	var/datum/component/xenoartifact/artifact_component
 
 /obj/item/sticker/artifact_tracker/Initialize(mapload)
 	. = ..()
@@ -38,11 +40,12 @@
 	if(!can_stick(target) || !proximity_flag)
 		return
 	var/sound_in = 'sound/machines/buzz-sigh.ogg'
-	var/datum/component/xenoartifact/artifact_component = target.GetComponent(/datum/component/xenoartifact)
+	artifact_component = target.GetComponent(/datum/component/xenoartifact)
 	if(artifact_component)
 		if(artifact_component.calibrated)
 			sound_in = 'sound/machines/click.ogg'
 			RegisterSignal(artifact_component, COMSIG_XENOA_TRIGGER, PROC_REF(catch_activation))
+			RegisterSignal(artifact_component, COMSIG_PARENT_QDELETING, PROC_REF(clean_up))
 		else
 			say("Error: [target] needs to be calibrated.")
 	else
@@ -53,6 +56,20 @@
 	. = ..()
 	use_radio = !use_radio
 	to_chat(user, "<span class='[use_radio ? "notice" : "warning"]'>Internal radio [use_radio ? "enabled" : "disabled"].</span>")
+
+
+/obj/item/sticker/artifact_tracker/unstick(atom/override)
+	. = ..()
+	clean_up()
+
+/obj/item/sticker/artifact_tracker/proc/clean_up()
+	SIGNAL_HANDLER
+
+	if(!artifact_component)
+		return
+	UnregisterSignal(artifact_component, COMSIG_XENOA_TRIGGER)
+	UnregisterSignal(artifact_component, COMSIG_PARENT_QDELETING)
+	artifact_component = null
 
 /obj/item/sticker/artifact_tracker/proc/catch_activation(datum/source, priority)
 	SIGNAL_HANDLER
