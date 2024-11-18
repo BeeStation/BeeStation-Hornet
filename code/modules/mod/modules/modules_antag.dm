@@ -43,9 +43,10 @@
 /obj/item/mod/module/armor_booster/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
-	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
-	if(istype(head_cover))
-		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		RegisterSignal(mod, COMSIG_MOD_PART_SEALED, PROC_REF(seal_helmet))
+		seal_helmet(mod, head_cover)
 	var/list/mod_parts = mod.get_parts(all = TRUE)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.armor = part.armor.modifyRating(arglist(armor_values))
@@ -61,14 +62,16 @@
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
-	if(istype(head_cover))
-		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
+		balloon_alert(mod.wearer, "armor retracts, EVA ready")
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
+		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, REF(src))
 	var/list/mod_parts = mod.get_parts(all = TRUE)
 	var/list/removed_armor = armor_values.Copy()
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
-	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
+	for(var/obj/item/part as anything in mod.get_parts(all = FALSE))
 		part.armor = part.armor.modifyRating(arglist(removed_armor))
 		part.slowdown += speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
@@ -83,6 +86,15 @@
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
+
+/obj/item/mod/module/armor_booster/proc/seal_helmet(datum/source, datum/mod_part/part)
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(part != head_cover)
+		return
+	if(part.sealed)
+		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, REF(src))
+	else
+		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, REF(src))
 
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
 /obj/item/mod/module/energy_shield
@@ -168,11 +180,11 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/anti_magic/on_part_activation()
-	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = TRUE, _holy = TRUE)
+	mod.wearer.AddComponent(/datum/component/anti_magic, REF(src), _magic = TRUE, _holy = TRUE)
 
 /obj/item/mod/module/anti_magic/on_part_deactivation(deleting = FALSE)
 	for (var/datum/component/anti_magic/anti_magic in mod.wearer.GetComponents(/datum/component/anti_magic))
-		if (anti_magic.source == MOD_TRAIT)
+		if (anti_magic.source == REF(src))
 			qdel(anti_magic)
 
 /obj/item/mod/module/anti_magic/wizard
@@ -185,10 +197,10 @@
 	required_slots = list()
 
 /obj/item/mod/module/anti_magic/wizard/on_part_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, REF(src))
 
 /obj/item/mod/module/anti_magic/wizard/on_part_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, REF(src))
 
 ///Insignia - Gives you a skin specific stripe.
 /obj/item/mod/module/insignia
@@ -244,10 +256,10 @@
 	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/noslip/on_part_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, REF(src))
 
 /obj/item/mod/module/noslip/on_part_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, REF(src))
 
 ///Flamethrower - Launches fire across the area.
 /obj/item/mod/module/flamethrower
@@ -369,7 +381,7 @@
 
 /obj/item/mod/module/chameleon/used()
 	if(mod.active || mod.activating)
-		balloon_alert(mod.wearer, "suit active!")
+		balloon_alert(mod.wearer, "unit active!")
 		return FALSE
 	return ..()
 

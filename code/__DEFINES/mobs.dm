@@ -263,6 +263,15 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
+//Charge levels for Ethereals, in joules.
+#define ETHEREAL_CHARGE_NONE 0
+#define ETHEREAL_CHARGE_LOWPOWER (0.4 * STANDARD_BATTERY_CHARGE)
+#define ETHEREAL_CHARGE_NORMAL (1 * STANDARD_BATTERY_CHARGE)
+#define ETHEREAL_CHARGE_ALMOSTFULL (1.5 * STANDARD_BATTERY_CHARGE)
+#define ETHEREAL_CHARGE_FULL (2 * STANDARD_BATTERY_CHARGE)
+#define ETHEREAL_CHARGE_OVERLOAD (2.5 * STANDARD_BATTERY_CHARGE)
+#define ETHEREAL_CHARGE_DANGEROUS (3 * STANDARD_BATTERY_CHARGE)
+
 //Base nutrition value used for newly initialized slimes
 #define SLIME_DEFAULT_NUTRITION 700
 

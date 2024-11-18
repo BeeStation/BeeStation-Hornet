@@ -92,7 +92,6 @@
 	theme.set_up_parts(src, new_skin)
 	for(var/obj/item/part as anything in get_parts())
 		RegisterSignal(part, COMSIG_ATOM_DESTRUCTION, PROC_REF(on_part_destruction))
-		RegisterSignal(part, COMSIG_PARENT_QDELETING, PROC_REF(on_part_deletion))
 	wires = new /datum/wires/mod(src)
 	if(length(req_access))
 		locked = TRUE
@@ -115,14 +114,19 @@
 	QDEL_NULL(wires)
 	//QDEL_NULL(mod_link)
 	for(var/datum/mod_part/part_datum as anything in get_part_datums(all = TRUE))
+		var/obj/item/part_item = part_datum.part_item
 		part_datum.part_item = null
 		part_datum.overslotting = null
+		mod_parts -= part_datum
+		if(!QDELING(part_item))
+			qdel(part_item)
 	return ..()
 
 /obj/item/mod/control/atom_destruction(damage_flag)
+	var/atom/visible_atom = wearer || src
 	if(wearer)
-		wearer.visible_message("<span class='danger'>[src] fall[p_s()] apart, completely destroyed!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 		clean_up()
+	wearer.visible_message("<span class='bolddanger'>[src] fall[p_s()] apart, completely destroyed!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module)
 	if(ai)
@@ -208,21 +212,25 @@
 	if(user != wearer)
 		return ..()
 	if(active)
-		balloon_alert(wearer, "deactivate the suit first!")
+		balloon_alert(wearer, "unit active!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 		return
 	for(var/obj/item/part as anything in get_parts())
 		if(part.loc != src)
-			balloon_alert(user, "retract parts first!")
+			balloon_alert(user, "parts extended!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(usr != wearer || !istype(over_object, /atom/movable/screen/inventory/hand))
 		return ..()
+	if(active)
+		balloon_alert(wearer, "unit active!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
+		return
 	for(var/obj/item/part as anything in get_parts())
 		if(part.loc != src)
-			balloon_alert(wearer, "retract parts first!")
+			balloon_alert(wearer, "parts extended!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 			return
 	if(!wearer.incapacitated())
@@ -256,7 +264,7 @@
 	if(..())
 		return TRUE
 	if(active || activating || ai_controller)
-		balloon_alert(user, "deactivate suit first!")
+		balloon_alert(user, "unit active!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVAL, user) & MOD_CANCEL_REMOVAL)
@@ -266,7 +274,8 @@
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
-			balloon_alert(user, "deactivate suit first!")
+			balloon_alert(user, "unit active!")
+			return
 		screwdriver.play_tool_sound(src, 100)
 		balloon_alert(user, "cover [open ? "closed" : "opened"]")
 		open = !open
@@ -277,7 +286,7 @@
 /obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
 	. = ..()
 	if(!open)
-		balloon_alert(user, "open the cover first!")
+		balloon_alert(user, "cover closed!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!allowed(user))
@@ -305,7 +314,7 @@
 /obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
-			balloon_alert(user, "open the cover first!")
+			balloon_alert(user, "cover closed!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		install(attacking_item, user)
@@ -313,11 +322,11 @@
 		return TRUE
 	else if(istype(attacking_item, /obj/item/mod/core))
 		if(!open)
-			balloon_alert(user, "open the cover first!")
+			balloon_alert(user, "cover closed!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		if(core)
-			balloon_alert(user, "core already installed!")
+			balloon_alert(user, "already has core!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		var/obj/item/mod/core/attacking_core = attacking_item
@@ -351,7 +360,7 @@
 /obj/item/mod/control/on_emag(mob/user)
 	..()
 	locked = !locked
-	balloon_alert(user, "suit access [locked ? "locked" : "unlocked"]")
+	balloon_alert(user, "access [locked ? "locked" : "unlocked"]")
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
@@ -367,6 +376,7 @@
 		wearer.emote("scream")
 
 /obj/item/mod/control/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
+	. = ..()
 	//if(visuals_only)
 	//	set_wearer(outfit_wearer) //we need to set wearer manually since it doesnt call equipped
 	quick_activation()
@@ -419,12 +429,11 @@
 	CRASH("get_part_datum called with incorrect item [part] passed.")
 
 /obj/item/mod/control/proc/get_part_from_slot(slot)
-	slot = "[slot]"
-	for(var/part_slot in mod_parts)
-		if(slot != part_slot)
-			continue
-		var/datum/mod_part/part = mod_parts[part_slot]
-		return part.part_item
+	var/datum/mod_part/part = mod_parts["[slot]"]
+	return part?.part_item
+
+/obj/item/mod/control/proc/get_part_datum_from_slot(slot)
+	return mod_parts["[slot]"]
 
 /obj/item/mod/control/proc/set_wearer(mob/living/carbon/human/user)
 	if(wearer == user)
@@ -484,7 +493,7 @@
 		for(var/obj/item/part as anything in get_parts())
 			seal_part(part, is_sealed = FALSE)
 	for(var/obj/item/part as anything in get_parts())
-		retract(null, part)
+		INVOKE_ASYNC(src, PROC_REF(retract), wearer, part, /* instant = */ TRUE) // async to appease spaceman DMM because the branch we don't run has a do_after
 	if(active)
 		control_activation(is_on = FALSE)
 	var/mob/old_wearer = wearer
@@ -542,19 +551,24 @@
 	for(var/obj/item/mod/module/old_module as anything in modules)
 		if(is_type_in_list(new_module, old_module.incompatible_modules) || is_type_in_list(old_module, new_module.incompatible_modules))
 			if(user)
-				balloon_alert(user, "[new_module] incompatible with [old_module]!")
+				balloon_alert(user, "incompatible with [old_module]!")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 	var/complexity_with_module = complexity
 	complexity_with_module += new_module.complexity
 	if(complexity_with_module > complexity_max)
 		if(user)
-			balloon_alert(user, "[new_module] would make [src] too complex!")
+			balloon_alert(user, "above complexity max!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(!new_module.has_required_parts(mod_parts))
 		if(user)
-			balloon_alert(user, "[new_module] incompatible with [src]'s parts!")
+			balloon_alert(user, "lacking required parts!")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return
+	if(!new_module.can_install(src))
+		if(user)
+			balloon_alert(user, "can't install!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	new_module.forceMove(src)
@@ -624,6 +638,12 @@
 /obj/item/mod/control/proc/check_charge(amount)
 	return core?.check_charge(amount) || FALSE
 
+/obj/item/mod/control/proc/get_chargebar_color()
+	return core?.get_chargebar_color() || "transparent"
+
+/obj/item/mod/control/proc/get_chargebar_string()
+	return core?.get_chargebar_string() || "No Core Detected"
+
 /obj/item/mod/control/proc/update_charge_alert()
 	if(!wearer)
 		return
@@ -662,6 +682,9 @@
 		uninstall(part)
 		return
 	if(part in get_parts())
+		if(QDELING(part) && !QDELING(src))
+			qdel(src)
+			return
 		var/datum/mod_part/part_datum = get_part_datum(part)
 		if(part_datum.sealed)
 			seal_part(part, is_sealed = FALSE)
@@ -670,7 +693,7 @@
 		if(!wearer)
 			part.forceMove(src)
 			return
-		retract(wearer, part)
+		INVOKE_ASYNC(src, PROC_REF(retract), wearer, part, /* instant = */ TRUE) // async to appease spaceman DMM because the branch we don't run has a do_after
 
 /obj/item/mod/control/proc/on_part_destruction(obj/item/part, damage_flag)
 	SIGNAL_HANDLER
@@ -678,14 +701,6 @@
 	if(QDELING(src))
 		return
 	atom_destruction(damage_flag)
-
-/obj/item/mod/control/proc/on_part_deletion(obj/item/part)
-	SIGNAL_HANDLER
-
-	if(QDELING(src))
-		return
-	part.moveToNullspace()
-	qdel(src)
 
 /obj/item/mod/control/proc/on_overslot_exit(obj/item/part, atom/movable/overslot, direction)
 	SIGNAL_HANDLER

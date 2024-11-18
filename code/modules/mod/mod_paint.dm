@@ -28,7 +28,7 @@
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)
-		balloon_alert(user, "suit is active!")
+		balloon_alert(user, "unit active!")
 		return TRUE
 	paint_skin(mod, user)
 

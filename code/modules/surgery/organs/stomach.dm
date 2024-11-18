@@ -103,6 +103,8 @@
 	name = "implantable battery"
 	icon_state = "implant-power"
 	desc = "A battery that stores charge for species that run on electricity."
+	/// Where the energy of the stomach is stored.
+	var/obj/item/stock_parts/cell
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
