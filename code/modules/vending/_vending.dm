@@ -20,8 +20,8 @@
   *
   * A datum that represents a product that is vendable
   */
-/datum/data/vending_product
-	name = "generic"
+/datum/vending_product
+	var/name = "generic"
 	///Typepath of the product that is created when this record "sells"
 	var/product_path = null
 	///How many of this product we currently have
@@ -275,7 +275,7 @@
 		. += emissive_appearance(icon, light_mask, layer)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-/obj/machinery/vending/obj_break(damage_flag)
+/obj/machinery/vending/atom_break(damage_flag)
 	. = ..()
 	if(!.)
 		return
@@ -285,7 +285,7 @@
 	while (found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
-			var/datum/data/vending_product/R = record
+			var/datum/vending_product/R = record
 
 			//first dump any of the items that have been returned, in case they contain the nuke disk or something
 			for(var/obj/returned_obj_to_dump in R.returned_products)
@@ -314,10 +314,10 @@
 /**
   * Build the inventory of the vending machine from it's product and record lists
   *
-  * This builds up a full set of /datum/data/vending_products from the product list of the vending machine type
+  * This builds up a full set of /datum/vending_products from the product list of the vending machine type
   * Arguments:
   * * productlist - the list of products that need to be converted
-  * * recordlist - the list containing /datum/data/vending_product datums
+  * * recordlist - the list containing /datum/vending_product datums
   * * startempty - should we set vending_product record amount from the product list (so it's prefilled at roundstart)
   */
 /obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, list/categories, start_empty = FALSE)
@@ -334,7 +334,7 @@
 			amount = 0
 
 		var/atom/temp = typepath
-		var/datum/data/vending_product/R = new /datum/data/vending_product()
+		var/datum/vending_product/R = new /datum/vending_product()
 		R.name = initial(temp.name)
 		R.product_path = typepath
 		if(!start_empty)
@@ -418,7 +418,7 @@
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
 	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+		var/datum/vending_product/record = R
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
 		if (diff)
 			productlist[record.product_path] -= diff
@@ -448,7 +448,7 @@
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
 	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+		var/datum/vending_product/record = R
 		.[record.product_path] += record.amount
 
 /// Put stuff in product_categories if the products have a category, otherwise put them in products
@@ -460,7 +460,7 @@
 
 	var/list/categories_to_index = list()
 
-	for (var/datum/data/vending_product/record as anything in product_records)
+	for (var/datum/vending_product/record as anything in product_records)
 		var/list/category = record.category
 		var/has_category = !isnull(category)
 
@@ -590,7 +590,7 @@
 
 	for(var/i in 1 to freebies)
 		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
-		for(var/datum/data/vending_product/R in shuffle(product_records))
+		for(var/datum/vending_product/R in shuffle(product_records))
 
 			if(R.amount <= 0) //Try to use a record that actually has something to dump.
 				continue
@@ -712,7 +712,7 @@
 		return FALSE
 	to_chat(user, "<span class='notice'>You insert [I] into [src]'s input compartment.</span>")
 
-	for(var/datum/data/vending_product/product_datum in product_records + coin_records + hidden_records)
+	for(var/datum/vending_product/product_datum in product_records + coin_records + hidden_records)
 		if(ispath(I.type, product_datum.product_path))
 			product_datum.amount++
 			LAZYADD(product_datum.returned_products, I)
@@ -833,7 +833,7 @@
 
 	var/list/out_records = list()
 
-	for (var/datum/data/vending_product/record as anything in records)
+	for (var/datum/vending_product/record as anything in records)
 		var/list/static_record = list(
 			path = replacetext(replacetext("[record.product_path]", "/obj/item/", ""), "/", "-"),
 			name = record.name,
@@ -875,15 +875,15 @@
 		.["user"]["cash"] = H.get_accessible_cash()
 		.["user"]["job"] = "No Job"
 		.["user"]["department_bitflag"] = 0
-		var/datum/data/record/R = find_record("name", card?.registered_account?.account_holder, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(card?.registered_account?.account_holder, GLOB.manifest.general)
 		if(card?.registered_account?.account_job)
 			.["user"]["job"] = card.registered_account.account_job.title
 			.["user"]["department_bitflag"] = card.registered_account.active_departments
 		if(R)
-			.["user"]["job"] = R.fields["rank"]
+			.["user"]["job"] = R.rank
 	.["stock"] = list()
 
-	for (var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
+	for (var/datum/vending_product/product_record in product_records + coin_records + hidden_records)
 		var/list/product_data = list(
 			name = product_record.name,
 			amount = product_record.amount,
@@ -917,7 +917,7 @@
 	. = TRUE
 	if(!can_vend(usr))
 		return
-	var/datum/data/vending_product/product = locate(params["ref"])
+	var/datum/vending_product/product = locate(params["ref"])
 	var/atom/fake_atom = product.product_path
 
 	var/list/allowed_configs = list()
@@ -954,7 +954,7 @@
 	if(!can_vend(usr))
 		return
 	vend_ready = FALSE //One thing at a time!!
-	var/datum/data/vending_product/R = locate(params["ref"])
+	var/datum/vending_product/R = locate(params["ref"])
 	var/list/record_to_check = product_records + coin_records
 	if(extended_inventory)
 		record_to_check = product_records + coin_records + hidden_records
@@ -992,7 +992,8 @@
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
-		else if(!C.registered_account.account_job)
+		// Department cards cannot be used to order stuff in vendors, we make an exception for the debug card
+		else if(!C.registered_account.account_job && !istype(C, /obj/item/card/id/syndicate/debug))
 			say("Departmental accounts have been blacklisted from personal expenses due to embezzlement.")
 			flick(icon_deny, src)
 			vend_ready = TRUE
@@ -1097,7 +1098,7 @@
 	if(!target || target.incorporeal_move >= INCORPOREAL_MOVE_BASIC)
 		return FALSE
 
-	for(var/datum/data/vending_product/R in shuffle(product_records))
+	for(var/datum/vending_product/R in shuffle(product_records))
 		if(R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
 		var/dump_path = R.product_path

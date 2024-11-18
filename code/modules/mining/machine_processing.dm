@@ -203,6 +203,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 	var/datum/material/selected_material = null
 	var/selected_alloy = null
 	var/datum/techweb/stored_research
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 	var/link_id = null
 	var/stored_points = 0
 	var/allow_point_redemption = FALSE

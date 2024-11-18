@@ -42,7 +42,7 @@
 			var/new_sign = new D
 			return set_sign(new_sign)
 
-/obj/structure/sign/barsign/obj_break(damage_flag)
+/obj/structure/sign/barsign/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE
@@ -291,6 +291,11 @@
 	name = "The Loose Goose"
 	icon = "goose"
 	desc = "Drink till you puke and/or break the laws of reality!"
+
+/datum/barsign/bluenote
+	name = "The Blue Note"
+	icon = "bluenote"
+	desc = "Misery loves company, but sometimes a stiff drink will have to suffice."
 
 /datum/barsign/hiddensigns
 	hidden = TRUE

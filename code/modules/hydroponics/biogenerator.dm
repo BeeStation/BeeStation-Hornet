@@ -10,7 +10,7 @@
 
 
 	var/processing = FALSE
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/points = 0
 	var/efficiency = 0
 	var/productivity = 0
@@ -91,7 +91,7 @@
 
 	if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
 		if(beaker)
-			var/obj/item/reagent_containers/glass/B = beaker
+			var/obj/item/reagent_containers/cup/B = beaker
 			B.forceMove(drop_location())
 			beaker = null
 			ui_update()
@@ -101,7 +101,7 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(istype(O, /obj/item/reagent_containers/glass))
+	if(istype(O, /obj/item/reagent_containers/cup))
 		. = 1 //no afterattack
 		if(!panel_open)
 			if(beaker)

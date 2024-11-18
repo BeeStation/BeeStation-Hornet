@@ -24,7 +24,7 @@
 		return
 	var/area/A = get_area(S)
 	if(!(A in dragon.chosen_rift_areas))
-		to_chat(S, "<span class='warning'>You can't summon a rift here!</span>")
+		owner.balloon_alert(owner, "can't summon a rift here, check your objectives!")
 		return
 	for(var/obj/structure/carp_rift/rift in dragon.rift_list)
 		var/area/RA = get_area(rift)
@@ -169,7 +169,7 @@
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
 		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations")
-		obj_integrity = INFINITY
+		atom_integrity = INFINITY
 		icon_state = "carp_rift_charged"
 		set_light_color(LIGHT_COLOR_DIM_YELLOW)
 		update_light()

@@ -184,7 +184,7 @@
 			if("red")
 				return "#ff0000"
 		return P.colour
-	else if(istype(I, /obj/item/soap) || istype(I, /obj/item/reagent_containers/glass/rag))
+	else if(istype(I, /obj/item/soap) || istype(I, /obj/item/reagent_containers/cup/rag))
 		return canvas_color
 
 /obj/item/canvas/proc/try_rename(mob/user)

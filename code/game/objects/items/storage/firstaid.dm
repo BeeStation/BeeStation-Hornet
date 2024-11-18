@@ -71,12 +71,12 @@
 	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
 	STR.max_items = 12
 	STR.max_combined_w_class = 24
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -132,6 +132,79 @@
 		/obj/item/scalpel = 1,
 		/obj/item/hemostat = 1,
 		/obj/item/cautery = 1)
+	generate_items_inside(items_inside,src)
+
+/obj/item/storage/firstaid/medical/paramedic
+	name = "paramedics medical bag"
+	icon_state = "firstaid-surgeryalt"
+	item_state = "firstaid-surgeryalt"
+	worn_icon = 'icons/mob/clothing/belt.dmi'
+	worn_icon_state = "firstaid_surgeryalt"
+	desc = "A not-so fancy high capacity aid kit for paramedics, filled with 'top of the line' medical supplies."
+	skin_type = null
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/storage/firstaid/medical/paramedic/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
+	STR.max_items = 13
+	STR.max_combined_w_class = 24
+	STR.set_holdable(list(
+		/obj/item/healthanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/medspray,
+		/obj/item/lighter,
+		/obj/item/weldingtool/mini,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/pill_bottle,
+		/obj/item/stack/medical,
+		/obj/item/flashlight/pen,
+		/obj/item/extinguisher/mini,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/sensor_device,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/clothing/mask/surgical,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath/medical,
+		/obj/item/geiger_counter,
+		/obj/item/clothing/neck/stethoscope,
+		/obj/item/stamp,
+		/obj/item/clothing/glasses,
+		/obj/item/wrench/medical,
+		/obj/item/clothing/mask/muzzle,
+		/obj/item/reagent_containers/blood,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/implantcase,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/pinpointer/crew,
+		/obj/item/holosign_creator/medical,
+		/obj/item/rollerbed
+		))
+
+
+/obj/item/storage/firstaid/medical/paramedic/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/healthanalyzer = 1,
+		/obj/item/reagent_containers/cup/bottle/formaldehyde = 1,
+		/obj/item/reagent_containers/syringe = 1,
+		/obj/item/rollerbed = 1,
+		/obj/item/weldingtool/mini = 1, // stopping IPC bleeding while delivering them to robotics (STOP DELIVERING IPCS TO MEDBAY I SWEAR TO GOD) -doc
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
+		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 1
+		)
 	generate_items_inside(items_inside,src)
 
 //First Aid kit (ancient)
@@ -370,12 +443,12 @@
 	STR.max_combined_w_class = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -401,7 +474,6 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/defibrillator/compact
 		))
-	STR.can_hold = can_hold
 
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
@@ -488,7 +560,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_quick_gather = TRUE
 	STR.click_gather = TRUE
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/dice))
+	STR.set_holdable(list(/obj/item/reagent_containers/pill, /obj/item/dice))
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
