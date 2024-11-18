@@ -605,7 +605,7 @@
 /turf/open/floor/carpet/blue,
 /area/centcom/control)
 "bJ" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
@@ -1229,7 +1229,7 @@
 /turf/open/floor/wood,
 /area/centcom/control)
 "dx" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -1274,7 +1274,7 @@
 /turf/open/floor/wood/big,
 /area/centcom/evac)
 "dC" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/corner{
@@ -1658,7 +1658,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -3405,7 +3405,7 @@
 	},
 /area/centcom/control)
 "jU" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/edge{
 	dir = 1
@@ -4548,7 +4548,7 @@
 /turf/open/floor/iron/edge,
 /area/centcom/control)
 "oa" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6997,7 +6997,7 @@
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "vy" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -7510,7 +7510,7 @@
 /turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "wS" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/button/door/indestructible{
@@ -8937,7 +8937,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
 "Br" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/structure/railing{
@@ -9299,7 +9299,7 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "Cq" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/machinery/firealarm{
@@ -13427,7 +13427,7 @@
 /turf/open/floor/iron/large,
 /area/centcom/supplypod/loading/one)
 "OQ" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -14603,7 +14603,7 @@
 /area/tdome/tdomeadmin)
 "Sn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -14780,7 +14780,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "SM" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -15534,7 +15534,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
