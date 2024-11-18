@@ -141,4 +141,4 @@
 	icon_state = "spraytan"
 	apply_type = TOUCH
 	list_reagents = list(/datum/reagent/spraytan = 55)
-	amount_per_transfer_from_this = 11
+	amount_per_transfer_from_this = 10
