@@ -20,7 +20,6 @@
 /obj/item/implanter/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
-
 	if(user && imp)
 		if(M != user)
 			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>", \
