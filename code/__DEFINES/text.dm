@@ -30,11 +30,12 @@
 #define BYOND_ENCODE "byond_encode"
 #define STRIP_HTML "strip_html"
 #define STRIP_HTML_SIMPLE "strip_html_simple"
-/// Removes everything enclose in < and > inclusive of the bracket, and limits the length of the message.
-#define STRIP_HTML_FULL(text, limit) (sanitize(GLOB.html_tags.Replace(copytext(text, 1, limit), ""), limit))
 #define SANITIZE "sanitize"
 #define SANITIZE_SIMPLE "sanitize_simple"
 #define ADMIN_SCRUB "admin_scrub"
+
+/// Removes everything enclose in < and > inclusive of the bracket, and limits the length of the message.
+#define STRIP_HTML_FULL(text, limit) (sanitize(GLOB.html_tags.Replace(copytext(text, 1, limit), ""), limit))
 
 /// BYOND's string procs don't support being used on datum references (as in it doesn't look for a name for stringification)
 /// We just use this macro to ensure that we will only pass strings to this BYOND-level function without developers needing to really worry about it.

@@ -180,7 +180,7 @@
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -193,7 +193,7 @@
 		return ERROR_MISSING_EXPERIMENTAL_POD
 
 	if(!body_only && !(experimental && experimental_pod))
-		clonemind = mindref
+		clonemind = given_mind
 		if(!istype(clonemind))	//not a mind
 			return ERROR_NOT_MIND
 		if(last_death<0) //presaved clone is not clonable
