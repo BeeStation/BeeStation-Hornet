@@ -142,9 +142,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(card?.registered_account)
 		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
-		var/datum/data/record/R = find_record("name", card.registered_account.account_holder, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(card.registered_account.account_holder, GLOB.manifest.general)
 		if(R)
-			data["user"]["job"] = R.fields["rank"]
+			data["user"]["job"] = R.rank
 		else if(card.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
 		else

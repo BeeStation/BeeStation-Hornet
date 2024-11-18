@@ -1,3 +1,72 @@
+/**
+ * Crime data. Used to store information about crimes.
+ */
+/datum/crime_record
+	/// Name of the crime
+	var/name
+	/// Details about the crime
+	var/details
+	/// Player that wrote the crime
+	var/author
+	/// Time of the crime
+	var/time
+	/// Whether the crime is active or not
+	var/valid = TRUE
+	/// Player that marked the crime as invalid
+	var/voider
+	//Variables for genpop
+	var/tooltip
+	var/colour
+	var/icon
+	var/sentence
+	var/category
+	var/crime_ref
+
+/datum/crime_record/New(name = "Crime", details = "No details provided.", author = "Anonymous")
+	src.author = author
+	src.details = details
+	src.name = name
+	src.time = station_time_timestamp()
+	src.crime_ref = FAST_REF(src)
+
+/datum/crime_record/citation
+	/// Fine for the crime
+	var/fine
+	/// Amount of money paid for the crime
+	var/paid = 0
+
+/datum/crime_record/citation/New(name = "Citation", details = "No details provided.", author = "Anonymous", fine = 0)
+	. = ..()
+	src.fine = fine
+
+/// Pays off a fine and attempts to fix any weird values.
+/datum/crime_record/citation/proc/pay_fine(amount)
+	if(amount <= 0)
+		return FALSE
+	paid += amount
+	fine = max(0, fine - amount)
+
+	return TRUE
+
+/// Sends a citation alert message to the target's PDA.
+/datum/crime_record/citation/proc/alert_owner(mob/sender, atom/source, target_name, message)
+	for(var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
+		if(tablet.saved_identification != target_name)
+			continue
+
+		var/datum/signal/subspace/messaging/tablet_msg/signal = new(source, list(
+			name = "Security Citation",
+			job = "Citation Server",
+			message = message,
+			targets = list(tablet),
+			automated = TRUE
+		))
+		signal.send_to_receivers()
+		sender.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
+		break
+
+	return TRUE
+
 #define PRESET_SHORT 5 MINUTES
 #define PRESET_MEDIUM 10 MINUTES
 #define PRESET_LONG 15 MINUTES

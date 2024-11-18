@@ -199,7 +199,7 @@
 				stored_id_card.hud_state = get_hud_by_jobname(newidskin)
 
 				// QoL to correct the system behavior
-				GLOB.data_core.manifest_modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.hud_state) // update crew manifest
+				GLOB.manifest.modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.hud_state) // update crew manifest
 				// There are the same code lines in `card.dm`
 				eject_id_card(user)
 		else
