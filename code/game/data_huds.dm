@@ -250,6 +250,8 @@
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
 		holder.icon_state = "hud[ckey(wear_id.GetJobIcon())]"
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		holder.icon_state = "hudno_id"
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()
