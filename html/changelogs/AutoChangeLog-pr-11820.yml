@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Removes alpha passthrough on laser projectiles
