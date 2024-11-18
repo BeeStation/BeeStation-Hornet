@@ -146,6 +146,9 @@
 	adjust_fire_stacks(3)
 	IgniteMob()
 
+/**
+ * Called when this mob is grabbed by another mob.
+ */
 /mob/living/proc/grabbedby(mob/living/user, supress_message = FALSE)
 	. = TRUE
 	if(user == src || anchored || !isturf(user.loc))
