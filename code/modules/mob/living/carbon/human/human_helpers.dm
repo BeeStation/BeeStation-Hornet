@@ -250,6 +250,15 @@
 
 	return FALSE
 
+/mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
+	var/obj/item/card/id/I = wear_id.GetID()
+	if(!I)
+		return
+	var/I_hud = I.hud_state
+	if(I_hud)
+		return I_hud
+	return "unknown"
+
 ///copies over clothing preferences like underwear to another human
 /mob/living/carbon/human/proc/copy_clothing_prefs(mob/living/carbon/human/destination)
 	destination.underwear = underwear

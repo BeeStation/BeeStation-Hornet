@@ -28,8 +28,8 @@
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
 
-/datum/data/tachyon_record
-	name = "Log Recording"
+/datum/tachyon_record
+	var/name = "Log Recording"
 	var/timestamp
 	var/coordinates = ""
 	var/displacement = 0
@@ -49,7 +49,7 @@
 /obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	data["records"] = list()
-	for(var/datum/data/tachyon_record/R in records)
+	for(var/datum/tachyon_record/R in records)
 		var/list/record_data = list(
 			name = R.name,
 			timestamp = R.timestamp,
@@ -72,19 +72,19 @@
 
 	switch(action)
 		if("delete_record")
-			var/datum/data/tachyon_record/record = locate(params["ref"]) in records
+			var/datum/tachyon_record/record = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			records -= record
 			. = TRUE
 		if("print_record")
-			var/datum/data/tachyon_record/record  = locate(params["ref"]) in records
+			var/datum/tachyon_record/record  = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			print(usr, record)
 			. = TRUE
 
-/obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
+/obj/machinery/doppler_array/proc/print(mob/user, datum/tachyon_record/record)
 	if(!record)
 		return
 	if(printer_ready < world.time)
@@ -98,7 +98,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 
-/obj/item/paper/record_printout/Initialize(mapload, datum/data/tachyon_record/record)
+/obj/item/paper/record_printout/Initialize(mapload, datum/tachyon_record/record)
 	. = ..()
 
 	if(record)
@@ -157,7 +157,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	if(!(direct & dir) && !integrated)
 		return FALSE
 
-	var/datum/data/tachyon_record/R = new /datum/data/tachyon_record()
+	var/datum/tachyon_record/R = new /datum/tachyon_record()
 	R.name = "Log Recording #[record_number]"
 	R.timestamp = station_time_timestamp()
 	R.coordinates = "[epicenter.x], [epicenter.y]"
