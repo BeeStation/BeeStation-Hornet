@@ -152,6 +152,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/security
+	r_pocket = /obj/item/clothing/accessory/badge/officer
 	suit_store = /obj/item/gun/energy/disabler
 
 	backpack = /obj/item/storage/backpack/security
