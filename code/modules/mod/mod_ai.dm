@@ -3,12 +3,12 @@
 	if(!.)
 		return
 	if(!open) //mod must be open
-		balloon_alert(user, "panel closed!")
+		balloon_alert(user, "suit must be open to transfer!")
 		return
 	switch(interaction)
 		if(AI_TRANS_TO_CARD)
 			if(!ai)
-				balloon_alert(user, "no ai in unit!")
+				balloon_alert(user, "no AI in suit!")
 				return
 			balloon_alert(user, "transferring to card...")
 			if(!do_after(user, 5 SECONDS, target = src))
@@ -44,13 +44,13 @@
 			if(intAI.stat || !intAI.client)
 				balloon_alert(user, "AI unresponsive!")
 				return
-			balloon_alert(user, "transferring to unit...")
+			balloon_alert(user, "transferring to suit...")
 			if(!do_after(user, 5 SECONDS, target = src))
 				balloon_alert(user, "interrupted!")
 				return
 			if(ai)
 				return
-			balloon_alert(user, "ai transferred to unit")
+			balloon_alert(user, "AI transferred to suit")
 			ai_enter_mod(intAI)
 			card.AI = null
 
@@ -76,9 +76,6 @@
 /obj/item/mod/control/relaymove(mob/user, direction)
 	if((!active && wearer) || get_charge() < CHARGE_PER_STEP || user != ai || !COOLDOWN_FINISHED(src, cooldown_mod_move) || (wearer?.pulledby?.grab_state > GRAB_PASSIVE))
 		return FALSE
-	var/datum/mod_part/legs_to_move = get_part_datum_from_slot(ITEM_SLOT_FEET)
-	if(wearer && (!legs_to_move || !legs_to_move.sealed))
-		return FALSE
 	var/timemodifier = MOVE_DELAY * (ISDIAGONALDIR(direction) ? sqrt(2) : 1) * (wearer ? WEARER_DELAY : LONE_DELAY)
 	if(wearer && !wearer.Process_Spacemove(direction))
 		return FALSE
@@ -90,7 +87,7 @@
 	if(ismovable(wearer?.loc))
 		return wearer.loc.relaymove(wearer, direction)
 	else if(wearer)
-		ADD_TRAIT(wearer, TRAIT_FORCED_STANDING, REF(src))
+		ADD_TRAIT(wearer, TRAIT_FORCED_STANDING, MOD_TRAIT)
 		addtimer(CALLBACK(src, PROC_REF(ai_fall)), AI_FALL_TIME, TIMER_UNIQUE | TIMER_OVERRIDE)
 	var/atom/movable/mover = wearer || src
 	return step(mover, direction)

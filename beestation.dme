@@ -165,7 +165,6 @@
 #include "code\__DEFINES\say.dm"
 #include "code\__DEFINES\SDQL.dm"
 #include "code\__DEFINES\shuttles.dm"
-#include "code\__DEFINES\si.dm"
 #include "code\__DEFINES\sight.dm"
 #include "code\__DEFINES\sound.dm"
 #include "code\__DEFINES\space.dm"

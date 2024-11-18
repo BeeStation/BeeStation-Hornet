@@ -442,7 +442,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/item/ui_act(action, params)
 	add_fingerprint(usr)
 	return ..()
 

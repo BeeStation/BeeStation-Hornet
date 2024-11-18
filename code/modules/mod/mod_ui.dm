@@ -9,10 +9,8 @@
 	// Suit information
 	var/suit_status = list(
 		"core_name" = core?.name,
-		"charge_current" = get_charge(),
-		"charge_max" = get_max_charge(),
-		"chargebar_color" = get_chargebar_color(),
-		"chargebar_string" = get_chargebar_string(),
+		"cell_charge_current" = get_charge(),
+		"cell_charge_max" = get_max_charge(),
 		"active" = active,
 		"ai_name" = ai?.name,
 		// Wires
@@ -53,26 +51,24 @@
 			"configuration_data" = module.get_configuration(user),
 		))
 	data["module_custom_status"] = module_custom_status
-	data["control"] = name
 	data["module_info"] = module_info
-	var/part_info = list()
-	for(var/obj/item/part as anything in get_parts())
-		part_info += list(list(
-			"slot" = english_list(parse_slot_flags(part.slot_flags)),
-			"name" = part.name,
-			"deployed" = part.loc != src,
-			"ref" = REF(part),
-		))
-	data["parts"] = part_info
 	return data
 
 /obj/item/mod/control/ui_static_data(mob/user)
 	var/data = list()
 	data["ui_theme"] = ui_theme
+	data["control"] = name
 	data["complexity_max"] = complexity_max
+	var/part_info = list()
+	for(var/obj/item/part as anything in get_parts())
+		part_info += list(list(
+			"slot" = english_list(parse_slot_flags(part.slot_flags)),
+			"name" = part.name,
+		))
+	data["parts"] = part_info
 	return data
 
-/obj/item/mod/control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/item/mod/control/ui_act(action, params)
 	. = ..()
 	if(.)
 		return
@@ -81,25 +77,14 @@
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(malfunctioning && prob(75))
-		balloon_alert(ui.user, "button malfunctions!")
+		balloon_alert(usr, "button malfunctions!")
 		return
 	switch(action)
 		if("lock")
-			if(!locked || allowed(ui.user))
-				locked = !locked
-				balloon_alert(ui.user, "[locked ? "locked" : "unlocked"]!")
-			else
-				balloon_alert(ui.user, "access insufficent!")
-				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		/*
-		if("call")
-			if(!mod_link.link_call)
-				call_link(ui.user, mod_link)
-			else
-				mod_link.end_call()
-		*/
+			locked = !locked
+			balloon_alert(usr, "[locked ? "locked" : "unlocked"]!")
 		if("activate")
-			toggle_activate(ui.user)
+			toggle_activate(usr)
 		if("select")
 			var/obj/item/mod/module/module = locate(params["ref"]) in modules
 			if(!module)
@@ -114,14 +99,6 @@
 			var/obj/item/mod/module/module = locate(params["ref"]) in modules
 			if(!module)
 				return
-			module.pin(ui.user)
-		if("deploy")
-			var/obj/item/mod_part = locate(params["ref"]) in get_parts()
-			if(!mod_part)
-				return
-			if(mod_part.loc == src)
-				deploy(ui.user, mod_part)
-			else
-				retract(ui.user, mod_part)
+			module.pin(usr)
 
 	return TRUE

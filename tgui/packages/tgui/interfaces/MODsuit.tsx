@@ -7,29 +7,25 @@ import { Window } from '../layouts';
 type MODsuitData = {
   // Static
   ui_theme: string;
+  control: string;
   complexity_max: number;
+  parts: PartData[];
   // Dynamic
   suit_status: SuitStatus;
   user_status: UserStatus;
   module_custom_status: ModuleCustomStatus;
   module_info: Module[];
-  control: string;
-  parts: PartData[];
 };
 
 type PartData = {
   slot: string;
   name: string;
-  deployed: BooleanLike;
-  ref: string;
 };
 
 type SuitStatus = {
   core_name: string;
-  charge_current: number;
-  charge_max: number;
-  chargebar_color: string;
-  chargebar_string: string;
+  cell_charge_current: number;
+  cell_charge_max: number;
   active: BooleanLike;
   open: BooleanLike;
   seconds_electrified: number;
@@ -216,17 +212,6 @@ const ConfigureListEntry = (props, context) => {
   );
 };
 
-const ConfigureButtonEntry = (props, context) => {
-  const { name, value, module_ref } = props;
-  const { act } = useBackend(context);
-  return (
-    <Button
-      onClick={() => act('configure', { key: name, ref: module_ref })}
-      icon={value}
-    />
-  );
-};
-
 const ConfigureDataEntry = (props, context) => {
   const { name, display_name, type, value, values, module_ref } = props;
   const configureEntryTypes = {
@@ -234,7 +219,6 @@ const ConfigureDataEntry = (props, context) => {
     bool: <ConfigureBoolEntry {...props} />,
     color: <ConfigureColorEntry {...props} />,
     list: <ConfigureListEntry {...props} />,
-    button: <ConfigureButtonEntry {...props} />,
   };
   return <LabeledList.Item label={display_name}>{configureEntryTypes[type]}</LabeledList.Item>;
 };
@@ -313,10 +297,9 @@ const radiationLevels = (param) => {
 const SuitStatusSection = (props, context) => {
   const { act, data } = useBackend<MODsuitData>(context);
   const {
-    charge_current,
-    charge_max,
-    chargebar_color,
-    chargebar_string,
+    core_name,
+    cell_charge_current,
+    cell_charge_max,
     active,
     open,
     seconds_electrified,
@@ -326,6 +309,7 @@ const SuitStatusSection = (props, context) => {
   } = data.suit_status;
   const { display_time, shift_time, shift_id } = data.module_custom_status;
   const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
+  const charge_percent = Math.round((100 * cell_charge_current) / cell_charge_max);
 
   return (
     <Section
@@ -337,12 +321,26 @@ const SuitStatusSection = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Charge">
           <ProgressBar
-            value={charge_current / charge_max}
-            color={chargebar_color}
+            value={cell_charge_current / cell_charge_max}
+            ranges={{
+              good: [0.6, Infinity],
+              average: [0.3, 0.6],
+              bad: [-Infinity, 0.3],
+            }}
             style={{
-              textShadow: '1px 1px 0 black',
+              'text-shadow': '1px 1px 0 black',
             }}>
-            {chargebar_string}
+            {!core_name
+              ? 'No Core Detected'
+              : cell_charge_max === 1
+                ? 'Power Cell Missing'
+                : cell_charge_current === 1e31
+                  ? 'Infinite'
+                  : `${formatSiUnit(cell_charge_current * 1000, 0, 'J')} of ${formatSiUnit(
+                    cell_charge_max * 1000,
+                    0,
+                    'J'
+                  )} (${charge_percent}%)`}
           </ProgressBar>
         </LabeledList.Item>
         <LabeledList.Item label="ID Lock">
@@ -383,14 +381,10 @@ const HardwareSection = (props, context) => {
   return (
     <Section title="Hardware" style={{ 'text-transform': 'capitalize' }}>
       <LabeledList>
+        <LabeledList.Item label="AI Card">{ai_name || 'No AI Card Detected'}</LabeledList.Item>
+        <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
         <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
-        <LabeledList.Item label="Core">
-          {core_name || 'No Core Detected'}
-        </LabeledList.Item>
         <ModParts />
-        <LabeledList.Item label="AI Assistant">
-          {ai_name || 'No AI Detected'}
-        </LabeledList.Item>
       </LabeledList>
     </Section>
   );
@@ -403,17 +397,7 @@ const ModParts = (props, context) => {
     <>
       {parts.map((part) => {
         return (
-          <LabeledList.Item
-            key={part.slot}
-            label={part.slot + ' Slot'}
-            buttons={
-              <Button
-                selected={part.deployed}
-                icon={part.deployed ? 'arrow-down' : 'arrow-up'}
-                content={part.deployed ? 'Retract' : 'Deploy'}
-                onClick={() => act('deploy', { ref: part.ref })}
-              />
-            }>
+          <LabeledList.Item key={part.slot} label={part.slot + ' Slot'}>
             {part.name}
           </LabeledList.Item>
         );

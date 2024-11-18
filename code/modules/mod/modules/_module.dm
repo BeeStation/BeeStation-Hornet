@@ -100,10 +100,6 @@
 		needed_slots -= needed_slot
 	return !length(needed_slots)
 
-/// Additional checks for whenever a module can be installed into a suit or not
-/obj/item/mod/module/proc/can_install(obj/item/mod/control/mod)
-	return TRUE
-
 /// Called when the module is selected from the TGUI, radial or the action button
 /obj/item/mod/module/proc/on_select()
 	if(!mod.wearer)
@@ -293,8 +289,8 @@
 /obj/item/mod/module/proc/add_ui_data()
 	return list()
 
-/// Creates a list of configuring options for this module, possible configs include number, bool, color, list, button.
-/obj/item/mod/module/proc/get_configuration(mob/user)
+/// Creates a list of configuring options for this module
+/obj/item/mod/module/proc/get_configuration()
 	return list()
 
 /// Generates an element of the get_configuration list with a display name, type and value

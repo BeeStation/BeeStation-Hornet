@@ -15,10 +15,10 @@
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/reagent_scanner/on_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_REAGENT_SCANNER, REF(src))
+	ADD_TRAIT(mod.wearer, TRAIT_REAGENT_SCANNER, MOD_TRAIT)
 
 /obj/item/mod/module/reagent_scanner/on_deactivation(display_message = TRUE, deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_REAGENT_SCANNER, REF(src))
+	REMOVE_TRAIT(mod.wearer, TRAIT_REAGENT_SCANNER, MOD_TRAIT)
 
 /obj/item/mod/module/reagent_scanner/advanced
 	name = "MOD advanced reagent scanner module"
