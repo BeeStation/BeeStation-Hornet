@@ -465,12 +465,14 @@ BLIND     // can't see anything
 		return FALSE
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	var/switchMode = tgui_input_list(user_mob, "Select a sensor mode", "Suit Sensors", modes, modes[sensor_mode + 1])
+	if(isnull(switchMode))
+		return
 	if(get_dist(user, src) > 1)
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
-	var/sensor_selection = modes.Find(switchMode) - 1
 
+	var/sensor_selection = modes.Find(switchMode) - 1
 	if (src.loc == user)
 		switch(sensor_selection)
 			if(SENSORS_OFF)
