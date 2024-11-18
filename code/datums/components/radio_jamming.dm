@@ -48,6 +48,9 @@
 	GLOB.active_jammers -= src
 	UnregisterSignal(parent, COMSIG_PARENT_MOVED_RELAY)
 	var/turf/jammer_turf = get_turf(parent)
+	//Early return here. A runtime usually occurs in unit testing enviroments otherwise
+	if(0 < jammer_turf.z || jammer_turf.z < length(GLOB.jam_receivers_by_z))
+		return
 	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z[jammer_turf.z])
 		receiver.check_jammed()
 
