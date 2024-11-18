@@ -27,9 +27,8 @@
 /obj/machinery/light/cold/no_nightlight
 	nightshift_allowed = FALSE
 
-/obj/machinery/light/red/dim
-	brightness = 4
-	bulb_power = 0.7
+/obj/machinery/light/red
+	bulb_colour = "#ff0000"
 
 /obj/machinery/light/blacklight
 	bulb_colour = "#A700FF"
