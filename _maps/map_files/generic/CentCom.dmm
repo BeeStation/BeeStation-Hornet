@@ -483,7 +483,7 @@
 /turf/open/floor/iron/dark,
 /area/ctf)
 "bJ" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -922,7 +922,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "dx" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -963,7 +963,7 @@
 /turf/open/floor/wood/big,
 /area/centcom/evac)
 "dC" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1256,7 +1256,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2717,7 +2717,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "jU" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/control)
@@ -3645,7 +3645,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "oa" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6230,7 +6230,7 @@
 /turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "wS" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/button/door/indestructible{
@@ -6404,11 +6404,11 @@
 /turf/open/floor/carpet,
 /area/wizard_station)
 "xB" = (
-/mob/living/simple_animal/bot/medbot{
+/mob/living/simple_animal/bot/medbot/nukie{
+	name = "\improper Hattori";
 	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern.";
-	name = "Hattori";
 	radio_key = null;
-	stationary_mode = 1
+	radio_channel = null
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
@@ -7441,7 +7441,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
 "Br" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -7718,7 +7718,7 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "Cq" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -11888,7 +11888,7 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Rn" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/machinery/firealarm{
@@ -12322,7 +12322,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "SM" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -13216,7 +13216,7 @@
 /area/centcom/control)
 "We" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
@@ -13509,7 +13509,7 @@
 /area/centcom/ferry)
 "Xn" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
@@ -14067,11 +14067,10 @@
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "Zx" = (
-/mob/living/simple_animal/bot/medbot{
+/mob/living/simple_animal/bot/medbot/nukie{
+	name = "\improper Hijikata";
 	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis.";
-	name = "Hijikata";
-	radio_key = null;
-	stationary_mode = 1
+	radio_key = null
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)

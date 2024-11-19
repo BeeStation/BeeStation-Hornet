@@ -312,7 +312,6 @@
 	uniform = /obj/item/clothing/under/color/black/ghost
 	suit = /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	shoes = /obj/item/clothing/shoes/cult/alt/ghost
-	head = /obj/item/clothing/shoes/cult/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
 
 /datum/outfit/wizard
@@ -335,7 +334,7 @@
 
 	var/obj/item/spellbook/S = locate() in H.held_items
 	if(S)
-		S.owner = H
+		S.owner = H.mind
 
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"
