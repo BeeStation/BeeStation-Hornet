@@ -80,6 +80,7 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	dye_color = "clown"
+	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
@@ -134,6 +135,7 @@
 	clothing_flags = MASKINTERNALS
 	icon_state = "mime"
 	item_state = "mime"
+	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)

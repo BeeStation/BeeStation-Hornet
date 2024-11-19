@@ -24,7 +24,7 @@
 		return
 	var/area/A = get_area(S)
 	if(!(A in dragon.chosen_rift_areas))
-		to_chat(S, "<span class='warning'>You can't summon a rift here!</span>")
+		owner.balloon_alert(owner, "can't summon a rift here, check your objectives!")
 		return
 	for(var/obj/structure/carp_rift/rift in dragon.rift_list)
 		var/area/RA = get_area(rift)

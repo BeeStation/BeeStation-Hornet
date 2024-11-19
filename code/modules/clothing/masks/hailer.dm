@@ -47,6 +47,10 @@
 	stamina = 30
 	bleed = 30
 
+/obj/item/clothing/mask/gas/sechailer/swat/emagged
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. This one seems to have the safety toggled off..."
+	safety = FALSE
+
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	name = "spacepol mask"
 	desc = "A close-fitting tactical mask created in cooperation with a certain megacorporation, comes with an especially aggressive Compli-o-nator 3000."
