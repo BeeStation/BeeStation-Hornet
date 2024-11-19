@@ -1,0 +1,6 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fix TGFont icons (nonbinary character icon, Nanotrasen, Syndicate, etc.)
+      not displaying in TGUIs on the live server.
+  - code_imp: Re-adds TGFont to the juke build process.
