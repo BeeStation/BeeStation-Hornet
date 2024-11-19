@@ -12,6 +12,8 @@ import { env } from 'process';
 import Juke from './juke/index.js';
 import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond.js';
 import { yarn } from './lib/yarn.js';
+import { parse_features } from './modules/test_director/parse_test.js';
+import { check_tests, compile_tests } from './modules/test_director/test_director.js';
 
 const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
 
@@ -50,7 +52,9 @@ export const DmVersionParameter = new Juke.Parameter({
   type: 'string',
 });
 
-export const CiParameter = new Juke.Parameter({ type: 'boolean' });
+export const CiParameter = new Juke.Parameter({
+  type: 'boolean',
+});
 
 export const ForceRecutParameter = new Juke.Parameter({
   type: 'boolean',
@@ -85,12 +89,13 @@ export const DmMapsIncludeTarget = new Juke.Target({
 });
 
 export const DmTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
+  parameters: [CiParameter, DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    get(CiParameter) && TestDirectorTargetBuild,
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
-    await DreamMaker(`${DME_NAME}.dme`, {
+    await DreamMaker(get(CiParameter) ? `${DME_NAME}.ci.dme` : `${DME_NAME}.dme`, {
       defines: ['CBT', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
       ignoreWarningCodes: get(NoWarningParameter),
@@ -102,10 +107,10 @@ export const DmTarget = new Juke.Target({
 export const DmTestTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    TestDirectorTarget,
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
-    fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
     await DreamMaker(`${DME_NAME}.test.dme`, {
       defines: ['CBT', 'CIBUILDING', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
@@ -123,6 +128,7 @@ export const DmTestTarget = new Juke.Target({
       '-params', 'log-directory=ci'
     );
     Juke.rm('*.test.*');
+    Juke.rm('code/modules/unit_tests/generated_tests.dm');
     try {
       const cleanRun = fs.readFileSync('data/logs/ci/clean_run.lk', 'utf-8');
       console.log(cleanRun);
@@ -131,6 +137,75 @@ export const DmTestTarget = new Juke.Target({
       Juke.logger.error('Test run was not clean, exiting');
       throw new Juke.ExitCode(1);
     }
+  },
+});
+
+export const TestDirectorTargetBuild = new Juke.Target({
+  executes: async ({ get }) => {
+    try {
+      compile_tests(
+        'code/modules/unit_tests/generated_tests.dm',
+        'tools/test_director/actions',
+        'tools/test_director/tests',
+        'tools/test_director/test_template.dm'
+      );
+    }
+    catch (err) {
+      Juke.logger.error('Failed to generate test director tests.');
+      Juke.logger.error(err);
+      throw new Juke.ExitCode(1);
+    }
+    // Include the generated tests at the end of the DME so it has access to defines
+    fs.writeFileSync(`${DME_NAME}.ci.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
+      encoding: 'utf8'
+    });
+  },
+});
+
+/**
+ * Does a dry run of test-generation to ensure config validity.
+ * Runs in parallel with the main build to give an indication that tests written
+ * are fine without actually delaying the build to wait for them to be completed.
+ * Generally, as long as the test is well-formed and passes this it will work
+ * as expected due to the make-up of Gherkin files.
+ */
+export const CheckTestDirectorTarget = new Juke.Target({
+  executes: async ({ get }) => {
+    try {
+      check_tests(
+        'tools/test_director/actions',
+        'tools/test_director/tests',
+        'tools/test_director/test_template.dm'
+      );
+    }
+    catch (err) {
+      Juke.logger.error('Failed to generate test director tests.');
+      Juke.logger.error(err);
+      throw err;
+      throw new Juke.ExitCode(1);
+    }
+  },
+});
+
+export const TestDirectorTarget = new Juke.Target({
+  executes: async ({ get }) => {
+    try {
+      compile_tests(
+        'code/modules/unit_tests/generated_tests.dm',
+        'tools/test_director/actions',
+        'tools/test_director/tests',
+        'tools/test_director/test_template.dm'
+      );
+    }
+    catch (err) {
+      Juke.logger.error('Failed to generate test director tests.');
+      Juke.logger.error(err);
+      throw new Juke.ExitCode(1);
+    }
+    // Include the generated tests at the end of the DME so it has access to defines
+    fs.writeFileSync(`${DME_NAME}.test.dme`, fs.readFileSync(`${DME_NAME}.dme`, 'utf8').replace('// END_INCLUDE', '#include "code/modules/unit_tests/generated_tests.dm"\n\n// END_INCLUDE'), {
+      encoding: 'utf8'
+    });
   },
 });
 
@@ -285,7 +360,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTarget, TguiTarget],
+  dependsOn: [DmTarget, TguiTarget, CheckTestDirectorTarget],
 });
 
 export const ServerTarget = new Juke.Target({

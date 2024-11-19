@@ -1,0 +1,32 @@
+{
+	"patterns": [
+	  {
+		"match": "(%NAME%) is defined as new (%TYPE%|%NAME%)",
+		"code": "var/$1 = allocate($2)"
+	  },
+	  {
+		"match": "player is next to (%NAME%)",
+		"code": "player.forceMove($1:loc)"
+	  },
+	  {
+		"match": "(%NAME%)(?:'s)? (%NAME%) is(?: set to|(?! injected)) (%VALUE%)",
+		"code": "$1:$2 = $3"
+	  },
+	  {
+		"match": "player is holding (%NAME%)",
+		"code": "player.put_in_active_hand($1, TRUE)"
+	  },
+	  {
+		"match": "following code is injected",
+		"code_injection": true
+	  },
+	  {
+		"match": "(%PROC%) is called on (%NAME%)",
+		"code": "$2:$1"
+	  },
+	  {
+		"match": "player is (%TYPE%)",
+		"code": "player = allocate($1)"
+	  }
+	]
+  }
