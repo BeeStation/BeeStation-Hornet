@@ -40,7 +40,7 @@ const NoChannelDimmer = (props, context) => {
 };
 
 const ChannelList = ({ all_channels, active_channel, act }) => (
-  <Section title="Channels" fill>
+  <Section title="Channels" fill fluid grow={1} height="fill">
     <Button.Input
       fluid
       content="New Channel..."
@@ -298,7 +298,7 @@ export const NtosNetChat = (props, context) => {
             <Flex.Item fill>
               <ChannelList all_channels={all_channels} active_channel={active_channel} act={act} />
             </Flex.Item>
-            <Flex.Item grow={1} fill>
+            <Flex.Item>
               <UsernameSection username={username} can_admin={can_admin} adminmode={adminmode} act={act} />
             </Flex.Item>
           </Flex>

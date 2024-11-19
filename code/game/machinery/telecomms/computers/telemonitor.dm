@@ -77,10 +77,6 @@
 		if(!A.network_root_id)
 			log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
 			SSnetworks.lookup_area_root_id(A)
-			new_network_id = NETWORK_NAME_COMBINE(A.network_root_id, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
-		else
-			log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
-			new_network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
 	new_network_id = simple_network_name_fix(new_network_id) // make sure the network name is valid
 	var/datum/ntnet/new_network = SSnetworks.create_network_simple(new_network_id)
 	new_network.move_interface(GetComponent(/datum/component/ntnet_interface), new_network_id, network_id)
