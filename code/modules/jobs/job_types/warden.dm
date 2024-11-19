@@ -53,6 +53,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/warden
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	l_pocket = /obj/item/clothing/accessory/badge/officer
 	r_pocket = /obj/item/modular_computer/tablet/pda/warden
 	suit_store = /obj/item/gun/energy/disabler
 
