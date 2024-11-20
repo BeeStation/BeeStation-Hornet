@@ -538,6 +538,7 @@
 			if (obj_flags & EMPED)
 				return
 			// Strip, silently
+			add_fingerprint(actor)
 			if (do_after(actor, 1 SECONDS, loc))
 				set_on(!on)
 
