@@ -286,6 +286,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 // Flags for energy shields
 /// Energy shields will block projectiles
-#define ENERGY_SHEILD_BLOCK_PROJECTILES (1 << 0)
+#define ENERGY_SHIELD_BLOCK_PROJECTILES (1 << 0)
 /// Energy shields will block melee attacks
-#define ENERGY_SHEILD_BLOCK_MELEE (1 << 1)
+#define ENERGY_SHIELD_BLOCK_MELEE (1 << 1)
+/// Energy shield will not have a visible shield
+#define ENERGY_SHIELD_INVISIBLE (1 << 2)
+/// Energy shield will take max damage when EMP'd
+#define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)

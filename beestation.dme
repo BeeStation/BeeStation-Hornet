@@ -1436,6 +1436,7 @@
 #include "code\game\objects\items\colorizers\colorizer.dm"
 #include "code\game\objects\items\colorizers\items.dm"
 #include "code\game\objects\items\colorizers\mobs.dm"
+#include "code\game\objects\items\combat\shield_belt.dm"
 #include "code\game\objects\items\deployable\barricade.dm"
 #include "code\game\objects\items\deployable\bodybag.dm"
 #include "code\game\objects\items\deployable\bot.dm"
