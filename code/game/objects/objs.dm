@@ -72,13 +72,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	return ..()
 
 /obj/Initialize(mapload)
-	//if (islist(armor))
-	//	armor = getArmor(arglist(armor))
-	//else if (!armor)
-	//	armor = getArmor()
-	//else if (!istype(armor, /datum/armor))
-	//	stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	//atom_integrity = max_integrity
 
 	. = ..() //Do this after, else mat datums is mad.
 
@@ -292,7 +285,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	if(href_list[VV_HK_OSAY])
 		if(check_rights(R_FUN, FALSE))
 			usr.client.object_say(src)
-			
+
 	if(href_list[VV_HK_MASS_DEL_TYPE])
 		if(check_rights(R_DEBUG|R_SERVER))
 			var/action_type = alert("Strict type ([type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")

@@ -1,6 +1,8 @@
 /// Get the atom's armor reference
 /atom/proc/get_armor()
 	RETURN_TYPE(/datum/armor)
+	if(islist(armor))
+		CRASH("var/ARMOR ON ATOM SHOULD NEVER BE SET AS A LIST")
 	return (armor ||= get_armor_by_type(armor_type))
 
 /// Helper to get a specific rating for the atom's armor
@@ -10,6 +12,8 @@
 
 /// Sets the armor of this atom to the specified armor
 /atom/proc/set_armor(datum/armor/armor)
+	if(islist(armor))
+		CRASH("var/ARMOR ON ATOM SHOULD NEVER BE SET AS A LIST")
 	if(src.armor == armor)
 		return
 	if(!(src.armor?.type in GLOB.armor_by_type))
