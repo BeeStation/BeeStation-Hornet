@@ -36,6 +36,13 @@
 /obj/item/gun/energy/e_gun/advtaser/cyborg/add_seclight_point()
 	return
 
+/obj/item/gun/energy/e_gun/advtaser/heirloom
+	name = "old hybrid taser"
+	desc = "A old and dusty taser, used so much its cell no longer charges. there is a text scribbled on the side saying \"Dont forget your origins.\""
+	w_class = WEIGHT_CLASS_NORMAL
+	can_charge = FALSE
+	dead_cell = TRUE
+
 /obj/item/gun/energy/disabler
 	name = "disabler"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
