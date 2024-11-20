@@ -48,7 +48,7 @@
 		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
 	var/list/mod_parts = mod.get_parts(all = TRUE)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.modifyRating(arglist(armor_values))
+		part.armor = part.armor.attachArmor(armor_values)
 		part.slowdown -= speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
@@ -69,7 +69,9 @@
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.modifyRating(arglist(removed_armor))
+		if (islist(part.armor) || isnull(part.armor))
+			part.armor = getArmor(arglist(part.armor))
+		part.armor = part.armor.detachArmor(removed_armor)
 		part.slowdown += speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
