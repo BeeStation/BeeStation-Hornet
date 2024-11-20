@@ -12,12 +12,14 @@
 	network_id = __NETWORK_SERVER // if its connected to the default one we will ignore it
 	var/network = "NULL"		// the network to probe
 	var/list/servers = list()	// the servers in the network
+	var/hardware_id = ""
 
 
 /obj/machinery/computer/telecomms/monitor/Initialize(mapload)
 	. = ..()
 	update_network()
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
+	hardware_id = GetComponent(/datum/component/ntnet_interface).hardware_id
 
 /obj/machinery/computer/telecomms/monitor/Destroy()
 	. = ..()
@@ -61,7 +63,7 @@
 	ntnet_send(data, network_id)
 
 /obj/machinery/computer/telecomms/monitor/proc/ntnet_receive(datum/source, datum/netdata/data)
-	if(islist(data.receiver_id))
+	if(!data.type == PACKET_TYPE_SERVER_STATUS)
 		return // if its broadcasting we don't want that packet, its probably our ping
 	servers[data.sender_id] = data.data
 	servers[data.sender_id]["last_update"] = world.time

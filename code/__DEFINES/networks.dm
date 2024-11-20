@@ -138,3 +138,4 @@
 
 // Packet types
 #define PACKET_TYPE_PING "ping"
+#define PACKET_TYPE_SERVER_STATUS "server_status"

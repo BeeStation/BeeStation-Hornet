@@ -180,6 +180,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	switch(data.data["type"])
 		if(PACKET_TYPE_PING) // we respond to the ping with our status
 			var/list/send_data = list()
+			send_data["type"] = PACKET_TYPE_SERVER_STATUS
 			send_data["name"] = name
 			send_data["temperature"] = get_temperature()
 			send_data["overheat_temperature"] = get_overheat_temperature()
