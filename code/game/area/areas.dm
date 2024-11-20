@@ -357,14 +357,24 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	GLOB.sortedAreas -= src
-	GLOB.areas -= src
+	//this is not initialized until get_sorted_areas() is called so we have to do a null check
+	if(!isnull(GLOB.sortedAreas))
+		GLOB.sortedAreas -= src
+	//just for sanity sake cause why not
+	if(!isnull(GLOB.areas))
+		GLOB.areas -= src
+	//machinery cleanup
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(alarm_manager)
 	firedoors = null
+	//atmos cleanup
 	firealarms = null
 	air_vents = null
 	air_scrubbers = null
+	//turf cleanup
+	contained_turfs = null
+	turfs_to_uncontain = null
+	//parent cleanup
 	return ..()
 
 /**

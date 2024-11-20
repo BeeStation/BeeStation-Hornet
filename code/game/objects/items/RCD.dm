@@ -815,6 +815,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	icon_state = "arcd"
 	item_state = "oldrcd"
 	has_ammobar = FALSE
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
 /obj/item/construction/rcd/arcd/afterattack(atom/A, mob/user)
 	. = ..()

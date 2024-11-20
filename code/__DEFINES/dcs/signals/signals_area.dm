@@ -5,6 +5,9 @@
 ///! from base of area/proc/power_change(): ()
 #define COMSIG_AREA_POWER_CHANGE "area_power_change"
 
+/// called after a successful area creation by a mob: (area/created_area, list/area/old_areas, mob/creator)
+#define COMSIG_AREA_CREATED "!mob_created_area"
+
 // /area signals///! from base of area/Entered(): (atom/movable/M)
 #define COMSIG_AREA_ENTERED "area_entered"
 ///! from base of area/Exited(): (atom/movable/M)

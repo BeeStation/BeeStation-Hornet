@@ -195,7 +195,6 @@
 		return
 	name = "\proper [get_area_name(src)] [name] [id_tag]"
 
-
 /obj/machinery/atmospherics/components/unary/vent_scrubber/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	if(welded || !is_operational)
 		return FALSE

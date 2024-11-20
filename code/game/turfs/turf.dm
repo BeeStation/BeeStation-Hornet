@@ -225,6 +225,24 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 
+/// Call to move a turf from its current area to a new one
+/turf/proc/change_area(area/old_area, area/new_area)
+	//don't waste our time
+	if(old_area == new_area)
+		return
+
+	//move the turf
+	old_area.turfs_to_uncontain += src
+	new_area.contents += src
+	new_area.contained_turfs += src
+
+	//changes to make after turf has moved
+	on_change_area(old_area, new_area)
+
+/// Allows for reactions to an area change without inherently requiring change_area() be called (I hate maploading)
+/turf/proc/on_change_area(area/old_area, area/new_area)
+	transfer_area_lighting(old_area, new_area)
+
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)
 		show_zmove_radial(eminence)

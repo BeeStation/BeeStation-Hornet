@@ -60,6 +60,10 @@
 	disconnect_from_area()
 	assign_to_area()
 
+/obj/machinery/atmospherics/components/unary/vent_pump/on_enter_area(datum/source, area/area_to_register)
+	assign_to_area(area_to_register)
+	. = ..()
+
 /obj/machinery/atmospherics/components/unary/vent_pump/proc/assign_to_area(area/target_area = get_area(src))
 	//this vent is already assigned to an area. Unassign it from here first before reassigning it to an new area
 	if(isnull(target_area) || !isnull(assigned_area))
@@ -195,8 +199,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 	. = ..()
 	if(override_naming)
 		return
-	var/area/vent_area = get_area(src)
-	name = "\proper [vent_area.name] [name] [id_tag]"
+	name = "\proper [get_area_name(src)] [name] [id_tag]"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/welder_act(mob/living/user, obj/item/I)
 	if(!I.tool_start_check(user, amount=0))
