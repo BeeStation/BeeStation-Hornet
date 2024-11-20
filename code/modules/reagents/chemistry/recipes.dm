@@ -45,7 +45,7 @@
 		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
 		for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom)))
-			C.flash_act()
+			C.flash_act(1, critical_hit = TRUE)
 
 		for(var/i in 1 to amount_to_spawn)
 			var/mob/living/spawned_mob

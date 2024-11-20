@@ -446,7 +446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 			remote_eye.setLoc(T)
 			to_chat(target, "<span class='notice'>Jumped to [selected].</span>")
-			C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+			C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/static)
 			C.clear_fullscreen("flash", 3)
 	else
 		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)

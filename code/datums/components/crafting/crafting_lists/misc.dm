@@ -194,7 +194,7 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/assembly/prox_sensor
 	)
-	blacklist = list(/obj/item/assembly/flash/handheld/strong)
+	blacklist = list(/obj/item/assembly/flash/handheld/revolution)
 	category = CAT_MISC
 
 /datum/crafting_recipe/pressureplate

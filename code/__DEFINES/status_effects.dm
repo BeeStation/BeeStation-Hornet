@@ -123,6 +123,8 @@
 
 #define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
+#define STATUS_EFFECT_BLIND /datum/status_effect/blindness
+
 //---------//
 // NEUTRAL //
 //---------//

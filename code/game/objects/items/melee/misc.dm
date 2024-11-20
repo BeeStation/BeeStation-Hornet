@@ -271,7 +271,7 @@
 			if (affect_silicon)
 				var/list/desc = get_silicon_stun_description(target, user)
 
-				target.flash_act(affect_silicon = TRUE)
+				target.flash_act(affect_silicon = TRUE, critical_hit = TRUE)
 				target.Paralyze(stun_time_silicon)
 				additional_effects_silicon(target, user)
 
@@ -512,7 +512,7 @@
 			if (affect_silicon)
 				var/list/desc = get_silicon_stun_description(target, user)
 
-				target.flash_act(affect_silicon = TRUE)
+				target.flash_act(affect_silicon = TRUE, critical_hit = TRUE)
 				target.Paralyze(stun_time_silicon)
 				additional_effects_silicon(target, user)
 

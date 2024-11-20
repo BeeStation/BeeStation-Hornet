@@ -200,7 +200,7 @@
 /obj/effect/mine/explosive/traitor/toy/mineEffect(mob/victim)
 	if(isliving(victim))
 		var/mob/living/honked = victim
-		honked.flash_act()
+		honked.flash_act(critical_hit = TRUE)
 		var/obj/item/assembly/flash/handheld/burnt_out = new(loc)
 		new /obj/item/bikehorn/rubberducky(loc)
 		burnt_out.burn_out()

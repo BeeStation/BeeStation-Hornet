@@ -130,11 +130,11 @@
 				S.be_replaced()
 			else if(S.status_type == STATUS_EFFECT_REFRESH)
 				S.refresh()
-				return
+				return S
 			else if (S.status_type == STATUS_EFFECT_MERGE)
 				S.merge(arglist(args.Copy(2)))
 				S.update_icon()
-				return
+				return S
 			else
 				return
 	var/list/arguments = args.Copy()

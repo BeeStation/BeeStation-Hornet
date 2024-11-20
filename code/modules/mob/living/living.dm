@@ -1,10 +1,10 @@
-/mob/living
-	///Used for tracking poking data
-	var/time_of_last_poke = 0
-	///Used for tracking accidental attacks
-	var/time_of_last_attack_dealt = 0
-	///Used for tracking accidental attacks
-	var/time_of_last_attack_received = 0
+
+///Used for tracking poking data
+/mob/living/var/time_of_last_poke = 0
+///Used for tracking accidental attacks
+/mob/living/var/time_of_last_attack_dealt = 0
+///Used for tracking accidental attacks
+/mob/living/var/time_of_last_attack_received = 0
 
 /mob/living/Initialize(mapload)
 	. = ..()
