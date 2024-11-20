@@ -418,19 +418,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/mob/living/carbon/human/new_character = new//The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
-	var/datum/data/record/record_found			//Referenced to later to either randomize or not randomize the character.
+	var/datum/record/locked/record_found //Referenced to later to either randomize or not randomize the character.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
-		/*Try and locate a record for the person being respawned through GLOB.data_core.
-		This isn't an exact science but it does the trick more often than not.*/
-		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.assigned_role]")
-
-		record_found = find_record("id", id, GLOB.data_core.locked)
+		record_found = find_record(G_found.real_name, GLOB.manifest.locked)
 
 	if(record_found)//If they have a record we can determine a few things.
-		new_character.real_name = record_found.fields["name"]
-		new_character.gender = record_found.fields["gender"]
-		new_character.age = record_found.fields["age"]
-		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"], null)
+		new_character.real_name = record_found.name
+		new_character.gender = record_found.gender
+		new_character.age = record_found.age
+		var/datum/dna/found_dna = record_found.weakref_dna.resolve()
+		new_character.hardset_dna(found_dna.uni_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
 	else
 		randomize_human(new_character)
 		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
@@ -497,7 +494,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(!record_found&&new_character.mind.assigned_role!=new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
 			//Power to the user!
 			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
-				GLOB.data_core.manifest_inject(new_character)
+				GLOB.manifest.inject(new_character)
 
 			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
 				AnnounceArrival(new_character, new_character.mind.assigned_role)

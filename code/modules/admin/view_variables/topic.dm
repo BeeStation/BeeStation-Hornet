@@ -20,7 +20,7 @@
 
 	if(check_rights(R_VAREDIT))
 
-	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
+	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and manifest records).
 
 		if(href_list["rename"])
 			if(!check_rights(NONE))

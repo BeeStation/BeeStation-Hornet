@@ -500,11 +500,12 @@
 		C = owner
 		no_update = FALSE
 
-	if(HAS_TRAIT(C, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
-		dmg_overlay_type = "" //no damage overlay shown when husked
-		is_husked = TRUE
-	else
-		is_husked = FALSE
+	if(IS_ORGANIC_LIMB(src))
+		if(C && HAS_TRAIT(C, TRAIT_HUSK))
+			dmg_overlay_type = "" //no damage overlay shown when husked
+			is_husked = TRUE
+		else
+			is_husked = FALSE
 
 	if(!dropping_limb && C.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
 		mutation_color = "00aa00"

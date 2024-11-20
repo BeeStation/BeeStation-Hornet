@@ -1,6 +1,7 @@
 /obj/item/organ/appendix
 	name = "appendix"
 	icon_state = "appendix"
+	visual = FALSE
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_APPENDIX
 
