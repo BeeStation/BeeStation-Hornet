@@ -196,7 +196,7 @@
 			var/list/parts = del_reqs(R, a)
 			var/atom/movable/I
 			if(ispath(R.result, /obj/item/food))
-				I = new R.result (get_turf(a.loc), no_base_reagents = TRUE)
+				I = new R.result (get_turf(a.loc))
 			else
 				I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)
