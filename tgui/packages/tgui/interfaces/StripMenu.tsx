@@ -169,10 +169,10 @@ type StripMenuItem =
       Partial<Unavailable>);
 
 type StripMenuActions = {
-  action_name: string,
-  action_key: string,
-  action_color: string | undefined,
-  action_icon: string | undefined
+  action_name: string;
+  action_key: string;
+  action_color: string | undefined;
+  action_icon: string | undefined;
 }[];
 
 type StripMenuData = {
@@ -236,7 +236,13 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
           ))}
           {props.extra_actions?.map((alternate) => (
             <Flex.Item key={alternate.action_name}>
-              <Button compact content={alternate.action_name} color={alternate.action_color || 'default'} icon={alternate.action_icon} onClick={() => act('extra_act', { key: props.slotID, action: alternate.action_key })} />
+              <Button
+                compact
+                content={alternate.action_name}
+                color={alternate.action_color || 'default'}
+                icon={alternate.action_icon}
+                onClick={() => act('extra_act', { key: props.slotID, action: alternate.action_key })}
+              />
             </Flex.Item>
           ))}
         </Flex>
