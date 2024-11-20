@@ -133,6 +133,7 @@
 	tastes = list("egg" = 1, "cheese" = 1)
 	foodtypes = MEAT | BREAKFAST | DAIRY //yeah, I say this just about reaches the threshold of dairy foodgroup
 	crafting_complexity = FOOD_COMPLEXITY_2
+	crafted_food_buff = /datum/status_effect/food/speech/french
 
 /obj/item/food/omelette/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/fork))

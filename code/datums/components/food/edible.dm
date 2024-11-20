@@ -445,7 +445,7 @@ Behavior that's still missing from this component that original food items had t
 		buff = pick_weight(GLOB.food_buffs[recipe_complexity])
 	if(!isnull(buff))
 		var/mob/living/living_eater = eater
-		var/timeout = recipe_complexity * 2
+		var/timeout = recipe_complexity
 		var/strength = recipe_complexity
 		living_eater.apply_status_effect(buff, timeout, strength)
 

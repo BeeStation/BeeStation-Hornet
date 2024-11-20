@@ -1,18 +1,17 @@
 /// Buffs given by eating hand-crafted food. The duration scales with food complexity.
 /datum/status_effect/food
-	id = "food_buff"
+	id = "food_effect"
 	duration = 5 MINUTES // Same as food mood buffs
 	status_type = STATUS_EFFECT_REPLACE // Only one food buff allowed
 	alert_type = /atom/movable/screen/alert/status_effect/food
-	/// Buff power
+ 	/// Buff power equal to food complexity (1 to 5)
 	var/strength
 
 /datum/status_effect/food/on_creation(mob/living/new_owner, timeout = 1, strength = 1)
+	. = ..()
 	src.strength = strength
-	//Generate alert when not specified
 	if(isnum(timeout))
 		duration *= timeout
-	. = ..()
 	if(istype(linked_alert, /atom/movable/screen/alert/status_effect/food))
 		linked_alert.icon_state = "[linked_alert.base_icon_state]_[strength]"
 

@@ -132,3 +132,17 @@
 	tastes = list("noodle" = 1, "sweetness" = 1, "tofu" = 1)
 	foodtypes = GRAIN | VEGETABLES
 	crafting_complexity = FOOD_COMPLEXITY_3
+
+/obj/item/food/spaghetti/carbonara
+	name = "spaghetti carbonara"
+	desc = "Silky eggs, crispy pork, cheesy bliss. Mamma mia!"
+	icon_state = "carbonara"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 10,
+		/datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	tastes = list("spaghetti" = 1, "parmigiano reggiano" = 1,  "guanciale" = 1)
+	foodtypes = GRAIN | MEAT | DAIRY
+	crafting_complexity = FOOD_COMPLEXITY_4
+	crafted_food_buff = /datum/status_effect/food/speech/italian
