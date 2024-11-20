@@ -466,7 +466,7 @@ Behavior that's still missing from this component that original food items had t
 		return // Later checks are irrelevant if you have ageusia
 
 
-	var/food_quality = get_perceived_food_quality(gourmand, parent)
+	var/food_quality = get_perceived_food_quality(eater)
 	if(food_quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
 		to_chat(human_eater,"<span class='warning'>What the hell was that thing?!</span>")
 		human_eater.adjust_disgust(25 + 30 * fraction)
@@ -505,14 +505,13 @@ Behavior that's still missing from this component that original food items had t
 			if(FOOD_TOXIC)
 				return TOXIC_FOOD_QUALITY_THRESHOLD
 
+	var/obj/item/organ/tongue/tongue = eater.getorganslot(ORGAN_SLOT_TONGUE)
 	if(ishuman(eater))
-		if(count_matching_foodtypes(foodtypes, eater.get_toxic_foodtypes())) //if the food is toxic, we don't care about anything else
+		if(count_matching_foodtypes(foodtypes, tongue?.toxic_food)) //if the food is toxic, we don't care about anything else
 			return TOXIC_FOOD_QUALITY_THRESHOLD
 		if(HAS_TRAIT(eater, TRAIT_AGEUSIA)) //if you can't taste it, it doesn't taste good
 			return 0
 
-	var/obj/item/organ/tongue/tongue = eater.getorganslot(ORGAN_SLOT_TONGUE)
-	food_quality += TOXIC_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.toxic_food)
 	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_food)
 	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_food)
 
