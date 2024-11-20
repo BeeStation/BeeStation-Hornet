@@ -130,11 +130,21 @@
 	/// To prevent sound loop bugs
 	var/apc_sound_stage = null
 
+	armor_type = /datum/armor/power_apc
+
+/datum/armor/power_apc
+	melee = 20
+	bullet = 20
+	laser = 10
+	energy = 100
+	bomb = 30
+	rad = 100
+	fire = 90
+	acid = 50
+
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)
 		req_access = list(ACCESS_ENGINE_EQUIP)
-	if (!armor)
-		armor = list(MELEE = 20,  BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 0, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
 	..()
 	GLOB.apcs_list += src
 
