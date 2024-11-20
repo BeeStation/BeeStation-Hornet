@@ -115,11 +115,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	if(lasercolor && ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if((lasercolor == "b") && (istype(H.wear_suit, /obj/item/clothing/suit/redtag)))//Opposing team cannot operate it
-			return
+			return TRUE
 		else if((lasercolor == "r") && (istype(H.wear_suit, /obj/item/clothing/suit/bluetag)))
-			return
+			return TRUE
 	if(..())
-		return
+		return TRUE
 
 	switch(action)
 		if("check_id")

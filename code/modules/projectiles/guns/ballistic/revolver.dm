@@ -114,6 +114,10 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	unique_reskin_icon = null
 
+/obj/item/gun/ballistic/revolver/detective/random
+	name = "\improper Colt .38 revolver"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/random
+
 /obj/item/gun/ballistic/revolver/detective/reskin_obj(mob/M)
 	if(isnull(unique_reskin))
 		unique_reskin = list(

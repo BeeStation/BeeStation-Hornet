@@ -15,7 +15,7 @@
 #define CLOTH (1<<14)
 /*#define NUTS (1<<15)
 #define SEAFOOD (1<<16)
-#define ORANGES (1<<17)
+#define CITRUS (1<<17)
 #define BUGS (1<<18)*/
 #define GORE (1<<19)
 
