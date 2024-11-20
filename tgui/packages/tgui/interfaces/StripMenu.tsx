@@ -159,6 +159,7 @@ type StripMenuItem =
           icon?: string;
           name: string;
           alternate?: string;
+          extra_actions?: StripMenuActions;
         }
       | {
           obscured: ObscuringLevel;
@@ -166,6 +167,11 @@ type StripMenuItem =
     ) &
       Partial<Interactable> &
       Partial<Unavailable>);
+
+type StripMenuActions = {
+  action_name,
+  action_key
+}[];
 
 type StripMenuData = {
   items: Record<keyof typeof SLOTS, StripMenuItem>;
@@ -183,9 +189,10 @@ interface StripMenuRowProps {
 
   interacting: BooleanLike;
   indented: BooleanLike;
-  obscured: ObscuringLevel;
+  obscured: ObscuringLevel | null;
   empty: BooleanLike;
   unavailable: BooleanLike;
+  extra_actions: StripMenuActions;
 }
 
 const StripMenuRow = (props: StripMenuRowProps, context) => {
@@ -225,6 +232,11 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
               <Button compact content={alternate.text} onClick={() => act('alt', { key: props.slotID })} />
             </Flex.Item>
           ))}
+          {props.extra_actions?.map((alternate) => (
+            <Flex.Item key={alternate.action_name}>
+              <Button compact content={alternate.action_name} onClick={() => act('extra_act', { key: props.slotID, action: alternate.action_key })} />
+            </Flex.Item>
+          ))}
         </Flex>
       </Table.Cell>
     </Table.Row>
@@ -253,17 +265,21 @@ export const StripMenu = (props, context) => {
           name = item['name'];
         }
 
+        const extra_interactions = item && item['extra_actions'] !== undefined ? item['extra_actions'] : [];
+
         return (
           <StripMenuRow
             slotName={SLOTS[slot.id]}
             itemName={name}
-            obscured={item && 'obscured' in item ? item.obscured : 0}
+            obscured={item && 'obscured' in item ? item.obscured : null}
             indented={slot.indented}
             slotID={slot.id}
             unavailable={item && 'unavailable' in item && item.unavailable}
             alternates={alternate ? [alternate] : undefined}
             empty={!item || !('name' in item || 'obscured' in item)}
             interacting={item && 'interacting' in item && item.interacting}
+            extra_actions={extra_interactions}
+            /* @ts-ignore: Key is a mandatory property for .map return values */
             key={slot.id}
           />
         );

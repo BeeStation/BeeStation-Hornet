@@ -395,6 +395,10 @@
 		result["name"] = item.name
 		result["alternate"] = item_data.get_alternate_action(owner, user)
 
+		var/datum/strip_context/context = new()
+		result["extra_actions"] = context.extra_actions
+		item.add_strip_actions(context)
+
 		items[strippable_key] = result
 
 	data["items"] = items
@@ -556,3 +560,14 @@
 		strippable_items[strippable_item.key] = strippable_item
 
 	return strippable_items
+
+/datum/strip_context
+	var/mob/living/actor
+	var/mob/living/wearer
+	var/list/extra_actions = list()
+
+/datum/strip_context/proc/add_item_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+	))

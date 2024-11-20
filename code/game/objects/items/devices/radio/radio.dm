@@ -19,6 +19,8 @@
 
 	///if FALSE, broadcasting and listening dont matter and this radio shouldnt do anything
 	VAR_PRIVATE/on = TRUE
+	/// Previous vlaue of on for when you are EMPed
+	VAR_PRIVATE/previous_on = TRUE
 	///the "default" radio frequency this radio is set to, listens and transmits to this frequency by default. wont work if the channel is encrypted
 	VAR_PRIVATE/frequency = FREQ_COMMON
 
@@ -426,6 +428,11 @@
 				. = TRUE
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
+		if ("enable")
+			if (obj_flags & EMPED)
+				return FALSE
+			set_on(!on)
+			. = TRUE
 		if("listen")
 			set_listening(!listening)
 			. = TRUE
@@ -483,6 +490,9 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
+	if (!emped)
+		previous_on = on
+	obj_flags |= OBJ_EMPED
 	emped++ //There's been an EMP; better count it
 	var/curremp = emped //Remember which EMP this was
 	if (listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
@@ -503,14 +513,31 @@
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
 		return FALSE
+	obj_flags &= ~OBJ_EMPED
 	emped = FALSE
-	set_on(TRUE)
+	set_on(previous_on)
 	return TRUE
 
 /obj/item/radio/proc/get_specific_hearers()
 	if(istype(loc, /obj/item/implant))
 		var/obj/item/implant/radio_implant = loc
 		return radio_implant.imp_in
+
+/obj/item/radio/add_strip_actions(datum/strip_context/context)
+	context.add_item_action("Turn [on ? "off" : "on"]", "toggle")
+	context.add_item_action("[broadcasting ? "Disable" : "Enable"] always broadcasting", "broadcast")
+	context.add_item_action("[listening ? "Disable" : "Enable"] always listening", "listening")
+
+/obj/item/radio/perform_strip_actions(action_key, mob/actor)
+	switch (action_key)
+		if ("toggle")
+			if (obj_flags & EMPED)
+				return
+			set_on(!on)
+		if ("broadcast")
+			set_broadcasting(!broadcasting)
+		if ("listening")
+			set_listening(!listening)
 
 ///////////////////////////////
 //////////Borg Radios//////////

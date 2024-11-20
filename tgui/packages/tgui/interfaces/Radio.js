@@ -12,6 +12,7 @@ export const Radio = (props, context) => {
     frequency,
     minFrequency,
     maxFrequency,
+    enabled,
     listening,
     broadcasting,
     command,
@@ -58,6 +59,13 @@ export const Radio = (props, context) => {
               )}
             </LabeledList.Item>
             <LabeledList.Item label="Audio">
+              <Button
+                textAlign="center"
+                width="37px"
+                icon={enabled ? 'power-off' : 'power-off'}
+                selected={enabled}
+                onClick={() => act('enable')}
+              />
               <Button
                 textAlign="center"
                 width="37px"
