@@ -4,6 +4,7 @@
 	name = "\improper Unexplored Location"
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
+	network_root_id = LIMBO_NETWORK_ROOT
 	area_flags = HIDDEN_AREA | BLOBS_ALLOWED
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambience_index = AMBIENCE_RUINS
