@@ -550,7 +550,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1195,7 +1195,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1205,7 +1205,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1257,7 +1257,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating,
@@ -1271,7 +1271,7 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Emergency Shutle Engineering"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -1298,7 +1298,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1325,7 +1325,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Emegency Shuttle External Airlock"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1341,7 +1341,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "qd" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -1354,8 +1354,22 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"rD" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 9
+	},
+/obj/machinery/advanced_airlock_controller{
+	dir = 8;
+	pixel_x = 24
+	},
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "sH" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -1378,10 +1392,23 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Seating"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"tP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 6
+	},
+/obj/machinery/advanced_airlock_controller{
+	dir = 4;
+	pixel_x = -24
+	},
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "tX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1408,6 +1435,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"vr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 5
+	},
+/obj/machinery/advanced_airlock_controller{
+	dir = 4;
+	pixel_x = -24
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "vD" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -1419,7 +1459,7 @@
 	name = "Station Intercom (General)";
 	pixel_y = 22
 	},
-/obj/machinery/atmospherics/components/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "vE" = (
@@ -1457,18 +1497,18 @@
 "xF" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "xL" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ye" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1481,7 +1521,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron/dark,
@@ -1531,7 +1571,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -1547,7 +1587,7 @@
 /area/shuttle/escape)
 "AX" = (
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1573,7 +1613,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1597,14 +1637,14 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ED" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -1664,7 +1704,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -1677,7 +1717,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1687,7 +1727,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -1716,7 +1756,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1764,8 +1804,21 @@
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"NQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 10
+	},
+/obj/machinery/advanced_airlock_controller{
+	dir = 8;
+	pixel_x = 24
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -1782,7 +1835,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "PE" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating,
@@ -1811,7 +1864,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1822,7 +1875,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -1835,7 +1888,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
@@ -1854,7 +1907,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/manifold/general/hidden,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "RS" = (
@@ -1878,7 +1931,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1913,7 +1966,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1923,7 +1976,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Seating"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -1932,7 +1985,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -2063,13 +2116,13 @@ ax
 bV
 Xx
 zx
-QD
+rD
 ax
 ax
 aj
 ax
 ax
-Xx
+NQ
 zx
 ED
 du
@@ -2607,13 +2660,13 @@ ax
 cb
 Jn
 Vm
-kI
+vr
 ax
 ax
 ao
 ax
 ax
-Ic
+tP
 Vm
 kI
 dz

@@ -153,22 +153,16 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
-/turf/open/floor/mineral/titanium/blue{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
+/turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "I" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium/blue{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
+/turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "J" = (
-/turf/open/floor/mineral/titanium/blue{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
+/turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "M" = (
 /obj/item/stack/sheet/iron/twenty,

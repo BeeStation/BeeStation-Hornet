@@ -161,9 +161,7 @@
 	dir = 8;
 	icon_state = "pwindow"
 	},
-/turf/open/floor/plating{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aA" = (
 /turf/template_noop,
@@ -333,9 +331,7 @@
 	dir = 4;
 	icon_state = "huge_engine"
 	},
-/turf/open/floor/plating{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "bc" = (
 /obj/structure/fans/tiny,
@@ -895,11 +891,6 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"YQ" = (
-/turf/open/floor/plating{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/ruin/powered/golem_ship)
 
 (1,1,1) = {"
 aa
@@ -1345,8 +1336,8 @@ ab
 (22,1,1) = {"
 aa
 ab
-YQ
-YQ
+af
+af
 bb
 ab
 aa
@@ -1357,8 +1348,8 @@ aa
 aa
 aa
 ab
-YQ
-YQ
+af
+af
 bb
 ab
 aa
@@ -1366,9 +1357,9 @@ aa
 (23,1,1) = {"
 aa
 aa
-YQ
-YQ
-YQ
+af
+af
+af
 aa
 aa
 aa
@@ -1378,9 +1369,9 @@ aa
 aa
 aa
 aa
-YQ
-YQ
-YQ
+af
+af
+af
 aa
 aa
 "}
