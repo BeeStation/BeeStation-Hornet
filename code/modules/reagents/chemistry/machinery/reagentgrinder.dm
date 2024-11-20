@@ -276,7 +276,7 @@
 
 /obj/machinery/reagentgrinder/proc/juice_item(obj/item/juiced_item, mob/user) //Juicing results can be found in respective object definitions
 	if(juiced_item.on_juice(src) == -1)
-		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [I], and transfers it back to storage.</span>")
+		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [juiced_item], and transfers it back to storage.</span>")
 		return
 	beaker.reagents.add_reagent_list(juiced_item.juice_results)
 	remove_object(juiced_item)
@@ -320,6 +320,8 @@
 			new /obj/item/food/butter(drop_location())
 		//Recipe to make Mayonnaise
 		if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
-			beaker.reagents.convert_reagent(/datum/reagent/consumable/eggyolk, /datum/reagent/consumable/mayonnaise)
+			var/amount = beaker.reagents.get_reagent_amount(/datum/reagent/consumable/eggyolk)
+			beaker.reagents.remove_reagent(/datum/reagent/consumable/eggyolk, amount)
+			beaker.reagents.add_reagent(/datum/reagent/consumable/mayonnaise, amount)
 
 #undef MILK_TO_BUTTER_COEFF

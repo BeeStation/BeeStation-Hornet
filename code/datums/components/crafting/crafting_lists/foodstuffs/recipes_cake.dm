@@ -139,8 +139,8 @@
 	)
 	subcategory = CAT_CAKE
 
-/datum/crafting_recipe/food/bscccake
-	name = "blackberry and strawberry chocolate cake"
+/datum/crafting_recipe/food/berry_chocolate_cake
+	name = "strawberry chocolate cake"
 	result = /obj/item/food/cake/berry_chocolate_cake
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
@@ -149,7 +149,7 @@
 	)
 	subcategory = CAT_CAKE
 
-/datum/crafting_recipe/food/
+/datum/crafting_recipe/food/berry_vanilla_cake
 	name = "blackberry and strawberry vanilla cake"
 	result = /obj/item/food/cake/berry_vanilla_cake
 	reqs = list(

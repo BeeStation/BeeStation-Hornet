@@ -443,7 +443,6 @@ Behavior that's still missing from this component that original food items had t
 		buff = pick_weight(GLOB.food_buffs[recipe_complexity])
 	if(!isnull(buff))
 		var/mob/living/living_eater = eater
-		var/atom/owner = parent
 		var/timeout = recipe_complexity * 2
 		var/strength = recipe_complexity
 		living_eater.apply_status_effect(buff, timeout, strength)
@@ -480,28 +479,21 @@ Behavior that's still missing from this component that original food items had t
 	if(food_taste_reaction == FOOD_TOXIC)
 		to_chat(human_eater,"<span class='warning'>What the hell was that thing?!</span>")
 		human_eater.adjust_disgust(25 + 30 * fraction)
-		human_eater.add_mood_event("toxic_food", /datum/mood_event/disgusting_food)
+		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
 		return
 
 	var/food_quality = get_perceived_food_quality(human_eater, parent)
 	if(food_quality < 0)
-		to_chat(human_eater,span_notice("That didn't taste very good..."))
+		to_chat(human_eater,"<span class='notice'>That didn't taste very good...</span>")
 		human_eater.adjust_disgust(11 + 15 * fraction)
-		human_eater.add_mood_event("gross_food", /datum/mood_event/gross_food)
+		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
 	else if(food_quality > 0)
 		food_quality = min(food_quality, FOOD_QUALITY_TOP)
-		var/atom/owner = parent
-		var/timeout = recipe_complexity * 2
 		var/event = GLOB.food_quality_events[food_quality]
-		human_eater.add_mood_event("quality_food", event, timeout)
 		human_eater.adjust_disgust(-5 + -2 * food_quality * fraction)
 		var/quality_label = GLOB.food_quality_description[food_quality]
-		to_chat(human_eater, span_notice("That's \an [quality_label] meal."))
-
-	if(istype(parent, /obj/item/food))
-		var/obj/item/food/food = parent
-		if(food.venue_value >= FOOD_PRICE_EXOTIC)
-			human_eater.add_mob_memory(/datum/memory/good_food, food = parent)
+		to_chat(human_eater, "<span class='notice'>That's \an [quality_label] meal.</span>")
+		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "quality_food", event)
 	last_check_time = world.time
 
 /// Get the complexity of the crafted food
@@ -515,9 +507,10 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/get_perceived_food_quality(mob/living/carbon/human/eater)
 	var/food_quality = get_recipe_complexity()
 
-	food_quality += TOXIC_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, eater.get_toxic_foodtypes())
-	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, eater.get_disliked_foodtypes())
-	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, eater.get_liked_foodtypes())
+	var/obj/item/organ/tongue/tongue = eater.getorganslot(ORGAN_SLOT_TONGUE)
+	food_quality += TOXIC_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.toxic_food)
+	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_food)
+	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_food)
 
 	return food_quality
 
