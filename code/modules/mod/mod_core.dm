@@ -279,6 +279,9 @@
 		return
 	mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/nocell)
 
+#define PLASMA_CORE_ORE_CHARGE 1500
+#define PLASMA_CORE_SHEET_CHARGE 2000
+
 /obj/item/mod/core/plasma
 	name = "MOD plasma core"
 	icon_state = "mod-core-plasma"
@@ -288,8 +291,8 @@
 	var/maxcharge = 10000
 	/// How much charge we are currently storing.
 	var/charge = 10000
-	/// Charge per plasma ore.
-	var/charge_given = 1500
+	/// Associated list of charge sources and how much they charge, only stacks allowed.
+	var/list/charger_list = list(/obj/item/stack/ore/plasma = PLASMA_CORE_ORE_CHARGE, /obj/item/stack/sheet/mineral/plasma = PLASMA_CORE_SHEET_CHARGE)
 
 /obj/item/mod/core/plasma/install(obj/item/mod/control/mod_unit)
 	. = ..()
@@ -338,6 +341,11 @@
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell/plasma)
 
+
+
+#undef PLASMA_CORE_ORE_CHARGE
+#undef PLASMA_CORE_SHEET_CHARGE
+
 /obj/item/mod/core/plasma/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
 	SIGNAL_HANDLER
 
@@ -345,11 +353,13 @@
 		return COMPONENT_NO_AFTERATTACK
 	return NONE
 
-/obj/item/mod/core/plasma/proc/charge_plasma(obj/item/attacking_item, mob/user)
-	if(!istype(attacking_item, /obj/item/stack/ore/plasma))
+/obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
+	var/charge_given = is_type_in_list(plasma, charger_list)
+	if(!charge_given)
 		return FALSE
-	if(!attacking_item.use(1))
+	var/uses_needed = min(plasma.amount, ROUND_UP((max_charge_amount() - charge_amount()) / charge_given))
+	if(!plasma.use(uses_needed))
 		return FALSE
-	add_charge(charge_given)
+	add_charge(uses_needed * charge_given)
 	balloon_alert(user, "core refueled")
 	return TRUE
