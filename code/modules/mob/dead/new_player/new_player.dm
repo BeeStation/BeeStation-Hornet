@@ -13,6 +13,9 @@
 	var/ineligible_for_roles = FALSE
 
 /mob/dead/new_player/Initialize(mapload)
+#ifdef QUICKSTART
+	ready = TRUE
+#endif
 	if(client && SSticker.state == GAME_STATE_STARTUP)
 		var/atom/movable/screen/splash/S = new(null, client, TRUE, TRUE)
 		S.Fade(TRUE)

@@ -550,7 +550,11 @@ SUBSYSTEM_DEF(job)
 		living_mob.mind.assigned_role = rank
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
-		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
+		var/override_outfit = null
+#ifdef QUICKSTART
+		override_outfit = /datum/outfit/debug
+#endif
+		var/new_mob = job.equip(living_mob, null, null, joined_late , override_outfit, M.client)
 		if(ismob(new_mob))
 			living_mob = new_mob
 			if(!joined_late)

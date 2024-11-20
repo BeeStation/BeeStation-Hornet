@@ -68,6 +68,10 @@ SUBSYSTEM_DEF(ticker)
 	var/emergency_start = FALSE
 
 /datum/controller/subsystem/ticker/Initialize()
+#ifdef QUICKSTART
+	start_immediately = TRUE
+#endif
+
 	load_mode()
 
 	var/list/byond_sound_formats = list(
