@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed picking up a potted plant with one hand making you unrecognizable.
