@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 /datum/armor/proc/generate_new_with_modifiers(list/modifiers)
 	var/datum/armor/new_armor = new
 
-	var/all_keys = ARMOR_LIST_ALL()
+	var/all_keys = ARMOR_LIST_ALL
 	if(ARMOR_ALL in modifiers)
 		var/modifier_all = modifiers[ARMOR_ALL]
 		if(!modifier_all)
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 /datum/armor/proc/generate_new_with_multipliers(list/multipliers)
 	var/datum/armor/new_armor = new
 
-	var/all_keys = ARMOR_LIST_ALL()
+	var/all_keys = ARMOR_LIST_ALL
 	if(ARMOR_ALL in multipliers)
 		var/multiplier_all = multipliers[ARMOR_ALL]
 		if(!multiplier_all)
@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 /datum/armor/proc/generate_new_with_specific(list/values)
 	var/datum/armor/new_armor = new
 
-	var/all_keys = ARMOR_LIST_ALL()
+	var/all_keys = ARMOR_LIST_ALL
 	if(ARMOR_ALL in values)
 		var/value_all = values[ARMOR_ALL]
 		if(!value_all)
@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 /// Gets the rating of armor for the specified rating
 /datum/armor/proc/get_rating(rating)
 	// its not that I dont trust coders, its just that I don't trust coders
-	if(!(rating in ARMOR_LIST_ALL()))
+	if(!(rating in ARMOR_LIST_ALL))
 		CRASH("Attempted to get a rating '[rating]' that doesnt exist")
 	return vars[rating]
 
@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 /// Converts all the ratings of the armor into a list, optionally inversed
 /datum/armor/proc/get_rating_list(inverse = FALSE)
 	var/ratings = list()
-	for(var/rating in ARMOR_LIST_ALL())
+	for(var/rating in ARMOR_LIST_ALL)
 		var/value = vars[rating]
 		if(inverse)
 			value *= -1
@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 
 /// Checks if any of the armor values are non-zero, so this technically also counts negative armor!
 /datum/armor/proc/has_any_armor()
-	for(var/rating as anything in ARMOR_LIST_ALL())
+	for(var/rating as anything in ARMOR_LIST_ALL)
 		if(vars[rating])
 			return TRUE
 	return FALSE
