@@ -58,6 +58,7 @@
 	tastes = list("salt" = 1, "crisps" = 1)
 	foodtypes = JUNKFOOD | FRIED
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/no_raisin
 	name = "\improper 4no raisins"
@@ -99,6 +100,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	custom_price = PAYCHECK_EASY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/cheesiehonkers
 	name = "\improper Cheesie Honkers"
@@ -113,6 +115,7 @@
 	tastes = list("cheese" = 5, "crisps" = 2)
 	foodtypes = JUNKFOOD | DAIRY | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/syndicake
 	name = "\improper Syndi-Cakes"
@@ -126,6 +129,7 @@
 	tastes = list("sweetness" = 3, "cake" = 1)
 	foodtypes = GRAIN | FRUIT | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/energybar
 	name = "\improper High-power energy bars"
@@ -140,3 +144,4 @@
 	foodtypes = TOXIC
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
