@@ -4,7 +4,7 @@
 	duration = 5 MINUTES // Same as food mood buffs
 	status_type = STATUS_EFFECT_REPLACE // Only one food buff allowed
 	alert_type = /atom/movable/screen/alert/status_effect/food
- 	/// Buff power equal to food complexity (1 to 5)
+	/// Buff power equal to food complexity (1 to 5)
 	var/strength
 
 /datum/status_effect/food/on_creation(mob/living/new_owner, timeout = 1, strength = 1)
