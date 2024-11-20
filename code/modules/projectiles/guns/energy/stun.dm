@@ -42,6 +42,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	can_charge = FALSE
 	dead_cell = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/broken) //Fool, you think you can outsmart me. But i am smarter.
 
 /obj/item/gun/energy/disabler
 	name = "disabler"
