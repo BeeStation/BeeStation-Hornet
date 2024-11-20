@@ -15818,7 +15818,7 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "cgJ" = (

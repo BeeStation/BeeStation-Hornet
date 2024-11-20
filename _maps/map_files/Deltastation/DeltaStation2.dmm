@@ -8644,7 +8644,7 @@
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfa" = (
