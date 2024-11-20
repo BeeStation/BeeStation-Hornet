@@ -173,13 +173,13 @@ All ShuttleMove procs go here
 	if(newT == oldT) // In case of in place shuttle rotation shenanigans.
 		return TRUE
 
-	oldT.transfer_area_lighting(src, underlying_old_area)
+	oldT.change_area(src, underlying_old_area)
 	//The old turf has now been given back to the area that turf originaly belonged to
 
 	var/area/old_dest_area = newT.loc
 	parallax_movedir = old_dest_area.parallax_movedir
 
-	newT.transfer_area_lighting(old_dest_area, src)
+	newT.change_area(old_dest_area, src)
 	return TRUE
 
 // Called on areas after everything has been moved
