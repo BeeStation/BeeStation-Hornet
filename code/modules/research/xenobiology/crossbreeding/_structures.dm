@@ -588,7 +588,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 /obj/structure/slime_crystal/lightpink
 	colour = "light pink"
 
-/obj/structure/slime_crystal/lightpink/attack_ghost(mob/user)
+/obj/structure/slime_crystal/lightpink/attack_ghost(mob/user, direct)
 	. = ..()
 	var/mob/living/simple_animal/hostile/lightgeist/slime/L = new(get_turf(src))
 	L.ckey = user.ckey

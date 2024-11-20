@@ -5,8 +5,6 @@
 	var/list/sharedSoullinks //soullinks we are a/the sharer of
 
 /mob/living/Destroy()
-	if(playable)
-		remove_from_spawner_menu()
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerDies(FALSE)

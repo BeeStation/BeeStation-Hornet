@@ -31,7 +31,7 @@
 	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
 	///Skips the specific attack step, continuing for the next one to happen.
 	#define COMPONENT_SKIP_ATTACK (1<<1)
-///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
+///from base of atom/attack_ghost(): (mob/dead/observer/ghost, direct)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
 ///from base of atom/attack_hand(): (mob/user)
 #define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"

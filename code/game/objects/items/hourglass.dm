@@ -73,7 +73,7 @@
 	if(user.client && user.client.holder)
 		toggle(user)
 
-/obj/item/hourglass/admin/attack_ghost(mob/user)
+/obj/item/hourglass/admin/attack_ghost(mob/user, direct)
 	if(user.client && user.client.holder)
 		toggle(user)
 

@@ -111,7 +111,7 @@
 	return FALSE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/item/toy/eightball/haunted/attack_ghost(mob/user)
+/obj/item/toy/eightball/haunted/attack_ghost(mob/user, direct)
 	if(!shaking)
 		to_chat(user, "<span class='warning'>[src] is not currently being shaken.</span>")
 		return

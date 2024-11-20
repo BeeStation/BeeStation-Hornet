@@ -136,7 +136,7 @@
 	last_carp_inc += delta_time
 	update_check()
 
-/obj/structure/carp_rift/attack_ghost(mob/user)
+/obj/structure/carp_rift/attack_ghost(mob/user, direct)
 	. = ..()
 	if(user?.client?.can_take_ghost_spawner(ROLE_SPACE_DRAGON, TRUE, is_ghost_role = FALSE))
 		summon_carp(user)

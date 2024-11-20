@@ -73,7 +73,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 
 	return ..()
 
-/obj/machinery/launchpad/attack_ghost(mob/dead/observer/ghost)
+/obj/machinery/launchpad/attack_ghost(mob/dead/observer/ghost, direct)
 	. = ..()
 	if(.)
 		return

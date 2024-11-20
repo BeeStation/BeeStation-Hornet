@@ -201,7 +201,7 @@
 	. = ..()
 	to_chat(src, "<span class='boldwarning'>You are venus human trap!  Protect the kudzu at all costs, and feast on those who oppose you!</span>")
 
-/mob/living/simple_animal/hostile/venus_human_trap/attack_ghost(mob/user)
+/mob/living/simple_animal/hostile/venus_human_trap/attack_ghost(mob/user, direct)
 	. = ..()
 	if(. || !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
 		return

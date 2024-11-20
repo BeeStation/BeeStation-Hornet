@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/is_antagonist = FALSE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/effect/mob_spawn/attack_ghost(mob/user)
+/obj/effect/mob_spawn/attack_ghost(mob/user, direct)
 	if(!loc || !ghost_usable)
 		return
 	if(!uses)

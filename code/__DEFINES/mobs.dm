@@ -431,8 +431,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0
 #define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
-#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
-#define SENTIENCE_ERASE 3
+#define SENTIENCE_ERASE 2
 
 //Flavor Text When Entering A Playable Mob
 #define FLAVOR_TEXT_EVIL "evil"	//mob antag

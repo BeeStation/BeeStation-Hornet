@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
 	to construct and maintain defenses at the City of Cogs."
 
-/obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
+/obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user, direct)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
 	if(!SSticker.mode)

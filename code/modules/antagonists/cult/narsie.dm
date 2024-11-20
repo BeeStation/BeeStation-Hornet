@@ -88,7 +88,7 @@
 
 	return ..()
 
-/obj/eldritch/narsie/attack_ghost(mob/user)
+/obj/eldritch/narsie/attack_ghost(mob/user, direct)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, cultoverride = TRUE, loc_override = loc)
 
 /obj/eldritch/narsie/process(delta_time)

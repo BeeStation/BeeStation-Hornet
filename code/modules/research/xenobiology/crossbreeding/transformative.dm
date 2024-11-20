@@ -26,7 +26,9 @@ transformative extracts:
 /obj/item/slimecross/transformative/proc/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	if(S.transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		S.remove_from_spawner_menu()
+		var/spawner_effect = S.GetComponent(/datum/component/ghost_spawner)
+		if (spawner_effect)
+			qdel(spawner_effect)
 		S.master = null
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)

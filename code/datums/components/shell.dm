@@ -94,7 +94,7 @@
 	SIGNAL_HANDLER
 	remove_circuit()
 
-/datum/component/shell/proc/on_attack_ghost(datum/source, mob/dead/observer/ghost)
+/datum/component/shell/proc/on_attack_ghost(datum/source, mob/dead/observer/ghost, direct)
 	SIGNAL_HANDLER
 	if(attached_circuit)
 		INVOKE_ASYNC(attached_circuit, TYPE_PROC_REF(/datum, ui_interact), ghost)

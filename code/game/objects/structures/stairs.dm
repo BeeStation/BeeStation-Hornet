@@ -136,7 +136,7 @@
 			return FALSE
 	return TRUE
 
-/obj/structure/stairs/attack_ghost(mob/user)
+/obj/structure/stairs/attack_ghost(mob/user, direct)
 	stair_ascend(user)
 
 #undef STAIR_TERMINATOR_AUTOMATIC

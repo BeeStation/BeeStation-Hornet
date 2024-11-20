@@ -409,7 +409,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 			_controller = A
 			return _controller
 
-/obj/machinery/arena_spawn/attack_ghost(mob/user)
+/obj/machinery/arena_spawn/attack_ghost(mob/user, direct)
 	var/obj/machinery/computer/arena/C = get_controller()
 	if(!C) //Unlinked spawn
 		return

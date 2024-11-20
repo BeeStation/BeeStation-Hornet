@@ -296,7 +296,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
 		T = get_step(A, A.dir) //please don't slam into a window like a bird, Ratvar
 	forceMove(T)
 
-/obj/eldritch/ratvar/attack_ghost(mob/user)
+/obj/eldritch/ratvar/attack_ghost(mob/user, direct)
 	. = ..()
 	var/mob/living/simple_animal/drone/D = new /mob/living/simple_animal/drone/cogscarab(get_turf(src))
 	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)

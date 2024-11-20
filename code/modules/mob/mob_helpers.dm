@@ -409,9 +409,25 @@
   * * notify_suiciders If it should notify suiciders (who do not qualify for many ghost roles)
   * * notify_volume How loud the sound should be to spook the user
   */
-/proc/notify_ghosts(var/message, var/ghost_sound = null, var/enter_link = null, var/atom/source = null, var/mutable_appearance/alert_overlay = null, var/action = NOTIFY_JUMP, flashwindow = TRUE, ignore_mapload = TRUE, ignore_key, header = null, notify_suiciders = TRUE, var/notify_volume = 100) //Easy notification of ghosts.
+/proc/notify_ghosts(
+		message,
+		ghost_sound = null,
+		enter_link = null,
+		var/atom/source = null,
+		var/mutable_appearance/alert_overlay = null,
+		action = NOTIFY_JUMP,
+		flashwindow = TRUE,
+		ignore_mapload = TRUE,
+		ignore_key,
+		header = null,
+		notify_suiciders = TRUE,
+		notify_volume = 100,
+		notification_key
+	) //Easy notification of ghosts.
 	if(ignore_mapload && SSatoms.initialized != INITIALIZATION_INNEW_REGULAR)	//don't notify for objects created during a map load
 		return
+	if (!notification_key)
+		notification_key = "[REF(source)]_notify_action"
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client)
 			if(!notify_suiciders && (O in GLOB.suicided_mob_list))
@@ -427,7 +443,7 @@
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /atom/movable/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert(notification_key, /atom/movable/screen/alert/notify_action)
 				if(A)
 					var/ui_style = O.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
 					if(ui_style)

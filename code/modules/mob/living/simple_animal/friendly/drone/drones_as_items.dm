@@ -40,7 +40,7 @@
 			possible_seasonal_hats += holiday.drone_hat
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/effect/mob_spawn/drone/attack_ghost(mob/user)
+/obj/effect/mob_spawn/drone/attack_ghost(mob/user, direct)
 	if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
 		return
 	if(!SSticker.mode)

@@ -27,15 +27,11 @@
 	var/max_grown = 100
 	var/time_of_birth
 
-	flavor_text = FLAVOR_TEXT_EVIL
-	playable = TRUE
-
-
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
-
 	AddAbility(new/obj/effect/proc_holder/alien/hide(null))
 	AddAbility(new/obj/effect/proc_holder/alien/larva_evolve(null))
+	AddComponent(/datum/component/ghost_spawner, ROLE_ALIEN, flavour_message = GHOST_SPAWNER_MURDERBONE)
 	. = ..()
 
 /mob/living/carbon/alien/larva/create_internal_organs()

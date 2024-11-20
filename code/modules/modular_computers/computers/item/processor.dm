@@ -62,7 +62,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	machinery_computer.update_icon()
 	return
 
-/obj/item/modular_computer/processor/attack_ghost(mob/user)
+/obj/item/modular_computer/processor/attack_ghost(mob/user, direct)
 	ui_interact(user)
 
 /obj/item/modular_computer/processor/alert_call(datum/computer_file/program/caller, alerttext)
