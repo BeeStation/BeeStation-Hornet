@@ -62,7 +62,7 @@ export const Radio = (props, context) => {
               <Button
                 textAlign="center"
                 width="37px"
-                icon={enabled ? 'power-off' : 'power-off'}
+                icon={'power-off'}
                 selected={enabled}
                 onClick={() => act('enable')}
               />

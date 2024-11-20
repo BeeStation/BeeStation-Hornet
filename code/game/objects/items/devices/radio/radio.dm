@@ -393,6 +393,7 @@
 /obj/item/radio/ui_data(mob/user)
 	var/list/data = list()
 
+	data["enabled"] = on
 	data["broadcasting"] = broadcasting
 	data["listening"] = listening
 	data["frequency"] = frequency
@@ -524,20 +525,21 @@
 		return radio_implant.imp_in
 
 /obj/item/radio/add_strip_actions(datum/strip_context/context)
-	context.add_item_action("Turn [on ? "off" : "on"]", "toggle")
-	context.add_item_action("[broadcasting ? "Disable" : "Enable"] always broadcasting", "broadcast")
-	context.add_item_action("[listening ? "Disable" : "Enable"] always listening", "listening")
+	if (on)
+		context.add_power_off_action("The radio is on", "toggle")
+	else
+		context.add_power_on_action("The radio is off", "toggle")
 
 /obj/item/radio/perform_strip_actions(action_key, mob/actor)
+	set waitfor = FALSE
+
 	switch (action_key)
 		if ("toggle")
 			if (obj_flags & EMPED)
 				return
-			set_on(!on)
-		if ("broadcast")
-			set_broadcasting(!broadcasting)
-		if ("listening")
-			set_listening(!listening)
+			// Strip, silently
+			if (do_after(actor, 1 SECONDS, loc))
+				set_on(!on)
 
 ///////////////////////////////
 //////////Borg Radios//////////
