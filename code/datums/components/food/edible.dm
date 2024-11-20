@@ -166,6 +166,8 @@ Behavior that's still missing from this component that original food items had t
 		examine_list += "<span class='green'>You find this meal [quality_label].</span>"
 	else if (quality == 0)
 		examine_list += "<span class='green'>You find this meal edible.</span>"
+	else if (quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
+		examine_list += "<span class='warning'>You find this meal disgusting!</span>"
 	else
 		examine_list += "<span class='green'>You find this meal inedible.</span>"
 
@@ -463,27 +465,13 @@ Behavior that's still missing from this component that original food items had t
 			human_eater.adjust_disgust(25 + 30 * fraction)
 		return // Later checks are irrelevant if you have ageusia
 
-	var/food_taste_reaction
 
-	if(check_liked) //Callback handling; use this as an override for special food like donuts
-		food_taste_reaction = check_liked.Invoke(fraction, human_eater)
-
-	if(!food_taste_reaction)
-		if(foodtypes & tongue.toxic_food)
-			food_taste_reaction = FOOD_TOXIC
-		else if(foodtypes & tongue.disliked_food)
-			food_taste_reaction = FOOD_DISLIKED
-		else if(foodtypes & tongue.liked_food)
-			food_taste_reaction = FOOD_LIKED
-
-	if(food_taste_reaction == FOOD_TOXIC)
+	var/food_quality = get_perceived_food_quality(gourmand, parent)
+	if(food_quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
 		to_chat(human_eater,"<span class='warning'>What the hell was that thing?!</span>")
 		human_eater.adjust_disgust(25 + 30 * fraction)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
-		return
-
-	var/food_quality = get_perceived_food_quality(human_eater, parent)
-	if(food_quality < 0)
+	else if(food_quality < 0)
 		to_chat(human_eater,"<span class='notice'>That didn't taste very good...</span>")
 		human_eater.adjust_disgust(11 + 15 * fraction)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
@@ -506,6 +494,22 @@ Behavior that's still missing from this component that original food items had t
 /// Get food quality adjusted according to eater's preferences
 /datum/component/edible/proc/get_perceived_food_quality(mob/living/carbon/human/eater)
 	var/food_quality = get_recipe_complexity()
+
+	if(check_liked) //Callback handling; use this as an override for special food like donuts
+		var/special_reaction = check_liked.Invoke(eater)
+		switch(special_reaction) //return early for special foods
+			if(FOOD_LIKED)
+				return LIKED_FOOD_QUALITY_CHANGE
+			if(FOOD_DISLIKED)
+				return DISLIKED_FOOD_QUALITY_CHANGE
+			if(FOOD_TOXIC)
+				return TOXIC_FOOD_QUALITY_THRESHOLD
+
+	if(ishuman(eater))
+		if(count_matching_foodtypes(foodtypes, eater.get_toxic_foodtypes())) //if the food is toxic, we don't care about anything else
+			return TOXIC_FOOD_QUALITY_THRESHOLD
+		if(HAS_TRAIT(eater, TRAIT_AGEUSIA)) //if you can't taste it, it doesn't taste good
+			return 0
 
 	var/obj/item/organ/tongue/tongue = eater.getorganslot(ORGAN_SLOT_TONGUE)
 	food_quality += TOXIC_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.toxic_food)

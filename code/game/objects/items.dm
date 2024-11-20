@@ -1057,7 +1057,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	if(!reagents)
 		reagents = new()
-	reagents.add_reagent_list(grind_results)
+	target_holder.add_reagent_list(grind_results)
 	if(reagents && target_holder)
 		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
