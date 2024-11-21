@@ -11311,6 +11311,9 @@
 	},
 /turf/open/floor/iron/white,
 /area/ctf)
+"Dd" = (
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership/control)
 "De" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -43590,7 +43593,7 @@ aa
 aa
 Rk
 kW
-TA
+Dd
 KZ
 pg
 OV
