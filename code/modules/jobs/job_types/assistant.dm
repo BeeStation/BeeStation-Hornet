@@ -49,6 +49,8 @@ Assistant
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
 
 /datum/outfit/job/assistant/proc/give_grey_suit(mob/living/carbon/human/target)
+	//We don't cache these, because they can delete on init
+	//Too fragile, better to just eat the cost
 	if (target.jumpsuit_style == PREF_SUIT)
 		uniform = /obj/item/clothing/under/color/grey
 	else
