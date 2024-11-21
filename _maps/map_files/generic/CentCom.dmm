@@ -9627,11 +9627,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"yT" = (
-/obj/structure/table/wood,
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "yU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -49063,7 +49058,7 @@ Fh
 YJ
 Nd
 Xk
-yT
+Ya
 UE
 Xk
 Xk
