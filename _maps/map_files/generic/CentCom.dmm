@@ -19188,9 +19188,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
-"WT" = (
-/turf/closed/indestructible/cordon,
-/area/syndicate_mothership)
 "WU" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/iron,
@@ -28949,7 +28946,7 @@ qu
 qu
 qu
 qu
-WT
+Rk
 NP
 NP
 NP
@@ -29206,7 +29203,7 @@ qu
 qu
 qu
 qu
-WT
+Rk
 NP
 NP
 NP
@@ -41567,7 +41564,7 @@ dA
 nv
 Kt
 SA
-NP
+qu
 NP
 NP
 NP
@@ -41800,7 +41797,7 @@ NP
 NP
 qu
 qu
-qu
+NP
 NP
 NP
 NP
@@ -41824,8 +41821,8 @@ Wp
 sB
 TA
 Kt
-NP
-NP
+qu
+qu
 NP
 NP
 Rk
@@ -42058,9 +42055,9 @@ NP
 NP
 NP
 NP
-NP
+qu
 ku
-NP
+qu
 YW
 YW
 ku
@@ -42082,7 +42079,7 @@ Dr
 TA
 UY
 YW
-NP
+qu
 NP
 NP
 Rk
@@ -47733,8 +47730,8 @@ ae
 KS
 lq
 ku
-NP
-NP
+qu
+qu
 ku
 ku
 ku
@@ -47988,9 +47985,9 @@ fH
 Up
 ku
 NP
-NP
-NP
-NP
+qu
+qu
+qu
 NP
 NP
 NP
@@ -48232,7 +48229,7 @@ NP
 NP
 NP
 ku
-NP
+qu
 Rq
 Rq
 ku
