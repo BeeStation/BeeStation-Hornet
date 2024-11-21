@@ -24,8 +24,8 @@
 	var/faithful_used = FALSE
 
 /datum/religion_sect/shadow_sect/is_available(mob/user)
-	if(isshadow(user))
-		return TRUE
+	//if(isshadow(user))
+	//	return TRUE
 	return FALSE
 
 //Shadow sect doesn't heal
