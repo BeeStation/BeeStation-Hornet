@@ -157,6 +157,9 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
+#ifdef QUICKSTART
+	rank = "Debug Job"
+#endif
 	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job || job.lock_flags)
@@ -550,11 +553,7 @@ SUBSYSTEM_DEF(job)
 		living_mob.mind.assigned_role = rank
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
-		var/override_outfit = null
-#ifdef QUICKSTART
-		override_outfit = /datum/outfit/debug
-#endif
-		var/new_mob = job.equip(living_mob, null, null, joined_late , override_outfit, M.client)
+		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
 		if(ismob(new_mob))
 			living_mob = new_mob
 			if(!joined_late)

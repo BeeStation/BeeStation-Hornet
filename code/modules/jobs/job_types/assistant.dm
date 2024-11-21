@@ -70,3 +70,14 @@ Assistant
 	if (SSatoms.initialized == INITIALIZATION_INSSATOMS)
 		H.w_uniform?.update_greyscale()
 		H.update_inv_w_uniform()
+
+#ifdef QUICKSTART
+
+/datum/job/assistant/debug
+	title = "Debug Job"
+	outfit = /datum/outfit/debug
+
+/datum/job/assistant/debug/get_access()
+	return get_all_accesses()
+
+#endif
