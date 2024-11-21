@@ -1808,6 +1808,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"avO" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "avP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -53876,6 +53880,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "ruN" = (
@@ -70372,7 +70377,8 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/prison/dark,
+/obj/effect/landmark/prisonspawn,
+/turf/open/space/basic,
 /area/security/prison)
 "wLr" = (
 /obj/structure/cable/yellow{
@@ -116416,7 +116422,7 @@ hds
 hds
 hds
 mEt
-fes
+avO
 jDX
 uKT
 oeF
