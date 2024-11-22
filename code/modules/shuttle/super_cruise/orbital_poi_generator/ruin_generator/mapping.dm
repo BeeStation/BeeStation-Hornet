@@ -104,7 +104,6 @@
 		/obj/item/flamethrower = 2,
 		/obj/item/tank/internals/plasma/full = 2,
 		/obj/item/gps/science = 3,
-		/obj/item/hand_tele = 1,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
 		/obj/item/modular_computer/tablet/pda/roboticist = 3,
