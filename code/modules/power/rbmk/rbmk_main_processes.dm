@@ -28,12 +28,12 @@
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
 
-	//Firstly, heat up the reactor based off of K.
+	//Firstly, heat up the reactor based off of rate_of_reaction.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
 	if(input_moles >= minimum_coolant_level)
 		last_coolant_temperature = coolant_input.return_temperature()-273.15
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = ((coolant_input.return_temperature()-273.15) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
+		var/heat_delta = ((coolant_input.return_temperature()-273.15) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
 		temperature += heat_delta
 		coolant_output.merge(coolant_input) //And now, shove the input into the output.
@@ -88,43 +88,43 @@
 			playsound(src, pick('sound/machines/sm/accent/normal/1.ogg','sound/machines/sm/accent/normal/2.ogg','sound/machines/sm/accent/normal/3.ogg','sound/machines/sm/accent/normal/4.ogg','sound/machines/sm/accent/normal/5.ogg'), 100, TRUE)
 		//From this point onwards, we clear out the remaining gasses.
 		moderator_input.clear() //Woosh. And the soul is gone.
-		K += total_fuel_moles / 1000
-	var/fuel_power = 0 //So that you can't magically generate K with your control rods.
+		rate_of_reaction += total_fuel_moles / 1000
+	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
-		K = 0
+		rate_of_reaction = 0
 	else
-		for(var/obj/item/fuel_rod/FR in fuel_rods)
-			K += FR.fuel_power
-			fuel_power += FR.fuel_power
-			FR.deplete(depletion_modifier)
+		for(var/obj/item/fuel_rod/reactor_fuel_rod in fuel_rods)
+			rate_of_reaction += reactor_fuel_rod.fuel_power
+			fuel_power += reactor_fuel_rod.fuel_power
+			reactor_fuel_rod.deplete(depletion_modifier)
 	//Firstly, find the difference between the two numbers.
-	var/difference = abs(K - desired_k)
+	var/difference = abs(rate_of_reaction - desired_reate_of_reaction)
 	//Then, hit as much of that goal with our cooling per tick as we possibly can.
-	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the K to what we want, so let's zap as much of it as we can manage....
-	if(difference > fuel_power && desired_k > K)
+	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the rate_of_reaction to what we want, so let's zap as much of it as we can manage....
+	if(difference > fuel_power && desired_reate_of_reaction > rate_of_reaction)
 		difference = fuel_power //Again, to stop you being able to run off of 1 fuel rod.
-	if(K != desired_k)
-		if(desired_k > K)
-			K += difference
-		else if(desired_k < K)
-			K -= difference
+	if(rate_of_reaction != desired_reate_of_reaction)
+		if(desired_reate_of_reaction > rate_of_reaction)
+			rate_of_reaction += difference
+		else if(desired_reate_of_reaction < rate_of_reaction)
+			rate_of_reaction -= difference
 
-	K = clamp(K, 0, RBMK_MAX_CRITICALITY)
+	rate_of_reaction = clamp(rate_of_reaction, 0, RBMK_MAX_CRITICALITY)
 	if(has_fuel())
-		temperature += K
+		temperature += rate_of_reaction
 	else
 		temperature -= 10 //Nothing to heat us up, so.
 	update_icon()
 	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES
-		for(var/obj/machinery/light/L in GLOB.machines)
+		for(var/obj/machinery/light/light in GLOB.machines)
 			if(DT_PROB(75, delta_time)) //If youre running the reactor cold though, no need to flicker the lights.
-				L.flicker()
-	for(var/atom/movable/I in get_turf(src))
-		if(isliving(I) && temperature > 0)
-			var/mob/living/L = I
-			L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+				light.flicker()
+	for(var/atom/movable/object in get_turf(src))
+		if(isliving(object) && temperature > 0)
+			var/mob/living/living_mob = object
+			living_mob.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 	if(grilled_item)
 		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, grilled_item, delta_time)
 		grill_time += delta_time
@@ -132,9 +132,9 @@
 
 	if(!last_power_produced)
 		last_power_produced =  150000 //Passively make 150KW if we dont have moderator
-	var/turf/T = get_turf(src)
-	var/obj/structure/cable/C = T.get_cable_node()
-	if(C)
-		C.get_connections()
-		C.add_avail(last_power_produced)
+	var/turf/reactor_turf = get_turf(src)
+	var/obj/structure/cable/reactor_cable = reactor_turf.get_cable_node()
+	if(reactor_cable)
+		reactor_cable.get_connections()
+		reactor_cable.add_avail(last_power_produced)
 

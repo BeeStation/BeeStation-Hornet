@@ -60,9 +60,9 @@
 	. = ..(user)
 	//No reactor? Go find one then.
 	if(!reactor)
-		for(var/obj/machinery/atmospherics/components/unary/rbmk/core/R in GLOB.machines)
-			if(user.get_virtual_z_level() == R.get_virtual_z_level())
-				reactor = R
+		for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in GLOB.machines)
+			if(user.get_virtual_z_level() == reactor_core.get_virtual_z_level())
+				reactor = reactor_core
 				break
 	active = TRUE
 
@@ -80,7 +80,7 @@
 	data["coolantInput"] = reactor ? reactor.last_coolant_temperature : 0
 	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
 	data["power"] = reactor ? reactor.power : 0
-	data ["kpa"] = reactor ? reactor.pressure : 0
+	data["kpa"] = reactor ? reactor.pressure : 0
 	return data
 
 /datum/computer_file/program/nuclear_monitor/ui_act(action, params)
@@ -90,10 +90,10 @@
 	switch(action)
 		if("swap_reactor")
 			var/list/choices = list()
-			for(var/obj/machinery/atmospherics/components/unary/rbmk/core/R in GLOB.machines)
-				if(usr.get_virtual_z_level() != R.get_virtual_z_level())
+			for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in GLOB.machines)
+				if(usr.get_virtual_z_level() != reactor_core.get_virtual_z_level())
 					continue
-				choices += R
+				choices += reactor_core
 			reactor = input(usr, "What reactor do you wish to monitor?", "Nuclear Monitoring Selector", null) as null|anything in choices
 			powerData = list()
 			kpaData = list()
@@ -113,8 +113,8 @@
 
 /datum/computer_file/program/nuclear_monitor/proc/get_status()
 	. = NUCLEAR_REACTOR_INACTIVE
-	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/S in reactors)
-		. = max(., S.get_status())
+	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in reactors)
+		. = max(., reactor_core.get_status())
 
 /datum/computer_file/program/nuclear_monitor/proc/send_alert()
 	if(!computer.get_ntnet_status())
@@ -146,5 +146,5 @@
 	data["coolantInput"] = last_coolant_temperature
 	data["coolantOutput"] = last_output_temperature
 	data["power"] = power
-	data ["kpa"] = pressure
+	data["kpa"] = pressure
 	return data

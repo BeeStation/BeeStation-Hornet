@@ -21,9 +21,9 @@
 		return
 	qdel(src)
 
-/obj/effect/decal/cleanable/nuclear_waste/on_entered(datum/source, atom/movable/AM)
-	if(isliving(AM))
-		var/mob/living/L = AM
+/obj/effect/decal/cleanable/nuclear_waste/on_entered(datum/source, atom/movable/entered_mob)
+	if(isliving(entered_mob))
+		var/mob/living/L = entered_mob
 		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
 	radiation_pulse(src, 625, 5) //MORE RADS
 

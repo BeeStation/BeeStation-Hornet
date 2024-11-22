@@ -82,9 +82,9 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	//Variables essential to operation
 	var/temperature =  0//Lose control of this -> Meltdown
 	var/pressure = 0 //Lose control of this -> Blowout
-	var/K = 0 //Rate of reaction.
-	var/desired_k = 0
-	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over K. If you flood this thing with plasma, you lose your ability to control K as easily.
+	var/rate_of_reaction = 0 //Rate of reaction.
+	var/desired_reate_of_reaction = 0
+	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
 	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
 	var/power_modifier = 1 //Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
 	var/list/fuel_rods = list()
@@ -111,7 +111,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	//Console statistics
 	var/last_coolant_temperature = 0
 	var/last_output_temperature = 0
-	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
+	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set rate_of_reaction at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
 
 	///Time in 1/10th of seconds since the last sent warning
@@ -203,7 +203,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	pixel_y = -32
 	reactorcount++
 	src.name = name + " ([reactorcount])"
-	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
+	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for rate_of_reaction.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	soundloop = new(src,  FALSE)
 	alarmloop = new(src, FALSE)

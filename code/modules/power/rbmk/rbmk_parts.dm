@@ -24,7 +24,7 @@
 /obj/machinery/computer/reactor/control_rods/process()
 	. = ..()
 	if(reactor)
-		var/last_status = reactor.desired_k
+		var/last_status = reactor.desired_reate_of_reaction
 		switch(last_status)
 			if(0 to 0.5)
 				icon_screen = "smmon_1"
@@ -61,7 +61,7 @@
 		return
 	if(action == "input")
 		var/input = text2num(params["target"])
-		reactor.desired_k = clamp(input, 0, 3)
+		reactor.desired_reate_of_reaction = clamp(input, 0, 3)
 
 /obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
 	var/list/data = list()
@@ -69,9 +69,9 @@
 	data["k"] = 0
 	data["desiredK"] = 0
 	if(reactor)
-		data["k"] = reactor.K
-		data["desiredK"] = reactor.desired_k
-		data["control_rods"] = 100 - (reactor.desired_k / 3 * 100) //Rod insertion is extrapolated as a function of the percentage of K
+		data["k"] = reactor.rate_of_reaction
+		data["desiredK"] = reactor.desired_reate_of_reaction
+		data["control_rods"] = 100 - (reactor.desired_reate_of_reaction / 3 * 100) //Rod insertion is extrapolated as a function of the percentage of rate_of_reaction
 	return data
 
 /obj/machinery/computer/reactor/attack_robot(mob/user)
@@ -82,16 +82,16 @@
 	. = ..()
 	attack_hand(user)
 
-/obj/machinery/computer/reactor/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_MULTITOOL)
+/obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, params)
+	if(tool.tool_behaviour == TOOL_MULTITOOL)
 		var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
 		if(heldmultitool)
-			var/obj/machinery/atmospherics/components/unary/rbmk/core/T = heldmultitool.target
-			if(istype(T) && T != src)
-				if(!(src in T.linked_interface))
-					T.linked_interface = src
-					T.ui_update()
-					reactor = T
+			var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = heldmultitool.target
+			if(istype(reactor_core) && reactor_core != src)
+				if(!(src in reactor_core.linked_interface))
+					reactor_core.linked_interface = src
+					reactor_core.ui_update()
+					reactor = reactor_core
 					to_chat(user, "<span class='notice'>You upload the link to the [src].</span>")
 
 
@@ -230,7 +230,7 @@
 					types_seen += box.box_type
 		else
 			parts |= box
-	if(parts.len == 8)
+	if(length(parts) == 8)
 		build_reactor(parts)
 	return
 
