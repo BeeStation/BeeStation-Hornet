@@ -11,6 +11,8 @@ export const CloningConsole = (props, context) => {
   const lacksMachine = data.lacksMachine || [];
   const diskData = data.diskData || [];
   const records = data.records || [];
+  const diskette = data.diskette;
+
   return (
     <Window width="400" height="600" resizable>
       <Window.Content scrollable>
@@ -96,7 +98,7 @@ export const CloningConsole = (props, context) => {
                             <Button
                               content="Save to Disk"
                               icon="upload"
-                              disabled={diskData.length === 0}
+                              disabled={!diskette}
                               onClick={() =>
                                 act('save', {
                                   target: record['id'],
@@ -154,7 +156,7 @@ export const CloningConsole = (props, context) => {
                 buttons={
                   <Box>
                     <Button content="Load" icon="download" disabled={!diskData['name']} onClick={() => act('load')} />
-                    <Button content="Eject Disk" icon="eject" disabled={diskData.length === 0} onClick={() => act('eject')} />
+                    <Button content="Eject Disk" icon="eject" disabled={!diskette} onClick={() => act('eject')} />
                   </Box>
                 }>
                 {diskData.length !== 0 ? (

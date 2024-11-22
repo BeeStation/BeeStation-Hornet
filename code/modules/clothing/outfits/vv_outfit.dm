@@ -1,6 +1,7 @@
 // This outfit preserves varedits made on the items
 // Created from admin helpers.
 /datum/outfit/varedit
+	name = "Var Edited Outfit"
 	var/list/vv_values
 	var/list/stored_access
 	var/update_id_name = FALSE //If the name of the human is same as the name on the id they're wearing we'll update provided id when equipping

@@ -251,7 +251,9 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
-		holder.icon_state = "hud[ckey(wear_id.GetJobIcon())]"
+		holder.icon_state = "hud[ckey(wear_id.get_item_job_icon())]"
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		holder.icon_state = "hudno_id"
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()
@@ -289,33 +291,58 @@
 	return HAS_TRAIT(src, TRAIT_MINDSHIELD) || HAS_TRAIT(src, TRAIT_FAKE_MINDSHIELD)
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
-	var/image/holder = hud_list[WANTED_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	var/perpname = get_face_name(get_id_name(""))
-	if(perpname && GLOB.data_core)
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R)
-			var/has_criminal_entry = TRUE
-			switch(R.fields["criminal"])
-				if("*Arrest*")
-					holder.icon_state = "hudwanted"
-				if("Incarcerated")
-					holder.icon_state = "hudincarcerated"
-				if("Suspected")
-					holder.icon_state = "hudsuspected"
-				if("Paroled")
-					holder.icon_state = "hudparolled"
-				if("Discharged")
-					holder.icon_state = "huddischarged"
-				else
-					has_criminal_entry = FALSE
-			if(has_criminal_entry)
-				set_hud_image_active(WANTED_HUD)
-				return
+	if(!hud_list)
+		// We haven't finished initializing yet, huds will be updated once we are
+		return
 
-	holder.icon_state = null
+	var/image/holder = hud_list[WANTED_HUD]
+	var/icon/sec_icon = icon(icon, icon_state, dir)
+	holder.pixel_y = sec_icon.Height() - world.icon_size
+	var/perp_name = get_face_name(get_id_name(""))
+
+	if(!perp_name || isnull(GLOB.manifest))
+		holder.icon_state = null
+		set_hud_image_inactive(WANTED_HUD)
+		return
+
+	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
+	if(isnull(target))
+		holder.icon_state = null
+		set_hud_image_inactive(WANTED_HUD)
+		return
+
+	switch(target.wanted_status)
+		if(WANTED_ARREST)
+			holder.icon_state = "hudwanted"
+		if(WANTED_PRISONER)
+			holder.icon_state = "hudincarcerated"
+		if(WANTED_SUSPECT)
+			holder.icon_state = "hudsuspected"
+		if(WANTED_PAROLE)
+			holder.icon_state = "hudparolled"
+		if(WANTED_DISCHARGED)
+			holder.icon_state = "huddischarged"
+		if(WANTED_NONE)
+			holder.icon_state = null
+
 	set_hud_image_inactive(WANTED_HUD)
+  
+//Utility functions
+
+/**
+ * Updates the visual security huds on all mobs in GLOB.human_list that match the name passed to it.
+ */
+/proc/update_matching_security_huds(perp_name)
+	for (var/mob/living/carbon/human/h as anything in GLOB.human_list)
+		if (h.get_face_name(h.get_id_name()) == perp_name)
+			h.sec_hud_set_security_status()
+
+/**
+ * Updates the visual security huds on all mobs in GLOB.human_list
+ */
+/proc/update_all_security_huds()
+	for(var/mob/living/carbon/human/security_hud_person as anything in GLOB.human_list)
+		security_hud_person.sec_hud_set_security_status()
 
 /***********************************************
  * Diagnostic HUDs!
