@@ -4117,11 +4117,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"pS" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "pT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -7070,11 +7065,10 @@
 /turf/open/floor/iron/white/textured,
 /area/ctf)
 "zX" = (
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/soap/deluxe,
+/obj/machinery/oven,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "zY" = (
@@ -10797,7 +10791,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
 "Nv" = (
-/obj/structure/table,
+/obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "Nw" = (
@@ -11109,6 +11103,10 @@
 	dir = 1
 	},
 /area/ctf)
+"Or" = (
+/obj/machinery/gibber,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "Ot" = (
 /obj/structure/sink{
 	dir = 8;
@@ -12953,7 +12951,6 @@
 /turf/open/floor/iron/white/textured,
 /area/ctf)
 "Vm" = (
-/obj/machinery/gibber,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -13021,6 +13018,7 @@
 "Vv" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "Vw" = (
@@ -13925,7 +13923,7 @@
 /area/centcom/supplypod/loading/four)
 "YQ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/beaker,
+/obj/item/soap/deluxe,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "YS" = (
@@ -40598,7 +40596,7 @@ Xk
 Rh
 Mm
 Nd
-MT
+JE
 Fh
 Yu
 Nd
@@ -40855,7 +40853,7 @@ Xk
 Rh
 ZT
 Nd
-Pr
+Or
 Fh
 QW
 Nd
@@ -41112,7 +41110,7 @@ XL
 Nd
 Nd
 Nd
-JE
+Pr
 Fh
 YQ
 Nd
@@ -41628,7 +41626,7 @@ Xk
 Nd
 zX
 Fh
-pS
+MT
 Nd
 Nd
 Nd
