@@ -84,7 +84,7 @@
 
 /obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, params)
 	if(tool.tool_behaviour == TOOL_MULTITOOL)
-		var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
+		var/datum/component/buffer/heldmultitool = get_held_buffer_item(user)
 		if(heldmultitool)
 			var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = heldmultitool.target
 			if(istype(reactor_core) && reactor_core != src)
@@ -96,16 +96,15 @@
 
 
 /obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)
-	// Let's double check
+	if(isAI(user))
+		var/mob/living/silicon/ai/ai_user = user
+		return ai_user.aiMulti.GetComponent(/datum/component/buffer)
+
 	var/obj/item/held_item = user.get_active_held_item()
-	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
-		return held_item?.GetComponent(/datum/component/buffer)
-	else if(isAI(user))
-		var/mob/living/silicon/ai/U = user
-		return U.aiMulti.GetComponent(/datum/component/buffer)
-	else if(iscyborg(user) && in_range(user, src))
-		if(held_item?.GetComponent(/datum/component/buffer))
-			return held_item?.GetComponent(/datum/component/buffer)
+	var/found_component = held_item?.GetComponent(/datum/component/buffer)
+	if(found_component && in_range(user, src))
+		return found_component
+
 	return null
 
 /obj/machinery/atmospherics/components/unary/rbmk
@@ -179,6 +178,7 @@
 	desc = "If you see this, call the police."
 	icon = 'icons/obj/machines/rbmkparts.dmi'
 	icon_state = "core"
+	item_flags = NO_PIXEL_RANDOM_DROP
 	var/box_type = "impossible" //	///What kind of box are we handling?
 	var/part_path //What's the path of the machine we making?
 

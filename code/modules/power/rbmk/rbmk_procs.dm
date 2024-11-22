@@ -2,59 +2,60 @@
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/attackby(obj/item/attacked_item, mob/user, params)
 	if(istype(attacked_item, /obj/item/fuel_rod))
-		if(power >= 20)
-			to_chat(user, "<span class='notice'>You cannot insert fuel into [src] when it has been raised above 20% power.</span>")
+		if(power >= SAFE_POWER_LEVEL)
+			to_chat(user, "<span class='notice'>You cannot insert fuel into [src] when it has been raised above [SAFE_POWER_LEVEL]% power.</span>")
 			return FALSE
-		if(fuel_rods.len >= 5)
+		if(length(fuel_rods) >= 5)
 			to_chat(user, "<span class='warning'>[src] is already at maximum fuel load.</span>")
 			return FALSE
 		to_chat(user, "<span class='notice'>You start to insert [attacked_item] into [src]...</span>")
 		radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 		if(do_after(user, 5 SECONDS, target=src))
-			if(!length(fuel_rods))
+			if(length(fuel_rods) == 0)
 				activate(user) //That was the first fuel rod. Let's heat it up.
-			fuel_rods += attacked_item
-			attacked_item.forceMove(src)
-			if(!(length(fuel_rods) == 1)) // Not the first fuel rod? Play the sound.
+			else  // Not the first fuel rod? Play the sound.
 				playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+				fuel_rods += attacked_item
+				attacked_item.forceMove(src)
 			update_appearance()
 		return TRUE
 	if(istype(attacked_item, /obj/item/sealant))
-		if(power >= 20)
-			to_chat(user, "<span class='notice'>You cannot repair [src] while it is running at above 20% power.</span>")
+		var/obj/item/sealant/sealant = attacked_item
+		if(power >= SAFE_POWER_LEVEL)
+			to_chat(user, "<span class='notice'>You cannot repair [src] while it is running at above [SAFE_POWER_LEVEL]% power.</span>")
 			return FALSE
-		if(critical_threshold_proximity <= 0.875*critical_threshold_proximity_archived)
+		if(critical_threshold_proximity <= REACTOR_NEW_SEALS * critical_threshold_proximity_archived)
 			to_chat(user, "<span class='notice'>[src]'s seals are already in-tact, repairing them further would require a new set of seals.</span>")
 			return FALSE
-		if(critical_threshold_proximity >= 0.5 * critical_threshold_proximity_archived) //Heavily damaged.
+		if(critical_threshold_proximity >= REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived) //Heavily damaged.
 			to_chat(user, "<span class='notice'>[src]'s reactor vessel is cracked and worn, you need to repair the cracks with a welder before you can repair the seals.</span>")
 			return FALSE
 		if(do_after(user, 5 SECONDS, target=src))
-			if(critical_threshold_proximity <= 0.875*critical_threshold_proximity_archived)	//They might've stacked doafters
+			if(critical_threshold_proximity <= REACTOR_NEW_SEALS*critical_threshold_proximity_archived)	//They might've stacked doafters
 				to_chat(user, "<span class='notice'>[src]'s seals are already in-tact, repairing them further would require a new set of seals.</span>")
 				return FALSE
 			playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 			user.visible_message("<span class='warning'>[user] applies sealant to some of [src]'s worn out seals.</span>", "<span class='notice'>You apply sealant to some of [src]'s worn out seals.</span>")
-			critical_threshold_proximity -= 10
+			critical_threshold_proximity -= sealant.repair_power // Default is 10
 			critical_threshold_proximity = clamp(critical_threshold_proximity, 0, initial(critical_threshold_proximity))
 		return TRUE
 	if(attacked_item.tool_behaviour == TOOL_WELDER)
-		if(power >= 20)
-			to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above 20% power.</span>")
+		if(power >= SAFE_POWER_LEVEL)
+			to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above [SAFE_POWER_LEVEL]% power.</span>")
 			return FALSE
-		if(critical_threshold_proximity < 0.5 * critical_threshold_proximity_archived)
+		if(critical_threshold_proximity < REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived)
 			to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
 			return FALSE
 		if(attacked_item.use_tool(src, user, 0, volume=40))
-			if(critical_threshold_proximity < 0.5 * critical_threshold_proximity_archived)
+			if(critical_threshold_proximity < REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived)
 				to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
 				return FALSE
 			critical_threshold_proximity -= 20
 			to_chat(user, "<span class='notice'>You weld together some of [src]'s cracks. This'll do for now.</span>")
 			return TRUE
 	if(attacked_item.tool_behaviour == TOOL_SCREWDRIVER)
-		if(power >= 20)
-			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above 20% power!")
+		if(power >= SAFE_POWER_LEVEL)
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
 			return FALSE
 		if (length(fuel_rods) > 0)
 			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!</span>")
@@ -64,8 +65,8 @@
 		return TRUE
 	if(attacked_item.tool_behaviour == TOOL_CROWBAR)
 		if(panel_open)
-			if(power >= 20)
-				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above 20% power!")
+			if(power >= SAFE_POWER_LEVEL)
+				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
 				return FALSE
 			if (length(fuel_rods) > 0)
 				to_chat(user, "<span class='notice'>You can't deconstruct [src] while it still has fuel rods inside!</span>")
@@ -73,8 +74,8 @@
 			disassemble(attacked_item)
 			return TRUE
 		else
-			if(power >= 20)
-				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above 20% power!")
+			if(power >= SAFE_POWER_LEVEL)
+				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above [SAFE_POWER_LEVEL]% power!")
 				return FALSE
 			if (length(fuel_rods) == 0)
 				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!</span>")
@@ -177,17 +178,14 @@ Arguments:
 	soundloop.start()
 
 /obj/machinery/atmospherics/components/unary/rbmk/proc/get_held_buffer_item(mob/user)
-	// Let's double check
-	var/obj/item/held_item = user.get_active_held_item()
-	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
-		return held_item?.GetComponent(/datum/component/buffer)
-	else if(isAI(user))
-		var/mob/living/silicon/ai/ai_user = user
-		return ai_user.aiMulti.GetComponent(/datum/component/buffer)
-	else if(iscyborg(user) && in_range(user, src))
-		if(held_item?.GetComponent(/datum/component/buffer))
-			return held_item?.GetComponent(/datum/component/buffer)
-	return null
+    if(isAI(user))
+        var/mob/living/silicon/ai/ai_user = user
+        return ai_user.aiMulti.GetComponent(/datum/component/buffer)
+
+    var/obj/item/held_item = user.get_active_held_item()
+    var/found_component = held_item?.GetComponent(/datum/component/buffer)
+    if(found_component && in_range(user, src))
+        return found_component
 
 /*
  * Called when a part gets deleted around the rbmk, called on Destroy() of the rbmk core in rbmk_core.dm
@@ -254,7 +252,7 @@ Arguments:
 	for(var/item in parts)
 		new item(get_turf(src))
 	I.play_tool_sound(src, 50)
-	QDEL_NULL(src)
+	qdel(src)
 
 /**
  * Updates all related pipenets from all connected components
@@ -281,10 +279,10 @@ Arguments:
 
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/removeFuelRod(mob/user, /obj/machinery/atmospherics/components/unary/rbmk/core/reactor)
-	if(src.power > 20)
-		to_chat(user, "<span class='warning'>You cannot remove fuel from [src] when it is above 20% power.</span>")
+	if(src.power > SAFE_POWER_LEVEL)
+		to_chat(user, "<span class='warning'>You cannot remove fuel from [src] when it is above [SAFE_POWER_LEVEL]% power.</span>")
 		return FALSE
-	if(!length(fuel_rods))
+	if(length(fuel_rods) == 0)
 		to_chat(user, "<span class='warning'>[src] does not have any fuel rods loaded.</span>")
 		return FALSE
 	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "Fuel Rods List", null) as null|anything in src.fuel_rods
@@ -298,15 +296,15 @@ Arguments:
  * Check the integrity level and returns the status of the machine
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/get_status()
-	var/integrity = get_integrity_percent()
-	if(integrity < REACTOR_MELTING_PERCENT)
-		return REACTOR_MELTING
-	if(integrity < REACTOR_EMERGENCY_PERCENT)
-		return REACTOR_EMERGENCY
-	if(integrity < REACTOR_DANGER_PERCENT)
-		return REACTOR_DANGER
-	if(integrity < REACTOR_WARNING_PERCENT)
-		return REACTOR_NOMINAL
+	switch(get_integrity_percent())
+		if(0 to REACTOR_MELTING_PERCENT)
+			return REACTOR_MELTING
+		if(REACTOR_MELTING_PERCENT to REACTOR_EMERGENCY_PERCENT)
+			return REACTOR_EMERGENCY
+		if(REACTOR_EMERGENCY_PERCENT to REACTOR_DANGER_PERCENT)
+			return REACTOR_DANGER
+		if(REACTOR_DANGER_PERCENT to REACTOR_WARNING_PERCENT)
+			return REACTOR_NOMINAL
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/start_alarm()
 	if(alarm == FALSE)
@@ -497,12 +495,12 @@ Arguments:
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
 	for(var/mob/player_mob in GLOB.player_list)
-		if(player_mob.get_virtual_z_level() == rbmkzlevel)
+		if(compare_z(rbmkzlevel, player_mob.get_virtual_z_level()))
 			to_chat(player_mob, "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
-		if(src.get_virtual_z_level() == apc.get_virtual_z_level() && prob(70))
+		if(prob(70) && compare_z(rbmkzlevel, apc.get_virtual_z_level()))
 			apc.overload_lighting()
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
@@ -524,14 +522,14 @@ Arguments:
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
 	for(var/mob/player_mob in GLOB.player_list)
-		if(player_mob.get_virtual_z_level() == rbmkzlevel)
+		if(compare_z(rbmkzlevel, player_mob.get_virtual_z_level()))
 			SEND_SOUND(player_mob, 'sound/effects/rbmk/explode.ogg')
 			to_chat(player_mob, "<span class='userdanger'>You hear a horrible metallic explosion.</span>")
 			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 	for(var/nuclear_sludge_landmark in GLOB.landmarks_list)
 		if(istype(nuclear_sludge_landmark, /obj/modules/power/rbmk/nuclear_sludge_spawner))
 			var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = nuclear_sludge_landmark
-			if(src.get_virtual_z_level() == nuclear_sludge_spawner.get_virtual_z_level()) //Begin the SLUDGING
+			if(compare_z(rbmkzlevel, nuclear_sludge_spawner.get_virtual_z_level())) //Begin the SLUDGING
 				nuclear_sludge_spawner.fire()
 	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner/strong(get_turf(src))
 	nuclear_sludge_spawner.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.

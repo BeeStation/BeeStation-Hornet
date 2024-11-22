@@ -17,7 +17,7 @@
 	alert_able = TRUE
 	var/active = TRUE //Easy process throttle
 	var/last_status
-	var/next_stat_interval = 0
+	COOLDOWN_DECLARE(next_stat_interval)
 	var/list/kpaData = list()
 	var/list/powerData = list()
 	var/list/tempInputData = list()
@@ -41,19 +41,19 @@
 		program_icon_state = "smmon_[last_status]"
 		if(istype(computer))
 			computer.update_icon()
-	if(world.time >= next_stat_interval)
-		next_stat_interval = world.time + 1 SECONDS //You only get a slow tick.
+	if(COOLDOWN_FINISHED(src, next_stat_interval))
+		COOLDOWN_START(src, next_stat_interval, 1 SECONDS) //You only get a slow tick.
 		kpaData += (reactor) ? reactor.pressure : 0
-		if(kpaData.len > 100) //Only lets you track over a certain timeframe.
+		if(length(kpaData) > 100) //Only lets you track over a certain timeframe.
 			kpaData.Cut(1, 2)
 		powerData += (reactor) ? reactor.power*10 : 0 //We scale up the figure for a consistent:tm: scale
-		if(powerData.len > 100) //Only lets you track over a certain timeframe.
+		if(length(powerData) > 100) //Only lets you track over a certain timeframe.
 			powerData.Cut(1, 2)
 		tempInputData += (reactor) ? reactor.last_coolant_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempInputData.len > 100) //Only lets you track over a certain timeframe.
+		if(length(tempInputData) > 100) //Only lets you track over a certain timeframe.
 			tempInputData.Cut(1, 2)
 		tempOutputdata += (reactor) ? reactor.last_output_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempOutputdata.len > 100) //Only lets you track over a certain timeframe.
+		if(length(tempOutputdata) > 100) //Only lets you track over a certain timeframe.
 			tempOutputdata.Cut(1, 2)
 
 /datum/computer_file/program/nuclear_monitor/on_start(mob/living/user)
@@ -61,7 +61,8 @@
 	//No reactor? Go find one then.
 	if(!reactor)
 		for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in GLOB.machines)
-			if(user.get_virtual_z_level() == reactor_core.get_virtual_z_level())
+			var/core_z_level = reactor_core.get_virtual_z_level()
+			if(compare_z(core_z_level , user.get_virtual_z_level()))
 				reactor = reactor_core
 				break
 	active = TRUE
@@ -91,7 +92,8 @@
 		if("swap_reactor")
 			var/list/choices = list()
 			for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in GLOB.machines)
-				if(usr.get_virtual_z_level() != reactor_core.get_virtual_z_level())
+				var/core_z_level = reactor_core.get_virtual_z_level()
+				if(!compare_z(core_z_level , usr.get_virtual_z_level()))
 					continue
 				choices += reactor_core
 			reactor = input(usr, "What reactor do you wish to monitor?", "Nuclear Monitoring Selector", null) as null|anything in choices

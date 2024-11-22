@@ -31,8 +31,8 @@
 /obj/item/fuel_rod/Destroy()
 	if(process)
 		STOP_PROCESSING(SSobj, src)
-	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = loc
-	if(istype(reactor_core))
+	if(istype(loc, /obj/machinery/atmospherics/components/unary/rbmk/core))
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = loc
 		reactor_core.fuel_rods -= src
 	return ..()
 
@@ -41,9 +41,9 @@
 /obj/item/fuel_rod/proc/depletion_final(result_rod)
 	if(!result_rod)
 		return
-	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = loc
 	// Rod conversion is moot when you can't find the reactor
-	if(istype(reactor_core))
+	if(istype(loc, /obj/machinery/atmospherics/components/unary/rbmk/core))
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = loc
 		var/obj/item/fuel_rod/reactor_fuel_rod
 		// You can add your own depletion scheme and not override this proc if you are going to convert a fuel rod into another type
 		switch(result_rod)
@@ -250,3 +250,4 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "sealant"
 	w_class = 1
+	var/repair_power = 10 //How much damage does the sealant repair per use
