@@ -178,14 +178,14 @@ Arguments:
 	soundloop.start()
 
 /obj/machinery/atmospherics/components/unary/rbmk/proc/get_held_buffer_item(mob/user)
-    if(isAI(user))
-        var/mob/living/silicon/ai/ai_user = user
-        return ai_user.aiMulti.GetComponent(/datum/component/buffer)
+	if(isAI(user))
+		var/mob/living/silicon/ai/ai_user = user
+		return ai_user.aiMulti.GetComponent(/datum/component/buffer)
 
-    var/obj/item/held_item = user.get_active_held_item()
-    var/found_component = held_item?.GetComponent(/datum/component/buffer)
-    if(found_component && in_range(user, src))
-        return found_component
+	var/obj/item/held_item = user.get_active_held_item()
+	var/found_component = held_item?.GetComponent(/datum/component/buffer)
+	if(found_component && in_range(user, src))
+		return found_component
 
 /*
  * Called when a part gets deleted around the rbmk, called on Destroy() of the rbmk core in rbmk_core.dm
