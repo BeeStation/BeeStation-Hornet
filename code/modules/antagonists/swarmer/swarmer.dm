@@ -425,6 +425,10 @@
 	to_chat(S, "<span class='warning'>This object does not contain solid matter. Aborting.</span>")
 	return FALSE
 
+/obj/machinery/ore_silo/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S,"<span class='warning'>The ore silo should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	return FALSE
+
 ////END CTRL CLICK FOR SWARMERS////
 
 /mob/living/simple_animal/hostile/swarmer/proc/Fabricate(atom/fabrication_object,fabrication_cost = 0)
