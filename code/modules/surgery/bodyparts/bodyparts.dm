@@ -500,12 +500,12 @@
 	else
 		C = owner
 		no_update = FALSE
-
-	if(C && HAS_TRAIT(C, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
-		dmg_overlay_type = "" //no damage overlay shown when husked
-		is_husked = TRUE
-	else
-		is_husked = FALSE
+	if(IS_ORGANIC_LIMB(src))
+		if(C && HAS_TRAIT(C, TRAIT_HUSK))
+			dmg_overlay_type = "" //no damage overlay shown when husked
+			is_husked = TRUE
+		else
+			is_husked = FALSE
 
 	// Get temporary colour from our attached mob
 	if (!dropping_limb && C && IS_ORGANIC_LIMB(src))
