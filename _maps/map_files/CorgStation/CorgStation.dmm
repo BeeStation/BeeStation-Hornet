@@ -20089,6 +20089,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "gvN" = (
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "gvT" = (
@@ -23408,7 +23409,8 @@
 	name = "Service Hall";
 	req_one_access_txt = "22;25;26;28;35;37;38;46"
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron,
 /area/hallway/secondary/service)
 "hyr" = (
 /obj/effect/turf_decal/tile/red{
@@ -33176,6 +33178,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"kFb" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "kFB" = (
 /obj/machinery/camera/directional/west,
 /obj/machinery/light{
@@ -34414,6 +34421,8 @@
 	dir = 4;
 	pixel_y = -5
 	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "lbV" = (
@@ -40679,6 +40688,8 @@
 "mVc" = (
 /obj/structure/table,
 /obj/machinery/fax/service,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "mVi" = (
@@ -44841,13 +44852,9 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "oqq" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/drone,
-/obj/item/multitool,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/item/book/manual/wiki/sopservice,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "oqF" = (
@@ -61291,6 +61298,8 @@
 /area/engine/atmos)
 "tQE" = (
 /obj/machinery/rnd/production/protolathe/department/service,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "tQQ" = (
@@ -72196,7 +72205,15 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "xsn" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table,
+/obj/item/storage/toolbox/drone,
+/obj/item/multitool,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/item/book/manual/wiki/sopservice,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "xsp" = (
@@ -107977,7 +107994,7 @@ lzJ
 fKx
 hzU
 oqq
-xsn
+kFb
 gvN
 mVc
 fuh

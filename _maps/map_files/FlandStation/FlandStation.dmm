@@ -48365,6 +48365,9 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/auxiliary)
+"mlo" = (
+/turf/open/floor/iron/dark,
+/area/maintenance/port)
 "mlt" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "medcell";
@@ -62098,12 +62101,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/closet/crate,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "pVL" = (
@@ -117250,7 +117253,7 @@ qCS
 jYF
 jYF
 jYF
-jYF
+mlo
 wbE
 nck
 ocu

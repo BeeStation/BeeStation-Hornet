@@ -5518,10 +5518,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/item/book/manual/wiki/sopservice,
+/obj/machinery/fax/service,
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "aHs" = (
@@ -16295,7 +16294,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "cho" = (
@@ -25655,6 +25656,8 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/food/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
 "doi" = (
@@ -37546,8 +37549,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/fax/service,
-/obj/structure/table,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "gbQ" = (
@@ -83951,6 +83954,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/storage_shared)
+"uOv" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "uOD" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/machinery/door/airlock/atmos/glass{
@@ -129649,7 +129659,7 @@ gbI
 aHq
 chm
 aOA
-aOA
+uOv
 xPU
 aOA
 aQj

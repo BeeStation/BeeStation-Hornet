@@ -16767,6 +16767,10 @@
 	dir = 4
 	},
 /obj/machinery/rnd/production/techfab/department/service,
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/effect/turf_decal/tile/dark_green/opposingcorners{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "cpd" = (
@@ -30633,6 +30637,16 @@
 	pixel_x = -23;
 	pixel_y = -23
 	},
+/obj/item/kirbyplants/random,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "gEX" = (
@@ -33295,10 +33309,16 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "hET" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "hEV" = (
@@ -40099,6 +40119,10 @@
 	},
 /obj/item/kitchen/rollingpin,
 /obj/item/book/manual/wiki/sopservice,
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/effect/turf_decal/tile/dark_green/opposingcorners{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "kfm" = (
@@ -49784,6 +49808,14 @@
 	},
 /obj/structure/table,
 /obj/machinery/fax/service,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/effect/turf_decal/tile/dark_green/opposingcorners{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "nKu" = (
@@ -75152,9 +75184,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "wUi" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /obj/machinery/power/apc{
 	areastring = "/area/hallway/secondary/service";
 	dir = 1;
@@ -75162,7 +75191,11 @@
 	pixel_y = 24
 	},
 /obj/machinery/airalarm/directional/east,
-/obj/item/kirbyplants/random,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/effect/turf_decal/tile/dark_green/opposingcorners{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "wUu" = (
