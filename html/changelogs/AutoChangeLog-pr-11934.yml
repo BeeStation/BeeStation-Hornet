@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed a bug in silicon software that would not allow the radio menu to
-      popup.
