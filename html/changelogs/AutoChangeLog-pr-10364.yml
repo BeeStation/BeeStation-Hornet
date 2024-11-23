@@ -1,0 +1,5 @@
+author: XeonMations, Aramix, DungeonVR
+delete-after: true
+changes:
+  - rscadd: Added the RBMK reactor, fuel rods and engine sealant, all orderable from
+      cargo!
