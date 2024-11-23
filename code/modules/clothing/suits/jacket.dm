@@ -122,17 +122,17 @@
 	item_state = "aristo_blue"
 
 // New COOL jackets
-/obj/item/clothing/suit/jacket/tunnelsnakes //www.youtube.com/watch?v=S0ximxe4XtU&t=61s
+/obj/item/clothing/suit/jacket/undergroundserpents //www.youtube.com/watch?v=S0ximxe4XtU&t=61s
 	name = "Underground Serpents jacket"
 	desc = "Underground Serpents Jacket rules, we are the underground serpents. That's us, and we rule! ."
-	icon_state = "tunnelsnakes"
-	item_state = "tunnelsnakes"
+	icon_state = "undergroundserpents"
+	item_state = "undergroundserpents"
 
-/obj/item/clothing/suit/jacket/kaneda
+/obj/item/clothing/suit/jacket/teenbiker
 	name = "Teen biker jacket"
-	desc = "A red jacket with a pill on its backs."
-	icon_state = "kaneda"
-	item_state = "kaneda"
+	desc = "A red jacket with a pill on its back."
+	icon_state = "teenbiker"
+	item_state = "teenbiker"
 
 /obj/item/clothing/suit/jacket/driver
 	name = "Driver jacket"
@@ -143,5 +143,5 @@
 /obj/item/clothing/suit/jacket/liutenant
 	name = "Liutenant Vest"
 	desc = "A short orange vest that once belonged to a liutenant."
-	icon_state = "kim"
-	item_state = "kim"
+	icon_state = "liutenant"
+	item_state = "liutenant"

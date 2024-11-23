@@ -136,10 +136,10 @@
 					/obj/item/clothing/head/wig/random = 3,
 					/obj/item/clothing/head/costume/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2,
-					/obj/item/clothing/suit/jacket/tunnelsnakes = 1,
-					/obj/item/clothing/suit/jacket/kim = 1,
-					/obj/item/clothing/suit/jacket/kaneda = 1,
-					/obj/item/clothing/suit/jacket/literallyme = 1)
+					/obj/item/clothing/suit/jacket/undergroundserpents = 1,
+					/obj/item/clothing/suit/jacket/liutenant = 1,
+					/obj/item/clothing/suit/jacket/teenbiker = 1,
+					/obj/item/clothing/suit/jacket/driver = 1)
 
 	contraband = list(/obj/item/clothing/suit/costume/judgerobe = 1,
 						/obj/item/clothing/head/costume/powdered_wig = 1,
