@@ -122,7 +122,7 @@
 	item_state = "aristo_blue"
 
 // New COOL jackets
-/obj/item/clothing/suit/jacket/tunnelsnakes
+/obj/item/clothing/suit/jacket/tunnelsnakes //www.youtube.com/watch?v=S0ximxe4XtU&t=61s
 	name = "Underground Serpents jacket"
 	desc = "Underground Serpents Jacket rules, we are the underground serpents. That's us, and we rule! ."
 	icon_state = "tunnelsnakes"
