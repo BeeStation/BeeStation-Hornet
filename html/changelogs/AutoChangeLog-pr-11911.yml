@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Adds the ability to turn someones headset on/off via the stripping menu,
-      if you find your headset randomly becomes disabled then getting the detective
-      to scan it could bring some clues as to an individual that is after you... or
-      maybe it was a prank.
