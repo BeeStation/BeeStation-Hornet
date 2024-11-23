@@ -213,7 +213,8 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.mob) return
+	if(!user.mob)
+		return
 	var/mob/M = user.mob
 	var/obj/item/I = M.get_active_held_item()
 	if(!I)
