@@ -11,7 +11,10 @@
 		to_chat(user, "<span class='notice'>You start to insert [attacked_item] into [src]...</span>")
 		radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 		if(do_after(user, 5 SECONDS, target=src))
-			if(length(fuel_rods) == 0)
+			if(length(fuel_rods) >= 5)
+				to_chat(user, "<span class='warning'>[src] is already at maximum fuel load.</span>")
+				return FALSE
+			else if(length(fuel_rods) == 0)
 				activate(user) //That was the first fuel rod. Let's heat it up.
 			else  // Not the first fuel rod? Play the sound.
 				playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
