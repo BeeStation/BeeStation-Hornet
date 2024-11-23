@@ -25622,7 +25622,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/northright{
 	dir = 4;
-	name = "Engi Desk";
+	name = "Engi AutoLathe";
 	req_one_access_txt = "32;19"
 	},
 /obj/machinery/modular_fabricator/autolathe,
@@ -75005,7 +75005,7 @@
 	},
 /obj/machinery/door/window/eastleft{
 	name = "Engineering Desk";
-	req_access_txt = "10"
+	req_access_txt = "32"
 	},
 /obj/item/folder/yellow{
 	pixel_x = 4

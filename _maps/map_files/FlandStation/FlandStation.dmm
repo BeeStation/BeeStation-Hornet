@@ -13302,7 +13302,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "dwQ" = (
@@ -38068,6 +38067,20 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/storage/primary)
+"jKV" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Engidesk";
+	name = "engineering Security Door"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/machinery/door/window/westright{
+	name = "Atmospherics Autolathe";
+	req_access_txt = "24";
+	dir = 2
+	},
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "jLa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57985,11 +57998,6 @@
 	id = "atmos";
 	name = "Atmospherics Blast Door"
 	},
-/obj/machinery/door/window/westright{
-	dir = 2;
-	name = "Atmospherics Desk";
-	req_access_txt = "24"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/desk_bell{
@@ -57997,6 +58005,11 @@
 	},
 /obj/item/folder/yellow{
 	pixel_x = 4
+	},
+/obj/machinery/door/window/westleft{
+	name = "Atmospherics Desk";
+	req_access_txt = "24";
+	dir = 2
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
@@ -59745,6 +59758,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "pou" = (
@@ -138890,7 +138904,7 @@ hEL
 pGC
 aYo
 dwC
-uUs
+jKV
 kpZ
 xDY
 uLr

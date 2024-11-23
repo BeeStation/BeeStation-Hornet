@@ -40480,7 +40480,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/northright{
 	dir = 2;
-	name = "Engi Desk";
+	name = "Engi Autolathe";
 	req_one_access_txt = "32;19"
 	},
 /obj/machinery/modular_fabricator/autolathe,

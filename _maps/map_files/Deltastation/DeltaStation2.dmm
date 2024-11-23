@@ -43633,15 +43633,14 @@
 	id = "atmoslock";
 	name = "Atmospherics Lockdown Blast Door"
 	},
-/obj/machinery/door/window/westright{
-	name = "Atmospherics Desk";
-	req_access_txt = "24"
-	},
-/obj/machinery/door/window/eastright,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell{
 	pixel_x = 8
+	},
+/obj/machinery/door/window/westleft{
+	name = "Atmospherics Desk";
+	req_access_txt = "24"
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -60431,6 +60430,19 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"nsE" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Engidesk";
+	name = "engineering Security Door"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/machinery/door/window/westright{
+	name = "Atmospherics Autolathe";
+	req_access_txt = "24"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "nsJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -123258,7 +123270,7 @@ bso
 bwy
 bxU
 kdY
-bxU
+nsE
 hTj
 haw
 aRF

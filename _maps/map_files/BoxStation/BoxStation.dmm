@@ -53148,7 +53148,7 @@
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "Engi Desk";
+	name = "Engi Autolathe";
 	req_one_access_txt = "32;19"
 	},
 /turf/open/floor/iron/dark,
