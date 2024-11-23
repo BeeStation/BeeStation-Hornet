@@ -15,6 +15,8 @@
 				to_chat(user, "<span class='warning'>[src] is already at maximum fuel load.</span>")
 				return FALSE
 			else if(length(fuel_rods) == 0)
+				fuel_rods += attacked_item
+				attacked_item.forceMove(src)
 				activate(user) //That was the first fuel rod. Let's heat it up.
 			else  // Not the first fuel rod? Play the sound.
 				playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
@@ -91,6 +93,7 @@
 		STORE_IN_BUFFER(heldmultitool.parent, src)
 		. = TRUE
 		to_chat(user, "<span class='notice'>You download the link from the nuclear reactor.</span>")
+		return TRUE
 	return ..()
 
 /*
