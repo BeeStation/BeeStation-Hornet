@@ -91,9 +91,9 @@
 	switch(action)
 		if("swap_reactor")
 			var/list/choices = list()
+			var/user_z_level = usr.get_virtual_z_level()
 			for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in GLOB.machines)
-				var/core_z_level = reactor_core.get_virtual_z_level()
-				if(!compare_z(core_z_level , usr.get_virtual_z_level()))
+				if(!compare_z(reactor_core.get_virtual_z_level(), user_z_level))
 					continue
 				choices += reactor_core
 			reactor = input(usr, "What reactor do you wish to monitor?", "Nuclear Monitoring Selector", null) as null|anything in choices
