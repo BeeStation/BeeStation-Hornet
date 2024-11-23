@@ -60,7 +60,7 @@
 	. = ..(user)
 	//No reactor? Go find one then.
 	if(!reactor)
-		var/user_z_level = user.get_virtual_z_level())
+		var/user_z_level = user.get_virtual_z_level()
 		for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core in GLOB.machines)
 			if(compare_z(reactor_core.get_virtual_z_level(), user_z_level))
 				reactor = reactor_core
