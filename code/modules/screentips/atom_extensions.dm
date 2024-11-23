@@ -24,10 +24,14 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
-	var/screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
-	client.screentip_context.context_message = screentip_message
+	var/screentip_message = "<span class='extremelybig' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
+	client.screentip_context.user = client.mob
+	client.screentip_context.access_context = ""
+	client.screentip_context.left_mouse_context = ""
 	add_context_self(client.screentip_context, client.mob, client.mob.get_active_held_item())
-	client.mob.hud_used.screentip.maptext = client.screentip_context.context_message
+	client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context]</span>"
+	// Cleanup references for the sake of managing hard-deletes
+	client.screentip_context.user = null
 
 /// Indicates that this atom uses contexts, in any form
 /atom/proc/register_context()

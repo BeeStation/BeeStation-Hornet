@@ -1671,9 +1671,14 @@
 
 /obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	..()
-	if (req_access || req_one_access)
-		context.add_access_context("Access Required", TRUE)
-	context.add_left_click_action("Open", (lights && locked) ? "Bolted" : null, !lights || !locked)
+	if (!hasPower())
+		context.add_left_click_item_action("Pry Open", /obj/item/crowbar)
+		return
+	// Handle lazy initalisation of access
+	if (req_access || req_one_access || req_access_txt || req_one_access_txt)
+		context.add_access_context("Access Required", user_allowed(user))
+	context.add_left_click_action("Open", (lights && locked) ? "Bolted" : null, (!lights || !locked))
 	context.add_left_click_item_action("[panel_open ? "Close" : "Open"] Maintenance Panel", /obj/item/screwdriver)
 	if (panel_open)
 		context.add_left_click_item_action("Hack Maintenance Panel", /obj/item/multitool)
+		context.add_left_click_item_action("Hack Maintenance Panel", /obj/item/wirecutters)
