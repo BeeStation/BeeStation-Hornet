@@ -613,7 +613,7 @@
 
 /datum/emote/living/tail/get_sound(mob/living/user)
 	if(islizard(user))
-		return pick('sound/effects/tail_swipe1.ogg', 'sound/effects/tail_swipe2.ogg')
+		return pick('sound/effects/tail_swipe1.ogg', 'sound/effects/tail_swipe2.ogg')a
 
 
 /// Breathing required + audible emotes
