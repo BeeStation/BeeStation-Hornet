@@ -412,7 +412,7 @@ Arguments:
 		return
 	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_TIME_DELAY)
 		if(critical_threshold_proximity > emergency_point)
-			radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity_percent()]%", common_channel)
+			radio.talk_into(src, "[emergency_alert] Integrity at: [get_integrity_percent()]%", common_channel)
 			lastwarning = REALTIMEOFDAY
 			if(!has_reached_emergency)
 				investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINES)
@@ -425,7 +425,7 @@ Arguments:
 			send_radio_explanation()
 			start_alarm()
 		else if (critical_threshold_proximity < critical_threshold_proximity_archived)// Phew, we're safe, damage going down
-			radio.talk_into(src, "[safe_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
+			radio.talk_into(src, "[safe_alert] Integrity at: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY
 			end_alarm()
 
@@ -454,13 +454,14 @@ Arguments:
 	final_countdown = TRUE
 	var/speaking = "[emergency_alert] The RBMK has reached critical integrity failure. Emergency control rods lowered."
 	radio.talk_into(src, speaking, common_channel, language = get_selected_language())
-
+	var/mutable_appearance/reactor_overlay = mutable_appearance('icons/obj/machines/rbmkparts.dmi', "nuclearwaste_green")
 	notify_ghosts(
 		"The [src] has begun melting down!",
 		source = src,
 		header = "Meltdown Incoming",
 		ghost_sound = 'sound/machines/warning-buzzer.ogg',
 		notify_volume = 75,
+		alert_overlay = reactor_overlay
 	)
 
 	for(var/i in REACTOR_COUNTDOWN_TIME to 0 step -10)
