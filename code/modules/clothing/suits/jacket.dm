@@ -125,23 +125,23 @@
 /obj/item/clothing/suit/jacket/undergroundserpents //www.youtube.com/watch?v=S0ximxe4XtU&t=61s
 	name = "Underground Serpents jacket"
 	desc = "Underground Serpents Jacket rules, we are the underground serpents. That's us, and we rule! ."
-	icon_state = "undergroundserpents"
-	item_state = "undergroundserpents"
+	icon_state = "userpents_jacket"
+	item_state = "userpents_jacket"
 
 /obj/item/clothing/suit/jacket/teenbiker
 	name = "Teen biker jacket"
 	desc = "A red jacket with a pill on its back."
-	icon_state = "teenbiker"
-	item_state = "teenbiker"
+	icon_state = "teenbiker_jacket"
+	item_state = "teenbiker_jacket"
 
 /obj/item/clothing/suit/jacket/driver
 	name = "Driver jacket"
 	desc = "A white and black jacket with a golden scorpion on its back. Perfect for driving through the night."
-	icon_state = "literallyme"
-	item_state = "literallyme"
+	icon_state = "driver_jacket"
+	item_state = "driver_jacket"
 
 /obj/item/clothing/suit/jacket/liutenant
 	name = "Liutenant Vest"
 	desc = "A short orange vest that once belonged to a liutenant."
-	icon_state = "liutenant"
-	item_state = "liutenant"
+	icon_state = "liutenant_jacket"
+	item_state = "liutenant_jacket"
