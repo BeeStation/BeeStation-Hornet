@@ -60,10 +60,10 @@
 			return TRUE
 	if(attacked_item.tool_behaviour == TOOL_SCREWDRIVER)
 		if(power >= SAFE_POWER_LEVEL)
-			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of \the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
 			return FALSE
 		if (length(fuel_rods) > 0)
-			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!</span>")
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of \the [src] while it still has fuel rods inside!</span>")
 			return FALSE
 		default_deconstruction_screwdriver(user, "reactor", "reactor_open", attacked_item)
 		update_appearance()
@@ -71,19 +71,19 @@
 	if(attacked_item.tool_behaviour == TOOL_CROWBAR)
 		if(panel_open)
 			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
+				to_chat(user, "<span class='notice'>You can't deconstruct \the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
 				return FALSE
 			if (length(fuel_rods) > 0)
-				to_chat(user, "<span class='notice'>You can't deconstruct [src] while it still has fuel rods inside!</span>")
+				to_chat(user, "<span class='notice'>You can't deconstruct \the [src] while it still has fuel rods inside!</span>")
 				return FALSE
 			disassemble(attacked_item)
 			return TRUE
 		else
 			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above [SAFE_POWER_LEVEL]% power!")
+				to_chat(user, "<span class='notice'>You can't remove any fuel rods while \the [src] is above [SAFE_POWER_LEVEL]% power!")
 				return FALSE
 			if (length(fuel_rods) == 0)
-				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!</span>")
+				to_chat(user, "<span class='notice'>\the [src] is empty of fuel rods!</span>")
 				return FALSE
 			removeFuelRod(user, src)
 			update_appearance()
