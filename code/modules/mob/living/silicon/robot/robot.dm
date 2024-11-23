@@ -119,6 +119,7 @@
 	return cell
 
 /mob/living/silicon/robot/Initialize(mapload)
+	GLOB.cyborg_list += src
 	default_access_list = get_all_accesses()
 
 	spark_system = new /datum/effect_system/spark_spread()
@@ -149,7 +150,7 @@
 	if(!scrambledcodes && !builtInCamera)
 		builtInCamera = new (src)
 		builtInCamera.c_tag = real_name
-		builtInCamera.network = list("ss13")
+		builtInCamera.network = list(CAMERA_NETWORK_STATION)
 		builtInCamera.internal_light = FALSE
 		if(wires.is_cut(WIRE_CAMERA))
 			builtInCamera.status = 0
@@ -216,6 +217,7 @@
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
+	GLOB.cyborg_list -= src
 	var/atom/T = drop_location()//To hopefully prevent run time errors.
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		if(T)
@@ -297,8 +299,12 @@
 	if(custom_name)
 		changed_name = custom_name
 	if(changed_name == "" && C && C.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
-		if(apply_pref_name(/datum/preference/name/cyborg, C))
-			return //built in camera handled in proc
+		if(check_cyborg_name(C, mmi))
+			if(apply_pref_name(/datum/preference/name/cyborg, C))
+				return //built in camera handled in proc
+		else
+			//Failed the vibe check on name theft, time to randomize it
+			changed_name = get_standard_name()
 	if(!changed_name)
 		changed_name = get_standard_name()
 
@@ -670,7 +676,7 @@
 		src.connected_ai = null
 	lawupdate = FALSE
 	set_lockcharge(FALSE)
-	scrambledcodes = TRUE_DEVIL
+	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
 		QDEL_NULL(builtInCamera)
@@ -1188,7 +1194,7 @@
 /datum/action/innate/undeployment
 	name = "Disconnect from shell"
 	desc = "Stop controlling your shell and resume normal core operations."
-	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_core"
 
 /datum/action/innate/undeployment/Trigger()
@@ -1232,7 +1238,7 @@
 
 /mob/living/silicon/robot/shell
 	shell = TRUE
-	cell = null
+	cell = /obj/item/stock_parts/cell/high
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
 	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them

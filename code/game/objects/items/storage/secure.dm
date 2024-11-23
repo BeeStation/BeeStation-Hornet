@@ -157,6 +157,15 @@
 	for(var/i in 1 to STR.max_items - 2)
 		new /obj/item/stack/spacecash/c1000(src)
 
+/obj/item/storage/secure/briefcase/hitman/PopulateContents()
+	..()
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/gun/ballistic/automatic/pistol(src)
+	new /obj/item/suppressor(src)
+	new /obj/item/melee/classic_baton/police/telescopic(src)
+	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/soap/nanotrasen(src)
 
 // -----------------------------
 //        Secure Safe
@@ -223,7 +232,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/card/id/))
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE

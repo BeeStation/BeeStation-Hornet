@@ -95,9 +95,9 @@
 		var/their = M.p_their()
 
 		var/list/mouth_organs = new
-		for(var/obj/item/organ/O in M.internal_organs)
-			if(O.zone == BODY_ZONE_PRECISE_MOUTH)
-				mouth_organs.Add(O)
+		for(var/obj/item/organ/organ as anything in M.internal_organs)
+			if(organ.zone == BODY_ZONE_PRECISE_MOUTH)
+				mouth_organs.Add(organ)
 		var/organ_list = ""
 		var/organ_count = LAZYLEN(mouth_organs)
 		if(organ_count)
@@ -204,6 +204,8 @@
 	desc = "A small holographic glow that indicates a medic is coming to treat a patient."
 	icon_state = "medi_holo"
 	duration = 30
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/effect/temp_visual/medical_holosign/Initialize(mapload, creator)
 	. = ..()
@@ -603,6 +605,8 @@
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
 
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 
 /obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
 	. = ..()

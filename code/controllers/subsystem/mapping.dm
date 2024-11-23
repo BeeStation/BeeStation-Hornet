@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/datum/map_config/config
 	var/datum/map_config/next_map_config
+	var/datum/map_adjustment/map_adjustment
 
 	var/map_voted = FALSE
 
@@ -61,6 +62,13 @@ SUBSYSTEM_DEF(mapping)
 #else
 	config = load_map_config(error_if_missing = FALSE)
 #endif
+	// After assigning a config datum to var/config, we check which map ajudstment fits the current config
+	for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
+		if(initial(each_adjust.map_file_name) != config.map_file)
+			continue
+		map_adjustment = new each_adjust() // map_adjustment has multiple procs that'll be called from needed places (i.e. job_change)
+		log_world("Loaded '[config.map_file]' map adjustment.")
+		break
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
@@ -71,6 +79,11 @@ SUBSYSTEM_DEF(mapping)
 		if(!config || config.defaulted)
 			to_chat(world, "<span class='boldannounce'>Unable to load next or default map config, defaulting to Box Station</span>")
 			config = old_config
+
+	if(map_adjustment)
+		map_adjustment.on_mapping_init()
+		log_world("Applied '[map_adjustment.map_file_name]' map adjustment: on_mapping_init()")
+
 	initialize_biomes()
 	loadWorld()
 	require_area_resort()
@@ -180,7 +193,7 @@ SUBSYSTEM_DEF(mapping)
 		qdel(T, TRUE)
 
 /* Nuke threats, for making the blue tiles on the station go RED
-   Used by the AI doomsday and the self-destruct nuke.
+	Used by the AI doomsday and the self-destruct nuke.
 */
 
 /datum/controller/subsystem/mapping/proc/add_nuke_threat(datum/nuke)
@@ -277,6 +290,7 @@ SUBSYSTEM_DEF(mapping)
 	return parsed_maps
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
+#ifndef UNIT_TESTS
 	var/start_time = REALTIMEOFDAY
 	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
 		var/list/possibletemplates = list()
@@ -296,9 +310,11 @@ SUBSYSTEM_DEF(mapping)
 				template.spawned = TRUE
 			template.stationinitload(get_turf(R), centered = template.centerspawner)
 		SSmapping.random_room_spawners -= R
+		R.after_place(null, get_turf(R), null, null)
 		qdel(R)
 	random_room_spawners = null
 	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
+#endif
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -513,60 +529,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/datum/map_template/holodeck/holo_template = new holodeck_type()
 
 		holodeck_templates[holo_template.template_id] = holo_template
-
-//Manual loading of away missions.
-/client/proc/admin_away()
-	set name = "Load Away Mission"
-	set category = "Fun"
-
-	if(!holder ||!check_rights(R_FUN))
-		return
-
-
-	if(!GLOB.the_gateway)
-		if(alert("There's no home gateway on the station. You sure you want to continue ?", "Uh oh", "Yes", "No") != "Yes")
-			return
-
-	var/list/possible_options = GLOB.potentialRandomZlevels + "Custom"
-	var/away_name
-	var/datum/space_level/away_level
-
-	var/answer = input("What kind ? ","Away") as null|anything in possible_options
-	switch(answer)
-		if("Custom")
-			var/mapfile = input("Pick file:", "File") as null|file
-			if(!mapfile)
-				return
-			away_name = "[mapfile] custom"
-			to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
-			var/datum/map_template/template = new(mapfile, "Away Mission")
-			away_level = template.load_new_z()
-		else
-			if(answer in GLOB.potentialRandomZlevels)
-				away_name = answer
-				to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
-				var/datum/map_template/template = new(away_name, "Away Mission")
-				away_level = template.load_new_z()
-			else
-				return
-
-	message_admins("Admin [key_name_admin(usr)] has loaded [away_name] away mission.")
-	log_admin("Admin [key_name(usr)] has loaded [away_name] away mission.")
-	if(!away_level)
-		message_admins("Loading [away_name] failed!")
-		return
-
-
-	if(GLOB.the_gateway)
-		//Link any found away gate with station gate
-		var/obj/machinery/gateway/centeraway/new_gate
-		for(var/obj/machinery/gateway/centeraway/G in GLOB.machines)
-			if(G.z == away_level.z_value) //I'll have to refactor gateway shitcode before multi-away support.
-				new_gate = G
-				break
-		//Link station gate with away gate and remove wait time.
-		GLOB.the_gateway.awaygate = new_gate
-		GLOB.the_gateway.wait = world.time
 
 /datum/controller/subsystem/mapping/proc/RequestBlockReservation(width, height, z, type = /datum/turf_reservation, turf_type_override)
 	UNTIL((!z || reservation_ready["[z]"]) && !clearing_reserved_turfs)

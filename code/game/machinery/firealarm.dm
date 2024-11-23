@@ -40,6 +40,8 @@
 	var/area/myarea = null
 	var/locked = FALSE //Are we locked?
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
+
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()
 	if (!req_access)
@@ -191,10 +193,7 @@
 	else
 		alarm(user)
 
-/obj/machinery/firealarm/attack_ai(mob/user)
-	return attack_hand(user)
-
-/obj/machinery/firealarm/attack_robot(mob/user)
+/obj/machinery/firealarm/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/firealarm/attackby(obj/item/W, mob/user, params)
@@ -212,13 +211,13 @@
 	if(panel_open)
 
 		if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
-			if(obj_integrity < max_integrity)
+			if(atom_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
 					return
 
 				to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 				if(W.use_tool(src, user, 40, volume=50))
-					obj_integrity = max_integrity
+					atom_integrity = max_integrity
 					to_chat(user, "<span class='notice'>You repair [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
@@ -295,7 +294,7 @@
 
 				else if(W.tool_behaviour == TOOL_WRENCH)
 					user.visible_message("[user] removes the fire alarm assembly from the wall.", \
-										 "<span class='notice'>You remove the fire alarm assembly from the wall.</span>")
+										"<span class='notice'>You remove the fire alarm assembly from the wall.</span>")
 					var/obj/item/wallframe/firealarm/frame = new /obj/item/wallframe/firealarm()
 					frame.forceMove(user.drop_location())
 					W.play_tool_sound(src)
@@ -324,7 +323,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(machine_stat & BROKEN) && buildstage != 0)
+		if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != 0)
 			if(prob(33))
 				alarm()
 
@@ -333,7 +332,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 		deconstruct()
 	..()
 
-/obj/machinery/firealarm/obj_break(damage_flag)
+/obj/machinery/firealarm/atom_break(damage_flag)
 	if(buildstage == 0) //can't break the electronics if there isn't any inside.
 		return
 	. = ..()
@@ -389,3 +388,5 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 	if (!party_overlay)
 		party_overlay = iconstate2appearance('icons/turf/areas.dmi', "party")
 	A.add_overlay(party_overlay)
+
+#undef FIREALARM_COOLDOWN

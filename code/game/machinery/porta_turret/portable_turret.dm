@@ -336,7 +336,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret)
 DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You add [src] to multitool buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/porta_turret/on_emag(mob/user)
@@ -374,7 +374,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0) //damage received
+	if(. && atom_integrity > 0) //damage received
 		if(prob(30))
 			spark_system.start()
 		if(on && !attacked && !(obj_flags & EMAGGED))
@@ -387,7 +387,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
 	qdel(src)
 
-/obj/machinery/porta_turret/obj_break(damage_flag)
+/obj/machinery/porta_turret/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		power_change()
@@ -628,7 +628,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_toggle
 	name = "Toggle Mode"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/turret_toggle/Trigger()
@@ -639,7 +639,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_quit
 	name = "Release Control"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
 /datum/action/turret_quit/Trigger()
@@ -865,14 +865,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	var/lethal = FALSE
 	/// Variable dictating if the panel is locked, preventing changes to turret settings
 	var/locked = TRUE
-	 /// An area in which linked turrets are located, it can be an area name, path or nothing
+	/// An area in which linked turrets are located, it can be an area name, path or nothing
 	var/control_area = null
-	 /// Silicons are unable to use this machine if set to TRUE
+	/// Silicons are unable to use this machine if set to TRUE
 	var/ailock = FALSE
 	/// Variable dictating if linked turrets will shoot cyborgs
 	var/shoot_cyborgs = FALSE
 	/// List of all linked turrets
 	var/list/turrets = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 
 /obj/machinery/turretid/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
@@ -931,7 +933,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	if(buffer && istype(buffer, /obj/machinery/porta_turret))
 		turrets |= buffer
 		to_chat(user, "You link \the [buffer] with \the [src]")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/turretid/on_emag(mob/user)
@@ -939,13 +941,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	locked = FALSE
 
-/obj/machinery/turretid/attack_robot(mob/user)
-	if(!ailock)
-		return attack_hand(user)
-	else
-		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-
-/obj/machinery/turretid/attack_ai(mob/user)
+/obj/machinery/turretid/attack_silicon(mob/user)
 	if(!ailock || IsAdminGhost(user))
 		return attack_hand(user)
 	else
@@ -1167,3 +1163,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 			if(istype(P, /obj/projectile/beam/lasertag/bluetag))
 				toggle_on(FALSE)
 				addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), 10 SECONDS)
+
+#undef TURRET_STUN
+#undef TURRET_LETHAL
+
+#undef POPUP_ANIM_TIME
+#undef POPDOWN_ANIM_TIME

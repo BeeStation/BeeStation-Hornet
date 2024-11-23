@@ -155,7 +155,7 @@
 			if(!card_slot2)
 				return
 			if(target_id_card)
-				GLOB.data_core.manifest_modify(target_id_card.registered_name, target_id_card.assignment, target_id_card.hud_state)
+				GLOB.manifest.modify(target_id_card.registered_name, target_id_card.assignment, target_id_card.hud_state)
 				return card_slot2.try_eject(user)
 			else
 				var/obj/item/I = user.get_active_held_item()
@@ -300,12 +300,12 @@
 	else if(isnull(departments))
 		departments = list(
 			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
-			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
-			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
-			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
-			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
-			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
+			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
+			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
+			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
+			CARDCON_DEPARTMENT_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
+			CARDCON_DEPARTMENT_SUPPLY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
+			CARDCON_DEPARTMENT_CIVILIAN = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)
 		)
 	data["jobs"] = list()
 	for(var/department in departments)

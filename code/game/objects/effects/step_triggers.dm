@@ -69,7 +69,7 @@
 			return
 
 	if(immobilize)
-		ADD_TRAIT(AM, TRAIT_IMMOBILIZED, src)
+		ADD_TRAIT(AM, TRAIT_IMMOBILIZED, REF(src))
 
 	affecting[AM] = AM.dir
 	var/datum/move_loop/loop = SSmove_manager.move(AM, direction, speed, tiles ? tiles * speed : INFINITY)

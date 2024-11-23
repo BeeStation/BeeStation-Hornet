@@ -128,7 +128,7 @@
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_ecult"
 	button_icon_state = "rune_break"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_heretic.dmi'
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -172,6 +172,8 @@
 	var/carver_tip
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()

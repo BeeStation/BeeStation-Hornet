@@ -93,10 +93,10 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(istype(H.dna.species, /datum/species/pod))
+		if(isdiona(H))
 			var/obj/item/bodypart/NB = pick(H.bodyparts)
 			H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", \
-								  "<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
+									"<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
 			NB.dismember()
 //cow
 /mob/living/simple_animal/cow
@@ -368,3 +368,19 @@
 	validColors = list("plain")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
+
+/mob/living/simple_animal/chicken/rabbit
+	name = "\improper rabbit"
+	desc = "It's a rabbit, everyone knows what a rabbit is."
+	icon = 'icons/mob/easter.dmi'
+	icon_state = "b_rabbit_white"
+	icon_living = "b_rabbit_white"
+	icon_dead = "b_rabbit_white_dead"
+	speak = null
+	speak_emote = list("sniffles","twitches")
+	emote_hear = list("hops.")
+	emote_see = list("hops around","bounces up and down")
+	icon_prefix = "b_rabbit"
+	feedMessages = list("It nibbles happily.","It noms happily.")
+	butcher_results = list(/obj/item/food/meat/slab = 1)
+	food_type = /obj/item/food/grown/carrot

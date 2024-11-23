@@ -99,7 +99,7 @@
 			trigger_alarm()
 	qdel(src)
 
-/obj/structure/displaycase/obj_break(damage_flag)
+/obj/structure/displaycase/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		set_density(FALSE)
@@ -149,13 +149,13 @@
 			to_chat(user, "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
 				return
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(W.use_tool(src, user, 40, amount=5, volume=50))
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				update_icon()
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
@@ -190,7 +190,7 @@
 		if(do_after(user, 20, target = src))
 			G.use(2)
 			broken = FALSE
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			update_icon()
 	else
 		return ..()
@@ -214,7 +214,7 @@
 		add_fingerprint(user)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if (!Adjacent(user))
 			return
 		if (user.a_intent == INTENT_HELP)
@@ -403,6 +403,8 @@
 /obj/item/showpiece_dummy
 	name = "Cheap replica"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
+
 /obj/item/showpiece_dummy/Initialize(mapload, path)
 	. = ..()
 	var/obj/item/I = path
@@ -561,11 +563,11 @@
 
 /obj/structure/displaycase/forsale/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(obj_integrity <= (integrity_failure *  max_integrity))
+	if(atom_integrity <= (integrity_failure * max_integrity))
 		to_chat(user, "<span class='notice'>You start recalibrating [src]'s hover field...</span>")
 		if(do_after(user, 20, target = src))
 			broken = FALSE
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			update_icon()
 			ui_update()
 			return TRUE
@@ -604,7 +606,7 @@
 	if(broken)
 		. += "<span class='notice'>[src] is sparking and the hover field generator seems to be overloaded. Use a multitool to fix it.</span>"
 
-/obj/structure/displaycase/forsale/obj_break(damage_flag)
+/obj/structure/displaycase/forsale/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE

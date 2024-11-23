@@ -199,7 +199,7 @@
 	icon_state = "cross"
 
 /obj/item/clothing/neck/neckerchief
-	icon = 'icons/obj/clothing/masks.dmi' //In order to reuse the bandana sprite
+	worn_icon = "empty_bandana"
 	w_class = WEIGHT_CLASS_TINY
 	var/sourceBandanaType
 

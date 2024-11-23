@@ -82,7 +82,7 @@
 						"<span class='userdanger'>You're knocked unconscious by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 		to_chat(A, "<span class='danger'>You kick [D]'s head, knocking [D.p_them()] out!</span>")
 		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		D.SetSleeping(300)
+		D.SetSleeping(10 SECONDS)
 		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 150)
 	return TRUE
 
@@ -215,7 +215,7 @@
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 						"<span class='userdanger'>You're put into a chokehold by [A]!</span>", "<span class='hear'>You hear shuffling and a muffled groan!</span>", null, A)
 		to_chat(A, "<span class='danger'>You put [D] into a chokehold!</span>")
-		D.SetSleeping(400)
+		D.SetSleeping(15 SECONDS)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
 			A.setGrabState(GRAB_NECK)
@@ -237,3 +237,9 @@
 	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
 	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+
+#undef SLAM_COMBO
+#undef KICK_COMBO
+#undef RESTRAIN_COMBO
+#undef PRESSURE_COMBO
+#undef CONSECUTIVE_COMBO

@@ -33,7 +33,7 @@
 	var/list/wire_to_colors = list() // Dictionary of colors to wire.
 	var/list/assemblies = list() // List of attached assemblies.
 	var/randomize = 0 // If every instance of these wires should be random.
-					  // Prevents wires from showing up in station blueprints
+						// Prevents wires from showing up in station blueprints
 	var/list/labelled_wires = list() // Associative List of wires that have labels. Key = wire, Value = Bool (Revealed) [To be refactored into skills]
 
 /datum/wires/New(atom/holder)
@@ -58,7 +58,12 @@
 
 /datum/wires/Destroy()
 	holder = null
-	assemblies.Cut()
+	//properly clear refs to avoid harddels & other problems
+	for(var/color in assemblies)
+		var/obj/item/assembly/assembly = assemblies[color]
+		assembly.holder = null
+		assembly.connected = null
+	LAZYCLEARLIST(assemblies)
 	return ..()
 
 /datum/wires/proc/add_duds(duds)
@@ -178,7 +183,16 @@
 	if(S && istype(S) && S.attachable && !is_attached(color))
 		assemblies[color] = S
 		S.forceMove(holder)
+		/**
+		 * special snowflake check for machines
+		 * someone attached a signaler to the machines wires
+		 * move it to the machines component parts so it doesn't get moved out in dump_inventory_contents() which gets called a lot
+		 */
+		if(istype(holder, /obj/machinery))
+			var/obj/machinery/machine = holder
+			LAZYADD(machine.component_parts, S)
 		S.connected = src
+		S.on_attach() // Notify assembly that it is attached
 		ui_update()
 		return S
 
@@ -187,7 +201,7 @@
 	if(S && istype(S))
 		assemblies -= color
 		S.connected = null
-		S.forceMove(holder.drop_location())
+		S.on_detach() // Notify the assembly.  This should remove the reference to our holder
 		ui_update()
 		return S
 

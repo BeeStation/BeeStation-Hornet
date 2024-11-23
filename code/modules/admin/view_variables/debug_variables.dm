@@ -4,11 +4,12 @@
 	if(owner)
 		if(islist(owner))
 			var/index = name
+			var/list/owner_list = owner
 			if (value)
-				name = owner[name] //name is really the index until this line
+				name = owner_list[name] //name is really the index until this line
 			else
-				value = owner[name]
-			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner, VV_HK_LIST_REMOVE, "-", index)]) "
+				value = owner_list[name]
+			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
 		else
 			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
 	else
@@ -34,6 +35,9 @@
 
 	if(isnull(value))
 		return "<span class='value'>null</span>"
+
+	if(iscolortext(value))
+		return "<span class='value'>\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span></span>"
 
 	if(istext(value))
 		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"

@@ -11,6 +11,8 @@
 	var/turf/target
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/acid)
+
 /obj/effect/acid/Initialize(mapload, acid_pwr, acid_amt)
 	. = ..()
 
@@ -64,7 +66,7 @@
 
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(L.movement_type & FLYING)
+		if(L.movement_type & (FLOATING|FLYING))
 			return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level*0.05, 20)

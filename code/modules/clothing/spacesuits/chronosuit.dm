@@ -13,11 +13,6 @@
 	if(suit)
 		suit.deactivate(1, 1)
 
-/obj/item/clothing/head/helmet/space/chronos/Destroy()
-	dropped()
-	return ..()
-
-
 /obj/item/clothing/suit/space/chronos
 	name = "Chronosuit"
 	desc = "An advanced spacesuit equipped with time-bluespace teleportation and anti-compression technology."
@@ -58,13 +53,7 @@
 		else
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/dropped()
-	..()
-	if(activated)
-		deactivate()
-
 /obj/item/clothing/suit/space/chronos/Destroy()
-	dropped()
 	QDEL_NULL(teleport_now)
 	return ..()
 
@@ -213,8 +202,8 @@
 		var/hard_landing = teleporting && force
 		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
-		activated = 0
-		activating = 0
+		activated = FALSE
+		activating = FALSE
 		finish_chronowalk()
 		if(user && ishuman(user))
 			teleport_now.Remove(user)
@@ -316,6 +305,8 @@
 	color = list(1,0,0,0, 0,1,0,0.8, 0,0,1,0.933, 0,0,0,0, 0,0,0,0)
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/chronos_target)
+
 /atom/movable/screen/chronos_target/Initialize(mapload, mob/living/carbon/human/user)
 	if(user)
 		vis_contents += user
@@ -325,7 +316,7 @@
 
 /datum/action/innate/chrono_teleport
 	name = "Teleport Now"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "chrono_phase"
 	check_flags = AB_CHECK_CONSCIOUS //|AB_CHECK_INSIDE
 	var/obj/item/clothing/suit/space/chronos/chronosuit = null

@@ -1,6 +1,7 @@
 /obj/item/organ/stomach
 	name = "stomach"
 	icon_state = "stomach"
+	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
@@ -42,6 +43,9 @@
 		if(prob((damage/10) * nutriment.volume * nutriment.volume))
 			H.vomit(damage)
 			to_chat(H, "<span class='warning'>Your stomach reels in pain as you're incapable of holding down all that food!</span>")
+
+/obj/item/organ/stomach/get_availability(datum/species/S)
+	return !(NOSTOMACH in S.species_traits)
 
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H)
 	if(H.disgust)
@@ -217,3 +221,8 @@
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_FAILING //Starts organ failure - gonna need replacing soon.
+
+/obj/item/organ/stomach/diona
+	name = "nutrient vessel"
+	desc = "A group of plant matter and vines, useful for digestion of light and radiation."
+	icon_state = "diona_stomach"

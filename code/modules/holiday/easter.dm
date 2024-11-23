@@ -26,32 +26,26 @@
 		if(R.name != "blobspawn")
 			if(prob(35))
 				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/chicken/rabbit/space(R.loc)
+					new /mob/living/simple_animal/chicken/rabbit/easter/space(R.loc)
 				else
-					new /mob/living/simple_animal/chicken/rabbit(R.loc)
+					new /mob/living/simple_animal/chicken/rabbit/easter(R.loc)
 
-/mob/living/simple_animal/chicken/rabbit
-	name = "\improper rabbit"
+/mob/living/simple_animal/chicken/rabbit/easter
 	desc = "The hippiest hop around."
-	icon = 'icons/mob/easter.dmi'
 	icon_state = "rabbit_white"
 	icon_living = "rabbit_white"
 	icon_dead = "rabbit_white_dead"
 	speak = list("Hop into Easter!","Come get your eggs!","Prizes for everyone!")
-	speak_emote = list("sniffles","twitches")
 	speak_language = /datum/language/metalanguage // everyone should understand happy easter
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
-	butcher_results = list(/obj/item/food/meat/slab = 1)
 	egg_type = /obj/item/suprise_egg
 	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
-	icon_prefix = "rabbit"
-	feedMessages = list("It nibbles happily.","It noms happily.")
 	layMessage = list("hides an egg.","scampers around suspiciously.","begins making a huge racket.","begins shuffling.")
 
-/mob/living/simple_animal/chicken/rabbit/space
+/mob/living/simple_animal/chicken/rabbit/easter/space
 	icon_prefix = "s_rabbit"
 	icon_state = "s_rabbit_white"
 	icon_living = "s_rabbit_white"
@@ -82,7 +76,7 @@
 /obj/item/storage/basket/easter/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
+	STR.set_holdable(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
 
 /obj/item/storage/basket/easter/proc/countEggs()
 	cut_overlays()
@@ -172,24 +166,6 @@
 	foodtypes = SUGAR | GRAIN
 	tastes = list("easter")
 
-/datum/crafting_recipe/food/hotcrossbun
-	name = "Hot-Cross Bun"
-	reqs = list(
-		/obj/item/food/bread/plain = 1,
-		/datum/reagent/consumable/sugar = 1
-	)
-	result = /obj/item/food/hotcrossbun
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/briochecake
-	name = "Brioche cake"
-	reqs = list(
-		/obj/item/food/cake/plain = 1,
-		/datum/reagent/consumable/sugar = 2
-	)
-	result = /obj/item/food/cake/brioche
-	subcategory = CAT_MISCFOOD
-
 /obj/item/food/scotchegg
 	name = "scotch egg"
 	desc = "A boiled egg wrapped in a delicious, seasoned meatball."
@@ -198,38 +174,8 @@
 	bite_consumption = 3
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 
-/datum/crafting_recipe/food/scotchegg
-	name = "Scotch egg"
-	reqs = list(
-		/datum/reagent/consumable/sodiumchloride = 1,
-		/datum/reagent/consumable/blackpepper = 1,
-		/obj/item/food/boiledegg = 1,
-		/obj/item/food/meatball = 1
-	)
-	result = /obj/item/food/scotchegg
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/mammi
-	name = "Mammi"
-	reqs = list(
-		/obj/item/food/bread/plain = 1,
-		/obj/item/food/chocolatebar = 1,
-		/datum/reagent/consumable/milk = 5
-	)
-	result = /obj/item/food/soup/mammi
-	subcategory = CAT_MISCFOOD
-
 /obj/item/food/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
-
-/datum/crafting_recipe/food/chocolatebunny
-	name = "Chocolate bunny"
-	reqs = list(
-		/datum/reagent/consumable/sugar = 2,
-		/obj/item/food/chocolatebar = 1
-	)
-	result = /obj/item/food/chocolatebunny
-	subcategory = CAT_MISCFOOD

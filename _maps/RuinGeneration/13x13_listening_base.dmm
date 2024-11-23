@@ -119,11 +119,11 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -30
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -4;
 	pixel_y = 14
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -347,8 +347,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "sQ" = (
 /obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/mining_scanner,
 /obj/item/pickaxe,
@@ -398,7 +397,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "uw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/med_data/syndie{
+/obj/machinery/computer/records/medical/syndie{
 	dir = 4;
 	req_one_access = null
 	},

@@ -141,6 +141,14 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`feature_human_tail` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_human_ears` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_psyphoza_cap` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_leaves` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_thorns` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_flowers` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_moss` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_mushroom` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`helmet_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`preferred_ai_core_display` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`preferred_security_department` VARCHAR(32) COLLATE 'utf8mb4_general_ci',
@@ -497,7 +505,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 2);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 3);
 
 
 

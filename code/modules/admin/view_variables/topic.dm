@@ -20,7 +20,7 @@
 
 	if(check_rights(R_VAREDIT))
 
-	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
+	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and manifest records).
 
 		if(href_list["rename"])
 			if(!check_rights(NONE))
@@ -127,6 +127,6 @@
 	//Finally, refresh if something modified the list.
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locate(href_list["datumrefresh"])
-		if(istype(DAT, /datum) || istype(DAT, /client))
+		if(istype(DAT, /datum) || istype(DAT, /client) || islist(DAT))
 			debug_variables(DAT)
 

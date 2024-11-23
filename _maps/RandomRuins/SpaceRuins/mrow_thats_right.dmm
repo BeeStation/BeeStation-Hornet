@@ -15,7 +15,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "af" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ag" = (
@@ -28,7 +28,7 @@
 "ai" = (
 /obj/structure/janitorialcart,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -170,13 +170,13 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "aK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/cup/bowl,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "aL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/cup/bowl,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "aM" = (
@@ -196,7 +196,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -204,10 +204,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -278,10 +278,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window/westleft{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -439,10 +439,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window/northleft{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -691,7 +691,7 @@
 "hz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/cup/bowl,
 /obj/item/food/meat/slab/synthmeat{
 	desc = "A slab of cat meat. Tastes like furball.";
 	name = "cat meat"

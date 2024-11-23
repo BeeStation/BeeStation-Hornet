@@ -4,6 +4,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
+	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
@@ -66,6 +67,9 @@
 #undef HAS_SILENT_TOXIN
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN
+
+/obj/item/organ/liver/get_availability(datum/species/S)
+	return !(TRAIT_NOMETABOLISM in S.species_traits)
 
 /obj/item/organ/liver/fly
 	name = "insectoid liver"
@@ -132,3 +136,11 @@
 			owner.toxloss += 15
 		if(2)
 			owner.toxloss += 5
+
+/obj/item/organ/liver/diona
+	name = "liverwort"
+	desc = "A mass of plant vines and leaves, seeming to be responsible for chemical digestion."
+	icon_state = "diona_liver"
+
+#undef LIVER_DEFAULT_TOX_TOLERANCE
+#undef LIVER_DEFAULT_TOX_LETHALITY

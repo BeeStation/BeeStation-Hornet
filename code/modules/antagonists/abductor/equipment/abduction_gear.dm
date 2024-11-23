@@ -19,6 +19,7 @@
 		/obj/item/abductor,
 		/obj/item/abductor/baton,
 		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)
@@ -74,12 +75,20 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
+		RegisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_disguise_name))
 		M.name_override = disguise.name
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
 		M.update_inv_hands()
+
+/obj/item/clothing/suit/armor/abductor/vest/proc/return_disguise_name(mob/living/carbon/human/source, list/identity)
+	SIGNAL_HANDLER
+	if(identity[VISIBLE_NAME_FORCED]) // name-forcing overrides disguise
+		return
+	identity[VISIBLE_NAME_FACE] = disguise.name
+	identity[VISIBLE_NAME_ID] = ""
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -88,6 +97,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
+		UnregisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME)
 		M.name_override = null
 		M.cut_overlays()
 		M.regenerate_icons()
@@ -380,19 +390,19 @@
 	default_raw_text = {"<b>Dissection for Dummies</b><br>
 
 <br>
- 1.Acquire fresh specimen.<br>
- 2.Put the specimen on operating table.<br>
- 3.Apply surgical drapes, preparing for experimental dissection.<br>
- 4.Apply scalpel to specimen's torso.<br>
- 5.Clamp bleeders on specimen's torso with a hemostat.<br>
- 6.Retract skin of specimen's torso with a retractor.<br>
- 7.Apply scalpel again to specimen's torso.<br>
- 8.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
- 9.Insert replacement gland (Retrieve one from gland storage).<br>
- 10.Consider dressing the specimen back to not disturb the habitat. <br>
- 11.Put the specimen in the experiment machinery.<br>
- 12.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
- 13.You will receive one supply credit, and the subject will be counted towards your quota.<br>
+1.Acquire fresh specimen.<br>
+2.Put the specimen on operating table.<br>
+3.Apply surgical drapes, preparing for experimental dissection.<br>
+4.Apply scalpel to specimen's torso.<br>
+5.Clamp bleeders on specimen's torso with a hemostat.<br>
+6.Retract skin of specimen's torso with a retractor.<br>
+7.Apply scalpel again to specimen's torso.<br>
+8.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
+9.Insert replacement gland (Retrieve one from gland storage).<br>
+10.Consider dressing the specimen back to not disturb the habitat. <br>
+11.Put the specimen in the experiment machinery.<br>
+12.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
+13.You will receive one supply credit, and the subject will be counted towards your quota.<br>
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
@@ -524,7 +534,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	log_combat(user, L, "stunned")
 
 /obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.incapacitated(TRUE, TRUE))
+	if(L.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the sleep inducement!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induced sleep in [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
@@ -878,3 +888,15 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 	can_adjust = FALSE
+
+#undef VEST_STEALTH
+#undef VEST_COMBAT
+#undef GIZMO_SCAN
+#undef GIZMO_MARK
+#undef MIND_DEVICE_MESSAGE
+#undef MIND_DEVICE_CONTROL
+#undef BATON_STUN
+#undef BATON_SLEEP
+#undef BATON_CUFF
+#undef BATON_PROBE
+#undef BATON_MODES

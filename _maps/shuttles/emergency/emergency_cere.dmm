@@ -458,7 +458,7 @@
 /area/shuttle/escape)
 "gd" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /obj/item/wrench,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -491,7 +491,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "gP" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -1109,7 +1109,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "SH" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
