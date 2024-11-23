@@ -176,7 +176,6 @@ Arguments:
 	RegisterSignal(linked_moderator, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
 	START_PROCESSING(SSmachines, src)
 	desired_reate_of_reaction = 1
-	can_unwrench = 0
 	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
 	playsound(loc, startup_sound, 50)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
@@ -237,7 +236,6 @@ Arguments:
 		linked_moderator.update_appearance()
 	STOP_PROCESSING(SSmachines, src)
 	rate_of_reaction = 0
-	can_unwrench = 1
 	desired_reate_of_reaction = 0
 	temperature = 0
 	soundloop.stop()

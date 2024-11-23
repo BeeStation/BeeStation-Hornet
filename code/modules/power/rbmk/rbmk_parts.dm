@@ -166,6 +166,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	power_channel = AREA_USAGE_ENVIRON
+
 /obj/item/book/manual/wiki/rbmk
 	name = "\improper Hayne's nuclear reactor owner's manual"
 	icon_state ="bookEngineering2"
