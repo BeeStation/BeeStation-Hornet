@@ -60498,9 +60498,6 @@
 /area/crew_quarters/heads/hop)
 "rFe" = (
 /obj/machinery/light/small,
-/obj/machinery/camera/directional/west{
-	c_tag = "Auxilary Restrooms"
-	},
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/auxiliary)
 "rFh" = (
