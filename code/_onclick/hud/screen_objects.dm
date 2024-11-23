@@ -259,7 +259,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
 		usr.dropItemToGround(usr.get_active_held_item())
-		update_icon()
+		update_appearance()
 
 /atom/movable/screen/drop/disappearing/update_icon_state()
 	icon_state = usr.get_active_held_item() ? "act_drop" : null
@@ -273,20 +273,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
 /atom/movable/screen/combattoggle/New(loc, ...)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /atom/movable/screen/combattoggle/Click()
 	if(isliving(usr))
 		var/mob/living/owner = usr
 		owner.set_combat_mode(!owner.combat_mode, FALSE)
-		update_icon()
+		update_appearance()
 
 /atom/movable/screen/combattoggle/update_icon_state()
-	. = ..()
 	var/mob/living/user = hud?.mymob
 	if(!istype(user) || !user.client)
 		return
 	icon_state = user.combat_mode ? "combat" : "combat_off" //Treats the combat_mode
+	return ..()
 
 //Version of the combat toggle with the flashy overlay
 /atom/movable/screen/combattoggle/flashy
@@ -299,11 +299,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	if(!istype(user) || !user.client)
 		return
 
-	if(user.combat_mode)
-		if(!flashy)
-			flashy = mutable_appearance('icons/hud/screen_gen.dmi', "togglefull_flash")
-			flashy.color = "#C62727"
-		. += flashy
+	if(!user.combat_mode)
+		return
+
+	if(!flashy)
+		flashy = mutable_appearance('icons/hud/screen_gen.dmi', "togglefull_flash")
+		flashy.color = "#C62727"
+	. += flashy
 
 /atom/movable/screen/combattoggle/robot
 	icon = 'icons/hud/screen_cyborg.dmi'
