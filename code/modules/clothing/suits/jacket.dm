@@ -130,18 +130,18 @@
 
 /obj/item/clothing/suit/jacket/kaneda
 	name = "Teen biker jacket"
-	desc = "Good for health. Bad for education."
+	desc = "A red jacket with a pill on its backs."
 	icon_state = "kaneda"
 	item_state = "kaneda"
 
-/obj/item/clothing/suit/jacket/literallyme
+/obj/item/clothing/suit/jacket/driver
 	name = "Driver jacket"
-	desc = "Literally me."
+	desc = "A white and black jacket with a golden scorpion on its back. Perfect for driving through the night."
 	icon_state = "literallyme"
 	item_state = "literallyme"
 
-/obj/item/clothing/suit/jacket/kim
-	name = "Liutenant jacket"
-	desc = "There must be another way into the building."
+/obj/item/clothing/suit/jacket/liutenant
+	name = "Liutenant Vest"
+	desc = "A short orange vest that once belonged to a liutenant."
 	icon_state = "kim"
 	item_state = "kim"
