@@ -121,3 +121,27 @@
 	icon_state = "aristo_blue"
 	item_state = "aristo_blue"
 
+// New COOL jackets
+/obj/item/clothing/suit/jacket/tunnelsnakes
+	name = "Underground Serpents jacket"
+	desc = "Underground Serpents Jacket rules, we are the underground serpents. That's us, and we rule! ."
+	icon_state = "tunnelsnakes"
+	item_state = "tunnelsnakes"
+
+/obj/item/clothing/suit/jacket/kaneda
+	name = "Teen biker jacket"
+	desc = "Good for health. Bad for education."
+	icon_state = "kaneda"
+	item_state = "kaneda"
+
+/obj/item/clothing/suit/jacket/literallyme
+	name = "Driver jacket"
+	desc = "Literally me."
+	icon_state = "literallyme"
+	item_state = "literallyme"
+
+/obj/item/clothing/suit/jacket/kim
+	name = "Liutenant jacket"
+	desc = "There must be another way into the building."
+	icon_state = "kim"
+	item_state = "kim"
