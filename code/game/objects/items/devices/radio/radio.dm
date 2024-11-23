@@ -380,7 +380,7 @@
 	return FALSE
 
 /obj/item/radio/ui_state(mob/user)
-	if(isAI(user))
+	if(issilicon(user))
 		return GLOB.inventory_state
 	else
 		return GLOB.hands_state
