@@ -615,7 +615,6 @@
 	if(islizard(user))
 		return pick('sound/effects/tail_swipe1.ogg', 'sound/effects/tail_swipe2.ogg')
 
-
 /// Breathing required + audible emotes
 
 /datum/emote/living/must_breathe
