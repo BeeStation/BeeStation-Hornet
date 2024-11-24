@@ -59,6 +59,11 @@
 	SET_MOLES(/datum/gas/oxygen, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
 	SET_MOLES(/datum/gas/nitrous_oxide, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
+/obj/item/tank/internals/anesthetic/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A warning is etched into [src]...</span>"
+	. += "<span class='warning'>There is no process in the body that uses N2O, so patients will exhale the N2O... exposing you to it. Make sure to work in a well-ventilated space to avoid sleepy mishaps.</span>"
+
 /*
  * Air
  */
