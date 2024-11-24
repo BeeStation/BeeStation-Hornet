@@ -39,19 +39,17 @@ export const Vent = (props: VentProps, context) => {
     <Section
       title={decodeHtmlEntities(long_name)}
       buttons={
-        <>
-          <Button
-            icon={power ? 'power-off' : 'times'}
-            selected={power}
-            content={power ? 'On' : 'Off'}
-            onClick={() =>
-              act('power', {
-                ref: refID,
-                val: Number(!power),
-              })
-            }
-          />
-        </>
+        <Button
+          icon={power ? 'power-off' : 'times'}
+          selected={power}
+          content={power ? 'On' : 'Off'}
+          onClick={() =>
+            act('power', {
+              ref: refID,
+              val: Number(!power),
+            })
+          }
+        />
       }>
       <LabeledList>
         <LabeledList.Item label="Mode">
