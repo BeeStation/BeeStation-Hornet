@@ -340,7 +340,7 @@
 	var/roasted = FALSE
 
 /obj/item/food/sausage/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,/*  screentip_verb = "Slice"*/)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/sausage/american, 1, 3 SECONDS, table_required = TRUE)
 
 /obj/item/food/sausage/american

@@ -13,7 +13,7 @@
  * variable accesses
  */
 /atom/MouseEntered(location, control, params)
-	SHOULD_CALL_PARENT(TRUE)
+	//SHOULD_CALL_PARENT(TRUE)
 	// If someone is connected to us in the queue, then we don't need to requeue
 	if (usr.client.hovered_atom)
 		usr.client.hovered_atom = src
@@ -46,7 +46,9 @@
 		client.screentip_context.ctrl_left_mouse_context = ""
 		client.screentip_context.alt_left_mouse_context = ""
 		client.screentip_context.ctrl_shift_left_mouse_context = ""
-		SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, client.screentip_context, client.mob)
+
+
+		SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, client.screentip_context, client.screentip_context.held_item, client.mob)
 		add_context_self(client.screentip_context, client.mob)
 		if (client.screentip_context.relevant)
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context][client.screentip_context.ctrl_left_mouse_context][client.screentip_context.shift_left_mouse_context][client.screentip_context.alt_left_mouse_context][client.screentip_context.ctrl_shift_left_mouse_context][client.screentip_context.tool_icon_context]</span>"
