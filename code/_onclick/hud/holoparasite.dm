@@ -152,6 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
 	return ..()
 
 /atom/movable/screen/holoparasite/MouseEntered(location, control, params)
+	..()
 	if(QDELETED(src))
 		return
 	if(usr == owner)

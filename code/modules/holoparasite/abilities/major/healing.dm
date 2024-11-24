@@ -203,6 +203,7 @@
 	new /obj/effect/temp_visual/heal(get_turf(target), owner.accent_color)
 
 /atom/movable/screen/act_intent/holopara_healer/MouseEntered(location, control, params)
+	..()
 	if(!QDELETED(src))
 		openToolTip(usr, src, params, title = "Healing Intent", content = "<font color='green'><b>HELP</b></font> intent to heal.<br><font color='red'><b>HARM</b></font> intent to attack normally.")
 
