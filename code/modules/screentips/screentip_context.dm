@@ -74,6 +74,10 @@
 				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
 			if (TOOL_MULTITOOL)
 				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
+			if (TOOL_KNIFE)
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [action_text]")]</span>")]"
+			if (TOOL_ROLLINGPIN)
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_generic_deconstruction_actions(obj/machinery/machine)
 	if (!machine.panel_open)

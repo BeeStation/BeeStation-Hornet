@@ -14,6 +14,8 @@ GLOBAL_VAR_INIT(hint_crowbar, "<span style='font-size: 1px'>.</span>\icon[GLOB.s
 GLOBAL_VAR_INIT(hint_wirecutters, "<span style='font-size: 1px'>.</span>\icon[GLOB.screentip_context_icons["wirecutters"]]")
 GLOBAL_VAR_INIT(hint_welder, "<span style='font-size: 1px'>.</span>\icon[GLOB.screentip_context_icons["welder"]]")
 GLOBAL_VAR_INIT(hint_multitool, "<span style='font-size: 1px'>.</span>\icon[GLOB.screentip_context_icons["multitool"]]")
+GLOBAL_VAR_INIT(hint_knife, "<span style='font-size: 1px'>.</span>\icon[GLOB.screentip_context_icons["knife"]]")
+GLOBAL_VAR_INIT(hint_rolling_pin, "<span style='font-size: 1px'>.</span>\icon[GLOB.screentip_context_icons["rolling_pin"]]")
 
 /proc/prepare_screentip_context_icons()
 	var/list/output = list()
