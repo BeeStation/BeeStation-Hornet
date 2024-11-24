@@ -510,9 +510,9 @@ Arguments:
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
-	coolant_input.set_temperature((temperature+273.15)*2)
-	moderator_input.set_temperature((temperature+273.15)*2)
-	coolant_output.set_temperature((temperature+273.15)*2)
+	coolant_input.temperature = ((temperature+273.15)*2)
+	moderator_input.temperature = ((temperature+273.15)*2)
+	coolant_output.temperature = ((temperature+273.15)*2)
 	reactor_turf.assume_air(coolant_input)
 	reactor_turf.assume_air(moderator_input)
 	reactor_turf.assume_air(coolant_output)
