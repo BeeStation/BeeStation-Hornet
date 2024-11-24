@@ -83,13 +83,4 @@
  */
 /datum/element/processable/proc/on_requesting_context_from_item(datum/source, datum/screentip_context/context, obj/item/held_item, mob/user)
 	SIGNAL_HANDLER
-
-	if (isnull(held_item))
-		return
-
-	if (held_item.tool_behaviour != tool_behaviour)
-		return
-
 	context.add_left_click_tool_action("[screentip_verb] into [initial(result_atom_type.name)]", tool_behaviour)
-
-	return
