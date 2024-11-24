@@ -49951,7 +49951,7 @@
 /turf/open/floor/iron,
 /area/science/explab)
 "pQZ" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 4;
 	initialize_directions = 4
 	},
@@ -61567,7 +61567,7 @@
 	},
 /area/medical/sleeper)
 "tzD" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 4;
 	initialize_directions = 4
 	},

@@ -74,10 +74,8 @@
 "fS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -574,10 +572,8 @@
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "DN" = (
@@ -587,10 +583,8 @@
 /area/shuttle/caravan/pirate)
 "DY" = (
 /obj/structure/closet/crate/secure/loot,
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "EE" = (
@@ -707,10 +701,8 @@
 /area/template_noop)
 "JA" = (
 /obj/structure/table,
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/ammo_box/a40mm,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -720,10 +712,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/airalarm/all_access{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white,
 /area/shuttle/caravan/pirate)
 "Ku" = (

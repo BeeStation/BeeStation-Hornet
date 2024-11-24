@@ -21214,7 +21214,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room/council)
 "fwQ" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/engine/light,
 /area/medical/cryo)
 "fwV" = (
@@ -29356,7 +29356,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/engine/light,
 /area/medical/cryo)
 "hAf" = (

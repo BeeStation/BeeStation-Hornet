@@ -932,10 +932,8 @@
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter3)
 "qz" = (
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -980,10 +978,8 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered)
 "uK" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
@@ -1067,10 +1063,8 @@
 /area/shuttle/caravan/freighter3)
 "Aw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/airless,
 /area/shuttle/caravan/freighter2)
 "BN" = (
@@ -1163,10 +1157,8 @@
 /area/shuttle/caravan/freighter2)
 "Ib" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},

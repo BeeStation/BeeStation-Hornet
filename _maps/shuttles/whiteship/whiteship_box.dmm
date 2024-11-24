@@ -262,10 +262,8 @@
 /area/shuttle/abandoned/engine)
 "aV" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/all_access{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/light/small/built,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
@@ -409,7 +407,7 @@
 "bs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -419,7 +417,7 @@
 "bu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -511,10 +509,8 @@
 /obj/structure/closet/firecloset{
 	anchored = 1
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
@@ -1481,10 +1477,8 @@
 /obj/machinery/light/small/built{
 	dir = 8
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -1515,10 +1509,8 @@
 /obj/machinery/vending/medical{
 	req_access = null
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white,
 /area/shuttle/abandoned/medbay)
 "el" = (
@@ -1583,10 +1575,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/light/small/built{
 	dir = 1
 	},
@@ -1618,10 +1608,8 @@
 /obj/structure/closet/secure_closet/medical2{
 	anchored = 1
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white/side{
 	dir = 5
 	},
@@ -1657,10 +1645,8 @@
 /obj/item/pen{
 	pixel_x = 4
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/flashlight/pen{
 	pixel_x = -6;
 	pixel_y = -2
@@ -1729,10 +1715,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/medbay)
@@ -1765,10 +1749,8 @@
 	dir = 1
 	},
 /obj/structure/bed,
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/bedsheet,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1893,10 +1875,8 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate/bin,
 /obj/item/trash/pistachios,
-/obj/machinery/airalarm/all_access{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/trash/can,
 /obj/item/light/bulb/broken,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -1932,10 +1912,8 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 4
 	},
@@ -2043,10 +2021,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},

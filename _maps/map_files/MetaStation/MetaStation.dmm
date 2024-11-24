@@ -23814,10 +23814,8 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/execution/education)
 "dWb" = (
@@ -33823,7 +33821,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "hMy" = (
@@ -65860,7 +65858,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "tCy" = (
@@ -69307,10 +69305,8 @@
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "uOd" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/chair/stool{
 	pixel_y = 8
 	},

@@ -36193,7 +36193,7 @@
 "jHZ" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/dark/opposingcorners,
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "jIf" = (
@@ -76280,7 +76280,7 @@
 /area/crew_quarters/heads/cmo)
 "wDi" = (
 /obj/effect/turf_decal/tile/dark/opposingcorners,
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "wDv" = (

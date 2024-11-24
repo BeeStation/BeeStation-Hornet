@@ -20347,7 +20347,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "eND" = (
@@ -25356,10 +25356,8 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/dropper,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/button/ignition{
 	id = "executionburn";
 	name = "Justice Ignition Switch";
@@ -41009,10 +41007,8 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -43703,7 +43699,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "ojH" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)

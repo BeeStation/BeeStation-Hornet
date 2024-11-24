@@ -7827,10 +7827,8 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
 "dKP" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -23794,7 +23792,7 @@
 /turf/open/floor/plating/dirt/planetary,
 /area/asteroid/paradise/surface/grass)
 "lMw" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 8;
 	initialize_directions = 8
 	},

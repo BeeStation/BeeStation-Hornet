@@ -163,10 +163,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -312,10 +310,8 @@
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter1)
 "ps" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating/airless{
 	broken = 1
@@ -359,10 +355,8 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter1)
 "so" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -617,10 +611,8 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/shuttle/caravan/freighter1)
@@ -802,10 +794,8 @@
 	},
 /area/shuttle/caravan/freighter1)
 "Ms" = (
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
@@ -822,10 +812,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/button/door{
 	id = "caravantrade1_cabin2";
 	name = "Cabin Bolt Control";
@@ -953,10 +941,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/button/door{
 	id = "caravantrade1_cabin1";
 	name = "Cabin Bolt Control";
@@ -987,10 +973,8 @@
 /turf/open/floor/iron/airless,
 /area/shuttle/caravan/freighter1)
 "WU" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/mob_spawn/human/corpse/cargo_tech,

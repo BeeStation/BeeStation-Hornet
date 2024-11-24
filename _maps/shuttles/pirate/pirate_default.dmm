@@ -265,10 +265,8 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/wood/broken,
 /area/shuttle/pirate)
 "jT" = (
@@ -821,10 +819,8 @@
 /obj/effect/decal/cleanable/blood/gibs/body{
 	pixel_y = -13
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -1432,9 +1428,8 @@
 	dir = 8
 	},
 /obj/machinery/shuttle_scrambler,
-/obj/machinery/airalarm/all_access{
-	pixel_y = -24
-	},
+/obj/machinery/airalarm/directional/south,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
@@ -1783,10 +1778,8 @@
 	pixel_y = -9;
 	pixel_x = 3
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/fakelattice{
 	icon_state = "lattice-223"
 	},
@@ -1822,10 +1815,8 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "SS" = (
@@ -1870,10 +1861,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "Tu" = (

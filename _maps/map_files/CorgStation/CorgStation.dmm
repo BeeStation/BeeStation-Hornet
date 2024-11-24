@@ -19316,7 +19316,7 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "gje" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
