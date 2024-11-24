@@ -683,10 +683,12 @@ GLOBAL_LIST_EMPTY(colored_turfs)
 GLOBAL_LIST_EMPTY(colored_images)
 /datum/controller/subsystem/air/proc/setup_turf_visuals()
 	for(var/sharp_color in GLOB.contrast_colors)
+		var/list/add_to = list()
+		GLOB.colored_turfs += list(add_to)
 		var/obj/effect/overlay/atmos_excited/suger_high = new()
-		GLOB.colored_turfs += suger_high
+		add_to += suger_high
 		var/image/shiny = new('icons/effects/effects.dmi', suger_high, "atmos_top")
-		shiny.plane = ATMOS_GROUP_PLANE
+		shiny.layer = ATMOS_GROUP_LAYER
 		shiny.color = sharp_color
 		GLOB.colored_images += shiny
 

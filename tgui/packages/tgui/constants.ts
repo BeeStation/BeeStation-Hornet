@@ -187,13 +187,6 @@ const GASES = [
     color: 'bisque',
   },
   {
-    id: 'no2',
-    path: '/datum/gas/nitrium',
-    name: 'Nitrium',
-    label: 'Nitrium',
-    color: 'brown',
-  },
-  {
     id: 'tritium',
     path: '/datum/gas/tritium',
     name: 'Tritium',

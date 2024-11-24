@@ -35,6 +35,8 @@
 	var/area/assigned_area
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Initialize(mapload)
+	if(!id_tag)
+		id_tag = assign_random_name()
 	. = ..()
 
 	assign_to_area()
