@@ -1079,6 +1079,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
+	..()
 	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
 		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 		var/user = usr

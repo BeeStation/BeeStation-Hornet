@@ -3,7 +3,7 @@
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "TOP,CENTER"
-	maptext_x = -240
+	maptext_x = -224
 	maptext_y = -460
 	maptext_height = 480
 	maptext_width = 480

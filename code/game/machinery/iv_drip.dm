@@ -254,7 +254,6 @@
 		new /obj/machinery/anesthetic_machine(loc)
 		qdel(src)
 
-
 /obj/machinery/iv_drip/saline
 	name = "saline drip"
 	desc = "An all-you-can-drip saline canister designed to supply a hospital without running out, with a scary looking pump rigged to inject saline into containers, but filling people directly might be a bad idea."

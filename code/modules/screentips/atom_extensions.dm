@@ -13,6 +13,7 @@
  * variable accesses
  */
 /atom/MouseEntered(location, control, params)
+	SHOULD_CALL_PARENT(TRUE)
 	// If someone is connected to us in the queue, then we don't need to requeue
 	if (usr.client.hovered_atom)
 		usr.client.hovered_atom = src
@@ -24,14 +25,32 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
-	var/screentip_message = "<span class='extremelybig' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
-	client.screentip_context.user = client.mob
-	client.screentip_context.access_context = ""
-	client.screentip_context.left_mouse_context = ""
-	add_context_self(client.screentip_context, client.mob, client.mob.get_active_held_item())
-	client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context]</span>"
-	// Cleanup references for the sake of managing hard-deletes
-	client.screentip_context.user = null
+	var/screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
+	var/datum/screentip_cache/cache = GLOB.screentips_cache["[type]"]
+	if (cache)
+#ifdef DEBUG
+		screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name) + "(Using Cache)"))]</span>"
+#endif
+		if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.attack_hand]</span>"
+		else
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
+	else
+		client.screentip_context.relevant = ishuman(client.mob)
+		client.screentip_context.user = client.mob
+		client.screentip_context.access_context = ""
+		client.screentip_context.left_mouse_context = ""
+		client.screentip_context.shift_left_mouse_context = ""
+		client.screentip_context.ctrl_left_mouse_context = ""
+		client.screentip_context.alt_left_mouse_context = ""
+		client.screentip_context.ctrl_shift_left_mouse_context = ""
+		add_context_self(client.screentip_context, client.mob, client.mob.get_active_held_item())
+		if (client.screentip_context.relevant)
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context][client.screentip_context.ctrl_left_mouse_context][client.screentip_context.shift_left_mouse_context][client.screentip_context.ctrl_shift_left_mouse_context][client.screentip_context.alt_left_mouse_context]</span>"
+		else
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
+		// Cleanup references for the sake of managing hard-deletes
+		client.screentip_context.user = null
 
 /// Indicates that this atom uses contexts, in any form
 /atom/proc/register_context()

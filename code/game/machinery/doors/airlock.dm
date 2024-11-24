@@ -1671,14 +1671,22 @@
 
 /obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	..()
+	if (machine_stat & BROKEN)
+		return
 	if (!hasPower())
-		context.add_left_click_item_action("Pry Open", /obj/item/crowbar)
+		context.add_left_click_tool_action("Pry Open", TOOL_CROWBAR)
 		return
 	// Handle lazy initalisation of access
-	if (req_access || req_one_access || req_access_txt || req_one_access_txt)
-		context.add_access_context("Access Required", user_allowed(user))
-	context.add_left_click_action("Open", (lights && locked) ? "Bolted" : null, (!lights || !locked))
-	context.add_left_click_item_action("[panel_open ? "Close" : "Open"] Maintenance Panel", /obj/item/screwdriver)
+	if (length(req_access) || length(req_one_access) || req_access_txt != "0" || req_one_access_txt != "0")
+		context.add_access_context("Access Required", allowed(user))
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
 	if (panel_open)
-		context.add_left_click_item_action("Hack Maintenance Panel", /obj/item/multitool)
-		context.add_left_click_item_action("Hack Maintenance Panel", /obj/item/wirecutters)
+		context.add_left_click_tool_action("Hack Wires", TOOL_MULTITOOL)
+		context.add_left_click_tool_action("Cut Wires", TOOL_WIRECUTTER)
+	if (context.accept_silicons())
+		context.add_shift_click_action("Open", (lights && locked) ? "Blocked" : null, (!lights || !locked) && canAIControl(user))
+		context.add_ctrl_click_action("[locked ? "Raise" : "Drop"] Bolts", "Blocked", canAIControl(user))
+		context.add_alt_click_action("[secondsElectrified ? "Un-electrify" : "Electrify"]", "Blocked", canAIControl(user))
+		context.add_ctrl_shift_click_action("[emergency ? "Disbale" : "Enable"] Emergency Access", "Blocked", canAIControl(user))
+	else
+		context.add_left_click_action("Open", (lights && locked) ? "Bolted" : null, (!lights || !locked))

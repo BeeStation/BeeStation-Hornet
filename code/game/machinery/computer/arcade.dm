@@ -1234,6 +1234,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/amputation
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/computer/arcade/amputation, "Use")
+
 /obj/machinery/computer/arcade/amputation/attack_hand(mob/user)
 	if(!iscarbon(user))
 		return

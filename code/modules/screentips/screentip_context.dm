@@ -1,12 +1,34 @@
-#define SCREEN_TIP_ALLOWED "#a9f59d"
-#define SCREEN_TIP_REJECTED "#e39191"
-#define SCREEN_TIP_NORMAL "#daf3f2"
-#define SCREEN_TIP_INACCESSIBLE "#a1b6b5"
+#define IMAGE_FOR_PATH(typepath) "<span class='small-icon'><img class=icon src=\ref[initial(typepath.icon)] iconstate='[initial(typepath.icon_state)]'></span>"
 
 /datum/screentip_context
 	var/mob/user
+	var/relevant = FALSE
 	var/access_context
 	var/left_mouse_context
+	var/ctrl_left_mouse_context
+	var/shift_left_mouse_context
+	var/alt_left_mouse_context
+	var/ctrl_shift_left_mouse_context
+
+/datum/screentip_context/proc/use_cache()
+
+/datum/screentip_context/proc/accept_mob_type(mob_type)
+	if (istype(user, mob_type))
+		relevant = TRUE
+		return TRUE
+	return FALSE
+
+/datum/screentip_context/proc/accept_silicons()
+	if (issilicon(user))
+		relevant = TRUE
+		return TRUE
+	return FALSE
+
+/datum/screentip_context/proc/accept_animals()
+	if (isanimal(user))
+		relevant = TRUE
+		return TRUE
+	return FALSE
 
 /datum/screentip_context/proc/add_context(context_text)
 
@@ -16,36 +38,96 @@
 	else
 		access_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_REJECTED]'>[CENTER(context_text)]")]</span>"
 
+/datum/screentip_context/proc/add_attack_hand_action(action_text, blocked_message = null, accessible = TRUE)
+	if (ishuman(user) && user.get_active_held_item() == null)
+		if (accessible)
+			left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		else
+			left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
 /datum/screentip_context/proc/add_left_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("LMB: [action_text]")]</span>")]"
+		left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
 	else
-		left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("LMB: [action_text] ([blocked_message])")]</span>")]"
+		left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
 
-/// Add a left-click action that requires an item to be held
-/// Will overwrite any default hand left-click interactions
-/// If shift is held, then the interaction will be shown unless secret is set, otherwise
-/// the player must be holding the item to see this tip.
-/datum/screentip_context/proc/add_left_click_item_action(action_text, item_required, secret = FALSE)
-	var/atom/path = item_required
-	if (user.client?.keys_held["Shift"] && !secret)
-		left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("LMB: [initial(path.name)]: [action_text]")]</span>")]"
-	if (istype(user.get_active_held_item(), item_required) || istype(user.get_inactive_held_item(), item_required))
-		// Reset the left mouse action to only show this (we aren't using our hands anymore)
-		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("LMB: [initial(path.name)]: [action_text]")]</span>")]"
+/datum/screentip_context/proc/add_left_click_item_action(action_text, item_required)
+	if (istype(user.get_active_held_item(), item_required))
+		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
+	var/obj/item/held_item = user.get_active_held_item()
+	if (held_item?.tool_behaviour == tool)
+		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+	else
+		switch (tool)
+			if (TOOL_WIRECUTTER)
+				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
+			if (TOOL_SCREWDRIVER)
+				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
+			if (TOOL_WRENCH)
+				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
+			if (TOOL_WELDER)
+				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
+			if (TOOL_WRENCH)
+				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
+			if (TOOL_MULTITOOL)
+				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_generic_deconstruction_actions(obj/machinery/machine)
+	if (!machine.panel_open)
+		add_left_click_tool_action("Open Panel", TOOL_SCREWDRIVER)
+	else
+		add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+
+/datum/screentip_context/proc/add_generic_unfasten_actions(obj/machinery/machine, need_panel_open = FALSE)
+	if (machine.panel_open || !need_panel_open)
+		add_left_click_tool_action("Unfasten", TOOL_WRENCH)
 
 /datum/screentip_context/proc/add_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 
 /datum/screentip_context/proc/add_right_click_item_action(action_text, item_required)
 
 /datum/screentip_context/proc/add_alt_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		alt_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.lmb_icon] [action_text]")]</span>")]"
+	else
+		alt_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
 
 /datum/screentip_context/proc/add_alt_click_item_action(action_text, item_required)
-
-/datum/screentip_context/proc/add_shift_click_action(action_text, blocked_message = null, accessible = TRUE)
-
-/datum/screentip_context/proc/add_shift_click_item_action(action_text, item_required)
+	if (istype(user.get_active_held_item(), item_required) || istype(user.get_inactive_held_item(), item_required))
+		// Reset the left mouse action to only show this (we aren't using our hands anymore)
+		alt_left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.lmb_icon] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_ctrl_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		ctrl_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.lmb_icon] [action_text]")]</span>")]"
+	else
+		ctrl_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("alt-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
 
 /datum/screentip_context/proc/add_ctrl_click_item_action(action_text, item_required)
+	if (istype(user.get_active_held_item(), item_required) || istype(user.get_inactive_held_item(), item_required))
+		// Reset the left mouse action to only show this (we aren't using our hands anymore)
+		ctrl_left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.lmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_shift_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		shift_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+	else
+		shift_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("shift-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_shift_click_item_action(action_text, item_required)
+	if (istype(user.get_active_held_item(), item_required) || istype(user.get_inactive_held_item(), item_required))
+		// Reset the left mouse action to only show this (we aren't using our hands anymore)
+		shift_left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_ctrl_shift_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		ctrl_shift_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+	else
+		ctrl_shift_left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_ctrl_shift_click_item_action(action_text, item_required)
+	if (istype(user.get_active_held_item(), item_required) || istype(user.get_inactive_held_item(), item_required))
+		// Reset the left mouse action to only show this (we aren't using our hands anymore)
+		ctrl_shift_left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text]")]</span>")]"

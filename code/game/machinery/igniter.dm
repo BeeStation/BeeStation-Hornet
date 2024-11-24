@@ -63,6 +63,11 @@
 	icon_state = "[base_icon_state][(machine_stat & NOPOWER) ? 0 : on]"
 	return ..()
 
+/obj/machinery/igniter/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.add_generic_deconstruction_actions(src)
+	if (!panel_open)
+		context.add_attack_hand_action("Turn [on ? "Off" : "On"]")
+
 // Wall mounted remote-control igniter.
 
 /obj/machinery/sparker
