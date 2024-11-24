@@ -59,7 +59,7 @@
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
 	var/obj/item/held_item = user.get_active_held_item()
 	if (held_item?.tool_behaviour == tool)
-		tool_icon_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
 	else
 		switch (tool)
 			if (TOOL_WIRECUTTER)
