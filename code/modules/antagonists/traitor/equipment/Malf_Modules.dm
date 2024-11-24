@@ -560,12 +560,12 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 
-//Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
+//Air Alarm Safety Override: Unlocks the ability to enable dangerous modes on all air alarms.
 /datum/AI_Module/large/break_air_alarms
 	module_name = "Air Alarm Safety Override"
 	mod_pick_name = "allow_flooding"
-	description = "Gives you the ability to disable safeties on all air alarms. This will allow you to use the environmental mode Flood, which disables scrubbers as well as pressure checks on vents. \
-	Anyone can check the air alarm's interface and may be tipped off by their nonfunctionality."
+	description = "Gives you the ability to disable safeties on all air alarms. This will allow you to use extremely dangerous environmental modes. \
+					Anyone can check the air alarm's interface and may be tipped off by their nonfunctionality."
 	one_purchase = TRUE
 	cost = 50
 	power_type = /datum/action/innate/ai/break_air_alarms
@@ -574,7 +574,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 /datum/action/innate/ai/break_air_alarms
 	name = "Override Air Alarm Safeties"
-	desc = "Enables the Flood setting on all air alarms."
+	desc = "Enables extremely dangerous settings on all air alarms."
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
@@ -584,7 +584,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			continue
 		AA.obj_flags |= EMAGGED
 	owner.log_message("activated malf module [name]", LOG_GAME)
-	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overridden. Air alarms may now use the Flood environmental mode.</span>")
+	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overridden. Air alarms may now use extremely dangerous environmental modes.</span>")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 
