@@ -219,19 +219,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	data["SM_ambientpressure"] = air.return_pressure()
 	data["SM_bad_moles_amount"] = MOLE_PENALTY_THRESHOLD / gasefficency
 	data["SM_moles"] = 0
-	var/list/gasdata = list()
-	if(air.total_moles())
-		data["SM_moles"] = air.total_moles()
-		for(var/gasid in air.gases)
-			gasdata.Add(list(list(
-			"name"= GLOB.meta_gas_info[gasid][META_GAS_NAME],
-			"amount" = round(100*GET_MOLES(gasid, air)/air.total_moles(),0.01))))
-	else
-		for(var/gasid in air.gases)
-			gasdata.Add(list(list(
-				"name"=  air.gases[gasid][GAS_META][META_GAS_NAME],
-				"amount" = 0)))
-	data["gases"] = gasdata
+	var/list/formatted_gas_percentage = list()
+	for (var/datum/gas/gas_path as anything in subtypesof(/datum/gas))
+		formatted_gas_percentage[gas_path] = air.gases?[gas_path] || 0
+	data["gas_composition"] = formatted_gas_percentage
 	return data
 
 #define CRITICAL_TEMPERATURE 10000
