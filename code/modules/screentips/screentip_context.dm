@@ -5,6 +5,7 @@
 	var/relevant = FALSE
 	var/access_context
 	var/left_mouse_context
+	var/tool_icon_context
 	var/ctrl_left_mouse_context
 	var/shift_left_mouse_context
 	var/alt_left_mouse_context
@@ -58,21 +59,21 @@
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
 	var/obj/item/held_item = user.get_active_held_item()
 	if (held_item?.tool_behaviour == tool)
-		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		tool_icon_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
 	else
 		switch (tool)
 			if (TOOL_WIRECUTTER)
-				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
 			if (TOOL_SCREWDRIVER)
-				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
 			if (TOOL_WRENCH)
-				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
 			if (TOOL_WELDER)
-				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
 			if (TOOL_WRENCH)
-				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
 			if (TOOL_MULTITOOL)
-				left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
+				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_generic_deconstruction_actions(obj/machinery/machine)
 	if (!machine.panel_open)

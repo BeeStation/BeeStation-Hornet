@@ -40,13 +40,14 @@
 		client.screentip_context.user = client.mob
 		client.screentip_context.access_context = ""
 		client.screentip_context.left_mouse_context = ""
+		client.screentip_context.tool_icon_context = ""
 		client.screentip_context.shift_left_mouse_context = ""
 		client.screentip_context.ctrl_left_mouse_context = ""
 		client.screentip_context.alt_left_mouse_context = ""
 		client.screentip_context.ctrl_shift_left_mouse_context = ""
 		add_context_self(client.screentip_context, client.mob, client.mob.get_active_held_item())
 		if (client.screentip_context.relevant)
-			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context][client.screentip_context.ctrl_left_mouse_context][client.screentip_context.shift_left_mouse_context][client.screentip_context.ctrl_shift_left_mouse_context][client.screentip_context.alt_left_mouse_context]</span>"
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context][client.screentip_context.ctrl_left_mouse_context][client.screentip_context.shift_left_mouse_context][client.screentip_context.ctrl_shift_left_mouse_context][client.screentip_context.alt_left_mouse_context][client.screentip_context.tool_icon_context]</span>"
 		else
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 		// Cleanup references for the sake of managing hard-deletes
