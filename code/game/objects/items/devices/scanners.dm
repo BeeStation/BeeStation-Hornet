@@ -533,6 +533,7 @@ GENE SCANNER
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
+	var/ranged_scan_distance = 1
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
@@ -626,6 +627,13 @@ GENE SCANNER
 		if(prob(50))
 			amount += inaccurate
 	return DisplayTimeText(max(1,amount))
+
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!can_see(user, target, ranged_scan_distance))
+		return
+	. |= AFTERATTACK_PROCESSED_ITEM
+	atmosanalyzer_scan(user, (target.return_analyzable_air() ? target : get_turf(target)))
 
 /proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE, to_chat = TRUE)
 	var/mixture = target.return_analyzable_air()
@@ -734,14 +742,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ranged_analyzer"
 	worn_icon_state = "analyzer"
-
-/obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(target.tool_act(user, src, tool_behaviour))
-		return
-	// Tool act didn't scan it, so let's get it's turf.
-	var/turf/location = get_turf(target)
-	scan_turf(user, location)
+	ranged_scan_distance = 15
 
 //slime scanner
 
