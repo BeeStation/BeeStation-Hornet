@@ -24,9 +24,14 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 /datum/gas_mixture
 	var/list/gases
-	var/temperature = 0 //kelvins
-	var/tmp/temperature_archived = 0
-	var/volume = CELL_VOLUME //liters
+	/// The temperature of the gas mix in kelvin. Should never be lower then TCMB
+	var/temperature = TCMB
+	/// Used, like all archived variables, to ensure turf sharing is consistent inside a tick, no matter
+	/// The order of operations
+	var/tmp/temperature_archived = TCMB
+	/// Volume in liters (duh)
+	var/volume = CELL_VOLUME
+	/// The last tick this gas mixture shared on. A counter that turfs use to manage activity
 	var/last_share = 0
 	/// The fire key contains information that might determine the volume of hotspots.
 	var/list/reaction_results
