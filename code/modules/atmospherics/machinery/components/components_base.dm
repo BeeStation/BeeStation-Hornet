@@ -29,12 +29,6 @@
 		component_mixture.volume = 200
 		airs[i] = component_mixture
 
-/obj/machinery/atmospherics/components/Initialize(mapload)
-	. = ..()
-
-	if(hide)
-		RegisterSignal(src, COMSIG_OBJ_HIDE, PROC_REF(hide_pipe))
-
 // Iconnery
 
 /**
@@ -43,10 +37,14 @@
 /obj/machinery/atmospherics/components/proc/update_icon_nopipes()
 	return
 
+/obj/machinery/atmospherics/components/on_hide(datum/source, underfloor_accessibility)
+	hide_pipe(underfloor_accessibility)
+	return ..()
+
 /**
- * Called in Initialize(), set the showpipe var to true or false depending on the situation, calls update_icon()
+ * Called in on_hide(), set the showpipe var to true or false depending on the situation, calls update_icon()
  */
-/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, underfloor_accessibility)
+/obj/machinery/atmospherics/components/proc/hide_pipe(underfloor_accessibility)
 	SIGNAL_HANDLER
 	showpipe = !!underfloor_accessibility
 	update_appearance()
