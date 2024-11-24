@@ -99,6 +99,10 @@
 	. = ..()
 	update_parents()
 
+/obj/machinery/atmospherics/components/on_deconstruction()
+	relocate_airs()
+	return ..()
+
 /obj/machinery/atmospherics/components/rebuild_pipes()
 	. = ..()
 	if(update_parents_after_rebuild)
@@ -166,31 +170,6 @@
 /obj/machinery/atmospherics/components/replace_pipenet(datum/pipeline/Old, datum/pipeline/New)
 	parents[parents.Find(Old)] = New
 
-/obj/machinery/atmospherics/components/unsafe_pressure_release(mob/user, pressures)
-	. = ..()
-
-	var/turf/T = get_turf(src)
-	if(!T)
-		return
-	//Remove the gas from airs and assume it
-	var/datum/gas_mixture/environment = T.return_air()
-	var/lost = null
-	var/times_lost = 0
-	for(var/i in 1 to device_type)
-		var/datum/gas_mixture/air = airs[i]
-		lost += pressures*environment.volume/(air.temperature * R_IDEAL_GAS_EQUATION)
-		times_lost++
-	var/shared_loss = lost/times_lost
-
-	var/datum/gas_mixture/to_release
-	for(var/i in 1 to device_type)
-		var/datum/gas_mixture/air = airs[i]
-		if(!to_release)
-			to_release = air.remove(shared_loss)
-			continue
-		to_release.merge(air.remove(shared_loss))
-	T.assume_air(to_release)
-
 // Helpers
 
 /**
@@ -239,13 +218,6 @@
 /obj/machinery/atmospherics/components/return_analyzable_air()
 	return airs
 
-/obj/machinery/atmospherics/components/paint(paint_color)
-	if(paintable)
-		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
-		pipe_color = paint_color
-		update_node_icon()
-	return paintable
-
 /**
  * Handles machinery deconstruction and unsafe pressure release
  */
@@ -284,6 +256,37 @@
 	tool.play_tool_sound(src, 50)
 	deconstruct(TRUE)
 	return TRUE
+
+/obj/machinery/atmospherics/components/default_change_direction_wrench(mob/user, obj/item/I)
+	. = ..()
+	if(!.)
+		return FALSE
+	set_init_directions()
+	for(var/i in 1 to device_type)
+		var/obj/machinery/atmospherics/node = nodes[i]
+		if(node)
+			if(src in node.nodes)
+				node.disconnect(src)
+			nodes[i] = null
+		if(parents[i])
+			nullify_pipenet(parents[i])
+	for(var/i in 1 to device_type)
+		var/obj/machinery/atmospherics/node = nodes[i]
+		atmos_init()
+		node = nodes[i]
+		if(node)
+			node.atmos_init()
+			node.add_member(src)
+			update_parents()
+		SSair.add_to_rebuild_queue(src)
+	return TRUE
+
+/obj/machinery/atmospherics/components/paint(paint_color)
+	if(paintable)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		update_node_icon()
+	return paintable
 
 /obj/machinery/atmospherics/components/default_change_direction_wrench(mob/user, obj/item/I)
 	. = ..()

@@ -346,8 +346,7 @@
 		return
 	if(!on && !occupant && !state_open && (default_deconstruction_screwdriver(user, "pod-off", "pod-off", I)) \
 		|| default_change_direction_wrench(user, I) \
-		|| default_pry_open(I) \
-		|| default_deconstruction_crowbar(I))
+		|| default_pry_open(I))
 		update_icon()
 		return
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -356,6 +355,47 @@
 		return
 	return ..()
 
+/obj/machinery/cryo_cell/crowbar_act(mob/living/user, obj/item/tool)
+	if(on || state_open)
+		return FALSE
+	if(!panel_open)
+		balloon_alert(user, "open panel!")
+		return TRUE
+
+	var/unsafe_wrenching = FALSE
+	var/filled_pipe = FALSE
+	var/datum/gas_mixture/environment_air = loc.return_air()
+	var/datum/gas_mixture/inside_air = internal_connector.gas_connector.airs[1]
+	var/obj/machinery/atmospherics/node = internal_connector.gas_connector.nodes[1]
+	var/internal_pressure = 0
+
+	if(istype(node, /obj/machinery/atmospherics/components/unary/portables_connector))
+		var/obj/machinery/atmospherics/components/unary/portables_connector/portable_devices_connector = node
+		internal_pressure = !portable_devices_connector.connected_device ? 1 : 0
+
+	if(inside_air.total_moles() > 0)
+		filled_pipe = TRUE
+		if(!node || internal_pressure > 0)
+			internal_pressure = inside_air.return_pressure() - environment_air.return_pressure()
+
+	if(!filled_pipe)
+		default_deconstruction_crowbar(tool)
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...")
+
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		to_chat(user, "<span class='warning'>As you begin deconstructing \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
+		unsafe_wrenching = TRUE
+
+	if(!do_after(user, 2 SECONDS, src))
+		return
+	if(unsafe_wrenching)
+		internal_connector.gas_connector.unsafe_pressure_release(user, internal_pressure)
+
+	tool.play_tool_sound(src, 50)
+	deconstruct(TRUE)
+	return TRUE
 
 /obj/machinery/cryo_cell/ui_state(mob/user)
 	return GLOB.notcontained_state
