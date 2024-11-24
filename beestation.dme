@@ -3863,6 +3863,7 @@
 #include "code\modules\ruins\spaceruin_code\whiteshipruin_box.dm"
 #include "code\modules\screentips\atom_extensions.dm"
 #include "code\modules\screentips\client_extensions.dm"
+#include "code\modules\screentips\debug_verbs.dm"
 #include "code\modules\screentips\hud_extensions.dm"
 #include "code\modules\screentips\screentip_cache.dm"
 #include "code\modules\screentips\screentip_context.dm"
