@@ -168,7 +168,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //air alarm helpers
 /obj/effect/mapping_helpers/airalarm
 	desc = "You shouldn't see this. Report it please."
-	layer = DOOR_HELPER_LAYER
+	layer = ABOVE_OBJ_LAYER
 	late = TRUE
 
 /obj/effect/mapping_helpers/airalarm/Initialize(mapload)
@@ -215,6 +215,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		target.give_all_access()
 	if(target.syndicate_access + target.away_general_access + target.engine_access + target.mixingchamber_access + target.all_access > 1)
 		CRASH("Tried to combine incompatible air alarm access helpers!")
+
+	if(target.air_sensor_chamber_id)
+		target.setup_chamber_link()
 
 	target.update_icon()
 	qdel(src)
@@ -301,6 +304,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		var/area/area = get_area(target)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to no_checks but it's already changed!")
 	target.tlv_no_checks = TRUE
+
+/obj/effect/mapping_helpers/airalarm/link
+	name = "airalarm link helper"
+	icon_state = "airalarm_link_helper"
+	var/chamber_id = ""
+	var/allow_link_change = FALSE
+
+/obj/effect/mapping_helpers/airalarm/link/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return INITIALIZE_HINT_QDEL
+
+	var/obj/machinery/airalarm/alarm = locate(/obj/machinery/airalarm) in loc
+	if(!isnull(alarm))
+		alarm.air_sensor_chamber_id = chamber_id
+		alarm.allow_link_change = allow_link_change
+	else
+		log_mapping("[src] failed to find air alarm at [AREACOORD(src)].")
+		return INITIALIZE_HINT_QDEL
 
 //APC helpers
 /obj/effect/mapping_helpers/apc
