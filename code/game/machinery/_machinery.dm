@@ -670,14 +670,15 @@ Class Procs:
 /**
  * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
  */
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I, turns = 1)
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/wrench, turns = 1)
 	turns *= -90
-	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
-		I.play_tool_sound(src, 50)
+	if(panel_open && wrench.tool_behaviour == TOOL_WRENCH)
+		wrench.play_tool_sound(src, 50)
 		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
-		return 1
-	return 0
+		SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
+		return TRUE
+	return FALSE
 
 /obj/proc/can_be_unfasten_wrench(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
 	if(!(isfloorturf(loc) || istype(loc, /turf/open/indestructible)) && !anchored)
