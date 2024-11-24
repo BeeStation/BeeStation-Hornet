@@ -114,8 +114,7 @@
 		)
 
 	log_game(
-		message,
-		data = list(
+		list(
 			"total moles" = total_moles,
 			"volume" = volume,
 			"molar density" = total_moles / volume,
