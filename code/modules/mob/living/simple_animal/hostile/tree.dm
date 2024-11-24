@@ -54,7 +54,7 @@
 				if(prob(25))
 					var/amt = min(co2, 9)
 					T.air.gases[/datum/gas/carbon_dioxide][MOLES] += -amt
-					T.atmos_spawn_air("o2=[amt];TEMP=293.15")
+					T.atmos_spawn_air("[GAS_O2]=[amt];[TURF_TEMPERATURE(T20C)]")
 
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"

@@ -40,19 +40,19 @@
 	var/current_pressure_state
 	///List of all the gases, used in labelling the canisters
 	var/static/list/label2types = list(
-		"n2" = /obj/machinery/portable_atmospherics/canister/nitrogen,
-		"o2" = /obj/machinery/portable_atmospherics/canister/oxygen,
-		"co2" = /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-		"plasma" = /obj/machinery/portable_atmospherics/canister/plasma,
-		"n2o" = /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-		"no2" = /obj/machinery/portable_atmospherics/canister/nitryl,
-		"bz" = /obj/machinery/portable_atmospherics/canister/bz,
-		"air" = /obj/machinery/portable_atmospherics/canister/air,
-		"water vapor" = /obj/machinery/portable_atmospherics/canister/water_vapor,
-		"tritium" = /obj/machinery/portable_atmospherics/canister/tritium,
-		"hyper-noblium" = /obj/machinery/portable_atmospherics/canister/nob,
-		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
-		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
+		GAS_N2 = /obj/machinery/portable_atmospherics/canister/nitrogen,
+		GAS_O2 = /obj/machinery/portable_atmospherics/canister/oxygen,
+		GAS_CO2 = /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+		GAS_PLASMA = /obj/machinery/portable_atmospherics/canister/plasma,
+		GAS_N2O = /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+		GAS_NITRYL = /obj/machinery/portable_atmospherics/canister/nitryl,
+		GAS_BZ = /obj/machinery/portable_atmospherics/canister/bz,
+		GAS_AIR = /obj/machinery/portable_atmospherics/canister/air,
+		GAS_WATER_VAPOR = /obj/machinery/portable_atmospherics/canister/water_vapor,
+		GAS_TRITIUM = /obj/machinery/portable_atmospherics/canister/tritium,
+		GAS_HYPER_NOBLIUM = /obj/machinery/portable_atmospherics/canister/nob,
+		GAS_STIMULUM = /obj/machinery/portable_atmospherics/canister/stimulum,
+		GAS_PLUOXIUM = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 

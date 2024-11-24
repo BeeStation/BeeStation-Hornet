@@ -336,7 +336,7 @@
 		O.ClearWet()
 		if(O.air)
 			var/datum/gas_mixture/G = O.air
-			G.temperature = 293.15
+			G.temperature = T20C
 			for(var/obj/effect/hotspot/H in O)
 				qdel(H)
 			for(var/I in G.gases)

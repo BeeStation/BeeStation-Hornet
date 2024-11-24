@@ -1,32 +1,41 @@
+///Used to define the temperature of a tile, arg is the temperature it should be at. Should always be put at the end of the atmos list.
+///This is solely to be used after compile-time.
+#define TURF_TEMPERATURE(temperature) "TEMP=[temperature]"
+
 //OPEN TURF ATMOS
 /// the default air mix that open turfs spawn
-#define OPENTURF_DEFAULT_ATMOS "o2=22;n2=82;TEMP=293.15"
-#define OPENTURF_LOW_PRESSURE "o2=14;n2=30;TEMP=293.15"
+#define OPENTURF_DEFAULT_ATMOS GAS_O2 + "=22;" + GAS_N2 + "=82;TEMP=293.15"
+/// the default low-pressure air mix used mostly for mining areas.
+#define OPENTURF_LOW_PRESSURE GAS_O2 + "=14;" + GAS_N2 + "=30;TEMP=293.15"
 /// -193,15°C telecommunications. also used for xenobiology slime killrooms
-#define TCOMMS_ATMOS "n2=100;TEMP=80"
+#define TCOMMS_ATMOS GAS_N2 + "=100;TEMP=80"
 /// space
 #define AIRLESS_ATMOS "TEMP=2.7"
 /// -93.15°C snow and ice turfs
-#define FROZEN_ATMOS "o2=22;n2=82;TEMP=180"
+#define FROZEN_ATMOS GAS_O2 + "=22;" + GAS_N2 + "=82;TEMP=180"
 /// -14°C kitchen coldroom, just might loss your tail; higher amount of mol to reach about 101.3 kpA
-#define KITCHEN_COLDROOM_ATMOS "o2=26;n2=97;TEMP=[COLD_ROOM_TEMP]"
+#define KITCHEN_COLDROOM_ATMOS GAS_O2 + "=26;" + GAS_N2 + "=97;TEMP=259.15"
 /// used in the holodeck burn test program
-#define BURNMIX_ATMOS "o2=2500;plasma=5000;TEMP=370"
+#define BURNMIX_ATMOS GAS_O2 + "=2500;" + GAS_PLASMA + "=5000;TEMP=370"
+///-153.15°C plasma air, used for burning people.
+#define BURNING_COLD GAS_N2 + "=82;" + GAS_PLASMA + "=24;TEMP=120"
+///Space temperature hyper nob
+#define SPACE_TEMP_NOBLIUM GAS_HYPER_NOBLIUM + "=7500;TEMP=2.7"
+
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
-#define ATMOS_TANK_N2O				"n2o=6000;TEMP=293.15"
-#define ATMOS_TANK_CO2				"co2=50000;TEMP=293.15"
-#define ATMOS_TANK_PLASMA			"plasma=70000;TEMP=293.15"
-#define ATMOS_TANK_O2				"o2=100000;TEMP=293.15"
-#define ATMOS_TANK_N2				"n2=100000;TEMP=293.15"
-#define ATMOS_TANK_BZ				"bz=100000;TEMP=293.15"
-#define ATMOS_TANK_HYPERNOBLIUM		"nob=100000;TEMP=293.15"
-#define ATMOS_TANK_NO2				"no2=100000;TEMP=293.15"
-#define ATMOS_TANK_PLUOXIUM			"pluox=100000;TEMP=293.15"
-#define ATMOS_TANK_STIMULUM			"stim=100000;TEMP=293.15"
-#define ATMOS_TANK_TRITIUM			"tritium=100000;TEMP=293.15"
-#define ATMOS_TANK_H2O				"water_vapor=100000;TEMP=293.15"
-#define ATMOS_TANK_AIRMIX			"o2=2777;n2=10447;TEMP=293.15" // 21% oxygen, 79% nitrogen. Roughly.
+#define ATMOS_TANK_N2O GAS_N2O + "=6000;TEMP=293.15"
+#define ATMOS_TANK_CO2 GAS_CO2 + "=50000;TEMP=293.15"
+#define ATMOS_TANK_PLASMA GAS_PLASMA + "=70000;TEMP=293.15"
+#define ATMOS_TANK_O2 GAS_O2 + "=100000;TEMP=293.15"
+#define ATMOS_TANK_N2 GAS_N2 + "=100000;TEMP=293.15"
+#define ATMOS_TANK_BZ GAS_BZ + "=100000;TEMP=293.15"
+#define ATMOS_TANK_HYPERNOBLIUM GAS_HYPER_NOBLIUM + "=100000;TEMP=293.15"
+#define ATMOS_TANK_NITRYL GAS_NITRYL + "=100000;TEMP=293.15"
+#define ATMOS_TANK_PLUOXIUM GAS_PLUOXIUM + "=100000;TEMP=293.15"
+#define ATMOS_TANK_TRITIUM GAS_TRITIUM + "=100000;TEMP=293.15"
+#define ATMOS_TANK_H2O GAS_WATER_VAPOR + "=100000;TEMP=293.15"
+#define ATMOS_TANK_AIRMIX GAS_O2 + "=2777" + GAS_N2 + "=10447;TEMP=293.15" // 21% oxygen, 79% nitrogen. Roughly.
 
 //LAVALAND
 /// what pressure you have to be under to increase the effect of equipment meant for lavaland

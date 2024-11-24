@@ -261,7 +261,7 @@
 /obj/effect/mine/gas
 	name = "oxygen mine"
 	var/gas_amount = 360
-	var/gas_type = "o2"
+	var/gas_type = GAS_O2
 	disarm_product = /obj/item/deployablemine/gas
 
 /obj/effect/mine/gas/mineEffect(mob/victim)
