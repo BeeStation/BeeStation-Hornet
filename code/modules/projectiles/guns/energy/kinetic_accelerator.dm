@@ -465,10 +465,16 @@
 	if(.)
 		KA.icon_state = chassis_icon
 		KA.name = chassis_name
+		if(iscarbon(KA.loc))
+			var/mob/living/carbon/holder = KA.loc
+			holder.update_inv_hands()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.icon_state = initial(KA.icon_state)
 	KA.name = initial(KA.name)
+	if(iscarbon(KA.loc))
+		var/mob/living/carbon/holder = KA.loc
+		holder.update_inv_hands()
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
