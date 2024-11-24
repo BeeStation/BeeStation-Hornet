@@ -38,23 +38,6 @@
 	var/obj/item/stock_parts/cell/internal_cell
 	///used while processing to update appearance only when its pressure state changes
 	var/current_pressure_state
-	///List of all the gases, used in labelling the canisters
-	var/static/list/label2types = list(
-		GAS_N2 = /obj/machinery/portable_atmospherics/canister/nitrogen,
-		GAS_O2 = /obj/machinery/portable_atmospherics/canister/oxygen,
-		GAS_CO2 = /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-		GAS_PLASMA = /obj/machinery/portable_atmospherics/canister/plasma,
-		GAS_N2O = /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-		GAS_NITRYL = /obj/machinery/portable_atmospherics/canister/nitryl,
-		GAS_BZ = /obj/machinery/portable_atmospherics/canister/bz,
-		GAS_AIR = /obj/machinery/portable_atmospherics/canister/air,
-		GAS_WATER_VAPOR = /obj/machinery/portable_atmospherics/canister/water_vapor,
-		GAS_TRITIUM = /obj/machinery/portable_atmospherics/canister/tritium,
-		GAS_HYPER_NOBLIUM = /obj/machinery/portable_atmospherics/canister/nob,
-		GAS_STIMULUM = /obj/machinery/portable_atmospherics/canister/stimulum,
-		GAS_PLUOXIUM = /obj/machinery/portable_atmospherics/canister/pluoxium,
-		"caution" = /obj/machinery/portable_atmospherics/canister,
-	)
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
@@ -339,7 +322,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(!ui)
 		ui = new(user, src, "Canister")
 		ui.open()
-		ui.set_autoupdate(TRUE) // Canister pressure, tank pressure, prototype canister timer
+		ui.set_autoupdate(TRUE) // Canister pressure, tank pressure
 
 /obj/machinery/portable_atmospherics/canister/ui_static_data(mob/user)
 	return list(
@@ -373,15 +356,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		return
 	switch(action)
 		if("relabel")
-			var/label = input("New canister label:", name) as null|anything in sort_list(label2types)
+			var/label = tgui_input_list(usr, "New canister label", "Canister", GLOB.gas_id_to_canister)
 			if(label && !..())
-				var/newtype = label2types[label]
-				if(newtype)
-					var/obj/machinery/portable_atmospherics/canister/replacement = newtype
-					name = initial(replacement.name)
-					desc = initial(replacement.desc)
-					icon_state = initial(replacement.icon_state)
-					set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
+				var/newtype = GLOB.gas_id_to_canister[label]
+				if(isnull(newtype))
+					return
+				var/obj/machinery/portable_atmospherics/canister/replacement = newtype
+				investigate_log("was relabelled to [initial(replacement.name)] by [key_name(usr)].", INVESTIGATE_ATMOS)
+				name = initial(replacement.name)
+				desc = initial(replacement.desc)
+				icon_state = initial(replacement.icon_state)
+				set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
