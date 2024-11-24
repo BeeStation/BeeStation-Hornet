@@ -98,11 +98,6 @@
 	replace_pipenet(parent, new /datum/pipeline)
 	return list(parent)
 
-/obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
-	if(air_temporary)
-		var/turf/T = loc
-		T.assume_air(air_temporary)
-
 /obj/machinery/atmospherics/pipe/return_air()
 	if(air_temporary)
 		return air_temporary
