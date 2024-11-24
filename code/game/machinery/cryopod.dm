@@ -46,8 +46,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/computer/cryopod/attack_silicon()
 	return attack_hand()
 
-SCREENTIP_ATTACK_HAND(/obj/machinery/computer/cryopod, "Use")
-
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
