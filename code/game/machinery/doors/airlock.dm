@@ -1669,7 +1669,7 @@
 /obj/machinery/door/airlock/proc/set_wires(wire_security_level)
 	return new /datum/wires/airlock(src, wire_security_level)
 
-/obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+/obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user)
 	..()
 	if (machine_stat & BROKEN)
 		return

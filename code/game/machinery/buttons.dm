@@ -299,7 +299,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
 /obj/machinery/button/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
 	id = "[REF(port)][id]"
 
-/obj/machinery/button/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+/obj/machinery/button/add_context_self(datum/screentip_context/context, mob/user)
 	if (length(req_access) || length(req_one_access) || req_access_txt != "0" || req_one_access_txt != "0")
 		context.add_access_context("Access Required", allowed(user))
 	if (context.accept_silicons())

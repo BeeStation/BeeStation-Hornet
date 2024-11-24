@@ -131,7 +131,7 @@
 
 	update_icon()
 
-/obj/machinery/cell_charger/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+/obj/machinery/cell_charger/add_context_self(datum/screentip_context/context, mob/user)
 	if (charging)
 		context.add_attack_hand_action("Take Item")
 	if (!panel_open)

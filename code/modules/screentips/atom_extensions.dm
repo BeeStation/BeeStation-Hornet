@@ -38,6 +38,7 @@
 	else
 		client.screentip_context.relevant = ishuman(client.mob)
 		client.screentip_context.user = client.mob
+		client.screentip_context.held_item = client.mob?.get_active_held_item()
 		client.screentip_context.access_context = ""
 		client.screentip_context.left_mouse_context = ""
 		client.screentip_context.tool_icon_context = ""
@@ -45,19 +46,21 @@
 		client.screentip_context.ctrl_left_mouse_context = ""
 		client.screentip_context.alt_left_mouse_context = ""
 		client.screentip_context.ctrl_shift_left_mouse_context = ""
-		add_context_self(client.screentip_context, client.mob, client.mob.get_active_held_item())
+		SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, client.screentip_context, client.mob)
+		add_context_self(client.screentip_context, client.mob)
 		if (client.screentip_context.relevant)
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context][client.screentip_context.ctrl_left_mouse_context][client.screentip_context.shift_left_mouse_context][client.screentip_context.alt_left_mouse_context][client.screentip_context.ctrl_shift_left_mouse_context][client.screentip_context.tool_icon_context]</span>"
 		else
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 		// Cleanup references for the sake of managing hard-deletes
 		client.screentip_context.user = null
+		client.screentip_context.held_item = null
 
 /// Indicates that this atom uses contexts, in any form
 /atom/proc/register_context()
 
 /// Add context tips
-/atom/proc/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+/atom/proc/add_context_self(datum/screentip_context/context, mob/user)
 	return
 
 /// Generate context tips for when we are using this item
