@@ -632,11 +632,8 @@ GENE SCANNER
 	. = ..()
 	if(!can_see(user, target, ranged_scan_distance))
 		return
-	if(target.tool_act(user, src, tool_behaviour))
-		return
-	// Tool act didn't scan it, so let's get it's turf.
-	var/turf/location = get_turf(target)
-	scan_turf(user, location)
+	. |= AFTERATTACK_PROCESSED_ITEM
+	atmosanalyzer_scan(user, (target.return_analyzable_air() ? target : get_turf(target)))
 
 /proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE, to_chat = TRUE)
 	var/mixture = target.return_analyzable_air()

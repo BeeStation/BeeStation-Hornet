@@ -9,16 +9,14 @@
 	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
+
 	pipe_state = "pvent"
-	has_cap_visuals = TRUE
 
 /obj/machinery/atmospherics/components/unary/passive_vent/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
 		var/image/cap = get_pipe_image(icon, "vent_cap", initialize_directions, pipe_color)
 		add_overlay(cap)
-	else
-		PIPING_LAYER_SHIFT(src, PIPING_LAYER_DEFAULT)
 	icon_state = "passive_vent"
 
 /obj/machinery/atmospherics/components/unary/passive_vent/process_atmos()
