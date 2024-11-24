@@ -20,6 +20,8 @@
 
 	var/transfer_rate = MAX_TRANSFER_RATE
 	var/overclocked = FALSE
+	///flashing light overlay which appears on multitooled vol pumps
+	var/mutable_appearance/overclock_overlay
 
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "volumepump"
@@ -48,6 +50,14 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/update_icon_nopipes()
 	icon_state = "volpump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
+	var/altlayeroverlay = FALSE
+	if(set_overlay_offset(piping_layer) == 2)
+		altlayeroverlay = TRUE
+	overclock_overlay = mutable_appearance('icons/obj/atmospherics/components/binary_devices.dmi', "vpumpoverclock[altlayeroverlay ? "2" : ""]")
+	if(overclocked && on && is_operational)
+		add_overlay(overclock_overlay)
+	else
+		cut_overlay(overclock_overlay)
 
 /obj/machinery/atmospherics/components/binary/volume_pump/process_atmos()
 	if(!on || !is_operational)
@@ -87,6 +97,7 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>Its pressure limits could be [overclocked ? "en" : "dis"]abled with a <b>multitool</b>."
 	if(overclocked)
 		. += "Its warning light is on[on ? " and it's spewing gas!" : "."]"
 
@@ -138,9 +149,11 @@
 	if(!overclocked)
 		overclocked = TRUE
 		to_chat(user, "The pump makes a grinding noise and air starts to hiss out as you disable its pressure limits.")
+		update_icon()
 	else
 		overclocked = FALSE
 		to_chat(user, "The pump quiets down as you turn its limiters back on.")
+		update_icon()
 	return TRUE
 
 /obj/machinery/atmospherics/components/binary/volume_pump/can_crawl_through()
