@@ -380,7 +380,10 @@
 	return FALSE
 
 /obj/item/radio/ui_state(mob/user)
-	return GLOB.hands_state
+	if(issilicon(user))
+		return GLOB.inventory_state
+	else
+		return GLOB.hands_state
 
 /obj/item/radio/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui)

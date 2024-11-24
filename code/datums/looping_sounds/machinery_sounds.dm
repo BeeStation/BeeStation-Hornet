@@ -90,6 +90,24 @@
 	falloff_distance = 3
 	volume = 150
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/rbmk
+	mid_sounds = list('sound/effects/rbmk/alarm.ogg' = 1)
+	volume = 100
+	extra_range = 10
+	mid_length = 58
+	ignore_walls = TRUE
+
+/datum/looping_sound/rbmk_ambience
+	mid_sounds = list('sound/effects/rbmk/ambience.ogg' = 1)
+	mid_length = 19
+	volume = 20
+	extra_range = 10
+	falloff_exponent = 10
+	falloff_distance = 5
+	vary = FALSE
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/firealarm
