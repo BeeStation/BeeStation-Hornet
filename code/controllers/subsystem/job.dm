@@ -157,9 +157,6 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-#ifdef QUICKSTART
-	rank = "Debug Job"
-#endif
 	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job || job.lock_flags)

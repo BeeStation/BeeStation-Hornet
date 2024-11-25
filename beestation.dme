@@ -4296,4 +4296,8 @@
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+// we load the quickstart file last so it can override anything it needs to
+#ifdef QUICKSTART
+#include "code\quickstart.dm"
+#endif
 // END_INCLUDE
