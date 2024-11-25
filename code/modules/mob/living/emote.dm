@@ -615,6 +615,12 @@
 	if(islizard(user))
 		return pick('sound/effects/tail_swipe1.ogg', 'sound/effects/tail_swipe2.ogg')
 
+/datum/emote/living/tail/can_run_emote(mob/user, status_check = TRUE , intentional)
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+
 /// Breathing required + audible emotes
 
 /datum/emote/living/must_breathe
