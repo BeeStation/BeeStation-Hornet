@@ -625,8 +625,15 @@
 	UE,
 	bank_account
 	)
-	. = ..()
 	src.id = id
+	src.age = age
+	src.blood_type = blood_type
+	src.dna_string = dna_string
+	src.fingerprint = fingerprint
+	src.gender = gender
+	src.initial_rank = initial_rank
+	src.name = name
+	src.species = species
 	src.weakref_dna = weakref_dna
 	src.uni_identity = uni_identity
 	src.SE = SE
