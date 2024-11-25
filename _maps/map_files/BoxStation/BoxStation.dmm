@@ -6325,6 +6325,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -35
 	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/tech,
 /area/quartermaster/storage)
 "buj" = (
@@ -63552,10 +63553,6 @@
 	},
 /turf/open/floor/engine/light,
 /area/engine/engineering)
-"wbq" = (
-/obj/machinery/camera/directional/south,
-/turf/open/floor/iron/tech,
-/area/quartermaster/storage)
 "wby" = (
 /obj/machinery/gulag_item_reclaimer{
 	pixel_y = 24
@@ -89335,7 +89332,7 @@ oqU
 ezC
 ezC
 wRZ
-wbq
+bjr
 bxx
 vci
 qrl
