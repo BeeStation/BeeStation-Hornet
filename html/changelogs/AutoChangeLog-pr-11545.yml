@@ -1,5 +1,0 @@
-author: jlsnow301, robbertapir, atosti, lessthnthree, JupiterJaeden, NamelessFairy,
-  Vincent983, JohnFulpWillard, 00-Steven, GoldenAlpharex, Archemagus, XeonMations
-delete-after: true
-changes:
-  - refactor: Refactored the security, medical and general manifests to TGUI.
