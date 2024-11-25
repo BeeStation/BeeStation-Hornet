@@ -1,3 +1,4 @@
+#warn WARNING: Compiling with QUICKSTART.
 /datum/job/assistant/debug
 	title = "Debug Job"
 	outfit = /datum/outfit/debug
