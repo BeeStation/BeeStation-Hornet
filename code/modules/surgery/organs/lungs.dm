@@ -54,7 +54,7 @@
 	var/SA_sleep_min = 5
 	var/BZ_trip_balls_min = 0.1 //BZ gas
 	var/BZ_brain_damage_min = 1
-	var/gas_stimulation_min = 0.002 //Nitryl
+	var/gas_stimulation_min = 0.002 //Nitryl and Stimulum
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -297,6 +297,13 @@
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
 		REMOVE_MOLES(/datum/gas/nitryl, breath, gas_breathed)
+
+	// Stimulum
+		gas_breathed = PP(breath,/datum/gas/stimulum)
+		if (gas_breathed > gas_stimulation_min)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
+			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
+		REMOVE_MOLES(/datum/gas/stimulum, breath, gas_breathed)
 
 		handle_breath_temperature(breath, H)
 	return TRUE

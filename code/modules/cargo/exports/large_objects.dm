@@ -132,6 +132,7 @@
 	var/datum/gas_mixture/canister_mix = C.return_air()
 	var/canister_gas = canister_mix.gases
 	worth += canister_gas[/datum/gas/bz][MOLES]*4
+	worth += canister_gas[/datum/gas/stimulum][MOLES]*100
 	worth += canister_gas[/datum/gas/hypernoblium][MOLES]*1000
 	worth += canister_gas[/datum/gas/tritium][MOLES]*5
 	worth += canister_gas[/datum/gas/pluoxium][MOLES]*5

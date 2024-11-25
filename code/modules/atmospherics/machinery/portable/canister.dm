@@ -591,6 +591,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#2786e5"
 
+/obj/machinery/portable_atmospherics/canister/stimulum
+	name = "stimulum canister"
+	desc = "Stimulum. High energy gas, high energy people."
+	gas_type = /datum/gas/stimulum
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#9b5d7f"
+
 /obj/machinery/portable_atmospherics/canister/plasma
 	name = "plasma canister"
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."

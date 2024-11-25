@@ -196,6 +196,16 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
 	primary_color = "#7b68ee"
 
+/datum/gas/stimulum
+	id = GAS_STIMULUM
+	specific_heat = 80
+	name = "Stimulum"
+	rarity = 200
+	base_value = 3
+	desc = "An experimental gas that makes you stun and sleep immune and slightly regenerates stamina, but also causes suffocation the longer you've been breathing it."
+	primary_color = "#ffc0cb"
+
+
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
