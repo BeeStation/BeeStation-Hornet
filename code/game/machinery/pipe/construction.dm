@@ -365,16 +365,6 @@ Buildable meters
 /obj/item/pipe/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The pipe layer is set to [piping_layer].</span>"
-	. += "<span class='notice'>You can change the pipe layer by clicking the device.</span>"
-
-/obj/item/pipe/attack_hand(mob/user, list/modifiers)
-	. = ..()
-	if(. == TRUE)
-		return
-	var/layer_to_set = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
-	set_piping_layer(layer_to_set)
-	balloon_alert(user, "pipe layer set to [piping_layer]")
-	return TRUE
 
 /obj/item/pipe/trinary/flippable/examine(mob/user)
 	. = ..()

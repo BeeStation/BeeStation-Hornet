@@ -1,11 +1,14 @@
 /obj/machinery/atmospherics/pipe
 	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
 	damage_deflection = 12
-	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
+	/// Temporary holder for gases in the absence of a pipeline
+	var/datum/gas_mixture/air_temporary
+	/// The gas capacity this pipe contributes to a pipeline
 	var/volume = 0
 
 	use_power = NO_POWER_USE
 	can_unwrench = 1
+	/// The pipeline this pipe is a member of
 	var/datum/pipeline/parent = null
 
 	paintable = TRUE
@@ -58,15 +61,16 @@
 	icon_state = "[bitfield]_[piping_layer]"
 
 /obj/machinery/atmospherics/pipe/update_icon()
-	. = ..()
 	update_pipe_icon()
 	update_layer()
+	return ..()
 
 /obj/machinery/atmospherics/proc/update_node_icon()
 	for(var/i in 1 to device_type)
-		if(nodes[i])
-			var/obj/machinery/atmospherics/N = nodes[i]
-			N.update_icon()
+		if(!nodes[i])
+			continue
+		var/obj/machinery/atmospherics/current_node = nodes[i]
+		current_node.update_icon()
 
 /obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE && damage_amount < 12)
