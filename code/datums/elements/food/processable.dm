@@ -81,6 +81,6 @@
  * * held_item - refers to tool used by add element proccessable to process one item into another item
  * * user - refers to user who will see the screentip when the proper context and tool are there
  */
-/datum/element/processable/proc/on_requesting_context_from_item(datum/source, datum/screentip_context/context, obj/item/held_item, mob/user)
+/datum/element/processable/proc/on_requesting_context_from_item(datum/source, datum/screentip_context/context, mob/user)
 	SIGNAL_HANDLER
 	context.add_left_click_tool_action("[screentip_verb] into [initial(result_atom_type.name)]", tool_behaviour)

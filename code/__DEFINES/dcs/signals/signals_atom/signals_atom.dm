@@ -171,5 +171,5 @@
 /// Screentip signals
 /////////////////
 
-/// proc/add_context(datum/source, datum/screentip_context/context, mob/user, obj/item/item)
+/// proc/add_context(datum/source, datum/screentip_context/context, mob/user)
 #define COMSIG_ATOM_ADD_CONTEXT "add_screentip_context"

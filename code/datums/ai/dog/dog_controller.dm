@@ -282,7 +282,7 @@
  * * held_item -
  * * user - refers to user who will see the screentip when the proper context is there
  */
-/datum/ai_controller/dog/proc/add_context(datum/source, datum/screentip_context/context, obj/item/held_item, mob/user)
+/datum/ai_controller/dog/proc/add_context(datum/source, datum/screentip_context/context, mob/user)
 	if (user.a_intent == INTENT_HARM)
 		context.add_attack_hand_action("Punch")
 	else
