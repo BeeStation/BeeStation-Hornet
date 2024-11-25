@@ -36,7 +36,7 @@ export const DetectiveBoard = function (props, context) {
   const [connections, setConnections] = useLocalState<Connection[]>(
     context,
     'setRopes',
-    current_case - 1 < cases.length ? cases[current_case - 1].connections : []
+    current_case - 1 < cases.length && cases[current_case - 1] ? cases[current_case - 1].connections : []
   );
 
   const handlePinStartConnecting = function (evidence: DataEvidence, mousePos: Position) {
@@ -166,11 +166,11 @@ export const DetectiveBoard = function (props, context) {
     }
   };
 
-  const handleEvidenceStartMoving = function (evidence: DataEvidence) {
+  const handleEvidenceStartMoving = function (evidence: DataEvidence): void {
     let moving_connections: TypedConnection[] = [];
     let pinPosition = getPinPosition(evidence);
     let new_connections: Connection[] = [];
-    for (let con of connections) {
+    for (let con of connections || []) {
       if (con.from.x === pinPosition.x && con.from.y === pinPosition.y) {
         moving_connections.push({ type: 'from', connection: con });
       } else if (con.to.x === pinPosition.x && con.to.y === pinPosition.y) {
@@ -235,30 +235,30 @@ export const DetectiveBoard = function (props, context) {
   };
 
   const retrieveConnections = function (typedConnections: TypedConnection[]) {
-    let result: Connection[] = [];
-    for (let con of typedConnections) {
-      result.push(con.connection);
-    }
-    return result;
+    return typedConnections.map((con) => con.connection);
   };
 
-  // Initialize event listeners
-  if (connectingEvidence) {
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  } else {
-    window.removeEventListener('mousemove', handleMouseMove);
-    window.removeEventListener('mouseup', handleMouseUp);
-  }
+  // Function to manage event listeners
+  const manageEventListeners = () => {
+    if (connectingEvidence) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    }
+  };
+
+  // Call the function to manage event listeners
+  manageEventListeners();
 
   // Update connections when current_case changes
-  setConnections(current_case - 1 < cases.length ? cases[current_case - 1].connections : []);
 
   return (
     <Window width={1200} height={800}>
       <Window.Content>
         {cases.length > 0 ? (
-          <>
+          <a>
             <BoardTabs />
             {cases?.map(
               (item, i) =>
@@ -287,7 +287,7 @@ export const DetectiveBoard = function (props, context) {
                   </Box>
                 )
             )}
-          </>
+          </a>
         ) : (
           <Stack fill>
             <Stack.Item grow>
