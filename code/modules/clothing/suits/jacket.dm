@@ -128,8 +128,8 @@
 	icon_state = "driver_jacket"
 	item_state = "driver_jacket"
 
-/obj/item/clothing/suit/jacket/liutenant
-	name = "Liutenant Vest"
-	desc = "A short orange vest that once belonged to a liutenant."
-	icon_state = "liutenant_jacket"
-	item_state = "liutenant_jacket"
+/obj/item/clothing/suit/jacket/lieutenant
+	name = "Lieutenant Vest"
+	desc = "A short orange vest that once belonged to a lieutenant."
+	icon_state = "lieutenant_jacket"
+	item_state = "lieutenant_jacket"
