@@ -646,10 +646,7 @@
 	src.UE = UE
 	src.bank_account = bank_account
 
-	GLOB.manifest.cloning += src
-
 /datum/record/cloning/Destroy()
-	GLOB.manifest.cloning -= src
 	return ..()
 
 // Copy the record's data to the target.
@@ -662,18 +659,17 @@
 	gender = target.gender
 	initial_rank = target.initial_rank
 	name = target.name
-	rank = target.rank
 	species = target.species
 	weakref_dna = target.weakref_dna
 	uni_identity = target.uni_identity
 	SE = target.SE
-	UE = target.UE
 	weakref_mind = target.weakref_mind
 	last_death = target.last_death
 	factions = target.factions
 	traumas = target.traumas
 	body_only = target.body_only
 	implant = target.implant
+	UE = target.UE
 	return
 
 /datum/record/cloning/proc/resolve_dna()
