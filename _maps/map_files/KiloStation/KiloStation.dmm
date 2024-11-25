@@ -69795,8 +69795,6 @@
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/fore)
 "uzT" = (
-/obj/structure/table,
-/obj/machinery/fax/service,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plating,
