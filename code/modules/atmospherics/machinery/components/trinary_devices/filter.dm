@@ -106,13 +106,10 @@
 
 	update_parents()
 
-/obj/machinery/atmospherics/components/trinary/filter/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/atmospherics/components/trinary/filter/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AtmosFilter")
+		ui = new(user, src, "AtmosFilter", name)
 		ui.open()
 
 /obj/machinery/atmospherics/components/trinary/filter/ui_data()
