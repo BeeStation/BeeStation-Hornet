@@ -279,7 +279,6 @@
  * Arguments:
  * * source -
  * * context -
- * * held_item -
  * * user - refers to user who will see the screentip when the proper context is there
  */
 /datum/ai_controller/dog/proc/add_context(datum/source, datum/screentip_context/context, mob/user)

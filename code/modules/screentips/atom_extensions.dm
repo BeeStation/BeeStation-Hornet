@@ -13,7 +13,12 @@
  * variable accesses
  */
 /atom/MouseEntered(location, control, params)
-	//SHOULD_CALL_PARENT(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+#ifdef SPACEMAN_DMM
+	// We don't actually want to call the parent of this one but
+	// this technically has a parent that we need to call
+	..()
+#endif
 	// If someone is connected to us in the queue, then we don't need to requeue
 	if (usr.client.hovered_atom)
 		usr.client.hovered_atom = src

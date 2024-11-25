@@ -78,7 +78,6 @@
  * Arguments:
  * * source - refers to item that will display its screentip
  * * context - refers to, in this case, an item that can be proccessed into another item via add element proccessable
- * * held_item - refers to tool used by add element proccessable to process one item into another item
  * * user - refers to user who will see the screentip when the proper context and tool are there
  */
 /datum/element/processable/proc/on_requesting_context_from_item(datum/source, datum/screentip_context/context, mob/user)
