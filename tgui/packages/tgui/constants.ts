@@ -214,6 +214,13 @@ const GASES = [
     label: 'Nitryl',
     color: 'brown',
   },
+  {
+    id: 'stimulum',
+    path: '/datum/gas/stimulum',
+    name: 'Stimulum',
+    label: 'Stimulum',
+    color: '#E1A116',
+  },
 ] as const;
 
 // Returns gas label based on gasId

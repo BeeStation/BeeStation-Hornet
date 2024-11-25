@@ -119,6 +119,15 @@
 /// The amount of energy released when a mole of NITRYL decomposes into nitrogen and hydrogen.
 #define NITRYL_DECOMPOSITION_ENERGY 30000
 
+
+// Stimulum:
+#define STIMULUM_HEAT_SCALE 100000
+#define STIMULUM_FIRST_RISE 0.65
+#define STIMULUM_FIRST_DROP 0.065
+#define STIMULUM_SECOND_RISE 0.0009
+#define STIMULUM_ABSOLUTE_DROP 0.00000335
+#define STIMULUM_MINIMUM_TEMPERATURE 1500
+
 // H-Nob:
 /// The maximum temperature hyper-noblium can form from tritium and nitrogen at.
 #define NOBLIUM_FORMATION_MIN_TEMP TCMB

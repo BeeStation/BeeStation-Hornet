@@ -540,6 +540,40 @@
 		air.temperature = max(((temperature * old_heat_capacity + energy_released) / new_heat_capacity), TCMB) //the air heats up when reacting
 	return REACTING
 
+
+
+/datum/gas_reaction/stimformation //Stimulum formation follows a strange pattern of how effective it will be at a given temperature, having some multiple peaks and some large dropoffs. Exo and endo thermic.
+	priority_group = PRIORITY_FORMATION
+	name = "Stimulum formation"
+	id = "stimformation"
+
+/datum/gas_reaction/stimformation/init_reqs()
+	requirements = list(
+		/datum/gas/tritium = 30,
+		/datum/gas/bz = 20,
+		/datum/gas/nitryl = 30,
+		/datum/gas/plasma = MINIMUM_MOLE_COUNT,
+		"MIN_TEMP" = STIMULUM_MINIMUM_TEMPERATURE)
+
+/datum/gas_reaction/stimformation/react(datum/gas_mixture/air)
+	var/list/cached_gases = air.gases
+
+	var/old_heat_capacity = air.heat_capacity()
+	var/heat_scale = min(air.temperature/STIMULUM_HEAT_SCALE, cached_gases[/datum/gas/tritium][MOLES], cached_gases[/datum/gas/plasma][MOLES], cached_gases[/datum/gas/nitryl][MOLES])
+	var/stim_energy_change = heat_scale + STIMULUM_FIRST_RISE * (heat_scale ** 2) - STIMULUM_FIRST_DROP * (heat_scale ** 3) + STIMULUM_SECOND_RISE * (heat_scale ** 4) - STIMULUM_ABSOLUTE_DROP * (heat_scale ** 5)
+	ASSERT_GAS(/datum/gas/stimulum, air)
+	if ((cached_gases[/datum/gas/tritium][MOLES] - heat_scale < 0 ) || (cached_gases[/datum/gas/nitryl][MOLES] - heat_scale < 0)) //Shouldn't produce gas from nothing.
+		return NO_REACTION
+	cached_gases[/datum/gas/tritium][MOLES] -= heat_scale
+	cached_gases[/datum/gas/nitryl][MOLES] -= heat_scale
+	cached_gases[/datum/gas/stimulum][MOLES] += heat_scale * 0.75
+
+	if(stim_energy_change)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.temperature = max(((air.temperature * old_heat_capacity + stim_energy_change) / new_heat_capacity), TCMB)
+		return REACTING
+
 /**
  * Hyper-Noblium Formation:
  *

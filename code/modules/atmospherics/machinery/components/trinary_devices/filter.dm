@@ -247,6 +247,11 @@
 	name = "nitryl filter"
 	filter_type = list(/datum/gas/nitryl)
 
+/obj/machinery/atmospherics/components/trinary/filter/atmos/stimulum
+	name = "stimulum filter"
+	filter_type = list(/datum/gas/stimulum)
+
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/pluoxium
 	name = "pluoxium filter"
 	filter_type = list(/datum/gas/pluoxium)
