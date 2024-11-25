@@ -324,9 +324,11 @@
 			holder.icon_state = "huddischarged"
 		if(WANTED_NONE)
 			holder.icon_state = null
+			set_hud_image_inactive(WANTED_HUD)
+			return
+	set_hud_image_active(WANTED_HUD)
 
-	set_hud_image_inactive(WANTED_HUD)
-  
+
 //Utility functions
 
 /**
