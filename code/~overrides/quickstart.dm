@@ -1,3 +1,4 @@
+#ifdef QUICKSTART
 #warn WARNING: Compiling with QUICKSTART.
 /datum/job/assistant/debug
 	title = "Debug Job"
@@ -11,3 +12,4 @@
 
 /mob/dead/new_player
 	ready = TRUE
+#endif

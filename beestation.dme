@@ -4293,12 +4293,8 @@
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
 #include "code\ze_genesis_call\genesis_call.dm"
+#include "code\~overrides\quickstart.dm"
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
-
-// we load the quickstart file last so it can override anything it needs to
-#ifdef QUICKSTART
-#include "code\quickstart.dm"
-#endif
