@@ -3549,11 +3549,11 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "aHX" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/rnd/production/techfab/department/service,
 /obj/effect/turf_decal/stripes/box,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
 "aIa" = (
@@ -34928,6 +34928,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -41597,7 +41600,6 @@
 /area/crew_quarters/kitchen)
 "lyj" = (
 /obj/structure/table,
-/obj/machinery/light/small,
 /obj/machinery/fax/service,
 /obj/item/hand_labeler,
 /obj/item/stack/package_wrap,
@@ -69794,7 +69796,6 @@
 /area/hallway/primary/fore)
 "uzT" = (
 /obj/structure/table,
-/obj/machinery/light/small,
 /obj/machinery/fax/service,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/modular_fabricator/autolathe,
