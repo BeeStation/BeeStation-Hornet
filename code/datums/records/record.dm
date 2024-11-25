@@ -646,9 +646,6 @@
 	src.UE = UE
 	src.bank_account = bank_account
 
-/datum/record/cloning/Destroy()
-	return ..()
-
 // Copy the record's data to the target.
 /datum/record/cloning/proc/copy_to(datum/record/cloning/target)
 	id = target.id
