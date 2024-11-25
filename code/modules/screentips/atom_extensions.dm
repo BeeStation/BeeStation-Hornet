@@ -36,27 +36,26 @@
 		else
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 	else
-		client.screentip_context.relevant = ishuman(client.mob)
-		client.screentip_context.user = client.mob
-		client.screentip_context.held_item = client.mob?.get_active_held_item()
-		client.screentip_context.access_context = ""
-		client.screentip_context.left_mouse_context = ""
-		client.screentip_context.tool_icon_context = ""
-		client.screentip_context.shift_left_mouse_context = ""
-		client.screentip_context.ctrl_left_mouse_context = ""
-		client.screentip_context.alt_left_mouse_context = ""
-		client.screentip_context.ctrl_shift_left_mouse_context = ""
-
-
-		SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, client.screentip_context, client.screentip_context.held_item, client.mob)
-		add_context_self(client.screentip_context, client.mob)
-		if (client.screentip_context.relevant)
-			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][client.screentip_context.access_context][client.screentip_context.left_mouse_context][client.screentip_context.ctrl_left_mouse_context][client.screentip_context.shift_left_mouse_context][client.screentip_context.alt_left_mouse_context][client.screentip_context.ctrl_shift_left_mouse_context][client.screentip_context.tool_icon_context]</span>"
+		var/datum/screentip_context/context = client.screentip_context
+		context.relevant = ishuman(client.mob)
+		context.user = client.mob
+		context.held_item = client.mob?.get_active_held_item()
+		context.access_context = ""
+		context.left_mouse_context = ""
+		context.tool_icon_context = ""
+		context.shift_left_mouse_context = ""
+		context.ctrl_left_mouse_context = ""
+		context.alt_left_mouse_context = ""
+		context.ctrl_shift_left_mouse_context = ""
+		SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, context, client.mob)
+		add_context_self(context, client.mob)
+		if (context.relevant)
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][context.access_context][context.left_mouse_context][context.ctrl_left_mouse_context][context.shift_left_mouse_context][context.alt_left_mouse_context][context.ctrl_shift_left_mouse_context][context.tool_icon_context]</span>"
 		else
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 		// Cleanup references for the sake of managing hard-deletes
-		client.screentip_context.user = null
-		client.screentip_context.held_item = null
+		context.user = null
+		context.held_item = null
 
 /// Indicates that this atom uses contexts, in any form
 /atom/proc/register_context()
