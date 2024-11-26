@@ -70,7 +70,7 @@
 	if(has_sensor == BROKEN_SENSORS)
 		context.add_left_click_item_action("Repair suit sensors", /obj/item/stack/cable_coil)
 
-	if(has_sensor == HAS_SENSORS)
+	if(attached_accessory)
 		context.add_alt_click_item_action("Remove accessory", null)
 	else if(can_adjust)
 		context.add_alt_click_action(adjusted == ALT_STYLE ? "Wear normally" : "Wear casually")
