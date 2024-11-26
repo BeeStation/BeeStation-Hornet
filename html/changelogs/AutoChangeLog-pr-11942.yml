@@ -1,6 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed cloning body only scans wrongly saving information
-  - bugfix: Fixed cloning diskettes being broken
-  - refactor: Removed cloning manifest records from global list
