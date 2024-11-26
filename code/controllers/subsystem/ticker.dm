@@ -68,7 +68,6 @@ SUBSYSTEM_DEF(ticker)
 	var/emergency_start = FALSE
 
 /datum/controller/subsystem/ticker/Initialize()
-
 	load_mode()
 
 	var/list/byond_sound_formats = list(
