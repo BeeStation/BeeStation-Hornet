@@ -276,3 +276,17 @@
 	foodtypes = JUNKFOOD | SUGAR //| BUGS
 	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
+
+/obj/item/food/swirl_lollipop
+	name = "Swirl lollipop"
+	desc = "A massive rainbow swirlled lollipop. Said to contain extra sugar."
+	icon_state = "swirl_lollipop"
+	item_state = "swirl_lollipop"
+	food_reagents = list(
+		/datum/reagent/consumable/sugar = 30,
+		/datum/reagent/drug/happiness = 5, //swirl lollipops make everyone happy!
+		/datum/reagent/medicine/omnizine = 5,
+	)
+	tastes = list("whimsical joy" = 1, "sugar" = 2)
+	foodtypes = JUNKFOOD | SUGAR
+	food_flags = FOOD_FINGER_FOOD

@@ -1,8 +1,18 @@
 GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
+
+CREATION_TEST_IGNORE_SELF(/turf)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	flags_1 = CAN_BE_DIRTY_1
+	uses_integrity = TRUE
+
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -33,8 +43,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
-	flags_1 = CAN_BE_DIRTY_1
-
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
 
@@ -59,8 +67,19 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	/// If this turf contained an RCD'able object (or IS one, for walls)
+	/// but is now destroyed, this will preserve the value.
+	/// See __DEFINES/construction.dm for RCD_MEMORY_*.
+	var/rcd_memory
+
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
+
+	///Ref to texture mask overlay
+	var/texture_mask_overlay
+
+	///Can this floor be an underlay, for turf damage
+	var/can_underlay = TRUE
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -124,13 +143,36 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
 
+	if(custom_materials)
+
+		var/temp_list = list()
+		for(var/i in custom_materials)
+			temp_list[SSmaterials.GetMaterialRef(i)] = custom_materials[i] //Get the proper instanced version
+
+		custom_materials = null //Null the list to prepare for applying the materials properly
+		set_custom_materials(temp_list)
+
 	ComponentInitialize()
+
+	if(uses_integrity)
+		atom_integrity = max_integrity
+
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+
 	if(isopenturf(src))
 		var/turf/open/O = src
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
 	else
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
+
+	//Handle turf texture
+	var/datum/turf_texture/TT = get_turf_texture()
+	if(TT)
+		add_turf_texture(TT)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -178,13 +220,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/attack_hand(mob/user)
 	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
-		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+		if(!user.has_gravity(src) || (user.movement_type & (FLOATING|FLYING)))
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
-	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
+	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
 	if(.)
 		return
@@ -257,12 +299,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
 	if(canPassSelf || (mover.movement_type & PHASING))
-		for(var/i in contents)
+		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
 				return FALSE		//We were deleted, do not attempt to proceed with movement.
-			if(i == mover || i == mover.loc) // Multi tile objects and moving out of other objects
+			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
 				continue
-			var/atom/movable/thing = i
 			if(!thing.Cross(mover))
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
@@ -332,7 +373,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
@@ -360,7 +401,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/datum/progressbar/progress = new(user, things.len, src)
 	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 	return TRUE
 
@@ -526,6 +567,24 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
+///Add our relevant floor texture, if we can / need
+/turf/proc/add_turf_texture(list/textures, force)
+	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
+		if(!force) //readability
+			return
+	var/datum/turf_texture/turf_texture
+	for(var/datum/turf_texture/TF as() in textures)
+		var/area/A = loc
+		if(TF in A?.get_turf_textures())
+			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
+	if(turf_texture)
+		vis_contents += load_turf_texture(turf_texture)
+
+/turf/proc/clean_turf_texture()
+	for(var/atom/movable/turf_texture/TF in vis_contents)
+		if(initial(TF.parent_texture?.cleanable))
+			vis_contents -= TF
+
 /// returns a list of all mobs inside of a turf.
 /// likely detects mobs hiding in a closet.
 /turf/proc/get_all_mobs()
@@ -537,3 +596,21 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/obj/O = each
 			for(var/mob/M in O.contents)
 				. += M
+
+
+/turf/proc/get_turf_texture()
+	return
+
+/**
+  * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals
+  */
+/turf/wash(clean_types)
+	. = ..()
+
+	for(var/am in src)
+		if(am == src)
+			continue
+		var/atom/movable/movable_content = am
+		if(!ismopable(movable_content))
+			continue
+		movable_content.wash(clean_types)

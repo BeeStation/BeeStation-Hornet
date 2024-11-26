@@ -1,7 +1,7 @@
 /obj/structure/big_delivery
 	name = "large parcel"
 	desc = "A large delivery parcel."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "deliverycloset"
 	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -10,7 +10,7 @@
 	var/obj/item/paper/note
 	var/obj/item/barcode/sticker
 
-/obj/structure/big_delivery/Initialize()
+/obj/structure/big_delivery/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
@@ -176,7 +176,7 @@
 /obj/item/small_delivery
 	name = "parcel"
 	desc = "A brown paper delivery parcel."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "deliverypackage3"
 	item_state = "deliverypackage"
 	var/giftwrapped = 0
@@ -325,6 +325,7 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "cargotagger"
+	worn_icon_state = "cargotagger"
 	var/currTag = 0 //Destinations are stored in code\globalvars\lists\flavor_misc.dm
 	var/locked_destination = FALSE //if true, users can't open the destination tag window to prevent changing the tagger's current destination
 	w_class = WEIGHT_CLASS_TINY
@@ -352,6 +353,8 @@
 
 	dat += "<table style='width:100%; padding:4px;'><tr>"
 	for (var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
+		if (GLOB.TAGGERLOCATIONS[i] in GLOB.disabled_tagger_locations)
+			continue
 		dat += "<td><a href='?src=[REF(src)];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
 
 		if(i%4==0)

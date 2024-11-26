@@ -8,6 +8,7 @@
 	damage = 10
 	stamina = 50
 	armour_penetration = -20
+	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -62,6 +63,7 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
+	bleed_force = BLEED_SCRATCH
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
@@ -80,6 +82,7 @@
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
 	armour_penetration = -20
+	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(damage <= 0 && tile_dropoff_s == 0)
@@ -131,6 +134,7 @@
 
 /obj/projectile/bullet/scattershot
 	damage = 18
+	bleed_force = BLEED_SURFACE
 
 //Breaching Ammo
 
@@ -139,10 +143,11 @@
 	desc = "A breaching round designed to destroy airlocks and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
+	bleed_force = BLEED_SURFACE
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
-	if(istype(target, /obj/structure/window) || istype(target, /obj/structure/grille) || istype(target, /obj/machinery/door) || istype(target, /obj/structure/door_assembly))
+	if(isstructure(target) || ismachinery(target))
 		damage = 500 //one shot to break a window or grille, or 3 shots to breach an airlock door
 	if (isturf(target))
-		damage = 300
+		damage = 700
 	..()

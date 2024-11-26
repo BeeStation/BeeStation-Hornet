@@ -1,0 +1,322 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/glass/bottle/rum{
+	name = "Captain Pete's Private Reserve Cuban Spaced Rum";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/mob_spawn/human/skeleton,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "180"
+	},
+/obj/effect/trap/trigger/reusable,
+/turf/open/floor/wood,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8;
+	pixel_y = 8
+	},
+/obj/item/stack/sheet/wood,
+/turf/open/floor/wood,
+/area/template_noop)
+"j" = (
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/caution{
+	dir = 1;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/arrows{
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/arrows{
+	pixel_y = 16
+	},
+/obj/effect/trap/trigger/reusable,
+/turf/open/floor/wood,
+/area/template_noop)
+"k" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/coin/titanium{
+	pixel_x = 4;
+	pixel_y = -8
+	},
+/obj/item/coin/uranium{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/coin/gold{
+	pixel_y = -6;
+	pixel_x = -8
+	},
+/obj/item/coin,
+/obj/effect/turf_decal/box,
+/obj/effect/spawner/lootdrop/maintenance/five,
+/turf/open/floor/wood,
+/area/template_noop)
+"l" = (
+/obj/effect/trap/trigger/reusable,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/turf/open/floor/iron/stairs{
+	dir = 8
+	},
+/area/template_noop)
+"o" = (
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "180"
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8;
+	pixel_y = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"q" = (
+/obj/item/reagent_containers/condiment/milk,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/trap/nexus/doorbolt,
+/turf/open/floor/wood,
+/area/template_noop)
+"v" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "180"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"A" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
+/area/template_noop)
+"B" = (
+/obj/effect/trap/trigger/reusable,
+/turf/open/floor/wood,
+/area/template_noop)
+"C" = (
+/obj/item/stack/sheet/wood/five,
+/turf/open/floor/plating,
+/area/template_noop)
+"D" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/trap/trigger/reusable,
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "180"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"G" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude,
+/turf/closed/wall/mineral/wood,
+/area/template_noop)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
+/area/template_noop)
+"M" = (
+/obj/structure/barricade/wooden,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/turf/closed/wall/mineral/wood,
+/area/template_noop)
+"O" = (
+/obj/structure/table/wood,
+/obj/item/candle/infinite{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/item/grenade/smokebomb{
+	pixel_y = 9
+	},
+/obj/item/grenade/empgrenade{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/wood,
+/area/template_noop)
+"P" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/machinery/computer/shuttle_flight{
+	dir = 8;
+	name = "pirate shuttle console";
+	desc = "A shuttle control computer. It appears to be non-functional."
+	},
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"R" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/structure/barricade/wooden,
+/turf/closed/wall/mineral/wood,
+/area/template_noop)
+"U" = (
+/obj/structure/barricade/wooden/crude,
+/turf/closed/wall/mineral/wood,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/mob/living/simple_animal/hostile/pirate{
+	loot = null
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"W" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/wood,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/turf_decal/box,
+/obj/item/restraints/handcuffs,
+/obj/item/clothing/mask/muzzle,
+/obj/item/toy/sword,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
+/turf/open/floor/wood,
+/area/template_noop)
+
+(1,1,1) = {"
+t
+R
+l
+t
+v
+"}
+(2,1,1) = {"
+N
+G
+E
+T
+e
+"}
+(3,1,1) = {"
+U
+V
+A
+N
+M
+"}
+(4,1,1) = {"
+N
+Q
+n
+U
+C
+"}
+(5,1,1) = {"
+g
+c
+u
+x
+j
+"}
+(6,1,1) = {"
+g
+W
+k
+I
+D
+"}
+(7,1,1) = {"
+I
+Z
+K
+N
+P
+"}
+(8,1,1) = {"
+U
+O
+i
+T
+q
+"}
+(9,1,1) = {"
+N
+U
+o
+N
+H
+"}
+(10,1,1) = {"
+r
+H
+B
+d
+a
+"}

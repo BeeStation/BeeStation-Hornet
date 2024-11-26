@@ -245,7 +245,7 @@
 /datum/config_entry/string/alert_delta
 	config_entry_value = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
 
-/datum/config_entry/flag/revival_pod_plants
+/datum/config_entry/flag/diona_ghost_spawn
 
 /datum/config_entry/flag/revival_cloning
 
@@ -301,8 +301,18 @@
 /datum/config_entry/number/movedelay/run_delay
 	integer = FALSE
 
+/datum/config_entry/number/movedelay/run_delay/ValidateAndSet()
+	. = ..()
+	var/datum/movespeed_modifier/config_walk_run/M = get_cached_movespeed_modifier(/datum/movespeed_modifier/config_walk_run/run)
+	M.sync()
+
 /datum/config_entry/number/movedelay/walk_delay
 	integer = FALSE
+
+/datum/config_entry/number/movedelay/walk_delay/ValidateAndSet()
+	. = ..()
+	var/datum/movespeed_modifier/config_walk_run/M = get_cached_movespeed_modifier(/datum/movespeed_modifier/config_walk_run/walk)
+	M.sync()
 
 /////////////////////////////////////////////////
 
@@ -446,3 +456,30 @@
 /datum/config_entry/flag/station_traits
 
 /datum/config_entry/flag/dark_unstaffed_departments
+
+/datum/config_entry/flag/allow_virologist
+
+/datum/config_entry/flag/chemviro_allowed
+
+/datum/config_entry/flag/isolation_allowed
+
+/datum/config_entry/flag/neuter_allowed
+
+/datum/config_entry/flag/mixvirus_allowed
+
+/datum/config_entry/flag/seeded_symptoms
+
+/datum/config_entry/flag/biohazards_allowed
+
+/datum/config_entry/flag/process_dead_allowed
+
+/datum/config_entry/flag/unconditional_virus_spreading
+
+/datum/config_entry/flag/unconditional_symptom_thresholds
+
+/datum/config_entry/flag/event_symptom_thresholds
+
+/datum/config_entry/flag/special_symptom_thresholds
+
+/datum/config_entry/number/virus_thinning_cap
+	config_entry_value = 4

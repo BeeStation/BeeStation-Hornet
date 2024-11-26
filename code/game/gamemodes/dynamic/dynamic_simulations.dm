@@ -77,7 +77,7 @@
 			"execution_time" = simulated_time,
 			"remaining_threat" = gamemode.mid_round_budget,
 			"simulated_alive_players" = gamemode.simulated_alive_players,
-			"is_lategame" = gamemode.is_lategame()
+			"is_lategame" = simulated_result.lategame_spawned
 		))
 
 	return list(

@@ -1,5 +1,3 @@
-#define SHUTTLE_CREATOR_MAX_SIZE CONFIG_GET(number/max_shuttle_size)
-#define CUSTOM_SHUTTLE_LIMIT CONFIG_GET(number/max_shuttle_count)
 //This must be in the order of the direction bitflags
 #define CARDINAL_DIRECTIONS_X list(0, 0, -1, 1)
 #define CARDINAL_DIRECTIONS_Y list(-1, 1, 0, 0)
@@ -13,6 +11,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsd"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	density = FALSE
@@ -26,7 +25,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	req_access_txt = "11"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	var/ready = TRUE
 	//pre-designation
@@ -423,8 +422,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			to_chat(usr, "<span class='warning'>Warning, [place.mobile_port.name] is preventing designation in this region.</span>")
 			return FALSE
 		if(!istype(t,/turf/open/floor/dock/drydock)) //Drydocks bypass the area check, but not the recursion check
-			var/static/list/drydock_types = typesof(/turf/open/floor/dock/drydock)
-			var/static/list/valid_area_types = typecacheof(list(/area/space, /area/lavaland/surface/outdoors, /area/asteroid/generated))
+			var/static/list/drydock_types = typesof(/turf/open/floor/dock/drydock, /turf/open/floor/plating/grass, /turf/open/floor/plating/dirt/planetary, /turf/open/floor/plating/dirt/jungle/wasteland, /turf/open/floor/plating/beach/sand, /turf/open/floor/plating/asteroid/planetary)
+			var/static/list/valid_area_types = typecacheof(list(/area/space, /area/lavaland/surface/outdoors, /area/asteroid/generated, /area/asteroid/paradise/surface))
 			if(islist(t.baseturfs))
 				for(var/j in 0 to t.baseturfs.len - 1) //See if there's a drydock here that isn't being used by another shuttle
 					var/path = t.baseturfs[t.baseturfs.len-j]

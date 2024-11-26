@@ -38,6 +38,14 @@
 	var/procname = proclist[proclist.len]
 	var/proctype = ("verb" in proclist) ? "verb" :"proc"
 
+	// absolutely not
+	if(findtextEx(trim(LOWER_TEXT(procname)), "rustg"))
+		var/html_strip = html_encode(procname)
+		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call rust-g procs([html_strip]). Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(src)] attempted to proc call rust-g procs([html_strip]). Inform the host at once.")
+		send2tgs("SECURITY ALERT", "[key_name(src)] attempted to proc call rustg things([html_strip]). Inform the host at once.")
+		return
+
 	if(targetselected)
 		if(!hascall(target, procname))
 			to_chat(usr, "<span class='warning'>Error: callproc(): type [target.type] has no [proctype] named [procpath].</span>")
@@ -172,7 +180,7 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 		if(named_arg)
 			named_args[named_arg] = value["value"]
 		else
-			. += value["value"]
+			. += LIST_VALUE_WRAP_LISTS(value["value"])
 	if(LAZYLEN(named_args))
 		. += named_args
 

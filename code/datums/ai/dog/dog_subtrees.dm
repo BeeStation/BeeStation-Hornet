@@ -19,7 +19,7 @@
 		var/atom/movable/interact_target = controller.blackboard[BB_FETCH_TARGET]
 		if(in_range(living_pawn, interact_target) && (isturf(interact_target.loc)))
 			controller.current_movement_target = interact_target
-			if(istype(interact_target, /obj/item/reagent_containers/food))
+			if(istype(interact_target, /obj/item/food))
 				controller.queue_behavior(/datum/ai_behavior/eat_snack)
 			else if(isitem(interact_target))
 				controller.queue_behavior(/datum/ai_behavior/simple_equip)

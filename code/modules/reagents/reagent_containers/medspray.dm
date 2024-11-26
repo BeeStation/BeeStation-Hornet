@@ -4,6 +4,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "medspray"
 	item_state = "spraycan"
+	worn_icon_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	item_flags = NOBLUDGEON
@@ -73,7 +74,7 @@
 		log_combat(user, M, "attempted to apply", src, reagents.log_list())
 		M.visible_message("<span class='danger'>[user] attempts to [apply_method] [src] on [M].</span>", \
 							"<span class='userdanger'>[user] attempts to [apply_method] [src] on [M].</span>")
-		if(!do_after(user, target = M))
+		if(!do_after(user, 3 SECONDS, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return

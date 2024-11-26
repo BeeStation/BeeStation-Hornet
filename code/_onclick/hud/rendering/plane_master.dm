@@ -41,7 +41,7 @@
 	. = ..()
 	remove_filter("openspace_shadow")
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
-		add_filter("openspace_shadow", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
+		add_filter("openspace_shadow", 2, drop_shadow_filter(color = "#04080FAA", size = 10))
 
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
@@ -109,6 +109,8 @@
 	. = ..()
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
+	if (isliving(mymob))
+		mymob.overlay_fullscreen("lighting_backdrop_seenear", /atom/movable/screen/fullscreen/see_through_darkness)
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()

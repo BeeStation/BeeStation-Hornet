@@ -14,6 +14,7 @@
 	desc = "A tool used by great men to placate the frothing masses."
 	icon_state = "chain"
 	item_state = "chain"
+	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -21,7 +22,8 @@
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	attack_verb_simple = list("flog", "whip", "lash", "discipline")
 	hitsound = 'sound/weapons/chainhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
@@ -42,8 +44,10 @@
 	force = 20
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
@@ -67,7 +71,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
 	sharpness = IS_SHARP
-	attack_verb = list("slashed", "cut")
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("slashes", "cuts")
+	attack_verb_simple = list("slash", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
@@ -161,6 +167,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
+	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -174,7 +181,7 @@
 	var/stamina_damage = 55 // Do we deal stamina damage.
 	var/affect_silicon = FALSE // Does it stun silicons.
 	var/on_sound // "On" sound, played when switching between able to stun or not.
-	var/on_stun_sound = "sound/effects/woodhit.ogg" // Default path to sound for when we stun.
+	var/on_stun_sound = 'sound/effects/woodhit.ogg' // Default path to sound for when we stun.
 	var/stun_animation = FALSE // Do we animate the "hit" when stunning.
 	var/on = TRUE // Are we on or off
 
@@ -203,11 +210,19 @@
 	. = list()
 
 	.["visibletrip"] =  "<span class ='danger'>[user] has knocked [target]'s legs out from under them with [src]!</span>"
-	.["localtrip"] = "<span class ='danger'>[user] has knocked your legs out from under you [src]!</span>"
+	.["localtrip"] = "<span class ='danger'>[user] has knocked your legs out from under you with [src]!</span>"
+	.["visibleknockout"] =  "<span class ='danger'>[user] has violently knocked out [target] with [src]!</span>"
+	.["localknockout"] = "<span class ='danger'>[user] has beat you with such force on the head with [src] you fall unconscious...</span>"
 	.["visibledisarm"] =  "<span class ='danger'>[user] has disarmed [target] with [src]!</span>"
 	.["localdisarm"] = "<span class ='danger'>[user] whacks your arm with [src], causing a coursing pain!</span>"
 	.["visiblestun"] =  "<span class ='danger'>[user] beat [target] with [src]!</span>"
 	.["localstun"] = "<span class ='danger'>[user] has beat you with [src]!</span>"
+	.["visibleshead"] =  "<span class ='danger'>[user] beat [target] on the head with [src]!</span>"
+	.["localhead"] = "<span class ='danger'>[user] has beat your head with [src]!</span>"
+	.["visiblearm"] =  "<span class ='danger'>[user] beat [target]'s arm with [src]!</span>"
+	.["localarm"] = "<span class ='danger'>[user] has beat your arm with [src]!</span>"
+	.["visibleleg"] =  "<span class ='danger'>[user] beat [target]'s leg with [src]!</span>"
+	.["localleg"] = "<span class ='danger'>[user] has beat you in the leg with [src]!</span>"
 
 	return .
 
@@ -284,6 +299,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
+					log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -312,10 +328,6 @@
 
 			add_fingerprint(user)
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = WEAKREF(user)
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -387,7 +399,8 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
+		attack_verb_simple = list("smack", "strike", "crack", "beat")
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
@@ -395,7 +408,8 @@
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
-		attack_verb = list("hit", "poked")
+		attack_verb_continuous = list("hits", "pokes")
+		attack_verb_simple = list("hit", "poke")
 
 	playsound(src.loc, on_sound, 50, 1)
 	add_fingerprint(user)
@@ -448,7 +462,8 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
+		attack_verb_simple = list("smack", "strike", "crack", "beat")
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
@@ -456,7 +471,8 @@
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
-		attack_verb = list("hit", "poked")
+		attack_verb_continuous = list("hits", "pokes")
+		attack_verb_simple = list("hit", "poke")
 
 	playsound(src.loc, on_sound, 50, TRUE)
 	add_fingerprint(user)
@@ -524,6 +540,7 @@
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
+					log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
 					return
 
 			var/list/desc = get_stun_description(target, user)
@@ -548,10 +565,6 @@
 
 			target.visible_message(desc["visible"], desc["local"])
 
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -700,11 +713,13 @@
 	item_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	worn_icon_state = "whip"
 	slot_flags = ITEM_SLOT_BELT
 	force = 0.001 //"Some attack noises shit"
 	reach = 3
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	attack_verb_simple = list("flog", "whip", "lash", "discipline")
 	hitsound = 'sound/weapons/whip.ogg'
 
 /obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
@@ -750,13 +765,16 @@
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "roastingstick_0"
-	item_state = "null"
+	item_state = null
+	worn_icon_state = "tele_baton"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	force = 0
-	attack_verb = list("hit", "poked")
+	attack_verb_continuous = list("hits", "pokes")
+	attack_verb_simple = list("hit", "poke")
 	var/obj/item/food/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
@@ -830,7 +848,7 @@
 		return
 	if(is_type_in_typecache(target, ovens))
 		if(held_sausage && held_sausage.roasted)
-			to_chat("Your [held_sausage] has already been cooked.")
+			to_chat(user, "Your [held_sausage] has already been cooked.")
 			return
 		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
@@ -861,13 +879,15 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "telebaton_1"
 	item_state = "nullrod"
+	worn_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("repelled")
+	attack_verb_continuous = list("repells")
+	attack_verb_simple = list("repell")
 	var/cooldown = 0
 	var/knockbackpower = 6
 
@@ -884,9 +904,96 @@
 		var/turf/throw_at = get_ranged_target_turf(target, throw_dir, knockbackpower)
 		target.throw_at(throw_at, throw_range, 3)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
-
 		cooldown = world.time + 15
+
+//Former Wooden Baton
+/obj/item/melee/tonfa
+	name = "Police Tonfa"
+	desc = "A traditional police baton for gaining the submission of an uncooperative target without the use of lethal-force. \
+		As with all traditional weapons, the target will find themselves bruised, but alive. It has proven to be effective in preventing \
+		repeat offenses and has brought employment to lawyers for decades."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "beater"
+	item_state = "beater"
+	worn_icon_state = "classic_baton"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	force = 12
+	throwforce = 7
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_LARGE
+	hitsound = 'sound/effects/woodhit.ogg'
+	/// Damage dealt while on help intent
+	var/non_harm_force = 3
+	/// Stamina damage dealt
+	var/stamina_force = 25
+
+// #11200 Review - TEMP: Hacky code to deal with force string for this item.
+/obj/item/melee/tonfa/openTip(location, control, params, mob/user)
+	if (user != null && user.a_intent != INTENT_HARM)
+		force = non_harm_force
+	else
+		force = initial(force)
+	return ..()
+
+/obj/item/melee/tonfa/attack(mob/living/target, mob/living/user)
+	var/target_zone = user.get_combat_bodyzone(target)
+	var/armour_level = target.getarmor(target_zone, STAMINA, penetration = armour_penetration - 15)
+
+	add_fingerprint(user)
+	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+		user.adjustStaminaLoss(stamina_force)
+
+		// Deal full damage
+		force = initial(force)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+		else
+			user.take_bodypart_damage(2*force)
+		return
+	if(!isliving(target))
+		return ..()
+	if(iscyborg(target))
+		if (user.a_intent != INTENT_HARM)
+			playsound(get_turf(src), hitsound, 75, 1, -1)
+			user.do_attack_animation(target) // The attacker cuddles the Cyborg, awww. No damage here.
+			return
+	if (user.a_intent != INTENT_HARM)
+		force = non_harm_force
+	else
+		force = initial(force)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			return
+		if(check_martial_counter(H, user))
+			log_combat(user, target, "attempted to attack", src, "(blocked by martial arts)")
+			return
+
+		target.visible_message("[user] strikes [target] in the [parse_zone(target_zone)].", "You strike [target] in the [parse_zone(target_zone)].")
+		log_combat(user, target, "attacked", src)
+
+		// If the target has a lot of stamina loss, knock them down
+		if ((user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && target.getStaminaLoss() > 22)
+			var/effectiveness = CLAMP01((target.getStaminaLoss() - 22) / 50)
+			log_combat(user, target, "knocked-down", src, "(additional effect)")
+			// Move the target back upon knockdown, to give them some time to recover
+			var/shove_dir = get_dir(user.loc, target.loc)
+			var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+			var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+			if (target_collateral_human && target_shove_turf != get_turf(user))
+				target.Knockdown(max(0.5 SECONDS, effectiveness * 4 SECONDS * (100-armour_level)/100))
+				target_collateral_human.Knockdown(0.5 SECONDS)
+			else
+				target.Knockdown(effectiveness * 4 SECONDS * (100-armour_level)/100)
+			target.Move(target_shove_turf, shove_dir)
+		if (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG) || user.is_zone_selected(BODY_ZONE_L_ARM) || user.is_zone_selected(BODY_ZONE_R_ARM))
+			// 4-5 hits on an unarmoured target
+			target.apply_damage(stamina_force*0.6, STAMINA, target_zone, armour_level)
+		else
+			// 4-5 hits on an unarmoured target
+			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
+
+	return ..()

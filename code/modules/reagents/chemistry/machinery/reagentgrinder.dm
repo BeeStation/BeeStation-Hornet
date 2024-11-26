@@ -3,7 +3,7 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
 	desc = "From BlenderTech. Will It Blend? Let's test it out!"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "juicer1"
 	base_icon_state = "juicer"
 	layer = BELOW_OBJ_LAYER
@@ -20,18 +20,18 @@
 	var/list/holdingitems
 	var/static/list/typecache_to_take
 
-	var/static/radial_examine = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_examine")
-	var/static/radial_eject = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject")
-	var/static/radial_grind = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_grind")
-	var/static/radial_juice = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_juice")
-	var/static/radial_mix = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_mix")
+	var/static/radial_examine = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_examine")
+	var/static/radial_eject = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_eject")
+	var/static/radial_grind = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_grind")
+	var/static/radial_juice = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_juice")
+	var/static/radial_mix = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_mix")
 
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/food/grown)
 	holdingitems = list()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 	beaker.desc += " May contain blended dust. Don't breathe this in!"
 
 /obj/machinery/reagentgrinder/constructed/Initialize(mapload)
@@ -272,7 +272,6 @@
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 		var/obj/item/I = i
-		check_trash(I)
 		if(I.juice_results)
 			juice_item(I)
 
@@ -292,7 +291,6 @@
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 		var/obj/item/I = i
-		check_trash(I)
 		if(I.grind_results || I.is_grindable())
 			if(istype(I, /obj/item/reagent_containers))
 				var/obj/item/reagent_containers/p = I
@@ -310,12 +308,6 @@
 		I.reagents.trans_to(beaker, I.reagents.total_volume, transfered_by = user)
 	remove_object(I)
 
-/obj/machinery/reagentgrinder/proc/check_trash(obj/item/I)
-	if (istype(I, /obj/item/reagent_containers/food/snacks))
-		var/obj/item/reagent_containers/food/snacks/R = I
-		if (R.trash)
-			R.generate_trash(get_turf(src))
-
 /obj/machinery/reagentgrinder/proc/mix(mob/user)
 	//For butter and other things that would change upon shaking or mixing
 	power_change()
@@ -330,9 +322,11 @@
 		var/butter_amt = FLOOR(beaker.reagents.get_reagent_amount(/datum/reagent/consumable/milk) / MILK_TO_BUTTER_COEFF, 1)
 		beaker.reagents.remove_reagent(/datum/reagent/consumable/milk, MILK_TO_BUTTER_COEFF * butter_amt)
 		for(var/i in 1 to butter_amt)
-			new /obj/item/reagent_containers/food/snacks/butter(drop_location())
+			new /obj/item/food/butter(drop_location())
 		//Recipe to make Mayonnaise
 		if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
 			var/amount = beaker.reagents.get_reagent_amount(/datum/reagent/consumable/eggyolk)
 			beaker.reagents.remove_reagent(/datum/reagent/consumable/eggyolk, amount)
 			beaker.reagents.add_reagent(/datum/reagent/consumable/mayonnaise, amount)
+
+#undef MILK_TO_BUTTER_COEFF

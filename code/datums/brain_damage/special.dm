@@ -23,11 +23,13 @@
 			speak("neutral", prob(25))
 
 /datum/brain_trauma/special/godwoken/on_gain()
-	ADD_TRAIT(owner, TRAIT_HOLY, TRAUMA_TRAIT)
+	owner.AddComponent(/datum/component/anti_magic, TRAUMA_TRAIT, _magic = FALSE, _holy = TRUE)
 	..()
 
 /datum/brain_trauma/special/godwoken/on_lose()
-	REMOVE_TRAIT(owner, TRAIT_HOLY, TRAUMA_TRAIT)
+	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == TRAUMA_TRAIT)
+			qdel(anti_magic)
 	..()
 
 /datum/brain_trauma/special/godwoken/proc/speak(type, include_owner = FALSE)
@@ -56,10 +58,10 @@
 
 /datum/brain_trauma/special/ghost_control/on_gain()
 	owner._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, EAST)), 120))
+			"up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, NORTH),
+			"down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, SOUTH),
+			"left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, WEST),
+			"right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, EAST)), 120))
 	..()
 
 /datum/brain_trauma/special/ghost_control/on_lose()
@@ -135,7 +137,7 @@
 	var/slip_out_message = pick("silently fades in", "leaps out of thin air","appears", "walks out of an invisible doorway",\
 		"slides out of a fold in spacetime")
 	to_chat(user, "<span class='notice'>You try to align with the bluespace stream...</span>")
-	if(do_after(user, 20, target = src))
+	if(do_after(user, delay = 2 SECONDS, target = src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(linked_to))
 		if(do_teleport(user, get_turf(linked_to), no_effects = TRUE))

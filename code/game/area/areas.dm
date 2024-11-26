@@ -137,6 +137,9 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
+	/// What networks should cameras in this area belong to?
+	var/list/camera_networks = list()
+
 /**
   * A list of teleport locations
   *
@@ -178,6 +181,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.areas += src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
 	alarm_manager = new(src) // just in case
+
 	return ..()
 
 /**
@@ -198,20 +202,15 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!ambientmusic && ambient_music_index)
 		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
-	if(requires_power)
-		luminosity = 0
-	else
+	if(!requires_power)
 		power_light = TRUE
 		power_equip = TRUE
 		power_environ = TRUE
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
 		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+	if(dynamic_lighting == DYNAMIC_LIGHTING_DISABLED)
+		set_base_luminosity(src, 1)
 
 	. = ..()
 
@@ -237,6 +236,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
 
+/area/vv_edit_var(var_name, var_value)
+	// Reference type, so please don't touch
+	if (var_name == NAMEOF(src, camera_networks))
+		return FALSE
+	return ..()
+
 /**
  * Performs initial setup of the lighting overlays.
  */
@@ -250,7 +255,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	update_lighting_overlay()
 	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
 	//be luminous
-	luminosity = 1
+	set_base_luminosity(src, 1)
 	//Add the lighting overlay
 	add_overlay(lighting_overlay)
 
@@ -480,28 +485,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		L.update(TRUE, TRUE, TRUE)
 
 /**
-  * Update the icon state of the area
-  *
-  * Im not sure what the heck this does, somethign to do with weather being able to set icon
-  * states on areas?? where the heck would that even display?
-  */
-/area/update_icon_state()
-	var/weather_icon
-	for(var/V in SSweather.processing)
-		var/datum/weather/W = V
-		if(W.stage != END_STAGE && (src in W.impacted_areas))
-			W.update_areas()
-			weather_icon = TRUE
-	if(!weather_icon)
-		icon_state = null
-	return ..()
-/**
  * Update the icon of the area (overridden to always be null for space
  */
 /area/space/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = null
-	return ..()
 
 /**
  * Returns int 1 or 0 if the area has power for the given channel
@@ -657,3 +645,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
+
+/area/proc/get_turf_textures()
+	return list()

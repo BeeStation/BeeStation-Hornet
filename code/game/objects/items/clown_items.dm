@@ -124,10 +124,8 @@
 				C.tint -= 2
 				H.update_tint()
 				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-			for(var/obj/effect/decal/cleanable/C in target)
-				qdel(C)
+			target.wash(CLEAN_SCRUB)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 			decreaseUses(user)
 	return
 
@@ -142,6 +140,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bike_horn"
 	item_state = "bike_horn"
+	worn_icon_state = "horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
 	throwforce = 0
@@ -151,7 +150,8 @@
 	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
-	attack_verb = list("HONKED")
+	attack_verb_continuous = list("HONKS")
+	attack_verb_simple = list("HONK")
 	tool_behaviour = TOOL_BIKEHORN
 	toolspeed = 1
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
@@ -178,6 +178,7 @@
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
+	worn_icon_state = "horn_air"
 	sound_file = 'sound/items/airhorn2.ogg'
 
 //golden bikehorn
@@ -186,6 +187,7 @@
 	desc = "Golden? Clearly, it's made with bananium! Honk!"
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
+	worn_icon_state = "horn_gold"
 	var/flip_cooldown = 0
 
 /obj/item/bikehorn/golden/attack()
@@ -208,7 +210,7 @@
 	flip_cooldown = world.time + 7
 
 //canned laughter
-/obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter
+/obj/item/reagent_containers/cup/soda_cans/canned_laughter
 	name = "Canned Laughter"
 	desc = "Just looking at this makes you want to giggle."
 	icon_state = "laughter"

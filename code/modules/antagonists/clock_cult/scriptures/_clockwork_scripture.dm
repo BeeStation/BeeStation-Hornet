@@ -177,7 +177,7 @@
 	return ..()
 
 /datum/clockcult/scripture/slab/invoke()
-	progress = new(invoker, use_time)
+	progress = new(invoker, use_time, invoking_slab)
 	uses_left = uses
 	time_left = use_time
 	invoking_slab.charge_overlay = slab_overlay
@@ -214,7 +214,7 @@
 		deltimer(loop_timer_id)
 		loop_timer_id = null
 	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
-	qdel(progress)
+	progress.end_progress()
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
@@ -235,10 +235,10 @@
 //==================================//
 
 /datum/action/innate/clockcult
-	icon_icon = 'icons/mob/actions/actions_clockcult.dmi'
+	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	background_icon_state = "bg_clock"
 	buttontooltipstyle = "brass"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/clockcult/quick_bind
 	name = "Quick Bind"

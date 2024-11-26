@@ -145,6 +145,10 @@
 
 	return adjacent_turfs
 
+/**
+ * For the love of all that is holy, DO NOT SET `command` TO TRUE ON HOTCODE. This will cause atmos to freeze up for considerable amounts at a time.
+ * In fact- please just refrain from using this if you're not changing how atmos flows turf to turf
+ */
 /atom/proc/air_update_turf(command = 0)
 	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
 		return
@@ -160,9 +164,9 @@
 		ImmediateCalculateAdjacentTurfs()
 
 /atom/movable/proc/move_update_air(turf/T)
-    if(isturf(T))
-        T.air_update_turf(1)
-    air_update_turf(1)
+	if(isturf(T))
+		T.air_update_turf(1)
+	air_update_turf(1)
 
 /atom/proc/atmos_spawn_air(text) //because a lot of people loves to copy paste awful code lets just make an easy proc to spawn your plasma fires
 	var/turf/open/T = get_turf(src)

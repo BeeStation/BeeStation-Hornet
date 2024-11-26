@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -15,8 +15,7 @@
 "d" = (
 /obj/structure/table,
 /obj/item/stack/rods{
-	amount = 5;
-	layer = 3.3
+	amount = 5
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/assembly/prox_sensor{

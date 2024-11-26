@@ -1,9 +1,3 @@
-/datum/bounty/item/assistant/strange_object
-	name = "Strange Object"
-	description = "Nanotrasen has taken an interest in strange objects. Find one in maint, and ship it off to CentCom right away."
-	reward = 1200
-	wanted_types = list(/obj/item/relic)
-
 /datum/bounty/item/assistant/scooter
 	name = "Scooter"
 	description = "Nanotrasen has determined walking to be wasteful. Ship a scooter to CentCom to speed operations up."
@@ -61,7 +55,7 @@
 	description = "Apparently the company that makes Cheesie Honkers is going out of business soon. CentCom wants to stock up before it happens!"
 	reward = 1200
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/cheesiehonkers)
+	wanted_types = list(/obj/item/food/cheesiehonkers)
 
 /datum/bounty/item/assistant/baseball_bat
 	name = "Baseball Bat"
@@ -180,7 +174,7 @@
 
 /datum/bounty/item/assistant/bonfire
 	name = "Lit Bonfire"
-	description = "Space heaters are malfunctioning and the cargo crew of Central Command is starting to feel cold. Ship a lit bonfire to warm them up."
+	description = "Portable thermomachines are malfunctioning and the cargo crew of Central Command is starting to feel cold. Ship a lit bonfire to warm them up."
 	reward = 5000
 	wanted_types = list(/obj/structure/bonfire)
 
@@ -221,4 +215,4 @@
 	description = "Station 14 ran out of freeze-dried mice. Ship some fresh ones so their janitor doesn't go on strike."
 	reward = 5000
 	required_count = 5
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/deadmouse)
+	wanted_types = list(/obj/item/food/deadmouse)

@@ -21,13 +21,13 @@
 			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			var/shove_dir = get_dir(user, src)
 			if(!Move(get_step(src, shove_dir), shove_dir))
-				log_combat(user, src, "shoved", "failing to move it")
+				log_combat(user, src, "shoved (failing to move it)", user)
 				visible_message("<span class='danger'>[user] [response_disarm_continuous] [src]!</span>", \
 								"<span class='userdanger'>[user] [response_disarm_continuous] you!</span>", \
 								"<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(user))
 				to_chat(user, "<span class='danger'>You [response_disarm_simple] [src]!</span>")
 			else
-				log_combat(user, src, "shoved", "pushing it")
+				log_combat(user, src, "shoved", user)
 				visible_message("<span class='danger'>[user] [response_disarm_continuous] [src], pushing [p_them()]!</span>", \
 								"<span class='userdanger'>You're pushed by [user]!</span>", \
 								"<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(user))
@@ -45,7 +45,7 @@
 			playsound(loc, attacked_sound, 25, TRUE, -1)
 
 			attack_threshold_check(user.dna.species.punchdamage)
-			log_combat(user, src, "attacked")
+			log_combat(user, src, "attacked", user)
 			updatehealth()
 			return TRUE
 
@@ -80,7 +80,7 @@
 			visible_message("<span class='danger'>[user] [response_disarm_continuous] [name]!</span>", \
 							"<span class='userdanger'>[user] [response_disarm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, "<span class='danger'>You [response_disarm_simple] [name]!</span>")
-			log_combat(user, src, "disarmed")
+			log_combat(user, src, "disarmed", user)
 		else
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[user] slashes at [src]!</span>", \
@@ -88,7 +88,7 @@
 			to_chat(user, "<span class='danger'>You slash at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			attack_threshold_check(damage)
-			log_combat(user, src, "attacked")
+			log_combat(user, src, "attacked", user)
 		return 1
 
 /mob/living/basic/attack_larva(mob/living/carbon/alien/larva/L)

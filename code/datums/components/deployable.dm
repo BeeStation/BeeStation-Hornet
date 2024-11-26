@@ -58,7 +58,7 @@
 /datum/component/deployable/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(try_deploy), user, user.loc)
-	return COMPONENT_NO_INTERACT
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, params)
 	SIGNAL_HANDLER
@@ -66,7 +66,7 @@
 		return
 	if (!consumed && reload_type && istype(target, reload_type))
 		if (loaded)
-			to_chat(user, "<span class='warning'>You already have \a target docked!</span>")
+			to_chat(user, "<span class='warning'>You already have a target docked!</span>")
 			return
 		if(target.has_buckled_mobs())
 			if(target.buckled_mobs.len > 1)

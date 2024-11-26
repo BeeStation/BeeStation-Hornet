@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/mob)
+
 /**
   * The mob, usually meant to be a creature of some type
   *
@@ -18,18 +20,23 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSMOB
 
+	///when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
+	vis_flags = VIS_INHERIT_PLANE
+
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/datum/mind/mind
 	var/static/next_mob_id = 0
 
 	/// List of movement speed modifiers applying to this mob
-	var/list/movespeed_modification				//Lazy list, see mob_movespeed.dm
+	var/list/movespeed_modification	 //Lazy list, see mob_movespeed.dm
+	/// List of movement speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
 	/// List of action speed modifiers applying to this mob
-	var/list/actionspeed_modification				//Lazy list, see mob_movespeed.dm
+	var/list/actionspeed_modification //Lazy list, see mob_movespeed.dm
 	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
-	var/list/actionspeed_mod_immunities			//Lazy list, see mob_movespeed.dm
+	var/list/actionspeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob action speed slowdown based on the modifiers list
 	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
@@ -91,6 +98,9 @@
 
 	/// Default body temperature
 	var/bodytemperature = BODYTEMP_NORMAL	//310.15K / 98.6F
+	/// Our body temperatue as of the last process, prevents pointless work when handling alerts
+	var/old_bodytemperature = 0
+
 	/// Drowsyness level of the mob
 	var/drowsyness = 0//Carbon
 	/// Dizziness level of the mob
@@ -117,8 +127,6 @@
 
 	/// The atom that this mob is currently buckled to
 	var/atom/movable/buckled = null//Living
-	/// The movable atom that we are currently in the process of buckling to, but haven't buckled with yet.
-	var/atom/movable/buckling
 
 	//Hands
 	///What hand is the active hand
@@ -156,9 +164,6 @@
 
 	/// Can this mob enter shuttles
 	var/move_on_shuttle = 1
-
-	///A weakref to the last mob/living/carbon to push/drag/grab this mob (exclusively used by slimes friend recognition)
-	var/datum/weakref/LAssailant = null
 
 	/**
 	  * construct spells and mime spells.
@@ -200,7 +205,7 @@
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
 
-	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
+	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 
 	///Allows a datum to intercept all click calls this mob is the source of
@@ -211,7 +216,8 @@
 
 	var/memory_throttle_time = 0
 
-	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
+	///Whether the mob is updating glide size when movespeed updates or not
+	var/updating_glide_size = TRUE
 
 	var/list/mob_properties
 

@@ -10,7 +10,7 @@
 	. = ..()
 	blacklisted_turfs = typecacheof(/turf/closed)
 	whitelisted_turfs = list()
-	banned_areas = typecacheof(/area/shuttle)
+	banned_areas = typecacheof(list(/area/shuttle, /area/tear_in_reality))
 	banned_objects = list()
 
 /datum/map_template/shelter/proc/check_deploy(turf/deploy_location)
@@ -72,7 +72,7 @@
 /datum/map_template/shelter/charlie/New()
 	. = ..()
 	whitelisted_turfs = typecacheof(/turf/closed/mineral)
-	banned_objects = typecacheof(/obj/structure/stone_tile) 
+	banned_objects = typecacheof(/obj/structure/stone_tile)
 
 /datum/map_template/shelter/delta
 	name = "Shelter Delta"
@@ -100,12 +100,18 @@
 	description = "A small, spaceworthy shelter with most of the \
 	amenities of a standard bluespace shelter."
 	mappath = "_maps/templates/shelter_6.dmm"
-	
+
 /datum/map_template/shelter/golf
 	name = "Capsule Barricade"
 	shelter_id = "capsule_barricade"
 	description = "A 3x3 glass barricade, perfect for security and laserguns."
 	mappath = "_maps/templates/capsule_barricade.dmm"
+
+/datum/map_template/shelter/foxtrot
+	name = "Security Checkpoint"
+	shelter_id = "capsule_checkpoint"
+	description = "A 3x3 glass checkpoint designed for allowing safely searching passing personnel."
+	mappath = "_maps/templates/capsule_checkpoint.dmm"
 
 /datum/map_template/shelter/theta
 	name = "Shelter Theta"

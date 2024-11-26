@@ -1,7 +1,10 @@
+/datum/outfit/centcom
+	name = "CentCom Base"
+
 /datum/outfit/ert
 	name = "ERT Common"
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
 	mask = /obj/item/clothing/mask/gas/sechailer
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -165,7 +168,8 @@
 /datum/outfit/centcom_official
 	name = JOB_CENTCOM_OFFICIAL
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
+	suit = /obj/item/clothing/suit/hooded/wintercoat/centcom
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_cent
@@ -176,6 +180,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
 	id = /obj/item/card/id/centcom
+	backpack_contents = list(/obj/item/stamp/centcom=1)
 
 /datum/outfit/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -263,19 +268,19 @@
 
 	id = /obj/item/card/id/ert/Janitor
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
+	suit_store = /obj/item/storage/bag/trash/bluespace
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
-	l_pocket = /obj/item/grenade/chem_grenade/cleaner
-	l_hand = /obj/item/storage/bag/trash/bluespace
+
+	r_hand = /obj/item/choice_beacon/janicart
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/mop/advanced=1,
-		/obj/item/reagent_containers/glass/bucket=1,
 		/obj/item/grenade/clusterbuster/cleaner=1,
-		/obj/item/choice_beacon/janicart)
+		)
 
 /datum/outfit/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -289,12 +294,8 @@
 
 /datum/outfit/ert/janitor/heavy
 	name = "ERT Janitor - Heavy Duty"
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
-		/obj/item/storage/box/lights/mixed=1,
-		/obj/item/melee/baton/loaded=1,
-		/obj/item/grenade/clusterbuster/cleaner=3,
-		/obj/item/reagent_containers/spray/chemsprayer/janitor=1,
-		/obj/item/choice_beacon/janicart)
+
+	l_hand = /obj/item/reagent_containers/spray/chemsprayer/janitor
 
 /datum/outfit/ert/kudzu
 	name = "ERT Weed Whacker"
@@ -370,10 +371,11 @@
 /datum/outfit/centcom_intern/leader
 	name = "CentCom Head Intern"
 	belt = /obj/item/melee/baton/loaded
+	uniform = /obj/item/clothing/under/rank/centcom/officer_skirt
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction
 	l_hand = /obj/item/megaphone
-	head = /obj/item/clothing/head/intern
+	head = /obj/item/clothing/head/hats/intern
 
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"

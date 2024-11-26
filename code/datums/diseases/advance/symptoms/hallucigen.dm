@@ -31,7 +31,7 @@ Bonus
 	suffixes = list(" Psychosis")
 	var/fake_healthy = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Increases the amount of hallucinations.<br>\
-					  <b>Stealth 2:</b> The virus mimics positive symptoms.."
+						<b>Stealth 2:</b> The virus mimics positive symptoms.."
 
 /datum/symptom/hallucigen/severityset(datum/disease/advance/A)
 	. = ..()
@@ -51,6 +51,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	var/list/healthy_messages = list("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.",\
 					"Your eyes feel great.", "You are now blinking manually.", "You don't feel the need to blink.")
 	switch(A.stage)

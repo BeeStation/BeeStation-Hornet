@@ -93,7 +93,7 @@
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
 
 	if(prob(35) && !spawned_carbon.head)
-		var/obj/item/hat = pick(list(/obj/item/clothing/head/sombrero, /obj/item/clothing/head/fedora, /obj/item/clothing/mask/balaclava, /obj/item/clothing/head/ushanka, /obj/item/clothing/head/cardborg, /obj/item/clothing/head/pirate, /obj/item/clothing/head/cone))
+		var/obj/item/hat = pick(list(/obj/item/clothing/head/costume/sombrero, /obj/item/clothing/head/fedora, /obj/item/clothing/mask/balaclava, /obj/item/clothing/head/costume/ushanka, /obj/item/clothing/head/costume/cardborg, /obj/item/clothing/head/costume/pirate, /obj/item/clothing/head/cone))
 		hat = new hat(spawned_mob)
 		spawned_mob.equip_to_slot(hat, ITEM_SLOT_HEAD)
 

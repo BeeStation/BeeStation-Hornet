@@ -44,11 +44,20 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		)),
 	null, \
 	new/datum/stack_recipe("rack parts",								/obj/item/rack_parts), \
-	new/datum/stack_recipe("closet",									/obj/structure/closet, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
+	new/datum/stack_recipe("crate shelf parts", 						/obj/item/rack_parts/shelf), \
+	new /datum/stack_recipe_list("closets",	 list( \
+		new/datum/stack_recipe("closet",								/obj/structure/closet, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("emergency closet",						/obj/structure/closet/emcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("fire closet",							/obj/structure/closet/firecloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("radiation closet",						/obj/structure/closet/radiation/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("tool closet",							/obj/structure/closet/toolcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("wardrobe closet",						/obj/structure/closet/wardrobe/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("bomb closet",							/obj/structure/closet/bombcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		)),
 	null, \
 	new/datum/stack_recipe("canister",									/obj/machinery/portable_atmospherics/canister, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	null, \
-	new/datum/stack_recipe("floor tile",								/obj/item/stack/tile/plasteel, 1, 4, 20), \
+	new/datum/stack_recipe("floor tile",								/obj/item/stack/tile/iron, 1, 4, 20), \
 	new/datum/stack_recipe("iron rod",									/obj/item/stack/rods, 1, 2, 60), \
 	null, \
 	new/datum/stack_recipe("wall girders",								/obj/structure/girder, 2, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
@@ -95,6 +104,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("extinguisher cabinet frame",				/obj/item/wallframe/extinguisher_cabinet, 2), \
 	new/datum/stack_recipe("light switch frame",						/obj/item/wallframe/light_switch, 1), \
 	new/datum/stack_recipe("button frame",								/obj/item/wallframe/button, 1), \
+	new/datum/stack_recipe("prisoner interface frame",					/obj/item/wallframe/genpop_interface, 5), \
 	null, \
 	new/datum/stack_recipe("iron door",									/obj/structure/mineral_door/iron, 20, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("desk bell", 								/obj/structure/desk_bell, 2, time = 3 SECONDS), \
@@ -105,11 +115,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
-
-/obj/item/stack/sheet/iron/cyborg
-	mats_per_unit = null
-	is_cyborg = 1
-	cost = 500
 
 /* Plasteel */
 
@@ -184,8 +189,8 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	new/datum/stack_recipe("bronze pinion airlock assembly",		/obj/structure/door_assembly/door_assembly_bronze/seethru, 4, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("bronze floor tile",						/obj/item/stack/tile/mineral/bronze, 1, 4, 20), \
 	null, \
-	new/datum/stack_recipe("bronze hat",							/obj/item/clothing/head/bronze), \
-	new/datum/stack_recipe("bronze suit",							/obj/item/clothing/suit/bronze), \
+	new/datum/stack_recipe("bronze hat",							/obj/item/clothing/head/costume/bronze), \
+	new/datum/stack_recipe("bronze suit",							/obj/item/clothing/suit/costume/bronze), \
 	new/datum/stack_recipe("bronze boots",							/obj/item/clothing/shoes/bronze), \
 	null, \
 	new/datum/stack_recipe("bronze chair",							/obj/structure/chair/fancy/brass/bronze, 1, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \

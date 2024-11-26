@@ -1,0 +1,182 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"i" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"v" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"x" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"L" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock"
+	},
+/obj/docking_port/mobile/emergency,
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"R" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/obj/machinery/light/small,
+/obj/item/storage/pod{
+	pixel_y = 27;
+	pixel_x = 6
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"T" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/item/storage/pod{
+	pixel_y = 27;
+	pixel_x = 6
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/obj/machinery/light/small,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+x
+L
+x
+"}
+(2,1,1) = {"
+a
+T
+a
+"}
+(3,1,1) = {"
+a
+T
+a
+"}
+(4,1,1) = {"
+a
+T
+a
+"}
+(5,1,1) = {"
+a
+T
+a
+"}
+(6,1,1) = {"
+a
+T
+a
+"}
+(7,1,1) = {"
+a
+T
+a
+"}
+(8,1,1) = {"
+a
+T
+a
+"}
+(9,1,1) = {"
+a
+T
+a
+"}
+(10,1,1) = {"
+a
+T
+a
+"}
+(11,1,1) = {"
+a
+T
+a
+"}
+(12,1,1) = {"
+a
+R
+a
+"}
+(13,1,1) = {"
+a
+T
+a
+"}
+(14,1,1) = {"
+a
+R
+a
+"}
+(15,1,1) = {"
+a
+T
+a
+"}
+(16,1,1) = {"
+a
+T
+a
+"}
+(17,1,1) = {"
+a
+T
+a
+"}
+(18,1,1) = {"
+a
+T
+a
+"}
+(19,1,1) = {"
+a
+T
+a
+"}
+(20,1,1) = {"
+a
+R
+a
+"}
+(21,1,1) = {"
+a
+T
+a
+"}
+(22,1,1) = {"
+a
+T
+a
+"}
+(23,1,1) = {"
+a
+T
+a
+"}
+(24,1,1) = {"
+a
+v
+a
+"}
+(25,1,1) = {"
+a
+i
+a
+"}

@@ -27,7 +27,7 @@
 /obj/item/storage/book/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/book.dmi'
 	icon_state = "bible"
 	item_state = "bible"
 	lefthand_file = 'icons/mob/inhands/misc/books_lefthand.dmi'
@@ -38,7 +38,7 @@
 
 /obj/item/storage/book/bible/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, FALSE, TRUE, _allowed_slots = ITEM_SLOT_HANDS)
+	AddComponent(/datum/component/anti_magic, src, FALSE, TRUE, _allowed_slots = ITEM_SLOT_HANDS)
 
 /obj/item/storage/book/bible/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -81,23 +81,23 @@
 		)
 		if(isnull(unique_reskin))
 			unique_reskin = list( //Unique_reskin is declared here so that the bible can't be reskinned through alt-clicking
-				"Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "bible"),
-				"Quran" = image(icon = 'icons/obj/storage.dmi', icon_state = "koran"),
-				"Scrapbook" = image(icon = 'icons/obj/storage.dmi', icon_state = "scrapbook"),
-				"Burning Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "burning"),
-				"Clown Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk1"),
-				"Banana Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk2"),
-				"Creeper Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "creeper"),
-				"White Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "white"),
-				"Holy Light" = image(icon = 'icons/obj/storage.dmi', icon_state = "holylight"),
-				"The God Delusion" = image(icon = 'icons/obj/storage.dmi', icon_state = "atheist"),
-				"Tome" = image(icon = 'icons/obj/storage.dmi', icon_state = "tome"),
-				"The King in Yellow" = image(icon = 'icons/obj/storage.dmi', icon_state = "kingyellow"),
-				"Ithaqua" = image(icon = 'icons/obj/storage.dmi', icon_state = "ithaqua"),
-				"Scientology" = image(icon = 'icons/obj/storage.dmi', icon_state = "scientology"),
-				"Melted Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "melted"),
-				"Necronomicon" = image(icon = 'icons/obj/storage.dmi', icon_state = "necronomicon"),
-				"Insulationism" = image(icon = 'icons/obj/storage.dmi', icon_state = "insuls")
+				"Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "bible"),
+				"Quran" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "koran"),
+				"Scrapbook" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "scrapbook"),
+				"Burning Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "burning"),
+				"Clown Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "honk1"),
+				"Banana Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "honk2"),
+				"Creeper Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "creeper"),
+				"White Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "white"),
+				"Holy Light" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "holylight"),
+				"The God Delusion" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "atheist"),
+				"Tome" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "tome"),
+				"The King in Yellow" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "kingyellow"),
+				"Ithaqua" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "ithaqua"),
+				"Scientology" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "scientology"),
+				"Melted Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "melted"),
+				"Necronomicon" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "necronomicon"),
+				"Insulationism" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "insuls")
 			)
 		reskin_bible(H)
 
@@ -224,23 +224,6 @@
 			B.name = name
 			B.icon_state = icon_state
 			B.item_state = item_state
-	if(istype(A, /obj/item/cult_bastard) && !iscultist(user))
-		var/obj/item/cult_bastard/sword = A
-		to_chat(user, "<span class='notice'>You begin to exorcise [sword].</span>")
-		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
-		if(do_after(user, 40, target = sword))
-			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
-			for(var/obj/item/soulstone/SS in sword.contents)
-				SS.required_role = null
-				for(var/mob/living/simple_animal/shade/EX in SS)
-					SSticker.mode.remove_cultist(EX.mind, 1, 0)
-					EX.icon_state = "shade_holy"
-					EX.name = "Purified [EX.name]"
-				SS.release_shades(user)
-				qdel(SS)
-			new /obj/item/nullrod/claymore(get_turf(sword))
-			user.visible_message("<span class='notice'>[user] has purified [sword]!</span>")
-			qdel(sword)
 
 	else if(istype(A, /obj/item/soulstone) && !iscultist(user))
 		var/obj/item/soulstone/SS = A
@@ -267,7 +250,7 @@
 	desc = "To be applied to the head repeatedly."
 
 /obj/item/storage/book/bible/booze/PopulateContents()
-	new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/whiskey(src)
 
 /obj/item/storage/book/bible/syndicate
 	icon_state ="ebook"
@@ -279,7 +262,8 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	name = "Syndicate Tome"
-	attack_verb = list("attacked", "burned", "blessed", "damned", "scorched")
+	attack_verb_continuous = list("attacks", "burns", "blesses", "damns", "scorches")
+	attack_verb_simple = list("attack", "burn", "bless", "damn", "scorch")
 	var/uses = 1
 
 /obj/item/storage/book/bible/syndicate/attack_self(mob/living/carbon/human/H)

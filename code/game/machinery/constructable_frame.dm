@@ -105,7 +105,7 @@
 				if(P.use_tool(src, user, 40, volume=75))
 					if(state == 1)
 						to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-						setAnchored(!anchored)
+						set_anchored(!anchored)
 				return
 
 		if(2)
@@ -113,7 +113,7 @@
 				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
 				if(P.use_tool(src, user, 40, volume=75))
 					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-					setAnchored(!anchored)
+					set_anchored(!anchored)
 				return
 
 			if(istype(P, /obj/item/circuitboard/machine))
@@ -168,7 +168,7 @@
 				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
 				if(P.use_tool(src, user, 40, volume=75))
 					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-					setAnchored(!anchored)
+					set_anchored(!anchored)
 				return
 
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
@@ -195,7 +195,7 @@
 						// Set anchor state and move the frame's parts over to the new machine.
 						// Then refresh parts and call on_construction().
 
-						new_machine.anchored = anchored
+						new_machine.set_anchored(anchored)
 						new_machine.component_parts = list()
 
 						circuit.forceMove(new_machine)

@@ -1,6 +1,7 @@
 /obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
+	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "lockbox+l"
 	item_state = "lockbox+l"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
@@ -93,7 +94,7 @@
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.max_items = 10
 	STR.max_combined_w_class = 20
-	STR.can_hold = typecacheof(list(/obj/item/clothing/accessory/medal))
+	STR.set_holdable(list(/obj/item/clothing/accessory/medal))
 
 /obj/item/storage/lockbox/medal/examine(mob/user)
 	. = ..()

@@ -1,0 +1,22 @@
+/obj/item/reagent_containers/food/snacks/store/bread : /obj/item/food/bread/plain{@OLD}
+/obj/item/reagent_containers/food/snacks/store/bread/@SUBTYPES : /obj/item/food/bread/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/breadslice : /obj/item/food/breadslice/plain{@OLD}
+/obj/item/reagent_containers/food/snacks/breadslice/@SUBTYPES : /obj/item/food/breadslice/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/store/cake : /obj/item/food/cake/plain{@OLD}
+/obj/item/reagent_containers/food/snacks/store/cake/@SUBTYPES : /obj/item/food/cake/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/cakeslice : /obj/item/reagent_containers/food/snacks/cakeslice/plain{@OLD}
+/obj/item/reagent_containers/food/snacks/cakeslice/@SUBTYPES : /obj/item/reagent_containers/food/snacks/cakeslice/@SUBTYPES{@OLD}
+
+/obj/item/reagent_containers/food/snacks/bluecherrycupcake : /obj/item/reagent_containers/food/snacks/cherrycupcake/blue{@OLD}
+
+/obj/item/reagent_containers/food/snacks/spaghetti : /obj/item/food/spaghetti/raw{@OLD}
+/obj/item/reagent_containers/food/snacks/spaghetti/@SUBTYPES : /obj/item/food/spaghetti/@SUBTYPES{@OLD}
+
+/obj/item/reagent_containers/food/snacks/garlicbread : /obj/item/food/garlicbread{@OLD}
+/obj/item/reagent_containers/food/snacks/butterbiscuit : /obj/item/food/butterbiscuit{@OLD}
+/obj/item/reagent_containers/food/snacks/butterdog : /obj/item/food/butterdog{@OLD}
+
+/obj/item/reagent_containers/food/snacks/baguette : /obj/item/food/baguette{@OLD}
+/obj/item/reagent_containers/food/snacks/baguette/@SUBTYPES : /obj/item/food/baguette/@SUBTYPES{@OLD}
+
+/obj/item/reagent_containers/food/snacks/deepfryholder : /obj/item/food/deepfryholder{@OLD}

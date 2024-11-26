@@ -40,7 +40,7 @@
 		CONFIG_SET(flag/mentor_legacy_system, TRUE)
 		load_mentors_legacy()
 		return FALSE
-	var/datum/DBQuery/query_load_mentors = SSdbcore.NewQuery("SELECT id,ckey FROM [format_table_name("mentor")]")
+	var/datum/db_query/query_load_mentors = SSdbcore.NewQuery("SELECT id,ckey FROM [format_table_name("mentor")]")
 	if(!query_load_mentors.Execute())
 		qdel(query_load_mentors)
 		return FALSE

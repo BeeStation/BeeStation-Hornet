@@ -157,9 +157,8 @@
 
 /datum/disease/transformation/slime
 	name = "Advanced Mutation Transformation"
-	cure_text = "frost oil"
-	cures = list(/datum/reagent/consumable/frostoil)
-	cure_chance = 80
+	cure_text = "Below Freezing Temperature"
+	cures = list()
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
 	danger = DISEASE_BIOHAZARD
@@ -173,6 +172,9 @@
 
 /datum/disease/transformation/slime/stage_act()
 	..()
+	var/mob/living/carbon/H = affected_mob
+	if(H.bodytemperature < T0C)
+		cure()
 	switch(stage)
 		if(1)
 			if(ishuman(affected_mob) && affected_mob.dna)
@@ -211,7 +213,7 @@
 
 /datum/disease/transformation/morph
 	name = "Gluttony's Blessing"
-	cure_text = /datum/reagent/consumable/nothing
+	cure_text = "Nothing"
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
@@ -271,7 +273,7 @@
 	cure_text = "Something that would kill off the tiny cats."
 	spread_text = "Acute"
 	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	cures = list(/datum/reagent/consumable/cocoa, /datum/reagent/consumable/cocoa/hot_cocoa) //kills all the tiny cats that infected your organism
+	cures = list(/datum/reagent/consumable/cocoa, /datum/reagent/consumable/hot_cocoa) //kills all the tiny cats that infected your organism
 	cure_chance = 25
 	stage_prob = 3
 	agent = "Nano-feline Toxoplasmosis"

@@ -36,9 +36,9 @@
 /turf/open/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/open/floor/engine/make_plating(force = 0)
+/turf/open/floor/engine/make_plating(force = FALSE)
 	if(force)
-		..()
+		return ..()
 	return //unplateable
 
 /turf/open/floor/engine/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
@@ -136,7 +136,8 @@
 
 /turf/open/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	new /obj/effect/temp_visual/cult/turf/floor(src)
+	if(!mapload)
+		new /obj/effect/temp_visual/cult/turf/floor(src)
 	realappearance = new /obj/effect/clockwork/overlay/floor/bloodcult(src)
 	realappearance.linked = src
 

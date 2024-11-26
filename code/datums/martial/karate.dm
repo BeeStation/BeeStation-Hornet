@@ -33,8 +33,8 @@
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
-	if(!(D.mobility_flags & MOBILITY_STAND))
-		log_combat(A, D, "floor stomped (Karate)")
+	if(D.body_position == LYING_DOWN)
+		log_combat(A, D, "floor stomped (Karate)", name)
 		D.visible_message("<span class='warning'>[A] stomped [D] in the head!</span>", \
 							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -50,7 +50,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_combat(A, D, "calf kicked (Karate)")
+		log_combat(A, D, "calf kicked (Karate)", name)
 		D.visible_message("<span class='warning'>[A] roundhouse kicked [D] in the calf!</span>", \
 							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -65,7 +65,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_combat(A, D, "jumped kneed (Karate)")
+		log_combat(A, D, "jumped kneed (Karate)", name)
 		D.visible_message("<span class='warning'>[A] jumping kneed [D] in the stomach!</span>", \
 							"<span class='userdanger'>[A] jumping kneed you in the stomach!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -81,7 +81,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_combat(A, D, "karate chopped (Karate)")
+		log_combat(A, D, "karate chopped (Karate)", name)
 		D.visible_message("<span class='warning'>[A] karate chopped [D] in the neck!</span>", \
 							"<span class='userdanger'>[A] karate chopped you in the neck!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 75, 1, -1)
@@ -121,3 +121,8 @@
 	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
 	to_chat(usr, "<span class='notice'>Karate Chop</span>: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
 	to_chat(usr, "<span class='notice'>Floor Stomp</span>: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
+
+#undef CALF_KICK_COMBO
+#undef FLOOR_KICK_COMBO
+#undef JUMPING_KNEE_COMBO
+#undef KARATE_CHOP_COMBO

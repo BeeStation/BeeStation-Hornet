@@ -338,6 +338,8 @@
 	parts += medal_report()
 	//Station Goals
 	parts += goal_report()
+	//Economy & Money
+	parts += market_report()
 
 	list_clear_nulls(parts)
 
@@ -379,7 +381,7 @@
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			if (rule.lategame_spawned)
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)"
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -0 threat (Lategame, threat cost ignored)"
 			else
 				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
 	return parts.Join("<br>")
@@ -457,8 +459,7 @@
 	var/list/parts = list()
 	var/borg_spacer = FALSE //inserts an extra linebreak to separate AIs from independent borgs, and then multiple independent borgs.
 	//Silicon laws report
-	for (var/i in GLOB.ai_list)
-		var/mob/living/silicon/ai/aiPlayer = i
+	for (var/mob/living/silicon/ai/aiPlayer as anything in GLOB.ai_list)
 		if(aiPlayer.mind)
 			parts += "<b>[aiPlayer.name]</b> (Played by: <b>[aiPlayer.mind.key]</b>)'s laws [aiPlayer.stat != DEAD ? "at the end of the round" : "when it was <span class='redtext'>deactivated</span>"] were:"
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
@@ -480,7 +481,7 @@
 		if(!borg_spacer)
 			borg_spacer = TRUE
 
-	for (var/mob/living/silicon/robot/robo in GLOB.silicon_mobs)
+	for (var/mob/living/silicon/robot/robo as anything in GLOB.cyborg_list)
 		if (!robo.connected_ai && robo.mind)
 			parts += "[borg_spacer?"<br>":""]<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>) [(robo.stat != DEAD)? "<span class='greentext'>survived</span> as an AI-less borg!" : "was <span class='redtext'>unable to survive</span> the rigors of being a cyborg without an AI."] Its laws were:"
 
@@ -502,6 +503,57 @@
 			var/datum/station_goal/G = V
 			parts += G.get_result()
 		return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
+
+///Generate a report for how much money is on station, as well as the richest crewmember on the station.
+/datum/controller/subsystem/ticker/proc/market_report()
+	var/list/parts = list()
+
+	///This is the richest account on station at roundend.
+	var/datum/bank_account/mr_moneybags
+	///This is the station's total wealth at the end of the round.
+	var/station_vault = 0
+	///How many players joined the round.
+	var/total_players = GLOB.joined_player_list.len
+	var/static/list/typecache_bank = typecacheof(list(/datum/bank_account/department, /datum/bank_account/remote))
+	for(var/datum/bank_account/current_acc as anything in SSeconomy.bank_accounts)
+		if(typecache_bank[current_acc.type])
+			continue
+		station_vault += current_acc.account_balance
+		if(!mr_moneybags || mr_moneybags.account_balance < current_acc.account_balance)
+			mr_moneybags = current_acc
+	parts += "<div class='panel stationborder'><span class='header'>Station Economic Summary:</span><br>"
+	/* Tourist Bots
+	parts += "<span class='service'>Service Statistics:</span><br>"
+	for(var/venue_path in SSrestaurant.all_venues)
+		var/datum/venue/venue = SSrestaurant.all_venues[venue_path]
+		tourist_income += venue.total_income
+		parts += "The [venue] served [venue.customers_served] customer\s and made [venue.total_income] credits.<br>"
+	parts += "In total, they earned [tourist_income] credits[tourist_income ? "!" : "..."]<br>"
+	log_econ("Roundend service income: [tourist_income] credits.")
+	switch(tourist_income)
+		if(0)
+			parts += "[span_redtext("Service did not earn any credits...")]<br>"
+		if(1 to 2000)
+			parts += "[span_redtext("Centcom is displeased. Come on service, surely you can do better than that.")]<br>"
+			award_service(/datum/award/achievement/jobs/service_bad)
+		if(2001 to 4999)
+			parts += "[span_greentext("Centcom is satisfied with service's job today.")]<br>"
+			award_service(/datum/award/achievement/jobs/service_okay)
+		else
+			parts += "<span class='reallybig greentext'>Centcom is incredibly impressed with service today! What a team!</span><br>"
+			award_service(/datum/award/achievement/jobs/service_good)
+
+	parts += "<b>General Statistics:</b><br>"
+	*/
+	parts += "There were [station_vault] credits collected by crew this shift.<br>"
+	if(total_players > 0)
+		parts += "An average of [station_vault/total_players] credits were collected.<br>"
+		log_econ("Roundend credit total: [station_vault] credits. Average Credits: [station_vault/total_players]")
+	if(mr_moneybags)
+		parts += "The most affluent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr!</div>"
+	else
+		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
+	return parts
 
 /datum/controller/subsystem/ticker/proc/medal_report()
 	if(GLOB.commendations.len)
@@ -603,9 +655,9 @@
 		if(custom_title == mind.assigned_role) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
-		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
-			custom_title = R.fields["rank"] // get a custom title from datacore
+			custom_title = R.rank // get a custom title from manifest
 		if(custom_title == mind.assigned_role) // lame...
 			return
 
@@ -674,7 +726,7 @@
 		var/datum/admins/A = GLOB.protected_admins[i]
 		sql_admins += list(list("ckey" = A.target, "rank" = A.rank.name))
 	SSdbcore.MassInsert(format_table_name("admin"), sql_admins, duplicate_key = TRUE)
-	var/datum/DBQuery/query_admin_rank_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] p INNER JOIN [format_table_name("admin")] a ON p.ckey = a.ckey SET p.lastadminrank = a.rank")
+	var/datum/db_query/query_admin_rank_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] p INNER JOIN [format_table_name("admin")] a ON p.ckey = a.ckey SET p.lastadminrank = a.rank")
 	query_admin_rank_update.Execute()
 	qdel(query_admin_rank_update)
 
@@ -708,7 +760,7 @@
 		if(!flags.len)
 			continue
 		var/flags_to_check = flags.Join(" != [R_EVERYTHING] AND ") + " != [R_EVERYTHING]"
-		var/datum/DBQuery/query_check_everything_ranks = SSdbcore.NewQuery(
+		var/datum/db_query/query_check_everything_ranks = SSdbcore.NewQuery(
 			"SELECT flags, exclude_flags, can_edit_flags FROM [format_table_name("admin_ranks")] WHERE rank = :rank AND ([flags_to_check])",
 			list("rank" = R.name)
 		)
@@ -717,7 +769,7 @@
 			return
 		if(query_check_everything_ranks.NextRow()) //no row is returned if the rank already has the correct flag value
 			var/flags_to_update = flags.Join(" = [R_EVERYTHING], ") + " = [R_EVERYTHING]"
-			var/datum/DBQuery/query_update_everything_ranks = SSdbcore.NewQuery(
+			var/datum/db_query/query_update_everything_ranks = SSdbcore.NewQuery(
 				"UPDATE [format_table_name("admin_ranks")] SET [flags_to_update] WHERE rank = :rank",
 				list("rank" = R.name)
 			)
@@ -746,7 +798,7 @@
 		discordmsg += "Executed rules:\n"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			if (rule.lategame_spawned)
-				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)\n"
+				discordmsg += "[rule.ruletype] - [rule.name]: -0 threat (Lategame, threat cost ignored)\n"
 			else
 				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
 	var/list/ded = SSblackbox.first_death

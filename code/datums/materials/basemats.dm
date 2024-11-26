@@ -71,7 +71,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	. = ..()
 	source.AddComponent(/datum/component/radioactive, amount / 50, source, 0) //half-life of 0 because we keep on going. amount / 50 means 40 radiation per sheet.
 
-/datum/material/uranium/on_removed(atom/source, material_flags)
+/datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
 	qdel(source.GetComponent(/datum/component/radioactive))
 
@@ -84,14 +84,15 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	value_per_unit = 0.1
+	//beauty_modifier = 0.15
 
 /datum/material/plasma/on_applied(atom/source, amount, material_flags)
 	. = ..()
 	if(ismovable(source))
 		source.AddElement(/datum/element/firestacker, amount=1)
-		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500, delete_after = EXPLODABLE_NO_DELETE)
+		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500, delete_after = EXPLODABLE_DELETE_PARENT)
 
-/datum/material/plasma/on_removed(atom/source, material_flags)
+/datum/material/plasma/on_removed(atom/source, amount, material_flags)
 	. = ..()
 	source.RemoveElement(/datum/element/firestacker, amount=1)
 	qdel(source.GetComponent(/datum/component/explodable))
@@ -104,6 +105,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	greyscale_colors = "#4e7dffC8"
 	alpha = 200
 	categories = list(MAT_CATEGORY_ORE = TRUE)
+	//beauty_modifier = 0.5
 	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	value_per_unit = 0.15
 
@@ -116,6 +118,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	value_per_unit = 0.5
+	//beauty_modifier = 0.5
 
 /datum/material/bananium/on_applied(atom/source, amount, material_flags)
 	. = ..()
@@ -138,6 +141,8 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	value_per_unit = 0.0625
+	//beauty_modifier = 0.05
+	//armor_modifiers = list(MELEE = 1.35, BULLET = 1.3, LASER = 1.3, ENERGY = 1.25, BOMB = 1.25, BIO = 1, FIRE = 0.7, ACID = 1)
 
 /*
 /datum/material/runite
@@ -171,6 +176,31 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	strength_modifier = 0.8
 	value_per_unit = 0.025
 
+/datum/material/wood
+	name = "wood"
+	desc = "Flexible, durable, but flamable. Hard to come across in space."
+	color = "#bb8e53"
+	greyscale_colors = "#bb8e53"
+	strength_modifier = 0.5
+	sheet_type = /obj/item/stack/sheet/wood
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
+	value_per_unit = 0.01
+	//beauty_modifier = 0.1
+	//armor_modifiers = list(MELEE = 1.1, BULLET = 1.1, LASER = 0.4, ENERGY = 0.4, BOMB = 1, BIO = 0.2, ACID = 0.3)
+	texture_layer_icon_state = "woodgrain"
+
+/datum/material/wood/on_applied_obj(obj/source, amount, material_flags)
+	. = ..()
+	if(material_flags & MATERIAL_AFFECT_STATISTICS)
+		var/obj/wooden = source
+		wooden.resistance_flags |= FLAMMABLE
+
+/datum/material/wood/on_removed_obj(obj/source, amount, material_flags)
+	. = ..()
+	if(material_flags & MATERIAL_AFFECT_STATISTICS)
+		var/obj/wooden = source
+		wooden.resistance_flags &= ~FLAMMABLE
+
 ///Stronk force increase
 /datum/material/adamantine
 	name = "adamantine"
@@ -181,7 +211,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/adamantine
 	value_per_unit = 0.25
-
+	//beauty_modifier = 0.4
 
 /datum/material/copper
 	name = "copper"

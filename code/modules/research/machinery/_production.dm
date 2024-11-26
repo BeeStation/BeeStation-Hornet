@@ -41,7 +41,7 @@
 	stored_research = new
 	host_research = SSresearch.science_tech
 	update_research()
-	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload)
+	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
 	RefreshParts()
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
@@ -275,7 +275,7 @@
 	efficiency_coeff = 1
 	if(reagents)		//If reagents/materials aren't initialized, don't bother, we'll be doing this again after reagents init anyways.
 		reagents.maximum_volume = 0
-		for(var/obj/item/reagent_containers/glass/G in component_parts)
+		for(var/obj/item/reagent_containers/cup/G in component_parts)
 			reagents.maximum_volume += G.volume
 			G.reagents.trans_to(src, G.reagents.total_volume)
 	if(materials)
@@ -285,7 +285,8 @@
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = clamp(total_rating - (M.rating * 0.1), 0, 1)
+		total_rating = (total_rating - (M.rating * 0.1))
+	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
@@ -293,7 +294,7 @@
 
 //we eject the materials upon deconstruction.
 /obj/machinery/rnd/production/on_deconstruction()
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	return ..()
 

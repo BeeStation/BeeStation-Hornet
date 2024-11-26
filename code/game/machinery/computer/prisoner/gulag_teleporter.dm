@@ -11,7 +11,7 @@
 	var/obj/machinery/gulag_teleporter/teleporter
 	var/obj/structure/gulag_beacon/beacon
 	var/mob/living/carbon/human/prisoner
-	var/datum/data/record/temporary_record
+	var/datum/record/crew/temporary_record
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/Initialize(mapload)
 	. = ..()
@@ -38,12 +38,11 @@
 		prisoner_list["name"] = prisoner.real_name
 		if(contained_id)
 			can_teleport = TRUE
-		if(!isnull(GLOB.data_core.general))
-			for(var/r in GLOB.data_core.security)
-				var/datum/data/record/R = r
-				if(R.fields["name"] == prisoner_list["name"])
-					temporary_record = R
-					prisoner_list["crimstat"] = temporary_record.fields["criminal"]
+		for(var/manifests in GLOB.manifest.general)
+			var/datum/record/crew/crew_record = manifests
+			if(crew_record.name == prisoner_list["name"])
+				temporary_record = crew_record
+				prisoner_list["crimstat"] = temporary_record.wanted_status
 
 	data["prisoner"] = prisoner_list
 

@@ -30,7 +30,7 @@
 /*
  * Overrideable proc which gets the stat content for the selected tab.
  */
- //33.774 CPU time
+//33.774 CPU time
 /mob/proc/get_stat(selected_tab)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
@@ -57,6 +57,10 @@
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.interviews.stat_entry()
+		if ("Combat")
+			client.stat_update_mode = STAT_SLOW_UPDATE
+			requires_holder = TRUE
+			tab_data = SScombat_logging.generate_stat_tab()
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -234,13 +238,18 @@
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
 	if(SSticker.round_start_time)
-		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(get_security_level())]")
+		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
 	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+	if (!isnewplayer(src) && SSautotransfer.can_fire)
+		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
+		else
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -266,6 +275,20 @@
 		tab_data["divider_2"] = GENERATE_STAT_DIVIDER
 		for(var/datum/controller/subsystem/SS in Master.subsystems)
 			tab_data += SS.stat_entry()
+		tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+		var/datum/controller/subsystem/queue_node = Master.last_type_processed
+		if (queue_node)
+			tab_data["Last Processed:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+		queue_node = Master.queue_head
+		var/i = 0
+		while (queue_node)
+			tab_data["Queue [i++]:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+			queue_node = queue_node.queue_next
+		tab_data["divider_4"] = GENERATE_STAT_DIVIDER
+		for (var/j in 1 to length(Master.previous_ticks))
+			var/datum/mc_tick/tick = Master.previous_ticks[(Master.circular_queue_head - j + length(Master.previous_ticks)) % length(Master.previous_ticks) + 1]
+			tab_data["Tick [tick.tick_number]"] = GENERATE_STAT_TEXT(tick.get_stat_text())
+	tab_data["divider_5"] = GENERATE_STAT_DIVIDER
 	tab_data += GLOB.cameranet.stat_entry()
 	return tab_data
 
@@ -299,6 +322,7 @@
 	if(client.holder)
 		tabs |= "MC"
 		tabs |= "Tickets"
+		tabs |= "Combat"
 		if(CONFIG_GET(flag/panic_bunker_interview))
 			tabs |= "Interviews"
 		if(length(GLOB.sdql2_queries))
@@ -352,6 +376,11 @@
 			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.Claim()
+		if ("orbit")
+			if (!check_rights(R_ADMIN))
+				return
+			var/mob_ref = params["ref"]
+			usr.client.holder?.admin_follow(locate(mob_ref))
 		if("atomClick")
 			var/atomRef = params["ref"]
 			var/atom/atom_actual = locate(atomRef)
@@ -422,6 +451,8 @@
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()
+		if ("votetoleave")
+			client.vote_to_leave()
 
 /*
  * Sets the current stat tab selected.
@@ -472,3 +503,5 @@
 
 #undef MAX_ITEMS_TO_READ
 #undef MAX_ICONS_PER_TILE
+
+#undef STAT_PANEL_TAG

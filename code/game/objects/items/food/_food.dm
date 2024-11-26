@@ -48,6 +48,9 @@
 	make_edible()
 	make_processable()
 	make_leave_trash()
+	make_grillable()
+	//make_decompose(mapload)
+	make_bakeable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/make_edible()
@@ -68,8 +71,29 @@
 /obj/item/food/proc/make_processable()
 	return
 
+///This proc handles grillable components, overwrite if you want different grill results etc.
+/obj/item/food/proc/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/badrecipe, rand(20 SECONDS, 30 SECONDS), FALSE)
+	return
+
+///This proc handles bakeable components, overwrite if you want different bake results etc.
+/obj/item/food/proc/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/badrecipe, rand(25 SECONDS, 40 SECONDS), FALSE)
+
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
 /obj/item/food/proc/make_leave_trash()
 	if(trash_type)
 		AddElement(/datum/element/food_trash, trash_type)
 	return
+
+/obj/item/food/burn()
+	if(QDELETED(src))
+		return
+	if(prob(25))
+		microwave_act(src)
+	else
+		var/turf/T = get_turf(src)
+		new /obj/item/food/badrecipe(T)
+		if(resistance_flags & ON_FIRE)
+			SSfire_burning.processing -= src
+		qdel(src)

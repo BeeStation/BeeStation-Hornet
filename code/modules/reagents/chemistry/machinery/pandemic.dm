@@ -12,6 +12,11 @@
 	resistance_flags = ACID_PROOF
 	circuit = /obj/item/circuitboard/computer/pandemic
 
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	var/wait
 	var/datum/symptom/selected_symptom
 	var/obj/item/reagent_containers/beaker
@@ -217,7 +222,7 @@
 			new_disease.dormant = FALSE
 			new_disease.Refresh()
 			var/list/data = list("viruses" = list(new_disease))
-			var/obj/item/reagent_containers/glass/bottle/culture_bottle = new(drop_location())
+			var/obj/item/reagent_containers/cup/bottle/culture_bottle = new(drop_location())
 			culture_bottle.name = "[new_disease.name] culture bottle"
 			culture_bottle.desc = "A small bottle. Contains [new_disease.agent] culture in synthblood medium."
 			culture_bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)
@@ -232,7 +237,7 @@
 				return
 			var/id = params["index"]
 			var/datum/disease/disease = SSdisease.archive_diseases[id]
-			var/obj/item/reagent_containers/glass/bottle/vaccine_bottle = new(drop_location())
+			var/obj/item/reagent_containers/cup/bottle/vaccine_bottle = new(drop_location())
 			vaccine_bottle.name = "[disease.name] vaccine bottle"
 			vaccine_bottle.reagents.add_reagent(/datum/reagent/vaccine, 15, list(id))
 			var/turf/source_turf = get_turf(src)
@@ -262,3 +267,6 @@
 /obj/machinery/computer/pandemic/on_deconstruction()
 	eject_beaker()
 	. = ..()
+
+#undef MAIN_SCREEN
+#undef SYMPTOM_DETAILS

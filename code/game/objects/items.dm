@@ -138,7 +138,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/breakouttime = 0
 
 	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
-	var/list/attack_verb
+	var/list/attack_verb_continuous
+	var/list/attack_verb_simple
 	/// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/list/species_exception = null
 	///A bitfield of a species to use as an alternative sprite for any given item. DMIs are stored in the species datum and called via proc in update_icons.
@@ -224,13 +225,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/canMouseDown = FALSE
 
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
-	var/vendor_icon_preview = null
+	var/icon_state_preview = null
 
+	// If the item is able to be used as a seed in a hydroponics tray.
+	var/obj/item/seeds/fake_seed
 
 /obj/item/Initialize(mapload)
 
-	if (attack_verb)
-		attack_verb = typelist("attack_verb", attack_verb)
+	if(attack_verb_continuous)
+		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
+	if(attack_verb_simple)
+		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
 
 	. = ..()
 	for(var/path in actions_types)
@@ -258,7 +263,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		updateEmbedding()
 
 /obj/item/Destroy()
-	item_flags &= ~DROPDEL	//prevent reqdels
+	master = null
 	if(ismob(loc))
 		var/mob/m = loc
 		m.temporarilyRemoveItemFromInventory(src, TRUE)
@@ -275,7 +280,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
-		qdel(src)
+		atom_destruction(MELEE)
 
 /obj/item/ComponentInitialize()
 	. = ..()
@@ -329,7 +334,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	set category = "Object"
 	set src in oview(1)
 
-	if(!isturf(loc) || usr.stat || usr.restrained())
+	if(!isturf(loc) || usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(usr))
@@ -417,7 +422,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	// Extractable materials. Only shows the names, not the amounts.
 	research_msg += ".<br><font color='purple'>Extractable materials:</font> "
-	if (custom_materials.len)
+	if (length(custom_materials))
 		sep = ""
 		for(var/mat in custom_materials)
 			research_msg += sep
@@ -429,6 +434,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. += research_msg.Join()
 
 /obj/item/interact(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
+		. = TRUE
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -537,11 +544,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	attack_paw(A)
 
-/obj/item/attack_ai(mob/user)
+/obj/item/attack_robot(mob/living/user)
+	. = ..()
+	if(.)
+		return
 	if(istype(src.loc, /obj/item/robot_module))
 		//If the item is part of a cyborg module, equip it
-		if(!iscyborg(user))
-			return
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
 			R.activate_module(src)
@@ -574,7 +582,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
 	if(!blockhand)
 		return 0
-	if(blockhand.is_disabled())
+	if(blockhand?.bodypart_disabled)
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
@@ -675,8 +683,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
-	if(item_flags & DROPDEL)
-		qdel(src)
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -690,6 +697,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	user.update_equipment_speed_mods()
+
+	if(item_flags & DROPDEL && !QDELETED(src))
+		qdel(src)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -706,6 +716,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_found(mob/finder)
 	return
 
+/**
+ * To be overwritten to only perform visual tasks;
+ * this is directly called instead of `equipped` on visual-only features like human dummies equipping outfits.
+ *
+ * This separation exists to prevent things like the monkey sentience helmet from
+ * polling ghosts while it's just being equipped as a visual preview for a dummy.
+ */
+/obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
+	return
+
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
 // slot uses the slot_X defines found in setup.dm
@@ -713,12 +733,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+	visual_equipped(user, slot, initial)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
+
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to
@@ -768,6 +791,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, stunned, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, datum/actiontype)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_CLICK, user, actiontype) & COMPONENT_ACTION_HANDLED)
+		return
+
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
@@ -885,6 +911,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (callback) //call the original callback
 		. = callback.Invoke()
 	item_flags &= ~PICKED_UP
+	if(!pixel_y && !pixel_x && !(item_flags & NO_PIXEL_RANDOM_DROP))
+		pixel_x = rand(-8,8)
+		pixel_y = rand(-8,8)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
@@ -976,9 +1005,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return ..()
 	return 0
 
-/obj/item/mech_melee_attack(obj/mecha/M)
-	return 0
-
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
@@ -1020,8 +1046,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
 	return TRUE
 
- //Called BEFORE the object is ground up - use this to change grind results based on conditions
- //Use "return -1" to prevent the grinding from occurring
+//Called BEFORE the object is ground up - use this to change grind results based on conditions
+//Use "return -1" to prevent the grinding from occurring
 /obj/item/proc/on_grind()
 
 /obj/item/proc/on_juice()
@@ -1176,7 +1202,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/embedded(atom/embedded_target)
 
 /obj/item/proc/unembedded()
-	if(item_flags & DROPDEL)
+	if(item_flags & DROPDEL && !QDELETED(src))
 		QDEL_NULL(src)
 		return TRUE
 
@@ -1214,7 +1240,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 ///In case we want to do something special (like self delete) upon failing to embed in something, return true
 /obj/item/proc/failedEmbed()
-	if(item_flags & DROPDEL)
+	if(item_flags & DROPDEL && !QDELETED(src))
 		QDEL_NULL(src)
 		return TRUE
 	if(istype(src, /obj/item/shrapnel))
@@ -1392,6 +1418,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
 		return TRUE
 
+/// Special stuff you want to do when an outfit equips this item.
+/obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
+	return
+
 /**
  * * Overridden to generate icons for monkey clothing
  */
@@ -1446,3 +1476,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return FALSE
 	return TRUE
+
+// Update icons if this is being carried by a mob
+/obj/item/wash(clean_types)
+	. = ..()
+
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.regenerate_icons()
+
+/obj/item/proc/add_strip_actions(datum/strip_context/context)
+
+/obj/item/proc/perform_strip_actions(action_key, mob/actor)

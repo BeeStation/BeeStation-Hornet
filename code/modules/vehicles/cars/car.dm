@@ -20,7 +20,7 @@
 	if(car_traits & CAN_KIDNAP)
 		initialize_controller_action_type(/datum/action/vehicle/sealed/DumpKidnappedMobs, VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/sealed/car/driver_move(mob/user, direction)
+/obj/vehicle/sealed/car/driver_move(mob/living/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return FALSE
@@ -50,7 +50,7 @@
 	T.add_mob_blood(H)
 
 /obj/vehicle/sealed/car/MouseDrop_T(atom/dropping, mob/M)
-	if(M.stat || M.restrained())
+	if(M.stat != CONSCIOUS || HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(dropping) && M != dropping)
 		var/mob/living/L = dropping
@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/vehicle/sealed/car/mob_try_exit(mob/M, mob/user, silent = FALSE)
-	if(M == user && (occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
+	if(M == user && (LAZYACCESS(occupants, M) & VEHICLE_CONTROL_KIDNAPPED))
 		to_chat(user, "<span class='notice'>You push against the back of [src] trunk to try and get out.</span>")
 		if(!do_after(user, escape_time, target = src))
 			return FALSE
@@ -69,19 +69,9 @@
 	mob_exit(M, silent)
 	return TRUE
 
-/obj/vehicle/sealed/car/attacked_by(obj/item/I, mob/living/user)
-	if(!I.force)
-		return
-	if(occupants[user])
-		to_chat(user, "<span class='notice'>Your attack bounces off of the car's padded interior.</span>")
-		return
-	return ..()
-
 /obj/vehicle/sealed/car/attack_hand(mob/living/user)
 	. = ..()
 	if(!(car_traits & CAN_KIDNAP))
-		return
-	if(occupants[user])
 		return
 	to_chat(user, "<span class='notice'>You start opening [src]'s trunk.</span>")
 	if(do_after(user, 30))
@@ -110,3 +100,8 @@
 		M.visible_message("<span class='warning'>[M] is forced into \the [src]!</span>")
 	M.forceMove(src)
 	add_occupant(M, VEHICLE_CONTROL_KIDNAPPED)
+
+/obj/vehicle/sealed/car/atom_destruction(damage_flag)
+	explosion(loc, 0, 1, 2, 3, 0)
+	log_message("[src] exploded due to destruction", LOG_ATTACK)
+	return ..()

@@ -1,7 +1,5 @@
 //node2, air2, network2 correspond to input
 //node1, air1, network1 correspond to output
-#define CIRCULATOR_HOT 0
-#define CIRCULATOR_COLD 1
 
 /obj/machinery/atmospherics/components/binary/circulator
 	name = "circulator/heat exchanger"
@@ -83,7 +81,7 @@
 /obj/machinery/atmospherics/components/binary/circulator/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	I.play_tool_sound(src)
 	if(generator)
 		disconnectFromGenerator()

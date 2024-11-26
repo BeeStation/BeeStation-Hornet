@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	icon_state = "marker"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_on_shuttle = 1
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	invisibility = INVISIBILITY_OBSERVER
 	layer = FLY_LAYER
 
@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	/// The list of strains the blob can reroll for.
 	var/list/strain_choices
 	var/need_reroll_strain = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
@@ -115,7 +117,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))
 		victory_in_progress = TRUE
 		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert", SSstation.announcer.get_rand_alert_sound())
-		set_security_level("delta")
+		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 		max_blob_points = INFINITY
 		blob_points = INFINITY
 		addtimer(CALLBACK(src, PROC_REF(victory)), 450)
@@ -138,7 +140,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		if(!T || !is_station_level(T.z))
 			continue
 
-		if(L in GLOB.overminds || (L.pass_flags & PASSBLOB))
+		if((L in GLOB.overminds) || (L.pass_flags & PASSBLOB))
 			continue
 
 		var/area/Ablob = get_area(T)
@@ -197,7 +199,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	return ..()
 
 /mob/camera/blob/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, "<span class='notice'>You are the overmind!</span>")
 	blob_help()
 	update_health_hud()
@@ -211,10 +215,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core)
-		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>")
+		var/current_health = round((blob_core.get_integrity() / blob_core.max_integrity) * 100)
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[current_health]</font></div>")
 		for(var/mob/living/simple_animal/hostile/blob/blobbernaut/B in blob_mobs)
 			if(B.hud_used?.blobpwrdisplay)
-				B.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_core.obj_integrity)]</font></div>")
+				B.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[current_health]</font></div>")
 
 /mob/camera/blob/proc/add_points(points)
 	blob_points = clamp(blob_points + points, 0, max_blob_points)
@@ -264,7 +269,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /mob/camera/blob/get_stat_tab_status()
 	var/list/tab_data = ..()
 	if(blob_core)
-		tab_data["Core Health"] = GENERATE_STAT_TEXT("[blob_core.obj_integrity]")
+		tab_data["Core Health"] = GENERATE_STAT_TEXT("[blob_core.get_integrity()]")
 	tab_data["Power Stored"] = GENERATE_STAT_TEXT("[blob_points]/[max_blob_points]")
 	tab_data["Blobs to Win"] = GENERATE_STAT_TEXT("[blobs_legit.len]/[blobwincount]")
 	if(free_strain_rerolls)

@@ -1,0 +1,156 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"c" = (
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"d" = (
+/obj/structure/window/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"f" = (
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"g" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/candle{
+	pixel_y = 10
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"j" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug,
+/obj/item/reagent_containers/cup/glass/mug,
+/obj/item/reagent_containers/cup/glass/mug,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"A" = (
+/obj/item/toy/cattoy,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"F" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/tree/jungle/small,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"G" = (
+/obj/effect/holodeck_effect/random_book,
+/obj/structure/bookcase/random,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Y" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/instrument/violin,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Z" = (
+/obj/structure/bookcase/random,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+d
+g
+A
+a
+f
+g
+d
+"}
+(2,1,1) = {"
+c
+f
+a
+a
+a
+f
+c
+"}
+(3,1,1) = {"
+d
+Y
+Z
+f
+a
+Z
+d
+"}
+(4,1,1) = {"
+d
+F
+G
+g
+f
+Z
+d
+"}
+(5,1,1) = {"
+d
+j
+Z
+f
+a
+Z
+d
+"}
+(6,1,1) = {"
+c
+f
+a
+a
+a
+f
+c
+"}
+(7,1,1) = {"
+d
+g
+f
+a
+f
+g
+d
+"}

@@ -78,7 +78,7 @@
 		return TRUE
 	if(!loc)
 		return FALSE
-	if(machine_stat & EMPED)
+	if(machine_stat & (EMPED|OVERHEATED))
 		return FALSE
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
@@ -94,6 +94,7 @@
 		return
 	if(chan == -1)
 		chan = power_channel
+	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
 	A.use_power(amount, chan)
 
 /obj/machinery/proc/addStaticPower(value, powerchannel)
@@ -131,8 +132,8 @@
 	update_appearance()
 
 // connect the machine to a powernet if a node cable is present on the turf
-/obj/machinery/power/proc/connect_to_network()
-	var/turf/T = src.loc
+/obj/machinery/power/proc/connect_to_network(var/turf/turf = loc)
+	var/turf/T = turf
 	if(!T || !istype(T))
 		return FALSE
 

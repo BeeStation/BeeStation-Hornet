@@ -57,6 +57,15 @@ GLOBAL_LIST_EMPTY(apid_antenna_list)
 GLOBAL_LIST_EMPTY(apid_stripes_list)
 GLOBAL_LIST_EMPTY(apid_headstripes_list)
 GLOBAL_LIST_EMPTY(psyphoza_cap_list)
+GLOBAL_LIST_EMPTY(diona_leaves_list)
+GLOBAL_LIST_EMPTY(diona_thorns_list)
+GLOBAL_LIST_EMPTY(diona_flowers_list)
+GLOBAL_LIST_EMPTY(diona_moss_list)
+GLOBAL_LIST_EMPTY(diona_mushroom_list)
+GLOBAL_LIST_EMPTY(diona_antennae_list)
+GLOBAL_LIST_EMPTY(diona_eyes_list)
+GLOBAL_LIST_EMPTY(diona_pbody_list)
+
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Cyan" = "00ffff",
@@ -160,7 +169,7 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	else
 		if(input == "Random")
 			input = pick(GLOB.ai_core_display_screens - "Random")
-		return "ai-[lowertext(input)]"
+		return "ai-[LOWER_TEXT(input)]"
 
 /proc/resolve_ai_icon(input)
 	if (input == "Portrait")
@@ -234,84 +243,6 @@ GLOBAL_LIST_INIT(scarySounds, list(
 	'sound/weapons/thudswoosh.ogg',
 ))
 
-
-// Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
-// the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
-// tagged for the Cargo Bay.
-
-/* List of sortType codes for mapping reference
-0 Waste
-1 Disposals - All unwrapped items and untagged parcels get picked up by a junction with this sortType. Usually leads to the recycler.
-2 Cargo Bay
-3 QM Office
-4 Engineering
-5 CE Office
-6 Atmospherics
-7 Security
-8 HoS Office
-9 Medbay
-10 CMO Office
-11 Chemistry
-12 Research
-13 RD Office
-14 Robotics
-15 HoP Office
-16 Library
-17 Chapel
-18 Theatre
-19 Bar
-20 Kitchen
-21 Hydroponics
-22 Janitor
-23 Genetics
-24 Testing Range
-25 Toxins
-26 Dormitories
-27 Virology
-28 Xenobiology
-29 Law Office
-30 Detective's Office
-*/
-
-//The whole system for the sorttype var is determined based on the order of this list,
-//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
-
-//If you don't want to fuck up disposals, add to this list, and don't change the order.
-//If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
-
-GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
-	"Disposals",
-	"Cargo Bay",
-	"QM Office",
-	"Engineering",
-	"CE Office",
-	"Atmospherics",
-	"Security",
-	"HoS Office",
-	"Medbay",
-	"CMO Office",
-	"Chemistry",
-	"Research",
-	"RD Office",
-	"Robotics",
-	"HoP Office",
-	"Library",
-	"Chapel",
-	"Theatre",
-	"Bar",
-	"Kitchen",
-	"Hydroponics",
-	"Janitor Closet",
-	"Genetics",
-	"Testing Range",
-	"Toxins",
-	"Dormitories",
-	"Virology",
-	"Xenobiology",
-	"Law Office",
-	"Detective's Office",
-))
-
 GLOBAL_LIST_INIT(station_prefixes, world.file2list("strings/station_prefixes.txt") + "")
 
 GLOBAL_LIST_INIT(station_names, world.file2list("strings/station_names.txt") + "")
@@ -349,6 +280,27 @@ GLOBAL_LIST_INIT(admiral_messages, list(
 
 GLOBAL_LIST_INIT(junkmail_messages, world.file2list("strings/junkmail.txt"))
 
+// All valid inputs to status display post_status
+GLOBAL_LIST_INIT(status_display_approved_pictures, list(
+	"blank",
+	"shuttle",
+	"default",
+	"biohazard",
+	"lockdown",
+	"greenalert",
+	"bluealert",
+	"redalert",
+	"deltaalert",
+	"radiation",
+	"currentalert",
+))
+
+// Members of status_display_approved_pictures that are actually states and not alert values
+GLOBAL_LIST_INIT(status_display_state_pictures, list(
+	"blank",
+	"shuttle",
+))
+
 GLOBAL_LIST_INIT(pAI_faces_list, list(
 	"Angry" = "angry",
 	"Cat" = "cat",
@@ -381,17 +333,21 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 	/obj/item/storage/fancy/cigarettes/cigpack_robust,
 	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-	/obj/item/storage/fancy/cigarettes/cigpack_carp
+	/obj/item/storage/fancy/cigarettes/cigpack_carp,
+	/obj/item/storage/fancy/cigarettes/dromedaryco,
+	/obj/item/storage/fancy/cigarettes/cigars,
+	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
+	/obj/item/storage/fancy/cigarettes/cigars/havana
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(
-	/obj/item/reagent_containers/food/drinks/bottle/ale,
-	/obj/item/reagent_containers/food/drinks/bottle/beer,
-	/obj/item/reagent_containers/food/drinks/bottle/gin,
-	/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-	/obj/item/reagent_containers/food/drinks/bottle/vodka,
-	/obj/item/reagent_containers/food/drinks/bottle/rum,
-	/obj/item/reagent_containers/food/drinks/bottle/applejack
+	/obj/item/reagent_containers/cup/glass/bottle/ale,
+	/obj/item/reagent_containers/cup/glass/bottle/beer,
+	/obj/item/reagent_containers/cup/glass/bottle/gin,
+	/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+	/obj/item/reagent_containers/cup/glass/bottle/vodka,
+	/obj/item/reagent_containers/cup/glass/bottle/rum,
+	/obj/item/reagent_containers/cup/glass/bottle/applejack
 ))
 
 GLOBAL_LIST_INIT(junkie_drugs, list(
