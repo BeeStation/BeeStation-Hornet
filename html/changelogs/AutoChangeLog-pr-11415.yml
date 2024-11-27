@@ -1,0 +1,9 @@
+author: rkz, Ryll/Shaps, Tralezab, Zonespace27
+delete-after: true
+changes:
+  - admin: ERTs now spawn with their briefing officer (the admin)
+  - admin: Admins can now force the most experienced player to be team leader in an
+      ERT
+  - admin: Admins can now force randomize names in an ERT
+  - code_imp: adds and fixes a few ERT subtypes
+  - tweak: all ERTs now have mindshield (no rev centcom lmao)
