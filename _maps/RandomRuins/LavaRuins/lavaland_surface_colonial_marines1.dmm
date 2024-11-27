@@ -221,9 +221,6 @@
 /obj/structure/alien/resin/wall,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
-"Ao" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/shuttle)
 "AX" = (
 /obj/item/ammo_casing/a556{
 	dir = 8;
@@ -534,7 +531,7 @@ tb
 IY
 Uw
 Ho
-Ao
+Ho
 Sj
 Sj
 dA
