@@ -217,7 +217,7 @@
 		has_language_icon = TRUE
 
 	// Approximate text height
-	var values = approx_str_width(text, font_size, bold_font, has_language_icon, first_hearer.ckey)
+	var values = approx_str_width(text, font_size, bold_font, has_language_icon)
 	text = values[2]
 	approx_lines = CEILING(values[1] / CHAT_MESSAGE_WIDTH, 1)
 
@@ -547,7 +547,7 @@
 			m.end_of_life()
 
 	// Approximate text height
-	var values = approx_str_width(text, DEFAULT_FONT_SIZE, FALSE, FALSE, owned_by.ckey)
+	var values = approx_str_width(text, DEFAULT_FONT_SIZE, FALSE, FALSE)
 	text = values[2]
 	approx_lines = CEILING(values[1] / CHAT_MESSAGE_WIDTH, 1)
 
@@ -588,9 +588,8 @@
  * * font size - font size that the displayed string will be in, used to calculate font size multiplier
  * * is_bold - passed if the font is bold, the approximation takes into account additional width of the font
  * * has_icon - text has an icon, which adds extra 8 pixels
- * * ckey - ckey of hearer we're approximating values for
  */
-/datum/chatmessage/proc/approx_str_width(string, font_size = DEFAULT_FONT_SIZE, is_bold = FALSE, has_icon = FALSE, ckey)
+/datum/chatmessage/proc/approx_str_width(string, font_size = DEFAULT_FONT_SIZE, is_bold = FALSE, has_icon = FALSE)
 	var/value = 0
 	var/index = NORMAL_FONT_INDEX
 	if(font_size == WHISPER_FONT_SIZE)
