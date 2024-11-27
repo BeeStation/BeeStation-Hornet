@@ -34,7 +34,8 @@ SUBSYSTEM_DEF(explosions)
 	var/list/med_mov_atom = list()
 	var/list/high_mov_atom = list()
 
-	var/list/explosions = list()
+	// Track how many explosions have happened.
+	var/explosion_index = 0
 
 	var/currentpart = SSEXPLOSIONS_TURFS
 
@@ -449,7 +450,9 @@ SUBSYSTEM_DEF(explosions)
 	if(GLOB.Debug2)
 		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	explosion_index += 1
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB

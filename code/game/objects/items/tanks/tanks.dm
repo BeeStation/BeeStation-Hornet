@@ -80,9 +80,8 @@
 	return
 
 /obj/item/tank/Destroy()
-	if(air_contents)
-		QDEL_NULL(air_contents)
-
+	UnregisterSignal(air_contents, COMSIG_GASMIX_MERGED)
+	air_contents = null
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 

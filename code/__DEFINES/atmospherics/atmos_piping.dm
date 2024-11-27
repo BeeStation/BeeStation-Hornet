@@ -52,6 +52,13 @@
 #define TANK_MAX_RELEASE_PRESSURE (ONE_ATMOSPHERE*3)
 #define TANK_MIN_RELEASE_PRESSURE 0
 #define TANK_DEFAULT_RELEASE_PRESSURE 16
+/// Denotes that our tank is overpressurized simply from gas merging.
+#define TANK_MERGE_OVERPRESSURE "tank_overpressure"
+// Indices for the reaction_results returned by explosion_information()
+/// Reactions that have happened in the tank.
+#define TANK_RESULTS_REACTION 1
+/// Additional information of the tank.
+#define TANK_RESULTS_MISC 2
 
 //MULTIPIPES
 //IF YOU EVER CHANGE THESE CHANGE SPRITES TO MATCH.

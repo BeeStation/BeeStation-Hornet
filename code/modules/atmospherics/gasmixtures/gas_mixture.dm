@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	var/volume = CELL_VOLUME
 	/// The last tick this gas mixture shared on. A counter that turfs use to manage activity
 	var/last_share = 0
-	/// The fire key contains information that might determine the volume of hotspots.
+	/// Tells us what reactions have happened in our gasmix. Assoc list of reaction - moles reacted pair.
 	var/list/reaction_results
 	/// Used for analyzer feedback - not initialized until its used
 	var/list/analyzer_results
@@ -171,6 +171,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		ASSERT_GAS_IN_LIST(giver_id, cached_gases)
 		cached_gases[giver_id][MOLES] += giver_gases[giver_id][MOLES]
 
+	SEND_SIGNAL(src, COMSIG_GASMIX_MERGED)
 	return TRUE
 
 	///Proportionally removes amount of gas from the gas_mixture.
@@ -193,6 +194,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		cached_gases[id][MOLES] -= removed_gases[id][MOLES]
 	garbage_collect()
 
+	SEND_SIGNAL(src, COMSIG_GASMIX_REMOVED)
 	return removed
 
 	///Proportionally removes amount of gas from the gas_mixture.
@@ -215,6 +217,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	garbage_collect()
 
+	SEND_SIGNAL(src, COMSIG_GASMIX_REMOVED)
 	return removed
 
 	///Removes an amount of a specific gas from the gas_mixture.
@@ -530,6 +533,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	if(.) //If we changed the mix to any degree
 		garbage_collect()
+		SEND_SIGNAL(src, COMSIG_GASMIX_REACTED)
 
 
 /**

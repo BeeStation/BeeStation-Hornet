@@ -22,6 +22,14 @@
 /// Called on the merger after finishing a refresh: (list/leaving_members, list/joining_members)
 #define COMSIG_MERGER_REFRESH_COMPLETE "comsig_merger_refresh_complete"
 
+// Gas mixture signals
+/// From /datum/gas_mixture/proc/merge: ()
+#define COMSIG_GASMIX_MERGED "comsig_gasmix_merged"
+/// From /datum/gas_mixture/proc/remove: ()
+#define COMSIG_GASMIX_REMOVED "comsig_gasmix_removed"
+/// From /datum/gas_mixture/proc/react: ()
+#define COMSIG_GASMIX_REACTED "comsig_gasmix_reacted"
+
 /// Sent when the amount of materials in material_container changes
 #define COMSIG_MATERIAL_CONTAINER_CHANGED "material_container_changed"
 
