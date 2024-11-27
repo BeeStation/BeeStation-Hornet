@@ -339,6 +339,7 @@
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	worn_icon_state = "marine_helmet"
 	body_parts_covered = HEAD
+	flags_cover = HEADCOVERSMOUTH
 	armor = list(MELEE = 30, BULLET = 20, LASER = 0, ENERGY = 10, BOMB = 30, RAD = 0, FIRE = 15, ACID = 45, STAMINA = 0, BLEED = 40)
 
 /obj/item/clothing/head/helmet/marine/squadlead
