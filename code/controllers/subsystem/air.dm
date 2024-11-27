@@ -230,6 +230,7 @@ SUBSYSTEM_DEF(air)
 		resumed = FALSE
 
 	currentpart = SSAIR_PIPENETS
+	last_complete_process = world.time
 	SStgui.update_uis(SSair) //Lightning fast debugging motherfucker
 
 /datum/controller/subsystem/air/Recover()

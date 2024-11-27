@@ -309,11 +309,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 	return ..()
 
-/obj/machinery/portable_atmospherics/canister/ui_status(mob/user)
-	. = ..()
-	if(. > UI_UPDATE && !allowed(user))
-		. = UI_UPDATE
-
 /obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
 	return GLOB.physical_state
 
@@ -352,7 +347,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	return data
 
 /obj/machinery/portable_atmospherics/canister/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("relabel")

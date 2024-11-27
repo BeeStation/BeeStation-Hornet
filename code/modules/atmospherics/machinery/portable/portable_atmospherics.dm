@@ -165,21 +165,36 @@
  * * new_tank: the tank we are trying to put in the machine
  */
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(machine_stat & BROKEN)
+		return FALSE
 	if(!user)
 		return FALSE
-	if(holding)
+	if(new_tank && !user.transferItemToLoc(new_tank, src))
+		return FALSE
+	if(holding && new_tank)//for when we are actually switching tanks
+		investigate_log("had its internal [holding] swapped with [new_tank] by [key_name(user)].", INVESTIGATE_ATMOS)
+		to_chat(user, "<span class='notice'>In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank].</span>")
+		user.put_in_hands(holding)
+		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+		holding = new_tank
+		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
+	else if(holding)//we remove a tank
+		investigate_log("had its internal [holding] removed by [key_name(user)].", INVESTIGATE_ATMOS)
+		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
 		if(Adjacent(user))
 			user.put_in_hands(holding)
 		else
 			holding.forceMove(get_turf(src))
 		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
 		holding = null
-	if(new_tank)
+	else if(new_tank)//we insert the tank
+		investigate_log("had [new_tank] inserted into it by [key_name(user)].", INVESTIGATE_ATMOS)
+		to_chat(user, "<span class='notice'>You insert [new_tank] into [src].</span>")
 		holding = new_tank
 		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
 
 	SSair.start_processing_machine(src)
-	update_appearance()
+	update_icon()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)

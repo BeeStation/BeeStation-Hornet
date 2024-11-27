@@ -238,19 +238,10 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   return fallbackValue || 'None';
 };
 
-// Returns gas color based on gasId
-export const getGasColor = (gasId: string) => {
-  if (!gasId) return 'black';
-
-  const gasSearchString = gasId.toLowerCase();
-
-  for (let idx = 0; idx < GASES.length; idx++) {
-    if (GASES[idx].id === gasSearchString) {
-      return GASES[idx].color;
-    }
-  }
-
-  return 'black';
+export const getGasColor = (gasId) => {
+  const gasSearchString = String(gasId).toLowerCase();
+  const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
+  return gas && gas.color;
 };
 
 // Returns gas object based on gasId
