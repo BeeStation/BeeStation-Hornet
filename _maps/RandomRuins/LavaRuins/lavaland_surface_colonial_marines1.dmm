@@ -21,7 +21,7 @@
 /area/ruin/powered/shuttle)
 "cS" = (
 /obj/item/ammo_casing/a556{
-	dir = 8\;
+	dir = 8;
 	pixel_y = 5
 	},
 /obj/item/ammo_casing/a556{
