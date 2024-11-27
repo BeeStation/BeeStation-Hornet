@@ -107,41 +107,6 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/fire(resumed = FALSE)
 	var/timer = TICK_USAGE_REAL
 
-	//If we have unpausing z-level, process them first
-	if(length(unpausing_z_levels) && !length(unpause_processing))
-		var/z_value = unpausing_z_levels[1]
-		unpausing_z_levels.Remove(z_value)
-		unpause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
-
-	while(length(unpause_processing))
-		var/turf/T = unpause_processing[length(unpause_processing)]
-		if(!isspaceturf(T))	//Skip space turfs, since they won't have atmos
-			T.Initalize_Atmos()
-		//Goodbye
-		unpause_processing.len --
-		//We overran this tick, stop processing
-		//This may result in a very brief atmos freeze when running unpause_z at high loads
-		//but that is better than freezing the entire MC
-		if(MC_TICK_CHECK)
-			return
-
-	//If we have unpausing z-level, process them first
-	if(length(pausing_z_levels) && !length(pause_processing))
-		var/z_value = pausing_z_levels[1]
-		pausing_z_levels.Remove(z_value)
-		pause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
-
-	while(length(pause_processing))
-		var/turf/T = pause_processing[length(pause_processing)]
-		T.immediate_disable_adjacency()
-		//Goodbye
-		pause_processing.len --
-		//We overran this tick, stop processing
-		//This may result in a very brief atmos freeze when running unpause_z at high loads
-		//but that is better than freezing the entire MC
-		if(MC_TICK_CHECK)
-			return
-
 	//Rebuilds can happen at any time, so this needs to be done outside of the normal system
 	cost_rebuilds = 0
 	cost_adjacent = 0
@@ -261,7 +226,6 @@ SUBSYSTEM_DEF(air)
 		resumed = FALSE
 
 	currentpart = SSAIR_PIPENETS
-	last_complete_process = world.time
 	SStgui.update_uis(SSair) //Lightning fast debugging motherfucker
 
 /datum/controller/subsystem/air/Recover()

@@ -81,6 +81,7 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
+	init_processing = process
 	if (!armor)
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
@@ -91,6 +92,8 @@
 /obj/machinery/atmospherics/Initialize(mapload)
 	if(mapload && name != initial(name))
 		override_naming = TRUE
+	if(init_processing)
+		SSair.start_processing_machine(src)
 	return ..()
 
 /obj/machinery/atmospherics/Destroy()

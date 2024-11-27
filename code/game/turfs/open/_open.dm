@@ -63,6 +63,10 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 /turf/open/zAirOut(direction, turf/source)
 	return (direction == UP)
 
+/turf/open/update_icon()
+	. = ..()
+	update_visuals()
+
 /turf/open/indestructible
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
@@ -170,10 +174,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/Initalize_Atmos(time)
 	excited = FALSE
-	if(!blocks_air)
-		if(!istype(air,/datum/gas_mixture/turf))
-			air = new(2500,src)
-		air.copy_from_turf(src)
+	update_visuals()
 
 	current_cycle = time
 	init_immediate_calculate_adjacent_turfs()
@@ -182,10 +183,10 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	. = air.heat_capacity()
 
 /turf/open/get_temperature()
-	. = air.return_temperature()
+	. = air.temperature
 
 /turf/open/take_temperature(temp)
-	air.temperature = air.return_temperature() + temp
+	air.temperature += temp
 	air_update_turf(FALSE, FALSE)
 
 /turf/open/proc/freeze_turf()

@@ -817,13 +817,12 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	message_admins("[key_name_admin(usr)] stabilized atmos at [AREACOORD(T)]")
 	log_game("[key_name_admin(usr)] stabilized atmos at [AREACOORD(T)]")
 
-	var/datum/gas_mixture/GM = new
+	var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
 	for(var/turf/open/F in view())
 		if(F.blocks_air)
 		//skip walls
 			continue
-		GM.parse_gas_string(F.initial_gas_mix)
-		F.copy_air(GM)
+		F.copy_air(base_mix)
 		F.update_visuals()
 
 	for(var/obj/machinery/portable_atmospherics/canister/can in view())

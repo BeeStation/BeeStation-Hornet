@@ -223,8 +223,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /datum/artifact_effect/atmosfix/process(delta_time)
 	var/turf/T = get_turf(source_object)
-	var/datum/gas_mixture/air = T.return_air()
-	air.parse_gas_string(T.initial_gas_mix)
+	var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+	T.assume_air(base_mix)
 
 //===================
 // Gravity Well

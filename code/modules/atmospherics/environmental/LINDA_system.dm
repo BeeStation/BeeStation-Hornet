@@ -170,6 +170,8 @@
 	return adjacent_turfs
 
 /atom/proc/air_update_turf(update = FALSE, remove = FALSE)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	var/turf/local_turf = get_turf(loc)
 	if(!local_turf)
 		return
@@ -185,6 +187,8 @@
  * * remove - Are you removing an active turf (Read wall), or adding one
 */
 /turf/air_update_turf(update = FALSE, remove = FALSE)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	if(update)
 		immediate_calculate_adjacent_turfs()
 	if(remove)
@@ -213,13 +217,3 @@
 	archive()
 	SSair.add_to_active(src)
 
-/turf/proc/immediate_disable_adjacency(disable_adjacent = TRUE)
-	if(disable_adjacent)
-		for(var/direction in GLOB.cardinals_multiz)
-			var/turf/T = get_step_multiz(src, direction)
-			if(!istype(T))
-				continue
-			if (T.atmos_adjacent_turfs)
-				T.atmos_adjacent_turfs -= src
-			UNSETEMPTY(T.atmos_adjacent_turfs)
-	LAZYCLEARLIST(atmos_adjacent_turfs)

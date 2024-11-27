@@ -344,7 +344,7 @@
 
 	for(var/turf/open/enemy_tile as anything in share_end)
 		var/datum/gas_mixture/enemy_mix = enemy_tile.air
-		LINDA_CYCLE_ARCHIVE(src)
+		archive()
 		// We share 100% of our mix in this step. Let's jive
 		var/difference = our_air.share(enemy_mix, 1, 1)
 		LAST_SHARE_CHECK
@@ -456,11 +456,9 @@
 		target_group.breakdown_cooldown = min(breakdown_cooldown, target_group.breakdown_cooldown)
 		target_group.dismantle_cooldown = 0
 
-
 /datum/excited_group/proc/reset_cooldowns()
 	breakdown_cooldown = 0
 	dismantle_cooldown = 0
-
 
 /datum/excited_group/proc/self_breakdown(roundstart = FALSE, poke_turfs = FALSE)
 	var/datum/gas_mixture/shared_mix = new
