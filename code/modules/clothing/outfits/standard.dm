@@ -251,6 +251,20 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id/centcom
 
+/datum/outfit/centcom/marinecommander
+	name = "Marine Commander"
+	uniform = /obj/item/clothing/under/rank/centcom/commander/marine
+	suit = /obj/item/clothing/suit/armor/centcom_formal/marine
+	shoes = /obj/item/clothing/shoes/laceup
+	ears = /obj/item/radio/headset/headset_cent/commander
+	belt = /obj/item/gun/ballistic/revolver/mateba
+	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	l_pocket = /obj/item/ammo_box/a357
+	back = /obj/item/storage/backpack/satchel/leather
+	id = /obj/item/card/id/centcom
+	head = /obj/item/clothing/head/hats/centcom_cap/marine
+
+
 /datum/outfit/centcom/commander/plasmaman
 	name = "CentCom Commander Plasmaman"
 

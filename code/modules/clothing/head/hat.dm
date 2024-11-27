@@ -21,6 +21,12 @@
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = (8 SECONDS)
 
+/obj/item/clothing/head/hats/centcom_cap/marine
+	name = "marine dress blues officer cover"
+	desc = "The combination cover of the legendary Marine dress blues, virtually unchanged since the 19th century. Features a gold stripe and silvered logo, emblematic of an officer."
+	icon_state = "o_cap_he"
+	item_state = "o_cap"
+
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
 	desc = "It smells like fresh donut holes. / <i>Il sent comme des trous de beignets frais.</i>"
