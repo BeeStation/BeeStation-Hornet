@@ -778,8 +778,8 @@ update_label("John Doe", "Clowny")
 	assignment = "Squad Leader"
 
 /obj/item/card/id/ert/Security/marine
-	registered_name = "Squad Specialist Marine"
-	assignment = "Squad Specialist Marine"
+	registered_name = "Squad Specialist"
+	assignment = "Squad Specialist"
 
 /obj/item/card/id/ert/Medical/marine
 	registered_name = "Squad Corpsman"

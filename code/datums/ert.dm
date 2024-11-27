@@ -127,3 +127,15 @@
 	mission = "Eliminate the kudzu with extreme prejudice"
 	polldesc = "an elite gardening team"
 	code = "Vine Green"
+
+/datum/ert/marine
+
+	opendoors = FALSE
+	leader_role =  /datum/antagonist/ert/marine/squadlead
+	enforce_human = TRUE
+	roles = list(/datum/antagonist/ert/marine, /datum/antagonist/ert/marine/breacher, /datum/antagonist/ert/marine/medic)
+	rename_team = "United States Colonial Marines"
+	code = "Code X"
+	mission = "Investigate the distress signal from SS13."
+	teamsize = 4
+	polldesc = "An elite squad of Marines sent by the USCM."

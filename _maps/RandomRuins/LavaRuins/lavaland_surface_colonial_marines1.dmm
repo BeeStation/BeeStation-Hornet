@@ -1,145 +1,166 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/iron/greyish,
-/area/space)
-"b" = (
+"bQ" = (
+/obj/effect/decal/cleanable/xenoblood/xgibs/up,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/greyish,
-/area/space)
-"c" = (
+/area/ruin/powered/shuttle)
+"cb" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Alamo Exit Pod Door";
+	id = "alamo"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"ce" = (
+/obj/structure/spacevine,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/ruin/powered/shuttle)
+"cl" = (
+/turf/open/floor/iron/stairs/medium,
+/area/ruin/powered/shuttle)
+"cS" = (
+/obj/item/ammo_casing/a556{
+	dir = 8\;
+	pixel_y = 5
+	},
+/obj/item/ammo_casing/a556{
+	dir = 8;
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"ds" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/marine/corpsman,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"dA" = (
+/obj/effect/decal/cleanable/xenoblood/xgibs/torso,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"dF" = (
 /obj/structure/fluff/broken_flooring{
 	icon_state = "plating";
 	name = "broken plating";
 	dir = 8
 	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/shuttle)
+"eN" = (
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"fn" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Alamo Airlock"
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"gb" = (
+/obj/structure/alien/resin/wall,
 /turf/open/space/basic,
-/area/space)
-"e" = (
-/obj/item/organ/body_egg/alien_embryo,
-/turf/open/floor/plating,
-/area/space)
-"f" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
+/area/ruin/powered/shuttle)
+"gs" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/greyish,
-/area/space)
-"h" = (
-/turf/closed/wall/mineral/titanium,
-/area/space)
-"i" = (
-/turf/open/space/basic,
-/area/space)
-"j" = (
-/obj/structure/grille/broken,
-/obj/item/shard,
-/turf/open/floor/plating,
-/area/space)
-"k" = (
-/obj/structure/alien/resin/membrane,
-/turf/open/floor/plating,
-/area/space)
-"m" = (
-/obj/structure/spacevine,
-/turf/open/floor/iron/stairs/right,
-/area/space)
-"n" = (
-/turf/open/floor/iron/stairs/medium,
-/area/space)
-"o" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/space)
-"q" = (
-/obj/machinery/door/airlock/shuttle/glass{
-	name = "Alamo Cockpit"
-	},
-/turf/open/floor/iron/greyish,
-/area/space)
-"r" = (
-/obj/structure/alien/weeds,
-/turf/open/floor/iron/stairs/left,
-/area/space)
-"t" = (
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
-/turf/open/floor/monotile/steel,
-/area/space)
-"w" = (
-/obj/machinery/door/poddoor/preopen{
-	name = "Alamo Exit Pod Door";
-	id = "alamo"
-	},
-/obj/structure/alien/weeds,
-/turf/open/floor/plating,
-/area/space)
-"x" = (
-/turf/open/floor/iron/greyish,
-/area/space)
-"y" = (
+/area/ruin/powered/shuttle)
+"gP" = (
+/obj/structure/alien/resin/wall,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jp" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/alien/drone,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/greyish,
-/area/space)
-"z" = (
-/obj/structure/girder/displaced,
-/obj/structure/spacevine,
+/area/ruin/powered/shuttle)
+"jK" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
-"A" = (
-/obj/structure/alien/egg/burst,
-/obj/structure/alien/weeds,
-/turf/open/floor/iron/greyish,
-/area/space)
-"B" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "plating";
-	name = "broken plating";
+/area/ruin/powered/shuttle)
+"kQ" = (
+/obj/effect/decal/cleanable/blood/xtracks{
+	dir = 10
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"kU" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/corpse/marine/squadlead,
+/turf/open/floor/iron/large,
+/area/ruin/powered/shuttle)
+"kZ" = (
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/turf/open/space/basic,
-/area/space)
-"C" = (
-/obj/structure/door_assembly/door_assembly_titanium,
-/turf/open/floor/plating,
-/area/space)
-"D" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Alamo Cockpit"
-	},
-/turf/open/floor/plating,
-/area/space)
-"E" = (
-/turf/open/floor/monotile/steel,
-/area/space)
-"G" = (
-/obj/machinery/door/poddoor/preopen{
-	name = "Alamo Exit Pod Door";
-	id = "alamo"
-	},
-/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/greyish,
-/area/space)
-"H" = (
-/obj/machinery/light/broken/directional/east,
-/mob/living/simple_animal/hostile/alien,
-/turf/open/floor/iron/greyish,
-/area/space)
-"I" = (
-/turf/open/floor/plating{
-	icon_state = "foam_plating"
-	},
-/area/space)
-"J" = (
-/turf/open/floor/plating,
-/area/space)
-"L" = (
+/area/ruin/powered/shuttle)
+"lm" = (
 /obj/effect/decal/cleanable/greenglow,
+/obj/machinery/light/broken/directional/east,
 /turf/open/floor/iron/greyish,
-/area/space)
-"M" = (
+/area/ruin/powered/shuttle)
+"lH" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"lI" = (
+/obj/structure/alien/resin/membrane,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"ma" = (
+/obj/machinery/computer{
+	name = "Alamo Weapon Systems"
+	},
+/turf/open/floor/iron/large,
+/area/ruin/powered/shuttle)
+"mm" = (
+/obj/effect/decal/cleanable/blood/xtracks,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"nS" = (
+/obj/effect/mob_spawn/human/corpse/marine,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"ov" = (
+/obj/effect/mob_spawn/human/corpse/marine/corpsman,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"pg" = (
+/obj/machinery/computer{
+	name = "Alamo Shuttle Console"
+	},
+/turf/open/floor/iron/large,
+/area/ruin/powered/shuttle)
+"pw" = (
+/obj/effect/decal/cleanable/blood/xtracks{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"pA" = (
+/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/turf/open/floor/iron/large,
+/area/ruin/powered/shuttle)
+"sP" = (
+/turf/closed/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tb" = (
+/obj/machinery/light/broken/directional/west,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"tT" = (
 /obj/structure/table,
 /obj/machinery/button/door{
 	id = "alamo";
@@ -150,381 +171,600 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
-/turf/open/floor/monotile/steel,
-/area/space)
-"P" = (
-/obj/structure/spacevine,
-/turf/closed/wall/mineral/titanium,
-/area/space)
-"Q" = (
-/obj/effect/decal/cleanable/xenoblood/xgibs/up,
-/turf/open/floor/iron/greyish,
-/area/space)
-"R" = (
+/turf/open/floor/iron/large,
+/area/ruin/powered/shuttle)
+"uv" = (
 /obj/structure/chair/fancy/shuttle{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/monotile/steel,
-/area/space)
-"T" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Alamo Airlock"
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"uy" = (
+/obj/effect/decal/cleanable/xenoblood,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"vx" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Alamo Exit Pod Door";
+	id = "alamo"
+	},
+/obj/structure/barricade/sandbags,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"wk" = (
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"wC" = (
+/obj/structure/spacevine,
+/turf/closed/wall/mineral/titanium,
+/area/ruin/powered/shuttle)
+"xk" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"xL" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating{
+	icon_state = "foam_plating"
+	},
+/area/ruin/powered/shuttle)
+"yD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/corpse/marine,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"yI" = (
+/obj/structure/alien/resin/wall,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"Ao" = (
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
+	name = "broken plating";
+	dir = 6
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/shuttle)
+"AX" = (
+/obj/item/ammo_casing/a556{
+	dir = 8;
+	pixel_x = 8
 	},
 /turf/open/floor/plating,
-/area/space)
-"U" = (
-/obj/machinery/computer{
-	name = "Alamo Weapon Systems"
+/area/ruin/powered/shuttle)
+"CH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/a556{
+	dir = 8;
+	pixel_x = 8
 	},
-/turf/open/floor/monotile/steel,
-/area/space)
-"V" = (
-/obj/structure/alien/weeds,
 /turf/open/floor/iron/greyish,
-/area/space)
-"W" = (
+/area/ruin/powered/shuttle)
+"DD" = (
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
+	name = "broken plating";
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/shuttle)
+"DO" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"FA" = (
+/obj/structure/girder/displaced,
+/obj/structure/spacevine,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"FZ" = (
+/turf/open/floor/iron/stairs/left,
+/area/ruin/powered/shuttle)
+"Gm" = (
+/obj/machinery/door/airlock/shuttle/glass{
+	name = "Alamo Cockpit"
+	},
+/obj/effect/decal/cleanable/blood/xtracks,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"Gp" = (
+/obj/item/organ/body_egg/alien_embryo,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"Ha" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Hf" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/iron/greyish,
-/area/space)
-"Y" = (
-/obj/structure/alien/resin/wall,
-/turf/open/space/basic,
-/area/space)
-"Z" = (
-/obj/effect/decal/cleanable/xenoblood,
+/area/ruin/powered/shuttle)
+"Ho" = (
+/turf/closed/wall/mineral/titanium,
+/area/ruin/powered/shuttle)
+"IY" = (
+/obj/structure/alien/egg/burst,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"Lz" = (
+/obj/structure/frame,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"LY" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Alamo Cockpit"
+	},
 /turf/open/floor/plating,
-/area/space)
+/area/ruin/powered/shuttle)
+"Ne" = (
+/obj/structure/alien/weeds/node,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"Nn" = (
+/obj/item/stack/ore/iron,
+/obj/effect/supplypod_rubble,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Nu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/a556{
+	dir = 1
+	},
+/obj/item/ammo_casing/a556{
+	dir = 8;
+	pixel_x = 8
+	},
+/obj/item/ammo_casing/a556{
+	dir = 8;
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/ammo_casing/a556{
+	dir = 8;
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/ammo_casing/a556{
+	dir = 8\;
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"OY" = (
+/obj/item/organ/body_egg/alien_embryo,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"PE" = (
+/obj/structure/spacevine,
+/turf/open/floor/iron/stairs/right,
+/area/ruin/powered/shuttle)
+"Qf" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/alien/drone,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"Qw" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"QJ" = (
+/obj/effect/decal/cleanable/blood/xtracks,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"RK" = (
+/obj/item/ammo_casing/a556{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/chem_pile,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"Sj" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Uw" = (
+/obj/structure/alien/weeds/node,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"Vh" = (
+/obj/structure/spacevine,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Wk" = (
+/obj/item/stack/sheet/iron,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Xn" = (
+/obj/structure/door_assembly/door_assembly_titanium,
+/turf/open/floor/plating,
+/area/ruin/powered/shuttle)
+"Xw" = (
+/obj/structure/alien/egg/burst,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"XU" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"Yc" = (
+/mob/living/simple_animal/hostile/alien,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"Zd" = (
+/obj/effect/mob_spawn/human/corpse/marine,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"Zx" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/greyish,
+/area/ruin/powered/shuttle)
+"ZT" = (
+/obj/machinery/light/broken/directional/west,
+/turf/open/floor/iron/large,
+/area/ruin/powered/shuttle)
 
 (1,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+Sj
+Sj
 "}
 (2,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
+sP
+sP
+sP
+Sj
+Sj
+Sj
+sP
+sP
+sP
+Sj
+Sj
+Sj
+Sj
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+Sj
+Sj
+Sj
+Sj
 "}
 (3,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
+sP
+sP
+sP
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Vh
+Vh
+Sj
+Sj
+Sj
+Ha
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (4,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
+sP
+sP
+sP
+Ho
+ce
+DO
+lI
+LY
+fn
+wC
+Ho
+Ho
+Ho
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (5,1,1) = {"
-i
-i
-i
-i
-i
-i
-P
-h
-j
-k
-D
-T
-h
-h
-h
-h
-i
-i
-i
-i
+sP
+Ho
+Ho
+Ho
+Ho
+Qw
+RK
+CH
+yD
+tb
+IY
+Uw
+Ho
+Ao
+Sj
+Sj
+dA
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (6,1,1) = {"
-i
-i
-i
-i
-h
-h
-h
-h
-a
-x
-b
-b
-J
-A
-V
-h
-h
-i
-i
-i
+sP
+lH
+tT
+ZT
+lH
+gs
+ds
+Hf
+uv
+jp
+jK
+Qf
+cb
+FZ
+QJ
+kQ
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (7,1,1) = {"
-i
-i
-i
-i
-o
-M
-E
-o
-b
-W
-W
-W
-y
-x
-V
-w
-r
-i
-i
-i
+Sj
+lH
+pg
+kU
+Gm
+mm
+Ho
+lH
+lH
+Ho
+nS
+Nu
+vx
+cl
+XU
+pw
+XU
+XU
+Lz
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (8,1,1) = {"
-i
-i
-i
-i
-o
-U
-R
-q
-x
-h
-h
-h
-h
-x
-b
-G
-n
-i
-i
-i
+Sj
+lH
+ma
+pA
+lH
+eN
+xk
+xk
+kZ
+Zx
+cS
+wk
+vx
+PE
+XU
+pw
+XU
+yI
+yI
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (9,1,1) = {"
-i
-i
-i
-i
-o
-U
-t
-o
-J
-f
-f
-f
-f
-x
-V
-G
-m
-i
-i
-i
+Sj
+wC
+uy
+eN
+Ho
+AX
+OY
+ov
+bQ
+lm
+Yc
+gs
+wC
+Ho
+yI
+XU
+Zd
+XU
+yI
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (10,1,1) = {"
-i
-i
-i
-i
-P
-Z
-J
-h
-J
-e
-x
-Q
-L
-H
-V
-P
-h
-i
-i
-i
+Sj
+Sj
+Sj
+DD
+Ho
+FA
+xL
+Xn
+fn
+Ho
+gb
+dF
+Ho
+yI
+yI
+yI
+Gp
+Ne
+yI
+gP
+Sj
+Sj
+Sj
+Sj
+Sj
 "}
 (11,1,1) = {"
-i
-i
-i
-i
-i
-i
-B
-h
-z
-I
-C
-T
-h
-Y
-c
-h
-i
-i
-i
-i
+sP
+Sj
+Nn
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+Sj
+sP
+sP
+sP
+yI
+Xw
+XU
+XU
+yI
+sP
+Sj
+Sj
+Sj
+Sj
 "}
 (12,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
+sP
+Sj
+Sj
+sP
+sP
+sP
+Sj
+Sj
+Sj
+Sj
+Sj
+Wk
+sP
+sP
+sP
+yI
+sP
+sP
+Ne
+yI
+sP
+sP
+sP
+Sj
+Sj
 "}
 (13,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-"}
-(14,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-"}
-(15,1,1) = {"
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
-i
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+Sj
+Sj
+Sj
+Sj
+Sj
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+sP
+Sj
 "}

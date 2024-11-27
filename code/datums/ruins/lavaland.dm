@@ -232,3 +232,11 @@
 	cost = 5
 	always_place = TRUE
 	allow_duplicates = TRUE
+
+/datum/map_template/ruin/lavaland/colonialmarines
+	name = "Alamo Crashsite"
+	id = "alamo"
+	description = "The crashsite of a USCM dropship."
+	suffix = "lavaland_surface_colonial_marines1.dmm"
+	cost = 5
+	allow_duplicates = FALSE

@@ -564,7 +564,13 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 ///////////////// Colonial Marines! /////////////////
 /obj/effect/mob_spawn/human/corpse/marine
-// TODO: make not op
+	outfit = /datum/outfit/marine
+
+/obj/effect/mob_spawn/human/corpse/marine/corpsman
+	outfit = /datum/outfit/marine/medic
+
+/obj/effect/mob_spawn/human/corpse/marine/squadlead
+	outfit = /datum/outfit/marine/squadlead
 
 /datum/outfit/marine
 	name = "Dead Marine Generic"
@@ -584,3 +590,6 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	suit = /obj/item/clothing/suit/armor/marine
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 
+/datum/outfit/marine/squadlead
+	name = "Dead Marine Squad Leader"
+	head = /obj/item/clothing/head/helmet/marine/squadlead
