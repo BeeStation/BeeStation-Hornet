@@ -1684,6 +1684,7 @@
 		context.add_left_click_tool_action("Hack Wires", TOOL_MULTITOOL)
 		context.add_left_click_tool_action("Cut Wires", TOOL_WIRECUTTER)
 	if (context.accept_silicons())
+		context.add_left_click_action("Interface with", canAIControl(user))
 		context.add_shift_click_action("Open", (lights && locked) ? "Blocked" : null, (!lights || !locked) && canAIControl(user))
 		context.add_ctrl_click_action("[locked ? "Raise" : "Drop"] Bolts", "Blocked", canAIControl(user))
 		context.add_alt_click_action("[secondsElectrified ? "Un-electrify" : "Electrify"]", "Blocked", canAIControl(user))
