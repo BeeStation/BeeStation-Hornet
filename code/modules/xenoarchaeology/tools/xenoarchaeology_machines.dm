@@ -15,29 +15,39 @@
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 
 /obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
-	var/list/modifiers = params2list(params)
-	var/atom/target = get_target()
-	//Prechecks
+	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT))
+		return ..()
 	if(move_inside && length(held_contents) >= max_contents)
 		return
+	var/list/modifiers = params2list(params)
+	var/atom/target = get_target()
 	///Move the item to our target, so we can work with it, like we're a table
-	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT))
-		if(user.transferItemToLoc(I, target, silent = FALSE))
-			//Center the icon where the user clicked.
-			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
-			//Handle contents
-			if(move_inside)
-				register_contents(I)
-	else
-		return ..()
+	if(user.transferItemToLoc(I, target, silent = FALSE))
+		//Center the icon where the user clicked.
+		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
+			return
+		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
+		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+		//Handle contents
+		if(move_inside)
+			register_contents(I)
 
 /obj/machinery/xenoarchaeology_machine/attack_hand(mob/living/user)
 	. = ..()
-	empty_contents()
+	activate_machine()
+
+/// Does a machine thing when you 'click' the machine. Typically called by 'attack_hand'.
+/obj/machinery/xenoarchaeology_machine/proc/activate_machine()
+	return
+
+/obj/machinery/xenoarchaeology_machine/AltClick(mob/user)
+	. = ..()
+	alt_activate_machine(user)
+
+/// Does a machine thing when you 'alt+click' the machine.
+/obj/machinery/xenoarchaeology_machine/proc/alt_activate_machine(mob/user)
+	return
 
 /obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/atom_target)
 	RegisterSignal(atom_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
@@ -86,8 +96,8 @@
 	. = ..()
 	. += "<span class='notice'>Interact to measure artifact weight.\nLabeled artifacts will also show label weights, against the total.</span>"
 
-/obj/machinery/xenoarchaeology_machine/scale/attack_hand(mob/living/user)
-	. = ..()
+/obj/machinery/xenoarchaeology_machine/scale/activate_machine(mob/living/user)
+	empty_contents()
 	///Get the combined weight of all artifacts in our target
 	var/atom/target = get_target()
 	var/total_weight = 0
@@ -137,8 +147,9 @@
 	. = ..()
 	. += "<span class='notice'>Interact to measure artifact conductivity.\nLabeled artifacts will also show label conductivity, against the total.</span>"
 
-/obj/machinery/xenoarchaeology_machine/conductor/attack_hand(mob/living/user)
-	. = ..()
+/obj/machinery/xenoarchaeology_machine/conductor/activate_machine(mob/living/user)
+	empty_contents()
+
 	///Get the combined conductivity of all artifacts in our target
 	var/atom/target = get_target()
 	var/total_conductivity = 0
@@ -194,6 +205,13 @@
 	///How effective are our parts, for making DP
 	var/reward_rate = 0.25
 
+/obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
+	. = ..()
+	//Link relevant stuff
+	linked_techweb = SSresearch.science_tech
+	//Radio setup
+	radio = new /obj/item/radio/headset/headset_sci(src)
+
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
 	var/obj/item/sticker/sticky_note/calibrator_tutorial/label = new(loc)
@@ -201,13 +219,6 @@
 	unregister_contents(label)
 	label.pixel_y = rand(-8, 8)
 	label.pixel_x = rand(-8, 8)
-
-/obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
-	. = ..()
-	//Link relevant stuff
-	linked_techweb = SSresearch.science_tech
-	//Radio setup
-	radio = new /obj/item/radio/headset/headset_sci(src)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/Destroy()
 	. = ..()
@@ -224,24 +235,24 @@
 	. = ..()
 	. += "<span class='notice'>Alt-Click to calibrate inserted artifacts.\nArtifacts can be calibrated by labeling them 100% correctly, excluding malfunctions.</span>"
 
-/obj/machinery/xenoarchaeology_machine/calibrator/attack_hand(mob/living/user)
+/obj/machinery/xenoarchaeology_machine/calibrator/activate_machine(mob/living/user)
 	if(length(held_contents))
-		return ..()
-	else
-		var/turf/turf = get_turf(src)
-		for(var/obj/item/item in turf.contents)
-			if(move_inside && length(held_contents) >= max_contents)
-				return
-			item.forceMove(src)
-			register_contents(item)
+		empty_contents()
+		return
 
-/obj/machinery/xenoarchaeology_machine/calibrator/AltClick(mob/user)
-	. = ..()
+	var/turf/turf = get_turf(src)
+	for(var/obj/item/item in turf.contents)
+		if(move_inside && length(held_contents) >= max_contents)
+			return
+		item.forceMove(src)
+		register_contents(item)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/alt_activate_machine(mob/user)
 	if(!length(held_contents) || cooking_timer)
 		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 		return
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
-	for(var/atom/atom_target as() in contents-radio)
+	for(var/atom/atom_target as anything in contents-radio)
 		var/solid_as = TRUE
 		//Once we find an artifact-
 		var/datum/component/xenoartifact/artifact_component = atom_target.GetComponent(/datum/component/xenoartifact)
