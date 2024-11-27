@@ -1,0 +1,4 @@
+author: Therealdoooc213
+delete-after: true
+changes:
+  - bugfix: the debug nanite injector is no longer available via mail or loot spawns
