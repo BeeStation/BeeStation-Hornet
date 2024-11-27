@@ -211,19 +211,19 @@
 
 /datum/antagonist/ert/marine
 	role = "Squad Marine"
-	outfit = /datum/outfit/centcom/marine
+	outfit = /datum/outfit/centcom/ert/marine
 
 /datum/antagonist/ert/marine/medic
 	role = "Squad Corpsman"
-	outfit = /datum/outfit/centcom/marine/medic
+	outfit = /datum/outfit/centcom/ert/marine/medic
 
 /datum/antagonist/ert/marine/breacher
 	role = "Squad Specialist"
-	outfit = /datum/outfit/centcom/marine/breacher
+	outfit = /datum/outfit/centcom/ert/marine/breacher
 
 /datum/antagonist/ert/marine/squadlead
 	role = "Squad Leader"
-	outfit = /datum/outfit/centcom/marine/squadlead
+	outfit = /datum/outfit/centcom/ert/marine/squadlead
 
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))

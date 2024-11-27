@@ -525,7 +525,7 @@
 // United States Colonial Marines (oorah)
 
 
-/datum/outfit/ert/marine
+/datum/outfit/centcom/ert/marine
 	name = "Marine Generic"
 
 	head = /obj/item/clothing/head/helmet/marine
@@ -544,7 +544,7 @@
 		/obj/item/flashlight/seclite)
 	mask = /obj/item/clothing/mask/cigarette/cigar
 
-/datum/outfit/ert/marine/medic
+/datum/outfit/centcom/ert/marine/medic
 	name = "Marine Corpsman"
 
 	head = /obj/item/clothing/head/helmet/marine/medicae
@@ -563,7 +563,7 @@
 	mask = /obj/item/clothing/mask/surgical
 	l_hand = /obj/item/storage/firstaid/compact
 
-/datum/outfit/ert/marine/breacher
+/datum/outfit/centcom/ert/marine/breacher
 	name = "Marine Breacher"
 	belt = /obj/item/storage/belt/bandolier/filled
 	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/compact
@@ -573,7 +573,7 @@
 		/obj/item/storage/box/breacherslug=1,\
 		/obj/item/flashlight/seclite=1)
 
-/datum/outfit/ert/marine/squadlead
+/datum/outfit/centcom/ert/marine/squadlead
 	name = "Marine Squad Leader"
 	head = /obj/item/clothing/head/helmet/marine/squadlead
 	suit_store = /obj/item/gun/ballistic/rocketlauncher/unrestricted
