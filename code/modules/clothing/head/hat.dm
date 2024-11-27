@@ -24,7 +24,7 @@
 /obj/item/clothing/head/hats/centcom_cap/marine
 	name = "marine dress blues officer cover"
 	desc = "The combination cover of the legendary Marine dress blues, virtually unchanged since the 19th century. Features a gold stripe and silvered logo, emblematic of an officer."
-	icon_state = "o_cap_he"
+	icon_state = "o_cap"
 	item_state = "o_cap"
 
 /obj/item/clothing/head/costume/canada

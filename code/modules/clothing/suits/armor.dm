@@ -325,5 +325,5 @@
 /obj/item/clothing/suit/armor/centcom_formal/marine
 	name = "marine officer dress blues jacket"
 	desc = "The jacket of the legendary Marine dress blues, virtually unchanged since the 19th century. Features the sleek dark design of the uniform worn by a commissioned officer."
-	icon_state = "o_jacket"
+	icon_state = "o_jacket_su"
 	item_state = "o_jacket_su"

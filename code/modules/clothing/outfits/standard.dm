@@ -252,7 +252,7 @@
 	id = /obj/item/card/id/centcom
 
 /datum/outfit/centcom/marinecommander
-	name = "Marine Commander"
+	name = JOB_CENTCOM_COMMANDER
 	uniform = /obj/item/clothing/under/rank/centcom/commander/marine
 	suit = /obj/item/clothing/suit/armor/centcom_formal/marine
 	shoes = /obj/item/clothing/shoes/laceup

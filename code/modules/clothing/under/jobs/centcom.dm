@@ -11,8 +11,8 @@
 /obj/item/clothing/under/rank/centcom/commander/marine
 	name = "marine senior dress blues uniform"
 	desc = "The undershirt and trousers of the legendary Marine dress blues, virtually unchanged since the 19th century. This variant features the iconic Blood Stripe, worn by NCOs and officers."
-	icon_state = "senior_un"
-	item_state = "senior_i"
+	icon_state = "senior"
+	item_state = "senior"
 
 /obj/item/clothing/under/rank/centcom/official
 	name = "\improper CentCom official's suit"
