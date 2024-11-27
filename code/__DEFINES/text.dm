@@ -7,6 +7,8 @@
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x) text2num(copytext(x, findtextEx(x, "x") + 1))
 
+#define WXH_TO_WIDTH(x) text2num(copytext(x, 1, findtextEx(x, "x") + 1))
+
 #define CENTER(text) {"<center>[##text]</center>"}
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
@@ -37,3 +39,12 @@
 /// BYOND's string procs don't support being used on datum references (as in it doesn't look for a name for stringification)
 /// We just use this macro to ensure that we will only pass strings to this BYOND-level function without developers needing to really worry about it.
 #define LOWER_TEXT(thing) lowertext(UNLINT("[thing]"))
+
+/// Index of normal sized character size in runechat lists
+#define NORMAL_FONT_INDEX 1
+
+/// Index of small sized character size in runechat lists
+#define SMALL_FONT_INDEX 2
+
+/// Index of big sized character size in runechat lists
+#define BIG_FONT_INDEX 3
