@@ -313,3 +313,11 @@
 	. = ..()
 	AddComponent(/datum/component/toggle_icon)
 	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/suit/armor/marine
+	name = "\improper M3 pattern marine armor"
+	desc = "A standard Colonial Marines M3 Pattern Chestplate. Protects the chest from ballistic rounds, bladed objects and accidents. It has a small leather pouch strapped to it for limited storage."
+	icon_state = "marine_suit"
+	item_state = "marine_suit"
+	armor = list(MELEE = 25,  BULLET = 30, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 25, BLEED = 20)
+	slowdown = 0.05

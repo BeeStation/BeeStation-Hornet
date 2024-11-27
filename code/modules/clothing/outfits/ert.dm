@@ -511,3 +511,52 @@
 		/obj/item/gun/ballistic/sniper_rifle=1,\
 		/obj/item/gun/grenadelauncher/security=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)
+
+
+// United States Colonial Marines (oorah)
+
+
+/datum/outfit/ert/marine
+	name = "Marine Generic"
+
+	head = /obj/item/clothing/head/helmet/marine
+	ears = /obj/item/radio/headset/headset_cent/alt
+	uniform = /obj/item/clothing/under/misc/marine
+	back = /obj/item/storage/backpack/marine
+	shoes = /obj/item/clothing/shoes/combat/swat
+	suit = /obj/item/clothing/suit/armor/marine
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/military/assault/marine
+	suit_store = /obj/item/gun/ballistic/automatic/ar
+	id = /obj/item/card/id/ert
+	l_pocket = /obj/item/knife/combat
+	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
+		/obj/item/ammo_box/magazine/m556=1,\
+		/obj/item/flashlight/seclite)
+	mask = NULL
+
+/datum/outfit/ert/marine/medic
+	name = "Marine Corpsman"
+
+	head = /obj/item/clothing/head/helmet/marine/medicae
+	uniform = /obj/item/clothing/under/misc/marine/medic
+	back = /obj/item/storage/backpack/marine/medic
+	shoes = /obj/item/clothing/shoes/combat/swat
+	suit = /obj/item/clothing/suit/armor/marine
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
+	belt = /obj/item/storage/belt/medical/ert
+	id = /obj/item/card/id/ert/Medical
+	suit_store = /obj/item/gun/ballistic/automatic/wt550
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
+		/obj/item/ammo_box/magazine/wt550m9=3,\
+		/obj/item/flashlight/seclite=1)
+
+/datum/outfit/ert/marine/breacher
+	name = "Marine Breacher"
+	belt = /obj/item/storage/belt/bandolier/filled
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/compact
+	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
+		/obj/item/storage/box/lethalshot=1,\
+		/obj/item/storage/box/breacherslug=1,\
+		/obj/item/flashlight/seclite=1)

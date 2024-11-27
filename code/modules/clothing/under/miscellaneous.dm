@@ -77,3 +77,16 @@
 	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on plasma envirosuits."
 	icon_state = "plasmarefill"
 	icon = 'icons/obj/device.dmi'
+
+/obj/item/clothing/under/misc/marine
+	name = "USCM uniform"
+	desc = "Standard-issue Marine uniform. They have shards of light Kevlar to help protect against stabbing weapons and bullets."
+	icon_state = "marine_jumpsuit"
+	item_state = "marine_jumpsuit"
+	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 20, BLEED = 30)
+
+/obj/item/clothing/under/misc/marine/medic
+	name = "USCM corpsman uniform"
+	desc = "Standard-issue Marine hospital corpsman fatigues. They have shards of light Kevlar to help protect against stabbing weapons and bullets."
+	icon_state = "marine_medic"
+	item_state = "marine_medic"

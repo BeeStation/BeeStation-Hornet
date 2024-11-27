@@ -759,3 +759,17 @@
 	new /obj/item/implanter/adrenalin(src)
 	new /obj/item/clothing/mask/luchador/rudos(src)
 
+
+// Marine Bags
+
+/obj/item/storage/backpack/marine
+	name = "lightweight IMP backpack"
+	desc = "The standard-issue pack of the USCM forces. Designed to lug gear into the battlefield."
+	icon_state = "marinepack"
+	item_state = "marinepack"
+
+/obj/item/storage/backpack/marine/medic
+	name = "USCM corpsman backpack"
+	desc = "A standard-issue backpack worn by USCM medics."
+	icon_state = "marinepack_medic"
+	item_state = "marinepack_medic"

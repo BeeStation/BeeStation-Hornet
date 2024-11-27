@@ -671,6 +671,17 @@
 		/obj/item/multitool = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/belt/military/assault/marine
+	name = "marines ammo belt"
+	desc = "Enough ammo to kill an entire hive."
+
+/obj/item/storage/belt/military/assault/marine/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/ammo_box/magazine/m556 = 4,
+		/obj/item/grenade/chem_grenade/incendiary = 2,
+		/obj/item/reagent_containers/hypospray/medipen/survival = 1)
+	generate_items_inside(items_inside,src)
+
 /obj/item/storage/belt/grenade/full/webbing
 	name = "grenadier chest rig"
 	desc = "A set of tactical webbing stocked full of grenades."
@@ -755,6 +766,11 @@
 	STR.set_holdable(list(
 		/obj/item/ammo_casing/shotgun
 		))
+
+/obj/item/storage/belt/bandolier/filled/PopulateContents()
+	for(var/i in 1 to 21)
+		new /obj/item/ammo_casing/shotgun/incendiary(src)
+
 
 /obj/item/storage/belt/bandolier/western
 	name = "sheriff's bandolier"

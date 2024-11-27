@@ -1,0 +1,530 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/iron/greyish,
+/area/space)
+"b" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/greyish,
+/area/space)
+"c" = (
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
+	name = "broken plating";
+	dir = 8
+	},
+/turf/open/space/basic,
+/area/space)
+"e" = (
+/obj/item/organ/body_egg/alien_embryo,
+/turf/open/floor/plating,
+/area/space)
+"f" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/iron/greyish,
+/area/space)
+"h" = (
+/turf/closed/wall/mineral/titanium,
+/area/space)
+"i" = (
+/turf/open/space/basic,
+/area/space)
+"j" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/turf/open/floor/plating,
+/area/space)
+"k" = (
+/obj/structure/alien/resin/membrane,
+/turf/open/floor/plating,
+/area/space)
+"m" = (
+/obj/structure/spacevine,
+/turf/open/floor/iron/stairs/right,
+/area/space)
+"n" = (
+/turf/open/floor/iron/stairs/medium,
+/area/space)
+"o" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/space)
+"q" = (
+/obj/machinery/door/airlock/shuttle/glass{
+	name = "Alamo Cockpit"
+	},
+/turf/open/floor/iron/greyish,
+/area/space)
+"r" = (
+/obj/structure/alien/weeds,
+/turf/open/floor/iron/stairs/left,
+/area/space)
+"t" = (
+/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/turf/open/floor/monotile/steel,
+/area/space)
+"w" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Alamo Exit Pod Door";
+	id = "alamo"
+	},
+/obj/structure/alien/weeds,
+/turf/open/floor/plating,
+/area/space)
+"x" = (
+/turf/open/floor/iron/greyish,
+/area/space)
+"y" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/alien/drone,
+/turf/open/floor/iron/greyish,
+/area/space)
+"z" = (
+/obj/structure/girder/displaced,
+/obj/structure/spacevine,
+/turf/open/floor/plating,
+/area/space)
+"A" = (
+/obj/structure/alien/egg/burst,
+/obj/structure/alien/weeds,
+/turf/open/floor/iron/greyish,
+/area/space)
+"B" = (
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
+	name = "broken plating";
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space)
+"C" = (
+/obj/structure/door_assembly/door_assembly_titanium,
+/turf/open/floor/plating,
+/area/space)
+"D" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Alamo Cockpit"
+	},
+/turf/open/floor/plating,
+/area/space)
+"E" = (
+/turf/open/floor/monotile/steel,
+/area/space)
+"G" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Alamo Exit Pod Door";
+	id = "alamo"
+	},
+/obj/structure/alien/weeds,
+/turf/open/floor/iron/greyish,
+/area/space)
+"H" = (
+/obj/machinery/light/broken/directional/east,
+/mob/living/simple_animal/hostile/alien,
+/turf/open/floor/iron/greyish,
+/area/space)
+"I" = (
+/turf/open/floor/plating{
+	icon_state = "foam_plating"
+	},
+/area/space)
+"J" = (
+/turf/open/floor/plating,
+/area/space)
+"L" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/iron/greyish,
+/area/space)
+"M" = (
+/obj/structure/table,
+/obj/machinery/button/door{
+	id = "alamo";
+	name = "Alamo Exit Doors";
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/cup/glass/coffee{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/turf/open/floor/monotile/steel,
+/area/space)
+"P" = (
+/obj/structure/spacevine,
+/turf/closed/wall/mineral/titanium,
+/area/space)
+"Q" = (
+/obj/effect/decal/cleanable/xenoblood/xgibs/up,
+/turf/open/floor/iron/greyish,
+/area/space)
+"R" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/monotile/steel,
+/area/space)
+"T" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Alamo Airlock"
+	},
+/turf/open/floor/plating,
+/area/space)
+"U" = (
+/obj/machinery/computer{
+	name = "Alamo Weapon Systems"
+	},
+/turf/open/floor/monotile/steel,
+/area/space)
+"V" = (
+/obj/structure/alien/weeds,
+/turf/open/floor/iron/greyish,
+/area/space)
+"W" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/iron/greyish,
+/area/space)
+"Y" = (
+/obj/structure/alien/resin/wall,
+/turf/open/space/basic,
+/area/space)
+"Z" = (
+/obj/effect/decal/cleanable/xenoblood,
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(2,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(3,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(4,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(5,1,1) = {"
+i
+i
+i
+i
+i
+i
+P
+h
+j
+k
+D
+T
+h
+h
+h
+h
+i
+i
+i
+i
+"}
+(6,1,1) = {"
+i
+i
+i
+i
+h
+h
+h
+h
+a
+x
+b
+b
+J
+A
+V
+h
+h
+i
+i
+i
+"}
+(7,1,1) = {"
+i
+i
+i
+i
+o
+M
+E
+o
+b
+W
+W
+W
+y
+x
+V
+w
+r
+i
+i
+i
+"}
+(8,1,1) = {"
+i
+i
+i
+i
+o
+U
+R
+q
+x
+h
+h
+h
+h
+x
+b
+G
+n
+i
+i
+i
+"}
+(9,1,1) = {"
+i
+i
+i
+i
+o
+U
+t
+o
+J
+f
+f
+f
+f
+x
+V
+G
+m
+i
+i
+i
+"}
+(10,1,1) = {"
+i
+i
+i
+i
+P
+Z
+J
+h
+J
+e
+x
+Q
+L
+H
+V
+P
+h
+i
+i
+i
+"}
+(11,1,1) = {"
+i
+i
+i
+i
+i
+i
+B
+h
+z
+I
+C
+T
+h
+Y
+c
+h
+i
+i
+i
+i
+"}
+(12,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(13,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(14,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
+(15,1,1) = {"
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+i
+"}
