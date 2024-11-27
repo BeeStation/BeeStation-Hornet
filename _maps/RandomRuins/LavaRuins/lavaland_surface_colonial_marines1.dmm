@@ -62,7 +62,7 @@
 /area/ruin/powered/shuttle)
 "gb" = (
 /obj/structure/alien/resin/wall,
-/turf/open/space/basic,
+/turf/open/floor/iron/greyish,
 /area/ruin/powered/shuttle)
 "gs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -222,11 +222,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Ao" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "plating";
-	name = "broken plating";
-	dir = 6
-	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/shuttle)
 "AX" = (
@@ -646,7 +641,7 @@ bQ
 lm
 Yc
 gs
-wC
+ce
 Ho
 yI
 XU

@@ -544,7 +544,7 @@
 	shoes = /obj/item/clothing/shoes/combat/swat
 	suit = /obj/item/clothing/suit/armor/marine
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	belt = /obj/item/storage/belt/medical/ert
+	belt = /obj/item/storage/belt/medical
 	id = /obj/item/card/id/ert/Medical/marine
 	suit_store = /obj/item/gun/ballistic/automatic/wt550
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
@@ -552,6 +552,7 @@
 		/obj/item/ammo_box/magazine/wt550m9=3,\
 		/obj/item/flashlight/seclite=1)
 	mask = /obj/item/clothing/mask/surgical
+	l_hand = /obj/item/storage/firstaid/compact
 
 /datum/outfit/ert/marine/breacher
 	name = "Marine Breacher"
@@ -567,7 +568,8 @@
 	name = "Marine Squad Leader"
 	head = /obj/item/clothing/head/helmet/marine/squadlead
 	suit_store = /obj/item/gun/ballistic/rocketlauncher/unrestricted
-	backpack_contents = list(/obj/item/ammo_casing/caseless/rocket/hedp=3,\
+	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
+		/obj/item/ammo_casing/caseless/rocket/hedp=3,\
 		/obj/item/ammo_casing/caseless/rocket=3,\
 		/obj/item/reagent_containers/hypospray/medipen/survival=1)
 	belt = /obj/item/gun/energy/e_gun

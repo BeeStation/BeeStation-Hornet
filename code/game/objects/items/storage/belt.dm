@@ -768,8 +768,8 @@
 		))
 
 /obj/item/storage/belt/bandolier/filled/PopulateContents()
-	for(var/i in 1 to 21)
-		new /obj/item/ammo_casing/shotgun/incendiary(src)
+	for(var/i in 1 to 18)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
 
 /obj/item/storage/belt/bandolier/western
