@@ -528,12 +528,12 @@
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/military/assault/marine
 	suit_store = /obj/item/gun/ballistic/automatic/ar
-	id = /obj/item/card/id/ert
+	id = /obj/item/card/id/ert/marine
 	l_pocket = /obj/item/knife/combat
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
 		/obj/item/ammo_box/magazine/m556=1,\
 		/obj/item/flashlight/seclite)
-	mask = NULL
+	mask = /obj/item/clothing/mask/cigarette/cigar
 
 /datum/outfit/ert/marine/medic
 	name = "Marine Corpsman"
@@ -545,18 +545,30 @@
 	suit = /obj/item/clothing/suit/armor/marine
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	belt = /obj/item/storage/belt/medical/ert
-	id = /obj/item/card/id/ert/Medical
+	id = /obj/item/card/id/ert/Medical/marine
 	suit_store = /obj/item/gun/ballistic/automatic/wt550
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
 		/obj/item/ammo_box/magazine/wt550m9=3,\
 		/obj/item/flashlight/seclite=1)
+	mask = /obj/item/clothing/mask/surgical
 
 /datum/outfit/ert/marine/breacher
 	name = "Marine Breacher"
 	belt = /obj/item/storage/belt/bandolier/filled
 	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/compact
+	id = /obj/item/card/id/ert/Security/marine
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,\
 		/obj/item/storage/box/lethalshot=1,\
 		/obj/item/storage/box/breacherslug=1,\
 		/obj/item/flashlight/seclite=1)
+
+/datum/outfit/ert/marine/squadlead
+	name = "Marine Squad Leader"
+	head = /obj/item/clothing/head/helmet/marine/squadlead
+	suit_store = /obj/item/gun/ballistic/rocketlauncher/unrestricted
+	backpack_contents = list(/obj/item/ammo_casing/caseless/rocket/hedp=3,\
+		/obj/item/ammo_casing/caseless/rocket=3,\
+		/obj/item/reagent_containers/hypospray/medipen/survival=1)
+	belt = /obj/item/gun/energy/e_gun
+

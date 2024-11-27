@@ -567,23 +567,20 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 // TODO: make not op
 
 /datum/outfit/marine
-	name = "Marine Generic"
+	name = "Dead Marine Generic"
 	head = /obj/item/clothing/head/helmet/marine
 	uniform = /obj/item/clothing/under/misc/marine
 	back = /obj/item/storage/backpack/marine
 	shoes = /obj/item/clothing/shoes/combat/swat
 	suit = /obj/item/clothing/suit/armor/marine
-	gloves = /obj/item/clothing/gloves/combat
-	belt = /obj/item/storage/belt/military/assault/marine
-	suit_store = /obj/item/gun/ballistic/automatic/wt550
+	gloves = /obj/item/clothing/gloves/color/black
 
 /datum/outfit/marine/medic
-	name = "Marine Corpsman"
+	name = "Dead Marine Corpsman"
 	head = /obj/item/clothing/head/helmet/marine/medicae
 	uniform = /obj/item/clothing/under/misc/marine/medic
 	back = /obj/item/storage/backpack/marine/medic
 	shoes = /obj/item/clothing/shoes/combat/swat
 	suit = /obj/item/clothing/suit/armor/marine
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	belt = /obj/item/storage/firstaid/medical
 

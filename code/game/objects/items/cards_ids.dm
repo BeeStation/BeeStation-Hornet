@@ -769,6 +769,22 @@ update_label("John Doe", "Clowny")
 	assignment = "CentCom Attorney"
 	icon_state = "centcom"
 
+/obj/item/card/id/ert/marine
+	registered_name = "Squad Marine"
+	assignment = "Squad Marine"
+
+/obj/item/card/id/ert/marine/leader
+	registered_name = "Squad Leader"
+	assignment = "Squad Leader"
+
+/obj/item/card/id/ert/Security/marine
+	registered_name = "Squad Specialist Marine"
+	assignment = "Squad Specialist Marine"
+
+/obj/item/card/id/ert/Medical/marine
+	registered_name = "Squad Corpsman"
+	assignment = "Squad Corpsman"
+
 /obj/item/card/id/ert/lawyer/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
