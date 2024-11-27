@@ -85,4 +85,4 @@
 /obj/machinery/airalarm/away{dir=8} : /obj/machinery/airalarm/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP}, /obj/effect/mapping_helpers/airalarm/away_general_access
 
 #Updates cryo cells pathing by removing the atmosmachinery path
-/obj/machinery/atmospherics/components/unary/cryo_cell : /obj/machinery/cryo_cell{@OLD}
+/obj/machinery/atmospherics/components/unary/cryo_cell : /obj/machinery/cryo_cell{@OLD,initialize_directions=@SKIP}
