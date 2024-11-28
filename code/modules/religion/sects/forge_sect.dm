@@ -31,8 +31,8 @@
 /obj/item/melee/resonation_staff
 	name = "resonation staff"
 	desc = "A large, rough staff made of adamantine. Occasionally, it resonates with unheard sounds."
-	icon_state = "godstaff-blue"
-	item_state = "godstaff-blue"
+	icon_state = "adamantine-staff"
+	item_state = "adamantine-staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
@@ -44,13 +44,13 @@
 /obj/item/clothing/accessory/pendant
 	name = "adamantine pendant"
 	desc = "A smooth pendant, looped on an adamantine chain and containing a bluespace crystal. It glitters with a gentle, cyan light."
-	icon_state = "talisman"
+	icon_state = "pendant"
 	armor = list(MELEE = 10,  BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 20, BIO = 0, RAD = 5, FIRE = 0, ACID = 0, STAMINA = 10, BLEED = 20)
 
 /obj/item/clothing/head/helmet/adamantine_crown
 	desc = "A crown composed of adamantine spikes. It's a tuning fork for curses and hexes."
-	icon_state = "bluetaghelm"
-	item_state = "bluetaghelm"
+	icon_state = "adamantine-crown"
+	item_state = "adamantine-crown"
 	armor = list(MELEE = 15,  BULLET = 10, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 10, BLEED = 10)
 
 /obj/item/clothing/head/helmet/adamantinecrown/equipped(mob/living/carbon/human/user, slot)
@@ -66,7 +66,7 @@
 	name = "cyborg adamantine plating"
 	desc = "A set of holy internal plating that makes a cyborg resistant to arcane influence. Like a tinfoil hat for magic."
 	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "bear_armor_upgrade"
+	icon_state = "adamantine-plate"
 
 /obj/item/borg/upgrade/holy/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -183,9 +183,9 @@
 
 /datum/religion_rites/forge_minor/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/list/items = list(
-		"Resonation Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "godstaff-blue"),
-		"Adamantine Pendant" = image(icon = 'icons/obj/clothing/accessories.dmi', icon_state = "talisman"),
-		"Adamantine Crown" = image(icon = 'icons/obj/clothing/head/helmet.dmi', icon_state = "bluetaghelm")
+		"Resonation Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "adamantine-staff"),
+		"Adamantine Pendant" = image(icon = 'icons/obj/clothing/accessories.dmi', icon_state = "pendant"),
+		"Adamantine Crown" = image(icon = 'icons/obj/clothing/head/helmet.dmi', icon_state = "adamantine-crown")
 		)
 	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
 		if(Adamantine.amount == 5)
@@ -234,7 +234,7 @@
 	var/list/items = list(
 		"Adamantine Shield" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "adamshield"),
 		"Adamantine Armor" = image(icon = 'icons/obj/clothing/suits/armor.dmi', icon_state = "adamsuit"),
-		"Adamantine Plating" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bear_armor_upgrade")
+		"Adamantine Plating" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "adamantine-plate")
 		)
 	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
 		if(Adamantine.amount == 10)
