@@ -316,8 +316,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Canister")
-		ui.open()
 		ui.set_autoupdate(TRUE) // Canister pressure, tank pressure
+		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_static_data(mob/user)
 	return list(
@@ -393,6 +393,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		if("shielding")
 			toggle_shielding(usr)
 			. = TRUE
+	ui_update()
 	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/toggle_valve(mob/user, wire_pulsed = FALSE)

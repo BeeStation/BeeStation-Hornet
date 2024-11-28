@@ -50,8 +50,6 @@ export const Canister = (props, context) => {
     maxReleasePressure,
     portConnected,
     cellCharge,
-    hasHypernobCrystal,
-    reactionSuppressionEnabled,
     holdingTankFragPressure,
     holdingTankLeakPressure,
   } = data;
@@ -154,16 +152,6 @@ export const Canister = (props, context) => {
             <Section>
               <LabeledList>
                 <LabeledList.Item label="Cell Charge">{cellCharge > 0 ? cellCharge + '%' : 'Missing Cell'}</LabeledList.Item>
-                {!!hasHypernobCrystal && (
-                  <LabeledList.Item label="Reaction Suppression">
-                    <Button
-                      icon={reactionSuppressionEnabled ? 'snowflake' : 'times'}
-                      content={reactionSuppressionEnabled ? 'Enabled' : 'Disabled'}
-                      selected={reactionSuppressionEnabled}
-                      onClick={() => act('reaction_suppression')}
-                    />
-                  </LabeledList.Item>
-                )}
               </LabeledList>
             </Section>
           </Flex.Item>

@@ -154,8 +154,8 @@
 	. = ..()
 	if(!holding)
 		return
-	. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"+\
-		"<span class='notice'>Click [src] with another gas tank to hot swap [holding].</span>"
+	. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
+	. += "<span class='notice'>Click [src] with another gas tank to hot swap [holding].</span>"
 
 /**
  * Allow the player to place a tank inside the machine.
