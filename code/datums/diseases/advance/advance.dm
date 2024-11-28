@@ -119,25 +119,30 @@
 /datum/disease/advance/stage_act()
 	if(dormant)
 		return
-	..()
-	if(carrier)
+	. = ..()
+	if(!.)
 		return
 
-	if(symptoms?.len)
+	if(!length(symptoms))
+		return
 
-		if(!processing)
-			processing = TRUE
-			for(var/datum/symptom/S in symptoms)
-				S.Start(src)
+	if(!processing)
+		processing = TRUE
+		for(var/s in symptoms)
+			var/datum/symptom/symptom_datum = s
+			if(symptom_datum.Start(src)) //this will return FALSE if the symptom is neutered
+				symptom_datum.next_activation = world.time + rand(symptom_datum.symptom_delay_min SECONDS, symptom_datum.symptom_delay_max SECONDS)
+			symptom_datum.on_stage_change(src)
 
-		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
+	for(var/s in symptoms)
+		var/datum/symptom/symptom_datum = s
+		symptom_datum.Activate(src)
 
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
 	..()
 	for(var/datum/symptom/S as() in symptoms)
-		S.on_stage_change(new_stage, src)
+		S.on_stage_change(src)
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
@@ -239,6 +244,10 @@
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
 	GenerateProperties()
 	AssignProperties()
+	if(processing && symptoms && symptoms.len)
+		for(var/datum/symptom/S in symptoms)
+			S.Start(src)
+			S.on_stage_change(src)
 	if(!keepid)
 		id = null
 	var/the_id = GetDiseaseID()

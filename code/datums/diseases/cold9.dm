@@ -11,14 +11,17 @@
 	danger = DISEASE_HARMFUL
 
 /datum/disease/cold9/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
 			affected_mob.adjust_bodytemperature(-10)
-			if(prob(1) && prob(10))
+			if(prob(0.1))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
-				return
+				return FALSE
 			if(prob(1))
 				affected_mob.emote("sneeze")
 			if(prob(1))

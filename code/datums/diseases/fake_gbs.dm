@@ -11,7 +11,10 @@
 	danger = DISEASE_BIOHAZARD
 
 /datum/disease/fake_gbs/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
 			if(prob(1))

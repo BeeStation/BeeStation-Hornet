@@ -30,22 +30,25 @@
 	return D
 
 /datum/disease/transformation/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(1)
-			if (prob(stage_prob) && length(stage1))
+			if (stage1 && prob(stage_prob))
 				to_chat(affected_mob, pick(stage1))
 		if(2)
-			if (prob(stage_prob) && length(stage2))
+			if (stage2 && prob(stage_prob))
 				to_chat(affected_mob, pick(stage2))
 		if(3)
-			if (prob(stage_prob*2) && length(stage3))
+			if (stage3 && prob(stage_prob * 2))
 				to_chat(affected_mob, pick(stage3))
 		if(4)
-			if (prob(stage_prob*2) && length(stage4))
+			if (stage4 && prob(stage_prob * 2))
 				to_chat(affected_mob, pick(stage4))
 		if(5)
-			if(is_mutagenic)	//we don't do it normally
+			if(is_mutagenic) //we don't do it normally
 				form_mutagen(affected_mob)
 				return
 			do_disease_transformation(affected_mob)
@@ -111,8 +114,12 @@
 	infectable_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_ROBOTIC)
 	bantype = JOB_NAME_CYBORG
 
+
 /datum/disease/transformation/robot/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(3)
 			if (prob(8))
@@ -143,8 +150,12 @@
 	new_form = /mob/living/carbon/alien/humanoid/hunter
 	bantype = ROLE_ALIEN
 
+
 /datum/disease/transformation/xeno/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(3)
 			if (prob(4))
@@ -171,10 +182,15 @@
 	new_form = /mob/living/simple_animal/slime
 
 /datum/disease/transformation/slime/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	var/mob/living/carbon/H = affected_mob
 	if(H.bodytemperature < T0C)
 		cure()
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(ishuman(affected_mob) && affected_mob.dna)
@@ -245,8 +261,12 @@
 	stage5	= list("<span class='danger'>You have become a Gondola.</span>")
 	new_form = /mob/living/simple_animal/pet/gondola
 
+
 /datum/disease/transformation/gondola/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
 			if (prob(5))
@@ -264,9 +284,10 @@
 			if (prob(20))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
 			if (prob(2))
-				to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
-				var/obj/item/I = affected_mob.get_active_held_item()
-				affected_mob.dropItemToGround(I)
+				var/obj/item/held_item = affected_mob.get_active_held_item()
+				if(held_item)
+					to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
+					affected_mob.dropItemToGround(held_item)
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"

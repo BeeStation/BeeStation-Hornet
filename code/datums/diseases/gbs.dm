@@ -13,7 +13,10 @@
 	danger = DISEASE_BIOHAZARD
 
 /datum/disease/gbs/stage_act()
-	..()
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
 			if(prob(5))
@@ -28,5 +31,4 @@
 			if(prob(50))
 				affected_mob.investigate_log("has been gibbed by GBS.", INVESTIGATE_DEATHS)
 				affected_mob.gib()
-		else
-			return
+				return FALSE
