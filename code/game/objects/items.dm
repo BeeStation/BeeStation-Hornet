@@ -1491,3 +1491,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.regenerate_icons()
+
+/obj/item/proc/add_strip_actions(datum/strip_context/context)
+
+/obj/item/proc/perform_strip_actions(action_key, mob/actor)

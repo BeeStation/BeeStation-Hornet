@@ -72,29 +72,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
-"bc" = (
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/structure/guncase{
-	req_access_txt = "181"
-	},
-/obj/item/gun/ballistic/shotgun/hook{
-	pixel_y = 6
-	},
-/obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large{
-	pixel_y = -8;
-	pin = /obj/item/firing_pin
-	},
-/obj/structure/sign/poster/official/twelve_gauge{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/hunter)
 "ca" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
@@ -808,6 +785,29 @@
 "LE" = (
 /turf/open/floor/iron/stairs/right,
 /area/shuttle/hunter)
+"LH" = (
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/structure/guncase{
+	req_access_txt = "181"
+	},
+/obj/item/gun/ballistic/shotgun/hook{
+	pixel_y = 6
+	},
+/obj/item/gun/energy/e_gun/mini,
+/obj/item/gun/energy/e_gun/mini,
+/obj/item/gun/energy/kinetic_accelerator/crossbow/large{
+	pixel_y = -8;
+	pin = /obj/item/firing_pin
+	},
+/obj/structure/sign/poster/official/twelve_gauge{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/hunter)
 "Mj" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -1339,7 +1339,7 @@ UI
 UI
 UI
 nn
-bc
+LH
 Yj
 MR
 rY

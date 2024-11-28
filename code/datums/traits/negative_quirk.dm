@@ -174,11 +174,11 @@
 			if(JOB_NAME_CAPTAIN)
 				heirloom_type = /obj/item/reagent_containers/cup/glass/flask/gold
 			if(JOB_NAME_HEADOFSECURITY)
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
 			if(JOB_NAME_WARDEN)
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
 			if(JOB_NAME_SECURITYOFFICER)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec, /obj/item/gun/energy/e_gun/advtaser/heirloom)
 			if(JOB_NAME_DETECTIVE)
 				heirloom_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
 			if(JOB_NAME_LAWYER)
