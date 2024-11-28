@@ -9,8 +9,8 @@
 	/datum/religion_rites/metal_sacrifice,
 	/datum/religion_rites/create_adamantine,
 	/datum/religion_rites/bulk_adamantine,
-	/datum/religion_rites/forge_shield,
-	/datum/religion_rites/forge_armor,
+	/datum/religion_rites/forge_minor,
+	/datum/religion_rites/forge_major,
 	/datum/religion_rites/create_golem) //List of rites the sect has.
 	altar_icon_state = "convertaltar-red" //Icon for alter
 	max_favor = 10000 //Max amount they can reach
@@ -26,6 +26,65 @@
 	to_chat(L, "<span class='notice'>You offer [I] to [GLOB.deity], pleasing them and gaining [I.points*I.amount] favor in the process.</span>")
 	qdel(I)
 	return TRUE
+
+//artifacts we can make, except the shield and armor (those are in /modules/research/xenobiology/crossbreeding, clothing and weapons)
+/obj/item/melee/resonation_staff
+	name = "resonation staff"
+	desc = "A large, rough staff made of adamantine. Occasionally, it resonates with unheard sounds."
+	icon_state = "godstaff-blue"
+	item_state = "godstaff-blue"
+	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	slot_flags = ITEM_SLOT_BACK
+	force = 10
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb_continuous = list("thrashes", "beats", "slams", "resonates")
+	attack_verb_simple = list("thrash", "beat", "slam", "resonate")
+
+/obj/item/clothing/accessory/pendant
+	name = "adamantine pendant"
+	desc = "A smooth pendant, looped on an adamantine chain and containing a bluespace crystal. It glitters with a gentle, cyan light."
+	icon_state = "talisman"
+	armor = list(MELEE = 10,  BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 20, BIO = 0, RAD = 5, FIRE = 0, ACID = 0, STAMINA = 10, BLEED = 20)
+
+/obj/item/clothing/head/helmet/adamantine_crown
+	desc = "A crown composed of adamantine spikes. It's a tuning fork for curses and hexes."
+	icon_state = "bluetaghelm"
+	item_state = "bluetaghelm"
+	armor = list(MELEE = 15,  BULLET = 10, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 10, BLEED = 10)
+
+/obj/item/clothing/head/helmet/adamantinecrown/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD && istype(user))
+		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
+
+/obj/item/clothing/head/helmet/adamantinecrown/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
+
+/obj/item/borg/upgrade/holy
+	name = "cyborg adamantine plating"
+	desc = "A set of holy internal plating that makes a cyborg resistant to arcane influence. Like a tinfoil hat for magic."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "bear_armor_upgrade"
+
+/obj/item/borg/upgrade/holy/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		if(HAS_TRAIT(R, HOLYWATER_TRAIT))
+			to_chat(R, "<span class='notice'>The adamantine plating is already installed!</span>")
+			to_chat(user, "<span class='notice'>There's no room for more plating!</span>")
+			return FALSE
+		R.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
+
+/obj/item/borg/upgrade/holy/deactivate(mob/living/silicon/robot/R, user = usr)
+    . = ..()
+    if (.)
+        for (var/datum/component/anti_magic/anti_magic in R.GetComponents(/datum/component/anti_magic))
+            if (anti_magic.source == type)
+                qdel(anti_magic)
+
+//rituals
 
 /datum/religion_rites/metal_sacrifice
 	name = "Metal Sacrifice"
@@ -102,63 +161,104 @@
 	playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
 
-/datum/religion_rites/forge_shield
-	name = "Forge Shield"
-	desc = "Spend five adamantine to create a two-handed shield."
+/datum/religion_rites/forge_minor
+	name = "Forge Minor Artifact"
+	desc = "Spend five adamantine to create a minor artifact, either a crown, a necklace, or a resonance scepter."
 	ritual_length = 15 SECONDS
 	ritual_invocations = list(
 		"I call upon the fires of your forge ...",
 		"... to shape this holy metal ...",
-		"... to protect myself and my acolytes ...")
-	invoke_msg = "I bid thee, craft a shield!."
+		"... to bring new works into the world ...")
+	invoke_msg = "I bid thee, craft my vision!."
 	favor_cost = 250
 
-/datum/religion_rites/forge_shield/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/forge_minor/perform_rite(mob/living/user, atom/religious_tool)
 	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
 		if(Adamantine.amount < 5)
 			to_chat(user, "<span class='warning'>There's not enough adamantine.")
 			return FALSE
 		return ..()
+	to_chat(user, "<span_class='warning'>There's no adamantine on the altar.")
 	return FALSE
 
-/datum/religion_rites/forge_shield/invoke_effect(mob/living/user, atom/movable/religious_tool)
+/datum/religion_rites/forge_minor/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/list/items = list(
+		"Resonation Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "godstaff-blue"),
+		"Adamantine Pendant" = image(icon = 'icons/obj/clothing/accessories.dmi', icon_state = "talisman"),
+		"Adamantine Crown" = image(icon = 'icons/obj/clothing/head/helmet.dmi', icon_state = "bluetaghelm")
+		)
 	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
 		if(Adamantine.amount == 5)
 			qdel(Adamantine)
 		else(Adamantine.amount -= 5)
 		Adamantine = null
-	new /obj/item/shield/adamantineshield(get_turf(religious_tool))
-	playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
-	return ..()
+	var/choice = show_radial_menu(user, religious_tool, items, require_near = TRUE, tooltips = TRUE)
+	var/list/pickedtype = list()
+	switch(choice)
+		if("Resonation Staff")
+			pickedtype += /obj/item/melee/resonation_staff
+		if("Adamantine Pendant")
+			pickedtype += /obj/item/clothing/accessory/pendant
+		if("Adamantine Crown")
+			pickedtype += /obj/item/clothing/head/helmet/adamantine_crown
+		else
+			return FALSE
+	if(religious_tool && !QDELETED(religious_tool) && pickedtype && !user.incapacitated())
+		for(var/N in pickedtype)
+			new N(get_turf(religious_tool))
+			to_chat(user, "<span class='notice'>Fire leaps, and molten adamantine drains into the altar, leaving the [choice] behind.</span>")
+			playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
+			return ..()
 
-/datum/religion_rites/forge_armor
-	name = "Forge Armor"
-	desc = "Spend ten adamantine to create a suit of heavy armor."
+/datum/religion_rites/forge_major
+	name = "Forge Major Artifact"
+	desc = "Spend ten adamantine to create a suit a major artifact, either a suit of armor, a shield, or some cyborg plating."
 	ritual_length = 15 SECONDS
 	ritual_invocations = list(
 		"I call upon the fires of your forge ...",
 		"... to shape this holy metal ...",
-		"... to protect myself and my acolytes ...")
-	invoke_msg = "I bid thee, craft an armor shell!."
+		"... to bring new works into this world ...")
+	invoke_msg = "I bid thee, craft my vision!."
 	favor_cost = 500
 
-/datum/religion_rites/forge_armor/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/forge_major/perform_rite(mob/living/user, atom/religious_tool)
 	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
 		if(Adamantine.amount < 10)
 			to_chat(user, "<span class='warning'>There's not enough adamantine.")
 			return FALSE
 		return ..()
+	to_chat(user, "<span_class='warning'>There's no adamantine on the altar.")
 	return FALSE
 
-/datum/religion_rites/forge_armor/invoke_effect(mob/living/user, atom/movable/religious_tool)
+/datum/religion_rites/forge_major/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/list/items = list(
+		"Adamantine Shield" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "adamshield"),
+		"Adamantine Armor" = image(icon = 'icons/obj/clothing/suits/armor.dmi', icon_state = "adamsuit"),
+		"Adamantine Plating" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bear_armor_upgrade")
+		)
 	for(var/obj/item/stack/sheet/mineral/adamantine/Adamantine in get_turf(religious_tool))
 		if(Adamantine.amount == 10)
 			qdel(Adamantine)
 		else(Adamantine.amount -= 10)
 		Adamantine = null
-	new /obj/item/clothing/suit/armor/heavy/adamantine(get_turf(religious_tool))
-	playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
-	return ..()
+	var/choice = show_radial_menu(user, religious_tool, items, require_near = TRUE, tooltips = TRUE)
+	var/list/pickedtype = list()
+	switch(choice)
+		if("Adamantine Shield")
+			pickedtype += /obj/item/shield/adamantineshield
+		if("Adamantine Armor")
+			pickedtype += /obj/item/clothing/suit/armor/heavy/adamantine
+		if("Adamantine Plating")
+			pickedtype += /obj/item/borg/upgrade/holy
+		else
+			return FALSE
+	if(religious_tool && !QDELETED(religious_tool) && pickedtype && !user.incapacitated())
+		for(var/N in pickedtype)
+			new N(get_turf(religious_tool))
+			to_chat(user, "<span class='notice'>Fire leaps, and molten adamantine drains into the altar, leaving the [choice] behind.</span>")
+			playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
+			return ..()
+
 
 /datum/religion_rites/create_golem
 	name = "Shape Golem"
