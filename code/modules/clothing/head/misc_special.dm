@@ -119,6 +119,13 @@
 	hair_style = pick(GLOB.hair_styles_list - "Bald")
 	. = ..()
 
+/obj/item/clothing/head/wig/natural/equipped(mob/user, slot)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		var/mob/living/carbon/human/human_mob = user
+		hair_color = "#[human_mob.hair_color]"
+		update_icon()
+	. = ..()
+
 /obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(ishuman(user) && (slot == ITEM_SLOT_HEAD || slot == ITEM_SLOT_NECK))
