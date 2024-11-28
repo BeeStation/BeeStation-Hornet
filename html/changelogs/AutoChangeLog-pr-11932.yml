@@ -1,0 +1,5 @@
+author: Therealdoooc213
+delete-after: true
+changes:
+  - bugfix: toilets face the right way now
+  - tweak: bathrooms no longer spawn with cameras
