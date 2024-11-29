@@ -21,7 +21,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	minbodytemp = 200
 	maxbodytemp = 400
-	unsuitable_atmos_damage = 1
+	unsuitable_atmos_damage = 0.5
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1)
@@ -103,7 +103,7 @@
 	Read_Memory()
 	. = ..()
 
-/mob/living/simple_animal/pet/cat/Runtime/Life()
+/mob/living/simple_animal/pet/cat/runtime/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!cats_deployed && SSticker.current_state >= GAME_STATE_SETTING_UP)
 		Deploy_The_Cats()
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
@@ -196,17 +196,17 @@
 	regenerate_icons()
 
 
-/mob/living/simple_animal/pet/cat/Life()
+/mob/living/simple_animal/pet/cat/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && !buckled && !client)
-		if(prob(1))
+		if(DT_PROB(0.5, delta_time))
 			manual_emote(pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 			set_resting(TRUE)
-		else if (prob(1))
+		else if(DT_PROB(0.5, delta_time))
 			manual_emote(pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			set_resting(TRUE)
 			icon_state = "[icon_living]_sit"
 			collar_type = "[initial(collar_type)]_sit"
-		else if (prob(1))
+		else if(DT_PROB(0.5, delta_time))
 			if (resting)
 				manual_emote(pick("gets up and meows.", "walks around.", "stops resting."))
 				set_resting(FALSE)
@@ -289,12 +289,12 @@
 		to_chat(src, "<span class='notice'>Your name is now <b>\"new_name\"</b>!</span>")
 		name = new_name
 
-/mob/living/simple_animal/pet/cat/cak/Life()
+/mob/living/simple_animal/pet/cat/cak/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(stat)
 		return
 	if(health < maxHealth)
-		adjustBruteLoss(-8) //Fast life regen
+		adjustBruteLoss(-4 * delta_time) //Fast life regen
 
 /mob/living/simple_animal/pet/cat/cak/Move()
 	. = ..()

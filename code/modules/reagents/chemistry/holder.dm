@@ -314,7 +314,7 @@
 	R.handle_reactions()
 	return amount
 
-/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
+/datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
 	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
@@ -331,7 +331,7 @@
 			C = R.holder.my_atom
 
 		if(C && R)
-			if(C.reagent_check(R) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
+			if(C.reagent_check(R, delta_time, times_fired) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
 				if(liverless && !R.self_consuming) //need to be metabolized
 					continue
 				if(!R.metabolizing)
@@ -340,20 +340,21 @@
 				if(can_overdose)
 					if(R.overdose_threshold)
 						if(R.volume >= R.overdose_threshold && !R.overdosed)
-							R.overdosed = 1
+							R.overdosed = TRUE
 							need_mob_update += R.overdose_start(C)
+							log_game("[key_name(owner)] has started overdosing on [reagent.name] at [reagent.volume] units.")
 					if(R.addiction_threshold)
 						if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
 							var/datum/reagent/new_reagent = new R.type()
 							cached_addictions.Add(new_reagent)
 					if(R.overdosed)
-						need_mob_update += R.overdose_process(C)
+						need_mob_update += R.overdose_process(C, delta_time, times_fired)
 					if(is_type_in_list(R,cached_addictions))
 						for(var/addiction in cached_addictions)
 							var/datum/reagent/A = addiction
 							if(istype(R, A))
 								A.addiction_stage = -15 // you're satisfied for a good while.
-				need_mob_update += R.on_mob_life(C)
+				need_mob_update += R.on_mob_life(C, delta_time, times_fired)
 
 	if(can_overdose)
 		if(addiction_tick == 6)

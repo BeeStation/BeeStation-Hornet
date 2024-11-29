@@ -395,7 +395,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
 	helmet_name_simple = "space helmet"
-	recharge_slowdown = 0.5
+	recharge_slowdown = 0.25
 	blood_on_castoff = 1
 
 /obj/item/clothing/suit/space/changeling
@@ -459,7 +459,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	dna_cost = 2
 	req_absorbs = 3
 	req_human = 1
-	recharge_slowdown = 0.25
+	recharge_slowdown = 0.125
 
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling

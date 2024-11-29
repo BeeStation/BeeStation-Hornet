@@ -116,7 +116,7 @@
 		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
-/datum/disease/advance/stage_act()
+/datum/disease/advance/stage_act(delta_time, times_fired)
 	if(dormant)
 		return
 	. = ..()
@@ -305,8 +305,8 @@
 
 	SetSpread()
 	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
-	cure_chance = 15 - clamp(resistance, -5, 5) // can be between 10 and 20
-	stage_prob = max(stage_rate, 2)
+	cure_chance = clamp(7.5 - (0.5 * resistance), 5, 10) // can be between 5 and 10
+	stage_prob = max(stage_rate, 1)
 	SetDanger(severity)
 	GenerateCure()
 	symptoms = sort_list(symptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))

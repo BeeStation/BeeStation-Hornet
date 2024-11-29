@@ -58,7 +58,7 @@
 		trigger_species -= owner.dna.species.type
 	..()
 
-/datum/brain_trauma/mild/phobia/on_life()
+/datum/brain_trauma/mild/phobia/on_life(delta_time, times_fired)
 	..()
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return

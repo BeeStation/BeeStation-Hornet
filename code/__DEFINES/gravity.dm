@@ -15,4 +15,8 @@
 /// Anything above this is high gravity, anything below no grav until negative gravity
 #define STANDARD_GRAVITY 1
 /// The gravity strength threshold for high gravity damage.
-#define GRAVITY_DAMAGE_TRESHOLD 3
+#define GRAVITY_DAMAGE_THRESHOLD 3
+/// The scaling factor for high gravity damage.
+#define GRAVITY_DAMAGE_SCALING 0.5
+/// The maximum [BRUTE] damage a mob can take from high gravity per second.
+#define GRAVITY_DAMAGE_MAXIMUM 1.5

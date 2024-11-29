@@ -14,7 +14,7 @@
 	danger = DISEASE_MEDIUM
 
 
-/datum/disease/dnaspread/stage_act()
+/datum/disease/dnaspread/stage_act(delta_time, times_fired)
 	. = ..()
 	if(!.)
 		return
@@ -37,18 +37,18 @@
 
 	switch(stage)
 		if(2, 3) //Pretend to be a cold and give time to spread.
-			if(prob(8))
+			if(DT_PROB(4, delta_time))
 				affected_mob.emote("sneeze")
-			if(prob(8))
+			if(DT_PROB(4, delta_time))
 				affected_mob.emote("cough")
-			if(prob(1))
+			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, "<span class='danger'>Your muscles ache.</span>")
 				if(prob(20))
 					affected_mob.take_bodypart_damage(1, updating_health = FALSE)
-			if(prob(1))
+			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
 				if(prob(20))
-					affected_mob.adjustToxLoss(2)
+					affected_mob.adjustToxLoss(2, FALSE)
 		if(4)
 			if(!transformed && !carrier)
 				//Save original dna for when the disease is cured.

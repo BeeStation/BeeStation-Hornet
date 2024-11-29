@@ -3,7 +3,7 @@
 	name = "Blood"
 	color = "#C80000" // rgb: 200, 0, 0
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
-	metabolization_rate = 5 //fast rate so it disappears fast.
+	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
 	glass_icon_state = "glass_red"
@@ -259,22 +259,23 @@
 		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
 	..()
 
-/datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
+/datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(!data)
-		data = list("misc" = 1)
-	data["misc"]++
-	M.jitteriness = min(M.jitteriness+4,10)
+		data = list("misc" = 0)
+
+	data["misc"] += delta_time SECONDS * REM
+	M.jitteriness = min(M.jitteriness + (2 * delta_time), 10)
 	if(iscultist(M))
 		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 			to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
-	if(data["misc"] >= 25)		// 10 units, 45 seconds @ metabolism 0.4 units & tick rate 1.8 sec
+	if(data["misc"] >= (25 SECONDS)) // 10 units
 		if(!M.stuttering)
 			M.stuttering = 1
-		M.stuttering = min(M.stuttering+4, 10)
+		M.stuttering = min(M.stuttering + (2 * delta_time), 10)
 		M.Dizzy(5)
-		if(is_servant_of_ratvar(M) && prob(20))
+		if(is_servant_of_ratvar(M) && DT_PROB(10, delta_time))
 			M.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
 				if(!HAS_TRAIT_FROM(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
@@ -284,10 +285,10 @@
 			M.say(pick("Av'te Nar'Sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","R'ge Na'sie","Diabo us Vo'iscum","Eld' Mon Nobis"), forced = "holy water")
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
-				M.Unconscious(120)
+				M.Unconscious(12 SECONDS)
 				to_chat(M, "<span class='cultlarge'>[pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
 				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")].</span>")
-	if(data["misc"] >= 60)	// 30 units, 135 seconds
+	if(data["misc"] >= (1 MINUTES)) // 24 units
 		if(iscultist(M) || is_servant_of_ratvar(M))
 			if(iscultist(M))
 				SSticker.mode.remove_cultist(M.mind, FALSE, TRUE)
@@ -297,7 +298,7 @@
 			M.stuttering = 0
 			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
-	holder.remove_reagent(type, 0.4)	//fixed consumption to prevent balancing going out of whack
+	holder.remove_reagent(type, 1 * REAGENTS_METABOLISM * delta_time) //fixed consumption to prevent balancing going out of whack
 
 /datum/reagent/water/holywater/reaction_turf(turf/T, reac_volume)
 	..()
@@ -326,23 +327,23 @@
 /datum/reagent/fuel/unholywater/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
 
-/datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M)
+/datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(iscultist(M))
-		M.drowsyness = max(M.drowsyness-5, 0)
-		M.AdjustAllImmobility(-40)
-		M.adjustStaminaLoss(-10, 0)
-		M.adjustToxLoss(-2, 0)
-		M.adjustOxyLoss(-2, 0)
-		M.adjustBruteLoss(-2, 0)
-		M.adjustFireLoss(-2, 0)
+		M.drowsyness = max(M.drowsyness - (5* REM * delta_time), 0)
+		M.AdjustAllImmobility(-40 *REM* REM * delta_time)
+		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
+		M.adjustToxLoss(-2 * REM * delta_time, 0)
+		M.adjustOxyLoss(-2 * REM * delta_time, 0)
+		M.adjustBruteLoss(-2 * REM * delta_time, 0)
+		M.adjustFireLoss(-2 * REM * delta_time, 0)
 		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3
+			M.blood_volume += 3 * REM * delta_time
 	else  // Will deal about 90 damage when 50 units are thrown
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
-		M.adjustToxLoss(2, 0)
-		M.adjustFireLoss(2, 0)
-		M.adjustOxyLoss(2, 0)
-		M.adjustBruteLoss(2, 0)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		M.adjustToxLoss(1 * REM * delta_time, 0)
+		M.adjustFireLoss(1 * REM * delta_time, 0)
+		M.adjustOxyLoss(1 * REM * delta_time, 0)
+		M.adjustBruteLoss(1 * REM * delta_time, 0)
 	holder.remove_reagent(type, 1)
 	return TRUE
 
@@ -353,13 +354,13 @@
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/hellwater/on_mob_life(mob/living/carbon/M)
-	M.fire_stacks = min(5,M.fire_stacks + 3)
-	M.IgniteMob()			//Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
-	M.adjustToxLoss(1, 0)
-	M.adjustFireLoss(1, 0)		//Hence the other damages... ain't I a bastard?
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 150)
-	holder.remove_reagent(type, 1)
+/datum/reagent/hellwater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.fire_stacks = min(M.fire_stacks + (1.5 * delta_time), 5)
+	M.IgniteMob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
+	M.adjustToxLoss(0.5*delta_time, 0)
+	M.adjustFireLoss(0.5*delta_time, 0) //Hence the other damages... ain't I a bastard?
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2.5*delta_time, 150)
+	holder.remove_reagent(type, 0.5*delta_time)
 
 /datum/reagent/medicine/omnizine/godblood
 	name = "Godblood"
@@ -480,15 +481,15 @@
 		N.regenerate_icons()
 	..()
 
-/datum/reagent/spraytan/overdose_process(mob/living/M)
+/datum/reagent/spraytan/overdose_process(mob/living/M, delta_time, times_fired)
 	if(ishuman(M))
 		var/mob/living/carbon/human/N = M
-		if(prob(7))
+		if(DT_PROB(3.5, delta_time))
 			if(N.w_uniform)
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-		if(prob(2))
+		if(DT_PROB(1, delta_time))
 			M.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
@@ -500,7 +501,7 @@
 	description = "A humanizing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
-	metabolization_rate = 0.2 //metabolizes to prevent micro-dosage. about 4u is necessary to transform
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM //metabolizes to prevent micro-dosage
 	taste_description = "slime"
 	var/race = /datum/species/human
 	process_flags = ORGANIC | SYNTHETIC

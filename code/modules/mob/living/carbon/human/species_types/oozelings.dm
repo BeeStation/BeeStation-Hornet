@@ -50,30 +50,32 @@
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
 
-/datum/species/oozeling/spec_life(mob/living/carbon/human/H)
+/datum/species/oozeling/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	..()
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
+
 	if(!H.blood_volume)
-		H.blood_volume += 5
-		H.adjustBruteLoss(5)
+		H.blood_volume += 2.5 * delta_time
+		H.adjustBruteLoss(2.5 * delta_time)
 		to_chat(H, "<span class='danger'>You feel empty!</span>")
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			H.adjust_nutrition(-5)
-			H.blood_volume += 10
+			H.blood_volume += 5 * delta_time
+			H.adjust_nutrition(-2.5 * delta_time)
 		else
-			H.blood_volume += 8
+			H.blood_volume += 4 * delta_time
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-			H.blood_volume -= 8
-			if(prob(5))
+			H.blood_volume -= 4 * delta_time
+			if(DT_PROB(2.5, delta_time))
 				to_chat(H, "<span class='info'>You're starving! Get some food!</span>")
 		else
-			if(prob(35))
-				H.blood_volume -= 2
+			if(DT_PROB(17.5, delta_time))
+				H.blood_volume -= 1 * delta_time
 				if(prob(5))
 					to_chat(H, "<span class='danger'>You're feeling pretty hungry...</span>")
+					
 	var/atmos_sealed = FALSE
 	if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit

@@ -44,12 +44,14 @@
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
-	var/heal_rate = 1
-	var/regen_cooldown = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
+	/// The rate the zombies regenerate at
+	var/heal_rate = 0.5
+	/// The cooldown before the zombie can start regenerating
+	COOLDOWN_DECLARE(regen_cooldown)
 
 	/// Zombies do not stabilize body temperature they are the walking dead and are cold blooded
-/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi)
+/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
 	return
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
@@ -61,22 +63,22 @@
 /datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
 	. = ..()
 	if(.)
-		regen_cooldown = world.time + REGENERATION_DELAY
+		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
 
-/datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
+/datum/species/zombie/infectious/spec_life(mob/living/carbon/C, delta_time, times_fired)
 	. = ..()
 	C.a_intent = INTENT_HARM // THE SUFFERING MUST FLOW
 
 	//Zombies never actually die, they just fall down until they regenerate enough to rise back up.
 	//They must be restrained, beheaded or gibbed to stop being a threat.
-	if(regen_cooldown < world.time)
+	if(COOLDOWN_FINISHED(src, regen_cooldown))
 		var/heal_amt = heal_rate
 		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
 			heal_amt *= 2
-		C.heal_overall_damage(heal_amt,heal_amt)
-		C.adjustToxLoss(-heal_amt)
-		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt)
-	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && prob(4))
+		C.heal_overall_damage(heal_amt * delta_time, heal_amt * delta_time)
+		C.adjustToxLoss(-heal_amt * delta_time)
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt * delta_time)
+	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && DT_PROB(2, delta_time))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie

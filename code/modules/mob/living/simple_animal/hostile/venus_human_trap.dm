@@ -143,7 +143,7 @@
 	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines
 	. = ..()
 
-/mob/living/simple_animal/hostile/venus_human_trap/Life()
+/mob/living/simple_animal/hostile/venus_human_trap/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	pull_vines()
 	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines

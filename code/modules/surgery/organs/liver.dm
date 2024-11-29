@@ -26,13 +26,10 @@
 #define HAS_PAINFUL_TOXIN 2
 
 /obj/item/organ/liver/on_life()
-	if(HAS_TRAIT(owner, TRAIT_NOMETABOLISM))
-		return
-
 	var/mob/living/carbon/C = owner
-	..()	//perform general on_life()
+	..() //perform general on_life()
 	if(istype(C))
-		if(!(organ_flags & ORGAN_FAILING))//can't process reagents with a failing liver
+		if(!(organ_flags & ORGAN_FAILING) && !HAS_TRAIT(C, TRAIT_NOMETABOLISM))//can't process reagents with a failing liver
 
 			var/provide_pain_message = HAS_NO_TOXIN
 			if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
@@ -52,14 +49,8 @@
 			if(provide_pain_message && damage > 10 && prob(damage/3))//the higher the damage the higher the probability
 				to_chat(C, "<span class='warning'>You feel a dull pain in your abdomen.</span>")
 
-		else	//for when our liver's failing
-			C.reagents.end_metabolization(C, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
-			C.reagents.metabolize(C, can_overdose=FALSE, liverless = TRUE)
-			if(HAS_TRAIT(C, TRAIT_STABLELIVER))
-				return
-			C.adjustToxLoss(4, TRUE,  TRUE)
-			if(prob(30))
-				to_chat(C, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
+		else //for when our liver's failing
+			C.liver_failure()
 
 	if(damage > maxHealth)//cap liver damage
 		damage = maxHealth
