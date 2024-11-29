@@ -618,8 +618,9 @@
 /datum/emote/living/tail/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	var/mob/living/carbon/human/H = user
-	return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+	if(islizard(user))
+		var/mob/living/carbon/human/H = user
+		return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 
