@@ -77,3 +77,7 @@
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
 //from base of client/MouseUp(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
+
+/// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
+#define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
+	#define GUN_HIT_SELF (1 << 0)

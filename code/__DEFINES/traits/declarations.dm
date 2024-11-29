@@ -333,4 +333,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define INSTANT_DO_AFTER "instant_do_after"
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
+/// This means the user is currently holding/wearing a "tactical camouflage" item (like a potted plant).
+#define TRAIT_TACTICALLY_CAMOUFLAGED "tactically_camouflaged"
+
+/// The person with this trait always appears as 'unknown'.
+#define TRAIT_UNKNOWN "unknown"
+
 // END TRAIT DEFINES

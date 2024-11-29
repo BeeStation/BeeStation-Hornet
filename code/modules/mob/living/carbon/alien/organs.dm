@@ -1,5 +1,6 @@
 /obj/item/organ/alien
 	icon_state = "acid"
+	visual = FALSE
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
 
 /obj/item/organ/alien/plasmavessel

@@ -3860,7 +3860,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "aWc" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/machinery/requests_console{
 	pixel_x = -32
 	},
@@ -9477,7 +9477,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 4
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/window/reinforced/spawner,
@@ -11808,7 +11808,6 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet)
 "dJE" = (
@@ -16958,7 +16957,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "ftP" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
@@ -20097,7 +20096,7 @@
 /area/security/brig/dock)
 "gwg" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 5
 	},
@@ -26948,7 +26947,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "iBi" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
@@ -27898,7 +27897,7 @@
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "iSM" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -30937,7 +30936,7 @@
 	pixel_x = -12;
 	pixel_y = 7
 	},
-/obj/item/circuitboard/computer/med_data{
+/obj/item/circuitboard/computer/records/medical{
 	pixel_x = -13;
 	pixel_y = 5
 	},
@@ -39173,7 +39172,6 @@
 /area/hallway/primary/central)
 "myE" = (
 /obj/machinery/airalarm/directional/south,
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet)
 "myH" = (
@@ -40770,7 +40768,7 @@
 /area/maintenance/starboard/secondary)
 "mWY" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/secure_data/laptop{
+/obj/machinery/computer/records/security/laptop{
 	pixel_y = 2
 	},
 /obj/machinery/camera/directional/north,
@@ -41225,7 +41223,7 @@
 	department = "Security Outpost - Medical";
 	pixel_x = -32
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -48572,7 +48570,7 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "pHj" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
@@ -49586,7 +49584,7 @@
 "pYt" = (
 /obj/machinery/camera/directional/north,
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -54716,7 +54714,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "rIH" = (
 /obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -57192,7 +57190,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "sys" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -57890,7 +57888,7 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "sJX" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -60724,7 +60722,7 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "tGj" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/bridge)
@@ -62669,7 +62667,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "umx" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -69082,7 +69080,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "woh" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -69578,7 +69576,7 @@
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "wxT" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -72451,7 +72449,7 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/supply)
 "xxd" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/window/reinforced/spawner,
@@ -73457,7 +73455,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "xNc" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/cable/yellow{

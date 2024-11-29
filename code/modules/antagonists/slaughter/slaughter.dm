@@ -42,7 +42,8 @@
 	var/playstyle_string = "<span class='big bold'>You are a slaughter demon,</span><B> a terrible creature from another realm. You have a single desire: To kill.  \
 							You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
 							Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
-							You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
+							You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. \
+							<span class='warning'>You cannot re-enter the living world until you've rested for five seconds in the sea of blood.</span> \ </B>"
 
 	mobchatspan = "cultmobsay"
 
@@ -53,6 +54,11 @@
 	var/crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	discovery_points = 3000
+
+	// Keep the people we hug!
+	var/list/consumed_mobs = list()
+
+	var/revive_eject = FALSE
 
 /mob/living/simple_animal/hostile/imp/slaughter/Initialize(mapload)
 	. = ..()
@@ -70,6 +76,24 @@
 		addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/slaughter), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 
+/mob/living/simple_animal/hostile/imp/slaughter/Destroy()
+	var/turf/cur_loc = get_turf(src)
+	playsound(cur_loc, feast_sound, 50, 1, -1)
+	for(var/mob/living/stored_mob in consumed_mobs)
+		stored_mob.forceMove(cur_loc)
+
+		if(!revive_eject)
+			continue
+		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
+			continue
+		stored_mob.grab_ghost(force = TRUE)
+		to_chat(stored_mob, "<span class='clowntext'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+
+	consumed_mobs.Cut()
+	consumed_mobs = null
+
+	return ..()
+
 /obj/effect/decal/cleanable/blood/innards
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
@@ -77,6 +101,24 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "innards"
 	random_icon_states = null
+
+/mob/living/simple_animal/slaughter/phasein()
+	. = ..()
+	add_movespeed_modifier(/datum/movespeed_modifier/slaughter)
+	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/slaughter, TRUE), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/mob/living/simple_animal/hostile/imp/slaughter/bloodcrawl_swallow(var/mob/living/victim)
+	if(consumed_mobs)
+		// Keep their corpse so rescue is possible
+		consumed_mobs += victim
+	else
+		// Be safe and just eject the corpse
+		victim.forceMove(get_turf(victim))
+		victim.exit_blood_effect()
+		victim.visible_message("[victim] falls out of the air, covered in blood, looking highly confused. And dead.")
+
+
+/mob/living/simple_animal/slaughter/proc/release_friends()
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/organ/heart/demon
@@ -155,6 +197,7 @@
 	desire: <span class='clowntext'>To hug and tickle.</span><BR>\
 	You may use the \"Blood Crawl\" ability near blood pools to travel \
 	through them, appearing and disappearing from the station at will. \
+	<span class='warning'>You cannot re-enter the living world until you've rested for five seconds in the sea of blood.</span> \
 	Pulling a dead or unconscious mob while you enter a pool will pull \
 	them in with you, allowing you to hug them and regain your health.<BR> \
 	You move quickly upon leaving a pool of blood, but the material world \
@@ -163,6 +206,7 @@
 	them; but don't worry! When you die, everyone you hugged will be \
 	released and fully healed, because in the end it's just a jape, \
 	sibling!</B>"
+	revive_eject = TRUE
 
 /mob/living/simple_animal/hostile/imp/slaughter/laughter/ex_act(severity)
 	switch(severity)

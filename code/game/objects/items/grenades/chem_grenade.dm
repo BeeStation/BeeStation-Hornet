@@ -12,7 +12,7 @@
 	var/list/allowed_containers = list(
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/cup/waterbottle
+		/obj/item/reagent_containers/cup/glass/waterbottle
 	)
 	/// The types of reagent containers that can't be added to this grenade casing.
 	var/list/banned_containers = list(/obj/item/reagent_containers/cup/beaker/bluespace)

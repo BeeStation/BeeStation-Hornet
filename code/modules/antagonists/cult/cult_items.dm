@@ -237,7 +237,7 @@ Striking a noncultist, however, will tear their flesh."}
 		charge_recovery = 0 SECONDS, \
 		shield_icon_file = 'icons/effects/cult_effects.dmi', \
 		shield_icon = "shield-cult", \
-		shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES, \
+		shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES, \
 		shield_alpha = 120, \
 		run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)) \
 		)

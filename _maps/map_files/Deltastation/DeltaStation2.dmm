@@ -2712,7 +2712,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -4246,38 +4246,38 @@
 "aAm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/auxiliary)
 "aAn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
 "aAo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
 "aAp" = (
@@ -6177,6 +6177,7 @@
 /obj/machinery/airlock_sensor/incinerator_atmos{
 	pixel_y = 24
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aMy" = (
@@ -6375,9 +6376,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aNT" = (
@@ -6466,6 +6464,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aPA" = (
@@ -18551,7 +18550,7 @@
 /area/hallway/primary/aft)
 "cuy" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_y = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
@@ -21457,27 +21456,27 @@
 /area/crew_quarters/toilet/restrooms)
 "cIb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
 "cIc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
 "cId" = (
@@ -24387,7 +24386,7 @@
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "dcy" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/status_display/ai{
@@ -26120,7 +26119,7 @@
 /turf/open/floor/iron/white/corner,
 /area/hallway/secondary/entry)
 "dsR" = (
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -26444,7 +26443,7 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "dvE" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -29373,7 +29372,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "dRF" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 4
 	},
@@ -31359,10 +31358,6 @@
 /area/security/prison)
 "ekz" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/camera/directional/north{
-	c_tag = "Auxiliary Restroom";
-	name = "restroom camera"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -34131,7 +34126,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/sign/nanotrasen{
 	pixel_x = -32
 	},
@@ -36162,7 +36157,7 @@
 /turf/open/floor/iron,
 /area/medical/virology)
 "fHN" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -37519,7 +37514,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -37590,6 +37585,9 @@
 	},
 /obj/machinery/airlock_sensor/incinerator_toxmix{
 	pixel_x = -24
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -42244,10 +42242,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Primary Restroom";
-	name = "restroom camera"
-	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -44631,9 +44625,14 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "ijv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -45328,7 +45327,7 @@
 /turf/open/floor/plating,
 /area/security/brig)
 "ivC" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/computer/security/telescreen/cmo{
@@ -45546,7 +45545,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "iyr" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -48157,7 +48156,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "juT" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -48861,7 +48860,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "jGA" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -49087,7 +49086,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "jME" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -52853,8 +52852,8 @@
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/mapping_helpers/atmos_auto_connect,
 /obj/machinery/airalarm/server{
-	pixel_x = -22;
-	dir = 4
+	dir = 8;
+	pixel_x = -22
 	},
 /turf/open/floor/iron,
 /area/tcommsat/server)
@@ -53999,7 +53998,7 @@
 	},
 /area/hallway/secondary/entry)
 "ltq" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
@@ -57571,7 +57570,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "mAd" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -58841,7 +58840,7 @@
 	pixel_x = 26;
 	pixel_y = 26
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
@@ -58956,6 +58955,9 @@
 "mWZ" = (
 /obj/machinery/atmospherics/components/binary/pump,
 /obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -60732,7 +60734,7 @@
 /area/science/research)
 "nwF" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -64539,7 +64541,6 @@
 "oIE" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "oIF" = (
@@ -74171,7 +74172,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "rLs" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -76084,7 +76085,7 @@
 /turf/open/floor/plating,
 /area/medical/patients_rooms)
 "spm" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -80073,7 +80074,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "tAd" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -86883,11 +86884,14 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -88567,7 +88571,7 @@
 /area/holodeck/prison)
 "wkS" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -89654,7 +89658,7 @@
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "wyY" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -92294,7 +92298,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "xqG" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
