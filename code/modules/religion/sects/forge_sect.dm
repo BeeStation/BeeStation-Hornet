@@ -35,7 +35,6 @@
 	item_state = "adamantine-staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("thrashes", "beats", "slams", "resonates")
