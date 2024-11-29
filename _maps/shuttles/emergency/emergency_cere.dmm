@@ -769,7 +769,6 @@
 /area/shuttle/escape)
 "xv" = (
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},

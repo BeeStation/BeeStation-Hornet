@@ -33822,7 +33822,6 @@
 	dir = 1
 	},
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "hMy" = (
@@ -65854,7 +65853,6 @@ initialize_directions=@SKIP},
 	dir = 5
 	},
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "tCy" = (

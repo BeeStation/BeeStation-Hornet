@@ -164,7 +164,6 @@
 /area/ruin/unpowered)
 "aN" = (
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,

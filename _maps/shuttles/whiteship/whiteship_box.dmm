@@ -408,7 +408,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -419,7 +418,6 @@ initialize_directions=@SKIP},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},

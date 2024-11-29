@@ -21215,7 +21215,6 @@
 /area/bridge/meeting_room/council)
 "fwQ" = (
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /turf/open/floor/engine/light,
 /area/medical/cryo)
 "fwV" = (
@@ -29359,7 +29358,6 @@ initialize_directions=@SKIP},
 	dir = 4
 	},
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /turf/open/floor/engine/light,
 /area/medical/cryo)
 "hAf" = (

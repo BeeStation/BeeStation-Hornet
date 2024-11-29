@@ -7,7 +7,6 @@
 /area/template_noop)
 "b" = (
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /obj/effect/turf_decal/stripes/end,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/freezer,

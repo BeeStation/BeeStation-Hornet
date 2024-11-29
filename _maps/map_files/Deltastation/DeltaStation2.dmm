@@ -37765,7 +37765,6 @@
 	dir = 1
 	},
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "gfu" = (
@@ -91046,7 +91045,6 @@ initialize_directions=@SKIP},
 	dir = 9
 	},
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},

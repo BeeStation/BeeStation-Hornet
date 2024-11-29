@@ -23793,7 +23793,6 @@
 /area/asteroid/paradise/surface/grass)
 "lMw" = (
 /obj/machinery/cryo_cell,
-initialize_directions=@SKIP},
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/central)
 "lNu" = (
