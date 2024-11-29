@@ -6,6 +6,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	flags_1 = CAN_BE_DIRTY_1
+	uses_integrity = TRUE
+
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -35,8 +42,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
-
-	flags_1 = CAN_BE_DIRTY_1
 
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
@@ -148,6 +153,15 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		set_custom_materials(temp_list)
 
 	ComponentInitialize()
+
+	if(uses_integrity)
+		atom_integrity = max_integrity
+
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+
 	if(isopenturf(src))
 		var/turf/open/O = src
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
@@ -285,12 +299,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
 	if(canPassSelf || (mover.movement_type & PHASING))
-		for(var/i in contents)
+		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
 				return FALSE		//We were deleted, do not attempt to proceed with movement.
-			if(i == mover || i == mover.loc) // Multi tile objects and moving out of other objects
+			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
 				continue
-			var/atom/movable/thing = i
 			if(!thing.Cross(mover))
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE

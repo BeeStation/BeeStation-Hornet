@@ -62,7 +62,6 @@
 	icon_state = "carrotcake"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
-		/datum/reagent/medicine/oculine = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 5
 	)
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
@@ -75,7 +74,6 @@
 	icon_state = "carrotcake_slice"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/medicine/oculine = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
@@ -505,7 +503,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
 		/datum/reagent/consumable/nutriment/vitamin = 5,
-		/datum/reagent/medicine/polypyr = 15,
 		/datum/reagent/consumable/cream = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 5,
 		/datum/reagent/consumable/berryjuice = 5
@@ -521,7 +518,6 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
-		/datum/reagent/medicine/polypyr = 3,
 		/datum/reagent/consumable/cream = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 		/datum/reagent/consumable/berryjuice = 1

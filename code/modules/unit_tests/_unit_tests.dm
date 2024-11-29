@@ -35,6 +35,7 @@
 #include "food_edibility_check.dm"
 #include "gamemode_sanity.dm"
 #include "greyscale_config.dm"
+#include "handcuff_tests.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
@@ -43,6 +44,7 @@
 #include "metabolizing.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
+#include "outfit_sanity.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"
@@ -67,6 +69,7 @@
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #include "walls_have_sheets.dm"
+#include "wizard.dm"
 #include "worn_icons.dm"
 
 /*

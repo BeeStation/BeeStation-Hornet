@@ -56,7 +56,7 @@
 	..()
 	//Only mob/living types have stun handling
 	if(turned_on && prob(throw_hit_chance) && iscarbon(hit_atom))
-		baton_stun(hit_atom)
+		baton_stun(hit_atom, throwingdatum.thrower)
 
 /obj/item/melee/baton/loaded //this one starts with a cell pre-installed.
 	preload_cell_type = /obj/item/stock_parts/cell/high
@@ -120,7 +120,7 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost && !(obj_flags & OBJ_EMPED))
 		turned_on = !turned_on
-		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
+		balloon_alert(user, "You turn [src] [turned_on ? "on" : "off"].")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE

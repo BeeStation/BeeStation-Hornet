@@ -7,6 +7,7 @@
 	var/operated = FALSE	//whether we can still have our damages fixed through surgery
 	name = "lungs"
 	icon_state = "lungs"
+	visual = FALSE
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
@@ -433,6 +434,12 @@
 		GAS_CO2 = 45,
 		GAS_PLASMA = MOLES_GAS_VISIBLE
 	)
+
+/obj/item/organ/lungs/diona
+	name = "diona leaves"
+	desc = "A small mass concentrated leaves, used for breathing."
+	icon_state = "diona_lungs"
+
 #undef PP
 #undef PP_MOLES
 

@@ -4,6 +4,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
+	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
@@ -135,6 +136,11 @@
 			owner.toxloss += 15
 		if(2)
 			owner.toxloss += 5
+
+/obj/item/organ/liver/diona
+	name = "liverwort"
+	desc = "A mass of plant vines and leaves, seeming to be responsible for chemical digestion."
+	icon_state = "diona_liver"
 
 #undef LIVER_DEFAULT_TOX_TOLERANCE
 #undef LIVER_DEFAULT_TOX_LETHALITY

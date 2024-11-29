@@ -6,7 +6,7 @@
 /obj/machinery/grill
 	name = "grill"
 	desc = "Just like the old days."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "grill_open"
 	density = TRUE
 	pass_flags_self = PASSMACHINE | LETPASSTHROW // sorta like griddles
@@ -51,7 +51,7 @@
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to grill [I]...</span>")
 		return ..()
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents.has_reagent(/datum/reagent/consumable/monkey_energy))
 			grill_fuel += (20 * (I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy)))
 			to_chat(user, "<span class='notice'>You pour the Monkey Energy in [src].</span>")
@@ -114,8 +114,8 @@
 		new /obj/item/stack/rods(loc, 5)
 	..()
 
-/obj/machinery/grill/attack_ai(mob/user)
-	return
+/obj/machinery/grill/attack_silicon(mob/user)
+	return TRUE
 
 /obj/machinery/grill/attack_hand(mob/user)
 	if(grilled_item)

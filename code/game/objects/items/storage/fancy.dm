@@ -12,11 +12,7 @@
  */
 
 /obj/item/storage/fancy
-	name = "null box do not use"
-	desc = "Mmm. Runtimes."
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "donutbox"
-	base_icon_state = "donutbox"
 	resistance_flags = FLAMMABLE
 	//custom_materials = list(/datum/material/cardboard = 2000)
 	/// Used by examine to report what this thing is holding.
@@ -71,10 +67,9 @@
 	name = "donut box"
 	desc = "Mmm. Donuts."
 	icon = 'icons/obj/food/donuts.dmi'
-	icon_state = "donutbox_inner"
+	icon_state = "donutbox"
 	base_icon_state = "donutbox"
 	spawn_type = /obj/item/food/donut/premade
-	is_open = TRUE
 	appearance_flags = KEEP_TOGETHER
 	contents_tag = "donut"
 
@@ -82,7 +77,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/food/donut))
+	STR.set_holdable(list(/obj/item/food/donut))
 
 /obj/item/storage/fancy/donut_box/PopulateContents()
 	. = ..()
@@ -130,7 +125,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 12
-	STR.can_hold = typecacheof(list(/obj/item/food/egg))
+	STR.set_holdable(list(/obj/item/food/egg))
 
 /*
  * Candle Box
@@ -154,7 +149,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
-	STR.can_hold = typecacheof(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
+	STR.set_holdable(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
@@ -182,7 +177,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
@@ -352,7 +347,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 10
-	STR.can_hold = typecacheof(list(/obj/item/rollingpaper))
+	STR.set_holdable(list(/obj/item/rollingpaper))
 
 /obj/item/storage/fancy/rollingpapers/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
@@ -382,7 +377,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
-	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette/cigar))
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette/cigar))
 
 /obj/item/storage/fancy/cigarettes/cigars/update_icon_state()
 	. = ..()
@@ -432,7 +427,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 8
-	STR.can_hold = typecacheof(list(/obj/item/food/bonbon))
+	STR.set_holdable(list(/obj/item/food/bonbon))
 
 
 /obj/item/storage/fancy/nugget_box
@@ -448,4 +443,4 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list( /obj/item/food/nugget))
+	STR.set_holdable(list( /obj/item/food/nugget))

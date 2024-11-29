@@ -1,7 +1,7 @@
 /datum/job/cargo_technician
 	title = JOB_NAME_CARGOTECHNICIAN
 	description = "Push crates around, deliver bounty papers and mail around the station, make use of the Disposals network to make your life easier."
-	department_for_prefs = DEPT_BITFLAG_CAR
+	department_for_prefs = DEPT_NAME_CARGO
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
@@ -13,7 +13,7 @@
 	outfit = /datum/outfit/job/cargo_technician
 
 	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION,ACCESS_MECH_MINING)
+	extra_access = list(ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_GATEWAY)
 
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG

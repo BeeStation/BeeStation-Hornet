@@ -1,7 +1,7 @@
 /datum/job/medical_doctor
 	title = JOB_NAME_MEDICALDOCTOR
 	description = "Treat people of both minor wounds, serious injuries and resurrect them from the dead. Make use of surgeries and surgical tools, Chemistry's pills and patches, Virology's viruses and in dire cases, Genetics' cloning."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -58,4 +58,5 @@
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe

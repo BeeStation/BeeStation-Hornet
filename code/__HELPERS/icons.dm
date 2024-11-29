@@ -985,6 +985,36 @@ world
 		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
 	return alpha_mask//And now return the mask.
 
+/**
+ * Helper proc to generate a cutout alpha mask out of an icon.
+ *
+ * Why is it a helper if it's so simple?
+ *
+ * Because BYOND's documentation is hot garbage and I don't trust anyone to actually
+ * figure this out on their own without sinking countless hours into it. Yes, it's that
+ * simple, now enjoy.
+ *
+ * But why not use filters?
+ *
+ * Filters do not allow for masks that are not the exact same on every dir. An example of a
+ * need for that can be found in [/proc/generate_left_leg_mask()].
+ *
+ * Arguments:
+ * * icon_to_mask - The icon file you want to generate an alpha mask out of.
+ * * icon_state_to_mask - The specific icon_state you want to generate an alpha mask out of.
+ *
+ * Returns an `/icon` that is the alpha mask of the provided icon and icon_state.
+ */
+/proc/generate_icon_alpha_mask(icon_to_mask, icon_state_to_mask)
+	var/icon/mask_icon = icon(icon_to_mask, icon_state_to_mask)
+	// I hate the MapColors documentation, so I'll explain what happens here.
+	// Basically, what we do here is that we invert the mask by using none of the original
+	// colors, and then the fourth group of number arguments is actually the alpha values of
+	// each of the original colors, which we multiply by 255 and subtract a value of 255 to the
+	// result for the matching pixels, while starting with a base color of white everywhere.
+	mask_icon.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 255,255,255,-255, 1,1,1,1)
+	return mask_icon
+
 /mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
 	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
 	//Now we need to culculate overlays+underlays and add them together to form an image for a mask.
@@ -1109,31 +1139,31 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
 /// For creating consistent icons for human looking simple animals.
-/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
+/proc/get_flat_human_icon(icon_id, datum/job/job, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
 	var/static/list/humanoid_icon_cache = list()
-	if(!icon_id || !humanoid_icon_cache[icon_id])
-		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
-
-		if(prefs)
-			prefs.apply_prefs_to(body, icon_updates = TRUE)
-		if(J)
-			J.equip(body, TRUE, FALSE, outfit_override = outfit_override)
-		else if (outfit_override)
-			body.equipOutfit(outfit_override,visualsOnly = TRUE)
-
-
-		var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
-		for(var/D in showDirs)
-			body.setDir(D)
-			COMPILE_OVERLAYS(body)
-			var/icon/partial = getFlatIcon(body)
-			out_icon.Insert(partial,dir=D)
-
-		humanoid_icon_cache[icon_id] = out_icon
-		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
-		return out_icon
-	else
+	if(icon_id && humanoid_icon_cache[icon_id])
 		return humanoid_icon_cache[icon_id]
+
+	var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
+
+	if(prefs)
+		prefs.apply_prefs_to(body, icon_updates = TRUE)
+
+	var/datum/outfit/outfit = outfit_override || job?.outfit
+	if(job)
+		job.equip(body, TRUE, FALSE, outfit_override = outfit_override)
+	if(outfit)
+		body.equipOutfit(outfit_override,visualsOnly = TRUE)
+
+	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
+	COMPILE_OVERLAYS(body)
+	for(var/D in showDirs)
+		var/icon/partial = getFlatIcon(body, defdir=D)
+		out_icon.Insert(partial,dir=D)
+
+	humanoid_icon_cache[icon_id] = out_icon
+	dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
+	return out_icon
 
 /**
  * A simpler version of get_flat_human_icon() that uses an existing human as a base to create the icon.
@@ -1459,3 +1489,10 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
+
+/// Returns a list containing the width and height of an icon file
+/proc/get_icon_dimensions(icon_path)
+	if (isnull(GLOB.icon_dimensions[icon_path]))
+		var/icon/my_icon = icon(icon_path)
+		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
+	return GLOB.icon_dimensions[icon_path]

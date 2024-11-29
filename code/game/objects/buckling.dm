@@ -70,6 +70,10 @@
 	if(can_buckle && istype(M) && istype(user))
 		return user_buckle_mob(M, user)
 
+// Mobs have custom behaviour for buckling
+/mob/mouse_buckle_handling(mob/living/M, mob/living/user)
+	return FALSE
+
 /**
   * Returns TRUE if there are mobs buckled to this atom and FALSE otherwise
   */
@@ -116,9 +120,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
-	/*
 	M.set_glide_size(glide_size)
-	*/
 
 	//Something has unbuckled us
 	if(!M.buckled)
@@ -155,7 +157,7 @@
 	buckled_mob.set_buckled(null)
 	buckled_mob.set_anchored(initial(buckled_mob.anchored))
 	buckled_mob.clear_alert("buckled")
-	//buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
+	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
 	buckled_mobs -= buckled_mob
 	if(anchored)
 		REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)

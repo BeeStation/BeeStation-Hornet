@@ -19,6 +19,7 @@
 		/obj/item/abductor,
 		/obj/item/abductor/baton,
 		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)
@@ -74,12 +75,20 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
+		RegisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_disguise_name))
 		M.name_override = disguise.name
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
 		M.update_inv_hands()
+
+/obj/item/clothing/suit/armor/abductor/vest/proc/return_disguise_name(mob/living/carbon/human/source, list/identity)
+	SIGNAL_HANDLER
+	if(identity[VISIBLE_NAME_FORCED]) // name-forcing overrides disguise
+		return
+	identity[VISIBLE_NAME_FACE] = disguise.name
+	identity[VISIBLE_NAME_ID] = ""
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -88,6 +97,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
+		UnregisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME)
 		M.name_override = null
 		M.cut_overlays()
 		M.regenerate_icons()
@@ -524,7 +534,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	log_combat(user, L, "stunned")
 
 /obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.incapacitated(TRUE, TRUE))
+	if(L.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the sleep inducement!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induced sleep in [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \

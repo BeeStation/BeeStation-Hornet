@@ -260,14 +260,14 @@
 			qdel(src)
 			return
 
-	if(obj_integrity >= max_integrity)
+	if(atom_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>The turnstile doesn't need repairing.</span>")
 		return
 	user.visible_message("[user] is welding the turnstile.", \
 				"<span class='notice'>You begin repairing the turnstile...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume=50))
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 		set_machine_stat(machine_stat & ~BROKEN)
 		user.visible_message("[user.name] has repaired [src].", \
 							"<span class='notice'>You finish repairing the turnstile.</span>")
@@ -584,13 +584,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	user.log_message("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", LOG_ATTACK)
 
 	if(desired_crime)
-		var/datum/data/record/R = find_record("name", desired_name, GLOB.data_core.general)
-		if(R)
-			R.fields["criminal"] = "Incarcerated"
-			var/crime = GLOB.data_core.createCrimeEntry(desired_crime, null, user.real_name, station_time_timestamp())
-			GLOB.data_core.addCrime(R.fields["id"], crime)
-			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [R.fields["name"]] by [key_name(user)]", INVESTIGATE_RECORDS)
-			say("Criminal record for [R.fields["name"]] successfully updated.")
+		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
+		if(target_record)
+			target_record.wanted_status = WANTED_PRISONER
+			var/datum/crime_record/new_crime = new(desired_crime, null, "General Populace")
+			target_record.crimes += new_crime
+			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [target_record.name] by [key_name(user)]", INVESTIGATE_RECORDS)
+			say("Criminal record for [target_record.name] successfully updated.")
+			update_matching_security_huds(target_record.name)
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
@@ -733,9 +734,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 		update_label(registered_name, assignment)
 		playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
-		var/datum/data/record/R = find_record("name", registered_name, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)
 		if(R)
-			R.fields["criminal"] = "Discharged"
+			R.wanted_status = WANTED_DISCHARGED
 
 		if(isliving(loc))
 			to_chat(loc, "<span class='boldnotice'>You have served your sentence! You may now exit prison through the turnstiles and collect your belongings.</span>")

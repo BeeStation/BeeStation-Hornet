@@ -191,7 +191,7 @@
 				var/new_angle_s = P.Angle + rand(120,240)
 				while(new_angle_s > 180)	// Translate to regular projectile degrees
 					new_angle_s -= 360
-				P.setAngle(new_angle_s)
+				P.set_angle(new_angle_s)
 
 			return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
@@ -505,7 +505,7 @@
 /datum/action/innate/seek_prey
 	name = "Seek the Harvest"
 	desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"

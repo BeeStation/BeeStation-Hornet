@@ -98,6 +98,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = "o2"
 
+	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
+	//List is called in health analyzer and displays all missing organs
 	var/list/required_organs = list()
 
 	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
@@ -150,6 +152,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// What bleed status effect should we apply?
 	var/bleed_effect = STATUS_EFFECT_BLEED
+
+	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
+	var/species_bitflags = NONE
+
+	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	var/prevent_perspective_change = FALSE
+
+	//Should we preload this species's organs?
+	var/preload = TRUE
 
 ///////////
 // PROCS //
@@ -250,7 +261,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
 /datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.command_positions)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 		return 0
 	return 1
 
@@ -264,9 +275,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
   * C - carbon, the owner of the species datum AKA whoever we're regenerating organs in
   * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
   * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
-  * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
-  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE,list/excluded_zones)
+  * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
+ * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
+ */
+/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
 	//what should be put in if there is no mutantorgan (brains handled seperately)
 	var/list/slot_mutantorgans = list(
 		ORGAN_SLOT_BRAIN = mutantbrain,
@@ -302,19 +314,25 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
+
+		if(visual_only && !initial(neworgan.visual))
+			continue
+
 		var/used_neworgan = FALSE
-		neworgan = new neworgan()
+		neworgan = SSwardrobe.provide_type(neworgan)
 		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
-		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones))
+		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/brain/brain = oldorgan
 				if(!brain.decoy_override)//"Just keep it if it's fake" - confucius, probably
 					brain.Remove(C,TRUE, TRUE) //brain argument used so it doesn't cause any... sudden death.
 					QDEL_NULL(brain)
-			oldorgan.Remove(C,TRUE)
-			required_organs -= oldorgan
-			QDEL_NULL(oldorgan)
+					oldorgan = null
+			else
+				oldorgan.Remove(C, special = TRUE)
+				required_organs -= oldorgan
+				QDEL_NULL(oldorgan) //we cannot just tab this out because we need to skip the deleting if it is a decoy brain.
 
 		if(oldorgan)
 			oldorgan.setOrganDamage(0)
@@ -334,14 +352,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				continue
 			var/obj/item/organ/I = C.getorgan(mutantorgan)
 			if(I)
-				I.Remove(C)
+				I.Remove(C, TRUE)
 				required_organs -= I.type
 				QDEL_NULL(I)
 
 	for(var/organ_path in mutant_organs)
 		var/obj/item/organ/current_organ = C.getorgan(organ_path)
 		if(!current_organ || replace_current)
-			var/obj/item/organ/replacement = new organ_path()
+			var/obj/item/organ/replacement = SSwardrobe.provide_type(organ_path)
 			// If there's an existing mutant organ, we're technically replacing it.
 			// Let's abuse the snowflake proc. Basically retains
 			// feature parity with every other organ too.
@@ -411,7 +429,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.mob_biotypes = inherent_biotypes
 
-	regenerate_organs(C,old_species)
+	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
@@ -898,6 +916,30 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(mutant_bodyparts["psyphoza_cap"])
 		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
 			bodyparts_to_add -= "psyphoza_cap"
+	if("diona_leaves" in mutant_bodyparts)
+		if(!H.dna.features["diona_leaves"] || H.dna.features["diona_leaves"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_leaves"
+	if("diona_thorns" in mutant_bodyparts)
+		if(!H.dna.features["diona_thorns"] || H.dna.features["diona_thorns"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_thorns"
+	if("diona_flowers" in mutant_bodyparts)
+		if(!H.dna.features["diona_flowers"] || H.dna.features["diona_flowers"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_flowers"
+	if("diona_moss" in mutant_bodyparts)
+		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_moss"
+	if("diona_mushroom" in mutant_bodyparts)
+		if(!H.dna.features["diona_mushroom"] || H.dna.features["diona_mushroom"] == "None" || !HD)
+			bodyparts_to_add -= "diona_mushroom"
+	if("diona_antennae" in mutant_bodyparts)
+		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || !HD)
+			bodyparts_to_add -= "diona_antennae"
+	if("diona_eyes" in mutant_bodyparts)
+		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
+			bodyparts_to_add -= "diona_eyes"
+	if("diona_pbody" in mutant_bodyparts)
+		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_pbody"
 
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
@@ -997,6 +1039,24 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
 				if("psyphoza_cap")
 					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
+				if("diona_leaves")
+					S = GLOB.diona_leaves_list[H.dna.features["diona_leaves"]]
+				if("diona_thorns")
+					S = GLOB.diona_thorns_list[H.dna.features["diona_thorns"]]
+				if("diona_flowers")
+					S = GLOB.diona_flowers_list[H.dna.features["diona_flowers"]]
+				if("diona_moss")
+					S = GLOB.diona_moss_list[H.dna.features["diona_moss"]]
+				if("diona_mushroom")
+					S = GLOB.diona_mushroom_list[H.dna.features["diona_mushroom"]]
+				if("diona_antennae")
+					S = GLOB.diona_antennae_list[H.dna.features["diona_antennae"]]
+				if("diona_eyes")
+					S = GLOB.diona_eyes_list[H.dna.features["diona_eyes"]]
+				if("diona_pbody")
+					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
+
+
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -1086,6 +1146,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
+	return
+
+/datum/species/proc/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
+	var/prev_lying = H.lying_prev
+	if(H.stat != DEAD)
+		H.death(TRUE)
+
+	if(!prev_lying)
+		H.gib_animation()
+
+	H.spill_organs(no_brain, no_organs, no_bodyparts)
+
+	if(!no_bodyparts)
+		H.spread_bodyparts(no_brain, no_organs)
+
+	H.spawn_gibs(no_bodyparts)
+	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
 	return
 
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
@@ -1528,15 +1605,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			log_combat(user, target, "shaken")
 		return TRUE
 	else
-		var/we_breathe = !HAS_TRAIT(user, TRAIT_NOBREATH)
-		var/we_lung = user.getorganslot(ORGAN_SLOT_LUNGS)
-
-		if(we_breathe && we_lung)
-			user.do_cpr(target)
-		else if(we_breathe && !we_lung)
-			to_chat(user, "<span class='warning'>You have no lungs to breathe with, so you cannot perform CPR.</span>")
-		else
-			to_chat(user, "<span class='notice'>You do not breathe, so you cannot perform CPR.</span>")
+		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1704,9 +1773,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-
-	var/weakness = H.check_weakness(I, user)
-	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
+	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
@@ -2443,6 +2510,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /**
+ * Owner login
+ */
+
+/**
+ * A simple proc to be overwritten if something needs to be done when a mob logs in. Does nothing by default.
+ *
+ * Arguments:
+ * * owner - The owner of our species.
+ */
+/datum/species/proc/on_owner_login(mob/living/carbon/human/owner)
+	return
+
+/**
  * Gets a short description for the specices. Should be relatively succinct.
  * Used in the preference menu.
  *
@@ -2883,3 +2963,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //Use this to return dynamic heights, such as making felinids shorter on halloween or something
 /datum/species/proc/get_species_height()
 	return species_height
+
+/datum/species/proc/get_types_to_preload()
+	var/list/to_store = list()
+	to_store += mutant_organs
+	//for(var/obj/item/organ/external/horny as anything in external_organs)
+	//	to_store += horny //Haha get it?
+
+	//Don't preload brains, cause reuse becomes a horrible headache
+	to_store += mutantheart
+	to_store += mutantlungs
+	to_store += mutanteyes
+	to_store += mutantears
+	to_store += mutanttongue
+	to_store += mutantliver
+	to_store += mutantstomach
+	to_store += mutantappendix
+	//Store wings for now...
+	to_store += mutantwings
+	//We don't cache mutant hands because it's not constrained enough, too high a potential for failure
+	return to_store
