@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 			if(break_if_found[checkT.type] || break_if_found[checkT.loc.type])
 				return FALSE
 			var/static/list/cardinal_cache = list("[NORTH]"=TRUE, "[EAST]"=TRUE, "[SOUTH]"=TRUE, "[WEST]"=TRUE)
-			if(!cardinal_cache["[dir]"] || checkT.blocks_air || !CANATMOSPASS(sourceT, checkT, FALSE))
+			if(!cardinal_cache["[dir]"] || !TURFS_CAN_SHARE(sourceT, checkT))
 				continue
 			found_turfs += checkT // Since checkT is connected, add it to the list to be processed
 
@@ -70,11 +70,14 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	var/list/apc_map = list()
 	var/list/areas = list("New Area" = /area)
 	for(var/i in 1 to turf_count)
+		var/turf/the_turf = turfs[i]
 		var/area/place = get_area(turfs[i])
 		if(blacklisted_areas[place.type])
 			continue
 		if(!place.requires_power || place.teleport_restriction || place.area_flags & HIDDEN_AREA)
 			continue // No expanding powerless rooms etc
+		if(!TURF_SHARES(the_turf)) // No expanding areas of walls/something blocking this turf because that defeats the whole point of them used to separate areas
+			continue
 		if(!isnull(place.apc))
 			apc_map[place.name] = place.apc
 		//If we found just one apc we can just convert that to work for our new area. But 2 or more!! nope

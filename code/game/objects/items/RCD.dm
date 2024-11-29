@@ -926,7 +926,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 						for(var/direction in GLOB.cardinals)
 							var/turf/C = get_step(W, direction)
 							var/list/dupes = checkdupes(C)
-							if(start.can_atmos_pass(C) && !dupes.len)
+							if(TURF_SHARES(C) && !dupes.len)
 								candidates += C
 						if(!candidates.len)
 							to_chat(user, "<span class='warning'>Valid target not found...</span>")

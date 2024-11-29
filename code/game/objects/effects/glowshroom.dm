@@ -84,26 +84,27 @@
 
 /obj/structure/glowshroom/proc/Spread()
 	var/turf/ownturf = get_turf(src)
+	if(!TURF_SHARES(ownturf)) //If we are in a 1x1 room
+		return //Deal with it not now
+
 	var/shrooms_planted = 0
 	for(var/i in 1 to myseed.yield)
 		if(prob(1/(generation * generation) * 100))//This formula gives you diminishing returns based on generation. 100% with 1st gen, decreasing to 25%, 11%, 6, 4, 2...
 			var/list/possibleLocs = list()
-			var/spreadsIntoAdjacent = FALSE
-
-			if(prob(spreadIntoAdjacentChance))
-				spreadsIntoAdjacent = TRUE
 
 			for(var/turf/open/floor/earth in view(3,src))
 				if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 					continue
-				if(!ownturf.can_atmos_pass(earth))
+				if(!TURF_SHARES(earth))
 					continue
-				if(spreadsIntoAdjacent || !locate(/obj/structure/glowshroom) in view(1,earth))
-					possibleLocs += earth
+				possibleLocs += earth
 				CHECK_TICK
 
 			if(!possibleLocs.len)
 				break
+
+			if(!prob(spreadIntoAdjacentChance))
+				return
 
 			var/turf/newLoc = pick(possibleLocs)
 
