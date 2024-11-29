@@ -49947,8 +49947,7 @@
 /area/science/explab)
 "pQZ" = (
 /obj/machinery/cryo_cell{
-	dir = 4;
-	initialize_directions = 4
+	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
@@ -61565,8 +61564,7 @@
 /area/medical/sleeper)
 "tzD" = (
 /obj/machinery/cryo_cell{
-	dir = 4;
-	initialize_directions = 4
+	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
