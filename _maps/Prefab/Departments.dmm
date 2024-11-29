@@ -1130,7 +1130,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -32
 	},
-/obj/machinery/advanced_airlock_controller/directional/west,
 /obj/machinery/vending/wallmed{
 	pixel_y = 32
 	},

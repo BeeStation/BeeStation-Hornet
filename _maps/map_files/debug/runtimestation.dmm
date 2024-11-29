@@ -40,7 +40,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "am" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "an" = (
@@ -61,9 +61,10 @@
 /turf/open/space,
 /area/space/nearstation)
 "ap" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/structure/closet/secure_closet/engineering_electrical{
 	locked = 0
@@ -95,9 +96,10 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -380,7 +382,7 @@
 /area/engine/atmos)
 "bl" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -418,9 +420,10 @@
 /turf/open/floor/iron,
 /area/engine/gravity_generator)
 "bs" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/machinery/rnd/destructive_analyzer,
 /turf/open/floor/iron,
@@ -523,9 +526,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bP" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -757,16 +761,17 @@
 /turf/closed/wall/r_wall,
 /area/construction)
 "cP" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "cQ" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -798,9 +803,10 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "cW" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/structure/cable,
 /obj/machinery/power/apc{
@@ -843,9 +849,10 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "dd" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -1081,7 +1088,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "dS" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/machinery/camera/directional/north,
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -1305,9 +1312,10 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "eG" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_x = -32;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
@@ -1815,9 +1823,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
@@ -1923,9 +1932,10 @@
 	dir = 1;
 	pixel_y = 23
 	},
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_x = 32;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
@@ -2388,9 +2398,10 @@
 /turf/open/floor/iron/white/corner,
 /area/medical/medbay)
 "wS" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -2417,9 +2428,10 @@
 /turf/open/floor/iron,
 /area/bridge)
 "AT" = (
-/obj/machinery/airalarm/unlocked{
+/obj/machinery/airalarm{
 	pixel_y = 23;
-	dir = 1
+	dir = 1;
+	locked = "0"
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -2853,7 +2865,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "XU" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/machinery/light{
 	dir = 1
 	},
