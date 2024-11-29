@@ -78,11 +78,11 @@
 		R.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
 
 /obj/item/borg/upgrade/holy/deactivate(mob/living/silicon/robot/R, user = usr)
-    . = ..()
-    if (.)
-        for (var/datum/component/anti_magic/anti_magic in R.GetComponents(/datum/component/anti_magic))
-            if (anti_magic.source == type)
-                qdel(anti_magic)
+	. = ..()
+	if (.)
+		for (var/datum/component/anti_magic/anti_magic in R.GetComponents(/datum/component/anti_magic))
+			if (anti_magic.source == type)
+				qdel(anti_magic)
 
 //rituals
 
@@ -100,33 +100,33 @@
 	favor_cost = 0
 
 /datum/religion_rites/metal_sacrifice/perform_rite(mob/living/user, atom/religious_tool)
-    for(var/obj/item/stack/sheet/Sheets in get_turf(religious_tool))
-        if(istype(Sheets, /obj/item/stack/sheet/mineral/adamantine))
-            to_chat(user, "<span class='warning'>You cannot offer up adamantine!</span>")
-            return FALSE
-        return ..()
-    return FALSE
+	for(var/obj/item/stack/sheet/Sheets in get_turf(religious_tool))
+		if(istype(Sheets, /obj/item/stack/sheet/mineral/adamantine))
+			to_chat(user, "<span class='warning'>You cannot offer up adamantine!</span>")
+			return FALSE
+		return ..()
+	return FALSE
 
 /datum/religion_rites/metal_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
-    ..()
-    for(var/obj/item/stack/sheet/Sheets in get_turf(religious_tool))
-        if(istype(Sheets, /obj/item/stack/sheet/mineral/adamantine))
-            to_chat(user, "<span class='warning'>You cannot offer up adamantine!</span>")
-            return FALSE
-        chosen_sheet = Sheets
-        if(!QDELETED(chosen_sheet) && get_turf(religious_tool) == chosen_sheet.loc)
-            var/favor_gained = (chosen_sheet.amount * 2)
-            GLOB.religious_sect?.adjust_favor(favor_gained, user)
-            playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
-            to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sheet], leaving drips of molten metal behind. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
-            qdel(chosen_sheet)
-            chosen_sheet = null
-            return TRUE
-        else
-            to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
-            chosen_sheet = null
-            return FALSE
-    to_chat(user, "<span class='notice'>You've exhausted the supply of sheets.</span>")
+	..()
+	for(var/obj/item/stack/sheet/Sheets in get_turf(religious_tool))
+		if(istype(Sheets, /obj/item/stack/sheet/mineral/adamantine))
+			to_chat(user, "<span class='warning'>You cannot offer up adamantine!</span>")
+			return FALSE
+		chosen_sheet = Sheets
+		if(!QDELETED(chosen_sheet) && get_turf(religious_tool) == chosen_sheet.loc)
+			var/favor_gained = (chosen_sheet.amount * 2)
+			GLOB.religious_sect?.adjust_favor(favor_gained, user)
+			playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
+			to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sheet], leaving drips of molten metal behind. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
+			qdel(chosen_sheet)
+			chosen_sheet = null
+			return TRUE
+		else
+			to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
+			chosen_sheet = null
+			return FALSE
+	to_chat(user, "<span class='notice'>You've exhausted the supply of sheets.</span>")
 
 /datum/religion_rites/create_adamantine
 	name = "Create Adamantine"
