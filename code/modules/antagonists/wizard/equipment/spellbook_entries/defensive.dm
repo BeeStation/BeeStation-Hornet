@@ -120,6 +120,7 @@
 	new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
 	new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
 	new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
+	new /obj/item/clothing/suit/space/hardsuit/wizard(get_turf(user))
 
 
 /datum/spellbook_entry/item/battlemage_charge
