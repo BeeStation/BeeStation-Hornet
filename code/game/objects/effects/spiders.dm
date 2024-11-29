@@ -81,11 +81,13 @@
 	// The types of spiders the egg sac can produce by default.
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,)
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,)
 	// The types of spiders the egg sac produces when we proc an enriched spawn
 	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 

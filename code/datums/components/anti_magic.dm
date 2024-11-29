@@ -105,8 +105,8 @@
 
 	register_antimagic_signals(equipper)
 	equipper.update_action_buttons()
-	if(ismob(parent))
-		var/mob/mob_parent = parent
+	var/mob/mob_parent = equipper
+	if(!HAS_TRAIT(equipper, TRAIT_SEE_ANTIMAGIC))
 		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
 		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
 		forbearance.plane = mob_parent.plane

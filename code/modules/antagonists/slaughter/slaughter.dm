@@ -50,13 +50,12 @@
 	loot = list(/obj/effect/decal/cleanable/blood, \
 				/obj/effect/decal/cleanable/blood/innards, \
 				/obj/item/organ/heart/demon)
+	// Keep the people we hug!
+	var/list/consumed_mobs = list()
 	del_on_death = TRUE
 	var/crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	discovery_points = 3000
-
-	// Keep the people we hug!
-	var/list/consumed_mobs = list()
 
 	var/revive_eject = FALSE
 
@@ -102,23 +101,8 @@
 	icon_state = "innards"
 	random_icon_states = null
 
-/mob/living/simple_animal/slaughter/phasein()
-	. = ..()
-	add_movespeed_modifier(/datum/movespeed_modifier/slaughter)
-	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/slaughter, TRUE), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/mob/living/simple_animal/hostile/imp/slaughter/bloodcrawl_swallow(var/mob/living/victim)
-	if(consumed_mobs)
-		// Keep their corpse so rescue is possible
-		consumed_mobs += victim
-	else
-		// Be safe and just eject the corpse
-		victim.forceMove(get_turf(victim))
-		victim.exit_blood_effect()
-		victim.visible_message("[victim] falls out of the air, covered in blood, looking highly confused. And dead.")
 
 
-/mob/living/simple_animal/slaughter/proc/release_friends()
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/organ/heart/demon
@@ -188,9 +172,6 @@
 		prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 	crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny
-
-	// Keep the people we hug!
-	var/list/consumed_mobs = list()
 
 	playstyle_string = "<span class='big bold'>You are a laughter \
 	demon,</span><B> a wonderful creature from another realm. You have a single \

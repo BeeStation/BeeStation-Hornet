@@ -327,3 +327,7 @@
 			continue
 		entries_copy -= entry
 	refunds_allowed = FALSE
+
+/obj/item/spellbook/debug
+	name = "Debug Spellbook"
+	uses = 4096 //enough for everything you may need
