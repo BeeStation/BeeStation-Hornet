@@ -5,7 +5,6 @@
 	button_icon_state = "spread_infestation"
 	chemical_cost = 60
 	dna_cost = 2
-	req_absorbs = 3
 
 //Reskinned monkey - teratoma, will burst out of the host, with the objective to cause chaos.
 /datum/action/changeling/teratoma/sting_action(mob/user)
