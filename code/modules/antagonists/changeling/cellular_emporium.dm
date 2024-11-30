@@ -29,7 +29,6 @@
 	var/can_readapt = changeling.canrespec
 	var/genetic_points_remaining = changeling.geneticpoints
 	var/absorbed_dna_count = changeling.absorbedcount
-	var/true_absorbs = changeling.trueabsorbs
 
 	data["can_readapt"] = can_readapt
 	data["genetic_points_remaining"] = genetic_points_remaining
