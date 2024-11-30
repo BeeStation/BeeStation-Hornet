@@ -2418,9 +2418,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "fL" = (
-/obj/machinery/air_sensor{
-	id_tag = "o2_sensor_bunker"
-	},
+/obj/machinery/air_sensor,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
 "fM" = (
@@ -2765,12 +2763,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/space/has_grav/deepstorage/power)
-"gD" = (
-/obj/machinery/air_sensor{
-	id_tag = "n2_sensor_bunker"
-	},
-/turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
 "gE" = (
 /obj/machinery/atmospherics/miner/nitrogen,
@@ -4993,7 +4985,7 @@ fL
 gd
 fp
 gv
-gD
+fL
 gP
 fp
 ab

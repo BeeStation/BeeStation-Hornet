@@ -101,10 +101,7 @@
 /turf/open/floor/iron/white/side,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "bv" = (
-/obj/machinery/air_sensor{
-	frequency = 1442;
-	id_tag = "Syndicate_Construction_o2_sensor"
-	},
+/obj/machinery/air_sensor,
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bA" = (
@@ -1620,10 +1617,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "pK" = (
-/obj/machinery/air_sensor{
-	frequency = 1442;
-	id_tag = "syndie_lavaland_n2_sensor"
-	},
+/obj/machinery/air_sensor,
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "pM" = (
@@ -2426,10 +2420,7 @@
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yA" = (
-/obj/machinery/air_sensor{
-	frequency = 1442;
-	id_tag = "syndie_lavaland_tox_sensor"
-	},
+/obj/machinery/air_sensor,
 /turf/open/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yG" = (
