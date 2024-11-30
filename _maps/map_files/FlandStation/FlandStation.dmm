@@ -18998,7 +18998,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
 	dir = 8
 	},
-/obj/machinery/meter/atmos/atmos_waste_loop,
+/obj/machinery/meter/monitored/waste_loop,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
@@ -36651,7 +36651,7 @@
 /area/tcommsat/computer)
 "jrY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible,
-/obj/machinery/meter/atmos/atmos_waste_loop,
+/obj/machinery/meter/monitored/waste_loop,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
@@ -58538,7 +58538,7 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/aft)
 "oZZ" = (
-/obj/machinery/air_sensor/toxins_mixing_tank{
+/obj/machinery/air_sensor/toxins_burn_chamber{
 	pixel_x = 25
 	},
 /obj/machinery/igniter/incinerator_toxmix,

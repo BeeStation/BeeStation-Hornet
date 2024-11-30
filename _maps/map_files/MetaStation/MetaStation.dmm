@@ -26271,7 +26271,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
 	dir = 8
 	},
-/obj/machinery/meter/atmos/atmos_waste_loop,
+/obj/machinery/meter/monitored/waste_loop,
 /obj/machinery/atmospherics/components/binary/pump/layer2{
 	dir = 1;
 	name = "Distro to Waste"
@@ -74671,7 +74671,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "wLZ" = (
-/obj/machinery/air_sensor/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_burn_chamber,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "wMy" = (

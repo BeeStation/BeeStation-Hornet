@@ -5114,7 +5114,7 @@
 	},
 /area/maintenance/port/fore)
 "bbt" = (
-/obj/machinery/air_sensor/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_burn_chamber,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)

@@ -2,6 +2,7 @@
 /obj/machinery/atmospherics/components/unary/tank/@SUBTYPES : /obj/machinery/atmospherics/components/tank/@SUBTYPES{@OLD}
 /obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
 /obj/machinery/air_sensor/atmos/@SUBTYPES: /obj/machinery/air_sensor/@SUBTYPES{@OLD;frequency=@SKIP;id_tag=@SKIP}
+/obj/machinery/air_sensor/toxins_mixing_tank: /obj/machinery/air_sensor/toxins_burn_chamber{@OLD;frequency=@SKIP;id_tag=@SKIP}
 /obj/machinery/portable_atmospherics/canister/proto : @DELETE
 /obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{filter_type = "n2"} : /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{@OLD; filter_type = list(/datum/gas/nitrogen)}
@@ -86,3 +87,5 @@
 
 #Updates cryo cells pathing by removing the atmosmachinery path
 /obj/machinery/atmospherics/components/unary/cryo_cell : /obj/machinery/cryo_cell{@OLD,initialize_directions=@SKIP}
+
+/obj/machinery/meter/atmos/atmos_waste_loop : /obj/machinery/meter/monitored/waste_loop{@OLD}

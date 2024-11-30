@@ -32309,7 +32309,7 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "exE" = (
-/obj/machinery/air_sensor/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_burn_chamber,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "exO" = (
@@ -65826,7 +65826,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/meter/atmos/atmos_waste_loop,
+/obj/machinery/meter/monitored/waste_loop,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4

@@ -14956,7 +14956,7 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "eMp" = (
-/obj/machinery/air_sensor/toxins_mixing_tank,
+/obj/machinery/air_sensor/toxins_burn_chamber,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "eMt" = (

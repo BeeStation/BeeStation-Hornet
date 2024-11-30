@@ -326,7 +326,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 /obj/structure/window/Destroy()
 	air_update_turf(TRUE, FALSE)
-	air_update_turf(1)
 	update_nearby_icons()
 	return ..()
 
