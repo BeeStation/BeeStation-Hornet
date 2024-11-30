@@ -148,6 +148,10 @@ All ShuttleMove procs go here
 	return TRUE
 
 /atom/movable/proc/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
+	blocks_air = initial(blocks_air)
+	air_update_turf(TRUE, blocks_air)
+	oldT.blocks_air = initial(oldT.blocks_air)
+	oldT.air_update_turf(TRUE, oldT.blocks_air)
 	if(!movement_force || anchored)
 		return
 	var/throw_force = movement_force["THROW"]
