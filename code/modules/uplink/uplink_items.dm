@@ -697,8 +697,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/dangerous/derringer
 	name = "'Infiltrator' Coat Pistol"
-	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered in .38-special. Compatible with \
-			standard production NT speed loaders. Loaded with .38 Match ammunition and includes a spare speedloader."
+	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered with highly powerful .357 rounds. \
+		It's small ammo capacity and difficult to obtain ammo make it poor at prolonged engagements, but it's saved the lives of \
+		many agents that find themselves in sticky situations."
 	item = /obj/item/storage/box/syndie_kit/derringer
 	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
