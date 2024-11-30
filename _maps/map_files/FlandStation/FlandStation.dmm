@@ -28098,9 +28098,6 @@
 /turf/open/floor/iron/tech,
 /area/bridge)
 "hgA" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -28114,6 +28111,9 @@
 /obj/effect/landmark/start/assistant,
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -46657,9 +46657,6 @@
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "lNe" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -46672,6 +46669,9 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -53698,9 +53698,6 @@
 /turf/open/floor/iron,
 /area/medical/break_room)
 "nGN" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -53714,6 +53711,9 @@
 /obj/effect/landmark/blobstart,
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
