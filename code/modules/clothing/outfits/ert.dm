@@ -1,12 +1,12 @@
 /datum/outfit/centcom
 	name = "CentCom Base"
 
-/datum/outfit/centcom/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/post_equip(mob/living/carbon/human/centcom_member, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)//hmm lets have centcom officials become revs
-	L.implant(H, null, 1)
+	var/obj/item/implant/mindshield/mindshield = new /obj/item/implant/mindshield(centcom_member)//hmm lets have centcom officials become revs
+	mindshield.implant(centcom_member, null, silent = TRUE)
 
 /datum/outfit/centcom/ert
 	name = "ERT Common"
@@ -175,7 +175,7 @@
 	l_hand = /obj/item/construction/rcd/combat
 
 
-/datum/outfit/centcom_official
+/datum/outfit/centcom/centcom_official
 	name = JOB_CENTCOM_OFFICIAL
 
 	id = /obj/item/card/id/centcom
@@ -195,7 +195,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
 
-/datum/outfit/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
@@ -276,7 +276,6 @@
 		)
 	belt = /obj/item/storage/belt/soulstone/full/chappy
 
-
 /datum/outfit/centcom/ert/janitor
 	name = "ERT Janitor"
 
@@ -335,7 +334,7 @@
 	R.keyslot = new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 
-/datum/outfit/centcom_attorney
+/datum/outfit/centcom/centcom_attorney
 	name = "CentCom Attorney"
 
 	uniform = /obj/item/clothing/under/rank/centcom/intern
@@ -351,7 +350,7 @@
 	id = /obj/item/card/id/ert/lawyer
 	backpack_contents = list(/obj/item/storage/box/survival = 1)
 
-/datum/outfit/centcom_intern
+/datum/outfit/centcom/centcom_intern
 	name = "CentCom Intern"
 
 	uniform = /obj/item/clothing/under/rank/centcom/intern
@@ -367,7 +366,7 @@
 	id = /obj/item/card/id/centcom
 	backpack_contents = list(/obj/item/storage/box/survival = 1)
 
-/datum/outfit/centcom_intern/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/centcom_intern/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
@@ -379,7 +378,14 @@
 	W.registered_name = H.real_name
 	W.update_label()
 
-/datum/outfit/centcom_intern/leader
+/datum/outfit/centcom/centcom_intern/unarmed
+	name = "CentCom Intern (Unarmed)"
+	belt = null
+	l_hand = null
+	l_pocket = null
+	r_pocket = null
+
+/datum/outfit/centcom/centcom_intern/leader
 	name = "CentCom Head Intern"
 	belt = /obj/item/melee/baton/loaded
 	uniform = /obj/item/clothing/under/rank/centcom/officer_skirt
@@ -388,7 +394,13 @@
 	l_hand = /obj/item/megaphone
 	head = /obj/item/clothing/head/hats/intern
 
-/datum/outfit/centcom_clown
+/datum/outfit/centcom/centcom_intern/leader/unarmed // i'll be nice and let the leader keep their baton and vest
+	name = "CentCom Head Intern (Unarmed)"
+	suit_store = null
+	l_pocket = null
+	r_pocket = null
+
+/datum/outfit/centcom/centcom_clown
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
 	belt = /obj/item/modular_computer/tablet/pda/clown
@@ -409,12 +421,9 @@
 	implants = list(/obj/item/implant/sad_trombone)
 
 
-/datum/outfit/centcom_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/centcom_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
-
-	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
-	L.implant(H, null, 1)
 
 	var/obj/item/radio/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
@@ -428,7 +437,7 @@
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(CLOWNMUT)
 
-/datum/outfit/centcom_clown/honk_squad
+/datum/outfit/centcom/centcom_clown/honk_squad
 	name = "HONK Squad Trooper"
 	back = /obj/item/storage/backpack/holding/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes/taeclowndo
@@ -446,7 +455,7 @@
 		/obj/item/reagent_containers/spray/chemsprayer/janitor/clown = 1,
 	)
 
-/datum/outfit/death_commando
+/datum/outfit/centcom/death_commando
 	name = JOB_ERT_DEATHSQUAD
 
 	id = /obj/item/card/id/centcom
@@ -479,10 +488,6 @@
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
-	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)//Here you go Deuryn
-	L.implant(H, null, 1)
-
-
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = list() //wipe access first
@@ -492,7 +497,7 @@
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
 
-/datum/outfit/death_commando/officer
+/datum/outfit/centcom/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
 	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
@@ -503,7 +508,7 @@
 		/obj/item/grenade/plastic/x4=1,
 		/obj/item/door_remote/omni=1)
 
-/datum/outfit/death_commando/doomguy
+/datum/outfit/centcom/death_commando/doomguy
 	name = "The Juggernaut"
 
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/doomguy

@@ -20,7 +20,7 @@
 /savefile/byond_version = MIN_COMPILER_VERSION
 #endif
 
-#if defined(FASTDMM) || defined(CIBUILDING)
+#if defined(FASTDMM) || defined(CIBUILDING) || defined(SPACEMAN_DMM)
 #define YES_I_WANT_515
 #endif
 // Temporary 515 block until it is completely compatible.
