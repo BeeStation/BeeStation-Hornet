@@ -152,7 +152,7 @@
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	force = 20 //this is an undroppable melee weapon. should not be better than the fireaxe
+	force = 30
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
@@ -161,7 +161,7 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
-	bleed_force = BLEED_CUT
+	bleed_force = BLEED_DEEP_WOUND
 	var/can_drop = FALSE
 	var/fake = FALSE
 
