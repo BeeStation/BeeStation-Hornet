@@ -1,0 +1,5 @@
+author: rkz, Fikou
+delete-after: true
+changes:
+  - refactor: refactored pkas and ebows. There should be no discernable behavior changes.
+  - tweak: changes the empty chamber gun alert to be more succinct
