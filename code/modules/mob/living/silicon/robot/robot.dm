@@ -519,26 +519,19 @@
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
 			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
-		else if(!src.module && U.require_module)
+			return
+		if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
-		else if(U.locked)
+			return
+		if(U.locked)
 			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
-		else
-			if(!user.temporarilyRemoveItemFromInventory(U))
-				return
-			if(U.action(src))
-				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
-				to_chat(src, "----------------\nNew hardware detected...Identified as \"<b>[U]</b>\"...Setup complete.\n----------------")
-				if(U.one_use)
-					qdel(U)
-					logevent("Firmware [U] run successfully.")
-				else
-					U.forceMove(src)
-					upgrades += U
-					logevent("Hardware [U] installed successfully.")
-			else
-				to_chat(user, "<span class='danger'>Upgrade error.</span>")
-				U.forceMove(drop_location())
+			return
+		if(!user.canUnEquip(U))
+			to_chat(user, "<span class='warning'>The upgrade is stuck to you and you can't seem to let go of it!</span>")
+			return
+		add_to_upgrades(U, user)
+		return
+
 	else if(istype(W, /obj/item/toner))
 		if(toner >= tonermax)
 			to_chat(user, "<span class='warning'>The toner level of [src] is at its highest level possible!</span>")
@@ -1080,10 +1073,7 @@
 
 	// Remove upgrades.
 	for(var/obj/item/borg/upgrade/I in upgrades)
-		I.deactivate(src)
 		I.forceMove(get_turf(src))
-
-	upgrades.Cut()
 
 	speed = 0
 	ionpulse = FALSE
@@ -1137,8 +1127,45 @@
 /mob/living/silicon/robot/Exited(atom/A)
 	if(hat && hat == A)
 		hat = null
-	update_icons()
-	. = ..()
+		if(!QDELETED(src)) //Don't update icons if we are deleted.
+			update_icons()
+	return ..()
+
+///Use this to add upgrades to robots. It'll register signals for when the upgrade is moved or deleted, if not single use.
+/mob/living/silicon/robot/proc/add_to_upgrades(obj/item/borg/upgrade/new_upgrade, mob/user)
+	if(new_upgrade in upgrades)
+		return
+	if(!new_upgrade.action(src, user))
+		to_chat(user, "<span class='danger'>Upgrade error.</span>")
+		return FALSE
+	to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
+	to_chat(src, "----------------\nNew hardware detected...Identified as \"<b>[new_upgrade]</b>\"...Setup complete.\n----------------")
+	if(new_upgrade.one_use)
+		logevent("Firmware [new_upgrade] run successfully.")
+		qdel(new_upgrade)
+		return FALSE
+	upgrades += new_upgrade
+	new_upgrade.forceMove(src)
+	RegisterSignal(new_upgrade, COMSIG_MOVABLE_MOVED, .proc/remove_from_upgrades)
+	RegisterSignal(new_upgrade, COMSIG_PARENT_QDELETING, .proc/on_upgrade_deleted)
+	logevent("Hardware [new_upgrade] installed successfully.")
+
+///Called when an upgrade is moved outside the robot. So don't call this directly, use forceMove etc.
+/mob/living/silicon/robot/proc/remove_from_upgrades(obj/item/borg/upgrade/old_upgrade)
+	SIGNAL_HANDLER
+	if(loc == src)
+		return
+	old_upgrade.deactivate(src)
+	upgrades -= old_upgrade
+	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+
+///Called when an applied upgrade is deleted.
+/mob/living/silicon/robot/proc/on_upgrade_deleted(obj/item/borg/upgrade/old_upgrade)
+	SIGNAL_HANDLER
+	if(!QDELETED(src))
+		old_upgrade.deactivate(src)
+	upgrades -= old_upgrade
+	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	if(!board)

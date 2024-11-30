@@ -141,7 +141,7 @@
 	. += "<span class='notice'>Field repairs can be performed with a welder.</span>"
 	if(stored_pka && stored_pka.max_mod_capacity)
 		. += "<span class='notice'>\The [stored_pka] has <b>[stored_pka.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
-		for(var/A as anything in stored_pka.get_modkits())
+		for(var/A as anything in stored_pka.modkits)
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
 	if(stored_cutter)
@@ -327,7 +327,7 @@
 	if(istype(mover, /obj/projectile/kinetic))
 		var/obj/projectile/kinetic/kinetic_proj = mover
 		if(kinetic_proj.kinetic_gun)
-			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
+			for(var/A as anything in kinetic_proj.kinetic_gun.modkits)
 				var/obj/item/borg/upgrade/modkit/modkit = A
 				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
