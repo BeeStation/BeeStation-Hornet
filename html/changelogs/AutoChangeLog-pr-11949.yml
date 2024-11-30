@@ -1,0 +1,8 @@
+author: Absolucy, Aylong
+delete-after: true
+changes:
+  - tweak: Chat notifications are now at the top.
+  - rscadd: Added Mute button into Chat Tabs settings, it disables tab unread counter.
+  - rscadd: Added Clear chat button into General settings, you can clear your dirty
+      chat like you did it before TGchat.
+  - bugfix: Case-sensitive highlighting now works properly.
