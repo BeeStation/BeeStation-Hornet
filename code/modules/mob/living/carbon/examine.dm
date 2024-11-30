@@ -133,4 +133,3 @@
 			if(MOOD_LEVEL_HAPPY4 to INFINITY)
 				. += "[t_He] look[p_s()] ecstatic."
 	. += "</span>"
-	. = ..()
