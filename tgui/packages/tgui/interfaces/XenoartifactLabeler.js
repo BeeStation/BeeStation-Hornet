@@ -55,7 +55,7 @@ const XenoartifactlabelerTraits = (props, context) => {
   let filtered_malfs = sorted_malfs.filter((n) => !filtered_traits.includes(n));
 
   return (
-    <Box px={1} grow={1} overflowY="auto" height="425px" width="150px">
+    <Box px={1} overflowY="scroll" height="72vh" width="150px">
       <Section title="Activator Traits">
         <Box>
           {filtered_activators.map((trait) => (
@@ -95,7 +95,7 @@ const XenoartifactlabelerInfo = (props, context) => {
   const { act, data } = useBackend(context);
   const { selected_traits, labeler_traits_filter } = data;
   return (
-    <Box px={1} overflowY="auto" height="425px">
+    <Box px={1} overflowY="auto" height="72vh">
       {selected_traits.map((info) => (
         <XenoartifactlabelerGenerateInfo info={info} key={info} />
       ))}
