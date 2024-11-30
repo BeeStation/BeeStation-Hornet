@@ -3,6 +3,7 @@
 /obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
 /obj/machinery/air_sensor/atmos/@SUBTYPES: /obj/machinery/air_sensor/@SUBTYPES{@OLD;frequency=@SKIP;id_tag=@SKIP}
 /obj/machinery/air_sensor/toxins_mixing_tank: /obj/machinery/air_sensor/toxins_burn_chamber{@OLD;frequency=@SKIP;id_tag=@SKIP}
+/obj/machinery/air_sensor/@SUBTYPES : /obj/machinery/air_sensor/@SUBTYPES{@OLD;frequency=@SKIP;id_tag=@SKIP}
 /obj/machinery/portable_atmospherics/canister/proto : @DELETE
 /obj/machinery/embedded_controller/radio/airlock_controller/@SUBTYPES : /obj/machinery/airlock_controller/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{filter_type = "n2"} : /obj/machinery/atmospherics/components/trinary/filter/@SUBTYPES{@OLD; filter_type = list(/datum/gas/nitrogen)}
