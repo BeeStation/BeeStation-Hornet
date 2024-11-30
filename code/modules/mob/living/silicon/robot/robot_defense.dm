@@ -59,8 +59,8 @@
 		if(cell)
 			cell.update_icon()
 			cell.add_fingerprint(user)
-			user.put_in_active_hand(cell)
 			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
+			user.put_in_active_hand(cell)
 			cell = null
 			update_icons()
 			diag_hud_set_borgcell()

@@ -550,7 +550,7 @@
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		if(R.shell)
+		if(locate(/obj/item/borg/upgrade/ai) in R.upgrades)
 			to_chat(user, "<span class='warning'>This unit is already an AI shell!</span>")
 			return FALSE
 		if(R.key) //You cannot replace a player unless the key is completely removed.
