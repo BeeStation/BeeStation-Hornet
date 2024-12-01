@@ -281,7 +281,7 @@
 				if(!HAS_TRAIT_FROM(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 					to_chat(M, "<span class='large_brass'>You feel the light fading and the world collapsing around you...</span>")
 					ADD_TRAIT(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		if(iscultist(M) && prob(20))
+		if(iscultist(M) && DT_PROB(10, delta_time))
 			M.say(pick("Av'te Nar'Sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","R'ge Na'sie","Diabo us Vo'iscum","Eld' Mon Nobis"), forced = "holy water")
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
@@ -512,14 +512,14 @@
 									"You feel as though you're about to change at any moment!" = MUT_MSG_ABOUT2TURN)
 	var/cycles_to_turn = 20 //the current_cycle threshold / iterations needed before one can transform
 
-/datum/reagent/mutationtoxin/on_mob_life(mob/living/carbon/human/H)
+/datum/reagent/mutationtoxin/on_mob_life(mob/living/carbon/human/H, delta_time, times_fired)
 	. = TRUE
 	if(!istype(H))
 		return
 	if(!(H.dna?.species) || !(H.mob_biotypes & MOB_ORGANIC))
 		return
 
-	if(prob(10))
+	if(DT_PROB(5, delta_time))
 		var/list/pick_ur_fav = list()
 		var/filter = NONE
 		if(current_cycle <= (cycles_to_turn*0.3))
@@ -726,7 +726,7 @@
 	metabolization_rate = INFINITY
 	taste_description = "slime"
 
-/datum/reagent/mulligan/on_mob_life(mob/living/carbon/human/H)
+/datum/reagent/mulligan/on_mob_life(mob/living/carbon/human/H, delta_time, times_fired)
 	..()
 	if (!istype(H))
 		return
@@ -763,9 +763,9 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
 
-/datum/reagent/serotrotium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/serotrotium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(ishuman(M))
-		if(prob(7))
+		if(DT_PROB(3.5, delta_time))
 			M.emote(pick("twitch","drool","moan","gasp"))
 	..()
 
@@ -852,12 +852,12 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_mult = 0 // apparently tasteless.
 
-/datum/reagent/mercury/on_mob_life(mob/living/carbon/M)
+/datum/reagent/mercury/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc))
 		step(M, pick(GLOB.cardinals))
-	if(prob(5))
+	if(DT_PROB(3.5, delta_time))
 		M.emote(pick("twitch","drool","moan"))
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5*delta_time)
 	..()
 
 /datum/reagent/sulfur
@@ -890,9 +890,9 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "chlorine"
 
-/datum/reagent/chlorine/on_mob_life(mob/living/carbon/M)
-	M.take_bodypart_damage(1*REM, 0, 0, 0)
-	. = 1
+/datum/reagent/chlorine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.take_bodypart_damage(0.5*REM*delta_time, 0, 0, 0)
+	. = TRUE
 	..()
 
 /datum/reagent/fluorine
@@ -904,9 +904,9 @@
 	taste_description = "acid"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/fluorine/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(1*REM, 0)
-	. = 1
+/datum/reagent/fluorine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustToxLoss(0.5*REM*delta_time, 0)
+	. = TRUE
 	..()
 
 /datum/reagent/sodium
@@ -933,10 +933,10 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because it is fun
 	taste_description = "metal"
 
-/datum/reagent/lithium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/lithium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc) && isturf(M.loc))
 		step(M, pick(GLOB.cardinals))
-	if(prob(5))
+	if(DT_PROB(2.5, delta_time))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
@@ -971,9 +971,9 @@
 	taste_description = "iron"
 
 
-/datum/reagent/iron/on_mob_life(mob/living/carbon/C)
+/datum/reagent/iron/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	if(C.blood_volume < BLOOD_VOLUME_NORMAL)
-		C.blood_volume += 0.5
+		C.blood_volume += 0.25 * delta_time
 	..()
 
 /datum/reagent/gold
@@ -999,11 +999,11 @@
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the inside of a reactor"
-	var/irradiation_level = 1
+	var/irradiation_level = 0.5*REM
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/uranium/on_mob_life(mob/living/carbon/M)
-	M.apply_effect(irradiation_level/M.metabolism_efficiency,EFFECT_IRRADIATE,0)
+/datum/reagent/uranium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.apply_effect(irradiation_level*delta_time/M.metabolism_efficiency, EFFECT_IRRADIATE,0)
 	..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, reac_volume)
@@ -1022,7 +1022,7 @@
 	color = "#C7C7C7" // rgb: 199,199,199
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "the colour blue and regret"
-	irradiation_level = 2*REM
+	irradiation_level = 1*REM
 	process_flags = ORGANIC | SYNTHETIC
 
 
@@ -1040,8 +1040,8 @@
 		do_teleport(M, get_turf(M), (reac_volume / 5), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE) //4 tiles per crystal
 	..()
 
-/datum/reagent/bluespace/on_mob_life(mob/living/carbon/M)
-	if(current_cycle > 10 && prob(15))
+/datum/reagent/bluespace/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(current_cycle > 10 && DT_PROB(7.5, delta_time))
 		to_chat(M, "<span class='warning'>You feel unstable...</span>")
 		M.Jitter(2)
 		current_cycle = 1
@@ -1087,8 +1087,8 @@
 		return
 	..()
 
-/datum/reagent/fuel/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(1, 0)
+/datum/reagent/fuel/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustToxLoss(0.5*delta_time, 0)
 	..()
 	return TRUE
 
@@ -1138,10 +1138,10 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "acid"
 
-/datum/reagent/space_cleaner/ez_clean/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(3.33)
-	M.adjustFireLoss(3.33)
-	M.adjustToxLoss(3.33)
+/datum/reagent/space_cleaner/ez_clean/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustBruteLoss(1.665*delta_time)
+	M.adjustFireLoss(1.665*delta_time)
+	M.adjustToxLoss(1.665*delta_time)
 	..()
 
 /datum/reagent/space_cleaner/ez_clean/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -1158,7 +1158,7 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "sourness"
 
-/datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/M)
+/datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.Dizzy(1)
 	if(!M.confused)
 		M.confused = 1
@@ -1172,13 +1172,13 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "numbness"
 
-/datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
-	M.jitteriness = max(M.jitteriness-5,0)
-	if(prob(80))
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM)
-	if(prob(50))
+/datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.jitteriness = max(M.jitteriness - (2.5*delta_time),0)
+	if(DT_PROB(55, delta_time))
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+	if(DT_PROB(30, delta_time))
 		M.drowsyness = max(M.drowsyness, 3)
-	if(prob(10))
+	if(DT_PROB(5, delta_time))
 		M.emote("drool")
 	..()
 
@@ -1309,12 +1309,12 @@
 	if(method == VAPOR)
 		M.drowsyness += max(round(reac_volume, 1), 2)
 
-/datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M)
-	M.drowsyness += 2
+/datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.drowsyness += 2 * REM * delta_time
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.blood_volume = max(H.blood_volume - 10, 0)
-	if(prob(20))
+		H.blood_volume = max(H.blood_volume - (10 * REM * delta_time), 0)
+	if(DT_PROB(10, delta_time))
 		M.losebreath += 2
 		M.confused = min(M.confused + 2, 5)
 	..()
@@ -1348,8 +1348,8 @@
 	L.visible_message("<span class='warning'>You can feel your brief high wearing off</span>")
 	..()
 
-/datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
-	M.adjustStaminaLoss(-2*REM, 0)
+/datum/reagent/stimulum/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustStaminaLoss(-2 * REM * delta_time, 0)
 	if(M.losebreath <= 10)
 		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
@@ -1502,32 +1502,31 @@
 	var/tox_prob = 0
 	taste_description = "plant food"
 
-/datum/reagent/plantnutriment/on_mob_life(mob/living/carbon/M)
-	if(prob(tox_prob))
-		M.adjustToxLoss(1*REM, 0)
-		. = 1
+/datum/reagent/plantnutriment/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(tox_prob, delta_time))
+		M.adjustToxLoss(1, 0)
+		. = TRUE
 	..()
-
 /datum/reagent/plantnutriment/eznutriment
 	name = "E-Z-Nutrient"
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	tox_prob = 10
+	tox_prob = 5
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	tox_prob = 25
+	tox_prob = 13
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	tox_prob = 15
+	tox_prob = 8
 
 
 
@@ -1560,8 +1559,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 
-/datum/reagent/stable_plasma/on_mob_life(mob/living/carbon/C)
-	C.adjustPlasma(10)
+/datum/reagent/stable_plasma/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	C.adjustPlasma(10 * REM * delta_time)
 	..()
 
 /datum/reagent/iodine
@@ -1640,18 +1639,18 @@
 	name = "Royal Carpet?"
 	description = "For those that break the game and need to make an issue report."
 
-/datum/reagent/carpet/royal/on_mob_life(mob/living/carbon/M)
+/datum/reagent/carpet/royal/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	. = ..()
 	if(!M.mind?.assigned_role)
 		return
 	switch(M.mind.assigned_role)
 		if("Chief Medical Officer", "Captain", "Chief Engineer", "Research Director", "Head of Personnel")
-			if(prob(10))
+			if(DT_PROB(5, delta_time))
 				to_chat(M, "You feel like royalty.")
-			if(prob(5))
+			if(DT_PROB(2.5, delta_time))
 				M.say(pick("Peasants..","This carpet is worth more than your contracts!","I could fire you at any time..."), forced = "royal carpet")
 		if("Quartermaster")
-			if(prob(15))
+			if(DT_PROB(8, delta_time))
 				to_chat(M, "You feel like an impostor...")
 
 /datum/reagent/carpet/royal/black
@@ -1711,7 +1710,7 @@
 	var/can_colour_mobs = TRUE
 
 
-/datum/reagent/colorful_reagent/on_mob_life(mob/living/carbon/M)
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(can_colour_mobs)
 		M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
 	return ..()
@@ -1930,8 +1929,8 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "strange honey"
 
-/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/carbon/M)
-	if(prob(2))
+/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(1, delta_time))
 		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."), forced = "royal bee jelly")
 	..()
 
@@ -1964,7 +1963,7 @@
 	color = "#00f041"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/magillitis/on_mob_life(mob/living/carbon/M)
+/datum/reagent/magillitis/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	..()
 	if((ismonkey(M) || ishuman(M)) && current_cycle >= 10)
 		M.gorillize()
@@ -1977,7 +1976,7 @@
 	var/current_size = RESIZE_DEFAULT_SIZE
 	taste_description = "bitterness" // apparently what viagra tastes like
 
-/datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
+/datum/reagent/growthserum/on_mob_life(mob/living/carbon/H, delta_time, times_fired)
 	var/newsize = current_size
 	switch(volume)
 		if(0 to 19)
@@ -2072,12 +2071,12 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "dizziness"
 
-/datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/M)
+/datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.confused < 6)
-		M.confused = clamp(M.confused + 3, 0, 5)
+		M.confused = clamp(M.confused + (3 * REM * delta_time), 0, 5)
 	if(M.dizziness < 6)
-		M.dizziness = clamp(M.dizziness + 3, 0, 5)
-	if(prob(20))
+		M.dizziness = clamp(M.dizziness + (3 * REM * delta_time), 0, 5)
+	if(DT_PROB(10, delta_time))
 		to_chat(M, "You feel confused and disorientated.")
 	..()
 
@@ -2105,11 +2104,11 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "tiredness"
 
-/datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/M)
-	var/healthcomp = (100 - M.health)	//DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
+/datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	var/healthcomp = (100 - M.health) //DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
 	if(M.getStaminaLoss() < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
-		M.adjustStaminaLoss(10)
-	if(prob(30))
+		M.adjustStaminaLoss(10 * REM * delta_time)
+	if(DT_PROB(16, delta_time))
 		to_chat(M, "You should sit down and take a rest...")
 	..()
 
@@ -2150,25 +2149,25 @@
 	taste_description = "Ag'hsj'saje'sh"
 	color = "#1f8016"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 2.5 * REAGENTS_METABOLISM  //1u/tick
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM //0.5u/second
 
-/datum/reagent/eldritch/on_mob_life(mob/living/carbon/M)
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(IS_HERETIC(M))
-		M.drowsyness = max(M.drowsyness-5, 0)
-		M.AdjustAllImmobility(-40)
-		M.adjustStaminaLoss(-10, FALSE)
-		M.adjustToxLoss(-2, FALSE)
-		M.adjustOxyLoss(-2, FALSE)
-		M.adjustBruteLoss(-2, FALSE)
-		M.adjustFireLoss(-2, FALSE)
+		M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
+		M.AdjustAllImmobility(-40 * REM * delta_time)
+		M.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
+		M.adjustToxLoss(-2 * REM * delta_time, FALSE)
+		M.adjustOxyLoss(-2 * REM * delta_time, FALSE)
+		M.adjustBruteLoss(-2 * REM * delta_time, FALSE)
+		M.adjustFireLoss(-2 * REM * delta_time, FALSE)
 		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume += 3
+			M.blood_volume += 3 * REM * delta_time
 	else
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
-		M.adjustToxLoss(2, FALSE)
-		M.adjustFireLoss(2, FALSE)
-		M.adjustOxyLoss(2, FALSE)
-		M.adjustBruteLoss(2, FALSE)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		M.adjustToxLoss(2 * REM * delta_time, FALSE)
+		M.adjustFireLoss(2 * REM * delta_time, FALSE)
+		M.adjustOxyLoss(2 * REM * delta_time, FALSE)
+		M.adjustBruteLoss(2 * REM * delta_time, FALSE)
 	..()
 	return TRUE
 
@@ -2185,8 +2184,8 @@
 	M.set_light(2)
 	..()
 
-/datum/reagent/consumable/ratlight/on_mob_life(mob/living/carbon/M)
-	if(prob(10))
+/datum/reagent/consumable/ratlight/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(5, delta_time))
 		playsound(M, "scripture_tier_up", 50, 1)
 	..()
 

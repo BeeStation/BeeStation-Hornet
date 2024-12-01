@@ -357,7 +357,7 @@
 	// The air you breathe out should match your body temperature
 	breath.set_temperature(H.bodytemperature)
 
-/obj/item/organ/lungs/on_life()
+/obj/item/organ/lungs/on_life(delta_time, times_fired)
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
 		if(owner.stat == CONSCIOUS)

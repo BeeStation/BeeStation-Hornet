@@ -166,7 +166,7 @@
 		Feedstop()
 		return
 
-	if(DT_PROB(5, delta_time) && C.client)
+	if(DT_PROB(5, delta_time) && M.client)
 		to_chat(M, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
 		"You feel like you're about to die!", \
 		"You feel every part of your body screaming in agony!", \
@@ -186,7 +186,7 @@
 	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-2.5 * delta_time)
 
-/mob/living/simple_animal/slime/proc/handle_nutrition()
+/mob/living/simple_animal/slime/proc/handle_nutrition(delta_time, times_fired)
 	if(docile) //God as my witness, I will never go hungry again
 		set_nutrition(700) //fuck you for using the base nutrition var
 		return

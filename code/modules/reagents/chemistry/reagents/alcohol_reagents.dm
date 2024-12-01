@@ -1377,7 +1377,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.slurring += 3 * REM * delta_time
 		if(45 to 55)
 			if(DT_PROB(30, delta_time))
-				M.set_confusion(max(M.get_confusion() + 3, 0))
+				M.confused = max(M.confused + 3, 0)
 		if(55 to 200)
 			M.set_drugginess(55 * REM * delta_time)
 		if(200 to INFINITY)
@@ -2181,7 +2181,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			if(metabolizer.age > 100)
 				metabolizer.become_nearsighted(type)
 				if(metabolizer.gender == MALE)
-					metabolizer.facial_hairstyle = "Beard (Very Long)"
+					metabolizer.facial_hair_style = "Beard (Very Long)"
 					metabolizer.update_hair()
 
 				if(metabolizer.age > 969) //Best not let people get older than this or i might incur G-ds wrath

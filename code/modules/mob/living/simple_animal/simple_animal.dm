@@ -345,9 +345,9 @@
 
 /mob/living/simple_animal/proc/handle_temperature_damage(delta_time, times_fired)
 	. = FALSE
-	if((bodytemperature < minbodytemp) && unsuitable_cold_damage)
-		adjustHealth(unsuitable_cold_damage * delta_time)
-		switch(unsuitable_cold_damage)
+	if((bodytemperature < minbodytemp) && unsuitable_atmos_damage)
+		adjustHealth(unsuitable_atmos_damage * delta_time)
+		switch(unsuitable_atmos_damage)
 			if(1 to 5)
 				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
 			if(5 to 10)
@@ -356,9 +356,9 @@
 				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 		. = TRUE
 
-	if((bodytemperature > maxbodytemp) && unsuitable_heat_damage)
-		adjustHealth(unsuitable_heat_damage * delta_time)
-		switch(unsuitable_heat_damage)
+	if((bodytemperature > maxbodytemp) && unsuitable_atmos_damage)
+		adjustHealth(unsuitable_atmos_damage * delta_time)
+		switch(unsuitable_atmos_damage)
 			if(1 to 5)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
 			if(5 to 10)

@@ -38,9 +38,6 @@
 			for(var/datum/mutation/HM as() in dna.mutations)
 				HM.on_life(delta_time, times_fired)
 
-	else
-		. = ..()
-
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else

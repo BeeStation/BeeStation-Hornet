@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		turns_per_move = 20
 		held_state = "old_corgi"
 
-/mob/living/simple_animal/pet/dog/corgi/ian/Life(delta_time = SSMOBS_DT, times_fired)
+/mob/living/simple_animal/pet/dog/corgi/Ian/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
 		Write_Memory(FALSE)
 		memory_saved = TRUE

@@ -89,7 +89,7 @@
 
 /mob/living/proc/handle_fire(delta_time, times_fired)
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
-		set_fire_stacks(min(0, fire_stacks + (0.5 * delta_time))) //So we dry ourselves back to default, nonflammable.
+		fire_stacks = min(0, fire_stacks + (0.5 * delta_time)) //So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
 		return TRUE //the mob is no longer on fire, no need to do the rest.
 	if(fire_stacks > 0)

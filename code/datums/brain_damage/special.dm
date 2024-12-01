@@ -85,7 +85,7 @@
 
 	COOLDOWN_START(src, portal_cooldown, 10 SECONDS)
 	var/list/turf/possible_turfs = list()
-	for(var/turf/T in RANGE_TURFS(owner, 8))
+	for(var/turf/T as anything in RANGE_TURFS(8, owner))
 		if(T.density)
 			continue
 
@@ -104,7 +104,7 @@
 	if(!first_turf)
 		return
 
-	possible_turfs -= (possible_turfs & RANGE_TURFS(first_turf, 3))
+	possible_turfs -= (possible_turfs & RANGE_TURFS(3, first_turf))
 
 	var/turf/second_turf = pick(possible_turfs)
 	if(!second_turf)

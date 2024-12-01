@@ -102,7 +102,7 @@
 /datum/reagent/drug/crank/overdose_process(mob/living/M, delta_time, times_fired)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
 	M.adjustToxLoss(2 * REM * delta_time, 0)
-	M.adjustBruteLoss(2 * REM * delta_time, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustBruteLoss(2 * REM * delta_time, FALSE, FALSE, BODYTYPE_ORGANIC)
 	..()
 	. = TRUE
 

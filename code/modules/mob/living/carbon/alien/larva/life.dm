@@ -1,6 +1,6 @@
 
 
-/mob/living/carbon/alien/larva/Life()
+/mob/living/carbon/alien/larva/Life(delta_time = SSMOBS_DT, times_fired)
 	set invisibility = 0
 	if (notransform)
 		return

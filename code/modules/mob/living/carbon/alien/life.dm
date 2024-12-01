@@ -59,7 +59,7 @@
 	if(move_delay_add > 0)
 		move_delay_add = max(0, move_delay_add - (0.5 * rand(1, 2) * delta_time))
 
-/mob/living/carbon/alien/handle_fire()//Aliens on fire code
+/mob/living/carbon/alien/handle_fire(delta_time, times_fired)//Aliens on fire code
 	. = ..()
 	if(.) //if the mob isn't on fire anymore
 		return

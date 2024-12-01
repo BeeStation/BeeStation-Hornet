@@ -19,7 +19,7 @@
 		return
 	owner.alpha = 255
 
-/datum/mutation/chameleon/on_life()
+/datum/mutation/chameleon/on_life(delta_time, times_fired)
 	owner.alpha = max(owner.alpha - (effect_speed * delta_time), 0)
 
 /datum/mutation/chameleon/on_move()

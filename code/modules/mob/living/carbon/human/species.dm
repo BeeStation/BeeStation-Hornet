@@ -1542,7 +1542,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return TRUE
 
 	. = FALSE
-	var/radiation = H.radiation
+	var/radiation = source.radiation
 
 	if(radiation > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
 		if(!source.IsParalyzed())
@@ -1560,8 +1560,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		source.domutcheck()
 
 	if(radiation > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
-		if(!(source.hairstyle == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(H, TRAIT_NOHAIRLOSS))
-			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
+		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
+			to_chat(source, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
 
@@ -1577,8 +1577,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/go_bald(mob/living/carbon/human/target)
 	if(QDELETED(target)) //may be called from a timer
 		return
-	target.facial_hairstyle = "Shaved"
-	target.hairstyle = "Bald"
+	target.facial_hair_style = "Shaved"
+	target.hair_style = "Bald"
 	target.update_hair()
 
 ////////////////

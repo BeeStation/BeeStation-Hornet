@@ -288,7 +288,7 @@
 	/// The cooldown for the warning message
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/mutation/human/acidflesh/on_life(delta_time, times_fired)
+/datum/mutation/acidflesh/on_life(delta_time, times_fired)
 	if(DT_PROB(13, delta_time))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(owner, "<span class='danger'>Your acid flesh bubbles...</span>")

@@ -315,73 +315,73 @@
 	return amount
 
 /datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
-	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
+	if(owner?.dna?.species && (NOREAGENTS in owner.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list
-	if(C)
-		expose_temperature(C.bodytemperature, 0.25)
+	if(owner)
+		expose_temperature(owner.bodytemperature, 0.25)
 	var/need_mob_update = 0
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
 			continue
 
-		if(!C)
-			C = R.holder.my_atom
+		if(!owner)
+			owner = R.holder.my_atom
 
-		if(C && R)
-			if(C.reagent_check(R, delta_time, times_fired) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
+		if(owner && R)
+			if(owner.reagent_check(R, delta_time, times_fired) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
 				if(liverless && !R.self_consuming) //need to be metabolized
 					continue
 				if(!R.metabolizing)
 					R.metabolizing = TRUE
-					R.on_mob_metabolize(C)
+					R.on_mob_metabolize(owner)
 				if(can_overdose)
 					if(R.overdose_threshold)
 						if(R.volume >= R.overdose_threshold && !R.overdosed)
 							R.overdosed = TRUE
-							need_mob_update += R.overdose_start(C)
-							log_game("[key_name(owner)] has started overdosing on [reagent.name] at [reagent.volume] units.")
+							need_mob_update += R.overdose_start(owner)
+							log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
 					if(R.addiction_threshold)
 						if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
 							var/datum/reagent/new_reagent = new R.type()
 							cached_addictions.Add(new_reagent)
 					if(R.overdosed)
-						need_mob_update += R.overdose_process(C, delta_time, times_fired)
+						need_mob_update += R.overdose_process(owner, delta_time, times_fired)
 					if(is_type_in_list(R,cached_addictions))
 						for(var/addiction in cached_addictions)
 							var/datum/reagent/A = addiction
 							if(istype(R, A))
 								A.addiction_stage = -15 // you're satisfied for a good while.
-				need_mob_update += R.on_mob_life(C, delta_time, times_fired)
+				need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
 
 	if(can_overdose)
 		if(addiction_tick == 6)
 			addiction_tick = 1
 			for(var/addiction in cached_addictions)
 				var/datum/reagent/R = addiction
-				if(C && R)
+				if(owner && R)
 					R.addiction_stage++
 					switch(R.addiction_stage)
 						if(1 to 10)
-							need_mob_update += R.addiction_act_stage1(C)
+							need_mob_update += R.addiction_act_stage1(owner)
 						if(10 to 20)
-							need_mob_update += R.addiction_act_stage2(C)
+							need_mob_update += R.addiction_act_stage2(owner)
 						if(20 to 30)
-							need_mob_update += R.addiction_act_stage3(C)
+							need_mob_update += R.addiction_act_stage3(owner)
 						if(30 to 40)
-							need_mob_update += R.addiction_act_stage4(C)
+							need_mob_update += R.addiction_act_stage4(owner)
 						if(40 to INFINITY)
-							to_chat(C, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
-							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+							to_chat(owner, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
+							SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 							cached_addictions.Remove(R)
 						else
-							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+							SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 		addiction_tick++
-	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
-		C.updatehealth()
-		C.update_stamina()
+	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
+		owner.updatehealth()
+		owner.update_stamina()
 	update_total()
 
 //Signals that metabolization has stopped, triggering the end of trait-based effects

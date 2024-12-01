@@ -18,7 +18,7 @@
 		if(prob(10))
 			AttemptGrow(0)
 
-/obj/item/organ/body_egg/alien_embryo/on_life()
+/obj/item/organ/body_egg/alien_embryo/on_life(delta_time, times_fired)
 	. = ..()
 	if(!owner)
 		return

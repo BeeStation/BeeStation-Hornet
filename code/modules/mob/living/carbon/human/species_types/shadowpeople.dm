@@ -1,5 +1,5 @@
 /// How many life ticks are required for the nightmare's heart to revive the nightmare.
-#define HEART_RESPAWN_THRESHHOLD (80 SECONDS)
+#define HEART_RESPAWN_THRESHOLD (80 SECONDS)
 /// A special flag value used to make a nightmare heart not grant a light eater. Appears to be unused.
 #define HEART_SPECIAL_SHADOWIFY 2
 

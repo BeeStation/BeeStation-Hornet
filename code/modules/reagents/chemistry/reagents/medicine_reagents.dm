@@ -1431,9 +1431,9 @@
 	..()
 	. = TRUE
 
-/datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
-	M.hallucination = clamp(M.hallucination + (5 * REM * delta_time), 0, 60)
-	M.adjustToxLoss(5 * REM * delta_time, 0)
+/datum/reagent/medicine/earthsblood/overdose_process(mob/living/affected_mob, delta_time, times_fired)
+	affected_mob.hallucination = clamp(affected_mob.hallucination + (5 * REM * delta_time), 0, 60)
+	affected_mob.adjustToxLoss(5 * REM * delta_time, 0)
 	..()
 	. = TRUE
 
@@ -1645,10 +1645,8 @@
 	dosage++
 	M.jitteriness = max(M.jitteriness - (6 * REM * delta_time), 0)
 	M.dizziness = max(M.dizziness - (6 * REM * delta_time), 0)
-	M.set_confusion(max(M.get_confusion() - (6 * REM * delta_time), 0))
+	M.confused = max(M.confused - (6 * REM * delta_time), 0)
 	M.disgust = max(M.disgust - (6 * REM * delta_time), 0)
-
-
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	if(mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
 		mood.setSanity(min(mood.sanity + (5 * REM * delta_time), SANITY_NEUTRAL)) // set minimum to prevent unwanted spiking over neutral
