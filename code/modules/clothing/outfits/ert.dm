@@ -480,7 +480,7 @@
 	r_pocket = /obj/item/shield/energy
 	l_hand = /obj/item/gun/energy/pulse/loyalpin
 
-/datum/outfit/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
