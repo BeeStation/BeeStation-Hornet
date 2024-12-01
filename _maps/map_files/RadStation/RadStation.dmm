@@ -37491,10 +37491,6 @@
 "maU" = (
 /obj/effect/landmark/start/randommaint/vip,
 /obj/effect/landmark/observer_start,
-/obj/machinery/holopad{
-	pixel_x = 16;
-	pixel_y = 16
-	},
 /obj/item/beacon{
 	pixel_x = 16;
 	pixel_y = 19
