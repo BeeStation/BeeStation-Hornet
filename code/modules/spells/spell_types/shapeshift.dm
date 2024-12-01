@@ -16,7 +16,7 @@
 	var/convert_damage = TRUE //If you want to convert the caster's health to the shift, and vice versa.
 	var/convert_damage_type = BRUTE //Since simplemobs don't have advanced damagetypes, what to convert damage back into.
 
-	var/shapeshift_type
+	var/mob/living/shapeshift_type
 	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,\
 		/mob/living/simple_animal/pet/dog/corgi,\
 		/mob/living/simple_animal/hostile/carp/ranged/chaos,\
@@ -99,7 +99,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
 	src.source = source
 	shape = loc
 	if(!istype(shape))
-		CRASH("shapeshift holder created outside mob/living")
+		stack_trace("shapeshift holder created outside mob/living")
+		return INITIALIZE_HINT_QDEL
 	stored = caster
 	if(stored.mind)
 		stored.mind.transfer_to(shape)
@@ -146,7 +147,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
 /obj/shapeshift_holder/proc/shapeDeath(death=TRUE)
 	//Shape dies.
 	if(death || istype(source) && source.die_with_shapeshifted_form)
-		if(death || istype(source) && source.revert_on_death)
+		if(death || istype(source) && source?.revert_on_death)
 			restore(death=TRUE)
 	else
 		restore()
