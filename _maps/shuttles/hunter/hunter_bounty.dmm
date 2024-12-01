@@ -63,7 +63,7 @@
 /obj/structure/guncase{
 	req_access_txt = "181"
 	},
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook{
+/obj/item/gun/ballistic/shotgun/hook{
 	pixel_y = 6
 	},
 /obj/item/gun/energy/e_gun/mini,
