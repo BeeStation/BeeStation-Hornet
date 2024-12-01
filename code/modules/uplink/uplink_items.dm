@@ -1031,60 +1031,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
-/datum/uplink_item/ammo/c38
-	name = ".38-special Speed Loader"
-	desc = "A standard issue .38-special speed loader, for use with the Detective's revolver or 'Infiltrator' coat pistol."
-	item = /obj/item/ammo_box/c38
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38blister
-	name = ".38-special 'Blister' Speed Loader"
-	desc = "For when you can't deside between a coat pistol and a dart pistol! These 6 cartridges can \
-			be injected with up to 10 units of your favorite poison for remote application via sidearm."
-	item = /obj/item/ammo_box/c38/dart
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38dumdum
-	name = ".38-special DumDum Speed Loader"
-	desc = "6 specialized fragmenting .38-special catridges, excellent for dispatching unarmored targets. \
-			Shrapnel can embed within the victim and provide a debilitating effect. Not advised for use \
-			against armored targets."
-	item = /obj/item/ammo_box/c38/dumdum
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-
-/datum/uplink_item/ammo/c38iceblox
-	name = ".38-special Iceblox Speed Loader"
-	desc = "6 .38-special Iceblox cartridges, 'guaranteed' to free your target to the core."
-	item = /obj/item/ammo_box/c38/iceblox
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-
-/datum/uplink_item/ammo/c38hotshot
-	name = ".38-special Hot Shot Speed Loader"
-	desc = "6 .38-special Hot Shot cartridges. Set your target ablaze with this specialized thermal payload."
-	item = /obj/item/ammo_box/c38/hotshot
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38emp
-	name = ".38-special 'BLK_OUT' Speed Loader"
-	desc = "6 specialized 'anti-silicon' .38-special cartridges that release a minor EMP on impact with a hard surface. \
-			From Silicons, to IPCs, to any machinery or energy-based weapons in use by security, leave them in the dark."
-	item = /obj/item/ammo_box/c38/emp
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
 /datum/uplink_item/ammo/a40mm
 	name = "40mm Grenade Box"
 	desc = "A box of 40mm HE grenades for use with the M-90gl's under-barrel grenade launcher. \
