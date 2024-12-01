@@ -409,3 +409,28 @@
 	var/mob/living/L = user
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
+
+//Security Badges
+/obj/item/clothing/accessory/badge/officer/det
+	name = "\improper Detective's badge"
+	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
+	icon_state = "detbadge"
+	worn_icon_state = "detbadge"
+
+/obj/item/clothing/accessory/badge/officer/hos
+	name = "\improper Head of Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"
+
+/obj/item/clothing/accessory/badge/officer
+	name = "\improper Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
+	icon_state = "officerbadge"
+	worn_icon_state = "officerbadge"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
+	if(Adjacent(user))
+		user.visible_message("<span class='notice'>[user] shows you \the: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
+	..()
