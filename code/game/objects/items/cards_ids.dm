@@ -774,6 +774,16 @@ update_label("John Doe", "Clowny")
 	assignment = "CentCom Attorney"
 	icon_state = "centcom"
 
+/// Trim for Bounty Hunters hired by centcom.
+/obj/item/card/id/silver/bounty/ert
+	registered_name = "Bounty Hunter"
+	assignment = "Bounty Hunter"
+	icon_state = "ert"
+
+/obj/item/card/id/silver/bounty/ert/Initialize(mapload)
+	. = ..()
+	access = list(ACCESS_CENT_GENERAL)
+
 /obj/item/card/id/ert/lawyer/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)

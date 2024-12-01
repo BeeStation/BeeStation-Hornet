@@ -447,6 +447,7 @@
 	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
 	if(Adjacent(user))
