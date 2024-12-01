@@ -832,7 +832,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	and fire bolts tipped with dangerous toxins that will disorient and \
 	irradiate targets. It can produce an infinite number of bolts \
 	which automatically recharge roughly 25 seconds after each shot."
-	item = /obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	item = /obj/item/gun/energy/recharge/ebow/radbow
 	cost = 8
 	surplus = 50
 
@@ -844,7 +844,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
-	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	item = /obj/item/gun/energy/recharge/ebow
 	cost = 12
 	surplus = 50
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
