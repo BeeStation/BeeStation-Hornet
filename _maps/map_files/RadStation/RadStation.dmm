@@ -33553,7 +33553,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "kKb" = (
-/obj/item/reagent_containers/cup/waterbottle/empty{
+/obj/item/reagent_containers/cup/glass/waterbottle/empty{
 	pixel_x = -10
 	},
 /obj/item/storage/belt/utility,
