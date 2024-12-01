@@ -33,19 +33,15 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 
 /** Sets the mob as "thinking" - with indicator and the TRAIT_THINKING_IN_CHARACTER trait */
 /datum/tgui_say/proc/start_thinking()
-	if(!window_open || !istype(client.mob))
+	if(!window_open)
 		return FALSE
-	/// Special exemptions
-	if(isabductor(client.mob))
-		return FALSE
-	ADD_TRAIT(client.mob, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
-	client.mob.create_thinking_indicator()
+	return client.start_thinking()
 
 /** Removes typing/thinking indicators and flags the mob as not thinking */
 /datum/tgui_say/proc/stop_thinking()
 	if(!istype(client.mob))
 		return FALSE
-	client.mob.remove_all_indicators()
+	return client.stop_thinking()
 
 /**
  * Handles the user typing. After a brief period of inactivity,
@@ -54,25 +50,18 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 /datum/tgui_say/proc/start_typing()
 	if(!istype(client.mob))
 		return FALSE
-	var/mob/client_mob = client.mob
-	client_mob.remove_thinking_indicator()
-	if(!window_open || !HAS_TRAIT(client_mob, TRAIT_THINKING_IN_CHARACTER))
+	if(!window_open)
 		return FALSE
-	client_mob.create_typing_indicator()
-	addtimer(CALLBACK(src, PROC_REF(stop_typing)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+	return client.start_typing()
 
 /**
- * Callback to remove the typing indicator after a brief period of inactivity.
+ * Remove the typing indicator after a brief period of inactivity or during say events.
  * If the user was typing IC, the thinking indicator is shown.
  */
 /datum/tgui_say/proc/stop_typing()
-	if(isnull(client?.mob))
+	if(!window_open)
 		return FALSE
-	var/mob/client_mob = client.mob
-	client_mob.remove_typing_indicator()
-	if(!window_open || !HAS_TRAIT(client_mob, TRAIT_THINKING_IN_CHARACTER))
-		return FALSE
-	client_mob.create_thinking_indicator()
+	client.stop_typing()
 
 /// Overrides for overlay creation
 /mob/living/create_thinking_indicator()
@@ -82,7 +71,6 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 	add_overlay(active_thinking_indicator)
 
 /mob/living/remove_thinking_indicator()
-	REMOVE_TRAIT(src, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
 	if(!active_thinking_indicator)
 		return FALSE
 	cut_overlay(active_thinking_indicator)
@@ -103,6 +91,7 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 	active_typing_indicator = null
 
 /mob/living/remove_all_indicators()
+	REMOVE_TRAIT(src, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
 	remove_thinking_indicator()
 	remove_typing_indicator()
 
