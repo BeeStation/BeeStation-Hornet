@@ -82,7 +82,7 @@
 
 		if(DT_PROB(0.5, delta_time))
 			manual_emote(pick("dances around.","chases its tail!"))
-			INVOKE_ASYNC(GLOBAL_PROC, .proc/dance_rotate, src)
+			INVOKE_ASYNC(GLOBAL_PROC, PROC_REF(dance_rotate), src)
 
 //Corgis and pugs are now under one dog subtype
 
