@@ -561,8 +561,11 @@
 					R.metabolizing = FALSE
 					R.on_mob_end_metabolize(mob_consumer)
 				R.on_mob_delete(mob_consumer)
-			qdel(R)
+
+			//Clear from relevant lists
+			addiction_list -= R
 			reagent_list -= R
+			qdel(R)
 			update_total()
 			if(my_atom)
 				my_atom.on_reagent_change(DEL_REAGENT)
