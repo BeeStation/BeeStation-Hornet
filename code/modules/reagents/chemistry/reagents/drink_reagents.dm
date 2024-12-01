@@ -412,15 +412,15 @@
 	glass_name = "iced tea"
 	glass_desc = "All natural, antioxidant-rich flavour sensation."
 
-/datum/reagent/consumable/icetea/on_mob_life(mob/living/carbon/M)
-	M.dizziness = max(0,M.dizziness-2)
-	M.drowsyness = max(0,M.drowsyness-1)
-	M.AdjustSleeping(-40)
-	if(M.getToxLoss() && prob(20))
+/datum/reagent/consumable/icetea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.dizziness = max(M.dizziness - (2 * REM * delta_time), 0)
+	M.drowsyness = max(M.drowsyness - (1 * REM * delta_time), 0)
+	M.AdjustSleeping(-40 * REM * delta_time)
+	if(M.getToxLoss() && DT_PROB(10, delta_time))
 		M.adjustToxLoss(-1, 0)
-	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
+	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/consumable/space_cola
 	name = "Cola"
@@ -1095,9 +1095,9 @@
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
 
-/datum/reagent/consumable/beeffizz/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/beeffizz/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(is_species(M, /datum/species/lizard))
-		M.adjustBruteLoss(-1.5, 0)
-		M.adjustFireLoss(-1.5, 0)
-		M.adjustToxLoss(-1, 0)
+		M.adjustBruteLoss(-1.5 * REM * delta_time, 0)
+		M.adjustFireLoss(-1.5 * REM * delta_time, 0)
+		M.adjustToxLoss(-1 * REM * delta_time, 0)
 	. = ..()

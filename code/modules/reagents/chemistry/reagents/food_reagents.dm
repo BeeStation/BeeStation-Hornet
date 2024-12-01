@@ -200,12 +200,12 @@
 	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "watery milk"
 
-/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	. = ..()
 	for(var/datum/disease/D in M.diseases)
 		if(D.spread_flags & DISEASE_SPREAD_SPECIAL || D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)
 			continue
-		if(prob(D.stage_prob * 10))
+		if(DT_PROB(5 * D.stage_prob, delta_time))
 			D.update_stage(min(D.stage += 1, D.max_stages))
 
 /datum/reagent/consumable/soysauce

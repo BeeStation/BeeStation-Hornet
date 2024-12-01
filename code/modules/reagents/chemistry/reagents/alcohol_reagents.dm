@@ -104,7 +104,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "My god, it's full of stars!"
 	var/HasTraveled = 0
 
-/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(!HasTraveled && prob(volume))
 		HasTraveled = 1
 		M.AdjustKnockdown(15)
@@ -657,7 +657,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "Whoah, this thing is on FIRE!"
 	shot_glass_icon_state = "toxinsspecialglass"
 
-/datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_bodytemperature(15 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
 	return ..()
 
@@ -2332,14 +2332,14 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	to_chat(L, "<span class='notice'>You feel immune to the fire!</span>")
 	. = ..()
 
-/datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/M)
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(prob(80))
 		M.IgniteMob()
-		M.adjust_fire_stacks(10)
+		M.adjust_fire_stacks(10 * REM * delta_time)
 
 	if(M.fire_stacks > 9)
 		if(M.on_fire)
-			M.adjustFireLoss(-16, 0)
+			M.adjustFireLoss(-16 * REM * delta_time, 0)
 
 	..()
 
@@ -2373,10 +2373,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 	..()
 
-/datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/datum/brain_trauma/OD_trauma
 	M.Jitter(2)
-	if(prob(5) && current_cycle > 10)
+	if(DT_PROB(2.5, delta_time) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
 			if(10 to 50)
 				to_chat(M, "<span class='warning'>Your mind cracks.</span>")
@@ -2429,10 +2429,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A watcher hunter's drink of choice. Will heal your frostburns, or cool you down."
 
 
-/datum/reagent/consumable/ethanol/icewing/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(-8 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+/datum/reagent/consumable/ethanol/icewing/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjust_bodytemperature(-8 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, M.get_body_temp_normal())
 	if(M.bodytemperature <= BODYTEMP_COLD_DAMAGE_LIMIT) //heals burn if freezing
-		M.adjustFireLoss(-5, 0)
+		M.adjustFireLoss(-5 * REM * delta_time, 0)
 	..()
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset
@@ -2449,8 +2449,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	overdose_threshold = 50
 	metabolization_rate = 0.5
 
-/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-3, 0)
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss(-3 * REM * delta_time, 0)
 	..()
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_start(mob/living/M)
@@ -2499,9 +2499,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
 
-/datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(is_species(M, /datum/species/apid))
-		M.adjustBruteLoss(-1.5, 0)
-		M.adjustFireLoss(-1.5, 0)
-		M.adjustToxLoss(-1, 0)
+		M.adjustBruteLoss(-1.5 * REM * delta_time, 0)
+		M.adjustFireLoss(-1.5 * REM * delta_time, 0)
+		M.adjustToxLoss(-1 * REM * delta_time, 0)
 	. = ..()

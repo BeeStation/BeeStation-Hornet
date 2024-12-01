@@ -506,22 +506,22 @@
 	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	. = ..()
 
-/datum/reagent/drug/ketamine/on_mob_life(mob/living/carbon/M)
+/datum/reagent/drug/ketamine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	//Friendly Reminder: Ketamine is a tranquilizer and will sleep you.
 	switch(current_cycle)
 		if(10)
 			to_chat(M, "<span class='warning'>You start to feel tired...</span>" )
 		if(11 to 25)
-			M.drowsyness ++
+			M.drowsyness += 1 * REM * delta_time
 		if(26 to INFINITY)
-			M.Sleeping(60, 0)
-			. = 1
+			M.Sleeping(60 * REM * delta_time, 0)
+			. = TRUE
 	//Providing a Mood Boost
-	M.confused -= 3
-	M.jitteriness -= 5
-	M.disgust -= 3
+	M.confused -= 3 * REM * delta_time
+	M.jitteriness -= 5 * REM * delta_time
+	M.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
-	M.hallucination += 5
+	M.hallucination += 5 * REM * delta_time
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)

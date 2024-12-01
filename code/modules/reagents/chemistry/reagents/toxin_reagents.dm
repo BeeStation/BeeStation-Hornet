@@ -462,11 +462,11 @@
 				var/datum/nanite_program/NP = X
 				NP.software_error(1) //all programs are destroyed, nullifying all nanites
 
-/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.getStaminaLoss() <= 70) //Will never stamcrit
-		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM, 0)
+		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM * delta_time, FALSE)
 	if(current_cycle >= 4 && prob(current_cycle + (volume * 0.3))) //The longer it is in your system and the more of it you have the more frequently you drop
-		M.Paralyze(3 SECONDS, 0)
+		M.Paralyze(3 SECONDS * REM * delta_time, 0)
 		toxpwr += 0.1 //The venom gets stronger until completely purged.
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal) || holder.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5 // Prevents using purgatives while in combat
@@ -733,13 +733,13 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if (!H.is_bleeding())
 			H.add_bleeding(BLEED_SURFACE)
-		H.adjustBruteLoss(1, 0) //Brute damage increases with the amount they're bleeding
-		. = 1
+		H.adjustBruteLoss(1 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0) //Brute damage increases with the amount they're bleeding
+		. = TRUE
 	return ..() || .
 
 

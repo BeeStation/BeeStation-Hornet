@@ -291,15 +291,15 @@
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 	..()
 
-/datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-0.5*REM, 0)
+/datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss(-0.5 * REM * delta_time, 0)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/M)
-	M.adjustOxyLoss(1*REM, 0)
+/datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOxyLoss(1 * REM * delta_time, 0)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
@@ -350,13 +350,13 @@
 	return ..()
 
 
-/datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-0.5*REM, 0)
+/datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustBruteLoss(-0.5 * REM * delta_time, 0)
 	..()
 	. = 1
 
-/datum/reagent/medicine/styptic_powder/overdose_process(mob/living/M)
-	M.adjustOxyLoss(1*REM, 0)
+/datum/reagent/medicine/styptic_powder/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOxyLoss(1 * REM * delta_time, 0)
 	..()
 	. = 1
 
@@ -467,7 +467,7 @@
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
 
-/datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustFireLoss(-0.5*REM, 0)
 	M.adjustBruteLoss(-0.5*REM, 0)
 	..()
@@ -488,12 +488,12 @@
 	taste_description = "ash"
 	process_flags = ORGANIC
 
-/datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-1*REM, 0)
+/datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustToxLoss(-1 * REM * delta_time, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,0.75)
+			M.reagents.remove_reagent(R.type, 0.75 * REM * delta_time)
 	..()
 
 /datum/reagent/medicine/system_cleaner
@@ -505,12 +505,12 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	process_flags = SYNTHETIC
 
-/datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-2*REM, 0)
+/datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustToxLoss(-2 * REM * delta_time, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
+			M.reagents.remove_reagent(R.type, 1 * REM * delta_time)
 	..()
 
 /datum/reagent/medicine/liquid_solder
@@ -1076,23 +1076,23 @@
 	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
 	..()
 
-/datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.health < 50 && M.health > 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-	M.AdjustAllImmobility(-60)
-	M.adjustStaminaLoss(-35*REM, 0)
+		M.adjustOxyLoss(-1 * REM * delta_time, FALSE)
+		M.adjustToxLoss(-1 * REM * delta_time, FALSE)
+		M.adjustBruteLoss(-1 * REM * delta_time, FALSE)
+		M.adjustFireLoss(-1 * REM * delta_time, FALSE)
+	M.AdjustAllImmobility(-60 * REM * delta_time)
+	M.adjustStaminaLoss(-35 * REM * delta_time, FALSE)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/amphetamine/overdose_process(mob/living/M)
-	if(prob(33))
-		M.adjustStaminaLoss(2.5*REM, 0)
-		M.adjustToxLoss(1*REM, 0)
+/datum/reagent/medicine/stimulants/overdose_process(mob/living/M, delta_time, times_fired)
+	if(DT_PROB(18, delta_time))
+		M.adjustStaminaLoss(2.5, 0)
+		M.adjustToxLoss(1, 0)
 		M.losebreath++
-		. = 1
+		. = TRUE
 	..()
 
 
@@ -1158,17 +1158,17 @@
 	metabolite = /datum/reagent/metabolite/medicine/bicaridine
 	overdose_threshold = 30
 
-/datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+/datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustBruteLoss(-1 * REM * delta_time/METABOLITE_PENALTY(metabolite), 0)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
+/datum/reagent/medicine/bicaridine/overdose_process(mob/living/carbon/M, delta_time, times_fired)
 	M.reagents.add_reagent(metabolite, 1)
 	M.reagents.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/dexalin
 	name = "Dexalin"
@@ -1178,15 +1178,15 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 
-/datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-1.5*REM, 0)
+/datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOxyLoss(-1.5 * REM * delta_time, FALSE)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
+/datum/reagent/medicine/dexalin/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2 * REM * delta_time)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/dexalinp
 	name = "Dexalin Plus"
@@ -1196,17 +1196,17 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 25
 
-/datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-3*REM, 0)
+/datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOxyLoss(-3 * REM * delta_time, 0)
 	if(M.getOxyLoss() != 0)
-		M.adjustStaminaLoss(3*REM, FALSE)
+		M.adjustStaminaLoss(3 * REM * delta_time, FALSE)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/dexalinp/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 4)
+/datum/reagent/medicine/dexalinp/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 4 * REM * delta_time)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
@@ -1218,17 +1218,17 @@
 	metabolite = /datum/reagent/metabolite/medicine/kelotane
 	overdose_threshold = 30
 
-/datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+/datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss((-1 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
+/datum/reagent/medicine/kelotane/overdose_process(mob/living/carbon/M, delta_time, times_fired)
 	M.reagents.add_reagent(metabolite, 1)
 	M.reagents.remove_reagent(/datum/reagent/medicine/kelotane, 1)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/antitoxin
 	name = "Anti-Toxin"
@@ -1241,17 +1241,17 @@
 	metabolite = /datum/reagent/metabolite/medicine/antitoxin
 	overdose_threshold = 30
 
-/datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+/datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss((-1 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
+/datum/reagent/medicine/antitoxin/overdose_process(mob/living/carbon/M, delta_time, times_fired)
 	M.reagents.add_reagent(metabolite, 1)
 	M.reagents.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/carthatoline
 	name = "Carthatoline"
@@ -1261,19 +1261,19 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	overdose_threshold = 25
 
-/datum/reagent/medicine/carthatoline/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-3*REM, 0)
-	if(M.getToxLoss() && prob(10))
+/datum/reagent/medicine/carthatoline/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustToxLoss(-3 * REM * delta_time, 0)
+	if(M.getToxLoss() && DT_PROB(5, delta_time))
 		M.vomit(1)
 	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
 		M.reagents.remove_reagent(R.type,1)
 	..()
-	. = 1
+	. = TRUE
 
-/datum/reagent/medicine/carthatoline/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+/datum/reagent/medicine/carthatoline/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/meclizine
 	name = "Meclizine"
@@ -1284,15 +1284,15 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 
-/datum/reagent/medicine/meclizine/on_mob_life(mob/living/carbon/M)
-	if(prob(10))
-		M.adjustToxLoss(-1)
+/datum/reagent/medicine/meclizine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(5, delta_time))
+		M.adjustToxLoss(-1 * REM * delta_time, 0)
 	..()
 	. = TRUE //Some other poor sod can do the rest, I just make chems
 
-/datum/reagent/medicine/meclizine/overdose_process(mob/living/M)
-	M.adjustToxLoss(2)
-	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 2)
+/datum/reagent/medicine/meclizine/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustToxLoss(2 * REM * delta_time, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 2 * REM * delta_time)
 	..()
 	. = TRUE
 
@@ -1353,17 +1353,17 @@
 	taste_description = "grossness"
 	metabolite = /datum/reagent/metabolite/medicine/tricordrazine
 
-/datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2/METABOLITE_PENALTY(metabolite), 0)
-	M.adjustFireLoss(-2/METABOLITE_PENALTY(metabolite), 0)
-	M.adjustToxLoss(-2/METABOLITE_PENALTY(metabolite), 0)
-	M.adjustOxyLoss(-2/METABOLITE_PENALTY(metabolite), 0)
-	. = 1
+/datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustBruteLoss((-2 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustFireLoss((-2 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustToxLoss((-2 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustOxyLoss((-2 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
+	. = TRUE
 	..()
 
-/datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
+/datum/reagent/medicine/tricordrazine/overdose_process(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time)
 	..()
 	. = 1
 
@@ -1466,15 +1466,15 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 
-/datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
-	M.heal_bodypart_damage(5,5)
+/datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.heal_bodypart_damage(5 * REM * delta_time, 5 * REM * delta_time, 0)
 	..()
 	return TRUE
 
-/datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M)
-	M.adjustBruteLoss(3*REM, 0, FALSE, BODYTYPE_ORGANIC)
-	M.adjustFireLoss(3*REM, 0, FALSE, BODYTYPE_ORGANIC)
-	M.adjustToxLoss(3*REM, 0)
+/datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustBruteLoss(3 * REM * delta_time, FALSE, FALSE, BODYTYPE_ORGANIC)
+	M.adjustFireLoss(3 * REM * delta_time, FALSE, FALSE, BODYTYPE_ORGANIC)
+	M.adjustToxLoss(3 * REM * delta_time, FALSE, FALSE)
 	..()
 	return TRUE
 
@@ -1667,10 +1667,10 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
-/datum/reagent/medicine/silibinin/on_mob_life(mob/living/carbon/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, -2)//Add a chance to cure liver trauma once implemented.
+/datum/reagent/medicine/silibinin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, -2 * REM * delta_time)//Add a chance to cure liver trauma once implemented.
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/polypyr  //This is intended to be an ingredient in advanced chems.
 	name = "Polypyrylium Oligomers"
@@ -1713,18 +1713,19 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 
-/datum/reagent/medicine/stabilizing_nanites/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/stabilizing_nanites/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.health <= 80)
-		M.adjustToxLoss(-4*REM, 0)
-		M.adjustBruteLoss(-4*REM, 0)
-		M.adjustFireLoss(-4*REM, 0)
-		M.adjustOxyLoss(-5*REM, 0)
-		. = 1
-	if(prob(20))
+		M.adjustToxLoss(-4 * REM * delta_time, 0)
+		M.adjustBruteLoss(-4 * REM * delta_time, 0)
+		M.adjustFireLoss(-4 * REM * delta_time, 0)
+		M.adjustOxyLoss(-5 * REM * delta_time, 0)
+		. = TRUE
+
+	if(DT_PROB(10, delta_time))
 		M.Jitter(5)
 	M.losebreath = 0
 	if (M.blood_volume < BLOOD_VOLUME_SAFE)
-		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_SAFE))
+		M.blood_volume = max(M.blood_volume, (min(M.blood_volume + 4, BLOOD_VOLUME_SAFE) * REM * delta_time))
 	..()
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)

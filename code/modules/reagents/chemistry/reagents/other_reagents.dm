@@ -1102,9 +1102,9 @@
 	var/clean_types = CLEAN_WASH
 	var/toxic = FALSE //turn to true if someone drinks this, so it won't poison people who are simply getting sprayed down
 
-/datum/reagent/space_cleaner/on_mob_life(mob/living/carbon/M)
+/datum/reagent/space_cleaner/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(toxic)//don't drink space cleaner, dumbass
-		M.adjustToxLoss(1, 0)
+		M.adjustToxLoss(1 * REM * delta_time, FALSE)
 	..()
 	return TRUE
 
@@ -2087,13 +2087,13 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "relaxing"
 
-/datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M)
-	if(prob(33))
+/datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(17, delta_time))
 		M.Stun(20, 0)
 		M.blur_eyes(5)
-	if(prob(33))
+	if(DT_PROB(17, delta_time))
 		M.Knockdown(2 SECONDS)
-	if(prob(20))
+	if(DT_PROB(10, delta_time))
 		to_chat(M, "Your muscles relax...")
 	..()
 
@@ -2279,11 +2279,11 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	process_flags = ORGANIC | SYNTHETIC //i think this is how this works
 	self_consuming = TRUE //not having a liver will not deny the fairness of the elder gods
 
-/datum/reagent/medicine/eldritchkiss/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/eldritchkiss/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.health <= 20)
-		M.adjustToxLoss(-4*REM, 0, TRUE) //this makes it heal toxinlovers, i think
-		M.adjustBruteLoss(-4*REM, 0)
-		M.adjustFireLoss(-4*REM, 0)
-		M.adjustOxyLoss(-5*REM, 0)
-		. = 1
+		M.adjustToxLoss(-4 * REM * delta_time, FALSE, TRUE) //this makes it heal toxinlovers, i think
+		M.adjustBruteLoss(-4 * REM * delta_time, FALSE)
+		M.adjustFireLoss(-4 * REM * delta_time, FALSE)
+		M.adjustOxyLoss(-5 * REM * delta_time, FALSE)
+		. = TRUE
 	M.losebreath = 0
