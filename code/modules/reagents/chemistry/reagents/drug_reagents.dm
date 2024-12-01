@@ -305,8 +305,9 @@
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
-	brawling.remove(L)
-	QDEL_NULL(brawling)
+	if(brawling)
+		brawling.remove(L)
+		QDEL_NULL(brawling)
 	..()
 
 /datum/reagent/drug/bath_salts/on_mob_life(mob/living/carbon/M, delta_time, times_fired)

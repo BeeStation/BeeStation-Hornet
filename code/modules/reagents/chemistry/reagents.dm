@@ -68,6 +68,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency * delta_time) //By default it slowly disappears.
 	if(metabolite)
 		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE* delta_time)
+	return
 
 /datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume) //Called after a reagent is transfered
 	return

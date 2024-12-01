@@ -136,15 +136,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
 	if(stored == gone && !restoring)
 		restore()
 
-/obj/shapeshift_holder/proc/casterDeath()
+/obj/shapeshift_holder/proc/caster_death()
 	//Something kills the stored caster through direct damage.
-	if(source.revert_on_death)
+	if(source?.revert_on_death)
 		restore(death=TRUE)
 	else
 		shape.investigate_log("has been killed whilst shapeshifted.", INVESTIGATE_DEATHS)
 		shape.death()
 
-/obj/shapeshift_holder/proc/shapeDeath(death=TRUE)
+/obj/shapeshift_holder/proc/shape_death(death=TRUE)
 	//Shape dies.
 	if(death || istype(source) && source.die_with_shapeshifted_form)
 		if(death || istype(source) && source?.revert_on_death)
@@ -181,8 +181,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
 
 /datum/soullink/shapeshift/ownerDies(gibbed, mob/living/owner)
 	if(source)
-		source.casterDeath(gibbed)
+		source.caster_death(gibbed)
 
 /datum/soullink/shapeshift/sharerDies(gibbed, mob/living/sharer)
 	if(source)
-		source.shapeDeath(!gibbed)
+		source.shape_death(!gibbed)
