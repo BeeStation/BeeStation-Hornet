@@ -129,7 +129,7 @@
 	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
 	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
-	var/list/languages_possible = T.languages_possible
+	var/list/languages_possible = T.get_possible_languages()
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
 	languages_possible = languages_possible - LH.understood_languages
 	languages_possible = languages_possible - LH.spoken_languages
