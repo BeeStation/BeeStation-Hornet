@@ -1048,11 +1048,11 @@
 	. = ..()
 	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
 	owner.add_blocked_language(subtypesof(/datum/language/) - /datum/language/uncommon, LANGUAGE_EMP)
-	owner.grant_language(/datum/language/uncommon, FALSE, TRUE, LANGUAGE_EMP)
+	owner.grant_language(/datum/language/uncommon, SPOKEN_LANGUAGE, source = LANGUAGE_EMP)
 
 /datum/status_effect/spanish/on_remove()
 	owner.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_EMP)
-	owner.remove_language(/datum/language/uncommon, TRUE, TRUE, LANGUAGE_EMP)
+	owner.remove_language(/datum/language/uncommon, source = LANGUAGE_EMP)
 	to_chat(owner, "<span class='warning'>Alert: Vocal cords restored to normal function.</span>")
 	return ..()
 

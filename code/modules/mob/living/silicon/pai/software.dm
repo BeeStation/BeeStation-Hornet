@@ -180,7 +180,7 @@
 				sec.remove_hud_from(src)
 		if("universal_translator")
 			if(!languages_granted)
-				grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_SOFTWARE)
+				grant_all_languages(source = LANGUAGE_SOFTWARE)
 				languages_granted = TRUE
 		if("wipe_core")
 			var/confirm = alert(src, "Are you certain you want to wipe yourself?", "Personality Wipe", "Yes", "No")
