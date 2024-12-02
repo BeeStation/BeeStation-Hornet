@@ -4246,38 +4246,38 @@
 "aAm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/auxiliary)
 "aAn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
 "aAo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
 "aAp" = (
@@ -21456,27 +21456,27 @@
 /area/crew_quarters/toilet/restrooms)
 "cIb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
 "cIc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
 "cId" = (
@@ -31358,10 +31358,6 @@
 /area/security/prison)
 "ekz" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/camera/directional/north{
-	c_tag = "Auxiliary Restroom";
-	name = "restroom camera"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -42245,10 +42241,6 @@
 "hye" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Primary Restroom";
-	name = "restroom camera"
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/turf_decal/tile/neutral{

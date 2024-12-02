@@ -97,50 +97,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
-/obj/item/gun/energy/kinetic_accelerator/crossbow
-	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
-	icon_state = "crossbow"
-	item_state = "crossbow"
-	w_class = WEIGHT_CLASS_SMALL
-	custom_materials = list(/datum/material/iron=2000)
-	suppressed = TRUE
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
-	weapon_weight = WEAPON_LIGHT
-	obj_flags = 0
-	overheat_time = 20
-	holds_charge = TRUE
-	unique_frequency = TRUE
-	max_mod_capacity = 0
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/add_seclight_point()
-	return
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
-	name = "candy corn crossbow"
-	desc = "A weapon favored by Syndicate trick-or-treaters."
-	icon_state = "crossbow_halloween"
-	item_state = "crossbow"
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/halloween)
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large
-	name = "energy crossbow"
-	desc = "A reverse engineered weapon using syndicate technology."
-	icon_state = "crossbowlarge"
-	w_class = WEIGHT_CLASS_NORMAL
-	custom_materials = list(/datum/material/iron=4000)
-	suppressed = null
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
-	pin = null
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
-	name = "gamma bow"
-	desc = "A weapon favored by Madmen."
-	icon_state = "crossbow"
-	item_state = "crossbow"
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
-	overheat_time = 250
-
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff."
