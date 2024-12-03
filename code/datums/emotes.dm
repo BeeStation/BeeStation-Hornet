@@ -1,6 +1,7 @@
 /datum/emote
 	var/key = "" //What calls the emote
 	var/key_third_person = "" //This will also call the emote
+	var/name = "" // Needed for more user-friendly emote names, so emotes with keys like "aflap" will show as "flap angry". Defaulted to key.
 	var/message = "" //Message displayed when emote is used
 	var/message_mime = "" //Message displayed if the user is a mime
 	var/message_alien = "" //Message displayed if the user is a grown alien
@@ -12,8 +13,8 @@
 	var/message_insect = "" //Message to display if the user is a moth, apid or flyperson
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
-	/// Emote flags (EMOTE_AUDIBLE and EMOTE_ANIMATED)
-	var/emote_type = 0
+	/// Whether the emote is visible and/or audible bitflag
+	var/emote_type = NONE
 	/// Checks if the mob can use its hands before performing the emote.
 	var/hands_use_check = FALSE
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
@@ -57,7 +58,11 @@
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
+	if(!name)
+		name = key
+
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
 
@@ -88,22 +93,81 @@
 	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
 	msg = punctuate(msg)
 
-	var/dchatmsg = "<b>[user]</b>[space][msg]"
+	var/is_important = emote_type & EMOTE_IMPORTANT
+	var/is_visual = emote_type & EMOTE_VISIBLE
+	var/is_audible = emote_type & EMOTE_AUDIBLE
 
-	for(var/mob/M in GLOB.dead_mob_list)
-		if(!M.client || isnewplayer(M))
-			continue
-		var/T = get_turf(user)
-		if(M.stat == DEAD && M?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
-			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
-				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
-			else
-				M.show_message("[dchatmsg]")
+	// Emote doesn't get printed to chat, runechat only
+	if(emote_type & EMOTE_RUNECHAT)
+		for(var/mob/viewer as anything in viewers(user))
+			if(isnull(viewer.client))
+				continue
+			if(!is_important && viewer != user && (!is_visual || !is_audible))
+				if(is_audible && !viewer.can_hear())
+					continue
+				if(is_visual && viewer.is_blind())
+					continue
+			if(user.runechat_prefs_check(viewer, CHATMESSAGE_EMOTE))
+				create_chat_message(
+					speaker = user,
+					raw_message = msg,
+					message_mods = list(CHATMESSAGE_EMOTE = TRUE),
+				)
+			else if(is_important)
+				to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
+			else if(is_audible && is_visual)
+				viewer.show_message(
+					"<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE,
+					"<span class='emote'>You see how <b>[user]</b> [msg]</span>", MSG_VISUAL,
+				)
+			else if(is_audible)
+				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE)
+			else if(is_visual)
+				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_VISUAL)
+		return TRUE // Early exit so no dchat message
 
-	if(emote_type & EMOTE_AUDIBLE)
-		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+	// The emote has some important information, and should always be shown to the user
+	else if(is_important)
+		for(var/mob/viewer as anything in viewers(user))
+			to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
+			if(user.runechat_prefs_check(viewer, list(CHATMESSAGE_EMOTE = TRUE)))
+				create_chat_message(user, null, list(viewer), msg, null, list(CHATMESSAGE_EMOTE = TRUE))
+	// Emotes has both an audible and visible component
+	// Prioritize audible, and provide a visible message if the user is deaf
+	else if(is_visual && is_audible)
+		user.audible_message(
+			message = msg,
+			deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>",
+			self_message = msg,
+			audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, ALWAYS_SHOW_SELF_MESSAGE = TRUE),
+			separation = space
+		)
+	// Emote is entirely audible, no visible component
+	else if(is_audible)
+		user.audible_message(
+			message = msg,
+			self_message = msg,
+			audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE),
+			separation = space
+		)
+	// Emote is entirely visible, no audible component
+	else if(is_visual)
+		user.visible_message(
+			message = msg,
+			self_message = msg,
+			visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, ALWAYS_SHOW_SELF_MESSAGE = TRUE),
+		)
 	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+		CRASH("Emote [type] has no valid emote type set!")
+
+	if(!isnull(user.client))
+		var/dchatmsg = "<b>[user]</b> [msg]"
+		for(var/mob/ghost as anything in GLOB.dead_mob_list - viewers(get_turf(user)))
+			if(isnull(ghost.client) || isnewplayer(ghost))
+				continue
+			if(!ghost?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight))
+				continue
+			to_chat(ghost, "<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
 	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)

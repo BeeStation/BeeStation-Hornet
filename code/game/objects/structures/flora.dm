@@ -328,16 +328,13 @@
 
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
 
 /datum/storage/kirbyplants
 	max_slots = 1
 	max_specific_storage = WEIGHT_CLASS_NORMAL
 	animated = FALSE
-
-/obj/item/kirbyplants/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/tactical)
 
 /obj/item/kirbyplants/random
 	icon = 'icons/obj/flora/_flora.dmi'

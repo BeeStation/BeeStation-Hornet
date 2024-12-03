@@ -142,7 +142,6 @@
 		/obj/item/laser_pointer,
 		/obj/item/paicard,
 		/obj/item/nanite_remote,
-		/obj/item/nanite_injector,
 		/obj/item/nanite_scanner,
 		/obj/item/disk/tech_disk,
 		/obj/item/assembly/prox_sensor,

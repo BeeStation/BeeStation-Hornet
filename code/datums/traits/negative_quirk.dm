@@ -6,6 +6,7 @@
 	icon = "hiking"
 	value = -2
 	mood_quirk = TRUE
+	medical_record_text = "Patient scans indicate severe and chronic back pain."
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
 	lose_text = "<span class='notice'>Your back feels better.</span>"
 	process = TRUE
@@ -41,7 +42,7 @@
 	value = -4
 	gain_text = "<span class='danger'>You can't see anything.</span>"
 	lose_text = "<span class='notice'>You miraculously gain back your vision.</span>"
-	medical_record_text = "Subject has permanent blindness."
+	medical_record_text = "Patient has permanent blindness."
 
 /datum/quirk/blindness/add()
 	quirk_target.become_blind(ROUNDSTART_TRAIT)
@@ -109,7 +110,7 @@
 	mob_trait = TRAIT_DEAF
 	gain_text = "<span class='danger'>You can't hear anything.</span>"
 	lose_text = "<span class='notice'>You're able to hear again!</span>"
-	medical_record_text = "Subject's cochlear nerve is incurably damaged."
+	medical_record_text = "Patient's cochlear nerve is incurably damaged."
 
 /datum/quirk/depression
 	name = "Depression"
@@ -134,6 +135,7 @@
 	value = -1
 	mood_quirk = TRUE
 	process = TRUE
+	medical_record_text = "Patient demonstrates an unnatural attachment to a family heirloom."
 	var/obj/item/heirloom
 	var/where
 
@@ -172,11 +174,11 @@
 			if(JOB_NAME_CAPTAIN)
 				heirloom_type = /obj/item/reagent_containers/cup/glass/flask/gold
 			if(JOB_NAME_HEADOFSECURITY)
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
 			if(JOB_NAME_WARDEN)
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
 			if(JOB_NAME_SECURITYOFFICER)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec, /obj/item/gun/energy/e_gun/advtaser/heirloom)
 			if(JOB_NAME_DETECTIVE)
 				heirloom_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
 			if(JOB_NAME_LAWYER)
@@ -262,7 +264,7 @@
 	mob_trait = TRAIT_EASYLIMBDISABLE
 	gain_text = "<span class='danger'>You feel frail.</span>"
 	lose_text = "<span class='notice'>You feel sturdy again.</span>"
-	medical_record_text = "Patient has unusually frail bones, recommend calcium-rich diet."
+	medical_record_text = "Patient is absurdly easy to injure. Please take all due diligence to avoid possible malpractice suits."
 
 /datum/quirk/foreigner
 	name = "Foreigner"
@@ -302,6 +304,7 @@
 	value = -1
 	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
+	medical_record_text = "Patient demonstrates a high level of emotional volatility."
 
 /datum/quirk/light_drinker
 	name = "Light Drinker"
@@ -311,6 +314,7 @@
 	mob_trait = TRAIT_LIGHT_DRINKER
 	gain_text = "<span class='notice'>Just the thought of drinking alcohol makes your head spin.</span>"
 	lose_text = "<span class='danger'>You're no longer severely affected by alcohol.</span>"
+	medical_record_text = "Patient demonstrates a low tolerance for alcohol."
 
 /datum/quirk/nearsighted //t. errorage
 	name = "Nearsighted"
@@ -340,6 +344,7 @@
 	icon = "lightbulb"
 	value = -1
 	process = TRUE
+	medical_record_text = "Patient demonstrates a fear of the dark."
 
 /datum/quirk/nyctophobia/on_process()
 	var/mob/living/carbon/human/H = quirk_target
@@ -436,6 +441,7 @@
 	prosthetic.replace_limb(H)
 	qdel(old_part)
 	H.regenerate_icons()
+	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
 
 /datum/quirk/prosthetic_limb/post_spawn()
 	to_chat(quirk_target, "<span class='boldannounce'>Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
