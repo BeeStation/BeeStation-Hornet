@@ -68,10 +68,4 @@
 	client?.give_award(/datum/award/achievement/misc/cluwne, src)
 
 /datum/mutation/cluwne/cursed
-	mutadone_proof = FALSE // we have our own on_losing handler
 	scrambled = TRUE
-
-/datum/mutation/cluwne/cursed/on_losing(mob/living/carbon/owner)
-	owner.adjust_fire_stacks(1)
-	owner.IgniteMob()
-	owner.dna.add_mutation(CURSEDCLUWNEMUT)
