@@ -7,10 +7,8 @@
 	/// The parent holder of the holoparasite, which is the holder of the summoner.
 	var/datum/holoparasite_holder/holder
 
-/datum/language_holder/holoparasite/New(atom/owner, datum/holoparasite_holder/_holder)
-	if(!istype(_holder))
-		CRASH("Attempted to create holoparasite language holder for [key_name(owner)] without a valid holoparasite holder!")
-	holder = _holder
+/datum/language_holder/holoparasite/New(atom/owner, datum/holoparasite_holder/new_holder)
+	holder = new_holder
 	return ..()
 
 /**
