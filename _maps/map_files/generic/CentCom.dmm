@@ -132,6 +132,12 @@
 /obj/item/assembly/flash/handheld,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
+"au" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "av" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -391,6 +397,13 @@
 /obj/structure/fireplace,
 /turf/open/floor/wood,
 /area/centcom/ferry)
+"bi" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/oven,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "bj" = (
 /obj/structure/cable/white{
 	icon_state = "4-8"
@@ -2022,19 +2035,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/tdome/arena_source)
-"fB" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
-/obj/item/melee/energy/sword/saber/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/arena_source)
 "fC" = (
 /obj/machinery/door/poddoor{
 	id = "thunderdomegen";
@@ -2056,19 +2056,6 @@
 /area/centcom/control)
 "fF" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/tdome/arena_source)
-"fK" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
-/obj/item/melee/energy/sword/saber/green,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/open/floor/iron,
 /area/tdome/arena_source)
 "fL" = (
@@ -4893,6 +4880,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
+"pa" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/energy/sword/saber/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/arena_source)
 "pb" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -5153,11 +5153,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"pS" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "pT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -8445,6 +8440,10 @@
 "zT" = (
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
+"zU" = (
+/obj/machinery/gibber,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "zV" = (
 /obj/structure/trap/ctf/blue,
 /obj/effect/turf_decal/siding/blue{
@@ -8453,14 +8452,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"zX" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/soap/deluxe,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "zY" = (
 /turf/closed/indestructible/riveted,
 /area/tear_in_reality)
@@ -10713,6 +10704,19 @@
 	dir = 4
 	},
 /area/tdome/tdomeobserve)
+"GF" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/energy/sword/saber/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/arena_source)
 "GH" = (
 /obj/machinery/processor,
 /obj/effect/turf_decal/stripes/end,
@@ -11344,19 +11348,6 @@
 	dir = 4
 	},
 /area/tdome/tdomeadmin)
-"Iy" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
-/obj/item/melee/energy/sword/saber/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "Iz" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -11447,19 +11438,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/centcom/ferry)
-"IP" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
-/obj/item/melee/energy/sword/saber/green,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "IQ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/grassybush,
@@ -12285,6 +12263,19 @@
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/wood,
 /area/centcom/control)
+"Lq" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/energy/sword/saber/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/arena)
 "Lr" = (
 /obj/machinery/computer/card/centcom{
 	dir = 1
@@ -12893,10 +12884,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"Nv" = (
-/obj/structure/table,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "Nw" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/iron/white,
@@ -14698,6 +14685,19 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/centcom/control)
+"SA" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/energy/sword/saber/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/arena)
 "SB" = (
 /obj/structure/curtain,
 /obj/structure/window/reinforced/tinted{
@@ -15599,11 +15599,9 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"Vm" = (
-/obj/machinery/gibber,
-/obj/machinery/light{
-	dir = 1
-	},
+"Vl" = (
+/obj/structure/table,
+/obj/item/soap/deluxe,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "Vn" = (
@@ -15672,11 +15670,6 @@
 /obj/structure/window/reinforced/fulltile,
 /obj/machinery/light,
 /turf/open/floor/grass,
-/area/centcom/holding)
-"Vv" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
-/turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "Vw" = (
 /obj/machinery/light/floor,
@@ -16815,11 +16808,6 @@
 	dir = 4
 	},
 /area/centcom/supplypod/loading/four)
-"YQ" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "YS" = (
 /obj/structure/bookcase/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -17021,6 +17009,12 @@
 	},
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
+"ZA" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/obj/item/reagent_containers/cup/beaker,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "ZB" = (
 /obj/machinery/power/smes/magical,
 /turf/open/floor/iron/smooth_large,
@@ -17114,6 +17108,10 @@
 	dir = 8
 	},
 /area/centcom/supplypod/loading/one)
+"ZO" = (
+/obj/machinery/griddle,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "ZQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -43314,7 +43312,7 @@ Xk
 MG
 YN
 Nd
-Vm
+au
 Fh
 CA
 Nd
@@ -43571,7 +43569,7 @@ Xk
 Rh
 Mm
 Nd
-MT
+JE
 Fh
 Yu
 Nd
@@ -43828,7 +43826,7 @@ Xk
 Rh
 ZT
 Nd
-Pr
+zU
 Fh
 QW
 Nd
@@ -44085,9 +44083,9 @@ XL
 Nd
 Nd
 Nd
-JE
+Pr
 Fh
-YQ
+Vl
 Nd
 MR
 Sd
@@ -44344,7 +44342,7 @@ Xk
 Nd
 SG
 Fh
-Vv
+ZA
 Nd
 Nd
 Sd
@@ -44599,9 +44597,9 @@ Xk
 Xk
 Xk
 Nd
-zX
+bi
 Fh
-pS
+MT
 Nd
 Nd
 Nd
@@ -44858,7 +44856,7 @@ Xk
 Nd
 QA
 Fh
-Nv
+ZO
 ED
 Yo
 Yf
@@ -56695,12 +56693,12 @@ Ep
 as
 Zn
 Ep
-Iy
-Iy
-Iy
-Iy
-Iy
-Iy
+Lq
+Lq
+Lq
+Lq
+Lq
+Lq
 Iv
 Qn
 bd
@@ -64405,12 +64403,12 @@ Ep
 Pt
 Zn
 Ep
-IP
-IP
-IP
-IP
-IP
-IP
+SA
+SA
+SA
+SA
+SA
+SA
 Iv
 iJ
 aR
@@ -74517,12 +74515,12 @@ aa
 aa
 ab
 ab
-fB
-fB
-fB
-fB
-fB
-fB
+GF
+GF
+GF
+GF
+GF
+GF
 ab
 aa
 aa
@@ -82227,12 +82225,12 @@ aa
 aa
 ab
 ab
-fK
-fK
-fK
-fK
-fK
-fK
+pa
+pa
+pa
+pa
+pa
+pa
 ab
 aa
 aa
