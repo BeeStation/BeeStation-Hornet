@@ -18694,7 +18694,7 @@
 	},
 /area/centcom/control)
 "aTB" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "aTC" = (

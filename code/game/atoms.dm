@@ -1538,6 +1538,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	return
 
 /atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	if(user.mind)
+		ADD_TRAIT(src, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
 	return
 
 //! Tool-specific behavior procs.

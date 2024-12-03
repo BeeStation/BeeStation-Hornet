@@ -33615,7 +33615,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "iCm" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
