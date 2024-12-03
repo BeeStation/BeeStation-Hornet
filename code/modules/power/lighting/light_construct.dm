@@ -118,7 +118,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				stage = 1
 				icon_state = "[fixture_type]-construct-stage1"
-				new /obj/item/stack/cable_coil(drop_location(), 1, "red")
+				new /obj/item/stack/cable_coil(drop_location(), 1
 				user.visible_message("[user.name] removes the wiring from [src].", \
 					"<span class='notice'>You remove the wiring from [src].</span>", "<span class='italics'>You hear clicking.</span>")
 				W.play_tool_sound(src, 100)
