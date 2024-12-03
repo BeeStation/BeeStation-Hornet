@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Moved a cable on deltastation supermatter's APC so that 2 wires don't overlap
+      at the terminal.
