@@ -32,7 +32,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas
 	l_hand = /obj/item/melee/transforming/energy/sword
-	r_hand = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	r_hand = /obj/item/gun/energy/recharge/ebow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/melee/transforming/energy/sword/sword = locate() in H.held_items
@@ -285,19 +285,6 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	head = /obj/item/clothing/head/costume/ushanka
 	mask = null
-
-/datum/role_preference/antagonist/gangster
-	name = "Gangster"
-	description = "Convince people to join your gang, wear your uniform, tag turf for the gang, and accomplish your gang's goals."
-	antag_datum = /datum/antagonist/gang
-	preview_outfit = /datum/outfit/gangster_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/gangster_preview
-	name = "Gangster (Preview only)"
-	head = /obj/item/clothing/head/beanie/black
-	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket/bomber
 
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
