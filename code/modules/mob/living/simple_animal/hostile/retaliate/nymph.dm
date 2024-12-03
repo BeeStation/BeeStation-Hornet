@@ -172,6 +172,10 @@
 		grown_message_sent = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(nymph_assimilation), source, arrived)
+
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/nymph_assimilation(datum/source, atom/movable/arrived)
 	if(isdiona(arrived))
 		if(mind != null || stat == DEAD || is_drone) //Does the nymph on the ground have a mind, dead or a drone?
 			return // If so, ignore the diona
