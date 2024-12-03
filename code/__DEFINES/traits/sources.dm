@@ -133,3 +133,6 @@
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+
+/// Trait from [/datum/antagonist/nukeop/clownop]
+#define CLOWNOP_TRAIT "clownop"
