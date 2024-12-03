@@ -18,6 +18,7 @@
 #include "bloody_footprints.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
+#include "combat.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
