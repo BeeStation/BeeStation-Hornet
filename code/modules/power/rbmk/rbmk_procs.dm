@@ -357,13 +357,15 @@ Arguments:
 		grilled_item = null
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/grillStart(/obj/item/food/grilled_item)
-	RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(grill_complete))
+	RegisterSignal(grilled_item, COMSIG_ITEM_GRILLED, PROC_REF(grill_complete))
 	grill_loop.start()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/finish_grill()
-	SEND_SIGNAL(grilled_item, COMSIG_GRILL_FOOD, grilled_item, grill_time)
+	if(grilled_item)
+		if(grill_time >= 20)
+			grilled_item.AddElement(/datum/element/grilled_item, grill_time)
+		UnregisterSignal(grilled_item, COMSIG_ITEM_GRILLED)
 	grill_time = 0
-	UnregisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(grill_complete))
 	grill_loop.stop()
 
 ///Called when a food is transformed by the grillable component
