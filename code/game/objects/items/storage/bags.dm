@@ -446,7 +446,7 @@
 			/obj/item/reagent_containers/medspray,
 			/obj/item/reagent_containers/syringe,
 			/obj/item/reagent_containers/dropper,
-			/obj/item/reagent_containers/cup/waterbottle
+			/obj/item/reagent_containers/cup/glass/waterbottle
 			)
 		)
 
