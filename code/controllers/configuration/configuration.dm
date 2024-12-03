@@ -20,6 +20,9 @@
 
 	var/motd
 
+	/// If the configuration is loaded
+	var/loaded = FALSE
+
 	var/static/regex/ic_filter_regex
 	var/static/regex/ooc_filter_regex
 
@@ -59,6 +62,8 @@
 	LoadTopicRateWhitelist()
 	LoadProtectedIDs()
 	LoadChatFilter()
+
+	loaded = TRUE
 
 	if (Master)
 		Master.OnConfigLoad()
