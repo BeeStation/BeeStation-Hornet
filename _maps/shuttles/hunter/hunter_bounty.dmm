@@ -68,7 +68,7 @@
 	},
 /obj/item/gun/energy/e_gun/mini,
 /obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large{
+/obj/item/gun/energy/recharge/ebow/large{
 	pixel_y = -8;
 	pin = /obj/item/firing_pin
 	},
