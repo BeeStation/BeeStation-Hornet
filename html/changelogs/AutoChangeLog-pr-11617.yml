@@ -1,0 +1,9 @@
+author: AnturK, Mooshimi, nikothedude, lebedev, kawoppi, RunKitenzRComing, DrDiasyl,
+  larentoun, Mothblocks, jlsnow301, MrMelbert, Sadboysuss, XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed custom emotes not showing up when a person is deaf.
+  - refactor: Refactored some emote code.
+  - rscadd: People wearing a security mask now have a special deathgasp.
+  - rscadd: Added *smirk emote.
+  - rscadd: Added *sweat, which is the same as *sweatdrop.
