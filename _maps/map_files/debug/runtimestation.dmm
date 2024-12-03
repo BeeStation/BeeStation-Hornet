@@ -88,6 +88,7 @@
 	dir = 5
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/ntnet_relay,
 /turf/open/floor/iron,
 /area/engine/gravity_generator)
 "au" = (

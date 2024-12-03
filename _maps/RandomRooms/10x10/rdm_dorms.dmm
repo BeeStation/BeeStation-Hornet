@@ -312,7 +312,7 @@
 /area/template_noop)
 "Vu" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/waterbottle/empty{
+/obj/item/reagent_containers/cup/glass/waterbottle/empty{
 	pixel_x = -6;
 	pixel_y = 7
 	},

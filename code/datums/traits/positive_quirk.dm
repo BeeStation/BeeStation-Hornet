@@ -9,6 +9,7 @@
 	mob_trait = TRAIT_ALCOHOL_TOLERANCE
 	gain_text = "<span class='notice'>You feel like you could drink a whole keg!</span>"
 	lose_text = "<span class='danger'>You don't feel as resistant to alcohol anymore. Somehow.</span>"
+	medical_record_text = "Patient demonstrates a high tolerance for alcohol."
 
 /datum/quirk/apathetic
 	name = "Apathetic"
@@ -16,6 +17,7 @@
 	icon = "meh"
 	value = 1
 	mood_quirk = TRUE
+	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
 
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
@@ -35,6 +37,7 @@
 	mob_trait = TRAIT_EMPATH
 	gain_text = "<span class='notice'>You feel in tune with those around you.</span>"
 	lose_text = "<span class='danger'>You feel isolated from others.</span>"
+	medical_record_text = "Patient is highly perceptive of and sensitive to social cues, or may possibly have ESP. Further testing needed."
 
 /datum/quirk/freerunning
 	name = "Freerunning"
@@ -44,6 +47,7 @@
 	mob_trait = TRAIT_FREERUNNING
 	gain_text = "<span class='notice'>You feel lithe on your feet!</span>"
 	lose_text = "<span class='danger'>You feel clumsy again.</span>"
+	medical_record_text = "Patient scored highly on cardio tests."
 
 /datum/quirk/friendly
 	name = "Friendly"
@@ -54,6 +58,7 @@
 	gain_text = "<span class='notice'>You want to hug someone.</span>"
 	lose_text = "<span class='danger'>You no longer feel compelled to hug others.</span>"
 	mood_quirk = TRUE
+	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
 
 /datum/quirk/jolly
 	name = "Jolly"
@@ -63,6 +68,7 @@
 	mob_trait = TRAIT_JOLLY
 	mood_quirk = TRUE
 	process = TRUE
+	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
 
 /datum/quirk/jolly/on_process(delta_time)
 	if(DT_PROB(0.05, delta_time))
@@ -76,6 +82,7 @@
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = "<span class='notice'>You walk with a little more litheness.</span>"
 	lose_text = "<span class='danger'>You start tromping around like a barbarian.</span>"
+	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
 /datum/quirk/musician
 	name = "Musician"
@@ -85,6 +92,7 @@
 	mob_trait = TRAIT_MUSICIAN
 	gain_text = "<span class='notice'>You know everything about musical instruments.</span>"
 	lose_text = "<span class='danger'>You forget how musical instruments work.</span>"
+	medical_record_text = "Patient brain scans show a highly-developed auditory pathway."
 
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -103,6 +111,7 @@
 	mob_trait = TRAIT_LINGUIST
 	gain_text = "<span class='notice'>You can recognise the linguistic features of every language.</span>"
 	lose_text = "<span class='danger'>You can no longer recognise linguistic features for each language.</span>"
+	medical_record_text = "Patient possesses extrasensory language feature perception."
 
 /datum/quirk/multilingual
 	name = "Multilingual"
@@ -112,6 +121,7 @@
 	mob_trait = TRAIT_MULTILINGUAL
 	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
 	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
+	medical_record_text = "Patient knows more than one language."
 	var/datum/language/known_language
 
 /datum/quirk/multilingual/proc/set_up_language()
@@ -149,6 +159,7 @@
 	mob_trait = TRAIT_NIGHT_VISION
 	gain_text = "<span class='notice'>The shadows seem a little less dark.</span>"
 	lose_text = "<span class='danger'>Everything seems a little darker.</span>"
+	medical_record_text = "Patient possesses a better than average retina."
 
 /datum/quirk/night_vision/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -165,6 +176,7 @@
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = "<span class='notice'>You know everything about photography.</span>"
 	lose_text = "<span class='danger'>You forget how photo cameras work.</span>"
+	medical_record_text = "Patient mentions photography as a stress-relieving hobby."
 
 /datum/quirk/photographer/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -185,6 +197,7 @@
 	icon = "bone"
 	value = 2
 	mob_trait = TRAIT_SELF_AWARE
+	medical_record_text = "Patient demonstrates an uncanny knack for self-diagnosis."
 
 /datum/quirk/skittish
 	name = "Skittish"
@@ -192,6 +205,7 @@
 	icon = "trash"
 	value = 2
 	mob_trait = TRAIT_SKITTISH
+	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
 
 /datum/quirk/spiritual
 	name = "Spiritual"
@@ -202,6 +216,7 @@
 	gain_text = "<span class='notice'>You have faith in a higher power.</span>"
 	lose_text = "<span class='danger'>You lose faith!</span>"
 	process = TRUE
+	medical_record_text = "Patient reports a belief in a higher power."
 
 /datum/quirk/spiritual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -227,6 +242,7 @@
 	mob_trait = TRAIT_TAGGER
 	gain_text = "<span class='notice'>You know how to tag walls efficiently.</span>"
 	lose_text = "<span class='danger'>You forget how to tag walls properly.</span>"
+	medical_record_text = "Patient recently seen for paint poisoning."
 
 /datum/quirk/tagger/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -243,6 +259,7 @@
 	mob_trait = TRAIT_VORACIOUS
 	gain_text = "<span class='notice'>You feel HONGRY.</span>"
 	lose_text = "<span class='danger'>You no longer feel HONGRY.</span>"
+	medical_record_text = "Patient has an above average appreciation for food and drink."
 
 /datum/quirk/neet
 	name = "NEET"
@@ -254,6 +271,7 @@
 	lose_text = "<span class='danger'>You no longer feel useless to society.</span>"
 	mood_quirk = TRUE
 	process = TRUE
+	medical_record_text = "Patient qualifies for social welfare."
 
 /datum/quirk/neet/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -270,6 +288,7 @@
 	mob_trait = TRAIT_PROSKATER
 	gain_text = "<span class='notice'>You feel like hitting a sick grind!</span>"
 	lose_text = "<span class='danger'>You no longer feel like you're in touch with the youth.</span>"
+	medical_record_text = "Patient demonstrated a high affinity for skateboards."
 
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -283,6 +302,7 @@
 	mob_trait = TRAIT_PLUSHIELOVER
 	gain_text = "<span class='notice'>You can't wait to hug a plushie!.</span>"
 	lose_text = "<span class='danger'>You don't feel that passion for plushies anymore.</span>"
+	medical_record_text = "Patient demonstrated a high affinity for plushies."
 
 /datum/quirk/plushielover/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target

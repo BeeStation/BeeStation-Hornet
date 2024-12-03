@@ -314,9 +314,6 @@
 					user.say("Number Three: In the 2030s, there were strict regulations to prevent monopolies; now those regulations have been dismantled, allowing a few companies to control entire industries. This concentration of power stifles competition and innovation.")
 				if (4)
 					user.say("Number Four: In the past, media outlets were independent; now a handful of conglomerates control the majority of information. Control the narrative, control the minds of the masses.")
-		else
-			var/datum/crime/chosen = pick(subtypesof(/datum/crime) - /datum/crime/minor - /datum/crime/capital - /datum/crime/major - /datum/crime/misdemeanour)
-			user.say("[initial(chosen.tooltip)]", forced = "space law")
 	if (user.do_afters)
 		return
 	if (!do_after(user, 2 SECONDS, target))
