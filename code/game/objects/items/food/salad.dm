@@ -12,6 +12,7 @@
 	tastes = list("leaves" = 1)
 	foodtypes = VEGETABLES
 	eatverbs = list("devour","nibble","gnaw","gobble","chomp") //who the fuck gnaws and devours on a salad
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/salad/aesirsalad
 	name = "\improper Aesir salad"
@@ -23,6 +24,7 @@
 	)
 	tastes = list("leaves" = 1)
 	foodtypes = VEGETABLES | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/salad/herbsalad
 	name = "herb salad"
@@ -34,6 +36,7 @@
 	)
 	tastes = list("leaves" = 1, "apple" = 1)
 	foodtypes = VEGETABLES | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/salad/validsalad
 	name = "valid salad"
@@ -58,6 +61,7 @@
 	)
 	tastes = list("fruit" = 1)
 	foodtypes = FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/salad/jungle
 	name = "jungle salad"
@@ -70,6 +74,7 @@
 	)
 	tastes = list("fruit" = 1, "the jungle" = 1)
 	foodtypes = FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/salad/citrusdelight
 	name = "citrus delight"
@@ -81,6 +86,7 @@
 	)
 	tastes = list("sourness" = 1, "leaves" = 1)
 	foodtypes = FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/uncooked_rice
 	name = "uncooked rice"
@@ -106,6 +112,7 @@
 	)
 	tastes = list("rice" = 1)
 	foodtypes = GRAIN | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/salad/ricepudding
 	name = "rice pudding"
@@ -130,6 +137,7 @@
 	)
 	tastes = list("rice" = 1, "meat" = 1)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/salad/eggbowl
 	name = "egg bowl"
@@ -142,6 +150,7 @@
 	)
 	tastes = list("rice" = 1, "egg" = 1)
 	foodtypes = GRAIN | MEAT //EGG = MEAT -NinjaNomNom 2017
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 
 /obj/item/reagent_containers/cup/bowl
