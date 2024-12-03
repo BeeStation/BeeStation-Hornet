@@ -68,11 +68,11 @@
 	// slightly worse than normal cult robes
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 30, BLEED = 40)
 	body_parts_covered = CHEST|GROIN|ARMS
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/void_cloak
 	qdel_hood = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
+	create_storage(type = /datum/storage/pockets/void_cloak)
 	make_visible()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
