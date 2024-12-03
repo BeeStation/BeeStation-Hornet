@@ -264,6 +264,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 30
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/bundles_TC/machoman
+	name = "The Macho Wrestler Bundle"
+	desc = "For the STRONGEST operatives! Master your wrasslin' abilities with this bundle. \
+			Contains: A wrestling belt, only for the strongest machos, an adrenaline implanter, a luchador mask to strike fear into your enemies, and a combat hypospray!"
+	item = /obj/item/storage/backpack/duffelbag/syndie/macho
+	cost = 18
+	purchasable_from = UPLINK_NUKE_OPS
+
 /datum/uplink_item/bundles_TC/contract_kit
 	name = "Contract Kit"
 	desc = "The Syndicate have offered you the chance to become a contractor, take on kidnapping contracts for TC and cash payouts. Upon purchase, \
@@ -824,7 +832,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	and fire bolts tipped with dangerous toxins that will disorient and \
 	irradiate targets. It can produce an infinite number of bolts \
 	which automatically recharge roughly 25 seconds after each shot."
-	item = /obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	item = /obj/item/gun/energy/recharge/ebow/radbow
 	cost = 8
 	surplus = 50
 
@@ -836,7 +844,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
-	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	item = /obj/item/gun/energy/recharge/ebow
 	cost = 12
 	surplus = 50
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -2369,13 +2377,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 20
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
-/datum/uplink_item/role_restricted/shadowmutationtoxin
-	name = "Shadow Person Mutation Toxin"
-	desc = "Become one with the night, Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
-	item = /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
-	cost = 5
-	restricted_roles = list(JOB_NAME_CHAPLAIN)
-
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
@@ -2638,3 +2639,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 3
 	surplus = 0
 	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
+
+/datum/uplink_item/device_tools/tc_rod
+	name = "Telecrystal Fuel Rod"
+	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
+			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
+			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
+			much to overload the reactor with these..."
+	item = /obj/item/fuel_rod/material/telecrystal
+	cost = 7
