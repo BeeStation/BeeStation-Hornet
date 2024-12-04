@@ -15987,8 +15987,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4;
 	filter_type = list(/datum/gas/nitrogen);
-	name = "nitrogen filter";
-	 = None
+	name = "nitrogen filter"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -25569,7 +25568,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/camera/directional/north{
@@ -31233,8 +31231,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 1;
 	filter_type = list(/datum/gas/nitrogen);
-	name = "nitrogen filter";
-	 = None
+	name = "nitrogen filter"
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
