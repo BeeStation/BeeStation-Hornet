@@ -31594,7 +31594,8 @@
 "pIN" = (
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4;
-	filter_type = list(/datum/gas/nitrogen)
+	filter_type = list(/datum/gas/nitrogen);
+	 = None
 	},
 /obj/structure/sign/warning/securearea{
 	pixel_y = 30

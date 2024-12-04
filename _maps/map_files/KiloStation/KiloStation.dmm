@@ -44520,7 +44520,8 @@
 "mvp" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
 	dir = 8;
-	filter_type = list(/datum/gas/nitrogen)
+	filter_type = list(/datum/gas/nitrogen);
+	 = None
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

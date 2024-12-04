@@ -14676,7 +14676,8 @@
 "cGf" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
 	dir = 8;
-	filter_type = list(/datum/gas/nitrogen)
+	filter_type = list(/datum/gas/nitrogen);
+	 = None
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)

@@ -15318,6 +15318,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 24;
 	dir = 1;
+	 = None;
 	locked = "0"
 	},
 /obj/structure/chair/office{
@@ -56871,7 +56872,8 @@
 /area/security/prison)
 "ssV" = (
 /obj/machinery/atmospherics/components/trinary/filter/critical{
-	filter_type = list(/datum/gas/nitrogen)
+	filter_type = list(/datum/gas/nitrogen);
+	 = None
 	},
 /obj/machinery/light{
 	dir = 4

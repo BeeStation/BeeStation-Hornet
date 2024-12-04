@@ -3640,7 +3640,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 8;
 	id_tag = "syndie_lavaland_n2_out";
-	name = "nitrogen out"
+	name = "nitrogen out";
+	 = None
 	},
 /turf/open/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4371,7 +4372,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 1;
 	id_tag = "syndie_lavaland_tox_out";
-	name = "toxin out"
+	name = "toxin out";
+	 = None
 	},
 /turf/open/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4848,7 +4850,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 8;
 	id_tag = "syndie_lavaland_o2_out";
-	name = "oxygen out"
+	name = "oxygen out";
+	 = None
 	},
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
