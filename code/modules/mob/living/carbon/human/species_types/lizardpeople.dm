@@ -78,6 +78,9 @@
 /datum/species/lizard/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
+/datum/species/lizard/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
+
 /datum/species/lizard/get_species_description()
 	return "Lizardpeople, unlike many 'Animalid' species, are not derived from humans, and are simply bipedal reptile-like people. \
 	Lizards often find great pride in their species."

@@ -11320,7 +11320,7 @@
 /turf/open/floor/plating,
 /area/medical/virology)
 "dzZ" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
@@ -11808,7 +11808,6 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet)
 "dJE" = (
@@ -39173,7 +39172,6 @@
 /area/hallway/primary/central)
 "myE" = (
 /obj/machinery/airalarm/directional/south,
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet)
 "myH" = (
@@ -53876,6 +53874,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "ruN" = (
