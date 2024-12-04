@@ -153,6 +153,10 @@
 /obj/machinery/atmospherics/proc/get_rebuild_targets()
 	return
 
+/obj/machinery/atmospherics/update_icon()
+	. = ..()
+	update_layer()
+
 /**
  * Called on destroy(mostly deconstruction) and when moving nodes around, disconnect the nodes from the network
  * Arguments:

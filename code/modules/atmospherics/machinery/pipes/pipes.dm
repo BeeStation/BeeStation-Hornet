@@ -47,7 +47,12 @@
 	return ..()
 
 /obj/machinery/atmospherics/pipe/proc/update_pipe_icon()
-	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
+	switch(initialize_directions)
+		if(NORTH, EAST, SOUTH, WEST) // Pipes with only a single connection aren't handled by this system
+			icon = null
+			return
+		else
+			icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
 	var/connections = NONE
 	var/bitfield = NONE
 	for(var/i in 1 to device_type)
