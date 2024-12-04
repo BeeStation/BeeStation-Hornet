@@ -11,8 +11,9 @@
 	///Time spent baking so far
 	var/current_bake_time = 0
 
-	/// REF() to the mob which placed us in an oven
+	/// REF() to the mind which placed us in an oven
 	var/who_baked_us
+
 
 /datum/component/bakeable/Initialize(bake_result, required_bake_time, positive_result, use_large_steam_sprite)
 	. = ..()
@@ -46,7 +47,7 @@
 /datum/component/bakeable/proc/on_baking_start(datum/source, atom/used_oven, mob/baker)
 	SIGNAL_HANDLER
 
-	if(baker)
+	if(baker && baker.mind)
 		who_baked_us = REF(baker.mind)
 
 ///Ran every time an item is baked by something
@@ -68,6 +69,7 @@
 	var/atom/original_object = parent
 	var/obj/item/plate/oven_tray/used_tray = original_object.loc
 	var/atom/baked_result = new bake_result(used_tray)
+	original_object.reagents?.trans_to(baked_result, original_object.reagents.total_volume)
 
 	if(who_baked_us)
 		ADD_TRAIT(baked_result, TRAIT_FOOD_CHEF_MADE, who_baked_us)

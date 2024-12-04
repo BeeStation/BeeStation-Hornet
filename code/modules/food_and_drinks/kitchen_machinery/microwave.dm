@@ -384,7 +384,7 @@
 		return
 
 	if(prob(max((5 / efficiency) - 5, dirty * 5))) //a clean unupgraded microwave has no risk of failure
-		muck()
+		muck(user)
 		return
 
 	// How many items are we cooking that aren't already food items
@@ -408,11 +408,11 @@
 	soundloop.start()
 	update_appearance()
 
-/obj/machinery/microwave/proc/spark()
+/obj/machinery/microwave/proc/spark(mob/user)
 	visible_message("<span class='warning'>Sparks fly around [src]!</span>")
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(2, 1, src)
-	s.start()
+	s.start(user)
 
 /obj/machinery/microwave/proc/start(mob/cooker)
 	wzhzhzh()
@@ -422,7 +422,7 @@
 	wzhzhzh()
 	loop(MICROWAVE_PRE, 4, cooker = cooker)
 
-/obj/machinery/microwave/proc/muck()
+/obj/machinery/microwave/proc/muck(mob/user)
 	wzhzhzh()
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 	dirty_anim_playing = TRUE
@@ -474,7 +474,7 @@
 		if(prob(max(iron_amount / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dump_inventory_contents()
+		dump_inventory_contents(user)
 
 	after_finish_loop()
 
