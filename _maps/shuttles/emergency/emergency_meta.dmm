@@ -542,9 +542,6 @@
 /area/shuttle/escape)
 "bQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
-	dir = 10
-	},
 /turf/open/floor/catwalk_floor/iron,
 /area/shuttle/escape)
 "bR" = (
@@ -755,13 +752,6 @@
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"fr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
-	dir = 9
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "fx" = (
 /obj/machinery/light{
 	dir = 8
@@ -770,14 +760,6 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"fH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/tank/air{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
 /area/shuttle/escape)
 "gU" = (
 /obj/machinery/door/airlock/command/glass{
@@ -795,7 +777,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "ig" = (
@@ -976,17 +957,9 @@
 /obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"yL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "AF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
-	dir = 10
-	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "AG" = (
@@ -1018,27 +991,13 @@
 	dir = 8
 	},
 /area/shuttle/escape)
-"BN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden{
-	dir = 8
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "Ce" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"CQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump,
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "DK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /obj/machinery/newscaster/directional/west,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Eg" = (
@@ -1267,13 +1226,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
-"Yo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
-	dir = 5
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "Yp" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
@@ -1372,8 +1324,8 @@ aF
 aL
 aO
 ad
-fH
-be
+RM
+RM
 RM
 bd
 DK
@@ -1391,9 +1343,9 @@ AT
 ad
 AF
 hJ
-BN
-CQ
-Yo
+bQ
+bQ
+bQ
 bf
 "}
 (6,1,1) = {"
@@ -1409,8 +1361,8 @@ ad
 Ns
 Ce
 bQ
-yL
-fr
+bQ
+bQ
 bf
 "}
 (7,1,1) = {"
