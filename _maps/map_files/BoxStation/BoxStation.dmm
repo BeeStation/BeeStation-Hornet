@@ -572,7 +572,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "agd" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "agj" = (
@@ -7573,10 +7573,10 @@
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "bJF" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
-	dir = 4
-	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bJI" = (
@@ -9510,18 +9510,18 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVY" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVZ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bWa" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -10094,10 +10094,10 @@
 /turf/closed/wall,
 /area/engine/atmos)
 "bYS" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bYT" = (
@@ -10296,17 +10296,17 @@
 /turf/open/floor/iron/ridged/steel,
 /area/hydroponics)
 "bZH" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/item/wrench,
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
 	dir = 4
 	},
-/obj/item/wrench,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bZI" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bZJ" = (
@@ -13902,7 +13902,7 @@
 /turf/open/floor/iron/white,
 /area/science/explab)
 "cCC" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -16517,6 +16517,13 @@
 	dir = 8
 	},
 /area/crew_quarters/dorms)
+"dnW" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/engine/atmos)
 "doi" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -17253,7 +17260,7 @@
 "dEo" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -23490,7 +23497,7 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "gcR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -26497,6 +26504,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"hoj" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/dark/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "hos" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -44928,7 +44941,7 @@
 /area/science/nanite)
 "oNw" = (
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "oNL" = (
@@ -45410,8 +45423,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "oYm" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "oYy" = (
@@ -49814,11 +49827,11 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "qMR" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/orange/visible{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "qNw" = (
@@ -55916,7 +55929,7 @@
 /area/quartermaster/miningdock)
 "tdq" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "tdv" = (
@@ -64440,10 +64453,10 @@
 	},
 /area/engine/atmos)
 "wwh" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/structure/chair/stool/directional/east,
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "wwv" = (
@@ -100756,7 +100769,7 @@ kxW
 tdQ
 ldN
 ntX
-oYm
+tdq
 aGx
 abl
 ccw
@@ -101506,7 +101519,7 @@ wVP
 bzs
 fDn
 bLK
-bJF
+dnW
 bMQ
 bJF
 bMQ
@@ -102555,7 +102568,7 @@ jPN
 vfI
 qxh
 sTP
-tdq
+oYm
 imP
 rDe
 ckY
@@ -102807,7 +102820,7 @@ bXT
 caG
 cbE
 bOd
-rcc
+hoj
 wMp
 cdA
 jzS
@@ -103825,11 +103838,11 @@ grQ
 xNI
 lpu
 gxp
-qMR
+dEo
 xNI
 lpu
 qMR
-qMR
+dEo
 xNI
 lpu
 xNI
