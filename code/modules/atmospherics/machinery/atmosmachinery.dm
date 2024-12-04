@@ -165,17 +165,25 @@
 	node_machine.disconnect(src)
 	nodes[i] = null
 
+/**
+ * Getter for node_connects
+ *
+ * Return a list of the nodes that can connect to other machines, get called by atmos_init()
+ */
 /obj/machinery/atmospherics/proc/get_node_connects()
 	var/list/node_connects = list()
 	node_connects.len = device_type
 
+	var/init_directions = get_init_directions()
 	for(var/i in 1 to device_type)
-		for(var/D in GLOB.cardinals)
-			if(D & get_init_directions())
-				if(D in node_connects)
-					continue
-				node_connects[i] = D
-				break
+		for(var/direction in GLOB.cardinals)
+			if(!(direction & init_directions))
+				continue
+			if(direction in node_connects)
+				continue
+			node_connects[i] = direction
+			break
+
 	return node_connects
 
 /**
@@ -301,7 +309,7 @@
 /**
  * Set the initial directions of the device (NORTH || SOUTH || EAST || WEST), called on New()
  */
-/obj/machinery/atmospherics/proc/set_init_directions()
+/obj/machinery/atmospherics/proc/set_init_directions(init_dir)
 	return
 
 /**
