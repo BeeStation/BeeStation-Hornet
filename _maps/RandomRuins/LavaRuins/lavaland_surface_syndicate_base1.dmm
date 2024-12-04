@@ -113,7 +113,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "bE" = (
@@ -131,7 +132,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "bS" = (
@@ -162,6 +164,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "cn" = (
@@ -188,7 +192,8 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "cu" = (
@@ -297,7 +302,6 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/glass/incinerator/syndicatelava_interior,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "dv" = (
@@ -337,6 +341,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
+"dE" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Bar"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "dK" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
@@ -514,7 +528,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "eD" = (
@@ -806,7 +821,8 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "gm" = (
@@ -823,7 +839,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "gN" = (
@@ -924,7 +941,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "hz" = (
@@ -1038,11 +1056,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "iE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/medbay)
 "iH" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
@@ -1087,6 +1105,8 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "jc" = (
@@ -1133,6 +1153,8 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "jP" = (
@@ -1233,6 +1255,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"lo" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "lx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -1349,7 +1379,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "nf" = (
@@ -1361,7 +1392,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "nl" = (
@@ -1375,7 +1407,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nr" = (
@@ -1384,13 +1416,20 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "nE" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"nL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/main)
 "nW" = (
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -1527,6 +1566,8 @@
 	name = "Warehouse";
 	req_access_txt = "150"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "oP" = (
@@ -1542,7 +1583,8 @@
 "oX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oY" = (
@@ -1583,7 +1625,8 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "pn" = (
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "pq" = (
@@ -1600,7 +1643,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "pD" = (
@@ -1628,7 +1672,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "pQ" = (
@@ -1663,10 +1708,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "pW" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered/syndicate_lava_base/main)
 "pY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
@@ -1679,7 +1725,8 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ql" = (
@@ -1696,7 +1743,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "qp" = (
@@ -1717,7 +1765,8 @@
 	},
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "qG" = (
@@ -1733,9 +1782,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
+"qJ" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "qK" = (
 /obj/structure/closet/radiation,
 /obj/structure/extinguisher_cabinet{
@@ -1799,12 +1853,14 @@
 	req_access_txt = "150"
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "rF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "rS" = (
@@ -1877,7 +1933,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "sY" = (
@@ -1887,7 +1943,8 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "sZ" = (
@@ -1896,9 +1953,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/west,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ta" = (
@@ -1925,7 +1981,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "tv" = (
@@ -1960,7 +2016,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/science)
 "tV" = (
@@ -2059,7 +2116,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "uD" = (
@@ -2100,7 +2158,8 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "uQ" = (
@@ -2113,6 +2172,15 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
+"uV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "va" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Telecommunications Control";
@@ -2134,7 +2202,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "vg" = (
@@ -2206,7 +2275,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "vT" = (
@@ -2229,15 +2299,21 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
+"wd" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "we" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "wn" = (
@@ -2254,7 +2330,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "wB" = (
@@ -2267,6 +2344,8 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "wG" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "wK" = (
@@ -2275,7 +2354,8 @@
 	name = "Syndicate Research Experimentation Shutters"
 	},
 /obj/effect/spawner/structure/window/plastitanium,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "wL" = (
@@ -2307,7 +2387,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "xa" = (
@@ -2321,7 +2402,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "xl" = (
@@ -2380,7 +2462,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "yg" = (
@@ -2395,7 +2476,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "yr" = (
@@ -2507,7 +2589,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "zd" = (
@@ -2553,7 +2636,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "zA" = (
@@ -2567,7 +2651,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "zI" = (
@@ -2575,7 +2660,8 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "zK" = (
@@ -2645,7 +2731,8 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "An" = (
@@ -2717,7 +2804,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "AR" = (
@@ -2731,6 +2819,8 @@
 "AU" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Bi" = (
@@ -2801,7 +2891,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "BN" = (
@@ -2830,7 +2919,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "Cc" = (
@@ -2942,7 +3032,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "CZ" = (
@@ -2973,7 +3064,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "DA" = (
@@ -2988,7 +3080,8 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "DI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "DK" = (
@@ -3033,7 +3126,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "EA" = (
@@ -3049,7 +3143,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/science)
 "EL" = (
@@ -3074,7 +3169,8 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ET" = (
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "EZ" = (
@@ -3107,7 +3203,8 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -3137,6 +3234,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"FP" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "FS" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "lavalandsyndi_virology"
@@ -3153,6 +3255,14 @@
 /obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"Ge" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "Gh" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -3195,7 +3305,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "GD" = (
@@ -3203,7 +3313,8 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "GE" = (
@@ -3218,7 +3329,8 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "GG" = (
@@ -3233,10 +3345,11 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/item/stack/sheet/wood,
 /obj/item/crowbar,
 /obj/item/screwdriver,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "GJ" = (
@@ -3309,7 +3422,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "HA" = (
@@ -3347,13 +3461,16 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "HD" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "HE" = (
@@ -3382,7 +3499,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "HT" = (
@@ -3397,7 +3515,8 @@
 	req_access_txt = "150";
 	name = "Science Lal Exterior Airlock"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "HX" = (
@@ -3470,7 +3589,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "IH" = (
@@ -3487,7 +3607,8 @@
 	},
 /obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "IN" = (
@@ -3583,7 +3704,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Jz" = (
@@ -3603,14 +3723,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "JM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/main)
 "JN" = (
 /obj/machinery/telecomms/relay/preset/ruskie{
 	use_power = 0
@@ -3632,7 +3751,8 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "JW" = (
@@ -3701,7 +3821,8 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "KP" = (
@@ -3825,14 +3946,14 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Mq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Mr" = (
@@ -3864,7 +3985,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "My" = (
@@ -3873,14 +3995,16 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "MC" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ME" = (
@@ -3908,7 +4032,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ML" = (
@@ -3963,7 +4088,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "MX" = (
@@ -3992,7 +4118,8 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Np" = (
@@ -4083,7 +4210,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Os" = (
@@ -4143,9 +4269,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
+"Pm" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "Po" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
@@ -4157,7 +4289,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Pv" = (
@@ -4196,7 +4328,8 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
@@ -4231,8 +4364,9 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/barricade/wooden/crude,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/science)
 "PC" = (
@@ -4241,7 +4375,8 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "PI" = (
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "PK" = (
@@ -4257,7 +4392,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "PW" = (
@@ -4274,6 +4408,8 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "Qa" = (
@@ -4312,7 +4448,8 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Qs" = (
@@ -4395,7 +4532,8 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Rh" = (
@@ -4435,7 +4573,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Ry" = (
@@ -4464,7 +4602,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "RP" = (
@@ -4475,7 +4614,8 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "RU" = (
@@ -4544,7 +4684,6 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Sr" = (
@@ -4600,11 +4739,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "SE" = (
 /obj/structure/chair/stool/bar,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "SF" = (
@@ -4641,7 +4782,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Tc" = (
@@ -4663,7 +4803,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Ti" = (
@@ -4692,7 +4831,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Tv" = (
@@ -4701,7 +4841,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Tz" = (
@@ -4745,7 +4886,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Uh" = (
@@ -4761,7 +4903,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "Ut" = (
@@ -4796,7 +4939,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "UP" = (
@@ -4832,7 +4974,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Vf" = (
@@ -4847,7 +4990,8 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Vk" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -4935,9 +5079,8 @@
 "Ww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Wy" = (
@@ -5038,7 +5181,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -5075,7 +5219,8 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "XV" = (
@@ -5120,13 +5265,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Yx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/chair/stool/bar,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "Yz" = (
@@ -5142,7 +5289,8 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "YD" = (
@@ -5259,7 +5407,8 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "Zi" = (
@@ -5310,7 +5459,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ZE" = (
@@ -6282,8 +6432,8 @@ CZ
 jZ
 FK
 jZ
-DM
-jZ
+FP
+qJ
 FX
 ly
 PC
@@ -6427,12 +6577,12 @@ KE
 Dv
 HC
 pZ
-oq
-jZ
+dE
+Pm
 PZ
 jO
-DM
-jZ
+wd
+qJ
 YK
 OV
 lX
@@ -6619,7 +6769,7 @@ es
 eS
 DO
 MX
-jj
+JM
 GT
 hz
 TK
@@ -6669,7 +6819,7 @@ et
 eT
 Zc
 MX
-jj
+JM
 AR
 hz
 hz
@@ -6719,7 +6869,7 @@ eu
 eU
 fp
 qZ
-jj
+JM
 vp
 hQ
 hz
@@ -6769,7 +6919,7 @@ yG
 dC
 as
 lP
-if
+nL
 vp
 hz
 hz
@@ -6839,8 +6989,8 @@ UT
 wL
 fs
 yg
-UX
-lI
+iE
+pn
 Kh
 kQ
 ab
@@ -6890,7 +7040,7 @@ me
 pn
 rF
 UX
-lJ
+rF
 bs
 kQ
 ac
@@ -6917,7 +7067,7 @@ dK
 HA
 sZ
 wG
-JM
+Ww
 oO
 HD
 vp
@@ -7015,7 +7165,7 @@ ab
 dy
 dM
 He
-pW
+wG
 eY
 yW
 dP
@@ -7065,7 +7215,7 @@ ab
 dy
 dy
 ML
-iE
+Ww
 Wq
 dy
 dy
@@ -7215,11 +7365,11 @@ ab
 ab
 dy
 QM
-we
+uV
+lo
 ts
 ts
-ts
-we
+Ge
 we
 Jw
 xn
@@ -7327,7 +7477,7 @@ ya
 PM
 PM
 BG
-ve
+pW
 PM
 Rw
 ju

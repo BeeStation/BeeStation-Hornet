@@ -325,9 +325,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	add_fingerprint(user)
 
 /obj/structure/window/Destroy()
+	var/turf/local_turf = get_turf(src)
 	update_nearby_icons()
 	. = ..()
-	air_update_turf(TRUE, FALSE)
+	local_turf.air_update_turf(TRUE, FALSE)
 
 
 /obj/structure/window/Move()
