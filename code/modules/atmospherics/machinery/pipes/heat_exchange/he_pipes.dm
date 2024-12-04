@@ -23,7 +23,7 @@
 	var/environment_temperature = 0
 	var/datum/gas_mixture/pipe_air = return_air()
 
-	var/turf/T = loc
+	var/turf/local_turf = loc
 	if(istype(local_turf))
 		if(islava(local_turf))
 			environment_temperature = 5000 //Yuck
