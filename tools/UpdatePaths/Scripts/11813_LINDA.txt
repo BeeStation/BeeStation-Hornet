@@ -100,3 +100,31 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer4 : /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4{@OLD}
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{@OLD}
 /obj/@SUBTYPES{CanAtmosPass=@ANY} : /obj/@SUBTYPES{@OLD;CanAtmosPass=@SKIP}
+
+/obj/machinery/door/airlock/research : /obj/machinery/door/airlock/research{@OLD;frequency=@SKIP}
+/obj/machinery/computer/atmos_control/sm : @DELETE
+
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_1 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer1{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_2 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer2{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_4 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer_5 : /obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer5{@OLD}
+
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_1 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer1{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_2 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer2{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_4 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/layer_5 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/layer5{@OLD}
+
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_1 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer1{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_2 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer2{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_4 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer_5 : /obj/machinery/atmospherics/components/unary/thermomachine/heater/on/layer5{@OLD}
+
+# No more compressed mapping for you, Floria!
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/oxygen_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/oxygen_output{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos_waste/layer4 : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/carbon_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/carbon_output{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input{@OLD}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input{@OLD}
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrogen_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrogen_output{@OLD}
+/obj/machinery/door/airlock/alarmlock : /obj/machinery/door/airlock/public/glass{@OLD}
