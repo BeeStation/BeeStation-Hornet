@@ -75,7 +75,7 @@
 		if(L.ventcrawler)
 			. += "<span class='notice'>Alt-click to crawl through it.</span>"
 
-/obj/machinery/atmospherics/New(loc, process = TRUE, setdir)
+/obj/machinery/atmospherics/New(loc, process = TRUE, setdir, init_dir = ALL_CARDINALS)
 	if(!isnull(setdir))
 		setDir(setdir)
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
@@ -87,7 +87,7 @@
 	..()
 	if(process)
 		SSair.start_processing_machine(src)
-	set_init_directions()
+	set_init_directions(init_dir)
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	if(mapload && name != initial(name))
@@ -257,7 +257,7 @@
  * Check the connection between two nodes
  *
  * Check if our machine and the target machine are connectable by both calling isConnectable and by checking that the directions and piping_layer are compatible
- * called by can_be_node() (for building a network) and findConnecting() (for ventcrawling)
+ * called by can_be_node() (for building a network) and find_connecting() (for ventcrawling)
  * Arguments:
  * * obj/machinery/atmospherics/target - the machinery we want to connect to
  * * given_layer - the piping_layer we are checking
