@@ -1667,7 +1667,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/telecomms,
+/turf/open/floor/iron/dark,
 /area/mine/living_quarters)
 "kV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
