@@ -13559,11 +13559,6 @@
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
-"epx" = (
-/obj/structure/reagent_dispensers/cooking_oil,
-/obj/machinery/firealarm/directional/south,
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "epB" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23335,6 +23330,12 @@
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
+"hoZ" = (
+/obj/effect/turf_decal/tile/dark_green,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "hpq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -25282,15 +25283,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
-"hVa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/open/floor/iron/tech,
-/area/ai_monitored/storage/eva)
 "hVf" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/mix_input{
 	dir = 8
@@ -26111,6 +26103,17 @@
 /obj/item/rcl/pre_loaded,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"imB" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "imF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -26267,6 +26270,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"ipM" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/plating,
+/area/maintenance/department/medical/morgue)
 "ipR" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -33561,6 +33568,13 @@
 /obj/machinery/vendor/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
+"kKb" = (
+/obj/item/reagent_containers/cup/glass/waterbottle/empty{
+	pixel_x = -10
+	},
+/obj/item/storage/belt/utility,
+/turf/open/floor/iron/sepia,
+/area/maintenance/port/central)
 "kKx" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -35968,13 +35982,6 @@
 	dir = 1
 	},
 /area/science/research)
-"lxx" = (
-/obj/item/reagent_containers/cup/glass/waterbottle/empty{
-	pixel_x = -10
-	},
-/obj/item/storage/belt/utility,
-/turf/open/floor/iron/sepia,
-/area/maintenance/port/central)
 "lxS" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -36192,12 +36199,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"lBL" = (
-/obj/effect/turf_decal/tile/dark_green,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/reagent_dispensers/cooking_oil,
-/turf/open/floor/iron,
-/area/hallway/secondary/service)
 "lBQ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	alpha = 140;
@@ -41086,6 +41087,15 @@
 /obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/wood,
 /area/library)
+"ncW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/storage/eva)
 "ncX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50318,6 +50328,11 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
+"pUT" = (
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "pVy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -65683,10 +65698,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
-"uPT" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
 "uQg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67791,17 +67802,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
-"vDC" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = 32;
-	pixel_y = -3
-	},
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "vDS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -98781,7 +98781,7 @@ nFK
 eyo
 ctt
 ppA
-vDC
+imB
 rCP
 bsk
 oBB
@@ -102140,7 +102140,7 @@ aSr
 lka
 jdV
 gOK
-lxx
+kKb
 nnB
 qRH
 saq
@@ -106776,7 +106776,7 @@ fcP
 mKM
 ewi
 itk
-hVa
+ncW
 ykx
 rUt
 nvJ
@@ -109849,7 +109849,7 @@ dFC
 dFC
 wYg
 wYg
-uPT
+ipM
 dFC
 ayJ
 eFL
@@ -113151,7 +113151,7 @@ mQZ
 vtI
 fsA
 mLh
-lBL
+hoZ
 iMw
 mVN
 mVN
@@ -114183,7 +114183,7 @@ rqC
 cHN
 mBT
 iXp
-epx
+pUT
 fwL
 nXR
 rbm
