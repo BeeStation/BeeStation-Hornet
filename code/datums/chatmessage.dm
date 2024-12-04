@@ -73,6 +73,8 @@
 	var/fadertimer = null
 	/// States if end_of_life is being executed
 	var/isFading = FALSE
+	/// Text that will be displayed to the user. Remove after 515 and pointers
+	var/inner_text
 
 /**
   * Constructs a chat message overlay
@@ -125,6 +127,9 @@
 	/// Cached icons to show what language the user is speaking
 	var/static/list/language_icons
 
+	/// Save text
+	inner_text = text
+
 	// Store the hearers
 	src.hearers = hearers
 
@@ -142,11 +147,11 @@
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
-	text = replacetext(text, span_check, "")
+	inner_text = replacetext(inner_text, span_check, "")
 
 	// Clip message
-	if (length_char(text) > CHAT_MESSAGE_MAX_LENGTH)
-		text = copytext_char(text, 1, CHAT_MESSAGE_MAX_LENGTH + 1) + "..." // BYOND index moment
+	if (length_char(inner_text) > CHAT_MESSAGE_MAX_LENGTH)
+		inner_text = copytext_char(inner_text, 1, CHAT_MESSAGE_MAX_LENGTH + 1) + "..." // BYOND index moment
 
 	//The color of the message.
 
@@ -175,11 +180,11 @@
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
-	text = replacetext(text, url_scheme, "")
+	inner_text = replacetext(inner_text, url_scheme, "")
 
 	// Reject whitespace
 	var/static/regex/whitespace = new(@"^\s*$")
-	if (whitespace.Find(text))
+	if (whitespace.Find(inner_text))
 		qdel(src)
 		return
 
@@ -217,15 +222,13 @@
 		has_language_icon = TRUE
 
 	// Approximate text height
-	var values = approx_str_width(text, font_size, bold_font, has_language_icon)
-	text = values[2]
-	approx_lines = CEILING(values[1] / CHAT_MESSAGE_WIDTH, 1)
+	approx_lines = CEILING(approx_str_width(inner_text, font_size, bold_font, has_language_icon) / CHAT_MESSAGE_WIDTH, 1)
 
 	//Add on the icons. The icon isn't measured in str_width
-	text = "[prefixes?.Join("&nbsp;")][text]"
+	inner_text = "[prefixes?.Join("&nbsp;")][inner_text]"
 
 	// Complete the text with rest of extra classes
-	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
+	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(inner_text)]</span>"
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
@@ -527,6 +530,9 @@
 	var/client/owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
 
+	// Save text
+	inner_text = text
+
 	var/bound_width = world.icon_size
 	if (ismovable(target))
 		var/atom/movable/movable_source = target
@@ -547,9 +553,7 @@
 			m.end_of_life()
 
 	// Approximate text height
-	var values = approx_str_width(text, DEFAULT_FONT_SIZE, FALSE, FALSE)
-	text = values[2]
-	approx_lines = CEILING(values[1] / CHAT_MESSAGE_WIDTH, 1)
+	approx_lines = CEILING(approx_str_width(inner_text, DEFAULT_FONT_SIZE, FALSE, FALSE) / CHAT_MESSAGE_WIDTH, 1)
 
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
@@ -559,13 +563,13 @@
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = APPROX_HEIGHT(DEFAULT_FONT_SIZE, approx_lines)
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
-	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
+	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[inner_text]</span>")
 
 	// View the message
 	owned_by.images += message
 
 	var/duration_mult = 1
-	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
+	var/duration_length = length(inner_text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 
 	if(duration_length > 0)
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
@@ -584,12 +588,11 @@
  * If the character is not found in this cache we assume the worst and add the highest possible value.
  *
  * Arguments:
- * * string - string to measure width
  * * font size - font size that the displayed string will be in, used to calculate font size multiplier
  * * is_bold - passed if the font is bold, the approximation takes into account additional width of the font
  * * has_icon - text has an icon, which adds extra 8 pixels
  */
-/datum/chatmessage/proc/approx_str_width(string, font_size = DEFAULT_FONT_SIZE, is_bold = FALSE, has_icon = FALSE)
+/datum/chatmessage/proc/approx_str_width(font_size = DEFAULT_FONT_SIZE, is_bold = FALSE, has_icon = FALSE)
 	var/value = 0
 	var/index = NORMAL_FONT_INDEX
 	if(font_size == WHISPER_FONT_SIZE)
@@ -598,26 +601,30 @@
 		index = BIG_FONT_INDEX
 
 	var/i = 1
-	while(i <= length(string))
-		var/list/letters = SSrunechat.letters[string[i]]
-		//List wasnt initialized or was tampered with
+	while(i <= length(inner_text))
+		var/list/letters
+		var/letter_index = text2ascii(inner_text[i])
+		if(SSrunechat.letters.len >= letter_index)
+			letters = SSrunechat.letters[letter_index]
+
 		if(letters == null)
 			//Replace with question mark
-			var/char_len = length(string[i])
-			string = splicetext(string, i, i += char_len, "?")
-			value += SSrunechat.letters["?"][index]
+			var/char_len = length(inner_text[i])
+			inner_text = splicetext(inner_text, i, i += char_len, "?")
+			//63 is value of "?"
+			value += SSrunechat.letters[63][index]
 			i -= char_len
 		else
 			value += letters[index]
 
-		i += length(string[i])
+		i += length(inner_text[i])
 
 	if(is_bold)
-		value += length(string)
+		value += length(inner_text)
 
 	if(has_icon)
 		value += CHAT_MESSAGE_ICON_SIZE
-	return list(value, string)
+	return value
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT

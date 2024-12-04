@@ -16,10 +16,11 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	if(!fexists(json_file))
 		log_world("Missing runechat cache config file!")
 		return
-	var loaded_values = json_decode(rustg_file_read(json_file))
+	var/list/loaded_values = json_decode(rustg_file_read(json_file))
+	letters.len = loaded_values[loaded_values.len]["id"]
 	for(var/values as() in loaded_values)
 		var/list/widths = values["values"]
-		letters[ascii2text(values["id"])] = list(widths[1], widths[2], widths[3])
+		letters[values["id"]] = list(widths[1], widths[2], widths[3])
 
 // This is left to regenerate the file, if it ever gets lost
 // /datum/myLetter
