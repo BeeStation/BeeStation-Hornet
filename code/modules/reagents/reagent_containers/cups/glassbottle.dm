@@ -39,6 +39,7 @@
 	if(!ranged && thrower)
 		thrower.put_in_hands(B)
 	B.mimic_broken(src, target)
+	B.item_state = broken_item_state
 
 	qdel(src)
 	target.Bumped(B)
@@ -434,7 +435,7 @@
 	icon_state = "champagne_bottle"
 	base_icon_state = "champagne_bottle"
 	reagent_flags = TRANSPARENT
-	spillable = FALSE
+	//spillable = FALSE //This bottle should really be using a cork, but we'll leave it alone for now
 	list_reagents = list(/datum/reagent/consumable/ethanol/champagne = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/blazaam
