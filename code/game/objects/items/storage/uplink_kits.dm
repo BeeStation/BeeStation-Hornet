@@ -32,7 +32,7 @@
 			new /obj/item/chameleon(src) // 7 tc
 
 		if("stealth")
-			new /obj/item/gun/energy/kinetic_accelerator/crossbow(src)
+			new /obj/item/gun/energy/recharge/ebow(src)
 			new /obj/item/pen/sleepy(src)
 			new /obj/item/healthanalyzer/rad_laser(src)
 			new /obj/item/chameleon(src)
@@ -379,7 +379,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
+	STR.set_holdable(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
 
 /obj/item/storage/box/syndie_kit/space/PopulateContents()
 	if(prob(50))

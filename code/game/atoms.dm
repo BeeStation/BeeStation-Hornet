@@ -51,8 +51,6 @@
 	///overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc
 	var/list/managed_overlays
 
-	///Proximity monitor associated with this atom
-	var/datum/proximity_monitor/proximity_monitor
 	///Cooldown tick timer for buckle messages
 	var/buckle_message_cooldown = 0
 	///Last fingerprints to touch this atom
@@ -1537,6 +1535,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	return
 
 /atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	if(user.mind)
+		ADD_TRAIT(src, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
 	return
 
 //! Tool-specific behavior procs.

@@ -89,6 +89,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	radio_channel = RADIO_CHANNEL_SYNDICATE
 	heal_threshold = 30
 	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
+	faction = list(FACTION_SYNDICATE, "neutral", "silicon")
 
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED

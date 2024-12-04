@@ -4,6 +4,7 @@
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
+	visual = FALSE
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -96,6 +97,7 @@
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "kitty"
+	visual = TRUE
 	bang_protect = -2
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
