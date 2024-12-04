@@ -8197,9 +8197,7 @@
 /turf/open/floor/iron/white,
 /area/ctf)
 "aGg" = (
-/turf/open/floor/plating/snowed{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plating,
 /area/ctf)
 "aGi" = (
 /obj/structure/girder,
