@@ -78,3 +78,21 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)
 /obj/machinery/atmospherics/pipe/smart/manifold4w
 	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
 	icon_state = "manifold4w-3"
+
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/layer2
+	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
+	icon_state = "manifold4w-3"
+
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/layer4
+	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
+	icon_state = "manifold4w-3"
+
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply_scrubber/hidden //Used to replace the old mapping pipe helper
+	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
+	icon_state = "manifold4w-3"
+
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply_scrubber/hidden/Initialize(mapload)
+	. = ..()
+	new /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/layer2(src)
+	new /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/layer4(src)
+	qdel(src)

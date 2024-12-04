@@ -29,7 +29,10 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/@SUBTYPES{@OLD}
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/@SUBTYPES{@OLD}
+/obj/machinery/computer/atmos_control/tank/toxins_mixing_tank : /obj/machinery/computer/atmos_control/toxinsmix{@OLD;frequency=@SKIP;output_tag=@SKIP;input_tag=@SKIP;sensors=@SKIP}
 /obj/machinery/computer/atmos_control/tank/@SUBTYPES : /obj/machinery/computer/atmos_control/@SUBTYPES{@OLD;frequency=@SKIP;output_tag=@SKIP;input_tag=@SKIP;sensors=@SKIP}
+
+
 
 /obj/machinery/airalarm/unlocked : /obj/machinery/airalarm{@OLD; locked = "0"}
 
@@ -90,3 +93,6 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell : /obj/machinery/cryo_cell{@OLD,initialize_directions=@SKIP}
 
 /obj/machinery/meter/atmos/atmos_waste_loop : /obj/machinery/meter/monitored/waste_loop{@OLD}
+/obj/machinery/meter/atmos/distro_loop : /obj/machinery/meter/monitored/distro_loop{@OLD}
+
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply_scrubber/hidden{@OLD}
