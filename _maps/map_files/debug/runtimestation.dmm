@@ -64,7 +64,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/structure/closet/secure_closet/engineering_electrical{
@@ -100,7 +99,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/structure/cable{
@@ -434,7 +432,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/rnd/destructive_analyzer,
@@ -544,7 +541,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/structure/table,
@@ -791,7 +787,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/power/apc{
@@ -827,7 +822,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/structure/cable,
@@ -874,7 +868,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/power/apc{
@@ -1348,7 +1341,6 @@
 /obj/machinery/airalarm{
 	pixel_x = -32;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /turf/open/floor/iron,
@@ -1879,7 +1871,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -1992,7 +1983,6 @@
 /obj/machinery/airalarm{
 	pixel_x = 32;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -2483,7 +2473,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /turf/open/floor/iron,
@@ -2514,7 +2503,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/power/apc{
