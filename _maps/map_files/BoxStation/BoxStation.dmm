@@ -16517,13 +16517,6 @@
 	dir = 8
 	},
 /area/crew_quarters/dorms)
-"dnW" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/engine/atmos)
 "doi" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -17258,11 +17251,11 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "dEo" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "dEq" = (
@@ -21780,6 +21773,13 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
+"fsB" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/engine/atmos)
 "fsO" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -25888,6 +25888,12 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
+"gZV" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/dark/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "haa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -26504,12 +26510,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"hoj" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/dark/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "hos" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -43565,7 +43565,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
 	},
@@ -43575,6 +43574,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "ofK" = (
@@ -45424,7 +45424,7 @@
 /area/hallway/primary/fore)
 "oYm" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "oYy" = (
@@ -49828,10 +49828,10 @@
 /area/crew_quarters/fitness)
 "qMR" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/machinery/atmospherics/pipe/layer_manifold/orange/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "qNw" = (
@@ -55929,7 +55929,7 @@
 /area/quartermaster/miningdock)
 "tdq" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "tdv" = (
@@ -100769,7 +100769,7 @@ kxW
 tdQ
 ldN
 ntX
-tdq
+oYm
 aGx
 abl
 ccw
@@ -101519,7 +101519,7 @@ wVP
 bzs
 fDn
 bLK
-dnW
+fsB
 bMQ
 bJF
 bMQ
@@ -101540,7 +101540,7 @@ mIQ
 bUS
 qxh
 vGm
-oYm
+tdq
 imP
 pwN
 ckY
@@ -102568,7 +102568,7 @@ jPN
 vfI
 qxh
 sTP
-oYm
+tdq
 imP
 rDe
 ckY
@@ -102820,7 +102820,7 @@ bXT
 caG
 cbE
 bOd
-hoj
+gZV
 wMp
 cdA
 jzS
