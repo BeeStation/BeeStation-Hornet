@@ -79,15 +79,7 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)
 	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
 	icon_state = "manifold4w-3"
 
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/layer2
-	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
-	icon_state = "manifold4w-3"
-
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2
-	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
-	icon_state = "manifold4w-3"
-
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/layer4
 	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
 	icon_state = "manifold4w-3"
 
