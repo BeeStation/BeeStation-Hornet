@@ -99,5 +99,4 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer2 : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2{@OLD}
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer4 : /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4{@OLD}
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden : /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{@OLD}
-/obj/@SUBTYPES{CanAtmosPass=0} : /obj/@SUBTYPES{can_atmos_pass=0}
-/obj/@SUBTYPES{CanAtmosPass=3} : /obj/@SUBTYPES{can_atmos_pass=3}
+/obj/@SUBTYPES{CanAtmosPass=@ANY} : /obj/@SUBTYPES{@OLD;CanAtmosPass=@SKIP}
