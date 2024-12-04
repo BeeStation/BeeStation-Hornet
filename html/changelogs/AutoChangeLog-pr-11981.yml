@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed food buff durations being way too long.
