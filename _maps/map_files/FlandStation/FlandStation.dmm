@@ -47927,9 +47927,6 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "mhr" = (
-/obj/machinery/computer/atmos_control/sm{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "mhK" = (
