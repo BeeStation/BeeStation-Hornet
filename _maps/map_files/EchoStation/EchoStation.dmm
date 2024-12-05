@@ -15117,7 +15117,7 @@
 /area/crew_quarters/theatre/backstage)
 "hpi" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/medical/apothecary)
 "hpo" = (
 /turf/open/floor/iron/showroomfloor,
@@ -15632,7 +15632,7 @@
 /area/library/abandoned)
 "hBb" = (
 /obj/machinery/smartfridge/organ,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/medical/morgue)
 "hBg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -41633,7 +41633,7 @@
 /area/security/brig)
 "uTR" = (
 /obj/machinery/smartfridge/chemistry,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/medical/apothecary)
 "uTY" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
