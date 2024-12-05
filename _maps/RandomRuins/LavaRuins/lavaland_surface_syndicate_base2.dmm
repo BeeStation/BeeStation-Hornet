@@ -429,24 +429,6 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "dZ" = (
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/cup/waterbottle/large{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/waterbottle/large{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/waterbottle/large,
-/obj/item/reagent_containers/cup/waterbottle/large,
-/obj/item/reagent_containers/cup/waterbottle/large{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/cup/waterbottle/large{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -905,11 +887,11 @@
 /obj/item/storage/box/donkpockets{
 	pixel_y = 3
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/storage/box/donkpockets{
 	pixel_x = 2
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "jd" = (
