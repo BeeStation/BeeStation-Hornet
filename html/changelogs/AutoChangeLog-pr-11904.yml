@@ -1,9 +1,0 @@
-author: Absolucy, XeonMations
-delete-after: true
-changes:
-  - balance: Cluwnes can now be fixed using DNA nullifiers or genetics consoles (mutadone
-      won't work). This will also get rid of their cursed cluwne clothing, although
-      you will still need to fix the brain damage caused by the mutation. A variant
-      with the old behavior that prevents normal removal is still available for admin
-      (ab)use.
-  - tweak: Cluwne clothes now drop when cured.
