@@ -233,7 +233,8 @@ const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
   const dispatch = useDispatch(context);
-  const { enabled, highlightColor, highlightText, highlightWholeMessage, matchWord, matchCase } = highlightSettingById[id];
+  const { enabled, highlightColor, highlightText, highlightSelf, highlightWholeMessage, matchWord, matchCase } =
+    highlightSettingById[id];
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">
