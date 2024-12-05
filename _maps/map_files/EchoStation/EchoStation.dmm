@@ -546,7 +546,7 @@
 /area/asteroid/paradise/surface)
 "ama" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "amd" = (
 /obj/item/radio/intercom{
@@ -1260,7 +1260,7 @@
 	icon_state = "m_shield";
 	max_integrity = 1e+007
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "azE" = (
 /obj/structure/railing{
@@ -2065,7 +2065,7 @@
 /area/engine/atmos)
 "aPL" = (
 /obj/machinery/light/small,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "aPM" = (
 /obj/structure/chair/fancy/comfy{
@@ -2374,7 +2374,7 @@
 "aWA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "aWJ" = (
 /obj/structure/cable/yellow{
@@ -2866,7 +2866,7 @@
 /area/crew_quarters/cafeteria)
 "biq" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "biN" = (
 /obj/machinery/door/airlock/public/glass{
@@ -3625,7 +3625,7 @@
 /area/asteroid/paradise/surface)
 "bBQ" = (
 /obj/structure/flora/rock/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "bBT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -3793,7 +3793,7 @@
 /area/engine/engineering)
 "bFf" = (
 /obj/structure/flora/grass/jungle/b,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "bFY" = (
 /obj/machinery/atmospherics/miner/station/n2o,
@@ -4023,7 +4023,7 @@
 	light_power = 2;
 	light_range = 9
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "bMd" = (
 /obj/effect/decal/cleanable/shreds,
@@ -4201,7 +4201,7 @@
 /area/maintenance/department/bridge)
 "bQK" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "bRf" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4617,7 +4617,7 @@
 /area/hallway/primary/central)
 "ccl" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "ccn" = (
 /obj/machinery/door/airlock/command{
@@ -4642,7 +4642,7 @@
 	pixel_x = -2;
 	pixel_y = -18
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "cdq" = (
 /obj/structure/window/plasma/reinforced{
@@ -4796,7 +4796,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "cid" = (
 /obj/effect/turf_decal/stripes/line{
@@ -5219,7 +5219,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "cqs" = (
 /obj/machinery/holopad,
@@ -5802,7 +5802,7 @@
 "cIe" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "cIo" = (
 /obj/structure/railing/corner{
@@ -5889,7 +5889,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/four,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "cJQ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -5944,7 +5944,7 @@
 /area/tcommsat/server)
 "cKQ" = (
 /obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "cKT" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
@@ -5967,7 +5967,7 @@
 /area/engine/atmos)
 "cNa" = (
 /obj/structure/flora/ash/tall_shroom,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "cNm" = (
 /obj/structure/cable{
@@ -7235,7 +7235,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "dvc" = (
-/turf/closed/mineral/random/air,
+/turf/closed/mineral/random/snowmountain/cavern,
 /area/asteroid/paradise/surface)
 "dvV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -7280,7 +7280,7 @@
 /area/crew_quarters/dorms)
 "dxy" = (
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "dxH" = (
 /obj/structure/chair/fancy/plastic{
@@ -7772,7 +7772,7 @@
 "dJr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "dJL" = (
 /obj/machinery/power/terminal{
@@ -8409,7 +8409,7 @@
 "dZF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "eaA" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -10539,7 +10539,7 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "fcl" = (
 /obj/effect/turf_decal/siding/blue,
@@ -11436,7 +11436,7 @@
 /area/medical/genetics/cloning)
 "fBk" = (
 /obj/structure/flora/junglebush/c,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "fBl" = (
 /obj/effect/spawner/room/threexfive,
@@ -12768,14 +12768,14 @@
 /area/hallway/primary/aft)
 "ghR" = (
 /obj/item/pipe_dispenser,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "ghT" = (
 /obj/machinery/air_sensor/atmos/sm_core,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "gid" = (
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "gij" = (
 /obj/effect/landmark/blobstart,
@@ -13781,7 +13781,7 @@
 "gGu" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "gGJ" = (
 /turf/closed/mineral/iron,
@@ -14232,7 +14232,7 @@
 /area/crew_quarters/heads/captain/private)
 "gSq" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "gSt" = (
 /obj/effect/turf_decal/siding/wood{
@@ -15117,7 +15117,7 @@
 /area/crew_quarters/theatre/backstage)
 "hpi" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/open/floor/iron/white,
+/turf/closed/wall,
 /area/medical/apothecary)
 "hpo" = (
 /turf/open/floor/iron/showroomfloor,
@@ -15173,7 +15173,7 @@
 "hqZ" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/machinery/light/small,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "hrt" = (
 /obj/structure/tank_dispenser,
@@ -15632,7 +15632,7 @@
 /area/library/abandoned)
 "hBb" = (
 /obj/machinery/smartfridge/organ,
-/turf/open/floor/iron/dark,
+/turf/closed/wall,
 /area/medical/morgue)
 "hBg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -15902,7 +15902,7 @@
 /area/asteroid/paradise/surface)
 "hHv" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "hHO" = (
 /obj/structure/railing{
@@ -16110,7 +16110,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "hMF" = (
 /obj/effect/turf_decal/weather/snow/corner,
@@ -16489,7 +16489,7 @@
 /area/maintenance/department/science/central)
 "hZM" = (
 /obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "ial" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -16687,7 +16687,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/north,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "ieZ" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
@@ -17032,7 +17032,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "ioR" = (
 /obj/effect/turf_decal/stripes/line{
@@ -17329,6 +17329,10 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
+"ixi" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/engine/atmos)
 "ixz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -17359,7 +17363,7 @@
 /area/medical/exam_room)
 "izV" = (
 /obj/structure/barricade/wooden,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "iAE" = (
 /obj/structure/cable{
@@ -18280,7 +18284,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "iZV" = (
 /turf/closed/wall,
@@ -18288,7 +18292,7 @@
 "jac" = (
 /obj/item/storage/bag/ore,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "jag" = (
 /obj/effect/turf_decal/siding/red{
@@ -18572,7 +18576,7 @@
 	name = "Walks-upon-Embers";
 	pixel_x = 5
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "jkK" = (
 /obj/machinery/light_switch{
@@ -18675,7 +18679,7 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "jmW" = (
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "jmY" = (
 /mob/living/simple_animal/pet/penguin/baby,
@@ -19033,7 +19037,7 @@
 "juA" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/machinery/camera/directional/east,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "jvN" = (
 /obj/structure/disposalpipe/sorting/mail/destination/xenobiology{
@@ -19145,7 +19149,7 @@
 /area/maintenance/department/bridge)
 "jyx" = (
 /obj/structure/flora/grass/jungle/b,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "jyD" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -19194,7 +19198,7 @@
 	pixel_y = 1
 	},
 /obj/item/toy/plush/moth/error,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/closed/mineral/random/snowmountain/cavern,
 /area/asteroid/paradise/surface)
 "jAh" = (
 /obj/effect/turf_decal/tile/dark_red/anticorner_ramp/contrasted{
@@ -19722,7 +19726,7 @@
 /area/hallway/primary/central)
 "jMz" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "jME" = (
 /turf/closed/wall,
@@ -19877,7 +19881,7 @@
 /area/bridge)
 "jRN" = (
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "jRS" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -19971,7 +19975,7 @@
 	},
 /area/engine/engineering)
 "jUw" = (
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "jUM" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -20436,7 +20440,7 @@
 	pixel_y = 11
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "kfl" = (
 /turf/closed/wall/r_wall,
@@ -20761,7 +20765,7 @@
 /area/hallway/primary/central)
 "knG" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "knM" = (
 /obj/structure/rack,
@@ -21584,7 +21588,7 @@
 /area/science/robotics)
 "kHd" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "kHD" = (
 /obj/structure/chair{
@@ -23209,7 +23213,7 @@
 /area/holodeck/small)
 "lyO" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "lyU" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -24291,7 +24295,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "mcM" = (
 /obj/effect/mapping_helpers/dead_body_placer,
@@ -24353,7 +24357,7 @@
 /area/science/lab)
 "mdK" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "mdT" = (
 /obj/structure/curtain/directional{
@@ -24679,7 +24683,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "mni" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/maintenance/department/engine)
 "mnq" = (
 /obj/structure/railing{
@@ -25320,7 +25324,7 @@
 "mEO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "mEZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -26514,7 +26518,7 @@
 "njp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "nku" = (
 /obj/structure/lattice/catwalk/over,
@@ -26871,7 +26875,7 @@
 "nve" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "nvi" = (
 /obj/structure/sign/departments/minsky/supply/cargo,
@@ -27070,7 +27074,7 @@
 /area/security/brig)
 "nyW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "nyZ" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -27194,7 +27198,7 @@
 /obj/machinery/atmospherics/components/binary/circulator/cold{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "nCT" = (
 /obj/structure/railing/corner{
@@ -28136,7 +28140,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/quartermaster/storage)
 "odf" = (
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "odM" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -30430,7 +30434,7 @@
 /area/asteroid/paradise)
 "pgG" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "pgR" = (
 /obj/structure/cable/yellow{
@@ -30659,7 +30663,7 @@
 "pmx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "pni" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -30914,7 +30918,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "pxo" = (
 /obj/structure/extinguisher_cabinet{
@@ -32954,7 +32958,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "qCu" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -34261,13 +34265,13 @@
 /area/security/prison)
 "rjR" = (
 /obj/structure/flora/ash/stem_shroom,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "rjV" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "rjX" = (
 /obj/machinery/holopad,
@@ -34302,7 +34306,7 @@
 "rlk" = (
 /obj/structure/ore_box,
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "rlo" = (
 /obj/structure/window/reinforced/spawner/north,
@@ -34973,7 +34977,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
 	dir = 9
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "rBA" = (
 /obj/machinery/light{
@@ -35372,7 +35376,7 @@
 /area/hallway/primary/aft)
 "rNv" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "rNI" = (
 /obj/structure/flora/rock/pile/icy,
@@ -35735,7 +35739,7 @@
 "rXT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/wooden/crude,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "rYe" = (
 /obj/structure/sign/poster/random{
@@ -36898,7 +36902,7 @@
 "sCz" = (
 /obj/structure/flora/junglebush/c,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "sDa" = (
 /turf/closed/wall,
@@ -36978,7 +36982,7 @@
 /area/maintenance/department/eva)
 "sFV" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "sGC" = (
 /obj/effect/turf_decal/delivery,
@@ -37166,7 +37170,7 @@
 /turf/open/openspace,
 /area/hallway/primary/central)
 "sLz" = (
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "sMF" = (
 /obj/effect/turf_decal/delivery,
@@ -40065,7 +40069,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/atmos)
 "ugo" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -40089,10 +40093,6 @@
 "ugW" = (
 /turf/open/floor/plating/asteroid/planetary,
 /area/quartermaster/storage)
-"uhb" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/snowed/smoothed/planetary,
-/area/engine/engineering)
 "uhc" = (
 /turf/closed/wall,
 /area/medical/surgery)
@@ -41103,7 +41103,7 @@
 /obj/machinery/door/window/northright{
 	dir = 2;
 	name = "Chemistry Desk";
-	req_one_access_txt = "5;33"
+	req_one_access_txt = "33"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistry_shutters";
@@ -41135,7 +41135,7 @@
 "uIV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "uIW" = (
 /obj/effect/turf_decal/bot,
@@ -41633,7 +41633,7 @@
 /area/security/brig)
 "uTR" = (
 /obj/machinery/smartfridge/chemistry,
-/turf/open/floor/iron/white,
+/turf/closed/wall,
 /area/medical/apothecary)
 "uTY" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
@@ -42396,7 +42396,7 @@
 "vkN" = (
 /obj/structure/flora/junglebush/large,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/engine/engineering)
 "vkZ" = (
 /obj/machinery/atmospherics/components/binary/pump/layer4{
@@ -43069,7 +43069,7 @@
 "vDt" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "vDw" = (
 /obj/structure/chair{
@@ -45933,7 +45933,7 @@
 "xfd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "xfm" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -46443,7 +46443,7 @@
 /area/maintenance/department/medical/morgue)
 "xqU" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "xrC" = (
 /obj/effect/turf_decal/numbers/two_nine{
@@ -46747,7 +46747,7 @@
 	icon_state = "m_shield";
 	max_integrity = 1e+007
 	},
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
 "xyh" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -47120,7 +47120,7 @@
 "xIq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/bot_assembly/floorbot,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/research/abandoned)
 "xIr" = (
 /obj/structure/table/glass,
@@ -47449,7 +47449,7 @@
 /obj/structure/flora/rock/icy,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/frozengrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "xQY" = (
 /obj/structure/closet/secure_closet/warden{
@@ -58146,7 +58146,7 @@ xDF
 dnm
 uli
 qXs
-bJq
+ixi
 pgG
 rRV
 rRV
@@ -58918,7 +58918,7 @@ qXs
 ghR
 gKe
 nCN
-bJq
+ixi
 rjR
 jOo
 jOo
@@ -59175,7 +59175,7 @@ qXs
 qYq
 mVu
 iZP
-bJq
+ixi
 jOo
 jOo
 jOo
@@ -61235,7 +61235,7 @@ gqv
 jnO
 lCS
 lCS
-uhb
+ama
 sXB
 fHS
 lCS
