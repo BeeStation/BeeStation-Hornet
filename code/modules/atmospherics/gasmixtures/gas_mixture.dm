@@ -731,3 +731,39 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	output_air.merge(removed)
 	return TRUE
 
+/datum/gas_mixture/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---")
+	VV_DROPDOWN_OPTION(VV_HK_EMPTY, "Empty")
+	VV_DROPDOWN_OPTION(VV_HK_SET_MOLES, "Set Moles")
+	VV_DROPDOWN_OPTION(VV_HK_SET_TEMPERATURE, "Set Temperature")
+
+/datum/gas_mixture/vv_do_topic(list/href_list)
+	. = ..()
+	if(!.)
+		return
+	if(href_list[VV_HK_EMPTY])
+		log_admin("[key_name(usr)] emptied gas mixture [REF(src)].")
+		message_admins("[key_name(usr)] emptied gas mixture [REF(src)].")
+		gases = null
+	if(href_list[VV_HK_SET_MOLES])
+		var/gas_input = tgui_input_list(usr, "What kind of gas?", "Set Gas", GLOB.meta_gas_info)
+		var/list/gas_list = GLOB.meta_gas_info[gas_input]
+		var/gasid = gas_id2path(gas_list[META_GAS_ID])
+		if(!gasid)
+			return
+		var/amount = tgui_input_number(usr, "Input amount", "Set Gas", 0, INFINITY, 0)
+		if(!isnum(amount))
+			return
+		amount = max(0, amount)
+		log_admin("[key_name(usr)] modified gas mixture [REF(src)]: Set gas [gasid] to [amount] moles.")
+		message_admins("[key_name(usr)] modified gas mixture [REF(src)]: Set gas [gasid] to [amount] moles.")
+		SET_MOLES(gasid, src, amount)
+	if(href_list[VV_HK_SET_TEMPERATURE])
+		var/new_temperature = input(usr, "Set the temperature of this mixture to?", "Set Temperature", return_temperature()) as num|null
+		if(!isnum(new_temperature))
+			return
+		new_temperature = max(2.7, new_temperature)
+		log_admin("[key_name(usr)] modified gas mixture [REF(src)]: Changed temperature to [new_temperature].")
+		message_admins("[key_name(usr)] modified gas mixture [REF(src)]: Changed temperature to [new_temperature].")
+		temperature = new_temperature
