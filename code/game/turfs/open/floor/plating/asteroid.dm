@@ -157,13 +157,16 @@
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	turf_type = /turf/open/floor/plating/asteroid/airless
 
-/turf/open/floor/plating/asteroid/rocky
-	name = "rocky ground"
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "rockyash"
+/turf/open/floor/plating/asteroid/frozengrass
+	name = "frozen grass"
+	desc = "Looks cold."
+	icon = 'icons/turf/floors.dmi'
+	variant_states = 0
+	variant_probability = 0
+	icon_state = "fairygrass"
+	icon_plating = "fairygrass"
+	environment_type = "snow_cavern"
 	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
-	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
-	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL

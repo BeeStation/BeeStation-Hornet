@@ -401,6 +401,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_SNOWED)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
 
+/turf/open/floor/plating/snowed/smoothed/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+
 /turf/open/floor/plating/snowed/colder
 	initial_temperature = 140
 
