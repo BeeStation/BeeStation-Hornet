@@ -51,7 +51,7 @@ export const SettingsPanel = (props, context) => {
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
+  const { theme, fontFamily, highContrast, fontSize, lineHeight, statTabMode } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
@@ -133,6 +133,19 @@ export const SettingsGeneral = (props, context) => {
             )}
           </Stack.Item>
         </LabeledList.Item>
+        <LabeledList.Item label="High Contrast">
+          <Button.Checkbox
+            checked={!highContrast}
+            onClick={() =>
+              dispatch(
+                updateSettings({
+                  highContrast: !highContrast,
+                })
+              )
+            }>
+            Colored names
+          </Button.Checkbox>
+        </LabeledList.Item>
         <LabeledList.Item label="Font size">
           <NumberInput
             width="4.2em"
@@ -165,6 +178,32 @@ export const SettingsGeneral = (props, context) => {
               dispatch(
                 updateSettings({
                   lineHeight: value,
+                })
+              )
+            }
+          />
+        </LabeledList.Item>
+        <LabeledList.Item label="Stat Tab Mode">
+          <Button
+            content={'Scroll'}
+            selected={statTabMode === 'Scroll'}
+            color="transparent"
+            onClick={() =>
+              dispatch(
+                updateSettings({
+                  statTabMode: 'Scroll',
+                })
+              )
+            }
+          />
+          <Button
+            content={'Multiline'}
+            selected={statTabMode === 'Multiline'}
+            color="transparent"
+            onClick={() =>
+              dispatch(
+                updateSettings({
+                  statTabMode: 'Multiline',
                 })
               )
             }
