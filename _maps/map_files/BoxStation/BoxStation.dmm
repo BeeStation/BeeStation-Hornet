@@ -7972,7 +7972,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "bMB" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
@@ -8324,7 +8324,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "bOJ" = (
 /obj/item/target,
 /obj/structure/window/reinforced{
@@ -15455,7 +15455,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "cQS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -16288,7 +16288,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "djk" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -17159,7 +17159,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "dDd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -17763,7 +17763,7 @@
 	},
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "dNA" = (
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell,
@@ -26652,12 +26652,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = 24
-	},
 /turf/open/floor/iron,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "hrM" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -29916,7 +29912,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "iEk" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer4,
@@ -34321,7 +34317,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "krN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39627,7 +39623,7 @@
 /obj/machinery/camera/directional/east,
 /obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "mBG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57512,6 +57508,14 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit)
+"tHi" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "toxinsburn"
+	},
+/turf/open/floor/iron/white,
+/area/science/mixing)
 "tHw" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 23
@@ -57716,7 +57720,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "tKy" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#742925";
@@ -67699,7 +67703,7 @@
 "xQE" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "xQG" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -117455,7 +117459,7 @@ xQE
 bMz
 cQR
 bOH
-xQE
+tHi
 bFU
 rxf
 uht
@@ -118222,11 +118226,11 @@ bEC
 bEC
 gik
 bEC
-dGF
-dGF
-dGF
-dGF
-dGF
+bEC
+bEC
+bEC
+bEC
+bEC
 dMZ
 nWo
 bFU
