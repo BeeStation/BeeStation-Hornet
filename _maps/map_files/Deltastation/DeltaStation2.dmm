@@ -5029,18 +5029,15 @@
 	dir = 8;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "aEt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/engine{
 	pixel_y = 23;
@@ -5051,6 +5048,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/engine/supermatter)
@@ -8644,7 +8644,7 @@
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfa" = (
@@ -34906,6 +34906,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "fll" = (
@@ -38988,9 +38991,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "gyu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Supermatter Engine - Aft";
 	name = "atmospherics camera"
@@ -55236,6 +55236,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "lMr" = (
@@ -67055,6 +67058,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"pAx" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron,
+/area/engine/atmospherics_engine)
 "pAK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -121670,7 +121680,7 @@ aAY
 aCl
 awg
 aEt
-sAw
+pAx
 kQN
 alT
 aKa

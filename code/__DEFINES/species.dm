@@ -112,12 +112,16 @@
 // Sounds used by species for "nasal/lungs" emotes - the DEFAULT being used mainly by humans, lizards, and ethereals becase biology idk
 
 #define SPECIES_DEFAULT_COUGH_SOUND(user) user.gender == FEMALE ? pick(\
-				'sound/emotes/female/female_cough_1.ogg',\
-				'sound/emotes/female/female_cough_2.ogg',\
-				'sound/emotes/female/female_cough_3.ogg') : pick(\
-				'sound/emotes/male/male_cough_1.ogg',\
-				'sound/emotes/male/male_cough_2.ogg',\
-				'sound/emotes/male/male_cough_3.ogg')
+		'sound/emotes/female/female_cough_1.ogg',\
+		'sound/emotes/female/female_cough_2.ogg',\
+		'sound/emotes/female/female_cough_3.ogg',\
+		'sound/emotes/female/female_cough_4.ogg',\
+		'sound/emotes/female/female_cough_5.ogg',\
+		'sound/emotes/female/female_cough_6.ogg',\
+		'sound/emotes/female/female_cough_7.ogg') : pick(\
+		'sound/emotes/male/male_cough_1.ogg',\
+		'sound/emotes/male/male_cough_2.ogg',\
+		'sound/emotes/male/male_cough_3.ogg')
 #define SPECIES_DEFAULT_GASP_SOUND(user) user.gender == FEMALE ? pick(\
 		'sound/emotes/female/gasp_f1.ogg',\
 		'sound/emotes/female/gasp_f2.ogg',\
@@ -132,5 +136,15 @@
 		'sound/emotes/male/gasp_m5.ogg',\
 		'sound/emotes/male/gasp_m6.ogg')
 #define SPECIES_DEFAULT_SIGH_SOUND(user) user.gender == FEMALE ? 'sound/emotes/female/female_sigh.ogg' : 'sound/emotes/male/male_sigh.ogg'
-#define SPECIES_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? 'sound/emotes/female/female_sneeze.ogg' : 'sound/emotes/male/male_sneeze.ogg'
+#define SPECIES_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? pick(\
+		'sound/emotes/female/female_sneeze1.ogg',\
+		'sound/emotes/female/female_sneeze2.ogg') : pick(\
+		'sound/emotes/male/male_sneeze1.ogg',\
+		'sound/emotes/male/male_sneeze2.ogg')
 #define SPECIES_DEFAULT_SNIFF_SOUND(user) user.gender == FEMALE ? 'sound/emotes/female/female_sniff.ogg' : 'sound/emotes/male/male_sniff.ogg'
+#define SPECIES_DEFAULT_GIGGLE_SOUND(user) user.gender == FEMALE ? pick(\
+		'sound/emotes/female/female_giggle_1.ogg',\
+		'sound/emotes/female/female_giggle_2.ogg') : pick(\
+		'sound/emotes/male/male_giggle_1.ogg',\
+		'sound/emotes/male/male_giggle_2.ogg',\
+		'sound/emotes/male/male_giggle_3.ogg')
