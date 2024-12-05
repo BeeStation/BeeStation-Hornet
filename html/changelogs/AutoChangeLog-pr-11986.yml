@@ -1,0 +1,8 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: The Chat Highlights chat settings work again.
+  - bugfix: Readded the High Contrast chat toggle, which was accidentally removed,
+      although still functioning (you just couldn't change it)
+  - bugfix: Readded the Stat Tab Mode setting, albeit just under "General" settings
+      rather than its own "Stat Tab" area.
