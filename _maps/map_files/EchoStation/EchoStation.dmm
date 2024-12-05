@@ -297,7 +297,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -539,7 +538,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -1821,8 +1819,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/asteroid/paradise/surface/grass)
@@ -5266,8 +5263,7 @@
 	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	layer = 3
+	dir = 6
 	},
 /turf/open/floor/wood,
 /area/asteroid/paradise/surface)
@@ -5770,8 +5766,7 @@
 "cFP" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -6261,8 +6256,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -6290,9 +6284,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
@@ -7639,8 +7631,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -8018,8 +8009,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -10178,8 +10168,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -10669,7 +10658,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -11394,8 +11382,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -11574,8 +11561,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -12424,7 +12410,6 @@
 /area/crew_quarters/cafeteria)
 "fWz" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -12551,7 +12536,6 @@
 /area/crew_quarters/heads/captain)
 "gax" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -13154,8 +13138,7 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "gpo" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	layer = 3
+	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -13953,7 +13936,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -14199,7 +14181,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -14311,8 +14292,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	layer = 3
+	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -14815,9 +14795,7 @@
 /area/asteroid/paradise/surface)
 "hfW" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
@@ -15429,7 +15407,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -16136,9 +16113,7 @@
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/engine/engineering)
 "hMF" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "hMH" = (
@@ -17023,7 +16998,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -18568,8 +18542,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -20022,8 +19995,7 @@
 /area/maintenance/department/science/central)
 "jVf" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/glass/reinforced,
 /area/asteroid/paradise/surface)
@@ -20124,8 +20096,7 @@
 "jYb" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	layer = 3
+	dir = 6
 	},
 /turf/open/floor/wood,
 /area/asteroid/paradise/surface)
@@ -21277,7 +21248,6 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -21725,8 +21695,7 @@
 "kKh" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/asteroid/paradise/surface/grass)
@@ -23466,7 +23435,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -25706,7 +25674,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -26061,8 +26028,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -26073,8 +26039,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -26151,8 +26116,7 @@
 /area/asteroid/paradise/surface)
 "mYh" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -26327,8 +26291,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	layer = 3
+	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -26747,9 +26710,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
@@ -27639,7 +27600,6 @@
 /area/engine/supermatter)
 "nKB" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -27951,9 +27911,7 @@
 /area/asteroid/paradise/surface)
 "nVI" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/wood,
 /area/asteroid/paradise/surface)
 "nWb" = (
@@ -27971,7 +27929,6 @@
 /area/maintenance/department/security/brig)
 "nXd" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced,
@@ -28377,8 +28334,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -29704,8 +29660,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	layer = 3
+	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -31099,7 +31054,6 @@
 /area/asteroid/paradise/surface)
 "pAy" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/iron/techmaint/planetary,
@@ -33004,12 +32958,10 @@
 /area/engine/engineering)
 "qCu" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	layer = 3
+	dir = 4
 	},
 /turf/open/floor/glass/reinforced,
 /area/asteroid/paradise/surface)
@@ -33057,9 +33009,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "qEA" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
@@ -33163,7 +33113,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -33934,7 +33883,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -34794,8 +34742,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -37455,7 +37402,6 @@
 /area/chapel/main)
 "sSK" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /obj/structure/chair/stool/directional/west,
@@ -37501,7 +37447,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -37953,7 +37898,6 @@
 	width = 21
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -39684,9 +39628,7 @@
 "tUC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
@@ -40480,7 +40422,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -42535,8 +42476,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	layer = 3
+	dir = 6
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -42858,7 +42798,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -43391,8 +43330,7 @@
 	},
 /obj/machinery/hydroponics/soil,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/asteroid/paradise/surface)
@@ -43410,7 +43348,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -44255,9 +44192,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "wis" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	layer = 3
-	},
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/asteroid/paradise/surface/water)
 "wiC" = (
@@ -45970,7 +45905,6 @@
 	pixel_y = 3
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -46173,7 +46107,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -46435,8 +46368,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
@@ -46705,8 +46637,7 @@
 /area/quartermaster/qm)
 "xvC" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/asteroid/paradise/surface/water)
@@ -46795,8 +46726,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	layer = 3
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/asteroid/paradise/surface)
@@ -47475,7 +47405,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -47779,7 +47708,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -48089,7 +48017,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	layer = 3;
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
