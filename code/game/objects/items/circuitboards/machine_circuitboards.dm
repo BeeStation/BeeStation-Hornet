@@ -1026,6 +1026,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 //Service
 
+/obj/item/circuitboard/machine/photobooth
+	name = "Photobooth"
+	icon_state = "service"
+	build_path = /obj/machinery/photobooth
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
+
+/obj/item/circuitboard/machine/photobooth/security
+	name = "Security Photobooth"
+	icon_state = "security"
+	build_path = /obj/machinery/photobooth/security
 
 /obj/item/circuitboard/machine/biogenerator
 	name = "biogenerator (Machine Board)"

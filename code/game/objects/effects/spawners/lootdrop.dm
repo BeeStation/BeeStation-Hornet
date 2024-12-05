@@ -445,7 +445,7 @@
 /obj/effect/spawner/lootdrop/techstorage/security
 	name = "security circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/secure_data,
+				/obj/item/circuitboard/computer/records/security,
 				/obj/item/circuitboard/computer/security,
 				/obj/item/circuitboard/computer/prisoner
 				)
@@ -479,7 +479,7 @@
 				/obj/item/circuitboard/machine/clonepod,
 				/obj/item/circuitboard/machine/chem_dispenser,
 				/obj/item/circuitboard/computer/scan_consolenew,
-				/obj/item/circuitboard/computer/med_data,
+				/obj/item/circuitboard/computer/records/medical,
 				/obj/item/circuitboard/machine/smoke_machine,
 				/obj/item/circuitboard/machine/chem_master,
 				/obj/item/circuitboard/machine/clonescanner,

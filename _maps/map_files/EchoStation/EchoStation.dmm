@@ -891,7 +891,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /turf/open/floor/iron,
 /area/bridge)
 "asv" = (
@@ -1462,7 +1462,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /turf/open/floor/iron,
 /area/bridge)
 "aGO" = (
@@ -3152,7 +3152,7 @@
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	density = 0;
 	dir = 1;
 	pixel_x = -1;
@@ -4840,7 +4840,7 @@
 	pixel_y = 37
 	},
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_y = 4
 	},
 /obj/machinery/camera/directional/north,
@@ -11835,7 +11835,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -16067,7 +16067,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
 "hMj" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -20090,7 +20090,7 @@
 	pixel_y = 33;
 	req_access_txt = "2"
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -22617,7 +22617,7 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "lii" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -26904,7 +26904,7 @@
 	pixel_x = 18;
 	pixel_y = 4
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	density = 0;
 	dir = 1;
 	pixel_y = 6;
@@ -28919,7 +28919,7 @@
 /turf/open/openspace,
 /area/maintenance/department/security/brig)
 "otr" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_x = 15;
 	pixel_y = 5;
@@ -29106,10 +29106,6 @@
 /turf/open/floor/wood/broken,
 /area/library/abandoned)
 "oxd" = (
-/obj/structure/toilet{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /obj/machinery/button/door{
 	id = "Toilet 2";
 	name = "Toilet Bolt Control";
@@ -29120,6 +29116,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
 /obj/machinery/newscaster/directional/east,
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "oxj" = (
@@ -31390,7 +31391,7 @@
 	dir = 1;
 	pixel_y = 29
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_x = 4;
 	pixel_y = 2;
 	req_one_access = null;
@@ -34051,7 +34052,7 @@
 /area/science/test_area)
 "qZR" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -44047,10 +44048,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "vXe" = (
-/obj/structure/toilet{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /obj/machinery/button/door{
 	id = "Toilet 1";
 	name = "Toilet Bolt Control";
@@ -44059,6 +44056,11 @@
 	specialfunctions = 4
 	},
 /obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "vXg" = (
@@ -44228,7 +44230,7 @@
 /area/engine/atmos)
 "wcq" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4;
 	pixel_x = 2;
 	pixel_y = 3;
@@ -48093,7 +48095,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4;
 	pixel_x = 2;
 	pixel_y = 2

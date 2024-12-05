@@ -42,6 +42,8 @@
 #define COMSIG_GRILL_FOOD "item_grill_food"
 
 // Baking foods (oven)
+//Called when an object is inserted into an oven (atom/oven, mob/baker)
+#define COMSIG_ITEM_OVEN_PLACED_IN "item_placed_in_oven"
 //Called when an object is in an oven
 #define COMSIG_ITEM_BAKED "item_baked"
 	#define COMPONENT_HANDLED_BAKING (1<<0)
