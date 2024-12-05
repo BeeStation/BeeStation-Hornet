@@ -95,7 +95,7 @@
 	// sigh, ok, so it's not ACTUALLY infinite nutrition. this is so you can eat clothes more than...once.
 	// bite_consumption limits how much you actually get, and the take_damage in after eat makes sure you can't abuse this.
 	// ...maybe this was a mistake after all.
-	food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
+	food_reagents = list(/datum/reagent/consumable/nutriment/cloth = INFINITY)
 	tastes = list("dust" = 1, "lint" = 1)
 	foodtypes = CLOTH
 
@@ -117,11 +117,18 @@
 		after_eat = CALLBACK(src, PROC_REF(after_eat)))
 
 /obj/item/food/clothing/proc/after_eat(mob/eater)
-	var/obj/item/clothing/resolved_clothing = clothing.resolve()
-	if (resolved_clothing)
+	var/resolved_item = clothing.resolve()
+
+	if(istype(resolved_item, /obj/item/clothing))
+		var/obj/item/clothing/resolved_clothing = resolved_item
 		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
-	else
-		qdel(src)
+		return
+	else if(istype(resolved_item, /obj/item/stack/sheet))
+		var/obj/item/stack/sheet/resolved_stack = resolved_item
+		if(resolved_stack.amount > 1)
+			resolved_stack.amount-- //Each bite removes one from the stack.
+			return
+	qdel(resolved_item)
 
 /obj/item/clothing/attack(mob/attacker, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

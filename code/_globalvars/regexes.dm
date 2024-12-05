@@ -11,3 +11,6 @@ GLOBAL_DATUM_INIT(is_color_nocrunch, /regex, regex("^\[0-9a-fA-F]{6}$"))
 //All characters forbidden by filenames: ", \, \n, \t, /, ?, %, *, :, |, <, >, ..
 GLOBAL_DATUM_INIT(filename_forbidden_chars, /regex, regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g"))
 GLOBAL_PROTECT(filename_forbidden_chars)
+
+//All characters between < a > inclusive of the bracket
+GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
