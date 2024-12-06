@@ -947,7 +947,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			say("ERROR: Insufficient funds.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return TRUE
-	payment_target.transfer_money(account, active_request.value)
+	payment_target.transfer_money(account, active_request.value, "Bounty Request")
 	say("Paid out [active_request.value] credits.")
 	GLOB.request_list.Remove(active_request)
 	qdel(active_request)

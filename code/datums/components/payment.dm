@@ -159,7 +159,7 @@
 				to_chat(user, "<span class='warning'>ID Card lacks funds. Aborting.</span>")
 		atom_parent.balloon_alert(user, "needs [total_cost] credit\s!")
 		return FALSE
-	target_acc.transfer_money(idcard.registered_account, total_cost)
+	target_acc.transfer_money(idcard.registered_account, total_cost, "Nanotrasen: Usage of Corporate Machinery")
 	log_econ("[total_cost] credits were spent on [parent] by [user] via [idcard.registered_account.account_holder]'s card.")
 	idcard.registered_account.bank_card_talk("[total_cost] credits deducted from your account.")
 	playsound(src, 'sound/effects/cashregister.ogg', 20, TRUE)
