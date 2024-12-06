@@ -71,7 +71,7 @@
 	console_department = "Identification"
 	name = "identification console"
 	desc = "A stationary computer. This one comes preloaded with identification modification programs."
-	_has_id_slot = TRUE
+	_has_second_id_slot = TRUE
 	_has_printer = TRUE
 
 /obj/machinery/modular_computer/console/preset/id/install_programs()
