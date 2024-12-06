@@ -245,7 +245,7 @@
 	message = "laughs"
 	message_mime = "laughs silently"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
-	audio_cooldown = 2.5 SECONDS
+	specific_emote_audio_cooldown = 5 SECONDS
 	vary = TRUE
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)

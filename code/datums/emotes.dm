@@ -26,11 +26,15 @@
 	var/sound
 	/// Volume to play the sound at
 	var/sound_volume = 50
-	/// Whether to vary the pitch of the sound played
+	/// Do we vary the pitch of the sound played
 	var/vary = FALSE
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
+	/// The cooldown between the uses of the emote.
 	var/cooldown = 0.8 SECONDS
-	var/audio_cooldown = 2 SECONDS
+	/// How long is the shared emote cooldown triggered by this emote?
+	var/general_emote_audio_cooldown = 1 SECONDS
+	/// How long is the specific emote cooldown triggered by this emote?
+	var/specific_emote_audio_cooldown = 2.5 SECONDS
 	/// Does this emote's sound ignore walls?
 	var/sound_wall_ignore = FALSE
 
@@ -75,8 +79,9 @@
 		flick_overlay_view(I, user, emote_length)
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown"))
-		TIMER_COOLDOWN_START(user, "audible_emote_cooldown", audio_cooldown)
+	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
+		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
+		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
 	var/msg = select_message_type(user, intentional)
