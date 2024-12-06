@@ -1,12 +1,12 @@
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type, message, intentional = FALSE)
-	act = LOWER_TEXT(act)
 	var/param = message
 	var/custom_param = findchar(act, " ")
 	if(custom_param)
 		param = copytext(act, custom_param + length(act[custom_param]))
 		act = copytext(act, 1, custom_param)
 
+	act = LOWER_TEXT(act)
 	var/list/key_emotes = GLOB.emote_list[act]
 
 	if(!length(key_emotes))
@@ -14,13 +14,16 @@
 			to_chat(src, "<span class='notice'>'[act]' emote does not exist. Say *help for a list.</span>")
 		return FALSE
 	var/silenced = FALSE
-	for(var/datum/emote/P in key_emotes)
-		if(!P.check_cooldown(src, intentional))
+	for(var/datum/emote/emote in key_emotes)
+		if(!emote.check_cooldown(src, intentional))
 			silenced = TRUE
 			continue
-		if(P.run_emote(src, param, m_type, intentional))
-			SEND_SIGNAL(src, COMSIG_MOB_EMOTE, P, act, m_type, message, intentional)
-			return TRUE
+		if(!emote.can_run_emote(src, TRUE, intentional, param))
+			continue
+		emote.run_emote(src, param, m_type, intentional)
+		SEND_SIGNAL(src, COMSIG_MOB_EMOTE, emote, act, m_type, message, intentional)
+		//SEND_SIGNAL(src, COMSIG_MOB_EMOTED(emote.key))
+		return TRUE
 	if(intentional && !silenced)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 	return FALSE
@@ -35,8 +38,10 @@
 
 /datum/emote/flip/run_emote(mob/user, params , type_override, intentional)
 	. = ..()
-	if(.)
-		user.SpinAnimation(7,1)
+	user.SpinAnimation(7,1)
+	if(isliving(user))
+		var/mob/living/L = user
+		L.confused += 2
 
 /datum/emote/flip/check_cooldown(mob/user, intentional)
 	. = ..()
@@ -70,16 +75,18 @@
 
 /datum/emote/spin/run_emote(mob/user, params ,  type_override, intentional)
 	. = ..()
-	if(.)
-		user.spin(20, 1)
-		if(iscyborg(user) && user.has_buckled_mobs())
-			var/mob/living/silicon/robot/R = user
-			var/datum/component/riding/riding_datum = R.GetComponent(/datum/component/riding)
-			if(riding_datum)
-				for(var/mob/M in R.buckled_mobs)
-					riding_datum.force_dismount(M)
-			else
-				R.unbuckle_all_mobs()
+	user.spin(20, 1)
+	if(isliving(user))
+		var/mob/living/L = user
+		L.confused += 2
+	if(iscyborg(user) && user.has_buckled_mobs())
+		var/mob/living/silicon/robot/R = user
+		var/datum/component/riding/riding_datum = R.GetComponent(/datum/component/riding)
+		if(riding_datum)
+			for(var/mob/M in R.buckled_mobs)
+				riding_datum.force_dismount(M)
+		else
+			R.unbuckle_all_mobs()
 
 /datum/emote/inhale
 	key = "inhale"

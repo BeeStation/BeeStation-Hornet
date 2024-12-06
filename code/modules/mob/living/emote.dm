@@ -76,9 +76,9 @@
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user) && intentional)
-		var/mob/living/L = user
-		L.Unconscious(40)
+	if(isliving(user) && intentional)
+		var/mob/living/living = user
+		living.Unconscious(4 SECONDS)
 
 /datum/emote/living/dance
 	key = "dance"
@@ -108,7 +108,7 @@
 	. = ..()
 	message_simple = initial(message_simple)
 	var/mob/living/living_user = user
-	if(!. && !living_user.can_speak_vocal() || living_user.getOxyLoss() >= 50)
+	if(!living_user.can_speak_vocal() || living_user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
 	var/mob/living/carbon/carbon_user = user
 	// For masks that give unique death sounds
@@ -132,9 +132,9 @@
 
 /datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user) && intentional)
-		var/mob/living/L = user
-		L.SetSleeping(200)
+	if(isliving(user) && intentional)
+		var/mob/living/living = user
+		living.SetSleeping(20 SECONDS)
 
 /datum/emote/living/flap
 	key = "flap"
@@ -146,7 +146,7 @@
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 		if(H.Togglewings())
@@ -224,8 +224,6 @@
 
 /datum/emote/living/jump/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	animate(user, pixel_y = user.pixel_y + 4, time = 0.1 SECONDS)
 	animate(pixel_y = user.pixel_y - 4, time = 0.1 SECONDS)
 	if(iscarbon(user))
@@ -253,8 +251,6 @@
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		return !C.silent
@@ -341,8 +337,6 @@
 #define SHIVER_LOOP_DURATION (1 SECONDS)
 /datum/emote/living/shiver/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	animate(user, pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
 	for(var/i in 1 to SHIVER_LOOP_DURATION / (0.2 SECONDS)) //desired total duration divided by the iteration duration to give the necessary iteration count
 		animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
@@ -409,9 +403,9 @@
 
 /datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user) && intentional)
-		var/mob/living/L = user
-		L.Paralyze(200)
+	if(isliving(user) && intentional)
+		var/mob/living/living = user
+		living.Paralyze(20 SECONDS)
 
 /datum/emote/living/sway
 	key = "sway"
@@ -421,8 +415,6 @@
 
 /datum/emote/living/sway/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	animate(user, pixel_x = user.pixel_x + 2, time = 0.5 SECONDS)
 	for(var/i in 1 to 2)
 		animate(pixel_x = user.pixel_x - 4, time = 1.0 SECONDS)
@@ -438,8 +430,6 @@
 #define TREMBLE_LOOP_DURATION (4.4 SECONDS)
 /datum/emote/living/tremble/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	animate(user, pixel_x = user.pixel_x + 2, time = 0.2 SECONDS)
 	for(var/i in 1 to TREMBLE_LOOP_DURATION / (0.4 SECONDS)) //desired total duration divided by the iteration duration to give the necessary iteration count
 		animate(pixel_x = user.pixel_x - 2, time = 0.2 SECONDS)
@@ -455,8 +445,6 @@
 
 /datum/emote/living/twitch/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	animate(user, pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
 	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
 	animate(time = 0.1 SECONDS)
@@ -471,8 +459,6 @@
 
 /datum/emote/living/twitch_s/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
 	animate(user, pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
 	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
 
@@ -509,28 +495,23 @@
 	mob_type_blacklist_typecache = /mob/living/brain
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
-/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
-	. = ..() && intentional
-
-/datum/emote/living/custom/proc/check_invalid(mob/user, input)
-	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
-	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
-		return TRUE
-	return FALSE
-
-/datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
-	if(!can_run_emote(user, TRUE, intentional))
+/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional, params)
+	. = ..()
+	if(!. || !intentional)
 		return FALSE
-	if(is_banned_from(user.ckey, "Emote"))
+
+	if(!isnull(user.ckey) && is_banned_from(user.ckey, "Emote"))
 		to_chat(user, "You cannot send custom emotes (banned).")
 		return FALSE
-	else if(QDELETED(user))
+
+	if(QDELETED(user))
 		return FALSE
-	else if(user.client && user.client.prefs.muted & MUTE_IC)
+
+	if(user.client && user.client.prefs.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
-	else if(!params)
+
+	if(!params)
 		var/custom_emote = stripped_input(user, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))
 			var/list/emote_list = list("Audible", "Visible", "Both")
@@ -545,8 +526,17 @@
 			message = user.say_emphasis(custom_emote)
 	else
 		message = params
-		if(type_override)
-			emote_type = type_override
+
+/datum/emote/living/custom/proc/check_invalid(mob/user, input)
+	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
+	if(stop_bad_mime.Find(input, 1, 1))
+		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		return TRUE
+	return FALSE
+
+/datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
+	if(params && type_override)
+		emote_type = type_override
 	. = ..()
 	message = null
 	emote_type = null

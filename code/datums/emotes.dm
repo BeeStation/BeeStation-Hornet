@@ -69,10 +69,18 @@
 	if(!name)
 		name = key
 
+/**
+ * Handles the modifications and execution of emotes.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * params - Parameters added after the emote.
+ * * type_override - Override to the current emote_type.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ */
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
-	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
 
 	if((emote_type & EMOTE_ANIMATED) && emote_length > 0)
 		var/image/I = image(overlay_icon, user, overlay_icon_state, ABOVE_MOB_LAYER, 0, overlay_x_offset, overlay_y_offset)
@@ -96,7 +104,7 @@
 			I.trigger(key, L)
 
 	if(!msg)
-		return TRUE
+		return
 
 	user.log_message(msg, LOG_EMOTE)
 
@@ -134,7 +142,7 @@
 				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE)
 			else if(is_visual)
 				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_VISUAL)
-		return TRUE // Early exit so no dchat message
+		return // Early exit so no dchat message
 
 	// The emote has some important information, and should always be shown to the user
 	else if(is_important)
@@ -178,16 +186,27 @@
 			if(!ghost?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight))
 				continue
 			to_chat(ghost, "<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
-	return TRUE
+	return
 
-/// For handling emote cooldown, return true to allow the emote to happen
+/**
+ * For handling emote cooldown, return true to allow the emote to happen.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
+ */
 /datum/emote/proc/check_cooldown(mob/user, intentional)
 	if(!intentional)
 		return TRUE
+
 	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
 		return FALSE
+
 	if(!user.emotes_used)
 		user.emotes_used = list()
+
 	user.emotes_used[src] = world.time
 	return TRUE
 
@@ -229,7 +248,7 @@
 /datum/emote/proc/select_param(mob/user, params)
 	return replacetext(message_param, "%t", params)
 
-/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
+/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
 	. = TRUE
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
