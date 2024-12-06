@@ -79,7 +79,7 @@
 		flick_overlay_view(I, user, emote_length)
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
+	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
 		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
 		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
@@ -247,7 +247,40 @@
 		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
 			return FALSE
 
-/mob/proc/manual_emote(text) //Just override the song and dance
+/**
+ * Check to see if the user should play a sound when performing the emote.
+ *
+ * Arguments:
+ * * user - Person that is doing the emote.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns a bool about whether or not the user should play a sound when performing the emote.
+ */
+/datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
+	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
+		if(HAS_TRAIT(user, TRAIT_MUTE))
+			return FALSE
+		if(ishuman(user))
+			var/mob/living/carbon/human/loud_mouth = user
+			if(HAS_MIND_TRAIT(loud_mouth, TRAIT_MIMING)) // vow of silence prevents outloud noises
+				return FALSE
+			if(!loud_mouth.get_organ_slot(ORGAN_SLOT_TONGUE))
+				return FALSE
+
+	if(only_forced_audio && intentional)
+		return FALSE
+	return TRUE
+
+/**
+* Allows the intrepid coder to send a basic emote
+* Takes text as input, sends it out to those who need to know after some light parsing
+* If you need something more complex, make it into a datum emote
+* Arguments:
+* * text - The text to send out
+*
+* Returns TRUE if it was able to run the emote, FALSE otherwise.
+*/
+/atom/proc/manual_emote(text)
 	. = TRUE
 	if(stat != CONSCIOUS)
 		return

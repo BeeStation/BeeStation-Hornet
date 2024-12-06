@@ -123,11 +123,11 @@
 	specific_emote_audio_cooldown = 5 SECONDS
 	vary = TRUE
 
-/datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
-	if(!ishuman(user) || user.mind?.miming)
+/datum/emote/living/carbon/human/scream/get_sound(mob/living/carbon/human/user)
+	if(!istype(user))
 		return
-	var/mob/living/carbon/H = user
-	return H.dna?.species?.get_scream_sound(H)
+
+	return user.dna.species.get_scream_sound(user)
 
 /datum/emote/living/carbon/human/pale
 	key = "pale"
