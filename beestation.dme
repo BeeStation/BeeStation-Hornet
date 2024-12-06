@@ -2160,7 +2160,6 @@
 #include "code\modules\antagonists\heretic\magic\eldritch_shapeshift.dm"
 #include "code\modules\antagonists\heretic\magic\eldritch_telepathy.dm"
 #include "code\modules\antagonists\heretic\magic\flesh_ascension.dm"
-#include "code\modules\antagonists\heretic\magic\madness_touch.dm"
 #include "code\modules\antagonists\heretic\magic\manse_link.dm"
 #include "code\modules\antagonists\heretic\magic\mansus_grasp.dm"
 #include "code\modules\antagonists\heretic\magic\nightwatcher_rebirth.dm"

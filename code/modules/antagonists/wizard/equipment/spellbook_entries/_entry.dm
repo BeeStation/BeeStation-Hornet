@@ -32,7 +32,8 @@
 	var/requires_wizard_garb = FALSE
 	/// Used so you can't have specific spells together
 	var/list/no_coexistance_typecache
-
+	/// Locking the purchase down for whatever reason
+	var/locked = FALSE
 /datum/spellbook_entry/New()
 	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
 
@@ -49,7 +50,7 @@
  * Return FALSE to prevent the entry from being added to wizard spellbooks, TRUE otherwise
  */
 /datum/spellbook_entry/proc/can_be_purchased()
-	if(!name || !desc || !category) // Erroneously set or abstract
+	if(!name || !desc || !category || locked) // Erroneously set or abstract
 		return FALSE
 	return TRUE
 

@@ -122,6 +122,7 @@
 		CRASH("[type] called do_shapeshift while shapeshifted.")
 
 	var/mob/living/new_shape = new shapeshift_type(caster.loc)
+	Grant(new_shape)
 	var/obj/shapeshift_holder/new_shape_holder = new(new_shape, src, caster)
 
 	spell_requirements &= ~(SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_WIZARD_GARB)
@@ -136,6 +137,7 @@
 	var/mob/living/restored_player = current_shift.stored
 
 	current_shift.restore()
+	Grant(restored_player)
 	spell_requirements = initial(spell_requirements) // Miiight mess with admin stuff.
 
 	return restored_player
@@ -169,8 +171,8 @@
 		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE);
 		shape.blood_volume = stored.blood_volume;
 
-	RegisterSignal(shape, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(shape_death))
-	RegisterSignal(stored, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(caster_death))
+	RegisterSignals(shape, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(shape_death))
+	RegisterSignals(stored, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(caster_death))
 
 /obj/shapeshift_holder/Destroy()
 	// restore_form manages signal unregistering. If restoring is TRUE, we've already unregistered the signals and we're here

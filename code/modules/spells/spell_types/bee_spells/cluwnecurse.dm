@@ -10,12 +10,10 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cluwne.dmi'
 	button_icon_state = "cluwne"
 
-/datum/action/cooldown/spell/list_target/cluwnecurse/cast(mob/living/carbon/human/cast_on)
+/datum/action/cooldown/spell/pointed/cluwnecurse/cast(mob/living/carbon/cast_on)
 	. = ..()
-	if(cast_on == owner)
-		if(tgui_alert(usr, "Are you sure you want to curse yourself to become a cluwne?", "Fool's choice", list("Yes!", "No...")) == "Yes")
-			cast_on.cluwneify()
+	cast_on.cluwneify()
 
 /datum/spellbook_entry/cluwnecurse
 	name = "Cluwne Curse"
-	spell_type = /datum/action/cooldown/spell/list_target/cluwnecurse
+	spell_type = /datum/action/cooldown/spell/pointed/cluwnecurse

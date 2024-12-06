@@ -6,7 +6,7 @@
 
 /datum/action/item_action/vortex_recall/IsAvailable()
 	var/area/current_area = get_area(target)
-	if(!current_area || current_area.area_flags & TELEPORT_ALLOW_NONE)
+	if(!current_area || current_area.teleport_restriction == TELEPORT_ALLOW_NONE)
 		return FALSE
 	if(istype(target, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/teleport_stick = target
