@@ -75,8 +75,8 @@
 		flick_overlay_view(I, user, emote_length)
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, type))
-		TIMER_COOLDOWN_START(user, type, audio_cooldown)
+	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown"))
+		TIMER_COOLDOWN_START(user, "audible_emote_cooldown", audio_cooldown)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
 	var/msg = select_message_type(user, intentional)
