@@ -29,6 +29,8 @@
 	/// Whether to vary the pitch of the sound played
 	var/vary = FALSE
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
+	var/cooldown = 0.8 SECONDS
+	var/audio_cooldown = 2 SECONDS
 
 	// Animated emote stuff
 	// ~~~~~~~~~~~~~~~~~~~
@@ -71,7 +73,8 @@
 		flick_overlay_view(I, user, emote_length)
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional))
+	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, type))
+		TIMER_COOLDOWN_START(user, type, audio_cooldown)
 		playsound(user, tmp_sound, sound_volume, vary)
 
 	var/msg = select_message_type(user, intentional)

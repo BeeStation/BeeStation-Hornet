@@ -26,6 +26,7 @@
 	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+	audio_cooldown = 2.5 SECONDS
 	vary = TRUE
 
 /datum/emote/living/carbon/clap/can_run_emote(mob/user, status_check = TRUE, intentional)
