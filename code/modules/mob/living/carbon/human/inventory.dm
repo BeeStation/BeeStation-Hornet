@@ -4,6 +4,16 @@
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
 	switch(slot_id)
+		if(ITEM_SLOT_BACK)
+			return back
+		if(ITEM_SLOT_MASK)
+			return wear_mask
+		if(ITEM_SLOT_NECK)
+			return wear_neck
+		if(ITEM_SLOT_HANDCUFFED)
+			return handcuffed
+		if(ITEM_SLOT_LEGCUFFED)
+			return legcuffed
 		if(ITEM_SLOT_BELT)
 			return belt
 		if(ITEM_SLOT_ID)
@@ -14,6 +24,8 @@
 			return glasses
 		if(ITEM_SLOT_GLOVES)
 			return gloves
+		if(ITEM_SLOT_HEAD)
+			return head
 		if(ITEM_SLOT_FEET)
 			return shoes
 		if(ITEM_SLOT_OCLOTHING)
