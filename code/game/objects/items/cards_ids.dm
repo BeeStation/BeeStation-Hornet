@@ -257,7 +257,7 @@
 		to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
 		return
 
-	registered_account.adjust_money(cash_money)
+	registered_account.adjust_money(cash_money, "System: Deposit")
 	SSblackbox.record_feedback("amount", "credits_inserted", cash_money)
 	log_econ("[cash_money] credits were inserted into [src] owned by [src.registered_name]")
 	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
@@ -282,7 +282,7 @@
 		total += physical_money.get_item_credit_value()
 		CHECK_TICK
 
-	registered_account.adjust_money(total)
+	registered_account.adjust_money(total, "System: Deposit")
 	SSblackbox.record_feedback("amount", "credits_inserted", total)
 	log_econ("[total] credits were inserted into [src] owned by [src.registered_name]")
 	QDEL_LIST(money)

@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		else
 			D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(D)
-			if(!D.adjust_money(-price))
+			if(!D.adjust_money(-price, "Cargo: [spawning_order.pack.name]"))
 				if(SO.paying_account)
 					D.bank_card_talk("Cargo order #[SO.id] rejected due to lack of funds. Credits required: [price]")
 				continue

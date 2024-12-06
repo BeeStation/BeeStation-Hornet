@@ -279,11 +279,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 
 			if(account.account_balance < threshold)
 				payees[AM] += account.account_balance
-				account.adjust_money(-account.account_balance)
+				account.adjust_money(-account.account_balance, "Scanner Gate: Entry Fee")
 			else
 				var/money_owed = threshold - payees[AM]
 				payees[AM] += money_owed
-				account.adjust_money(-money_owed)
+				account.adjust_money(-money_owed, "Scanner Gate: Partial Entry Fee")
 
 	if(payees[AM] >= threshold)
 		for(var/obj/I in counted_money)

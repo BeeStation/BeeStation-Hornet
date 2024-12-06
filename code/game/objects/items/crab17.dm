@@ -203,7 +203,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 				B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
 				continue
 		else
-			if(!B.adjust_money(-amount))
+			if(!B.adjust_money(-amount, "?VIVA¿: !LA CRABBE¡"))
 				B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
 				continue
 		total_credits_stolen += amount

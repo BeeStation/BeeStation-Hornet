@@ -1005,7 +1005,7 @@
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 		if(LAZYLEN(R.returned_products))
 			price_to_use = 0 //returned items are free
-		if(price_to_use && !account.adjust_money(-price_to_use))
+		if(price_to_use && !account.adjust_money(-price_to_use, "Vending: [R.name]"))
 			say("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
 			vend_ready = TRUE
@@ -1016,7 +1016,7 @@
 				price_to_use = round(price_to_use/length(dept_list))
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
-						D.adjust_money(price_to_use)
+						D.adjust_money(price_to_use, , "Vending: [dispensed_item]")
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
@@ -1299,7 +1299,7 @@
 /obj/machinery/vending/custom/proc/make_purchase(var/obj/bought_item, var/mob/living/carbon/human/H, var/N)
 	var/datum/bank_account/owner = private_a
 	if(owner)
-		owner.adjust_money(bought_item.custom_price)
+		owner.adjust_money(bought_item.custom_price, "Vending: [dispensed_item] Bought")
 		SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
 		log_econ("[bought_item.custom_price] credits were spent on [src] buying a [bought_item] by [owner.account_holder], owned by [private_a.account_holder].")
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
