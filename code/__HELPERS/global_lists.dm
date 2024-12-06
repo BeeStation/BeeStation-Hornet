@@ -73,13 +73,7 @@
 		GLOB.hair_gradients_list[H.name] = H
 
 	// Keybindings
-	for(var/KB in subtypesof(/datum/keybinding))
-		var/datum/keybinding/keybinding = KB
-		if(!initial(keybinding.keys) || !initial(keybinding.keybind_signal))
-			continue
-		var/datum/keybinding/instance = new keybinding
-		GLOB.keybindings_by_name[instance.name] = instance
-		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
+	init_keybindings()
 
 	init_crafting_recipes(GLOB.crafting_recipes)
 
