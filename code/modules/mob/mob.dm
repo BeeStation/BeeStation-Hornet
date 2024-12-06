@@ -1195,6 +1195,7 @@
 			LA.alpha = lighting_alpha * (bloom / 255)
 
 ///Update the mouse pointer of the attached client in this mob
+/*
 /mob/proc/update_mouse_pointer()
 	if (!client)
 		return
@@ -1208,6 +1209,20 @@
 		if(E.mouse_pointer)
 			client.mouse_pointer_icon = E.mouse_pointer
 
+*/
+
+///Update the mouse pointer of the attached client in this mob
+/mob/proc/update_mouse_pointer()
+	if(!client)
+		return
+	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	if(istype(loc, /obj/vehicle/sealed))
+		var/obj/vehicle/sealed/E = loc
+		if(E.mouse_pointer)
+			client.mouse_pointer_icon = E.mouse_pointer
+	if(client.mouse_override_icon)
+		client.mouse_pointer_icon = client.mouse_override_icon
 
 /// This mob can read
 /mob/proc/is_literate()
