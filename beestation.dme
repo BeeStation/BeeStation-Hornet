@@ -3353,6 +3353,7 @@
 #include "code\modules\modular_computers\file_system\programs\ntmessenger.dm"
 #include "code\modules\modular_computers\file_system\programs\ntmonitor.dm"
 #include "code\modules\modular_computers\file_system\programs\ntnrc_client.dm"
+#include "code\modules\modular_computers\file_system\programs\paycheck_manager.dm"
 #include "code\modules\modular_computers\file_system\programs\phys_scanner.dm"
 #include "code\modules\modular_computers\file_system\programs\portrait_printer.dm"
 #include "code\modules\modular_computers\file_system\programs\powermonitor.dm"
