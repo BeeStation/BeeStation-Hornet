@@ -310,6 +310,7 @@
 	message_mime = "acts out a scream"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
+	sound_wall_ignore = TRUE
 
 /datum/emote/living/scream/select_message_type(mob/user, intentional)
 	. = ..()

@@ -31,6 +31,8 @@
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
 	var/cooldown = 0.8 SECONDS
 	var/audio_cooldown = 2 SECONDS
+	/// Does this emote's sound ignore walls?
+	var/sound_wall_ignore = FALSE
 
 	// Animated emote stuff
 	// ~~~~~~~~~~~~~~~~~~~
@@ -75,7 +77,7 @@
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && (!only_forced_audio || !intentional) && !TIMER_COOLDOWN_CHECK(user, type))
 		TIMER_COOLDOWN_START(user, type, audio_cooldown)
-		playsound(user, tmp_sound, sound_volume, vary)
+		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
 	var/msg = select_message_type(user, intentional)
 	if(params && message_param)
