@@ -4,7 +4,7 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	item_type = /obj/item/food/pie/cream
-	cooldown_time = 30 SECONDS
+	cooldown_time = 5 SECONDS
 	icon_icon = 'icons/obj/food/piecake.dmi'
 	button_icon_state = "pie"
 
@@ -13,7 +13,7 @@
 /datum/action/cooldown/spell/pointed/banana_peel
 	name = "Conjure Banana Peel"
 	desc = "Make a banana peel appear out of thin air right under someone's feet!"
-	cooldown_time = 100 SECONDS
+	cooldown_time = 5 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation_type = INVOCATION_NONE
 
@@ -39,7 +39,7 @@
 	desc = "This spell channels your inner clown powers, concentrating them into one massive HONK."
 	hand_path = /obj/item/melee/touch_attack/megahonk
 
-	cooldown_time = 100 SECONDS
+	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	icon_icon = 'icons/mecha/mecha_equipment.dmi'
@@ -52,7 +52,7 @@
 	desc = "An entire body would fit in there!"
 	hand_path = /obj/item/melee/touch_attack/bspie
 
-	cooldown_time = 450 SECONDS
+	cooldown_time = 60 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	icon_icon = 'icons/obj/food/piecake.dmi'
@@ -120,14 +120,18 @@
 	var/mob/living/carbon/M = target
 
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
-	if(do_after(user, M, 250))
+	if(do_after(user, 25 SECONDS, M))
 		var/name = M.real_name
-		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
+		var/obj/item/food/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
 		. = ..()
 
 		M.forceMove(pie)
+
+/datum/action/cooldown/spell/touch/bspie/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	return TRUE
+
 
 /obj/item/reagent_containers/food/snacks/pie/cream/body
 

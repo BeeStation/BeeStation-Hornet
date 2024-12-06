@@ -32,7 +32,7 @@
 /datum/action/cooldown/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return TRUE
 
-/obj/item/melee/touch_attack/mutation/shock/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/shock/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(QDELETED(target) || isturf(target))
 		return
 	user.Beam(target, icon_state = "lightning[rand(1, 12)]", time = 5, maxdistance = 32)

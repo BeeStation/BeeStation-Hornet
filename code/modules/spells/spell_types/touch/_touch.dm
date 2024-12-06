@@ -209,7 +209,7 @@
  * However, if you want to consume the hand and not give a cooldown,
  * such as adding a unique behavior to the hand specifically, this function will do that.
  */
-/obj/item/melee/touch_attack/mansus_fist/proc/remove_hand_with_no_refund(mob/holder)
+/obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
 	var/datum/action/cooldown/spell/touch/hand_spell = spell_which_made_us?.resolve()
 	if(!QDELETED(hand_spell))
 		hand_spell.remove_hand(holder, reset_cooldown_after = FALSE)
