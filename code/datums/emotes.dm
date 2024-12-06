@@ -262,9 +262,9 @@
 			return FALSE
 		if(ishuman(user))
 			var/mob/living/carbon/human/loud_mouth = user
-			if(HAS_MIND_TRAIT(loud_mouth, TRAIT_MIMING)) // vow of silence prevents outloud noises
+			if(loud_mouth.mind?.miming) // vow of silence prevents outloud noises
 				return FALSE
-			if(!loud_mouth.get_organ_slot(ORGAN_SLOT_TONGUE))
+			if(!loud_mouth.getorganslot(ORGAN_SLOT_TONGUE))
 				return FALSE
 
 	if(only_forced_audio && intentional)
@@ -280,7 +280,7 @@
 *
 * Returns TRUE if it was able to run the emote, FALSE otherwise.
 */
-/atom/proc/manual_emote(text)
+/mob/proc/manual_emote(text) //Just override the song and dance
 	. = TRUE
 	if(stat != CONSCIOUS)
 		return
