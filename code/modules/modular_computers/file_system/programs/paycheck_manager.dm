@@ -1,11 +1,3 @@
-#define CARDCON_DEPARTMENT_CIVILIAN "Civilian"
-#define CARDCON_DEPARTMENT_SECURITY "Security"
-#define CARDCON_DEPARTMENT_MEDICAL "Medical"
-#define CARDCON_DEPARTMENT_SUPPLY "Supply"
-#define CARDCON_DEPARTMENT_SCIENCE "Science"
-#define CARDCON_DEPARTMENT_ENGINEERING "Engineering"
-#define CARDCON_DEPARTMENT_COMMAND "Command"
-
 /datum/computer_file/program/paycheck_manager
 	filename = "paycheck_manager"
 	filedesc = "Pay Check Manager"
@@ -18,76 +10,20 @@
 	tgui_id = "NtosPaycheckManager"
 	program_icon = "address-book"
 
-	//Which department this computer has access to.
-	var/target_dept = DEPT_ALL
+	//Are we authenticated?
+	var/authenticated = FALSE
+	//Which department this program has access to.
+	var/target_dept = DEPARTMENTAL_FLAG_ALL
 	//Which departments you are able to change the paychecks of.
 	var/available_paycheck_departments = list()
 	//Which department budget ID the target card gets their money from.
 	var/target_paycheck = ACCOUNT_SRV_ID
-	//For some reason everything was exploding if this was static.
-	var/list/sub_managers
-
-/datum/computer_file/program/paycheck_manager/New(obj/item/modular_computer/comp)
-	. = ..()
-	sub_managers = list(
-		"[ACCESS_HOP]" = list(
-			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
-			"region" = 1,
-			"head" = JOB_NAME_HEADOFPERSONNEL
-		),
-		"[ACCESS_HOS]" = list(
-			"department" = CARDCON_DEPARTMENT_SECURITY,
-			"region" = 2,
-			"head" = JOB_NAME_HEADOFSECURITY
-		),
-		"[ACCESS_CMO]" = list(
-			"department" = CARDCON_DEPARTMENT_MEDICAL,
-			"region" = 3,
-			"head" = JOB_NAME_CHIEFMEDICALOFFICER
-		),
-		"[ACCESS_RD]" = list(
-			"department" = CARDCON_DEPARTMENT_SCIENCE,
-			"region" = 4,
-			"head" = JOB_NAME_RESEARCHDIRECTOR
-		),
-		"[ACCESS_CE]" = list(
-			"department" = CARDCON_DEPARTMENT_ENGINEERING,
-			"region" = 5,
-			"head" = JOB_NAME_CHIEFENGINEER
-		)
-	)
-
 
 /datum/computer_file/program/paycheck_manager/proc/authenticate(mob/user, obj/item/card/id/id_card)
 	if(!id_card)
 		return
 
-	region_access = list()
 	if(!target_dept && (ACCESS_CHANGE_IDS in id_card.access))
-		minor = FALSE
-		authenticated = TRUE
-		update_static_data(user)
-		return TRUE
-
-	var/list/head_types = list()
-	for(var/access_text in sub_managers)
-		var/list/info = sub_managers[access_text]
-		var/access = text2num(access_text)
-		if((access in id_card.access) && ((info["region"] in target_dept) || !length(target_dept)))
-			region_access |= info["region"]
-			//I don't even know what I'm doing anymore
-			head_types += info["head"]
-
-	head_subordinates = list()
-	if(length(head_types))
-		for(var/j in SSjob.occupations)
-			var/datum/job/job = j
-			for(var/head in head_types)//god why
-				if(head in job.department_head)
-					head_subordinates += job.title
-
-	if(length(region_access))
-		minor = TRUE
 		authenticated = TRUE
 		update_static_data(user)
 		return TRUE
@@ -114,46 +50,30 @@
 	if(id_card)
 		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
-		data["access_on_card"] = id_card.access
+		data["registered_bank_account"] = id_card.registered_account
 
 	return data
-
-/datum/computer_file/program/paycheck_manager/ui_static_data(mob/user)
-	var/list/data = list()
-	data["minor"] = target_dept || minor ? TRUE : FALSE
-
-	var/list/departments = target_dept
-	if(isnull(departments))
-		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),
-			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
-			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
-			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
-			CARDCON_DEPARTMENT_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
-			CARDCON_DEPARTMENT_SUPPLY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
-			CARDCON_DEPARTMENT_CIVILIAN = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)
-		)
 
 /datum/computer_file/program/paycheck_manager/ui_act(action, params)
 	if(..())
 		return TRUE
-
 	if(!computer)
 		return
 
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
-	var/obj/item/computer_hardware/card_slot/card_slot2 = computer.all_components[MC_CARD2]
-
-	if(!card_slot || !card_slot2)
-		return
-
-	var/mob/user = usr
-	var/obj/item/card/id/user_id_card = card_slot.stored_card
-	var/obj/item/card/id/target_id_card = card_slot2.stored_card
-
-
+	switch(action)
+		if("new_account")
+			. = TRUE
+		if("delete_account")
+			. = TRUE
+		if("set_pay")
+			. = TRUE
+		if("set_bonus")
+			. = TRUE
+		if("set_department_vendor")
+			. = TRUE
+	return TRUE
 /*
-var/list/paycheck_departments = list()
+	var/list/paycheck_departments = list()
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
 			//Checking all the accesses and their corresponding departments
@@ -207,11 +127,3 @@ var/list/paycheck_departments = list()
 					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
 				dat += "</tr>"
 */
-
-#undef CARDCON_DEPARTMENT_CIVILIAN
-#undef CARDCON_DEPARTMENT_SECURITY
-#undef CARDCON_DEPARTMENT_MEDICAL
-#undef CARDCON_DEPARTMENT_SCIENCE
-#undef CARDCON_DEPARTMENT_SUPPLY
-#undef CARDCON_DEPARTMENT_ENGINEERING
-#undef CARDCON_DEPARTMENT_COMMAND
