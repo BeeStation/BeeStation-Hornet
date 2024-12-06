@@ -216,6 +216,9 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	var/memory_throttle_time = 0
 
+	/// Used for tracking last uses of emotes for cooldown purposes
+	var/list/emotes_used
+
 	///Whether the mob is updating glide size when movespeed updates or not
 	var/updating_glide_size = TRUE
 
