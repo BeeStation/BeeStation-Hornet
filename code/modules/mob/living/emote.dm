@@ -228,6 +228,9 @@
 		return FALSE
 	animate(user, pixel_y = user.pixel_y + 4, time = 0.1 SECONDS)
 	animate(pixel_y = user.pixel_y - 4, time = 0.1 SECONDS)
+	if(iscarbon(user))
+		var/mob/living/carbon/jumps_till_drops = user
+		jumps_till_drops.adjustStaminaLoss(15, forced = TRUE)
 
 /datum/emote/living/jump/get_sound(mob/living/user)
 	return 'sound/weapons/thudswoosh.ogg'
