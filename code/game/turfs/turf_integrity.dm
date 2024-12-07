@@ -7,8 +7,6 @@
 /turf
 	/// Can this turf be hit by players?
 	var/can_hit = TRUE
-	/// Has armour been generated yet?
-	var/armor_generated
 	/// The integrity that the turf starts at, defaulting to max_integrity
 	var/integrity
 	/// The maximum integrity that the turf has
