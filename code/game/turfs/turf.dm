@@ -160,11 +160,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
-		if (islist(armor))
-			armor = getArmor(arglist(armor))
-		else if (!armor)
-			armor = getArmor()
-
 	if(isopenturf(src))
 		var/turf/open/O = src
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
@@ -301,6 +296,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+	
 	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
