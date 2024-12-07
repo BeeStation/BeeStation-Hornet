@@ -85,7 +85,7 @@
 	if(strong_blob)
 		blob_options += /obj/structure/blob/shield/
 	if(node_blob)
-		blob_options += /obj/structure/blob/node/lone
+		blob_options += /obj/structure/blob/special/node/lone
 	var/pick_blob = pick(blob_options)
 	if(ready_to_pop)
 		for(var/i in 1 to rand(1, 6))

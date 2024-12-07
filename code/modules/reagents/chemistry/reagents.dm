@@ -22,6 +22,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/glass_desc = "You can't really tell what this is."
 	var/glass_icon_state = null // Otherwise just sets the icon to a normal glass with the mixture of the reagents in the glass.
 	var/shot_glass_icon_state = null
+	/// reagent holder this belongs to
 	var/datum/reagents/holder = null
 	var/reagent_state = LIQUID
 	var/list/data
@@ -62,11 +63,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/reaction_turf(turf/T, volume)
 	return
 
-/datum/reagent/proc/on_mob_life(mob/living/carbon/M)
+/datum/reagent/proc/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	current_cycle++
-	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	if(holder)
+		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency * delta_time) //By default it slowly disappears.
 	if(metabolite)
-		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE)
+		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE* delta_time)
 	return
 
 /datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume) //Called after a reagent is transfered
@@ -129,7 +131,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
-/datum/reagent/proc/overdose_process(mob/living/M)
+/datum/reagent/proc/overdose_process(mob/living/M, delta_time, times_fired)
 	return
 
 /datum/reagent/proc/overdose_start(mob/living/M)
