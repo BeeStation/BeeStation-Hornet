@@ -12,7 +12,6 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
-	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_armorbooster_off"
 	overlay_state_active = "module_armorbooster_on"
 	mask_worn_overlay = TRUE
@@ -356,7 +355,7 @@
 	var/obj/item/current_disguise
 
 /obj/item/mod/module/chameleon/on_install()
-	var/list/all_disguises = sort_list(subtypesof(get_path_by_slot(mod.slot_flags)), /proc/cmp_typepaths_asc)
+	var/list/all_disguises = sort_list(subtypesof(get_path_by_slot(mod.slot_flags)), GLOBAL_PROC_REF(cmp_typepaths_asc))
 	for(var/clothing_path in all_disguises)
 		var/obj/item/clothing = clothing_path
 		if(!initial(clothing.icon_state))
