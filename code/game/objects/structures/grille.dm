@@ -1,6 +1,8 @@
 /// Max number of unanchored items that will be moved from a tile when attempting to add a window to a grille.
 #define CLEAR_TILE_MOVE_LIMIT 20
 
+WANTS_POWER_NODE(/obj/structure/grille)
+
 /obj/structure/grille
 	desc = "A flimsy framework of iron rods."
 	name = "grille"
@@ -189,13 +191,14 @@
 		if(!shock(user, 100 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			deconstruct()
+		return TRUE
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
 		if(!shock(user, 90 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			set_anchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 								"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
-			return
+		return TRUE
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90 * W.siemens_coefficient))
@@ -203,7 +206,7 @@
 								"<span class='notice'>You rebuild the broken grille.</span>")
 			repair_grille()
 			R.use(1)
-			return
+		return TRUE
 
 //window placing begin
 	else if(is_glass_sheet(W))

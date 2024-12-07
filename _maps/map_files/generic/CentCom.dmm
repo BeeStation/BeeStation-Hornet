@@ -64,17 +64,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
-"aam" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/effect/landmark/ert_spawn,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "aan" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
@@ -431,9 +420,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
@@ -496,9 +483,7 @@
 	},
 /area/centcom/supplypod/loading/ert)
 "abj" = (
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "abk" = (
@@ -635,17 +620,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeadmin)
-"abA" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/stack/package_wrap,
-/obj/item/stack/cable_coil/white,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/control)
 "abB" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/iron,
@@ -878,9 +852,7 @@
 	},
 /area/tdome/tdomeobserve)
 "acc" = (
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 6
 	},
@@ -901,24 +873,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/centcom/control)
-"acf" = (
-/obj/item/clipboard,
-/obj/structure/table/reinforced,
-/obj/item/detective_scanner,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/obj/item/storage/box/ids{
-	pixel_x = 6;
-	pixel_y = 12
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/storage/fancy/donut_box,
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "acg" = (
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
@@ -1793,12 +1747,10 @@
 	pixel_y = -2
 	},
 /obj/item/stack/rods/fifty,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
 /obj/item/powertool/hand_drill,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/centcom/ferry)
@@ -1848,25 +1800,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
-"aeo" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/visible{
-	dir = 1
-	},
-/obj/structure/cable/white{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/white{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "aep" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -2015,9 +1948,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "aeH" = (
@@ -2048,12 +1979,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/airalarm/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "aeL" = (
@@ -2169,9 +2095,7 @@
 /area/centcom/supplypod)
 "afa" = (
 /obj/machinery/shuttle_manipulator,
-/obj/structure/cable/white{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/circuit,
 /area/centcom/ferry)
 "afb" = (
@@ -2190,17 +2114,6 @@
 	pixel_y = -22
 	},
 /turf/open/floor/wood,
-/area/centcom/ferry)
-"afd" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder/red,
-/obj/item/pen/red,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "afe" = (
 /obj/item/lighter{
@@ -2297,13 +2210,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/control)
-"afp" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "afq" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
@@ -2369,7 +2275,7 @@
 	pixel_y = -2
 	},
 /obj/item/stack/rods/fifty,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark/smooth_edge,
@@ -2612,23 +2518,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
-"agf" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/visible{
-	dir = 1
-	},
-/obj/machinery/meter,
-/obj/structure/cable/white{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/white{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "agg" = (
 /turf/open/floor/iron/edge{
 	dir = 8
@@ -2676,20 +2565,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/supply)
-"ago" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/visible{
-	dir = 1
-	},
-/obj/machinery/meter,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/white{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "agp" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -2928,18 +2803,6 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"agW" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Briefing Area APC";
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "agX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -3704,9 +3567,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 8
 	},
@@ -4847,9 +4708,7 @@
 	name = "Briefing Area APC";
 	pixel_x = 24
 	},
-/obj/structure/cable/white{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 9
 	},
@@ -5690,9 +5549,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth_edge,
 /area/centcom/evac)
 "aod" = (
@@ -5954,14 +5811,6 @@
 	dir = 1
 	},
 /area/centcom/ferry)
-"aoJ" = (
-/obj/machinery/door/poddoor/ert,
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "aoK" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -6075,9 +5924,7 @@
 /area/centcom/ferry)
 "aoV" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/item/storage/lockbox/loyalty,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/item/crowbar/red,
@@ -6563,9 +6410,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "aqh" = (
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron/large,
 /area/centcom/ferry)
 "aqi" = (
@@ -7051,24 +6896,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/ferry)
-"ars" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/plasteel{
-	amount = 15
-	},
-/obj/item/stack/sheet/rglass{
-	amount = 50;
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/stack/rods/fifty,
-/obj/item/stack/cable_coil/white,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "art" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -7117,48 +6944,6 @@
 "arz" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/indestructible/riveted,
-/area/centcom/ferry)
-"arA" = (
-/obj/machinery/power/smes/magical,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
-/area/centcom/ferry)
-"arB" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Commander's Office APC";
-	pixel_x = 24
-	},
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/plasteel{
-	amount = 15
-	},
-/obj/item/stack/sheet/rglass{
-	amount = 50;
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/stack/rods/fifty,
-/obj/item/stack/cable_coil/white,
-/obj/item/powertool/hand_drill,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/white{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
 /area/centcom/ferry)
 "arC" = (
 /obj/structure/table/reinforced,
@@ -7571,18 +7356,6 @@
 	dir = 4
 	},
 /area/centcom/control)
-"asz" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "2-4"
-	},
-/turf/open/floor/wood,
-/area/centcom/ferry)
 "asA" = (
 /obj/structure/fluff/hedge,
 /obj/structure/railing{
@@ -7615,22 +7388,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
-"asD" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Administrative Storage";
-	req_access_txt = "106"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "asE" = (
 /obj/machinery/computer/records/medical{
 	dir = 4
@@ -7976,15 +7733,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/big,
 /area/centcom/evac)
-"atz" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/wood,
-/area/centcom/ferry)
 "atA" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
@@ -8010,42 +7758,6 @@
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/plating/dirt,
 /area/centcom/supplypod)
-"atE" = (
-/obj/machinery/computer/monitor/secret{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/white{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
-"atF" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 1
-	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "atG" = (
 /obj/item/storage/box/handcuffs,
 /obj/item/ammo_box/a357,
@@ -8066,9 +7778,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
 /obj/item/assembly/flash/handheld,
@@ -8394,9 +8104,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "aur" = (
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "aus" = (
@@ -8884,17 +8592,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/ferry)
-"avF" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Administrative Office";
-	req_access_txt = "109"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "avG" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "XCCsec1";
@@ -9028,12 +8725,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/evac)
-"avW" = (
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "avX" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 8
@@ -9250,9 +8941,7 @@
 /area/centcom/ferry)
 "awy" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "awz" = (
@@ -9313,9 +9002,7 @@
 /area/centcom/evac)
 "awG" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -9373,9 +9060,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/centcom/ferry)
@@ -9770,9 +9455,7 @@
 "axQ" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "axR" = (
@@ -10510,9 +10193,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron/textured,
 /area/centcom/ferry)
 "azL" = (
@@ -10756,9 +10437,7 @@
 /turf/open/floor/iron/large,
 /area/centcom/control)
 "aAr" = (
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -10903,19 +10582,6 @@
 /obj/item/pen,
 /turf/open/floor/iron,
 /area/centcom/evac)
-"aAM" = (
-/obj/machinery/shuttle_manipulator,
-/obj/structure/cable/white{
-	icon_state = "1-4"
-	},
-/turf/open/floor/circuit/green,
-/area/centcom/ferry)
-"aAN" = (
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/circuit/green,
-/area/centcom/ferry)
 "aAO" = (
 /obj/structure/chair,
 /obj/effect/landmark/thunderdome/observe,
@@ -10937,30 +10603,6 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/centcom/evac)
-"aAQ" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
-"aAR" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/zipties,
-/obj/item/crowbar/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
 "aAS" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -11110,32 +10752,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/centcom/evac)
-"aBo" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/structure/cable/white{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/ferry)
-"aBp" = (
-/obj/structure/chair/office,
-/obj/effect/landmark/ert_spawn,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "aBq" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -11224,9 +10840,7 @@
 /area/tdome/tdomeobserve)
 "aBy" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
@@ -12316,9 +11930,7 @@
 	dir = 10
 	},
 /obj/machinery/meter,
-/obj/structure/cable/white{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/ferry)
 "aDY" = (
@@ -13036,16 +12648,6 @@
 	},
 /turf/open/floor/engine/cult,
 /area/wizard_station)
-"aFU" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/carpet/grimy,
-/area/centcom/ferry)
 "aFV" = (
 /obj/structure/sink{
 	dir = 4;
@@ -13803,9 +13405,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/white{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "aHJ" = (
@@ -13978,9 +13578,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/line,
 /obj/structure/chair/office,
 /obj/effect/landmark/ert_spawn,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "aIb" = (
@@ -14260,15 +13858,6 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/arena)
-"aIO" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "aIP" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -14569,15 +14158,6 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
-"aJG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/carpet/grimy,
-/area/centcom/ferry)
 "aJH" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -14735,9 +14315,7 @@
 /area/centcom/ferry)
 "aJV" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth_edge,
 /area/centcom/evac)
 "aJW" = (
@@ -14823,9 +14401,7 @@
 	dir = 1
 	},
 /obj/machinery/meter,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/ferry)
 "aKg" = (
@@ -15547,9 +15123,7 @@
 /area/centcom/evac)
 "aLO" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/item/storage/box/flashbangs,
 /obj/item/storage/box/teargas,
@@ -15831,17 +15405,6 @@
 	},
 /turf/open/space/basic,
 /area/space)
-"aMA" = (
-/obj/machinery/keycard_auth{
-	pixel_y = -24
-	},
-/obj/structure/table/reinforced,
-/obj/item/stack/package_wrap,
-/obj/item/stack/cable_coil/white,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/centcom/supply)
 "aMB" = (
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/loading_area{
@@ -17442,9 +17005,7 @@
 /area/centcom/holding)
 "aQl" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /obj/machinery/door/airlock/centcom{
 	name = "Administrative Office";
 	req_access_txt = "109"
@@ -17981,13 +17542,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
-/area/centcom/ferry)
-"aRy" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "aRz" = (
 /obj/structure/table/reinforced,
@@ -18538,13 +18092,6 @@
 /obj/effect/turf_decal/siding/blue,
 /turf/open/floor/iron/tech,
 /area/ctf)
-"aSJ" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/ferry)
 "aSK" = (
 /turf/open/floor/iron/large,
 /area/centcom/supplypod/loading/three)
@@ -19287,9 +18834,7 @@
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "aUs" = (
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/circuit,
 /area/centcom/ferry)
 "aUt" = (
@@ -19340,9 +18885,7 @@
 "aUB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -20484,12 +20027,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/visible{
 	dir = 1
 	},
-/obj/structure/cable/white{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/white{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/ferry)
 "aXr" = (
@@ -21015,9 +20553,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /obj/item/clipboard,
 /obj/item/folder/red,
 /obj/item/pen/red,
@@ -21373,9 +20909,7 @@
 /area/centcom/evac)
 "aZz" = (
 /obj/machinery/status_display/ai,
-/obj/structure/cable/white{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/pink,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "aZA" = (
@@ -21389,9 +20923,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/ert_spawn,
-/obj/structure/cable/white{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/pink,
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "aZB" = (
@@ -23126,7 +22658,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/stack/package_wrap,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
 /obj/item/hand_labeler,
 /turf/open/floor/iron/corner,
 /area/centcom/control)
@@ -23173,7 +22705,7 @@
 "lrB" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/package_wrap,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
 /obj/item/hand_labeler,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
@@ -63058,7 +62590,7 @@ awy
 aqh
 axQ
 aZz
-avW
+abj
 aIa
 aUB
 afa

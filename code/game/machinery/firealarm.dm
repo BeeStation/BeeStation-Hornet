@@ -206,14 +206,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		panel_open = !panel_open
 		to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
 		update_appearance()
-		return
+		return TRUE
 
 	if(panel_open)
 
 		if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
 			if(atom_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
-					return
+					return TRUE
 
 				to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 				if(W.use_tool(src, user, 40, volume=50))
@@ -221,7 +221,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					to_chat(user, "<span class='notice'>You repair [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-			return
+			return TRUE
 
 		switch(buildstage)
 			if(2)
@@ -231,7 +231,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 						user.visible_message("[user] has reconnected [src]'s detecting unit!", "<span class='notice'>You reconnect [src]'s detecting unit.</span>")
 					else
 						user.visible_message("[user] has disconnected [src]'s detecting unit!", "<span class='notice'>You disconnect [src]'s detecting unit.</span>")
-					return
+					return TRUE
 
 				else if(W.tool_behaviour == TOOL_WIRECUTTER)
 					buildstage = 1
@@ -239,7 +239,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					new /obj/item/stack/cable_coil(user.loc, 5)
 					to_chat(user, "<span class='notice'>You cut the wires from \the [src].</span>")
 					update_appearance()
-					return
+					return TRUE
 
 				else if(W.force) //hit and turn it on
 					..()
@@ -258,7 +258,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 						buildstage = 2
 						to_chat(user, "<span class='notice'>You wire \the [src].</span>")
 						update_appearance()
-					return
+					return TRUE
 
 				else if(W.tool_behaviour == TOOL_CROWBAR)
 					user.visible_message("[user.name] removes the electronics from [src.name].", \
@@ -273,14 +273,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 								new /obj/item/electronics/firealarm(user.loc)
 							buildstage = 0
 							update_appearance()
-					return
+					return TRUE
 			if(0)
 				if(istype(W, /obj/item/electronics/firealarm))
 					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
 					qdel(W)
 					buildstage = 1
 					update_appearance()
-					return
+					return TRUE
 
 				else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 					var/obj/item/electroadaptive_pseudocircuit/P = W
@@ -290,7 +290,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
 					buildstage = 1
 					update_appearance()
-					return
+					return TRUE
 
 				else if(W.tool_behaviour == TOOL_WRENCH)
 					user.visible_message("[user] removes the fire alarm assembly from the wall.", \
@@ -299,7 +299,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					frame.forceMove(user.drop_location())
 					W.play_tool_sound(src)
 					qdel(src)
-					return
+					return TRUE
 
 	return ..()
 

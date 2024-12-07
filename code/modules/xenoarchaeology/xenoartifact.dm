@@ -207,14 +207,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 
 	//Let people label in peace
 	if(istype(I, /obj/item/xenoartifact_label) || istype(I, /obj/item/xenoartifact_labeler))
-		return
+		return TRUE
 
 	//abort if safety
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety)
 		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/xenoartifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	//abort if safety

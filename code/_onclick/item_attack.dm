@@ -5,23 +5,25 @@
   * * [/atom/proc/tool_act] on the target. If it returns TRUE, the chain will be stopped.
   * * [/obj/item/proc/pre_attack] on src. If this returns TRUE, the chain will be stopped.
   * * [/atom/proc/attackby] on the target. If it returns TRUE, the chain will be stopped.
-  * * [/obj/item/proc/afterattack]. The return value does not matter.
+  * * [/obj/item/proc/afterattack]. If it returns TRUE, the chain will be stopped.
   */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(tool_behaviour && target.tool_act(user, src, tool_behaviour))
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if (tool_behaviour && target.tool_act(user, src, tool_behaviour))
 		return TRUE
-	if(pre_attack(target, user, params))
+	if (pre_attack(target, user, params))
 		return TRUE
-	if(target.attackby(src,user, params))
+	if (target.attackby(src,user, params))
 		return TRUE
-	if(QDELETED(src))
-		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain.")
+	if (QDELETED(src))
+		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain. ([target.type] was attacked by [type])")
 		return TRUE
-	if(QDELETED(target))
-		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped.")
+	if (QDELETED(target))
+		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped. ([target.type] was attacked by [type])")
 		return TRUE
-	return afterattack(target, user, TRUE, params)
-
+	if (afterattack(target, user, TRUE, params))
+		return TRUE
+	return FALSE
 
 /// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
@@ -31,6 +33,8 @@
 
 /**
   * Called on the item before it hits something
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * atom/A - The atom about to be hit
@@ -46,6 +50,8 @@
 
 /**
   * Called on an object being hit by an item
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * obj/item/attacking_item - The item hitting this atom
@@ -82,6 +88,8 @@
 
 /**
  * Called from [/mob/living/proc/attackby]
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
  *
  * Arguments:
  * * mob/living/target_mob - The mob being hit by this item
@@ -195,6 +203,8 @@
 
 /**
   * Last proc in the [/obj/item/proc/melee_attack_chain]
+  * Return TRUE if a valid interaction or attack ocurred, which will
+  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * atom/target - The thing that was hit
@@ -205,7 +215,6 @@
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
-
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
