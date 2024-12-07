@@ -92,7 +92,7 @@
 			camera.remove_target_ui()
 			camera.forceMove(user)
 			user.reset_perspective(camera)
-		teleport_now.UpdateButtonIcon()
+		teleport_now.UpdateButtons()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(atom/location)
 	var/mob/living/carbon/human/user = src.loc
@@ -106,7 +106,7 @@
 		if(camera)
 			camera.remove_target_ui()
 
-		teleport_now.UpdateButtonIcon()
+		teleport_now.UpdateButtons()
 
 		var/list/nonsafe_slots = list(ITEM_SLOT_BELT, ITEM_SLOT_BACK)
 		var/list/exposed = list()

@@ -22,7 +22,7 @@
 	user.transferItemToLoc(tool, target, TRUE)
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
-	P.button.name = "Activate [tool.name]"
+	name = "Activate [tool.name]"
 	P.target = tool
 	P.Grant(target)	//The pill never actually goes in an inventory slot, so the owner doesn't inherit actions from it
 
@@ -34,13 +34,14 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger()
+/datum/action/item_action/hands_free/activate_pill/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
-	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted [target.name]!</span>")
+	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted pill!</span>")
 	log_combat(owner, null, "swallowed an implanted pill", target)
-	if(target.reagents.total_volume)
-		target.reagents.reaction(owner, INGEST)
-		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner)
+	var/obj/item/item_target = target
+	if(item_target.reagents.total_volume)
+		item_target.reagents.reaction(owner, INGEST)
+		item_target.reagents.trans_to(owner, item_target.reagents.total_volume, transfered_by = owner)
 	qdel(target)
 	return TRUE

@@ -37,7 +37,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger()
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
@@ -89,7 +89,7 @@
 			return FALSE
 	return TRUE
 
-/datum/action/item_action/organ_action/colossus/Trigger()
+/datum/action/item_action/organ_action/colossus/Trigger(trigger_flags)
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)
@@ -143,7 +143,7 @@
 	message = LOWER_TEXT(message)
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in hearers(8, get_turf(user)))
-		if(L.can_hear() && !L.anti_magic_check(FALSE, TRUE) && L.stat != DEAD)
+		if(L.can_hear() && !L.can_block_magic(MAGIC_RESISTANCE_HOLY) && L.stat != DEAD)
 
 			if(L == user && !include_speaker)
 				continue

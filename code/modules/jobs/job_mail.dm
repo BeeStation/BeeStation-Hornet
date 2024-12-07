@@ -320,7 +320,7 @@
 		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
 		//when you thought it could get worse...
-		/obj/item/book/granter/spell/mimery_blockade = 1,
+		/obj/item/book/granter/action/spell/mime
 	)
 
 //PSYCHOLOGIST / PSYCHIATRIST GIMMICK

@@ -565,7 +565,7 @@
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	//Update the icon_state first
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
 	update_icon()
@@ -662,6 +662,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list(MELEE = 40,  BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 70, BLEED = 70)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	clothing_flags = CASTING_CLOTHES
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/hardsuit/wizard
@@ -671,6 +672,7 @@
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = CASTING_CLOTHES
 	armor = list(MELEE = 40,  BULLET = 40, LASER = 40, ENERGY = 50, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 70, BLEED = 70)
 	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
@@ -685,6 +687,13 @@
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, FALSE, INFINITY, FALSE)
 
+/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user, slot)
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
 
 	//Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
