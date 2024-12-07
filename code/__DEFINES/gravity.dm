@@ -12,17 +12,6 @@
 /// Singularity is stage 6 (11x11)
 #define STAGE_SIX 11 //From supermatter shard
 
-///range of values where you suffer from negative gravity
-#define NEGATIVE_GRAVITY_RANGE -INFINITY to NEGATIVE_GRAVITY
-///range of values where you have no gravity
-#define WEIGHTLESS_RANGE NEGATIVE_GRAVITY + 0.01 to 0
-///range of values where you have normal gravity
-#define STANDARD_GRAVITY_RANGE 0.01 to STANDARD_GRAVITY
-///range of values where you have heavy gravity
-#define HIGH_GRAVITY_RANGE STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01
-///range of values where you suffer from crushing gravity
-#define CRUSHING_GRAVITY_RANGE GRAVITY_DAMAGE_THRESHOLD to INFINITY
-
 /**
  * The point where gravity is negative enough to pull you upwards.
  * That means walking checks for a ceiling instead of a floor, and you can fall "upwards"

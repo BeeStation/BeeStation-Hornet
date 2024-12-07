@@ -301,16 +301,21 @@
 		current_turf.zFall(mod.wearer)
 
 /obj/item/mod/module/atrocinator/proc/check_upstairs()
-	//SIGNAL_HANDLER
+	SIGNAL_HANDLER
 
-	if(you_fucked_up || mod.wearer.has_gravity() != NEGATIVE_GRAVITY)
+	if(you_fucked_up || mod.wearer.has_gravity() > NEGATIVE_GRAVITY)
 		return
+
 	var/turf/open/current_turf = get_turf(mod.wearer)
 	var/turf/open/openspace/turf_above = get_step_multiz(mod.wearer, UP)
 	if(current_turf && istype(turf_above))
 		current_turf.zFall(mod.wearer)
+		return
+
 	else if(!turf_above && istype(current_turf) && current_turf.planetary_atmos) //nothing holding you down
 		INVOKE_ASYNC(src,  PROC_REF(fly_away))
+		return
+
 	else if(!(step_count % 2))
 		playsound(current_turf, 'sound/items/modsuit/atrocinator_step.ogg', 50)
 	step_count++
@@ -321,6 +326,7 @@
 	you_fucked_up = TRUE
 	playsound(src, 'sound/effects/whirthunk.ogg', 75)
 	to_chat(mod.wearer, "<span_class='userdanger'>That was stupid.</span>")
+	investigate_log("has flown off into space due to the [src].", INVESTIGATE_DEATHS)
 	mod.wearer.Stun(FLY_TIME, ignore_canstun = TRUE)
 	animate(mod.wearer, FLY_TIME, pixel_y = 256, alpha = 0)
 	QDEL_IN(mod.wearer, FLY_TIME)
