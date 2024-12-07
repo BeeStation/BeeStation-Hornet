@@ -14,7 +14,7 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_FEET)
+	if(slot & ITEM_SLOT_FEET)
 		update_gravity_trait(user)
 	else
 		REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
@@ -32,7 +32,7 @@
 	attack_self(usr)
 
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/attack_self(mob/living/user)
 	if(magpulse)
 		clothing_flags &= ~NOSLIP
 		slowdown = SHOES_SLOWDOWN
@@ -41,9 +41,8 @@
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the mag-pulse traction system.</span>")
-	user.update_inv_shoes()	//so our mob-overlays update
-	user.update_gravity(user.has_gravity())
+	update_gravity_trait(user)
+	user.refresh_gravity()
 	update_action_buttons()
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
@@ -56,6 +55,7 @@
 		ADD_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
 	else
 		REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
+
 
 /obj/item/clothing/shoes/magboots/advance
 	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
@@ -82,6 +82,7 @@
 	clothing_flags = NOSLIP
 
 /obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
+	. = ..()
 	if(magpulse)
 		slowdown = SHOES_SLOWDOWN
 	else
@@ -90,7 +91,6 @@
 	icon_state = "[magboot_state][magpulse]"
 	to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the mag-pulse traction system.</span>")
 	user.update_inv_shoes()
-	user.update_gravity(user.has_gravity())
 	update_action_buttons()
 
 /obj/item/clothing/shoes/magboots/crushing
