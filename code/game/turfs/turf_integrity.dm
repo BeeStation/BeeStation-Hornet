@@ -56,19 +56,6 @@
 	else
 		after_damage(damage_amount, damage_type, damage_flag)
 
-//returns the damage value of the attack after processing the obj's various armor protections
-/turf/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
-	if(damage_flag == MELEE && damage_amount < damage_deflection)
-		return 0
-	if(damage_type != BRUTE && damage_type != BURN)
-		return 0
-	var/armor_protection = 0
-	if(damage_flag)
-		armor_protection = get_armor_rating(damage_flag)
-	if(armor_protection) //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
-
 /turf/proc/after_damage(damage_amount, damage_type, damage_flag)
 	return
 
