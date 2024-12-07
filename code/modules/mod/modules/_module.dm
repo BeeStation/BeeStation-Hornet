@@ -164,6 +164,7 @@
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
 	mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_USED)
+	on_activation()
 	return TRUE
 
 /// Called when the module is deactivated

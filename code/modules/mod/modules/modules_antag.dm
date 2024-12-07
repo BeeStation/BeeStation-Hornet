@@ -14,8 +14,8 @@
 	incompatible_modules = list(/obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
 	overlay_state_inactive = "module_armorbooster_off"
 	overlay_state_active = "module_armorbooster_on"
-	mask_worn_overlay = TRUE
 	use_mod_colors = TRUE
+	mask_worn_overlay = TRUE
 	/// Whether or not this module removes pressure protection.
 	var/remove_pressure_protection = TRUE
 	/// Speed added to the control unit.
@@ -47,6 +47,7 @@
 
 /obj/item/mod/module/armor_booster/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	balloon_alert(mod.wearer, "armor boosted, EVA lost")
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
@@ -66,6 +67,7 @@
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		balloon_alert(mod.wearer, "armor retracts, EVA ready")
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
