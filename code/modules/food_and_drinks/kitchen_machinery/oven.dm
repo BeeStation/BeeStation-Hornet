@@ -144,6 +144,10 @@
 			begin_processing()
 			used_tray.vis_flags |= VIS_HIDE
 
+			// yeah yeah i figure you don't need connect loc for just baking trays
+			for(var/obj/item/baked_item in used_tray.contents)
+				SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PLACED_IN, src, user)
+
 	update_appearance()
 	update_baking_audio()
 	return TRUE

@@ -60,7 +60,7 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_carp_rift
 	max_integrity = 300
 	max_hit_damage = 50
 	icon = 'icons/obj/carp_rift.dmi'
@@ -86,6 +86,14 @@
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
+
+
+/datum/armor/structure_carp_rift
+	energy = 100
+	bomb = 50
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
