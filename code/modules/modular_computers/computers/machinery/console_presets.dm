@@ -79,6 +79,7 @@
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/card_mod())
 	hard_drive.store_file(new/datum/computer_file/program/job_management())
+	hard_drive.store_file(new/datum/computer_file/program/paycheck_manager())
 	hard_drive.store_file(new/datum/computer_file/program/crew_manifest())
 
 // ===== CIVILIAN CONSOLE =====

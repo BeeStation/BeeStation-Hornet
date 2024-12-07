@@ -10,25 +10,18 @@
 	tgui_id = "NtosPaycheckManager"
 	program_icon = "address-book"
 
-	//Are we authenticated?
-	var/authenticated = FALSE
-	//Which department this program has access to.
+	//Bitflag for which departments this program has access to.
 	var/target_dept = DEPARTMENTAL_FLAG_ALL
-	//Which departments you are able to change the paychecks of.
-	var/available_paycheck_departments = list()
 	//Which department budget ID the target card gets their money from.
-	var/target_paycheck = ACCOUNT_SRV_ID
+	var/target_paycheck = ACCOUNT_CIV_ID
 
-/datum/computer_file/program/paycheck_manager/proc/authenticate(mob/user, obj/item/card/id/id_card)
-	if(!id_card)
-		return
-
-	if(!target_dept && (ACCESS_CHANGE_IDS in id_card.access))
-		authenticated = TRUE
-		update_static_data(user)
-		return TRUE
-
-	return FALSE
+/datum/computer_file/program/paycheck_manager/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "NtosPaycheckManager")
+		ui.set_autoupdate(TRUE)
+		ui.open()
 
 /datum/computer_file/program/paycheck_manager/ui_data(mob/user)
 	var/list/data = list()
@@ -40,18 +33,52 @@
 	else
 		data["have_id_slot"] = FALSE
 
-	data["authenticated"] = authenticated
 	if(!card_slot2)
 		return data //We're just gonna error out on the js side at this point anyway
 
-	var/obj/item/card/id/id_card = card_slot2.stored_card
-	data["has_id"] = !!id_card
-	data["id_name"] = id_card ? id_card.name : "-----"
-	if(id_card)
-		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
-		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
-		data["registered_bank_account"] = id_card.registered_account
+	var/authenticated = FALSE
+	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+	var/obj/item/card/id/user_id = card_slot?.stored_card
+	if(user_id)
+		if(ACCESS_HEADS in user_id.access)
+			authenticated = TRUE
 
+
+		var/list/paycheck_departments = list()
+
+		if(ACCESS_CAPTAIN in user_id.access)
+			paycheck_departments |= ACCOUNT_COM_ID //Captains can adjust the pay of their underling heads of staff.
+		if(ACCESS_HOS in user_id.access)
+			paycheck_departments |= ACCOUNT_SEC_ID
+		if(ACCESS_CMO in user_id.access)
+			paycheck_departments |= ACCOUNT_MED_ID
+		if(ACCESS_RD in user_id.access)
+			paycheck_departments |= ACCOUNT_SCI_ID
+		if(ACCESS_CE in user_id.access)
+			paycheck_departments |= ACCOUNT_ENG_ID
+		if(ACCESS_HOP in user_id.access) // HOP can adjust all department's (besides command) pay rates. After all they are a head of PERSONNEL
+			paycheck_departments |= ACCOUNT_SRV_ID
+			paycheck_departments |= ACCOUNT_CIV_ID
+			paycheck_departments |= ACCOUNT_CAR_ID //Currently no seperation between service/civillian and supply
+			paycheck_departments |= ACCOUNT_SEC_ID
+			paycheck_departments |= ACCOUNT_MED_ID
+			paycheck_departments |= ACCOUNT_SCI_ID
+			paycheck_departments |= ACCOUNT_ENG_ID
+
+		data["departments"] = paycheck_departments
+		data["authenticated"] = authenticated
+
+	var/obj/item/card/id/id_card = card_slot2.stored_card
+	data["target_id"] = id_card
+	if(id_card)
+		data["target_id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
+		data["target_id_owner"] = id_card.registered_name ? id_card.registered_name : "--------------"
+		if(id_card.registered_account)
+			data["registered_bank_account"] = id_card.registered_account
+			data["payment_per_department"]  = id_card.registered_account.payment_per_department
+			data["payment_per_department"]  = id_card.registered_account.payment_per_department
+			data["transaction_history"]		= id_card.registered_account.transaction_history
+			data["active_department"]		= id_card.registered_account.active_departments
 	return data
 
 /datum/computer_file/program/paycheck_manager/ui_act(action, params)
@@ -59,9 +86,14 @@
 		return TRUE
 	if(!computer)
 		return
-
+	var/obj/item/computer_hardware/card_slot/card_slot2 = computer.all_components[MC_CARD2]
+	var/obj/item/card/id/id_card = card_slot2.stored_card
+	var/mob/user = usr
 	switch(action)
-		if("new_account")
+		if("eject_target_id")
+			eject_target_id(user, id_card)
+			. = TRUE
+		if("create_account")
 			. = TRUE
 		if("delete_account")
 			. = TRUE
@@ -72,6 +104,19 @@
 		if("set_department_vendor")
 			. = TRUE
 	return TRUE
+
+/datum/computer_file/program/paycheck_manager/proc/eject_target_id(mob/user, obj/item/card/id/target_id_card)
+	var/obj/item/computer_hardware/card_slot/card_slot2 = computer.all_components[MC_CARD2]
+	if(!card_slot2)
+		return FALSE
+	if(target_id_card)
+		return card_slot2.try_eject(user)
+	else
+		var/obj/item/id_card = user.get_active_held_item()
+		if(istype(id_card, /obj/item/card/id))
+			return card_slot2.try_insert(id_card, user)
+	return FALSE
+
 /*
 	var/list/paycheck_departments = list()
 		if(inserted_scan_id)
