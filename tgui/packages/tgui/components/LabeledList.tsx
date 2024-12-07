@@ -127,5 +127,29 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
 
 LabeledListDivider.defaultHooks = pureComponentHooks;
 
+type LabeledListRowProps = Partial<{
+  className: string | BooleanLike;
+  /** @deprecated */
+  content: any;
+  children: InfernoNode;
+  tooltip: string;
+}>;
+
+const LabeledListRow = (props: LabeledListRowProps) => {
+  const { className, content, children } = props;
+
+  return (
+    <tr className={classes(['LabeledList__row', className])}>
+      <td colSpan={3}>
+        {content}
+        {children}
+      </td>
+    </tr>
+  );
+};
+
+LabeledListRow.defaultHooks = pureComponentHooks;
+
 LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;
+LabeledList.Row = LabeledListRow;

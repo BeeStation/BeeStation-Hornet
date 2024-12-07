@@ -2,28 +2,28 @@
 
 /datum/nanite_program/nervous
 	name = "Nerve Support"
-	desc = "The nanites act as a secondary nervous system, reducing the amount of time the host is stunned."
+	desc = "The nanites act as a secondary nervous system, completely absorbing stuns while the user is active."
 	use_rate = 1.5
+	maximum_duration = 30 SECONDS
+	trigger_cooldown = 2 MINUTES
 	rogue_types = list(/datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/nervous/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.stun_mod *= 0.5
+	ADD_TRAIT(host_mob, TRAIT_STUNIMMUNE, SOURCE_NANITE_NERVOUS)
+	ADD_VALUE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_NERVOUS, "deb440", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/nervous/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.stun_mod *= 2
+	REMOVE_TRAIT(host_mob, TRAIT_STUNIMMUNE, SOURCE_NANITE_NERVOUS)
+	REMOVE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_NERVOUS)
 
 /datum/nanite_program/adrenaline
 	name = "Adrenaline Burst"
 	desc = "The nanites cause a burst of adrenaline when triggered, allowing the user to push their body past its normal limits."
 	can_trigger = TRUE
 	trigger_cost = 20
-	trigger_cooldown = 1200
+	trigger_cooldown = 2 MINUTES
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/adrenaline/on_trigger()
@@ -34,63 +34,67 @@
 
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"
-	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts."
+	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts for 20 seconds."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
-
-//TODO on_hit effect that turns skin grey for a moment
+	trigger_cooldown = 60 SECONDS
+	maximum_duration = 20 SECONDS
 
 /datum/nanite_program/hardening/enable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 30
-		H.physiology.armor.bullet += 30
+		H.physiology.armor.melee += 15
+		H.physiology.armor.bullet += 35
+		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "111111", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 30
-		H.physiology.armor.bullet -= 30
+		H.physiology.armor.melee -= 15
+		H.physiology.armor.bullet -= 35
+		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING)
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
 	use_rate = 0.50
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	trigger_cooldown = 60 SECONDS
+	maximum_duration = 20 SECONDS
 
 /datum/nanite_program/refractive/enable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 30
-		H.physiology.armor.energy += 30
+		H.physiology.armor.laser += 35
+		H.physiology.armor.energy += 35
+		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_REFRACTION, "c0faff", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 30
-		H.physiology.armor.energy -= 30
+		H.physiology.armor.laser -= 35
+		H.physiology.armor.energy -= 35
+		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_REFRACTION)
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"
 	desc = "The nanites induce rapid coagulation when the host is wounded, dramatically reducing bleeding rate."
 	use_rate = 0.10
 	rogue_types = list(/datum/nanite_program/suffocating)
+	maximum_duration = 1 MINUTES
+	trigger_cooldown = 1 MINUTES
 
 /datum/nanite_program/coagulating/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.bleed_mod *= 0.1
+	ADD_TRAIT(host_mob, TRAIT_NO_BLEEDING, SOURCE_NANITE_BLOOD)
 
 /datum/nanite_program/coagulating/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.bleed_mod *= 10
+	REMOVE_TRAIT(host_mob, TRAIT_NO_BLEEDING, SOURCE_NANITE_BLOOD)
 
 /datum/nanite_program/conductive
 	name = "Electric Conduction"
@@ -98,6 +102,8 @@
 	use_rate = 0.20
 	program_flags = NANITE_SHOCK_IMMUNE
 	rogue_types = list(/datum/nanite_program/nerve_decay)
+	maximum_duration = 20 SECONDS
+	trigger_cooldown = 120 SECONDS
 
 /datum/nanite_program/conductive/enable_passive_effect()
 	. = ..()
@@ -107,29 +113,12 @@
 	. = ..()
 	REMOVE_TRAIT(host_mob, TRAIT_SHOCKIMMUNE, "nanites")
 
-/datum/nanite_program/mindshield
-	name = "Mental Barrier"
-	desc = "The nanites form a protective membrane around the host's brain, shielding them from abnormal influences while they're active."
-	use_rate = 0.40
-	rogue_types = list(/datum/nanite_program/brain_decay, /datum/nanite_program/brain_misfire)
-
-/datum/nanite_program/mindshield/enable_passive_effect()
-	. = ..()
-	if(!host_mob.mind.has_antag_datum(/datum/antagonist/rev, TRUE)) //won't work if on a rev, to avoid having implanted revs.
-		ADD_TRAIT(host_mob, TRAIT_MINDSHIELD, "nanites")
-		host_mob.sec_hud_set_implants()
-
-/datum/nanite_program/mindshield/disable_passive_effect()
-	. = ..()
-	REMOVE_TRAIT(host_mob, TRAIT_MINDSHIELD, "nanites")
-	host_mob.sec_hud_set_implants()
-
 /datum/nanite_program/haste
 	name = "Amphetamine Injection"
 	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
 	can_trigger = TRUE
 	trigger_cost = 10
-	trigger_cooldown = 1200
+	trigger_cooldown = 120 SECONDS
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/haste/on_trigger()
@@ -141,7 +130,8 @@
 	name = "Nanite Blade"
 	desc = "The nanites form a sharp blade around the user's arm when activated."
 	use_rate = 1
-	activate_cooldown = 10 SECONDS
+	maximum_duration = 30 SECONDS
+	trigger_cooldown = 30 SECONDS
 	rogue_types = list(/datum/nanite_program/necrotic, /datum/nanite_program/skin_decay)
 	var/obj/item/melee/arm_blade/nanite/blade
 

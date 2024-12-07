@@ -282,3 +282,26 @@
 		if(new_subrule)
 			rule.rules += new_subrule
 	return rule
+
+/datum/nanite_rule/pressure
+	name = "Pressure"
+	desc = "Checks the ambient pressure around the user."
+
+	var/threshold = ONE_ATMOSPHERE
+	var/above = TRUE
+
+/datum/nanite_rule/pressure/check_rule()
+	var/turf/open/location = get_turf(program.host_mob)
+	if (!istype(location))
+		return FALSE
+	var/datum/gas_mixture/air = location.return_air()
+	return above ? (air.return_pressure() > threshold) : (air.return_pressure() < threshold)
+
+/datum/nanite_rule/pressure/display()
+	return "[name] [above ? ">=" : "<"] [threshold]kPa"
+
+/datum/nanite_rule/pressure/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/pressure/rule = new(new_program, copy_to_rules)
+	rule.above = above
+	rule.threshold = threshold
+	return rule

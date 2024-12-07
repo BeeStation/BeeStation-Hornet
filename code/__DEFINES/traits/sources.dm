@@ -53,7 +53,7 @@
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
-#define TRAIT_HULK "hulk"
+#define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
 #define EYES_COVERED "eyes_covered"
@@ -133,3 +133,10 @@
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+
+// Nanite sources
+#define SOURCE_NANITE_HARDENING "nanite_hardening"
+#define SOURCE_NANITE_REFRACTION "nanite_refraction"
+#define SOURCE_NANITE_BLOOD "nanite_blood"
+#define SOURCE_NANITE_TOMB "nanite_tomb"
+#define SOURCE_NANITE_NERVOUS "nanite_nervous"

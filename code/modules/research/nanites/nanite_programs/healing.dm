@@ -5,6 +5,9 @@
 	desc = "The nanites boost the host's natural regeneration, increasing their healing speed. Does not consume nanites if the host is unharmed."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/necrotic)
+	// Heals a total of 20 damage
+	maximum_duration = 40 SECONDS
+	trigger_cooldown = 120 SECONDS
 
 /datum/nanite_program/regenerative/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
@@ -32,8 +35,10 @@
 /datum/nanite_program/temperature
 	name = "Temperature Adjustment"
 	desc = "The nanites adjust the host's internal temperature to an ideal level."
-	use_rate = 3.5
+	use_rate = 1.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	maximum_duration = 2 MINUTES
+	trigger_cooldown = 1 MINUTES
 
 /datum/nanite_program/temperature/check_conditions()
 	if(host_mob.bodytemperature > (host_mob.get_body_temp_normal(apply_change=FALSE) - 30) && host_mob.bodytemperature < (host_mob.get_body_temp_normal(apply_change=FALSE) + 30))
@@ -51,6 +56,8 @@
 	desc = "The nanites purge toxins and chemicals from the host's bloodstream."
 	use_rate = 1
 	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
+	maximum_duration = 20 SECONDS
+	trigger_cooldown = 2 MINUTES
 
 /datum/nanite_program/purging/check_conditions()
 	var/foreign_reagent = length(host_mob.reagents?.reagent_list)
@@ -65,9 +72,11 @@
 
 /datum/nanite_program/brain_heal
 	name = "Neural Regeneration"
-	desc = "The nanites fix neural connections in the host's brain, reversing brain damage and minor traumas."
+	desc = "The nanites fix neural connections in the host's brain, reversing brain damage and minor traumas. Heals a total of 20 brain damage on activation."
 	use_rate = 1.5
 	rogue_types = list(/datum/nanite_program/brain_decay)
+	maximum_duration = 20 SECONDS
+	trigger_cooldown = 2 MINUTES
 
 /datum/nanite_program/brain_heal/check_conditions()
 	var/problems = FALSE
@@ -105,42 +114,6 @@
 		var/mob/living/carbon/C = host_mob
 		C.blood_volume += 2
 
-/datum/nanite_program/repairing
-	name = "Mechanical Repair"
-	desc = "The nanites fix damage in the host's mechanical limbs."
-	use_rate = 0.5
-	rogue_types = list(/datum/nanite_program/necrotic)
-
-/datum/nanite_program/repairing/check_conditions()
-	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
-		return FALSE
-
-	if(iscarbon(host_mob))
-		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
-		if(!parts.len)
-			return FALSE
-	else
-		if(!(host_mob.mob_biotypes & MOB_ROBOTIC))
-			return FALSE
-	return ..()
-
-/datum/nanite_program/repairing/active_effect(mob/living/M)
-	if(iscarbon(host_mob))
-		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
-		if(!parts.len)
-			return
-		var/update = FALSE
-		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ROBOTIC)) //much faster than organic healing
-				update = TRUE
-		if(update)
-			host_mob.update_damage_overlays()
-	else
-		host_mob.adjustBruteLoss(-1.5, TRUE)
-		host_mob.adjustFireLoss(-1.5, TRUE)
-
 /datum/nanite_program/purging_advanced
 	name = "Selective Blood Purification"
 	desc = "The nanites purge toxins and dangerous chemicals from the host's bloodstream, while ignoring beneficial chemicals. \
@@ -166,29 +139,6 @@
 	for(var/datum/reagent/toxin/R in host_mob.reagents?.reagent_list)
 		host_mob.reagents?.remove_reagent(R.type,1)
 
-/datum/nanite_program/regenerative_advanced
-	name = "Bio-Reconstruction"
-	desc = "The nanites manually repair and replace organic cells, acting much faster than normal regeneration. \
-			However, this program cannot detect the difference between harmed and unharmed, causing it to consume nanites even if it has no effect."
-	use_rate = 5.5
-	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
-
-/datum/nanite_program/regenerative_advanced/active_effect()
-	if(iscarbon(host_mob))
-		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
-		if(!parts.len)
-			return
-		var/update = FALSE
-		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(3/parts.len, 3/parts.len, null, BODYTYPE_ORGANIC))
-				update = TRUE
-		if(update)
-			host_mob.update_damage_overlays()
-	else
-		host_mob.adjustBruteLoss(-3, TRUE)
-		host_mob.adjustFireLoss(-3, TRUE)
-
 /datum/nanite_program/brain_heal_advanced
 	name = "Neural Reimaging"
 	desc = "The nanites are able to backup and restore the host's neural connections, potentially replacing entire chunks of missing or damaged brain matter."
@@ -213,10 +163,10 @@
 
 /datum/nanite_program/defib
 	name = "Defibrillation"
-	desc = "The nanites shock the host's heart when triggered, bringing them back to life if the body can sustain it."
+	desc = "The nanites shock the host's heart when triggered, bringing them back to life if the body can sustain it. This process is expensive and will completely expend the remaining nanites in the user's body."
 	can_trigger = TRUE
-	trigger_cost = 25
-	trigger_cooldown = 120
+	trigger_cost = 100
+	trigger_cooldown = 0
 	rogue_types = list(/datum/nanite_program/shocking)
 
 /datum/nanite_program/defib/on_trigger(comm_message)
@@ -255,5 +205,27 @@
 		C.Jitter(100)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")
+		qdel(nanites)
 	else
 		playsound(C, 'sound/machines/defib_failed.ogg', 50, FALSE)
+
+/datum/nanite_program/nanite_tomb
+	name = "Nanite Tomb"
+	desc = "The nanites replace dead-cells inside the body temporarilly preventing the host from succumbing to death."
+	can_trigger = TRUE
+	use_rate = 5
+	trigger_cooldown = 2 MINUTES
+	maximum_duration = 1 MINUTES
+
+/datum/nanite_program/nanite_tomb/enable_passive_effect()
+	. = ..()
+	ADD_TRAIT(host_mob, TRAIT_NODEATH, SOURCE_NANITE_TOMB)
+	ADD_TRAIT(host_mob, TRAIT_NOHARDCRIT, SOURCE_NANITE_TOMB)
+	ADD_VALUE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_TOMB, "444444", SKIN_PRIORITY_NANITES)
+
+/datum/nanite_program/nanite_tomb/disable_passive_effect()
+	. = ..()
+	REMOVE_TRAIT(host_mob, TRAIT_NODEATH, SOURCE_NANITE_TOMB)
+	REMOVE_TRAIT(host_mob, TRAIT_NOHARDCRIT, SOURCE_NANITE_TOMB)
+	REMOVE_TRAIT(host_mob, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_TOMB)
+

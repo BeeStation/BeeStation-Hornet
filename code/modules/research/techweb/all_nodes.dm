@@ -2170,7 +2170,6 @@
 		"red_diag_nanites",
 		"relay_nanites",
 		"relay_repeater_nanites",
-		"repairing_nanites",
 		"repeater_nanites",
 		"research_nanites",
 		"researchplus_nanites",
@@ -2245,6 +2244,8 @@
 		"sensor_health_nanites",
 		"sensor_nutrition_nanites",
 		"sensor_blood_nanites",
+		"sensor_bleed_nanites",
+		"sensor_pressure_nanites"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 5000
@@ -2287,22 +2288,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
 
-/datum/techweb_node/nanite_cc
-	id = "nanite_cc"
-	tech_tier = 5
-	display_name = "Classified Nanites"
-	description = "Highly confidential nanite programs from CC. Report usage to your nearest administraitor."
-	prereq_ids = list(
-		"nanite_neural",
-		"neural_programming",
-	)
-	design_ids = list(
-		"mindshield_nanites",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
-	export_price = 5000
-	hidden = TRUE
-
 /datum/techweb_node/nanite_harmonic
 	id = "nanite_harmonic"
 	tech_tier = 4
@@ -2320,9 +2305,9 @@
 		"defib_nanites",
 		"fakedeath_nanites",
 		"purging_plus_nanites",
-		"regenerative_plus_nanites",
 		"sensor_species_nanites",
 		"vampire_nanites",
+		"nanite_tomb",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 3000)
 	export_price = 8000
