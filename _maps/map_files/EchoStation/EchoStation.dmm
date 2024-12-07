@@ -228,8 +228,15 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "aeZ" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "afw" = (
@@ -913,7 +920,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /turf/open/floor/iron,
 /area/bridge)
 "asv" = (
@@ -1039,6 +1046,9 @@
 	},
 /obj/machinery/airlock_sensor/incinerator_toxmix{
 	pixel_x = -24
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -1448,9 +1458,6 @@
 "aFj" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "aFp" = (
@@ -1497,7 +1504,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /turf/open/floor/iron,
 /area/bridge)
 "aGO" = (
@@ -3187,7 +3194,7 @@
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	density = 0;
 	dir = 1;
 	pixel_x = -1;
@@ -3933,6 +3940,9 @@
 	id = "EmergancyescapeShutter";
 	name = "Emergancy Escape Shutters";
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -4881,7 +4891,7 @@
 	pixel_y = 37
 	},
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_y = 4
 	},
 /obj/machinery/camera/directional/north,
@@ -11880,7 +11890,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -16119,7 +16129,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
 "hMj" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -20166,7 +20176,7 @@
 	pixel_y = 33;
 	req_access_txt = "2"
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -22701,7 +22711,7 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "lii" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -25290,16 +25300,14 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/crew_quarters/dorms)
 "myX" = (
-/obj/structure/table/optable{
-	pixel_y = 7
-	},
+/obj/structure/table/optable,
 /obj/item/surgical_drapes{
-	pixel_y = 4
+	pixel_y = 1
 	},
 /obj/machinery/light,
 /obj/item/clothing/gloves/color/latex{
 	pixel_x = -1;
-	pixel_y = -1
+	pixel_y = -3
 	},
 /turf/open/floor/iron,
 /area/medical/surgery)
@@ -26952,7 +26960,7 @@
 	pixel_x = 18;
 	pixel_y = 4
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	density = 0;
 	dir = 1;
 	pixel_y = 6;
@@ -28950,7 +28958,7 @@
 /turf/open/openspace,
 /area/maintenance/department/security/brig)
 "otr" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_x = 15;
 	pixel_y = 5;
@@ -29137,10 +29145,6 @@
 /turf/open/floor/wood/broken,
 /area/library/abandoned)
 "oxd" = (
-/obj/structure/toilet{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /obj/machinery/button/door{
 	id = "Toilet 2";
 	name = "Toilet Bolt Control";
@@ -29151,6 +29155,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
 /obj/machinery/newscaster/directional/east,
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "oxj" = (
@@ -31403,7 +31412,7 @@
 	dir = 1;
 	pixel_y = 29
 	},
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_x = 4;
 	pixel_y = 2;
 	req_one_access = null;
@@ -34056,7 +34065,7 @@
 /area/science/test_area)
 "qZR" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -42771,7 +42780,6 @@
 	pixel_x = -23;
 	pixel_y = 25
 	},
-/obj/machinery/airalarm/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -42779,6 +42787,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "vnm" = (
@@ -44041,10 +44050,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "vXe" = (
-/obj/structure/toilet{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /obj/machinery/button/door{
 	id = "Toilet 1";
 	name = "Toilet Bolt Control";
@@ -44053,6 +44058,11 @@
 	specialfunctions = 4
 	},
 /obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "vXg" = (
@@ -44215,7 +44225,7 @@
 /area/engine/atmos)
 "wcq" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4;
 	pixel_x = 2;
 	pixel_y = 3;
@@ -48065,7 +48075,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 4;
 	pixel_x = 2;
 	pixel_y = 2

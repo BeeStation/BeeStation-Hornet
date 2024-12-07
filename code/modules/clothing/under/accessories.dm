@@ -39,18 +39,7 @@
 		pixel_y -= 8
 	U.add_overlay(src)
 
-	/**
-	** This proc can run before /obj/Initialize has run for U and src,
-	** we have to check that the armor list has been transformed into a datum before we try to call a proc on it
-	** This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
-	**/
-	if (islist(U.armor) || isnull(U.armor))
-		U.armor = getArmor(arglist(U.armor))
-
-	if (islist(armor) || isnull(armor))
-		armor = getArmor(arglist(armor))
-
-	U.armor = U.armor.attachArmor(armor)
+	U.set_armor(U.get_armor().add_other_armor(get_armor()))
 
 	if(isliving(user))
 		on_uniform_equip(U, user)
@@ -61,7 +50,7 @@
 	if(detached_pockets && detached_pockets.parent == U)
 		TakeComponent(detached_pockets)
 
-	U.armor = U.armor.detachArmor(armor)
+	U.set_armor(U.get_armor().subtract_other_armor(get_armor()))
 
 	if(isliving(user))
 		on_uniform_dropped(U, user)
@@ -233,8 +222,12 @@
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
 	medaltype = "medal-plasma"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0, BLEED = 0) //It's made of plasma. Of course it's flammable.
+	armor_type = /datum/armor/medal_plasma
 	custom_materials = list(/datum/material/plasma=1000)
+
+
+/datum/armor/medal_plasma
+	fire = -10
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -366,16 +359,42 @@
 	name = "bone talisman"
 	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
 	icon_state = "talisman"
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/accessory_talisman
 	attachment_slot = null
+
+
+/datum/armor/accessory_talisman
+	melee = 5
+	bullet = 5
+	laser = 5
+	energy = 5
+	bomb = 20
+	bio = 20
+	rad = 5
+	acid = 25
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/accessory/skullcodpiece
 	name = "skull codpiece"
 	desc = "A skull shaped ornament, intended to protect the important things in life."
 	icon_state = "skull"
 	above_suit = TRUE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/accessory_skullcodpiece
 	attachment_slot = GROIN
+
+
+/datum/armor/accessory_skullcodpiece
+	melee = 5
+	bullet = 5
+	laser = 5
+	energy = 5
+	bomb = 20
+	bio = 20
+	rad = 5
+	acid = 25
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/accessory/holster
 	name = "shoulder holster"
@@ -409,3 +428,28 @@
 	var/mob/living/L = user
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
+
+//Security Badges
+/obj/item/clothing/accessory/badge/officer/det
+	name = "\improper Detective's badge"
+	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
+	icon_state = "detbadge"
+	worn_icon_state = "detbadge"
+
+/obj/item/clothing/accessory/badge/officer/hos
+	name = "\improper Head of Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"
+
+/obj/item/clothing/accessory/badge/officer
+	name = "\improper Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
+	icon_state = "officerbadge"
+	worn_icon_state = "officerbadge"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
+	if(Adjacent(user))
+		user.visible_message("<span class='notice'>[user] shows you \the: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
+	..()

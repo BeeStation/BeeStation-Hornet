@@ -26,9 +26,14 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/restraints_handcuffs
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
+
+
+/datum/armor/restraints_handcuffs
+	fire = 50
+	acid = 50
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
 	if(!istype(C))
@@ -64,10 +69,10 @@
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
 	if(target.handcuffed)
-		return
+		return FALSE
 
 	if(!user.temporarilyRemoveItemFromInventory(src) && !dispense)
-		return
+		return FALSE
 
 	var/obj/item/restraints/handcuffs/cuffs = src
 	if(trashtype)
@@ -81,7 +86,7 @@
 	target.update_handcuffed()
 	if(trashtype && !dispense)
 		qdel(src)
-	return
+	return TRUE
 
 /obj/item/restraints/handcuffs/cable
 	name = "cable restraints"
@@ -215,7 +220,7 @@
 	. = ..()
 	update_icon()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(spring_trap),
+		COMSIG_ATOM_ENTERED = PROC_REF(trap_stepped_on),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -241,41 +246,53 @@
 	update_appearance()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
-/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(datum/source, AM as mob|obj)
+/obj/item/restraints/legcuffs/beartrap/proc/trap_stepped_on(datum/source, atom/movable/entering, ...)
 	SIGNAL_HANDLER
-	if(armed && isturf(loc))
-		if(isliving(AM))
-			var/mob/living/L = AM
-			var/snap = TRUE
-			if(istype(L.buckled, /obj/vehicle))
-				var/obj/vehicle/ridden_vehicle = L.buckled
-				if(!ridden_vehicle.are_legs_exposed) //close the trap without injuring/trapping the rider if their legs are inside the vehicle at all times.
-					close_trap()
-					ridden_vehicle.visible_message("<span class='danger'>[ridden_vehicle] triggers \the [src].</span>")
 
-			if(L.movement_type & (FLYING|FLOATING)) //don't close the trap if they're flying/floating over it.
-				snap = FALSE
+	spring_trap(entering)
 
-			var/def_zone = BODY_ZONE_CHEST
-			if(snap && iscarbon(L))
-				var/mob/living/carbon/C = L
-				if(C.body_position == STANDING_UP)
-					def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-					if(!C.legcuffed && C.num_legs >= 2) //beartrap can't cuff your leg if there's already a beartrap or legcuffs, or you don't have two legs.
-						C.legcuffed = src
-						forceMove(C)
-						C.update_equipment_speed_mods()
-						C.update_inv_legcuffed()
-						SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-			else if(snap && isanimal(L))
-				var/mob/living/simple_animal/SA = L
-				if(SA.mob_size <= MOB_SIZE_TINY) //don't close the trap if they're as small as a mouse.
-					snap = FALSE
-			if(snap)
-				close_trap()
-				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-						"<span class='userdanger'>You trigger \the [src]!</span>")
-				L.apply_damage(trap_damage, BRUTE, def_zone)
+/**
+ * Tries to spring the trap on the target movable.
+ *
+ * This proc is safe to call without knowing if the target is valid or if the trap is armed.
+ *
+ * Does not trigger on tiny mobs.
+ * If ignore_movetypes is FALSE, does not trigger on floating / flying / etc. mobs.
+ */
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(atom/movable/target, ignore_movetypes = FALSE, hit_prone = FALSE)
+	if(!armed || !isturf(loc) || !isliving(target))
+		return
+
+	var/mob/living/victim = target
+	if(istype(victim.buckled, /obj/vehicle))
+		var/obj/vehicle/ridden_vehicle = victim.buckled
+		if(!ridden_vehicle.are_legs_exposed) //close the trap without injuring/trapping the rider if their legs are inside the vehicle at all times.
+			close_trap()
+			ridden_vehicle.visible_message("<span class='danger'>[ridden_vehicle] triggers \the [src].</span>")
+			return
+
+	//don't close the trap if they're as small as a mouse
+	if(victim.mob_size <= MOB_SIZE_TINY)
+		return
+	if(!ignore_movetypes && (victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	close_trap()
+	if(ignore_movetypes)
+		victim.visible_message("<span class='danger'>\The [src] ensnares [victim]!</span>", \
+				"<span class='danger'>\The [src] ensnares you!</span>")
+	else
+		victim.visible_message("<span class='danger'>[victim] triggers \the [src].</span>", \
+				"<span class='danger'>You trigger \the [src]!</span>")
+	var/def_zone = BODY_ZONE_CHEST
+	if(iscarbon(victim) && (victim.body_position == STANDING_UP || hit_prone))
+		var/mob/living/carbon/carbon_victim = victim
+		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+		if(!carbon_victim.legcuffed && carbon_victim.num_legs >= 2) //beartrap can't cuff your leg if there's already a beartrap or legcuffs, or you don't have two legs.
+			INVOKE_ASYNC(carbon_victim, TYPE_PROC_REF(/mob/living/carbon, equip_to_slot), src, ITEM_SLOT_LEGCUFFED)
+			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
+
+	victim.apply_damage(trap_damage, BRUTE, def_zone)
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
@@ -296,7 +313,7 @@
 		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/energy/attack_hand(mob/user, list/modifiers)
-	spring_trap(null, user)
+	spring_trap(user)
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
@@ -371,7 +388,7 @@
 
 /obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
 	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
-	B.spring_trap(null, C)
+	B.spring_trap(C, ignore_movetypes = TRUE)
 	qdel(src)
 
 /obj/item/restraints/legcuffs/bola/energy/emp_act(severity)

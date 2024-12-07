@@ -264,9 +264,8 @@
 		return
 	if(prob(flip_chance)) // landed upright
 		src.visible_message("<span class='notice'>[src] lands upright!</span>")
-		if(throwingdatum.thrower)
-			var/mob/living/living_thrower = throwingdatum.thrower
-			SEND_SIGNAL(living_thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
+		if(throwingdatum?.thrower)
+			SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
 	else // landed on it's side
 		animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
@@ -287,25 +286,22 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	cap_icon_state = "bottle_cap"
+	icon_state_preview = "waterbottle_large"
 
 /obj/item/reagent_containers/cup/glass/waterbottle/large/empty
 	list_reagents = list()
 	cap_on = FALSE
 
 // Admin spawn
-/obj/item/reagent_containers/cup/glass/waterbottle/relic
+/obj/item/reagent_containers/cup/glass/waterbottle/random
 	name = "mysterious bottle"
-	desc = "A bottle quite similar to a water bottle, but with some words scribbled on with a marker. It seems to be radiating some kind of energy."
+	desc = "A bottle quite similar to a water bottle, with some faded words scribbled on with a marker. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
+	list_reagents = list()
 
-/obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
-	var/reagent_id = get_random_reagent_id()
-	var/datum/reagent/random_reagent = new reagent_id
-	list_reagents = list(random_reagent.type = 50)
+/obj/item/reagent_containers/cup/glass/waterbottle/random/Initialize(mapload)
+	list_reagents = list(get_random_reagent_id(CHEMICAL_RNG_FUN) = 50)
 	. = ..()
-	desc += "<span class='notice'>The writing reads '[random_reagent.name]'.</span>"
-	update_appearance()
-
 
 /obj/item/reagent_containers/cup/glass/sillycup
 	name = "paper cup"
