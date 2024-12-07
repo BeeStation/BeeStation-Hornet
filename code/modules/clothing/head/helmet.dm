@@ -510,3 +510,46 @@
 	acid = 40
 	stamina = 25
 	bleed = 15
+
+/obj/item/clothing/head/helmet/marine
+	name = "M10 pattern marine helmet"
+	desc = "A standard M10 Pattern Helmet. The inside label, along with washing information, reads, 'The difference between an open-casket and closed-casket funeral. Wear on head for best results.'. There is a built-in camera on the right side."
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	icon_state = "marine_helmet"
+	item_state = "marine_helmet"
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+	worn_icon_state = "marine_helmet"
+	body_parts_covered = HEAD
+	flags_cover = HEADCOVERSMOUTH
+	armor_type = /datum/armor/marine_helmets
+
+/obj/item/clothing/head/helmet/marine/squadlead
+	name = "M11 pattern marine helmet"
+	desc = "A variant of the standard M10 pattern. The front plate is reinforced. This one contains a small built-in camera and has cushioning to project your fragile brain."
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	icon_state = "sl_helmet"
+	item_state = "sl_helmet"
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+	worn_icon_state = "sl_helmet"
+
+/obj/item/clothing/head/helmet/marine/medicae
+	name = "M10 corpsman helmet"
+	desc = "An M10 marine helmet version worn by marine hospital corpsmen. Has red cross painted on its front."
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	icon_state = "med_helmet"
+	item_state = "med_helmet"
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+	worn_icon_state = "med_helmet"
+	body_parts_covered = HEAD
+
+/datum/armor/marine_helmets
+	melee = 30
+	bullet = 20
+	laser = 0
+	energy = 10
+	bomb = 30
+	bio = 30
+	rad = 0
+	acid = 40
+	stamina = 0
+	bleed = 40
