@@ -6,7 +6,7 @@
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
-	permeability_coefficient = 0.05
+	armor_type = /datum/armor/shoes_magboots
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	equip_delay_other = 70
@@ -22,6 +22,10 @@
 /obj/item/clothing/shoes/magboots/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
+
+
+/datum/armor/shoes_magboots
+	bio = 90
 
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"
@@ -78,8 +82,22 @@
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30, BLEED = 40)
+	armor_type = /datum/armor/magboots_commando
 	clothing_flags = NOSLIP
+
+
+/datum/armor/magboots_commando
+	melee = 40
+	bullet = 30
+	laser = 25
+	energy = 25
+	bomb = 50
+	bio = 30
+	rad = 30
+	fire = 90
+	acid = 50
+	stamina = 30
+	bleed = 40
 
 /obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
 	. = ..()

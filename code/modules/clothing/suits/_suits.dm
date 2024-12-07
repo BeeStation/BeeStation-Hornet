@@ -11,13 +11,16 @@
 		/obj/item/tank/internals/plasmaman,
 		/obj/item/tank/jetpack/oxygen/captain,
 		)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 5)
+	armor_type = /datum/armor/clothing_suit
 	slot_flags = ITEM_SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/move_sound = null
 	var/footstep = 0
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
+
+/datum/armor/clothing_suit
+	bleed = 5
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()

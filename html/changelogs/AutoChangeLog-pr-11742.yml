@@ -1,0 +1,6 @@
+author: rkz, ZephyrTFA, Fikou
+delete-after: true
+changes:
+  - refactor: refactored armor into subtypes.
+  - refactor: rolls permeability var into armor
+  - code_imp: unit tests against armor application

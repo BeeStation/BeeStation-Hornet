@@ -407,12 +407,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10, BLEED = 80)//Bit less armoured than the Syndicate space suit
+	armor_type = /datum/armor/space_changeling
 	slowdown = 0.2
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
 	actions_types = list()
 	cell = null
 	show_hud = FALSE
+
+
+/datum/armor/space_changeling
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 20
+	fire = 90
+	acid = 90
+	stamina = 10
+	bleed = 80
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -440,8 +454,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10, BLEED = 80)
+	armor_type = /datum/armor/space_changeling
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+
+/datum/armor/space_changeling
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 20
+	fire = 90
+	acid = 90
+	stamina = 10
+	bleed = 80
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
@@ -473,12 +501,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_state = null
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30, BLEED = 90)
+	armor_type = /datum/armor/armor_changeling
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	slowdown = 0.2
+
+
+/datum/armor/armor_changeling
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 50
+	bomb = 25
+	bio = 10
+	fire = 25
+	acid = 25
+	stamina = 30
+	bleed = 90
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
@@ -492,8 +533,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	icon_state = "lingarmorhelmet"
 	item_state = null
 	item_flags = DROPDEL
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30, BLEED = 90)
+	armor_type = /datum/armor/helmet_changeling
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
+
+
+/datum/armor/helmet_changeling
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 50
+	bomb = 25
+	bio = 10
+	fire = 25
+	acid = 25
+	stamina = 30
+	bleed = 90
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()

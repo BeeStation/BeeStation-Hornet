@@ -3,9 +3,8 @@
 	icon = 'icons/obj/clothing/under/default.dmi'
 	worn_icon = 'icons/mob/clothing/under/default.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
+	armor_type = /datum/armor/clothing_under
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	/// The variable containing the flags for how the woman uniform cropping is supposed to interact with the sprite.
@@ -20,6 +19,11 @@
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
 	dying_key = DYE_REGISTRY_UNDER
+
+
+/datum/armor/clothing_under
+	bio = 10
+	bleed = 10
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
