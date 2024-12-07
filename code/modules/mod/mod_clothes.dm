@@ -5,7 +5,7 @@
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0, BLEED = 0)
+	armor_type = /datum/armor/none
 	body_parts_covered = HEAD
 	heat_protection = HEAD
 	cold_protection = HEAD
@@ -25,7 +25,7 @@
 		/obj/item/flashlight,
 		/obj/item/tank/jetpack/oxygen/captain,
 		)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0, BLEED = 0)
+	armor_type = /datum/armor/none
 	body_parts_covered = CHEST|GROIN
 	heat_protection = CHEST|GROIN
 	cold_protection = CHEST|GROIN
@@ -38,7 +38,7 @@
 	icon_state = "standard-gauntlets"
 	base_icon_state = "gauntlets"
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0, BLEED = 0)
+	armor_type = /datum/armor/none
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
@@ -51,7 +51,7 @@
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0, BLEED = 0)
+	armor_type = /datum/armor/none
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS

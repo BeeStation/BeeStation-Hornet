@@ -360,7 +360,7 @@
 	/// How many tiles we traveled through.
 	var/traveled_tiles = 0
 	/// Armor values per tile.
-	var/list/armor_values = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 2, BOMB = 4)
+	var/datum/armor/armor_mod = /datum/armor/mod_ash_accretion
 	/// Speed added when you're fully covered in ash.
 	var/speed_added = 0.5
 	/// Speed that we actually added.
@@ -369,6 +369,13 @@
 	var/static/list/accretion_turfs
 	/// Turfs that let us keep ash.
 	var/static/list/keep_turfs
+
+/datum/armor/mod_ash_accretion
+	melee = 4
+	bullet = 1
+	laser = 2
+	energy = 2
+	bomb = 4
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
@@ -403,11 +410,9 @@
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 	if(!traveled_tiles)
 		return
-	var/list/removed_armor = armor_values.Copy()
-	for(var/armor_type in removed_armor)
-		removed_armor[armor_type] = -removed_armor[armor_type] * traveled_tiles
+	var/datum/armor/to_remove = get_armor_by_type(armor_mod)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.modifyRating(arglist(removed_armor))
+		part.set_armor(part.get_armor().subtract_other_armor(to_remove.generate_new_with_multipliers(list(ARMOR_ALL = traveled_tiles))))
 	if(traveled_tiles == max_traveled_tiles)
 		mod.slowdown += speed_added
 		mod.wearer.update_equipment_speed_mods()
@@ -427,7 +432,7 @@
 			return
 		traveled_tiles++
 		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-			part.armor = part.armor.modifyRating(arglist(armor_values))
+			part.set_armor(part.get_armor().add_other_armor(armor_mod))
 		if(traveled_tiles >= max_traveled_tiles)
 			balloon_alert(mod.wearer, "fully ash covered")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
@@ -445,11 +450,8 @@
 			mod.slowdown += actual_speed_added
 			mod.wearer.update_equipment_speed_mods()
 		traveled_tiles--
-		var/list/removed_armor = armor_values.Copy()
-		for(var/armor_type in removed_armor)
-			removed_armor[armor_type] = -removed_armor[armor_type]
 		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-			part.armor = part.armor.modifyRating(arglist(removed_armor))
+			part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "ran out of ash!")
 

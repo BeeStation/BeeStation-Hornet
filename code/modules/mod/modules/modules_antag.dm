@@ -23,9 +23,15 @@
 	/// Speed that we actually added.
 	var/actual_speed_added = 0
 	/// Armor values added to the suit parts.
-	var/list/armor_values = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15)
+	var/datum/armor/armor_mod = /datum/armor/mod_module_armor_boost
 	/// List of parts of the suit that are spaceproofed, for giving them back the pressure protection.
 	var/list/spaceproofed = list()
+
+/datum/armor/mod_module_armor_boost
+	melee = 25
+	bullet = 30
+	laser = 15
+	energy = 15
 
 /obj/item/mod/module/armor_booster/on_part_activation()
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
@@ -47,7 +53,7 @@
 		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
 	var/list/mod_parts = mod.get_parts(all = TRUE)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.attachArmor(armor_values)
+		part.set_armor(part.get_armor().add_other_armor(armor_mod))
 		part.slowdown -= speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
@@ -64,13 +70,8 @@
 	if(istype(head_cover))
 		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, MOD_TRAIT)
 	var/list/mod_parts = mod.get_parts(all = TRUE)
-	var/list/removed_armor = armor_values.Copy()
-	for(var/armor_type in removed_armor)
-		removed_armor[armor_type] = -removed_armor[armor_type]
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		if (islist(part.armor) || isnull(part.armor))
-			part.armor = getArmor(arglist(part.armor))
-		part.armor = part.armor.detachArmor(removed_armor)
+		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
 		part.slowdown += speed_added / length(mod_parts)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
