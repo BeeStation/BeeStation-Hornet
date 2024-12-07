@@ -233,7 +233,6 @@
 		control_activation(is_on = !active)
 		return TRUE
 
-///Seals or unseals the given part
 ///Seals or unseals the given part.
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, is_sealed)
 	var/datum/mod_part/part_datum = get_part_datum(part)
@@ -253,7 +252,7 @@
 		part.clothing_flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
-		part.alternate_worn_layer = mod_parts[part]
+		part.alternate_worn_layer = part_datum.unsealed_layer
 	generate_suit_mask()
 	wearer.update_clothing(part.slot_flags | slot_flags)
 	wearer.update_obscured_slots(part.visor_flags_inv)
