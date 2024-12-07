@@ -38,15 +38,6 @@
 		else
 			. += "<span class='warning'>It doesn't look like you can damage this...</span>"
 
-/// Override this proc to return the armour list
-/turf/proc/get_armour_list()
-	return null
-
-/turf/proc/generate_armor()
-	armor_generated = TRUE
-	var/armour_val = get_armour_list()
-	armor = armour_val
-
 /turf/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(QDELETED(src))
 		CRASH("[src] taking damage after deletion")
@@ -71,15 +62,10 @@
 /turf/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
-		if (!armor_generated)
-			generate_armor()
 		armor_protection = get_armor_rating(damage_flag)
 	if(armor_protection) //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)

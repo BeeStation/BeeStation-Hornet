@@ -9,6 +9,7 @@
 	density = TRUE
 	max_integrity = 900
 	damage_deflection = 21
+	armor_type = /datum/armor/r_wall_armor
 
 	var/d_state = INTACT
 	hardness = 10
@@ -21,8 +22,16 @@
 		pipe_astar_cost = 50 \
 	)
 
-/turf/closed/wall/r_wall/get_armour_list()
-	return list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0, BLEED = 0)
+/datum/armor/r_wall_armor
+	melee = 30
+	bullet = 30
+	laser = 20
+	energy = 20
+	bomb = 10
+	bio = 100
+	rad = 100
+	fire = 80
+	acid = 70
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)
