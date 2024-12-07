@@ -209,7 +209,7 @@
 
 /datum/gear/accessory/bandana/skull
 	display_name = "skull bandana"
-	path = /obj/item/clothing/mask/bandana/skull
+	path = /obj/item/clothing/mask/bandana/skull/black
 	cost = 2000
 
 //LIPSTICK

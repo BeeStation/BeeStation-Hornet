@@ -136,6 +136,7 @@
 	icon = 'icons/obj/clothing/head/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "crusader"
+	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
 	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50, BLEED = 60)
@@ -153,12 +154,11 @@
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
 	icon_state = null
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	item_state = null
 	flags_1 = 0
 	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 70, BIO = 50, RAD = 50, FIRE = 60, ACID = 60, STAMINA = 60, BLEED = 60) //religion protects you from disease and radiation, honk.
-	worn_x_dimension = 64
-	worn_y_dimension = 64
+	worn_y_offset = 6
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/red
 	icon_state = "prophet-red"
@@ -172,12 +172,10 @@
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
 	flags_inv = NONE
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "cage"
 	item_state = null
-	worn_x_dimension = 64
-	worn_y_dimension = 64
 	dynamic_hair_suffix = ""
+	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient
 	name = "ancient helmet"
