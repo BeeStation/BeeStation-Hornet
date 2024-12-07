@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Derringer now uses the highly lethal .357 rounds.
-  - rscdel: Removes the now pointless .38 ammo from the uplink, and removes the now-unused
-      EMP .38 ammo.
