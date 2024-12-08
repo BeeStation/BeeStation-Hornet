@@ -9,8 +9,6 @@
 
 /datum/emote/ai/emotion_display/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return
 	var/mob/living/silicon/ai/ai = user
 	var/turf/ai_turf = get_turf(ai)
 
@@ -80,9 +78,6 @@
 
 /datum/emote/ai/emotion_display/friend_computer/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return
-
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 
 	if(!frequency)
