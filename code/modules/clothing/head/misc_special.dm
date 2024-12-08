@@ -19,13 +19,20 @@
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = 2
 	tint = 2
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60, STAMINA = 5)
+	armor_type = /datum/armor/utility_welding
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/utility_welding
+	melee = 10
+	fire = 100
+	acid = 60
+	stamina = 5
 
 /obj/item/clothing/head/utility/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -117,6 +124,13 @@
 
 /obj/item/clothing/head/wig/natural/Initialize(mapload)
 	hair_style = pick(GLOB.hair_styles_list - "Bald")
+	. = ..()
+
+/obj/item/clothing/head/wig/natural/equipped(mob/user, slot)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		var/mob/living/carbon/human/human_mob = user
+		hair_color = "#[human_mob.hair_color]"
+		update_icon()
 	. = ..()
 
 /obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)

@@ -12,7 +12,7 @@
 	delivery_icon = null
 	can_weld_shut = FALSE
 	divable = FALSE
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/closet_supplypod
 	anchored = TRUE //So it cant slide around after landing
 	anchorable = FALSE
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
@@ -59,6 +59,16 @@
 	var/shrapnel_magnitude = 3
 	var/list/reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE, "Mecha"=FALSE)
 	var/list/turfs_in_cargo = list()
+
+
+/datum/armor/closet_supplypod
+	melee = 30
+	bullet = 50
+	laser = 50
+	energy = 100
+	bomb = 100
+	fire = 100
+	acid = 80
 
 /obj/structure/closet/supplypod/bluespacepod
 	style = STYLE_BLUESPACE

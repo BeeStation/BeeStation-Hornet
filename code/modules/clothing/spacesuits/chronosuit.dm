@@ -4,9 +4,23 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100, STAMINA = 70, BLEED = 80)
+	armor_type = /datum/armor/space_chronos
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit
+
+
+/datum/armor/space_chronos
+	melee = 60
+	bullet = 60
+	laser = 60
+	energy = 60
+	bomb = 30
+	bio = 90
+	rad = 90
+	fire = 100
+	acid = 100
+	stamina = 70
+	bleed = 80
 
 /obj/item/clothing/head/helmet/space/chronos/dropped()
 	..()
@@ -19,7 +33,7 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle_spacesuit, /datum/action/item_action/toggle)
-	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000, STAMINA = 70, BLEED = 80)
+	armor_type = /datum/armor/space_chronos
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/chronosafe_items = list(/obj/item/chrono_eraser, /obj/item/gun/energy/chrono_gun)
 	var/obj/item/clothing/head/helmet/space/chronos/helmet
@@ -30,6 +44,7 @@
 	var/cooldowntime = 5 SECONDS
 	var/teleporting = FALSE
 	var/phase_timer_id
+
 
 /obj/item/clothing/suit/space/chronos/Initialize(mapload)
 	teleport_now.chronosuit = src
