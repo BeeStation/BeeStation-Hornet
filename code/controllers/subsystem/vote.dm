@@ -357,7 +357,7 @@ SUBSYSTEM_DEF(vote)
 	name = "Vote!"
 	button_icon_state = "vote"
 
-/datum/action/vote/Trigger(trigger_flags)
+/datum/action/vote/Activate()
 	if(owner)
 		owner.vote()
 		remove_from_client()

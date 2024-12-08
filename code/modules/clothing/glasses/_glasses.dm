@@ -604,7 +604,7 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "scan"
 
-	click_to_activate = TRUE
+	requires_target = TRUE
 	cooldown_time = 45 SECONDS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
 
@@ -612,7 +612,7 @@
 	return ..() && isliving(owner)
 
 /datum/action/cooldown/scan/Activate(atom/scanned)
-	StartCooldown(15 SECONDS)
+	start_cooldown(15 SECONDS)
 
 	if(owner.stat != CONSCIOUS)
 		return FALSE
@@ -633,7 +633,7 @@
 	owner.balloon_alert(owner, "[living_scanned] scanned")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), owner, "scan recharged"), cooldown_time)
 
-	StartCooldown()
+	start_cooldown()
 	return TRUE
 */
 /obj/item/clothing/glasses/AltClick(mob/user)

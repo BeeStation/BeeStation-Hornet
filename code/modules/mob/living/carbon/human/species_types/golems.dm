@@ -666,15 +666,15 @@
 	// Note we link them to the mob, not the mind,
 	// so they're not moved around on mindswaps
 	jaunt = new(grant_to)
-	jaunt.StartCooldown()
+	jaunt.start_cooldown()
 	jaunt.Grant(grant_to)
 
 	abyssal_gaze = new(grant_to)
-	abyssal_gaze.StartCooldown()
+	abyssal_gaze.start_cooldown()
 	abyssal_gaze.Grant(grant_to)
 
 	dominate = new(grant_to)
-	dominate.StartCooldown()
+	dominate.start_cooldown()
 	dominate.Grant(grant_to)
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
@@ -1211,11 +1211,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	ADD_TRAIT(grant_to, TRAIT_SNOWSTORM_IMMUNE, SPECIES_TRAIT)
 
 	snowball = new(grant_to)
-	snowball.StartCooldown()
+	snowball.start_cooldown()
 	snowball.Grant(grant_to)
 
 	cryo = new(grant_to)
-	cryo.StartCooldown()
+	cryo.start_cooldown()
 	cryo.Grant(grant_to)
 
 /datum/species/golem/snow/on_species_loss(mob/living/carbon/remove_from)

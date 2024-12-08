@@ -210,17 +210,17 @@
 	if(charges <= 0)
 		qdel(src)
 
-/datum/action/innate/cult/blood_spell/horror
+/datum/action/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
 	charges = 4
 	check_flags = AB_CHECK_CONSCIOUS
-	click_action = TRUE
+	requires_target = TRUE
 	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
 	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
-/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
+/datum/action/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
 	if(!isturf(caller_turf))
 		return FALSE
@@ -234,23 +234,24 @@
 
 	return ..()
 
-/datum/action/innate/cult/blood_spell/horror/do_ability(mob/living/caller, params, mob/living/carbon/human/clicked_on)
+/datum/action/cult/blood_spell/horror/Activate(mob/user, mob/living/target)
+	if (!istype(target))
+		return FALSE
+	target.hallucination = max(target.hallucination, 120)
+	SEND_SOUND(user, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
 
-	clicked_on.hallucination = max(clicked_on.hallucination, 120)
-	SEND_SOUND(caller, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
+	var/image/sparkle_image = image('icons/effects/cult_effects.dmi', target, "bloodsparkles", ABOVE_MOB_LAYER)
+	target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", sparkle_image, NONE)
 
-	var/image/sparkle_image = image('icons/effects/cult_effects.dmi', clicked_on, "bloodsparkles", ABOVE_MOB_LAYER)
-	clicked_on.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", sparkle_image, NONE)
-
-	addtimer(CALLBACK(clicked_on, TYPE_PROC_REF(/atom, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
-	to_chat(caller, ("<span class='cultbold'>[clicked_on] has been cursed with living nightmares!</span>"))
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
+	to_chat(user, ("<span class='cultbold'>[target] has been cursed with living nightmares!</span>"))
 
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	UpdateButtons()
 	if(charges <= 0)
-		to_chat(caller, ("<span class='cult'>You have exhausted the spell's power!</span>"))
+		to_chat(user, ("<span class='cult'>You have exhausted the spell's power!</span>"))
 		qdel(src)
 
 	return TRUE

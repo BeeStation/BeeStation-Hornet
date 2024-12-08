@@ -92,7 +92,7 @@
 			to_chat(hand_owner, drop_message)
 		reset_spell_cooldown()
 	else
-		StartCooldown()
+		start_cooldown()
 
 // Touch spells don't go on cooldown OR give off an invocation until the hand is used itself.
 /datum/action/cooldown/spell/touch/before_cast(atom/cast_on)

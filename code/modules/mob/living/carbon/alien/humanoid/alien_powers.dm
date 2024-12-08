@@ -42,7 +42,7 @@ Doesn't work on other aliens/AI.*/
 	carbon_owner.adjustPlasma(-plasma_cost)
 	// It'd be really annoying if click-to-fire actions stayed active,
 	// even if our plasma amount went under the required amount.
-	if(click_to_activate && carbon_owner.getPlasma() < plasma_cost)
+	if(requires_target && carbon_owner.getPlasma() < plasma_cost)
 		unset_click_ability(owner, refund_cooldown = FALSE)
 
 	return TRUE
@@ -188,7 +188,7 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 /datum/action/cooldown/alien/acid
-	click_to_activate = TRUE
+	requires_target = TRUE
 	unset_after_click = FALSE
 
 /datum/action/cooldown/alien/acid/corrosion

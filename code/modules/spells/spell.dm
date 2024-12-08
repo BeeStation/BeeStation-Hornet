@@ -239,7 +239,7 @@
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its set duration
-		StartCooldown()
+		start_cooldown()
 
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here

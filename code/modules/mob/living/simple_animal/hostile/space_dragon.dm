@@ -476,7 +476,7 @@
 	S.icon_state = "spacedragon_gust"
 	S.update_dragon_overlay()
 	S.useGust(TRUE)
-	StartCooldown()
+	start_cooldown()
 	return TRUE
 
 #undef DARKNESS_THRESHOLD

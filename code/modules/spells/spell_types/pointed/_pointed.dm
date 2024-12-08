@@ -8,7 +8,7 @@
  * The cast_on atom is the person who was clicked on.
  */
 /datum/action/cooldown/spell/pointed
-	click_to_activate = TRUE
+	requires_target = TRUE
 
 	/// The base icon state of the spell's button icon, used for editing the icon "on" and "off"
 	var/base_icon_state
@@ -128,7 +128,7 @@
 /datum/action/cooldown/spell/pointed/projectile/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
 	if(projectile_amount > 1 && current_amount)
-		StartCooldown(cooldown_time * ((projectile_amount - current_amount) / projectile_amount))
+		start_cooldown(cooldown_time * ((projectile_amount - current_amount) / projectile_amount))
 		current_amount = 0
 
 // cast_on is a turf, or atom target, that we clicked on to fire at.

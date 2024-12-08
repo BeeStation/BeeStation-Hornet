@@ -57,7 +57,6 @@
 
 	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click()
 	var/malfhacking = FALSE // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
-	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
 	var/obj/machinery/power/apc/malfhack
 	var/explosive = FALSE //does the AI explode when it dies?

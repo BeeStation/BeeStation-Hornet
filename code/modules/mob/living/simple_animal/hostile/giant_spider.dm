@@ -552,7 +552,7 @@
 	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "wrap_0"
 	check_flags = AB_CHECK_CONSCIOUS
-	click_to_activate = TRUE
+	requires_target = TRUE
 	ranged_mousepointer = 'icons/effects/mouse_pointers/wrap_target.dmi'
 	/// The time it takes to wrap something.
 	var/wrap_time = 5 SECONDS
@@ -605,7 +605,7 @@
 	if(target_movable.anchored)
 		return FALSE
 
-	StartCooldown(wrap_time)
+	start_cooldown(wrap_time)
 	INVOKE_ASYNC(src, PROC_REF(cocoon), to_wrap)
 	return TRUE
 

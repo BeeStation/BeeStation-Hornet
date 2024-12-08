@@ -217,24 +217,18 @@
 			owner.say("N'ath reth sh'yro eth d'rekkathnor!!!", language = /datum/language/common, forced = "cult invocation")
 			playsound(get_turf(owner),'sound/magic/clockwork/narsie_attack.ogg', 100, 1)
 
-/datum/action/innate/cult/master/cultmark
+/datum/action/cult/master/cultmark
 	name = "Mark Target"
 	desc = "Marks a target for the cult."
 	button_icon_state = "cult_mark"
-	click_action = TRUE
-	enable_text = ("<span class='cult'>You prepare to mark a target for your cult. <b>Click a target to mark them!</b></span>")
-	disable_text = ("<span class='cult'>You cease the marking ritual.</span>")
+	requires_target = TRUE
+	cooldown_time = 2 MINUTES
+	enable_text = "<span class='cult'>You prepare to mark a target for your cult. <b>Click a target to mark them!</b></span>"
+	disable_text = "<span class='cult'>You cease the marking ritual.</span>"
 	/// The duration of the mark itself
 	var/cult_mark_duration = 90 SECONDS
-	/// The duration of the cooldown for cult marks
-	var/cult_mark_cooldown_duration = 2 MINUTES
-	/// The actual cooldown tracked of the action
-	COOLDOWN_DECLARE(cult_mark_cooldown)
 
-/datum/action/innate/cult/master/cultmark/IsAvailable()
-	return ..() && COOLDOWN_FINISHED(src, cult_mark_cooldown)
-
-/datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/caller, params, atom/clicked_on)
+/datum/action/cult/master/cultmark/InterceptClickOn(mob/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
 	if(!isturf(caller_turf))
 		return FALSE
@@ -243,8 +237,8 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/master/cultmark/do_ability(mob/living/caller, params, atom/clicked_on)
-	var/datum/antagonist/cult/cultist = caller.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
+/datum/action/cult/master/cultmark/Activate(mob/user, atom/target)
+	var/datum/antagonist/cult/cultist = user.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
 	if(!cultist)
 		CRASH("[type] was casted by someone without a cult antag datum.")
 
@@ -252,20 +246,16 @@
 	if(!cult_team)
 		CRASH("[type] was casted by a cultist without a cult team datum.")
 	if(cult_team.blood_target)
-		to_chat(caller, ("<span class='cult'>The cult has already designated a target!</span>"))
+		to_chat(user, ("<span class='cult'>The cult has already designated a target!</span>"))
 		return FALSE
 
-	if(cult_team.set_blood_target(clicked_on, caller, cult_mark_duration))
-		unset_ranged_ability(caller, ("<span class='cult'>The marking rite is complete! It will last for [DisplayTimeText(cult_mark_duration)] seconds.</span>"))
-		COOLDOWN_START(src, cult_mark_cooldown, cult_mark_cooldown_duration)
+	if(cult_team.set_blood_target(target, user, cult_mark_duration))
+		unset_ranged_ability(user, ("<span class='cult'>The marking rite is complete! It will last for [DisplayTimeText(cult_mark_duration)] seconds.</span>"))
+		start_cooldown()
 		UpdateButtons()
-		addtimer(CALLBACK(src, PROC_REF(UpdateButtons)), cult_mark_cooldown_duration + 1)
 		return TRUE
-	unset_ranged_ability(caller, ("<span class='cult'>The marking rite failed!</span>"))
+	unset_ranged_ability(user, ("<span class='cult'>The marking rite failed!</span>"))
 	return TRUE
-
-
-
 
 /datum/action/innate/cult/ghostmark //Ghost version
 	name = "Mark a Blood Target for the Cult"
@@ -343,25 +333,19 @@
 
 
 
-/datum/action/innate/cult/master/pulse
+/datum/action/cult/master/pulse
 	name = "Eldritch Pulse"
 	desc = "Seize upon a fellow cultist or cult structure and teleport it to a nearby location."
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "arcane_barrage"
-	click_action = TRUE
-	enable_text = ("<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>")
-	disable_text = ("<span class='cult'>You cease your preparations.</span>")
+	requires_target = TRUE
+	enable_text = "<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>"
+	disable_text = "<span class='cult'>You cease your preparations.</span>"
+	cooldown_time = 15 SECONDS
 	/// Weakref to whoever we're currently about to toss
 	var/datum/weakref/throwee_ref
-	/// Cooldown of the ability
-	var/pulse_cooldown_duration = 15 SECONDS
-	/// The actual cooldown tracked of the action
-	COOLDOWN_DECLARE(pulse_cooldown)
 
-/datum/action/innate/cult/master/pulse/IsAvailable()
-	return ..() && COOLDOWN_FINISHED(src, pulse_cooldown)
-
-/datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
+/datum/action/cult/master/pulse/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
 	if(!isturf(caller_turf))
 		return FALSE
@@ -373,65 +357,64 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/master/pulse/do_ability(mob/living/caller, params, atom/clicked_on)
+/datum/action/cult/master/pulse/Activate(mob/user, atom/target)
 	var/atom/throwee = throwee_ref?.resolve()
 
 	if(QDELETED(throwee))
-		to_chat(caller, ("<span class='cult'>You lost your target!</span>"))
+		to_chat(user, "<span class='cult'>You lost your target!</span>")
 		throwee = null
 		throwee_ref = null
 		return FALSE
 
 	if(throwee)
-		if(get_dist(throwee, clicked_on) >= 16)
-			to_chat(caller, ("<span class='cult'>You can't teleport [clicked_on.p_them()] that far!</span>"))
+		if(get_dist(throwee, target) >= 16)
+			to_chat(user, "<span class='cult'>You can't teleport [target.p_them()] that far!</span>")
 			return FALSE
 
 		var/turf/throwee_turf = get_turf(throwee)
 
 		playsound(throwee_turf, 'sound/magic/exit_blood.ogg')
-		new /obj/effect/temp_visual/cult/sparks(throwee_turf, caller.dir)
+		new /obj/effect/temp_visual/cult/sparks(throwee_turf, user.dir)
 		throwee.visible_message(
-			("<span class='warning'>A pulse of magic whisks [throwee] away!</span>"),
-			("<span class='cult'>A pulse of blood magic whisks you away...</span>"),
+			"<span class='warning'>A pulse of magic whisks [throwee] away!</span>",
+			"<span class='cult'>A pulse of blood magic whisks you away...</span>",
 		)
 
-		if(!do_teleport(throwee, clicked_on, channel = TELEPORT_CHANNEL_CULT))
-			to_chat(caller, ("<span class='cult'>The teleport fails!</span>"))
+		if(!do_teleport(throwee, target, channel = TELEPORT_CHANNEL_CULT))
+			to_chat(user, "<span class='cult'>The teleport fails!</span>")
 			throwee.visible_message(
-				("<span class='warning'>...Except they don't go very far</span>"),
-				("<span class='cult'>...Except you don't appear to have moved very far.</span>"),
+				"<span class='warning'>...Except they don't go very far</span>",
+				"<span class='cult'>...Except you don't appear to have moved very far.</span>",
 			)
 			return FALSE
 
-		throwee_turf.Beam(clicked_on, icon_state = "sendbeam", time = 0.4 SECONDS)
-		new /obj/effect/temp_visual/cult/sparks(get_turf(clicked_on), caller.dir)
+		throwee_turf.Beam(target, icon_state = "sendbeam", time = 0.4 SECONDS)
+		new /obj/effect/temp_visual/cult/sparks(get_turf(target), user.dir)
 		throwee.visible_message(
-			("<span class='warning'>[throwee] appears suddenly in a pulse of magic!</span>"),
-			("<span class='cult'>...And you appear elsewhere.</span>"),
+			"<span class='warning'>[throwee] appears suddenly in a pulse of magic!</span>",
+			"<span class='cult'>...And you appear elsewhere.</span>",
 		)
 
-		COOLDOWN_START(src, pulse_cooldown, pulse_cooldown_duration)
-		to_chat(caller, ("<span class='cult'>A pulse of blood magic surges through you as you shift [throwee] through time and space.</span>"))
-		caller.click_intercept = null
+		start_cooldown()
+		to_chat(user, "<span class='cult'>A pulse of blood magic surges through you as you shift [throwee] through time and space.</span>")
+		user.click_intercept = null
 		throwee_ref = null
 		UpdateButtons()
-		addtimer(CALLBACK(src, PROC_REF(UpdateButtons)), pulse_cooldown_duration + 1)
 
 		return TRUE
 	else
-		if(isliving(clicked_on))
-			var/mob/living/living_clicked = clicked_on
+		if(isliving(target))
+			var/mob/living/living_clicked = target
 			if(!IS_CULTIST(living_clicked))
 				return FALSE
-			SEND_SOUND(caller, sound('sound/weapons/thudswoosh.ogg'))
-			to_chat(caller, ("<span class='cultbold'>You reach through the veil with your mind's eye and seize [clicked_on]! <b>Click anywhere nearby to teleport [clicked_on.p_them()]!</b></span>"))
-			throwee_ref = WEAKREF(clicked_on)
+			SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
+			to_chat(user, "<span class='cultbold'>You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [clicked_on.p_them()]!</b></span>")
+			throwee_ref = WEAKREF(target)
 			return TRUE
 
-		if(istype(clicked_on, /obj/structure/destructible/cult))
-			to_chat(caller, ("<span class='cultbold'>You reach through the veil with your mind's eye and lift [clicked_on]! <b>Click anywhere nearby to teleport it!</b></span>"))
-			throwee_ref = WEAKREF(clicked_on)
+		if(istype(target, /obj/structure/destructible/cult))
+			to_chat(user, "<span class='cultbold'>You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b></span>")
+			throwee_ref = WEAKREF(target)
 			return TRUE
 
 	return FALSE
