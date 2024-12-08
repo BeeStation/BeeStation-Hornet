@@ -157,6 +157,17 @@
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	turf_type = /turf/open/floor/plating/asteroid/airless
 
+/turf/open/floor/plating/asteroid/frozengrass
+	name = "frozen grass"
+	desc = "Looks cold."
+	icon = 'icons/turf/floors.dmi'
+	variant_states = 0
+	variant_probability = 0
+	icon_state = "fairygrass"
+	icon_plating = "fairygrass"
+	environment_type = "snow_cavern"
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
 	name = "snow"
@@ -213,3 +224,6 @@
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
+
+/turf/open/floor/plating/asteroid/snow/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
