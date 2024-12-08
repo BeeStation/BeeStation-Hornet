@@ -42,7 +42,7 @@ export const NtosPaycheckManagerContent = (props, context) => {
 export const NtosPaycheckManagerPay = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const { authenticated, have_id_slot, target_id, target_id_owner, departments } = data;
+  const { departments, transaction_history } = data;
 
   const [selectedBudgetCard, setSelectedBudgetCard] = useLocalState(context, 'budget_card', Object.keys(departments)[0]);
 
@@ -63,13 +63,17 @@ export const NtosPaycheckManagerPay = (props, context) => {
           </Tabs>
         </Section>
       </Flex.Item>
-      FIX THIS SHIT ALIGN IT TO THE RIGHT
       <Flex.Item align="right">
-        <Section fill textAlign="right">
-          <Tabs vertical>
-            <Section />
-          </Tabs>
-        </Section>
+        <Tabs vertical>
+          <Section>
+            <Box>Payment history:</Box>
+            <Table.Row>
+              {transaction_history.map((transaction_entry) => (
+                <Table key={transaction_entry}>{transaction_entry}</Table>
+              ))}
+            </Table.Row>
+          </Section>
+        </Tabs>
       </Flex.Item>
     </Flex>
   );
