@@ -33,6 +33,7 @@
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
 #define ISCARVABLE			    (1<<17) //! Examine will not read out this item
+#define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
