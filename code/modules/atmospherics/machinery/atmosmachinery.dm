@@ -39,18 +39,12 @@
 	var/image/pipe_vision_img = null
 
 	///The type of the device (UNARY, BINARY, TRINARY, QUATERNARY)
-	///The type of the device (UNARY, BINARY, TRINARY, QUATERNARY)
 	var/device_type = 0
-	///The lists of nodes that a pipe/device has, depends on the device_type var (from 1 to 4)
 	///The lists of nodes that a pipe/device has, depends on the device_type var (from 1 to 4)
 	var/list/obj/machinery/atmospherics/nodes
 
 	///The path of the pipe/device that will spawn after unwrenching it (such as pipe fittings)
-	///The path of the pipe/device that will spawn after unwrenching it (such as pipe fittings)
 	var/construction_type
-	///icon_state as a pipe item
-	var/pipe_state
-	///Check if the device should be on or off (mostly used in processing for machines)
 	///icon_state as a pipe item
 	var/pipe_state
 	///Check if the device should be on or off (mostly used in processing for machines)

@@ -76,9 +76,6 @@
 			var/obj/machinery/atmospherics/N = nodes[i]
 			N.update_icon()
 
-/obj/machinery/atmospherics/pipe/returnPipenets()
-	. = list(parent)
-
 /obj/machinery/atmospherics/pipe/paint(paint_color)
 	if(paintable)
 		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
