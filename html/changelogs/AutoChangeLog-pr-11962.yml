@@ -1,0 +1,9 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Changeling armblade buffed to 30 damage
+  - balance: Changeling armor no longer slows you down
+  - balance: Teratoma and changeling armour no longer require absorbs to use.
+  - balance: Adds a limit of 2 living teratomas to changelings.
+  - balance: Teratomas will now share DNA with the person that made them, which opens
+      the way for detective work and changeling confusion counter-play.
