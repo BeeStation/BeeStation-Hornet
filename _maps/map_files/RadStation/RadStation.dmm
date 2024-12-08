@@ -13559,11 +13559,6 @@
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
-"epx" = (
-/obj/structure/reagent_dispensers/nutriment/fat/oil,
-/obj/machinery/firealarm/directional/south,
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "epB" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23335,6 +23330,12 @@
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
+"hoZ" = (
+/obj/effect/turf_decal/tile/dark_green,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "hpq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -26102,6 +26103,17 @@
 /obj/item/rcl/pre_loaded,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
+"imB" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "imF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -26258,6 +26270,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"ipM" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/plating,
+/area/maintenance/department/medical/morgue)
 "ipR" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -35830,17 +35846,6 @@
 /obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"lvd" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = 32;
-	pixel_y = -3
-	},
-/obj/structure/closet/crate,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "lvp" = (
 /obj/structure/table,
 /obj/item/clothing/suit/jacket/straight_jacket,
@@ -36194,12 +36199,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"lBL" = (
-/obj/effect/turf_decal/tile/dark_green,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/reagent_dispensers/nutriment/fat/oil,
-/turf/open/floor/iron,
-/area/hallway/secondary/service)
 "lBQ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	alpha = 140;
@@ -41088,6 +41087,15 @@
 /obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/wood,
 /area/library)
+"ncW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/storage/eva)
 "ncX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50320,6 +50328,11 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
+"pUT" = (
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "pVy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55834,15 +55847,6 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
-"rGp" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/suit_storage_unit/standard_unit,
-/obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/iron/tech,
-/area/ai_monitored/storage/eva)
 "rGC" = (
 /obj/machinery/camera/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -98777,7 +98781,7 @@ nFK
 eyo
 ctt
 ppA
-lvd
+imB
 rCP
 bsk
 oBB
@@ -106772,7 +106776,7 @@ fcP
 mKM
 ewi
 itk
-rGp
+ncW
 ykx
 rUt
 nvJ
@@ -109845,7 +109849,7 @@ dFC
 dFC
 wYg
 wYg
-wYg
+ipM
 dFC
 ayJ
 eFL
@@ -113147,7 +113151,7 @@ mQZ
 vtI
 fsA
 mLh
-lBL
+hoZ
 iMw
 mVN
 mVN
@@ -114179,7 +114183,7 @@ rqC
 cHN
 mBT
 iXp
-epx
+pUT
 fwL
 nXR
 rbm
