@@ -12,9 +12,9 @@
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
 	if(M.mind.antag_hud) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
 		M.mind.antag_hud.leave_hud(M)
-	add_to_hud(M)
+	add_atom_to_hud(M)
 	if(self_visible)
-		add_hud_to(M)
+		show_to(M)
 	M.mind.antag_hud = src
 	SEND_SIGNAL(M.mind, COMSIG_MIND_JOIN_ANTAG_HUD, src)
 
@@ -23,8 +23,8 @@
 		return
 	if(!istype(M))
 		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
-	remove_from_hud(M)
-	remove_hud_from(M)
+	remove_atom_from_hud(M)
+	hide_from(M)
 	if(M.mind?.antag_hud)
 		SEND_SIGNAL(M.mind, COMSIG_MIND_LEAVE_ANTAG_HUD, M.mind.antag_hud)
 		M.mind.antag_hud = null
@@ -53,5 +53,5 @@
 
 /datum/mind/proc/leave_all_antag_huds()
 	for(var/datum/atom_hud/antag/hud in GLOB.huds)
-		if(hud.hudusers[current])
+		if(hud.hud_users[current])
 			hud.leave_hud(current)

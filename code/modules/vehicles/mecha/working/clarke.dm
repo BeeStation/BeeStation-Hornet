@@ -45,13 +45,13 @@
 	. = ..()
 	if(. && !HAS_TRAIT(H, TRAIT_DIAGNOSTIC_HUD))
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		hud.add_hud_to(H)
+		hud.show_to(H)
 		ADD_TRAIT(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT)
 
 /obj/vehicle/sealed/mecha/working/clarke/remove_occupant(mob/living/carbon/H)
 	if(isliving(H) && HAS_TRAIT_FROM(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT))
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		hud.remove_hud_from(H)
+		hud.hide_from(H)
 		REMOVE_TRAIT(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT)
 	return ..()
 
@@ -60,7 +60,7 @@
 	if(.)
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 		var/mob/living/brain/B = M.brainmob
-		hud.add_hud_to(B)
+		hud.show_to(B)
 
 /obj/vehicle/sealed/mecha/working/clarke/generate_actions()
 	. = ..()
