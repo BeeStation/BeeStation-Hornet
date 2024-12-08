@@ -32,10 +32,11 @@
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(istype(user, /mob/living/carbon/human/consistent) || istype(user, /mob/living/carbon/human/dummy))
-		//Fake people need not apply (it fucks up my unit tests)
-		return
+	//If proper servant
 	if(is_servant_of_ratvar(user) && allow_any)
+		return
+	//Dead brain and in a testing mob? we must be in a fake environment! Lets not fuck it up
+	if((!user.client) && ishumantesting(user))
 		return
 	to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
 	user.dropItemToGround(src, TRUE)

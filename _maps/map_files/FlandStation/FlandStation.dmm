@@ -25052,6 +25052,11 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
+"gsw" = (
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "gsz" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -26911,13 +26916,6 @@
 	},
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
-"gPN" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/effect/turf_decal/bot,
-/obj/item/pen,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "gPO" = (
 /turf/open/floor/wood,
 /area/hallway/primary/aft)
@@ -33666,11 +33664,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
-"iCm" = (
-/obj/structure/reagent_dispensers/nutriment/fat/oil,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "iCn" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/box/corners,
@@ -88295,6 +88288,11 @@
 /obj/item/food/grown/tomato,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"wps" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "wpw" = (
 /obj/structure/sign/warning/pods{
 	pixel_x = -32
@@ -121111,7 +121109,7 @@ arZ
 hho
 lcx
 xNi
-iCm
+gsw
 qdx
 cqg
 nRh
@@ -126300,7 +126298,7 @@ kuT
 vVR
 uaf
 wMZ
-gPN
+wps
 aJR
 quh
 qpR

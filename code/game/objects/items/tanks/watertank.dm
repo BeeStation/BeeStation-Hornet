@@ -30,6 +30,7 @@
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
+	RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	update_icon()
 
 /obj/item/watertank/ui_action_click(mob/user)
@@ -96,6 +97,7 @@
 
 	if(QDELETED(noz))
 		noz = make_noz()
+		RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	if(noz in src)
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
@@ -114,6 +116,12 @@
 /obj/item/watertank/proc/make_noz()
 	update_icon()
 	return new /obj/item/reagent_containers/spray/mister(src)
+
+/obj/item/watertank/proc/noz_move(atom/movable/mover, atom/oldloc, direction)
+	if(mover.loc == src || mover.loc == loc)
+		return
+	balloon_alert(loc, "nozzle snaps back")
+	mover.forceMove(src)
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
@@ -146,10 +154,10 @@
 		update_icon()
 	return ..()
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
-	if(W == noz)
+/obj/item/watertank/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item == noz)
 		remove_noz()
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -181,20 +189,12 @@
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
 	. = ..()
 	tank = loc
-	if(!istype(tank))
+	if(!tank?.reagents)
 		return INITIALIZE_HINT_QDEL
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
 
 /obj/item/reagent_containers/spray/mister/attack_self()
 	return
-
-/obj/item/reagent_containers/spray/mister/doMove(atom/destination)
-	if(destination && (destination != tank?.loc || !ismob(destination)))
-		if (loc != tank)
-			to_chat(tank.loc, "<span class='notice'>The mister snaps back onto the watertank.</span>")
-		destination = tank
-		tank.update_icon()
-	..()
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it
@@ -483,14 +483,8 @@
 	tank = null
 	return ..()
 
-/obj/item/extinguisher/mini/nozzle/doMove(atom/destination)
-	if(destination && (destination != tank.loc || !ismob(destination)))
-		if(loc != tank)
-			to_chat(tank.loc, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-		destination = tank
-	..()
-
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
+	//var/uses_pack = istype(tank, /obj/item/watertank/atmos)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = RESIN_LAUNCHER
@@ -555,10 +549,11 @@
 
 	if(nozzle_mode == RESIN_FOAM)
 		if(!Adj|| !isturf(target))
+			balloon_alert(user, "too far!")
 			return
 		for(var/S in target)
 			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-				to_chat(user, "<span class='warning'>There's already resin here!</span>")
+				balloon_alert(user, "already has resin!")
 				return
 		if(resin_synthesis_cooldown < max_foam)
 			if(toggled)

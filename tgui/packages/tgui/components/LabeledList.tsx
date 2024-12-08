@@ -22,13 +22,14 @@ export const LabeledList = (props: LabeledListProps) => {
 LabeledList.defaultHooks = pureComponentHooks;
 
 type LabeledListItemProps = Partial<{
+  buttons: InfernoNode;
   className: string | BooleanLike;
+  color: string | BooleanLike;
+  key: string | number;
   label: string | InfernoNode | BooleanLike;
   labelColor: string | BooleanLike;
   labelWrap: boolean;
-  color: string | BooleanLike;
   textAlign: string | BooleanLike;
-  buttons: InfernoNode;
   /** @deprecated */
   content: any;
   children: InfernoNode;

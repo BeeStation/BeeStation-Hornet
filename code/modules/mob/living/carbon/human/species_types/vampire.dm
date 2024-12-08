@@ -1,7 +1,6 @@
 /datum/species/vampire
 	name = "\improper Vampire"
 	id = SPECIES_VAMPIRE
-	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
@@ -139,7 +138,7 @@
 	name = "Drain Victim"
 	desc = "Leech blood from any carbon victim you are passively grabbing."
 
-/datum/action/item_action/organ_action/vampire/Trigger()
+/datum/action/item_action/organ_action/vampire/Trigger(trigger_flags)
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
@@ -190,7 +189,7 @@
 	name = "Check Blood Level"
 	desc = "Check how much blood you have remaining."
 
-/datum/action/item_action/organ_action/vampire_heart/Trigger()
+/datum/action/item_action/organ_action/vampire_heart/Trigger(trigger_flags)
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
