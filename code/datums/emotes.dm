@@ -30,11 +30,13 @@
 	var/vary = FALSE
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
 	/// The cooldown between the uses of the emote.
-	var/cooldown = 0.8 SECONDS
+	var/cooldown = 0.2 SECONDS
 	/// How long is the shared emote cooldown triggered by this emote?
-	var/general_emote_audio_cooldown = 1 SECONDS
+	var/general_emote_audio_cooldown = 10 SECONDS
 	/// How long is the specific emote cooldown triggered by this emote?
-	var/specific_emote_audio_cooldown = 2.5 SECONDS
+	var/specific_emote_audio_cooldown = 15 SECONDS
+	//Every time a emote is made, it increases this counter by one. When the integer equals 5, the mob is forced into a cooldown period
+	var/cooldown_integer = 0
 	/// Does this emote's sound ignore walls?
 	var/sound_wall_ignore = FALSE
 
@@ -88,8 +90,7 @@
 
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
-		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
-		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
+		run_cooldown_integer(user)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
 	var/msg = select_message_type(user, intentional)
@@ -187,6 +188,18 @@
 				continue
 			to_chat(ghost, "<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
 	return
+
+/datum/emote/proc/run_cooldown_integer(mob/user)
+	cooldown_integer += 1
+	user.balloon_alert(user, "[cooldown_integer]")
+	check_cooldown_integer(user)
+
+/datum/emote/proc/check_cooldown_integer(mob/user)
+	if(cooldown_integer == 5)
+		to_chat(user, "<span class='warning'>emote limit reached</span>")
+		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
+		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
+		cooldown_integer = 0
 
 /**
  * For handling emote cooldown, return true to allow the emote to happen.
