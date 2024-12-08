@@ -194,6 +194,10 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 
+/obj/item/circuitboard/computer/control_rods
+	name = "rbmk reactor control rod console (Computer Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/reactor/control_rods
 
 //Generic
 
