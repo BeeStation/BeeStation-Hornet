@@ -50,7 +50,8 @@ export const NtosPaycheckManagerPay = (props, context) => {
   return (
     <Flex>
       <Flex.Item>
-        <Section fill title="Department Budget">
+        <Section>
+          Budget Card
           <Tabs vertical>
             {departments.map((department) => (
               <Tabs.Tab
@@ -63,17 +64,20 @@ export const NtosPaycheckManagerPay = (props, context) => {
           </Tabs>
         </Section>
       </Flex.Item>
-      <Flex.Item align="right">
-        <Tabs vertical>
-          <Section>
-            <Box>Payment history:</Box>
-            <Table.Row>
-              {transaction_history.map((transaction_entry) => (
-                <Table key={transaction_entry}>{transaction_entry}</Table>
-              ))}
-            </Table.Row>
-          </Section>
-        </Tabs>
+      <Flex.Item position="relative" left="16px">
+        <Section>
+          <Box>
+            Payment history:
+            <Button
+              content={'Print'}
+              tooltip={'Print full transaction history.'}
+              onClick={() => act('print_transaction_history')}
+            />
+          </Box>
+          <Table.Row>
+            <Box>{transaction_history ? { transaction_history } : null}</Box>
+          </Table.Row>
+        </Section>
       </Flex.Item>
     </Flex>
   );

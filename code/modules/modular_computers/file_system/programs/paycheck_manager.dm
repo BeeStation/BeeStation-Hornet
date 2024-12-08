@@ -37,6 +37,7 @@
 		return data //We're just gonna error out on the js side at this point anyway
 
 	var/authenticated = FALSE
+	var/list/paycheck_departments = list()
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	var/obj/item/card/id/user_id = card_slot?.stored_card
 	if(user_id)
@@ -44,7 +45,7 @@
 			authenticated = TRUE
 
 
-		var/list/paycheck_departments = list()
+
 
 		if(ACCESS_CAPTAIN in user_id.access)
 			paycheck_departments |= ACCOUNT_COM_ID //Captains can adjust the pay of their underling heads of staff.
@@ -65,8 +66,8 @@
 			paycheck_departments |= ACCOUNT_SCI_ID
 			paycheck_departments |= ACCOUNT_ENG_ID
 
-		data["departments"] = paycheck_departments
-		data["authenticated"] = authenticated
+	data["departments"] = paycheck_departments
+	data["authenticated"] = authenticated
 
 	var/obj/item/card/id/id_card = card_slot2.stored_card
 	data["target_id"] = id_card
