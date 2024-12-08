@@ -24,6 +24,7 @@
 	density = TRUE
 	anchored = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
 

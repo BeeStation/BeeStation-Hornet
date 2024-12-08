@@ -10,12 +10,16 @@
 	anchored = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 200 //The shield can only take so much beating (prevents perma-prisons)
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 
 /obj/structure/emergency_shield/Initialize(mapload)
 	. = ..()
 	setDir(pick(GLOB.cardinals))
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/emergency_shield/Destroy()
+	air_update_turf(TRUE, FALSE)
+	. = ..()
 
 /obj/structure/emergency_shield/Move()
 	var/turf/T = loc
@@ -60,7 +64,6 @@
 	max_integrity = 20
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
-
 /obj/structure/emergency_shield/invoker/emp_act(severity)
 	return
 
@@ -653,8 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holofield"
 	density = FALSE
-	CanAtmosPass = ATMOS_PASS_NO
-	CanAtmosPassVertical = 1
+	can_atmos_pass = ATMOS_PASS_NO
 	hardshield = FALSE
 	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"

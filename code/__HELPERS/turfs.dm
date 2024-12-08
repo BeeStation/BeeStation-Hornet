@@ -400,13 +400,13 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(QDELETED(air))
 		return FALSE
 	// Can most things breathe?
-	for(var/id in air.get_gases())
+	for(var/id in air.gases)
 		if(id in GLOB.hardcoded_gases)
 			continue
 		return FALSE
-	if(air.get_moles(GAS_O2) < 16 || air.get_moles(GAS_PLASMA) || air.get_moles(GAS_CO2) >= 10)
+	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
 		return FALSE
-	var/temperature = air.return_temperature()
+	var/temperature = air.temperature
 	if(temperature <= 270 || temperature >= 360)
 		return FALSE
 	var/pressure = air.return_pressure()

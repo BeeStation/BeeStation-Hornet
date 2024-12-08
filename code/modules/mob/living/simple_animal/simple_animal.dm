@@ -279,10 +279,10 @@
 	if(isturf(loc) && isopenturf(loc))
 		var/turf/open/ST = loc
 		if(ST.air)
-			var/tox = ST.air.get_moles(GAS_PLASMA)
-			var/oxy = ST.air.get_moles(GAS_O2)
-			var/n2  = ST.air.get_moles(GAS_N2)
-			var/co2 = ST.air.get_moles(GAS_CO2)
+			var/tox = GET_MOLES(/datum/gas/plasma, ST.air)
+			var/oxy = GET_MOLES(/datum/gas/oxygen, ST.air)
+			var/n2  = GET_MOLES(/datum/gas/nitrogen, ST.air)
+			var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, ST.air)
 
 			if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 				. = FALSE
