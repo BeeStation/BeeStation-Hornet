@@ -30,15 +30,15 @@
 	var/vary = FALSE
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
 	/// The cooldown between the uses of the emote.
-	var/cooldown = 0.2 SECONDS
+	var/cooldown = 0.5 SECONDS
 	/// How long is the shared emote cooldown triggered by this emote?
-	var/general_emote_audio_cooldown = 10 SECONDS
+	var/general_emote_audio_cooldown = 7 SECONDS
 	/// How long is the specific emote cooldown triggered by this emote?
-	var/specific_emote_audio_cooldown = 15 SECONDS
+	var/specific_emote_audio_cooldown = 10 SECONDS
 	/// Every time a emote is made, it increases this counter by one. When the integer equals cooldown_integer_ceiling, the mob is forced into a cooldown period
 	var/cooldown_integer = 0
 	/// Maximum amount of emotes that can be made
-	var/cooldown_integer_ceiling = 5
+	var/cooldown_integer_ceiling = 3
 	/// Does this emote's sound ignore walls?
 	var/sound_wall_ignore = FALSE
 
@@ -192,16 +192,25 @@
 	return
 
 /datum/emote/proc/run_cooldown_integer(mob/user)
+	//If we do one audible emote, then do nothing, we eventually should purge our list
+	cooldown_integer_window(user)
 	cooldown_integer += 1
 	user.balloon_alert(user, "[cooldown_integer]")
 	check_cooldown_integer(user)
 
 /datum/emote/proc/check_cooldown_integer(mob/user)
 	if(cooldown_integer >= cooldown_integer_ceiling)
-		to_chat(user, "<span class='warning'>emote limit reached</span>")
+		to_chat(user, "<span class='warning'>[name] emote limit reached</span>")
 		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
 		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
-		//Defaults to integer of 0
+		//We used up all our usable emotes, now we set the integer back to zero and wait the long wait
+		cooldown_integer = initial(cooldown_integer)
+
+/datum/emote/proc/cooldown_integer_window(mob/user)
+	if(TIMER_COOLDOWN_CHECK(user, COOLDOWN_EMOTE_WINDOW))
+		TIMER_COOLDOWN_START(user, COOLDOWN_EMOTE_WINDOW, 4 SECONDS)
+	else
+		//We did a few emotes, but didnt use them all up, reset our integer
 		cooldown_integer = initial(cooldown_integer)
 
 /**
