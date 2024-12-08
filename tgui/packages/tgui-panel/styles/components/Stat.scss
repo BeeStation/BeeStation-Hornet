@@ -100,3 +100,11 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
     background-color: #adadad;
   }
 }
+
+.StatMiddle {
+  vertical-align: middle;
+}
+
+.StatWordWrap {
+  white-space: normal;
+}
