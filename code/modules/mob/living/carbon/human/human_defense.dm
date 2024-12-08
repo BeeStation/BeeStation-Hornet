@@ -42,9 +42,9 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection *= 1 - min((C.get_armor_rating(d_type, src) / 100) * (1 - (penetration / 100)), 1)
+				protection *= 1 - min((C.get_armor_rating(d_type) / 100) * (1 - (penetration / 100)), 1)
 
-	protection *= 1 - CLAMP01(physiology.armor.getRating(d_type) / 100)
+	protection *= 1 - CLAMP01(physiology.physio_armor.get_rating(d_type) / 100)
 	return (1 - protection) * 100
 
 ///Get all the clothing on a specific body part
@@ -141,15 +141,14 @@
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
 				return 1
-	if(wear_suit)
-		if(wear_suit.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
-	if(w_uniform)
-		if(w_uniform.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
-	if(wear_neck)
-		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
+	if(wear_suit?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
+	if(w_uniform?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
+	if(wear_neck?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
+	if(belt?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
@@ -636,8 +635,6 @@
 				to_chat(src, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
 				remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 			return
-		visible_message("[src] examines [p_them()]self.", \
-			"<span class='notice'>You check yourself for injuries.</span>")
 		check_self_for_injuries()
 
 
@@ -770,8 +767,7 @@
 	var/broken_plural
 	var/damaged_plural
 	//Sets organs into their proper list
-	for(var/O in internal_organs)
-		var/obj/item/organ/organ = O
+	for(var/obj/item/organ/organ as anything in internal_organs)
 		if(organ.organ_flags & ORGAN_FAILING)
 			if(broken.len)
 				broken += ", "
@@ -806,7 +802,7 @@
 		to_chat(src, "<span class='info'>Your [damaged_message] [damaged_plural ? "are" : "is"] hurt.</span>")
 
 	if(length(mind?.quirks))
-		to_chat(src, "<span class='notice'>You have these quirks: [mind.get_quirk_string()].</span>")
+		to_chat(src, "<span class='notice'>You have these quirks: [get_quirk_string()].</span>")
 
 /mob/living/carbon/human/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
 	if(damage_type != BRUTE && damage_type != BURN)

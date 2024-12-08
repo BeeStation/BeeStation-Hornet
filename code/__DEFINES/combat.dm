@@ -24,8 +24,8 @@
 #define ACID "acid"
 /// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
 #define BIO "bio"
-/// Involves ionizing radiation.
-#define RAD	"rad"
+/// Bleed prevention
+#define BLEED "bleed"
 /// Involves a shockwave, usually from an explosion.
 #define BOMB "bomb"
 /// Involves a solid projectile.
@@ -40,13 +40,23 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
-/// Bleed prevention
-#define BLEED "bleed"
-
+/// Involves ionizing radiation.
+#define RAD	"rad"
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
 */
+
+#define ARMOR_ALL "all_damage_types"
+
+/// Armor values that are used for damage
+#define ARMOR_LIST_DAMAGE list(BIO, BLEED, BOMB, BULLET, ENERGY, LASER, MELEE, RAD)
+
+/// Armor values that are used for durability
+#define ARMOR_LIST_DURABILITY list(ACID, FIRE)
+
+/// All armors, preferable in the order as seen above
+#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -286,6 +296,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 // Flags for energy shields
 /// Energy shields will block projectiles
-#define ENERGY_SHEILD_BLOCK_PROJECTILES (1 << 0)
+#define ENERGY_SHIELD_BLOCK_PROJECTILES (1 << 0)
 /// Energy shields will block melee attacks
-#define ENERGY_SHEILD_BLOCK_MELEE (1 << 1)
+#define ENERGY_SHIELD_BLOCK_MELEE (1 << 1)
+/// Energy shield will not have a visible shield
+#define ENERGY_SHIELD_INVISIBLE (1 << 2)
+/// Energy shield will take max damage when EMP'd
+#define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)

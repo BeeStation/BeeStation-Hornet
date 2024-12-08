@@ -1,7 +1,7 @@
 /datum/action/changeling/adrenaline
 	name = "Adrenaline Sacs"
 	desc = "We evolve additional sacs of adrenaline throughout our body. Costs 20 chemicals."
-	helptext = "Removes all stuns instantly and adds a short-term reduction in further stuns. Can be used while unconscious. Continued use poisons the body."
+	helptext = "Removes all stuns instantly and adds a short-term reduction in further stuns. Can be used while unconscious."
 	button_icon_state = "adrenaline"
 	chemical_cost = 20
 	dna_cost = 2

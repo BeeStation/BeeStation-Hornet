@@ -157,13 +157,19 @@
 	proj_pass_rate = 65
 	pickup_delay = 8 SECONDS
 
+/obj/structure/barricade/wooden/make_debris()
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
+
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
 	max_integrity = 75
 
-/obj/structure/barricade/wooden/make_debris()
-	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
+/obj/structure/barricade/wooden/snowed
+	name = "crude plank barricade"
+	desc = "This space is blocked off by a wooden barricade. It seems to be covered in a layer of snow."
+	icon_state = "woodenbarricade-snow"
+	max_integrity = 125
 
 /obj/structure/barricade/sandbags
 	name = "sandbag barricade"
@@ -194,10 +200,20 @@
 	icon_state = "barrier1"
 	max_integrity = 180
 	proj_pass_rate = 20
-	armor = list(MELEE = 10,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/barricade_security
 	req_access = list(ACCESS_SECURITY)
 	pickup_damaged = FALSE
 	locked_down = TRUE
+
+
+/datum/armor/barricade_security
+	melee = 10
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 10
 
 /obj/structure/barricade/security/pick_up_barricade()
 	var/obj/item/security_barricade/carryable = new(loc)

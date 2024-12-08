@@ -26,32 +26,26 @@
 		if(R.name != "blobspawn")
 			if(prob(35))
 				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/chicken/rabbit/space(R.loc)
+					new /mob/living/simple_animal/chicken/rabbit/easter/space(R.loc)
 				else
-					new /mob/living/simple_animal/chicken/rabbit(R.loc)
+					new /mob/living/simple_animal/chicken/rabbit/easter(R.loc)
 
-/mob/living/simple_animal/chicken/rabbit
-	name = "\improper rabbit"
+/mob/living/simple_animal/chicken/rabbit/easter
 	desc = "The hippiest hop around."
-	icon = 'icons/mob/easter.dmi'
 	icon_state = "rabbit_white"
 	icon_living = "rabbit_white"
 	icon_dead = "rabbit_white_dead"
 	speak = list("Hop into Easter!","Come get your eggs!","Prizes for everyone!")
-	speak_emote = list("sniffles","twitches")
 	speak_language = /datum/language/metalanguage // everyone should understand happy easter
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
-	butcher_results = list(/obj/item/food/meat/slab = 1)
 	egg_type = /obj/item/suprise_egg
 	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
-	icon_prefix = "rabbit"
-	feedMessages = list("It nibbles happily.","It noms happily.")
 	layMessage = list("hides an egg.","scampers around suspiciously.","begins making a huge racket.","begins shuffling.")
 
-/mob/living/simple_animal/chicken/rabbit/space
+/mob/living/simple_animal/chicken/rabbit/easter/space
 	icon_prefix = "s_rabbit"
 	icon_state = "s_rabbit_white"
 	icon_living = "s_rabbit_white"
@@ -82,7 +76,7 @@
 /obj/item/storage/basket/easter/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
+	STR.set_holdable(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
 
 /obj/item/storage/basket/easter/proc/countEggs()
 	cut_overlays()
@@ -171,6 +165,7 @@
 	icon_state = "hotcrossbun"
 	foodtypes = SUGAR | GRAIN
 	tastes = list("easter")
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/scotchegg
 	name = "scotch egg"
@@ -179,9 +174,11 @@
 	icon_state = "scotchegg"
 	bite_consumption = 3
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
+	crafting_complexity = FOOD_COMPLEXITY_1
