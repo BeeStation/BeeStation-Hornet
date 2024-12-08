@@ -379,6 +379,12 @@
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
 
+/datum/map_template/shuttle/emergency/bunched
+	suffix = "bunched"
+	name = "Bunched Station Emergency Shuttle"
+	credit_cost = 2000
+	description = "Bazinga."
+
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
 	name = "Snappop(tm)!"
@@ -705,6 +711,10 @@
 	name = "exploration shuttle"
 	can_be_bought = FALSE
 
+/datum/map_template/shuttle/exploration/bunched
+	suffix = "bunched"
+	name = "bunched exploration shuttle"
+
 /datum/map_template/shuttle/exploration/corg
 	suffix = "corg"
 	name = "corg exploration shuttle"
@@ -736,6 +746,22 @@
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
 	name = "arrival shuttle (Delta)"
+
+/datum/map_template/shuttle/arrival/bunched
+	suffix = "bunched"
+	name = "arrival shuttle (Bunched)"
+
+/datum/map_template/shuttle/cargo/bunched
+	suffix = "bunched"
+	name = "cargo ferry (Bunched)"
+
+/datum/map_template/shuttle/mining/bunched
+	suffix = "bunched"
+	name = "mining shuttle (Bunched)"
+
+/datum/map_template/shuttle/labour/bunched
+	suffix = "bunched"
+	name = "labour shuttle (Bunched)"
 
 /datum/map_template/shuttle/arrival/kilo
 	suffix = "kilo"
