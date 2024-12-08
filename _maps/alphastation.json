@@ -1,0 +1,12 @@
+{
+	"map_name": "Alpha Station",
+	"map_link": "alphastation",
+	"map_path": "map_files/AlphaStation",
+	"map_file": "AlphaStation.dmm",
+	"shuttles": {
+		"cargo": "cargo_tiny",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_tiny"
+	}
+}
