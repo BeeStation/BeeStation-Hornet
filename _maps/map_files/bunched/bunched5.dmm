@@ -56491,7 +56491,7 @@
 /turf/open/floor/iron,
 /area/bridge)
 "qOX" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "qOY" = (
