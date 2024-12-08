@@ -9,4 +9,4 @@
 /// Rewarded when you are alive and active for 10 minutes
 #define METACOIN_TENMINUTELIVING_REWARD  4
 /// Rewarded when you reach roundend as admin, to make up for not playing. 
-#define METACOIN_ROUNDEND_ADMIN 250
+#define METACOIN_ROUNDEND_ADMIN 30
