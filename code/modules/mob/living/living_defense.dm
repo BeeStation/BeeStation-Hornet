@@ -627,7 +627,7 @@
 	if(method == INGEST)
 		taste(source)
 
-	var/touch_protection = (method == VAPOR) ? get_permeability_protection() : 0
+	var/touch_protection = (method == VAPOR) ? getarmor(null, BIO) * 0.01 : 0
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection)

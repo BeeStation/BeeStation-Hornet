@@ -172,21 +172,29 @@
 		grown_message_sent = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(nymph_assimilation), source, arrived)
+
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/nymph_assimilation(datum/source, atom/movable/arrived)
 	if(isdiona(arrived))
 		if(mind != null || stat == DEAD || is_drone) //Does the nymph on the ground have a mind, dead or a drone?
 			return // If so, ignore the diona
-		var/mob/living/carbon/human/H = arrived
-		var/list/limbs_to_heal = H.get_missing_limbs()
+		var/mob/living/carbon/human/arrived_diona = arrived
+		var/list/limbs_to_heal = arrived_diona.get_missing_limbs()
 		if(!LAZYLEN(limbs_to_heal))
 			return
-		playsound(H, 'sound/creatures/venus_trap_hit.ogg', 25, 1)
+		toggle_ai(AI_OFF)
+		if(!do_after(arrived_diona, 5 SECONDS, source, progress = TRUE))
+			toggle_ai(AI_IDLE)
+			return
+		playsound(arrived_diona, 'sound/creatures/venus_trap_hit.ogg', 25, 1)
 		var/obj/item/bodypart/healed_limb = pick(limbs_to_heal)
-		H.regenerate_limb(healed_limb)
-		for(var/obj/item/bodypart/body_part in H.bodyparts)
+		arrived_diona.regenerate_limb(healed_limb)
+		for(var/obj/item/bodypart/body_part in arrived_diona.bodyparts)
 			if(body_part.body_zone == healed_limb)
 				body_part.brute_dam = brute_damage
 				body_part.burn_dam = fire_damage
-		balloon_alert(H, "[H] assimilates [src]")
+		balloon_alert(arrived_diona, "[arrived_diona] assimilates [src]")
 		QDEL_NULL(src)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/handle_mutations_and_radiation()

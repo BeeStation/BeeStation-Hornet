@@ -6334,7 +6334,7 @@
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 2;
-	height = 13;
+	height = 14;
 	id = "ferry_away";
 	json_key = "ferry";
 	name = "CentCom Ferry Dock";
