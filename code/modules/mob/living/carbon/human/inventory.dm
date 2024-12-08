@@ -156,6 +156,8 @@
 	. = ..()
 	for(var/sloties in get_all_slots() - list(l_store, r_store, s_store))
 		var/obj/item/thing = sloties
+		if (thing?.item_flags & NO_WORN_SLOWDOWN)
+			continue
 		. += thing?.slowdown
 
 /mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
