@@ -39,7 +39,6 @@
 	///used while processing to update appearance only when its pressure state changes
 	var/current_pressure_state
 
-
 /datum/armor/portable_atmospherics_canister
 	melee = 50
 	bullet = 50
