@@ -195,7 +195,8 @@
 	//If we do one audible emote, then do nothing, we eventually should purge our list
 	cooldown_integer_window(user)
 	cooldown_integer += 1
-	user.balloon_alert(user, "[cooldown_integer]")
+	//debug
+	//user.balloon_alert(user, "[cooldown_integer]")
 	check_cooldown_integer(user)
 
 /datum/emote/proc/check_cooldown_integer(mob/user)
