@@ -9,10 +9,12 @@ SUBSYSTEM_DEF(autotransfer)
 	var/decay_count = 0
 	var/connected_votes_to_leave = 0
 	var/required_votes_to_leave = 0
+	var/force_call_time
 
 /datum/controller/subsystem/autotransfer/Initialize()
 	reminder_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_decay_start)
 	checkvotes_time = REALTIMEOFDAY + 5 MINUTES
+	force_call_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_force_call)
 	required_votes_to_leave = length(GLOB.clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
 
 	if(!CONFIG_GET(flag/vote_autotransfer_enabled))
@@ -24,6 +26,12 @@ SUBSYSTEM_DEF(autotransfer)
 	// Calculate always to account for disconnected/reconnected players
 	// Alternatively this could just hook into client/new and client/destroy, but
 	// it doesn't matter that much if we lose count for a bit
+	if(REALTIMEOFDAY > force_call_time)
+		can_fire = FALSE
+		SSshuttle.emergencyNoRecall = TRUE
+		if(SSshuttle.emergency.mode == SHUTTLE_RECALL || SSshuttle.emergency.mode == SHUTTLE_IDLE) //Override these states to force call
+			SSshuttle.emergency.request(null, null, " Scheduled Crew Transfer Initiated", FALSE, ALERT_COEFF_AUTOEVAC_NORMAL)
+
 	connected_votes_to_leave = 0
 	for(var/client/c in GLOB.clients)
 		if (c.player_details.voted_to_leave)
