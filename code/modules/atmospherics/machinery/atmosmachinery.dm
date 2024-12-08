@@ -92,11 +92,7 @@
 		normalize_cardinal_directions()
 	nodes = new(device_type)
 	init_processing = process
-	if (!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
-	if(process)
-		SSair.start_processing_machine(src)
 	set_init_directions(init_dir)
 
 /obj/machinery/atmospherics/Initialize(mapload)
@@ -113,11 +109,9 @@
 	SSair.stop_processing_machine(src)
 	SSair.rebuild_queue -= src
 
-	if(pipe_vision_img)
-		qdel(pipe_vision_img)
+	QDEL_NULL(pipe_vision_img)
 
 	return ..()
-	//return QDEL_HINT_FINDREFERENCE
 
 /**
  * Run when you update the conditions in which an /atom might want to start reacting to its turf's air
@@ -162,10 +156,6 @@
  */
 /obj/machinery/atmospherics/proc/get_rebuild_targets()
 	return
-
-/obj/machinery/atmospherics/update_icon()
-	. = ..()
-	update_layer()
 
 /**
  * Called on destroy(mostly deconstruction) and when moving nodes around, disconnect the nodes from the network
@@ -241,6 +231,10 @@
 /obj/machinery/atmospherics/proc/set_piping_layer(new_layer)
 	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
 	update_icon()
+
+/obj/machinery/atmospherics/update_icon()
+	update_layer()
+	return ..()
 
 /**
  * Check if a node can actually exists by connecting to another machine
