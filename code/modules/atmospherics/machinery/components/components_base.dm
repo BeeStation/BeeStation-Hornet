@@ -3,6 +3,7 @@
 
 /obj/machinery/atmospherics/components
 	hide = FALSE
+	layer = GAS_PUMP_LAYER
 	///Is the component welded?
 	var/welded = FALSE
 	///Should the component should show the pipe underneath it?

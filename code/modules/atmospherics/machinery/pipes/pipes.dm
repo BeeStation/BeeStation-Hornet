@@ -132,3 +132,6 @@
 
 /obj/machinery/atmospherics/pipe/return_pipenets()
 	. = list(parent)
+
+/obj/machinery/atmospherics/pipe/update_layer()
+	layer = (HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE) ? ABOVE_OPEN_TURF_LAYER : initial(layer)) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE + (GLOB.pipe_colors_ordered[pipe_color] * 0.0001)
