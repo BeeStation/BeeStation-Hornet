@@ -197,7 +197,7 @@
 	check_cooldown_integer(user)
 
 /datum/emote/proc/check_cooldown_integer(mob/user)
-	if(cooldown_integer <= cooldown_integer_ceiling)
+	if(cooldown_integer >= cooldown_integer_ceiling)
 		to_chat(user, "<span class='warning'>emote limit reached</span>")
 		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
 		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
