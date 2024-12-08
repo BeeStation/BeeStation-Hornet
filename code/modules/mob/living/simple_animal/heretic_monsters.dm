@@ -76,7 +76,7 @@
 	button_icon_state = "binoculars"
 	background_icon_state = "bg_ecult"
 
-/datum/action/innate/hereticmob/change_sight_range/Activate()
+/datum/action/innate/hereticmob/change_sight_range/on_activate()
 	var/list/views = list()
 	for(var/i in 1 to 10)
 		views |= i

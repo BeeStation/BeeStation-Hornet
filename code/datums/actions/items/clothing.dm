@@ -26,17 +26,17 @@
 	name = "Toggle Research Scanner"
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan_mode"
-	var/active = FALSE
+	toggleable = TRUE
 
-/datum/action/item_action/toggle_research_scanner/Trigger(trigger_flags)
-	if(IsAvailable())
-		active = !active
-		if(active)
-			owner.research_scanner++
-		else
-			owner.research_scanner--
-		to_chat(owner, "<span class='notice'>[target] research scanner has been [active ? "activated" : "deactivated"].</span>")
-		return 1
+/datum/action/item_action/toggle_research_scanner/on_activate(mob/user, atom/target)
+	owner.research_scanner++
+	to_chat(owner, "<span class='notice'>[target] research scanner has been activated.</span>")
+	return TRUE
+
+/datum/action/item_action/toggle_research_scanner/on_deactivate(mob/user, atom/target)
+	owner.research_scanner--
+	to_chat(owner, "<span class='notice'>[target] research scanner has been deactivated.</span>")
+	return TRUE
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/M)
 	if(owner && active)
@@ -61,7 +61,7 @@
 	name = "Open Music Menu"
 	desc = "UNTZ UNTZ UNTZ"
 
-/datum/action/item_action/toggle_headphones/Trigger(trigger_flags)
+/datum/action/item_action/toggle_headphones/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
 		H.interact(owner)

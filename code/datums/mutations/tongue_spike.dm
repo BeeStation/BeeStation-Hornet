@@ -158,10 +158,7 @@
 	if(!istype(target, /obj/item/hardened_spike/chem))
 		qdel(src)
 
-/datum/action/send_chems/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return FALSE
+/datum/action/send_chems/on_activate(mob/user, atom/target)
 	if(!ishuman(owner) || !owner.reagents)
 		return FALSE
 	var/mob/living/carbon/human/transferer = owner

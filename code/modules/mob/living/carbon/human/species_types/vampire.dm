@@ -139,8 +139,7 @@
 	name = "Drain Victim"
 	desc = "Leech blood from any carbon victim you are passively grabbing."
 
-/datum/action/item_action/organ_action/vampire/Trigger(trigger_flags)
-	. = ..()
+/datum/action/item_action/organ_action/vampire/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		var/obj/item/organ/tongue/vampire/V = target
@@ -190,8 +189,7 @@
 	name = "Check Blood Level"
 	desc = "Check how much blood you have remaining."
 
-/datum/action/item_action/organ_action/vampire_heart/Trigger(trigger_flags)
-	. = ..()
+/datum/action/item_action/organ_action/vampire_heart/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		to_chat(H, "<span class='notice'>Current blood level: [H.blood_volume]/[BLOOD_VOLUME_MAXIMUM].</span>")

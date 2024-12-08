@@ -226,7 +226,7 @@
 	name = "Use Instrument"
 	desc = "Use the instrument specified"
 
-/datum/action/item_action/instrument/Trigger(trigger_flags)
+/datum/action/item_action/instrument/on_activate(mob/user, atom/target)
 	if(istype(target, /obj/item/instrument))
 		var/obj/item/instrument/I = target
 		I.interact(usr)

@@ -3,7 +3,7 @@
 	transparent_when_unavailable = FALSE
 
 
-/datum/action/cooldown/CreateButton()
+/datum/action/cooldown/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
@@ -17,7 +17,7 @@
 		unset_click_ability(remove_from, refund_cooldown = FALSE)
 	return ..()
 
-/datum/action/cooldown/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+/datum/action/cooldown/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
 	. = ..()
 	if(!button)
 		return
@@ -26,7 +26,7 @@
 		button.maptext = MAPTEXT("<b>[CEILING(time_left/10, 1)]s</b>")
 	if(!owner || time_left == 0)
 		button.maptext = ""
-	if(IsAvailable() && (button.our_hud.mymob.click_intercept == src))
+	if(is_available() && (button.our_hud.mymob.click_intercept == src))
 		button.color = COLOR_GREEN
 
 /// Formats the action to be returned to the stat panel.

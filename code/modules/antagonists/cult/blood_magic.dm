@@ -10,7 +10,7 @@
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/IsAvailable()
+/datum/action/innate/cult/blood_magic/is_available()
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
@@ -32,7 +32,7 @@
 			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
 			blood_spell.positioned = TRUE
 
-/datum/action/innate/cult/blood_magic/Activate()
+/datum/action/innate/cult/blood_magic/on_activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
 	if(locate(/obj/effect/rune/empower) in range(1, owner))
@@ -112,12 +112,12 @@
 		hand_magic = null
 	..()
 
-/datum/action/innate/cult/blood_spell/IsAvailable()
+/datum/action/innate/cult/blood_spell/is_available()
 	if(!iscultist(owner) || owner.incapacitated()  || !charges)
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/blood_spell/Activate()
+/datum/action/innate/cult/blood_spell/on_activate()
 	if(magic_path) //If this spell flows from the hand
 		if(!hand_magic)
 			hand_magic = new magic_path(owner, src)
@@ -157,7 +157,7 @@
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/blood_spell/emp/Activate()
+/datum/action/innate/cult/blood_spell/emp/on_activate()
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						"<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
@@ -194,7 +194,7 @@
 	/// The item given to the cultist when the spell is invoked. Typepath.
 	var/obj/item/summoned_type = /obj/item/melee/cultblade/dagger
 
-/datum/action/innate/cult/blood_spell/dagger/Activate()
+/datum/action/innate/cult/blood_spell/dagger/on_activate()
 	var/turf/owner_turf = get_turf(owner)
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
@@ -210,7 +210,7 @@
 	if(charges <= 0)
 		qdel(src)
 
-/datum/action/cult/blood_spell/horror
+/datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
@@ -220,7 +220,7 @@
 	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
 	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
-/datum/action/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
+/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
 	if(!isturf(caller_turf))
 		return FALSE
@@ -234,7 +234,7 @@
 
 	return ..()
 
-/datum/action/cult/blood_spell/horror/Activate(mob/user, mob/living/target)
+/datum/action/innate/cult/blood_spell/horror/on_activate(mob/user, mob/living/target)
 	if (!istype(target))
 		return FALSE
 	target.hallucination = max(target.hallucination, 120)
@@ -249,7 +249,7 @@
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	UpdateButtons()
+	update_buttons()
 	if(charges <= 0)
 		to_chat(user, ("<span class='cult'>You have exhausted the spell's power!</span>"))
 		qdel(src)
@@ -265,7 +265,7 @@
 	var/revealing = FALSE //if it reveals or not
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/blood_spell/veiling/Activate()
+/datum/action/innate/cult/blood_spell/veiling/on_activate()
 	if(!revealing)
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 			"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes.</span>")
@@ -304,7 +304,7 @@
 		qdel(src)
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	UpdateButtons()
+	update_buttons()
 
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
@@ -356,7 +356,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			source.charges = uses
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-			source.UpdateButtons()
+			source.update_buttons()
 	..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
@@ -385,7 +385,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	else if(source)
 		source.desc = source.base_desc
 		source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-		source.UpdateButtons()
+		source.update_buttons()
 
 //Stun
 /obj/item/melee/blood_magic/stun

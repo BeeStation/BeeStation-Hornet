@@ -22,7 +22,7 @@
 	button_icon_state = "alien_evolve_drone"
 	plasma_cost = 500
 
-/datum/action/cooldown/alien/evolve_to_praetorian/IsAvailable()
+/datum/action/cooldown/alien/evolve_to_praetorian/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -43,7 +43,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/evolve_to_praetorian/Activate(atom/target)
+/datum/action/cooldown/alien/evolve_to_praetorian/on_activate(atom/target)
 	var/mob/living/carbon/alien/humanoid/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/praetorian/new_xeno = new(owner.loc)
 	evolver.alien_evolve(new_xeno)

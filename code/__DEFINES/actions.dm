@@ -11,6 +11,8 @@
 #define AB_CHECK_INCAPACITATED (1<<4)
 ///Action button checks if user is jaunting
 #define AB_CHECK_PHASED (1<<5)
+/// Action button works when unconcious, but not when dead
+#define AB_CHECK_DEAD (1<<6)
 
 //Bitfield is in /_DEFINES/_globablvars/bitfields.dm for reasons
 

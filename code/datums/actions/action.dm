@@ -28,6 +28,9 @@
 	var/unset_after_click = TRUE
 	/// The cooldown added onto the user's next click. Requires requires_target
 	var/click_cd_override = CLICK_CD_CLICK_ABILITY
+	/// If toggleable, deactivate will be called when the action button is pressed after
+	/// being activated.
+	var/toggleable = FALSE
 	// =====================================
 	// Action Appearance
 	// =====================================
@@ -52,14 +55,28 @@
 	// =====================================
 	// Cooldown
 	// =====================================
-	/// The actual next time this ability can be used
-	var/next_use_time = 0
 	/// The default cooldown applied when start_cooldown() is called
 	/// Actions are responsible for setting their own cooldown.
 	var/cooldown_time = 0
 	/// Shares cooldowns with other cooldown abilities of the same value, not active if null
 	/// This allows a single thing with cooldowns to have multiple actions which share the same cooldown
 	var/cooldown_group
+	// =====================================
+	// Internal
+	// =====================================
+	/// The actual next time this ability can be used
+	VAR_PRIVATE/next_use_time = 0
+	/// If the ability is currently active or not
+	VAR_PRIVATE/active = FALSE
+	/// If we require a target and are a toggleable button, we track a reference to the
+	/// object that we are targetting.
+	VAR_PRIVATE/datum/selected_target = null
+	/// Overlay currently applied to this action
+	VAR_PRIVATE/mutable_appearance/timer_overlay
+	/// Timer icon file
+	VAR_PROTECTED/timer_icon = 'icons/effects/cooldown.dmi'
+	/// Icon state for the timer icon
+	VAR_PROTECTED/timer_icon_state_active = "second"
 
 /datum/action/New(master)
 	if (master)
@@ -80,6 +97,9 @@
 	if(owner)
 		Remove(owner)
 	master = null
+	if (selected_target)
+		UnregisterSignal(selected_target, COMSIG_PARENT_QDELETING)
+		selected_target = null
 	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
@@ -91,6 +111,8 @@
 		Remove(owner)
 	if(ref == master)
 		qdel(src)
+	if (ref == selected_target)
+		deactivate(owner)
 
 /// Grants the action to the passed mob, making it the owner
 /datum/action/proc/Grant(mob/grant_to)
@@ -107,7 +129,7 @@
 
 	// Register some signals based on our check_flags
 	// so that our button icon updates when relevant
-	if(check_flags & AB_CHECK_CONSCIOUS)
+	if(check_flags & (AB_CHECK_CONSCIOUS | AB_CHECK_DEAD))
 		RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_icon_on_signal))
 	if(check_flags & AB_CHECK_IMMOBILE)
 		RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), PROC_REF(update_icon_on_signal))
@@ -116,11 +138,11 @@
 	if(check_flags & AB_CHECK_LYING)
 		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_icon_on_signal))
 
-	GiveAction(grant_to)
+	give_action(grant_to)
 	// Start cooldown timer if we gained it mid-cooldown
 	if(!owner)
 		return
-	UpdateButtons()
+	update_buttons()
 	if(next_use_time > world.time)
 		START_PROCESSING(SSfastprocess, src)
 
@@ -131,7 +153,7 @@
 	for(var/datum/hud/hud in viewers)
 		if(!hud.mymob)
 			continue
-		HideFrom(hud.mymob)
+		hide_from(hud.mymob)
 	LAZYREMOVE(remove_from.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 
@@ -156,9 +178,12 @@
 
 /// Actually triggers the effects of the action.
 /// Called when the on-screen button is clicked, for example.
-/datum/action/proc/Trigger()
+/// If you want to implement an action, override:
+/// - on_activate to do the effect
+/// - is_available for things that need checks (only if you handle button icon updates, otherwise put the check in pre_activation)
+/datum/action/proc/trigger()
 	SHOULD_NOT_OVERRIDE(TRUE)
-	if(!IsAvailable())
+	if(!is_available())
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
@@ -186,31 +211,59 @@
 	// If our cooldown action is not a requires_target action:
 	// We can just continue on and use the action
 	// the target is the user of the action (often, the owner)
-	return PreActivate(user, null)
+	return pre_activate(user, master)
 
 /// Adds the ability for signals to intercept the ability
-/datum/action/proc/PreActivate(mob/user, atom/target)
+/datum/action/proc/pre_activate(mob/user, atom/target)
 	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
 		return
-	. = Activate(user, target)
-	// There is a possibility our action (or owner) is qdeleted in Activate().
+	. = on_activate(user, target)
+	// If we successfully activated and are a toggle action, become active
+	if (toggleable)
+		active = TRUE
+		if (target)
+			selected_target = target
+			RegisterSignal(selected_target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+	// There is a possibility our action (or owner) is qdeleted in on_activate().
 	if(!QDELETED(src) && !QDELETED(owner))
 		SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
 
 /// Override to implement behaviour
-/// If this action is not a targetted spell, target will be the user
-/datum/action/proc/Activate(mob/user, atom/target)
+/// If this action is not a targetted spell, target will be the master
+/// If this action is a toggleable action, must return true to signify successful activation
+/datum/action/proc/on_activate(mob/user, atom/target)
+	return
+
+/// Deactivates the action. Can be called internally if an action
+/// does something to a target until deactivated.
+/datum/action/proc/deactivate(mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if (!active)
+		return
+	active = FALSE
+	on_deactivate(user, selected_target)
+	if (selected_target)
+		UnregisterSignal(selected_target, COMSIG_PARENT_QDELETING)
+		selected_target = null
+
+/// Called when the action is deactivated.
+/// Called under the following conditions:
+/// - toggleable is set to true
+/// - the action is currently active
+/datum/action/proc/on_deactivate(mob/user, atom/target)
 	return
 
 /// Intercepts client owner clicks to activate the ability
+/// This proc is called via reflection, do not change the name if you do
+/// not know what that means.
 /datum/action/cooldown/proc/InterceptClickOn(mob/living/caller, params, atom/target)
-	if(!IsAvailable())
+	if(!is_available())
 		unset_click_ability(caller, refund_cooldown = FALSE)
 		return FALSE
 	if(!target)
 		return FALSE
 	// The actual action begins here
-	if(!PreActivate(caller, target))
+	if(!pre_activate(caller, target))
 		return FALSE
 
 	// And if we reach here, the action was complete successfully
@@ -222,7 +275,7 @@
 	return TRUE
 
 /// Whether our action is currently available to use or not
-/datum/action/proc/IsAvailable()
+/datum/action/proc/is_available()
 	if(!owner)
 		return FALSE
 	if (next_use_time && world.time < next_use_time)
@@ -237,14 +290,16 @@
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
 		return FALSE
+	if ((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
+		return FALSE
 	return TRUE
 
-/datum/action/proc/UpdateButtons(status_only, force)
+/datum/action/proc/update_buttons(status_only, force)
 	for(var/datum/hud/hud in viewers)
 		var/atom/movable/screen/movable/button = viewers[hud]
-		UpdateButton(button, status_only, force)
+		update_button(button, status_only, force)
 
-/datum/action/proc/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+/datum/action/proc/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
 	if(!button)
 		return
 	if(!status_only)
@@ -262,40 +317,63 @@
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
 
-		ApplyIcon(button, force)
+		apply_icon(button, force)
 
-	var/available = IsAvailable()
+	if (next_use_time >= world.time)
+		update_cooldown_icon(button)
+	else if(timer_overlay)
+		button.cut_overlay(timer_overlay)
+		QDEL_NULL(timer_overlay)
+
+	var/available = is_available()
 	if(available)
 		button.color = rgb(255,255,255,255)
 	else
-		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+		button.color = next_use_time ? rgb(219, 219, 219, 255) : (transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0))
 	return available
 
 /// Applies our button icon over top the background icon of the action
-/datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+/datum/action/proc/apply_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
+/datum/action/proc/update_cooldown_icon(atom/movable/screen/movable/action_button/button, force = FALSE)
+	if(!button)
+		return
+	if (!timer_overlay)
+		timer_overlay = mutable_appearance(timer_icon, timer_icon_state_active)
+		timer_overlay.alpha = 180
+		timer_overlay.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		timer_overlay.maptext_width = 64
+		timer_overlay.maptext_height = 64
+		timer_overlay.maptext_x = -8
+		timer_overlay.maptext_y = -6
+	var/new_maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((next_use_time - world.time)/10, 1)]</span></center>"
+	if (new_maptext != timer_overlay.maptext || force)
+		button.cut_overlay(timer_overlay)
+		timer_overlay.maptext = new_maptext
+		button.add_overlay(timer_overlay)
+
 /// Gives our action to the passed viewer.
 /// Puts our action in their actions list and shows them the button.
-/datum/action/proc/GiveAction(mob/viewer)
+/datum/action/proc/give_action(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
 	if(viewers[our_hud]) // Already have a copy of us? go away
 		return
 
 	LAZYOR(viewer.actions, src) // Move this in
-	ShowTo(viewer)
+	show_to(viewer)
 
 /// Adds our action button to the screen of the passed viewer.
-/datum/action/proc/ShowTo(mob/viewer)
+/datum/action/proc/show_to(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
 	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
 		return
 
-	var/atom/movable/screen/movable/action_button/button = CreateButton()
-	SetId(button, viewer)
+	var/atom/movable/screen/movable/action_button/button = create_button()
+	set_id(button, viewer)
 
 	button.our_hud = our_hud
 	viewers[our_hud] = button
@@ -306,7 +384,7 @@
 	viewer.update_action_buttons()
 
 /// Removes our action from the passed viewer.
-/datum/action/proc/HideFrom(mob/viewer)
+/datum/action/proc/hide_from(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
 	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
 	LAZYREMOVE(viewer.actions, src)
@@ -314,7 +392,7 @@
 		qdel(button)
 
 /// Creates an action button movable for the passed mob, and returns it.
-/datum/action/proc/CreateButton()
+/datum/action/proc/create_button()
 	var/atom/movable/screen/movable/action_button/button = new()
 	button.linked_action = src
 	button.name = name
@@ -323,7 +401,7 @@
 		button.desc = desc
 	return button
 
-/datum/action/proc/SetId(atom/movable/screen/movable/action_button/our_button, mob/owner)
+/datum/action/proc/set_id(atom/movable/screen/movable/action_button/our_button, mob/owner)
 	//button id generation
 	var/bitfield = 0
 	for(var/datum/action/action in owner.actions)
@@ -344,7 +422,7 @@
 /datum/action/proc/update_icon_on_signal(datum/source)
 	SIGNAL_HANDLER
 
-	UpdateButtons()
+	update_buttons()
 
 /// Signal proc for COMSIG_MIND_TRANSFERRED - for minds, transfers our action to our new mob on mind transfer
 /datum/action/proc/on_master_mind_swapped(datum/mind/source, mob/old_current)
@@ -373,18 +451,18 @@
 		next_use_time = world.time + override_cooldown_time
 	else
 		next_use_time = world.time + cooldown_time
-	UpdateButtons()
+	update_buttons()
 	// Needs to update once per second
 	START_PROCESSING(SSprocessing, src)
 
 /// Actions process to handle their cooldown timer
 /datum/action/process()
 	if(!owner || (next_use_time - world.time) <= 0)
-		UpdateButtons()
+		update_buttons()
 		STOP_PROCESSING(SSfastprocess, src)
 		return
 
-	UpdateButtons()
+	update_buttons()
 
 /**
  * Set our action as the click override on the passed mob.
@@ -396,7 +474,7 @@
 	if(ranged_mousepointer)
 		on_who.client?.mouse_override_icon = ranged_mousepointer
 		on_who.update_mouse_pointer()
-	UpdateButtons()
+	update_buttons()
 	return TRUE
 
 /**
@@ -412,5 +490,5 @@
 	if(ranged_mousepointer)
 		on_who.client?.mouse_override_icon = initial(on_who.client?.mouse_override_icon)
 		on_who.update_mouse_pointer()
-	UpdateButtons()
+	update_buttons()
 	return TRUE

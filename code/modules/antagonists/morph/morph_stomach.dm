@@ -190,7 +190,7 @@
 	else
 		CRASH("morph_stomach action created with non stomach")
 
-/datum/action/innate/morph_stomach/Activate()
+/datum/action/innate/morph_stomach/on_activate()
 	morph_stomach.ui_interact(owner)
 
 #undef MORPH_FOOD_HEALING_DECAY_TIME

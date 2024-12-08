@@ -8,7 +8,7 @@
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 
-/datum/action/innate/cult/IsAvailable()
+/datum/action/innate/cult/is_available()
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
@@ -19,9 +19,9 @@
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/comm/Activate()
+/datum/action/innate/cult/comm/on_activate()
 	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
-	if(!input || !IsAvailable())
+	if(!input || !is_available())
 		return
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(usr, "<span class='warning'>You cannot send a message that contains a word prohibited in IC chat!</span>")
@@ -60,7 +60,7 @@
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
-/datum/action/innate/cult/comm/spirit/IsAvailable()
+/datum/action/innate/cult/comm/spirit/is_available()
 	if(iscultist(owner.mind.current))
 		return TRUE
 
@@ -81,15 +81,15 @@
 	name = "Assert Leadership"
 	button_icon_state = "cultvote"
 
-/datum/action/innate/cult/mastervote/IsAvailable()
+/datum/action/innate/cult/mastervote/is_available()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!C || C.cult_team.cult_vote_called || !ishuman(owner))
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/mastervote/Activate()
+/datum/action/innate/cult/mastervote/on_activate()
 	var/choice = alert(owner, "The mantle of leadership is heavy. Success in this role requires an expert level of communication and experience. Are you sure?",, "Yes", "No")
-	if(choice == "Yes" && IsAvailable())
+	if(choice == "Yes" && is_available())
 		var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 		pollCultists(owner,C.cult_team)
 
@@ -146,7 +146,7 @@
 				to_chat(B.current,"<span class='cultlarge'>[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!</span>")
 	return TRUE
 
-/datum/action/innate/cult/master/IsAvailable()
+/datum/action/innate/cult/master/is_available()
 	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.cult_narsie)
 		return 0
 	return ..()
@@ -157,7 +157,7 @@
 	button_icon_state = "sintouch"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/master/finalreck/Activate()
+/datum/action/innate/cult/master/finalreck/on_activate()
 	var/datum/antagonist/cult/antag = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!antag)
 		return
@@ -237,7 +237,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/cult/master/cultmark/Activate(mob/user, atom/target)
+/datum/action/cult/master/cultmark/on_activate(mob/user, atom/target)
 	var/datum/antagonist/cult/cultist = user.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
 	if(!cultist)
 		CRASH("[type] was casted by someone without a cult antag datum.")
@@ -252,7 +252,7 @@
 	if(cult_team.set_blood_target(target, user, cult_mark_duration))
 		unset_ranged_ability(user, ("<span class='cult'>The marking rite is complete! It will last for [DisplayTimeText(cult_mark_duration)] seconds.</span>"))
 		start_cooldown()
-		UpdateButtons()
+		update_buttons()
 		return TRUE
 	unset_ranged_ability(user, ("<span class='cult'>The marking rite failed!</span>"))
 	return TRUE
@@ -268,10 +268,10 @@
 	/// The actual cooldown tracked of the action
 	COOLDOWN_DECLARE(cult_mark_cooldown)
 
-/datum/action/innate/cult/ghostmark/IsAvailable()
+/datum/action/innate/cult/ghostmark/is_available()
 	return ..() && istype(owner, /mob/dead/observer)
 
-/datum/action/innate/cult/ghostmark/Activate()
+/datum/action/innate/cult/ghostmark/on_activate()
 	var/datum/antagonist/cult/cultist = owner.mind?.has_antag_datum(/datum/antagonist/cult, TRUE)
 	if(!cultist)
 		CRASH("[type] was casted by someone without a cult antag datum.")
@@ -319,7 +319,7 @@
 		desc = "Remove the Blood Mark you previously set."
 		button_icon_state = "emp"
 
-	UpdateButtons()
+	update_buttons()
 
 /datum/action/innate/cult/ghostmark/proc/reset_button()
 	if(QDELETED(owner) || QDELETED(src))
@@ -357,7 +357,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/cult/master/pulse/Activate(mob/user, atom/target)
+/datum/action/cult/master/pulse/on_activate(mob/user, atom/target)
 	var/atom/throwee = throwee_ref?.resolve()
 
 	if(QDELETED(throwee))
@@ -399,7 +399,7 @@
 		to_chat(user, "<span class='cult'>A pulse of blood magic surges through you as you shift [throwee] through time and space.</span>")
 		user.click_intercept = null
 		throwee_ref = null
-		UpdateButtons()
+		update_buttons()
 
 		return TRUE
 	else

@@ -7,6 +7,7 @@
 	background_icon_state = "bg_changeling"
 	icon_icon = 'icons/hud/actions/actions_changeling.dmi'
 	button_icon_state = null
+	check_flags = AB_CHECK_CONSCIOUS
 	var/needs_button = TRUE//for passive abilities like hivemind that dont need a button
 	var/helptext = "" // Details
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)
@@ -14,8 +15,6 @@
 	var/req_dna = 0  //amount of dna needed to use this ability. Changelings always have atleast 1
 	var/req_human = 0 //if you need to be human to use this ability
 	var/req_absorbs = 0 //similar to req_dna, but only gained from absorbing, not DNA sting
-	///Maximum stat before the ability is blocked. For example, `UNCONSCIOUS` prevents it from being used when in hard crit or dead, while `DEAD` allows the ability to be used on any stat values.
-	var/req_stat = CONSCIOUS
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 	var/active = FALSE//used by a few powers that toggle
 
@@ -31,10 +30,10 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(needs_button)
 		Grant(user)//how powers are added rather than the checks in mob.dm
 
-/datum/action/changeling/Trigger(trigger_flags)
-	var/mob/user = owner
-	if(!user || !user.mind || !user.mind.has_antag_datum(/datum/antagonist/changeling))
-		return
+/datum/action/changeling/is_available()
+	return ..() && owner.mind && owner.mind.has_antag_datum(/datum/antagonist/changeling)
+
+/datum/action/changeling/on_activate(mob/user, atom/target)
 	try_to_sting(user)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)

@@ -63,7 +63,7 @@
 	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
-/datum/action/innate/teleport_in/Activate()
+/datum/action/innate/teleport_in/on_activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -106,7 +106,7 @@
 	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_up"
 
-/datum/action/innate/teleport_out/Activate()
+/datum/action/innate/teleport_out/on_activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
@@ -118,7 +118,7 @@
 	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
-/datum/action/innate/teleport_self/Activate()
+/datum/action/innate/teleport_self/on_activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
@@ -161,7 +161,7 @@
 	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_mode"
 
-/datum/action/innate/vest_mode_swap/Activate()
+/datum/action/innate/vest_mode_swap/on_activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
@@ -173,7 +173,7 @@
 	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_disguise"
 
-/datum/action/innate/vest_disguise_swap/Activate()
+/datum/action/innate/vest_disguise_swap/on_activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
@@ -184,7 +184,7 @@
 	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "set_drop"
 
-/datum/action/innate/set_droppoint/Activate()
+/datum/action/innate/set_droppoint/on_activate()
 	if(!target || !iscarbon(owner))
 		return
 

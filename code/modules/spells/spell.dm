@@ -10,7 +10,7 @@
  * of the spell is able to cast the spell.
  * - [is_valid_target][/datum/action/cooldown/spell/is_valid_target] checks if the TARGET
  * THE SPELL IS BEING CAST ON is a valid target for the spell. NOTE: The CAST TARGET is often THE SAME as THE OWNER OF THE SPELL,
- * but is not always - depending on how [Pre Activate][/datum/action/cooldown/spell/PreActivate] is resolved.
+ * but is not always - depending on how [Pre Activate][/datum/action/cooldown/spell/pre_activate] is resolved.
  * - [can_invoke][/datum/action/cooldown/spell/can_invoke] is run in can_cast_spell to check if
  * the OWNER of the spell is able to say the current invocation.
  *
@@ -114,14 +114,14 @@
 
 	return ..()
 
-/datum/action/cooldown/spell/IsAvailable()
+/datum/action/cooldown/spell/is_available()
 	return ..() && can_cast_spell(feedback = FALSE)
 
-/datum/action/cooldown/spell/Trigger(trigger_flags, atom/target)
+/datum/action/cooldown/spell/pre_activate(mob/user, atom/target)
 	// We implement this can_cast_spell check before the parent call of Trigger()
 	// to allow people to click unavailable abilities to get a feedback chat message
 	// about why the ability is unavailable.
-	// It is otherwise redundant, however, as IsAvailable() checks can_cast_spell as well.
+	// It is otherwise redundant, however, as is_available() checks can_cast_spell as well.
 	if(!can_cast_spell())
 		return FALSE
 
@@ -134,11 +134,11 @@
 	return ..()
 
 // Where the cast chain starts
-/datum/action/cooldown/spell/PreActivate(atom/target)
+/datum/action/cooldown/spell/pre_activate(mob/user, atom/target)
 	if(!is_valid_target(target))
 		return FALSE
 
-	return Activate(target)
+	return on_activate(user, target)
 
 /// Checks if the owner of the spell can currently cast it.
 /// Does not check anything involving potential targets.
@@ -218,7 +218,7 @@
 // The actual cast chain occurs here, in Activate().
 // You should generally not be overriding or extending Activate() for spells.
 // Defer to any of the cast chain procs instead.
-/datum/action/cooldown/spell/Activate(atom/cast_on)
+/datum/action/cooldown/spell/on_activate(atom/cast_on)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	// Pre-casting of the spell
@@ -244,7 +244,7 @@
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here
 	after_cast(cast_on)
-	UpdateButtons()
+	update_buttons()
 
 	return TRUE
 
@@ -370,7 +370,7 @@
 /datum/action/cooldown/spell/proc/reset_spell_cooldown()
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
 	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
-	UpdateButtons()
+	update_buttons()
 
 /**
  * Levels the spell up a single level, reducing the cooldown.
@@ -424,4 +424,4 @@
 			spell_title = "Ludicrous "
 
 	name = "[spell_title][initial(name)]"
-	UpdateButtons()
+	update_buttons()

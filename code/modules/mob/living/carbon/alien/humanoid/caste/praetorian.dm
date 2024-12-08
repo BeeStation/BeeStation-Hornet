@@ -26,7 +26,7 @@
 	button_icon_state = "alien_evolve_praetorian"
 	plasma_cost = 500
 
-/datum/action/cooldown/alien/evolve_to_queen/IsAvailable()
+/datum/action/cooldown/alien/evolve_to_queen/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -44,7 +44,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/evolve_to_queen/Activate(atom/target)
+/datum/action/cooldown/alien/evolve_to_queen/on_activate(atom/target)
 	var/mob/living/carbon/alien/humanoid/royal/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/queen/new_queen = new(owner.loc)
 	evolver.alien_evolve(new_queen)

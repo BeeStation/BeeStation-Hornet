@@ -339,7 +339,7 @@
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 
-/datum/action/innate/camera_off/Activate()
+/datum/action/innate/camera_off/on_activate()
 	if(!target || !isliving(target))
 		return
 	var/mob/living/C = target
@@ -352,7 +352,7 @@
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_jump"
 
-/datum/action/innate/camera_jump/Activate()
+/datum/action/innate/camera_jump/on_activate()
 	if(!target || !isliving(target))
 		return
 	var/mob/living/C = target
@@ -392,7 +392,7 @@
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_up"
 
-/datum/action/innate/camera_multiz_up/Activate()
+/datum/action/innate/camera_multiz_up/on_activate()
 	if(!target || !isliving(target))
 		return
 	var/mob/living/user_mob = target
@@ -407,7 +407,7 @@
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_down"
 
-/datum/action/innate/camera_multiz_down/Activate()
+/datum/action/innate/camera_multiz_down/on_activate()
 	if(!target || !isliving(target))
 		return
 	var/mob/living/user_mob = target

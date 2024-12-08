@@ -15,7 +15,7 @@ Doesn't work on other aliens/AI.*/
 	/// How much plasma this action uses.
 	var/plasma_cost = 0
 
-/datum/action/cooldown/alien/IsAvailable()
+/datum/action/cooldown/alien/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -27,7 +27,7 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/cooldown/alien/PreActivate(atom/target)
+/datum/action/cooldown/alien/pre_activate(mob/user, atom/target)
 	// Parent calls Activate(), so if parent returns TRUE,
 	// it means the activation happened successfuly by this point
 	. = ..()
@@ -58,7 +58,7 @@ Doesn't work on other aliens/AI.*/
 	/// The type of structure the action makes on use
 	var/obj/structure/made_structure_type
 
-/datum/action/cooldown/alien/make_structure/IsAvailable()
+/datum/action/cooldown/alien/make_structure/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -67,7 +67,7 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/cooldown/alien/make_structure/PreActivate(atom/target)
+/datum/action/cooldown/alien/make_structure/pre_activate(mob/user, atom/target)
 	if(!check_for_duplicate())
 		return FALSE
 
@@ -76,7 +76,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/cooldown/alien/make_structure/Activate(atom/target)
+/datum/action/cooldown/alien/make_structure/on_activate(atom/target)
 	new made_structure_type(owner.loc)
 	return TRUE
 
@@ -108,7 +108,7 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 	made_structure_type = /obj/structure/alien/weeds/node
 
-/datum/action/cooldown/alien/make_structure/plant_weeds/Activate(atom/target)
+/datum/action/cooldown/alien/make_structure/plant_weeds/on_activate(atom/target)
 	owner.visible_message(("<span class='alienalert'>[owner] plants some alien weeds!</span>"))
 	return ..()
 
@@ -118,7 +118,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_whisper"
 	plasma_cost = 10
 
-/datum/action/cooldown/alien/whisper/Activate(atom/target)
+/datum/action/cooldown/alien/whisper/on_activate(atom/target)
 	var/list/possible_recipients = list()
 	for(var/mob/living/recipient in oview(owner))
 		possible_recipients += recipient
@@ -132,7 +132,7 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 
 	var/to_whisper = tgui_input_text(owner, title = "Alien Whisper")
-	if(QDELETED(chosen_recipient) || QDELETED(src) || QDELETED(owner) || !IsAvailable() || !to_whisper)
+	if(QDELETED(chosen_recipient) || QDELETED(src) || QDELETED(owner) || !is_available() || !to_whisper)
 		return FALSE
 	if(chosen_recipient.can_block_magic())
 		to_chat(owner, ("<span class='warning'>As you reach into [chosen_recipient]'s mind, you are stopped by a mental blockage. It seems you've been foiled.</span>"))
@@ -156,7 +156,7 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 0
 	button_icon_state = "alien_transfer"
 
-/datum/action/cooldown/alien/transfer/Activate(atom/target)
+/datum/action/cooldown/alien/transfer/on_activate(atom/target)
 	var/mob/living/carbon/carbon_owner = owner
 	var/list/mob/living/carbon/aliens_around = list()
 	for(var/mob/living/carbon/alien in view(owner))
@@ -173,7 +173,7 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 
 	var/amount = tgui_input_number(owner, "Amount", "Transfer Plasma to [donation_target]", max_value = carbon_owner.getPlasma())
-	if(QDELETED(donation_target) || QDELETED(src) || QDELETED(owner) || !IsAvailable() || isnull(amount) || amount <= 0)
+	if(QDELETED(donation_target) || QDELETED(src) || QDELETED(owner) || !is_available() || isnull(amount) || amount <= 0)
 		return FALSE
 
 	if(get_dist(owner, donation_target) > 1)
@@ -214,13 +214,13 @@ Doesn't work on other aliens/AI.*/
 		to_chat(on_who, ("<span class='noticealien'>You empty your corrosive acid glands.</span>"))
 	on_who.update_icons()
 
-/datum/action/cooldown/alien/acid/corrosion/PreActivate(atom/target)
+/datum/action/cooldown/alien/acid/corrosion/pre_activate(mob/user, atom/target)
 	if(get_dist(owner, target) > 1)
 		return FALSE
 
 	return ..()
 
-/datum/action/cooldown/alien/acid/corrosion/Activate(atom/target)
+/datum/action/cooldown/alien/acid/corrosion/on_activate(atom/target)
 	if(!target.acid_act(200, 1000))
 		to_chat(owner, ("<span class='noticealien'>You cannot dissolve this object.</span>"))
 		return FALSE
@@ -237,7 +237,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_neurotoxin_0"
 	plasma_cost = 50
 
-/datum/action/cooldown/alien/acid/neurotoxin/IsAvailable()
+/datum/action/cooldown/alien/acid/neurotoxin/is_available()
 	return ..() && isturf(owner.loc)
 
 /datum/action/cooldown/alien/acid/neurotoxin/set_click_ability(mob/on_who)
@@ -248,7 +248,7 @@ Doesn't work on other aliens/AI.*/
 	to_chat(on_who, ("<span class='notice'>You prepare your neurotoxin gland. <B>Left-click to fire at a target!</B></span>"))
 
 	button_icon_state = "alien_neurotoxin_1"
-	UpdateButtons()
+	update_buttons()
 	on_who.update_icons()
 
 /datum/action/cooldown/alien/acid/neurotoxin/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
@@ -260,7 +260,7 @@ Doesn't work on other aliens/AI.*/
 		to_chat(on_who, ("<span class='notice'>You empty your neurotoxin gland.</span>"))
 
 	button_icon_state = "alien_neurotoxin_0"
-	UpdateButtons()
+	update_buttons()
 	on_who.update_icons()
 
 /datum/action/cooldown/alien/acid/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
@@ -290,7 +290,7 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 // Has to return TRUE, otherwise is skipped.
-/datum/action/cooldown/alien/acid/neurotoxin/Activate(atom/target)
+/datum/action/cooldown/alien/acid/neurotoxin/on_activate(atom/target)
 	return TRUE
 
 /datum/action/cooldown/alien/make_structure/resin
@@ -315,9 +315,9 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/cooldown/alien/make_structure/resin/Activate(atom/target)
+/datum/action/cooldown/alien/make_structure/resin/on_activate(atom/target)
 	var/choice = tgui_input_list(owner, "Select a shape to build", "Resin building", structures)
-	if(isnull(choice) || QDELETED(src) || QDELETED(owner) || !check_for_duplicate() || !IsAvailable())
+	if(isnull(choice) || QDELETED(src) || QDELETED(owner) || !check_for_duplicate() || !is_available())
 		return FALSE
 
 	var/obj/structure/choice_path = structures[choice]
@@ -346,7 +346,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/cooldown/alien/sneak/Activate(atom/target)
+/datum/action/cooldown/alien/sneak/on_activate(atom/target)
 	if(HAS_TRAIT(owner, TRAIT_ALIEN_SNEAK))
 		// It's safest to go to the initial alpha of the mob.
 		// Otherwise we get permanent invisbility exploits.
@@ -376,7 +376,7 @@ Doesn't work on other aliens/AI.*/
 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
 	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
 	for(var/datum/action/cooldown/alien/ability in actions)
-		ability.UpdateButtons()
+		ability.update_buttons()
 	return TRUE
 
 /mob/living/carbon/alien/adjustPlasma(amount)

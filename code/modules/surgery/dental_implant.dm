@@ -34,9 +34,7 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger(trigger_flags)
-	if(!..())
-		return FALSE
+/datum/action/item_action/hands_free/activate_pill/on_activate(mob/user, atom/target)
 	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted pill!</span>")
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	var/obj/item/item_target = target

@@ -256,9 +256,9 @@
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
-/datum/action/nymph/evolve/Trigger(trigger_flags)
-	. = ..()
+/datum/action/nymph/evolve/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
 	if(!isnymph(user))
 		return
@@ -268,11 +268,7 @@
 	if(user.movement_type & VENTCRAWLING)
 		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
 		return
-	if(user.stat != CONSCIOUS)
-		return
 	if(user.amount_grown >= user.max_grown)
-		if(user.incapacitated()) //something happened to us while we were choosing.
-			return
 		playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
 		user.evolve()
 	else
@@ -286,8 +282,7 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/Trigger(trigger_flags, drone_parent, forced)
-	. = ..()
+/datum/action/nymph/SwitchFrom/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
 	var/mob/living/carbon/human/drone_diona = user.drone_parent
 	if(forced)

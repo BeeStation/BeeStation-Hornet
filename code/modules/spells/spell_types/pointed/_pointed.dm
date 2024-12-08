@@ -55,7 +55,7 @@
 	to_chat(on_who, ("<span class='notice'>[active_msg] <B>Left-click to cast the spell on a target!</B></span>"))
 	if(base_icon_state)
 		button_icon_state = "[base_icon_state]1"
-		UpdateButtons()
+		update_buttons()
 	return TRUE
 
 /// Called when the spell is deactivated / the click ability is unset from our spell
@@ -67,7 +67,7 @@
 		to_chat(on_who, ("<span class='notice'>[deactive_msg]</span>"))
 	if(base_icon_state)
 		button_icon_state = "[base_icon_state]0"
-		UpdateButtons()
+		update_buttons()
 	return TRUE
 
 /datum/action/cooldown/spell/pointed/InterceptClickOn(mob/living/caller, params, atom/click_target)

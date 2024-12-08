@@ -13,7 +13,7 @@
 	/// Radius around the caster that living targets are picked to choose from
 	var/target_radius = 7
 
-/datum/action/cooldown/spell/list_target/PreActivate(atom/caster)
+/datum/action/cooldown/spell/list_target/pre_activate(mob/user, atom/target)
 	var/list/list_targets = get_list_targets(caster, target_radius)
 	if(!length(list_targets))
 		caster.balloon_alert(caster, "no targets nearby!")
@@ -27,7 +27,7 @@
 		caster.balloon_alert(caster, "they're too far!")
 		return FALSE
 
-	return Activate(chosen)
+	return on_activate(user, chosen)
 
 /// Get a list of living targets in radius of the center to put in the target list.
 /datum/action/cooldown/spell/list_target/proc/get_list_targets(atom/center, target_radius = 7)

@@ -193,7 +193,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_down"
 
-/datum/action/innate/slime_place/Activate()
+/datum/action/innate/slime_place/on_activate()
 	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -213,7 +213,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_up"
 
-/datum/action/innate/slime_pick_up/Activate()
+/datum/action/innate/slime_pick_up/on_activate()
 	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -239,7 +239,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "monkey_down"
 
-/datum/action/innate/feed_slime/Activate()
+/datum/action/innate/feed_slime/on_activate()
 	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -264,7 +264,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "monkey_up"
 
-/datum/action/innate/monkey_recycle/Activate()
+/datum/action/innate/monkey_recycle/on_activate()
 	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -292,7 +292,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_scan"
 
-/datum/action/innate/slime_scan/Activate()
+/datum/action/innate/slime_scan/on_activate()
 	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
@@ -309,7 +309,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_potion"
 
-/datum/action/innate/feed_potion/Activate()
+/datum/action/innate/feed_potion/on_activate()
 	if(!target || !isliving(owner))
 		return
 
@@ -333,7 +333,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "hotkey_help"
 
-/datum/action/innate/hotkey_help/Activate()
+/datum/action/innate/hotkey_help/on_activate()
 	if(!target || !isliving(owner))
 		return
 	to_chat(owner, "<b>Click shortcuts:</b>")

@@ -5,13 +5,7 @@
 	desc = "Stabby stabby"
 	var/stealthy = FALSE
 
-/datum/action/changeling/sting/Trigger(trigger_flags)
-	var/mob/user = owner
-	if(!user || !user.mind)
-		return
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(!changeling)
-		return
+/datum/action/changeling/sting/on_activate(mob/user, atom/target)
 	if(!changeling.chosen_sting)
 		set_sting(user)
 	else
@@ -74,11 +68,13 @@
 	button_icon_state = "sting_transform"
 	chemical_cost = 20
 	dna_cost = 3
+	cooldown_time = TRANSFORM_STING_COOLDOWN
 	var/datum/changelingprofile/selected_dna = null
-	COOLDOWN_DECLARE(next_sting)
 
-/datum/action/changeling/sting/transformation/Trigger(trigger_flags)
-	var/mob/user = usr
+/datum/action/changeling/sting/transformation/is_available()
+	return ..() && owner.mind.has_antag_datum(/datum/antagonist/changeling)
+
+/datum/action/changeling/sting/transformation/on_activate(mob/user, atom/target)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling.chosen_sting)
 		unset_sting(user)
@@ -97,9 +93,6 @@
 	if((HAS_TRAIT(target, TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
-	if(!COOLDOWN_FINISHED(src, next_sting))
-		to_chat(user, "<span class='warning'>Our retrovirus is not ready yet!</span>")
-		return FALSE
 	return TRUE
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
@@ -115,8 +108,7 @@
 			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
 		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION)
 		C.apply_status_effect(STATUS_EFFECT_LING_TRANSFORMATION, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
-	COOLDOWN_START(src, next_sting, TRANSFORM_STING_COOLDOWN)
-
+	start_cooldown()
 
 /datum/action/changeling/sting/false_armblade
 	name = "False Armblade Sting"

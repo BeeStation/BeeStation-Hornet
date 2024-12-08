@@ -608,10 +608,10 @@
 	cooldown_time = 45 SECONDS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
 
-/datum/action/cooldown/scan/IsAvailable()
+/datum/action/cooldown/scan/is_available()
 	return ..() && isliving(owner)
 
-/datum/action/cooldown/scan/Activate(atom/scanned)
+/datum/action/cooldown/scan/on_activate(atom/scanned)
 	start_cooldown(15 SECONDS)
 
 	if(owner.stat != CONSCIOUS)

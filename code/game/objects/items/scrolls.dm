@@ -46,7 +46,7 @@
 	if(!teleport)
 		to_chat(user, ("<span class='warning'>[src] seems to be a faulty teleportation scroll, and has no magic associated.</span>"))
 		return
-	if(!teleport.Activate(user))
+	if(!teleport.trigger(user))
 		return
 	if(--uses <= 0)
 		to_chat(user, ("<span class='warning'>[src] runs out of uses and crumbles to dust!</span>"))

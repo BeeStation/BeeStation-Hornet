@@ -872,14 +872,10 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "exit_possession"
 
-/datum/action/exit_possession/IsAvailable()
+/datum/action/exit_possession/is_available()
 	return ..() && isfloorturf(owner.loc)
 
-/datum/action/exit_possession/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return FALSE
-
+/datum/action/exit_possession/on_activate(mob/user, atom/target)
 	var/obj/structure/closet/stasis/stasis = locate() in owner
 	if(!stasis)
 		CRASH("[type] did not find a stasis closet thing in the owner.")

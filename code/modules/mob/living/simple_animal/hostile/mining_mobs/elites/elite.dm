@@ -77,7 +77,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return ..()
 	return FALSE
 
-/datum/action/innate/elite_attack/Activate()
+/datum/action/innate/elite_attack/on_activate()
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)

@@ -109,7 +109,7 @@
 	plasma_cost = 75
 	made_structure_type = /obj/structure/alien/egg
 
-/datum/action/cooldown/alien/make_structure/lay_egg/Activate(atom/target)
+/datum/action/cooldown/alien/make_structure/lay_egg/on_activate(atom/target)
 	. = ..()
 	owner.visible_message(("<span class='alienalert'>[owner] lays an egg!</span>"))
 
@@ -128,7 +128,7 @@
 
 	.[PANEL_DISPLAY_STATUS] = "PLASMA - [promotion_plasma_cost]"
 
-/datum/action/cooldown/alien/promote/IsAvailable()
+/datum/action/cooldown/alien/promote/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -142,7 +142,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/promote/Activate(atom/target)
+/datum/action/cooldown/alien/promote/on_activate(atom/target)
 	var/obj/item/queen_promotion/existing_promotion = locate() in owner.held_items
 	if(existing_promotion)
 		to_chat(owner, ("<span class='noticealien'>You discard [existing_promotion].</span>"))
@@ -182,7 +182,7 @@
 		to_chat(queen, ("<span class='noticealien'>You may only use this with your adult, non-royal children!</span>"))
 		return
 
-	if(!promotion.IsAvailable())
+	if(!promotion.is_available())
 		to_chat(queen, ("<span class='noticealien'>You cannot promote a child right now!</span>"))
 		return
 

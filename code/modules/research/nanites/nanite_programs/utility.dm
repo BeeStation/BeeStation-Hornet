@@ -365,12 +365,12 @@
 	name = _name
 	button_icon_state = "[_icon]_[_color]"
 
-/datum/action/innate/nanite_button/Activate()
+/datum/action/innate/nanite_button/on_activate()
 	program.press()
 
 /datum/action/innate/nanite_button/proc/update_icon(icon, color)
 	button_icon_state = "[icon]_[color]"
-	UpdateButtons()
+	update_buttons()
 
 /datum/nanite_program/dermal_button/toggle
 	name = "Dermal Toggle"

@@ -37,9 +37,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(trigger_flags)
-	if(!IsAvailable())
-		return
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/on_activate(mob/user, atom/target)
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
@@ -75,7 +73,7 @@
 	..()
 	cords = target
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/is_available()
 	if(world.time < cords.next_command)
 		return FALSE
 	if(!owner)
@@ -89,12 +87,7 @@
 			return FALSE
 	return TRUE
 
-/datum/action/item_action/organ_action/colossus/Trigger(trigger_flags)
-	. = ..()
-	if(!IsAvailable())
-		if(world.time < cords.next_command)
-			to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(cords.next_command - world.time)] before Speaking again.</span>")
-		return
+/datum/action/item_action/organ_action/colossus/on_activate(mob/user, atom/target)
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(QDELETED(src) || QDELETED(owner))
 		return
@@ -120,6 +113,8 @@
 /obj/item/organ/vocal_cords/colossus/speak_with(message)
 	var/cooldown = voice_of_god(uppertext(message), owner, spans, base_multiplier)
 	next_command = world.time + (cooldown * cooldown_mod)
+	for (var/datum/action/item_action/organ_action/colossus/action in actions)
+		action.start_cooldown(cooldown * cooldown_mod)
 
 //////////////////////////////////////
 ///////////VOICE OF GOD///////////////

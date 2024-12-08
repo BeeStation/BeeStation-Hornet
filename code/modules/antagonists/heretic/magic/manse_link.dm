@@ -75,7 +75,7 @@
 	. = ..()
 	src.originator = originator
 
-/datum/action/innate/mansus_speech/Activate()
+/datum/action/innate/mansus_speech/on_activate()
 	var/mob/living/living_owner = owner
 	if(!originator?.linked_mobs[living_owner])
 		CRASH("Uh oh, a Mansus Link ([type]) got somehow called Activate() [isnull(originator) ? "without an originator Raw Prophet" : "without being in the originator's linked_mobs list"].")

@@ -185,11 +185,10 @@
 	icon_icon = 'icons/mob/animal.dmi'
 	cooldown_time = 250
 
-/datum/action/cooldown/vomit/Trigger(trigger_flags)
-	if(!..())
-		return FALSE
-	if(!istype(owner, /mob/living/simple_animal/hostile/retaliate/goose/vomit))
-		return FALSE
+/datum/action/cooldown/vomit/is_available()
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/retaliate/goose/vomit)
+
+/datum/action/cooldown/vomit/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/goose/vomit/vomit = owner
 	if(!vomit.vomiting)
 		vomit.vomit_prestart(vomit.vomitTimeBonus + 25)

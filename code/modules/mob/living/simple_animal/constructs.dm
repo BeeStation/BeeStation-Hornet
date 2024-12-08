@@ -255,7 +255,7 @@
 			total_refund += attack_refund
 
 		jaunt.next_use_time -= total_refund
-		jaunt.UpdateButtons()
+		jaunt.update_buttons()
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -456,7 +456,7 @@
 	. = ..()
 	var/datum/action/innate/seek_prey/seek = new()
 	seek.Grant(src)
-	seek.Activate()
+	seek.trigger()
 
 /////////////////////////////Proteon/////////////////////////
 /mob/living/simple_animal/hostile/construct/proteon
@@ -496,7 +496,7 @@
 	the_construct = C
 	..()
 
-/datum/action/innate/seek_master/Activate()
+/datum/action/innate/seek_master/on_activate()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult)
 	if(!C)
 		return
@@ -528,7 +528,7 @@
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 
-/datum/action/innate/seek_prey/Activate()
+/datum/action/innate/seek_prey/on_activate()
 	if(GLOB.cult_narsie == null)
 		return
 	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner

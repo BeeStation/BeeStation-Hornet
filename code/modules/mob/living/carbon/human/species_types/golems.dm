@@ -155,7 +155,7 @@
 	button_icon_state = "sacredflame"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 
-/datum/action/innate/ignite/Activate()
+/datum/action/innate/ignite/on_activate()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
@@ -515,13 +515,13 @@
 	var/cooldown = 150
 	var/last_teleport = 0
 
-/datum/action/innate/unstable_teleport/IsAvailable()
+/datum/action/innate/unstable_teleport/is_available()
 	if(..())
 		if(world.time > last_teleport + cooldown)
 			return 1
 		return 0
 
-/datum/action/innate/unstable_teleport/Activate()
+/datum/action/innate/unstable_teleport/on_activate()
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] starts vibrating!</span>", "<span class='danger'>You start charging your bluespace core...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
@@ -535,9 +535,9 @@
 	spark_system.start()
 	do_teleport(H, get_turf(H), 12, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	last_teleport = world.time
-	UpdateButtons() //action icon looks unavailable
+	update_buttons() //action icon looks unavailable
 	//action icon looks available again
-	addtimer(CALLBACK(src, PROC_REF(UpdateButtons)), cooldown + 5)
+	addtimer(CALLBACK(src, PROC_REF(update_buttons)), cooldown + 5)
 
 
 //honk
@@ -1148,7 +1148,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	var/last_use
 	var/snas_chance = 3
 
-/datum/action/innate/bonechill/Activate()
+/datum/action/innate/bonechill/on_activate()
 	if(world.time < last_use + cooldown)
 		to_chat(owner, "<span class='notice'>You aren't ready yet to rattle your bones again.</span>")
 		return

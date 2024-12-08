@@ -198,7 +198,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 	for(var/occupant in chassis.occupants)
 		var/datum/action/button = chassis.occupant_actions[occupant][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
 		button.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]"
-		button.UpdateButtons()
+		button.update_buttons()
 
 	set_light_on(chassis.defense_mode)
 

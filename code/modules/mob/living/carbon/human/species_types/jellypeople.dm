@@ -83,14 +83,14 @@
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
-/datum/action/innate/split_body/IsAvailable()
+/datum/action/innate/split_body/is_available()
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 			return 1
 		return 0
 
-/datum/action/innate/split_body/Activate()
+/datum/action/innate/split_body/on_activate()
 	var/mob/living/carbon/human/H = owner
 	if(!isslimeperson(H))
 		return
@@ -164,7 +164,7 @@
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
-/datum/action/innate/swap_body/Activate()
+/datum/action/innate/swap_body/on_activate()
 	if(!isslimeperson(owner))
 		to_chat(owner, "<span class='warning'>You are not a slimeperson.</span>")
 		Remove(owner)
@@ -340,9 +340,9 @@
 
 /datum/species/oozeling/luminescent/proc/update_slime_actions()
 	integrate_extract.update_name()
-	integrate_extract.UpdateButtons()
-	extract_minor.UpdateButtons()
-	extract_major.UpdateButtons()
+	integrate_extract.update_buttons()
+	extract_minor.update_buttons()
+	extract_major.update_buttons()
 
 /datum/species/oozeling/luminescent/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -377,7 +377,7 @@
 		name = "Eject Extract"
 		desc = "Eject your current slime extract."
 
-/datum/action/innate/integrate_extract/UpdateButtons(status_only, force)
+/datum/action/innate/integrate_extract/update_buttons(status_only, force)
 	var/datum/species/oozeling/luminescent/species = target
 	if(!species || !species.current_extract)
 		button_icon_state = "slimeconsume"
@@ -385,13 +385,13 @@
 		button_icon_state = "slimeeject"
 	..()
 
-/datum/action/innate/integrate_extract/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
+/datum/action/innate/integrate_extract/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
 	var/datum/species/oozeling/luminescent/species = target
 	if(species?.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
-/datum/action/innate/integrate_extract/Activate()
+/datum/action/innate/integrate_extract/on_activate()
 	var/mob/living/carbon/human/H = owner
 	var/datum/species/oozeling/luminescent/species = target
 	if(!is_species(H, /datum/species/oozeling/luminescent) || !species)
@@ -430,21 +430,21 @@
 	background_icon_state = "bg_alien"
 	var/activation_type = SLIME_ACTIVATE_MINOR
 
-/datum/action/innate/use_extract/IsAvailable()
+/datum/action/innate/use_extract/is_available()
 	if(..())
 		var/datum/species/oozeling/luminescent/species = target
 		if(species && species.current_extract && (world.time > species.extract_cooldown))
 			return TRUE
 		return FALSE
 
-/datum/action/innate/use_extract/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
+/datum/action/innate/use_extract/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
 	var/mob/living/carbon/human/H = owner
 	var/datum/species/oozeling/luminescent/species = H.dna.species
 	if(species && species.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
-/datum/action/innate/use_extract/Activate()
+/datum/action/innate/use_extract/on_activate()
 	var/mob/living/carbon/human/H = owner
 	CHECK_DNA_AND_SPECIES(H)
 	var/datum/species/oozeling/luminescent/species = H.dna.species
@@ -816,7 +816,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
-/datum/action/innate/linked_speech/Activate()
+/datum/action/innate/linked_speech/on_activate()
 	var/mob/living/living_owner = owner
 	if(!living_owner || !istype(living_owner) || living_owner.stat == DEAD)
 		return
@@ -835,7 +835,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
-/datum/action/innate/project_thought/Activate()
+/datum/action/innate/project_thought/on_activate()
 	var/mob/living/carbon/human/human_owner = owner
 	if(!isstargazer(human_owner))
 		return
@@ -878,7 +878,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
-/datum/action/innate/link_minds/Activate()
+/datum/action/innate/link_minds/on_activate()
 	var/mob/living/carbon/human/human_owner = owner
 	if(!isstargazer(human_owner))
 		return
@@ -918,7 +918,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
-/datum/action/innate/unlink_minds/Activate()
+/datum/action/innate/unlink_minds/on_activate()
 	var/mob/living/carbon/human/human_owner = owner
 	if(!isstargazer(human_owner))
 		return

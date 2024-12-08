@@ -135,7 +135,7 @@
 	var/mob/camera/ai_eye/remote/base_construction/remote_eye //Console's eye mob
 	var/obj/machinery/computer/camera_advanced/base_construction/B //Console itself
 
-/datum/action/innate/aux_base/Activate()
+/datum/action/innate/aux_base/on_activate()
 	if(!target)
 		return TRUE
 	C = owner
@@ -168,7 +168,7 @@
 	name = "Build"
 	button_icon_state = "build"
 
-/datum/action/innate/aux_base/build/Activate()
+/datum/action/innate/aux_base/build/on_activate()
 	if(..())
 		return
 
@@ -191,7 +191,7 @@
 	name = "Switch Mode"
 	button_icon_state = "builder_mode"
 
-/datum/action/innate/aux_base/switch_mode/Activate()
+/datum/action/innate/aux_base/switch_mode/on_activate()
 	if(..())
 		return
 
@@ -204,7 +204,7 @@
 	name = "Select Airlock Type"
 	button_icon_state = "airlock_select"
 
-/datum/action/innate/aux_base/airlock_type/Activate()
+/datum/action/innate/aux_base/airlock_type/on_activate()
 	if(..())
 		return
 
@@ -215,7 +215,7 @@
 	name = "Select Window Glass"
 	button_icon_state = "window_select"
 
-/datum/action/innate/aux_base/window_type/Activate()
+/datum/action/innate/aux_base/window_type/on_activate()
 	if(..())
 		return
 	B.RCD.toggle_window_glass()
@@ -224,7 +224,7 @@
 	name = "Place Tiny Fan"
 	button_icon_state = "build_fan"
 
-/datum/action/innate/aux_base/place_fan/Activate()
+/datum/action/innate/aux_base/place_fan/on_activate()
 	if(..())
 		return
 
@@ -250,7 +250,7 @@
 	name = "Install Plasma Anti-Wildlife Turret"
 	button_icon_state = "build_turret"
 
-/datum/action/innate/aux_base/install_turret/Activate()
+/datum/action/innate/aux_base/install_turret/on_activate()
 	if(..())
 		return
 

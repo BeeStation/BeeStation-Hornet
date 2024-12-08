@@ -39,7 +39,7 @@
 
 	organ_parent.icon = 'icons/obj/heretic.dmi'
 	organ_parent.icon_state = "living_heart"
-	action.UpdateButtons()
+	action.update_buttons()
 
 /datum/component/living_heart/Destroy(force, silent)
 	QDEL_NULL(action)
@@ -74,17 +74,14 @@
 	background_icon_state = "bg_ecult"
 	/// Whether the target radial is currently opened.
 	var/radial_open = FALSE
-	/// How long we have to wait between tracking uses.
-	var/track_cooldown_length = 8 SECONDS
-	/// The cooldown between button uses.
-	COOLDOWN_DECLARE(track_cooldown)
+	cooldown_time = 8 SECONDS
 
 /datum/action/item_action/organ_action/track_target/Grant(mob/granted)
 	if(!IS_HERETIC(granted))
 		return
 	return ..()
 
-/datum/action/item_action/organ_action/track_target/IsAvailable()
+/datum/action/item_action/organ_action/track_target/is_available()
 	. = ..()
 	if(!.)
 		return
@@ -92,16 +89,10 @@
 		return FALSE
 	if(!HAS_TRAIT(target, TRAIT_LIVING_HEART))
 		return FALSE
-	if(!COOLDOWN_FINISHED(src, track_cooldown))
-		return FALSE
 	if(radial_open)
 		return FALSE
 
-/datum/action/item_action/organ_action/track_target/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
+/datum/action/item_action/organ_action/track_target/on_activate(mob/user, atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		owner.balloon_alert(owner, "No targets, visit a rune")
@@ -137,7 +128,7 @@
 	. = track_sacrifice_target(tracked_mob)
 
 	if(.)
-		COOLDOWN_START(src, track_cooldown, track_cooldown_length)
+		start_cooldown()
 		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
 /datum/action/item_action/organ_action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)

@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	else
 		owner_AI = owner
 
-/datum/action/ai/Activate(mob/user, atom/target)
+/datum/action/ai/on_activate(mob/user, atom/target)
 	SHOULD_CALL_PARENT(TRUE)
 	if(auto_use_uses)
 		adjust_uses(-1)
@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	auto_use_uses = FALSE
 	var/active
 
-/datum/action/ai/nuke_station/Activate(mob/user, atom/target)
+/datum/action/ai/nuke_station/on_activate(mob/user, atom/target)
 	. = ..()
 	var/turf/T = get_turf(owner)
 	if(!istype(T) || !is_station_level(T.z))
@@ -410,7 +410,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "lockdown"
 	uses = 1
 
-/datum/action/ai/lockdown/Activate(mob/user, atom/target)
+/datum/action/ai/lockdown/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/door/D in GLOB.airlocks)
 		if(!is_station_level(D.z))
@@ -448,7 +448,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 1
 	cooldown_time = 10 SECONDS
 
-/datum/action/ai/destroy_rcds/Activate(mob/user, atom/target)
+/datum/action/ai/destroy_rcds/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/I in GLOB.rcd_list)
 		if(!istype(I, /obj/item/construction/rcd/borg)) //Ensures that cyborg RCDs are spared.
@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "break_fire_alarms"
 	uses = 1
 
-/datum/action/ai/break_fire_alarms/Activate(mob/user, atom/target)
+/datum/action/ai/break_fire_alarms/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/firealarm/F in GLOB.machines)
 		if(!is_station_level(F.z))
@@ -521,7 +521,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
-/datum/action/ai/break_air_alarms/Activate(mob/user, atom/target)
+/datum/action/ai/break_air_alarms/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/airalarm/AA in GLOB.machines)
 		if(!is_station_level(AA.z))
@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!QDELETED(to_explode)) //to check if the explosion killed it before we try to delete it
 		qdel(to_explode)
 
-/datum/action/ai/ranged/overload_machine/Activate(mob/user, atom/target)
+/datum/action/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
 	. = ..()
 	if(!istype(target, /obj/machinery))
 		to_chat(user, ("<span class='warning'>You can only overload machines!</span>"))
@@ -576,14 +576,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	adjust_uses(-1)
 	if(uses)
 		desc = "[initial(desc)] It has [uses] use\s remaining."
-		UpdateButtons()
+		update_buttons()
 
 	clicked_machine.audible_message(("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [clicked_machine]!</span>"))
 	addtimer(CALLBACK(src, PROC_REF(detonate_machine), user, clicked_machine), 5 SECONDS) //kaboom!
 	unset_ranged_ability(user)
 	to_chat(user, "<span class='danger'>Overcharging machine...</span>")
 	return TRUE
-
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
 /datum/AI_Module/small/override_machine
@@ -608,7 +607,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	. = ..()
 	desc = "[desc] It has [uses] use\s remaining."
 
-/datum/action/ai/ranged/override_machine/Activate(mob/user, atom/target)
+/datum/action/ai/ranged/override_machine/on_activate(mob/user, atom/target)
 	. = ..()
 	if(user.incapacitated())
 		unset_ranged_ability(user)
@@ -626,7 +625,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 	if(uses)
 		desc = "[initial(desc)] It has [uses] use\s remaining."
-		UpdateButtons()
+		update_buttons()
 
 	clicked_machine.audible_message(("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [clicked_machine]!</span>"))
 	addtimer(CALLBACK(src, PROC_REF(animate_machine), user, clicked_machine), 5 SECONDS) //kabeep!
@@ -664,7 +663,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		var/image/I = image("icon"='icons/turf/overlays.dmi')
 		LAZYADD(turfOverlays, I)
 
-/datum/action/ai/place_transformer/Activate(mob/user, atom/target)
+/datum/action/ai/place_transformer/on_activate(mob/user, atom/target)
 	. = ..()
 	if(!owner_AI.can_place_transformer(src))
 		return
@@ -734,7 +733,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "blackout"
 	uses = 3
 
-/datum/action/ai/blackout/Activate(mob/user, atom/target)
+/datum/action/ai/blackout/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(30 * apc.overload))
@@ -763,7 +762,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "emergency_lights"
 	uses = 1
 
-/datum/action/ai/emergency_lights/Activate(mob/user, atom/target)
+/datum/action/ai/emergency_lights/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/light/L in GLOB.machines)
 		if(is_station_level(L.z))
@@ -793,7 +792,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	auto_use_uses = FALSE
 	cooldown_time = 3 SECONDS
 
-/datum/action/ai/reactivate_cameras/Activate(mob/user, atom/target)
+/datum/action/ai/reactivate_cameras/on_activate(mob/user, atom/target)
 	. = ..()
 	var/fixed_cameras = 0
 	for(var/V in GLOB.cameranet.cameras)
@@ -881,7 +880,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "fake_alert"
 	uses = 1
 
-/datum/action/ai/fake_alert/Activate(mob/user, atom/target)
+/datum/action/ai/fake_alert/on_activate(mob/user, atom/target)
 	. = ..()
 	var/list/events_to_chose = list()
 	for(var/datum/round_event_control/E in SSevents.control)
