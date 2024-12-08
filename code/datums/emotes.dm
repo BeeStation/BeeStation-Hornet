@@ -35,8 +35,10 @@
 	var/general_emote_audio_cooldown = 10 SECONDS
 	/// How long is the specific emote cooldown triggered by this emote?
 	var/specific_emote_audio_cooldown = 15 SECONDS
-	//Every time a emote is made, it increases this counter by one. When the integer equals 5, the mob is forced into a cooldown period
+	/// Every time a emote is made, it increases this counter by one. When the integer equals cooldown_integer_ceiling, the mob is forced into a cooldown period
 	var/cooldown_integer = 0
+	/// Maximum amount of emotes that can be made
+	var/cooldown_integer_ceiling = 5
 	/// Does this emote's sound ignore walls?
 	var/sound_wall_ignore = FALSE
 
@@ -195,11 +197,12 @@
 	check_cooldown_integer(user)
 
 /datum/emote/proc/check_cooldown_integer(mob/user)
-	if(cooldown_integer == 5)
+	if(cooldown_integer <= cooldown_integer_ceiling)
 		to_chat(user, "<span class='warning'>emote limit reached</span>")
 		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
 		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
-		cooldown_integer = 0
+		//Defaults to integer of 0
+		cooldown_integer = initial(cooldown_integer)
 
 /**
  * For handling emote cooldown, return true to allow the emote to happen.
