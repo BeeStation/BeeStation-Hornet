@@ -38220,8 +38220,7 @@
 "goT" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
 	filter_type = list(/datum/gas/nitrogen);
-	name = "nitrogen filter";
-	 = None
+	name = "nitrogen filter"
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
@@ -41185,8 +41184,7 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	luminosity = 2;
-	 = None
+	luminosity = 2
 	},
 /area/security/main)
 "hha" = (
@@ -43575,7 +43573,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 23;
 	dir = 1;
-	 = None;
 	locked = "0"
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -44500,8 +44497,7 @@
 	},
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4;
-	filter_type = list(/datum/gas/nitrogen);
-	 = None
+	filter_type = list(/datum/gas/nitrogen)
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
@@ -92078,8 +92074,7 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	luminosity = 2;
-	 = None
+	luminosity = 2
 	},
 /area/security/main)
 "xov" = (
