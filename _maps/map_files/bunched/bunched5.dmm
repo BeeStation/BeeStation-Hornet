@@ -438,9 +438,11 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "afR" = (
-/obj/structure/flora/rock/pile,
-/turf/open/floor/grass/no_border,
-/area/hydroponics/garden)
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
+	},
+/turf/open/space/basic,
+/area/space)
 "aga" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/corner{
@@ -731,11 +733,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/storage/eva)
-"akr" = (
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/iron,
-/area/crew_quarters/dorms)
 "akH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
@@ -2893,7 +2890,7 @@
 /area/maintenance/starboard/central)
 "aTS" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -3021,7 +3018,7 @@
 "aVb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/engine/atmos)
@@ -6221,7 +6218,9 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/trimline/yellow/filled/line,
+/obj/effect/turf_decal/trimline/yellow/filled/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "bRv" = (
@@ -6244,14 +6243,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/locker)
-"bRR" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/external{
-	name = "Bridge External Access";
-	req_one_access_txt = "10;13"
-	},
-/turf/open/floor/iron/dark/textured_half,
-/area/teleporter)
 "bRS" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 6
@@ -8841,16 +8832,9 @@
 /turf/open/floor/noslip/dark,
 /area/science/explab)
 "cAM" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 1
-	},
-/area/engine/atmos)
+/obj/effect/turf_decal/edges/techfloor_orange,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "cAQ" = (
 /obj/structure/curtain/bounty{
 	color = "#6b1e1e";
@@ -9281,12 +9265,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
-"cHv" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron/half,
-/area/hallway/primary/aft)
 "cHy" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -9624,7 +9602,7 @@
 /area/space/nearstation)
 "cMn" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -9840,7 +9818,7 @@
 /area/quartermaster/sorting)
 "cPo" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -11226,7 +11204,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
@@ -11512,7 +11490,7 @@
 /area/hallway/primary/port)
 "dqC" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
@@ -12738,7 +12716,7 @@
 "dKV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
@@ -13060,6 +13038,10 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
+"dQk" = (
+/obj/effect/turf_decal/tile/yellow,
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "dQp" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/filled/line,
@@ -13169,7 +13151,7 @@
 /area/maintenance/department/chapel)
 "dSS" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
@@ -13290,6 +13272,7 @@
 	},
 /area/engine/storage_shared)
 "dVr" = (
+/obj/structure/flora/junglebush,
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
 "dVx" = (
@@ -15800,10 +15783,6 @@
 	},
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
-"eLn" = (
-/obj/structure/flora/junglebush/c,
-/turf/open/floor/grass/no_border,
-/area/hydroponics/garden)
 "eLo" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -16588,6 +16567,10 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
+"eXO" = (
+/obj/structure/flora/junglebush/c,
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "eYj" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
@@ -17006,6 +16989,9 @@
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
+"fej" = (
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "fet" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -17219,7 +17205,7 @@
 /area/quartermaster/exploration_prep)
 "fiw" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/crew_quarters/dorms)
@@ -17318,6 +17304,12 @@
 /obj/item/radio/intercom,
 /turf/open/floor/carpet/black,
 /area/bridge/showroom/corporate)
+"fkZ" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron/half,
+/area/hallway/primary/aft)
 "fld" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -18360,6 +18352,17 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/monotile/dark,
 /area/science/mixing)
+"fCg" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_edge{
+	dir = 1
+	},
+/area/engine/atmos)
 "fCi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -18427,9 +18430,6 @@
 "fCW" = (
 /turf/open/floor/monotile/light,
 /area/medical/medbay/lobby)
-"fDm" = (
-/turf/open/floor/pod/dark,
-/area/bridge)
 "fDy" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-10"
@@ -19801,7 +19801,7 @@
 	icon_state = "6-8"
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
@@ -20426,7 +20426,7 @@
 /area/science/xenobiology)
 "gfV" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/structure/cable/yellow{
 	icon_state = "6-9"
@@ -23480,12 +23480,6 @@
 /obj/effect/turf_decal/stripes/full,
 /turf/open/floor/mineral/plastitanium,
 /area/bridge)
-"gXG" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
-	},
-/turf/open/space/basic,
-/area/space)
 "gXU" = (
 /obj/machinery/light/very_dim/directional/south,
 /turf/open/floor/wood/big,
@@ -25853,6 +25847,10 @@
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/bridge)
+"hEK" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible,
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "hEN" = (
 /obj/structure/sink{
 	dir = 4;
@@ -25935,12 +25933,13 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "hGd" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 8
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/light/floor{
+	pixel_y = 16;
+	pixel_x = 16
 	},
-/turf/open/floor/iron/smooth_edge,
-/area/engine/atmos)
+/turf/open/floor/iron,
+/area/crew_quarters/dorms)
 "hGf" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating/rust,
@@ -26506,6 +26505,18 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/hallway/upper/primary/port)
+"hOP" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/turf/open/floor/iron/smooth_edge{
+	dir = 1
+	},
+/area/engine/atmos)
 "hOW" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 4
@@ -27133,6 +27144,13 @@
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /turf/open/floor/mineral/plastitanium,
 /area/bridge)
+"hYS" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/yellow/filled/corner,
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "hYZ" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -28537,11 +28555,12 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "itx" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
 	},
-/turf/open/floor/iron/half,
-/area/hallway/primary/aft)
+/obj/effect/turf_decal/trimline/yellow/filled/line,
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "itF" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/turf_decal/siding/dark{
@@ -28723,7 +28742,7 @@
 /area/security/brig/medbay)
 "iwC" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
@@ -29210,10 +29229,6 @@
 	dir = 8
 	},
 /area/hallway/upper/primary/port)
-"iEe" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/turf/open/floor/iron/smooth,
-/area/engine/atmos)
 "iEg" = (
 /obj/machinery/modular_computer/console/preset/command,
 /turf/open/floor/carpet/cyan,
@@ -29268,6 +29283,12 @@
 	dir = 1
 	},
 /area/ai_monitored/turret_protected/ai)
+"iEC" = (
+/obj/effect/turf_decal/numbers{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/bridge)
 "iEP" = (
 /obj/structure/closet/radiation,
 /obj/structure/sign/poster/official/random{
@@ -30172,7 +30193,7 @@
 "iQZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/xenobiology)
@@ -30379,7 +30400,7 @@
 /area/science/mixing)
 "iVd" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/central)
@@ -31508,6 +31529,15 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
+"jrf" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/turf/open/floor/iron/smooth_edge{
+	dir = 1
+	},
+/area/engine/atmos)
 "jrj" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
@@ -31533,14 +31563,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
-"jrM" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/light/floor{
-	pixel_y = 16;
-	pixel_x = 16
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/dorms)
 "jsd" = (
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
@@ -31589,7 +31611,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -32240,16 +32261,12 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "jDj" = (
-/obj/effect/turf_decal/stripes/closeup{
+/obj/machinery/advanced_airlock_controller/directional/north,
+/obj/effect/turf_decal/siding/thinplating_new/terracotta,
+/obj/effect/turf_decal/siding/thinplating_new/terracotta{
 	dir = 1
 	},
-/obj/machinery/door/airlock/external{
-	name = "Bridge External Access";
-	req_one_access_txt = "10;13"
-	},
-/turf/open/floor/iron/dark/textured_half{
-	dir = 1
-	},
+/turf/open/floor/iron/dark/textured_half,
 /area/teleporter)
 "jDk" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
@@ -33668,14 +33685,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/mixing)
-"jYT" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/iron/smooth_edge,
-/area/engine/atmos)
 "jYZ" = (
 /obj/effect/turf_decal/siding/yellow,
 /turf/open/floor/carpet,
@@ -34546,7 +34555,7 @@
 "kms" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
@@ -35408,6 +35417,7 @@
 /area/library/lounge)
 "kAV" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "kAZ" = (
@@ -36392,7 +36402,7 @@
 /area/quartermaster/storage)
 "kQR" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -38026,7 +38036,7 @@
 "lrw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
@@ -38069,7 +38079,7 @@
 /area/hallway/primary/central)
 "lsK" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
@@ -38241,12 +38251,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/bridge/showroom/corporate)
-"lvq" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1,  "" = 40)
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
 "lvr" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -40404,8 +40408,12 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "mbw" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible,
-/turf/open/floor/iron/smooth,
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
 "mbA" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
@@ -41422,6 +41430,10 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
+"mqD" = (
+/obj/effect/landmark/start/medical_doctor,
+/turf/open/floor/iron/showroomfloor,
+/area/medical/cryo)
 "mqU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -41683,12 +41695,13 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "mwo" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/external{
+	name = "Bridge External Access";
+	req_one_access_txt = "10;13"
 	},
-/turf/open/floor/iron/smooth_edge,
-/area/engine/atmos)
+/turf/open/floor/iron/dark/textured_half,
+/area/teleporter)
 "mwp" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai)
@@ -41773,10 +41786,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"mxO" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/grass,
-/area/hallway/primary/central)
 "mxU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -42300,7 +42309,7 @@
 "mGI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/eva)
@@ -44222,7 +44231,7 @@
 /area/hallway/primary/aft)
 "niw" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -44361,12 +44370,12 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "nkC" = (
-/obj/effect/turf_decal/edges/techfloor_orange{
-	dir = 1
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
 	},
-/obj/machinery/advanced_airlock_controller/directional/north,
-/turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "nkE" = (
 /obj/structure/sink{
 	dir = 4;
@@ -44632,13 +44641,11 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "npF" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 1
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
 "npI" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -45802,7 +45809,7 @@
 	icon_state = "1-6"
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
@@ -45955,6 +45962,10 @@
 /obj/machinery/light/floor,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
+"nJo" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "nJp" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -46051,7 +46062,9 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 8
 	},
-/obj/effect/turf_decal/trimline/yellow/filled/corner,
+/obj/effect/turf_decal/trimline/yellow/filled/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "nKT" = (
@@ -46603,9 +46616,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "nUK" = (
-/obj/effect/turf_decal/numbers{
-	dir = 1
-	},
 /turf/open/floor/pod/dark,
 /area/bridge)
 "nUL" = (
@@ -46640,7 +46650,7 @@
 /area/engine/storage_shared)
 "nVi" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48009,20 +48019,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "opY" = (
-/obj/effect/turf_decal/trimline/neutral/filled/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/neutral/line{
-	dir = 1
-	},
-/obj/machinery/button/door{
-	id = "evashutter";
-	name = "E.V.A. Storage Shutter Control";
-	req_access_txt = "19";
-	pixel_y = 24
-	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron,
-/area/hallway/primary/port)
+/area/crew_quarters/dorms)
 "oqc" = (
 /obj/effect/landmark/start/cook,
 /turf/open/floor/iron/cafeteria,
@@ -48459,9 +48459,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "oxx" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/grass/no_border,
-/area/hydroponics/garden)
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/iron/half,
+/area/hallway/primary/aft)
 "oxK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -48813,17 +48815,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"oEx" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 1
-	},
-/area/engine/atmos)
 "oEB" = (
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
@@ -48850,15 +48841,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
-"oEH" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/yellow/filled/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/smooth,
-/area/engine/atmos)
 "oEN" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/status_display/supply{
@@ -49060,7 +49042,7 @@
 /area/hallway/primary/port)
 "oHO" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
@@ -49564,7 +49546,7 @@
 	icon_state = "5-10"
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
@@ -50406,9 +50388,9 @@
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
 "oZt" = (
-/obj/effect/landmark/start/medical_doctor,
-/turf/open/floor/iron/showroomfloor,
-/area/medical/cryo)
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "oZA" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 10
@@ -50936,6 +50918,10 @@
 /obj/effect/turf_decal/siding/red,
 /turf/open/floor/wood,
 /area/chapel/office)
+"pfj" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "pfv" = (
 /obj/structure/flora/ausbushes/genericbush,
 /obj/effect/turf_decal/siding/thinplating_new,
@@ -52455,10 +52441,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/construction)
-"pBF" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/turf/open/floor/iron/smooth_edge,
-/area/engine/atmos)
 "pBK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -53288,7 +53270,7 @@
 /area/crew_quarters/toilet/restrooms)
 "pQP" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/structure/cable/yellow{
 	icon_state = "5-10"
@@ -54095,6 +54077,13 @@
 "qfk" = (
 /turf/closed/wall/r_wall,
 /area/security/main)
+"qfp" = (
+/obj/machinery/light/floor{
+	pixel_y = 16;
+	pixel_x = 16
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/dorms)
 "qfA" = (
 /obj/effect/turf_decal/siding/blue,
 /turf/open/floor/iron/dark,
@@ -54102,7 +54091,7 @@
 "qfD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/central/secondary)
@@ -54147,6 +54136,12 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/bridge)
+"qfT" = (
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "qfZ" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /turf/open/floor/prison/dark,
@@ -54162,6 +54157,27 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
+"qgp" = (
+/obj/effect/turf_decal/trimline/neutral/filled/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "evashutter";
+	name = "E.V.A. Storage Shutter Control";
+	req_access_txt = "19";
+	pixel_y = 24
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
+"qgv" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "qgz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54365,9 +54381,17 @@
 /turf/open/floor/plating/airless,
 /area/engine/engine_room/external)
 "qja" = (
-/obj/structure/flora/junglebush,
-/turf/open/floor/grass/no_border,
-/area/hydroponics/garden)
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	name = "Bridge External Access";
+	req_one_access_txt = "10;13"
+	},
+/turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
+/area/teleporter)
 "qje" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -54486,12 +54510,12 @@
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "qlA" = (
-/obj/machinery/light/floor{
-	pixel_y = 16;
-	pixel_x = 16
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
-/turf/open/floor/iron,
-/area/crew_quarters/dorms)
+/turf/open/floor/iron/smooth_edge,
+/area/engine/atmos)
 "qlL" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/structure/cable/yellow,
@@ -56011,7 +56035,7 @@
 "qIV" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -56260,6 +56284,13 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/science/mixing)
+"qMz" = (
+/obj/effect/turf_decal/edges/techfloor_orange{
+	dir = 1
+	},
+/obj/machinery/advanced_airlock_controller/directional/north,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "qMA" = (
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
@@ -56475,7 +56506,7 @@
 "qPk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/central)
@@ -57142,14 +57173,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
-"qZv" = (
-/obj/machinery/advanced_airlock_controller/directional/north,
-/obj/effect/turf_decal/siding/thinplating_new/terracotta,
-/obj/effect/turf_decal/siding/thinplating_new/terracotta{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured_half,
-/area/teleporter)
 "qZz" = (
 /turf/open/floor/plating,
 /area/construction)
@@ -58038,11 +58061,6 @@
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron/edge,
 /area/maintenance/disposal/incinerator)
-"roX" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/yellow,
-/turf/open/floor/iron/smooth,
-/area/engine/atmos)
 "roZ" = (
 /obj/structure/rack,
 /obj/machinery/firealarm{
@@ -59500,10 +59518,11 @@
 /turf/open/floor/iron/dark/textured_half,
 /area/engineering/hallway)
 "rPS" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line{
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
 "rPU" = (
 /obj/structure/table/wood,
@@ -59625,7 +59644,7 @@
 "rRI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -60325,7 +60344,7 @@
 /area/engine/atmos)
 "scg" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
@@ -60375,15 +60394,6 @@
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
-"scB" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/yellow/filled/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/smooth,
-/area/engine/atmos)
 "scC" = (
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron/smooth,
@@ -62872,6 +62882,9 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "sQF" = (
@@ -63083,13 +63096,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"sTO" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "sTS" = (
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /turf/open/floor/iron/white,
@@ -63660,7 +63666,7 @@
 /area/engine/atmos)
 "tdN" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/central)
@@ -67230,7 +67236,7 @@
 /area/hallway/primary/port)
 "ufv" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -67530,15 +67536,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hydroponics)
-"uki" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/turf/open/floor/iron/smooth_edge{
-	dir = 1
-	},
-/area/engine/atmos)
 "ukm" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
@@ -70019,7 +70016,7 @@
 "uRB" = (
 /obj/structure/alien/weeds,
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
@@ -71340,6 +71337,10 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
+"vku" = (
+/obj/machinery/light/floor,
+/turf/open/floor/grass,
+/area/hallway/primary/central)
 "vky" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72051,10 +72052,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/bridge)
-"vvO" = (
-/obj/effect/turf_decal/edges/techfloor_orange,
-/turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
 "vvR" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -72211,9 +72208,6 @@
 /area/hallway/primary/fore)
 "vyh" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
 /turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
 "vyq" = (
@@ -73601,6 +73595,12 @@
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/bridge)
+"vPE" = (
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth,
+/area/engine/atmos)
 "vPU" = (
 /turf/closed/wall,
 /area/crew_quarters/dorms)
@@ -73879,6 +73879,10 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/medical/break_room)
+"vSV" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/grass,
+/area/hallway/primary/central)
 "vSY" = (
 /obj/structure/window/plasma/reinforced/spawner/east,
 /obj/machinery/power/rad_collector/anchored,
@@ -74703,7 +74707,7 @@
 /area/engine/atmos)
 "wdS" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1,  "" = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
@@ -76446,7 +76450,7 @@
 /area/hallway/primary/port)
 "wFH" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
@@ -77118,7 +77122,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/storage_shared)
 "wQN" = (
-/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "wQZ" = (
@@ -77533,7 +77537,7 @@
 /area/security/main)
 "wYG" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
@@ -78625,10 +78629,6 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/plastitanium,
 /area/bridge)
-"xpT" = (
-/obj/machinery/light/floor,
-/turf/open/floor/grass,
-/area/hallway/primary/central)
 "xpU" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -78694,7 +78694,7 @@
 /area/quartermaster/miningdock)
 "xrk" = (
 /obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, "" = 40)
+	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
@@ -86069,11 +86069,11 @@ nzj
 nzj
 nzj
 nzj
-gXG
-gXG
-gXG
-gXG
-gXG
+afR
+afR
+afR
+afR
+afR
 nzj
 nzj
 nzj
@@ -86326,11 +86326,11 @@ nzj
 nzj
 nzj
 nzj
-gXG
-gXG
-gXG
-gXG
-gXG
+afR
+afR
+afR
+afR
+afR
 nzj
 nzj
 nzj
@@ -86583,11 +86583,11 @@ nzj
 nzj
 nzj
 nzj
-gXG
-gXG
-gXG
-gXG
-gXG
+afR
+afR
+afR
+afR
+afR
 nzj
 nzj
 nzj
@@ -86840,11 +86840,11 @@ nzj
 nzj
 nzj
 nzj
-gXG
-gXG
-gXG
-gXG
-gXG
+afR
+afR
+afR
+afR
+afR
 nzj
 nzj
 nzj
@@ -87097,11 +87097,11 @@ nzj
 nzj
 nzj
 nzj
-gXG
-gXG
-gXG
-gXG
-gXG
+afR
+afR
+afR
+afR
+afR
 nzj
 nzj
 nzj
@@ -95390,8 +95390,8 @@ rwD
 hpv
 lKY
 lKY
-nkC
-vvO
+qMz
+cAM
 nqR
 hyT
 hyT
@@ -99994,7 +99994,7 @@ skg
 skg
 qiF
 wsG
-jDj
+qja
 wsG
 hyT
 nzj
@@ -100251,7 +100251,7 @@ guv
 qTi
 qID
 wsG
-qZv
+jDj
 fZa
 hyT
 nzj
@@ -100507,7 +100507,7 @@ cqS
 xui
 tRK
 fLK
-bRR
+mwo
 aUh
 wsG
 hyT
@@ -101203,24 +101203,24 @@ wUa
 iik
 ddM
 fAz
-dVr
+fej
 xtL
 xcl
 xcl
-qlA
+qfp
 xcl
 xcl
 cXq
 cXq
-jrM
+hGd
 cXq
 cXq
 cXq
-jrM
+hGd
 xcl
 xcl
 xcl
-qlA
+qfp
 qYU
 xcl
 xbR
@@ -101460,7 +101460,7 @@ jLp
 xwD
 ddM
 mTX
-dVr
+fej
 ulx
 xcl
 xcl
@@ -101992,7 +101992,7 @@ jyl
 aGj
 xyB
 voo
-akr
+opY
 voo
 xbR
 agz
@@ -102514,8 +102514,8 @@ guR
 meV
 xbR
 kms
-wdS
-wdS
+qfT
+qfT
 qxv
 mQw
 qxv
@@ -103029,7 +103029,7 @@ hqP
 bVh
 kBu
 kBu
-wdS
+qfT
 qxv
 mQw
 heD
@@ -103253,7 +103253,7 @@ aCm
 lCZ
 sDd
 cCe
-eLn
+eXO
 fAz
 xVO
 ktj
@@ -103510,7 +103510,7 @@ shs
 lCZ
 hhU
 aca
-afR
+nJo
 ktj
 xVO
 pQe
@@ -103541,7 +103541,7 @@ oXl
 iNr
 bVh
 wnL
-wdS
+qfT
 kBu
 bVh
 qxv
@@ -104284,8 +104284,8 @@ ntc
 ntc
 glr
 rcN
-qja
-oxx
+dVr
+pfj
 gWa
 gHw
 vPU
@@ -105084,8 +105084,8 @@ gbv
 gbv
 gbv
 gbv
-lvq
 wdS
+qfT
 qlP
 asE
 sSm
@@ -105108,7 +105108,7 @@ yhZ
 rEz
 wYU
 mGp
-opY
+qgp
 qMa
 ghH
 tFO
@@ -113333,7 +113333,7 @@ lan
 tmz
 tnC
 xje
-xpT
+vku
 xLH
 cjb
 aNR
@@ -113383,7 +113383,7 @@ iNT
 wal
 iNT
 iNT
-cHv
+oxx
 iNT
 mrn
 iGm
@@ -113593,7 +113593,7 @@ cgX
 cjb
 nqs
 rwS
-mxO
+vSV
 tcj
 fSq
 awK
@@ -114104,10 +114104,10 @@ nfo
 vis
 cle
 nho
-xpT
+vku
 cjb
-mxO
-xpT
+vSV
+vku
 fXD
 oyD
 vis
@@ -114154,7 +114154,7 @@ fFx
 wal
 fFx
 fFx
-itx
+fkZ
 xAi
 rhU
 sIj
@@ -115447,7 +115447,7 @@ jLE
 qff
 ode
 hyJ
-sTO
+qIV
 nSv
 wBj
 ugh
@@ -115961,7 +115961,7 @@ qqK
 gRe
 wVk
 hyJ
-qIV
+nkC
 eQr
 kaa
 ojf
@@ -116994,7 +116994,7 @@ xpQ
 mTD
 evT
 rvh
-mwo
+rPS
 iKl
 ciQ
 tpQ
@@ -117510,10 +117510,10 @@ pBQ
 lIf
 urJ
 lkS
-scB
-rPS
-rPS
-hGd
+bRm
+qgv
+qgv
+npF
 fee
 gMj
 pTH
@@ -117768,9 +117768,9 @@ qTe
 vFq
 jMM
 otR
-iEe
+wQN
 ydx
-pBF
+vyh
 aSZ
 nTi
 bqk
@@ -118026,7 +118026,7 @@ vFq
 jMM
 aET
 tfW
-mbw
+hEK
 xzH
 pxo
 vds
@@ -118281,13 +118281,13 @@ aSn
 gHK
 cjs
 eBb
-sQy
-sQy
+vPE
+vPE
 uUm
 uUm
 uUm
 lxt
-bRm
+itx
 dGx
 vsf
 mUh
@@ -118371,8 +118371,8 @@ nzj
 nzj
 dTQ
 wCM
-fDm
-fDm
+nUK
+nUK
 hEH
 nzj
 nzj
@@ -118542,9 +118542,9 @@ xJn
 xJn
 xJn
 bSe
-kAV
+oZt
 lkS
-bRm
+itx
 dGx
 uax
 low
@@ -118628,8 +118628,8 @@ nzj
 nzj
 knn
 gyd
-fDm
 nUK
+iEC
 knn
 nzj
 nzj
@@ -118792,16 +118792,16 @@ hwL
 mYV
 jdD
 kiH
-pBF
+vyh
 knT
 uek
 tKA
 uek
 aKr
 pKR
-iEe
+wQN
 jMM
-bRm
+itx
 dGx
 cEQ
 mUh
@@ -119049,14 +119049,14 @@ uNE
 wQy
 iDO
 nnh
-vyh
+qlA
 ngm
 kVy
 kql
 vOA
 qIN
 pKR
-iEe
+wQN
 jMM
 rxb
 dGx
@@ -119305,15 +119305,15 @@ pug
 vBl
 jMu
 fKa
-jtb
-jYT
+hOP
+mbw
 mRt
 vay
 yiM
 qyA
 cbU
-cAM
-iEe
+fCg
+wQN
 uaR
 oiB
 dGx
@@ -119562,7 +119562,7 @@ umg
 umg
 uvY
 gCu
-uki
+jrf
 mHU
 ksE
 tyH
@@ -119570,9 +119570,9 @@ wdL
 qwQ
 ear
 tqA
-iEe
+wQN
 oLm
-bRm
+itx
 dGx
 dGx
 lDa
@@ -119826,10 +119826,10 @@ lJg
 ttq
 edw
 qIN
-oEx
+jtb
 jrv
 oLm
-oEH
+nKP
 imU
 bVr
 uoC
@@ -120077,14 +120077,14 @@ uNE
 afv
 qln
 nnh
-vyh
+qlA
 mRt
 uaV
 rKX
 ogq
 qIN
 pKR
-iEe
+wQN
 nSy
 dgG
 rPQ
@@ -120333,17 +120333,17 @@ eAb
 vBl
 iIQ
 sYD
-oEx
-vyh
+jtb
+qlA
 ulY
 pqX
 qXe
 sKe
 uwG
 pKR
-iEe
+wQN
 oLm
-nKP
+hYS
 imU
 vKl
 avh
@@ -120847,12 +120847,12 @@ osA
 hwL
 ghk
 bhV
-cAM
+fCg
 ydx
-wQN
-wQN
-wQN
-roX
+dQk
+dQk
+dQk
+kAV
 ydx
 ydx
 uXR
@@ -121106,11 +121106,11 @@ ifd
 vjy
 wNP
 fml
-sQy
+vPE
 wlr
-npF
+sQy
 cye
-npF
+sQy
 uUm
 lPV
 xbv
@@ -129773,7 +129773,7 @@ iqI
 bNi
 vbu
 iBd
-oZt
+mqD
 qxz
 jdA
 ksR
