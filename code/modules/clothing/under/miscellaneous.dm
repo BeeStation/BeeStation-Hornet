@@ -95,10 +95,23 @@
 	desc = "Standard-issue Marine uniform. They have shards of light Kevlar to help protect against stabbing weapons and bullets."
 	icon_state = "marine_jumpsuit"
 	item_state = "marine_jumpsuit"
-	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/marine_under
 
 /obj/item/clothing/under/misc/marine/medic
 	name = "USCM corpsman uniform"
 	desc = "Standard-issue Marine hospital corpsman fatigues. They have shards of light Kevlar to help protect against stabbing weapons and bullets."
 	icon_state = "marine_medic"
 	item_state = "marine_medic"
+
+/datum/armor/marine_under
+	melee = 20
+	bullet = 20
+	laser = 0
+	energy = 0
+	bomb = 0
+	bio = 0
+	rad = 0
+	fire = 10
+	acid = 10
+	stamina = 20
+	bleed = 30

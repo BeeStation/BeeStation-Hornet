@@ -522,6 +522,19 @@
 	armor = list(MELEE = 25,  BULLET = 30, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 25, BLEED = 20)
 	slowdown = 0.05
 
+/datum/armor/marine_suit
+	melee = 25
+	bullet = 30
+	laser = 0
+	energy = 10
+	bomb = 10
+	bio = 0
+	rad = 0
+	fire = 20
+	acid = 50
+	stamina = 25
+	bleed = 20
+
 /obj/item/clothing/suit/armor/centcom_formal/marine
 	name = "marine officer dress blues jacket"
 	desc = "The jacket of the legendary Marine dress blues, virtually unchanged since the 19th century. Features the sleek dark design of the uniform worn by a commissioned officer."
