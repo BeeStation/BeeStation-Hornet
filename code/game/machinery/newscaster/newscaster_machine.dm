@@ -546,7 +546,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 				to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
 				new /obj/item/wallframe/newscaster(loc)
 			qdel(src)
-	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+	else if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		if(machine_stat & BROKEN)
 			if(!I.tool_start_check(user, amount=0))
 				return
@@ -598,7 +598,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 
 /obj/machinery/newscaster/attack_paw(mob/living/user, list/modifiers)
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		to_chat(user, "<span class='warning'>The newscaster controls are far too complicated for your tiny brain!</span>")
 	else
 		take_damage(5, BRUTE, MELEE)

@@ -130,10 +130,10 @@
 			return
 	qdel(resolved_item)
 
-/obj/item/clothing/attack(mob/attacker, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return //Harm intent does not eat
-	var/obj/item/organ/tongue/tongue = attacker.getorganslot(ORGAN_SLOT_TONGUE)
+/obj/item/clothing/attack(mob/living/target, mob/living/user, params)
+	if(user.combat_mode)
+		return //combat mode doesnt eat
+	var/obj/item/organ/tongue/tongue = target.getorganslot(ORGAN_SLOT_TONGUE)
 	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
 		return ..() //Not a clotheater tongue? No Clotheating!
 	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (get_armor_rating(MELEE) != 0))
@@ -143,7 +143,7 @@
 		moth_snack = new
 		moth_snack.name = name
 		moth_snack.clothing = WEAKREF(src)
-	moth_snack.attack(attacker, user, params)
+	moth_snack.attack(target, user, params)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, repairable_by))
@@ -321,7 +321,7 @@
 		else
 			how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s that are [weight_class_to_text(pockets.max_w_class)] or smaller.\n"
 		if(pockets.quickdraw)
-			how_cool_are_your_threads += "You can quickly remove an item from [src] using Alt-Click.\n"
+			how_cool_are_your_threads += "You can quickly remove an item from [src] using Right-Click.\n"
 		if(pockets.silent)
 			how_cool_are_your_threads += "Adding or removing items from [src] makes no noise.\n"
 		how_cool_are_your_threads += "</span>"
@@ -455,12 +455,14 @@ BLIND     // can't see anything
 		return FALSE
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	var/switchMode = tgui_input_list(M, "Select a sensor mode", "Suit Sensors", modes, modes[sensor_mode + 1])
+	if(isnull(switchMode))
+		return
 	if(get_dist(user, src) > 1)
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
-	var/sensor_selection = modes.Find(switchMode) - 1
 
+	var/sensor_selection = modes.Find(switchMode) - 1
 	if (src.loc == user)
 		switch(sensor_selection)
 			if(SENSORS_OFF)

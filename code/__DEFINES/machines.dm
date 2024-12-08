@@ -278,3 +278,11 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 
 // Special
 #define CAMERA_NETWORK_PRIVATE "private"
+
+// Air alarm buildstage [/obj/machinery/airalarm/buildstage]
+/// Air alarm missing circuit
+#define AIRALARM_BUILD_NO_CIRCUIT 0
+/// Air alarm has circuit but is missing wires
+#define AIRALARM_BUILD_NO_WIRES 1
+/// Air alarm has all components but isn't completed
+#define AIRALARM_BUILD_COMPLETE 2

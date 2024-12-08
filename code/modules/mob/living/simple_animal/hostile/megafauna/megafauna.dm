@@ -4,7 +4,7 @@
 	health = 500
 	maxHealth = 500
 	spacewalk = TRUE
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	mob_biotypes = list(MOB_ORGANIC, MOB_EPIC)

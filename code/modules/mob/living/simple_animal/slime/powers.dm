@@ -205,7 +205,7 @@
 				babies += M
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)
-			new_slime.a_intent = INTENT_HARM
+			new_slime.set_combat_mode(TRUE)
 			if(src.mind)
 				src.mind.transfer_to(new_slime)
 			else

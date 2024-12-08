@@ -34,7 +34,7 @@
 		cell.emp_act(severity)
 
 /obj/item/inducer/attack_atom(obj/O, mob/living/carbon/user, params)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 
 	if(cantbeused(user))
@@ -147,8 +147,8 @@
 	recharging = FALSE
 
 
-/obj/item/inducer/attack(mob/M, mob/user)
-	if(user.a_intent == INTENT_HARM)
+/obj/item/inducer/attack(mob/M, mob/living/user)
+	if(user.combat_mode)
 		return ..()
 
 	if(cantbeused(user))

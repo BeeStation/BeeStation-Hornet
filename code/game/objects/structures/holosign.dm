@@ -182,7 +182,7 @@
 		return TRUE //nice or benign diseases!
 
 /obj/structure/holosign/barrier/medical/attack_hand(mob/living/user, list/modifiers)
-	if(user.a_intent == INTENT_HELP && CanPass(user, get_dir(src, user)))
+	if(!user.combat_mode && CanPass(user, get_dir(src, user)))
 		force_allaccess = !force_allaccess
 		to_chat(user, "<span class='warning'>You [force_allaccess ? "deactivate" : "activate"] the biometric scanners.</span>") //warning spans because you can make the station sick!
 	else
