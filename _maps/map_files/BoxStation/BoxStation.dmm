@@ -7652,6 +7652,7 @@
 /area/science/mixing)
 "bKa" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/mixing)
 "bKc" = (
@@ -7972,7 +7973,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "bMB" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
@@ -8312,6 +8313,10 @@
 	dir = 4
 	},
 /obj/machinery/meter,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/west,
 /obj/machinery/button/door/incinerator_vent_toxmix{
 	pixel_x = -25;
 	pixel_y = 5
@@ -8320,11 +8325,13 @@
 	pixel_x = -25;
 	pixel_y = -5
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "toxinsburn"
 	},
+/obj/effect/mapping_helpers/airalarm/tlv_no_checks,
+/obj/effect/mapping_helpers/airalarm/mixingchamber_access,
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "bOJ" = (
 /obj/item/target,
 /obj/structure/window/reinforced{
@@ -15455,7 +15462,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "cQS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -16283,9 +16290,8 @@
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "diK" = (
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
@@ -17136,6 +17142,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/mixing)
 "dCQ" = (
@@ -17757,9 +17764,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
@@ -32017,6 +32021,13 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
+"jwx" = (
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/white,
+/area/science/mixing/chamber)
 "jwy" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -39619,9 +39630,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
 /obj/machinery/camera/directional/east,
-/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron,
 /area/science/mixing)
 "mBG" = (
@@ -39978,6 +39987,7 @@
 	pixel_x = -22;
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
 "mKG" = (
@@ -45187,7 +45197,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
@@ -46649,7 +46658,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
@@ -51348,6 +51356,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/mixing)
 "rpN" = (
@@ -54743,6 +54752,7 @@
 	pixel_x = -22;
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/circuit/telecomms/server,
 /area/quartermaster/exploration_dock)
 "sGB" = (
@@ -57509,10 +57519,13 @@
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit)
 "tHi" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/airalarm/directional/west,
-/obj/effect/mapping_helpers/airalarm/link{
-	chamber_id = "toxinsburn"
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
@@ -57753,10 +57766,6 @@
 /obj/machinery/telecomms/broadcaster/preset_left,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
-	},
-/obj/machinery/airalarm{
-	pixel_x = -22;
-	dir = 8
 	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
@@ -117455,11 +117464,11 @@ bFW
 rYJ
 rYJ
 bKa
-xQE
+jwx
 bMz
 cQR
 bOH
-tHi
+xQE
 bFU
 rxf
 uht
@@ -117712,7 +117721,7 @@ bEA
 voe
 iEl
 rpg
-krJ
+tHi
 iDZ
 dCW
 tKj
