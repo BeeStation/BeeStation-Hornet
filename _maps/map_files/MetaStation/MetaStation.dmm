@@ -15818,7 +15818,7 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "cgJ" = (
@@ -16743,9 +16743,6 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "cot" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -16760,6 +16757,9 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/toilet{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "cow" = (
@@ -20030,9 +20030,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "cUA" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -20045,6 +20042,9 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = -32
+	},
+/obj/structure/toilet{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
@@ -31997,9 +31997,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "hfX" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -32013,6 +32010,9 @@
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	specialfunctions = 4
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -37011,9 +37011,6 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Restrooms"
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -45170,12 +45167,12 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "lZZ" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/light/small,
 /obj/machinery/newscaster{
 	pixel_x = -32
+	},
+/obj/structure/toilet{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/medical/break_room)
@@ -53800,9 +53797,6 @@
 /turf/open/floor/iron,
 /area/gateway)
 "pgu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -53815,6 +53809,9 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = -32
+	},
+/obj/structure/toilet{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
@@ -60501,9 +60498,6 @@
 /area/crew_quarters/heads/hop)
 "rFe" = (
 /obj/machinery/light/small,
-/obj/machinery/camera/directional/west{
-	c_tag = "Auxilary Restrooms"
-	},
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/auxiliary)
 "rFh" = (
@@ -60657,9 +60651,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "rIr" = (
-/obj/structure/toilet{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -60674,6 +60665,9 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "rIV" = (
@@ -76880,9 +76874,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "xwS" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -76896,6 +76887,9 @@
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	specialfunctions = 4
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
