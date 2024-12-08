@@ -2529,48 +2529,55 @@
 	icon_state = "who cares fuck you" // In order to pull the chassis correctly, we need AN icon_state(see line 36-39). It doesn't have to be useful, because it isn't used.
 	color_src = 0
 
-/datum/sprite_accessory/ipc_chassis/greyscale
-	color_src = MUTCOLORS
-
-/datum/sprite_accessory/ipc_chassis/greyscale/morpheuscybernetics
+/datum/sprite_accessory/ipc_chassis/greyscale_morpheuscybernetics
 	name = "Morpheus Cyberkinetics (Custom)"
 	limbs_id = "greyscale_mcipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/bishopcyberkinetics
+/datum/sprite_accessory/ipc_chassis/greyscale_bishopcyberkinetics
 	name = "Bishop Cyberkinetics (Custom)"
 	limbs_id = "greyscale_bshipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/bishopcyberkinetics2
+/datum/sprite_accessory/ipc_chassis/greyscale_bishopcyberkinetics2
 	name = "Bishop Cyberkinetics 2.0 (Custom)"
 	limbs_id = "greyscale_bs2ipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/hephaestussindustries
+/datum/sprite_accessory/ipc_chassis/greyscale_hephaestussindustries
 	name = "Hephaestus Industries (Custom)"
 	limbs_id = "greyscale_hsiipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/hephaestussindustries2
+/datum/sprite_accessory/ipc_chassis/greyscale_hephaestussindustries2
 	name = "Hephaestus Industries 2.0 (Custom)"
 	limbs_id = "greyscale_hi2ipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/shellguardmunitions
+/datum/sprite_accessory/ipc_chassis/greyscale_hellguardmunitions
 	name = "Shellguard Munitions Standard Series (Custom)"
 	limbs_id = "greyscale_sgmipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/wardtakahashimanufacturing
+/datum/sprite_accessory/ipc_chassis/greyscale_wardtakahashimanufacturing
 	name = "Ward-Takahashi Manufacturing (Custom)"
 	limbs_id = "greyscale_wtmipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/xionmanufacturinggroup
+/datum/sprite_accessory/ipc_chassis/greyscale_xionmanufacturinggroup
 	name = "Xion Manufacturing Group (Custom)"
 	limbs_id = "greyscale_xmgipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/xionmanufacturinggroup2
+/datum/sprite_accessory/ipc_chassis/greyscale_xionmanufacturinggroup2
 	name = "Xion Manufacturing Group 2.0 (Custom)"
 	limbs_id = "greyscale_xm2ipc"
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/greyscale/zenghupharmaceuticals
+/datum/sprite_accessory/ipc_chassis/greyscale_zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals (Custom)"
 	limbs_id = "greyscale_zhpipc"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/ipc_chassis/morpheuscybernetics
 	name = "Morpheus Cyberkinetics"
