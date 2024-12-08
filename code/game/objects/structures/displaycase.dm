@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 30,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_displaycase
 	max_integrity = 200
 	integrity_failure = 0.25
 	var/obj/item/showpiece = null
@@ -30,6 +30,13 @@
 	var/glass_fix = TRUE
 	///Represents a signal source of screaming when broken
 	var/datum/alarm_handler/alarm_manager
+
+
+/datum/armor/structure_displaycase
+	melee = 30
+	bomb = 10
+	fire = 70
+	acid = 100
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()

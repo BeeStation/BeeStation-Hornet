@@ -109,3 +109,15 @@
 		/obj/item/stack/sheet/glass = 1
 	)
 	subcategory = CAT_SPAGHETTI
+
+/datum/crafting_recipe/food/carbonara
+	name = "Spaghetti Carbonara"
+	reqs = list(
+		/obj/item/food/spaghetti/boiledspaghetti = 1,
+		/obj/item/food/cheese/wedge = 1,
+		/obj/item/food/meat/bacon = 1,
+		/obj/item/food/egg = 1,
+		/datum/reagent/consumable/blackpepper = 2
+	)
+	result = /obj/item/food/spaghetti/carbonara
+	category = CAT_SPAGHETTI

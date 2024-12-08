@@ -45,14 +45,7 @@
 /turf/proc/generate_armor()
 	armor_generated = TRUE
 	var/armour_val = get_armour_list()
-	if (islist(armour_val))
-		armor = getArmor(arglist(armour_val))
-	else if (!armour_val)
-		return
-	else if (!istype(armour_val, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	else
-		armor = armour_val
+	armor = armour_val
 
 /turf/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(QDELETED(src))
@@ -87,7 +80,7 @@
 	if(damage_flag)
 		if (!armor_generated)
 			generate_armor()
-		armor_protection = armor?.getRating(damage_flag)
+		armor_protection = get_armor_rating(damage_flag)
 	if(armor_protection) //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)

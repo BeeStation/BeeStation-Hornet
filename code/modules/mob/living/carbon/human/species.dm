@@ -2373,6 +2373,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(isturf(H.loc))
 			var/turf/T = H.loc
 			T.Entered(H)
+	H.refresh_gravity()
 
 ///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
 /datum/species/proc/get_custom_icons(var/part)
@@ -2445,6 +2446,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_cough_sound(mob/living/carbon/user)
 	return
 
+/datum/species/proc/get_cry_sound(mob/living/carbon/user)
+	return
+
 /datum/species/proc/get_gasp_sound(mob/living/carbon/user)
 	return
 
@@ -2455,6 +2459,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/get_sniff_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_giggle_sound(mob/living/carbon/user)
 	return
 
 /datum/species/proc/get_clear_sound(mob/living/carbon/user)

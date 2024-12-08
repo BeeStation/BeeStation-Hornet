@@ -149,7 +149,12 @@
 	lefthand_file = null
 	righthand_file = null
 	block_power = 60
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor_type = /datum/armor/sabre_mime
+
+
+/datum/armor/sabre_mime
+	fire = 100
+	acid = 100
 
 /obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
 	var/obj/item/storage/belt/sabre/mime/M = R.real_location()

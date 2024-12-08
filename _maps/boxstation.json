@@ -5,7 +5,7 @@
 	"map_file": "BoxStation.dmm",
 	"shuttles": {
 		"cargo": "cargo_box",
-		"ferry": "ferry_fancy",
+		"ferry": "ferry_standard",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_box"
 	}
