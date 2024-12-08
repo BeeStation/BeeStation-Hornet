@@ -41,10 +41,9 @@
 
 /datum/preference/toggle/sound_lobby/apply_to_client(client/client, value)
 	if (value && isnewplayer(client.mob))
-		if(SSticker.login_music)
-			client.playtitlemusic()
+		SSmusic.login_music?.internal_play_to_client(client)
 	else
-		client.mob?.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		client?.tgui_panel?.stop_lobby_music()
 
 /datum/preference/toggle/sound_instruments
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
