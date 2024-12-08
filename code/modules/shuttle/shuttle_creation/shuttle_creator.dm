@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	req_access_txt = "11"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_shuttle_creator
 	resistance_flags = FIRE_PROOF
 	var/ready = TRUE
 	//pre-designation
@@ -41,6 +41,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/linkedShuttleId
 	var/turf/recorded_origin //The last remembered location of our airlock
 	var/turf/exit //Record the exterior turf next to the airlock to prevent modification designation
+
+
+/datum/armor/item_shuttle_creator
+	fire = 100
+	acid = 50
 
 /obj/item/shuttle_creator/Initialize(mapload)
 	. = ..()

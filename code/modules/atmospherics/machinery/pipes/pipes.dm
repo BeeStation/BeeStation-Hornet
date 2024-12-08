@@ -72,15 +72,12 @@
 
 /obj/machinery/atmospherics/proc/update_node_icon()
 	for(var/i in 1 to device_type)
-		if(!nodes[i])
-			continue
-		var/obj/machinery/atmospherics/current_node = nodes[i]
-		current_node.update_icon()
+		if(nodes[i])
+			var/obj/machinery/atmospherics/N = nodes[i]
+			N.update_icon()
 
-/obj/machinery/atmospherics/pipe/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 12)
-		return 0
-	. = ..()
+/obj/machinery/atmospherics/pipe/returnPipenets()
+	. = list(parent)
 
 /obj/machinery/atmospherics/pipe/paint(paint_color)
 	if(paintable)

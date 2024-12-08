@@ -17,6 +17,7 @@
 	active_power_usage = 0
 	power_channel = AREA_USAGE_ENVIRON
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
+	armor_type = /datum/armor/machinery_atmospherics
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
@@ -38,17 +39,22 @@
 	var/image/pipe_vision_img = null
 
 	///The type of the device (UNARY, BINARY, TRINARY, QUATERNARY)
+	///The type of the device (UNARY, BINARY, TRINARY, QUATERNARY)
 	var/device_type = 0
+	///The lists of nodes that a pipe/device has, depends on the device_type var (from 1 to 4)
 	///The lists of nodes that a pipe/device has, depends on the device_type var (from 1 to 4)
 	var/list/obj/machinery/atmospherics/nodes
 
+	///The path of the pipe/device that will spawn after unwrenching it (such as pipe fittings)
 	///The path of the pipe/device that will spawn after unwrenching it (such as pipe fittings)
 	var/construction_type
 	///icon_state as a pipe item
 	var/pipe_state
 	///Check if the device should be on or off (mostly used in processing for machines)
-	var/on = FALSE
-	///Whether it can be painted
+	///icon_state as a pipe item
+	var/pipe_state
+	///Check if the device should be on or off (mostly used in processing for machines)
+	var/on = FALSE///Whether it can be painted
 	var/paintable = TRUE
 
 	///Is the thing being rebuilt by SSair or not. Prevents list bloat
@@ -63,12 +69,22 @@
 	///If we should init and immediately start processing
 	var/init_processing = FALSE
 
+/datum/armor/machinery_atmospherics
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	rad = 100
+	fire = 100
+	acid = 70
+
 /obj/machinery/atmospherics/LateInitialize()
 	. = ..()
 	update_name()
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
 		var/mob/living/L = user

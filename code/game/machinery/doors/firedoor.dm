@@ -20,7 +20,8 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	armor = list(MELEE = 10,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 100, FIRE = 95, ACID = 70, STAMINA = 0, BLEED = 0)
+	assemblytype = /obj/structure/firelock_frame
+	armor_type = /datum/armor/door_firedoor
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -64,6 +65,28 @@
 	var/is_playing_alarm = FALSE
 
 
+
+
+/datum/armor/door_firedoor
+	melee = 30
+	bullet = 30
+	laser = 20
+	energy = 20
+	bomb = 10
+	rad = 100
+	fire = 95
+	acid = 70
+
+
+/datum/armor/door_firedoor
+	melee = 30
+	bullet = 30
+	laser = 20
+	energy = 20
+	bomb = 10
+	rad = 100
+	fire = 95
+	acid = 70
 
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
