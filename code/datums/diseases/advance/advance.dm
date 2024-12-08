@@ -304,7 +304,7 @@
 		visibility_flags &= ~HIDDEN_SCANNER
 
 	SetSpread()
-	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
+	spreading_modifier = max(CEILING(0.4 * transmission, 1), 1)
 	cure_chance = clamp(7.5 - (0.5 * resistance), 5, 10) // can be between 5 and 10
 	stage_prob = max(stage_rate, 1)
 	SetDanger(severity)

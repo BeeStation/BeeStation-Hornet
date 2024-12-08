@@ -6,7 +6,7 @@
 	max_integrity = BLOB_NODE_MAX_HP
 	max_hit_damage = BLOB_NODE_MAX_HP / 10
 	health_regen = BLOB_NODE_HP_REGEN
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 65, ACID = 90, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/blob_node
 	point_return = BLOB_REFUND_NODE_COST
 	claim_range	= BLOB_NODE_CLAIM_RANGE
 	pulse_range = BLOB_NODE_PULSE_RANGE
@@ -14,6 +14,10 @@
 	resistance_flags = LAVA_PROOF
 	max_spores = BLOB_NODE_MAX_SPORES
 	ignore_syncmesh_share = TRUE
+
+/datum/armor/blob_node
+	fire = 65
+	acid = 90
 
 /obj/structure/blob/special/node/Initialize(mapload)
 	GLOB.blob_nodes += src

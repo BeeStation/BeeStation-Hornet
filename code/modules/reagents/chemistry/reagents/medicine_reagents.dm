@@ -1499,7 +1499,7 @@
 
 /datum/reagent/medicine/changelinghaste
 	name = "Changeling Haste"
-	description = "Drastically increases movement speed, but deals toxin damage."
+	description = "Drastically increases movement speed."
 	color = "#AE151D"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
@@ -1511,11 +1511,6 @@
 /datum/reagent/medicine/changelinghaste/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/changelinghaste)
 	..()
-
-/datum/reagent/medicine/changelinghaste/on_mob_life(mob/living/carbon/metabolizer, delta_time, times_fired)
-	metabolizer.adjustToxLoss(2 * REM * delta_time, 0)
-	..()
-	return TRUE
 
 /datum/reagent/medicine/corazone
 	// Heart attack code will not do damage if corazone is present

@@ -14,7 +14,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_defibrillator
 
 	var/obj/item/shockpaddles/paddle_type = /obj/item/shockpaddles
 	var/on = FALSE //if the paddles are equipped (1) or on the defib (0)
@@ -25,6 +25,11 @@
 	var/combat = FALSE //if true, revive through hardsuits, allow for combat shocking, and tint paddles syndicate colors
 	var/grab_ghost = TRUE // Do we pull the ghost back into their body?
 	var/cooldown_duration = 5 SECONDS//how long does it take to recharge
+
+
+/datum/armor/item_defibrillator
+	fire = 50
+	acid = 50
 
 /obj/item/defibrillator/get_cell()
 	return cell

@@ -99,7 +99,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 /turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 
-	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))
+	if(istype(arrived) && !(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis

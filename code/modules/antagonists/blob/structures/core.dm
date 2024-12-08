@@ -5,7 +5,7 @@
 	desc = "A huge, pulsating yellow mass."
 	max_integrity = BLOB_CORE_MAX_HP
 	max_hit_damage = BLOB_CORE_MAX_HP / 10
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 90, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/blob_core
 	explosion_block = 6
 	point_return = -1
 	health_regen = 0 //we regen in Life() instead of when pulsed
@@ -19,6 +19,10 @@
 	ignore_syncmesh_share = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/special/core)
+
+/datum/armor/blob_core
+	fire = 75
+	acid = 90
 
 /obj/structure/blob/special/core/Initialize(mapload, client/new_overmind = null, placed = 0)
 	GLOB.blob_cores += src
