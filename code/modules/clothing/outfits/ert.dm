@@ -139,7 +139,7 @@
 	suit_store = /obj/item/gun/energy/e_gun
 	glasses =  /obj/item/clothing/glasses/meson/engine
 	back = /obj/item/storage/backpack/ert/engineer
-	belt = /obj/item/storage/belt/utility/full
+	belt = /obj/item/storage/belt/utility/chief/full
 	l_pocket = /obj/item/rcd_ammo/large
 	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
