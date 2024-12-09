@@ -21447,6 +21447,14 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
+"dyB" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shuttledock,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/syndicate_mothership/control)
 "dNo" = (
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade,
 /obj/structure/table/reinforced{
@@ -21626,7 +21634,10 @@
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shuttledock,
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
 "hcS" = (
 /obj/structure/table/reinforced{
@@ -22623,7 +22634,7 @@
 "qnw" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shuttledock,
-/turf/open/floor/iron/dark,
+/turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
 "qpY" = (
 /obj/structure/flora/tree/dead,
@@ -31910,7 +31921,7 @@ afs
 afs
 afs
 afs
-afs
+aaE
 aRk
 aaE
 aaE
@@ -32167,7 +32178,7 @@ afs
 afs
 afs
 afs
-afs
+aaE
 aRk
 aaE
 aaE
@@ -32424,7 +32435,7 @@ aKY
 afs
 afs
 afs
-afs
+aaE
 aaE
 aaE
 aaE
@@ -38102,7 +38113,7 @@ aku
 afs
 afs
 aaE
-aRk
+aaE
 aRk
 aRk
 aaa
@@ -38359,8 +38370,8 @@ ayL
 afs
 afs
 afs
+aaE
 aRk
-aaa
 aaa
 aaa
 aaa
@@ -38615,9 +38626,9 @@ ayL
 ayL
 afs
 afs
+aaE
+aaE
 aRk
-aRk
-aaa
 aaa
 aaa
 aaa
@@ -38872,9 +38883,9 @@ aKY
 afs
 afs
 afs
+aaE
 aRk
-aaa
-aaa
+aRk
 aaa
 aaa
 aaa
@@ -39128,9 +39139,9 @@ aKY
 aLH
 afs
 afs
+aaE
+aaE
 aRk
-aRk
-aaa
 aaa
 aaa
 aaa
@@ -39385,9 +39396,9 @@ aKY
 aKY
 afs
 afs
+aaE
 aRk
-aaa
-aaa
+aRk
 aaa
 aaa
 aaa
@@ -39616,7 +39627,7 @@ ubX
 aKY
 aKY
 aKY
-qnw
+dyB
 nsy
 itl
 lJF
@@ -39641,9 +39652,9 @@ aKY
 aKY
 afs
 afs
+aaE
+aaE
 aRk
-aRk
-aaa
 aaa
 aaa
 aaa
@@ -39898,9 +39909,9 @@ aKY
 aKY
 aCP
 afs
+aaE
 aRk
-aaa
-aaa
+aRk
 aaa
 aaa
 aaa
@@ -40155,9 +40166,9 @@ aKY
 aKY
 aee
 afs
+aaE
 aRk
-aaa
-aaa
+aRk
 aaa
 aaa
 aaa
@@ -40412,9 +40423,9 @@ aBD
 aRp
 aKY
 afs
+aaE
+aaE
 aRk
-aRk
-aaa
 aaa
 aaa
 aaa
@@ -40670,8 +40681,8 @@ aKY
 aKY
 afs
 afs
+aaE
 aRk
-aaa
 aaa
 aaa
 aaa
@@ -40927,8 +40938,8 @@ aKY
 aee
 afs
 afs
+aaE
 aRk
-aaa
 aaa
 aaa
 aaa
@@ -41184,8 +41195,8 @@ aKY
 aKY
 ayg
 afs
+aaE
 aRk
-aaa
 aaa
 aaa
 aaa
@@ -41441,8 +41452,8 @@ aKY
 asE
 ayL
 afs
+aaE
 aRk
-aaa
 aaa
 aaa
 aaa
@@ -41698,8 +41709,8 @@ aee
 ayL
 afs
 afs
+aaE
 aRk
-aaa
 aaa
 aaa
 aaa
@@ -41954,9 +41965,9 @@ aKY
 afs
 afs
 afs
+aaE
+aaE
 aRk
-aRk
-aaa
 aaa
 aaa
 aaa
@@ -42209,11 +42220,11 @@ aku
 aKY
 agb
 afs
+aaE
+aaE
+aaE
 aRk
 aRk
-aRk
-aRk
-aaa
 aaa
 aaa
 aaa
@@ -43478,7 +43489,7 @@ aKY
 aKY
 aKY
 afs
-afs
+aaE
 aku
 aku
 aku
@@ -43735,7 +43746,7 @@ afs
 afs
 afs
 afs
-afs
+aaE
 aaE
 aaE
 aaE
