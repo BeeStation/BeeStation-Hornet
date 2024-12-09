@@ -234,6 +234,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
 	ai_controller = null
+	var/creator_key = null
+
+/mob/living/carbon/monkey/tumor/death(gibbed)
+	. = ..()
+	for (var/mob/living/creator in GLOB.player_list)
+		if (creator.key != creator_key)
+			continue
+		if (creator.stat == DEAD)
+			return
+		if (!creator.mind)
+			return
+		if (!creator.mind.has_antag_datum(/datum/antagonist/changeling))
+			return
+		to_chat(creator, "<span class='warning'>We gain the energy to birth another Teratoma...</span>")
+		return
 
 /datum/dna/tumor
 	species = new /datum/species/teratoma
