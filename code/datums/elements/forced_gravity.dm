@@ -9,6 +9,10 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
+	var/our_ref = REF(src)
+	if(HAS_TRAIT_FROM(target, TRAIT_FORCED_GRAVITY, our_ref))
+		return
+
 	src.gravity = gravity
 	src.ignore_space = ignore_space
 
@@ -16,7 +20,7 @@
 	if(isturf(target))
 		RegisterSignal(target, COMSIG_TURF_HAS_GRAVITY, PROC_REF(turf_gravity_check), override = can_override)
 
-	ADD_TRAIT(target, TRAIT_FORCED_GRAVITY, REF(src))
+	ADD_TRAIT(target, TRAIT_FORCED_GRAVITY, our_ref)
 
 /datum/element/forced_gravity/Detach(datum/source, force)
 	. = ..()
