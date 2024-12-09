@@ -99,16 +99,16 @@
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
 	message_simple =  "stops moving"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE | EMOTE_IMPORTANT
+	cooldown = (7.5 SECONDS)
 	stat_allowed = HARD_CRIT
 
-/datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
 	var/mob/living/simple_animal/S = user
 	if(istype(S) && S.deathmessage)
 		message_simple = S.deathmessage
 	. = ..()
 	message_simple = initial(message_simple)
-	var/mob/living/living_user = user
-	if(!living_user.can_speak_vocal() || living_user.getOxyLoss() >= 50)
+	if(!user.can_speak_vocal() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
 	var/mob/living/carbon/carbon_user = user
 	// For masks that give unique death sounds
