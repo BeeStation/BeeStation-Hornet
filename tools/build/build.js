@@ -134,7 +134,6 @@ export const DmTestTarget = new Juke.Target({
   },
 });
 
-/*
 export const AutowikiTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
@@ -171,7 +170,6 @@ export const AutowikiTarget = new Juke.Target({
     }
   },
 })
-*/
 
 export const YarnTarget = new Juke.Target({
   parameters: [CiParameter],
