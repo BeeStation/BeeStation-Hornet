@@ -5,16 +5,21 @@
 	secure = TRUE
 	locked = TRUE
 	max_integrity = 500
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
+	damage_deflection = 25
 
-/obj/structure/closet/crate/secure/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 25)
-		return 0
-	. = ..()
 
-/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/datum/armor/crate_secure
+	melee = 30
+	bullet = 50
+	laser = 50
+	energy = 100
+	fire = 80
+	acid = 80
+
+/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
 		boom()
 	else
@@ -54,6 +59,21 @@
 	icon_state = "hydro_secure_crate"
 	icon_door = "hydro_secure_crate"
 
+/obj/structure/closet/crate/secure/freezer //for consistency with other "freezer" closets/crates
+	desc = "An insulated crate with a lock on it, used to secure perishables."
+	name = "secure kitchen crate"
+	icon_state = "kitchen_secure_crate"
+
+/obj/structure/closet/crate/secure/freezer/pizza
+	name = "secure pizza crate"
+	desc = "An insulated crate with a lock on it, used to secure pizza."
+	req_access = list(28)
+	tamperproof = 10
+
+/obj/structure/closet/crate/secure/freezer/pizza/PopulateContents()
+	. = ..()
+	new /obj/effect/spawner/lootdrop/pizzaparty(src)
+
 /obj/structure/closet/crate/secure/engineering
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	name = "secure engineering crate"
@@ -82,6 +102,8 @@
 /obj/structure/closet/crate/secure/owned/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It's locked with a privacy lock, and can only be unlocked by the buyer's ID with required access.</span>"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/crate/secure/owned)
 
 /obj/structure/closet/crate/secure/owned/Initialize(mapload, datum/bank_account/_buyer_account)
 	. = ..()

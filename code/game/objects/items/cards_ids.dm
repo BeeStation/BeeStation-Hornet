@@ -164,7 +164,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
@@ -175,6 +175,11 @@
 	var/obj/machinery/paystand/my_store
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
+
+
+/datum/armor/card_id
+	fire = 100
+	acid = 100
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -258,6 +263,8 @@
 		return
 
 	registered_account.adjust_money(cash_money)
+	SSblackbox.record_feedback("amount", "credits_inserted", cash_money)
+	log_econ("[cash_money] credits were inserted into [src] owned by [src.registered_name]")
 	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
 		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
 	else
@@ -282,6 +289,7 @@
 
 	registered_account.adjust_money(total)
 	SSblackbox.record_feedback("amount", "credits_inserted", total)
+	log_econ("[total] credits were inserted into [src] owned by [src.registered_name]")
 	QDEL_LIST(money)
 
 	return total
@@ -348,6 +356,8 @@
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
 		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
+		SSblackbox.record_feedback("amount", "credits_removed", amount_to_remove)
+		log_econ("[amount_to_remove] credits were removed from [src] owned by [src.registered_name]")
 		return
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
@@ -764,6 +774,16 @@ update_label("John Doe", "Clowny")
 	assignment = "CentCom Attorney"
 	icon_state = "centcom"
 
+/// Trim for Bounty Hunters hired by centcom.
+/obj/item/card/id/silver/bounty/ert
+	registered_name = "Bounty Hunter"
+	assignment = "Bounty Hunter"
+	icon_state = "ert"
+
+/obj/item/card/id/silver/bounty/ert/Initialize(mapload)
+	. = ..()
+	access = list(ACCESS_CENT_GENERAL)
+
 /obj/item/card/id/ert/lawyer/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
@@ -844,12 +864,16 @@ update_label("John Doe", "Clowny")
 	name = "paper nametag"
 	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/id_paper
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unknown"
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
+
+
+/datum/armor/id_paper
+	acid = 50
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
@@ -875,6 +899,18 @@ update_label("John Doe", "Clowny")
 
 	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
 
+/obj/item/card/id/paper/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_ID)
+		RegisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_visible_name))
+
+/obj/item/card/id/paper/dropped(mob/user, silent = FALSE)
+	. = ..()
+	UnregisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME)
+
+/obj/item/card/id/paper/proc/return_visible_name(mob/living/carbon/human/source, list/identity)
+	SIGNAL_HANDLER
+	identity[VISIBLE_NAME_ID] = registered_name
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
@@ -1282,7 +1318,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "rawsecurity"
 	hud_state = JOB_HUD_RAWSECURITY
 
- // ---- ???? ----
+// ---- ???? ----
 /obj/item/card/id/job/unknown
 	name = "Job card - unassigned"
 	icon_state = "id"

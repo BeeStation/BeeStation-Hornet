@@ -83,13 +83,10 @@
 /datum/movespeed_modifier/limbless
 	variable = TRUE
 	movetypes = GROUND
+	blacklisted_movetypes = FLOATING|FLYING
 	flags = IGNORE_NOSLOW
 
 /datum/movespeed_modifier/simplemob_varspeed
-	variable = TRUE
-	flags = IGNORE_NOSLOW
-
-/datum/movespeed_modifier/basicmob_varspeed
 	variable = TRUE
 	flags = IGNORE_NOSLOW
 
@@ -138,3 +135,13 @@
 /datum/movespeed_modifier/nopowercell
 	multiplicative_slowdown = 1.5
 	blacklisted_movetypes = FLOATING
+
+/datum/movespeed_modifier/visible_hunger
+	id = MOVESPEED_ID_VISIBLE_HUNGER
+	movetypes = (~FLYING)
+
+/datum/movespeed_modifier/visible_hunger/starving
+	multiplicative_slowdown = 0.6
+
+/datum/movespeed_modifier/visible_hunger/hungry
+	multiplicative_slowdown = 0.2

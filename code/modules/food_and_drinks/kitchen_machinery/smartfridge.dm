@@ -12,6 +12,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
+	opacity = TRUE
 
 	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
@@ -19,6 +20,8 @@
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
 	var/visible_contents = TRUE
+	/// Is this smartfridge going to have a glowing screen? (Drying Racks are not)
+	var/has_emissive = TRUE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -41,24 +44,31 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
 
-/obj/machinery/smartfridge/update_icon()
-	if(!machine_stat)
-		if (visible_contents)
-			switch(contents.len)
-				if(0)
-					icon_state = "[initial(icon_state)]"
-				if(1 to 25)
-					icon_state = "[initial(icon_state)]1"
-				if(26 to 75)
-					icon_state = "[initial(icon_state)]2"
-				if(76 to INFINITY)
-					icon_state = "[initial(icon_state)]3"
-		else
-			icon_state = "[initial(icon_state)]"
-	else
+/obj/machinery/smartfridge/update_icon_state()
+	if(machine_stat)
 		icon_state = "[initial(icon_state)]-off"
+		return ..()
 
+	if(!visible_contents)
+		icon_state = "[initial(icon_state)]"
+		return ..()
 
+	switch(contents.len)
+		if(0)
+			icon_state = "[initial(icon_state)]"
+		if(1 to 25)
+			icon_state = "[initial(icon_state)]1"
+		if(26 to 75)
+			icon_state = "[initial(icon_state)]2"
+		if(76 to INFINITY)
+			icon_state = "[initial(icon_state)]3"
+	return ..()
+
+/obj/machinery/smartfridge/update_overlays()
+	. = ..()
+	if(!machine_stat && has_emissive)
+		. += emissive_appearance(icon, "[initial(icon_state)]-light-mask", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /*******************
 *   Item Adding
@@ -89,10 +99,10 @@
 			return FALSE
 
 		if(accept_check(O))
-			load(O)
+			load(O, user)
 			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
 			if (visible_contents)
-				update_icon()
+				update_appearance()
 			return TRUE
 
 		if(istype(O, /obj/item/storage/bag))
@@ -102,20 +112,20 @@
 				if(contents.len >= max_n_of_items)
 					break
 				if(accept_check(G))
-					load(G)
+					load(G, user)
 					loaded++
 
 			if(loaded)
 				if(contents.len >= max_n_of_items)
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-									 "<span class='notice'>You fill \the [src] with \the [O].</span>")
+									"<span class='notice'>You fill \the [src] with \the [O].</span>")
 				else
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-										 "<span class='notice'>You load \the [src] with \the [O].</span>")
+									"<span class='notice'>You load \the [src] with \the [O].</span>")
 				if(O.contents.len > 0)
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
 				if (visible_contents)
-					update_icon()
+					update_appearance()
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
@@ -128,12 +138,12 @@
 				if(accept_check(I))
 					load(I)
 					user.visible_message("[user] inserts \the [I] into \the [src].", \
-									 "<span class='notice'>You insert \the [I] into \the [src].</span>")
+									"<span class='notice'>You insert \the [I] into \the [src].</span>")
 					O.cut_overlays()
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
 					if(visible_contents)
-						update_icon()
+						update_appearance()
 					return TRUE
 				else
 					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
@@ -156,17 +166,17 @@
 			if(contents.len < max_n_of_items && accept_check(O))
 				load(O)
 				if (visible_contents)
-					update_icon()
+					update_appearance()
 				return TRUE
 	return ..()
 
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	if(istype(O, /obj/item/food/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
+	if(istype(O, /obj/item/food/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/) || istype(O, /obj/item/food/seaweed_sheet))
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/proc/load(obj/item/O)
+/obj/machinery/smartfridge/proc/load(obj/item/O, mob/user)
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
@@ -267,6 +277,23 @@
 				update_appearance()
 			return TRUE
 
+/obj/machinery/smartfridge/welder_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(machine_stat & BROKEN)
+		if(!I.tool_start_check(user, amount=0))
+			return
+		user.visible_message("<span class='notice'>[user] is repairing [src].</span>", \
+						"<span class='notice'>You begin repairing [src]...</span>", \
+						"<span class='hear'>You hear welding.</span>")
+		if(I.use_tool(src, user, 40, volume=50))
+			if(!(machine_stat & BROKEN))
+				return
+			to_chat(user, "<span class='notice'>You repair [src].</span>")
+			atom_integrity = max_integrity
+			set_machine_stat(machine_stat & ~BROKEN)
+			update_icon()
+	else
+		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 
 // ----------------------------
 //  Drying Rack 'smartfridge'
@@ -278,7 +305,11 @@
 	icon_state = "drying_rack"
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
+	has_emissive = FALSE
+	opacity = FALSE
 	var/drying = FALSE
+	/// The reference to the last user's mind. Needed for the chef made trait to be properly applied correctly to dried food.
+	var/datum/weakref/current_user
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
@@ -292,6 +323,10 @@
 
 	QDEL_LIST(old_parts)
 	RefreshParts()
+
+/obj/machinery/smartfridge/drying_rack/Destroy()
+	current_user = null
+	return ..()
 
 /obj/machinery/smartfridge/drying_rack/on_deconstruction()
 	new /obj/item/stack/sheet/wood(drop_location(), 10)
@@ -315,11 +350,11 @@
 /obj/machinery/smartfridge/drying_rack/ui_act(action, params)
 	. = ..()
 	if(.)
-		update_icon() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
+		update_appearance() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
 		return
 	switch(action)
 		if("Dry")
-			toggle_drying(FALSE)
+			toggle_drying(FALSE, usr)
 			return TRUE
 	return FALSE
 
@@ -333,9 +368,13 @@
 	if(!powered())
 		toggle_drying(TRUE)
 
-/obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
-	..()
-	update_icon()
+/obj/machinery/smartfridge/drying_rack/load(obj/item/dried_object, mob/user) //For updating the filled overlay
+	. = ..()
+	if(!.)
+		return
+	update_appearance()
+	if(drying && user?.mind)
+		current_user = WEAKREF(user.mind)
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -354,22 +393,25 @@
 			rack_dry(item_iterator)
 
 		SStgui.update_uis(src)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	if(HAS_TRAIT(O, TRAIT_DRYABLE)) //set on dryable element
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
+/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff, mob/user)
 	if(drying || forceoff)
 		drying = FALSE
+		current_user = FALSE
 	else
 		drying = TRUE
-	update_icon()
+		if(user?.mind)
+			current_user = WEAKREF(user.mind)
+	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry(obj/item/target)
-	SEND_SIGNAL(target, COMSIG_ITEM_DRIED)
+	SEND_SIGNAL(target, COMSIG_ITEM_DRIED, current_user)
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	. = ..()
@@ -386,9 +428,9 @@
 	desc = "A refrigerated storage unit for tasty tasty alcohol."
 
 /obj/machinery/smartfridge/drinks/accept_check(obj/item/O)
-	if(!istype(O, /obj/item/reagent_containers) || (O.item_flags & ABSTRACT) || !O.reagents || !O.reagents.reagent_list.len)
+	if(!is_reagent_container(O) || (O.item_flags & ABSTRACT) || !O.reagents || !O.reagents.reagent_list.len)
 		return FALSE
-	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks) || istype(O, /obj/item/reagent_containers/food/condiment))
+	if(istype(O, /obj/item/reagent_containers/cup) || istype(O, /obj/item/reagent_containers/cup/glass) || istype(O, /obj/item/reagent_containers/condiment))
 		return TRUE
 
 // ----------------------------
@@ -433,12 +475,17 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/organ/load(obj/item/O)
+/obj/machinery/smartfridge/organ/load(obj/item/item, mob/user)
 	. = ..()
 	if(!.)	//if the item loads, clear can_decompose
 		return
-	var/obj/item/organ/organ = O
-	organ.organ_flags |= ORGAN_FROZEN
+	if(isorgan(item))
+		var/obj/item/organ/organ = item
+		organ.organ_flags |= ORGAN_FROZEN
+	if(isbodypart(item))
+		var/obj/item/bodypart/bodypart = item
+		for(var/obj/item/organ/stored in bodypart.contents)
+			stored.organ_flags |= ORGAN_FROZEN
 
 /obj/machinery/smartfridge/organ/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
@@ -479,7 +526,7 @@
 		return TRUE
 	if(!O.reagents || !O.reagents.reagent_list.len) // other empty containers not accepted
 		return FALSE
-	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) \
+	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/cup/bottle) || istype(O, /obj/item/reagent_containers/cup/beaker) \
 	|| istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray) || istype(O, /obj/item/reagent_containers/chem_bag))
 		return TRUE
 	return FALSE
@@ -488,8 +535,9 @@
 	initial_contents = list(
 		/obj/item/reagent_containers/pill/epinephrine = 12,
 		/obj/item/reagent_containers/pill/charcoal = 5,
-		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1)
+		/obj/item/reagent_containers/cup/bottle/epinephrine = 1,
+		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
+		/obj/item/reagent_containers/chem_bag/triamed = 1)
 
 // ----------------------------
 // Virology Medical Smartfridge
@@ -501,17 +549,17 @@
 /obj/machinery/smartfridge/chemistry/virology/preloaded
 	initial_contents = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
-		/obj/item/reagent_containers/glass/bottle/synaptizine = 1,
-		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1,
-		/obj/item/reagent_containers/glass/bottle/cryostylane = 1)
+		/obj/item/reagent_containers/cup/bottle/synaptizine = 1,
+		/obj/item/reagent_containers/cup/bottle/formaldehyde = 1,
+		/obj/item/reagent_containers/cup/bottle/cryostylane = 1)
 
 /obj/machinery/smartfridge/chemistry/virology/preloaded/Initialize(mapload)
 	.=..()
 	if(CONFIG_GET(flag/allow_virologist))
-		new /obj/item/reagent_containers/glass/bottle/cold(src)
-		new /obj/item/reagent_containers/glass/bottle/flu_virion(src)
-		new	/obj/item/reagent_containers/glass/bottle/mutagen(src)
-		new /obj/item/reagent_containers/glass/bottle/plasma(src)
+		new /obj/item/reagent_containers/cup/bottle/cold(src)
+		new /obj/item/reagent_containers/cup/bottle/flu_virion(src)
+		new	/obj/item/reagent_containers/cup/bottle/mutagen(src)
+		new /obj/item/reagent_containers/cup/bottle/plasma(src)
 	else
 		desc = "A refrigerated storage unit for volatile sample storage."
 
@@ -529,7 +577,7 @@
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		var/list/data = list("viruses" = list(symptomholder))
-		var/obj/item/reagent_containers/glass/bottle/B = new
+		var/obj/item/reagent_containers/cup/bottle/B = new
 		B.name = "[symptomholder.name] culture bottle"
 		B.desc = "A small bottle. Contains [symptomholder.agent] culture in synthblood medium."
 		B.reagents.add_reagent(/datum/reagent/blood, 20, data)
@@ -538,7 +586,7 @@
 		if(!istype(disease, /datum/disease/advance))
 			var/datum/disease/target = new disease
 			var/list/data = list("viruses" = list(target))
-			var/obj/item/reagent_containers/glass/bottle/B = new
+			var/obj/item/reagent_containers/cup/bottle/B = new
 			B.name = "[target.name] culture bottle"
 			B.desc = "A small bottle. Contains [target.agent] culture in synthblood medium."
 			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
@@ -555,6 +603,7 @@
 	icon_state = "disktoaster"
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
+	opacity = FALSE
 
 /obj/machinery/smartfridge/disks/accept_check(obj/item/O)
 	if(istype(O, /obj/item/disk/))

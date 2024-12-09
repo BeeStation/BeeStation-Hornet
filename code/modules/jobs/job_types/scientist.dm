@@ -1,8 +1,7 @@
 /datum/job/scientist
 	title = JOB_NAME_SCIENTIST
-	flag = SCIENTIST
 	description = "Engage in Xenobiology, Xenoarchaeology, Nanites, and Toxins; research new technology; and upgrade the machine parts around the station."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
@@ -14,12 +13,11 @@
 
 	outfit = /datum/outfit/job/scientist
 
-	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
-					ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
-	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
-					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 
-	department_flag = MEDSCI
+	base_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
+						ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
+	extra_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE)
+
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)

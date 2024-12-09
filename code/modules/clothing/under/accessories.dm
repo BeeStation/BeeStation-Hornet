@@ -1,4 +1,4 @@
-/obj/item/clothing/accessory //Ties moved to neck slot items, but as there are still things like medals and armbands, this accessory system is being kept as-is
+/obj/item/clothing/accessory
 	name = "Accessory"
 	desc = "Something has gone wrong!"
 	icon = 'icons/obj/clothing/accessories.dmi'
@@ -34,18 +34,12 @@
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
 	if(minimize_when_attached)
-		transform *= 0.5	//halve the size so it doesn't overpower the under
+		transform *= 0.5 //halve the size so it doesn't overpower the under
 		pixel_x += 8
 		pixel_y -= 8
 	U.add_overlay(src)
 
-	if (islist(U.armor) || isnull(U.armor)) 										// This proc can run before /obj/Initialize has run for U and src,
-		U.armor = getArmor(arglist(U.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
-																					// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
-	if (islist(armor) || isnull(armor))
-		armor = getArmor(arglist(armor))
-
-	U.armor = U.armor.attachArmor(armor)
+	U.set_armor(U.get_armor().add_other_armor(get_armor()))
 
 	if(isliving(user))
 		on_uniform_equip(U, user)
@@ -56,7 +50,7 @@
 	if(detached_pockets && detached_pockets.parent == U)
 		TakeComponent(detached_pockets)
 
-	U.armor = U.armor.detachArmor(armor)
+	U.set_armor(U.get_armor().subtract_other_armor(get_armor()))
 
 	if(isliving(user))
 		on_uniform_dropped(U, user)
@@ -145,7 +139,7 @@
 				delay = 0
 			else
 				user.visible_message("[user] is trying to pin [src] on [M]'s chest.", \
-									 "<span class='notice'>You try to pin [src] on [M]'s chest.</span>")
+									"<span class='notice'>You try to pin [src] on [M]'s chest.</span>")
 			var/input
 			if(!commended && user != M)
 				input = stripped_input(user,"Please input a reason for this commendation, it will be recorded by Nanotrasen.", ,"", 140)
@@ -155,7 +149,7 @@
 						to_chat(user, "<span class='notice'>You attach [src] to [U].</span>")
 					else
 						user.visible_message("[user] pins \the [src] on [M]'s chest.", \
-											 "<span class='notice'>You pin \the [src] on [M]'s chest.</span>")
+											"<span class='notice'>You pin \the [src] on [M]'s chest.</span>")
 						if(input)
 							SSblackbox.record_feedback("associative", "commendation", 1, list("commender" = "[user.real_name]", "commendee" = "[M.real_name]", "medal" = "[src]", "reason" = input))
 							GLOB.commendations += "[user.real_name] awarded <b>[M.real_name]</b> the <span class='medaltext'>[name]</span>! \n- [input]"
@@ -228,8 +222,12 @@
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
 	medaltype = "medal-plasma"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0) //It's made of plasma. Of course it's flammable.
+	armor_type = /datum/armor/medal_plasma
 	custom_materials = list(/datum/material/plasma=1000)
+
+
+/datum/armor/medal_plasma
+	fire = -10
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -361,23 +359,51 @@
 	name = "bone talisman"
 	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
 	icon_state = "talisman"
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10)
+	armor_type = /datum/armor/accessory_talisman
 	attachment_slot = null
+
+
+/datum/armor/accessory_talisman
+	melee = 5
+	bullet = 5
+	laser = 5
+	energy = 5
+	bomb = 20
+	bio = 20
+	rad = 5
+	acid = 25
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/accessory/skullcodpiece
 	name = "skull codpiece"
 	desc = "A skull shaped ornament, intended to protect the important things in life."
 	icon_state = "skull"
 	above_suit = TRUE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10)
+	armor_type = /datum/armor/accessory_skullcodpiece
 	attachment_slot = GROIN
+
+
+/datum/armor/accessory_skullcodpiece
+	melee = 5
+	bullet = 5
+	laser = 5
+	energy = 5
+	bomb = 20
+	bio = 20
+	rad = 5
+	acid = 25
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/accessory/holster
 	name = "shoulder holster"
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
 	icon_state = "holster"
 	item_state = "holster"
+	worn_icon_state = "holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
+	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"
@@ -402,3 +428,28 @@
 	var/mob/living/L = user
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
+
+//Security Badges
+/obj/item/clothing/accessory/badge/officer/det
+	name = "\improper Detective's badge"
+	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
+	icon_state = "detbadge"
+	worn_icon_state = "detbadge"
+
+/obj/item/clothing/accessory/badge/officer/hos
+	name = "\improper Head of Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"
+
+/obj/item/clothing/accessory/badge/officer
+	name = "\improper Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
+	icon_state = "officerbadge"
+	worn_icon_state = "officerbadge"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
+	if(Adjacent(user))
+		user.visible_message("<span class='notice'>[user] shows you \the: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
+	..()

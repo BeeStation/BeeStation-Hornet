@@ -20,6 +20,15 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	var/list/arguments = args.Copy(2)
 	return new type(arglist(arguments))
 
+/mob/proc/update_alt_appearances()
+	for (var/datum/atom_hud/alternate_appearance/alt_appearance in GLOB.active_alternate_appearances)
+		if (alt_appearance.mobShouldSee(src))
+			// If we don't see it already, then add it
+			if (!alt_appearance.hudusers[src])
+				alt_appearance.add_hud_to(src)
+		else
+			alt_appearance.remove_hud_from(src)
+
 /datum/atom_hud/alternate_appearance
 	var/appearance_key
 	var/transfer_overlays = FALSE
@@ -116,7 +125,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/silicons/New()
 	..()
-	for(var/mob in GLOB.silicon_mobs)
+	for(var/mob as anything in GLOB.silicon_mobs)
 		if(mobShouldSee(mob))
 			add_hud_to(mob)
 
@@ -174,9 +183,11 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/basic/blessedAware/mobShouldSee(mob/M)
 	if(M.mind && M.mind?.holy_role)
 		return TRUE
-	if (istype(M, /mob/living/simple_animal/hostile/construct/wraith))
+	if (iscultist(M))
 		return TRUE
 	if(isrevenant(M) || iswizard(M))
+		return TRUE
+	if (HAS_TRAIT(M, TRAIT_SEE_ANTIMAGIC))
 		return TRUE
 	return FALSE
 
@@ -204,3 +215,12 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/heretics/mobShouldSee(mob/M)
 	return IS_HERETIC(M) || IS_HERETIC_MONSTER(M)
+
+/datum/atom_hud/alternate_appearance/basic/mimites/New()
+	..()
+	for(var/mob in  GLOB.player_list)
+		if(mobShouldSee(mob))
+			add_hud_to(mob)
+
+/datum/atom_hud/alternate_appearance/basic/mimites/mobShouldSee(mob/M)
+	return ismimite(M) || isobserver(M)

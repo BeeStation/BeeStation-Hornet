@@ -111,6 +111,11 @@
 	can_charge = TRUE
 	recharge_rate = 1
 
+/obj/item/gun/magic/wand/resurrection/inert
+	name = "weakened wand of healing"
+	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
+	max_charges = 5
+
 /////////////////////////////////////
 //WAND OF POLYMORPH
 /////////////////////////////////////
@@ -142,7 +147,7 @@
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
-	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC))
+	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(3, user.loc)
 		smoke.start()
@@ -162,7 +167,7 @@
 	var/turf/origin = get_turf(user)
 	var/turf/destination = find_safe_turf()
 
-	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC))
+	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
 		for(var/t in list(origin, destination))
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(0, t)
@@ -211,3 +216,9 @@
 	..()
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, magic = TRUE)
 	charges--
+
+/obj/item/gun/magic/wand/fireball/inert
+	name = "weakened wand of fireball"
+	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
+	max_charges = 4
+

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/manse_link
 	name = "Mansus Link"
 	desc = "Piercing through reality, connecting minds. This spell allows you to add people to a Mansus Net, allowing them to communicate with each other from afar."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "mansus_link"
 	action_background_icon_state = "bg_ecult"
 	invocation = "PI'RC' TH' M'ND"
@@ -23,7 +23,7 @@
 
 	to_chat(originator, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel your mind being pulled... connected... intertwined with the very fabric of reality...</span>")
-	if(!do_after(originator, 6 SECONDS, target = target))
+	if(!do_after(originator, 6 SECONDS, target = target, hidden = TRUE))
 		revert_cast()
 		return
 	if(!originator.link_mob(target))
@@ -38,7 +38,7 @@
 	name = "Mansus Link"
 	desc = "Send a psychic message to everyone connected to your Mansus Net."
 	button_icon_state = "link_speech"
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_ecult"
 	/// The raw prophet that hosts our link.
 	var/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/originator

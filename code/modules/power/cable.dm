@@ -22,11 +22,11 @@ GLOBAL_LIST_INIT(cable_colors, list(
 /* Cable directions (d1 and d2)
 
 
-  9   1   5
+	9   1   5
 	\ | /
-  8 - 0 - 4
+	8 - 0 - 4
 	/ | \
-  10  2   6
+	10  2   6
 
 If d1 = 0 and d2 = 0, there's no cable
 If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
@@ -84,6 +84,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = "#ffffff"
 
 // the power cable object
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
+
 /obj/structure/cable/Initialize(mapload, param_color)
 	. = ..()
 
@@ -480,6 +482,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
 	item_state = "coil"
+	novariants = FALSE
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	max_amount = MAXCOIL
@@ -493,7 +496,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	mats_per_unit = list(/datum/material/iron=10, /datum/material/glass=5)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
+	attack_verb_continuous = list("whips", "lashes", "disciplines", "flogs")
+	attack_verb_simple = list("whip", "lash", "discipline", "flog")
 	singular_name = "cable piece"
 	full_w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/copper = 2) //2 copper per cable in the coil
@@ -519,6 +523,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/get_recipes()
 	return GLOB.cable_coil_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
@@ -821,13 +827,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/cut
 	amount = null
 	icon_state = "coil2"
+	worn_icon_state = "coil"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
 	if(!amount)
 		amount = rand(1,2)
 	. = ..()
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
+	pixel_x = base_pixel_x + rand(-2, 2)
+	pixel_y = base_pixel_y + rand(-2, 2)
 	update_icon()
 
 /obj/item/stack/cable_coil/cut/red

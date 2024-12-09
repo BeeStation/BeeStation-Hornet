@@ -84,7 +84,7 @@ GLOBAL_PROTECT(admin_verbs_ban)
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_sound, /client/proc/set_round_end_sound, /client/proc/play_soundtrack))
 GLOBAL_PROTECT(admin_verbs_sounds)
 GLOBAL_LIST_INIT(admin_verbs_fun, list(
-	/client/proc/cmd_admin_dress,
+	/client/proc/cmd_select_equipment,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/set_dynex_scale,
@@ -105,7 +105,6 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/polymorph_all,
 	/client/proc/show_tip,
 	/client/proc/smite,
-	/client/proc/admin_away,
 	/client/proc/load_circuit,
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
@@ -192,6 +191,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/create_or_modify_area,
 	/datum/admins/proc/fixcorruption,
 	#ifdef TESTING
+	/client/proc/check_missing_sprites,
 	/client/proc/run_dynamic_simulations,
 	#endif
 	#ifdef SENDMAPS_PROFILE
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/play_sound,
 	/client/proc/set_round_end_sound,
 	/client/proc/play_soundtrack,
-	/client/proc/cmd_admin_dress,
+	/client/proc/cmd_select_equipment,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/drop_dynex_bomb,

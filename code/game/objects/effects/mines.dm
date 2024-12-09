@@ -125,7 +125,7 @@
 /obj/effect/mine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity() || triggered)
+	if(!isturf(loc) || AM.throwing || (AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !AM.has_gravity() || triggered)
 		return
 	if(ismob(AM))
 		checksmartmine(AM)
@@ -150,6 +150,7 @@
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
+	log_combat(victim, src, "triggered a", important = FALSE)
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
@@ -157,7 +158,7 @@
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
 
-/obj/effect/mine/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+/obj/effect/mine/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	triggermine()
 
@@ -190,6 +191,7 @@
 
 /obj/effect/mine/explosive/mineEffect(mob/victim)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+	log_bomber(victim, "has primed a", src, "for detonation (Range:[range_devastation]/[range_heavy]/[range_light]/[range_flash])")
 
 /obj/effect/mine/explosive/traitor/toy
 	disarm_time = 2 SECONDS

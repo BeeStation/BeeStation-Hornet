@@ -83,7 +83,7 @@
  */
 
 /***********************************************
- Medical HUD! Basic mode needs suit sensors on.
+ * Medical HUD! Basic mode needs suit sensors on.
 ************************************************/
 
 //HELPERS
@@ -165,7 +165,7 @@
 		var/icon/I = icon(icon, icon_state, dir)
 		holder.pixel_y = I.Height() - world.icon_size
 	else
-		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
+		CRASH("[src] does not have a HEALTH_HUD but updates it!")
 
 //for carbon suit sensors
 /mob/living/carbon/med_hud_set_health()
@@ -183,7 +183,7 @@
 		else
 			holder.icon_state = "hudhealthy"
 	else
-		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
+		CRASH("[src] does not have a HEALTH_HUD but updates it!")
 
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
@@ -234,11 +234,11 @@
 				if(null)
 					holder.icon_state = "hudhealthy"
 	else
-		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
+		CRASH("[src] does not have a HEALTH_HUD but updates it!")
 
 
 /***********************************************
- Security HUDs! Basic mode shows only the job.
+ * Security HUDs! Basic mode shows only the job.
 ************************************************/
 
 //HOOKS
@@ -249,7 +249,9 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
-		holder.icon_state = "hud[ckey(wear_id.GetJobIcon())]"
+		holder.icon_state = "hud[ckey(wear_id.get_item_job_icon())]"
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		holder.icon_state = "hudno_id"
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()
@@ -275,41 +277,58 @@
 		holder.icon_state = "hud_imp_loyal"
 
 /mob/living/proc/has_mindshield_hud_icon()
-	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		return FALSE
 	return HAS_TRAIT(src, TRAIT_MINDSHIELD) || HAS_TRAIT(src, TRAIT_FAKE_MINDSHIELD)
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	var/perpname = get_face_name(get_id_name(""))
-	if(perpname && GLOB.data_core)
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R)
-			switch(R.fields["criminal"])
-				if("Arrest")
-					holder.icon_state = "hudwanted"
-					return
-				if("Incarcerated")
-					holder.icon_state = "hudincarcerated"
-					return
-				if("Paroled")
-					holder.icon_state = "hudparolled"
-					return
-				if("Discharged")
-					holder.icon_state = "huddischarged"
-					return
-				if("Search")
-					holder.icon_state = "hudsearch"
-					return
-				if("Monitor")
-					holder.icon_state = "hudmonitor"
-					return
-	holder.icon_state = null
+	var/icon/sec_icon = icon(icon, icon_state, dir)
+	holder.pixel_y = sec_icon.Height() - world.icon_size
+	var/perp_name = get_face_name(get_id_name(""))
+
+	if(!perp_name || isnull(GLOB.manifest))
+		holder.icon_state = null
+		return
+
+	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
+	if(isnull(target))
+		holder.icon_state = null
+		return
+
+	switch(target.wanted_status)
+		if(WANTED_ARREST)
+			holder.icon_state = "hudwanted"
+		if(WANTED_PRISONER)
+			holder.icon_state = "hudincarcerated"
+		if(WANTED_SUSPECT)
+			holder.icon_state = "hudsuspected"
+		if(WANTED_PAROLE)
+			holder.icon_state = "hudparolled"
+		if(WANTED_DISCHARGED)
+			holder.icon_state = "huddischarged"
+		if(WANTED_NONE)
+			holder.icon_state = null
+
+//Utility functions
+
+/**
+ * Updates the visual security huds on all mobs in GLOB.human_list that match the name passed to it.
+ */
+/proc/update_matching_security_huds(perp_name)
+	for (var/mob/living/carbon/human/h as anything in GLOB.human_list)
+		if (h.get_face_name(h.get_id_name()) == perp_name)
+			h.sec_hud_set_security_status()
+
+/**
+ * Updates the visual security huds on all mobs in GLOB.human_list
+ */
+/proc/update_all_security_huds()
+	for(var/mob/living/carbon/human/security_hud_person as anything in GLOB.human_list)
+		security_hud_person.sec_hud_set_security_status()
 
 /***********************************************
- Diagnostic HUDs!
+ * Diagnostic HUDs!
 ************************************************/
 
 /mob/living/proc/hud_set_nanite_indicator()
@@ -355,7 +374,7 @@
 	switch(stat)
 		if(CONSCIOUS)
 			holder.icon_state = "hudstat"
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			holder.icon_state = "hudoffline"
 		else
 			holder.icon_state = "huddead2"
@@ -396,14 +415,14 @@
 /*~~~~~~~~~~~~~~~~~~~~
 	BIG STOMPY MECHS
 ~~~~~~~~~~~~~~~~~~~~~*/
-/obj/mecha/proc/diag_hud_set_mechhealth()
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechhealth()
 	var/image/holder = hud_list[DIAG_MECH_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(obj_integrity/max_integrity)]"
+	holder.icon_state = "huddiag[RoundDiagBar(atom_integrity/max_integrity)]"
 
 
-/obj/mecha/proc/diag_hud_set_mechcell()
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechcell()
 	var/image/holder = hud_list[DIAG_BATT_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -414,7 +433,7 @@
 		holder.icon_state = "hudnobatt"
 
 
-/obj/mecha/proc/diag_hud_set_mechstat()
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechstat()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -422,7 +441,7 @@
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
 
-/obj/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
 	var/image/holder = hud_list[DIAG_TRACK_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size

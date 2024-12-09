@@ -30,7 +30,7 @@
 /*
  * Overrideable proc which gets the stat content for the selected tab.
  */
- //33.774 CPU time
+//33.774 CPU time
 /mob/proc/get_stat(selected_tab)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
@@ -238,13 +238,18 @@
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
 	if(SSticker.round_start_time)
-		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(get_security_level())]")
+		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
 	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+	if (!isnewplayer(src) && SSautotransfer.can_fire)
+		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
+		else
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -446,6 +451,8 @@
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()
+		if ("votetoleave")
+			client.vote_to_leave()
 
 /*
  * Sets the current stat tab selected.
@@ -496,3 +503,5 @@
 
 #undef MAX_ITEMS_TO_READ
 #undef MAX_ICONS_PER_TILE
+
+#undef STAT_PANEL_TAG

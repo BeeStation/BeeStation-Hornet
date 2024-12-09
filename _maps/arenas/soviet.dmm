@@ -8,7 +8,7 @@
 /area/tdome/arena)
 "b" = (
 /obj/structure/table,
-/obj/item/trash/can/food,
+/obj/item/trash/canned,
 /turf/open/floor/iron/yellowsiding,
 /area/tdome/arena)
 "c" = (
@@ -79,7 +79,7 @@
 /turf/open/floor/iron/telecomms,
 /area/tdome/arena)
 "o" = (
-/obj/item/clothing/head/chicken,
+/obj/item/clothing/head/costume/chicken,
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
@@ -118,7 +118,7 @@
 /turf/open/floor/iron/telecomms,
 /area/tdome/arena)
 "v" = (
-/obj/item/clothing/suit/chickensuit,
+/obj/item/clothing/suit/costume/chickensuit,
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
 	},
@@ -214,7 +214,7 @@
 /area/tdome/arena)
 "M" = (
 /obj/structure/table,
-/obj/item/trash/can/food,
+/obj/item/trash/canned,
 /turf/open/floor/iron/yellowsiding{
 	dir = 1
 	},

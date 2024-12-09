@@ -13,7 +13,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/chef/Initialize(mapload)
 	..()
-	var/obj/item/clothing/head/chefhat/hat = new (src)
+	var/obj/item/clothing/head/utility/chefhat/hat = new (src)
 	inventory_head = hat
 	update_corgi_fluff()
 	regenerate_icons()

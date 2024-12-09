@@ -149,7 +149,7 @@
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
@@ -157,7 +157,7 @@
 		return ..()
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	obj_break()
+	atom_break()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)
 	if(!..())
@@ -189,14 +189,14 @@
 				storedid.hud_state = get_hud_by_jobname(newidskin)
 
 				// QoL to correct the system behavior
-				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
+				GLOB.manifest.modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
 				// There are the same code lines in `card.dm`
 				ejectid()
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || usr.stat || usr.restrained())
+	if(!user.canUseTopic(src, !issilicon(user)) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(storedpda || storedid)
 		ejectid()

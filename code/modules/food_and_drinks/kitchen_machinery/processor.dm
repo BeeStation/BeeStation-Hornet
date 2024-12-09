@@ -2,7 +2,7 @@
 /obj/machinery/processor
 	name = "food processor"
 	desc = "An industrial grinder used to process meat and other foods. Keep hands clear of intake area while operating."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "processor1"
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
@@ -31,7 +31,10 @@
 	if (recipe.output && loc && !QDELETED(src))
 		var/cached_multiplier = (recipe.food_multiplier * rating_amount)
 		for(var/i in 1 to cached_multiplier)
-			new recipe.output(drop_location())
+			var/atom/processed_food = new recipe.output(drop_location())
+			if(processed_food.reagents && what.reagents)
+				processed_food.reagents.clear_reagents()
+				what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
 
 	if (ismob(what))
 		var/mob/themob = what
@@ -136,7 +139,7 @@
 	set category = "Object"
 	set name = "Eject Contents"
 	set src in oview(1)
-	if(usr.stat || usr.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(isliving(usr))
 		var/mob/living/L = usr
@@ -154,6 +157,8 @@
 	desc = "An industrial grinder with a sticker saying appropriated for science department. Keep hands clear of intake area while operating."
 	circuit = /obj/item/circuitboard/machine/processor/slime
 	var/sbacklogged = FALSE
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/machinery/processor/slime/Initialize(mapload)
 	. = ..()

@@ -173,6 +173,22 @@
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
+"wO" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
 "za" = (
 /obj/item/kirbyplants/photosynthetic{
 	pixel_y = 10
@@ -198,7 +214,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "AI Core shutters";
-	name = "AI core shutters"
+	name = "AI Core Shutters"
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
@@ -269,21 +285,6 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
-"Lx" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 9;
-	network = list("ss13","tcomms")
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
-/area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
 /obj/machinery/light,
@@ -335,25 +336,23 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"WV" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
+"TP" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
-	name = "AI research room"
+	name = "AI Research Room"
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
@@ -538,8 +537,8 @@ tO
 KU
 za
 SV
-WV
-Lx
+wO
+TP
 nN
 JS
 "}

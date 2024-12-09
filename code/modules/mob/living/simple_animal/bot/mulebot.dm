@@ -131,11 +131,6 @@
 /mob/living/simple_animal/bot/mulebot/proc/has_power(bypass_open_check)
 	return (!open || bypass_open_check) && cell && cell.charge > 0 && (!wires.is_cut(WIRE_POWER1) && !wires.is_cut(WIRE_POWER2))
 
-/mob/living/simple_animal/bot/mulebot/update_mobility()
-	. = ..()
-	if(!on)
-		mobility_flags |= MOBILITY_STAND //base bots removes all mobility flags when turned off, resulting in the bot becoming passable. we don't want this since it's a large device that should block things.
-
 /mob/living/simple_animal/bot/mulebot/proc/set_id(new_id)
 	id = new_id
 	if(paicard)
@@ -177,7 +172,10 @@
 						"<span class='notice'>You pry [cell] out of [src].</span>")
 		cell = null
 	else if(is_wire_tool(I) && open)
-		return attack_hand(user)
+		if (user.a_intent == INTENT_HELP)
+			return interact(user)
+		else
+			return ..()
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -221,9 +219,9 @@
 			qdel(src)
 		if(2)
 			for(var/i = 1; i < 3; i++)
-				wires.cut_random()
+				wires.cut_random(null)
 		if(3)
-			wires.cut_random()
+			wires.cut_random(null)
 
 
 /mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
@@ -233,7 +231,7 @@
 			unload(0)
 		if(prob(25))
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
-			wires.cut_random()
+			wires.cut_random(null)
 
 /mob/living/simple_animal/bot/mulebot/interact(mob/user)
 	if(open && !isAI(user))
@@ -282,44 +280,37 @@
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params)
-	if(..() || (locked && !usr.has_unlimited_silicon_privilege))
-		return
-	switch(action)
-		if("lock")
-			if(usr.has_unlimited_silicon_privilege)
-				locked = !locked
-				. = TRUE
-		if("power")
-			if(on)
-				turn_off()
-			else if(open)
-				to_chat(usr, "<span class='warning'>[name]'s maintenance panel is open!</span>")
-				return
-			else if(cell)
-				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
-					return
-			. = TRUE
-		else
-			. = bot_control(action, usr, params) // Kill this later.
+	if (action == "power")
+		if(locked && !usr.has_unlimited_silicon_privilege)
+			return TRUE
+		if(on)
+			turn_off()
+		else if(open)
+			to_chat(usr, "<span class='warning'>[name]'s maintenance panel is open!</span>")
+			return TRUE
+		else if(cell)
+			if(!turn_on())
+				to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+				return TRUE
+	else
+		if(..())
+			return TRUE
+		. = bot_control(action, usr, params) // Kill this later.
 
 /mob/living/simple_animal/bot/mulebot/bot_control(command, mob/user, list/params = list(), pda = FALSE)
 	if(pda && wires.is_cut(WIRE_RX)) // MULE wireless is controlled by wires.
-		return
+		return TRUE
 
 	switch(command)
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
-				. = TRUE
 		if("go")
 			if(mode == BOT_IDLE)
 				start()
-				. = TRUE
 		if("home")
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
-				. = TRUE
 		if("destination")
 			var/new_dest
 			if(pda)
@@ -328,7 +319,6 @@
 				new_dest = params["value"]
 			if(new_dest)
 				set_destination(new_dest)
-				. = TRUE
 		if("setid")
 			var/new_id
 			if(pda)
@@ -337,7 +327,6 @@
 				new_id = params["value"]
 			if(new_id)
 				set_id(new_id)
-				. = TRUE
 		if("sethome")
 			var/new_home
 			if(pda)
@@ -346,26 +335,20 @@
 				new_home = params["value"]
 			if(new_home)
 				home_destination = new_home
-				. = TRUE
 		if("unload")
 			if(load && mode != BOT_HUNT)
 				if(loc == target)
 					unload(loaddir)
 				else
 					unload(0)
-				. = TRUE
 		if("autoret")
 			auto_return = !auto_return
-			. = TRUE
 		if("autopick")
 			auto_pickup = !auto_pickup
-			. = TRUE
 		if("report")
 			report_delivery = !report_delivery
-			. = TRUE
 		if("ejectpai")
 			ejectpairemote(user)
-			. = TRUE
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
@@ -441,7 +424,7 @@
 	if (!istype(L))
 		return
 
-	if(user.incapacitated() || (istype(L) && !(L.mobility_flags & MOBILITY_STAND)))
+	if(user.incapacitated() || (istype(L) && L.body_position == LYING_DOWN))
 		return
 
 	if(!istype(AM) || isdead(AM) || iscameramob(AM) || istype(AM, /obj/effect/dummy/phased_mob))
@@ -799,7 +782,7 @@
 	bloodiness += 4
 
 // player on mulebot attempted to move
-/mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
+/mob/living/simple_animal/bot/mulebot/relaymove(mob/living/user, direction)
 	if(user.incapacitated())
 		return
 	if(load == user)
@@ -865,6 +848,8 @@
 		unload()
 
 /mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

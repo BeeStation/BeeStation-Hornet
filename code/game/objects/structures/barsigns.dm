@@ -6,11 +6,20 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 0.5
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/sign_barsign
 	buildable_sign = 0
 
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
+
+
+/datum/armor/sign_barsign
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 100
+	fire = 50
+	acid = 50
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -42,7 +51,8 @@
 			var/new_sign = new D
 			return set_sign(new_sign)
 
-/obj/structure/sign/barsign/obj_break(damage_flag)
+/obj/structure/sign/barsign/atom_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE
 
@@ -58,7 +68,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/sign/barsign/attack_ai(mob/user)
+/obj/structure/sign/barsign/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/structure/sign/barsign/attack_hand(mob/user)
@@ -290,6 +300,11 @@
 	name = "The Loose Goose"
 	icon = "goose"
 	desc = "Drink till you puke and/or break the laws of reality!"
+
+/datum/barsign/bluenote
+	name = "The Blue Note"
+	icon = "bluenote"
+	desc = "Misery loves company, but sometimes a stiff drink will have to suffice."
 
 /datum/barsign/hiddensigns
 	hidden = TRUE

@@ -9,6 +9,8 @@
 #define STATUS_EFFECT_REPLACE 2
 /// if it only allows one, and new instances just instead refresh the timer
 #define STATUS_EFFECT_REFRESH 3
+/// call a merge proc to combine 2 status effects
+#define STATUS_EFFECT_MERGE 4
 
 //-------//
 // BUFFS //
@@ -44,6 +46,8 @@
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
 #define STATUS_EFFECT_ANTIMAGIC /datum/status_effect/antimagic //! grants antimagic (and reapplies if lost) for the duration
+
+#define STATUS_EFFECT_PLANTHEALING /datum/status_effect/planthealing //! Grants the user healing at a given amount, used for diona health regeneration.
 
 //---------//
 // DEBUFFS //
@@ -117,6 +121,7 @@
 
 #define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
 
+#define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
 //---------//
 // NEUTRAL //
@@ -141,6 +146,14 @@
 #define STATUS_EFFECT_RAINBOWPROTECTION /datum/status_effect/rainbow_protection //! Invulnerable and pacifistic
 #define STATUS_EFFECT_SLIMESKIN /datum/status_effect/slimeskin //! Increased armor
 
+//Incapacitated status effect flags
+/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
+#define IGNORE_RESTRAINTS (1<<0)
+/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
+#define IGNORE_STASIS (1<<1)
+/// If the incapacitated status effect will ignore a mob being agressively grabbed
+#define IGNORE_GRAB (1<<2)
+
 // Grouped effect sources, see also code/__DEFINES/traits.dm
 #define STASIS_MACHINE_EFFECT "stasis_machine"
 
@@ -150,3 +163,4 @@
 #define IS_IN_STASIS(mob) (mob.has_status_effect(STATUS_EFFECT_STASIS))
 
 #define STATUS_EFFECT_OFFERING /datum/status_effect/offering // you are offering up an item to people
+

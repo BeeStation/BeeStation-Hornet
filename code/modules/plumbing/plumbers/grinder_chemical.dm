@@ -10,6 +10,8 @@
 	active_power_usage = 80
 	var/eat_dir = SOUTH
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/grinder_chemical)
+
 /obj/machinery/plumbing/grinder_chemical/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
@@ -47,17 +49,10 @@
 		if(reag_container.prevent_grinding) // don't grind floorpill
 			return
 	var/obj/item/I = AM
-	if(I.juice_results || I.grind_results)
-		if(I.juice_results)
-			I.on_juice()
-			reagents.add_reagent_list(I.juice_results)
-			if(I.reagents)
-				I.reagents.trans_to(src, I.reagents.total_volume, transfered_by = src)
-			qdel(I)
-			return
-		I.on_grind()
-		reagents.add_reagent_list(I.grind_results)
-		if(I.reagents)
-			I.reagents.trans_to(src, I.reagents.total_volume, transfered_by = src)
-		qdel(I)
+	if(I.grind_results || I.juice_results)
+		use_power(active_power_usage)
+		if(I.grind_results)
+			I.grind(src, src)
+		else if (I.juice_results)
+			I.juice(src, src)
 

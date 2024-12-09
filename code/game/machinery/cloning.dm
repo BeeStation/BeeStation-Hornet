@@ -76,7 +76,7 @@
 	efficiency = 0
 	reagents.maximum_volume = 0
 	fleshamnt = 1
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
@@ -105,7 +105,7 @@
 	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
-/obj/machinery/clonepod/attack_ai(mob/user)
+/obj/machinery/clonepod/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/clonepod/examine(mob/user)
@@ -124,7 +124,7 @@
 	name = "cloning data disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/list/genetic_makeup_buffer = list()
-	var/list/fields = list()
+	var/datum/record/cloning/data
 	var/list/mutations = list()
 	var/max_mutations = 6
 	var/read_only = FALSE //Well,it's still a floppy disk
@@ -179,11 +179,8 @@
 	if(mob_occupant)
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
 
-/obj/machinery/clonepod/attack_ai(mob/user)
-	return examine(user)
-
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -196,7 +193,7 @@
 		return ERROR_MISSING_EXPERIMENTAL_POD
 
 	if(!body_only && !(experimental && experimental_pod))
-		clonemind = locate(mindref) in SSticker.minds
+		clonemind = given_mind
 		if(!istype(clonemind))	//not a mind
 			return ERROR_NOT_MIND
 		if(last_death<0) //presaved clone is not clonable
@@ -278,8 +275,6 @@
 
 	if(H)
 		H.faction |= factions
-		remove_hivemember(H)
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
@@ -354,7 +349,7 @@
 		else if(mob_occupant && mob_occupant.cloneloss > (100 - heal_level))
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult), TRUE, TRUE)
 			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 				reagents.remove_reagent(/datum/reagent/medicine/synthflesh, fleshamnt)
@@ -421,7 +416,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else
 		return NONE
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
@@ -589,7 +584,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	playsound(src,'sound/hallucinations/wail.ogg', 100, TRUE)
 
 /obj/machinery/clonepod/deconstruct(disassembled = TRUE)
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	if(occupant)
 		var/mob/living/mob_occupant = occupant

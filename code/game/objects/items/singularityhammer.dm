@@ -4,6 +4,7 @@
 	icon_state = "singularity_hammer0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
+	worn_icon_state = "singularity_hammer"
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
@@ -13,10 +14,19 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ISWEAPON
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/item_singularityhammer
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_string = "LORD SINGULOTH HIMSELF"
 	var/charged = 5
+
+
+/datum/armor/item_singularityhammer
+	melee = 50
+	bullet = 50
+	laser = 50
+	bomb = 50
+	fire = 100
+	acid = 100
 
 /obj/item/singularityhammer/Initialize(mapload)
 	. = ..()

@@ -148,8 +148,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aE" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/griddle,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aF" = (
@@ -160,13 +159,11 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aH" = (
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aI" = (
@@ -209,7 +206,7 @@
 /area/ruin/powered/beach)
 "aR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aS" = (
@@ -239,6 +236,7 @@
 /area/ruin/powered/beach)
 "aX" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aY" = (
@@ -308,8 +306,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
@@ -366,7 +363,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bP" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bQ" = (
@@ -591,6 +588,13 @@
 /obj/item/clothing/shoes/sandal,
 /obj/effect/turf_decal/sand,
 /turf/open/floor/pod/dark,
+/area/ruin/powered/beach)
+"NQ" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/reagent_containers/cup/rag,
+/turf/open/floor/wood,
 /area/ruin/powered/beach)
 "QS" = (
 /obj/effect/turf_decal/sand,
@@ -1043,7 +1047,7 @@ at
 ax
 hY
 aC
-aP
+NQ
 aW
 aK
 sy

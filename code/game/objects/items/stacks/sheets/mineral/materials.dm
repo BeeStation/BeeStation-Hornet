@@ -198,7 +198,8 @@ Mineral Sheets
 	throw_speed = 1
 	throw_range = 3
 	sheettype = "plastitanium"
-	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/alloy/plastitanium=MINERAL_MATERIAL_AMOUNT)
+	material_type = /datum/material/alloy/plastitanium
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	material_flags = NONE

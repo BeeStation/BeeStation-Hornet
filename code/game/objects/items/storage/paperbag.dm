@@ -56,12 +56,12 @@
 		if(!contents.len)
 			if(item_state == "paperbag_None")
 				user.show_message("<span class='notice'>You cut eyeholes into [src].</span>", MSG_VISUAL)
-				new /obj/item/clothing/head/papersack(user.loc)
+				new /obj/item/clothing/head/costume/papersack(user.loc)
 				qdel(src)
 				return 0
 			else if(item_state == "paperbag_SmileyFace")
 				user.show_message("<span class='notice'>You cut eyeholes into [src] and modify the design.</span>", MSG_VISUAL)
-				new /obj/item/clothing/head/papersack/smiley(user.loc)
+				new /obj/item/clothing/head/costume/papersack/smiley(user.loc)
 				qdel(src)
 				return 0
 	return ..()

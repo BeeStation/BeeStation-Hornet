@@ -64,14 +64,19 @@
 	#endif
 #endif
 
+	// If we have called dump_harddel_info already. Used to avoid duped calls (since we call it immediately in some cases on failure to process)
+	// Create and destroy is weird and I wanna cover my bases
+	var/harddel_deets_dumped = FALSE
+
 #ifdef DATUMVAR_DEBUGGING_MODE
 	var/list/cached_vars
 #endif
 
 /**
-  * Topic signals
-  */
-
+ * Called when a href for this datum is clicked
+ *
+ * Sends a [COMSIG_TOPIC] signal
+ */
 /datum/Topic(href, href_list[])
 	..()
 	SEND_SIGNAL(src, COMSIG_TOPIC, usr, href_list)
@@ -117,9 +122,8 @@
 	if(dc)
 		var/all_components = dc[/datum/component]
 		if(length(all_components))
-			for(var/I in all_components)
-				var/datum/component/C = I
-				qdel(C, FALSE, TRUE)
+			for(var/datum/component/component as anything in all_components)
+				qdel(component, FALSE, TRUE)
 		else
 			var/datum/component/C = all_components
 			qdel(C, FALSE, TRUE)
@@ -138,8 +142,7 @@
 		for(var/sig in lookup)
 			var/list/comps = lookup[sig]
 			if(length(comps))
-				for(var/i in comps)
-					var/datum/component/comp = i
+				for(var/datum/component/comp as anything in comps)
 					comp.UnregisterSignal(src, sig)
 			else
 				var/datum/component/comp = comps
@@ -269,3 +272,23 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
+
+///Generate a tag for this /datum, if it implements one
+///Should be called as early as possible, best would be in New, to avoid weakref mistargets
+///Really just don't use this, you don't need it, global lists will do just fine MOST of the time
+///We really only use it for mobs to make id'ing people easier
+/datum/proc/GenerateTag()
+	datum_flags |= DF_USE_TAG
+
+/// Return text from this proc to provide extra context to hard deletes that happen to it
+/// Optional, you should use this for cases where replication is difficult and extra context is required
+/// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
+/datum/proc/dump_harddel_info()
+	return
+
+///images are pretty generic, this should help a bit with tracking harddels related to them
+/image/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"

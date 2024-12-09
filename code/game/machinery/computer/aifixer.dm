@@ -103,7 +103,7 @@
 		switch (occupier.stat)
 			if (CONSCIOUS)
 				add_overlay("ai-fixer-full")
-			if (UNCONSCIOUS)
+			if (UNCONSCIOUS, HARD_CRIT)
 				add_overlay("ai-fixer-404")
 	else
 		add_overlay("ai-fixer-empty")

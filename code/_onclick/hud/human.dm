@@ -1,5 +1,5 @@
 /atom/movable/screen/human
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 
 /atom/movable/screen/human/toggle
 	name = "toggle"
@@ -28,8 +28,6 @@
 	icon_state = "act_equip"
 
 /atom/movable/screen/human/equip/Click()
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return 1
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
@@ -37,7 +35,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 /atom/movable/screen/devil/soul_counter
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	name = "souls owned"
 	icon_state = "Devil-6"
 	screen_loc = ui_devilsouldisplay
@@ -82,8 +80,6 @@
 
 /datum/hud/human/New(mob/living/carbon/human/owner)
 	..()
-	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
-
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
 
@@ -313,6 +309,10 @@
 	internals.hud = src
 	infodisplay += internals
 
+	spacesuit = new /atom/movable/screen/spacesuit
+	spacesuit.hud = src
+	infodisplay += spacesuit
+
 	healths = new /atom/movable/screen/healths()
 	healths.hud = src
 	infodisplay += healths
@@ -320,6 +320,10 @@
 	healthdoll = new /atom/movable/screen/healthdoll()
 	healthdoll.hud = src
 	infodisplay += healthdoll
+
+	stamina = new /atom/movable/screen/stamina()
+	stamina.hud = src
+	infodisplay += stamina
 
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = ui_style

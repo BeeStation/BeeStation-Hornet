@@ -10,15 +10,15 @@
 #define SPECIES_HUMAN "human"
 #define SPECIES_IPC "ipc"
 #define SPECIES_LIZARD "lizard"
- #define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_ASHWALKER "ashlizard"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MOTH "moth"
 #define SPECIES_OOZELING "oozeling"
- #define SPECIES_LUMINESCENT "lum"
- #define SPECIES_SLIMEPERSON "slime"
- #define SPECIES_STARGAZER "stargazer"
+#define SPECIES_LUMINESCENT "lum"
+#define SPECIES_SLIMEPERSON "slime"
+#define SPECIES_STARGAZER "stargazer"
 #define SPECIES_PLASMAMAN "plasmaman"
-#define SPECIES_PODPERSON "pod"
+#define SPECIES_DIONA "diona"
 #define SPECIES_PUMPKINPERSON "pumpkin_man"
 #define SPECIES_SHADOWPERSON "shadow"
 #define SPECIES_SKELETON "skeleton"
@@ -73,6 +73,9 @@
 #define FLAG_DEBUG_SPECIES	(1<<10)
 #define FLAG_MONKEY			(1<<11)
 #define FLAG_PSYPHOZA		(1<<12)
+#define FLAG_DIONA			(1<<13)
+
+#define FEATURE_NONE "None" //For usage in species_features, for checking for marking names.
 
 // Defines for used in creating "perks" for the species preference pages.
 /// A key that designates UI icon displayed on the perk.
@@ -109,12 +112,16 @@
 // Sounds used by species for "nasal/lungs" emotes - the DEFAULT being used mainly by humans, lizards, and ethereals becase biology idk
 
 #define SPECIES_DEFAULT_COUGH_SOUND(user) user.gender == FEMALE ? pick(\
-				'sound/emotes/female/female_cough_1.ogg',\
-				'sound/emotes/female/female_cough_2.ogg',\
-				'sound/emotes/female/female_cough_3.ogg') : pick(\
-				'sound/emotes/male/male_cough_1.ogg',\
-				'sound/emotes/male/male_cough_2.ogg',\
-				'sound/emotes/male/male_cough_3.ogg')
+		'sound/emotes/female/female_cough_1.ogg',\
+		'sound/emotes/female/female_cough_2.ogg',\
+		'sound/emotes/female/female_cough_3.ogg',\
+		'sound/emotes/female/female_cough_4.ogg',\
+		'sound/emotes/female/female_cough_5.ogg',\
+		'sound/emotes/female/female_cough_6.ogg',\
+		'sound/emotes/female/female_cough_7.ogg') : pick(\
+		'sound/emotes/male/male_cough_1.ogg',\
+		'sound/emotes/male/male_cough_2.ogg',\
+		'sound/emotes/male/male_cough_3.ogg')
 #define SPECIES_DEFAULT_GASP_SOUND(user) user.gender == FEMALE ? pick(\
 		'sound/emotes/female/gasp_f1.ogg',\
 		'sound/emotes/female/gasp_f2.ogg',\
@@ -129,5 +136,15 @@
 		'sound/emotes/male/gasp_m5.ogg',\
 		'sound/emotes/male/gasp_m6.ogg')
 #define SPECIES_DEFAULT_SIGH_SOUND(user) user.gender == FEMALE ? 'sound/emotes/female/female_sigh.ogg' : 'sound/emotes/male/male_sigh.ogg'
-#define SPECIES_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? 'sound/emotes/female/female_sneeze.ogg' : 'sound/emotes/male/male_sneeze.ogg'
+#define SPECIES_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? pick(\
+		'sound/emotes/female/female_sneeze1.ogg',\
+		'sound/emotes/female/female_sneeze2.ogg') : pick(\
+		'sound/emotes/male/male_sneeze1.ogg',\
+		'sound/emotes/male/male_sneeze2.ogg')
 #define SPECIES_DEFAULT_SNIFF_SOUND(user) user.gender == FEMALE ? 'sound/emotes/female/female_sniff.ogg' : 'sound/emotes/male/male_sniff.ogg'
+#define SPECIES_DEFAULT_GIGGLE_SOUND(user) user.gender == FEMALE ? pick(\
+		'sound/emotes/female/female_giggle_1.ogg',\
+		'sound/emotes/female/female_giggle_2.ogg') : pick(\
+		'sound/emotes/male/male_giggle_1.ogg',\
+		'sound/emotes/male/male_giggle_2.ogg',\
+		'sound/emotes/male/male_giggle_3.ogg')

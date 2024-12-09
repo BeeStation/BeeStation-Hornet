@@ -4,7 +4,21 @@
 	icon_state = "syndicate"
 	item_state = "syndicate"
 	desc = "Has a tag on it: Totally not property of an enemy corporation, honest!"
-	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 40, BOMB = 30, BIO = 30, RAD = 30, FIRE = 80, ACID = 85, STAMINA = 50)
+	armor_type = /datum/armor/space_syndicate
+
+
+/datum/armor/space_syndicate
+	melee = 40
+	bullet = 50
+	laser = 30
+	energy = 40
+	bomb = 30
+	bio = 30
+	rad = 30
+	fire = 80
+	acid = 85
+	stamina = 50
+	bleed = 40
 
 /obj/item/clothing/suit/space/syndicate
 	name = "red space suit"
@@ -13,10 +27,24 @@
 	desc = "Has a tag on it: Totally not property of an enemy corporation, honest!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list(MELEE = 40,  BULLET = 50, LASER = 30, ENERGY = 40, BOMB = 30, BIO = 30, RAD = 30, FIRE = 80, ACID = 85, STAMINA = 50)
-
+	armor_type = /datum/armor/space_syndicate
+	cell = /obj/item/stock_parts/cell/hyper
 
 //Green syndicate space suit
+
+/datum/armor/space_syndicate
+	melee = 40
+	bullet = 50
+	laser = 30
+	energy = 40
+	bomb = 30
+	bio = 30
+	rad = 30
+	fire = 80
+	acid = 85
+	stamina = 50
+	bleed = 40
+
 /obj/item/clothing/head/helmet/space/syndicate/green
 	name = "green space helmet"
 	icon_state = "syndicate-helm-green"
@@ -138,7 +166,6 @@
 /obj/item/clothing/head/helmet/space/syndicate/contract
 	name = "contractor helmet"
 	desc = "A specialised black and gold helmet that's more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
-	slowdown = 0.55
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-contract-helm"
 	item_state = "syndicate-contract-helm"

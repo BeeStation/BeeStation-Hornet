@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 2
+#define DB_MINOR_VERSION 3
 
 
 //! ## Timing subsystem
@@ -63,6 +63,9 @@
 ///Empty ID define
 #define TIMER_ID_NULL -1
 
+/// Used to trigger object removal from a processing list
+#define PROCESS_KILL 26
+
 //! ## Initialization subsystem
 
 ///New should not call Initialize
@@ -90,13 +93,32 @@
 
 ///type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags_1 & INITIALIZED_1)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, FALSE, args);\
-    }\
+	..();\
+	if(!(flags_1 & INITIALIZED_1)) {\
+		args[1] = TRUE;\
+		SSatoms.InitAtom(src, FALSE, args);\
+	}\
 }
 
+//! ### SS initialization hints
+/**
+ * Negative values incidate a failure or warning of some kind, positive are good.
+ * 0 and 1 are unused so that TRUE and FALSE are guarenteed to be invalid values.
+ */
+
+/// Subsystem failed to initialize entirely. Print a warning, log, and disable firing.
+#define SS_INIT_FAILURE -2
+
+/// The default return value which must be overriden. Will succeed with a warning.
+#define SS_INIT_NONE -1
+
+/// Subsystem initialized sucessfully.
+#define SS_INIT_SUCCESS 2
+
+/// Successful, but don't print anything. Useful if subsystem was disabled.
+#define SS_INIT_NO_NEED 3
+
+//! ### SS initialization load orders
 // Subsystem init_order, from highest priority to lowest priority
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
@@ -114,20 +136,23 @@
 #define INIT_ORDER_INSTRUMENTS		82
 #define INIT_ORDER_GREYSCALE 		81
 #define INIT_ORDER_VIS				80
+#define INIT_ORDER_SECURITY_LEVEL 79 // We need to load before events so that it has a security level to choose from.
 #define INIT_ORDER_ACHIEVEMENTS 	77
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
 #define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_QUIRKS			72
-#define INIT_ORDER_JOBS				71 //Must initialize before events for holidays
-#define INIT_ORDER_EVENTS			70
+#define INIT_ORDER_DEPARTMENT		72 //This is important: it has access distributing code, so should be initialized quickly
+#define INIT_ORDER_QUIRKS			71
+#define INIT_ORDER_JOBS				70 //Must initialize before events for holidays
+#define INIT_ORDER_EVENTS			69
 #define INIT_ORDER_AI_MOVEMENT 		56 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
 #define INIT_ORDER_MAPPING			50
 #define INIT_ORDER_EARLY_ASSETS		48
 #define INIT_ORDER_TIMETRACK		47
-#define INIT_ORDER_NETWORKS			45
+#define INIT_ORDER_NETWORKS 45
+#define INIT_ORDER_SPATIAL_GRID 43
 #define INIT_ORDER_ECONOMY			40
 #define INIT_ORDER_OUTPUTS			35
 #define INIT_ORDER_ATOMS			30
@@ -145,13 +170,14 @@
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
-#define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_SHUTTLE			-21 // After atoms have been initialised to prevent mix-ups
 #define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
-#define INIT_ORDER_ELEVATOR			-70
 #define INIT_ORDER_BAN_CACHE		-98
+//Near the end, logs the costs of initialize
+#define INIT_ORDER_INIT_PROFILER -99
 #define INIT_ORDER_NATURAL_LIGHT	-120
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
@@ -178,7 +204,6 @@
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
 #define FIRE_PRIORITY_ZFALL         30
-#define FIRE_PRIORITY_FIELDS		30
 #define FIRE_PRIOTITY_SMOOTHING		35
 #define FIRE_PRIORITY_NETWORKS		40
 #define FIRE_PRIORITY_OBJ			40
@@ -232,6 +257,25 @@
 #define SSEXPLOSIONS_TURFS 2
 #define SSEXPLOSIONS_THROWS 3
 
+// Wardrobe subsystem tasks
+#define SSWARDROBE_STOCK 1
+#define SSWARDROBE_INSPECT 2
+
+//Wardrobe cache metadata indexes
+#define WARDROBE_CACHE_COUNT 1
+#define WARDROBE_CACHE_LAST_INSPECT 2
+#define WARDROBE_CACHE_CALL_INSERT 3
+#define WARDROBE_CACHE_CALL_REMOVAL 4
+
+//Wardrobe preloaded stock indexes
+#define WARDROBE_STOCK_CONTENTS 1
+#define WARDROBE_STOCK_CALL_INSERT 2
+#define WARDROBE_STOCK_CALL_REMOVAL 3
+
+//Wardrobe callback master list indexes
+#define WARDROBE_CALLBACK_INSERT 1
+#define WARDROBE_CALLBACK_REMOVE 2
+
 //SSticker.current_state values
 /// Game is loading
 #define GAME_STATE_STARTUP 0
@@ -282,3 +326,6 @@
 #define SSMACHINES_DT (SSmachines.wait/10)
 #define SSMOBS_DT (SSmobs.wait/10)
 #define SSOBJ_DT (SSobj.wait/10)
+
+/// The timer key used to know how long subsystem initialization takes
+#define SS_INIT_TIMER_KEY "ss_init"

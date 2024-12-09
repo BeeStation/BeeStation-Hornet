@@ -11,7 +11,7 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/structure_mineral_door
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -25,6 +25,15 @@
 
 	var/sheetType = /obj/item/stack/sheet/iron //what we're made of
 	var/sheetAmount = 7 //how much we drop when deconstructed
+
+
+/datum/armor/structure_mineral_door
+	melee = 10
+	energy = 100
+	bomb = 10
+	rad = 100
+	fire = 50
+	acid = 50
 
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
@@ -40,12 +49,10 @@
 	if(!door_opened)
 		return TryToSwitchState(AM)
 
-/obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
-	if(isAI(user)) //so the AI can't open it
-		return
-	else if(iscyborg(user)) //but cyborgs can
-		if(get_dist(user,src) <= 1) //not remotely though
-			return TryToSwitchState(user)
+/obj/structure/mineral_door/attack_robot(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
+	// so the AI can't open it but cyborgs can
+	if(get_dist(user,src) <= 1) //not remotely though
+		return TryToSwitchState(user)
 
 /obj/structure/mineral_door/attack_paw(mob/user)
 	return attack_hand(user)
@@ -318,7 +325,7 @@
 
 /obj/structure/mineral_door/paperframe/examine(mob/user)
 	. = ..()
-	if(obj_integrity < max_integrity)
+	if(atom_integrity < max_integrity)
 		. += "<span class='info'>It looks a bit damaged, you may be able to fix it with some <b>paper</b>.</span>"
 
 /obj/structure/mineral_door/paperframe/pickaxe_door(mob/living/user, obj/item/I)
@@ -335,10 +342,10 @@
 		fire_act(I.is_hot())
 		return
 
-	if((user.a_intent != INTENT_HARM) && istype(I, /obj/item/paper) && (obj_integrity < max_integrity))
+	if((user.a_intent != INTENT_HARM) && istype(I, /obj/item/paper) && (atom_integrity < max_integrity))
 		user.visible_message("[user] starts to patch the holes in [src].", "<span class='notice'>You start patching some of the holes in [src]!</span>")
 		if(do_after(user, 20, src))
-			obj_integrity = min(obj_integrity+4,max_integrity)
+			atom_integrity = min(atom_integrity+4,max_integrity)
 			qdel(I)
 			user.visible_message("[user] patches some of the holes in [src].", "<span class='notice'>You patch some of the holes in [src]!</span>")
 			return TRUE

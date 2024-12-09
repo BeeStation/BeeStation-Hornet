@@ -19,7 +19,6 @@
 	generate_z_level_linkages() // Default Zs don't use add_new_zlevel() so they don't automatically generate z-linkages.
 
 /datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, orbital_body_type, contain_turfs = TRUE)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	var/new_z = z_list.len + 1
 	if (world.maxz < new_z)
 		world.incrementMaxZ()
@@ -28,6 +27,8 @@
 	var/datum/space_level/S = new z_type(new_z, name, traits, orbital_body_type)
 	manage_z_level(S, filled_with_space = TRUE, contain_turfs = contain_turfs)
 	generate_linkages_for_z_level(new_z)
+	calculate_z_level_gravity(new_z)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, S)
 	return S
 
 /datum/controller/subsystem/mapping/proc/get_level(z)

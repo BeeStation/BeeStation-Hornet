@@ -10,12 +10,15 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	layer = ABOVE_WINDOW_LAYER
+	damage_deflection = 10
 	var/obj/item/assembly/flash/handheld/bulb
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
 	var/strength = 100 //How knocked down targets are when flashed.
 	var/base_state = "mflash"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, 26)
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
@@ -28,14 +31,14 @@
 	light_system = MOVABLE_LIGHT //Used as a flash here.
 	light_range = FLASH_LIGHT_RANGE
 	light_on = FALSE
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 
 /obj/machinery/flasher/Initialize(mapload, ndir = 0, built = 0)
 	. = ..() // ..() is EXTREMELY IMPORTANT, never forget to add it
-	if(built)
-		setDir(ndir)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -28 : 28)
-		pixel_y = (dir & 3)? (dir ==1 ? -28 : 28) : 0
-	else
+	if(!built)
 		bulb = new(src)
 
 /obj/machinery/flasher/Destroy()
@@ -90,7 +93,7 @@
 		return ..()
 
 //Let the AI trigger them directly.
-/obj/machinery/flasher/attack_ai()
+/obj/machinery/flasher/attack_silicon()
 	if (anchored)
 		return flash()
 
@@ -100,11 +103,6 @@
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		if(anchored)
 			flash()
-
-/obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10) //any melee attack below 10 dmg does nothing
-		return 0
-	. = ..()
 
 /obj/machinery/flasher/proc/flash()
 	if (!powered() || !bulb)
@@ -144,7 +142,7 @@
 			bulb.burn_out()
 			power_change()
 
-/obj/machinery/flasher/obj_break(damage_flag)
+/obj/machinery/flasher/atom_break(damage_flag)
 	. = ..()
 	if(. && bulb)
 		bulb.burn_out()
@@ -186,13 +184,13 @@
 			add_overlay("[base_state]-s")
 			set_anchored(TRUE)
 			power_change()
-			proximity_monitor.SetRange(range)
+			proximity_monitor.set_range(range)
 		else
 			to_chat(user, "<span class='notice'>[src] can now be moved.</span>")
 			cut_overlays()
 			set_anchored(FALSE)
 			power_change()
-			proximity_monitor.SetRange(0)
+			proximity_monitor.set_range(0)
 
 	else
 		return ..()
@@ -204,6 +202,7 @@
 	icon_state = "mflash_frame"
 	result_path = /obj/machinery/flasher
 	var/id = null
+	pixel_shift = 28
 
 /obj/item/wallframe/flasher/examine(mob/user)
 	. = ..()

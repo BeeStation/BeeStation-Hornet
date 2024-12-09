@@ -12,9 +12,12 @@
 
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps on"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomp on"
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
@@ -29,7 +32,7 @@
 	healable = 0
 	gender = NEUTER
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
@@ -39,6 +42,8 @@
 	// canstun and canknockdown don't affect slimes because they ignore stun and knockdown variables
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANUNCONSCIOUS|CANPUSH
+
+	footstep_type = FOOTSTEP_MOB_SLIME
 
 	hud_type = /datum/hud/slime
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
@@ -70,8 +75,6 @@
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
 
-	do_footstep = TRUE
-
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
 
@@ -92,6 +95,8 @@
 	// Transformative extract effects - get passed down
 	var/transformeffects = SLIME_EFFECT_DEFAULT
 	var/mob/master
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -250,10 +255,11 @@
 		else
 			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can evolve!")
 
-	if(stat == UNCONSCIOUS)
-		tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
-	else
-		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
+	switch(stat)
+		if(HARD_CRIT, UNCONSCIOUS)
+			tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
+		else
+			tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
 	return tab_data
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -453,7 +459,7 @@
 	if (stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
-		if (stat == UNCONSCIOUS) // Slime stasis
+		if (stat == UNCONSCIOUS || stat == HARD_CRIT) // Slime stasis
 			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if (getBruteLoss())
 			. += "<span class='warning'>"
@@ -496,25 +502,18 @@
 
 	SStun = world.time + rand(20,60)
 
-	mobility_flags &= ~MOBILITY_MOVE
+	Stun(3)
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 0.3 SECONDS)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
 		step_away(src,user,15)
-	update_mobility()
 
 /mob/living/simple_animal/slime/pet
 	docile = 1
-
-/mob/living/simple_animal/slime/can_unbuckle()
-	return 0
-
-/mob/living/simple_animal/slime/can_buckle()
-	return 0
 
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())
@@ -522,6 +521,8 @@
 
 /mob/living/simple_animal/slime/can_be_implanted()
 	return TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
@@ -550,6 +551,8 @@
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)

@@ -30,7 +30,7 @@
 
 /obj/item/teleportation_scroll/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if (usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return 1
@@ -64,7 +64,7 @@
 		to_chat(user, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
 		return
 
-	if(do_teleport(user, pick(L), channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+	if(do_teleport(user, pick(L), channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE))
 		smoke.start()
 		uses--
 	else

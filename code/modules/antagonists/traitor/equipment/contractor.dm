@@ -74,8 +74,8 @@
 	)
 
 	//What the fuck
-	if(length(to_generate) > length(GLOB.data_core.locked))
-		to_generate.Cut(1, length(GLOB.data_core.locked))
+	if(length(to_generate) > length(GLOB.manifest.locked))
+		to_generate.Cut(1, length(GLOB.manifest.locked))
 
 	// We don't want the sum of all the payouts to be under this amount
 	var/lowest_TC_threshold = 30
@@ -293,6 +293,7 @@
 	name = "contractor pinpointer"
 	desc = "A handheld tracking device that locks onto certain signals. Ignores suit sensors, but is much less accurate."
 	icon_state = "pinpointer_syndicate"
+	worn_icon_state = "pinpointer_black"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	minimum_range = 25
 	has_owner = TRUE

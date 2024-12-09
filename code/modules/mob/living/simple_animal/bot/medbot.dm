@@ -10,8 +10,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #define MEDBOT_PANIC_AAAA	70
 #define MEDBOT_PANIC_ENDING	90
 #define MEDBOT_PANIC_END	100
-#define MEDIBOT_TREAT_INJECT "inject"
-#define MEDIBOT_TREAT_SUCK "suck"
+#define MEDBOT_TREAT_INJECT "inject"
+#define MEDBOT_TREAT_SUCK "suck"
+#define MEDBOT_TREAT_BANDAGE "bandage"
 
 
 /mob/living/simple_animal/bot/medbot
@@ -78,11 +79,23 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	heal_threshold = 0
 	declare_crit = 0
 
+/mob/living/simple_animal/bot/medbot/nukie
+	name = "\improper Oppenheimer"
+	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate."
+	skin = MEDBOT_SKIN_BEZERK
+	health = 40
+	maxHealth = 40
+	radio_key = /obj/item/encryptionkey/syndicate
+	radio_channel = RADIO_CHANNEL_SYNDICATE
+	heal_threshold = 30
+	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
+	faction = list(FACTION_SYNDICATE, "neutral", "silicon")
+
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
 	declare_crit = TRUE
-	reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/kelobic
+	reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
@@ -91,7 +104,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!on)
 		icon_state = "medibot0"
 		return
-	if(IsStun() || IsParalyzed())
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		icon_state = "medibota"
 		return
 	if(mode == BOT_HEALING)
@@ -112,10 +125,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return
 	name = t
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
+
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
-	skin = new_skin
-	update_icon()
+
+	if(!isnull(new_skin))
+		skin = new_skin
+	update_appearance()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
@@ -128,10 +145,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
 	medibot_counter = GLOB.medibot_unique_id_gen
 	GLOB.medibot_unique_id_gen++
-
-/mob/living/simple_animal/bot/medbot/update_mobility()
-	. = ..()
-	update_icon()
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -159,97 +172,69 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/attack_paw(mob/user)
 	return attack_hand(user)
 
-/mob/living/simple_animal/bot/medbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
+/mob/living/simple_animal/bot/medbot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Beaker: "
-		if(reagent_glass)
-			dat += "<A href='?src=[REF(src)];eject=1'>Loaded \[[reagent_glass.name]: [reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a><br>"
-		else
-			dat += "None Loaded<br>"
-		dat += "<TT>Healing Threshold: "
-		dat += "<a href='?src=[REF(src)];adj_threshold=-10'>--</a> "
-		dat += "<a href='?src=[REF(src)];adj_threshold=-5'>-</a> "
-		dat += "[heal_threshold] "
-		dat += "<a href='?src=[REF(src)];adj_threshold=5'>+</a> "
-		dat += "<a href='?src=[REF(src)];adj_threshold=10'>++</a>"
-		dat += "</TT><br>"
-		dat += "<TT>Injection Level: "
-		dat += "<a href='?src=[REF(src)];adj_inject=-5'>-</a> "
-		dat += "[injection_amount] "
-		dat += "<a href='?src=[REF(src)];adj_inject=5'>+</a> "
-		dat += "</TT><br>"
-		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='?src=[REF(src)];togglevoice=[1]'>Toggle</a><br>"
-		dat += "Critical Patient Alerts: <a href='?src=[REF(src)];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
-		dat += "Patrol Station: <a href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
-		dat += "Stationary Mode: <a href='?src=[REF(src)];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
-		dat += "Synthesise Epinephrine: <a href='?src=[REF(src)];synth_epi=1'>[synth_epi ? "Yes" : "No"]</a><br>"
-		dat += "<a href='?src=[REF(src)];hptech=1'>Search for Technological Advancements</a><br>"
+		data["custom_controls"]["container"] = list(
+			"reagent_glass" = reagent_glass,
+			"total_volume" = reagent_glass?.reagents.total_volume,
+			"maximum_volume" = reagent_glass?.reagents.maximum_volume
+		)
+		data["custom_controls"]["heal_threshold"] = heal_threshold
+		data["custom_controls"]["injection_amount"] = injection_amount
+		data["custom_controls"]["speaker"] = !shut_up
+		data["custom_controls"]["crit_alerts"] = declare_crit
+		data["custom_controls"]["stationary_mode"] = stationary_mode
+		data["custom_controls"]["synth_epi"] = synth_epi
+		data["custom_controls"]["sync_tech"] = efficiency
+	return data
 
-	return dat
-
-/mob/living/simple_animal/bot/medbot/Topic(href, href_list)
+// Actions received from TGUI
+/mob/living/simple_animal/bot/medbot/ui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["adj_threshold"])
-		var/adjust_num = text2num(href_list["adj_threshold"])
-		heal_threshold += adjust_num
-		if(heal_threshold < 5)
-			heal_threshold = 5
-		if(heal_threshold > 120)
-			heal_threshold = 120
-
-	else if(href_list["adj_inject"])
-		var/adjust_num = text2num(href_list["adj_inject"])
-		injection_amount += adjust_num
-		if(injection_amount < 5)
-			injection_amount = 5
-		if(injection_amount > 30)
-			injection_amount = 30
-
-
-	else if(href_list["eject"] && (!isnull(reagent_glass)))
-		reagent_glass.forceMove(drop_location())
-		reagent_glass = null
-		update_icon()
-
-	else if(href_list["togglevoice"])
-		shut_up = !shut_up
-
-	else if(href_list["critalerts"])
-		declare_crit = !declare_crit
-
-	else if(href_list["stationary"])
-		stationary_mode = !stationary_mode
-		path = list()
-		update_icon()
-
-	else if(href_list["synth_epi"])
-		synth_epi = !synth_epi
-
-	else if(href_list["hptech"])
-		var/old_eff = efficiency
-		var/tech_boosters
-		for(var/i in linked_techweb.researched_designs)
-			var/datum/design/surgery/healing/D = SSresearch.techweb_design_by_id(i)
-			if(!istype(D))
-				continue
-			tech_boosters++
-		if(tech_boosters)
-			efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
-			if(old_eff < efficiency)
-				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
-				window_name = "Automatic Medical Unit v[efficiency]"
-	update_controls()
-	return
-
+		return TRUE
+	switch(action)
+		if("eject")
+			if (!isnull(reagent_glass))
+				reagent_glass.forceMove(drop_location())
+				reagent_glass = null
+				update_icon()
+		if("heal_threshold")
+			var/adjust_num = round(text2num(params["threshold"]))
+			heal_threshold = adjust_num
+			if(heal_threshold < 5)
+				heal_threshold = 5
+			if(heal_threshold > 120)
+				heal_threshold = 120
+		if("injection_amount")
+			var/adjust_num = round(text2num(params["inject"]))
+			injection_amount = adjust_num
+			if(injection_amount < 5)
+				injection_amount = 5
+			if(injection_amount > 30)
+				injection_amount = 30
+		if("speaker")
+			shut_up = !shut_up
+		if("crit_alerts")
+			declare_crit = !declare_crit
+		if("stationary_mode")
+			stationary_mode = !stationary_mode
+			path = list()
+		if("synth_epi")
+			synth_epi = !synth_epi
+		if("sync_tech")
+			var/old_eff = efficiency
+			var/tech_boosters
+			for(var/i in linked_techweb.researched_designs)
+				var/datum/design/surgery/healing/D = SSresearch.techweb_design_by_id(i)
+				if(!istype(D))
+					continue
+				tech_boosters++
+			if(tech_boosters)
+				efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
+				if(old_eff < efficiency)
+					speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
+					window_name = "Automatic Medical Unit v[efficiency]"
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/reagent_containers))
@@ -269,7 +254,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 		log_combat(user, src, "inserted a [W] with [reagentlist]" )
 		add_fingerprint(user)
-		show_controls(user)
 		update_icon()
 
 	if(istype(W, /obj/item/pen)&&!locked)
@@ -337,7 +321,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return
 
 /mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
-	mobility_flags &= ~MOBILITY_MOVE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	user.visible_message("<span class='danger'>[user] tips over [src]!</span>", "<span class='danger'>You tip [src] over!</span>")
 	tipped = TRUE
@@ -346,7 +330,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	tipper_name = user.name
 
 /mob/living/simple_animal/bot/medbot/proc/set_right(mob/user)
-	mobility_flags &= MOBILITY_MOVE
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
 	var/list/messagevoice
 
 	if(user)
@@ -534,9 +518,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			var/obj/item/clothing/CH = H.head
 			if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)
 				return FALSE // Skip over them if they have no exposed flesh.
+		if(H.is_bleeding())
+			return TRUE
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
+
 
 	if(!reagent_glass?.reagents.total_volume) // no beaker, we can't do that
 		return FALSE
@@ -551,6 +538,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	return FALSE // we shouldn't get random TRUE cases
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
+	if(DOING_INTERACTION_WITH_TARGET(H, src))
+		to_chat(H, "<span class='warning'>You're already interacting with [src].</span>")
+		return
 	if(H.a_intent == INTENT_DISARM && !tipped)
 		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
 
@@ -572,6 +562,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		..()
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		set_patient(C)
@@ -613,10 +605,15 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		var/treat_behaviour // what this medibot will do?
 
 		if(emagged)
-			treat_behaviour = MEDIBOT_TREAT_SUCK // Emagged! Time to drain everybody.
+			treat_behaviour = MEDBOT_TREAT_SUCK // Emagged! Time to drain everybody.
+
+		if(!treat_behaviour && ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if(H.is_bleeding())
+				treat_behaviour = MEDBOT_TREAT_BANDAGE
 
 		if(!treat_behaviour && reagent_glass?.reagents.total_volume) //have a beaker with something?
-			treat_behaviour = MEDIBOT_TREAT_INJECT
+			treat_behaviour = MEDBOT_TREAT_INJECT
 
 			for(var/datum/reagent/each_beaker_reagent in reagent_glass.reagents.reagent_list)
 				if(C.reagents.has_reagent(each_beaker_reagent.type)) // they have the chems inside them already
@@ -633,19 +630,21 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			return
 
-
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", "<span class='userdanger'>[src] is trying to inject you!</span>")
-		if( get_dist(src, patient) > 1 || \
+		var/tool_action = "inject"
+		if(treat_behaviour == MEDBOT_TREAT_BANDAGE)
+			tool_action = "bandage"
+		C.visible_message("<span class='danger'>[src] is trying to [tool_action] [patient]!</span>", "<span class='userdanger'>[src] is trying to [tool_action] you!</span>")
+		if(get_dist(src, patient) > 1 || \
 				!do_after(src, 2 SECONDS, patient) ||\
 				!assess_patient(patient) || \
 				!on) //are they near us? did they move away? are they still hurt? are we stil on?
-			visible_message("[src] retracts its syringe.")
+			visible_message("[src] retracts its tools.")
 			update_icon()
 			soft_reset()
 			return
 
 		switch(treat_behaviour)
-			if(MEDIBOT_TREAT_INJECT)
+			if(MEDBOT_TREAT_INJECT)
 				if(reagent_glass?.reagents.total_volume)
 					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
@@ -658,15 +657,27 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						speak(message,radio_channel)
 						playsound(src, messagevoice[message], 50)
 						COOLDOWN_START(src, declare_cooldown, 10 SECONDS)
-			if(MEDIBOT_TREAT_SUCK)
+					C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+					"<span class='userdanger'>[src] injects you with its syringe!</span>")
+			if(MEDBOT_TREAT_BANDAGE)
+				var/mob/living/carbon/human/H = C
+				if(!H.is_bleeding())
+					to_chat(src, "<span class='warning'>[H] isn't bleeding!</span>")
+					update_icon()
+					soft_reset()
+					return
+				H.suppress_bloodloss(BLEED_SURFACE) // as good as a improvized medical gauze
+				C.visible_message("<span class='danger'>[src] bandages [patient] with its gauze!</span>", \
+				"<span class='userdanger'>[src] bandages you with its gauze!</span>")
+			if(MEDBOT_TREAT_SUCK)
 				if(patient.transfer_blood_to(reagent_glass, injection_amount))
 					patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 						"<span class='userdanger'>[src] is trying to inject you!</span>")
 					log_combat(src, patient, "drained of blood")
 				else
 					to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
-		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-			"<span class='userdanger'>[src] injects you with its syringe!</span>")
+				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+				"<span class='userdanger'>[src] injects you with its syringe!</span>")
 		update_icon()
 		soft_reset()
 		return
@@ -716,3 +727,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #undef MEDBOT_PANIC_AAAA
 #undef MEDBOT_PANIC_ENDING
 #undef MEDBOT_PANIC_END
+
+#undef MEDBOT_TREAT_INJECT
+#undef MEDBOT_TREAT_SUCK
+#undef MEDBOT_TREAT_BANDAGE

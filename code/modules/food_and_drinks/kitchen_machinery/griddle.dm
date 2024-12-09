@@ -23,7 +23,7 @@
 	///How many shit fits on the griddle?
 	var/max_items = 8
 
-/obj/machinery/griddle/Initialize()
+/obj/machinery/griddle/Initialize(mapload)
 	. = ..()
 	grill_loop = new(src, FALSE)
 	if(isnum(variant))
@@ -98,6 +98,7 @@
 	vis_contents += item_to_grill
 	griddled_objects += item_to_grill
 	item_to_grill.flags_1 |= IS_ONTOP_1
+	SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_PLACED, user)
 	RegisterSignal(item_to_grill, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_grill, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
 	RegisterSignal(item_to_grill, COMSIG_PARENT_QDELETING, PROC_REF(ItemRemovedFromGrill))

@@ -306,7 +306,7 @@
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	human_target.bleed_rate += 5
+	human_target.add_bleeding(BLEED_DEEP_WOUND)
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
@@ -345,10 +345,11 @@
 		Reality will bend to THE LORD OF THE NIGHT or be unraveled! WITNESS MY ASCENSION!"
 	required_atoms = list(/mob/living/carbon/human = 4)
 	route = HERETIC_PATH_FLESH
+	announcement_text = "Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %USER% has ascended! Fear the ever-twisting hand!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_flesh.ogg'
 
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever-twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)

@@ -1,5 +1,3 @@
-#define SIGIL_TRANSMISSION_RANGE 4
-
 //==================================//
 // !      Sigil of Transmission     ! //
 //==================================//
@@ -51,12 +49,12 @@
 			GB.update_power()
 
 /obj/structure/destructible/clockwork/sigil/transmission/can_affect(atom/movable/AM)
-	return (istype(AM, /obj/mecha) || iscyborg(AM) || ishuman(AM))
+	return (istype(AM, /obj/vehicle/sealed/mecha) || iscyborg(AM) || ishuman(AM))
 
 /obj/structure/destructible/clockwork/sigil/transmission/apply_effects(atom/movable/AM)
-	if(istype(AM, /obj/mecha))
-		var/obj/mecha/M = AM
-		var/mob/living/O = M.occupant
+	if(istype(AM, /obj/vehicle/sealed/mecha))
+		var/obj/vehicle/sealed/mecha/M = AM
+		var/mob/living/O = M.occupants
 		var/obj/item/stock_parts/cell/C = M.cell
 		if(!C)
 			return

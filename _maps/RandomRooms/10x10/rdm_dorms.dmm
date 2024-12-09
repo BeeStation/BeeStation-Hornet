@@ -1,0 +1,500 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ez" = (
+/obj/structure/table/wood,
+/obj/item/stack/cable_coil/red,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"fQ" = (
+/obj/machinery/button/door{
+	id = "MaintCabin4";
+	name = "Cabin Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = -24;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"hm" = (
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"hK" = (
+/obj/machinery/button/door{
+	id = "MaintCabin2";
+	name = "Cabin Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = 24;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"kq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/wrench,
+/turf/open/floor/plating,
+/area/template_noop)
+"lc" = (
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"ld" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"mB" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/suit/burgundy,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"mZ" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/stairs/right,
+/area/template_noop)
+"nI" = (
+/obj/machinery/door/airlock{
+	id_tag = "MaintCabin3";
+	name = "Cabin 3"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plating,
+/area/template_noop)
+"nW" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"ov" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"qy" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
+"rQ" = (
+/obj/machinery/door/airlock{
+	id_tag = "MaintCabin1";
+	name = "Cabin 1"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plating,
+/area/template_noop)
+"rV" = (
+/obj/structure/table/wood,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"sU" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"tv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"wo" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"wz" = (
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/template_noop)
+"wQ" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"xz" = (
+/obj/machinery/door/airlock{
+	id_tag = "MaintCabin2";
+	name = "Cabin 2"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plating,
+/area/template_noop)
+"zg" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_x = 32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"zQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/red,
+/turf/open/floor/plating,
+/area/template_noop)
+"An" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"AG" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/canned/peaches/maint,
+/obj/item/trash/chips,
+/obj/item/trash/energybar,
+/turf/open/floor/plating,
+/area/template_noop)
+"BY" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"DB" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/dress/redeveninggown,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"DD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"EM" = (
+/obj/machinery/light/small/broken,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"Fu" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"FR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/template_noop)
+"GG" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/template_noop)
+"GQ" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/suit/jacket{
+	desc = "All the class of a trenchcoat without the security fibers.";
+	icon_state = "detective";
+	name = "trenchcoat"
+	},
+/obj/item/clothing/suit/toggle/lawyer/purple,
+/obj/item/clothing/head/fedora{
+	icon_state = "detective"
+	},
+/obj/item/clothing/under/costume/geisha,
+/obj/item/clothing/head/fedora{
+	icon_state = "curator"
+	},
+/obj/item/clothing/suit/jacket{
+	desc = "This looks awfully familiar...";
+	icon_state = "curator"
+	},
+/obj/item/clothing/under/rank/civilian/curator/treasure_hunter,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"HI" = (
+/obj/machinery/button/door{
+	id = "MaintCabin3";
+	name = "Cabin Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = -24;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"IR" = (
+/obj/machinery/button/door{
+	id = "MaintCabin1";
+	name = "Cabin Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = 24;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"Lc" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"Mn" = (
+/turf/closed/wall,
+/area/template_noop)
+"Mo" = (
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plating,
+/area/template_noop)
+"Nw" = (
+/obj/structure/closet/emcloset,
+/obj/effect/spawner/lootdrop/glowstick,
+/turf/open/floor/plating,
+/area/template_noop)
+"NI" = (
+/obj/structure/chair/wood/normal{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"NK" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plating,
+/area/template_noop)
+"Pj" = (
+/obj/machinery/door/airlock{
+	id_tag = "MaintCabin4";
+	name = "Cabin 4"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plating,
+/area/template_noop)
+"QH" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/stairs/right{
+	dir = 1
+	},
+/area/template_noop)
+"RR" = (
+/obj/structure/chair/noose{
+	pixel_y = 32
+	},
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
+/obj/item/chair/wood,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"SG" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/stairs/left{
+	dir = 1
+	},
+/area/template_noop)
+"Vq" = (
+/obj/effect/spawner/room/threexthree,
+/turf/open/floor/plating,
+/area/template_noop)
+"Vu" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/waterbottle/empty{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"VM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/crowbar,
+/turf/open/floor/plating,
+/area/template_noop)
+"VX" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/stairs/left,
+/area/template_noop)
+"Wl" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/collectable/rabbitears,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"Xb" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"Xm" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/costume/kilt,
+/obj/item/clothing/head/beret,
+/obj/item/clothing/suit/toggle/lawyer,
+/obj/item/clothing/suit/jacket/letterman_nanotrasen,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"Xn" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Yt" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"Yu" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/template_noop)
+"ZF" = (
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
+/area/template_noop)
+"ZM" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+sU
+wQ
+Mn
+AG
+kq
+Lc
+GG
+Mn
+wo
+Wl
+"}
+(2,1,1) = {"
+ld
+ov
+Mn
+wz
+BY
+zQ
+Yu
+Mn
+lc
+hm
+"}
+(3,1,1) = {"
+mB
+HI
+Mn
+ez
+BY
+VM
+Mo
+Mn
+IR
+GQ
+"}
+(4,1,1) = {"
+Mn
+nI
+Mn
+Yt
+FR
+tv
+DD
+Mn
+rQ
+Mn
+"}
+(5,1,1) = {"
+SG
+ZF
+Xn
+ZF
+ZF
+ZF
+ZF
+NK
+ZF
+VX
+"}
+(6,1,1) = {"
+QH
+ZF
+zg
+ZM
+ZF
+ZF
+ZF
+ZF
+ZF
+mZ
+"}
+(7,1,1) = {"
+Mn
+Pj
+Mn
+Mn
+Mn
+Mn
+Mn
+Mn
+xz
+Mn
+"}
+(8,1,1) = {"
+Xm
+fQ
+Mn
+Xb
+BY
+BY
+Vq
+Mn
+hK
+DB
+"}
+(9,1,1) = {"
+NI
+EM
+Mn
+Nw
+BY
+BY
+BY
+Mn
+Fu
+RR
+"}
+(10,1,1) = {"
+rV
+nW
+Mn
+qy
+BY
+BY
+BY
+Mn
+An
+Vu
+"}

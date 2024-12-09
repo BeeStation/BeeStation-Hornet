@@ -406,6 +406,33 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/micro_laser = 1)
 
+/obj/item/circuitboard/machine/shieldwallgen
+	name = "Shieldwall Generator (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/shieldwallgen
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/sheet/plasmaglass = 1,
+		/obj/item/stack/cable_coil = 5
+		)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/shieldwallgen/atmos
+	name = "Atmospheric Holofield Generator (Machine Board)"
+	build_path = /obj/machinery/power/shieldwallgen/atmos
+
+/obj/item/circuitboard/machine/shieldwallgen/atmos/strong
+	name = "High Power Atmospheric Holofield Generator (Machine Board)"
+	build_path = /obj/machinery/power/shieldwallgen/atmos/strong
+	req_components = list(
+		/obj/item/stock_parts/manipulator/nano = 2,
+		/obj/item/stock_parts/micro_laser/high = 2,
+		/obj/item/stock_parts/capacitor/adv = 2,
+		/obj/item/stack/sheet/plasmaglass = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
+
 //Generic
 
 
@@ -416,7 +443,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/circuit_imprinter/department
 	name = "departmental circuit imprinter (Machine Board)"
@@ -451,7 +478,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/protolathe/department
 	name = "departmental protolathe (Machine Board)"
@@ -480,6 +507,8 @@
 		/obj/machinery/smartfridge/disks = "disks")
 	needs_anchored = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
+
 /obj/item/circuitboard/machine/smartfridge/Initialize(mapload, new_type)
 	if(new_type)
 		build_path = new_type
@@ -499,13 +528,14 @@
 	. += "<span class='info'>[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.</span>"
 
 
-/obj/item/circuitboard/machine/space_heater
-	name = "space heater (Machine Board)"
+/obj/item/circuitboard/machine/portable_thermomachine
+	name = "portable thermomachine (Machine Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/space_heater
+	build_path = /obj/machinery/portable_thermomachine
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/cable_coil = 3)
 	needs_anchored = FALSE
 
@@ -516,7 +546,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/techfab/department
 	name = "departmental techfab (Machine Board)"
@@ -701,11 +731,11 @@
 	build_path = /obj/machinery/chem_master
 	desc = "You can turn the \"mode selection\" dial using a screwdriver."
 	req_components = list(
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
 	def_components = list(
-		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
+		/obj/item/reagent_containers/cup/beaker = /obj/item/reagent_containers/cup/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
@@ -732,7 +762,7 @@
 		/obj/item/stock_parts/scanning_module = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/clonepod/experimental
 	name = "experimental clone pod (Machine Board)"
@@ -779,7 +809,7 @@
 	build_path = /obj/machinery/limbgrower
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/protolathe/department/medical
@@ -860,14 +890,6 @@
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/micro_laser = 1)
 
-/obj/item/circuitboard/machine/experimentor
-	name = "E.X.P.E.R.I-MENTOR (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/rnd/experimentor
-	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/micro_laser = 2)
 
 /obj/item/circuitboard/machine/mech_recharger
 	name = "mechbay recharger (Machine Board)"
@@ -1004,6 +1026,19 @@
 
 //Service
 
+/obj/item/circuitboard/machine/photobooth
+	name = "Photobooth"
+	icon_state = "service"
+	build_path = /obj/machinery/photobooth
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
+
+/obj/item/circuitboard/machine/photobooth/security
+	name = "Security Photobooth"
+	icon_state = "security"
+	build_path = /obj/machinery/photobooth/security
 
 /obj/item/circuitboard/machine/biogenerator
 	name = "biogenerator (Machine Board)"
@@ -1061,6 +1096,13 @@
 	name = "circuit board (Griddle)"
 	icon_state = "service"
 	build_path = /obj/machinery/griddle
+	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/oven
+	name = "circuit board (Oven)"
+	icon_state = "service"
+	build_path = /obj/machinery/oven
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 

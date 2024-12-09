@@ -246,12 +246,12 @@
 	},
 /obj/structure/closet,
 /obj/item/storage/pill_bottle/mannitol,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/gun/syringe,
 /obj/item/storage/box/syringes,
 /obj/item/restraints/handcuffs,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/head/helmet{
@@ -368,17 +368,17 @@
 /area/template_noop)
 "KV" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/sillycup{
+/obj/item/reagent_containers/cup/glass/sillycup{
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/sillycup{
+/obj/item/reagent_containers/cup/glass/sillycup{
 	pixel_x = 9;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/drinks/sillycup,
-/obj/item/reagent_containers/food/drinks/sillycup,
-/obj/item/reagent_containers/food/drinks/sillycup,
+/obj/item/reagent_containers/cup/glass/sillycup,
+/obj/item/reagent_containers/cup/glass/sillycup,
+/obj/item/reagent_containers/cup/glass/sillycup,
 /turf/open/floor/iron/white,
 /area/template_noop)
 "Ls" = (

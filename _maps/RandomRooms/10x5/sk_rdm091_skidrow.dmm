@@ -8,7 +8,7 @@
 /obj/effect/decal/cleanable/shreds,
 /obj/item/toy/cards/singlecard,
 /obj/effect/spawner/lootdrop/maintenance/seven,
-/obj/item/reagent_containers/glass/waterbottle/relic,
+/obj/item/reagent_containers/cup/glass/waterbottle/relic,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -168,11 +168,11 @@
 /obj/structure/closet/cardboard,
 /obj/item/storage/toolbox/emergency,
 /obj/effect/spawner/lootdrop/maintenance/eight,
-/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/obj/item/reagent_containers/cup/glass/bottle/hooch,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
@@ -205,7 +205,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
-/obj/item/trash/can/food,
+/obj/item/trash/canned,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/template_noop)

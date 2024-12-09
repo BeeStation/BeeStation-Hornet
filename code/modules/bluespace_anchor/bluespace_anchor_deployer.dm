@@ -5,6 +5,7 @@
 	icon = 'icons/obj/bluespace_anchor.dmi'
 	icon_state = "anchor_undeployed"
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
@@ -12,6 +13,8 @@
 	slot_flags = ITEM_SLOT_BELT
 
 	var/obj/item/stock_parts/cell/power_cell
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/bluespace_anchor)
 
 /obj/item/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()

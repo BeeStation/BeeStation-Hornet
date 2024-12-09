@@ -443,10 +443,10 @@
 		explosion(get_turf(holder.my_atom), 0, 2, 3)
 
 
-/datum/chemical_reaction/slime/slimecornoil
+/datum/chemical_reaction/slime/slimeoil
 	name = "Slime Corn Oil"
 	id = "m_cornoil"
-	results = list(/datum/reagent/consumable/cornoil = 10)
+	results = list(/datum/reagent/consumable/nutriment/fat/oil = 10)
 	required_reagents = list(/datum/reagent/blood = 1)
 	required_container = /obj/item/slime_extract/oil
 	required_other = TRUE
@@ -673,5 +673,5 @@
 	required_container = /obj/item/slime_extract/rainbow
 
 /datum/chemical_reaction/slime/flight_potion/on_reaction(datum/reagents/holder)
-	new /obj/item/reagent_containers/glass/bottle/potion/flight(get_turf(holder.my_atom))
+	new /obj/item/reagent_containers/cup/bottle/potion/flight(get_turf(holder.my_atom))
 	..()

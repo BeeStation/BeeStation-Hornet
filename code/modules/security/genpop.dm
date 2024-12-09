@@ -10,11 +10,10 @@
 	power_channel = AREA_USAGE_ENVIRON
 	density = TRUE
 	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
-	obj_integrity = 600
 	max_integrity = 600
 	integrity_failure = 0.35
 	//Robust! It'll be tough to break...
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 0, "energy" = 80, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50, "stamina" = 0)
+	armor_type = /datum/armor/machinery_turnstile
 	anchored = TRUE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -25,6 +24,17 @@
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
 	var/state = TURNSTILE_SECURED
+
+
+/datum/armor/machinery_turnstile
+	melee = 50
+	bullet = 20
+	energy = 80
+	bomb = 10
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 50
 
 /obj/item/circuitboard/machine/turnstile
 	name = "Turnstile circuitboard"
@@ -261,14 +271,14 @@
 			qdel(src)
 			return
 
-	if(obj_integrity >= max_integrity)
+	if(atom_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>The turnstile doesn't need repairing.</span>")
 		return
 	user.visible_message("[user] is welding the turnstile.", \
 				"<span class='notice'>You begin repairing the turnstile...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume=50))
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 		set_machine_stat(machine_stat & ~BROKEN)
 		user.visible_message("[user.name] has repaired [src].", \
 							"<span class='notice'>You finish repairing the turnstile.</span>")
@@ -364,13 +374,14 @@
 	icon = 'icons/obj/machines/genpop_display.dmi'
 	icon_state = "frame"
 	pixel_shift = 32
-	inverse = 1
 	result_path = /obj/machinery/genpop_interface
 
 /obj/item/electronics/genpop_interface
 	name = "prisoner interface circuitboard"
 	icon_state = "power_mod"
 	desc = "Central processing unit for the prisoner interface."
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 
 /obj/machinery/genpop_interface/Initialize(mapload, nbuild)
 	. = ..()
@@ -384,7 +395,7 @@
 		build_static_information()
 
 	Radio = new/obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 	Radio.set_frequency(FREQ_SECURITY)
 
 /obj/machinery/genpop_interface/proc/build_static_information()
@@ -584,13 +595,14 @@
 	user.log_message("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", LOG_ATTACK)
 
 	if(desired_crime)
-		var/datum/data/record/R = find_record("name", desired_name, GLOB.data_core.general)
-		if(R)
-			R.fields["criminal"] = "Incarcerated"
-			var/crime = GLOB.data_core.createCrimeEntry(desired_crime, null, user.real_name, station_time_timestamp())
-			GLOB.data_core.addCrime(R.fields["id"], crime)
-			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [R.fields["name"]] by [key_name(user)]", INVESTIGATE_RECORDS)
-			say("Criminal record for [R.fields["name"]] successfully updated.")
+		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
+		if(target_record)
+			target_record.wanted_status = WANTED_PRISONER
+			var/datum/crime_record/new_crime = new(desired_crime, null, "General Populace")
+			target_record.crimes += new_crime
+			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [target_record.name] by [key_name(user)]", INVESTIGATE_RECORDS)
+			say("Criminal record for [target_record.name] successfully updated.")
+			update_matching_security_huds(target_record.name)
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
@@ -663,7 +675,7 @@
 				say("Prisoner has already served their time! Please apply another charge to sentence them with!")
 				return
 			if(value && isnum(value))
-				id.sentence = clamp(id.sentence + value , 0 , MAX_TIMER)
+				id.sentence = clamp(id.sentence + value , 0 , SENTENCE_MAX_TIMER)
 
 		if("release")
 			var/obj/item/card/id/prisoner/id = locate(params["id"]) in GLOB.prisoner_ids
@@ -698,6 +710,8 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 	var/crime = null //What you in for mate?
 	var/atom/assigned_locker = null //Where's our stuff then guv?
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
+
 /obj/item/card/id/prisoner/Initialize(mapload, _sentence, _crime, _name)
 	. = ..()
 	GLOB.prisoner_ids += src
@@ -731,12 +745,10 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 		update_label(registered_name, assignment)
 		playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
-		var/datum/data/record/R = find_record("name", registered_name, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)
 		if(R)
-			R.fields["criminal"] = "Discharged"
+			R.wanted_status = WANTED_DISCHARGED
 
 		if(isliving(loc))
 			to_chat(loc, "<span class='boldnotice'>You have served your sentence! You may now exit prison through the turnstiles and collect your belongings.</span>")
 		return PROCESS_KILL
-
-#undef MAX_TIMER

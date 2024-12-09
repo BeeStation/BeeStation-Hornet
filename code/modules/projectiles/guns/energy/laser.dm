@@ -7,7 +7,7 @@
 	custom_materials = list(/datum/material/iron=2000)
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -45,12 +45,24 @@
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/laser/captain/contents_explosion(severity, target)
+	if (!ammo_type || !cell)
+		name = "\improper broken antique laser gun"
+		desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It was decorated with leather and chrome. Seems too be damaged to the point of not functioning, but still valuable."
+		icon_state = "caplaser_broken"
+		update_icon()
+
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
 	icon_state = "lasercannon"
 	item_state = "laser"
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lens to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theoretically infinite use."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
+	shaded_charge = FALSE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+
+/obj/item/gun/energy/laser/captain/scattershot/contents_explosion(severity, target)
+	return
 
 /obj/item/gun/energy/laser/cyborg
 	can_charge = FALSE
@@ -71,9 +83,10 @@
 	icon_state = "cshotgun"
 	item_state = "shotgun"
 	desc = "A combat shotgun gutted and refitted with an internal laser system. Can switch between taser and scattered disabler shots."
-	shaded_charge = 0
+	shaded_charge = FALSE
 	pin = /obj/item/firing_pin/implant/mindshield
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler, /obj/item/ammo_casing/energy/electrode)
+	automatic_charge_overlays = FALSE
 
 ///Laser Cannon
 
@@ -82,6 +95,7 @@
 	desc = "An advanced laser cannon that does more damage the farther away the target is."
 	icon_state = "lasercannon"
 	item_state = "laser"
+	worn_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags_1 =  CONDUCT_1

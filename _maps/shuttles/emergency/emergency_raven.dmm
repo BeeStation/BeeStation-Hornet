@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ac" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
@@ -60,7 +60,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ap" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
@@ -288,7 +288,7 @@
 /area/shuttle/escape)
 "bd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /turf/open/floor/iron/white/side{
@@ -447,17 +447,17 @@
 /turf/open/floor/iron/white/side,
 /area/shuttle/escape)
 "bL" = (
-/obj/item/reagent_containers/glass/bottle/epinephrine{
+/obj/item/reagent_containers/cup/bottle/epinephrine{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal{
+/obj/item/reagent_containers/cup/bottle/charcoal{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
+/obj/item/reagent_containers/cup/bottle/epinephrine{
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal{
+/obj/item/reagent_containers/cup/bottle/charcoal{
 	pixel_x = 6;
 	pixel_y = 8
 	},
@@ -724,23 +724,23 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
@@ -793,9 +793,9 @@
 	},
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/suit/fire/firefighter,
+/obj/item/clothing/suit/utility/fire/firefighter,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/hardhat/red,
+/obj/item/clothing/head/utility/hardhat/red,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "db" = (
@@ -835,7 +835,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "dk" = (
@@ -910,7 +910,7 @@
 "dy" = (
 /obj/effect/turf_decal/bot_white,
 /obj/structure/rack,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -1116,7 +1116,7 @@
 "ee" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ef" = (
@@ -1423,9 +1423,9 @@
 "uO" = (
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/suit/fire/firefighter,
+/obj/item/clothing/suit/utility/fire/firefighter,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/hardhat/red,
+/obj/item/clothing/head/utility/hardhat/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/extinguisher,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,

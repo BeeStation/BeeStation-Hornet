@@ -12,10 +12,14 @@
 	layer = ABOVE_WINDOW_LAYER
 	var/magical = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
+
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)
-		obj_break(null, mapload)
+		atom_break(null, mapload)
 
 /obj/structure/mirror/attack_hand(mob/user)
 	. = ..()
@@ -53,14 +57,16 @@
 		return list()// no message spam
 	return ..()
 
-/obj/structure/mirror/obj_break(damage_flag, mapload)
-	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		icon_state = "mirror_broke"
-		if(!mapload)
-			playsound(src, "shatter", 70, 1)
-		if(desc == initial(desc))
-			desc = "Oh no, seven years of bad luck!"
-		broken = TRUE
+/obj/structure/mirror/atom_break(damage_flag, mapload)
+	. = ..()
+	if(broken || (flags_1 & NODECONSTRUCT_1))
+		return
+	icon_state = "mirror_broke"
+	if(!mapload)
+		playsound(src, "shatter", 70, 1)
+	if(desc == initial(desc))
+		desc = "Oh no, seven years of bad luck!"
+	broken = TRUE
 
 /obj/structure/mirror/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -218,7 +224,11 @@
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(hairchoice == "Style") //So you just want to use a mirror then?
-				..()
+				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", GLOB.hair_styles_list, H.hair_style)
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return
+				if(new_style)
+					H.hair_style = new_style
 			else
 				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color","#"+H.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
@@ -231,7 +241,7 @@
 					if(new_face_color)
 						H.facial_hair_color = sanitize_hexcolor(new_face_color)
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
-				H.update_hair()
+			H.update_hair()
 
 		if(BODY_ZONE_PRECISE_EYES)
 			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color","#"+H.eye_color)
@@ -265,7 +275,7 @@
 			var/new_angle_s = P.Angle + 180
 			while(new_angle_s > 180)	// Translate to regular projectile degrees
 				new_angle_s -= 360
-			P.setAngle(new_angle_s)
+			P.set_angle(new_angle_s)
 
 	return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 

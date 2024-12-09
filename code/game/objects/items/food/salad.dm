@@ -2,7 +2,7 @@
 ////////////////////////////////////////////SALAD////////////////////////////////////////////
 /obj/item/food/salad
 	icon = 'icons/obj/food/soupsalad.dmi'
-	trash_type = /obj/item/reagent_containers/glass/bowl
+	trash_type = /obj/item/reagent_containers/cup/bowl
 	bite_consumption = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	food_reagents = list(
@@ -12,6 +12,7 @@
 	tastes = list("leaves" = 1)
 	foodtypes = VEGETABLES
 	eatverbs = list("devour","nibble","gnaw","gobble","chomp") //who the fuck gnaws and devours on a salad
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/salad/aesirsalad
 	name = "\improper Aesir salad"
@@ -19,11 +20,11 @@
 	icon_state = "aesirsalad"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
-		/datum/reagent/medicine/omnizine = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 12
 	)
 	tastes = list("leaves" = 1)
 	foodtypes = VEGETABLES | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/salad/herbsalad
 	name = "herb salad"
@@ -35,6 +36,7 @@
 	)
 	tastes = list("leaves" = 1, "apple" = 1)
 	foodtypes = VEGETABLES | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/salad/validsalad
 	name = "valid salad"
@@ -59,6 +61,7 @@
 	)
 	tastes = list("fruit" = 1)
 	foodtypes = FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/salad/jungle
 	name = "jungle salad"
@@ -71,6 +74,7 @@
 	)
 	tastes = list("fruit" = 1, "the jungle" = 1)
 	foodtypes = FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/salad/citrusdelight
 	name = "citrus delight"
@@ -82,31 +86,33 @@
 	)
 	tastes = list("sourness" = 1, "leaves" = 1)
 	foodtypes = FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
-/obj/item/food/salad/ricebowl
-	name = "ricebowl"
-	desc = "A bowl of raw rice."
-	icon_state = "ricebowl"
+/obj/item/food/uncooked_rice
+	name = "uncooked rice"
+	desc = "A clump of raw rice."
+	icon_state = "uncooked_rice"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("rice" = 1)
 	foodtypes = GRAIN | RAW
-	microwaved_type = /obj/item/food/salad/boiledrice
+	microwaved_type = /obj/item/food/boiledrice
 
 /*
 /obj/item/food/salad/ricebowl/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/salad/boiledrice)
 */
 
-/obj/item/food/salad/boiledrice
+/obj/item/food/boiledrice
 	name = "boiled rice"
-	desc = "A warm bowl of rice."
-	icon_state = "boiledrice"
+	desc = "A steaming cup of boiled rice. A bit bland by itself, but the basis for something delicious..."
+	icon_state = "cooked_rice"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	tastes = list("rice" = 1)
 	foodtypes = GRAIN | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/salad/ricepudding
 	name = "rice pudding"
@@ -131,6 +137,7 @@
 	)
 	tastes = list("rice" = 1, "meat" = 1)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/salad/eggbowl
 	name = "egg bowl"
@@ -143,9 +150,10 @@
 	)
 	tastes = list("rice" = 1, "egg" = 1)
 	foodtypes = GRAIN | MEAT //EGG = MEAT -NinjaNomNom 2017
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 
-/obj/item/reagent_containers/glass/bowl
+/obj/item/reagent_containers/cup/bowl
 	name = "bowl"
 	desc = "A simple bowl, used for soups and salads."
 	icon = 'icons/obj/food/soupsalad.dmi'
@@ -155,7 +163,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = PAYCHECK_EASY * 0.6
 
-/obj/item/reagent_containers/glass/bowl/Initialize()
+/obj/item/reagent_containers/cup/bowl/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/salad/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 6)
 

@@ -4,6 +4,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
+	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
@@ -67,6 +68,9 @@
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN
 
+/obj/item/organ/liver/get_availability(datum/species/S)
+	return !(TRAIT_NOMETABOLISM in S.species_traits)
+
 /obj/item/organ/liver/fly
 	name = "insectoid liver"
 	icon_state = "liver-x" //xenomorph liver? It's just a black liver so it fits.
@@ -117,7 +121,8 @@
 /obj/item/organ/liver/cybernetic/upgraded/ipc
 	name = "substance processor"
 	icon_state = "substance_processor"
-	attack_verb = list("processed")
+	attack_verb_continuous = list("processes")
+	attack_verb_simple = list("process")
 	desc = "A machine component, installed in the chest. This grants the Machine the ability to process chemicals that enter its systems."
 	alcohol_tolerance = 0
 	toxTolerance = -1
@@ -131,3 +136,11 @@
 			owner.toxloss += 15
 		if(2)
 			owner.toxloss += 5
+
+/obj/item/organ/liver/diona
+	name = "liverwort"
+	desc = "A mass of plant vines and leaves, seeming to be responsible for chemical digestion."
+	icon_state = "diona_liver"
+
+#undef LIVER_DEFAULT_TOX_TOLERANCE
+#undef LIVER_DEFAULT_TOX_LETHALITY

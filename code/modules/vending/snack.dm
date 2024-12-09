@@ -4,13 +4,14 @@
 	product_slogans = "Try our new nougat bar!;Twice the calories for half the price!"
 	product_ads = "The healthiest!;Award-winning chocolate bars!;Mmm! So good!;Oh my god it's so juicy!;Have a snack.;Snacks are good for you!;Have some more Getmore!;Best quality snacks straight from mars.;We love chocolate!;Try our new jerky!"
 	icon_state = "snack"
+	light_mask = "snack-light-mask"
 	products = list(/obj/item/food/spacetwinkie = 6,
 					/obj/item/food/cheesiehonkers = 6,
 					/obj/item/food/candy = 6,
 					/obj/item/food/chips = 6,
 					/obj/item/food/sosjerky = 6,
 					/obj/item/food/no_raisin = 6,
-					/obj/item/reagent_containers/food/drinks/dry_ramen = 3,
+					/obj/item/reagent_containers/cup/glass/dry_ramen = 3,
 					/obj/item/food/energybar = 6)
 	contraband = list(/obj/item/food/syndicake = 6,
 					/obj/item/food/swirl_lollipop = 2)
@@ -23,72 +24,6 @@
 
 /obj/item/vending_refill/snack
 	machine_name = "Getmore Chocolate Corp"
-
-/obj/machinery/vending/snack/attackby(obj/item/W, mob/user, params)
-	if(IS_EDIBLE(W))
-		if(!compartment_access_check(user))
-			return
-		var/obj/item/food/S = W
-		if(!S.junkiness)
-			if(!iscompartmentfull(user))
-				if(!user.transferItemToLoc(W, src))
-					return
-				food_load(W)
-				to_chat(user, "<span class='notice'>You insert [W] into [src]'s chef compartment.</span>")
-		else
-			to_chat(user, "<span class='notice'>[src]'s chef compartment does not accept junk food.</span>")
-
-	else if(istype(W, /obj/item/storage/bag/tray))
-		if(!compartment_access_check(user))
-			return
-		var/obj/item/storage/T = W
-		var/loaded = 0
-		var/denied_items = 0
-		for(var/obj/item/food/S in T.contents)
-			if(iscompartmentfull(user))
-				break
-			if(!S.junkiness)
-				SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src, TRUE)
-				food_load(S)
-				loaded++
-			else
-				denied_items++
-		if(denied_items)
-			to_chat(user, "<span class='notice'>[src] refuses some items.</span>")
-		if(loaded)
-			to_chat(user, "<span class='notice'>You insert [loaded] dishes into [src]'s chef compartment.</span>")
-		updateUsrDialog()
-		return
-
-	else
-		return ..()
-
-/obj/machinery/vending/snack/Destroy()
-	for(var/obj/item/food/S in contents)
-		S.forceMove(get_turf(src))
-	return ..()
-
-/obj/machinery/vending/snack/proc/compartment_access_check(user)
-	req_access_txt = chef_compartment_access
-	if(!allowed(user) && !(obj_flags & EMAGGED) && scan_id)
-		to_chat(user, "<span class='warning'>[src]'s chef compartment blinks red: Access denied.</span>")
-		req_access_txt = "0"
-		return 0
-	req_access_txt = "0"
-	return 1
-
-/obj/machinery/vending/snack/proc/iscompartmentfull(mob/user)
-	if(contents.len >= 30) // no more than 30 dishes can fit inside
-		to_chat(user, "<span class='warning'>[src]'s chef compartment is full.</span>")
-		return 1
-	return 0
-
-/obj/machinery/vending/snack/proc/food_load(obj/item/food/S)
-	if(dish_quants[S.name])
-		dish_quants[S.name]++
-	else
-		dish_quants[S.name] = 1
-	sort_list(dish_quants)
 
 /obj/machinery/vending/snack/blue
 	icon_state = "snackblue"

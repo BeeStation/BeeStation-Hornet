@@ -22,7 +22,6 @@
 	anchored = TRUE
 	break_message = "<span class='warning'>The prism falls apart, toxic liquid leaking out into the air.</span>"
 	max_integrity = 150
-	obj_integrity = 150
 	minimum_power = 4
 	var/powered = FALSE
 	var/toggled_on = TRUE

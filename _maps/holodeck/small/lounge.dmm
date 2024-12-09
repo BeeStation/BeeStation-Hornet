@@ -3,8 +3,7 @@
 /obj/machinery/door/window{
 	base_state = "right";
 	dir = 4;
-	icon_state = "right";
-	layer = 3
+	icon_state = "right"
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -27,10 +26,9 @@
 "h" = (
 /obj/structure/table/wood/bar,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 4
 	},
 /obj/item/book/manual/wiki/barman_recipes{
@@ -44,7 +42,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
-/obj/item/reagent_containers/glass/rag{
+/obj/item/reagent_containers/cup/rag{
 	pixel_x = 10;
 	pixel_y = 1
 	},
@@ -59,8 +57,7 @@
 /area/template_noop)
 "j" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -70,8 +67,7 @@
 "l" = (
 /obj/structure/chair/stool/bar,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -129,9 +125,7 @@
 	},
 /area/template_noop)
 "v" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "w" = (
@@ -160,7 +154,6 @@
 "C" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	layer = 3.3;
 	pixel_x = -6;
 	pixel_y = 13
 	},

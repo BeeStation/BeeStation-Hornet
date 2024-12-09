@@ -1,23 +1,6 @@
 /*
 April 3rd, 2014 marks the day this machine changed the face of the kitchen on NTStation13
 God bless America.
-          ___----------___
-        _--                ----__
-       -                         ---_
-      -___    ____---_              --_
-  __---_ .-_--   _ O _-                -
- -      -_-       ---                   -
--   __---------___                       -
-- _----                                  -
- -     -_                                 _
- `      _-                                 _
-       _                           _-_  _-_ _
-      _-                   ____    -_  -   --
-      -   _-__   _    __---    -------       -
-     _- _-   -_-- -_--                        _
-     -_-                                       _
-    _-                                          _
-    -
 */
 
 /// The deep fryer pings after this long, letting people know it's "perfect"
@@ -27,9 +10,9 @@ God bless America.
 
 /// Global typecache of things which should never be fried.
 GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
-	/obj/item/reagent_containers/glass,
+	/obj/item/reagent_containers/cup,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/reagent_containers/food/condiment,
+	/obj/item/reagent_containers/condiment,
 	/obj/item/small_delivery,
 	/obj/item/his_grace,
 )))
@@ -37,7 +20,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 /obj/machinery/deepfryer
 	name = "deep fryer"
 	desc = "Deep fried <i>everything</i>."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "fryer_off"
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -74,7 +57,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 /obj/machinery/deepfryer/Initialize(mapload)
 	. = ..()
 	create_reagents(50, OPENCONTAINER)
-	reagents.add_reagent(/datum/reagent/consumable/cooking_oil, 25)
+	reagents.add_reagent(/datum/reagent/consumable/nutriment/fat/oil, 25)
 	fry_loop = new(src, FALSE)
 
 /obj/machinery/deepfryer/Destroy()
@@ -117,7 +100,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		qdel(weapon)
 		return
 	// Make sure we have cooking oil
-	if(!reagents.has_reagent(/datum/reagent/consumable/cooking_oil))
+	if(!reagents.has_reagent(/datum/reagent/consumable/nutriment/fat/oil))
 		to_chat(user, "<span class='warning'>[src] has no cooking oil to fry with!</span>")
 		return
 	// Don't deep fry indestructible things, for sanity reasons
@@ -158,7 +141,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 
 /obj/machinery/deepfryer/process(delta_time)
 	..()
-	var/datum/reagent/consumable/cooking_oil/frying_oil = reagents.has_reagent(/datum/reagent/consumable/cooking_oil)
+	var/datum/reagent/consumable/nutriment/fat/oil/frying_oil = reagents.has_reagent(/datum/reagent/consumable/nutriment/fat/oil)
 	if(!frying_oil)
 		return
 	reagents.chem_temp = frying_oil.fry_temperature
@@ -205,7 +188,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	// Give them reagents to put frying oil in
 	if(isnull(frying.reagents))
 		frying.create_reagents(50, INJECTABLE)
-	//ADD_TRAIT(frying, TRAIT_FOOD_CHEF_MADE, REF(user)) //Attaching behavior to if the food is made by a chef, later newfood
+	if(user.mind)
+		ADD_TRAIT(frying, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
 	SEND_SIGNAL(frying, COMSIG_ITEM_ENTERED_FRYER)
 
 	icon_state = "fryer_on"
@@ -216,8 +200,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flame_range = 7)
 	deconstruct(FALSE)
 
-/obj/machinery/deepfryer/attack_ai(mob/user)
-	return
+/obj/machinery/deepfryer/attack_silicon(mob/user)
+	return TRUE
 
 /obj/machinery/deepfryer/attack_hand(mob/user)
 	if(frying)
@@ -231,14 +215,14 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return
-		var/mob/living/carbon/C = user.pulling
-		user.visible_message("<span class = 'danger'>[user] dunks [C]'s face in [src]!</span>")
-		reagents.reaction(C, TOUCH)
-		log_combat(user, C, "fryer slammed")
-		var/permeability = 1 - C.get_permeability_protection(list(HEAD))
-		C.apply_damage(min(30 * permeability, reagents.total_volume), BURN, BODY_ZONE_HEAD)
+		var/mob/living/carbon/dunking_target = user.pulling
+		user.visible_message("<span class = 'danger'>[user] dunks [dunking_target]'s face in [src]!</span>")
+		reagents.reaction(dunking_target, TOUCH)
+		log_combat(user, dunking_target, "fryer slammed")
+		var/bio_multiplier = dunking_target.getarmor(BODY_ZONE_HEAD, BIO) * 0.01
+		dunking_target.apply_damage(min(30 * bio_multiplier, reagents.total_volume), BURN, BODY_ZONE_HEAD)
 		reagents.remove_any((reagents.total_volume/2))
-		C.Paralyze(60)
+		dunking_target.Paralyze(60)
 		user.changeNext_move(CLICK_CD_MELEE)
 	return ..()
 

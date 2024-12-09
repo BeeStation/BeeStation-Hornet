@@ -88,6 +88,7 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	camera_networks = list(CAMERA_NETWORK_THUNDERDOME)
 
 /area/tdome/arena
 	name = "Thunderdome Arena"
@@ -125,7 +126,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	teleport_restriction = TELEPORT_ALLOW_NONE
+	teleport_restriction = TELEPORT_ALLOW_WIZARD
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
 	network_root_id = "MAGIC_NET"

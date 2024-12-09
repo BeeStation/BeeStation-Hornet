@@ -21,7 +21,7 @@
 		grant_controller_actions(i)	//refresh
 
 /obj/vehicle/proc/grant_action_type_to_mob(actiontype, mob/m)
-	if(isnull(occupants[m]) || !actiontype)
+	if(isnull(LAZYACCESS(occupants, m)) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[m])
 	if(occupant_actions[m][actiontype])
@@ -32,7 +32,7 @@
 	return TRUE
 
 /obj/vehicle/proc/remove_action_type_from_mob(actiontype, mob/m)
-	if(isnull(occupants[m]) || !actiontype)
+	if(isnull(LAZYACCESS(occupants, m)) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[m])
 	if(occupant_actions[m][actiontype])
@@ -50,7 +50,7 @@
 		remove_action_type_from_mob(v, M)
 
 /obj/vehicle/proc/grant_controller_actions(mob/M)
-	if(!istype(M) || isnull(occupants[M]))
+	if(!istype(M) || isnull(LAZYACCESS(occupants, M)))
 		return FALSE
 	for(var/i in GLOB.bitflags)
 		if(occupants[M] & i)
@@ -58,7 +58,7 @@
 	return TRUE
 
 /obj/vehicle/proc/remove_controller_actions(mob/M)
-	if(!istype(M) || isnull(occupants[M]))
+	if(!istype(M) || isnull(LAZYACCESS(occupants, M)))
 		return FALSE
 	for(var/i in GLOB.bitflags)
 		remove_controller_actions_by_flag(M, i)
@@ -92,12 +92,13 @@
 //ACTION DATUMS
 
 /datum/action/vehicle
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUN | AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_vehicle.dmi'
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/hud/actions/actions_vehicle.dmi'
 	button_icon_state = "vehicle_eject"
 	var/obj/vehicle/vehicle_target
 
 /datum/action/vehicle/sealed
+	check_flags = AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
 
 /datum/action/vehicle/sealed/climb_out

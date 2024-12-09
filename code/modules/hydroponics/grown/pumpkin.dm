@@ -29,7 +29,7 @@
 /obj/item/food/grown/pumpkin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_sharp())
 		user.show_message("<span class='notice'>You carve a face into [src]!</span>", MSG_VISUAL)
-		new /obj/item/clothing/head/hardhat/pumpkinhead(user.loc)
+		new /obj/item/clothing/head/utility/hardhat/pumpkinhead(user.loc)
 		qdel(src)
 		return
 	else

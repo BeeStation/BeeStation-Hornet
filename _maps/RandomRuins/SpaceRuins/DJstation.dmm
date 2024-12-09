@@ -8,7 +8,7 @@
 /area/ruin/space/djstation/solars)
 "ac" = (
 /obj/machinery/power/solar/fake,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/djstation/solars)
 "ad" = (
 /turf/open/floor/plating/airless,
@@ -262,7 +262,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bd" = (
@@ -271,7 +271,7 @@
 	},
 /obj/structure/rack,
 /obj/item/clothing/under/costume/soviet,
-/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/costume/ushanka,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "be" = (

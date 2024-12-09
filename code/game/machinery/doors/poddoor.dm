@@ -11,7 +11,7 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 600
-	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0)
+	armor_type = /datum/armor/door_poddoor
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	var/datum/crafting_recipe/recipe_type = /datum/crafting_recipe/blast_doors
@@ -20,6 +20,17 @@
 	var/pod_open_sound  = 'sound/machines/blastdoor.ogg'
 	var/pod_close_sound = 'sound/machines/blastdoor.ogg'
 	icon_state = "blast_closed"
+
+
+/datum/armor/door_poddoor
+	melee = 50
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 50
+	rad = 100
+	fire = 100
+	acid = 70
 
 /obj/machinery/door/poddoor/attackby(obj/item/W, mob/user, params)
 	. = ..()
@@ -123,6 +134,9 @@
 		return 0
 	else
 		return ..()
+
+/obj/machinery/door/poddoor/shutters/bumpopen()
+	return
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity, target)

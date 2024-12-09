@@ -104,20 +104,20 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		return FALSE
 
 /obj/item/hilbertshotel/proc/sendToNewRoom(var/roomNumber, var/mob/user)
-    var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
-    var/datum/async_map_generator/placer
-    if(ruinSpawned)
-        mysteryRoom = GLOB.hhmysteryRoomNumber
-        if(roomNumber == mysteryRoom)
-            placer = hotelRoomTempLore.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-        else
-            placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-    else
-        placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-    activeRooms["[roomNumber]"] = roomReservation
-    placer.on_completion(CALLBACK(src, PROC_REF(linkTurfs), roomReservation, roomNumber))
-    do_sparks(3, FALSE, get_turf(user))
-    user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
+	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+	var/datum/async_map_generator/placer
+	if(ruinSpawned)
+		mysteryRoom = GLOB.hhmysteryRoomNumber
+		if(roomNumber == mysteryRoom)
+			placer = hotelRoomTempLore.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+		else
+			placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+	else
+		placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+	activeRooms["[roomNumber]"] = roomReservation
+	placer.on_completion(CALLBACK(src, PROC_REF(linkTurfs), roomReservation, roomNumber))
+	do_sparks(3, FALSE, get_turf(user))
+	user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
 /obj/item/hilbertshotel/proc/linkTurfs(var/datum/turf_reservation/currentReservation, var/currentRoomnumber)
 	var/area/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
@@ -257,7 +257,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 					tugged_on = 0
 		return
 	if(alert(user, "Hilbert's Hotel would like to remind you that while we will do everything we can to protect the belongings you leave behind, we make no guarantees of their safety while you're gone, especially that of the health of any living creatures. With that in mind, are you ready to leave?", "Exit", "Leave", "Stay") == "Leave")
-		if(!(user.mobility_flags & MOBILITY_MOVE) || (get_dist(get_turf(src), get_turf(user)) > 1)) //no teleporting around if they're dead or moved away during the prompt.
+		if(HAS_TRAIT(user, TRAIT_IMMOBILIZED) || (get_dist(get_turf(src), get_turf(user)) > 1)) //no teleporting around if they're dead or moved away during the prompt.
 			return
 		user.forceMove(get_turf(parentSphere))
 		do_sparks(3, FALSE, get_turf(user))
@@ -457,6 +457,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "custom rigged analyzer"
 	desc = "A hand-held environmental scanner which reports current gas levels. This one seems custom rigged to additionally be able to analyze some sort of bluespace device."
 	icon_state = "hilbertsanalyzer"
+	worn_icon_state = "analyzer"
 
 /obj/item/analyzer/hilbertsanalyzer/afterattack(atom/target, mob/user, proximity)
 	. = ..()

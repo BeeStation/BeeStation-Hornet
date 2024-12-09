@@ -41,7 +41,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1//Reached maximum battery capacity.
 
-			if (do_after(H,10, target = src))
+			if (do_after(H, 1 SECONDS, target = src, hidden = TRUE))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				cell.use(drain)
@@ -85,7 +85,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1
 
-			if (do_after(H,10, target = src))
+			if (do_after(H, 1 SECONDS, target = src, hidden = TRUE))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				charge -= drain
@@ -104,7 +104,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	. = 0
 
 	if(charge)
-		if(G.candrain && do_after(H,30, target = src))
+		if(G.candrain && do_after(H, 3 SECONDS, target = src, hidden = TRUE))
 			. = charge
 			if(S.cell.charge + charge > S.cell.maxcharge)
 				S.cell.charge = S.cell.maxcharge
@@ -168,7 +168,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	while(G.candrain && !maxcapacity && src)
 		drain = (round((rand(G.mindrain, G.maxdrain))/2))
 		var/drained = 0
-		if(PN && do_after(H,10, target = src))
+		if(PN && do_after(H, 1 SECONDS, target = src, hidden = TRUE))
 			drained = min(drain, delayed_surplus())
 			add_delayedload(drained)
 			if(drained < drain)//if no power on net, drain apcs
@@ -191,7 +191,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 		S.spark_system.start()
 
 //MECH//
-/obj/mecha/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
+/obj/vehicle/sealed/mecha/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
 	if(!S || !H || !G)
 		return INVALID_DRAIN
 
@@ -199,7 +199,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	var/drain = 0 //Drain amount
 	. = 0
 
-	occupant_message("<span class='danger'>Warning: Unauthorized access through sub-route 4, block H, detected.</span>")
+	to_chat(occupants, "[icon2html(src, occupants)]<span class='danger'>Warning: Unauthorized access through sub-route 4, block H, detected.</span>")
 	if(get_charge())
 		while(G.candrain && cell.charge > 0 && !maxcapacity)
 			drain = rand(G.mindrain,G.maxdrain)
@@ -208,7 +208,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 			if(S.cell.charge + drain > S.cell.maxcharge)
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1
-			if (do_after(H,10, target = src))
+			if (do_after(H, 1 SECONDS, target = src, hidden = TRUE))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				cell.use(drain)
@@ -235,10 +235,10 @@ They *could* go in their appropriate files, but this is supposed to be modular
 				drain = cell.charge
 			if(S.cell.charge+drain > S.cell.maxcharge)
 				drain = S.cell.maxcharge - S.cell.charge
-				maxcapacity = 1
-			if (do_after(H,10))
+				maxcapacity = TRUE
+			if (do_after(H, 1 SECONDS, hidden = TRUE))
 				spark_system.start()
-				playsound(loc, "sparks", 50, 1)
+				playsound(loc, "sparks", 50, TRUE)
 				cell.use(drain)
 				S.cell.give(drain)
 				. += drain

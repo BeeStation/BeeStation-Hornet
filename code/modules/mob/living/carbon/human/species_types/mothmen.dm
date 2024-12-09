@@ -13,8 +13,7 @@
 	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutant_bodyparts = list("moth_wings", "moth_antennae", "moth_markings")
-	default_features = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -61,7 +60,7 @@
 	return 0
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
-	return 'sound/emotes/mothlaugh.ogg'
+	return 'sound/emotes/moth/mothlaugh.ogg'
 
 /datum/species/moth/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/moth/scream_moth.ogg'
@@ -83,9 +82,9 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/H = owner
@@ -155,7 +154,7 @@
 	icon_state = "cocoon_moth"
 	anchored = TRUE
 	max_integrity = 10
-    ///Determines whether or not the mothperson is still regenerating their wings
+	///Determines whether or not the mothperson is still regenerating their wings
 	var/done_regenerating = FALSE
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

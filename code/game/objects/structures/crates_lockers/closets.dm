@@ -7,10 +7,10 @@
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 0.25
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
+	armor_type = /datum/armor/structure_closet
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = LETPASSCLICKS | PASSSTRUCTURE
-
+	interaction_flags_atom = NONE
 	var/contents_initialised = FALSE
 	var/enable_door_overlay = TRUE
 	var/has_opened_overlay = TRUE
@@ -20,6 +20,7 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	var/divable = TRUE //controls whether someone with skittish trait can enter the closet with CtrlShiftClick
 	var/large = TRUE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/breakout_time = 1200
@@ -58,6 +59,15 @@
 
 	//should be just for crates, right?
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
+
+
+/datum/armor/structure_closet
+	melee = 20
+	bullet = 10
+	laser = 10
+	bomb = 10
+	fire = 70
+	acid = 60
 
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
@@ -124,13 +134,6 @@
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
 
-/obj/structure/closet/update_appearance(updates=ALL)
-	. = ..()
-	if((opened || broken || !secure) || !imacrate)
-		luminosity = 0
-		return
-	luminosity = 1
-
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
 		return
@@ -181,7 +184,7 @@
 		. += "<span class='notice'>Alt-click to [locked ? "unlock" : "lock"].</span>"
 	if(isliving(user))
 		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_SKITTISH))
+		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
@@ -321,7 +324,8 @@
 		new material_drop(loc, material_drop_amount)
 	qdel(src)
 
-/obj/structure/closet/obj_break(damage_flag)
+/obj/structure/closet/atom_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		bust_open()
 
@@ -394,7 +398,7 @@
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
-	if(!istype(user) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
+	if(!istype(user) || user.incapacitated() || user.body_position == LYING_DOWN)
 		return
 	if(!Adjacent(user) || !user.Adjacent(O))
 		return
@@ -432,8 +436,8 @@
 		O.forceMove(T)
 	return TRUE
 
-/obj/structure/closet/relaymove(mob/user)
-	if(user.stat || !isturf(loc) || !isliving(user))
+/obj/structure/closet/relaymove(mob/living/user, direction)
+	if(user.stat || !isturf(loc))
 		return
 	if(locked)
 		if(message_cooldown <= world.time)
@@ -446,11 +450,12 @@
 	. = ..()
 	if(.)
 		return
-	if(!(user.mobility_flags & MOBILITY_STAND) && get_dist(src, user) > 0)
+	if(user.body_position == LYING_DOWN && get_dist(src, user) > 0)
 		return
 
 	if(!toggle(user))
 		togglelock(user)
+
 
 /obj/structure/closet/attack_paw(mob/user)
 	return attack_hand(user)
@@ -461,7 +466,8 @@
 
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
-	return attack_hand(user)
+	if(attack_hand(user))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in view(1)
@@ -530,7 +536,7 @@
 		togglelock(user)
 
 /obj/structure/closet/CtrlShiftClick(mob/living/user)
-	if(!HAS_TRAIT(user, TRAIT_SKITTISH))
+	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
 		return ..()
 	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(user.loc))
 		return

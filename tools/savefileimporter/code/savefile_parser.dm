@@ -132,7 +132,7 @@
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES, owning_ckey, toggles_out)
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES2, owning_ckey, toggles2_out)
 
-	READ_FILE(S["asaycolor"], asaycolor, "#ff4500")
+	READ_FILE(S["asaycolor"], asaycolor, COLOR_MOSTLY_PURE_RED)
 	NEW_QUERY(PREFERENCE_TAG_ASAY_COLOUR, owning_ckey, asaycolor)
 
 	READ_FILE(S["ooccolor"], ooccolor, "#c43b23")
@@ -217,6 +217,16 @@
 		var/em = query.ErrorMsg()
 		if(em)
 			log_info("Query error when processing [owning_ckey] | [em]")
+
+	//favorite outfits
+	READ_FILE(S["favorite_outfits"], favorite_outfits)
+
+	var/list/parsed_favs = list()
+	for(var/typetext in favorite_outfits)
+		var/datum/outfit/path = text2path(typetext)
+		if(ispath(path)) //whatever typepath fails this check probably doesn't exist anymore
+			parsed_favs += path
+	favorite_outfits = uniqueList(parsed_favs)
 
 	// Now do characters
 	parse_characters(owning_ckey, S, character_dirs)

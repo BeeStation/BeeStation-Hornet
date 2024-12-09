@@ -1,9 +1,6 @@
 /*
 	AI ClickOn()
 
-	Note currently ai restrained() returns 0 in all cases,
-	therefore restrained code has been removed
-
 	The AI can double click to move the camera (this was already true but is cleaner),
 	or double click a mob to track them.
 
@@ -59,10 +56,6 @@
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
 			return
-	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
-			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
-		return
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
@@ -72,13 +65,16 @@
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		MiddleClickOn(A, params)
+		return
 
 	if(world.time <= next_move)
 		return
 
 	if(aicamera.in_camera_mode)
 		aicamera.camera_mode_off()
-		aicamera.captureimage(pixel_turf, usr)
+		aicamera.captureimage(pixel_turf, usr, null, aicamera.picture_size_x - 1, aicamera.picture_size_y - 1)
 		return
 	if(waypoint_mode)
 		waypoint_mode = 0
@@ -99,7 +95,11 @@
 	A.attack_ai(src)
 
 /atom/proc/attack_ai(mob/user)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_AI, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(attack_silicon(user))
+		return TRUE
+	return FALSE
 
 /*
 	Since the AI handles shift, ctrl, and alt-click differently

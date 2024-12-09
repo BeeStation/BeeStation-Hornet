@@ -93,7 +93,7 @@
 			H.open_internals(H.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.security_positions)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 		return 0
 	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0
@@ -155,6 +155,9 @@
 
 /datum/species/plasmaman/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/plasmaman/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
 
 /datum/species/plasmaman/get_species_description()
 	return "Found on the Icemoon of Freyja, plasmamen consist of colonial \

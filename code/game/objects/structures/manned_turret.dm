@@ -9,7 +9,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 100
-	buckle_lying = FALSE
+	buckle_lying = 0
 	layer = ABOVE_MOB_LAYER
 	move_resist = MOVE_FORCE_STRONG
 	var/view_range = 2.5
@@ -200,7 +200,7 @@
 /obj/item/gun_control/CanItemAutoclick()
 	return TRUE
 
-/obj/item/gun_control/attack_obj(obj/O, mob/living/user)
+/obj/item/gun_control/attack_atom(obj/O, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	O.attacked_by(src, user)
 

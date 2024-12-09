@@ -23,6 +23,8 @@
 
 /datum/config_entry/string/servername	// server name (the name of the game window)
 
+/datum/config_entry/string/servertag	// Server tagline for displaying on the hub
+
 /datum/config_entry/string/serversqlname	// short form server name used for the DB
 
 /datum/config_entry/string/stationname	// station name (the name of the station in-game)
@@ -71,6 +73,8 @@
 /datum/config_entry/flag/log_attack	// log attack messages
 
 /datum/config_entry/flag/log_emote	// log emotes
+
+/datum/config_entry/flag/log_econ // log economy actions
 
 /datum/config_entry/flag/log_adminchat	// log admin chat messages
 	protection = CONFIG_ENTRY_LOCKED
@@ -157,11 +161,6 @@
 		sync_validate = FALSE
 
 /datum/config_entry/flag/allow_holidays
-
-/datum/config_entry/number/tick_limit_mc_init	//SSinitialization throttling
-	config_entry_value = TICK_LIMIT_MC_INIT_DEFAULT
-	min_val = 0 //oranges warned us
-	integer = FALSE
 
 /datum/config_entry/flag/mc_diagnostics
 
@@ -517,7 +516,7 @@
 
 /datum/config_entry/flag/resume_after_initializations/ValidateAndSet(str_val)
 	. = ..()
-	if(. && Master.current_runlevel)
+	if(. && MC_RUNNING())
 		world.sleep_offline = !config_entry_value
 
 /datum/config_entry/number/rounds_until_hard_restart
@@ -594,15 +593,22 @@
 
 /datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
 
-/datum/config_entry/number/vote_autotransfer_initial //length of time before the first autotransfer vote is called (deciseconds, default 2 hours)
-	config_entry_value = 72000
+/datum/config_entry/number/autotransfer_percentage //What percentage of players are required to vote before transfer happens (default 75%)
+	config_entry_value = 0.75
+	integer = FALSE
+	min_val = 0
+	max_val = 1
+
+/datum/config_entry/number/autotransfer_decay_start //How long before the autotransfer decay starts to set in, also how often to remind players to vote (default 60 minutes)
+	config_entry_value = 36000
 	integer = FALSE
 	min_val = 0
 
-/datum/config_entry/number/vote_autotransfer_interval //length of time to wait before subsequent autotransfer votes (deciseconds, default 30 minutes)
-	config_entry_value = 18000
+/datum/config_entry/number/autotransfer_decay_amount //Every time the transfer system checks for votes after the decay start, it subtracts this % from the required percentage to pass (default 2.5%)
+	config_entry_value = 0.025
 	integer = FALSE
 	min_val = 0
+	max_val = 1
 
 /datum/config_entry/flag/respect_upstream_bans
 

@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	qdel(src)
 
 /obj/machinery/gravity_generator/proc/set_broken()
-	set_machine_stat(machine_stat | BROKEN)
+	atom_break()
 
 /obj/machinery/gravity_generator/proc/set_fix()
 	set_machine_stat(machine_stat & ~BROKEN)
@@ -186,6 +186,20 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	set_power()
 
 // Interaction
+
+/obj/machinery/gravity_generator/main/examine(mob/user)
+	. = ..()
+	if(!(machine_stat & BROKEN))
+		return
+	switch(broken_state)
+		if(GRAV_NEEDS_SCREWDRIVER)
+			. += "<span class='notice'>The entire frame is barely holding together, the <b>screws</b> need to be refastened.</span>"
+		if(GRAV_NEEDS_WELDING)
+			. += "<span class='notice'>There's lots of broken seals on the framework, it could use some <b>welding</b>.</span>"
+		if(GRAV_NEEDS_PLASTEEL)
+			. += "<span class='notice'>Some of this damaged plating needs full replacement. <b>10 plasteel</> should be enough.</span>"
+		if(GRAV_NEEDS_WRENCH)
+			. += "<span class='notice'>The new plating just needs to be <b>bolted</b> into place now.</span>"
 
 // Fixing the gravity generator.
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
@@ -365,11 +379,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/T = get_turf(src)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
-	for(var/i in GLOB.mob_list)
-		var/mob/M = i
+	for(var/mobs in GLOB.mob_list)
+		var/mob/M = mobs
 		if(M.get_virtual_z_level() != get_virtual_z_level() && !(ztrait && SSmapping.level_trait(z, ztrait) && SSmapping.level_trait(M.z, ztrait)))
 			continue
-		M.update_gravity(M.has_gravity())
+		if(isliving(M))
+			var/mob/living/grav_update = M
+			grav_update.refresh_gravity()
 		if(M.client)
 			shake_camera(M, 15, 1)
 			M.playsound_local(T, null, 100, 1, 0.5, S = alert_sound)
@@ -399,11 +415,24 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				GLOB.gravity_generators["[theZ]"] |= src
 			else
 				GLOB.gravity_generators["[theZ]"] -= src
+			SSmapping.calculate_z_level_gravity(z)
 
 /obj/machinery/gravity_generator/main/proc/change_setting(value)
 	if(value != setting)
 		setting = value
 		shake_everyone()
+
+/obj/machinery/gravity_generator/main/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	on = FALSE
+	update_list()
+
+/obj/machinery/gravity_generator/main/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+	. = ..()
+	if(charge_count != 0 && charging_state != POWER_UP)
+		on = TRUE
+	update_list()
+
 
 // Misc
 
@@ -421,3 +450,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	<li>Mend the damaged framework with a welding tool.</li>
 	<li>Add additional plasteel plating.</li>
 	<li>Secure the additional plating with a wrench.</li></ol>"}
+
+#undef POWER_IDLE
+#undef POWER_UP
+#undef POWER_DOWN
+#undef GRAV_NEEDS_SCREWDRIVER
+#undef GRAV_NEEDS_WELDING
+#undef GRAV_NEEDS_PLASTEEL
+#undef GRAV_NEEDS_WRENCH

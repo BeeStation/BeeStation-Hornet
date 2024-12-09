@@ -82,7 +82,7 @@
  * Checks whether or not the person eating the holymelon
  * is a holy_role (chaplain), as chaplains love holymelons.
  */
-/obj/item/food/grown/holymelon/proc/check_holyness(fraction, mob/mob_eating)
+/obj/item/food/grown/holymelon/proc/check_holyness(mob/mob_eating)
 	if(!ishuman(mob_eating))
 		return
 	var/mob/living/carbon/human/holy_person = mob_eating
@@ -97,7 +97,7 @@
 	var/uses = 1
 	if(seed)
 		uses = round(seed.potency / 20)
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, uses, TRUE, CALLBACK(src, PROC_REF(block_magic)), CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, uses, TRUE, CALLBACK(src, PROC_REF(block_magic)), CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
 
 /obj/item/food/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)

@@ -31,7 +31,7 @@
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
 	if(glass_colour_type && ishuman(user))
-		. += "<span class='notice'>Alt-click to toggle its colors.</span>"
+		. += "<span class='notice'>Alt-click to toggle [p_their()] colors.</span>"
 
 /obj/item/clothing/glasses/update_overlays()
 	. = ..()
@@ -43,7 +43,7 @@
 	. = ..()
 	// If we have an emissive state, add it to the worn icon too
 	if (!isinhands && emissive_state)
-		. += emissive_appearance(icon_file, emissive_state, item_layer, 100)
+		. += emissive_appearance(icon_file, emissive_state, item_layer, 100, filters = origin.filters)
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
@@ -120,9 +120,11 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 
 /obj/item/clothing/glasses/meson/prescription
 	name = "prescription meson scanner"
@@ -142,7 +144,12 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/glasses_science
+
+
+/datum/armor/glasses_science
+	fire = 80
+	acid = 100
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -154,8 +161,13 @@
 	icon_state = "prescscihud"
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 0)
+	armor_type = /datum/armor/science_prescription
 	vision_correction = 1
+
+
+/datum/armor/science_prescription
+	fire = 20
+	acid = 40
 
 /obj/item/clothing/glasses/science/sciencesun
 	name = "science sunglasses"
@@ -169,6 +181,15 @@
 	name = "degraded science sunglasses"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
 	flash_protect = 0
+
+/obj/item/clothing/glasses/science/night
+	name = "night vision science goggles"
+	desc = "A pair of snazzy goggles to protect against chemical spills, AND your fear of the dark! Fitted with an analyzer for scanning items and reagents."
+	icon_state = "purplenight"
+	item_state = "purplenight"
+	emissive_state = "nvgmeson_emissive"
+	darkness_view = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -195,6 +216,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
+	vision_correction = 1
 
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
@@ -219,9 +241,11 @@
 	force = 10
 	throwforce = 20
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
 
 /obj/item/clothing/glasses/regular
@@ -236,18 +260,21 @@
 	desc = "Also known as Virginity Protectors."
 	icon_state = "jamjar_glasses"
 	item_state = "jamjar_glasses"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
+	name = "hipster glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/regular/circle
 	name = "circle glasses"
 	desc = "Why would you wear something so controversial yet so brave?"
 	icon_state = "circle_glasses"
 	item_state = "circle_glasses"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/sunglasses/circle_sunglasses
 	name = "circle sunglasses"
@@ -299,9 +326,11 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb/supergarb
 	name = "black giga gar glasses"
@@ -319,9 +348,11 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	glass_colour_type = /datum/client_colour/glass_colour/orange
 
 /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
@@ -408,7 +439,7 @@
 	item_state = "blindfoldwhite"
 	var/colored_before = FALSE
 
-/obj/item/clothing/glasses/blindfold/white/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/glasses/blindfold/white/visual_equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		update_icon(user)
 		user.update_inv_glasses() //Color might have been changed by update_icon.
@@ -423,7 +454,7 @@
 	. = list()
 	if(!isinhands && ishuman(loc) && !colored_before)
 		var/mob/living/carbon/human/H = loc
-		var/mutable_appearance/M = mutable_appearance('icons/mob/eyes.dmi', "blindfoldwhite", item_layer)
+		var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/eyes.dmi', "blindfoldwhite", item_layer)
 		M.appearance_flags |= RESET_COLOR
 		M.color = "#[H.eye_color]"
 		. += M
@@ -530,6 +561,7 @@
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	vision_correction = 1  // why should the eye of a god have bad vision?
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()

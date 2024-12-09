@@ -1,8 +1,3 @@
-#define REM REAGENTS_EFFECT_MULTIPLIER
-#define METABOLITE_RATE     0.5 // How much of a reagent is converted metabolites if one is defined
-#define MAX_METABOLITES		15  // The maximum amount of a given metabolite someone can have at a time
-#define METABOLITE_PENALTY(path) clamp(M.reagents.get_reagent_amount(path)/2.5, 1, 5) //Ranges from 1 to 5 depending on level of metabolites.
-
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /proc/build_name2reagent()
@@ -95,7 +90,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 			var/touch_protection = 0
 			if(method == VAPOR)
 				var/mob/living/L = A
-				touch_protection = L.get_permeability_protection()
+				touch_protection = L.getarmor(null, BIO) * 0.01
 			R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
 		if("TURF")
 			R.reaction_turf(A, R.volume * volume_modifier, show_message)

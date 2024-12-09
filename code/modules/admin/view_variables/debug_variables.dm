@@ -4,11 +4,12 @@
 	if(owner)
 		if(islist(owner))
 			var/index = name
+			var/list/owner_list = owner
 			if (value)
-				name = owner[name] //name is really the index until this line
+				name = owner_list[name] //name is really the index until this line
 			else
-				value = owner[name]
-			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner, VV_HK_LIST_REMOVE, "-", index)]) "
+				value = owner_list[name]
+			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
 		else
 			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
 	else
@@ -35,6 +36,9 @@
 	if(isnull(value))
 		return "<span class='value'>null</span>"
 
+	if(iscolortext(value))
+		return "<span class='value'>\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span></span>"
+
 	if(istext(value))
 		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
 
@@ -49,9 +53,12 @@
 		return "/icon (<span class='value'>[value]</span>)"
 		#endif
 
-	if(isappearance(value))
-		var/image/actually_an_appearance = value
-		return "/appearance (<span class='value'>[actually_an_appearance.icon]</span>)"
+	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
+		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance (<span class='value'>[get_appearance_vv_summary_name(value)]</span>) [REF(value)]</a>"
+
+	if(isimage(value))
+		var/image/image = value
+		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] (<span class='value'>[get_appearance_vv_summary_name(image)]</span>) [REF(value)]</a>"
 
 	if(isfilter(value))
 		var/datum/filter_value = value

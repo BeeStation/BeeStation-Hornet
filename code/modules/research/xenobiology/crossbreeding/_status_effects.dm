@@ -220,6 +220,9 @@
 		owner.adjustFireLoss(1)
 		owner.Jitter(3)
 		owner.adjust_bodytemperature(-10)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/humi = owner
+			humi.adjust_coretemperature(-10)
 
 /datum/status_effect/bonechill/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/bonechill)
@@ -478,7 +481,10 @@
 
 /datum/status_effect/stabilized/orange/tick()
 	var/body_temperature_difference = owner.get_body_temp_normal(apply_change=FALSE) - owner.bodytemperature
-	owner.adjust_bodytemperature(min(5,body_temperature_difference))
+	owner.adjust_bodytemperature(min(5, body_temperature_difference))
+	if(ishuman(owner))
+		var/mob/living/carbon/human/humi = owner
+		humi.adjust_coretemperature(min(5, humi.get_body_temp_normal(apply_change=FALSE) - humi.coretemperature))
 	return ..()
 
 /datum/status_effect/stabilized/purple
@@ -932,6 +938,10 @@
 	var/obj/item/slimecross/stabilized/gold/linked = linked_extract
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
+		familiar.a_intent = INTENT_HELP
+		ADD_TRAIT(familiar, TRAIT_PACIFISM, "stabilizedgold")
+		familiar.melee_damage = 0
+		familiar.remove_verb(/mob/living/simple_animal/parrot/proc/toggle_mode) // just in case
 		familiar.name = linked.mob_name
 		familiar.del_on_death = TRUE
 		familiar.copy_languages(owner, LANGUAGE_MASTER)

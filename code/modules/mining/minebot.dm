@@ -36,11 +36,13 @@
 	stop_automated_movement_when_pulled = TRUE
 	wander = FALSE
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
-						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
+							/obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
+							/obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
 	// Response verbs
-	response_help = "pets"
-	attacktext = "drills"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	attack_verb_continuous = "drills"
+	attack_verb_simple = "drill"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	speak_emote = list("states")
 	// Light handling
@@ -51,13 +53,16 @@
 	var/mode = MODE_MINING /// What mode the minebot is in
 	var/mining_enabled = FALSE /// Whether or not the minebot will mine new ores while in mining mode.
 	var/list/installed_upgrades /// A list of all the minebot's installed upgrades
-	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_pka /// The minebot's stored PKA
+	var/obj/item/gun/energy/recharge/kinetic_accelerator/minebot/stored_pka /// The minebot's stored PKA
 	var/obj/item/gun/energy/plasmacutter/stored_cutter /// The minebot's stored plasma cutter
 	var/obj/item/pickaxe/drill/stored_drill /// The minebot's stored drill
 	var/obj/item/t_scanner/adv_mining_scanner/stored_scanner /// The minebot's stored mining scanner
 
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
+
+	AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, vary = TRUE)
+
 	// Setup equipment
 	stored_pka = new(src)
 	stored_drill = new(src)
@@ -492,7 +497,7 @@
 
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
 
 /// Toggles a minebot's inbuilt meson scanners.
@@ -651,7 +656,7 @@
 	desc = "Allows a sentient minebot to carry and administer a medipen."
 	var/obj/item/reagent_containers/hypospray/medipen/stored_medipen
 
-/obj/item/minebot_upgrade/medical/Initialize()
+/obj/item/minebot_upgrade/medical/Initialize(mapload)
 	. = ..()
 	stored_medipen = new /obj/item/reagent_containers/hypospray/medipen(src)
 

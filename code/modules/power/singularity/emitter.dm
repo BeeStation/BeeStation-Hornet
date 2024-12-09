@@ -38,7 +38,7 @@
 	///Used to stop interactions with the object (mainly in the wabbajack statue)
 	var/allow_switch_interact = TRUE
 	///What projectile type are we shooting?
-	var/projectile_type = /obj/projectile/beam/emitter
+	var/projectile_type = /obj/projectile/beam/emitter/hitscan
 	///What's the projectile sound?
 	var/projectile_sound = 'sound/weapons/emitter.ogg'
 	///Sparks emitted with every shot
@@ -59,7 +59,7 @@
 	var/last_projectile_params
 
 
-/obj/machinery/power/emitter/welded/Initialize()
+/obj/machinery/power/emitter/welded/Initialize(mapload)
 	welded = TRUE
 	. = ..()
 
@@ -262,7 +262,7 @@
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/item)
 	. = ..()
-	default_unfasten_wrench(user, item)
+	default_unfasten_wrench(user, item, 15)
 	return TRUE
 
 /obj/machinery/power/emitter/welder_act(mob/living/user, obj/item/item)
@@ -277,7 +277,7 @@
 		user.visible_message("<span class='notice'>[user.name] starts to cut the [name] free from the floor.</span>", \
 			"<span class='notice'>You start to cut [src] free from the floor...</span>", \
 			"<span class='hear'>You hear welding.</span>")
-		if(!item.use_tool(src, user, 20, volume=50) || !welded)
+		if(!item.use_tool(src, user, 20, amount=7, volume=50)  || !welded)
 			return
 		welded = FALSE
 		to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
@@ -293,7 +293,7 @@
 	user.visible_message("<span class='notice'>[user.name] starts to weld the [name] to the floor.</span>", \
 		"<span class='notice'>You start to weld [src] to the floor...</span>", \
 		"<span class='hear'>You hear welding.</span>")
-	if(!item.use_tool(src, user, amount=20, volume=50) || !anchored)
+	if(!item.use_tool(src, user, 20, amount=7, volume=50) || !anchored)
 		return
 	welded = TRUE
 	to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
@@ -379,7 +379,7 @@
 	icon_state_on = "protoemitter_+a"
 	icon_state_underpowered = "protoemitter_+u"
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	///Sets the view size for the user
 	var/view_range = 4.5
 	///Grants the buckled mob the action button
@@ -419,7 +419,7 @@
 	auto.Grant(buckled_mob, src)
 
 /datum/action/innate/proto_emitter
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUN | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
 	///Stores the emitter the user is currently buckled on
 	var/obj/machinery/power/emitter/prototype/proto_emitter
 	///Stores the mob instance that is buckled to the emitter
@@ -540,3 +540,24 @@
 	req_access_txt = "100"
 	welded = TRUE
 	use_power = FALSE
+
+///Weird emitter that doesn't use power, used as the source for the wabbajack
+/obj/machinery/power/emitter/energycannon
+	name = "Energy Cannon"
+	desc = "A heavy duty industrial laser."
+	icon = 'icons/obj/singularity.dmi'
+	icon_state = "emitter_+a"
+	anchored = TRUE
+	density = TRUE
+	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF
+
+	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
+
+	active = TRUE
+	locked = TRUE
+	welded = TRUE
+
+/obj/machinery/power/emitter/energycannon/RefreshParts()
+	return

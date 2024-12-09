@@ -85,7 +85,7 @@
 	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
-	head = /obj/item/clothing/head/bandana
+	head = /obj/item/clothing/head/costume/pirate/bandana
 
 
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
@@ -94,8 +94,8 @@
 
 /datum/outfit/piratecorpse/ranged
 	name = "Pirate Gunner Corpse"
-	suit = /obj/item/clothing/suit/pirate
-	head = /obj/item/clothing/head/pirate
+	suit = /obj/item/clothing/suit/costume/pirate
+	head = /obj/item/clothing/head/costume/pirate
 
 
 /obj/effect/mob_spawn/human/corpse/russian
@@ -108,7 +108,7 @@
 	name = "Russian Corpse"
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/costume/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/old
 
@@ -119,7 +119,7 @@
 
 /datum/outfit/russiancorpse/ranged
 	name = "Ranged Russian Corpse"
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/russian/ranged/trooper
@@ -143,10 +143,10 @@
 /datum/outfit/russiancorpse/officer
 	name = "Russian Officer Corpse"
 	uniform = /obj/item/clothing/under/costume/russian_officer
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 	shoes = /obj/item/clothing/shoes/combat
 	ears = /obj/item/radio/headset
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/wizard
@@ -220,6 +220,41 @@
 	l_pocket = /obj/item/paper/fluff/bee_objectives
 	mask = /obj/item/clothing/mask/rat/bee
 
+/obj/effect/mob_spawn/human/corpse/psychost
+	name = "Psycho"
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+	skin_tone = "caucasian1"
+	brute_damage = 100
+	outfit = /datum/outfit/straightjacket
+
+/datum/outfit/straightjacket
+	name = "Straight jacket"
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
+
+/obj/effect/mob_spawn/human/corpse/psychost/muzzle
+	name = "Muzzled psycho"
+	outfit = /datum/outfit/straightmuz
+
+/datum/outfit/straightmuz
+	name = "Straight jacket and a muzzle"
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
+	mask = /obj/item/clothing/mask/muzzle
+
+/obj/effect/mob_spawn/human/corpse/psychost/trap
+	name = "Trapped psycho"
+	outfit = /datum/outfit/straighttrap
+
+/datum/outfit/straighttrap
+	name = "Straight jacket and a reverse bear trap"
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
+	head = /obj/item/reverse_bear_trap
+
+/obj/effect/mob_spawn/human/corpse/zombie
+	name = "zombie"
+	mob_species = /datum/species/zombie
+	brute_damage = 100
+
 /obj/effect/mob_spawn/human/corpse/sniper
 	name = "Sniper"
 	outfit = /datum/outfit/sniper
@@ -242,36 +277,6 @@
 	back = /obj/item/storage/backpack/satchel/sec
 	id = /obj/item/card/id/job/warden
 
-/obj/effect/mob_spawn/human/corpse/psychost
-	name = "Psycho"
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
-	skin_tone = "caucasian1"
-	brute_damage = 100
-	outfit = /datum/outfit/straightjacket
-
-/datum/outfit/straightjacket
-	name = "Straight jacket"
-	suit = /obj/item/clothing/suit/straight_jacket
-
-/obj/effect/mob_spawn/human/corpse/psychost/muzzle
-	name = "Muzzled psycho"
-	outfit = /datum/outfit/straightmuz
-
-/datum/outfit/straightmuz
-	name = "Straight jacket and a muzzle"
-	suit = /obj/item/clothing/suit/straight_jacket
-	mask = /obj/item/clothing/mask/muzzle
-
-/obj/effect/mob_spawn/human/corpse/psychost/trap
-	name = "Trapped psycho"
-	outfit = /datum/outfit/straighttrap
-
-/datum/outfit/straighttrap
-	name = "Straight jacket and a reverse bear trap"
-	suit = /obj/item/clothing/suit/straight_jacket
-	head = /obj/item/reverse_bear_trap
-
 /obj/effect/mob_spawn/human/corpse/heavy
 	name = "Heavy gunner"
 	brute_damage = 300
@@ -288,42 +293,5 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat/emagged
 	suit = /obj/item/clothing/suit/armor/heavy
-	back = /obj/item/minigunpack
+	//back = /obj/item/minigunpack - you REALLY wish you could snag a minigun backpack off them don't you?
 	head = /obj/item/clothing/head/helmet/swat
-
-/obj/effect/mob_spawn/human/corpse/zombie
-	name = "zombie"
-	mob_species = /datum/species/zombie
-	brute_damage = 100
-
-/obj/effect/mob_spawn/human/corpse/suicidezombie
-	mob_species = /datum/species/zombie
-	brute_damage = 100
-	outfit = /datum/outfit/suicidezombie
-
-/datum/outfit/suicidezombie
-	name = "Guy with a grenade"
-	mask = /obj/item/clothing/mask/gas/cyborg
-	uniform = /obj/item/clothing/under/pants/camo
-	belt = /obj/item/storage/belt/bandolier
-	shoes = /obj/item/clothing/shoes/combat
-
-/obj/effect/mob_spawn/human/corpse/facboss
-	name = "Factory boss"
-	mob_species = /datum/species/ipc
-	brute_damage = 800
-	burn_damage = 100
-	hair_style = "Crewcut"
-	facial_hair_style = "Shaved"
-	skin_tone = "caucasian1"
-	mob_gender = MALE
-	outfit = /datum/outfit/facboss
-
-/datum/outfit/facboss
-	name = "The head of The Factory"
-	glasses = /obj/item/clothing/glasses/hud/terminator
-	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/jacket/leather
-	shoes = /obj/item/clothing/shoes/combat/swat
-	gloves = /obj/item/clothing/gloves/fingerless
-	id = /obj/item/card/id/gold
