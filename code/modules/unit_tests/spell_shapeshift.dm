@@ -6,10 +6,10 @@
 
 /datum/unit_test/shapeshift_spell_validity/Run()
 
-	var/list/types_to_test = subtypesof(/datum/action/cooldown/spell/shapeshift)
+	var/list/types_to_test = subtypesof(/datum/action/spell/shapeshift)
 
 	for(var/spell_type in types_to_test)
-		var/datum/action/cooldown/spell/shapeshift/shift = new spell_type()
+		var/datum/action/spell/shapeshift/shift = new spell_type()
 		if(!LAZYLEN(shift.possible_shapes))
 			Fail("Shapeshift spell: [shift] ([spell_type]) did not have any possible shapeshift options.")
 

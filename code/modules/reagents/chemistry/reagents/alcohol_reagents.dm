@@ -2507,7 +2507,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "sarsaparilliansunset"
 	glass_name = "Sarsaparillian Sunset"
 	glass_desc = "The view of a sunset over an irradiated wasteland. Calms your burns, but don't drink too much."
-	var/datum/action/cooldown/spell/power = /datum/action/cooldown/spell/basic_projectile/weak
+	var/datum/action/spell/power = /datum/action/spell/basic_projectile/weak
 	overdose_threshold = 50
 	metabolization_rate = 0.5
 
@@ -2530,7 +2530,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	power.Remove(M)
 	return ..()
 
-/datum/action/cooldown/spell/basic_projectile/weak
+/datum/action/spell/basic_projectile/weak
 	name = "Fire Upchuck"
 	desc = "You can feel heat rising from your stomach"
 	projectile_range = 20

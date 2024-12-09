@@ -29,13 +29,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	for(var/A in immune_atoms)
 		immune[A] = TRUE
 	for(var/mob/living/L in GLOB.player_list)
-		if(locate(/datum/action/cooldown/spell.timestop) in L.actions) //People who can stop time are immune to its effects
+		if(locate(/datum/action/spell.timestop) in L.actions) //People who can stop time are immune to its effects
 			immune[L] = TRUE
 	for(var/mob/living/simple_animal/hostile/holoparasite/G in GLOB.holoparasites)
 		if(G?.summoner?.current)
-			if(((locate(/datum/action/cooldown/spell/timestop) in G.summoner.current.actions))) //It would only make sense that a person's stand would also be immune.
+			if(((locate(/datum/action/spell/timestop) in G.summoner.current.actions))) //It would only make sense that a person's stand would also be immune.
 				immune[G] = TRUE
-			if(((locate(/datum/action/cooldown/spell/timestop) in G.actions))) //It would only make sense that a person's stand would also be immune.
+			if(((locate(/datum/action/spell/timestop) in G.actions))) //It would only make sense that a person's stand would also be immune.
 				immune[G.summoner.current] = TRUE
 				for(var/mob/living/simple_animal/hostile/holoparasite/GG in GLOB.holoparasites)
 					if(G.summoner == GG.summoner)

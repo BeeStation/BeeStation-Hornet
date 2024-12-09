@@ -91,7 +91,7 @@
 
 	mobs_to_swap = shuffle(mobs_to_swap)
 
-	var/datum/action/cooldown/spell/pointed/mind_transfer/swapper = new()
+	var/datum/action/spell/pointed/mind_transfer/swapper = new()
 
 	while(mobs_to_swap.len > 1)
 		var/mob/living/swap_to = pick_n_take(mobs_to_swap)

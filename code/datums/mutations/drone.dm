@@ -5,13 +5,13 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	power_path = /datum/action/cooldown/spell/drone
+	power_path = /datum/action/spell/drone
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
 	species_allowed = list(SPECIES_DIONA)
 
-/datum/action/cooldown/spell/drone
+/datum/action/spell/drone
 	name = "Release/Control Drone"
 	desc = "A rare genome that allows the diona to evict a nymph from their gestalt and gain the ability to control them."
 	school = "evocation"
@@ -24,7 +24,7 @@
 	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
 	var/datum/weakref/drone_ref
 
-/datum/action/cooldown/spell/drone/cast(mob/user)
+/datum/action/spell/drone/cast(mob/user)
 	. = ..()
 	var/mob/living/carbon/human/C = user
 	if(!isdiona(C))
@@ -51,7 +51,7 @@
 		drone_ref = WEAKREF(nymph)
 		S.drone_ref = WEAKREF(nymph)
 
-/datum/action/cooldown/spell/drone/proc/SwitchTo(mob/living/carbon/M)
+/datum/action/spell/drone/proc/SwitchTo(mob/living/carbon/M)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(!drone)
 		return

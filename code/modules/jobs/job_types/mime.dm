@@ -66,7 +66,7 @@
 
 	// Start our mime out with a vow of silence and the ability to break (or make) it
 	if(H.mind)
-		var/datum/action/cooldown/spell/vow_of_silence/vow = new(H.mind)
+		var/datum/action/spell/vow_of_silence/vow = new(H.mind)
 		vow.Grant(H)
 		H.mind.miming = 1
 
@@ -86,20 +86,20 @@
 		"Invisible Box" = image(icon = 'icons/hud/actions/actions_mime.dmi', icon_state = "invisible_box")
 		)
 	var/picked_spell = show_radial_menu(user, src, spell_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
-	var/datum/action/cooldown/spell/picked_spell_type
+	var/datum/action/spell/picked_spell_type
 	switch(picked_spell)
 		if("Invisible Wall")
-			picked_spell_type = /datum/action/cooldown/spell/conjure/invisible_wall
+			picked_spell_type = /datum/action/spell/conjure/invisible_wall
 
 		if("Invisible Chair")
-			picked_spell_type = /datum/action/cooldown/spell/conjure/invisible_chair
+			picked_spell_type = /datum/action/spell/conjure/invisible_chair
 
 		if("Invisible Box")
-			picked_spell_type = /datum/action/cooldown/spell/conjure_item/invisible_box
+			picked_spell_type = /datum/action/spell/conjure_item/invisible_box
 
 	if(ispath(picked_spell_type))
 		// Gives the user a vow ability too, if they don't already have one
-		var/datum/action/cooldown/spell/vow_of_silence/vow = locate() in user.actions
+		var/datum/action/spell/vow_of_silence/vow = locate() in user.actions
 		if(!vow && user.mind)
 			vow = new(user.mind)
 			vow.Grant(user)

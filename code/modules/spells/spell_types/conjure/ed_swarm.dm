@@ -1,5 +1,5 @@
 // test purposes - Also a lot of fun
-/datum/action/cooldown/spell/conjure/summon_ed_swarm
+/datum/action/spell/conjure/summon_ed_swarm
 	name = "Dispense Wizard Justice"
 	desc = "This spell dispenses wizard justice."
 
@@ -7,7 +7,7 @@
 	summon_type = list(/mob/living/simple_animal/bot/ed209)
 	summon_amount = 10
 
-/datum/action/cooldown/spell/conjure/summon_ed_swarm/post_summon(atom/summoned_object, atom/cast_on)
+/datum/action/spell/conjure/summon_ed_swarm/post_summon(atom/summoned_object, atom/cast_on)
 	if(!istype(summoned_object, /mob/living/simple_animal/bot/ed209))
 		return
 

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure_item
+/datum/action/spell/conjure_item
 	school = SCHOOL_CONJURATION
 	invocation_type = INVOCATION_NONE
 
@@ -9,7 +9,7 @@
 	/// List of weakrefs to items summoned
 	var/list/datum/weakref/item_refs
 
-/datum/action/cooldown/spell/conjure_item/Destroy()
+/datum/action/spell/conjure_item/Destroy()
 	// If we delete_old, clean up all of our items on delete
 	if(delete_old)
 		QDEL_LAZYLIST(item_refs)
@@ -20,10 +20,10 @@
 
 	return ..()
 
-/datum/action/cooldown/spell/conjure_item/is_valid_target(atom/cast_on)
+/datum/action/spell/conjure_item/is_valid_target(atom/cast_on)
 	return iscarbon(cast_on)
 
-/datum/action/cooldown/spell/conjure_item/cast(mob/living/carbon/cast_on)
+/datum/action/spell/conjure_item/cast(mob/living/carbon/cast_on)
 	if(delete_old && LAZYLEN(item_refs))
 		QDEL_LAZYLIST(item_refs)
 
@@ -40,7 +40,7 @@
 
 /// Instantiates the item we're conjuring and returns it.
 /// Item is made in nullspace and moved out in cast().
-/datum/action/cooldown/spell/conjure_item/proc/make_item()
+/datum/action/spell/conjure_item/proc/make_item()
 	var/obj/item/made_item = new item_type()
 	LAZYADD(item_refs, WEAKREF(made_item))
 	return made_item

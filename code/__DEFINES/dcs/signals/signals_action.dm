@@ -21,13 +21,13 @@
 
 // Specific cooldown action signals
 
-/// From base of /datum/action/cooldown/mob_cooldown/blood_warp/proc/blood_warp(): ()
+/// From base of /datum/action/mob_cooldown/blood_warp/proc/blood_warp(): ()
 #define COMSIG_BLOOD_WARP "mob_ability_blood_warp"
-/// From base of /datum/action/cooldown/mob_cooldown/charge/proc/do_charge(): ()
+/// From base of /datum/action/mob_cooldown/charge/proc/do_charge(): ()
 #define COMSIG_STARTED_CHARGE "mob_ability_charge_started"
-/// From base of /datum/action/cooldown/mob_cooldown/charge/proc/do_charge(): ()
+/// From base of /datum/action/mob_cooldown/charge/proc/do_charge(): ()
 #define COMSIG_FINISHED_CHARGE "mob_ability_charge_finished"
-/// From base of /datum/action/cooldown/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
+/// From base of /datum/action/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
 #define COMSIG_SWOOP_INVULNERABILITY_STARTED "mob_swoop_invulnerability_started"
-/// From base of /datum/action/cooldown/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
+/// From base of /datum/action/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
 #define COMSIG_LAVA_ARENA_FAILED "mob_lava_arena_failed"

@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/forcewall
-	granted_action = /datum/action/cooldown/spell/forcewall
+	granted_action = /datum/action/spell/forcewall
 	action_name = "forcewall"
 	icon_state ="bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."

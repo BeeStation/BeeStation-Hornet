@@ -641,11 +641,11 @@
 	inherent_factions = list("cult")
 	species_language_holder = /datum/language_holder/golem/runic
 	/// A ref to our jaunt spell that we get on species gain.
-	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/golem/jaunt
+	var/datum/action/spell/jaunt/ethereal_jaunt/shift/golem/jaunt
 	/// A ref to our gaze spell that we get on species gain.
-	var/datum/action/cooldown/spell/pointed/abyssal_gaze/abyssal_gaze
+	var/datum/action/spell/pointed/abyssal_gaze/abyssal_gaze
 	/// A ref to our dominate spell that we get on species gain.
-	var/datum/action/cooldown/spell/pointed/dominate/dominate
+	var/datum/action/spell/pointed/dominate/dominate
 
 	species_chest = /obj/item/bodypart/chest/golem/cult
 	species_head = /obj/item/bodypart/head/golem/cult
@@ -1186,9 +1186,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	inherent_traits = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
 
 	/// A ref to our "throw snowball" spell we get on species gain.
-	var/datum/action/cooldown/spell/conjure_item/snowball/snowball
+	var/datum/action/spell/conjure_item/snowball/snowball
 	/// A ref to our cryobeam spell we get on species gain.
-	var/datum/action/cooldown/spell/pointed/projectile/cryo/cryo
+	var/datum/action/spell/pointed/projectile/cryo/cryo
 
 	species_chest = /obj/item/bodypart/chest/golem/snow
 	species_head = /obj/item/bodypart/head/golem/snow
@@ -1246,14 +1246,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/capitialism.ogg'))
-	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
 	K.Grant(C)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/capitalist/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_SAY)
-	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
 	K.Remove(C)
 
 /datum/species/golem/capitalist/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -1290,13 +1290,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/Russian_Anthem_chorus.ogg'))
-	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
 	K.Grant(C)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/soviet/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	var/datum/action/cooldown/spell/aoe/knock/K = new /datum/action/cooldown/spell/aoe/knock
+	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
 	K.Remove(C)
 	UnregisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 

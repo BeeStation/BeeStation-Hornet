@@ -101,7 +101,7 @@
 				listed_turf.render_stat_information(client, tab_data)
 			// ===== SPELLS && ACTIONS ====
 			if(actions)
-				for(var/datum/action/cooldown/action in actions)
+				for(var/datum/action/action in actions)
 					if(action.panel == selected_tab)
 						tab_data += get_actions_for_statpanel(actions, selected_tab)
 	if(requires_holder && !client.holder)
@@ -314,7 +314,7 @@
 		else
 			tabs |= sanitize(listed_turf.name)
 	//Spells we have
-	for(var/datum/action/cooldown/action in actions)
+	for(var/datum/action/action in actions)
 		tabs |= action.panel
 	//Holder stat tabs
 	if(client.holder)

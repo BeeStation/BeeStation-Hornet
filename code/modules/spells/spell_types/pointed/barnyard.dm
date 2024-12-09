@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/barnyardcurse
+/datum/action/spell/pointed/barnyardcurse
 	name = "Curse of the Barnyard"
 	desc = "This spell dooms an unlucky soul to possess the speech and facial attributes of a barnyard animal."
 	button_icon_state = "barn"
@@ -15,7 +15,7 @@
 	active_msg = "You prepare to curse a target..."
 	deactive_msg = "You dispel the curse."
 
-/datum/action/cooldown/spell/pointed/barnyardcurse/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/barnyardcurse/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -28,7 +28,7 @@
 
 	return !(human_target.wear_mask.type in GLOB.cursed_animal_masks)
 
-/datum/action/cooldown/spell/pointed/barnyardcurse/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/pointed/barnyardcurse/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(

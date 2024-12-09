@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/knock
-	granted_action = /datum/action/cooldown/spell/aoe/knock
+	granted_action = /datum/action/spell/aoe/knock
 	action_name = "knock"
 	icon_state ="bookknock"
 	desc = "This book is hard to hold closed properly."

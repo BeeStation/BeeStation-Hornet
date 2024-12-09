@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/cult_floor
+/datum/action/spell/conjure/cult_floor
 	name = "Summon Cult Floor"
 	desc = "This spell constructs a cult floor."
 	background_icon_state = "bg_cult"
@@ -13,7 +13,7 @@
 	summon_radius = 0
 	summon_type = list(/turf/open/floor/engine/cult)
 
-/datum/action/cooldown/spell/conjure/cult_wall
+/datum/action/spell/conjure/cult_wall
 	name = "Summon Cult Wall"
 	desc = "This spell constructs a cult wall."
 	background_icon_state = "bg_cult"

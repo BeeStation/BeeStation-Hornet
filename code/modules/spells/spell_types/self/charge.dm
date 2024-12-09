@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/charge
+/datum/action/spell/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, \
 		from magical artifacts to electrical components. A creative wizard can even use it \
@@ -14,10 +14,10 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-/datum/action/cooldown/spell/charge/is_valid_target(atom/cast_on)
+/datum/action/spell/charge/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/charge/cast(mob/living/cast_on)
+/datum/action/spell/charge/cast(mob/living/cast_on)
 	. = ..()
 
 	// Charge people we're pulling first and foremost
@@ -25,7 +25,7 @@
 		var/mob/living/pulled_living = cast_on.pulling
 		var/pulled_has_spells = FALSE
 
-		for(var/datum/action/cooldown/spell/spell in pulled_living.actions)
+		for(var/datum/action/spell/spell in pulled_living.actions)
 			spell.reset_spell_cooldown()
 			pulled_has_spells = TRUE
 

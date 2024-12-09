@@ -2,28 +2,28 @@
 /datum/spellbook_entry/summonitem
 	name = "Summon Item"
 	desc = "Recalls a previously marked item to your hand from anywhere in the universe."
-	spell_type = /datum/action/cooldown/spell/summonitem
+	spell_type = /datum/action/spell/summonitem
 	category = "Assistance"
 	cost = 1
 
 /datum/spellbook_entry/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
-	spell_type = /datum/action/cooldown/spell/charge
+	spell_type = /datum/action/spell/charge
 	category = "Assistance"
 	cost = 1
 
 /datum/spellbook_entry/shapeshift
 	name = "Wild Shapeshift"
 	desc = "Take on the shape of another for a time to use their natural abilities. Once you've made your choice it cannot be changed."
-	spell_type = /datum/action/cooldown/spell/shapeshift/wizard
+	spell_type = /datum/action/spell/shapeshift/wizard
 	category = "Assistance"
 	cost = 1
 
 /datum/spellbook_entry/tap
 	name = "Soul Tap"
 	desc = "Fuel your spells using your own soul!"
-	spell_type = /datum/action/cooldown/spell/tap
+	spell_type = /datum/action/spell/tap
 	category = "Assistance"
 	cost = 1
 
@@ -49,7 +49,7 @@
 	if(!.)
 		return
 
-	var/datum/action/cooldown/spell/conjure/construct/bonus_spell = new(user.mind || user)
+	var/datum/action/spell/conjure/construct/bonus_spell = new(user.mind || user)
 	bonus_spell.Grant(user)
 
 /datum/spellbook_entry/item/necrostone

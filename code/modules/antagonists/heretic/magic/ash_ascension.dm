@@ -1,5 +1,5 @@
 /// Creates a constant Ring of Fire around the caster for a set duration of time, which follows them.
-/datum/action/cooldown/spell/fire_sworn
+/datum/action/spell/fire_sworn
 	name = "Oath of Flame"
 	desc = "For a minute, you will passively create a ring of fire around you."
 	background_icon_state = "bg_ecult"
@@ -18,14 +18,14 @@
 	/// How long it the ring lasts
 	var/duration = 1 MINUTES
 
-/datum/action/cooldown/spell/fire_sworn/Remove(mob/living/remove_from)
+/datum/action/spell/fire_sworn/Remove(mob/living/remove_from)
 	remove_from.remove_status_effect(/datum/status_effect/fire_ring)
 	return ..()
 
-/datum/action/cooldown/spell/fire_sworn/is_valid_target(atom/cast_on)
+/datum/action/spell/fire_sworn/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/fire_sworn/cast(mob/living/cast_on)
+/datum/action/spell/fire_sworn/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
 
@@ -58,7 +58,7 @@
 			fried_living.apply_damage(2.5 * delta_time, BURN)
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
-/datum/action/cooldown/spell/fire_cascade
+/datum/action/spell/fire_cascade
 	name = "Lesser Fire Cascade"
 	desc = "Heats the air around you."
 	background_icon_state = "bg_ecult"
@@ -76,12 +76,12 @@
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
 
-/datum/action/cooldown/spell/fire_cascade/cast(atom/cast_on)
+/datum/action/spell/fire_cascade/cast(atom/cast_on)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(cast_on), flame_radius)
 
 /// Spreads a huge wave of fire in a radius around us, staggered between levels
-/datum/action/cooldown/spell/fire_cascade/proc/fire_cascade(atom/centre, flame_radius = 1)
+/datum/action/spell/fire_cascade/proc/fire_cascade(atom/centre, flame_radius = 1)
 	for(var/i in 0 to flame_radius)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(i + 1, centre))
 			new /obj/effect/hotspot(nearby_turf)
@@ -91,12 +91,12 @@
 
 		stoplag(0.3 SECONDS)
 
-/datum/action/cooldown/spell/fire_cascade/big
+/datum/action/spell/fire_cascade/big
 	name = "Greater Fire Cascade"
 	flame_radius = 6
 
 // Currently unused - releases streams of fire around the caster.
-/datum/action/cooldown/spell/pointed/ash_beams
+/datum/action/spell/pointed/ash_beams
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases five streams of eldritch fire towards the target."
 	background_icon_state = "bg_ecult"
@@ -114,16 +114,16 @@
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15
 
-/datum/action/cooldown/spell/pointed/ash_beams/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/ash_beams/is_valid_target(atom/cast_on)
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/ash_beams/cast(atom/target)
+/datum/action/spell/pointed/ash_beams/cast(atom/target)
 	. = ..()
 	var/static/list/offsets = list(-25, -10, 0, 10, 25)
 	for(var/offset in offsets)
 		INVOKE_ASYNC(src, PROC_REF(fire_line), owner, line_target(offset, flame_line_length, target, owner))
 
-/datum/action/cooldown/spell/pointed/ash_beams/proc/line_target(offset, range, atom/at, atom/user)
+/datum/action/spell/pointed/ash_beams/proc/line_target(offset, range, atom/at, atom/user)
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - user.x, at.y - user.y) + offset
@@ -135,7 +135,7 @@
 		T = check
 	return (getline(user, T) - get_turf(user))
 
-/datum/action/cooldown/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
+/datum/action/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
 		if(istype(T, /turf/closed))

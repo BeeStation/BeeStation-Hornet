@@ -1,5 +1,5 @@
 // Shoots out in a wave-like, what rust heretics themselves get
-/datum/action/cooldown/spell/cone/staggered/entropic_plume
+/datum/action/spell/cone/staggered/entropic_plume
 	name = "Entropic Plume"
 	desc = "Spews forth a disorienting plume that causes enemies to strike each other, briefly blinds them(increasing with range) and poisons them(decreasing with range). Also spreads rust in the path of the plume."
 	background_icon_state = "bg_ecult"
@@ -16,14 +16,14 @@
 	cone_levels = 5
 	respect_density = TRUE
 
-/datum/action/cooldown/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
+/datum/action/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
 	. = ..()
 	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
 
-/datum/action/cooldown/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, atom/caster, level)
+/datum/action/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	target_turf.rust_heretic_act()
 
-/datum/action/cooldown/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
+/datum/action/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
 	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) || IS_HERETIC_OR_MONSTER(victim))
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
@@ -32,7 +32,7 @@
 		var/mob/living/carbon/carbon_victim = victim
 		carbon_victim.reagents?.add_reagent(/datum/reagent/eldritch, min(1, 6 - level))
 
-/datum/action/cooldown/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
+/datum/action/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
 	if(current_level == cone_levels)
 		return 5
 	else if(current_level == cone_levels - 1)
@@ -58,7 +58,7 @@
 			pixel_x = -128
 
 // Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
-/datum/action/cooldown/spell/basic_projectile/rust_wave
+/datum/action/spell/basic_projectile/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 	background_icon_state = "bg_ecult"
@@ -104,7 +104,7 @@
 		var/turf/T = X
 		T.rust_heretic_act()
 
-/datum/action/cooldown/spell/basic_projectile/rust_wave/short
+/datum/action/spell/basic_projectile/rust_wave/short
 	name = "Lesser Patron's Reach"
 	projectile_type = /obj/projectile/magic/aoe/rust_wave/short
 

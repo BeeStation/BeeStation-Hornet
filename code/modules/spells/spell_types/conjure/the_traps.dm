@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/the_traps
+/datum/action/spell/conjure/the_traps
 	name = "The Traps!"
 	desc = "Summon a number of traps around you. They will damage and enrage any enemies that step on them."
 	button_icon_state = "the_traps"
@@ -22,7 +22,7 @@
 	/// The amount of charges the traps spawn with.
 	var/trap_charges = 1
 
-/datum/action/cooldown/spell/conjure/the_traps/post_summon(atom/summoned_object, atom/cast_on)
+/datum/action/spell/conjure/the_traps/post_summon(atom/summoned_object, atom/cast_on)
 	if(!istype(summoned_object, /obj/structure/trap))
 		return
 

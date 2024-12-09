@@ -10,8 +10,8 @@
 	zone = BODY_ZONE_CHEST
 	slot = "plasmavessel"
 	actions_types = list(
-		/datum/action/cooldown/alien/make_structure/plant_weeds,
-		/datum/action/cooldown/alien/transfer,
+		/datum/action/alien/make_structure/plant_weeds,
+		/datum/action/alien/transfer,
 	)
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/plasma = 10)
 
@@ -45,7 +45,7 @@
 	icon_state = "plasma_tiny"
 	w_class = WEIGHT_CLASS_TINY
 	max_plasma = 100
-	actions_types = list(/datum/action/cooldown/alien/transfer)
+	actions_types = list(/datum/action/alien/transfer)
 
 /obj/item/organ/alien/plasmavessel/on_life()
 	//If there are alien weeds on the ground then heal if needed or give some plasma
@@ -86,7 +86,7 @@
 	zone = BODY_ZONE_HEAD
 	slot = "hivenode"
 	w_class = WEIGHT_CLASS_TINY
-	actions_types = list(/datum/action/cooldown/alien/whisper)
+	actions_types = list(/datum/action/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
 /obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -139,7 +139,7 @@
 	icon_state = "stomach-x"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = "resinspinner"
-	actions_types = list(/datum/action/cooldown/alien/make_structure/resin)
+	actions_types = list(/datum/action/alien/make_structure/resin)
 
 
 /obj/item/organ/alien/acid
@@ -147,7 +147,7 @@
 	icon_state = "acid"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = "acidgland"
-	actions_types = list(/datum/action/cooldown/alien/acid/corrosion)
+	actions_types = list(/datum/action/alien/acid/corrosion)
 
 
 /obj/item/organ/alien/neurotoxin
@@ -155,7 +155,7 @@
 	icon_state = "neurotox"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = "neurotoxingland"
-	actions_types = list(/datum/action/cooldown/alien/acid/neurotoxin)
+	actions_types = list(/datum/action/alien/acid/neurotoxin)
 
 
 /obj/item/organ/alien/eggsac
@@ -164,4 +164,4 @@
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
-	actions_types = list(/datum/action/cooldown/alien/make_structure/lay_egg)
+	actions_types = list(/datum/action/alien/make_structure/lay_egg)

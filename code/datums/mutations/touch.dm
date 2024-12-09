@@ -4,7 +4,7 @@
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	power_path = /datum/action/cooldown/spell/touch/shock
+	power_path = /datum/action/spell/touch/shock
 	instability = 30
 	locked = TRUE
 	energy_coeff = 1
@@ -16,7 +16,7 @@
 	icon_state = "zapper"
 	item_state = "zapper"
 
-/datum/action/cooldown/spell/touch/shock
+/datum/action/spell/touch/shock
 	name = "Shock Touch"
 	desc = "Channel electricity to your hand to shock people with."
 	button_icon_state = "zap"
@@ -29,7 +29,7 @@
 	draw_message = ("<span class='notice'>You channel electricity into your hand.</span>")
 	drop_message = ("<span class='notice'>You let the electricity from your hand dissipate.</span>")
 
-/datum/action/cooldown/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return TRUE
 
 /obj/item/melee/touch_attack/shock/afterattack(atom/target, mob/living/carbon/user, proximity)

@@ -116,7 +116,7 @@
 	if(!alert_caster_on_equip)
 		return
 // Check to see if we have any spells that are blocked due to antimagic
-	for(var/datum/action/cooldown/spell/magic_spell in equipper.actions)
+	for(var/datum/action/spell/magic_spell in equipper.actions)
 		if(!(magic_spell.spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC))
 			continue
 

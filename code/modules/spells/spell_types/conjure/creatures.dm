@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/creature
+/datum/action/spell/conjure/creature
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth."
 	sound = 'sound/magic/summonitems_generic.ogg'

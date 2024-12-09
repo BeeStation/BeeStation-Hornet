@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/blind
+/datum/action/spell/pointed/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single target."
 	button_icon_state = "blind"
@@ -22,7 +22,7 @@
 	/// The duration of the blind mutation placed on the person
 	var/blind_mutation_duration = 30 SECONDS
 
-/datum/action/cooldown/spell/pointed/blind/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/blind/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -32,7 +32,7 @@
 	var/mob/living/carbon/human/human_target = cast_on
 	return !human_target.is_blind()
 
-/datum/action/cooldown/spell/pointed/blind/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/pointed/blind/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, ("<span class='notice'>Your eye itches, but it passes momentarily.</span>"))

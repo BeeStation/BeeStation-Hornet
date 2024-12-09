@@ -53,7 +53,7 @@
 	// Keep the people we hug!
 	var/list/consumed_mobs = list()
 	del_on_death = TRUE
-	var/crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon
+	var/crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	discovery_points = 3000
 
@@ -61,7 +61,7 @@
 
 /mob/living/simple_animal/hostile/imp/slaughter/Initialize(mapload)
 	. = ..()
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/crawl = new crawl_type(src)
+	var/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/crawl = new crawl_type(src)
 	crawl.Grant(src)
 	RegisterSignal(src, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(on_crawl))
 
@@ -124,7 +124,7 @@
 		)
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
 
-	if(locate(/datum/action/cooldown/spell/jaunt/bloodcrawl) in user.actions)
+	if(locate(/datum/action/spell/jaunt/bloodcrawl) in user.actions)
 		to_chat(user, ("<span class='warning'>...and you don't feel any different.</span>"))
 		qdel(src)
 		return
@@ -139,12 +139,12 @@
 /obj/item/organ/internal/heart/demon/Insert(mob/living/carbon/M, special = 0)
 	..()
 	// Gives a non-eat-people crawl to the new owner
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/crawl = new(M)
+	var/datum/action/spell/jaunt/bloodcrawl/crawl = new(M)
 	crawl.Grant(M)
 
 /obj/item/organ/internal/heart/demon/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/crawl = locate() in M.actions
+	var/datum/action/spell/jaunt/bloodcrawl/crawl = locate() in M.actions
 	qdel(crawl)
 
 /obj/item/organ/heart/demon/Stop()
@@ -171,7 +171,7 @@
 	deathmessage = "fades out, as all of its friends are released from its \
 		prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
-	crawl_type = /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny
+	crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny
 
 	playstyle_string = "<span class='big bold'>You are a laughter \
 	demon,</span><B> a wonderful creature from another realm. You have a single \

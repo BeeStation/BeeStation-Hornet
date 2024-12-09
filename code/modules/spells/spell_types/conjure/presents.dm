@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/presents
+/datum/action/spell/conjure/presents
 	name = "Conjure Presents!"
 	desc = "This spell lets you reach into S-space and retrieve presents! Yay!"
 

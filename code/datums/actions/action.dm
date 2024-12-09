@@ -197,7 +197,7 @@
 	// the target is what the action is being used on
 	// In trigger, we handle setting the click intercept
 	if(requires_target)
-		var/datum/action/cooldown/already_set = user.click_intercept
+		var/datum/action/already_set = user.click_intercept
 		if(already_set == src)
 			// if we clicked ourself and we're already set, unset and return
 			return unset_click_ability(user, refund_cooldown = TRUE)
@@ -256,7 +256,7 @@
 /// Intercepts client owner clicks to activate the ability
 /// This proc is called via reflection, do not change the name if you do
 /// not know what that means.
-/datum/action/cooldown/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/proc/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(!is_available())
 		unset_click_ability(caller, refund_cooldown = FALSE)
 		return FALSE
@@ -437,7 +437,7 @@
 	// "Shared cooldowns" covers actions which are not the same type,
 	// but have the same cooldown group and are on the same mob
 	if(cooldown_group)
-		for(var/datum/action/cooldown/shared_ability in owner.actions - src)
+		for(var/datum/action/shared_ability in owner.actions - src)
 			if(cooldown_group != shared_ability.cooldown_group)
 				continue
 			shared_ability.start_cooldown_self(override_cooldown_time)

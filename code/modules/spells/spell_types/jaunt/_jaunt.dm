@@ -11,7 +11,7 @@
  *
  * Use enter_jaunt() and exit_jaunt() as wrappers.
  */
-/datum/action/cooldown/spell/jaunt
+/datum/action/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
 
 	invocation_type = INVOCATION_NONE
@@ -19,7 +19,7 @@
 	/// What dummy mob type do we put jaunters in on jaunt?
 	var/jaunt_type = /obj/effect/dummy/phased_mob
 
-/datum/action/cooldown/spell/jaunt/can_cast_spell(feedback = TRUE)
+/datum/action/spell/jaunt/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -48,7 +48,7 @@
  *
  * Returns the holder mob that was created
  */
-/datum/action/cooldown/spell/jaunt/proc/enter_jaunt(mob/living/jaunter, turf/loc_override)
+/datum/action/spell/jaunt/proc/enter_jaunt(mob/living/jaunter, turf/loc_override)
 	var/obj/effect/dummy/phased_mob/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
 	spell_requirements |= SPELL_CASTABLE_WHILE_PHASED
 	ADD_TRAIT(jaunter, TRAIT_MAGICALLY_PHASED, REF(src))
@@ -65,7 +65,7 @@
  *
  * Returns TRUE on successful exit, FALSE otherwise
  */
-/datum/action/cooldown/spell/jaunt/proc/exit_jaunt(mob/living/unjaunter, turf/loc_override)
+/datum/action/spell/jaunt/proc/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	var/obj/effect/dummy/phased_mob/jaunt = unjaunter.loc
 	if(!istype(jaunt))
 		return FALSE
@@ -84,9 +84,9 @@
 	return TRUE
 
 /// Simple helper to check if the passed mob is currently jaunting or not
-/datum/action/cooldown/spell/jaunt/proc/is_jaunting(mob/living/user)
+/datum/action/spell/jaunt/proc/is_jaunting(mob/living/user)
 	return istype(user.loc, /obj/effect/dummy/phased_mob)
 
-/datum/action/cooldown/spell/jaunt/Remove(mob/living/remove_from)
+/datum/action/spell/jaunt/Remove(mob/living/remove_from)
 	exit_jaunt(remove_from)
 	return ..()

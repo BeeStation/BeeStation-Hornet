@@ -153,7 +153,7 @@
 	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(X)]")
 	man.forceMove(X)
 	man.set_anchored(TRUE)
-	var/datum/action/cooldown/spell/list_target/xeno_senitent_action/P = new /datum/action/cooldown/spell/list_target/xeno_senitent_action(,X)
+	var/datum/action/spell/list_target/xeno_senitent_action/P = new /datum/action/spell/list_target/xeno_senitent_action(,X)
 	P.Grant(man)
 	//show little guy his traits
 	to_chat(man, "<span class='notice'>Your traits are: \n</span>")
@@ -163,7 +163,7 @@
 		playsound(get_turf(X), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	qdel(S)
 
-/datum/action/cooldown/spell/list_target/xeno_senitent_action //Lets sentience target goober
+/datum/action/spell/list_target/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
 	desc = "Select a target to activate your traits on."
 	cooldown_time = 0 SECONDS
@@ -174,7 +174,7 @@
 	var/obj/item/xenoartifact/xeno
 	target_radius = 1
 
-/datum/action/cooldown/spell/list_target/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/action/spell/list_target/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	. = ..()
 	if(!xeno)
 		return

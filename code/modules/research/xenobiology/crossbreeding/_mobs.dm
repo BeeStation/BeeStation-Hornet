@@ -5,7 +5,7 @@ Slimecrossing Mobs
 */
 
 /// Slime transformation power - from Burning Black
-/datum/action/cooldown/spell/shapeshift/slime_form
+/datum/action/spell/shapeshift/slime_form
 	name = "Slime Transformation"
 	desc = "Transform from a human to a slime, or back again!"
 	button_icon_state = "transformslime"
@@ -20,7 +20,7 @@ Slimecrossing Mobs
 	/// If TRUE, we self-delete (remove ourselves) the next time we turn back into a human
 	var/remove_on_restore = FALSE
 
-/datum/action/cooldown/spell/shapeshift/slime_form/restore_form(mob/living/shape)
+/datum/action/spell/shapeshift/slime_form/restore_form(mob/living/shape)
 	. = ..()
 	if(!.)
 		return

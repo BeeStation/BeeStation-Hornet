@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/cleave
+/datum/action/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
 	background_icon_state = "bg_ecult"
@@ -17,10 +17,10 @@
 	/// The radius of the cleave effect
 	var/cleave_radius = 1
 
-/datum/action/cooldown/spell/pointed/cleave/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/cleave/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
 
-/datum/action/cooldown/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	var/list/mob/living/carbon/human/nearby = list(cast_on)
 	for(var/mob/living/carbon/human/nearby_human in range(cleave_radius, cast_on))
@@ -48,7 +48,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/cleave/long
+/datum/action/spell/pointed/cleave/long
 	name = "Lesser Cleave"
 	cooldown_time = 65 SECONDS
 

@@ -4,14 +4,14 @@
  * A spell that iterates over atoms near the caster and casts a spell on them.
  * Calls cast_on_thing_in_aoe on all atoms returned by get_things_to_cast_on by default.
  */
-/datum/action/cooldown/spell/aoe
+/datum/action/spell/aoe
 	/// The max amount of targets we can affect via our AOE. 0 = unlimited
 	var/max_targets = 0
 	/// The radius of the aoe.
 	var/aoe_radius = 7
 
 // At this point, cast_on == owner. Either works.
-/datum/action/cooldown/spell/aoe/cast(atom/cast_on)
+/datum/action/spell/aoe/cast(atom/cast_on)
 	. = ..()
 	// Get every atom around us to our aoe cast on
 	var/list/atom/things_to_cast_on = get_things_to_cast_on(cast_on)
@@ -34,7 +34,7 @@
  * Gets a list of atoms around [center]
  * that are within range and affected by our aoe.
  */
-/datum/action/cooldown/spell/aoe/proc/get_things_to_cast_on(atom/center)
+/datum/action/spell/aoe/proc/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/atom/nearby_thing in range(aoe_radius, center))
 		if(nearby_thing == owner || nearby_thing == center)
@@ -52,6 +52,6 @@
  * * victim - the atom being affected by our aoe
  * * caster - the mob who cast the aoe
  */
-/datum/action/cooldown/spell/aoe/proc/cast_on_thing_in_aoe(atom/victim, atom/caster)
+/datum/action/spell/aoe/proc/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("[type] did not implement cast_on_thing_in_aoe and either has no effects or implemented the spell incorrectly.")

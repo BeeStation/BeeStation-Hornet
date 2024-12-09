@@ -1,5 +1,5 @@
 // This can probably be changed to use mind linker at some point
-/datum/action/cooldown/spell/personality_commune
+/datum/action/spell/personality_commune
 	name = "Personality Commune"
 	desc = "Sends thoughts to your alternate consciousness."
 	button_icon_state = "telepathy"
@@ -11,16 +11,16 @@
 	/// The message to send to the corresponding person on cast
 	var/to_send
 
-/datum/action/cooldown/spell/personality_commune/New(Target)
+/datum/action/spell/personality_commune/New(Target)
 	. = ..()
 	if(!istype(target, /datum/brain_trauma/severe/split_personality))
 		stack_trace("[type] was created on a target that isn't a /datum/brain_trauma/severe/split_personality, this doesn't work.")
 		qdel(src)
 
-/datum/action/cooldown/spell/personality_commune/is_valid_target(atom/cast_on)
+/datum/action/spell/personality_commune/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/personality_commune/before_cast(atom/cast_on)
+/datum/action/spell/personality_commune/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -39,7 +39,7 @@
 	return TRUE
 
 // Pillaged and adapted from telepathy code
-/datum/action/cooldown/spell/personality_commune/cast(mob/living/cast_on)
+/datum/action/spell/personality_commune/cast(mob/living/cast_on)
 	. = ..()
 	var/datum/brain_trauma/severe/split_personality/trauma = target
 

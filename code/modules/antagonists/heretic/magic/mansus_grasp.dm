@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/touch/mansus_grasp
+/datum/action/spell/touch/mansus_grasp
 	name = "Mansus Grasp"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
 	background_icon_state = "bg_ecult"
@@ -16,10 +16,10 @@
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/action/cooldown/spell/touch/mansus_grasp/can_cast_spell(feedback = TRUE)
+/datum/action/spell/touch/mansus_grasp/can_cast_spell(feedback = TRUE)
 	return ..() && !!IS_HERETIC(owner)
 
-/datum/action/cooldown/spell/touch/mansus_grasp/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/spell/touch/mansus_grasp/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(!isliving(victim))
 		return FALSE
 
@@ -62,7 +62,7 @@
  * Callback for effect_remover component.
  */
 /obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
-	var/datum/action/cooldown/spell/touch/mansus_grasp/grasp = spell_which_made_us?.resolve()
+	var/datum/action/spell/touch/mansus_grasp/grasp = spell_which_made_us?.resolve()
 	grasp?.spell_feedback()
 
 	remove_hand_with_no_refund(user)
@@ -74,7 +74,7 @@
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
 	user.visible_message(("<span class='suicide'>[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
-	var/datum/action/cooldown/spell/touch/mansus_grasp/source = locate() in user.actions
+	var/datum/action/spell/touch/mansus_grasp/source = locate() in user.actions
 	if(!IS_HERETIC(user))
 		return
 

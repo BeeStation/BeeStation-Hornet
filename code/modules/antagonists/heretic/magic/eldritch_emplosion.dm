@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/action/cooldown/spell/emp/eldritch
+/datum/action/spell/emp/eldritch
 	name = "Energetic Pulse"
 	background_icon_state = "bg_ecult"
 	school = SCHOOL_FORBIDDEN

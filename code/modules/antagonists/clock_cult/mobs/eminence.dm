@@ -40,12 +40,12 @@
 
 	var/mob/living/selected_mob = null
 
-	var/datum/action/cooldown/spell/eminence/reebe/spell_reebe
-	var/datum/action/cooldown/spell/eminence/station/spell_station
-	var/datum/action/cooldown/spell/eminence/servant_warp/spell_servant_warp
-	var/datum/action/cooldown/spell/eminence/mass_recall/mass_recall
-	var/datum/action/cooldown/spell/eminence/linked_abscond/linked_abscond
-	var/datum/action/cooldown/spell/eminence/trigger_event/trigger_event
+	var/datum/action/spell/eminence/reebe/spell_reebe
+	var/datum/action/spell/eminence/station/spell_station
+	var/datum/action/spell/eminence/servant_warp/spell_servant_warp
+	var/datum/action/spell/eminence/mass_recall/mass_recall
+	var/datum/action/spell/eminence/linked_abscond/linked_abscond
+	var/datum/action/spell/eminence/trigger_event/trigger_event
 
 /mob/living/simple_animal/eminence/ClickOn(atom/A, params)
 	. = ..()
@@ -156,7 +156,7 @@
 
 //Eminence abilities
 
-/datum/action/cooldown/spell/eminence
+/datum/action/spell/eminence
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
@@ -165,7 +165,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	var/cog_cost
 
-/datum/action/cooldown/spell/eminence/can_cast_spell(feedback = TRUE)
+/datum/action/spell/eminence/can_cast_spell(feedback = TRUE)
 	. = ..()
 	var/mob/living/simple_animal/eminence/eminence = owner
 	if(!istype(eminence))
@@ -173,16 +173,16 @@
 	if(eminence.cogs < cog_cost)
 		return FALSE
 
-/datum/action/cooldown/spell/eminence/proc/consume_cogs(mob/living/simple_animal/eminence/eminence)
+/datum/action/spell/eminence/proc/consume_cogs(mob/living/simple_animal/eminence/eminence)
 	eminence.cogs -= cog_cost
 
 //=====Warp to Reebe=====
-/datum/action/cooldown/spell/eminence/reebe
+/datum/action/spell/eminence/reebe
 	name = "Jump to Reebe"
 	desc = "Teleport yourself to Reebe."
 	button_icon_state = "Abscond"
 
-/datum/action/cooldown/spell/eminence/reebe/cast(mob/living/cast_on)
+/datum/action/spell/eminence/reebe/cast(mob/living/cast_on)
 	. = ..()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
@@ -193,12 +193,12 @@
 		to_chat(cast_on, "<span class='warning'>There is no Ark!</span>")
 
 //=====Warp to station=====
-/datum/action/cooldown/spell/eminence/station
+/datum/action/spell/eminence/station
 	name = "Jump to Station"
 	desc = "Teleport yourself to the station."
 	button_icon_state = "warp_down"
 
-/datum/action/cooldown/spell/eminence/station/cast(mob/living/user)
+/datum/action/spell/eminence/station/cast(mob/living/user)
 	. = ..()
 	if(!is_station_level(user.z))
 		user.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
@@ -208,12 +208,12 @@
 		to_chat(user, "<span class='warning'>You're already on the station!</span>")
 
 //=====Teleport to servant=====
-/datum/action/cooldown/spell/eminence/servant_warp
+/datum/action/spell/eminence/servant_warp
 	name = "Jump to Servant"
 	desc = "Teleport yourself to a specific servant."
 	button_icon_state = "Spatial Warp"
 
-/datum/action/cooldown/spell/eminence/servant_warp/cast(list/targets, mob/user)
+/datum/action/spell/eminence/servant_warp/cast(list/targets, mob/user)
 	. = ..()
 	//Get a list of all servants
 	var/datum/mind/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar //List targets spell might have been better, for now this will do
@@ -236,12 +236,12 @@
 	flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 
 //=====Mass Recall=====
-/datum/action/cooldown/spell/eminence/mass_recall
+/datum/action/spell/eminence/mass_recall
 	name = "Initiate Mass Recall"
 	desc = "Initiates a mass recall, warping everyone to the Ark. Can only be used 1 time."
 	button_icon_state = "Spatial Gateway"
 
-/datum/action/cooldown/spell/eminence/mass_recall/cast(mob/living/cast_on)
+/datum/action/spell/eminence/mass_recall/cast(mob/living/cast_on)
 	. = ..()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/C = GLOB.celestial_gateway
 	if(!C)
@@ -250,14 +250,14 @@
 	Remove(cast_on)
 
 //=====Linked Abscond=====
-/datum/action/cooldown/spell/eminence/linked_abscond
+/datum/action/spell/eminence/linked_abscond
 	name = "Linked Abscond"
 	desc = "Warps a target to Reebe if they are still for 7 seconds. Costs 1 cog."
 	button_icon_state = "Linked Abscond"
 	cooldown_time = 600 SECONDS
 	cog_cost = 1
 
-/datum/action/cooldown/spell/eminence/linked_abscond/can_cast_spell(feedback)
+/datum/action/spell/eminence/linked_abscond/can_cast_spell(feedback)
 	. = ..()
 	if(!..())
 		return FALSE
@@ -268,7 +268,7 @@
 		return TRUE
 	return FALSE
 
-/datum/action/cooldown/spell/eminence/linked_abscond/cast(list/targets, mob/living/user)
+/datum/action/spell/eminence/linked_abscond/cast(list/targets, mob/living/user)
 	. = ..()
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
@@ -300,14 +300,14 @@
 		return FALSE
 
 //Trigger event
-/datum/action/cooldown/spell/eminence/trigger_event
+/datum/action/spell/eminence/trigger_event
 	name = "Manipulate Reality"
 	desc = "Manipulate reality causing global events to occur. Costs 5 cogs"
 	button_icon_state = "Geis"
 	cooldown_time = 600 SECONDS
 	cog_cost = 5
 
-/datum/action/cooldown/spell/eminence/trigger_event/cast(list/targets, mob/user)
+/datum/action/spell/eminence/trigger_event/cast(list/targets, mob/user)
 	. = ..()
 	var/picked_event = input(user, "Pick an event to run", "Manipulate Reality", null) in list(
 		"Anomaly",

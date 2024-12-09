@@ -1,4 +1,4 @@
-/datum/action/cooldown/alien/hide
+/datum/action/alien/hide
 	name = "Hide"
 	desc = "Allows you to hide beneath tables and certain objects."
 	button_icon_state = "alien_hide"
@@ -6,7 +6,7 @@
 	/// The layer we are on while hiding
 	var/hide_layer = ABOVE_NORMAL_TURF_LAYER
 
-/datum/action/cooldown/alien/hide/on_activate(atom/target)
+/datum/action/alien/hide/on_activate(atom/target)
 	if(owner.layer == hide_layer)
 		owner.layer = initial(owner.layer)
 		owner.visible_message(
@@ -23,13 +23,13 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/larva_evolve
+/datum/action/alien/larva_evolve
 	name = "Evolve"
 	desc = "Evolve into a higher alien caste."
 	button_icon_state = "alien_evolve_larva"
 	plasma_cost = 0
 
-/datum/action/cooldown/alien/larva_evolve/is_available()
+/datum/action/alien/larva_evolve/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -46,7 +46,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/larva_evolve/on_activate(atom/target)
+/datum/action/alien/larva_evolve/on_activate(atom/target)
 	var/mob/living/carbon/alien/larva/larva = owner
 	var/static/list/caste_options
 	if(!caste_options)

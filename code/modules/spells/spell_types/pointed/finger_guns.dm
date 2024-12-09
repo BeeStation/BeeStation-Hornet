@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/projectile/finger_guns
+/datum/action/spell/pointed/projectile/finger_guns
 	name = "Finger Guns"
 	desc = "Shoot up to three mimed bullets from your fingers that damage and mute their targets. \
 		Can't be used if you have something in your hands."
@@ -26,7 +26,7 @@
 	projectile_type = /obj/projectile/bullet/mime
 	projectile_amount = 3
 
-/datum/action/cooldown/spell/pointed/projectile/finger_guns/can_invoke(feedback = TRUE)
+/datum/action/spell/pointed/projectile/finger_guns/can_invoke(feedback = TRUE)
 	if(invocation_type == INVOCATION_EMOTE)
 		if(!ishuman(owner))
 			return FALSE
@@ -43,6 +43,6 @@
 
 	return ..()
 
-/datum/action/cooldown/spell/pointed/projectile/finger_guns/before_cast(atom/cast_on)
+/datum/action/spell/pointed/projectile/finger_guns/before_cast(atom/cast_on)
 	. = ..()
 	invocation = ("<span class='notice'><b>[cast_on]</b> fires [cast_on.p_their()] finger gun!</span>")

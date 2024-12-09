@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/sacredflame
-	granted_action = /datum/action/cooldown/spell/aoe/sacred_flame
+	granted_action = /datum/action/spell/aoe/sacred_flame
 	action_name = "sacred flame"
 	icon_state ="booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."

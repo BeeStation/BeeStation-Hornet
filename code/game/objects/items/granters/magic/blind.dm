@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/blind
-	granted_action = /datum/action/cooldown/spell/pointed/blind
+	granted_action = /datum/action/spell/pointed/blind
 	action_name = "blind"
 	icon_state = "bookblind"
 	desc = "This book looks blurry, no matter how you look at it."

@@ -6,14 +6,14 @@
 	locked = TRUE
 	text_gain_indication = "<span class='notice'>Your throat is burning!</span>"
 	text_lose_indication = "<span class='notice'>Your throat is cooling down.</span>"
-	power_path = /datum/action/cooldown/spell/cone/staggered/fire_breath
+	power_path = /datum/action/spell/cone/staggered/fire_breath
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
 
 /datum/mutation/firebreath/modify()
 	. = ..()
-	var/datum/action/cooldown/spell/cone/staggered/fire_breath/to_modify = .
+	var/datum/action/spell/cone/staggered/fire_breath/to_modify = .
 	if(!istype(to_modify)) // null or invalid
 		return
 
@@ -23,7 +23,7 @@
 	to_modify.cone_levels += 2  // Cone fwooshes further, and...
 	to_modify.self_throw_range += 1 // the breath throws the user back more
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath
+/datum/action/spell/cone/staggered/fire_breath
 	name = "Fire Breath"
 	desc = "You breathe a cone of fire directly in front of you."
 	button_icon_state = "fireball0"
@@ -40,7 +40,7 @@
 	/// The range our user is thrown backwards after casting the spell
 	var/self_throw_range = 1
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/before_cast(atom/cast_on)
+/datum/action/spell/cone/staggered/fire_breath/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -56,7 +56,7 @@
 	our_lizard.IgniteMob()
 	to_chat(our_lizard, ("<span class='warning'>Something in front of your mouth catches fire!</span>"))
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/after_cast(atom/cast_on)
+/datum/action/spell/cone/staggered/fire_breath/after_cast(atom/cast_on)
 	. = ..()
 	if(!isliving(cast_on))
 		return
@@ -72,24 +72,24 @@
 	// Try to set us to our original direction after, so we don't end up backwards.
 	living_cast_on.setDir(original_dir)
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/calculate_cone_shape(current_level)
+/datum/action/spell/cone/staggered/fire_breath/calculate_cone_shape(current_level)
 	// This makes the cone shoot out into a 3 wide column of flames.
 	// You may be wondering, "that equation doesn't seem like it'd make a 3 wide column"
 	// well it does, and that's all that matters.
 	return (2 * current_level) - 1
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/do_turf_cone_effect(turf/target_turf, atom/caster, level)
+/datum/action/spell/cone/staggered/fire_breath/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	// Further turfs experience less exposed_temperature and exposed_volume
 	new /obj/effect/hotspot(target_turf) // for style
 	target_turf.hotspot_expose(max(500, 900 - (100 * level)), max(50, 200 - (50 * level)), 1)
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
+/datum/action/spell/cone/staggered/fire_breath/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	// Further out targets take less immediate burn damage and get less fire stacks.
 	// The actual burn damage application is not blocked by fireproofing, like space dragons.
 	target_mob.apply_damage(max(10, 40 - (5 * level)), BURN)
 	target_mob.adjust_fire_stacks(max(2, 5 - level))
 	target_mob.IgniteMob()
 
-/datum/action/cooldown/spell/cone/staggered/firebreath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
+/datum/action/spell/cone/staggered/firebreath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	// Further out objects experience less exposed_temperature and exposed_volume
 	target_obj.fire_act(max(500, 900 - (100 * level)), max(50, 200 - (50 * level)))

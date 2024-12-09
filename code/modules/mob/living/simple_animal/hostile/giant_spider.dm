@@ -69,7 +69,7 @@
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
 	var/datum/action/innate/spider/lay_web/webbing
-	var/datum/action/cooldown/wrap/wrap
+	var/datum/action/wrap/wrap
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	discovery_points = 1000
@@ -544,7 +544,7 @@
 
 	spider.stop_automated_movement = FALSE
 
-/datum/action/cooldown/wrap
+/datum/action/wrap
 	name = "Wrap"
 	desc = "Wrap something or someone in a cocoon. If it's a human or similar species, \
 		you'll also consume them, allowing you to lay enriched eggs."
@@ -557,7 +557,7 @@
 	/// The time it takes to wrap something.
 	var/wrap_time = 5 SECONDS
 
-/datum/action/cooldown/wrap/is_available()
+/datum/action/wrap/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -567,7 +567,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/wrap/set_click_ability(mob/on_who)
+/datum/action/wrap/set_click_ability(mob/on_who)
 	. = ..()
 	if(!.)
 		return
@@ -576,7 +576,7 @@
 	button_icon_state = "wrap_0"
 	update_buttons()
 
-/datum/action/cooldown/wrap/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
+/datum/action/wrap/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
 	if(!.)
 		return
@@ -586,7 +586,7 @@
 	button_icon_state = "wrap_1"
 	update_buttons()
 
-/datum/action/cooldown/wrap/on_activate(atom/to_wrap)
+/datum/action/wrap/on_activate(atom/to_wrap)
 	if(!owner.Adjacent(to_wrap))
 		owner.balloon_alert(owner, "must be closer!")
 		return FALSE
@@ -609,7 +609,7 @@
 	INVOKE_ASYNC(src, PROC_REF(cocoon), to_wrap)
 	return TRUE
 
-/datum/action/cooldown/wrap/proc/cocoon(atom/movable/to_wrap)
+/datum/action/wrap/proc/cocoon(atom/movable/to_wrap)
 	owner.visible_message(
 		("<span class='notice'>[owner] begins to secrete a sticky substance around [to_wrap].</span>"),
 		("<span class='notice'>You begin wrapping [to_wrap] into a cocoon.</span>"),
@@ -741,7 +741,7 @@
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
-	var/datum/action/cooldown/spell/basic_projectile/throw_web/spidernet
+	var/datum/action/spell/basic_projectile/throw_web/spidernet
 
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
 	. = ..()
@@ -752,7 +752,7 @@
 	. = ..()
 	spidernet.Remove()
 
-/datum/action/cooldown/spell/basic_projectile/throw_web
+/datum/action/spell/basic_projectile/throw_web
 	name = "Throw web"
 	panel = "Spider"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
@@ -764,7 +764,7 @@
 	projectile_range = 20 // Proc holder had no range :shrug:
 	projectile_type = /obj/projectile/bullet/spidernet
 
-/datum/action/cooldown/spell/basic_projectile/throw_web/can_cast_spell(feedback)
+/datum/action/spell/basic_projectile/throw_web/can_cast_spell(feedback)
 	. = ..()
 	var/mob/living/user = owner
 	var/message

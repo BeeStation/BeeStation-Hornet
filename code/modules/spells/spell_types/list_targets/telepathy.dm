@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/list_target/telepathy
+/datum/action/spell/list_target/telepathy
 	name = "Telepathy"
 	desc = "Telepathically transmits a message to the target."
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
@@ -16,7 +16,7 @@
 	/// The bolded span surrounding the telepathy message
 	var/bold_telepathy_span = "boldnotice"
 
-/datum/action/cooldown/spell/list_target/telepathy/before_cast(atom/cast_on)
+/datum/action/spell/list_target/telepathy/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -29,7 +29,7 @@
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/list_target/telepathy/cast(mob/living/cast_on)
+/datum/action/spell/list_target/telepathy/cast(mob/living/cast_on)
 	. = ..()
 	log_directed_talk(owner, cast_on, message, LOG_SAY, name)
 

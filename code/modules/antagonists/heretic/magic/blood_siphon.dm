@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/blood_siphon
+/datum/action/spell/pointed/blood_siphon
 	name = "Blood Siphon"
 	desc = "A touch spell that heals your wounds while damaging the enemy. \
 		It has a chance to transfer wounds between you and your enemy."
@@ -16,13 +16,13 @@
 
 	cast_range = 9
 
-/datum/action/cooldown/spell/pointed/blood_siphon/can_cast_spell(feedback = TRUE)
+/datum/action/spell/pointed/blood_siphon/can_cast_spell(feedback = TRUE)
 	return ..() && isliving(owner)
 
-/datum/action/cooldown/spell/pointed/blood_siphon/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/blood_siphon/is_valid_target(atom/cast_on)
 	return ..() && isliving(cast_on)
 
-/datum/action/cooldown/spell/pointed/blood_siphon/cast(mob/living/cast_on)
+/datum/action/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
 	playsound(owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(cast_on.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))

@@ -1,36 +1,5 @@
-/// Preset for an action that has a cooldown.
-/datum/action/cooldown
-	transparent_when_unavailable = FALSE
-
-
-/datum/action/cooldown/create_button()
-	var/atom/movable/screen/movable/action_button/button = ..()
-	button.maptext = ""
-	button.maptext_x = 8
-	button.maptext_y = 0
-	button.maptext_width = 24
-	button.maptext_height = 12
-	return button
-
-/datum/action/cooldown/Remove(mob/living/remove_from)
-	if(requires_target && remove_from.click_intercept == src)
-		unset_click_ability(remove_from, refund_cooldown = FALSE)
-	return ..()
-
-/datum/action/cooldown/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
-	. = ..()
-	if(!button)
-		return
-	var/time_left = max(next_use_time - world.time, 0)
-	if(show_cooldown)
-		button.maptext = MAPTEXT("<b>[CEILING(time_left/10, 1)]s</b>")
-	if(!owner || time_left == 0)
-		button.maptext = ""
-	if(is_available() && (button.our_hud.mymob.click_intercept == src))
-		button.color = COLOR_GREEN
-
 /// Formats the action to be returned to the stat panel.
-/datum/action/cooldown/proc/set_statpanel_format()
+/datum/action/proc/set_statpanel_format()
 	// TODO: Doesn't work
 	if(!panel)
 		return null

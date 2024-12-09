@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/smoke
-	granted_action = /datum/action/cooldown/spell/smoke
+	granted_action = /datum/action/spell/smoke
 	action_name = "smoke"
 	icon_state ="booksmoke"
 	desc = "This book is overflowing with the dank arts."
@@ -23,4 +23,4 @@
 
 // Chaplain's smoke book
 /obj/item/book/granter/action/spell/smoke/lesser
-	granted_action = /datum/action/cooldown/spell/smoke/lesser
+	granted_action = /datum/action/spell/smoke/lesser

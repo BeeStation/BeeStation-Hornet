@@ -27,9 +27,9 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/wizard,
 				/obj/item/staff)
 
-	var/datum/action/cooldown/spell/pointed/projectile/fireball/fireball
-	var/datum/action/cooldown/spell/teleport/radius_turf/blink/blink
-	var/datum/action/cooldown/spell/aoe/magic_missile/magic_missile
+	var/datum/action/spell/pointed/projectile/fireball/fireball
+	var/datum/action/spell/teleport/radius_turf/blink/blink
+	var/datum/action/spell/aoe/magic_missile/magic_missile
 
 	var/next_cast = 0
 

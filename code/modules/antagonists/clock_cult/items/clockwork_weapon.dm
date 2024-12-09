@@ -23,7 +23,7 @@
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
-	var/datum/action/cooldown/spell/summon_spear/SS
+	var/datum/action/spell/summon_spear/SS
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()

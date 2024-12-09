@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/fireball
-	granted_action = /datum/action/cooldown/spell/pointed/projectile/fireball
+	granted_action = /datum/action/spell/pointed/projectile/fireball
 	action_name = "fireball"
 	icon_state ="bookfireball"
 	desc = "This book feels warm to the touch."

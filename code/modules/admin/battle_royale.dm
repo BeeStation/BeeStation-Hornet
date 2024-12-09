@@ -195,7 +195,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/death_wall
 	var/field_delay = 15
 	var/debug_mode = FALSE
-	var/datum/action/cooldown/spell/aoe/knock/knock = new /datum/action/cooldown/spell/aoe/knock
+	var/datum/action/spell/aoe/knock/knock = new /datum/action/spell/aoe/knock
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/invisible_chair
+/datum/action/spell/conjure/invisible_chair
 	name = "Invisible Chair"
 	desc = "The mime's performance transmutates a chair into physical reality."
 	background_icon_state = "bg_mime"
@@ -21,11 +21,11 @@
 	summon_type = list(/obj/structure/chair/mime)
 	summon_lifespan = 25 SECONDS
 
-/datum/action/cooldown/spell/conjure/invisible_chair/before_cast(atom/cast_on)
+/datum/action/spell/conjure/invisible_chair/before_cast(atom/cast_on)
 	. = ..()
 	invocation = ("<span class='notice'><b>[cast_on]</b> pulls out an invisible chair and sits down.</span>")
 
-/datum/action/cooldown/spell/conjure/invisible_chair/post_summon(atom/summoned_object, mob/living/carbon/human/cast_on)
+/datum/action/spell/conjure/invisible_chair/post_summon(atom/summoned_object, mob/living/carbon/human/cast_on)
 	if(!isobj(summoned_object))
 		return
 

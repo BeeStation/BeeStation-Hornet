@@ -157,7 +157,7 @@
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key
 
-			var/datum/action/cooldown/spell/summonmob/S = new
+			var/datum/action/spell/summonmob/S = new
 			S.target_mob = H
 			S.Grant(user)
 
@@ -192,7 +192,7 @@
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 
-/datum/action/cooldown/spell/summonmob
+/datum/action/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
 	cooldown_time = 30 SECONDS
@@ -202,7 +202,7 @@
 	var/mob/living/target_mob
 	button_icon_state = "summons"
 
-/datum/action/cooldown/spell/summonmob/cast(atom/cast_on)
+/datum/action/spell/summonmob/cast(atom/cast_on)
 	. = ..()
 
 	if(!target_mob)

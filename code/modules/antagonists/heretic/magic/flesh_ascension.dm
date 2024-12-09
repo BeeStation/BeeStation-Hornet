@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/shed_human_form
+/datum/action/spell/shed_human_form
 	name = "Shed form"
 	desc = "Shed your fragile form, become one with the arms, become one with the emperor. \
 		Causes heavy amounts of brain damage and sanity loss to nearby mortals."
@@ -18,10 +18,10 @@
 	/// The radius around us that we cause brain damage / sanity damage to.
 	var/scare_radius = 9
 
-/datum/action/cooldown/spell/shed_human_form/is_valid_target(atom/cast_on)
+/datum/action/spell/shed_human_form/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/shed_human_form/cast(mob/living/cast_on)
+/datum/action/spell/shed_human_form/cast(mob/living/cast_on)
 	. = ..()
 	if(istype(cast_on, /mob/living/simple_animal/hostile/heretic_summon/armsy/prime))
 		var/mob/living/simple_animal/hostile/heretic_summon/armsy/prime/old_armsy = cast_on
@@ -51,7 +51,7 @@
 				var/datum/brain_trauma/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
 				nearby_human.gain_trauma(trauma, TRAUMA_RESILIENCE_LOBOTOMY)
 
-/datum/action/cooldown/spell/worm_contract
+/datum/action/spell/worm_contract
 	name = "Force Contract"
 	desc = "Forces your body to contract onto a single tile."
 	background_icon_state = "bg_ecult"
@@ -64,9 +64,9 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-/datum/action/cooldown/spell/worm_contract/is_valid_target(atom/cast_on)
+/datum/action/spell/worm_contract/is_valid_target(atom/cast_on)
 	return istype(cast_on, /mob/living/simple_animal/hostile/heretic_summon/armsy)
 
-/datum/action/cooldown/spell/worm_contract/cast(mob/living/simple_animal/hostile/heretic_summon/armsy/cast_on)
+/datum/action/spell/worm_contract/cast(mob/living/simple_animal/hostile/heretic_summon/armsy/cast_on)
 	. = ..()
 	cast_on.contract_next_chain_into_single_tile()
