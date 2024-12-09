@@ -1,0 +1,5 @@
+author: Therealdoooc213
+delete-after: true
+changes:
+  - rscadd: New emote for lizards, "swipes"
+  - soundadd: tail_swipe1.ogg & tail_swipe2.ogg
