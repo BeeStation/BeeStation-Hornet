@@ -254,20 +254,6 @@
 	dir = 4
 	},
 /area/centcom/control)
-"aaC" = (
-/obj/structure/table/wood,
-/obj/item/pizzabox,
-/obj/item/storage/crayons{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/storage/crayons{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aaD" = (
 /obj/structure/punching_bag{
 	pixel_x = 5;
@@ -412,14 +398,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"aaV" = (
-/obj/structure/table/wood,
-/obj/item/food/syndicake{
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aaW" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/stripes/line{
@@ -455,11 +433,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"aba" = (
-/obj/effect/spawner/xmastree,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "abb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -1325,12 +1298,6 @@
 	dir = 1
 	},
 /area/centcom/control)
-"acO" = (
-/obj/structure/chair/stool,
-/obj/effect/landmark/start/nukeop,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "acP" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -1760,11 +1727,6 @@
 	dir = 4
 	},
 /area/centcom/supplypod/loading/two)
-"adM" = (
-/obj/machinery/vending/coffee,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "adN" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2425,14 +2387,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
-"aff" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Restroom";
-	req_access_txt = "150"
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "afg" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -2868,11 +2822,6 @@
 "agu" = (
 /turf/closed/indestructible/splashscreen,
 /area/start)
-"agv" = (
-/obj/structure/chair/stool,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "agw" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 1
@@ -3004,12 +2953,6 @@
 /obj/effect/landmark/destabilization_loc,
 /turf/open/indestructible/binary,
 /area/tear_in_reality)
-"agP" = (
-/obj/machinery/chem_dispenser/drinks/beer,
-/obj/machinery/chem_dispenser/drinks,
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "agQ" = (
 /obj/machinery/light{
 	dir = 8
@@ -3181,9 +3124,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
-"ahh" = (
-/turf/closed/indestructible/rock/snow,
-/area/syndicate_mothership)
 "ahi" = (
 /turf/open/floor/carpet/red,
 /area/centcom/control)
@@ -3203,9 +3143,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"ahl" = (
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "ahm" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
@@ -3377,11 +3314,6 @@
 "ahH" = (
 /turf/open/floor/holofloor/hyperspace,
 /area/space)
-"ahI" = (
-/mob/living/simple_animal/hostile/carp/cayenne,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "ahJ" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron/edge{
@@ -3463,20 +3395,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/syndicate_mothership/control)
-"ahT" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/obj/item/toy/cards/deck/syndicate{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/telecrystal/five,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "ahU" = (
 /turf/open/floor/iron/white/side{
@@ -4436,16 +4354,6 @@
 	dir = 1
 	},
 /area/syndicate_mothership/control)
-"aki" = (
-/obj/docking_port/stationary{
-	dwidth = 25;
-	height = 50;
-	id = "emergency_syndicate";
-	name = "Syndicate Auxillary Shuttle Dock";
-	width = 50
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "akj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light{
@@ -4505,23 +4413,8 @@
 	icon_state = "alien24"
 	},
 /area/abductor_ship)
-"akt" = (
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "aku" = (
 /turf/closed/indestructible/syndicate,
-/area/syndicate_mothership/control)
-"akv" = (
-/obj/machinery/door/poddoor/shuttledock{
-	checkdir = 1;
-	name = "syndicate Blast Door";
-	turftype = /turf/open/floor/plating/asteroid/snow
-	},
-/turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "akw" = (
 /obj/structure/railing/corner,
@@ -4682,12 +4575,6 @@
 	icon_state = "alien19"
 	},
 /area/abductor_ship)
-"akR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
 "akS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -4839,13 +4726,6 @@
 	icon_state = "alien15"
 	},
 /area/abductor_ship)
-"all" = (
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
-"alm" = (
-/obj/machinery/light,
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
 "aln" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -5150,14 +5030,6 @@
 	icon_state = "alien11"
 	},
 /area/abductor_ship)
-"ama" = (
-/obj/structure/flora/grass/both,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "amb" = (
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
@@ -5248,15 +5120,7 @@
 /area/syndicate_mothership/control)
 "amn" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/beaker,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/cup/beaker,
+/obj/item/soap/deluxe,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "amo" = (
@@ -5328,30 +5192,6 @@
 	icon_state = "alien9"
 	},
 /area/abductor_ship)
-"amy" = (
-/obj/structure/flora/grass/brown,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
-"amz" = (
-/obj/structure/flora/tree/pine,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
-"amA" = (
-/obj/structure/flora/grass/both,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
-"amB" = (
-/obj/effect/baseturf_helper/asteroid/snow,
-/turf/closed/indestructible/rock/snow,
-/area/syndicate_mothership)
-"amC" = (
-/obj/item/disk/data,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "amD" = (
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
@@ -5560,18 +5400,6 @@
 	icon_state = "alien5"
 	},
 /area/abductor_ship)
-"ang" = (
-/obj/effect/baseturf_helper/asteroid/snow,
-/turf/closed/indestructible/syndicate,
-/area/syndicate_mothership/control)
-"anh" = (
-/obj/item/toy/figure/syndie,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "ani" = (
 /obj/machinery/newscaster,
 /turf/closed/indestructible/riveted,
@@ -5678,19 +5506,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/syndicate_mothership/control)
-"anx" = (
-/obj/structure/flora/bush,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
-"any" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
-"anz" = (
-/turf/closed/indestructible/opsglass,
 /area/syndicate_mothership/control)
 "anA" = (
 /obj/structure/sign/warning/nosmoking,
@@ -6327,14 +6142,6 @@
 /obj/structure/lattice,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
-"aoW" = (
-/obj/structure/flora/bush,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "aoX" = (
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 4
@@ -6609,18 +6416,6 @@
 "apz" = (
 /turf/open/space/basic,
 /area/centcom/ferry)
-"apA" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 13;
-	id = "ferry_away";
-	json_key = "ferry";
-	name = "CentCom Ferry Dock";
-	width = 5
-	},
-/turf/open/space,
-/area/centcom/ferry)
 "apB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -6654,21 +6449,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
-"apF" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Auxillary Dock";
-	req_access_txt = ""
-	},
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
-"apG" = (
-/obj/structure/flora/tree/pine,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "apH" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
@@ -6756,11 +6536,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"apS" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "apT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -6789,10 +6564,6 @@
 	dir = 4
 	},
 /area/centcom/supplypod/loading/ert)
-"apY" = (
-/obj/machinery/washing_machine,
-/turf/open/floor/iron/freezer,
-/area/syndicate_mothership/control)
 "apZ" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 6
@@ -7109,14 +6880,6 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/centcom/supplypod)
-"aqN" = (
-/obj/structure/mopbucket,
-/obj/item/soap/syndie,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/syndicate_mothership/control)
 "aqO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/trash/candy{
@@ -7124,13 +6887,6 @@
 	pixel_y = -8
 	},
 /turf/open/floor/wood/big,
-/area/syndicate_mothership/control)
-"aqP" = (
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/item/mop,
-/turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "aqQ" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -7212,14 +6968,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/sepia,
 /area/centcom/evac)
-"ard" = (
-/obj/structure/flora/grass/brown,
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "are" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 1
@@ -7239,25 +6987,6 @@
 	dir = 5
 	},
 /turf/closed/indestructible/syndicate,
-/area/syndicate_mothership/control)
-"arh" = (
-/obj/structure/urinal{
-	pixel_y = 28
-	},
-/turf/open/floor/iron/freezer,
-/area/syndicate_mothership/control)
-"ari" = (
-/turf/open/floor/iron/freezer,
-/area/syndicate_mothership/control)
-"arj" = (
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "ark" = (
 /turf/open/floor/iron/stairs{
@@ -7673,33 +7402,6 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
-"asi" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"asj" = (
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/machinery/door/window{
-	dir = 8;
-	icon_state = "right";
-	name = "Tactical Toilet";
-	opacity = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/syndicate_mothership/control)
-"ask" = (
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"asl" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "asm" = (
 /obj/machinery/shower{
 	dir = 4
@@ -7710,23 +7412,6 @@
 /obj/structure/curtain,
 /turf/open/floor/iron/white/textured,
 /area/tdome/tdomeobserve)
-"asn" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"aso" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"asp" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "asq" = (
 /obj/machinery/computer/shuttle_flight/white_ship{
 	dir = 4
@@ -8083,17 +7768,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"ath" = (
-/obj/structure/closet/cardboard,
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"ati" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "atj" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/asteroid/planetary,
@@ -8119,12 +7793,6 @@
 /obj/structure/flora/ausbushes,
 /turf/open/floor/grass,
 /area/centcom/evac)
-"atn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "ato" = (
 /obj/machinery/computer/shuttle_flight/ferry{
 	dir = 4
@@ -8431,19 +8099,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/ferry)
-"aud" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "nukeop_ready";
-	name = "shuttle Dock"
-	},
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
-"aue" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "auf" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -8481,12 +8136,6 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/carpet/green,
 /area/centcom/ferry)
-"aui" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "auj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/wood,
@@ -8716,12 +8365,6 @@
 /obj/structure/fluff/hedge,
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"auJ" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150"
-	},
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
 "auK" = (
 /obj/structure/table/survival_pod,
 /obj/structure/sign/poster/official/moth7{
@@ -8983,11 +8626,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/evac)
-"avp" = (
-/obj/machinery/vending/cigarette/syndicate,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "avq" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/dark/corner{
@@ -9035,28 +8673,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"avu" = (
-/obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"avv" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"avw" = (
-/obj/structure/table/wood,
-/obj/item/syndicatedetonator{
-	desc = "This gaudy button can be used to instantly detonate syndicate bombs that have been activated on the station. It is also fun to press."
-	},
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"avx" = (
-/obj/structure/table/wood,
-/obj/item/toy/nuke,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
 "avy" = (
 /obj/machinery/computer/records/security{
 	dir = 4
@@ -9378,27 +8994,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
-"awl" = (
-/obj/machinery/light,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"awm" = (
-/obj/effect/landmark/start/nukeop_leader,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"awn" = (
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"awo" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Uplink Management Control";
-	req_access_txt = "151"
-	},
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
 "awp" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -9655,30 +9250,6 @@
 /obj/structure/closet/secure_closet/medical3,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"awV" = (
-/obj/machinery/vending/boozeomat,
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"awW" = (
-/obj/structure/sign/map/left{
-	pixel_y = -32
-	},
-/obj/structure/table/wood,
-/obj/machinery/chem_dispenser/drinks{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
-"awX" = (
-/obj/structure/sign/map/right{
-	pixel_y = -32
-	},
-/obj/structure/table/wood,
-/obj/machinery/chem_dispenser/drinks/beer{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/syndicate_mothership/control)
 "awY" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -9892,15 +9463,6 @@
 "axA" = (
 /turf/open/floor/plating/elevatorshaft,
 /area/syndicate_mothership/control)
-"axB" = (
-/mob/living/simple_animal/bot/medbot/nukie{
-	name = "\improper Hattori";
-	desc = "When engaged in combat, the vanquishing of thine enemy can be the warrior's only concern.";
-	radio_key = null;
-	radio_channel = null
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "axC" = (
 /obj/structure/girder/reinforced,
 /obj/structure/barricade/wooden/crude,
@@ -9932,62 +9494,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
-"axG" = (
-/turf/open/floor/iron/dark,
-/area/syndicate_mothership/control)
-"axH" = (
-/obj/machinery/mech_bay_recharge_port,
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
-"axI" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mech_bay_recharge_floor,
-/area/syndicate_mothership/control)
-"axJ" = (
-/obj/machinery/computer/mech_bay_power_console,
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
-"axK" = (
-/obj/machinery/vending/tool,
-/turf/open/floor/iron/dark,
-/area/syndicate_mothership/control)
-"axL" = (
-/obj/structure/closet/cardboard/metal,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"axM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"axN" = (
-/obj/docking_port/stationary{
-	dwidth = 3;
-	height = 7;
-	name = "escape pod loader";
-	roundstart_template = /datum/map_template/shuttle/assault_pod/default;
-	width = 7
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"axO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"axP" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "axQ" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
@@ -10050,12 +9556,6 @@
 /obj/structure/glowshroom/single,
 /turf/open/floor/plating/dirt/jungle/dark,
 /area/syndicate_mothership/control)
-"axY" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/machinery/smartfridge,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/holding)
 "axZ" = (
 /obj/structure/closet/syndicate/personal,
 /obj/effect/turf_decal/stripes/line{
@@ -10151,25 +9651,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/centcom/control)
-"ayk" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"ayl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
-"aym" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light,
-/turf/open/floor/plating/airless,
-/area/syndicate_mothership/control)
 "ayn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/vacuum,
@@ -10191,16 +9672,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/large,
 /area/centcom/ferry)
-"ayq" = (
-/obj/machinery/button/door/indestructible{
-	id = "nukeop_ready";
-	name = "mission launch control";
-	pixel_x = -26;
-	req_access_txt = "151"
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "ayr" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/centcom{
@@ -10430,10 +9901,6 @@
 	dir = 4
 	},
 /area/centcom/control)
-"ayX" = (
-/obj/structure/chair/stool,
-/turf/open/floor/iron/dark,
-/area/syndicate_mothership/control)
 "ayY" = (
 /obj/structure/tubes,
 /obj/structure/fans{
@@ -10661,21 +10128,6 @@
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
-"azx" = (
-/obj/structure/closet/syndicate/personal,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/syndicate_mothership/control)
-"azy" = (
-/obj/structure/table,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/gun/energy/ionrifle/carbine/pin,
-/turf/open/floor/mineral/plastitanium/red,
-/area/syndicate_mothership/control)
 "azz" = (
 /obj/structure/barricade/wooden,
 /turf/closed/indestructible/fakedoor{
@@ -10850,30 +10302,18 @@
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "azX" = (
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/soap/deluxe,
+/obj/machinery/oven,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "azY" = (
 /turf/closed/indestructible/riveted,
 /area/tear_in_reality)
 "azZ" = (
-/obj/machinery/gibber,
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
@@ -11112,16 +10552,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"aAE" = (
-/obj/machinery/processor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/gibber,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aAF" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -11737,10 +11167,6 @@
 /obj/effect/landmark/thunderdome/one,
 /turf/open/floor/iron,
 /area/tdome/arena)
-"aBY" = (
-/obj/item/toy/figure/syndie,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "aBZ" = (
 /obj/effect/turf_decal/siding/red/corner{
 	dir = 8
@@ -11877,10 +11303,6 @@
 	color = "#808080"
 	},
 /area/syndicate_mothership/control)
-"aCp" = (
-/obj/structure/statue/uranium/nuke,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "aCq" = (
 /obj/machinery/computer/records/medical{
 	dir = 8
@@ -12149,28 +11571,6 @@
 "aCR" = (
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/monotile/dark,
-/area/syndicate_mothership/control)
-"aCS" = (
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/oven,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
-"aCT" = (
-/obj/structure/table/wood,
-/obj/item/paper/fluff/stations/centcom/disk_memo,
-/turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "aCU" = (
 /obj/structure/table/reinforced,
@@ -13434,15 +12834,6 @@
 /obj/structure/curtain,
 /turf/open/floor/iron/white/textured,
 /area/tdome/tdomeobserve)
-"aGe" = (
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28;
-	use_power = 0
-	},
-/obj/machinery/smartfridge,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aGf" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 4
@@ -15313,17 +14704,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
-"aKt" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/griddle,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aKu" = (
 /obj/machinery/light{
 	dir = 4
@@ -16011,11 +15391,6 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/arena)
-"aMj" = (
-/obj/machinery/computer/shuttle_flight/syndicate/recall,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aMk" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
@@ -16122,19 +15497,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"aMy" = (
-/obj/docking_port/stationary{
-	dheight = 1;
-	dir = 8;
-	dwidth = 12;
-	height = 17;
-	id = "syndicate_away";
-	name = "syndicate recon outpost";
-	roundstart_template = /datum/map_template/shuttle/infiltrator/basic;
-	width = 23
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "aMz" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -16169,18 +15531,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/centcom/control)
-"aMD" = (
-/obj/effect/light_emitter{
-	set_cap = 1;
-	set_luminosity = 4
-	},
-/obj/structure/sign/warning/securearea{
-	desc = "A warning sign which reads 'FOURTH WALL'.";
-	name = "\improper FOURTH WALL";
-	pixel_x = -32
-	},
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "aME" = (
 /obj/machinery/computer/camera_advanced/wizard{
 	dir = 4
@@ -16274,16 +15624,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/centcom/ferry)
-"aMO" = (
-/obj/machinery/vending/dinnerware,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/reagent_dispensers/nutriment/fat/oil,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aMP" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -16533,7 +15873,7 @@
 	},
 /area/syndicate_mothership/control)
 "aNv" = (
-/obj/structure/table,
+/obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "aNw" = (
@@ -16869,14 +16209,6 @@
 /turf/open/floor/iron/dark/textured_corner{
 	dir = 4
 	},
-/area/syndicate_mothership/control)
-"aOh" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Equipment Room";
-	req_access_txt = "150"
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "aOi" = (
 /obj/effect/turf_decal/trimline/red/corner{
@@ -17405,19 +16737,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
-"aPp" = (
-/obj/structure/closet/secure_closet/freezer/kitchen{
-	locked = 0
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/soap/deluxe,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aPq" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
@@ -17760,17 +17079,6 @@
 	},
 /turf/closed/indestructible/syndicate,
 /area/syndicate_mothership/control)
-"aQb" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "aQc" = (
 /obj/machinery/vending/snack,
 /turf/open/floor/wood,
@@ -18642,10 +17950,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/large,
 /area/centcom/supplypod/loading/two)
-"aSf" = (
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aSg" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
@@ -18790,11 +18094,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/tdome/tdomeadmin)
-"aSy" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aSz" = (
 /obj/item/storage/briefcase{
 	pixel_x = -3;
@@ -19273,7 +18572,7 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "aTB" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "aTC" = (
@@ -19640,12 +18939,7 @@
 "aUu" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/processor,
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "aUv" = (
@@ -20008,13 +19302,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"aVm" = (
-/obj/machinery/gibber,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aVn" = (
 /turf/open/floor/iron/large,
 /area/centcom/supplypod/loading/three)
@@ -20087,11 +19374,6 @@
 /obj/structure/window/reinforced/fulltile,
 /obj/machinery/light,
 /turf/open/floor/grass,
-/area/centcom/holding)
-"aVv" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
-/turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "aVw" = (
 /obj/machinery/light/floor,
@@ -20419,13 +19701,6 @@
 "aWi" = (
 /turf/open/floor/circuit,
 /area/ctf)
-"aWj" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
-	},
-/turf/open/floor/iron/freezer,
-/area/syndicate_mothership/control)
 "aWk" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron/edge{
@@ -20618,13 +19893,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/centcom/control)
-"aWG" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aWH" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -20777,12 +20045,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"aWZ" = (
-/obj/structure/table/wood,
-/obj/item/paicard,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aXa" = (
 /turf/open/floor/pod/dark,
 /area/syndicate_mothership/control)
@@ -20952,11 +20214,6 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/tech,
-/area/syndicate_mothership/control)
-"aXv" = (
-/obj/machinery/vending/cola,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "aXw" = (
 /obj/structure/chair/fancy/comfy{
@@ -21474,11 +20731,6 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /turf/closed/indestructible/riveted,
 /area/centcom/control)
-"aYI" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/holding)
 "aYJ" = (
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/item/reagent_containers/cup/glass/shaker,
@@ -21526,11 +20778,6 @@
 	dir = 4
 	},
 /area/centcom/supplypod/loading/four)
-"aYQ" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aYR" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -21623,11 +20870,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
-"aZd" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/syndicate_mothership/control)
 "aZe" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -21686,13 +20928,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/syndicate_mothership/control)
-"aZl" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/syndicate_mothership/control)
 "aZm" = (
 /obj/effect/turf_decal/stripes/corner,
@@ -21787,14 +21022,6 @@
 	dir = 1
 	},
 /area/centcom/control)
-"aZx" = (
-/mob/living/simple_animal/bot/medbot/nukie{
-	name = "\improper Hijikata";
-	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis.";
-	radio_key = null
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "aZy" = (
 /obj/effect/turf_decal/trimline/dark_blue/line{
 	dir = 4
@@ -23381,6 +22608,10 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"qdf" = (
+/obj/machinery/gibber,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "qdT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/lattice/catwalk,
@@ -49450,7 +48681,7 @@ aaT
 aaT
 aaT
 aaT
-aYI
+aaT
 aaT
 aaT
 aNd
@@ -49709,7 +48940,7 @@ acM
 aaT
 aXl
 acp
-axY
+aaT
 aNd
 aNd
 aNd
@@ -49966,7 +49197,7 @@ aNd
 aXL
 aNd
 aNd
-aNd
+aHN
 aNd
 aXk
 aYo
@@ -50222,7 +49453,7 @@ aXk
 aYo
 aXk
 aXk
-aQb
+aXk
 aXk
 aYh
 aXk
@@ -50736,7 +49967,7 @@ aXk
 aRh
 aMm
 aNd
-aAE
+aJE
 aFh
 aYu
 aNd
@@ -50993,9 +50224,9 @@ aXk
 aRh
 aZT
 aNd
-aPr
+qdf
 aFh
-aPp
+aQW
 aNd
 aFc
 aSd
@@ -51250,7 +50481,7 @@ aXL
 aNd
 aNd
 aNd
-aJE
+aPr
 aFh
 amn
 aNd
@@ -51507,7 +50738,7 @@ aXk
 aYo
 aXk
 aNd
-aCS
+aSG
 aFh
 aUu
 aNd
@@ -51766,7 +50997,7 @@ aXk
 aNd
 azX
 aFh
-aKt
+aMT
 aNd
 aNd
 aNd
@@ -52278,10 +51509,10 @@ aXk
 aXk
 aXk
 aNd
-aMO
+aXo
 aFh
 aFh
-aBV
+apy
 aXk
 aYa
 aUE
@@ -52538,7 +51769,7 @@ aNd
 aTB
 aFh
 aFh
-agP
+aBV
 aXk
 aEu
 aUE
@@ -52792,10 +52023,10 @@ aXk
 aXk
 aXk
 aNd
-aGe
+aVz
 aFh
 aYJ
-aNd
+aQT
 aXk
 aYa
 aUE
