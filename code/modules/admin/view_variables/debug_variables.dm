@@ -66,7 +66,7 @@
 	return "[.][item]</li>"
 
 // This is split into a seperate proc mostly to make errors that happen not break things too much
-/proc/_debug_variable_value(name, value, level, datum/owner, sanitize, display_flags)
+/proc/_debug_variable_value(name, datum/value, level, datum/owner, sanitize, display_flags)
 	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] [REF(value)])" // Make sure this line can never runtime
 
 	if(isnull(value))
@@ -98,7 +98,7 @@
 	var/isfilter = isfilter(value)
 	var/is_child_filter = isfilter && !isdatum(owner) && !isappearance(owner) // 'child_filter' means each /filters in /atom.filters
 	if(is_child_filter)
-		return "/filters\[child\] (<span class='value'>[value:type]</span>)"
+		return "/filters\[child\] (<span class='value'>[value.type]</span>)"
 
 	if(isfile(value))
 		return "<span class='value'>'[value]'</span>"

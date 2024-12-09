@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 		BUT `locate(ref_id_of_special_list)` returns null. (only ordinary /list works this)
 		This is why we need to store 'dmlist_origin_ref', and 'dmlist_varname'
 		We locate(dmlist_origin_ref), then access their special list from their var list.
-			=> special_onwer:vars[dmlist_varname]
+			=> dmlist_holder.vars[dmlist_varname]
 	< Summary >
 		Two usages exist:
 		1. Store a list_ref into this datum, to deliver the list into the vv debugging system.
@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 	/// which var of the reference you're s eeing
 	var/dmlist_varname
 	/// instance holder for special list
-	var/dmlist_holder
+	var/datum/dmlist_holder
 
 	// --- variable for ordinary lists ---
 	/// instance holder for normal list
@@ -82,8 +82,8 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 	GLOB.vv_ghost.dmlist_origin_ref = null
 	GLOB.vv_ghost.dmlist_varname = null
 
-	var/located = locate(dmlist_origin_ref) // = Clown [0x123456]
-	dmlist_holder = located:vars[dmlist_varname] // = Clown.vis_contents
+	var/datum/located = locate(dmlist_origin_ref) // = Clown [0x123456]
+	dmlist_holder = located.vars[dmlist_varname] // = Clown.vis_contents
 	return dmlist_holder
 
 /// a proc that delivers values to vv_spectre (internal static one).
