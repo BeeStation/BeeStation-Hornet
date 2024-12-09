@@ -117,8 +117,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/gas_transfer_coefficient = 1
-	/// For leaking chemicals/diseases from turf to mask and vice-versa
-	var/permeability_coefficient = 1
 
 	/// For electrical admittance/conductance (electrocution checks and shit)
 	var/siemens_coefficient = 1
@@ -1256,9 +1254,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			take_damage(75, BRUTE, BOMB, 0)
 		if(3)
 			take_damage(20, BRUTE, BOMB, 0)
-
-/obj/item/proc/get_armor_rating(d_type, mob/wearer)
-	return armor.getRating(d_type)
 
 ///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
 /obj/item/proc/isEmbedHarmless()

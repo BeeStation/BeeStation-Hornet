@@ -7,7 +7,7 @@
 	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
-	armor = list(MELEE = -20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/combat_honker
 	max_temperature = 25000
 	operation_req_access = list(ACCESS_THEATRE)
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
@@ -15,6 +15,12 @@
 	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
 	max_equip = 3
 	var/squeak = 0
+
+
+/datum/armor/combat_honker
+	melee = -20
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/combat/honker/get_stats_part(mob/user)
 	var/integrity = atom_integrity/max_integrity*100
@@ -187,12 +193,22 @@
 	icon_state = "darkhonker"
 	max_integrity = 300
 	deflect_chance = 15
-	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/honker_dark
 	max_temperature = 35000
 	operation_req_access = list(ACCESS_SYNDICATE)
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/honker/dark
 	max_equip = 4
+
+
+/datum/armor/honker_dark
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 35
+	bomb = 20
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/combat/honker/dark/add_cell(obj/item/stock_parts/cell/C)
 	if(C)
