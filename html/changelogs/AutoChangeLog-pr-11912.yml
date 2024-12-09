@@ -1,0 +1,5 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - rscadd: Added QUICKSTART define which lets developers quickly start the round
+  - code_imp: changed genesis call folder to use ~~ instead
