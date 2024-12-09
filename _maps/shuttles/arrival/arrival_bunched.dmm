@@ -330,6 +330,13 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
+"Ev" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/alphabet/one/quarter{
+	color = "#8f251a"
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
 "Ex" = (
 /obj/structure/shuttle/engine/large{
 	dir = 1
@@ -398,6 +405,14 @@
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/ridged,
+/area/shuttle/arrival)
+"LF" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/alphabet/five/quarter{
+	dir = 8;
+	color = "#8f251a"
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "LX" = (
 /obj/machinery/door/airlock/shuttle{
@@ -722,7 +737,7 @@ QZ
 ns
 Ky
 Tp
-VE
+Ev
 VE
 iW
 wL
@@ -739,7 +754,7 @@ ZG
 Bi
 Ky
 LX
-VE
+LF
 VE
 KH
 wL

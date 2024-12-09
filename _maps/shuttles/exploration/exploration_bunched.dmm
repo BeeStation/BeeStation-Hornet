@@ -573,8 +573,8 @@
 /turf/open/floor/iron/textured_half,
 /area/shuttle/exploration)
 "Gh" = (
-/obj/effect/turf_decal/numbers{
-	dir = 1
+/obj/effect/turf_decal/alphabet/one{
+	dir = 8
 	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
@@ -604,7 +604,9 @@
 /turf/open/floor/wood,
 /area/shuttle/exploration)
 "Hw" = (
-/obj/effect/turf_decal/numbers/two_nine,
+/obj/effect/turf_decal/alphabet/three{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},

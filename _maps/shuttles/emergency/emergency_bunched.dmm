@@ -241,15 +241,16 @@
 /area/shuttle/escape)
 "ha" = (
 /obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 10
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/white/corner,
+/obj/machinery/status_display/evac/directional/south,
+/obj/effect/turf_decal/tile/steelgrid/diagonal,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 8
 	},
-/obj/machinery/status_display/evac/directional/south,
-/obj/effect/turf_decal/tile/steelgrid/diagonal,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "hs" = (
@@ -966,6 +967,14 @@
 /obj/item/storage/firstaid/fire,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/escape)
+"EV" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 4;
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "Fr" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 8
@@ -1129,10 +1138,11 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Jp" = (
-/obj/structure/shuttle/engine/huge{
-	dir = 4
+/obj/effect/turf_decal/tile/steelgrid/diagonal,
+/obj/effect/turf_decal/alphabet/one{
+	dir = 1
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Jq" = (
 /obj/effect/turf_decal/siding/red{
@@ -1615,8 +1625,8 @@ be
 gh
 be
 dx
-kP
-kP
+Jp
+Jp
 kP
 SL
 gK
@@ -1888,7 +1898,7 @@ wT
 Df
 BV
 BV
-Jp
+BV
 BV
 Dz
 hD
@@ -1900,7 +1910,7 @@ qS
 Uo
 Qb
 iu
-BV
+EV
 GJ
 Qb
 yv
