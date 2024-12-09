@@ -29145,10 +29145,6 @@
 /turf/open/floor/wood/broken,
 /area/library/abandoned)
 "oxd" = (
-/obj/structure/toilet{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /obj/machinery/button/door{
 	id = "Toilet 2";
 	name = "Toilet Bolt Control";
@@ -29159,6 +29155,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
 /obj/machinery/newscaster/directional/east,
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "oxj" = (
@@ -44049,10 +44050,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "vXe" = (
-/obj/structure/toilet{
-	pixel_x = -1;
-	pixel_y = 6
-	},
 /obj/machinery/button/door{
 	id = "Toilet 1";
 	name = "Toilet Bolt Control";
@@ -44061,6 +44058,11 @@
 	specialfunctions = 4
 	},
 /obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "vXg" = (

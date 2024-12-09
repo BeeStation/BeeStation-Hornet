@@ -117,8 +117,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/gas_transfer_coefficient = 1
-	/// For leaking chemicals/diseases from turf to mask and vice-versa
-	var/permeability_coefficient = 1
 
 	/// For electrical admittance/conductance (electrocution checks and shit)
 	var/siemens_coefficient = 1
@@ -216,8 +214,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//Grinder vars
 	/// A reagent list containing the reagents this item produces when ground up in a grinder - this can be an empty list to allow for reagent transferring only
 	var/list/grind_results
-	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
-	var/list/juice_results
+	///A reagent the nutriments are converted into when the item is juiced.
+	var/datum/reagent/consumable/juice_results
 
 	///Icon for monkey
 	var/icon/monkey_icon
@@ -1047,10 +1045,37 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return TRUE
 
 //Called BEFORE the object is ground up - use this to change grind results based on conditions
-//Use "return -1" to prevent the grinding from occurring
+//Return "-1" to prevent the grinding from occurring
 /obj/item/proc/on_grind()
+	return SEND_SIGNAL(src, COMSIG_ITEM_ON_GRIND)
 
+///Grind item, adding grind_results to item's reagents and transfering to target_holder if specified
+/obj/item/proc/grind(datum/reagents/target_holder, mob/user)
+	if(on_grind() == -1)
+		return FALSE
+	if(!reagents)
+		reagents = new()
+	reagents.add_reagent_list(grind_results)
+	if(reagents && target_holder)
+		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	return TRUE
+
+///Called BEFORE the object is ground up - use this to change grind results based on conditions. Return "-1" to prevent the grinding from occurring
 /obj/item/proc/on_juice()
+	if(!juice_results)
+		return -1
+	return SEND_SIGNAL(src, COMSIG_ITEM_ON_JUICE)
+
+///Juice item, converting nutriments into juice_results and transfering to target_holder if specified
+/obj/item/proc/juice(datum/reagents/target_holder, mob/user)
+	if(on_juice() == -1)
+		return FALSE
+	if(!reagents)
+		reagents = new()
+	reagents.add_reagent_list(juice_results)
+	if(reagents && target_holder)
+		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	return TRUE
 
 /obj/item/proc/set_force_string()
 	switch(force)
@@ -1229,9 +1254,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			take_damage(75, BRUTE, BOMB, 0)
 		if(3)
 			take_damage(20, BRUTE, BOMB, 0)
-
-/obj/item/proc/get_armor_rating(d_type, mob/wearer)
-	return armor.getRating(d_type)
 
 ///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
 /obj/item/proc/isEmbedHarmless()
@@ -1484,3 +1506,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.regenerate_icons()
+
+/obj/item/proc/add_strip_actions(datum/strip_context/context)
+
+/obj/item/proc/perform_strip_actions(action_key, mob/actor)
