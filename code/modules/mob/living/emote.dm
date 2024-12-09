@@ -739,6 +739,23 @@
 /datum/emote/living/whistle/get_sound(mob/living/user)
 	return 'sound/emotes/whistle1.ogg'
 
+/datum/emote/living/tail
+	key = "swipe"
+	key_third_person = "swipes"
+	message = "swipes their tail!"
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/tail/get_sound(mob/living/user)
+	if(islizard(user))
+		return pick('sound/effects/tail_swipe1.ogg', 'sound/effects/tail_swipe2.ogg')
+
+/datum/emote/living/tail/can_run_emote(mob/user, status_check = TRUE , intentional)
+	if(!..())
+		return FALSE
+	if(islizard(user))
+		var/mob/living/carbon/human/H = user
+		return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+
 /// Breathing required + audible emotes
 
 /datum/emote/living/must_breathe
