@@ -47,12 +47,11 @@ SUBSYSTEM_DEF(overlays)
 		if (istext(overlay))
 #ifdef UNIT_TESTS
 			// This is too expensive to run normally but running it during CI is a good test
-			if(!skip_sprite_error)
-				var/list/icon_states_available = icon_states(icon)
-				if(!(overlay in icon_states_available))
-					var/icon_file = "[icon]" || "Unknown Generated Icon"
-					stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(icon)] used in '[src]' [type] is missing icon state [overlay].")
-					continue
+			var/list/icon_states_available = icon_states(icon)
+			if(!(overlay in icon_states_available))
+				var/icon_file = "[icon]" || "Unknown Generated Icon"
+				stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(icon)] used in '[src]' [type] is missing icon state [overlay].")
+				continue
 #endif
 			build_overlays -= overlay
 			build_overlays += iconstate2appearance(icon, overlay)
