@@ -79,11 +79,12 @@
 
 	var/atom/movable/screen/click_catcher/void
 
-	//These two vars are used to make a special mouse cursor, with a unique icon for clicking
 	/// Mouse icon while not clicking
 	var/mouse_up_icon = null
 	/// Mouse icon while clicking
 	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
 
 	var/ip_intel = "Disabled"
 

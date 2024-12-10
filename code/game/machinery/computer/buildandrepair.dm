@@ -3,7 +3,11 @@
 	icon_state = "0"
 	state = 0
 
-/obj/structure/frame/computer/attackby(obj/item/P, mob/user, params)
+/obj/structure/frame/computer/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
+/obj/structure/frame/computer/attackby(obj/item/P, mob/living/user, params)
 	add_fingerprint(user)
 	switch(state)
 		if(0)
@@ -150,9 +154,11 @@
 
 				qdel(src)
 				return
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 
+/obj/structure/frame/computer/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/frame/computer/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -162,13 +168,3 @@
 		if(state >= 3)
 			new /obj/item/stack/cable_coil(drop_location(), 5)
 	..()
-
-/obj/structure/frame/computer/AltClick(mob/user)
-	if(!isliving(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-
-	if(anchored)
-		to_chat(usr, "<span class='warning'>You must unwrench [src] before rotating it!</span>")
-		return
-
-	setDir(turn(dir, -90))
