@@ -714,7 +714,7 @@
 	//icon_state = "default_human_l_arm"
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	max_damage = 50
+	max_damage = 40
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_L_ARM
 	body_part = ARM_LEFT
@@ -819,7 +819,7 @@
 	//icon_state = "default_human_r_arm"
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	max_damage = 50
+	max_damage = 40
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_R_ARM
 	body_part = ARM_RIGHT
@@ -925,7 +925,7 @@
 	//icon_state = "default_human_l_leg"
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	max_damage = 50
+	max_damage = 40
 	body_zone = BODY_ZONE_L_LEG
 	body_part = LEG_LEFT
 	plaintext_zone = "left leg"
@@ -1024,7 +1024,7 @@
 	//icon_state = "default_human_r_leg"
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	max_damage = 50
+	max_damage = 40
 	body_zone = BODY_ZONE_R_LEG
 	body_part = LEG_RIGHT
 	plaintext_zone = "right leg"
