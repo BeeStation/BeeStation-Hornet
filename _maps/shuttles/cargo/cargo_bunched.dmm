@@ -27,7 +27,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/end{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal{
+/obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -108,7 +108,7 @@
 	},
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/effect/turf_decal/alphabet/four/cardinal{
+/obj/effect/turf_decal/alphabet/number_4/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -147,7 +147,7 @@
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/machinery/light/directional/east,
-/obj/effect/turf_decal/alphabet/two/cardinal{
+/obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -158,7 +158,7 @@
 	},
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/effect/turf_decal/alphabet/six/cardinal{
+/obj/effect/turf_decal/alphabet/number_6/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -384,7 +384,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/end{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/seven/cardinal{
+/obj/effect/turf_decal/alphabet/number_7/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -441,7 +441,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/end{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -452,7 +452,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/end{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/five/cardinal{
+/obj/effect/turf_decal/alphabet/number_5/cardinal{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,

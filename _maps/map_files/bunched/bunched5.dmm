@@ -602,10 +602,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal,
+/obj/effect/turf_decal/alphabet/number_1/cardinal,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
 "aib" = (
@@ -712,10 +712,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -7079,13 +7079,13 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/alphabet/letter_t/cardinal,
-/obj/effect/turf_decal/alphabet/dash/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dash/quarter{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dash/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dash/quarter{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dash/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dash/cardinal{
 	dir = 1
 	},
 /turf/open/floor/monotile/dark,
@@ -7237,7 +7237,7 @@
 /obj/effect/turf_decal/alphabet/letter_d/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dash/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dash/cardinal{
 	dir = 8
 	},
 /turf/open/floor/engine,
@@ -14002,10 +14002,10 @@
 /obj/effect/turf_decal/bot,
 /obj/item/robot_suit,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/effect/turf_decal/alphabet/zero/cardinal{
+/obj/effect/turf_decal/alphabet/number_0/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/four/cardinal{
+/obj/effect/turf_decal/alphabet/number_4/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
@@ -20696,10 +20696,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal{
+/obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -21949,7 +21949,7 @@
 	dir = 6
 	},
 /obj/structure/railing,
-/obj/effect/turf_decal/alphabet/five/cardinal{
+/obj/effect/turf_decal/alphabet/number_5/cardinal{
 	dir = 8
 	},
 /turf/open/floor/iron/grid/steel,
@@ -22110,7 +22110,7 @@
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/alphabet/one,
+/obj/effect/turf_decal/alphabet/number_1,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "guU" = (
@@ -22123,10 +22123,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -25459,7 +25459,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "hpQ" = (
-/obj/effect/turf_decal/alphabet/two,
+/obj/effect/turf_decal/alphabet/number_2,
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank{
 	pixel_x = 32
 	},
@@ -26292,13 +26292,13 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/alphabet/letter_c/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal{
+/obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -27173,7 +27173,7 @@
 /obj/effect/turf_decal/alphabet/letter_u/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/alphabet/letter_m/cardinal{
@@ -28764,11 +28764,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/bridge)
 "iiV" = (
-/obj/effect/turf_decal/alphabet/one/cardinal,
+/obj/effect/turf_decal/alphabet/number_1/cardinal,
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -29452,7 +29452,7 @@
 /obj/effect/turf_decal/alphabet/letter_r/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dash/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dash/cardinal{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -30362,8 +30362,8 @@
 /obj/effect/turf_decal/alphabet/letter_s/quarter{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/one/quarter,
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/number_1/quarter,
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 4
 	},
 /turf/open/floor/iron/sepia,
@@ -31910,7 +31910,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/alphabet/two,
+/obj/effect/turf_decal/alphabet/number_2,
 /turf/open/floor/monotile/steel,
 /area/quartermaster/sorting)
 "jgI" = (
@@ -33191,10 +33191,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/two/cardinal,
+/obj/effect/turf_decal/alphabet/number_2/cardinal,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
@@ -33749,13 +33749,13 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/small/broken/directional/north,
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/alphabet/letter_c/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/two/cardinal{
+/obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -37179,10 +37179,10 @@
 /obj/effect/turf_decal/alphabet/letter_e/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth,
@@ -37661,7 +37661,7 @@
 /obj/effect/turf_decal/alphabet/letter_d/quarter{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth,
@@ -39612,10 +39612,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -41445,7 +41445,7 @@
 /obj/effect/turf_decal/alphabet/letter_c/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/alphabet/letter_x/cardinal{
@@ -44764,7 +44764,7 @@
 	dir = 5
 	},
 /obj/machinery/light/small/directional/north,
-/obj/effect/turf_decal/alphabet/one/quarter{
+/obj/effect/turf_decal/alphabet/number_1/quarter{
 	dir = 8
 	},
 /turf/open/floor/noslip/white,
@@ -46705,10 +46705,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -49322,7 +49322,7 @@
 /area/hallway/secondary/entry)
 "ooq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/alphabet/two/cardinal{
+/obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -51498,7 +51498,7 @@
 /obj/effect/turf_decal/alphabet/letter_n/quarter{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/two/quarter{
+/obj/effect/turf_decal/alphabet/number_2/quarter{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/dark,
@@ -52822,17 +52822,17 @@
 /obj/effect/turf_decal/alphabet/letter_m/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dash/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dash/quarter{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dash/quarter,
+/obj/effect/turf_decal/alphabet/symbol_dash/quarter,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/alphabet/dash/cardinal,
+/obj/effect/turf_decal/alphabet/symbol_dash/cardinal,
 /turf/open/floor/monotile/dark,
 /area/tcommsat/computer)
 "plq" = (
@@ -52915,8 +52915,8 @@
 /obj/effect/turf_decal/alphabet/letter_s/quarter{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/two/quarter,
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/number_2/quarter,
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 8
 	},
 /obj/structure/chair/office,
@@ -53049,13 +53049,13 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/alphabet/letter_c/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -53910,7 +53910,7 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/alphabet/one/quarter{
+/obj/effect/turf_decal/alphabet/number_1/quarter{
 	dir = 1
 	},
 /turf/open/floor/iron/smooth,
@@ -55471,8 +55471,8 @@
 /obj/effect/turf_decal/alphabet/letter_e/quarter{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/one/quarter,
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/number_1/quarter,
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth,
@@ -57169,10 +57169,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/two/cardinal{
+/obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -65598,10 +65598,10 @@
 /obj/effect/turf_decal/alphabet/letter_e/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/four/cardinal{
+/obj/effect/turf_decal/alphabet/number_4/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth,
@@ -67214,10 +67214,10 @@
 /obj/effect/turf_decal/alphabet/letter_u/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal{
+/obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /turf/open/floor/iron/tech/grid,
@@ -67769,7 +67769,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/alphabet/three,
+/obj/effect/turf_decal/alphabet/number_3,
 /turf/open/floor/monotile/steel,
 /area/quartermaster/sorting)
 "tGW" = (
@@ -68583,7 +68583,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/alphabet/one,
+/obj/effect/turf_decal/alphabet/number_1,
 /turf/open/floor/monotile/steel,
 /area/quartermaster/sorting)
 "tTw" = (
@@ -68971,10 +68971,10 @@
 /obj/effect/turf_decal/bot,
 /obj/item/robot_suit,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/effect/turf_decal/alphabet/zero/cardinal{
+/obj/effect/turf_decal/alphabet/number_0/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal{
+/obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
@@ -69487,7 +69487,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/alphabet/letter_m/quarter,
-/obj/effect/turf_decal/alphabet/dot/quarter,
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter,
 /obj/machinery/vending/wallmed/directional/west,
 /turf/open/floor/noslip/white,
 /area/maintenance/department/medical/morgue)
@@ -72185,7 +72185,7 @@
 /obj/effect/turf_decal/alphabet/letter_n/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/grid/steel,
@@ -73346,10 +73346,10 @@
 /obj/effect/turf_decal/alphabet/letter_e/quarter{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/two/quarter{
+/obj/effect/turf_decal/alphabet/number_2/quarter{
 	layer = 2.051
 	},
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -75109,10 +75109,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -75827,10 +75827,10 @@
 /obj/effect/turf_decal/alphabet/letter_u/quarter{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/three/quarter{
+/obj/effect/turf_decal/alphabet/number_3/quarter{
 	dir = 8
 	},
 /turf/open/floor/iron/techmaint,
@@ -76391,7 +76391,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/alphabet/four,
+/obj/effect/turf_decal/alphabet/number_4,
 /turf/open/floor/monotile/steel,
 /area/quartermaster/sorting)
 "vVV" = (
@@ -78027,10 +78027,10 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/cyborg,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/effect/turf_decal/alphabet/zero/cardinal{
+/obj/effect/turf_decal/alphabet/number_0/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/three/cardinal{
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
@@ -78285,7 +78285,7 @@
 "wyW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/alphabet/letter_m/cardinal,
-/obj/effect/turf_decal/alphabet/dot/cardinal,
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "wzb" = (
@@ -78596,10 +78596,10 @@
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/one/cardinal,
+/obj/effect/turf_decal/alphabet/number_1/cardinal,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
 "wDQ" = (
@@ -80196,7 +80196,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/cmo)
 "xdL" = (
-/obj/effect/turf_decal/alphabet/two/cardinal,
+/obj/effect/turf_decal/alphabet/number_2/cardinal,
 /obj/effect/turf_decal/alphabet/letter_n/quarter{
 	dir = 8
 	},
@@ -80599,10 +80599,10 @@
 /obj/effect/turf_decal/alphabet/letter_u/quarter{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/dot/quarter{
+/obj/effect/turf_decal/alphabet/symbol_dot/quarter{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/two/quarter,
+/obj/effect/turf_decal/alphabet/number_2/quarter,
 /turf/open/floor/iron/ameridiner,
 /area/storage/tools)
 "xiM" = (
@@ -80971,10 +80971,10 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/cyborg,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/effect/turf_decal/alphabet/zero/cardinal{
+/obj/effect/turf_decal/alphabet/number_0/cardinal{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphabet/two/cardinal{
+/obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured,
@@ -82881,11 +82881,11 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/cmo)
 "xSc" = (
-/obj/effect/turf_decal/alphabet/one/cardinal,
+/obj/effect/turf_decal/alphabet/number_1/cardinal,
 /obj/effect/turf_decal/alphabet/letter_s/cardinal{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/dot/cardinal{
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -83603,7 +83603,7 @@
 /turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
 "ydX" = (
-/obj/effect/turf_decal/alphabet/two/quarter,
+/obj/effect/turf_decal/alphabet/number_2/quarter,
 /obj/effect/turf_decal/alphabet/letter_o/cardinal,
 /obj/effect/turf_decal/alphabet/letter_c/quarter{
 	dir = 8

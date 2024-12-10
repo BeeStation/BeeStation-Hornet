@@ -1139,7 +1139,7 @@
 /area/shuttle/escape)
 "Jp" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
-/obj/effect/turf_decal/alphabet/one{
+/obj/effect/turf_decal/alphabet/number_1{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,

@@ -24,7 +24,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/seven/cardinal{
+/obj/effect/turf_decal/alphabet/number_7/cardinal{
 	dir = 4
 	},
 /obj/effect/turf_decal/guideline/guideline_in/brown{
@@ -187,7 +187,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/nine/cardinal{
+/obj/effect/turf_decal/alphabet/number_9/cardinal{
 	dir = 8
 	},
 /obj/effect/turf_decal/guideline/guideline_in/brown{
