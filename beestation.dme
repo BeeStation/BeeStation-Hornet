@@ -50,6 +50,7 @@
 #include "code\__DEFINES\bans.dm"
 #include "code\__DEFINES\basic_mobs.dm"
 #include "code\__DEFINES\bitfields.dm"
+#include "code\__DEFINES\blob_defines.dm"
 #include "code\__DEFINES\blood.dm"
 #include "code\__DEFINES\bodyparts.dm"
 #include "code\__DEFINES\bot_defines.dm"
