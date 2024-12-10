@@ -5,186 +5,186 @@
 	desc = "FOR MAPPERS: change the 'color' variable for custom colors. the base sprite is greyscale. Do not nudge, it works the same as any other decal"
 	color = "#FFCD00"
 
-/obj/effect/turf_decal/alphabet/A
+/obj/effect/turf_decal/alphabet/letter_a
 	icon_state = "A_large"
-/obj/effect/turf_decal/alphabet/A/quarter
+/obj/effect/turf_decal/alphabet/letter_a/quarter
 	icon_state = "A_quarter"
-/obj/effect/turf_decal/alphabet/A/cardinal
+/obj/effect/turf_decal/alphabet/letter_a/cardinal
 	icon_state = "A_cardinal"
 
-/obj/effect/turf_decal/alphabet/B
+/obj/effect/turf_decal/alphabet/letter_b
 	icon_state = "B_large"
-/obj/effect/turf_decal/alphabet/B/quarter
+/obj/effect/turf_decal/alphabet/letter_b/quarter
 	icon_state = "B_quarter"
-/obj/effect/turf_decal/alphabet/B/cardinal
+/obj/effect/turf_decal/alphabet/letter_b/cardinal
 	icon_state = "B_cardinal"
 
-/obj/effect/turf_decal/alphabet/C
+/obj/effect/turf_decal/alphabet/letter_c
 	icon_state = "C_large"
-/obj/effect/turf_decal/alphabet/C/quarter
+/obj/effect/turf_decal/alphabet/letter_c/quarter
 	icon_state = "C_quarter"
-/obj/effect/turf_decal/alphabet/C/cardinal
+/obj/effect/turf_decal/alphabet/letter_c/cardinal
 	icon_state = "C_cardinal"
 
-/obj/effect/turf_decal/alphabet/D
+/obj/effect/turf_decal/alphabet/letter_d
 	icon_state = "D_large"
-/obj/effect/turf_decal/alphabet/D/quarter
+/obj/effect/turf_decal/alphabet/letter_d/quarter
 	icon_state = "D_quarter"
-/obj/effect/turf_decal/alphabet/D/cardinal
+/obj/effect/turf_decal/alphabet/letter_d/cardinal
 	icon_state = "D_cardinal"
 
-/obj/effect/turf_decal/alphabet/E
+/obj/effect/turf_decal/alphabet/letter_e
 	icon_state = "E_large"
-/obj/effect/turf_decal/alphabet/E/quarter
+/obj/effect/turf_decal/alphabet/letter_e/quarter
 	icon_state = "E_quarter"
-/obj/effect/turf_decal/alphabet/E/cardinal
+/obj/effect/turf_decal/alphabet/letter_e/cardinal
 	icon_state = "E_cardinal"
 
-/obj/effect/turf_decal/alphabet/F
+/obj/effect/turf_decal/alphabet/letter_f
 	icon_state = "F_large"
-/obj/effect/turf_decal/alphabet/F/quarter
+/obj/effect/turf_decal/alphabet/letter_f/quarter
 	icon_state = "F_quarter"
-/obj/effect/turf_decal/alphabet/F/cardinal
+/obj/effect/turf_decal/alphabet/letter_f/cardinal
 	icon_state = "F_cardinal"
 
-/obj/effect/turf_decal/alphabet/G
+/obj/effect/turf_decal/alphabet/letter_g
 	icon_state = "G_large"
-/obj/effect/turf_decal/alphabet/G/quarter
+/obj/effect/turf_decal/alphabet/letter_g/quarter
 	icon_state = "G_quarter"
-/obj/effect/turf_decal/alphabet/G/cardinal
+/obj/effect/turf_decal/alphabet/letter_g/cardinal
 	icon_state = "G_cardinal"
 
-/obj/effect/turf_decal/alphabet/H
+/obj/effect/turf_decal/alphabet/letter_h
 	icon_state = "H_large"
-/obj/effect/turf_decal/alphabet/H/quarter
+/obj/effect/turf_decal/alphabet/letter_h/quarter
 	icon_state = "H_quarter"
-/obj/effect/turf_decal/alphabet/H/cardinal
+/obj/effect/turf_decal/alphabet/letter_h/cardinal
 	icon_state = "H_cardinal"
 
-/obj/effect/turf_decal/alphabet/I
+/obj/effect/turf_decal/alphabet/letter_i
 	icon_state = "I_large"
-/obj/effect/turf_decal/alphabet/I/quarter
+/obj/effect/turf_decal/alphabet/letter_i/quarter
 	icon_state = "I_quarter"
-/obj/effect/turf_decal/alphabet/I/cardinal
+/obj/effect/turf_decal/alphabet/letter_i/cardinal
 	icon_state = "I_cardinal"
 
-/obj/effect/turf_decal/alphabet/J
+/obj/effect/turf_decal/alphabet/letter_j
 	icon_state = "J_large"
-/obj/effect/turf_decal/alphabet/J/quarter
+/obj/effect/turf_decal/alphabet/letter_j/quarter
 	icon_state = "J_quarter"
-/obj/effect/turf_decal/alphabet/J/cardinal
+/obj/effect/turf_decal/alphabet/letter_j/cardinal
 	icon_state = "J_cardinal"
 
-/obj/effect/turf_decal/alphabet/K
+/obj/effect/turf_decal/alphabet/letter_k
 	icon_state = "K_large"
-/obj/effect/turf_decal/alphabet/K/quarter
+/obj/effect/turf_decal/alphabet/letter_k/quarter
 	icon_state = "K_quarter"
-/obj/effect/turf_decal/alphabet/K/cardinal
+/obj/effect/turf_decal/alphabet/letter_k/cardinal
 	icon_state = "K_cardinal"
 
-/obj/effect/turf_decal/alphabet/L
+/obj/effect/turf_decal/alphabet/letter_l
 	icon_state = "L_large"
-/obj/effect/turf_decal/alphabet/L/quarter
+/obj/effect/turf_decal/alphabet/letter_l/quarter
 	icon_state = "L_quarter"
-/obj/effect/turf_decal/alphabet/L/cardinal
+/obj/effect/turf_decal/alphabet/letter_l/cardinal
 	icon_state = "L_cardinal"
 
-/obj/effect/turf_decal/alphabet/M
+/obj/effect/turf_decal/alphabet/letter_m
 	icon_state = "M_large"
-/obj/effect/turf_decal/alphabet/M/quarter
+/obj/effect/turf_decal/alphabet/letter_m/quarter
 	icon_state = "M_quarter"
-/obj/effect/turf_decal/alphabet/M/cardinal
+/obj/effect/turf_decal/alphabet/letter_m/cardinal
 	icon_state = "M_cardinal"
 
-/obj/effect/turf_decal/alphabet/N
+/obj/effect/turf_decal/alphabet/letter_n
 	icon_state = "N_large"
-/obj/effect/turf_decal/alphabet/N/quarter
+/obj/effect/turf_decal/alphabet/letter_n/quarter
 	icon_state = "N_quarter"
-/obj/effect/turf_decal/alphabet/N/cardinal
+/obj/effect/turf_decal/alphabet/letter_n/cardinal
 	icon_state = "N_cardinal"
 
-/obj/effect/turf_decal/alphabet/O
+/obj/effect/turf_decal/alphabet/letter_o
 	icon_state = "O_large"
-/obj/effect/turf_decal/alphabet/O/quarter
+/obj/effect/turf_decal/alphabet/letter_o/quarter
 	icon_state = "O_quarter"
-/obj/effect/turf_decal/alphabet/O/cardinal
+/obj/effect/turf_decal/alphabet/letter_o/cardinal
 	icon_state = "O_cardinal"
 
-/obj/effect/turf_decal/alphabet/P
+/obj/effect/turf_decal/alphabet/letter_p
 	icon_state = "P_large"
-/obj/effect/turf_decal/alphabet/P/quarter
+/obj/effect/turf_decal/alphabet/letter_p/quarter
 	icon_state = "P_quarter"
-/obj/effect/turf_decal/alphabet/P/cardinal
+/obj/effect/turf_decal/alphabet/letter_p/cardinal
 	icon_state = "P_cardinal"
 
-/obj/effect/turf_decal/alphabet/Q
+/obj/effect/turf_decal/alphabet/letter_q
 	icon_state = "Q_large"
-/obj/effect/turf_decal/alphabet/Q/quarter
+/obj/effect/turf_decal/alphabet/letter_q/quarter
 	icon_state = "Q_quarter"
-/obj/effect/turf_decal/alphabet/Q/cardinal
+/obj/effect/turf_decal/alphabet/letter_q/cardinal
 	icon_state = "Q_cardinal"
 
-/obj/effect/turf_decal/alphabet/R
+/obj/effect/turf_decal/alphabet/letter_r
 	icon_state = "R_large"
-/obj/effect/turf_decal/alphabet/R/quarter
+/obj/effect/turf_decal/alphabet/letter_r/quarter
 	icon_state = "R_quarter"
-/obj/effect/turf_decal/alphabet/R/cardinal
+/obj/effect/turf_decal/alphabet/letter_r/cardinal
 	icon_state = "R_cardinal"
 
-/obj/effect/turf_decal/alphabet/S
+/obj/effect/turf_decal/alphabet/letter_s
 	icon_state = "S_large"
-/obj/effect/turf_decal/alphabet/S/quarter
+/obj/effect/turf_decal/alphabet/letter_s/quarter
 	icon_state = "S_quarter"
-/obj/effect/turf_decal/alphabet/S/cardinal
+/obj/effect/turf_decal/alphabet/letter_s/cardinal
 	icon_state = "S_cardinal"
 
-/obj/effect/turf_decal/alphabet/T
+/obj/effect/turf_decal/alphabet/letter_t
 	icon_state = "T_large"
-/obj/effect/turf_decal/alphabet/T/quarter
+/obj/effect/turf_decal/alphabet/letter_t/quarter
 	icon_state = "T_quarter"
-/obj/effect/turf_decal/alphabet/T/cardinal
+/obj/effect/turf_decal/alphabet/letter_t/cardinal
 	icon_state = "T_cardinal"
 
-/obj/effect/turf_decal/alphabet/U
+/obj/effect/turf_decal/alphabet/letter_u
 	icon_state = "U_large"
-/obj/effect/turf_decal/alphabet/U/quarter
+/obj/effect/turf_decal/alphabet/letter_u/quarter
 	icon_state = "U_quarter"
-/obj/effect/turf_decal/alphabet/U/cardinal
+/obj/effect/turf_decal/alphabet/letter_u/cardinal
 	icon_state = "U_cardinal"
 
-/obj/effect/turf_decal/alphabet/V
+/obj/effect/turf_decal/alphabet/letter_v
 	icon_state = "V_large"
-/obj/effect/turf_decal/alphabet/V/quarter
+/obj/effect/turf_decal/alphabet/letter_v/quarter
 	icon_state = "V_quarter"
-/obj/effect/turf_decal/alphabet/V/cardinal
+/obj/effect/turf_decal/alphabet/letter_v/cardinal
 	icon_state = "V_cardinal"
 
-/obj/effect/turf_decal/alphabet/W
+/obj/effect/turf_decal/alphabet/letter_w
 	icon_state = "W_large"
-/obj/effect/turf_decal/alphabet/W/quarter
+/obj/effect/turf_decal/alphabet/letter_w/quarter
 	icon_state = "W_quarter"
-/obj/effect/turf_decal/alphabet/W/cardinal
+/obj/effect/turf_decal/alphabet/letter_w/cardinal
 	icon_state = "W_cardinal"
 
-/obj/effect/turf_decal/alphabet/X
+/obj/effect/turf_decal/alphabet/letter_x
 	icon_state = "X_large"
-/obj/effect/turf_decal/alphabet/X/quarter
+/obj/effect/turf_decal/alphabet/letter_x/quarter
 	icon_state = "X_quarter"
-/obj/effect/turf_decal/alphabet/X/cardinal
+/obj/effect/turf_decal/alphabet/letter_x/cardinal
 	icon_state = "X_cardinal"
 
-/obj/effect/turf_decal/alphabet/Y
+/obj/effect/turf_decal/alphabet/letter_y
 	icon_state = "Y_large"
-/obj/effect/turf_decal/alphabet/Y/quarter
+/obj/effect/turf_decal/alphabet/letter_y/quarter
 	icon_state = "Y_quarter"
-/obj/effect/turf_decal/alphabet/Y/cardinal
+/obj/effect/turf_decal/alphabet/letter_y/cardinal
 	icon_state = "Y_cardinal"
 
-/obj/effect/turf_decal/alphabet/Z
+/obj/effect/turf_decal/alphabet/letter_z
 	icon_state = "Z_large"
-/obj/effect/turf_decal/alphabet/Z/quarter
+/obj/effect/turf_decal/alphabet/letter_z/quarter
 	icon_state = "Z_quarter"
-/obj/effect/turf_decal/alphabet/Z/cardinal
+/obj/effect/turf_decal/alphabet/letter_z/cardinal
 	icon_state = "Z_cardinal"
 
 /obj/effect/turf_decal/alphabet/zero
