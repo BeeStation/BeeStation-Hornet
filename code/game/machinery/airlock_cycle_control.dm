@@ -833,8 +833,7 @@
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/door/airlock
-	var/obj/machinery/advanced_airlock_controller/aac
+/obj/machinery/door/airlock/var/obj/machinery/advanced_airlock_controller/aac
 
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
