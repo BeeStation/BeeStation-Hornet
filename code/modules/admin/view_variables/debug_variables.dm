@@ -32,7 +32,8 @@
 	var/special_list_secure_level = (istext(name) && (isdatum(owner) || vv_spectre) ) ? GLOB.vv_special_lists[name] : null
 	var/is_read_only = CHECK_BITFIELD(display_flags, VV_READ_ONLY) || (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
 	var/hyperlink_style =\
-		is_read_only ? STYLE_READ_ONLY \
+		(is_read_only && level) ? STYLE_EMPTY \
+		: is_read_only ? STYLE_READ_ONLY \
 		: vv_spectre ? STYLE_SPECIAL \
 		: owner_list ? STYLE_LIST \
 		: owner ? STYLE_NORMAL \

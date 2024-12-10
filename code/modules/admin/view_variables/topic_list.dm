@@ -1,5 +1,8 @@
 //LISTS - CAN NOT DO VV_DO_TOPIC BECAUSE LISTS AREN'T DATUMS :(
 /client/proc/vv_do_list(list/target, href_list)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='admin prefix'>Advanced ProcCall detected - You shouldn't call /vv_do_list() directly.</span>")
+		return
 	var/target_index = text2num(GET_VV_VAR_TARGET)
 	if(check_rights(R_VAREDIT))
 		var/dmlist_varname = href_list["dmlist_varname"]

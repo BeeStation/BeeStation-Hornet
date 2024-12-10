@@ -1,3 +1,4 @@
+GLOBAL_PROTECT(vv_ghost)
 GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_variables() proc. Am I real?
 
 /*
@@ -97,4 +98,7 @@ GLOBAL_DATUM_INIT(vv_ghost, /datum/vv_ghost, new) // Fake datum for vv debug_var
 	return return_target
 
 /datum/vv_ghost/proc/reset()
-	dmlist_origin_ref = dmlist_varname = dmlist_holder = list_holder = null
+	dmlist_origin_ref = null
+	dmlist_varname = null
+	dmlist_holder = null
+	list_holder = null
