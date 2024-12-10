@@ -110,6 +110,7 @@ Any pull-request that does not adequately complete the provided template may be 
  - The section labeled "why it's good for the game" should include the reasons behind the changes and how they will be good for the game.
  - The testing section should contain screenshots, videos, and/or reproducible testing procedures showing that the PR works as specified. Pull-requests that ignore this section, or are not tested, may be closed by maintainers. This applies to small PRs that may seem trivial.
  - The changelog should include a short summary of the changes made. If your pull request includes things made by other people, you should list everybody who contributed, including yourself, after the :cl: tag.
+ - Ports should indicate any original code that they have added for the port. This includes highlighting any mass-edit statements done via regex, and any bee specific content that had to be modified to accomodate the changes.
 
 If a pull-request requires updates to the wiki, these changes should be made on your user account page (For example: https://wiki.beestation13.com/view/User:PowerfulBacon), so that the original page can be updated on merge.
 
