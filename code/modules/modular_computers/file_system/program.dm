@@ -36,19 +36,21 @@
 	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
 
-/datum/computer_file/program/New(obj/item/modular_computer/comp = null)
+/datum/computer_file/program/New(var/comp = null)
 	..()
-	if(istype(comp))
-		computer = comp
-	else if(istype(holder?.holder, /obj/item/modular_computer))
-		computer = holder.holder
+	if(istype(comp, /obj/item/modular_computer))
+		var/obj/item/modular_computer/C = comp
+		computer = C
+	else if(istype(comp, /obj/item/computer_hardware/hard_drive))
+		var/obj/item/computer_hardware/hard_drive/HD = comp
+		computer = HD.holder
 
 /datum/computer_file/program/Destroy()
 	computer = null
 	. = ..()
 
-/datum/computer_file/program/clone()
-	var/datum/computer_file/program/temp = ..()
+/datum/computer_file/program/clone(hard_drive)
+	var/datum/computer_file/program/temp = ..(comp = hard_drive)
 	temp.required_access = required_access
 	temp.filedesc = filedesc
 	temp.program_icon_state = program_icon_state
@@ -74,6 +76,18 @@
 			to_chat(user, "<span class='danger'>\The [computer] flashes an \"Hardware Error - Incompatible software\" warning.</span>")
 		return 0
 	return 1
+
+// wrapper to send a ntnet packet through the computer
+/datum/computer_file/program/ntnet_send(packet_data, target_id, passkey)
+	if(!computer)
+		return NETWORK_ERROR_NOT_ON_NETWORK
+	return computer.ntnet_send(packet_data, target_id, passkey)
+
+/datum/computer_file/program/proc/get_network_card()
+	if(computer)
+		var/obj/item/computer_hardware/network_card/NC = computer.all_components[MC_NET]
+		return NC
+	return null
 
 /datum/computer_file/program/proc/get_signal(specific_action = 0)
 	if(computer)
@@ -149,7 +163,7 @@
 	if(can_run(user, 1))
 		if(requires_ntnet && network_destination)
 			generate_network_log("Connection opened to [network_destination].")
-		program_state = PROGRAM_STATE_ACTIVE
+		set_program_state(PROGRAM_STATE_ACTIVE)
 		return TRUE
 	return FALSE
 
@@ -198,3 +212,8 @@
 /// Called when ui_close is called on the computer while this program is active. Any behavior in this should also be in kill_program.
 /datum/computer_file/program/proc/on_ui_close(mob/user, datum/tgui/tgui)
 	return
+
+//
+/datum/computer_file/program/proc/set_program_state(state)
+	program_state = state
+	SEND_SIGNAL(src, COMSIG_MODPC_PROGRAM_STATE_CHANGED, state)
