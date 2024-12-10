@@ -9,7 +9,7 @@
 	armor_type = /datum/armor/head_wizard
 	strip_delay = 50
 	equip_delay_other = 50
-	clothing_flags = SNUG_FIT | THICKMATERIAL
+	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
@@ -91,7 +91,7 @@
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
 
 
 /datum/armor/suit_wizrobe

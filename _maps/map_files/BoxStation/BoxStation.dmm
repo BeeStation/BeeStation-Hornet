@@ -52705,21 +52705,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/green,
 /area/chapel/main)
-"rMF" = (
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -22
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/machinery/camera/directional/west,
-/obj/structure/table/wood/fancy,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/book/granter/spell/smoke/lesser,
-/turf/open/floor/iron/dark,
-/area/chapel/office)
 "rMK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57975,6 +57960,21 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
+"tMt" = (
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -22
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/camera/directional/west,
+/obj/structure/table/wood/fancy,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
 "tMw" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -113423,7 +113423,7 @@ aBF
 aFw
 gWQ
 aJJ
-rMF
+tMt
 aMW
 aFw
 aFu
