@@ -105,6 +105,7 @@
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
+#define VV_HK_ARMOR_MOD "mod_obj_armor"
 #define VV_HK_ADD_EMITTER "add_emitter"
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
@@ -119,7 +120,6 @@
 // /obj
 #define VV_HK_OSAY "osay"
 #define VV_HK_MASS_DEL_TYPE "mass_delete_type"
-#define VV_HK_ARMOR_MOD "mod_obj_armor"
 
 // /obj/item/card/id
 #define VV_ID_PAYDAY "id_payday"
@@ -179,6 +179,9 @@
 
 // paintings
 #define VV_HK_REMOVE_PAINTING "remove_painting"
+
+//outfits
+#define VV_HK_TO_OUTFIT_EDITOR "outfit_editor"
 
 // Flags for debug_variable() that do little things to what we end up rendering
 

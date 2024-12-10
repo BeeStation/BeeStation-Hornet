@@ -428,7 +428,7 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter2)
 "hu" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -664,7 +664,7 @@
 	},
 /area/shuttle/caravan/freighter3)
 "iT" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -947,7 +947,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/ballistic/shotgun/sc_pump,
+/obj/item/gun/ballistic/shotgun,
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "sP" = (

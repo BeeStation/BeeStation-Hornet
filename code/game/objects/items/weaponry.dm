@@ -13,8 +13,13 @@
 	attack_verb_continuous = list("bans")
 	attack_verb_simple = list("ban")
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_banhammer
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_banhammer
+	fire = 100
+	acid = 70
 
 /obj/item/banhammer/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
@@ -87,8 +92,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_SHARP
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_claymore
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_claymore
+	fire = 100
+	acid = 50
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -242,7 +252,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 0
 	block_power = 30
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/claymore_bone
+
+
+/datum/armor/claymore_bone
+	fire = 100
+	acid = 50
 
 /obj/item/katana
 	name = "katana"
@@ -268,8 +283,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_SHARP
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_katana
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_katana
+	fire = 100
+	acid = 50
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -974,13 +994,18 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/club/pre_attack(atom/A, mob/living/user, params)
 	force = initial(force)
 	armour_penetration = initial(armour_penetration)
-	if(isstructure(A) || ismachinery(A) || isturf(A))
-		force *= 4
+	if(isstructure(A) || ismachinery(A))
+		force *= 2.5
 		armour_penetration += 50
 		// To prevent unnecessary force string calculation (we want this to be treated
 		// as if it wasn't changed)
 		last_force_string_check = force
-	return ..()
+		return ..()
+	else if(isturf(A))
+		force *= 1.5
+		armour_penetration += 50
+		last_force_string_check = force
+		return ..()
 
 /obj/item/club/set_force_string()
 	// If we do need to calculate the new force string, make sure we are using the original force

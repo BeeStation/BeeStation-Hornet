@@ -11,6 +11,7 @@
 	key = "blush"
 	key_third_person = "blushes"
 	message = "blushes"
+	emote_type = EMOTE_VISIBLE
 	/// Timer for the blush visual to wear off
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
@@ -39,37 +40,39 @@
 	key_third_person = "bows"
 	message = "bows"
 	message_param = "bows to %t"
+	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
 /datum/emote/living/burp
 	key = "burp"
 	key_third_person = "burps"
 	message = "burps"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/choke
 	key = "choke"
 	key_third_person = "chokes"
 	message = "chokes"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/cross
 	key = "cross"
 	key_third_person = "crosses"
 	message = "crosses their arms"
+	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
 /datum/emote/living/chuckle
 	key = "chuckle"
 	key_third_person = "chuckles"
 	message = "chuckles"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/collapse
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -82,6 +85,7 @@
 	key_third_person = "dances"
 	message = "dances around happily"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
@@ -94,6 +98,7 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving"
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
 	message_simple =  "stops moving"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE | EMOTE_IMPORTANT
 	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
@@ -102,22 +107,28 @@
 		message_simple = S.deathmessage
 	. = ..()
 	message_simple = initial(message_simple)
-	if(. && user.deathsound)
-		if(isliving(user))
-			var/mob/living/L = user
-			if(!L.can_speak_vocal() || L.oxyloss >= 50)
-				return //stop the sound if oxyloss too high/cant speak
+	var/mob/living/living_user = user
+	if(!. && !living_user.can_speak_vocal() || living_user.getOxyLoss() >= 50)
+		return //stop the sound if oxyloss too high/cant speak
+	var/mob/living/carbon/carbon_user = user
+	// For masks that give unique death sounds
+	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
+		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+		return
+	if(user.deathsound)
 		playsound(user, user.deathsound, 200, TRUE, TRUE)
 
 /datum/emote/living/drool
 	key = "drool"
 	key_third_person = "drools"
 	message = "drools"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/faint
 	key = "faint"
 	key_third_person = "faints"
 	message = "faints"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -130,82 +141,110 @@
 	key_third_person = "flaps"
 	message = "flaps their wings"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	var/wing_time = 10
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 		if(H.Togglewings())
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
+		// play moth flutter noise if moth wing
+		if(istype(wings, /obj/item/organ/wings/moth))
+			playsound(H, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
 	key_third_person = "aflaps"
+	name = "flap (Angry)"
 	message = "flaps their wings aggressively"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	wing_time = 5
 
 /datum/emote/living/frown
 	key = "frown"
 	key_third_person = "frowns"
 	message = "frowns"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/gag
 	key = "gag"
 	key_third_person = "gags"
 	message = "gags"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/giggle
 	key = "giggle"
 	key_third_person = "giggles"
 	message = "giggles"
 	message_mime = "giggles silently"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/giggle/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_giggle_sound(H)
 
 /datum/emote/living/glare
 	key = "glare"
 	key_third_person = "glares"
 	message = "glares"
 	message_param = "glares at %t"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/grin
 	key = "grin"
 	key_third_person = "grins"
 	message = "grins"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/groan
 	key = "groan"
 	key_third_person = "groans"
 	message = "groans"
 	message_mime = "appears to groan"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/grimace
 	key = "grimace"
 	key_third_person = "grimaces"
 	message = "grimaces"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/jump
 	key = "jump"
 	key_third_person = "jumps"
 	message = "jumps"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/jump/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	animate(user, pixel_y = user.pixel_y + 4, time = 0.1 SECONDS)
+	animate(pixel_y = user.pixel_y - 4, time = 0.1 SECONDS)
+
+/datum/emote/living/jump/get_sound(mob/living/user)
+	return 'sound/weapons/thudswoosh.ogg'
 
 /datum/emote/living/kiss
 	key = "kiss"
 	key_third_person = "kisses"
 	message = "blows a kiss"
 	message_param = "blows a kiss to %t"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/laugh
 	key = "laugh"
 	key_third_person = "laughs"
 	message = "laughs"
 	message_mime = "laughs silently"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	vary = TRUE
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
@@ -227,12 +266,14 @@
 	key_third_person = "looks"
 	message = "looks"
 	message_param = "looks at %t"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/nod
 	key = "nod"
 	key_third_person = "nods"
 	message = "nods"
 	message_param = "nods at %t"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/point
 	key = "point"
@@ -240,6 +281,7 @@
 	message = "points"
 	message_param = "points at %t"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	message_param = initial(message_param) // reset
@@ -258,14 +300,14 @@
 	key = "pout"
 	key_third_person = "pouts"
 	message = "pouts"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/scream
 	key = "scream"
 	key_third_person = "screams"
 	message = "screams"
 	message_mime = "acts out a scream"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 
 /datum/emote/living/scream/select_message_type(mob/user, intentional)
@@ -277,41 +319,62 @@
 	key = "scowl"
 	key_third_person = "scowls"
 	message = "scowls"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/shake
 	key = "shake"
 	key_third_person = "shakes"
 	message = "shakes their head"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/shiver
 	key = "shiver"
 	key_third_person = "shiver"
 	message = "shivers"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
+
+#define SHIVER_LOOP_DURATION (1 SECONDS)
+/datum/emote/living/shiver/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	animate(user, pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	for(var/i in 1 to SHIVER_LOOP_DURATION / (0.2 SECONDS)) //desired total duration divided by the iteration duration to give the necessary iteration count
+		animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
+		animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
+#undef SHIVER_LOOP_DURATION
 
 /datum/emote/living/sit
 	key = "sit"
 	key_third_person = "sits"
 	message = "sits down"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/smile
 	key = "smile"
 	key_third_person = "smiles"
 	message = "smiles"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/smug
 	key = "smug"
 	key_third_person = "smugs"
 	message = "grins smugly"
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/smirk
+	key = "smirk"
+	key_third_person = "smirks"
+	message = "smirks"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/snore
 	key = "snore"
 	key_third_person = "snores"
 	message = "snores"
 	message_mime = "sleeps soundly"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/stare
@@ -319,22 +382,25 @@
 	key_third_person = "stares"
 	message = "stares"
 	message_param = "stares at %t"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/strech
 	key = "stretch"
 	key_third_person = "stretches"
 	message = "stretches their arms"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/sulk
 	key = "sulk"
 	key_third_person = "sulks"
 	message = "sulks down sadly"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/surrender
 	key = "surrender"
 	key_third_person = "surrenders"
 	message = "puts their hands on their head and falls to the ground, surrendering"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -346,48 +412,97 @@
 	key = "sway"
 	key_third_person = "sways"
 	message = "sways around dizzily"
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/sway/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	animate(user, pixel_x = user.pixel_x + 2, time = 0.5 SECONDS)
+	for(var/i in 1 to 2)
+		animate(pixel_x = user.pixel_x - 4, time = 1.0 SECONDS)
+		animate(pixel_x = user.pixel_x + 4, time = 1.0 SECONDS)
+	animate(pixel_x = user.pixel_x - 2, time = 0.5 SECONDS)
 
 /datum/emote/living/tremble
 	key = "tremble"
 	key_third_person = "trembles"
-	message = "trembles in fear"
+	message = "trembles"
+	emote_type = EMOTE_VISIBLE
+
+#define TREMBLE_LOOP_DURATION (4.4 SECONDS)
+/datum/emote/living/tremble/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	animate(user, pixel_x = user.pixel_x + 2, time = 0.2 SECONDS)
+	for(var/i in 1 to TREMBLE_LOOP_DURATION / (0.4 SECONDS)) //desired total duration divided by the iteration duration to give the necessary iteration count
+		animate(pixel_x = user.pixel_x - 2, time = 0.2 SECONDS)
+		animate(pixel_x = user.pixel_x + 2, time = 0.2 SECONDS)
+	animate(pixel_x = user.pixel_x - 2, time = 0.2 SECONDS)
+#undef TREMBLE_LOOP_DURATION
 
 /datum/emote/living/twitch
 	key = "twitch"
 	key_third_person = "twitches"
 	message = "twitches violently"
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/twitch/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	animate(user, pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
+	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
+	animate(time = 0.1 SECONDS)
+	animate(pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
+	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
 
 /datum/emote/living/twitch_s
 	key = "twitch_s"
+	name = "twitch (Slight)"
 	message = "twitches"
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/twitch_s/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	animate(user, pixel_x = user.pixel_x - 1, time = 0.1 SECONDS)
+	animate(pixel_x = user.pixel_x + 1, time = 0.1 SECONDS)
 
 /datum/emote/living/wave
 	key = "wave"
 	key_third_person = "waves"
 	message = "waves"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/whimper
 	key = "whimper"
 	key_third_person = "whimpers"
 	message = "whimpers"
 	message_mime = "appears hurt"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/wsmile
 	key = "wsmile"
 	key_third_person = "wsmiles"
+	name = "smile (Weak)"
 	message = "smiles weakly"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/yawn
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "yawns"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/custom
 	key = "me"
 	key_third_person = "custom"
 	message = null
 	mob_type_blacklist_typecache = /mob/living/brain
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
 	. = ..() && intentional
@@ -411,11 +526,17 @@
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 	else if(!params)
-		var/custom_emote = stripped_input(usr, "Choose an emote to display.")
+		var/custom_emote = stripped_input(user, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))
-			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
-			if(type == "Hearable")
-				emote_type |= EMOTE_AUDIBLE
+			var/list/emote_list = list("Audible", "Visible", "Both")
+			var/type = tgui_input_list(user, "Is this a visible or audible emote?", "Emote Type", emote_list)
+			switch(type)
+				if("Audible")
+					emote_type |= EMOTE_AUDIBLE
+				if("Visible")
+					emote_type |= EMOTE_VISIBLE
+				if("Both")
+					emote_type |= EMOTE_VISIBLE | EMOTE_AUDIBLE
 			message = user.say_emphasis(custom_emote)
 	else
 		message = params
@@ -423,7 +544,7 @@
 			emote_type = type_override
 	. = ..()
 	message = null
-	emote_type = 0
+	emote_type = null
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
@@ -432,6 +553,7 @@
 	key = "help"
 
 /datum/emote/living/help/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
 	var/list/keys = list()
 	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
 
@@ -462,12 +584,14 @@
 	message = "beeps"
 	message_param = "beeps at %t"
 	sound = 'sound/machines/twobeep.ogg'
+	emote_type = EMOTE_AUDIBLE
 	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon, /mob/living/simple_animal/hostile/mining_drone)
 
 /datum/emote/living/circle
 	key = "circle"
 	key_third_person = "circles"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/circle/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -483,6 +607,7 @@
 	key = "slap"
 	key_third_person = "slaps"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -500,6 +625,7 @@
 	key_third_person = "highfives"
 	message = "raises their hand"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/raisehand/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -516,6 +642,7 @@
 	key_third_person = "fingerguns"
 	message = "forms their fingers into the shape of a crude gun"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/fingergun/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -533,6 +660,7 @@
 	message = "clicks their tongue"
 	message_ipc = "makes a click sound"
 	message_insect = "clicks their mandibles"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/click/get_sound(mob/living/user)
 	if(ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/basic/mothroach))
@@ -546,6 +674,7 @@
 	key = "zap"
 	key_third_person = "zaps"
 	message = "zaps"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/zap/can_run_emote(mob/user, status_check = TRUE , intentional)
 	. = ..()
@@ -562,11 +691,13 @@
 	key = "hum"
 	key_third_person = "hums"
 	message = "hums"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/hiss
 	key = "hiss"
 	key_third_person = "hisses"
 	message = "hisses"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
@@ -582,6 +713,7 @@
 	message_simple = "attempts a thumbs up"
 	message_param = "flashes a thumbs up at %t"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/thumbs_down
 	key = "thumbsdown"
@@ -593,6 +725,7 @@
 	message_simple = "attempts a thumbs down"
 	message_param = "flashes a thumbs down at %t"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/whistle
 	key="whistle"
@@ -601,14 +734,31 @@
 	message_robot = "whistles a few synthesized notes"
 	message_AI = "whistles a synthesized song"
 	message_ipc = "whistles a few synthesized notes"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/whistle/get_sound(mob/living/user)
-	return 'sound/items/megaphone.ogg'
+	return 'sound/emotes/whistle1.ogg'
+
+/datum/emote/living/tail
+	key = "swipe"
+	key_third_person = "swipes"
+	message = "swipes their tail!"
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/tail/get_sound(mob/living/user)
+	if(islizard(user))
+		return pick('sound/effects/tail_swipe1.ogg', 'sound/effects/tail_swipe2.ogg')
+
+/datum/emote/living/tail/can_run_emote(mob/user, status_check = TRUE , intentional)
+	if(!..())
+		return FALSE
+	if(islizard(user))
+		var/mob/living/carbon/human/H = user
+		return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 
 /datum/emote/living/must_breathe
-	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 
 /datum/emote/living/must_breathe/can_run_emote(mob/user, status_check = TRUE, intentional)
@@ -621,11 +771,13 @@
 	key = "clear"
 	key_third_person = "clears their throat"
 	message = "clears their throat"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/must_breathe/cough
 	key = "cough"
 	key_third_person = "coughs"
 	message = "coughs"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/must_breathe/cough/can_run_emote(mob/user, status_check = TRUE, intentional)
 	return ..() && !HAS_TRAIT(user, TRAIT_SOOTHED_THROAT)
@@ -640,6 +792,7 @@
 	key = "gasp"
 	key_third_person = "gasps"
 	message = "gasps"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE // You can see a person gasping.
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -651,12 +804,13 @@
 	key = "huff"
 	key_third_person = "huffs"
 	message ="lets out a huff"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/must_breathe/sigh
 	key = "sigh"
 	key_third_person = "sighs"
 	message = "sighs"
-	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
+	emote_type = EMOTE_ANIMATED | EMOTE_AUDIBLE | EMOTE_VISIBLE
 	emote_length = 3 SECONDS
 	overlay_y_offset = -1
 	overlay_icon_state = "sigh"
@@ -671,6 +825,7 @@
 	key = "sneeze"
 	key_third_person = "sneezes"
 	message = "sneezes"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/must_breathe/sneeze/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -682,6 +837,7 @@
 	key = "sniff"
 	key_third_person = "sniffs"
 	message = "sniffs"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/must_breathe/sniff/get_sound(mob/living/user)
 	if(!ishuman(user))

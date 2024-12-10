@@ -10,6 +10,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	layer = ABOVE_WINDOW_LAYER
+	damage_deflection = 10
 	var/obj/item/assembly/flash/handheld/bulb
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
@@ -30,6 +31,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, 26)
 	light_system = MOVABLE_LIGHT //Used as a flash here.
 	light_range = FLASH_LIGHT_RANGE
 	light_on = FALSE
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 
@@ -101,11 +104,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		if(anchored)
 			flash()
 
-/obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10) //any melee attack below 10 dmg does nothing
-		return 0
-	. = ..()
-
 /obj/machinery/flasher/proc/flash()
 	if (!powered() || !bulb)
 		return
@@ -144,7 +142,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 			bulb.burn_out()
 			power_change()
 
-/obj/machinery/flasher/obj_break(damage_flag)
+/obj/machinery/flasher/atom_break(damage_flag)
 	. = ..()
 	if(. && bulb)
 		bulb.burn_out()
@@ -186,13 +184,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 			add_overlay("[base_state]-s")
 			set_anchored(TRUE)
 			power_change()
-			proximity_monitor.SetRange(range)
+			proximity_monitor.set_range(range)
 		else
 			to_chat(user, "<span class='notice'>[src] can now be moved.</span>")
 			cut_overlays()
 			set_anchored(FALSE)
 			power_change()
-			proximity_monitor.SetRange(0)
+			proximity_monitor.set_range(0)
 
 	else
 		return ..()

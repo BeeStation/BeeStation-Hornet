@@ -3,13 +3,18 @@
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/transforming_energy
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 1
 	light_on = FALSE
 	var/sword_color
+
+
+/datum/armor/transforming_energy
+	fire = 100
+	acid = 30
 
 /obj/item/melee/transforming/energy/Initialize(mapload)
 	. = ..()

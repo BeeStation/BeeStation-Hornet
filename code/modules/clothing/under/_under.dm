@@ -3,9 +3,8 @@
 	icon = 'icons/obj/clothing/under/default.dmi'
 	worn_icon = 'icons/mob/clothing/under/default.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 10)
+	armor_type = /datum/armor/clothing_under
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	/// The variable containing the flags for how the woman uniform cropping is supposed to interact with the sprite.
@@ -20,6 +19,11 @@
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
 	dying_key = DYE_REGISTRY_UNDER
+
+
+/datum/armor/clothing_under
+	bio = 10
+	bleed = 10
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
@@ -77,7 +81,7 @@
 			to_chat(M,"<span class='warning'>The sensors on the [src] change rapidly!</span>")
 		update_sensors(new_sensor_mode)
 
-/obj/item/clothing/under/equipped(mob/user, slot)
+/obj/item/clothing/under/visual_equipped(mob/user, slot)
 	..()
 	if(adjusted)
 		adjusted = NORMAL_STYLE
@@ -91,15 +95,17 @@
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
-	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
-		freshly_laundered = FALSE
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
-
 	if(attached_accessory && slot != ITEM_SLOT_HANDS && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
 			H.update_inv_wear_suit()
+
+/obj/item/clothing/under/equipped(mob/user, slot)
+	..()
+	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
+		freshly_laundered = FALSE
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
 
 /obj/item/clothing/under/dropped(mob/user)
 	..()

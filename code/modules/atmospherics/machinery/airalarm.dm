@@ -70,7 +70,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.33
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_airalarm
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
@@ -106,6 +106,13 @@
 		GAS_NITRYL			= new/datum/tlv/dangerous,
 		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
+
+
+/datum/armor/machinery_airalarm
+	energy = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/machinery/airalarm/server // No checks here.
 	TLV = list(
@@ -858,7 +865,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 
-/obj/machinery/airalarm/obj_break(damage_flag)
+/obj/machinery/airalarm/atom_break(damage_flag)
 	..()
 	update_icon()
 

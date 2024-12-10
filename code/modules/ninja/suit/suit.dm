@@ -19,7 +19,7 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 1
 	resistance_flags = LAVA_PROOF | ACID_PROOF
-	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60, BLEED = 60)
+	armor_type = /datum/armor/space_space_ninja
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	cell = null
@@ -66,8 +66,22 @@ Contents:
 	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
 
+
+/datum/armor/space_space_ninja
+	melee = 60
+	bullet = 50
+	laser = 30
+	energy = 15
+	bomb = 30
+	bio = 100
+	rad = 30
+	fire = 100
+	acid = 100
+	stamina = 60
+	bleed = 60
+
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
-	. = .()
+	. = ..()
 	if(s_initialized)
 		if(user == affecting)
 			. += "All systems operational. Current energy capacity: <B>[display_energy(cell.charge)]</B>.\n"+\
@@ -168,6 +182,7 @@ Contents:
 	n_shoes.slowdown -= 0.5
 	n_gloves = H.gloves
 	ADD_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
+	H.update_equipment_speed_mods()
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
@@ -193,6 +208,9 @@ Contents:
 		REMOVE_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 		n_gloves.candrain = FALSE
 		n_gloves.draining = FALSE
+	if (isliving(loc))
+		var/mob/living/worn_mob = loc
+		worn_mob.update_equipment_speed_mods()
 
 /obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))

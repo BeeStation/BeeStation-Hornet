@@ -67,7 +67,7 @@
 	pixel_x = 7;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+/obj/item/reagent_containers/cup/soda_cans/cola{
 	pixel_x = -7
 	},
 /turf/open/floor/iron/white,
@@ -116,7 +116,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "hQ" = (
-/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/gun/energy/recharge/kinetic_accelerator,
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
@@ -511,7 +511,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "SR" = (
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8

@@ -81,7 +81,8 @@
 	var/mob/camera/ai_eye/eyeobj
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
+	//Default value of camera acceleration
+	var/acceleration = 0
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
@@ -633,8 +634,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		if("Crew Member")
 			var/list/personnel_list = list()
 
-			for(var/datum/data/record/record_datum in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[record_datum.fields["name"]]: [record_datum.fields["rank"]]"] = record_datum.fields["character_appearance"]//Pull names, rank, and image.
+			for(var/datum/record/crew/record in GLOB.manifest.locked)//Look in data core locked.
+				personnel_list["[record.name]: [record.rank]"] = record.character_appearance//Pull names, rank, and image.
 
 			if(!length(personnel_list))
 				alert("No suitable records found. Aborting.")
@@ -818,12 +819,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if (ishuman(speaker))
-		var/mob/living/carbon/human/S = speaker
-		if(S.wear_id)
-			var/obj/item/card/id/I = S.wear_id.GetID()
-			if(I)
-				jobpart = "[I.assignment]"
+	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
+		if(iscarbon(speaker))
+			var/mob/living/carbon/human/living_speaker = speaker
+			if(living_speaker.wear_id)
+				var/obj/item/card/id/has_id = living_speaker.wear_id.GetID()
+				if(has_id)
+					jobpart = "[has_id.assignment]"
+		if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
+			var/obj/effect/overlay/holo_pad_hologram/holo = speaker
+			if(holo.Impersonation?.job)
+				jobpart = "[holo.Impersonation.job]"
+			else if(usr?.job) // not great, but AI holograms have no other usable ref
+				jobpart = "[usr.job]"
 
 	// duplication part from `game/say.dm` to make a language icon
 	var/language_icon = ""

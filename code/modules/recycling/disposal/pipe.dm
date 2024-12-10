@@ -9,15 +9,26 @@
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	dir = NONE			// dir will contain dominant direction for junction pipes
 	max_integrity = 200
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_disposalpipe
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	damage_deflection = 10
 	var/dpdir = NONE					// bitmask of pipe directions
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
+
+
+/datum/armor/structure_disposalpipe
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/structure/disposalpipe/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
@@ -114,13 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 /obj/structure/disposalpipe/contents_explosion(severity, target)
 	for(var/obj/structure/disposalholder/H in src)
 		H.contents_explosion(severity, target)
-
-
-/obj/structure/disposalpipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10)
-		return 0
-	return ..()
-
 
 //welding tool: unfasten and convert to obj/disposalconstruct
 /obj/structure/disposalpipe/welder_act(mob/living/user, obj/item/I)

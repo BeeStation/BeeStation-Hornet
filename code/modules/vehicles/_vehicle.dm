@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "error"
 	max_integrity = 300
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/obj_vehicle
 	density = TRUE
 	anchored = FALSE
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
@@ -25,6 +25,15 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
+
+/datum/armor/obj_vehicle
+	melee = 30
+	bullet = 30
+	laser = 30
+	bomb = 30
+	fire = 60
+	acid = 60
+
 /obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
 		return 1
@@ -44,7 +53,7 @@
 	. = ..()
 	if(resistance_flags & ON_FIRE)
 		. += "<span class='warning'>It's on fire!</span>"
-	var/healthpercent = obj_integrity/max_integrity * 100
+	var/healthpercent = atom_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
 			. += "It looks slightly damaged."

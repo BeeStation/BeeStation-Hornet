@@ -37,14 +37,14 @@
 	. = ..()
 	if(user.a_intent == INTENT_HARM)
 		return
-	if(obj_integrity >= max_integrity)
+	if(atom_integrity >= max_integrity)
 		balloon_alert(user, "it doesn't need repairs!")
 		return TRUE
 	to_chat(user, "<span class='notice'>You start to repair [name]...</span>")
 	if(!tool.use_tool(src, user, 4 SECONDS, amount = 0, volume=50))
 		return TRUE
 	to_chat(user, "<span class='notice'>You finish to repair [name]...</span>")
-	obj_integrity = max_integrity
+	atom_integrity = max_integrity
 	set_machine_stat(machine_stat & ~BROKEN)
 	update_appearance()
 	return TRUE

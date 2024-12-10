@@ -34,7 +34,7 @@
 	icon = 'icons/obj/money_machine.dmi'
 	icon_state = "bogdanoff"
 	layer = TABLE_LAYER //So that the crate inside doesn't appear underneath
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_checkoutmachine
 	density = TRUE
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
@@ -53,6 +53,16 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
+
+/datum/armor/structure_checkoutmachine
+	melee = 30
+	bullet = 50
+	laser = 50
+	energy = 100
+	bomb = 100
+	fire = 100
+	acid = 80
+
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
 	bogdanoff = user
 	add_overlay("flaps")
@@ -61,7 +71,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	addtimer(CALLBACK(src, PROC_REF(startUp)), 50)
 	player_modifier = length(GLOB.player_list)
 	max_integrity = min(300+player_modifier*15, 600)
-	obj_integrity = max_integrity
+	atom_integrity = max_integrity
 	calculate_runaway_condition()
 
 	existing_machines++
@@ -69,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
 /obj/structure/checkoutmachine/examine(mob/living/user)
 	. = ..()
-	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [obj_integrity]</b>.</span>"
+	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [atom_integrity]</b>.</span>"
 
 /obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id))
@@ -91,7 +101,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		return ..()
 
 /obj/structure/checkoutmachine/proc/calculate_runaway_condition()
-	next_health_to_teleport = obj_integrity - RUN_AWAY_THRESHOLD_HP - clamp((20-player_modifier)*10, 0, 100)
+	next_health_to_teleport = atom_integrity - RUN_AWAY_THRESHOLD_HP - clamp((20-player_modifier)*10, 0, 100)
 	/* the less player you have, it will less run away:
 		[1 pop] 315-75-dead
 		[5 pop] 375-135-dead
@@ -216,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		var/link = FOLLOW_LINK(M, src)
 		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
 
-	if(obj_integrity>25)
+	if(atom_integrity>25)
 		next_health_to_teleport -= round(max_integrity/60)
 		take_damage(round(max_integrity/60)) // self-damage for self-destruction
 
@@ -228,7 +238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		Move(get_step(src, anydir), anydir)
 
 	// Oh no, it RUNS AWAY!!!
-	if(obj_integrity && obj_integrity < next_health_to_teleport) // checks if obj_integrity is positive first
+	if(atom_integrity && atom_integrity < next_health_to_teleport) // checks if atom_integrity is positive first
 		calculate_runaway_condition()
 		var/turf/targetturf
 		for(var/i in 1 to 100) // teleporting across z-levels is painful
