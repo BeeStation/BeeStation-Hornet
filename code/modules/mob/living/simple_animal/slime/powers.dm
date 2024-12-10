@@ -244,7 +244,7 @@
 		M.maxHealth = round(M.maxHealth * 1.3)
 		M.health = M.maxHealth
 	if(transformeffects & SLIME_EFFECT_PINK)
-		M.grant_language(/datum/language/common, TRUE, TRUE)
+		M.grant_language(/datum/language/common)
 		var/datum/language_holder/LH = M.get_language_holder()
 		LH.selected_language = /datum/language/common
 	if(transformeffects & SLIME_EFFECT_BLUESPACE)

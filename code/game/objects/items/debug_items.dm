@@ -359,8 +359,8 @@
 	. = ..()
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
-	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
-	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	grant_all_languages(source = "debug")
+	user.grant_language(/datum/language/metalanguage, source = "debug")
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
