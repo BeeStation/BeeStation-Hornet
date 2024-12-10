@@ -3,8 +3,6 @@
 	var/list/general = list()
 	/// This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/list/locked = list()
-	//List used entirely just for cloning.
-	var/list/cloning = list()
 	/// Total number of security rapsheet prints. Changes the header.
 	var/print_count = 0
 

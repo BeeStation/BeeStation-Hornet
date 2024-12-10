@@ -194,6 +194,9 @@
 /datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
+/datum/species/ethereal/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
+
 /datum/species/ethereal/get_features()
 	var/list/features = ..()
 
