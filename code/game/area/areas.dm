@@ -646,5 +646,5 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
 
-/area/proc/get_turf_textures()
+/area/proc/get_area_textures()
 	return list()
