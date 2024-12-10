@@ -51,9 +51,9 @@
 		"stash_[REF(src)]",
 		overlay,
 		NONE,
-		stash_owner
+		stash_owner.current
 	)
-	alt_appearance.show_to(stash_owner)
+	alt_appearance.show_to(stash_owner.current)
 	weakref_alt_hud = WEAKREF(alt_appearance)
 
 /datum/component/stash/proc/transfer_mind(datum/source, mob/old_mob, mob/new_mob)
