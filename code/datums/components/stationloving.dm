@@ -66,7 +66,7 @@
 	return COMPONENT_BLOCK_MARK_RETRIEVAL
 
 /datum/component/stationloving/proc/in_bounds(is_retrying = FALSE)
-	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
+	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/escape_pod/pod_1, /area/shuttle/escape_pod/pod_2, /area/shuttle/escape_pod/pod_3, /area/shuttle/escape_pod/pod_4))
 	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
 	var/turf/T = get_turf(parent)
 	if(!T)
