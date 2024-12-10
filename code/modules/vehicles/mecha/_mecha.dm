@@ -23,7 +23,7 @@
 	icon = 'icons/mecha/mecha.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 300
-	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/sealed_mecha
 	movedelay = 1 SECONDS
 	force = 5
 	move_force = MOVE_FORCE_VERY_STRONG
@@ -178,6 +178,14 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
+
+/datum/armor/sealed_mecha
+	melee = 20
+	bullet = 10
+	bomb = 10
+	fire = 100
+	acid = 100
+
 /obj/item/radio/mech //this has to go somewhere
 	subspace_transmission = TRUE
 
@@ -313,9 +321,9 @@
 		normal_step_energy_drain = 500
 		step_energy_drain = normal_step_energy_drain
 	if(capacitor)
-		armor = armor.modifyRating(energy = (capacitor.rating * 5)) //Each level of capacitor protects the mech against emp by 5%
-	else //because we can still be hit without a cap, even if we can't move
-		armor = armor.setRating(energy = 0)
+		var/datum/armor/stock_armor = get_armor_by_type(armor_type)
+		var/initial_energy = stock_armor.get_rating(ENERGY)
+		set_armor_rating(ENERGY, initial_energy + (capacitor.rating * 5))
 
 
 ////////////////////////

@@ -157,7 +157,7 @@
 	icon_deny = "mining-deny"
 	prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
 	//Direct mining tools go here
-		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
+		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/recharge/kinetic_accelerator,							500),
 		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
