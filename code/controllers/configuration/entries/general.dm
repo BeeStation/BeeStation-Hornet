@@ -610,6 +610,9 @@
 	min_val = 0
 	max_val = 1
 
+/datum/config_entry/number/autotransfer_force_call
+	config_entry_value = 60000
+
 /datum/config_entry/flag/respect_upstream_bans
 
 /datum/config_entry/flag/respect_upstream_permabans
