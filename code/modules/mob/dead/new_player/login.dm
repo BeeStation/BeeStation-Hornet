@@ -17,6 +17,9 @@
 	if(!. || !client)
 		return FALSE
 
+	// Try to re-feed them the lobby music (for return to lobby)
+	SSmusic.feed_lobby_music(client)
+
 	var/motd = global.config.motd
 	if(motd)
 		to_chat(src, "<div class=\"motd\">[motd]</div>", handle_whitespace=FALSE, allow_linkify = TRUE)
@@ -29,8 +32,6 @@
 		to_chat(src, "<span class='notice'><b>Server Notice:</b>\n \t [CONFIG_GET(string/soft_popcap_message)]</span>", allow_linkify = TRUE)
 
 	sight |= SEE_TURFS
-
-	client.playtitlemusic()
 
 	// Check if user should be added to interview queue
 	if (!client.holder && CONFIG_GET(flag/panic_bunker) && CONFIG_GET(flag/panic_bunker_interview) && !(client.ckey in GLOB.interviews.approved_ckeys))

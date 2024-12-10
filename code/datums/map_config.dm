@@ -44,6 +44,14 @@
 	var/list/skipped_tests
 
 	//======
+	// Music Settings
+	//======
+
+	/// List of title music to force for this map, or null if uninitialised
+	/// The music in here should be the NAME assigned to the song, for example title0 is "Endless Space"
+	var/list/title_music
+
+	//======
 	// Starlight Settings
 	//======
 
@@ -177,6 +185,8 @@
 
 	starlight_mode = json["starlight"] || STARLIGHT_MODE_STARLIGHT
 	cycle_colours = json["starlight_colours"] || null
+
+	title_music = json["title_music"] || null
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
 	allow_night_lighting = json["allow_night_lighting"] != FALSE
