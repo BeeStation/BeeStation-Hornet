@@ -193,3 +193,8 @@ libprof.so
 
 # Define sanity output
 define_sanity_output.txt
+
+
+# ezdb
+/db/
+/config/ezdb.txt
