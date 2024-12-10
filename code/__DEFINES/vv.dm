@@ -32,8 +32,7 @@
 #define VV_MSG_EDITED "<br><font size='1' color='red'><b>Var Edited</b></font>"
 #define VV_MSG_DELETED "<br><font size='1' color='red'><b>Deleted</b></font>"
 
-#define VV_NORMAL_LIST_NO_EXPAND_THRESHOLD 50
-#define VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD 150
+#define VV_BIG_SIZED_LIST_THRESHOLD 50
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
 #define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
@@ -45,6 +44,9 @@
 #define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
 #define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
 #define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
+//! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
+#define VV_HREF_SPECIAL(dmlist_origin_ref, href_action, text, list_index, dmlist_varname) "<a href='?_src_=vars;[HrefToken()];[href_action]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
+#define VV_HREF_SPECIAL_MENU(dmlist_origin_ref, href_action, dmlist_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname]"
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
@@ -70,6 +72,9 @@
 #define VV_HK_LIST_ERASE_DUPES "listdupes"
 #define VV_HK_LIST_SHUFFLE "listshuffle"
 #define VV_HK_LIST_SET_LENGTH "listlen"
+
+// I exist alone here just for special list edit. God, why.
+#define VV_HK_DO_LIST_EDIT "do_vv_list_edit"
 
 // vv_do_basic() keys
 #define VV_HK_BASIC_EDIT "datumedit"
@@ -182,3 +187,42 @@
 
 /// ALWAYS render a reduced list, useful for fuckoff big datums that need to be condensed for the sake of client load
 #define VV_ALWAYS_CONTRACT_LIST (1<<0)
+#define VV_READ_ONLY (1<<1)
+
+
+#define VV_LIST_PROTECTED (1) /// Can not vv the list. Doing vv this list is not safe.
+#define VV_LIST_READ_ONLY (2) /// Can vv the list, but can not edit.
+#define VV_LIST_EDITABLE (3) /// Can vv the list, and edit.
+
+// Becomes read only at live, editable at debug, dynamically
+#ifdef DEBUG
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (3)
+#else
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (2)
+#endif
+
+/// A list of all the special byond lists that need to be handled different by vv.
+/// manually adding var name is recommanded.
+GLOBAL_LIST_INIT(vv_special_lists, list(
+	// /datum
+	"vars" = VV_LIST_READ_ONLY,
+	// /atom
+	"overlays" = VV_LIST_EDITABLE,
+	"underlays" = VV_LIST_EDITABLE,
+	"vis_contents" = VV_LIST_EDITABLE,
+	"vis_locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
+	"contents" = VV_LIST_EDITABLE,
+	"locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
+	"verbs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE, // verb is not safe to edit in live server
+	"filters" = VV_LIST_PROTECTED, // This is not good to change in vv, yet.
+	// /client
+	"bounds" = VV_LIST_PROTECTED, // DM document says it's read-only. Better not to edit this.
+	"images" = VV_LIST_EDITABLE,
+	"screen" = VV_LIST_EDITABLE,
+))
+// NOTE: this is highly attached to how /datum/vv_ghost works.
+
+
+#ifndef DEBUG
+GLOBAL_PROTECT(vv_special_lists) // changing this in live server is a bad idea
+#endif
