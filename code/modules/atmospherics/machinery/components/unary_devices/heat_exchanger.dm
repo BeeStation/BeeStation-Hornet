@@ -32,7 +32,7 @@
 		icon_state = "he0"
 	PIPING_LAYER_SHIFT(src, piping_layer)
 
-/obj/machinery/atmospherics/components/unary/heat_exchanger/atmosinit()
+/obj/machinery/atmospherics/components/unary/heat_exchanger/atmos_init()
 	var/obj/machinery/atmospherics/components/unary/heat_exchanger/partner = partner_ref?.resolve()
 	if(!partner)
 		partner_ref = null
@@ -72,8 +72,8 @@
 		var/combined_energy = partner_air_contents.return_temperature()*other_air_heat_capacity + air_heat_capacity*air_contents.return_temperature()
 
 		var/new_temperature = combined_energy/combined_heat_capacity
-		air_contents.set_temperature(new_temperature)
-		partner_air_contents.set_temperature(new_temperature)
+		air_contents.temperature = (new_temperature)
+		partner_air_contents.temperature = (new_temperature)
 
 	if(abs(old_temperature-air_contents.return_temperature()) > 1)
 		update_parents()

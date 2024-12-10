@@ -48,9 +48,6 @@ jobs:
 #      - name: Install dreamluau
 #        run: |
 #          bash tools/ci/install_dreamluau.sh
-      - name: Install auxmos
-        run: |
-          bash tools/ci/install_auxmos.sh
       - name: Configure version
         run: |
           echo "BYOND_MAJOR=${{ inputs.major }}" >> $GITHUB_ENV

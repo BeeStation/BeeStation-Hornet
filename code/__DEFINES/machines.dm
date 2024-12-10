@@ -225,12 +225,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 
 #define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
-// Circulator defines
-// ---------------------------------------------------
-
-#define CIRCULATOR_HOT 0
-#define CIRCULATOR_COLD 1
-
 // Particle Accelerator defines
 // ---------------------------------------------------
 

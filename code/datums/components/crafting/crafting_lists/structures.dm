@@ -120,3 +120,11 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
+/datum/crafting_recipe/air_sensor
+	name = "Monitored Air Sensor"
+	result = /obj/item/air_sensor
+	reqs = list(
+		/obj/item/analyzer = 1,
+		/obj/item/stack/sheet/iron = 1,
+		)
+	blacklist = list(/obj/item/analyzer/ranged)

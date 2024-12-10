@@ -91,7 +91,6 @@
 		GM = new
 	. = ..()
 	air = GM
-	update_air_ref(2)
 	return
 
 /turf/open/floor/plating/lavaland_baseturf
@@ -149,7 +148,6 @@
 		GM = new
 	. = ..()
 	air = GM
-	update_air_ref(2)
 	return
 
 /turf/open/floor/plating/asteroid/airless
@@ -207,7 +205,7 @@
 /turf/open/floor/plating/asteroid/snow/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/plating/asteroid/snow/temperatre
+/turf/open/floor/plating/asteroid/snow/temperate
 	initial_gas_mix = "o2=22;n2=82;TEMP=255.37"
 
 /turf/open/floor/plating/asteroid/snow/atmosphere
