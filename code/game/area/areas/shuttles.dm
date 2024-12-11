@@ -6,7 +6,7 @@
 	name = "Shuttle"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	area_flags = NONE

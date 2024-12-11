@@ -4,7 +4,7 @@
 	icon_state = "away"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 
 //Survival Capsule

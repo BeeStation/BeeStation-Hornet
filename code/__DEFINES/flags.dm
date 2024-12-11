@@ -111,6 +111,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HIDDEN_STASH_LOCATION		(1<<10)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
 #define REMOTE_APC					(1<<11)
+/// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
+#define NO_GRAVITY 					(1<<12)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
