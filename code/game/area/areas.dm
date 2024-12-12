@@ -60,7 +60,8 @@
 	var/power_light = TRUE
 	var/power_environ = TRUE
 
-	var/has_gravity = FALSE
+	/// The default gravity for the area
+	var/default_gravity = ZERO_GRAVITY
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
 	var/teleport_restriction = TELEPORT_ALLOW_ALL
 

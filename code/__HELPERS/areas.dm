@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		newA = new area_choice
 		newA.setup(str)
 		newA.set_dynamic_lighting()
-		newA.has_gravity = oldA.has_gravity
+		newA.default_gravity = oldA.default_gravity
 	else
 		newA = area_choice
 
