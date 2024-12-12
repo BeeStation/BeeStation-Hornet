@@ -513,3 +513,30 @@
 	. = ..()
 	AddComponent(/datum/component/toggle_icon)
 	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/suit/armor/marine
+	name = "\improper M3 pattern marine armor"
+	desc = "A standard Colonial Marines M3 Pattern Chestplate. Protects the chest from ballistic rounds, bladed objects and accidents. It has a small leather pouch strapped to it for limited storage."
+	icon_state = "marine_suit"
+	item_state = "marine_suit"
+	armor_type = /datum/armor/marine_suit
+	slowdown = 0.05
+
+/datum/armor/marine_suit
+	melee = 25
+	bullet = 30
+	laser = 0
+	energy = 10
+	bomb = 10
+	bio = 0
+	rad = 0
+	fire = 20
+	acid = 50
+	stamina = 25
+	bleed = 20
+
+/obj/item/clothing/suit/armor/centcom_formal/marine
+	name = "marine officer dress blues jacket"
+	desc = "The jacket of the legendary Marine dress blues, virtually unchanged since the 19th century. Features the sleek dark design of the uniform worn by a commissioned officer."
+	icon_state = "o_jacket_su"
+	item_state = "o_jacket_su"
