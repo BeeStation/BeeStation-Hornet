@@ -506,8 +506,7 @@
 		message_admins("Could not find ai landmark for [src]. Yell at a mapper! We are spawning them at their current location.")
 		landmark_loc += loc
 
-	if(client)
-		stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	client?.tgui_panel?.stop_lobby_music()
 
 	if(!transfer_after)
 		mind.active = FALSE

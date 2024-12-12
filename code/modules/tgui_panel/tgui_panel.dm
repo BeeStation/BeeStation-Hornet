@@ -70,9 +70,6 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		return
 	// Other setup
 	request_telemetry()
-	// Send verbs
-	if(client)
-		set_verb_infomation(client)
 	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 
 /**
@@ -109,6 +106,10 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 				),
 			),
 		))
+		// Send verbs
+		set_verb_infomation(client)
+		// Send music information
+		SSmusic.feed_music_async(client)
 		return TRUE
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]
@@ -118,6 +119,38 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 		return TRUE
 	if(cmptext(copytext(type, 1, 5), "stat"))
 		return handle_stat_message(type, payload)
+	// To mitigate exploitation, we use a voting system for audio length
+	if (type == "music/declareLength")
+		var/url = payload["url"]
+		var/length = text2num(payload["length"])
+		var/datum/audio_track/track = SSmusic.audio_tracks_by_url[url]
+		if (!track || !length)
+			return
+		track.vote_duration(client, length)
+	if (type == "music/queueEmpty")
+		needs_spatial_audio = FALSE
+	if (type == "music/onError")
+		var/uuid = text2num(payload["uuid"])
+		for (var/datum/playing_track/track in SSmusic.global_audio_tracks)
+			if (track.uuid == uuid)
+				if (!track.audio.suppressed_error)
+					message_admins("[owner_ckey] reported an error while playing song [track.audio.title]. This may be a CORS error. The errors for this song will not appear again.")
+					track.audio.suppressed_error = TRUE
+				if (track.playing_flags & PLAYING_FLAG_TITLE_MUSIC)
+					client.skip_lobby_song()
+				return
+		if (client.personal_lobby_music?.uuid == uuid)
+			client.skip_lobby_song()
+			return
+		//message_admins("[owner_ckey] reported an error while playing an unknown (UUID [uuid]). (This may be a CORS error and cannot be fixed due to being dependent on the host of the files). The errors for this song will not appear again.")
+	if (type == "music/skipLobbyMusic")
+		client.skip_lobby_song()
+	if (type == "music/synchronise")
+		if (client.personal_lobby_music)
+			client.personal_lobby_music.stop_playing_to(client)
+			client.personal_lobby_music = null
+		client.personal_lobby_music_index = 0
+		SSmusic.login_music?.internal_play_to_client(client)
 
 /**
  * public
