@@ -128,6 +128,9 @@
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
 
+/// This trait comes from when a mob is currently typing.
+#define CURRENTLY_TYPING_TRAIT "currently_typing"
+
 #define VENTCRAWLING_TRAIT "ventcrawling"
 #define SPECIES_FLIGHT_TRAIT "species-flight"
 #define NO_GRAVITY_TRAIT "no-gravity"
