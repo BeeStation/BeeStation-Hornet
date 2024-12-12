@@ -1903,6 +1903,7 @@
 #include "code\modules\admin\view_variables\topic_basic.dm"
 #include "code\modules\admin\view_variables\topic_list.dm"
 #include "code\modules\admin\view_variables\view_variables.dm"
+#include "code\modules\admin\view_variables\vv_ghost.dm"
 #include "code\modules\antagonists\eldritch.dm"
 #include "code\modules\antagonists\toddsie.dm"
 #include "code\modules\antagonists\_common\antag_datum.dm"
