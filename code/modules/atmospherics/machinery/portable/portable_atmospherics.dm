@@ -255,4 +255,17 @@
 	UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
 	holding = null
 
+
+/obj/machinery/portable_atmospherics/welder_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(user.a_intent == INTENT_HARM)
+		return FALSE //We're attacking the machine.
+
+	if(atom_integrity < max_integrity)
+		to_chat(user, "<span class='notice'>You begin welding [src] back together...</span>")
+		if(I.use_tool(src, user, 3 SECONDS, volume=50))
+			update_integrity(max_integrity)
+			to_chat(user, "<span class='notice'>You weld [src] back together.</span>")
+			return TRUE
+
 #undef PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT
