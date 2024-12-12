@@ -36,6 +36,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/inhand_x_dimension = 32
 	/// y dimension of the inhand sprite
 	var/inhand_y_dimension = 32
+	/// Worn overlay will be shifted by this along y axis
+	var/worn_y_offset = 0
 
 	//Not on /clothing because for some reason any /obj/item can technically be "worn" with enough fuckery.
 	/// If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events

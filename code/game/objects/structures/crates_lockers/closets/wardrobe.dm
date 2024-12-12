@@ -58,7 +58,7 @@
 	new /obj/item/clothing/mask/bandana/black(src)
 	new /obj/item/clothing/mask/bandana/black(src)
 	if(prob(40))
-		new /obj/item/clothing/mask/bandana/skull(src)
+		new /obj/item/clothing/mask/bandana/skull/black(src)
 	return
 
 
@@ -120,6 +120,8 @@
 		new /obj/item/clothing/shoes/sneakers/white(src)
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/head/soft(src)
+	new /obj/item/clothing/mask/bandana/white(src)
+	new /obj/item/clothing/mask/bandana/white(src)
 	return
 
 /obj/structure/closet/wardrobe/pjs
@@ -178,10 +180,7 @@
 	new /obj/item/storage/box/suitbox/wardrobe/mixed(src)
 	new /obj/item/storage/box/suitbox/wardrobe/mixed/jumpskirt(src)
 	new /obj/item/clothing/mask/bandana/red(src)
-	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/mask/bandana/blue(src)
-	new /obj/item/clothing/mask/bandana/blue(src)
-	new /obj/item/clothing/mask/bandana/gold(src)
 	new /obj/item/clothing/mask/bandana/gold(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
