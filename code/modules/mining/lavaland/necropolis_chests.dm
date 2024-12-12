@@ -49,7 +49,7 @@
 		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
-		/obj/item/staff/storm												= 5
+		/obj/item/staff/storm												= 5,
 	)
 
 	if(..())
@@ -183,7 +183,7 @@
 	name = "Memento Mori"
 	desc = "Bind your life to the pendant."
 
-/datum/action/item_action/hands_free/memento_mori/Trigger()
+/datum/action/item_action/hands_free/memento_mori/Trigger(trigger_flags)
 	var/obj/item/clothing/neck/necklace/memento_mori/MM = target
 	if(!MM.active_owner)
 		if(ishuman(owner))
@@ -847,6 +847,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		new /obj/item/dragons_blood(src)
 		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
 		new /obj/item/crusher_trophy/tail_spike(src)
+	//new /obj/item/book/granter/action/spell/sacredflame(src) It's supposed to drop from the dragon but idk if you guys want it like that tell me in the review code
 
 
 // Ghost Sword - left in for other references and admin shenanigans
@@ -1172,7 +1173,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	attack_verb_continuous = list("clubs", "beats", "pummels")
 	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
-	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
+	actions_types = list(/datum/action/item_action/vortex_recall)
 	var/power = 15 //Damage of the magic tiles
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
@@ -1267,10 +1268,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	update_icon()
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
-	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
-		friendly_fire_check = !friendly_fire_check
-		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
-		return
 	if(timer > world.time)
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport

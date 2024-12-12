@@ -161,4 +161,9 @@
 	SSradio.remove_object(src,frequency)
 	return ..()
 
+/obj/machinery/door/airlock/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)
+	// Airlocks should unlock themselves when knock is casted, THEN open up.
+	locked = FALSE
+	return ..()
+
 #undef AIRLOCK_CONTROL_RANGE

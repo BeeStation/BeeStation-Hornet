@@ -41,8 +41,9 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
 	var/list/datum/action/actions = list()
-	/// A special action? No idea why this lives here
-	var/list/datum/action/chameleon_item_actions
+	/// A list of chameleon actions we have specifically
+	/// This can be unified with the actions list
+	var/list/datum/action/item_action/chameleon/chameleon_item_actions
 
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
 	var/stat = CONSCIOUS
@@ -164,14 +165,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	/// Can this mob enter shuttles
 	var/move_on_shuttle = 1
-
-	/**
-	  * construct spells and mime spells.
-	  *
-	  * Spells that do not transfer from one mob to another and can not be lost in mindswap.
-	  * obviously do not live in the mind
-	  */
-	var/list/mob_spell_list = list()
 
 
 	/// bitflags defining which status effects can be inflicted (replaces canknockdown, canstun, etc)
