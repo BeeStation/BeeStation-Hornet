@@ -59,6 +59,8 @@
 	LoadTopicRateWhitelist()
 	LoadProtectedIDs()
 	LoadChatFilter()
+	if (fexists("[directory]/ezdb.txt"))
+		LoadEntries("ezdb.txt")
 
 	if (Master)
 		Master.OnConfigLoad()
