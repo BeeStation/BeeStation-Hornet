@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	stop_automated_movement = TRUE
 	is_flying_animal = TRUE // Immunity to chasms and landmines, etc.
 	no_flying_animation = TRUE
@@ -264,7 +264,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 
 /mob/living/simple_animal/hostile/holoparasite/CtrlClickOn(atom/target)
 	. = ..()
-	if(a_intent != INTENT_HELP && is_manifested() && isobj(target) && Adjacent(target))
+	if(combat_mode && is_manifested() && isobj(target) && Adjacent(target))
 		if(target.ui_interact(src) != FALSE) // unimplemented ui_interact returns FALSE, while implemented typically just returns... nothing.
 			to_chat(src, "<span class='notice'>You take a closer look at [costly_icon2html(target, src)] [target]...</span>")
 			return

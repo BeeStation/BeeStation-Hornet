@@ -30,7 +30,7 @@
 	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp/lia,\
 	/mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
 
-/obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/mob_lasso/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
 	var/failed = FALSE
 	if(!isliving(target))
@@ -51,7 +51,7 @@
 	if(IS_DEAD_OR_INCAP(C))
 		to_chat(user, "<span class='warning'>[target] is dead.</span>")
 		return
-	if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
+	if(!user.combat_mode && C == mob_target) //if trying to tie up previous target
 		to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
 		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
 			user.faction |= "carpboy_[user]"

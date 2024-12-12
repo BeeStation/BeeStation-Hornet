@@ -10,6 +10,8 @@
 	..()
 
 /datum/wires/dna_scanner/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/dna_scannernew/S = holder
 	if(S.panel_open)
 		return TRUE

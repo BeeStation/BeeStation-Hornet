@@ -16,21 +16,24 @@
 	throw_speed = 3
 	throw_range = 7
 	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10)
 	volume = 60
 	var/can_fill_from_container = TRUE
 	var/apply_type = PATCH
 	var/apply_method = "spray"
 	var/self_delay = 30
 	var/squirt_mode = 0
-	var/squirt_amount = 5
 	custom_price = 40
 
 /obj/item/reagent_containers/medspray/attack_self(mob/user)
 	squirt_mode = !squirt_mode
-	if(squirt_mode)
-		amount_per_transfer_from_this = squirt_amount
-	else
-		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
+	return ..()
+
+/obj/item/reagent_containers/medspray/attack_self_secondary(mob/user)
+	squirt_mode = !squirt_mode
+	return ..()
+
+/obj/item/reagent_containers/medspray/mode_change_message(mob/user)
 	to_chat(user, "<span class='notice'>You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
 
 /obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user)
@@ -122,7 +125,6 @@
 	icon_state = "hairgrowth"
 	apply_type = TOUCH
 	list_reagents = list(/datum/reagent/barbers_aid = 60)
-	squirt_amount = 1
 	squirt_mode = 1
 
 /obj/item/reagent_containers/medspray/dye
@@ -131,7 +133,6 @@
 	icon_state = "hairdye"
 	apply_type = TOUCH
 	list_reagents = list(/datum/reagent/hair_dye = 60)
-	squirt_amount = 1
 	squirt_mode = 1
 
 /obj/item/reagent_containers/medspray/spraytan
@@ -140,4 +141,4 @@
 	icon_state = "spraytan"
 	apply_type = TOUCH
 	list_reagents = list(/datum/reagent/spraytan = 55)
-	amount_per_transfer_from_this = 11
+	amount_per_transfer_from_this = 10
