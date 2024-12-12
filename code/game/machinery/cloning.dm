@@ -90,6 +90,8 @@
 	if(heal_level > 100)
 		heal_level = 100
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
+
 /obj/machinery/clonepod/attack_hand(mob/user)
 	. = ..()
 	if(.)
