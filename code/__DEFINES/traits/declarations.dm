@@ -215,13 +215,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /**
  * Item Traits
  */
-#define TRAIT_NODROP            "nodrop"
-#define TRAIT_NO_STORAGE_INSERT	"no_storage_insert" //cannot be inserted in a storage.
+#define TRAIT_NODROP "nodrop"
+/// cannot be inserted in a storage.
+#define TRAIT_NO_STORAGE_INSERT "no_storage_insert"
 #define TRAIT_SPRAYPAINTED		"spraypainted"
 #define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
 /// If this item's been fried
 #define TRAIT_FOOD_FRIED "food_fried"
-/// If this item's been made by a chef instead of spawned by the map or admins
+/// If this item's been made by a chef instead of being map-spawned or admin-spawned or such
 #define TRAIT_FOOD_CHEF_MADE "food_made_by_chef"
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
