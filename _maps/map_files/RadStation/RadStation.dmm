@@ -57069,9 +57069,6 @@
 	},
 /area/science/research)
 "scM" = (
-/obj/machinery/stasis{
-	dir = 1
-	},
 /obj/machinery/defibrillator_mount{
 	pixel_x = -32
 	},
@@ -71005,6 +71002,9 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
