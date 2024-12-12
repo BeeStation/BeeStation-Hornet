@@ -11,22 +11,18 @@
 		if(pipe.z && (!pipe.nodes || !pipe.nodes.len || (null in pipe.nodes)))
 			to_chat(usr, "Unconnected [pipe.name] located at [ADMIN_VERBOSEJMP(pipe)]")
 
-	//Manifolds
-	for(var/obj/machinery/atmospherics/pipe/manifold/pipe in GLOB.machines)
-		if(pipe.z && (!pipe.nodes || !pipe.nodes.len || (null in pipe.nodes)))
-			to_chat(usr, "Unconnected [pipe.name] located at [ADMIN_VERBOSEJMP(pipe)]")
-
 	//Pipes
-	for(var/obj/machinery/atmospherics/pipe/simple/pipe in GLOB.machines)
+	for(var/obj/machinery/atmospherics/pipe/pipe in GLOB.machines)
+		if(istype(pipe, /obj/machinery/atmospherics/pipe/smart) || istype(pipe, /obj/machinery/atmospherics/pipe/layer_manifold))
+			continue
 		if(pipe.z && (!pipe.nodes || !pipe.nodes.len || (null in pipe.nodes)))
 			to_chat(usr, "Unconnected [pipe.name] located at [ADMIN_VERBOSEJMP(pipe)]")
 
-	//Erroneous Connections, e.g. duplicate pipes
-	//This uses pipeline_expansion(), so you can detect some atmos machineries causing problems at pipenet code.
-	for (var/obj/machinery/atmospherics/AM in GLOB.machines)
-		for (var/obj/machinery/atmospherics/AMT in AM.pipeline_expansion())
-			if (!(AM in AMT.pipeline_expansion()))
-				to_chat(usr, "Errorneous connections around [AM.name]. Duplicate or rogue pipes suspected at or around [ADMIN_VERBOSEJMP(AM)]")
+	//Nodes
+	for(var/obj/machinery/atmospherics/node1 in GLOB.machines)
+		for(var/obj/machinery/atmospherics/node2 in node1.nodes)
+			if(!(node1 in node2.nodes))
+				to_chat(usr, "One-way connection in [node1.name] located at [ADMIN_VERBOSEJMP(node1)]")
 
 /client/proc/powerdebug()
 	set category = "Mapping"

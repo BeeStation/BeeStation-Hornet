@@ -69,7 +69,7 @@
 	var/turf/previous = get_turf(user)
 	var/turf/next = get_step(user, direction)
 	for (var/i in 1 to 2)
-		if (!CANATMOSPASS(next, previous))
+		if (!CANATMOSPASS(next, previous, FALSE))
 			break
 		previous = next
 		next = get_step(previous, direction)
