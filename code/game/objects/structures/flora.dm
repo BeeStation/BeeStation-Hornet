@@ -188,6 +188,20 @@
 	icon_state = "snowbush[rand(1, 6)]"
 	. = ..()
 
+//bushes but in a pot
+/obj/structure/flora/bigplant
+	name = "potted plant"
+	desc = "A large potted plant."
+	icon = 'icons/obj/flora/bigplant.dmi'
+	icon_state = "bigplant1"
+	anchored = FALSE
+	layer = ABOVE_MOB_LAYER
+	pixel_x = -17
+
+/obj/structure/flora/bigplant/Initialize()
+	icon_state = "bigplant[rand(1, 2)]"
+	. = ..()
+
 //newbushes
 
 /obj/structure/flora/ausbushes
