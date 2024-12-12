@@ -31,7 +31,7 @@
 	if(proximity) //no telekinetic hulk attack
 		return target.attack_hulk(owner)
 
-/datum/mutation/hulk/on_life()
+/datum/mutation/hulk/on_life(delta_time, times_fired)
 	if(owner.health < 0)
 		on_losing(owner)
 		to_chat(owner, "<span class='danger'>You suddenly feel very weak.</span>")

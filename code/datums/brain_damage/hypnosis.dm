@@ -39,9 +39,9 @@
 		B.objectives -= objective
 	M.remove_antag_datum(/datum/antagonist/hypnotized)
 
-/datum/brain_trauma/hypnosis/on_life()
+/datum/brain_trauma/hypnosis/on_life(delta_time, times_fired)
 	..()
-	if(prob(2))
+	if(DT_PROB(1, delta_time))
 		switch(rand(1,2))
 			if(1)
 				to_chat(owner, "<i>...[LOWER_TEXT(hypnotic_phrase)]...</i>")
