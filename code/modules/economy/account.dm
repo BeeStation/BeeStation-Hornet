@@ -21,6 +21,9 @@
 	/// bonus from each department.
 	var/list/bonus_per_department = list()
 
+	///List with a transaction history for NT pay app
+	var/list/transaction_history = list()
+
 /datum/bank_account/New(newname, job)
 	account_holder = newname
 	account_job = job
@@ -57,18 +60,44 @@
 /datum/bank_account/proc/has_money(amt)
 	return account_balance >= amt
 
-/datum/bank_account/proc/adjust_money(amt)
-	if((amt < 0 && has_money(-amt)) || amt > 0)
-		_adjust_money(amt)
+/**
+ * Adjusts the balance of a bank_account as well as sanitizes the numerical input.
+ * Arguments:
+ * * amount - the quantity of credits that will be written off if the value is negative, or added if it is positive.
+ * * reason - the reason for the appearance or loss of money
+ */
+/datum/bank_account/proc/adjust_money(amount, reason)
+	if((amount < 0 && has_money(-amount)) || amount > 0)
+		_adjust_money(amount)
+		if(reason)
+			add_log_to_history(amount, reason)
 		return TRUE
 	return FALSE
 
-/datum/bank_account/proc/transfer_money(datum/bank_account/from, amount)
+/*
+ * Arguments:
+ * * datum/bank_account/from - The bank account that is sending the credits to this bank_account datum.
+ * * amount - the quantity of credits that are being moved between bank_account datums.
+ * * transfer_reason - override for adjust_money reason. Use if no default reason(Transfer to/from Name Surname).
+ */
+
+/datum/bank_account/proc/transfer_money(datum/bank_account/from, amount, transfer_reason)
 	if(from.has_money(amount))
-		adjust_money(amount)
+		var/reason_to = "Transfer: From [from.account_holder]"
+		var/reason_from = "Transfer: To [account_holder]"
+
+		if(istype(from, /datum/bank_account/department))
+			reason_to = "Nanotrasen: Salary"
+			reason_from = ""
+
+		if(transfer_reason)
+			reason_to = istype(src, /datum/bank_account/department) ? "" : transfer_reason
+			reason_from = transfer_reason
+
+		adjust_money(amount, reason_to)
+		from.adjust_money(-amount, reason_from)
 		SSblackbox.record_feedback("amount", "credits_transferred", amount)
 		log_econ("[amount] credits were transferred from [from.account_holder]'s account to [src.account_holder]")
-		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
 
@@ -88,7 +117,7 @@
 		else
 			money_to_transfer += bonus_per_department[D]
 		if(free)
-			adjust_money(money_to_transfer)
+			adjust_money(money_to_transfer, "Nanotrasen: Shift Payment")
 			SSblackbox.record_feedback("amount", "free_income", money_to_transfer)
 			log_econ("[money_to_transfer] credits were given to [src.account_holder]'s account from income.")
 			if(bonus_per_department[D] > 0) //Get rid of bonus if we have one
@@ -151,6 +180,19 @@
 
 /datum/bank_account/proc/report_currency(type)
 	return custom_currency[type]
+
+/**
+ * Add log to transactions history. Deletes the oldest log when the history has more than 20 entries.
+ * Main format: Category: Reason in Reason. Example: Vending: Machinery Using
+ * Arguments:
+ * * adjusted_money - How much was added, negative values removing cash.
+ * * reason - The reason of interact with balance, for example, "Bought chips" or "Payday".
+ */
+/datum/bank_account/proc/add_log_to_history(adjusted_money, reason)
+	transaction_history += list(list(
+		"adjusted_money" = adjusted_money,
+		"reason" = reason,
+	))
 
 /datum/bank_account/department
 	account_holder = "Guild Credit Agency"
