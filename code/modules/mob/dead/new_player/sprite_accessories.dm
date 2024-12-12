@@ -2529,25 +2529,59 @@
 	icon_state = "who cares fuck you" // In order to pull the chassis correctly, we need AN icon_state(see line 36-39). It doesn't have to be useful, because it isn't used.
 	color_src = 0
 
-/datum/sprite_accessory/insect_type
-	icon = null
-	icon_state = "NULL"
-	color_src = 0
-
-/datum/sprite_accessory/insect_type/fly
-	name = "Common Fly"
-	limbs_id = "fly"
-	gender_specific = FALSE
-
-/datum/sprite_accessory/insect_type/bee
-	name = "Hoverfly"
-	limbs_id = "bee"
-	gender_specific = TRUE
-
-/datum/sprite_accessory/ipc_chassis/mcgreyscale
+/datum/sprite_accessory/ipc_chassis/greyscale_morpheuscybernetics
 	name = "Morpheus Cyberkinetics (Custom)"
-	limbs_id = "mcgipc"
+	limbs_id = "greyscale_mcipc"
 	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_bishopcyberkinetics
+	name = "Bishop Cyberkinetics (Custom)"
+	limbs_id = "greyscale_bshipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_bishopcyberkinetics2
+	name = "Bishop Cyberkinetics 2.0 (Custom)"
+	limbs_id = "greyscale_bs2ipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_hephaestussindustries
+	name = "Hephaestus Industries (Custom)"
+	limbs_id = "greyscale_hsiipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_hephaestussindustries2
+	name = "Hephaestus Industries 2.0 (Custom)"
+	limbs_id = "greyscale_hi2ipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_hellguardmunitions
+	name = "Shellguard Munitions Standard Series (Custom)"
+	limbs_id = "greyscale_sgmipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_wardtakahashimanufacturing
+	name = "Ward-Takahashi Manufacturing (Custom)"
+	limbs_id = "greyscale_wtmipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_xionmanufacturinggroup
+	name = "Xion Manufacturing Group (Custom)"
+	limbs_id = "greyscale_xmgipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_xionmanufacturinggroup2
+	name = "Xion Manufacturing Group 2.0 (Custom)"
+	limbs_id = "greyscale_xm2ipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/greyscale_zenghupharmaceuticals
+	name = "Zeng-Hu Pharmaceuticals (Custom)"
+	limbs_id = "greyscale_zhpipc"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/ipc_chassis/morpheuscybernetics
+	name = "Morpheus Cyberkinetics"
+	limbs_id = "mcipc"
 
 /datum/sprite_accessory/ipc_chassis/bishopcyberkinetics
 	name = "Bishop Cyberkinetics"
@@ -2584,6 +2618,21 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+/datum/sprite_accessory/insect_type
+	icon = null
+	icon_state = "NULL"
+	color_src = 0
+
+/datum/sprite_accessory/insect_type/fly
+	name = "Common Fly"
+	limbs_id = "fly"
+	gender_specific = FALSE
+
+/datum/sprite_accessory/insect_type/bee
+	name = "Hoverfly"
+	limbs_id = "bee"
+	gender_specific = TRUE
 
 //Psyphoza caps
 
