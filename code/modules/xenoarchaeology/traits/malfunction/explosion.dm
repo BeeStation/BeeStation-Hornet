@@ -22,7 +22,7 @@
 		return
 	var/obj/obj_parent = component_parent.parent
 	//Make the artifact robust so it doesn't destroy itself
-	obj_parent.armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 500, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10)
+	obj_parent.set_armor_rating(BOMB, 500)
 	//Build indicator appearance
 	exploding_indicator = new()
 	exploding_indicator.appearance = mutable_appearance('icons/obj/xenoarchaeology/xenoartifact.dmi', "explosion_warning", plane = LOWEST_EVER_PLANE)
