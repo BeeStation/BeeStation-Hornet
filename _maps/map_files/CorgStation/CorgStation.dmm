@@ -3378,9 +3378,6 @@
 /area/science/test_area)
 "aQi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/item/radio/intercom{
-	pixel_x = -26
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -8872,6 +8869,36 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
+"cHk" = (
+/obj/structure/table/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/item/folder/yellow{
+	pixel_x = -4
+	},
+/obj/item/pen{
+	pixel_x = -4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "atmoslock";
+	name = "Atmospherics Lockdown Blast Door"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/machinery/door/window/eastleft{
+	name = "Engineering Autolathe";
+	req_access_txt = "32";
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "cHl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -10847,6 +10874,9 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "dqF" = (
@@ -19548,14 +19578,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/security/brig)
-"gmj" = (
-/obj/machinery/camera/directional/east,
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/science/shuttle)
 "gmt" = (
 /obj/docking_port/stationary{
 	dwidth = 1;
@@ -20087,6 +20109,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "gvN" = (
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "gvT" = (
@@ -23406,7 +23429,8 @@
 	name = "Service Hall";
 	req_one_access_txt = "22;25;26;28;35;37;38;46"
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron,
 /area/hallway/secondary/service)
 "hyr" = (
 /obj/effect/turf_decal/tile/red{
@@ -30893,6 +30917,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/science/shuttle)
 "jTw" = (
@@ -33189,6 +33214,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"kFb" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "kFB" = (
 /obj/machinery/camera/directional/west,
 /obj/machinery/light{
@@ -34427,6 +34457,8 @@
 	dir = 4;
 	pixel_y = -5
 	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "lbV" = (
@@ -37454,6 +37486,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics/cloning)
+"lZz" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 29;
+	pixel_y = -2
+	},
+/turf/open/floor/iron,
+/area/science/shuttle)
 "lZI" = (
 /obj/item/flashlight/glowstick/cyan,
 /obj/structure/cable/yellow{
@@ -40687,6 +40730,8 @@
 "mVc" = (
 /obj/structure/table,
 /obj/machinery/fax/service,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "mVi" = (
@@ -42912,17 +42957,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
-"nKp" = (
-/obj/item/radio/intercom{
-	pixel_x = 29;
-	pixel_y = -2
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/science/shuttle)
 "nKB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -44849,13 +44883,9 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "oqq" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/drone,
-/obj/item/multitool,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/item/book/manual/wiki/sopservice,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "oqF" = (
@@ -59598,6 +59628,20 @@
 /obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/iron/dark,
 /area/security/main)
+"tmR" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Engidesk";
+	name = "engineering Security Door"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/machinery/door/window/eastright{
+	dir = 8;
+	req_access_txt = "32";
+	name = "Engineering Autolathe"
+	},
+/turf/open/floor/iron/dark,
+/area/hallway/primary/fore)
 "tmY" = (
 /obj/machinery/camera/directional/north,
 /obj/machinery/light{
@@ -61299,6 +61343,8 @@
 /area/engine/atmos)
 "tQE" = (
 /obj/machinery/rnd/production/protolathe/department/service,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "tQQ" = (
@@ -62498,12 +62544,12 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "ukb" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = -26
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -72191,7 +72237,15 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "xsn" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table,
+/obj/item/storage/toolbox/drone,
+/obj/item/multitool,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/item/book/manual/wiki/sopservice,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "xsp" = (
@@ -99957,9 +100011,9 @@ fdU
 amI
 jTo
 pwC
-gmj
-nKp
 oEa
+oEa
+lZz
 oEa
 oEa
 oEa
@@ -100214,8 +100268,8 @@ aMd
 amI
 nIH
 cpe
-nIH
-nIH
+tmR
+cHk
 ihY
 klB
 ihY
@@ -107972,7 +108026,7 @@ lzJ
 fKx
 hzU
 oqq
-xsn
+kFb
 gvN
 mVc
 fuh
