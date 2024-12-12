@@ -157,7 +157,7 @@
 				replace_tank(usr, FALSE)
 				. = TRUE
 		if("toggle_filter")
-			scrubbing ^= params["val"]
+			scrubbing ^= gas_id2path(params["val"])
 			. = TRUE
 	if(.)
 		update_appearance()
