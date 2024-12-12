@@ -51,7 +51,8 @@
 
 /obj/machinery/air_sensor/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use a multitool to link it to an injector, vent, or air alarm, or reset its ports.</span>"
+	. += "<span class='notice'>Use a multitool to link it to an injector, vent, or air alarm.</span>"
+	. += "<span class='notice'>You can use a screwdriver to reset its ports.</span>"
 	. += "<span class='notice'>Click with hand to turn it off.</span>"
 
 /obj/machinery/air_sensor/attack_hand(mob/living/user, list/modifiers)
@@ -79,7 +80,7 @@
 		connected_airalarm = null
 
 ///click with multi tool to disconnect everything
-/obj/machinery/air_sensor/multitool_act(mob/living/user, obj/item/tool)
+/obj/machinery/air_sensor/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
 	balloon_alert(user, "reset ports")
 	reset()
