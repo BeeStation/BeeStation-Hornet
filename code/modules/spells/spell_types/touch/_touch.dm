@@ -188,7 +188,7 @@
 	/// A weakref to what spell made us.
 	var/datum/weakref/spell_which_made_us
 
-/obj/item/melee/touch_attack/Initialize(mapload, datum/action/cooldown/spell/spell)
+/obj/item/melee/touch_attack/Initialize(mapload, datum/action/spell/spell)
 	. = ..()
 
 	if(spell)

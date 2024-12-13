@@ -3,14 +3,14 @@
 /datum/action/changeling/sting//parent path, not meant for users afaik
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
+	toggleable = TRUE
 	var/stealthy = FALSE
 
 /datum/action/changeling/sting/on_activate(mob/user, atom/target)
-	if(!changeling.chosen_sting)
-		set_sting(user)
-	else
-		unset_sting(user)
-	return
+	set_sting(user)
+
+/datum/action/changeling/sting/on_deactivate(mob/user, atom/target)
+	unset_sting(user)
 
 /datum/action/changeling/sting/proc/set_sting(mob/user)
 	to_chat(user, "<span class='notice'>We prepare our sting. Alt+click or click the middle mouse button on a target to sting them.</span>")
@@ -76,9 +76,6 @@
 
 /datum/action/changeling/sting/transformation/on_activate(mob/user, atom/target)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(changeling.chosen_sting)
-		unset_sting(user)
-		return
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return

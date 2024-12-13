@@ -87,7 +87,7 @@
 		return
 	if(!IS_HERETIC(owner))
 		return FALSE
-	if(!HAS_TRAIT(target, TRAIT_LIVING_HEART))
+	if(!HAS_TRAIT(master, TRAIT_LIVING_HEART))
 		return FALSE
 	if(radial_open)
 		return FALSE
@@ -168,6 +168,6 @@
 		return FALSE
 	if(!IS_HERETIC(owner))
 		return FALSE
-	if(!HAS_TRAIT(target, TRAIT_LIVING_HEART))
+	if(!HAS_TRAIT(master, TRAIT_LIVING_HEART))
 		return FALSE
 	return TRUE

@@ -90,22 +90,18 @@
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
-		off_action.target = user
 		off_action.Grant(user)
 		actions += off_action
 
 	if(jump_action)
-		jump_action.target = user
 		jump_action.Grant(user)
 		actions += jump_action
 
 	if(move_up_action)
-		move_up_action.target = user
 		move_up_action.Grant(user)
 		actions += move_up_action
 
 	if(move_down_action)
-		move_down_action.target = user
 		move_down_action.Grant(user)
 		actions += move_down_action
 
@@ -340,12 +336,12 @@
 	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/on_activate()
-	if(!target || !isliving(target))
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/C = target
+	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
-	console.remove_eye_control(target)
+	console.remove_eye_control(owner)
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
@@ -353,9 +349,9 @@
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/on_activate()
-	if(!target || !isliving(target))
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/C = target
+	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
@@ -393,9 +389,9 @@
 	button_icon_state = "move_up"
 
 /datum/action/innate/camera_multiz_up/on_activate()
-	if(!target || !isliving(target))
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/user_mob = target
+	var/mob/living/user_mob = owner
 	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
 	if(remote_eye.zMove(UP, FALSE))
 		to_chat(user_mob, "<span class='notice'>You move upwards.</span>")
@@ -408,9 +404,9 @@
 	button_icon_state = "move_down"
 
 /datum/action/innate/camera_multiz_down/on_activate()
-	if(!target || !isliving(target))
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/user_mob = target
+	var/mob/living/user_mob = owner
 	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
 	if(remote_eye.zMove(DOWN, FALSE))
 		to_chat(user_mob, "<span class='notice'>You move downwards.</span>")

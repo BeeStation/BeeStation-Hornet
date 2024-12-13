@@ -153,9 +153,9 @@
 	/// Weakref to the mob target that we transfer chemicals to on activation
 	var/datum/weakref/transfered_ref
 
-/datum/action/send_chems/New(Target)
+/datum/action/send_chems/New(master)
 	. = ..()
-	if(!istype(target, /obj/item/hardened_spike/chem))
+	if(!istype(master, /obj/item/hardened_spike/chem))
 		qdel(src)
 
 /datum/action/send_chems/on_activate(mob/user, atom/target)

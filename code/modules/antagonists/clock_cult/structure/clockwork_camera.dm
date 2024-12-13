@@ -92,7 +92,7 @@
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()
 	if(warp_action)
-		warp_action.target = src
+		warp_action.master = src
 		warp_action.Grant(user)
 		actions += warp_action
 

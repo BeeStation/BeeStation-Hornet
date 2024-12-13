@@ -152,7 +152,7 @@
 	var/restoring = FALSE
 	var/datum/action/spell/shapeshift/source
 
-/obj/shapeshift_holder/Initialize(mapload, datum/action/cooldown/spell/shapeshift/_source, mob/living/caster)
+/obj/shapeshift_holder/Initialize(mapload, datum/action/spell/shapeshift/_source, mob/living/caster)
 	. = ..()
 	source = _source
 	shape = loc

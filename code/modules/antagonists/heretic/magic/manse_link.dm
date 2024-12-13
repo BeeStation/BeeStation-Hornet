@@ -44,7 +44,7 @@
 * The actual process of linking [linkee] to our network.
 */
 /datum/action/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
-	var/datum/component/mind_linker/linker = target
+	var/datum/component/mind_linker/linker = master
 	if(linkee.stat == DEAD)
 		to_chat(owner, ("<span class='warning'>They're dead!</span>"))
 		return FALSE

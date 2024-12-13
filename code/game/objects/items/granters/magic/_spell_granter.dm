@@ -9,7 +9,7 @@
  *
  * Refreshes uses on our spell granter, or make it quicker to read if it's already infinite use
  */
-/obj/item/book/granter/action/spell/proc/on_magic_charge(datum/source, datum/action/cooldown/spell/spell, mob/living/caster)
+/obj/item/book/granter/action/spell/proc/on_magic_charge(datum/source, datum/action/spell/spell, mob/living/caster)
 	SIGNAL_HANDLER
 
 	// What're the odds someone uses 2000 uses of an infinite use book?

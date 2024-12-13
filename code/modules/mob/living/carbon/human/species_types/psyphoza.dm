@@ -64,7 +64,7 @@
 
 /datum/species/psyphoza/primary_species_action()
 	. = ..()
-	PH?.Trigger()
+	PH?.trigger()
 
 /datum/species/psyphoza/get_species_description()
 	return "Psyphoza are a species of extra-sensory lesser-sensory \

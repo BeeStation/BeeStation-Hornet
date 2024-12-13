@@ -114,7 +114,7 @@
 	// As it's the first time there's a client in our mob, we can finally update its vision to place it in the head instead!
 	var/datum/action/item_action/organ_action/dullahan/eyes_toggle_perspective_action = locate() in eyes?.actions
 
-	eyes_toggle_perspective_action?.Trigger()
+	eyes_toggle_perspective_action?.trigger()
 	owner_first_client_connection_handled = TRUE
 
 

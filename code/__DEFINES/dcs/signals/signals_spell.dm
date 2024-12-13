@@ -51,9 +51,9 @@
 #define COMSIG_SPELL_TOUCH_HAND_HIT "spell_touch_hand_cast"
 
 // Jaunt Spells
-/// Sent from datum/action/cooldown/spell/jaunt/enter_jaunt, to the mob jaunting: (obj/effect/dummy/phased_mob/jaunt, datum/action/cooldown/spell/spell)
+/// Sent from datum/action/spell/jaunt/enter_jaunt, to the mob jaunting: (obj/effect/dummy/phased_mob/jaunt, datum/action/spell/spell)
 #define COMSIG_MOB_ENTER_JAUNT "spell_mob_enter_jaunt"
-/// Sent from datum/action/cooldown/spell/jaunt/exit_jaunt, after the mob exited jaunt: (datum/action/cooldown/spell/spell)
+/// Sent from datum/action/spell/jaunt/exit_jaunt, after the mob exited jaunt: (datum/action/cooldown/spell/spell)
 #define COMSIG_MOB_AFTER_EXIT_JAUNT "spell_mob_after_exit_jaunt"
 
 /// Sent from/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/try_enter_jaunt,

@@ -26,32 +26,32 @@
 	..()
 
 	if(tele_in_action)
-		tele_in_action.target = console.pad
+		tele_in_action.master = console.pad
 		tele_in_action.Grant(user)
 		actions += tele_in_action
 
 	if(tele_out_action)
-		tele_out_action.target = console
+		tele_out_action.master = console
 		tele_out_action.Grant(user)
 		actions += tele_out_action
 
 	if(tele_self_action)
-		tele_self_action.target = console.pad
+		tele_self_action.master = console.pad
 		tele_self_action.Grant(user)
 		actions += tele_self_action
 
 	if(vest_mode_action)
-		vest_mode_action.target = console
+		vest_mode_action.master = console
 		vest_mode_action.Grant(user)
 		actions += vest_mode_action
 
 	if(vest_disguise_action)
-		vest_disguise_action.target = console
+		vest_disguise_action.master = console
 		vest_disguise_action.Grant(user)
 		actions += vest_disguise_action
 
 	if(set_droppoint_action)
-		set_droppoint_action.target = console
+		set_droppoint_action.master = console
 		set_droppoint_action.Grant(user)
 		actions += set_droppoint_action
 
@@ -64,11 +64,11 @@
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/on_activate()
-	if(!target || !iscarbon(owner))
+	if(!master || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
-	var/obj/machinery/abductor/pad/P = target
+	var/obj/machinery/abductor/pad/P = master
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
@@ -107,9 +107,9 @@
 	button_icon_state = "beam_up"
 
 /datum/action/innate/teleport_out/on_activate()
-	if(!target || !iscarbon(owner))
+	if(!master || !iscarbon(owner))
 		return
-	var/obj/machinery/abductor/console/console = target
+	var/obj/machinery/abductor/console/console = master
 
 	console.TeleporterRetrieve()
 
@@ -119,11 +119,11 @@
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_self/on_activate()
-	if(!target || !iscarbon(owner))
+	if(!master || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
-	var/obj/machinery/abductor/pad/P = target
+	var/obj/machinery/abductor/pad/P = master
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
@@ -162,9 +162,9 @@
 	button_icon_state = "vest_mode"
 
 /datum/action/innate/vest_mode_swap/on_activate()
-	if(!target || !iscarbon(owner))
+	if(!master || !iscarbon(owner))
 		return
-	var/obj/machinery/abductor/console/console = target
+	var/obj/machinery/abductor/console/console = master
 	console.FlipVest()
 
 
@@ -174,9 +174,9 @@
 	button_icon_state = "vest_disguise"
 
 /datum/action/innate/vest_disguise_swap/on_activate()
-	if(!target || !iscarbon(owner))
+	if(!master || !iscarbon(owner))
 		return
-	var/obj/machinery/abductor/console/console = target
+	var/obj/machinery/abductor/console/console = master
 	console.SelectDisguise(remote=1)
 
 /datum/action/innate/set_droppoint
@@ -185,11 +185,11 @@
 	button_icon_state = "set_drop"
 
 /datum/action/innate/set_droppoint/on_activate()
-	if(!target || !iscarbon(owner))
+	if(!master || !iscarbon(owner))
 		return
 
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 
-	var/obj/machinery/abductor/console/console = target
+	var/obj/machinery/abductor/console/console = master
 	console.SetDroppoint(remote_eye.loc,owner)
