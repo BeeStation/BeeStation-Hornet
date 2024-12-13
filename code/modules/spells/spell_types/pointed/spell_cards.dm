@@ -14,7 +14,7 @@
 
 	base_icon_state = "spellcard"
 	cast_range = 40
-	projectile_type = /obj/projectile/spellcard
+	projectile_type = /obj/projectile/magic/spellcard
 	projectile_amount = 5
 	projectiles_per_fire = 7
 

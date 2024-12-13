@@ -12,7 +12,7 @@
 	invocation = "SCYAR NILA"
 	invocation_type = INVOCATION_SHOUT
 
-	smoke_type = /datum/effect_system/smoke_spread
+	smoke_type = /obj/effect/particle_effect/smoke
 	smoke_amt = 2
 
 	post_teleport_sound = 'sound/magic/teleport_app.ogg'

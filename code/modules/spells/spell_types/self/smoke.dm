@@ -11,7 +11,7 @@
 
 	invocation_type = INVOCATION_NONE
 
-	smoke_type = /datum/effect_system/smoke_spread
+	smoke_type = /obj/effect/particle_effect/smoke
 	smoke_amt = 4
 
 /// Chaplain smoke.
@@ -23,7 +23,7 @@
 	cooldown_time = 36 SECONDS
 	spell_requirements = NONE
 
-	smoke_type = /datum/effect_system/smoke_spread/bad
+	smoke_type = /obj/effect/particle_effect/smoke/bad
 	smoke_amt = 2
 
 /// Unused smoke that makes people sleep. Used to be for cult?
@@ -34,4 +34,4 @@
 
 	cooldown_time = 20 SECONDS
 
-	smoke_type = /datum/effect_system/smoke_spread/sleeping
+	smoke_type = /obj/effect/particle_effect/smoke/sleeping
