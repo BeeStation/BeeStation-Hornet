@@ -104,9 +104,6 @@
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/yellow/warning_offset{
 	dir = 4
 	},
@@ -164,9 +161,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in/brown{
-	dir = 6
-	},
+/obj/effect/turf_decal/guideline/guideline_in/brown,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "L" = (
@@ -211,7 +206,15 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/guideline/guideline_in/brown,
+/obj/effect/turf_decal/alphabet/letter_n/cardinal{
+	dir = 8
+	},
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
+	dir = 8
+	},
+/obj/effect/turf_decal/alphabet/number_6/cardinal{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "Q" = (

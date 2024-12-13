@@ -68,6 +68,15 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"cJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/shuttle/engine/large/chopped/bottom_left{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "cK" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -279,6 +288,9 @@
 /area/shuttle/escape)
 "iu" = (
 /obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/huge/chopped/center_right{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
@@ -585,6 +597,15 @@
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"ro" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/huge/chopped/bottom_center{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "rS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -615,6 +636,15 @@
 /obj/machinery/light/small/directional/west,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"sM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/large/chopped/bottom_left{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "sX" = (
 /obj/structure/chair/fancy/shuttle,
@@ -743,6 +773,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/shuttle/engine/large/chopped/top_right{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "wW" = (
@@ -780,6 +813,15 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"xE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/shuttle/engine/large/chopped/bottom_right{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "ya" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/corner{
@@ -804,6 +846,9 @@
 "yv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/structure/shuttle/engine/huge/chopped/bottom_left{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -883,6 +928,18 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"Bk" = (
+/obj/structure/shuttle/engine/huge/chopped/top_left{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"BC" = (
+/obj/structure/shuttle/engine/huge/chopped/top_center{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "BE" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/structure/table/reinforced,
@@ -900,6 +957,9 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "BV" = (
+/obj/structure/shuttle/engine/large/chopped/top_right{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "BW" = (
@@ -924,16 +984,16 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Df" = (
-/obj/structure/shuttle/engine/large{
+/obj/structure/shuttle/engine/large/chopped/top_left{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "Dz" = (
-/obj/structure/shuttle/engine/large{
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/shuttle/engine/large/chopped/top_left{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "DK" = (
@@ -968,10 +1028,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/escape)
 "EV" = (
-/obj/structure/shuttle/engine/huge{
-	dir = 4;
-	pixel_x = -32;
-	pixel_y = -32
+/obj/structure/shuttle/engine/huge/chopped/center_center{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -1071,6 +1129,9 @@
 /area/shuttle/escape)
 "GJ" = (
 /obj/effect/turf_decal/stripes/corner,
+/obj/structure/shuttle/engine/huge/chopped/center_left{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "GP" = (
@@ -1136,6 +1197,12 @@
 	},
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"IW" = (
+/obj/structure/shuttle/engine/huge/chopped/top_right{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "Jp" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
@@ -1343,6 +1410,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/shuttle/engine/large/chopped/bottom_right{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "QU" = (
@@ -1416,6 +1486,9 @@
 "Uo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/structure/shuttle/engine/huge/chopped/bottom_right{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -1896,9 +1969,9 @@ qS
 hD
 wT
 Df
-BV
-BV
-BV
+IW
+BC
+Bk
 BV
 Dz
 hD
@@ -1907,13 +1980,13 @@ qS
 (30,1,1) = {"
 qS
 qS
-Uo
-Qb
+xE
+sM
 iu
 EV
 GJ
 Qb
-yv
+cJ
 qS
 qS
 "}
@@ -1923,7 +1996,7 @@ qS
 qS
 qS
 Uo
-Qb
+ro
 yv
 qS
 qS

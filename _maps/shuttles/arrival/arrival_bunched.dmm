@@ -71,6 +71,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/shuttle/engine/large/chopped/bottom_right{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "ii" = (
@@ -185,6 +188,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "wI" = (
+/obj/structure/shuttle/engine/large/chopped/top_left{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "wL" = (
@@ -246,6 +252,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/shuttle/engine/large/chopped/bottom_left{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "Bi" = (
@@ -268,6 +277,9 @@
 "Bs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/structure/shuttle/engine/large/chopped/bottom_left{
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
@@ -338,7 +350,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "Ex" = (
-/obj/structure/shuttle/engine/large{
+/obj/structure/shuttle/engine/large/chopped/top_right{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -458,6 +470,15 @@
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"PB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/large/chopped/bottom_right{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "Qv" = (
 /obj/structure/sign/nanotrasen,
@@ -761,7 +782,7 @@ wL
 wL
 "}
 (10,1,1) = {"
-AG
+PB
 Ex
 fZ
 ry
