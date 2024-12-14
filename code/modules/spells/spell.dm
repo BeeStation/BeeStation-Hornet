@@ -217,7 +217,7 @@
 // The actual cast chain occurs here, in Activate().
 // You should generally not be overriding or extending Activate() for spells.
 // Defer to any of the cast chain procs instead.
-/datum/action/spell/on_activate(atom/cast_on)
+/datum/action/spell/on_activate(mob/user, atom/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	// Pre-casting of the spell

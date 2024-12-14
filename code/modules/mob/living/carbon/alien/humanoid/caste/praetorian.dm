@@ -44,7 +44,7 @@
 
 	return TRUE
 
-/datum/action/alien/evolve_to_queen/on_activate(atom/target)
+/datum/action/alien/evolve_to_queen/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/alien/humanoid/royal/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/queen/new_queen = new(owner.loc)
 	evolver.alien_evolve(new_queen)

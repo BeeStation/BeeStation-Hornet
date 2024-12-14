@@ -43,7 +43,7 @@
 
 	return TRUE
 
-/datum/action/alien/evolve_to_praetorian/on_activate(atom/target)
+/datum/action/alien/evolve_to_praetorian/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/alien/humanoid/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/praetorian/new_xeno = new(owner.loc)
 	evolver.alien_evolve(new_xeno)

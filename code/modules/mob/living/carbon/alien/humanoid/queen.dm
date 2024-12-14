@@ -109,7 +109,7 @@
 	plasma_cost = 75
 	made_structure_type = /obj/structure/alien/egg
 
-/datum/action/alien/make_structure/lay_egg/on_activate(atom/target)
+/datum/action/alien/make_structure/lay_egg/on_activate(mob/user, atom/target)
 	. = ..()
 	owner.visible_message(("<span class='alienalert'>[owner] lays an egg!</span>"))
 
@@ -138,7 +138,7 @@
 
 	return TRUE
 
-/datum/action/alien/promote/on_activate(atom/target)
+/datum/action/alien/promote/on_activate(mob/user, atom/target)
 	var/obj/item/queen_promotion/existing_promotion = locate() in owner.held_items
 	if(existing_promotion)
 		to_chat(owner, ("<span class='noticealien'>You discard [existing_promotion].</span>"))
