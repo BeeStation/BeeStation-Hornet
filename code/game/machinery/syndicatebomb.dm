@@ -403,6 +403,7 @@
 /obj/item/bombcore/large/syndicate_base
 	installed = TRUE
 	anchored = TRUE
+	invisibility = INVISIBILITY_OBSERVER
 
 /obj/item/bombcore/miniature
 	name = "small bomb core"
