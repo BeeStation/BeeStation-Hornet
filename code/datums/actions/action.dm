@@ -193,6 +193,11 @@
 
 	var/mob/user = usr || owner
 
+	// If we were active and we clicked again, disable the action
+	if (active && toggleable)
+		deactivate(user)
+		return TRUE
+
 	// If our cooldown action is a requires_target action:
 	// The actual action is activated on whatever the user clicks on -
 	// the target is what the action is being used on
@@ -351,7 +356,7 @@
 		timer_overlay.maptext_height = 64
 		timer_overlay.maptext_x = -8
 		timer_overlay.maptext_y = -6
-	var/new_maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((next_use_time - world.time)/10, 1)]</span></center>"
+	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[FLOOR((next_use_time - world.time)/10, 1)]</span></center>"
 	if (new_maptext != timer_overlay.maptext || force)
 		button.cut_overlay(timer_overlay)
 		timer_overlay.maptext = new_maptext

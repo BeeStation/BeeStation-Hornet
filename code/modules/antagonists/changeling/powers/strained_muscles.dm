@@ -27,6 +27,9 @@
 		user.emote("gasp")
 
 /datum/action/changeling/strained_muscles/proc/muscle_loop(mob/living/carbon/user)
+	// Skip until the next sleep so that we have the active var set
+	sleep(-1)
+
 	while(active)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/strained_muscles)
 		if(user.stat != CONSCIOUS || user.staminaloss >= 90)
