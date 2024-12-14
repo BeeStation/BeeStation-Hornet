@@ -101,7 +101,7 @@
 	evolve_ability.Remove(src)
 	if(is_drone)
 		if(mind)
-			switch_ability.Trigger(drone_parent, TRUE) //If we have someone conscious in the drone, throw them out.
+			switch_ability.on_activate(src, null) //If we have someone conscious in the drone, throw them out.
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
@@ -282,22 +282,25 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/on_activate(mob/user, atom/target)
-	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
-	var/mob/living/carbon/human/drone_diona = user.drone_parent
-	if(forced)
-		SwitchFrom(user, drone_parent)
-	if(!isnymph(user))
-		return
-	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, "<span class='danger'>You cannot switch while in a vent.</span>")
-		return
+/datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
+	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
+	if(!isnymph(nymph))
+		return FALSE
+	if(nymph.movement_type & VENTCRAWLING)
+		to_chat(nymph, "<span class='danger'>You cannot switch while in a vent.</span>")
+		return FALSE
 	if(QDELETED(drone_diona)) // FUCK SOMETHING HAPPENED TO THE MAIN DIONA, ABORT ABORT ABORT
-		user.is_drone = FALSE //We're not a drone anymore!!!! Panic!
-		to_chat(user, "<span class='danger'>You feel like your gestalt is gone! Something must have gone wrong...</span>")
-		user.switch_ability.Remove(user)
-		return
-	SwitchFrom(user, drone_parent)
+		nymph.is_drone = FALSE //We're not a drone anymore!!!! Panic!
+		to_chat(nymph, "<span class='danger'>You feel like your gestalt is gone! Something must have gone wrong...</span>")
+		nymph.switch_ability.Remove(nymph)
+		return FALSE
+	. = ..()
+
+/datum/action/nymph/SwitchFrom/on_activate(mob/user, atom/target)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
+	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
+	SwitchFrom(nymph, drone_diona)
 
 /datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/hostile/retaliate/nymph/user, mob/living/carbon/M)
 	var/datum/mind/C = user.mind

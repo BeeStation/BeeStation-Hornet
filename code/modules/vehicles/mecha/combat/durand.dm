@@ -38,7 +38,7 @@
 			var/mob/living/occupant = O
 			var/datum/action/action = LAZYACCESSASSOC(occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 			if(action)
-				action.Trigger()
+				action.trigger()
 				break
 
 /obj/vehicle/sealed/mecha/combat/durand/Move(direction)
@@ -55,7 +55,7 @@
 	if(defense_mode)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, M, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 		if(action)
-			INVOKE_ASYNC(action, TYPE_PROC_REF(/datum/action, Trigger), FALSE)
+			INVOKE_ASYNC(action, TYPE_PROC_REF(/datum/action, trigger), FALSE)
 	return ..()
 
 ///Relays the signal from the action button to the shield, and creates a new shield if the old one is MIA.
@@ -234,7 +234,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 		for(var/O in chassis.occupants)
 			var/mob/living/occupant = O
 			var/datum/action/action = LAZYACCESSASSOC(chassis.occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
-			action.Trigger(FALSE)
+			action.trigger()
 	atom_integrity = 10000
 
 /obj/durand_shield/play_attack_sound()

@@ -138,7 +138,7 @@
 	// Also refunds 75% of charge!
 	var/datum/action/spell/touch/mansus_grasp/grasp = locate() in user.actions
 	if(grasp)
-		grasp.next_use_time = min(round(grasp.next_use_time - grasp.cooldown_time * 0.75, 0), 0)
+		grasp.reduce_cooldown(grasp.cooldown_time * 0.75)
 		grasp.update_buttons()
 
 /datum/heretic_knowledge/knowledge_ritual/ash

@@ -7,11 +7,11 @@
 	var/obj/item/shuttle_creator/shuttle_creator
 
 /datum/action/innate/shuttle_creator/on_activate()
-	if(!target)
+	if(!master)
 		return TRUE
 	C = owner
 	remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	shuttle_creator = internal_console.owner_rsd
 	if(shuttle_creator.update_origin())
 		to_chat(usr, "<span class='warning'>Warning, the shuttle has moved during designation. Please wait for the shuttle to dock and try again.</warning>")
@@ -99,7 +99,7 @@
 		if(shuttle_creator.shuttle_create_docking_port(A, C))
 			to_chat(C, "<span class='notice'>Shuttle created!</span>")
 	//Remove eye control
-	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	internal_console.remove_eye_control(owner)
 
 /datum/action/innate/shuttle_creator/modify
@@ -115,5 +115,5 @@
 	if(shuttle_creator.modify_shuttle_area(C))
 		to_chat(C, "<span class='notice'>Shuttle modifications have been finalized.</span>")
 		//Remove eye control
-	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	internal_console.remove_eye_control(owner)

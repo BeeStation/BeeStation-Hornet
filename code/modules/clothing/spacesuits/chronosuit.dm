@@ -33,7 +33,6 @@
 
 /obj/item/clothing/suit/space/chronos/Initialize(mapload)
 	teleport_now.chronosuit = src
-	teleport_now.target = src
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)

@@ -39,10 +39,10 @@
 		return FALSE
 
 	var/chosen_type = pick(GLOB.cursed_animal_masks)
-	var/obj/item/clothing/mask/cursed_mask = new chosen_type(get_turf(target))
+	var/obj/item/clothing/mask/cursed_mask = new chosen_type(get_turf(cast_on))
 
 	cast_on.visible_message(
-		("<span class='danger'>[target]'s face bursts into flames, and a barnyard animal's head takes its place!</span>"),
+		("<span class='danger'>[cast_on]'s face bursts into flames, and a barnyard animal's head takes its place!</span>"),
 		("<span class='userdanger'>Your face burns up, and shortly after the fire you realise you have the [cursed_mask.name]!</span>"),
 	)
 

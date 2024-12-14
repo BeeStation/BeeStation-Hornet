@@ -977,14 +977,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/jaunt))
 		GRANT_ACTION_MOB(power, mob)
 
-/client/proc/give_all_spells_list_targets()
-	set category = "Debug"
-	set name = "Give all list targets spells"
-	if(!check_rights(R_DEBUG))
-		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/list_target))
-		GRANT_ACTION_MOB(power, mob)
-
 /client/proc/give_all_spells_pointed()
 	set category = "Debug"
 	set name = "Give all painted spells"

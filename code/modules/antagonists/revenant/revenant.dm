@@ -77,7 +77,7 @@
 	// Starting spells
 	var/datum/action/spell/night_vision/revenant/vision = new(src)
 	vision.Grant(src)
-	var/datum/action/spell/list_target/telepathy/revenant/telepathy = new(src)
+	var/datum/action/spell/telepathy/revenant/telepathy = new(src)
 	telepathy.Grant(src)
 	// Starting spells that start locked
 	var/datum/action/spell/aoe/revenant/overload/lights_go_zap = new(src)

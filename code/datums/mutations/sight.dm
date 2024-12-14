@@ -67,6 +67,7 @@
 	desc = "You can see thermal signatures, at the cost of your eyesight."
 	icon_icon = 'icons/hud/actions/actions_changeling.dmi'
 	button_icon_state = "augmented_eyesight"
+	toggleable = TRUE
 
 	cooldown_time = 25 SECONDS
 	spell_requirements = NONE
@@ -89,9 +90,9 @@
 	ADD_TRAIT(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
 	cast_on.update_sight()
 	to_chat(cast_on, ("<span class='info'>You focus your eyes intensely, as your vision becomes filled with heat signatures.</span>"))
-	addtimer(CALLBACK(src, PROC_REF(deactivate), cast_on), thermal_duration)
+	addtimer(CALLBACK(src, PROC_REF(deactivate)), thermal_duration)
 
-/datum/action/spell/thermal_vision/proc/deactivate(mob/living/cast_on)
+/datum/action/spell/thermal_vision/on_deactivate(mob/user, mob/cast_on)
 	if(QDELETED(cast_on) || !HAS_TRAIT_FROM(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION))
 		return
 

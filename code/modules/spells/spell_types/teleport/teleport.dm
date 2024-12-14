@@ -39,7 +39,7 @@
 	invocation_says_area = FALSE
 
 /datum/action/spell/teleport/area_teleport/wizard/scroll/is_available()
-	return ..() && owner.is_holding(target)
+	return ..() && owner.is_holding(master)
 
 /datum/action/spell/teleport/area_teleport/wizard/scroll/before_cast(atom/cast_on)
 	. = ..()
@@ -47,5 +47,5 @@
 		return
 
 	var/mob/living/carbon/caster = cast_on
-	if(caster.incapacitated() || !caster.is_holding(target))
+	if(caster.incapacitated() || !caster.is_holding(master))
 		return . | SPELL_CANCEL_CAST

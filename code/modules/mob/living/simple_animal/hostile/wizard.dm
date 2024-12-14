@@ -64,16 +64,16 @@
 	if(target && next_cast < world.time)
 		if((get_dir(src, target) in list(SOUTH, EAST, WEST, NORTH)) && fireball.can_cast_spell(feedback = FALSE))
 			setDir(get_dir(src, target))
-			fireball.Trigger(null, target)
+			fireball.pre_activate(src, target)
 			next_cast = world.time + 1 SECONDS
 			return
 
 		if(magic_missile.is_available())
-			magic_missile.Trigger(null, target)
+			magic_missile.pre_activate(src, target)
 			next_cast = world.time + 1 SECONDS
 			return
 
 		if(blink.is_available()) // Spam Blink when you can
-			blink.Trigger(null, src)
+			blink.pre_activate(src, src)
 			next_cast = world.time + 1 SECONDS
 			return

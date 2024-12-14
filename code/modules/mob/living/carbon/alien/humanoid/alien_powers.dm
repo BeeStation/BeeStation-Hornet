@@ -7,7 +7,6 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/alien
 	name = "Alien Power"
-	panel = "Alien"
 	background_icon_state = "bg_alien"
 	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = null
@@ -47,12 +46,8 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/alien/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
-	.[PANEL_DISPLAY_STATUS] = "PLASMA - [plasma_cost]"
+/datum/action/alien/update_stat_status(list/stat)
+	stat[STAT_STATUS] = GENERATE_STAT_TEXT("PLASMA - [plasma_cost]")
 
 /datum/action/alien/make_structure
 	/// The type of structure the action makes on use

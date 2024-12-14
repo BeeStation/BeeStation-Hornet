@@ -52,7 +52,7 @@
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	actions_to_add = list(
 		/datum/action/spell/jaunt/ethereal_jaunt/ash/long,
-		/datum/action/spell/list_target/telepathy/eldritch,
+		/datum/action/spell/telepathy/eldritch,
 		/datum/action/spell/pointed/blind/eldritch,
 	)
 

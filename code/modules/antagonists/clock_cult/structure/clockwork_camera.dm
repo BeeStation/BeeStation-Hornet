@@ -72,7 +72,7 @@
 /obj/machinery/computer/camera_advanced/ratvar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	warp_action = new
+	warp_action = new(src)
 
 /obj/machinery/computer/camera_advanced/ratvar/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -92,7 +92,6 @@
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()
 	if(warp_action)
-		warp_action.master = src
 		warp_action.Grant(user)
 		actions += warp_action
 

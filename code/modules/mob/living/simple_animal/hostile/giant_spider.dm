@@ -754,7 +754,6 @@
 
 /datum/action/spell/basic_projectile/throw_web
 	name = "Throw web"
-	panel = "Spider"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
 	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
 	icon_icon = 'icons/hud/actions/actions_animal.dmi'

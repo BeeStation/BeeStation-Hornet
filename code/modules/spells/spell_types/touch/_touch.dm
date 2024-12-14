@@ -30,13 +30,9 @@
 	if(attached_hand)
 		button.color = COLOR_GREEN
 
-/datum/action/spell/touch/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
+/datum/action/spell/touch/update_stat_status(list/stat)
 	if(attached_hand)
-		.[PANEL_DISPLAY_STATUS] = "ACTIVE"
+		stat[STAT_STATUS] = GENERATE_STAT_TEXT("[capitalize(name)] is currently active!")
 
 /datum/action/spell/touch/can_cast_spell(feedback = TRUE)
 	. = ..()

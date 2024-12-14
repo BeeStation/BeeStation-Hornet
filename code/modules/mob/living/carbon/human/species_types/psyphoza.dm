@@ -221,7 +221,7 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger()
+		trigger()
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()

@@ -153,16 +153,14 @@
 //Toggle night vision: lets the revenant toggle its night vision
 /datum/action/spell/night_vision/revenant
 	name = "Toggle Darkvision"
-	panel = "Revenant Abilities"
 	background_icon_state = "bg_revenant"
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_nightvision"
 	toggle_span = "revennotice"
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
-/datum/action/spell/list_target/telepathy/revenant
+/datum/action/spell/telepathy/revenant
 	name = "Revenant Transmit"
-	panel = "Revenant Abilities"
 	background_icon_state = "bg_revenant"
 
 	telepathy_span = "revennotice"
@@ -171,7 +169,6 @@
 	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
 
 /datum/action/spell/aoe/revenant
-	panel = "Revenant Abilities (Locked)"
 	background_icon_state = "bg_revenant"
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"
@@ -190,17 +187,17 @@
 	// How long it stuns the revenant
 	var/stun_duration = 2 SECONDS
 
-/datum/action/spell/aoe/revenant/New(Target)
+/datum/action/spell/aoe/revenant/New(master)
 	. = ..()
-	if(!istype(target, /mob/living/simple_animal/revenant))
-		stack_trace("[type] was given to a non-revenant mob, please don't.")
-		qdel(src)
-		return
-
 	if(locked)
 		name = "[initial(name)] ([unlock_amount]SE)"
 	else
 		name = "[initial(name)] ([cast_amount]E)"
+
+/datum/action/spell/aoe/revenant/Grant(mob/grant_to)
+	if (!istype(grant_to, /mob/living/simple_animal/revenant))
+		CRASH("Attempted to grant a revenant spell to a non-revenant mob which si not allowed.")
+	. = ..()
 
 /datum/action/spell/aoe/revenant/can_cast_spell(feedback = TRUE)
 	. = ..()
@@ -240,7 +237,6 @@
 
 		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(cast_on, ("<span class='revennotice'>You have unlocked [initial(name)]!</span>"))
-		panel = "Revenant Abilities"
 		locked = FALSE
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST

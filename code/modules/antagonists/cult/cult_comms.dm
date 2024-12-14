@@ -217,7 +217,7 @@
 			owner.say("N'ath reth sh'yro eth d'rekkathnor!!!", language = /datum/language/common, forced = "cult invocation")
 			playsound(get_turf(owner),'sound/magic/clockwork/narsie_attack.ogg', 100, 1)
 
-/datum/action/cult/master/cultmark
+/datum/action/innate/cult/master/cultmark
 	name = "Mark Target"
 	desc = "Marks a target for the cult."
 	button_icon_state = "cult_mark"
@@ -228,7 +228,7 @@
 	/// The duration of the mark itself
 	var/cult_mark_duration = 90 SECONDS
 
-/datum/action/cult/master/cultmark/InterceptClickOn(mob/caller, params, atom/clicked_on)
+/datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
 	if(!isturf(caller_turf))
 		return FALSE
@@ -237,7 +237,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/cult/master/cultmark/on_activate(mob/user, atom/target)
+/datum/action/innate/cult/master/cultmark/on_activate(mob/user, atom/target)
 	var/datum/antagonist/cult/cultist = user.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
 	if(!cultist)
 		CRASH("[type] was casted by someone without a cult antag datum.")
@@ -250,11 +250,13 @@
 		return FALSE
 
 	if(cult_team.set_blood_target(target, user, cult_mark_duration))
-		unset_ranged_ability(user, ("<span class='cult'>The marking rite is complete! It will last for [DisplayTimeText(cult_mark_duration)] seconds.</span>"))
+		disable_text = "<span class='cult'>The marking rite is complete! It will last for [DisplayTimeText(cult_mark_duration)] seconds.</span>"
+		unset_click_ability(user)
+		disable_text = initial(disable_text)
 		start_cooldown()
 		update_buttons()
 		return TRUE
-	unset_ranged_ability(user, ("<span class='cult'>The marking rite failed!</span>"))
+	unset_click_ability(user)
 	return TRUE
 
 /datum/action/innate/cult/ghostmark //Ghost version
@@ -333,7 +335,7 @@
 
 
 
-/datum/action/cult/master/pulse
+/datum/action/innate/cult/master/pulse
 	name = "Eldritch Pulse"
 	desc = "Seize upon a fellow cultist or cult structure and teleport it to a nearby location."
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
@@ -345,7 +347,7 @@
 	/// Weakref to whoever we're currently about to toss
 	var/datum/weakref/throwee_ref
 
-/datum/action/cult/master/pulse/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
+/datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
 	var/turf/caller_turf = get_turf(caller)
 	if(!isturf(caller_turf))
 		return FALSE
@@ -357,7 +359,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/cult/master/pulse/on_activate(mob/user, atom/target)
+/datum/action/innate/cult/master/pulse/on_activate(mob/user, atom/target)
 	var/atom/throwee = throwee_ref?.resolve()
 
 	if(QDELETED(throwee))
@@ -408,7 +410,7 @@
 			if(!IS_CULTIST(living_clicked))
 				return FALSE
 			SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
-			to_chat(user, "<span class='cultbold'>You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [clicked_on.p_them()]!</b></span>")
+			to_chat(user, "<span class='cultbold'>You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b></span>")
 			throwee_ref = WEAKREF(target)
 			return TRUE
 

@@ -333,7 +333,6 @@
 	var/datum/nanite_extra_setting/bn_icon = extra_settings[NES_ICON]
 	if(!button)
 		button = new(src, bn_name.get_value(), bn_icon.get_value(), "red")
-	button.target = host_mob
 	button.Grant(host_mob)
 
 /datum/nanite_program/dermal_button/disable_passive_effect()

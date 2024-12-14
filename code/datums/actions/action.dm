@@ -10,7 +10,8 @@
 	var/desc
 	/// The datum the action is attached to. If the master datum is deleted, the action is as well.
 	/// Set in New() via the proc link_to().
-	var/datum/master
+	/// DO NOT ASSIGN TO THIS VARIABLE, ASSIGN IT ON /NEW()
+	VAR_PRIVATE/datum/master
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// This is who currently owns the action, and most often, this is who is using the action if it is triggered
@@ -492,3 +493,9 @@
 		on_who.update_mouse_pointer()
 	update_buttons()
 	return TRUE
+
+/datum/action/proc/reduce_cooldown(amount)
+	next_use_time -= amount
+
+/datum/action/proc/is_active()
+	return active

@@ -369,7 +369,7 @@
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/integrate_extract/proc/update_name()
-	var/datum/species/oozeling/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = owner
 	if(!species || !species.current_extract)
 		name = "Integrate Extract"
 		desc = "Eat a slime extract to use its properties."
@@ -378,7 +378,7 @@
 		desc = "Eject your current slime extract."
 
 /datum/action/innate/integrate_extract/update_buttons(status_only, force)
-	var/datum/species/oozeling/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = owner
 	if(!species || !species.current_extract)
 		button_icon_state = "slimeconsume"
 	else
@@ -387,13 +387,13 @@
 
 /datum/action/innate/integrate_extract/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
-	var/datum/species/oozeling/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = owner
 	if(species?.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
 /datum/action/innate/integrate_extract/on_activate()
 	var/mob/living/carbon/human/H = owner
-	var/datum/species/oozeling/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = owner
 	if(!is_species(H, /datum/species/oozeling/luminescent) || !species)
 		return
 	CHECK_DNA_AND_SPECIES(H)
@@ -432,7 +432,7 @@
 
 /datum/action/innate/use_extract/is_available()
 	if(..())
-		var/datum/species/oozeling/luminescent/species = target
+		var/datum/species/oozeling/luminescent/species = owner
 		if(species && species.current_extract && (world.time > species.extract_cooldown))
 			return TRUE
 		return FALSE

@@ -1,13 +1,12 @@
-/datum/action/spell/list_target/telepathy
+/datum/action/spell/telepathy
 	name = "Telepathy"
 	desc = "Telepathically transmits a message to the target."
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_transmit"
+	requires_target = TRUE
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = MAGIC_RESISTANCE_MIND
-
-	choose_target_message = "Choose a target to whisper to."
 
 	/// The message we send to the next person via telepathy.
 	var/message
@@ -16,7 +15,7 @@
 	/// The bolded span surrounding the telepathy message
 	var/bold_telepathy_span = "boldnotice"
 
-/datum/action/spell/list_target/telepathy/before_cast(atom/cast_on)
+/datum/action/spell/telepathy/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -29,7 +28,7 @@
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/spell/list_target/telepathy/cast(mob/living/cast_on)
+/datum/action/spell/telepathy/cast(mob/living/cast_on)
 	. = ..()
 	log_directed_talk(owner, cast_on, message, LOG_SAY, name)
 

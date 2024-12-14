@@ -254,7 +254,7 @@
 		if(L.stat != DEAD && prev_stat != DEAD)
 			total_refund += attack_refund
 
-		jaunt.next_use_time -= total_refund
+		jaunt.reduce_cooldown(total_refund)
 		jaunt.update_buttons()
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things

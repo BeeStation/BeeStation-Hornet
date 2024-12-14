@@ -120,7 +120,7 @@
 			abilities = shuffle(abilities)
 			for(var/ab in abilities)
 				var/datum/action/boss/AB = ab
-				if(prob(AB.usage_probability) && AB.Trigger())
+				if(prob(AB.usage_probability) && AB.trigger())
 					break
 
 

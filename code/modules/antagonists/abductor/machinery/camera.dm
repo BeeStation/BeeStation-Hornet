@@ -2,12 +2,12 @@
 	name = "Human Observation Console"
 	var/team_number = 0
 	networks = list("ss13", "abductor")
-	var/datum/action/innate/teleport_in/tele_in_action = new
-	var/datum/action/innate/teleport_out/tele_out_action = new
-	var/datum/action/innate/teleport_self/tele_self_action = new
-	var/datum/action/innate/vest_mode_swap/vest_mode_action = new
-	var/datum/action/innate/vest_disguise_swap/vest_disguise_action = new
-	var/datum/action/innate/set_droppoint/set_droppoint_action = new
+	var/datum/action/innate/teleport_in/tele_in_action
+	var/datum/action/innate/teleport_out/tele_out_action
+	var/datum/action/innate/teleport_self/tele_self_action
+	var/datum/action/innate/vest_mode_swap/vest_mode_action
+	var/datum/action/innate/vest_disguise_swap/vest_disguise_action
+	var/datum/action/innate/set_droppoint/set_droppoint_action
 	var/obj/machinery/abductor/console/console
 	lock_override = TRUE
 
@@ -22,36 +22,39 @@
 	reveal_camera_mob = TRUE
 	camera_mob_icon_state = "abductor_camera"
 
+/obj/machinery/computer/camera_advanced/abductor/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/teleport_in/tele_in_action = new(src)
+	var/datum/action/innate/teleport_out/tele_out_action = new(src)
+	var/datum/action/innate/teleport_self/tele_self_action = new(src)
+	var/datum/action/innate/vest_mode_swap/vest_mode_action = new(src)
+	var/datum/action/innate/vest_disguise_swap/vest_disguise_action = new(src)
+	var/datum/action/innate/set_droppoint/set_droppoint_action = new(src)
+
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
 	..()
 
 	if(tele_in_action)
-		tele_in_action.master = console.pad
 		tele_in_action.Grant(user)
 		actions += tele_in_action
 
 	if(tele_out_action)
-		tele_out_action.master = console
 		tele_out_action.Grant(user)
 		actions += tele_out_action
 
 	if(tele_self_action)
-		tele_self_action.master = console.pad
 		tele_self_action.Grant(user)
 		actions += tele_self_action
 
 	if(vest_mode_action)
-		vest_mode_action.master = console
 		vest_mode_action.Grant(user)
 		actions += vest_mode_action
 
 	if(vest_disguise_action)
-		vest_disguise_action.master = console
 		vest_disguise_action.Grant(user)
 		actions += vest_disguise_action
 
 	if(set_droppoint_action)
-		set_droppoint_action.master = console
 		set_droppoint_action.Grant(user)
 		actions += set_droppoint_action
 

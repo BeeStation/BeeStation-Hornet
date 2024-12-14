@@ -194,7 +194,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/give_all_spells_conjure,
 	/client/proc/give_all_spells_conjure_item,
 	/client/proc/give_all_spells_jaunt,
-	/client/proc/give_all_spells_list_targets,
 	/client/proc/give_all_spells_pointed,
 	/client/proc/give_all_spells_projectile,
 	/client/proc/give_all_spells_shapeshift,

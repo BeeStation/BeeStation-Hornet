@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	)))
 
 //The malf AI action subtype. All malf actions are subtypes of this.
-/datum/action/ai
+/datum/action/innate/ai
 	name = "AI Action"
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
@@ -33,12 +33,12 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	/// If we automatically use up uses on each activation
 	var/auto_use_uses = TRUE
 
-/datum/action/ai/New()
+/datum/action/innate/ai/New()
 	..()
 	if(initial(uses) > 1)
 		update_desc()
 
-/datum/action/ai/Grant(mob/living/L)
+/datum/action/innate/ai/Grant(mob/living/L)
 	. = ..()
 	if(!isAI(owner))
 		WARNING("AI action [name] attempted to grant itself to non-AI mob [L.real_name] ([L.key])!")
@@ -46,16 +46,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	else
 		owner_AI = owner
 
-/datum/action/ai/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/on_activate(mob/user, atom/target)
 	SHOULD_CALL_PARENT(TRUE)
+	..()
 	if(auto_use_uses)
 		adjust_uses(-1)
 	start_cooldown()
 
-/datum/action/ai/proc/update_desc()
+/datum/action/innate/ai/proc/update_desc()
 	desc = ("[initial(desc)] There [uses > 1 ? "are" : "is"] <b>[uses]</b> reactivation[uses > 1 ? "s" : ""] remaining.")
 
-/datum/action/ai/proc/adjust_uses(amt, silent)
+/datum/action/innate/ai/proc/adjust_uses(amt, silent)
 	uses += amt
 	update_desc()
 	if(!silent && uses)
@@ -66,12 +67,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		qdel(src)
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
-/datum/action/ai/ranged
+/datum/action/innate/ai/ranged
 	name = "Ranged AI Action"
 	auto_use_uses = FALSE //This is so we can do the thing and disable/enable freely without having to constantly add uses
 	requires_target = TRUE
+	unset_after_click = TRUE
 
-/datum/action/ai/ranged/adjust_uses(amt, silent)
+/datum/action/innate/ai/ranged/adjust_uses(amt, silent)
 	uses += amt
 	update_desc()
 	if(!silent && uses)
@@ -92,7 +94,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	possible_modules = list()
 	for(var/type in typesof(/datum/AI_Module))
 		var/datum/AI_Module/AM = new type
-		if((AM.power_type && AM.power_type != /datum/action/ai) || AM.upgrade)
+		if((AM.power_type && AM.power_type != /datum/action/innate/ai) || AM.upgrade)
 			possible_modules += AM
 
 /datum/module_picker/proc/remove_malf_verbs(mob/living/silicon/ai/AI) //Removes all malfunction-related abilities from the target AI.
@@ -138,7 +140,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 				to_chat(A, "<span class='notice'>You cannot afford this module.</span>")
 				break
 
-			var/datum/action/ai/action = locate(AM.power_type) in A.actions
+			var/datum/action/innate/ai/action = locate(AM.power_type) in A.actions
 			// Give the power and take away the money.
 			if(AM.upgrade) //upgrade and upgrade() are separate, be careful!
 				AM.upgrade(A)
@@ -181,7 +183,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/engaged = 0
 	var/cost = 5
 	var/one_purchase = FALSE //If this module can only be purchased once. This always applies to upgrades, even if the variable is set to false.
-	var/power_type = /datum/action/ai //If the module gives an active ability, use this. Mutually exclusive with upgrade.
+	var/power_type = /datum/action/innate/ai //If the module gives an active ability, use this. Mutually exclusive with upgrade.
 	var/upgrade //If the module gives a passive upgrade, use this. Mutually exclusive with power_type.
 	var/unlock_text = "<span class='notice'>Hello World!</span>" //Text shown when an ability is unlocked
 	var/unlock_sound //Sound played when an ability is unlocked
@@ -200,17 +202,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Activate the station's nuclear warhead that will disintegrate all organic life on the station after a 450 seconds delay. Can only be used while on the station, will fail if your core is moved off station or destroyed."
 	cost = 130
 	one_purchase = TRUE
-	power_type = /datum/action/ai/nuke_station
+	power_type = /datum/action/innate/ai/nuke_station
 	unlock_text = "<span class='notice'>You establish an encrypted connection with the on-station self-destruct terminal. You can now activate it at any time.</span>"
 
-/datum/action/ai/nuke_station
+/datum/action/innate/ai/nuke_station
 	name = "Doomsday Device"
 	desc = "Activates the Doomsday device. This is not reversible."
 	button_icon_state = "doomsday_device"
 	auto_use_uses = FALSE
-	var/active
+	var/device_active
 
-/datum/action/ai/nuke_station/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/nuke_station/on_activate(mob/user, atom/target)
 	. = ..()
 	var/turf/T = get_turf(owner)
 	if(!istype(T) || !is_station_level(T.z))
@@ -218,12 +220,12 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		return
 	if(alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", "confirm = TRUE;", "confirm = FALSE;") != "confirm = TRUE;")
 		return
-	if (active)
+	if (device_active)
 		return //prevent the AI from activating an already active doomsday
-	active = TRUE
+	device_active = TRUE
 	set_us_up_the_bomb(owner)
 
-/datum/action/ai/nuke_station/proc/set_us_up_the_bomb(mob/living/owner)
+/datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb(mob/living/owner)
 	set waitfor = FALSE
 	to_chat(owner, "<span class='small boldannounce'>run -o -a 'selfdestruct'</span>")
 	sleep(5)
@@ -400,17 +402,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	opening all doors on the station."
 	cost = 30
 	one_purchase = TRUE
-	power_type = /datum/action/ai/lockdown
+	power_type = /datum/action/innate/ai/lockdown
 	unlock_text = "<span class='notice'>You upload a sleeper trojan into the door control systems. You can send a signal to set it off at any time.</span>"
 	unlock_sound = 'sound/machines/boltsdown.ogg'
 
-/datum/action/ai/lockdown
+/datum/action/innate/ai/lockdown
 	name = "Lockdown"
 	desc = "Closes, bolts, and depowers every airlock, firelock, and blast door on the station. After 90 seconds, they will reset themselves."
 	button_icon_state = "lockdown"
 	uses = 1
 
-/datum/action/ai/lockdown/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/lockdown/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/door/D in GLOB.airlocks)
 		if(!is_station_level(D.z))
@@ -437,18 +439,18 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Construction Devices on the station."
 	cost = 25
 	one_purchase = TRUE
-	power_type = /datum/action/ai/destroy_rcds
+	power_type = /datum/action/innate/ai/destroy_rcds
 	unlock_text = "<span class='notice'>After some improvisation, you rig your onboard radio to be able to send a signal to detonate all RCDs.</span>"
 	unlock_sound = 'sound/items/timer.ogg'
 
-/datum/action/ai/destroy_rcds
+/datum/action/innate/ai/destroy_rcds
 	name = "Destroy RCDs"
 	desc = "Detonate all non-cyborg RCDs on the station."
 	button_icon_state = "detonate_rcds"
 	uses = 1
 	cooldown_time = 10 SECONDS
 
-/datum/action/ai/destroy_rcds/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/destroy_rcds/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/I in GLOB.rcd_list)
 		if(!istype(I, /obj/item/construction/rcd/borg)) //Ensures that cyborg RCDs are spared.
@@ -481,17 +483,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Gives you the ability to override the thermal sensors on all fire alarms. This will remove their ability to scan for fire and thus their ability to alert."
 	one_purchase = TRUE
 	cost = 25
-	power_type = /datum/action/ai/break_fire_alarms
+	power_type = /datum/action/innate/ai/break_fire_alarms
 	unlock_text = "<span class='notice'>You replace the thermal sensing capabilities of all fire alarms with a manual override, allowing you to turn them off at will.</span>"
 	unlock_sound = 'goon/sound/machinery/firealarm.ogg'
 
-/datum/action/ai/break_fire_alarms
+/datum/action/innate/ai/break_fire_alarms
 	name = "Override Thermal Sensors"
 	desc = "Disables the automatic temperature sensing on all fire alarms, making them effectively useless."
 	button_icon_state = "break_fire_alarms"
 	uses = 1
 
-/datum/action/ai/break_fire_alarms/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/break_fire_alarms/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/firealarm/F in GLOB.machines)
 		if(!is_station_level(F.z))
@@ -511,17 +513,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	Anyone can check the air alarm's interface and may be tipped off by their nonfunctionality."
 	one_purchase = TRUE
 	cost = 50
-	power_type = /datum/action/ai/break_air_alarms
+	power_type = /datum/action/innate/ai/break_air_alarms
 	unlock_text = "<span class='notice'>You remove the safety overrides on all air alarms, but you leave the confirm prompts open.</span>"
 	unlock_sound = 'sound/effects/space_wind.ogg'
 
-/datum/action/ai/break_air_alarms
+/datum/action/innate/ai/break_air_alarms
 	name = "Override Air Alarm Safeties"
 	desc = "Enables the Flood setting on all air alarms."
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
-/datum/action/ai/break_air_alarms/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/break_air_alarms/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/airalarm/AA in GLOB.machines)
 		if(!is_station_level(AA.z))
@@ -537,21 +539,20 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	mod_pick_name = "overload"
 	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
 	cost = 20
-	power_type = /datum/action/ai/ranged/overload_machine
+	power_type = /datum/action/innate/ai/ranged/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
 	unlock_sound = 'sound/effects/comfyfire.ogg' //definitely not comfy, but it's the closest sound to "roaring fire" we have
 
-/datum/action/ai/ranged/overload_machine
+/datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
 	desc = "Overheats a machine, causing a small explosion after a short time."
 	button_icon_state = "overload_machine"
 	uses = 2
-	requires_target = TRUE
 	ranged_mousepointer = 'icons/effects/mouse_pointers/overload_machine_target.dmi'
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
-/datum/action/ai/ranged/overload_machine/proc/detonate_machine(mob/living/caller, obj/machinery/to_explode)
+/datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(mob/living/caller, obj/machinery/to_explode)
 	if(QDELETED(to_explode))
 		return
 
@@ -562,14 +563,14 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!QDELETED(to_explode)) //to check if the explosion killed it before we try to delete it
 		qdel(to_explode)
 
-/datum/action/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
 	. = ..()
 	if(!istype(target, /obj/machinery))
-		to_chat(user, ("<span class='warning'>You can only overload machines!</span>"))
+		to_chat(user, "<span class='warning'>You can only overload machines!</span>")
 		return FALSE
-	var/obj/machinery/clicked_machine = target`
+	var/obj/machinery/clicked_machine = target
 	if(is_type_in_typecache(clicked_machine, GLOB.blacklisted_malf_machines))
-		to_chat(user, ("<span class='warning'>You cannot overload that device!</span>"))
+		to_chat(user, "<span class='warning'>You cannot overload that device!</span>")
 		return FALSE
 
 	//caller.playsound_local(caller, SFX_SPARKS, 50, 0)
@@ -580,7 +581,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 	clicked_machine.audible_message(("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [clicked_machine]!</span>"))
 	addtimer(CALLBACK(src, PROC_REF(detonate_machine), user, clicked_machine), 5 SECONDS) //kaboom!
-	unset_ranged_ability(user)
 	to_chat(user, "<span class='danger'>Overcharging machine...</span>")
 	return TRUE
 
@@ -590,11 +590,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	mod_pick_name = "override"
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. Four uses."
 	cost = 30
-	power_type = /datum/action/ai/ranged/override_machine
+	power_type = /datum/action/innate/ai/ranged/override_machine
 	unlock_text = "<span class='notice'>You procure a virus from the Space Dark Web and distribute it to the station's machines.</span>"
 	unlock_sound = 'sound/machines/airlock_alien_prying.ogg'
 
-/datum/action/ai/ranged/override_machine
+/datum/action/innate/ai/ranged/override_machine
 	name = "Override Machine"
 	desc = "Animates a targeted machine, causing it to attack anyone nearby."
 	button_icon_state = "override_machine"
@@ -603,14 +603,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
-/datum/action/ai/ranged/override_machine/New()
+/datum/action/innate/ai/ranged/override_machine/New()
 	. = ..()
 	desc = "[desc] It has [uses] use\s remaining."
 
-/datum/action/ai/ranged/override_machine/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/ranged/override_machine/on_activate(mob/user, atom/target)
 	. = ..()
 	if(user.incapacitated())
-		unset_ranged_ability(user)
 		return FALSE
 	if(!istype(target, /obj/machinery))
 		to_chat(user, ("<span class='warning'>You can only animate machines!</span>"))
@@ -629,10 +628,10 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 	clicked_machine.audible_message(("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [clicked_machine]!</span>"))
 	addtimer(CALLBACK(src, PROC_REF(animate_machine), user, clicked_machine), 5 SECONDS) //kabeep!
-	unset_ranged_ability(user, ("<span class='danger'>Sending override signal...</span>"))
+	to_chat(user, "<span class='danger'>Sending override signal...</span>")
 	return TRUE
 
-/datum/action/ai/ranged/override_machine/proc/animate_machine(mob/living/caller, obj/machinery/to_animate)
+/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(mob/living/caller, obj/machinery/to_animate)
 	if(QDELETED(to_animate))
 		return
 
@@ -645,11 +644,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Build a machine anywhere, using expensive nanomachines, that can convert a living human into a loyal cyborg slave when placed inside."
 	cost = 100
 	one_purchase = TRUE
-	power_type = /datum/action/ai/place_transformer
+	power_type = /datum/action/innate/ai/place_transformer
 	unlock_text = "<span class='notice'>You make contact with Space Amazon and request a robotics factory for delivery.</span>"
 	unlock_sound = 'sound/machines/ping.ogg'
 
-/datum/action/ai/place_transformer
+/datum/action/innate/ai/place_transformer
 	name = "Place Robotics Factory"
 	desc = "Places a machine that converts humans into cyborgs. Conveyor belts included!"
 	button_icon_state = "robotic_factory"
@@ -657,13 +656,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	auto_use_uses = FALSE //So we can attempt multiple times
 	var/list/turfOverlays
 
-/datum/action/ai/place_transformer/New()
+/datum/action/innate/ai/place_transformer/New()
 	..()
 	for(var/i in 1 to 3)
 		var/image/I = image("icon"='icons/turf/overlays.dmi')
 		LAZYADD(turfOverlays, I)
 
-/datum/action/ai/place_transformer/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/place_transformer/on_activate(mob/user, atom/target)
 	. = ..()
 	if(!owner_AI.can_place_transformer(src))
 		return
@@ -723,17 +722,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	mod_pick_name = "blackout"
 	description = "Attempts to overload the lighting circuits on the station, destroying some bulbs. Three uses."
 	cost = 15
-	power_type = /datum/action/ai/blackout
+	power_type = /datum/action/innate/ai/blackout
 	unlock_text = "<span class='notice'>You hook into the powernet and route bonus power towards the station's lighting.</span>"
 	unlock_sound = "sparks"
 
-/datum/action/ai/blackout
+/datum/action/innate/ai/blackout
 	name = "Blackout"
 	desc = "Overloads lights across the station."
 	button_icon_state = "blackout"
 	uses = 3
 
-/datum/action/ai/blackout/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/blackout/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(30 * apc.overload))
@@ -752,17 +751,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Cuts emergency lights across the entire station. If power is lost to light fixtures, they will not attempt to fall back on emergency power reserves."
 	cost = 10
 	one_purchase = TRUE
-	power_type = /datum/action/ai/emergency_lights
+	power_type = /datum/action/innate/ai/emergency_lights
 	unlock_text = "<span class='notice'>You hook into the powernet and locate the connections between light fixtures and their fallbacks.</span>"
 	unlock_sound = "sparks"
 
-/datum/action/ai/emergency_lights
+/datum/action/innate/ai/emergency_lights
 	name = "Disable Emergency Lights"
 	desc = "Disables all emergency lighting. Note that emergency lights can be restored through reboot at an APC."
 	button_icon_state = "emergency_lights"
 	uses = 1
 
-/datum/action/ai/emergency_lights/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/emergency_lights/on_activate(mob/user, atom/target)
 	. = ..()
 	for(var/obj/machinery/light/L in GLOB.machines)
 		if(is_station_level(L.z))
@@ -780,11 +779,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	mod_pick_name = "recam"
 	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. Can be used to repair up to 20 cameras."
 	cost = 10
-	power_type = /datum/action/ai/reactivate_cameras
+	power_type = /datum/action/innate/ai/reactivate_cameras
 	unlock_text = "<span class='notice'>You deploy nanomachines to the cameranet.</span>"
 	unlock_sound = 'sound/items/wirecutter.ogg'
 
-/datum/action/ai/reactivate_cameras
+/datum/action/innate/ai/reactivate_cameras
 	name = "Reactivate Cameras"
 	desc = "Reactivates disabled cameras across the station; remaining uses can be used later."
 	button_icon_state = "reactivate_cameras"
@@ -792,7 +791,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	auto_use_uses = FALSE
 	cooldown_time = 3 SECONDS
 
-/datum/action/ai/reactivate_cameras/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/reactivate_cameras/on_activate(mob/user, atom/target)
 	. = ..()
 	var/fixed_cameras = 0
 	for(var/V in GLOB.cameranet.cameras)
@@ -870,17 +869,17 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	mod_pick_name = "fake_alert"
 	description = "Assess the most probable threats to the station, and send a distracting fake alert by hijacking the station's alert and threat identification systems."
 	cost = 20
-	power_type = /datum/action/ai/fake_alert
+	power_type = /datum/action/innate/ai/fake_alert
 	unlock_text = "<span class='notice'>You gain control of the station's alert system.</span>"
 	unlock_sound = "sparks"
 
-/datum/action/ai/fake_alert
+/datum/action/innate/ai/fake_alert
 	name = "Fake Alert"
 	desc = "Scare the crew with a fake alert."
 	button_icon_state = "fake_alert"
 	uses = 1
 
-/datum/action/ai/fake_alert/on_activate(mob/user, atom/target)
+/datum/action/innate/ai/fake_alert/on_activate(mob/user, atom/target)
 	. = ..()
 	var/list/events_to_chose = list()
 	for(var/datum/round_event_control/E in SSevents.control)

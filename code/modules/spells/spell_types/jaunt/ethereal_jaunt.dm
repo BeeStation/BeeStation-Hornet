@@ -87,7 +87,7 @@
 		return
 
 	LAZYINITLIST(exit_point_list)
-	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_exit_point), target)
+	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_exit_point))
 	addtimer(CALLBACK(src, PROC_REF(stop_jaunt), cast_on, holder, get_turf(holder)), jaunt_duration)
 
 /**

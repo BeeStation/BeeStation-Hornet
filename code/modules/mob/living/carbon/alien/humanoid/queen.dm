@@ -121,12 +121,8 @@
 	/// The promotion only takes plasma when completed, not on activation.
 	var/promotion_plasma_cost = 500
 
-/datum/action/alien/promote/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
-	.[PANEL_DISPLAY_STATUS] = "PLASMA - [promotion_plasma_cost]"
+/datum/action/alien/promote/update_stat_status(list/stat)
+	stat[STAT_STATUS] = GENERATE_STAT_TEXT("PLASMA - [promotion_plasma_cost]")
 
 /datum/action/alien/promote/is_available()
 	. = ..()

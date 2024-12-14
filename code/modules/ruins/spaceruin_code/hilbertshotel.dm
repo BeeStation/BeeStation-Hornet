@@ -323,7 +323,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) >= 2)
 		user.unset_machine()
 		for(var/datum/action/peepholeCancel/PHC in user.actions)
-			PHC.Trigger()
+			PHC.trigger()
 
 /datum/action/peepholeCancel
 	name = "Cancel View"

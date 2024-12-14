@@ -61,7 +61,7 @@
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
-		split_ability.Trigger(TRUE)
+		split_ability.split(FALSE, H)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
 		informed_nymph = TRUE
 		to_chat(H, "<span class='warning'>You feel sufficiently satiated to allow a nymph to split off from your gestalt!")
@@ -88,7 +88,7 @@
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
-		drone.switch_ability.Trigger(H) //Bring them home.
+		drone.switch_ability.trigger() //Bring them home.
 
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = FALSE
@@ -125,7 +125,7 @@
 	if(gibbed)
 		QDEL_NULL(H)
 		return
-	split_ability.Trigger(TRUE)
+	split_ability.split(gibbed, H)
 
 /datum/species/diona/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
 	H.unequip_everything()
@@ -187,9 +187,6 @@
 	return ..() && isdiona(owner)
 
 /datum/action/diona/split/on_activate(mob/user, atom/target)
-	if(trigger_flags)
-		startSplitting(FALSE, user) //This runs when you are dead.
-		return TRUE
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))

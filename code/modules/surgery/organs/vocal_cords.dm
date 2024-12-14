@@ -71,7 +71,9 @@
 
 /datum/action/item_action/organ_action/colossus/New()
 	..()
-	cords = target
+	if (!istype(master, /obj/item/organ/vocal_cords/colossus))
+		CRASH("/obj/item/organ/vocal_cords/colossus assigned to colossus")
+	cords = master
 
 /datum/action/item_action/organ_action/colossus/is_available()
 	if(world.time < cords.next_command)

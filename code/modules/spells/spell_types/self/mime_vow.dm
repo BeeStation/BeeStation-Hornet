@@ -4,7 +4,6 @@
 	background_icon_state = "bg_mime"
 	icon_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "mime_speech"
-	panel = "Mime"
 
 	school = SCHOOL_MIME
 	cooldown_time = 5 MINUTES

@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 /datum/antagonist/wizard/on_removal()
 	// Currently removes all spells regardless of innate or not. Could be improved.
 	for(var/datum/action/spell/spell in owner.current.actions)
-		if(spell.target == owner)
+		if(spell.owner == owner)
 			qdel(spell)
 			owner.current.actions -= spell
 	return ..()

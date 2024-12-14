@@ -27,14 +27,6 @@
 	reset_tesla(remove_from)
 	return ..()
 
-/datum/action/spell/tesla/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
-	if(currently_channeling)
-		.[PANEL_DISPLAY_STATUS] = "CHANNELING"
-
 /datum/action/spell/tesla/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)

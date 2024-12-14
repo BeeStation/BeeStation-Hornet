@@ -938,7 +938,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /// Prevents the imbiber from being dragged into a pool of blood by a slaughter demon.
 /datum/reagent/consumable/ethanol/demonsblood/proc/pre_bloodcrawl_consumed(
 	mob/living/source,
-	datum/action/cooldown/spell/jaunt/bloodcrawl/crawl,
+	datum/action/spell/jaunt/bloodcrawl/crawl,
 	mob/living/jaunter,
 	obj/effect/decal/cleanable/blood,
 )
@@ -977,7 +977,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /// If eaten by a slaughter demon, the demon will regret it.
 /datum/reagent/consumable/ethanol/devilskiss/proc/on_bloodcrawl_consumed(
 	mob/living/source,
-	datum/action/cooldown/spell/jaunt/bloodcrawl/crawl,
+	datum/action/spell/jaunt/bloodcrawl/crawl,
 	mob/living/jaunter,
 )
 

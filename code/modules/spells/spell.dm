@@ -46,7 +46,6 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "spell_default"
 	check_flags = AB_CHECK_CONSCIOUS
-	panel = "Spells"
 
 	/// The sound played on cast.
 	var/sound = null
@@ -86,8 +85,8 @@
 
 /datum/action/spell/Grant(mob/grant_to)
 	// If our spell is mind-bound, we only wanna grant it to our mind
-	if(istype(target, /datum/mind))
-		var/datum/mind/mind_target = target
+	if(istype(master, /datum/mind))
+		var/datum/mind/mind_target = master
 		if(mind_target.current != grant_to)
 			return
 

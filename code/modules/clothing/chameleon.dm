@@ -97,8 +97,8 @@
 
 	var/obj/item/card/id/syndicate/chamel_card // this is awful but this hardcoding is better than adding `obj/proc/get_chameleon_variable()` for every chalemon item
 	for(var/datum/action/item_action/chameleon/change/A in user.chameleon_item_actions)
-		if(istype(A.target, /obj/item/modular_computer))
-			var/obj/item/modular_computer/comp = A.target
+		if(istype(UNLINT(A.master), /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = UNLINT(A.master)
 			if(istype(comp.GetID(), /obj/item/card/id/syndicate))
 				chamel_card = comp.GetID()
 
@@ -180,7 +180,7 @@
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	name = "Change [chameleon_name] Appearance"
-	chameleon_blacklist |= typecacheof(target.type)
+	chameleon_blacklist |= typecacheof(master.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
@@ -223,14 +223,14 @@
 			return
 		update_item(picked_item, emp=emp, item_holder=user)
 
-		var/obj/item/thing = target
+		var/obj/item/thing = master
 		thing.update_slot_icon()
 	update_buttons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE, mob/item_holder=null)
 	var/keepname = FALSE
-	if(isitem(target))
-		var/obj/item/clothing/I = target
+	if(isitem(master))
+		var/obj/item/clothing/I = master
 		I.worn_icon = initial(picked_item.worn_icon)
 		I.lefthand_file = initial(picked_item.lefthand_file)
 		I.righthand_file = initial(picked_item.righthand_file)
@@ -253,7 +253,7 @@
 		else
 			I.icon = initial(picked_item.icon)
 		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
-			var/obj/item/card/id/ID = target
+			var/obj/item/card/id/ID = master
 			var/obj/item/card/id/ID_from = picked_item
 			ID.hud_state = initial(ID_from.hud_state)
 			if(!emp)
@@ -271,7 +271,7 @@
 				ID.update_label()
 
 			// we're going to find a PDA that this ID card is inserted into, then force-update PDA
-			var/atom/current_holder = target
+			var/atom/current_holder = master
 			if(istype(current_holder, /obj/item/computer_hardware/card_slot))
 				current_holder = current_holder.loc
 				if(istype(current_holder, /obj/item/modular_computer))
@@ -282,8 +282,8 @@
 						comp.update_id_display()
 
 			update_mob_hud(item_holder)
-		if(istype(target, /obj/item/modular_computer))
-			var/obj/item/modular_computer/comp = target
+		if(istype(master, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = master
 			var/obj/item/card/id/id = comp.GetID()
 			if(id)
 				comp.saved_identification = id.registered_name
@@ -300,7 +300,7 @@
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
 	if(!ishuman(card_holder))
 		if(!card_holder)
-			card_holder = target
+			card_holder = master
 		if(istype(card_holder, /obj/item/storage/wallet))
 			card_holder = card_holder.loc // this should be human
 		if(istype(card_holder, /obj/item/computer_hardware/card_slot))

@@ -5,7 +5,6 @@
 	background_icon_state = "bg_mime"
 	icon_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "finger_guns0"
-	panel = "Mime"
 	sound = null
 
 	school = SCHOOL_MIME

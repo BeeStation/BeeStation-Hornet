@@ -35,13 +35,13 @@
 	circuit = /obj/item/circuitboard/computer/base_construction
 	off_action = new/datum/action/innate/camera_off/base_construction
 	jump_action = null
-	var/datum/action/innate/aux_base/switch_mode/switch_mode_action = new //Action for switching the RCD's build modes
-	var/datum/action/innate/aux_base/build/build_action = new //Action for using the RCD
-	var/datum/action/innate/aux_base/airlock_type/airlock_mode_action = new //Action for setting the airlock type
-	var/datum/action/innate/aux_base/window_type/window_action = new //Action for setting the window type
-	var/datum/action/innate/aux_base/place_fan/fan_action = new //Action for spawning fans
+	var/datum/action/innate/aux_base/switch_mode/switch_mode_action //Action for switching the RCD's build modes
+	var/datum/action/innate/aux_base/build/build_action //Action for using the RCD
+	var/datum/action/innate/aux_base/airlock_type/airlock_mode_action //Action for setting the airlock type
+	var/datum/action/innate/aux_base/window_type/window_action //Action for setting the window type
+	var/datum/action/innate/aux_base/place_fan/fan_action //Action for spawning fans
 	var/fans_remaining = 0 //Number of fans in stock.
-	var/datum/action/innate/aux_base/install_turret/turret_action = new //Action for spawning turrets
+	var/datum/action/innate/aux_base/install_turret/turret_action //Action for spawning turrets
 	var/turret_stock = 0 //Turrets in stock
 	var/obj/machinery/computer/auxillary_base/found_aux_console //Tracker for the Aux base console, so the eye can always find it.
 
@@ -53,6 +53,12 @@
 /obj/machinery/computer/camera_advanced/base_construction/Initialize(mapload)
 	. = ..()
 	RCD = new(src)
+	switch_mode_action = new(src)
+	build_action = new(src)
+	airlock_mode_action = new(src)
+	window_action = new(src)
+	fan_action = new(src)
+	turret_action = new(src)
 
 /obj/machinery/computer/camera_advanced/base_construction/Initialize(mapload)
 	. = ..()
@@ -93,32 +99,26 @@
 	..()
 
 	if(switch_mode_action)
-		switch_mode_action.target = src
 		switch_mode_action.Grant(user)
 		actions += switch_mode_action
 
 	if(build_action)
-		build_action.target = src
 		build_action.Grant(user)
 		actions += build_action
 
 	if(airlock_mode_action)
-		airlock_mode_action.target = src
 		airlock_mode_action.Grant(user)
 		actions += airlock_mode_action
 
 	if(window_action)
-		window_action.target = src
 		window_action.Grant(user)
 		actions += window_action
 
 	if(fan_action)
-		fan_action.target = src
 		fan_action.Grant(user)
 		actions += fan_action
 
 	if(turret_action)
-		turret_action.target = src
 		turret_action.Grant(user)
 		actions += turret_action
 
@@ -136,11 +136,11 @@
 	var/obj/machinery/computer/camera_advanced/base_construction/B //Console itself
 
 /datum/action/innate/aux_base/on_activate()
-	if(!target)
+	if(!master)
 		return TRUE
 	C = owner
 	remote_eye = C.remote_control
-	B = target
+	B = master
 	if(!B.RCD) //The console must always have an RCD.
 		B.RCD = new /obj/item/construction/rcd/internal(src) //If the RCD is lost somehow, make a new (empty) one!
 
