@@ -330,7 +330,7 @@
 	if(available)
 		button.color = rgb(255,255,255,255)
 	else
-		button.color = next_use_time ? rgb(219, 219, 219, 255) : (transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0))
+		button.color = next_use_time ? rgb(219, 219, 219, 128) : (transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0))
 	return available
 
 /// Applies our button icon over top the background icon of the action

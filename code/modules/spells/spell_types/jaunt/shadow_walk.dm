@@ -8,22 +8,22 @@
 	spell_requirements = NONE
 	jaunt_type = /obj/effect/dummy/phased_mob/shadow
 
-/datum/action/spell/jaunt/shadow_walk/cast(mob/living/cast_on)
+/datum/action/spell/jaunt/shadow_walk/on_cast(mob/living/user, atom/target)
 	. = ..()
-	if(is_jaunting(cast_on))
-		exit_jaunt(cast_on)
+	if(is_jaunting(user))
+		exit_jaunt(user)
 		return
 
-	var/turf/cast_turf = get_turf(cast_on)
+	var/turf/cast_turf = get_turf(user)
 	if(cast_turf.get_lumcount() >= SHADOW_SPECIES_LIGHT_THRESHOLD)
-		to_chat(cast_on, ("<span class='warning'>It isn't dark enough here!</span>"))
+		to_chat(user, ("<span class='warning'>It isn't dark enough here!</span>"))
 		return
 
 	playsound(cast_turf, 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
-	cast_on.visible_message(("<span class='boldwarning'>[cast_on] melts into the shadows!</span>"))
-	cast_on.SetAllImmobility(0)
-	cast_on.setStaminaLoss(0, FALSE)
-	enter_jaunt(cast_on)
+	user.visible_message(("<span class='boldwarning'>[user] melts into the shadows!</span>"))
+	user.SetAllImmobility(0)
+	user.setStaminaLoss(0, FALSE)
+	enter_jaunt(user)
 
 /obj/effect/dummy/phased_mob/shadow
 	name = "shadows"

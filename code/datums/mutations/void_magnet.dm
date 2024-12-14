@@ -15,12 +15,12 @@
 		remove()
 		return
 
-	if(!curse.is_valid_target(owner))
+	if(!curse.is_valid_spell(owner, null))
 		return
 
 	//very rare, but enough to annoy you hopefully. + 0.5 probability for every 10 points lost in stability
 	if(DT_PROB((0.25 + ((100 - dna.stability) / 40)) * GET_MUTATION_SYNCHRONIZER(src), delta_time))
-		curse.cast(owner)
+		curse.on_cast(owner, null)
 
 /datum/action/spell/void
 	name = "Convoke Void" //magic the gathering joke here
@@ -35,9 +35,9 @@
 	spell_requirements = NONE
 	antimagic_flags = NONE
 
-/datum/action/spell/void/is_valid_target(atom/cast_on)
-	return isturf(cast_on.loc)
+/datum/action/spell/void/is_valid_spell(mob/user, atom/target)
+	return isturf(user.loc)
 
-/datum/action/spell/void/cast(atom/cast_on)
+/datum/action/spell/void/on_cast(mob/user, atom/target)
 	. = ..()
-	new /obj/effect/immortality_talisman/void(get_turf(cast_on), cast_on)
+	new /obj/effect/immortality_talisman/void(get_turf(user), user)

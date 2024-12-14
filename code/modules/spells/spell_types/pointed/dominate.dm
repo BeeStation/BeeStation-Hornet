@@ -17,11 +17,11 @@
 	cast_range = 7
 	active_msg = "You prepare to dominate the mind of a target..."
 
-/datum/action/spell/pointed/dominate/is_valid_target(atom/cast_on)
-	if(!isanimal(cast_on))
+/datum/action/spell/pointed/dominate/is_valid_spell(mob/user, atom/target)
+	if(!isanimal(target))
 		return FALSE
 
-	var/mob/living/simple_animal/animal = cast_on
+	var/mob/living/simple_animal/animal = target
 	if(animal.mind)
 		return FALSE
 	if(animal.stat == DEAD)
@@ -35,15 +35,15 @@
 
 	return TRUE
 
-/datum/action/spell/pointed/dominate/cast(mob/living/simple_animal/cast_on)
+/datum/action/spell/pointed/dominate/on_cast(mob/user, mob/living/simple_animal/target)
 	. = ..()
-	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, ("<span class='warning'>Your feel someone attempting to subject your mind to terrible machinations!</span>"))
-		to_chat(owner, ("<span class='warning'>[cast_on] resists your domination!</span>"))
+	if(target.can_block_magic(antimagic_flags))
+		to_chat(target, "<span class='warning'>Your feel someone attempting to subject your mind to terrible machinations!</span>")
+		to_chat(owner, "<span class='warning'>[target] resists your domination!</span>")
 		return FALSE
 
-	var/turf/cast_turf = get_turf(cast_on)
-	cast_on.add_atom_colour("#990000", FIXED_COLOUR_PRIORITY)
-	cast_on.faction |= "cult"
+	var/turf/cast_turf = get_turf(target)
+	target.add_atom_colour("#990000", FIXED_COLOUR_PRIORITY)
+	target.faction |= "cult"
 	playsound(cast_turf, 'sound/effects/ghost.ogg', 100, TRUE)
 	new /obj/effect/temp_visual/cult/sac(cast_turf)

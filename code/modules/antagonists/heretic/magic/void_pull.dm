@@ -21,15 +21,15 @@
 	var/stun_radius = 4
 
 // Before the cast, we do some small AOE damage around the caster
-/datum/action/spell/aoe/void_pull/before_cast(atom/cast_on)
+/datum/action/spell/aoe/void_pull/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	new /obj/effect/temp_visual/voidin(get_turf(cast_on))
+	new /obj/effect/temp_visual/voidin(get_turf(user))
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
-	var/list/mob/living/people_near_us = get_things_to_cast_on(cast_on, damage_radius)
+	var/list/mob/living/people_near_us = get_things_to_cast_on(user, damage_radius)
 	for(var/mob/living/nearby_living as anything in people_near_us)
 		nearby_living.apply_damage(30, BRUTE)
 

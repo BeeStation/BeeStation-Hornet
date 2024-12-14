@@ -25,13 +25,13 @@
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
 
-/datum/action/spell/pointed/manse_link/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/manse_link/is_valid_spell(mob/user, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
-	return isliving(cast_on)
+	return isliving(target)
 
-/datum/action/spell/pointed/manse_link/before_cast(mob/living/cast_on)
+/datum/action/spell/pointed/manse_link/pre_cast(mob/living/cast_on, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return

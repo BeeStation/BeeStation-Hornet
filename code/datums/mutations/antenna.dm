@@ -61,34 +61,34 @@
 	mindbound = FALSE
 	ranged_mousepointer = 'icons/effects/mouse_pointers/mindswap_target.dmi'
 
-/datum/action/spell/pointed/mindread/is_valid_target(atom/cast_on)
-	if(!isliving(cast_on))
+/datum/action/spell/pointed/mindread/is_valid_spell(mob/user, atom/target)
+	if(!isliving(target))
 		return FALSE
-	var/mob/living/living_cast_on = cast_on
+	var/mob/living/living_cast_on = target
 	if(!living_cast_on.mind)
-		to_chat(owner, ("<span class='warning'>[cast_on] has no mind to read!</span>"))
+		to_chat(owner, ("<span class='warning'>[target] has no mind to read!</span>"))
 		return FALSE
 	if(living_cast_on.stat == DEAD)
-		to_chat(owner, ("<span class='warning'>[cast_on] is dead!</span>"))
+		to_chat(owner, ("<span class='warning'>[target] is dead!</span>"))
 		return FALSE
 
 	return TRUE
 
-/datum/action/spell/pointed/mindread/cast(mob/living/cast_on)
+/datum/action/spell/pointed/mindread/on_cast(mob/living/user, mob/living/target)
 	. = ..()
-	if(cast_on.can_block_magic(MAGIC_RESISTANCE_MIND, 0))
-		to_chat(owner, ("<span class='warning'>As you reach into [cast_on]'s mind, \
+	if(target.can_block_magic(MAGIC_RESISTANCE_MIND, 0))
+		to_chat(owner, ("<span class='warning'>As you reach into [target]'s mind, \
 			you are stopped by a mental blockage. It seems you've been foiled.</span>"))
 		return
 
-	if(cast_on == owner)
+	if(target == owner)
 		to_chat(owner, ("<span class='warning'>You plunge into your mind... Yep, it's your mind.</span>"))
 		return
 
-	to_chat(owner, ("<span class='boldnotice'>You plunge into [cast_on]'s mind...</span>"))
+	to_chat(owner, ("<span class='boldnotice'>You plunge into [target]'s mind...</span>"))
 	if(prob(20))
 		// chance to alert the read-ee
-		to_chat(cast_on, ("<span class='danger'>You feel something foreign enter your mind.</span>"))
+		to_chat(target, ("<span class='danger'>You feel something foreign enter your mind.</span>"))
 
 	/* Uhhhh idk what to put here :3
 	var/list/recent_speech = list()

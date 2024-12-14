@@ -24,17 +24,17 @@
 	/// The damage bonus applied to the rod on cast
 	var/rod_damage_bonus = 0
 
-/datum/action/spell/rod_form/cast(atom/cast_on)
+/datum/action/spell/rod_form/on_cast(mob/user, atom/target)
 	. = ..()
 	// The destination turf of the rod - just a bit over the max range we calculated, for safety
-	var/turf/distant_turf = get_ranged_target_turf(get_turf(cast_on), cast_on.dir, (rod_max_distance + 2))
+	var/turf/distant_turf = get_ranged_target_turf(get_turf(user), user.dir, (rod_max_distance + 2))
 
 	new /obj/effect/immovablerod/wizard(
-		get_turf(cast_on),
+		get_turf(user),
 		distant_turf,
 		null,
 		FALSE,
-		cast_on,
+		user,
 		rod_max_distance,
 		rod_damage_bonus,
 	)

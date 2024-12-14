@@ -16,10 +16,10 @@
 	/// If TRUE, no two summons can be spawned in the same turf.
 	var/summon_respects_prev_spawn_points = TRUE
 
-/datum/action/spell/conjure/cast(atom/cast_on)
+/datum/action/spell/conjure/on_cast(mob/user, atom/target)
 	. = ..()
 	var/list/to_summon_in = list()
-	for(var/turf/summon_turf in range(summon_radius, cast_on))
+	for(var/turf/summon_turf in range(summon_radius, user))
 		if(summon_respects_density && summon_turf.density)
 			continue
 		to_summon_in += summon_turf
@@ -43,7 +43,7 @@
 			if(summon_lifespan > 0)
 				QDEL_IN(summoned_object, summon_lifespan)
 
-			post_summon(summoned_object, cast_on)
+			post_summon(summoned_object, user)
 
 /// Called on atoms summoned after they are created, allows extra variable editing and such of created objects
 /datum/action/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)

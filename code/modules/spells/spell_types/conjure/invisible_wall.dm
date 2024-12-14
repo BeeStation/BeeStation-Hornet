@@ -20,6 +20,6 @@
 	summon_type = list(/obj/effect/forcefield/mime)
 	summon_lifespan = 30 SECONDS
 
-/datum/action/spell/conjure/invisible_wall/before_cast(atom/cast_on)
+/datum/action/spell/conjure/invisible_wall/pre_cast(mob/user, atom/target)
 	. = ..()
-	invocation = ("<span class='notice'><b>[cast_on]</b> looks as if a wall is in front of [cast_on.p_them()].</span>")
+	invocation = "<span class='notice'><b>[user]</b> looks as if a wall is in front of [user.p_them()].</span>"

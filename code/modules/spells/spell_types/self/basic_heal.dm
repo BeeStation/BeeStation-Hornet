@@ -17,11 +17,11 @@
 	/// Amount of burn to heal to the spell caster on cast
 	var/burn_to_heal = 10
 
-/datum/action/spell/basic_heal/cast(mob/living/cast_on)
+/datum/action/spell/basic_heal/on_cast(mob/living/user, atom/target)
 	. = ..()
-	cast_on.visible_message(
-		("<span class='warning'>A wreath of gentle light passes over [cast_on]!</span>"),
-		("<span class='notice'>You wreath yourself in healing light!</span>"),
+	user.visible_message(
+		"<span class='warning'>A wreath of gentle light passes over [user]!</span>",
+		"<span class='notice'>You wreath yourself in healing light!</span>",
 	)
-	cast_on.adjustBruteLoss(-brute_to_heal, FALSE)
-	cast_on.adjustFireLoss(-burn_to_heal)
+	user.adjustBruteLoss(-brute_to_heal, FALSE)
+	user.adjustFireLoss(-burn_to_heal)

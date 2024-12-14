@@ -13,27 +13,27 @@
 	. = ..()
 	name = "[name] \[ON\]"
 
-/datum/action/spell/night_vision/is_valid_target(atom/cast_on)
-	return isliving(cast_on)
+/datum/action/spell/night_vision/is_valid_spell(mob/user, atom/target)
+	return isliving(user)
 
-/datum/action/spell/night_vision/cast(mob/living/cast_on)
+/datum/action/spell/night_vision/on_cast(mob/living/user, atom/target)
 	. = ..()
-	to_chat(cast_on, "<span class='[toggle_span]'>You toggle your night vision.</span>")
+	to_chat(user, "<span class='[toggle_span]'>You toggle your night vision.</span>")
 
 	var/next_mode_text = ""
-	switch(cast_on.lighting_alpha)
+	switch(user.lighting_alpha)
 		if (LIGHTING_PLANE_ALPHA_VISIBLE)
-			cast_on.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 			next_mode_text = "More"
 		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-			cast_on.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			next_mode_text = "Full"
 		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-			cast_on.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 			next_mode_text = "OFF"
 		else
-			cast_on.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+			user.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 			next_mode_text = "ON"
 
-	cast_on.update_sight()
+	user.update_sight()
 	name = "[initial(name)] \[[next_mode_text]\]"

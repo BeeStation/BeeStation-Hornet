@@ -23,21 +23,21 @@
 	/// The amount of temperature we take from our target
 	var/amount_to_cool = 200
 
-/datum/action/spell/pointed/abyssal_gaze/is_valid_target(atom/cast_on)
-	return iscarbon(cast_on)
+/datum/action/spell/pointed/abyssal_gaze/is_valid_spell(mob/user, atom/target)
+	return iscarbon(target)
 
-/datum/action/spell/pointed/abyssal_gaze/cast(mob/living/carbon/cast_on)
+/datum/action/spell/pointed/abyssal_gaze/on_cast(mob/user, mob/living/carbon/target)
 	. = ..()
-	if(cast_on.can_block_magic(antimagic_flags))
+	if(target.can_block_magic(antimagic_flags))
 		to_chat(owner, ("<span class='warning'>The spell had no effect!</span>"))
-		to_chat(cast_on, ("<span class='warning'>You feel a freezing darkness closing in on you, but it rapidly dissipates.</span>"))
+		to_chat(target, ("<span class='warning'>You feel a freezing darkness closing in on you, but it rapidly dissipates.</span>"))
 		return FALSE
 
-	to_chat(cast_on, ("<span class='userdanger'>A freezing darkness surrounds you...</span>"))
-	cast_on.playsound_local(get_turf(cast_on), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
+	to_chat(target, ("<span class='userdanger'>A freezing darkness surrounds you...</span>"))
+	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	owner.playsound_local(get_turf(owner), 'sound/effects/ghost2.ogg', 50, 1)
-	cast_on.set_blindness(blind_duration)
-	if(ishuman(cast_on))
-		var/mob/living/carbon/human/human_cast_on = cast_on
+	target.set_blindness(blind_duration)
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_cast_on = target
 		human_cast_on.adjust_coretemperature(-amount_to_cool)
-	cast_on.adjust_bodytemperature(-amount_to_cool)
+	target.adjust_bodytemperature(-amount_to_cool)

@@ -15,13 +15,13 @@
 	/// All possible types we can become
 	var/list/atom/possible_shapes
 
-/datum/action/spell/shapeshift/is_valid_target(atom/cast_on)
-	return isliving(cast_on)
+/datum/action/spell/shapeshift/is_valid_spell(mob/user, atom/target)
+	return isliving(user)
 
 /datum/action/spell/shapeshift/proc/is_shifted(mob/living/cast_on)
 	return locate(/obj/shapeshift_holder) in cast_on
 
-/datum/action/spell/shapeshift/before_cast(atom/cast_on)
+/datum/action/spell/shapeshift/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -42,10 +42,10 @@
 			shape_names_to_image[shape_name] = image(icon = initial(path.icon), icon_state = initial(path.icon_state))
 
 	var/picked_type = show_radial_menu(
-		cast_on,
-		cast_on,
+		user,
+		user,
 		shape_names_to_image,
-		custom_check = CALLBACK(src, PROC_REF(check_menu), cast_on),
+		custom_check = CALLBACK(src, PROC_REF(check_menu), user),
 		radius = 38,
 	)
 
@@ -60,17 +60,17 @@
 	if(QDELETED(src) || QDELETED(owner) || !can_cast_spell(feedback = FALSE))
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/spell/shapeshift/cast(mob/living/cast_on)
+/datum/action/spell/shapeshift/on_cast(mob/living/user, atom/target)
 	. = ..()
-	cast_on.buckled?.unbuckle_mob(cast_on, force = TRUE)
+	user.buckled?.unbuckle_mob(user, force = TRUE)
 
-	var/currently_ventcrawling = (cast_on.movement_type & VENTCRAWLING)
+	var/currently_ventcrawling = (user.movement_type & VENTCRAWLING)
 
 	// Do the shift back or forth
-	if(is_shifted(cast_on))
-		restore_form(cast_on)
+	if(is_shifted(user))
+		restore_form(user)
 	else
-		do_shapeshift(cast_on)
+		do_shapeshift(user)
 
 	// The shift is done, let's make sure they're in a valid state now
 	// If we're not ventcrawling, we don't need to mind
@@ -78,11 +78,11 @@
 		return
 
 	// We are ventcrawling - can our new form support ventcrawling?
-	if(HAS_TRAIT(cast_on, VENTCRAWLER_ALWAYS) || HAS_TRAIT(cast_on, VENTCRAWLER_NUDE))
+	if(HAS_TRAIT(user, VENTCRAWLER_ALWAYS) || HAS_TRAIT(user, VENTCRAWLER_NUDE))
 		return
 
 	// Uh oh. You've shapeshifted into something that can't fit into a vent, while ventcrawling.
-	eject_from_vents(cast_on)
+	eject_from_vents(user)
 
 /// Whenever someone shapeshifts within a vent,
 /// and enters a state in which they are no longer a ventcrawler,

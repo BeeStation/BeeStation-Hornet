@@ -42,6 +42,6 @@
 
 	return ..()
 
-/datum/action/spell/pointed/projectile/finger_guns/before_cast(atom/cast_on)
+/datum/action/spell/pointed/projectile/finger_guns/pre_cast(mob/user, atom/target)
 	. = ..()
-	invocation = ("<span class='notice'><b>[cast_on]</b> fires [cast_on.p_their()] finger gun!</span>")
+	invocation = "<span class='notice'><b>[user]</b> fires [user.p_their()] finger gun!</span>"

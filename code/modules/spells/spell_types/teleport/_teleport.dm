@@ -18,13 +18,13 @@
 	var/post_teleport_sound = 'sound/weapons/zapbang.ogg'
 	var/bypass
 
-/datum/action/spell/teleport/cast(atom/cast_on)
+/datum/action/spell/teleport/on_cast(mob/user, atom/target)
 	. = ..()
-	var/list/turf/destinations = get_destinations(cast_on)
+	var/list/turf/destinations = get_destinations(user)
 	if(!length(destinations))
 		CRASH("[type] failed to find a teleport destination.")
 
-	do_teleport(cast_on, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, bypass_area_restriction = bypass)
+	do_teleport(user, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, bypass_area_restriction = bypass)
 
 /// Gets a list of destinations that are valid
 /datum/action/spell/teleport/proc/get_destinations(atom/center)
@@ -108,7 +108,7 @@
 
 	return valid_turfs
 
-/datum/action/spell/teleport/area_teleport/before_cast(atom/cast_on)
+/datum/action/spell/teleport/area_teleport/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -117,19 +117,19 @@
 	if(randomise_selection)
 		target_area = pick(GLOB.teleportlocs)
 	else
-		target_area = tgui_input_list(cast_on, "Chose an area to teleport to.", "Teleport", GLOB.teleportlocs)
+		target_area = tgui_input_list(user, "Chose an area to teleport to.", "Teleport", GLOB.teleportlocs)
 
-	if(QDELETED(src) || QDELETED(cast_on) || !can_cast_spell())
+	if(QDELETED(src) || QDELETED(user) || !can_cast_spell())
 		return . | SPELL_CANCEL_CAST
 	if(!target_area || isnull(GLOB.teleportlocs[target_area]))
 		return . | SPELL_CANCEL_CAST
 
 	last_chosen_area_name = target_area
 
-/datum/action/spell/teleport/area_teleport/cast(atom/cast_on)
-	if(isliving(cast_on))
-		var/mob/living/living_cast_on = cast_on
-		living_cast_on.buckled?.unbuckle_mob(cast_on, force = TRUE)
+/datum/action/spell/teleport/area_teleport/on_cast(mob/user, atom/target)
+	if(isliving(user))
+		var/mob/living/living_cast_on = user
+		living_cast_on.buckled?.unbuckle_mob(user, force = TRUE)
 	return ..()
 
 /datum/action/spell/teleport/area_teleport/invocation()

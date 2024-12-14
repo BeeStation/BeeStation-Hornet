@@ -24,7 +24,7 @@
 	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
 	var/datum/weakref/drone_ref
 
-/datum/action/spell/drone/cast(mob/user)
+/datum/action/spell/drone/on_cast(mob/user, atom/target)
 	. = ..()
 	var/mob/living/carbon/human/C = user
 	if(!isdiona(C))

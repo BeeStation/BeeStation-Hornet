@@ -21,54 +21,54 @@
 		return FALSE
 
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
-	if(!is_valid_target(owner))
+	if(!is_valid_spell(owner, owner))
 		if(feedback)
 			to_chat(owner, ("<span class='warning'>You don't have a soul to bind!</span>"))
 		return FALSE
 
 	return TRUE
 
-/datum/action/spell/lichdom/is_valid_target(atom/cast_on)
-	return isliving(cast_on) && !HAS_TRAIT(owner, TRAIT_NO_SOUL)
+/datum/action/spell/lichdom/is_valid_spell(mob/user, atom/target)
+	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
 
-/datum/action/spell/lichdom/cast(mob/living/cast_on)
-	var/obj/item/marked_item = cast_on.get_active_held_item()
+/datum/action/spell/lichdom/on_cast(mob/living/user, atom/target)
+	var/obj/item/marked_item = user.get_active_held_item()
 	if(!marked_item || marked_item.item_flags & ABSTRACT)
 		return
 	if(HAS_TRAIT(marked_item, TRAIT_NODROP))
-		to_chat(cast_on, ("<span class='warning'>[marked_item] is stuck to your hand - it wouldn't be a wise idea to place your soul into it.</span>"))
+		to_chat(user, ("<span class='warning'>[marked_item] is stuck to your hand - it wouldn't be a wise idea to place your soul into it.</span>"))
 		return
 	// I ensouled the nuke disk once.
 	// But it's a really mean tactic, so we probably should disallow it.
-	if(SEND_SIGNAL(marked_item, COMSIG_ITEM_IMBUE_SOUL, src, cast_on) & COMPONENT_BLOCK_IMBUE)
-		to_chat(cast_on, ("<span class='warning'>[marked_item] is not suitable for emplacement of your fragile soul.</span>"))
+	if(SEND_SIGNAL(marked_item, COMSIG_ITEM_IMBUE_SOUL, src, user) & COMPONENT_BLOCK_IMBUE)
+		to_chat(user, ("<span class='warning'>[marked_item] is not suitable for emplacement of your fragile soul.</span>"))
 		return
 
 	. = ..()
-	playsound(cast_on, 'sound/effects/pope_entry.ogg', 100)
+	playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
-	to_chat(cast_on, ("<span class='green'>You begin to focus your very being into [marked_item]...</span>"))
-	if(!do_after(cast_on, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
-		to_chat(cast_on, ("<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>"))
+	to_chat(user, ("<span class='green'>You begin to focus your very being into [marked_item]...</span>"))
+	if(!do_after(user, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
+		to_chat(user, ("<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>"))
 		return
 
-	marked_item.AddComponent(/datum/component/phylactery, cast_on.mind)
+	marked_item.AddComponent(/datum/component/phylactery, user.mind)
 
-	cast_on.set_species(/datum/species/skeleton)
-	to_chat(cast_on, ("<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination \
+	user.set_species(/datum/species/skeleton)
+	to_chat(user, ("<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination \
 		as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! \
 		As your organs crumble to dust in your fleshless chest you come to terms with your choice. \
 		You're a lich!</span>"))
 
-	if(iscarbon(cast_on))
-		var/mob/living/carbon/carbon_cast_on = cast_on
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_cast_on = user
 		var/obj/item/organ/brain/lich_brain = carbon_cast_on.getorganslot(ORGAN_SLOT_BRAIN)
 		if(lich_brain) // This prevents MMIs being used to stop lich revives
 			lich_brain.organ_flags &= ~ORGAN_VITAL
 			lich_brain.decoy_override = TRUE
 
-	if(ishuman(cast_on))
-		var/mob/living/carbon/human/human_cast_on = cast_on
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_cast_on = user
 		human_cast_on.dropItemToGround(human_cast_on.w_uniform)
 		human_cast_on.dropItemToGround(human_cast_on.wear_suit)
 		human_cast_on.dropItemToGround(human_cast_on.head)
@@ -78,6 +78,6 @@
 
 
 	// No soul. You just sold it
-	ADD_TRAIT(cast_on, TRAIT_NO_SOUL, LICH_TRAIT)
+	ADD_TRAIT(user, TRAIT_NO_SOUL, LICH_TRAIT)
 	// You only get one phylactery.
 	qdel(src)

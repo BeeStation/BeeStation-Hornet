@@ -43,7 +43,7 @@
 
 	on_deactivation(on_who, refund_cooldown = refund_cooldown)
 
-/datum/action/spell/pointed/before_cast(atom/cast_on)
+/datum/action/spell/pointed/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		on_deactivation(owner, refund_cooldown = FALSE)
@@ -82,13 +82,13 @@
 
 	return ..(caller, params, aim_assist_target || click_target)
 
-/datum/action/spell/pointed/is_valid_target(atom/cast_on)
-	if(cast_on == owner)
+/datum/action/spell/pointed/is_valid_spell(mob/user, atom/target)
+	if(target == owner)
 		to_chat(owner, ("<span class='warning'>You cannot cast [src] on yourself!</span>"))
 		return FALSE
 
-	if(get_dist(owner, cast_on) > cast_range)
-		to_chat(owner, ("<span class='warning'>[cast_on.p_theyre(TRUE)] too far away!</span>"))
+	if(get_dist(owner, target) > cast_range)
+		to_chat(owner, ("<span class='warning'>[target.p_theyre(TRUE)] too far away!</span>"))
 		return FALSE
 
 	return TRUE
@@ -115,7 +115,7 @@
 	if(projectile_amount > 1)
 		unset_after_click = FALSE
 
-/datum/action/spell/pointed/projectile/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/projectile/is_valid_spell(mob/user, atom/target)
 	return TRUE
 
 /datum/action/spell/pointed/projectile/on_activation(mob/on_who)
@@ -132,7 +132,7 @@
 		current_amount = 0
 
 // cast_on is a turf, or atom target, that we clicked on to fire at.
-/datum/action/spell/pointed/projectile/cast(atom/cast_on)
+/datum/action/spell/pointed/projectile/on_cast(mob/user, atom/target)
 	. = ..()
 	if(!isturf(owner.loc))
 		return FALSE
@@ -141,14 +141,14 @@
 	// Get the tile infront of the caster, based on their direction
 	var/turf/caster_front_turf = get_step(owner, owner.dir)
 
-	fire_projectile(cast_on)
+	fire_projectile(target)
 	owner.newtonian_move(get_dir(caster_front_turf, caster_turf))
 	if(current_amount <= 0)
 		unset_click_ability(owner, refund_cooldown = FALSE)
 
 	return TRUE
 
-/datum/action/spell/pointed/projectile/after_cast(atom/cast_on)
+/datum/action/spell/pointed/projectile/post_cast(mob/user, atom/target)
 	. = ..()
 	if(current_amount > 0)
 		// We still have projectiles to cast!

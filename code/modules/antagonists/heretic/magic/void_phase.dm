@@ -21,18 +21,18 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/spell/pointed/void_phase/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/void_phase/is_valid_spell(mob/user, atom/target)
 	// We do the close range check first
-	if(get_dist(get_turf(owner), get_turf(cast_on)) < min_cast_range)
+	if(get_dist(get_turf(owner), get_turf(target)) < min_cast_range)
 		owner.balloon_alert(owner, "too close!")
 		return FALSE
 
 	return ..()
 
-/datum/action/spell/pointed/void_phase/cast(atom/cast_on)
+/datum/action/spell/pointed/void_phase/on_cast(mob/user, atom/target)
 	. = ..()
-	var/turf/source_turf = get_turf(owner)
-	var/turf/targeted_turf = get_turf(cast_on)
+	var/turf/source_turf = get_turf(user)
+	var/turf/targeted_turf = get_turf(target)
 
 	new /obj/effect/temp_visual/voidin(source_turf)
 	new /obj/effect/temp_visual/voidout(targeted_turf)
@@ -42,17 +42,17 @@
 	playsound(targeted_turf, 'sound/magic/voidblink.ogg', 60, FALSE)
 
 	for(var/mob/living/living_mob in range(damage_radius, source_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == cast_on || living_mob.can_block_magic(MAGIC_RESISTANCE))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 
 	for(var/mob/living/living_mob in range(damage_radius, targeted_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == cast_on || living_mob.can_block_magic(MAGIC_RESISTANCE))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 
 	do_teleport(
-		owner,
+		user,
 		targeted_turf,
 		precision = 1,
 		no_effects = TRUE,

@@ -8,21 +8,20 @@
  * ## Pre-spell checks:
  * - [can_cast_spell][/datum/action/spell/can_cast_spell] checks if the OWNER
  * of the spell is able to cast the spell.
- * - [is_valid_target][/datum/action/spell/is_valid_target] checks if the TARGET
- * THE SPELL IS BEING CAST ON is a valid target for the spell. NOTE: The CAST TARGET is often THE SAME as THE OWNER OF THE SPELL,
- * but is not always - depending on how [Pre Activate][/datum/action/spell/pre_activate] is resolved.
+ * - [is_valid_spell][/datum/action/spell/is_valid_spell] checks if the user and target
+ * are valid for this particular spell
  * - [can_invoke][/datum/action/spell/can_invoke] is run in can_cast_spell to check if
  * the OWNER of the spell is able to say the current invocation.
  *
  * ## The spell chain:
- * - [before_cast][/datum/action/spell/before_cast] is the last chance for being able
+ * - [pre_cast][/datum/action/spell/pre_cast] is the last chance for being able
  * to interrupt a spell cast. This returns a bitflag. if SPELL_CANCEL_CAST is set, the spell will not continue.
  * - [spell_feedback][/datum/action/spell/spell_feedback] is called right before cast, and handles
  * invocation and sound effects. Overridable, if you want a special method of invocation or sound effects,
  * or you want your spell to handle invocation / sound via special means.
  * - [cast][/datum/action/spell/cast] is where the brunt of the spell effects should be done
  * and implemented.
- * - [after_cast][/datum/action/spell/after_cast] is the aftermath - final effects that follow
+ * - [post_cast][/datum/action/spell/post_cast] is the aftermath - final effects that follow
  * the main cast of the spell. By now, the spell cooldown has already started
  *
  * ## Other procs called / may be called within the chain:
@@ -30,7 +29,7 @@
  * may have, and can be overriden or extended. Called by spell_feedback.
  * - [reset_spell_cooldown][/datum/action/spell/reset_spell_cooldown] is a way to handle reverting a spell's
  * cooldown and making it ready again if it fails to go off at any point. Not called anywhere by default. If you
- * want to cancel a spell in before_cast and would like the cooldown restart, call this.
+ * want to cancel a spell in pre_cast and would like the cooldown restart, call this.
  *
  * ## Other procs of note:
  * - [level_spell][/datum/action/spell/level_spell] is where the process of adding a spell level is handled.
@@ -134,7 +133,7 @@
 
 // Where the cast chain starts
 /datum/action/spell/pre_activate(mob/user, atom/target)
-	if(!is_valid_target(target))
+	if(!is_valid_spell(user, target))
 		return FALSE
 
 	return on_activate(user, target)
@@ -211,7 +210,7 @@
  *
  * Return TRUE if cast_on is valid, FALSE otherwise
  */
-/datum/action/spell/proc/is_valid_target(atom/cast_on)
+/datum/action/spell/proc/is_valid_spell(mob/user, atom/target)
 	return TRUE
 
 // The actual cast chain occurs here, in Activate().
@@ -223,7 +222,7 @@
 	// Pre-casting of the spell
 	// Pre-cast is the very last chance for a spell to cancel
 	// Stuff like target input can go here.
-	var/precast_result = before_cast(target)
+	var/precast_result = pre_cast(user, target)
 	if(precast_result & SPELL_CANCEL_CAST)
 		return FALSE
 
@@ -234,7 +233,7 @@
 		spell_feedback()
 
 	// Actually cast the spell. Main effects go here
-	cast(target)
+	on_cast(user, target)
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its set duration
@@ -242,7 +241,7 @@
 
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here
-	after_cast(target)
+	post_cast(user, target)
 	update_buttons()
 
 	return TRUE
@@ -256,30 +255,31 @@
  * Returns a bitflag.
  * - SPELL_CANCEL_CAST will stop the spell from being cast.
  * - SPELL_NO_FEEDBACK will prevent the spell from calling [proc/spell_feedback] on cast. (invocation, sounds)
- * - SPELL_NO_IMMEDIATE_COOLDOWN will prevent the spell from starting its cooldown between cast and before after_cast.
+ * - SPELL_NO_IMMEDIATE_COOLDOWN will prevent the spell from starting its cooldown between cast and before post_cast.
  */
-/datum/action/spell/proc/before_cast(atom/cast_on)
+/datum/action/spell/proc/pre_cast(mob/user, atom/target)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST, cast_on)
+	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_PRE_CAST, user, target)
 	if(owner)
-		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, cast_on)
+		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_PRE_SPELL_CAST, src, user, target)
 	return sig_return
 
 /**
  * Actions done as the main effect of the spell.
  *
- * For spells without a click intercept, [cast_on] will be the owner.
- * For click spells, [cast_on] is whatever the owner clicked on in casting the spell.
+ * User is the mob that is casting the spell.
+ * If the spell is a click spell, then target will be thing
+ * that the user clicked on.
  */
-/datum/action/spell/proc/cast(atom/cast_on)
+/datum/action/spell/proc/on_cast(mob/user, atom/target)
 	SHOULD_CALL_PARENT(TRUE)
 
-	SEND_SIGNAL(src, COMSIG_SPELL_CAST, cast_on)
+	SEND_SIGNAL(src, COMSIG_SPELL_CAST, user, target)
 	if(owner)
-		SEND_SIGNAL(owner, COMSIG_MOB_CAST_SPELL, src, cast_on)
+		SEND_SIGNAL(owner, COMSIG_MOB_CAST_SPELL, src, user, target)
 		if(owner.ckey)
-			owner.log_message("cast the spell [name][cast_on != owner ? " on / at [cast_on]":""].", LOG_ATTACK)
+			owner.log_message("cast the spell [name] targeting [target].", LOG_ATTACK)
 
 /**
  * Actions done after the main cast is finished.
@@ -289,14 +289,14 @@
  * (for example, causing smoke *after* a teleport occurs in cast())
  * or to clean up variables or references post-cast.
  */
-/datum/action/spell/proc/after_cast(atom/cast_on)
+/datum/action/spell/proc/post_cast(mob/user, atom/target)
 	SHOULD_CALL_PARENT(TRUE)
 
-	SEND_SIGNAL(src, COMSIG_SPELL_AFTER_CAST, cast_on)
+	SEND_SIGNAL(src, COMSIG_SPELL_POST_CAST, user, target)
 	if(!owner)
 		return
 
-	SEND_SIGNAL(owner, COMSIG_MOB_AFTER_SPELL_CAST, src, cast_on)
+	SEND_SIGNAL(owner, COMSIG_MOB_POST_SPELL_CAST, src, user, target)
 
 	// Sparks and smoke can only occur if there's an owner to source them from.
 	if(sparks_amt)

@@ -17,7 +17,7 @@
 	mindbound = FALSE
 	var/max_distance = 4
 
-/datum/action/spell/overload/cast(mob/user = usr)
+/datum/action/spell/overload/on_cast(mob/user, atom/target)
 	. = ..()
 	if(!isethereal(user))
 		return

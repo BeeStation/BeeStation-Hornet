@@ -21,14 +21,14 @@
 	/// If TRUE, we equip "blood crawl" hands to the jaunter to prevent using items
 	var/equip_blood_hands = TRUE
 
-/datum/action/spell/jaunt/bloodcrawl/cast(mob/living/cast_on)
+/datum/action/spell/jaunt/bloodcrawl/on_cast(mob/living/user, atom/target)
 	. = ..()
-	for(var/obj/effect/decal/cleanable/blood_nearby in range(blood_radius, get_turf(cast_on)))
+	for(var/obj/effect/decal/cleanable/blood_nearby in range(blood_radius, get_turf(user)))
 		if(blood_nearby.can_bloodcrawl_in())
-			return do_bloodcrawl(blood_nearby, cast_on)
+			return do_bloodcrawl(blood_nearby, user)
 
 	reset_spell_cooldown()
-	to_chat(cast_on, ("<span class='warning'>There must be a nearby source of blood!</span>"))
+	to_chat(user, ("<span class='warning'>There must be a nearby source of blood!</span>"))
 
 /**
  * Attempts to enter or exit the passed blood pool.

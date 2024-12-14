@@ -21,9 +21,9 @@
 	/// How long boxes last before going away
 	var/box_lifespan = 50 SECONDS
 
-/datum/action/spell/conjure_item/invisible_box/before_cast(atom/cast_on)
+/datum/action/spell/conjure_item/invisible_box/pre_cast(mob/user, atom/target)
 	. = ..()
-	invocation = ("<span class='notice'><b>[cast_on]</b> moves [cast_on.p_their()] hands in the shape of a cube, pressing a box out of the air.</span>")
+	invocation = ("<span class='notice'><b>[user]</b> moves [user.p_their()] hands in the shape of a cube, pressing a box out of the air.</span>")
 
 /datum/action/spell/conjure_item/invisible_box/make_item()
 	. = ..()

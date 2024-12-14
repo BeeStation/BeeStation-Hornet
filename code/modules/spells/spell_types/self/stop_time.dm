@@ -25,6 +25,6 @@
 	REMOVE_TRAIT(remove_from, TRAIT_TIME_STOP_IMMUNE, REF(src))
 	return ..()
 
-/datum/action/spell/timestop/cast(atom/cast_on)
+/datum/action/spell/timestop/on_cast(mob/user, atom/target)
 	. = ..()
-	new /obj/effect/timestop(get_turf(cast_on), timestop_range, timestop_duration, list(cast_on))
+	new /obj/effect/timestop(get_turf(user), timestop_range, timestop_duration, list(user))

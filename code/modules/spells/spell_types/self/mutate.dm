@@ -18,19 +18,19 @@
 	remove_mutations(remove_from)
 	return ..()
 
-/datum/action/spell/apply_mutations/is_valid_target(atom/cast_on)
-	var/mob/living/carbon/human/human_caster = cast_on // Requires human anyways
+/datum/action/spell/apply_mutations/is_valid_spell(mob/user, atom/target)
+	var/mob/living/carbon/human/human_caster = user // Requires human anyways
 	return !!human_caster.dna
 
-/datum/action/spell/apply_mutations/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/apply_mutations/on_cast(mob/living/carbon/human/user, atom/target)
 	. = ..()
 	for(var/mutation in mutations_to_add)
-		cast_on.dna.add_mutation(mutation)
-	addtimer(CALLBACK(src, PROC_REF(remove_mutations), cast_on), mutation_duration, TIMER_DELETE_ME)
+		user.dna.add_mutation(mutation)
+	addtimer(CALLBACK(src, PROC_REF(remove_mutations), user), mutation_duration, TIMER_DELETE_ME)
 
 /// Removes the mutations we added from casting our spell
 /datum/action/spell/apply_mutations/proc/remove_mutations(mob/living/carbon/human/cast_on)
-	if(QDELETED(cast_on) || !is_valid_target(cast_on))
+	if(QDELETED(cast_on) || !is_valid_spell(cast_on))
 		return
 
 	for(var/mutation in mutations_to_add)

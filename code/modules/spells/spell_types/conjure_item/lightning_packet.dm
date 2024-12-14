@@ -9,9 +9,12 @@
 
 	item_type = /obj/item/spellpacket/lightningbolt
 
-/datum/action/spell/conjure_item/spellpacket/cast(mob/living/carbon/cast_on)
+/datum/action/spell/conjure_item/spellpacket/is_valid_spell(mob/user, atom/target)
+	return ..() && istype(user, /mob/living/carbon)
+
+/datum/action/spell/conjure_item/spellpacket/on_cast(mob/living/carbon/user, atom/target)
 	. = ..()
-	cast_on.throw_mode_on(THROW_MODE_TOGGLE)
+	user.throw_mode_on(THROW_MODE_TOGGLE)
 
 /obj/item/spellpacket/lightningbolt
 	name = "\improper Lightning bolt Spell Packet"

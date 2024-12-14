@@ -20,22 +20,23 @@
 
 	return ..()
 
-/datum/action/spell/conjure_item/is_valid_target(atom/cast_on)
-	return iscarbon(cast_on)
+/datum/action/spell/conjure_item/is_valid_spell(mob/user, atom/target)
+	return iscarbon(user)
 
-/datum/action/spell/conjure_item/cast(mob/living/carbon/cast_on)
+/datum/action/spell/conjure_item/on_cast(mob/user, atom/target)
+	. = ..()
 	if(delete_old && LAZYLEN(item_refs))
 		QDEL_LAZYLIST(item_refs)
 
-	var/obj/item/existing_item = cast_on.get_active_held_item()
+	var/obj/item/existing_item = user.get_active_held_item()
 	if(existing_item)
-		cast_on.dropItemToGround(existing_item)
+		user.dropItemToGround(existing_item)
 
 	var/obj/item/created = make_item()
 	if(QDELETED(created))
 		CRASH("[type] tried to create an item, but failed. It's item type is [item_type].")
 
-	cast_on.put_in_hands(created, del_on_fail = TRUE)
+	user.put_in_hands(created, del_on_fail = TRUE)
 	return ..()
 
 /// Instantiates the item we're conjuring and returns it.

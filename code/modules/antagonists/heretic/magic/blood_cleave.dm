@@ -17,13 +17,13 @@
 	/// The radius of the cleave effect
 	var/cleave_radius = 1
 
-/datum/action/spell/pointed/cleave/is_valid_target(atom/cast_on)
-	return ..() && ishuman(cast_on)
+/datum/action/spell/pointed/cleave/is_valid_spell(mob/user, atom/target)
+	return ..() && ishuman(target)
 
-/datum/action/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/pointed/cleave/on_cast(mob/user, atom/target)
 	. = ..()
-	var/list/mob/living/carbon/human/nearby = list(cast_on)
-	for(var/mob/living/carbon/human/nearby_human in range(cleave_radius, cast_on))
+	var/list/mob/living/carbon/human/nearby = list(target)
+	for(var/mob/living/carbon/human/nearby_human in range(cleave_radius, target))
 		nearby += nearby_human
 
 	for(var/mob/living/carbon/human/victim as anything in nearby)

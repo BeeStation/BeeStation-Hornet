@@ -11,15 +11,15 @@
 	var/aoe_radius = 7
 
 // At this point, cast_on == owner. Either works.
-/datum/action/spell/aoe/cast(atom/cast_on)
+/datum/action/spell/aoe/on_cast(mob/user, atom/target)
 	. = ..()
 	// Get every atom around us to our aoe cast on
-	var/list/atom/things_to_cast_on = get_things_to_cast_on(cast_on)
+	var/list/atom/things_to_cast_on = get_things_to_cast_on(user)
 	// If we have a target limit, shuffle it (for fariness)
 	if(max_targets > 0)
 		things_to_cast_on = shuffle(things_to_cast_on)
 
-	SEND_SIGNAL(src, COMSIG_SPELL_AOE_ON_CAST, things_to_cast_on, cast_on)
+	SEND_SIGNAL(src, COMSIG_SPELL_AOE_ON_CAST, things_to_cast_on, user)
 
 	// Now go through and cast our spell where applicable
 	var/num_targets = 0
@@ -27,7 +27,7 @@
 		if(max_targets > 0 && num_targets >= max_targets)
 			continue
 
-		cast_on_thing_in_aoe(thing_to_target, cast_on)
+		cast_on_thing_in_aoe(thing_to_target, user)
 		num_targets++
 
 /**

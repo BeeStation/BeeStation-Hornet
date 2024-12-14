@@ -11,9 +11,9 @@
 	/// The light radius of the EMP
 	var/emp_light = 3
 
-/datum/action/spell/emp/cast(atom/cast_on)
+/datum/action/spell/emp/on_cast(mob/user, atom/target)
 	. = ..()
-	empulse(get_turf(cast_on), emp_heavy, emp_light)
+	empulse(get_turf(user), emp_heavy, emp_light)
 
 /datum/action/spell/emp/disable_tech
 	name = "Disable Tech"

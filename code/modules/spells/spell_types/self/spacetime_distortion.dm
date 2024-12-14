@@ -27,11 +27,11 @@
 /datum/action/spell/spacetime_dist/can_cast_spell(feedback = TRUE)
 	return ..() && ready
 
-/datum/action/spell/spacetime_dist/cast(atom/cast_on)
+/datum/action/spell/spacetime_dist/on_cast(mob/user, atom/target)
 	. = ..()
-	var/list/turf/to_switcharoo = get_targets_to_scramble(cast_on)
+	var/list/turf/to_switcharoo = get_targets_to_scramble(user)
 	if(!length(to_switcharoo))
-		to_chat(cast_on, ("<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>"))
+		to_chat(user, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
 		reset_spell_cooldown()
 		return
 
@@ -49,7 +49,7 @@
 		LAZYADD(effects, effect_a)
 		LAZYADD(effects, effect_b)
 
-/datum/action/spell/spacetime_dist/after_cast()
+/datum/action/spell/spacetime_dist/post_cast(mob/user, atom/target)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(clean_turfs)), duration)
 

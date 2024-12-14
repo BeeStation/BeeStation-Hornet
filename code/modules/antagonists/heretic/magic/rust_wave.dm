@@ -16,9 +16,9 @@
 	cone_levels = 5
 	respect_density = TRUE
 
-/datum/action/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
+/datum/action/spell/cone/staggered/entropic_plume/on_cast(mob/user, atom/target)
 	. = ..()
-	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
+	new /obj/effect/temp_visual/dir_setting/entropic(get_step(user, user.dir), user.dir)
 
 /datum/action/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	target_turf.rust_heretic_act()

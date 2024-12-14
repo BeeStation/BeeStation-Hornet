@@ -18,13 +18,13 @@
 	/// The radius around us that we cause brain damage / sanity damage to.
 	var/scare_radius = 9
 
-/datum/action/spell/shed_human_form/is_valid_target(atom/cast_on)
-	return isliving(cast_on)
+/datum/action/spell/shed_human_form/is_valid_spell(mob/user, atom/target)
+	return isliving(user)
 
-/datum/action/spell/shed_human_form/cast(mob/living/cast_on)
+/datum/action/spell/shed_human_form/on_cast(mob/living/user, atom/target)
 	. = ..()
-	if(istype(cast_on, /mob/living/simple_animal/hostile/heretic_summon/armsy/prime))
-		var/mob/living/simple_animal/hostile/heretic_summon/armsy/prime/old_armsy = cast_on
+	if(istype(user, /mob/living/simple_animal/hostile/heretic_summon/armsy/prime))
+		var/mob/living/simple_animal/hostile/heretic_summon/armsy/prime/old_armsy = user
 		var/mob/living/our_heretic = locate() in old_armsy
 
 		if(our_heretic.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_ASCENSION_EFFECT))
@@ -35,11 +35,11 @@
 		qdel(old_armsy)
 
 	else
-		var/mob/living/simple_animal/hostile/heretic_summon/armsy/prime/new_armsy = new(cast_on.loc, TRUE, segment_length)
+		var/mob/living/simple_animal/hostile/heretic_summon/armsy/prime/new_armsy = new(user.loc, TRUE, segment_length)
 
-		cast_on.mind.transfer_to(new_armsy, TRUE)
-		cast_on.forceMove(new_armsy)
-		cast_on.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_ASCENSION_EFFECT)
+		user.mind.transfer_to(new_armsy, TRUE)
+		user.forceMove(new_armsy)
+		user.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_ASCENSION_EFFECT)
 
 		// They see the very reality uncoil before their eyes.
 		for(var/mob/living/carbon/human/nearby_human in view(scare_radius, new_armsy))
@@ -64,9 +64,9 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-/datum/action/spell/worm_contract/is_valid_target(atom/cast_on)
-	return istype(cast_on, /mob/living/simple_animal/hostile/heretic_summon/armsy)
+/datum/action/spell/worm_contract/is_valid_spell(mob/user, atom/target)
+	return istype(user, /mob/living/simple_animal/hostile/heretic_summon/armsy)
 
-/datum/action/spell/worm_contract/cast(mob/living/simple_animal/hostile/heretic_summon/armsy/cast_on)
+/datum/action/spell/worm_contract/on_cast(mob/living/simple_animal/hostile/heretic_summon/armsy/user, atom/target)
 	. = ..()
-	cast_on.contract_next_chain_into_single_tile()
+	user.contract_next_chain_into_single_tile()

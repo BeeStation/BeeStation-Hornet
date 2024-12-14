@@ -28,36 +28,36 @@
 		return FALSE
 
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
-	if(!is_valid_target(owner))
+	if(!is_valid_spell(owner))
 		if(feedback)
 			to_chat(owner, ("<span class='warning'>You have no soul to tap into!</span>"))
 		return FALSE
 
 	return TRUE
 
-/datum/action/spell/tap/is_valid_target(atom/cast_on)
-	return isliving(cast_on) && !HAS_TRAIT(owner, TRAIT_NO_SOUL)
+/datum/action/spell/tap/is_valid_spell(mob/user, atom/target)
+	return isliving(user) && !HAS_TRAIT(owner, TRAIT_NO_SOUL)
 
-/datum/action/spell/tap/cast(mob/living/cast_on)
+/datum/action/spell/tap/on_cast(mob/living/user, atom/target)
 	. = ..()
-	cast_on.maxHealth -= tap_health_taken
-	cast_on.health = min(cast_on.health, cast_on.maxHealth)
+	user.maxHealth -= tap_health_taken
+	user.health = min(user.health, user.maxHealth)
 
-	for(var/datum/action/spell/spell in cast_on.actions)
+	for(var/datum/action/spell/spell in user.actions)
 		spell.reset_spell_cooldown()
 
 	// If the tap took all of our life, we die and lose our soul!
-	if(cast_on.maxHealth <= 0)
-		to_chat(cast_on, ("<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>"))
-		ADD_TRAIT(cast_on, TRAIT_NO_SOUL, MAGIC_TRAIT)
+	if(user.maxHealth <= 0)
+		to_chat(user, ("<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>"))
+		ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
-		cast_on.visible_message(("<span class='danger'>[cast_on] suddenly dies!</span>"), ignored_mobs = cast_on)
-		cast_on.death()
+		user.visible_message(("<span class='danger'>[user] suddenly dies!</span>"), ignored_mobs = user)
+		user.death()
 
 	// If the next tap will kill us, give us a heads-up
-	else if(cast_on.maxHealth - tap_health_taken <= 0)
-		to_chat(cast_on, ("<span class='bolddanger'>Your body feels incredibly drained, and the burning is hard to ignore!</span>"))
+	else if(user.maxHealth - tap_health_taken <= 0)
+		to_chat(user, ("<span class='bolddanger'>Your body feels incredibly drained, and the burning is hard to ignore!</span>"))
 
 	// Otherwise just give them some feedback
 	else
-		to_chat(cast_on, ("<span class='danger'>Your body feels drained and there is a burning pain in your chest.</span>"))
+		to_chat(user, ("<span class='danger'>Your body feels drained and there is a burning pain in your chest.</span>"))

@@ -40,15 +40,15 @@
 	/// The range our user is thrown backwards after casting the spell
 	var/self_throw_range = 1
 
-/datum/action/spell/cone/staggered/fire_breath/before_cast(atom/cast_on)
+/datum/action/spell/cone/staggered/fire_breath/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(!iscarbon(cast_on))
+	if(!iscarbon(user))
 		return
 
-	var/mob/living/carbon/our_lizard = cast_on
+	var/mob/living/carbon/our_lizard = user
 	if(!our_lizard.is_mouth_covered())
 		return
 
@@ -56,12 +56,12 @@
 	our_lizard.IgniteMob()
 	to_chat(our_lizard, ("<span class='warning'>Something in front of your mouth catches fire!</span>"))
 
-/datum/action/spell/cone/staggered/fire_breath/after_cast(atom/cast_on)
+/datum/action/spell/cone/staggered/fire_breath/post_cast(mob/user, atom/target)
 	. = ..()
-	if(!isliving(cast_on))
+	if(!isliving(user))
 		return
 
-	var/mob/living/living_cast_on = cast_on
+	var/mob/living/living_cast_on = user
 	// When casting, throw the caster backwards a few tiles.
 	var/original_dir = living_cast_on.dir
 	living_cast_on.throw_at(

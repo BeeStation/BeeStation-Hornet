@@ -82,14 +82,14 @@
 	remove_from.update_sight()
 	return ..()
 
-/datum/action/spell/thermal_vision/is_valid_target(atom/cast_on)
-	return isliving(cast_on) && !HAS_TRAIT(cast_on, TRAIT_THERMAL_VISION)
+/datum/action/spell/thermal_vision/is_valid_spell(mob/user, atom/target)
+	return isliving(user) && !HAS_TRAIT(user, TRAIT_THERMAL_VISION)
 
-/datum/action/spell/thermal_vision/cast(mob/living/cast_on)
+/datum/action/spell/thermal_vision/on_cast(mob/living/user, atom/target)
 	. = ..()
-	ADD_TRAIT(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
-	cast_on.update_sight()
-	to_chat(cast_on, ("<span class='info'>You focus your eyes intensely, as your vision becomes filled with heat signatures.</span>"))
+	ADD_TRAIT(user, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
+	user.update_sight()
+	to_chat(user, ("<span class='info'>You focus your eyes intensely, as your vision becomes filled with heat signatures.</span>"))
 	addtimer(CALLBACK(src, PROC_REF(deactivate)), thermal_duration)
 
 /datum/action/spell/thermal_vision/on_deactivate(mob/user, mob/cast_on)

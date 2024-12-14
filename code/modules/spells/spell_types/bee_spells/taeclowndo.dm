@@ -23,14 +23,12 @@
 	base_icon_state = "banana_peel"
 	button_icon_state = "banana"
 
-/datum/action/spell/pointed/banana_peel/cast(atom/targets)
+/datum/action/spell/pointed/banana_peel/on_cast(mob/user, atom/target)
 	. = ..()
-	var/target = get_turf(targets)
-
 	if(get_dist(owner,target)>cast_range)
 		to_chat(owner, "<span class='notice'>\The [target] is too far away!</span>")
 		return
-	new /obj/item/grown/bananapeel(target)
+	new /obj/item/grown/bananapeel(get_turf(target))
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

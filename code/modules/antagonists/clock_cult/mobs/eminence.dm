@@ -182,15 +182,15 @@
 	desc = "Teleport yourself to Reebe."
 	button_icon_state = "Abscond"
 
-/datum/action/spell/eminence/reebe/cast(mob/living/cast_on)
+/datum/action/spell/eminence/reebe/on_cast(mob/living/user, atom/target)
 	. = ..()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
-		cast_on.abstract_move(get_turf(G))
-		SEND_SOUND(cast_on, sound('sound/magic/magic_missile.ogg'))
-		flash_color(cast_on, flash_color = "#AF0AAF", flash_time = 25)
+		user.abstract_move(get_turf(G))
+		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
+		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
-		to_chat(cast_on, "<span class='warning'>There is no Ark!</span>")
+		to_chat(user, "<span class='warning'>There is no Ark!</span>")
 
 //=====Warp to station=====
 /datum/action/spell/eminence/station
@@ -198,7 +198,7 @@
 	desc = "Teleport yourself to the station."
 	button_icon_state = "warp_down"
 
-/datum/action/spell/eminence/station/cast(mob/living/user)
+/datum/action/spell/eminence/station/on_cast(mob/user, atom/target)
 	. = ..()
 	if(!is_station_level(user.z))
 		user.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
@@ -213,7 +213,7 @@
 	desc = "Teleport yourself to a specific servant."
 	button_icon_state = "Spatial Warp"
 
-/datum/action/spell/eminence/servant_warp/cast(list/targets, mob/user)
+/datum/action/spell/eminence/servant_warp/on_cast(mob/user, atom/target)
 	. = ..()
 	//Get a list of all servants
 	var/datum/mind/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar //List targets spell might have been better, for now this will do
@@ -241,13 +241,13 @@
 	desc = "Initiates a mass recall, warping everyone to the Ark. Can only be used 1 time."
 	button_icon_state = "Spatial Gateway"
 
-/datum/action/spell/eminence/mass_recall/cast(mob/living/cast_on)
+/datum/action/spell/eminence/mass_recall/on_cast(mob/living/user, atom/target)
 	. = ..()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/C = GLOB.celestial_gateway
 	if(!C)
 		return
 	C.begin_mass_recall()
-	Remove(cast_on)
+	Remove(user)
 
 //=====Linked Abscond=====
 /datum/action/spell/eminence/linked_abscond
@@ -268,7 +268,7 @@
 		return TRUE
 	return FALSE
 
-/datum/action/spell/eminence/linked_abscond/cast(list/targets, mob/living/user)
+/datum/action/spell/eminence/linked_abscond/on_cast(mob/user, atom/target)
 	. = ..()
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
@@ -307,7 +307,7 @@
 	cooldown_time = 600 SECONDS
 	cog_cost = 5
 
-/datum/action/spell/eminence/trigger_event/cast(list/targets, mob/user)
+/datum/action/spell/eminence/trigger_event/on_cast(mob/user, atom/target)
 	. = ..()
 	var/picked_event = input(user, "Pick an event to run", "Manipulate Reality", null) in list(
 		"Anomaly",

@@ -15,7 +15,7 @@
 	/// The typepath to the wall we create on cast.
 	var/wall_type = /obj/effect/forcefield/wizard
 
-/datum/action/spell/forcewall/cast(atom/cast_on)
+/datum/action/spell/forcewall/on_cast(mob/user, atom/target)
 	. = ..()
 	new wall_type(get_turf(owner), owner)
 
@@ -60,6 +60,6 @@
 
 	wall_type = /obj/effect/forcefield/mime/advanced
 
-/datum/action/spell/forcewall/mime/before_cast(atom/cast_on)
+/datum/action/spell/forcewall/mime/pre_cast(mob/user, atom/target)
 	. = ..()
-	invocation = ("<span class='notice'><b>[cast_on]</b> looks as if a blockade is in front of [cast_on.p_them()].</span>")
+	invocation = ("<span class='notice'><b>[user]</b> looks as if a blockade is in front of [user.p_them()].</span>")

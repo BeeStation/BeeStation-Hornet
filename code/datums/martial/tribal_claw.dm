@@ -36,7 +36,7 @@
 	D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
 						"<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
 	var/datum/action/spell/aoe/repulse/xeno/R = new
-	R.cast(RANGE_TURFS(1,A))
+	R.on_cast(A, null)
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)

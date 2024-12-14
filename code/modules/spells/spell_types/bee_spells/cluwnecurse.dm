@@ -10,11 +10,14 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cluwne.dmi'
 	button_icon_state = "cluwne"
 
-/datum/action/spell/pointed/cluwnecurse/cast(mob/living/carbon/cast_on)
+/datum/action/spell/pointed/cluwnecurse/is_valid_spell(mob/user, atom/target)
+	return ..() && istype(target, /mob/living/carbon)
+
+/datum/action/spell/pointed/cluwnecurse/on_cast(mob/user, mob/living/carbon/target)
 	. = ..()
-	if(cast_on.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND))
+	if(target.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND))
 		return
-	cast_on.cluwneify()
+	target.cluwneify()
 
 /datum/spellbook_entry/cluwnecurse
 	name = "Cluwne Curse"

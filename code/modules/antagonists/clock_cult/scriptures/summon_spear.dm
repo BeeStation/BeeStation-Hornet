@@ -12,7 +12,7 @@
 
 	var/obj/item/marked_item
 
-/datum/action/spell/summon_spear/cast(mob/user)
+/datum/action/spell/summon_spear/on_cast(mob/user, atom/target)
 	. = ..()
 	if(QDELETED(marked_item))
 		qdel(src)

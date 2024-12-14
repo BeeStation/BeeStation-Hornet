@@ -36,7 +36,7 @@
 	A.say("TORNADO SWEEP!", forced="plasma fist")
 	TornadoAnimate(A)
 	var/datum/action/spell/aoe/repulse/tornado_spell = new(src)
-	tornado_spell.cast(A)
+	tornado_spell.on_cast(A, null)
 	qdel(tornado_spell)
 	log_combat(A, D, "tornado sweeped(Plasma Fist)", name)
 	return

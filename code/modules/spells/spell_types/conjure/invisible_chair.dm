@@ -20,9 +20,9 @@
 	summon_type = list(/obj/structure/chair/mime)
 	summon_lifespan = 25 SECONDS
 
-/datum/action/spell/conjure/invisible_chair/before_cast(atom/cast_on)
+/datum/action/spell/conjure/invisible_chair/pre_cast(mob/user, atom/target)
 	. = ..()
-	invocation = ("<span class='notice'><b>[cast_on]</b> pulls out an invisible chair and sits down.</span>")
+	invocation = "<span class='notice'><b>[user]</b> pulls out an invisible chair and sits down.</span>"
 
 /datum/action/spell/conjure/invisible_chair/post_summon(atom/summoned_object, mob/living/carbon/human/cast_on)
 	if(!isobj(summoned_object))

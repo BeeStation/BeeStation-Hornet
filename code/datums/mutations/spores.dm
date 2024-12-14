@@ -21,7 +21,7 @@
 	button_icon_state = "smoke"
 	mindbound = FALSE
 
-/datum/action/spell/spores/cast(mob/user = usr)
+/datum/action/spell/spores/on_cast(mob/user, atom/target)
 	. = ..()
 	//Setup reagents
 	var/datum/reagents/holder = new()

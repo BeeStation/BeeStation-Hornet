@@ -9,11 +9,11 @@
 	/// This value determines if the cone penetrates walls.
 	var/respect_density = FALSE
 
-/datum/action/spell/cone/cast(atom/cast_on)
+/datum/action/spell/cone/on_cast(mob/user, atom/target)
 	. = ..()
-	var/list/cone_turfs = get_cone_turfs(get_turf(cast_on), cast_on.dir, cone_levels)
-	SEND_SIGNAL(src, COMSIG_SPELL_CONE_ON_CAST, cone_turfs, cast_on)
-	make_cone(cone_turfs, cast_on)
+	var/list/cone_turfs = get_cone_turfs(get_turf(user), user.dir, cone_levels)
+	SEND_SIGNAL(src, COMSIG_SPELL_CONE_ON_CAST, cone_turfs, user)
+	make_cone(cone_turfs, user)
 
 /datum/action/spell/cone/proc/make_cone(list/cone_turfs, atom/caster)
 	for(var/list/turf_list in cone_turfs)

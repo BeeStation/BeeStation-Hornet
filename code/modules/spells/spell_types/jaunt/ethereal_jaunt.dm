@@ -33,9 +33,9 @@
 	jaunter.ExtinguishMob()
 	do_steam_effects(cast_turf)
 
-/datum/action/spell/jaunt/ethereal_jaunt/cast(mob/living/cast_on)
+/datum/action/spell/jaunt/ethereal_jaunt/on_cast(mob/living/user, atom/target)
 	. = ..()
-	do_jaunt(cast_on)
+	do_jaunt(user)
 
 /**
  * Begin the jaunt, and the entire jaunt chain.

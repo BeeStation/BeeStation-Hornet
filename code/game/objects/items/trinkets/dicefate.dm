@@ -202,7 +202,7 @@
 	var/mob/living/target_mob
 	button_icon_state = "summons"
 
-/datum/action/spell/summonmob/cast(atom/cast_on)
+/datum/action/spell/summonmob/on_cast(mob/user, atom/target)
 	. = ..()
 
 	if(!target_mob)

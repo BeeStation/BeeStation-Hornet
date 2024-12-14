@@ -17,7 +17,7 @@
 	var/mob/living/carbon/tracking_target
 	var/list/mob/living/carbon/possible = list()
 
-/datum/action/spell/olfaction/cast(mob/living/user = usr)
+/datum/action/spell/olfaction/on_cast(mob/user, atom/target)
 	. = ..()
 	var/atom/sniffed = user.get_active_held_item()
 	if(sniffed)

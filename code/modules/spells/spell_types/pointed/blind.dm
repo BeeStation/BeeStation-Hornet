@@ -22,24 +22,26 @@
 	/// The duration of the blind mutation placed on the person
 	var/blind_mutation_duration = 30 SECONDS
 
-/datum/action/spell/pointed/blind/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/blind/is_valid_spell(mob/user, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
-	if(!ishuman(cast_on))
+	if (target == user)
+		return FALSE
+	if(!ishuman(target))
 		return FALSE
 
-	var/mob/living/carbon/human/human_target = cast_on
+	var/mob/living/carbon/human/human_target = target
 	return !human_target.is_blind()
 
-/datum/action/spell/pointed/blind/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/pointed/blind/on_cast(mob/user, mob/living/carbon/human/target)
 	. = ..()
-	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, ("<span class='notice'>Your eye itches, but it passes momentarily.</span>"))
+	if(target.can_block_magic(antimagic_flags))
+		to_chat(target, ("<span class='notice'>Your eye itches, but it passes momentarily.</span>"))
 		to_chat(owner, ("<span class='warning'>The spell had no effect!</span>"))
 		return FALSE
 
-	to_chat(cast_on, ("<span class='warning'>Your eyes cry out in pain!</span>"))
-	cast_on.set_blindness(eye_blind_amount)
-	cast_on.blur_eyes(eye_blurry_amount)
+	to_chat(target, ("<span class='warning'>Your eyes cry out in pain!</span>"))
+	target.set_blindness(eye_blind_amount)
+	target.blur_eyes(eye_blurry_amount)
 	return TRUE

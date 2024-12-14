@@ -203,8 +203,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	spell_requirements = NONE
 	aoe_radius = 14
 
-/datum/action/spell/aoe/blindness/cast(atom/cast_on)
-	cast_on.visible_message(("<span class='danger'>[cast_on] glares their eyes.</span>"))
+/datum/action/spell/aoe/blindness/on_cast(mob/user, atom/target)
+	user.visible_message("<span class='danger'>[user] glares their eyes.</span>")
 	return ..()
 
 /datum/action/spell/aoe/blindness/get_things_to_cast_on(atom/center)

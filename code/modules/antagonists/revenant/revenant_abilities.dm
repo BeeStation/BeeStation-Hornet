@@ -224,7 +224,7 @@
 
 	return things
 
-/datum/action/spell/aoe/revenant/before_cast(mob/living/simple_animal/revenant/cast_on)
+/datum/action/spell/aoe/revenant/pre_cast(mob/living/simple_animal/revenant/cast_on, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return FALSE
@@ -245,12 +245,12 @@
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/spell/aoe/revenant/after_cast(mob/living/simple_animal/revenant/cast_on)
+/datum/action/spell/aoe/revenant/post_cast(mob/living/simple_animal/revenant/user, atom/target)
 	. = ..()
 	if(reveal_duration > 0 SECONDS)
-		cast_on.reveal(reveal_duration)
+		user.reveal(reveal_duration)
 	if(stun_duration > 0 SECONDS)
-		cast_on.stun(stun_duration)
+		user.stun(stun_duration)
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
 /datum/action/spell/aoe/revenant/overload

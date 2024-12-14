@@ -45,8 +45,8 @@
 		return FALSE
 	return TRUE
 
-/datum/action/spell/touch/is_valid_target(atom/cast_on)
-	return iscarbon(cast_on)
+/datum/action/spell/touch/is_valid_spell(mob/user, atom/target)
+	return iscarbon(user)
 
 /**
  * Creates a new hand_path hand and equips it to the caster.
@@ -91,15 +91,16 @@
 		start_cooldown()
 
 // Touch spells don't go on cooldown OR give off an invocation until the hand is used itself.
-/datum/action/spell/touch/before_cast(atom/cast_on)
+/datum/action/spell/touch/pre_cast(mob/user, atom/target)
 	return ..() | SPELL_NO_FEEDBACK | SPELL_NO_IMMEDIATE_COOLDOWN
 
-/datum/action/spell/touch/cast(mob/living/carbon/cast_on)
-	if(!QDELETED(attached_hand) && (attached_hand in cast_on.held_items))
-		remove_hand(cast_on, reset_cooldown_after = TRUE)
+/datum/action/spell/touch/on_cast(mob/living/carbon/user, atom/target)
+	. = ..()
+	if(!QDELETED(attached_hand) && (attached_hand in user.held_items))
+		remove_hand(user, reset_cooldown_after = TRUE)
 		return
 
-	create_hand(cast_on)
+	create_hand(user)
 	return ..()
 
 /**

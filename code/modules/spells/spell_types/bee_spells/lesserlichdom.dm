@@ -13,58 +13,58 @@
 	cooldown_time = 10 SECONDS
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "skeleton"
-/datum/action/spell/lesserlichdom/cast(list/targets,mob/user = usr)
+
+/datum/action/spell/lesserlichdom/on_cast(mob/user, atom/target)
 	. = ..()
-	for(var/mob/M in targets)
-		var/list/hand_items = list()
-		if(iscarbon(M))
-			hand_items = list(M.get_active_held_item(),M.get_inactive_held_item())
-		if(!length(hand_items))
-			to_chat(M, "<span class='warning'>You must hold an item you wish to make your phylactery...</span>")
-			return
-		if(!M.mind.hasSoul)
-			to_chat(user, "<span class='warning'>You do not possess a soul.</span>")
-			return
+	var/list/hand_items = list()
+	if(iscarbon(user))
+		hand_items = list(user.get_active_held_item(),user.get_inactive_held_item())
+	if(!length(hand_items))
+		to_chat(user, "<span class='warning'>You must hold an item you wish to make your phylactery...</span>")
+		return
+	if(!user.mind.hasSoul)
+		to_chat(user, "<span class='warning'>You do not possess a soul.</span>")
+		return
 
-		var/obj/item/marked_item
+	var/obj/item/marked_item
 
-		for(var/obj/item/item in hand_items)
-			// I ensouled the nuke disk once. But it's probably a really
-			// mean tactic, so probably should discourage it.
-			if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP) || SEND_SIGNAL(item, COMSIG_ITEM_IMBUE_SOUL, user))
-				continue
-			marked_item = item
-			to_chat(M, "<span class='warning'>You begin to focus your very being into [item]...</span>")
-			break
+	for(var/obj/item/item in hand_items)
+		// I ensouled the nuke disk once. But it's probably a really
+		// mean tactic, so probably should discourage it.
+		if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP) || SEND_SIGNAL(item, COMSIG_ITEM_IMBUE_SOUL, user))
+			continue
+		marked_item = item
+		to_chat(user, "<span class='warning'>You begin to focus your very being into [item]...</span>")
+		break
 
-		if(!marked_item)
-			to_chat(M, "<span class='warning'>None of the items you hold are suitable for emplacement of your fragile soul.</span>")
-			return
+	if(!marked_item)
+		to_chat(user, "<span class='warning'>None of the items you hold are suitable for emplacement of your fragile soul.</span>")
+		return
 
-		playsound(user, 'sound/effects/pope_entry.ogg', 100)
+	playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
-		if(!do_after(M, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
-			to_chat(M, "<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>")
-			return
+	if(!do_after(user, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
+		to_chat(user, "<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>")
+		return
 
-		marked_item.name = "lesser ensouled [marked_item.name]"
-		marked_item.desc += "\nA terrible aura surrounds this item, its very existence is offensive to life itself..."
-		marked_item.add_atom_colour("#187918", ADMIN_COLOUR_PRIORITY)
+	marked_item.name = "lesser ensouled [marked_item.name]"
+	marked_item.desc += "\nA terrible aura surrounds this item, its very existence is offensive to life itself..."
+	marked_item.add_atom_colour("#187918", ADMIN_COLOUR_PRIORITY)
 
-		new /obj/item/lesserphylactery(marked_item, M.mind)
+	new /obj/item/lesserphylactery(marked_item, user.mind)
 
-		to_chat(M, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!</span>")
-		M.mind.hasSoul = FALSE
-		// No revival other than lichdom revival
-		if(isliving(M))
-			var/mob/living/L = M
-			L.sethellbound()
-		else
-			M.mind.hellbound = TRUE
-		M.set_species(/datum/species/skeleton)
-		// no robes spawn for a lesser spell
-		// you only get one phylactery.
-		src.Remove(M)
+	to_chat(user, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!</span>")
+	user.mind.hasSoul = FALSE
+	// No revival other than lichdom revival
+	if(isliving(user))
+		var/mob/living/L = user
+		L.sethellbound()
+	else
+		user.mind.hellbound = TRUE
+	user.set_species(/datum/species/skeleton)
+	// no robes spawn for a lesser spell
+	// you only get one phylactery.
+	src.Remove(user)
 
 
 /obj/item/lesserphylactery
