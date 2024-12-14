@@ -33,7 +33,7 @@
 		to_chat(user, "We can't adjust our eyes if we don't have any!")
 	return 1
 
-/datum/action/changeling/augmented_eyesight/on_deactivate(mob/user, mob/living/carbon/user)
+/datum/action/changeling/augmented_eyesight/on_deactivate(mob/living/carbon/user, mob/living/carbon/target)
 	if(!istype(user))
 		return
 	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
