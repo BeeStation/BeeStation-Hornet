@@ -323,15 +323,14 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) >= 2)
 		user.unset_machine()
 		for(var/datum/action/peepholeCancel/PHC in user.actions)
-			PHC.Trigger()
+			PHC.trigger()
 
 /datum/action/peepholeCancel
 	name = "Cancel View"
 	desc = "Stop looking through the bluespace peephole."
 	button_icon_state = "cancel_peephole"
 
-/datum/action/peepholeCancel/Trigger(trigger_flags)
-	. = ..()
+/datum/action/peepholeCancel/on_activate(mob/user, atom/target)
 	to_chat(owner, "<span class='warning'>You move away from the peephole.</span>")
 	owner.reset_perspective()
 	owner.clear_fullscreen("remote_view", 0)

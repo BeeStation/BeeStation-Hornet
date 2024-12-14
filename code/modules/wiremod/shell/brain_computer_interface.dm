@@ -152,7 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 
 	return ..()
 
-/datum/action/innate/bci_action/Activate()
+/datum/action/innate/bci_action/on_activate()
 	circuit_component.signal.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/bci_core
@@ -282,11 +282,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 
 	src.circuit_component = circuit_component
 
-	UpdateButtons()
+	update_buttons()
 
 	START_PROCESSING(SSobj, src)
 
-/datum/action/innate/bci_charge_action/CreateButton()
+/datum/action/innate/bci_charge_action/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext_x = 2
 	button.maptext_y = 0
@@ -300,7 +300,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger(trigger_flags)
+/datum/action/innate/bci_charge_action/on_activate(mob/user, atom/target)
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if (isnull(cell))
@@ -310,9 +310,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 		to_chat(owner, "<span class='info'>You can recharge it by using a cyborg recharging station.</span>")
 
 /datum/action/innate/bci_charge_action/process(delta_time)
-	UpdateButtons()
+	update_buttons()
 
-/datum/action/innate/bci_charge_action/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+/datum/action/innate/bci_charge_action/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
 	. = ..()
 	if(!.)
 		return

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/touch/flesh_to_stone
+/datum/action/spell/touch/flesh_to_stone
 	name = "Flesh to Stone"
 	desc = "This spell charges your hand with the power to turn victims into inert statues for a long period of time."
 	button_icon_state = "statue"
@@ -12,7 +12,7 @@
 
 	hand_path = /obj/item/melee/touch_attack/flesh_to_stone
 
-/datum/action/cooldown/spell/touch/flesh_to_stone/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/spell/touch/flesh_to_stone/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(!isliving(victim))
 		return FALSE
 

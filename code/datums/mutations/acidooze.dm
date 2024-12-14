@@ -4,13 +4,13 @@
 	quality = POSITIVE
 	locked = TRUE
 	instability = 30
-	power_path = /datum/action/cooldown/spell/touch/mutation/acidooze
+	power_path = /datum/action/spell/touch/mutation/acidooze
 	power_coeff = 1
 	energy_coeff = 1
 	synchronizer_coeff = 1
 	species_allowed = list(SPECIES_OOZELING)
 
-/datum/action/cooldown/spell/touch/mutation/acidooze
+/datum/action/spell/touch/mutation/acidooze
 	name = "Acidic Hands"
 	desc = "Concentrate to make some of your blood become acidic."
 	spell_requirements = null

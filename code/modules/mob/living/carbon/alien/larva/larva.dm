@@ -33,9 +33,9 @@
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
-	var/datum/action/cooldown/alien/larva_evolve/evolution = new(src)
+	var/datum/action/alien/larva_evolve/evolution = new(src)
 	evolution.Grant(src)
-	var/datum/action/cooldown/alien/hide/hide = new(src)
+	var/datum/action/alien/hide/hide = new(src)
 	hide.Grant(src)
 	return ..()
 

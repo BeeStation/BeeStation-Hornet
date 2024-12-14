@@ -36,7 +36,7 @@
 /mob/living/simple_animal/hostile/heretic_summon/Initialize(mapload)
 	. = ..()
 	for(var/spell in actions_to_add)
-		var/datum/action/cooldown/spell/new_spell = new spell(src)
+		var/datum/action/spell/new_spell = new spell(src)
 		new_spell.Grant(src)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
@@ -51,9 +51,9 @@
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	actions_to_add = list(
-		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash/long,
-		/datum/action/cooldown/spell/list_target/telepathy/eldritch,
-		/datum/action/cooldown/spell/pointed/blind/eldritch,
+		/datum/action/spell/jaunt/ethereal_jaunt/ash/long,
+		/datum/action/spell/telepathy/eldritch,
+		/datum/action/spell/pointed/blind/eldritch,
 	)
 
 	/// A assoc list of [mob/living ref] to [datum/action ref] - all the mobs linked to our mansus network.
@@ -76,7 +76,7 @@
 	button_icon_state = "binoculars"
 	background_icon_state = "bg_ecult"
 
-/datum/action/innate/hereticmob/change_sight_range/Activate()
+/datum/action/innate/hereticmob/change_sight_range/on_activate()
 	var/list/views = list()
 	for(var/i in 1 to 10)
 		views |= i
@@ -110,7 +110,7 @@
 	ranged_cooldown_time = 5
 	ranged = TRUE
 	rapid = 1
-	actions_to_add = list(/datum/action/cooldown/spell/worm_contract)
+	actions_to_add = list(/datum/action/spell/worm_contract)
 	///Previous segment in the chain
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/back
 	///Next segment in the chain
@@ -328,8 +328,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	melee_damage = 20
 	sight = SEE_TURFS
 	actions_to_add = list(
-		/datum/action/cooldown/spell/aoe/rust_conversion/small,
-		/datum/action/cooldown/spell/basic_projectile/rust_wave/short,
+		/datum/action/spell/aoe/rust_conversion/small,
+		/datum/action/spell/basic_projectile/rust_wave/short,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/setDir(newdir)
@@ -366,9 +366,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	melee_damage = 20
 	sight = SEE_TURFS
 	actions_to_add = list(
-		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash,
-		/datum/action/cooldown/spell/pointed/cleave,
-		/datum/action/cooldown/spell/fire_sworn,
+		/datum/action/spell/jaunt/ethereal_jaunt/ash,
+		/datum/action/spell/pointed/cleave,
+		/datum/action/spell/fire_sworn,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/stalker
@@ -383,7 +383,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	melee_damage = 20
 	sight = SEE_MOBS
 	actions_to_add = list(
-		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash,
-		/datum/action/cooldown/spell/shapeshift/eldritch,
-		/datum/action/cooldown/spell/emp/eldritch,
+		/datum/action/spell/jaunt/ethereal_jaunt/ash,
+		/datum/action/spell/shapeshift/eldritch,
+		/datum/action/spell/emp/eldritch,
 	)

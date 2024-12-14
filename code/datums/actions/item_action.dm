@@ -6,22 +6,19 @@
 	// If you want to override the normal icon being the item
 	// then change this to an icon state
 
-/datum/action/item_action/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return FALSE
+/datum/action/item_action/on_activate(mob/user, atom/target)
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, src)
 	return TRUE
 
-/datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
-	var/obj/item/item_target = target
+/datum/action/item_action/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
+	var/obj/item/item_target = master
 	if(button_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
 		// of the item appearence
 		..()
-	else if((target && current_button.appearance_cache != item_target.appearance) || force) //replace with /ref comparison if this is not valid.
+	else if((master && current_button.appearance_cache != item_target.appearance) || force) //replace with /ref comparison if this is not valid.
 		var/old_layer = item_target.layer
 		var/old_plane = item_target.plane
 		item_target.layer = FLOAT_LAYER //AAAH

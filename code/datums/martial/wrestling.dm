@@ -44,11 +44,9 @@
 /datum/action/slam
 	name = "Slam (Cinch) - Slam a grappled opponent into the floor."
 	//button_icon_state = "wrassle_slam" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/slam/Trigger(trigger_flags)
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
+/datum/action/slam/on_activate(mob/user, atom/target)
 	owner.visible_message("<span class='danger'>[owner] prepares to BODY SLAM!</span>", "<b><i>Your next attack will be a BODY SLAM.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "slam"
@@ -56,11 +54,9 @@
 /datum/action/throw_wrassle
 	name = "Throw (Cinch) - Spin a cinched opponent around and throw them."
 	//button_icon_state = "wrassle_throw" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/throw_wrassle/Trigger(trigger_flags)
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
+/datum/action/throw_wrassle/on_activate(mob/user, atom/target)
 	owner.visible_message("<span class='danger'>[owner] prepares to THROW!</span>", "<b><i>Your next attack will be a THROW.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "throw"
@@ -68,11 +64,9 @@
 /datum/action/kick
 	name = "Kick - A powerful kick, sends people flying away from you. Also useful for escaping from bad situations."
 	//button_icon_state = "wrassle_kick" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/kick/Trigger(trigger_flags)
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
+/datum/action/kick/on_activate(mob/user, atom/target)
 	owner.visible_message("<span class='danger'>[owner] prepares to KICK!</span>", "<b><i>Your next attack will be a KICK.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "kick"
@@ -80,11 +74,9 @@
 /datum/action/strike
 	name = "Strike - Hit a neaby opponent with a quick attack."
 	//button_icon_state = "wrassle_strike" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/strike/Trigger(trigger_flags)
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
+/datum/action/strike/on_activate(mob/user, atom/target)
 	owner.visible_message("<span class='danger'>[owner] prepares to STRIKE!</span>", "<b><i>Your next attack will be a STRIKE.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "strike"
@@ -92,11 +84,9 @@
 /datum/action/drop
 	name = "Drop - Smash down onto an opponent."
 	//button_icon_state = "wrassle_drop" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/drop/Trigger(trigger_flags)
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
+/datum/action/drop/on_activate(mob/user, atom/target)
 	owner.visible_message("<span class='danger'>[owner] prepares to LEG DROP!</span>", "<b><i>Your next attack will be a LEG DROP.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "drop"

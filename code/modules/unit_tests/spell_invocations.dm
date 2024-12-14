@@ -6,9 +6,9 @@
 
 /datum/unit_test/spell_invocations/Run()
 
-	var/list/types_to_test = subtypesof(/datum/action/cooldown/spell)
+	var/list/types_to_test = subtypesof(/datum/action/spell)
 
-	for(var/datum/action/cooldown/spell/spell_type as anything in types_to_test)
+	for(var/datum/action/spell/spell_type as anything in types_to_test)
 		var/spell_name = initial(spell_type.name)
 		var/invoke_type = initial(spell_type.invocation_type)
 		switch(invoke_type)

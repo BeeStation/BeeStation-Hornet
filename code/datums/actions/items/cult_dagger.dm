@@ -14,7 +14,7 @@
 
 	return ..()
 
-/datum/action/item_action/cult_dagger/Trigger(trigger_flags)
+/datum/action/item_action/cult_dagger/on_activate(mob/user, atom/target)
 	for(var/obj/item/held_item as anything in owner.held_items) // In case we were already holding a dagger
 		if(istype(held_item, /obj/item/melee/cultblade/dagger))
 			held_item.attack_self(owner)

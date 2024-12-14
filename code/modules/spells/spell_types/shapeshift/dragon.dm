@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/shapeshift/dragon
+/datum/action/spell/shapeshift/dragon
 	name = "Dragon Form"
 	desc = "Take on the shape a lesser ash drake."
 	invocation = "RAAAAAAAAWR!"

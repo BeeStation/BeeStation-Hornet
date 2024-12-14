@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/fiery_rebirth
+/datum/action/spell/aoe/fiery_rebirth
 	name = "Nightwatcher's Rebirth"
 	desc = "A spell that extinguishes you drains nearby heathens engulfed in flames of their life force, \
 		healing you for each victim drained. Those in critical condition \
@@ -14,11 +14,11 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
-/datum/action/cooldown/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
+/datum/action/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
 	cast_on.ExtinguishMob()
 	return ..()
 
-/datum/action/cooldown/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
+/datum/action/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/mob/living/carbon/nearby_mob in range(aoe_radius, center))
 		if(nearby_mob == owner || nearby_mob == center)
@@ -34,7 +34,7 @@
 
 	return things
 
-/datum/action/cooldown/spell/aoe/fiery_rebirth/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/carbon/human/caster)
+/datum/action/spell/aoe/fiery_rebirth/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/carbon/human/caster)
 	new /obj/effect/temp_visual/eldritch_smoke(victim.drop_location())
 
 	//This is essentially a death mark, use this to finish your opponent quicker.

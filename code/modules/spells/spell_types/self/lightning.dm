@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/tesla
+/datum/action/spell/tesla
 	name = "Tesla Blast"
 	desc = "Charge up a tesla arc and release it at random nearby targets! \
 		You can move freely while it charges. The arc jumps between targets and can knock them down."
@@ -23,19 +23,11 @@
 	/// Quote: "the only way i can think of to stop a sound, thank MSO for the idea."
 	var/sound/charge_sound
 
-/datum/action/cooldown/spell/tesla/Remove(mob/living/remove_from)
+/datum/action/spell/tesla/Remove(mob/living/remove_from)
 	reset_tesla(remove_from)
 	return ..()
 
-/datum/action/cooldown/spell/tesla/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
-	if(currently_channeling)
-		.[PANEL_DISPLAY_STATUS] = "CHANNELING"
-
-/datum/action/cooldown/spell/tesla/can_cast_spell(feedback = TRUE)
+/datum/action/spell/tesla/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -46,7 +38,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/tesla/before_cast(atom/cast_on)
+/datum/action/spell/tesla/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -64,16 +56,16 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/tesla/reset_spell_cooldown()
+/datum/action/spell/tesla/reset_spell_cooldown()
 	reset_tesla(owner)
 	return ..()
 
 /// Resets the tesla effect.
-/datum/action/cooldown/spell/tesla/proc/reset_tesla(atom/to_reset)
+/datum/action/spell/tesla/proc/reset_tesla(atom/to_reset)
 	to_reset.cut_overlay(halo)
 	currently_channeling = FALSE
 
-/datum/action/cooldown/spell/tesla/cast(atom/cast_on)
+/datum/action/spell/tesla/cast(atom/cast_on)
 	. = ..()
 
 	// byond, why you suck?
@@ -93,7 +85,7 @@
 	return TRUE
 
 /// Zaps a target, the bolt originating from origin.
-/datum/action/cooldown/spell/tesla/proc/zap_target(atom/origin, mob/living/carbon/to_zap, bolt_energy = 30, bounces = 5)
+/datum/action/spell/tesla/proc/zap_target(atom/origin, mob/living/carbon/to_zap, bolt_energy = 30, bounces = 5)
 	origin.Beam(to_zap, icon_state = "lightning[rand(1,12)]", time = 0.5 SECONDS)
 	playsound(get_turf(to_zap), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 
@@ -112,7 +104,7 @@
 			zap_target(to_zap, to_zap_next, max((bolt_energy - 5), 5), bounces - 1)
 
 /// Get a target in view of us to zap next. Returns a carbon, or null if none were found.
-/datum/action/cooldown/spell/tesla/proc/get_target(atom/center)
+/datum/action/spell/tesla/proc/get_target(atom/center)
 	var/list/possibles = list()
 	for(var/mob/living/carbon/to_check in view(shock_radius, center))
 		if(to_check == center || to_check == owner)

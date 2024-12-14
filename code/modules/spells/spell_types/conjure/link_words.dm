@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/link_worlds
+/datum/action/spell/conjure/link_worlds
 	name = "Link Worlds"
 	desc = "A whole new dimension for you to play with! They won't be happy about it, though."
 

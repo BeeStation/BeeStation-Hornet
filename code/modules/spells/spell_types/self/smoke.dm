@@ -1,5 +1,5 @@
 /// Basic smoke spell.
-/datum/action/cooldown/spell/smoke
+/datum/action/spell/smoke
 	name = "Smoke"
 	desc = "This spell spawns a cloud of smoke at your location. \
 		People within will begin to choke and drop their items."
@@ -15,7 +15,7 @@
 	smoke_amt = 4
 
 /// Chaplain smoke.
-/datum/action/cooldown/spell/smoke/lesser
+/datum/action/spell/smoke/lesser
 	name = "Holy Smoke"
 	desc = "This spell spawns a small cloud of smoke at your location."
 
@@ -27,7 +27,7 @@
 	smoke_amt = 2
 
 /// Unused smoke that makes people sleep. Used to be for cult?
-/datum/action/cooldown/spell/smoke/disable
+/datum/action/spell/smoke/disable
 	name = "Paralysing Smoke"
 	desc = "This spell spawns a cloud of paralysing smoke."
 	background_icon_state = "bg_cult"

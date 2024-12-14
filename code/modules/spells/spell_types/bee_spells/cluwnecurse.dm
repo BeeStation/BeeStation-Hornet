@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/cluwnecurse
+/datum/action/spell/pointed/cluwnecurse
 	name = "Curse of the Cluwne"
 	desc = "This spell dooms the fate of any unlucky soul to the live of a pitiful cluwne, a terrible creature that is hunted for fun."
 	school = "transmutation"
@@ -10,7 +10,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cluwne.dmi'
 	button_icon_state = "cluwne"
 
-/datum/action/cooldown/spell/pointed/cluwnecurse/cast(mob/living/carbon/cast_on)
+/datum/action/spell/pointed/cluwnecurse/cast(mob/living/carbon/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND))
 		return
@@ -18,4 +18,4 @@
 
 /datum/spellbook_entry/cluwnecurse
 	name = "Cluwne Curse"
-	spell_type = /datum/action/cooldown/spell/pointed/cluwnecurse
+	spell_type = /datum/action/spell/pointed/cluwnecurse

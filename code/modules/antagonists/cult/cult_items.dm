@@ -101,7 +101,7 @@ Striking a noncultist, however, will tear their flesh."}
 	phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	phaseout = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
-/datum/action/innate/dash/cult/IsAvailable()
+/datum/action/innate/dash/cult/is_available()
 	if(iscultist(owner) && current_charges)
 		return TRUE
 	else
@@ -652,7 +652,7 @@ Striking a noncultist, however, will tear their flesh."}
 	. = ..()
 	spear = blood_spear
 
-/datum/action/innate/cult/spear/Activate()
+/datum/action/innate/cult/spear/on_activate()
 	if(owner == spear.loc || cooldown > world.time)
 		return
 	var/ST = get_turf(spear)

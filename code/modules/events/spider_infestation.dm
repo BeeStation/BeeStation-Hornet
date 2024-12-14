@@ -54,7 +54,7 @@
 		spider_antag.set_spider_team(spider_team)
 		if(fed)
 			spooder.fed += 3 // Give our spiders some friends to help them get started
-			spooder.lay_eggs.UpdateButtons()
+			spooder.lay_eggs.update_buttons()
 			fed--
 		spawncount--
 		message_admins("[ADMIN_LOOKUPFLW(spooder)] has been made into a spider by an event.")

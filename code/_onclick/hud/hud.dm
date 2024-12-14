@@ -423,7 +423,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	for(var/datum/action/action as anything in mymob.actions)
 		var/atom/movable/screen/movable/action_button/button = action.viewers[src]
 		if(!button)
-			action.ShowTo(mymob)
+			action.show_to(mymob)
 			button = action.viewers[src]
 		position_action(button, button.location)
 

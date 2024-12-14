@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/timestop
+/datum/action/spell/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, \
 		allowing you to move freely while your enemies and even projectiles are frozen."
@@ -16,15 +16,15 @@
 	/// The duration of the time stop.
 	var/timestop_duration = 10 SECONDS
 
-/datum/action/cooldown/spell/timestop/Grant(mob/grant_to)
+/datum/action/spell/timestop/Grant(mob/grant_to)
 	. = ..()
 	if(owner)
 		ADD_TRAIT(owner, TRAIT_TIME_STOP_IMMUNE, REF(src))
 
-/datum/action/cooldown/spell/timestop/Remove(mob/remove_from)
+/datum/action/spell/timestop/Remove(mob/remove_from)
 	REMOVE_TRAIT(remove_from, TRAIT_TIME_STOP_IMMUNE, REF(src))
 	return ..()
 
-/datum/action/cooldown/spell/timestop/cast(atom/cast_on)
+/datum/action/spell/timestop/cast(atom/cast_on)
 	. = ..()
 	new /obj/effect/timestop(get_turf(cast_on), timestop_range, timestop_duration, list(cast_on))

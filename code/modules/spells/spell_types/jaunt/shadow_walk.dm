@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/jaunt/shadow_walk
+/datum/action/spell/jaunt/shadow_walk
 	name = "Shadow Walk"
 	desc = "Grants unlimited movement in darkness."
 	background_icon_state = "bg_alien"
@@ -8,7 +8,7 @@
 	spell_requirements = NONE
 	jaunt_type = /obj/effect/dummy/phased_mob/shadow
 
-/datum/action/cooldown/spell/jaunt/shadow_walk/cast(mob/living/cast_on)
+/datum/action/spell/jaunt/shadow_walk/cast(mob/living/cast_on)
 	. = ..()
 	if(is_jaunting(cast_on))
 		exit_jaunt(cast_on)

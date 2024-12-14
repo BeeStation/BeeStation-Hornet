@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/barnyard
-	granted_action = /datum/action/cooldown/spell/pointed/barnyardcurse
+	granted_action = /datum/action/spell/pointed/barnyardcurse
 	action_name = "barnyard"
 	icon_state ="bookhorses"
 	desc = "This book is more horse than your mind has room for."

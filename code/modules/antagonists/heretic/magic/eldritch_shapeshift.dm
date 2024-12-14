@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/action/cooldown/spell/shapeshift/eldritch
+/datum/action/spell/shapeshift/eldritch
 	school = SCHOOL_FORBIDDEN
 	background_icon_state = "bg_ecult"
 	invocation = "SH'PE"

@@ -820,25 +820,32 @@
   * shows spells we can cast, their level, and what cooldown they have and for actions just their cooldown
   */
 
-/mob/proc/get_actions_for_statpanel(list/actions, current_tab)
+/mob/proc/get_actions_for_statpanel(list/actions)
 	var/list/action_data = list()
 	if(!length(actions))
 		return action_data
 	client.stat_update_mode = STAT_MEDIUM_UPDATE
-	for(var/datum/action/cooldown/action in actions)
+	for(var/datum/action/action in actions)
+		action.update_stat_status(action_data)
+	for(var/datum/action/action in actions)
 		action_data["[action.name]"] = action.get_stat_label()
 	return action_data
 
-/datum/action/cooldown/proc/get_stat_label()
+/datum/action/proc/get_stat_label()
 	var/label = ""
 	var/time_left = max(next_use_time - world.time, 0)
-	if(istype(src, /datum/action/cooldown/spell))
-		var/datum/action/cooldown/spell/spell = src
-		label = GENERATE_STAT_TEXT(" Spell Level: [spell.spell_level]/[spell.spell_max_level], Spell Cooldown: [(spell.cooldown_time/10)] Seconds, Can be cast in [(time_left/10)]")
+	if (cooldown_time)
+		if(istype(src, /datum/action/spell))
+			var/datum/action/spell/spell = src
+			label = "Spell Level: [spell.spell_level]/[spell.spell_max_level], Spell Cooldown: [(spell.cooldown_time/10)] Seconds, Can be cast in [(time_left/10)]"
+		else
+			label = "Action Cooldown: [(cooldown_time/10)] Seconds,  Can be cast in [(time_left/10)]"
 	else
-		label = GENERATE_STAT_TEXT("Action Cooldown: [(cooldown_time/10)] Seconds,  Can be cast in [(time_left/10)]")
+		label = "Activate"
 	return label
 
+/datum/action/proc/update_stat_status(list/stat)
+	return null
 
 #define MOB_FACE_DIRECTION_DELAY 1
 

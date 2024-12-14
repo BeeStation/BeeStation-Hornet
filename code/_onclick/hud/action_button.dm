@@ -51,7 +51,7 @@
 		return
 	usr.next_click = world.time + 1
 
-	linked_action.Trigger()
+	linked_action.trigger()
 	SEND_SOUND(usr, 'sound/effects/pop.ogg')
 	transform = turn(matrix() * 0.9, pick(-8, 8))
 	alpha = 200
@@ -160,7 +160,7 @@
 /mob/proc/update_action_buttons_icon(status_only = FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtons(status_only)
+		A.update_buttons(status_only)
 
 //This is the proc used to update all the action buttons.
 /mob/proc/update_action_buttons(reload_screen)
@@ -172,7 +172,7 @@
 
 	for(var/datum/action/action as anything in actions)
 		var/atom/movable/screen/movable/action_button/button = action.viewers[hud_used]
-		action.UpdateButtons()
+		action.update_buttons()
 		if(reload_screen)
 			client.screen += button
 

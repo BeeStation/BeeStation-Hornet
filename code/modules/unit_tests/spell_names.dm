@@ -15,10 +15,10 @@
 
 /datum/unit_test/spell_names/Run()
 
-	var/list/types_to_test = typesof(/datum/action/cooldown/spell)
+	var/list/types_to_test = typesof(/datum/action/spell)
 
 	var/list/existing_names = list()
-	for(var/datum/action/cooldown/spell/spell_type as anything in types_to_test)
+	for(var/datum/action/spell/spell_type as anything in types_to_test)
 		var/spell_name = initial(spell_type.name)
 		if(spell_name == "Spell")
 			continue

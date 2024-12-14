@@ -4,12 +4,12 @@
 	quality = POSITIVE
 	text_gain_indication = ("<span class='notice'>Your feel like you can throw your voice.</span>")
 	instability = 15
-	power_path = /datum/action/cooldown/spell/tongue_spike
+	power_path = /datum/action/spell/tongue_spike
 
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/action/cooldown/spell/tongue_spike
+/datum/action/spell/tongue_spike
 	name = "Launch spike"
 	desc = "Shoot your tongue out in the direction you're facing, embedding it and dealing damage until they remove it."
 	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
@@ -21,10 +21,10 @@
 	/// The type-path to what projectile we spawn to throw at someone.
 	var/spike_path = /obj/item/hardened_spike
 
-/datum/action/cooldown/spell/tongue_spike/is_valid_target(atom/cast_on)
+/datum/action/spell/tongue_spike/is_valid_target(atom/cast_on)
 	return iscarbon(cast_on)
 
-/datum/action/cooldown/spell/tongue_spike/cast(mob/living/carbon/cast_on)
+/datum/action/spell/tongue_spike/cast(mob/living/carbon/cast_on)
 	. = ..()
 	if(HAS_TRAIT(cast_on, TRAIT_NODISMEMBER))
 		to_chat(cast_on, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
@@ -88,11 +88,11 @@
 	text_gain_indication = ("<span class='notice'>Your feel like you can really connect with people by throwing your voice.</span>")
 	instability = 15
 	locked = TRUE
-	power_path = /datum/action/cooldown/spell/tongue_spike/chem
+	power_path = /datum/action/spell/tongue_spike/chem
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/action/cooldown/spell/tongue_spike/chem
+/datum/action/spell/tongue_spike/chem
 	name = "Launch chem spike"
 	desc = "Shoot your tongue out in the direction you're facing, \
 		embedding it for a very small amount of damage. \
@@ -153,15 +153,12 @@
 	/// Weakref to the mob target that we transfer chemicals to on activation
 	var/datum/weakref/transfered_ref
 
-/datum/action/send_chems/New(Target)
+/datum/action/send_chems/New(master)
 	. = ..()
-	if(!istype(target, /obj/item/hardened_spike/chem))
+	if(!istype(master, /obj/item/hardened_spike/chem))
 		qdel(src)
 
-/datum/action/send_chems/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return FALSE
+/datum/action/send_chems/on_activate(mob/user, atom/target)
 	if(!ishuman(owner) || !owner.reagents)
 		return FALSE
 	var/mob/living/carbon/human/transferer = owner

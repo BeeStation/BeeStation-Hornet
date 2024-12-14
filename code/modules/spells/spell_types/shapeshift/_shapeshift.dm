@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/shapeshift
+/datum/action/spell/shapeshift
 	school = SCHOOL_TRANSMUTATION
 
 	/// Whehter we revert to our human form on death.
@@ -15,13 +15,13 @@
 	/// All possible types we can become
 	var/list/atom/possible_shapes
 
-/datum/action/cooldown/spell/shapeshift/is_valid_target(atom/cast_on)
+/datum/action/spell/shapeshift/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/shapeshift/proc/is_shifted(mob/living/cast_on)
+/datum/action/spell/shapeshift/proc/is_shifted(mob/living/cast_on)
 	return locate(/obj/shapeshift_holder) in cast_on
 
-/datum/action/cooldown/spell/shapeshift/before_cast(atom/cast_on)
+/datum/action/spell/shapeshift/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -60,7 +60,7 @@
 	if(QDELETED(src) || QDELETED(owner) || !can_cast_spell(feedback = FALSE))
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/shapeshift/cast(mob/living/cast_on)
+/datum/action/spell/shapeshift/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.buckled?.unbuckle_mob(cast_on, force = TRUE)
 
@@ -87,7 +87,7 @@
 /// Whenever someone shapeshifts within a vent,
 /// and enters a state in which they are no longer a ventcrawler,
 /// they are brutally ejected from the vents. In the form of gibs.
-/datum/action/cooldown/spell/shapeshift/proc/eject_from_vents(mob/living/cast_on)
+/datum/action/spell/shapeshift/proc/eject_from_vents(mob/living/cast_on)
 	var/obj/machinery/atmospherics/pipe_you_die_in = cast_on.loc
 	var/datum/pipeline/our_pipeline
 	var/pipenets = pipe_you_die_in.returnPipenets()
@@ -108,7 +108,7 @@
 	cast_on.death()
 	qdel(cast_on)
 
-/datum/action/cooldown/spell/shapeshift/proc/check_menu(mob/living/caster)
+/datum/action/spell/shapeshift/proc/check_menu(mob/living/caster)
 	if(QDELETED(src))
 		return FALSE
 	if(QDELETED(caster))
@@ -116,7 +116,7 @@
 
 	return !caster.incapacitated()
 
-/datum/action/cooldown/spell/shapeshift/proc/do_shapeshift(mob/living/caster)
+/datum/action/spell/shapeshift/proc/do_shapeshift(mob/living/caster)
 	if(is_shifted(caster))
 		to_chat(caster, ("<span class='warning'>You're already shapeshifted!</span>"))
 		CRASH("[type] called do_shapeshift while shapeshifted.")
@@ -129,7 +129,7 @@
 
 	return new_shape_holder
 
-/datum/action/cooldown/spell/shapeshift/proc/restore_form(mob/living/caster)
+/datum/action/spell/shapeshift/proc/restore_form(mob/living/caster)
 	var/obj/shapeshift_holder/current_shift = is_shifted(caster)
 	if(QDELETED(current_shift))
 		return
@@ -150,9 +150,9 @@
 	var/mob/living/stored
 	var/mob/living/shape
 	var/restoring = FALSE
-	var/datum/action/cooldown/spell/shapeshift/source
+	var/datum/action/spell/shapeshift/source
 
-/obj/shapeshift_holder/Initialize(mapload, datum/action/cooldown/spell/shapeshift/_source, mob/living/caster)
+/obj/shapeshift_holder/Initialize(mapload, datum/action/spell/shapeshift/_source, mob/living/caster)
 	. = ..()
 	source = _source
 	shape = loc

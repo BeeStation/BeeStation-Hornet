@@ -3,7 +3,7 @@
  *
  * Lets the caster enter and exit pools of blood.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl
+/datum/action/spell/jaunt/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood."
 	background_icon_state = "bg_demon"
@@ -21,7 +21,7 @@
 	/// If TRUE, we equip "blood crawl" hands to the jaunter to prevent using items
 	var/equip_blood_hands = TRUE
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/cast(mob/living/cast_on)
+/datum/action/spell/jaunt/bloodcrawl/cast(mob/living/cast_on)
 	. = ..()
 	for(var/obj/effect/decal/cleanable/blood_nearby in range(blood_radius, get_turf(cast_on)))
 		if(blood_nearby.can_bloodcrawl_in())
@@ -34,7 +34,7 @@
  * Attempts to enter or exit the passed blood pool.
  * Returns TRUE if we successfully entered or exited said pool, FALSE otherwise
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/do_bloodcrawl(obj/effect/decal/cleanable/blood, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/proc/do_bloodcrawl(obj/effect/decal/cleanable/blood, mob/living/jaunter)
 	if(is_jaunting(jaunter))
 		. = try_exit_jaunt(blood, jaunter)
 	else
@@ -48,7 +48,7 @@
  * Attempts to enter the passed blood pool.
  * If forced is TRUE, it will override enter_blood_time.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
+/datum/action/spell/jaunt/bloodcrawl/proc/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(enter_blood_time > 0 SECONDS)
 			blood.visible_message(("<span class='warning'>[jaunter] starts to sink into [blood]!</span>"))
@@ -86,7 +86,7 @@
  * Attempts to Exit the passed blood pool.
  * If forced is TRUE, it will override exit_blood_time, and if we're currently consuming someone.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/try_exit_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
+/datum/action/spell/jaunt/bloodcrawl/proc/try_exit_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(jaunter.notransform)
 			to_chat(jaunter, ("<span class='warning'>You cannot exit yet!!</span>"))
@@ -108,7 +108,7 @@
 	blood.visible_message(("<span class='boldwarning'>[jaunter] rises out of [blood]!</span>"))
 	return TRUE
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/exit_jaunt(mob/living/unjaunter, turf/loc_override)
+/datum/action/spell/jaunt/bloodcrawl/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	. = ..()
 	if(!.)
 		return
@@ -116,7 +116,7 @@
 	exit_blood_effect(unjaunter)
 
 /// Adds an coloring effect to mobs which exit blood crawl.
-/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/exit_blood_effect(mob/living/exited)
+/datum/action/spell/jaunt/bloodcrawl/proc/exit_blood_effect(mob/living/exited)
 	var/turf/landing_turf = get_turf(exited)
 	playsound(landing_turf, 'sound/magic/exit_blood.ogg', 50, TRUE, -1)
 
@@ -134,14 +134,14 @@
  * Slaughter demon's blood crawl
  * Allows the blood crawler to consume people they are dragging.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon
 	name = "Voracious Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood. If you are dragging someone in critical or dead, \
 		they will be consumed by you, fully healing you."
 	/// The sound played when someone's consumed.
 	var/consume_sound = 'sound/magic/demon_consume.ogg'
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter)
 	// Save this before the actual jaunt
 	var/atom/coming_with = jaunter.pulling
 
@@ -184,7 +184,7 @@
  * Consumes the [victim] from the [jaunter], fully healing them
  * and calling [proc/on_victim_consumed] if successful.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/consume_victim(mob/living/victim, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/proc/consume_victim(mob/living/victim, mob/living/jaunter)
 	on_victim_start_consume(victim, jaunter)
 
 	for(var/i in 1 to 3)
@@ -208,13 +208,13 @@
 /**
  * Called when a victim starts to be consumed.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, ("<span class='danger'>You begin to feast on [victim]... You can not move while you are doing this.</span>"))
 
 /**
  * Called when a victim is successfully consumed.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_consumed(mob/living/victim, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_consumed(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, ("<span class='danger'>You devour [victim]. Your health is fully restored.</span>"))
 	qdel(victim)
 
@@ -222,7 +222,7 @@
  * Laughter demon's blood crawl
  * All mobs consumed are revived after the demon is killed.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny
 	name = "Friendly Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood. If you are dragging someone in critical or dead - I mean, \
 		sleeping, when entering a blood pool, they will be invited to a party and fully heal you!"
@@ -231,23 +231,23 @@
 	// Keep the people we hug!
 	var/list/mob/living/consumed_mobs = list()
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Destroy()
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/Destroy()
 	consumed_mobs.Cut()
 	return ..()
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Grant(mob/grant_to)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/Grant(mob/grant_to)
 	. = ..()
 	if(owner)
 		RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Remove(mob/living/remove_from)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/Remove(mob/living/remove_from)
 	UnregisterSignal(remove_from, COMSIG_LIVING_DEATH)
 	return ..()
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, ("<span class='clown'>You invite [victim] to your party! You can not move while you are doing this.</span>"))
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_consumed(mob/living/victim, mob/living/jaunter)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_consumed(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, ("<span class='clown'>[victim] joins your party! Your health is fully restored.</span>"))
 	consumed_mobs += victim
 	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, PROC_REF(on_victim_statchange))
@@ -258,7 +258,7 @@
  *
  * If our demon is deleted or destroyed, expel all of our consumed mobs
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_death(datum/source)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_death(datum/source)
 	SIGNAL_HANDLER
 
 	var/turf/release_turf = get_turf(source)
@@ -282,7 +282,7 @@
  * changed stat. If they're no longer dead (because they were dead when
  * swallowed), eject them so they can't rip their way out from the inside.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_statchange(mob/living/victim, new_stat)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_statchange(mob/living/victim, new_stat)
 	SIGNAL_HANDLER
 
 	if(new_stat == DEAD)
@@ -298,7 +298,7 @@
 /**
  * Handle signal from a consumed mob being deleted. Clears any references.
  */
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_deleted(datum/source)
+/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_deleted(datum/source)
 	SIGNAL_HANDLER
 
 	consumed_mobs -= source

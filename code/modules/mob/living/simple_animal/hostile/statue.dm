@@ -62,11 +62,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells
-	var/datum/action/cooldown/spell/aoe/flicker_lights/flicker = new(src)
+	var/datum/action/spell/aoe/flicker_lights/flicker = new(src)
 	flicker.Grant(src)
-	var/datum/action/cooldown/spell/aoe/blindness/blind = new(src)
+	var/datum/action/spell/aoe/blindness/blind = new(src)
 	blind.Grant(src)
-	var/datum/action/cooldown/spell/night_vision/night_vision = new(src)
+	var/datum/action/spell/night_vision/night_vision = new(src)
 	night_vision.Grant(src)
 
 	// Set creator
@@ -173,7 +173,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 // Statue powers
 
 // Flicker lights
-/datum/action/cooldown/spell/aoe/flicker_lights
+/datum/action/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
@@ -181,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	spell_requirements = NONE
 	aoe_radius = 14
 
-/datum/action/cooldown/spell/aoe/flicker_lights/get_things_to_cast_on(atom/center)
+/datum/action/spell/aoe/flicker_lights/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/obj/machinery/light/nearby_light in range(aoe_radius, center))
 		if(!nearby_light.on)
@@ -191,11 +191,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 
 	return things
 
-/datum/action/cooldown/spell/aoe/flicker_lights/cast_on_thing_in_aoe(obj/machinery/light/victim, atom/caster)
+/datum/action/spell/aoe/flicker_lights/cast_on_thing_in_aoe(obj/machinery/light/victim, atom/caster)
 	victim.flicker()
 
 //Blind AOE
-/datum/action/cooldown/spell/aoe/blindness
+/datum/action/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
@@ -203,11 +203,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	spell_requirements = NONE
 	aoe_radius = 14
 
-/datum/action/cooldown/spell/aoe/blindness/cast(atom/cast_on)
+/datum/action/spell/aoe/blindness/cast(atom/cast_on)
 	cast_on.visible_message(("<span class='danger'>[cast_on] glares their eyes.</span>"))
 	return ..()
 
-/datum/action/cooldown/spell/aoe/blindness/get_things_to_cast_on(atom/center)
+/datum/action/spell/aoe/blindness/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/mob/living/nearby_mob in range(aoe_radius, center))
 		if(nearby_mob == owner || nearby_mob == center)
@@ -217,5 +217,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 
 	return things
 
-/datum/action/cooldown/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+/datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	victim.set_blindness(4)

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/projectile/lightningbolt
+/datum/action/spell/pointed/projectile/lightningbolt
 	name = "Lightning Bolt"
 	desc = "Fire a lightning bolt at your foes! It will jump between targets, but can't knock them down."
 	button_icon_state = "lightning0"
@@ -24,15 +24,15 @@
 	/// The flags the bolt itself takes when zapping someone
 	var/bolt_flags =  TESLA_MOB_DAMAGE
 
-/datum/action/cooldown/spell/pointed/projectile/lightningbolt/Grant(mob/grant_to)
+/datum/action/spell/pointed/projectile/lightningbolt/Grant(mob/grant_to)
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_TESLA_SHOCKIMMUNE, type)
 
-/datum/action/cooldown/spell/pointed/projectile/lightningbolt/Remove(mob/living/remove_from)
+/datum/action/spell/pointed/projectile/lightningbolt/Remove(mob/living/remove_from)
 	REMOVE_TRAIT(remove_from, TRAIT_TESLA_SHOCKIMMUNE, type)
 	return ..()
 
-/datum/action/cooldown/spell/pointed/projectile/lightningbolt/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
+/datum/action/spell/pointed/projectile/lightningbolt/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	if(!istype(to_fire, /obj/projectile/magic/aoe/lightning))
 		return

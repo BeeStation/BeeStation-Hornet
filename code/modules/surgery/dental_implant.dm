@@ -23,7 +23,6 @@
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
 	name = "Activate [tool.name]"
-	P.target = tool
 	P.Grant(target)	//The pill never actually goes in an inventory slot, so the owner doesn't inherit actions from it
 
 	display_results(user, target, "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(surgery.location)].</span>",
@@ -34,9 +33,7 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger(trigger_flags)
-	if(!..())
-		return FALSE
+/datum/action/item_action/hands_free/activate_pill/on_activate(mob/user, atom/target)
 	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted pill!</span>")
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	var/obj/item/item_target = target

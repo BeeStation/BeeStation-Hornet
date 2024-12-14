@@ -14,7 +14,7 @@
 	examine_limb_id = SPECIES_HUMAN
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	var/info_text = "You are a <span class='danger'>Vampire</span>. You will slowly but constantly lose blood if outside of a coffin. If inside a coffin, you will slowly heal. You may gain more blood by grabbing a live victim and using your drain ability."
-	var/datum/action/cooldown/spell/shapeshift/bat/batform //attached to the datum itself to avoid cloning memes, and other duplicates
+	var/datum/action/spell/shapeshift/bat/batform //attached to the datum itself to avoid cloning memes, and other duplicates
 
 /datum/species/vampire/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -139,8 +139,7 @@
 	name = "Drain Victim"
 	desc = "Leech blood from any carbon victim you are passively grabbing."
 
-/datum/action/item_action/organ_action/vampire/Trigger(trigger_flags)
-	. = ..()
+/datum/action/item_action/organ_action/vampire/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		var/obj/item/organ/tongue/vampire/V = target
@@ -190,13 +189,12 @@
 	name = "Check Blood Level"
 	desc = "Check how much blood you have remaining."
 
-/datum/action/item_action/organ_action/vampire_heart/Trigger(trigger_flags)
-	. = ..()
+/datum/action/item_action/organ_action/vampire_heart/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		to_chat(H, "<span class='notice'>Current blood level: [H.blood_volume]/[BLOOD_VOLUME_MAXIMUM].</span>")
 
-/datum/action/cooldown/spell/shapeshift/bat
+/datum/action/spell/shapeshift/bat
 	name = "Bat Form"
 	desc = "Take on the shape a space bat."
 	invocation = "Squeak!"

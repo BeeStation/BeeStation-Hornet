@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure
+/datum/action/spell/conjure
 	sound = 'sound/items/welder.ogg'
 	school = SCHOOL_CONJURATION
 
@@ -16,7 +16,7 @@
 	/// If TRUE, no two summons can be spawned in the same turf.
 	var/summon_respects_prev_spawn_points = TRUE
 
-/datum/action/cooldown/spell/conjure/cast(atom/cast_on)
+/datum/action/spell/conjure/cast(atom/cast_on)
 	. = ..()
 	var/list/to_summon_in = list()
 	for(var/turf/summon_turf in range(summon_radius, cast_on))
@@ -46,5 +46,5 @@
 			post_summon(summoned_object, cast_on)
 
 /// Called on atoms summoned after they are created, allows extra variable editing and such of created objects
-/datum/action/cooldown/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)
+/datum/action/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)
 	return

@@ -127,14 +127,14 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
-	var/datum/action/cooldown/spell/jaunt/shadow_walk/shadowwalk
+	var/datum/action/spell/jaunt/shadow_walk/shadowwalk
 
 /obj/item/organ/brain/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(M.dna.species.id != "nightmare")
 		M.set_species(/datum/species/shadow/nightmare)
 		visible_message("<span class='warning'>[M] thrashes as [src] takes root in [M.p_their()] body!</span>")
-	shadowwalk = new /datum/action/cooldown/spell/jaunt/shadow_walk
+	shadowwalk = new /datum/action/spell/jaunt/shadow_walk
 	shadowwalk.Grant(M)
 
 

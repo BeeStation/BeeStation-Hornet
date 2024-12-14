@@ -40,8 +40,7 @@
 	icon_icon = 'icons/mob/carp.dmi'
 	button_icon_state = "carp"
 
-/datum/action/small_sprite/Trigger(trigger_flags)
-	..()
+/datum/action/small_sprite/on_activate(mob/user, atom/target)
 	if(!small)
 		var/image/I = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
 		I.override = TRUE

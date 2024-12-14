@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/soulstone
+/datum/action/spell/conjure/soulstone
 	name = "Summon Soulstone"
 	desc = "This spell reaches into Nar'Sie's realm, summoning one of the legendary fragments across time and space."
 	background_icon_state = "bg_demon"
@@ -13,18 +13,18 @@
 	summon_radius = 0
 	summon_type = list(/obj/item/soulstone)
 
-/datum/action/cooldown/spell/conjure/soulstone/cult
+/datum/action/spell/conjure/soulstone/cult
 	name = "Create Nar'sian Soulstone"
 	cooldown_time = 6 MINUTES
 
-/datum/action/cooldown/spell/conjure/soulstone/noncult
+/datum/action/spell/conjure/soulstone/noncult
 	name = "Create Soulstone"
 	summon_type = list(/obj/item/soulstone/anybody)
 
-/datum/action/cooldown/spell/conjure/soulstone/purified
+/datum/action/spell/conjure/soulstone/purified
 	name = "Create Purified Soulstone"
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
-/datum/action/cooldown/spell/conjure/soulstone/mystic
+/datum/action/spell/conjure/soulstone/mystic
 	name = "Create Mystic Soulstone"
 	summon_type = list(/obj/item/soulstone/mystic)

@@ -55,7 +55,7 @@
 /datum/action/item_action/nano_picket_sign
 	name = "Retext Nano Picket Sign"
 
-/datum/action/item_action/nano_picket_sign/Trigger(trigger_flags)
+/datum/action/item_action/nano_picket_sign/on_activate(mob/user, atom/target)
 	if(!istype(target, /obj/item/picket_sign))
 		return
 	var/obj/item/picket_sign/sign = target

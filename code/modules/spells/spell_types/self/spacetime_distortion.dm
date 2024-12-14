@@ -1,5 +1,5 @@
 // This could probably be an aoe spell but it's a little cursed, so I'm not touching it
-/datum/action/cooldown/spell/spacetime_dist
+/datum/action/spell/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
 		randomizing the layout and making proper movement impossible. The strings vibrate..."
@@ -20,22 +20,14 @@
 	/// A lazylist of all scramble effects this spell has created.
 	var/list/effects
 
-/datum/action/cooldown/spell/spacetime_dist/Destroy()
+/datum/action/spell/spacetime_dist/Destroy()
 	QDEL_LAZYLIST(effects)
 	return ..()
 
-/datum/action/cooldown/spell/spacetime_dist/can_cast_spell(feedback = TRUE)
+/datum/action/spell/spacetime_dist/can_cast_spell(feedback = TRUE)
 	return ..() && ready
 
-/datum/action/cooldown/spell/spacetime_dist/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
-	if(!ready)
-		.[PANEL_DISPLAY_STATUS] = "NOT READY"
-
-/datum/action/cooldown/spell/spacetime_dist/cast(atom/cast_on)
+/datum/action/spell/spacetime_dist/cast(atom/cast_on)
 	. = ..()
 	var/list/turf/to_switcharoo = get_targets_to_scramble(cast_on)
 	if(!length(to_switcharoo))
@@ -57,12 +49,12 @@
 		LAZYADD(effects, effect_a)
 		LAZYADD(effects, effect_b)
 
-/datum/action/cooldown/spell/spacetime_dist/after_cast()
+/datum/action/spell/spacetime_dist/after_cast()
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(clean_turfs)), duration)
 
 /// Callback which cleans up our effects list after the duration expires.
-/datum/action/cooldown/spell/spacetime_dist/proc/clean_turfs()
+/datum/action/spell/spacetime_dist/proc/clean_turfs()
 	QDEL_LAZYLIST(effects)
 	ready = TRUE
 
@@ -72,7 +64,7 @@
  * Returns an assoc list of [turf] to [turf]. These pairs are what turfs are
  * swapped between one another when the cast is done.
  */
-/datum/action/cooldown/spell/spacetime_dist/proc/get_targets_to_scramble(atom/center)
+/datum/action/spell/spacetime_dist/proc/get_targets_to_scramble(atom/center)
 	// Get turfs around the center
 	var/list/turfs = spiral_range_turfs(scramble_radius, center)
 	if(!length(turfs))

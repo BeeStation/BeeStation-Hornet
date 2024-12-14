@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/dominate
+/datum/action/spell/pointed/dominate
 	name = "Dominate"
 	desc = "This spell dominates the mind of a lesser creature to the will of Nar'Sie, \
 		allying it only to her direct followers."
@@ -17,7 +17,7 @@
 	cast_range = 7
 	active_msg = "You prepare to dominate the mind of a target..."
 
-/datum/action/cooldown/spell/pointed/dominate/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/dominate/is_valid_target(atom/cast_on)
 	if(!isanimal(cast_on))
 		return FALSE
 
@@ -35,7 +35,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/dominate/cast(mob/living/simple_animal/cast_on)
+/datum/action/spell/pointed/dominate/cast(mob/living/simple_animal/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, ("<span class='warning'>Your feel someone attempting to subject your mind to terrible machinations!</span>"))

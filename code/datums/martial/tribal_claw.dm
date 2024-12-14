@@ -35,7 +35,7 @@
 	log_combat(A, D, "tail sweeped(Tribal Claw)", name)
 	D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
 						"<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
-	var/datum/action/cooldown/spell/aoe/repulse/xeno/R = new
+	var/datum/action/spell/aoe/repulse/xeno/R = new
 	R.cast(RANGE_TURFS(1,A))
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.

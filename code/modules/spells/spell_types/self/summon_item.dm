@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/summonitem
+/datum/action/spell/summonitem
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	button_icon_state = "summons"
@@ -15,30 +15,30 @@
 	///The obj marked for recall
 	var/obj/marked_item
 
-/datum/action/cooldown/spell/summonitem/is_valid_target(atom/cast_on)
+/datum/action/spell/summonitem/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
 /// Set the passed object as our marked item
-/datum/action/cooldown/spell/summonitem/proc/mark_item(obj/to_mark)
+/datum/action/spell/summonitem/proc/mark_item(obj/to_mark)
 	name = "Recall [to_mark]"
 	marked_item = to_mark
 	RegisterSignal(marked_item, COMSIG_PARENT_QDELETING, PROC_REF(on_marked_item_deleted))
 
 /// Unset our current marked item
-/datum/action/cooldown/spell/summonitem/proc/unmark_item()
+/datum/action/spell/summonitem/proc/unmark_item()
 	name = initial(name)
 	UnregisterSignal(marked_item, COMSIG_PARENT_QDELETING)
 	marked_item = null
 
 /// Signal proc for COMSIG_PARENT_QDELETING on our marked item, unmarks our item if it's deleted
-/datum/action/cooldown/spell/summonitem/proc/on_marked_item_deleted(datum/source)
+/datum/action/spell/summonitem/proc/on_marked_item_deleted(datum/source)
 	SIGNAL_HANDLER
 
 	if(owner)
 		to_chat(owner, ("<span class='boldwarning'>You sense your marked item has been destroyed!</span>"))
 	unmark_item()
 
-/datum/action/cooldown/spell/summonitem/cast(mob/living/cast_on)
+/datum/action/spell/summonitem/cast(mob/living/cast_on)
 	. = ..()
 	if(QDELETED(marked_item))
 		try_link_item(cast_on)
@@ -51,7 +51,7 @@
 	try_recall_item(cast_on)
 
 /// If we don't have a marked item, attempts to mark the caster's held item.
-/datum/action/cooldown/spell/summonitem/proc/try_link_item(mob/living/caster)
+/datum/action/spell/summonitem/proc/try_link_item(mob/living/caster)
 	var/obj/item/potential_mark = caster.get_active_held_item()
 	if(!potential_mark)
 		if(caster.get_inactive_held_item())
@@ -74,7 +74,7 @@
 	return TRUE
 
 /// If we have a marked item and it's in our hand, we will try to unlink it
-/datum/action/cooldown/spell/summonitem/proc/try_unlink_item(mob/living/caster)
+/datum/action/spell/summonitem/proc/try_unlink_item(mob/living/caster)
 	to_chat(caster, ("<span class='notice'>You begin removing the mark on [marked_item]...</span>"))
 	if(!do_after(caster, 5 SECONDS, marked_item))
 		to_chat(caster, ("<span class='notice'>You decide to keep [marked_item] marked.</span>"))
@@ -85,7 +85,7 @@
 	return TRUE
 
 /// Recalls our marked item to the caster. May bring some unexpected things along.
-/datum/action/cooldown/spell/summonitem/proc/try_recall_item(mob/living/caster)
+/datum/action/spell/summonitem/proc/try_recall_item(mob/living/caster)
 	var/obj/item_to_retrieve = marked_item
 
 	if(item_to_retrieve.loc)

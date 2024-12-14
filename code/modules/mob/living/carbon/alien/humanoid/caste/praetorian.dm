@@ -7,9 +7,9 @@
 
 /mob/living/carbon/alien/humanoid/royal/praetorian/Initialize(mapload)
 	real_name = name
-	var/datum/action/cooldown/spell/aoe/repulse/xeno/tail_whip = new(src)
+	var/datum/action/spell/aoe/repulse/xeno/tail_whip = new(src)
 	tail_whip.Grant(src)
-	var/datum/action/cooldown/alien/evolve_to_queen/evolution = new(src)
+	var/datum/action/alien/evolve_to_queen/evolution = new(src)
 	evolution.Grant(src)
 	return ..()
 
@@ -20,13 +20,13 @@
 	internal_organs += new /obj/item/organ/alien/neurotoxin
 	return ..()
 
-/datum/action/cooldown/alien/evolve_to_queen
+/datum/action/alien/evolve_to_queen
 	name = "Evolve"
 	desc = "Produce an internal egg sac capable of spawning children. Only one queen can exist at a time."
 	button_icon_state = "alien_evolve_praetorian"
 	plasma_cost = 500
 
-/datum/action/cooldown/alien/evolve_to_queen/IsAvailable()
+/datum/action/alien/evolve_to_queen/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -44,7 +44,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/evolve_to_queen/Activate(atom/target)
+/datum/action/alien/evolve_to_queen/on_activate(atom/target)
 	var/mob/living/carbon/alien/humanoid/royal/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/queen/new_queen = new(owner.loc)
 	evolver.alien_evolve(new_queen)

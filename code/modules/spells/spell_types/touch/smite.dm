@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/touch/smite
+/datum/action/spell/touch/smite
 	name = "Smite"
 	desc = "This spell charges your hand with an unholy energy \
 		that can be used to cause a touched victim to violently explode."
@@ -14,7 +14,7 @@
 
 	hand_path = /obj/item/melee/touch_attack/smite
 
-/datum/action/cooldown/spell/touch/smite/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/spell/touch/smite/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(!isliving(victim))
 		return FALSE
 

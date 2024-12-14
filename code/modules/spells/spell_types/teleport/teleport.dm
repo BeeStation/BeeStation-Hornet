@@ -1,5 +1,5 @@
 /// The wizard's teleport SPELL
-/datum/action/cooldown/spell/teleport/area_teleport/wizard
+/datum/action/spell/teleport/area_teleport/wizard
 	name = "Teleport"
 	desc = "This spell teleports you to an area of your selection."
 	button_icon_state = "teleport"
@@ -18,7 +18,7 @@
 	post_teleport_sound = 'sound/magic/teleport_app.ogg'
 
 // Santa's teleport, themed as such
-/datum/action/cooldown/spell/teleport/area_teleport/wizard/santa
+/datum/action/spell/teleport/area_teleport/wizard/santa
 	name = "Santa Teleport"
 
 	invocation = "HO HO HO!"
@@ -28,7 +28,7 @@
 	invocation_says_area = FALSE // Santa moves in mysterious ways
 
 /// Used by the wizard's teleport scroll
-/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll
+/datum/action/spell/teleport/area_teleport/wizard/scroll
 	name = "Teleport (scroll)"
 	cooldown_time = 0 SECONDS
 
@@ -38,14 +38,14 @@
 	bypass = TELEPORT_ALLOW_WIZARD
 	invocation_says_area = FALSE
 
-/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/IsAvailable()
-	return ..() && owner.is_holding(target)
+/datum/action/spell/teleport/area_teleport/wizard/scroll/is_available()
+	return ..() && owner.is_holding(master)
 
-/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/before_cast(atom/cast_on)
+/datum/action/spell/teleport/area_teleport/wizard/scroll/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
 	var/mob/living/carbon/caster = cast_on
-	if(caster.incapacitated() || !caster.is_holding(target))
+	if(caster.incapacitated() || !caster.is_holding(master))
 		return . | SPELL_CANCEL_CAST

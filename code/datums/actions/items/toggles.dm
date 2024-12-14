@@ -1,8 +1,8 @@
 /datum/action/item_action/toggle
 
-/datum/action/item_action/toggle/New(Target)
+/datum/action/item_action/toggle/New(master)
 	..()
-	var/obj/item/item_target = target
+	var/obj/item/item_target = master
 	name = "Toggle [item_target.name]"
 
 /datum/action/item_action/toggle_light
@@ -43,8 +43,8 @@
 	icon_icon = 'icons/hud/actions/actions_spacesuit.dmi'
 	button_icon_state = "thermal_off"
 
-/datum/action/item_action/toggle_spacesuit/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
-	var/obj/item/clothing/suit/space/suit = target
+/datum/action/item_action/toggle_spacesuit/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+	var/obj/item/clothing/suit/space/suit = master
 	if(istype(suit))
 		button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
 
@@ -74,8 +74,8 @@
 /datum/action/item_action/jetpack_stabilization
 	name = "Toggle Jetpack Stabilization"
 
-/datum/action/item_action/jetpack_stabilization/IsAvailable()
-	var/obj/item/tank/jetpack/linked_jetpack = target
+/datum/action/item_action/jetpack_stabilization/is_available()
+	var/obj/item/tank/jetpack/linked_jetpack = master
 	if(!istype(linked_jetpack) || !linked_jetpack.on)
 		return FALSE
 	return ..()
@@ -98,15 +98,15 @@
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "storage_gather_switch"
 
-/datum/action/item_action/storage_gather_mode/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
+/datum/action/item_action/storage_gather_mode/apply_icon(atom/movable/screen/movable/action_button/current_button)
 	. = ..()
-	var/obj/item/item_target = target
+	var/obj/item/item_target = master
 	var/old_layer = item_target.layer
 	var/old_plane = item_target.plane
 	item_target.layer = FLOAT_LAYER //AAAH
 	item_target.plane = FLOAT_PLANE //^ what that guy said
 	current_button.cut_overlays()
-	current_button.add_overlay(target)
+	current_button.add_overlay(master)
 	item_target.layer = old_layer
 	item_target.plane = old_plane
 	current_button.appearance_cache = item_target.appearance

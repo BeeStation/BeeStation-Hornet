@@ -1,10 +1,9 @@
-/datum/action/cooldown/spell/conjure/invisible_wall
+/datum/action/spell/conjure/invisible_wall
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates a wall into physical reality."
 	background_icon_state = "bg_mime"
 	icon_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "invisible_wall"
-	panel = "Mime"
 	sound = null
 
 	school = SCHOOL_MIME
@@ -21,6 +20,6 @@
 	summon_type = list(/obj/effect/forcefield/mime)
 	summon_lifespan = 30 SECONDS
 
-/datum/action/cooldown/spell/conjure/invisible_wall/before_cast(atom/cast_on)
+/datum/action/spell/conjure/invisible_wall/before_cast(atom/cast_on)
 	. = ..()
 	invocation = ("<span class='notice'><b>[cast_on]</b> looks as if a wall is in front of [cast_on.p_them()].</span>")

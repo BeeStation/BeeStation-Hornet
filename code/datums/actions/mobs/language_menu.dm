@@ -4,10 +4,6 @@
 	button_icon_state = "language_menu"
 	check_flags = NONE
 
-/datum/action/language_menu/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
+/datum/action/language_menu/on_activate(mob/user, atom/target)
 	var/datum/language_holder/owner_holder = owner.get_language_holder()
 	owner_holder.open_language_menu(usr)

@@ -1,5 +1,5 @@
 // This spell exists mainly for debugging purposes, and also to show how casting works
-/datum/action/cooldown/spell/basic_heal
+/datum/action/spell/basic_heal
 	name = "Lesser Heal"
 	desc = "Heals a small amount of brute and burn damage to the caster."
 
@@ -17,7 +17,7 @@
 	/// Amount of burn to heal to the spell caster on cast
 	var/burn_to_heal = 10
 
-/datum/action/cooldown/spell/basic_heal/cast(mob/living/cast_on)
+/datum/action/spell/basic_heal/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.visible_message(
 		("<span class='warning'>A wreath of gentle light passes over [cast_on]!</span>"),

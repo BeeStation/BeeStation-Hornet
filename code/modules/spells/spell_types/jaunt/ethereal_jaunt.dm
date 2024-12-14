@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt
+/datum/action/spell/jaunt/ethereal_jaunt
 	name = "Ethereal Jaunt"
 	desc = "This spell turns your form ethereal, temporarily making you invisible and able to pass through walls."
 	button_icon_state = "jaunt"
@@ -23,7 +23,7 @@
 	/// List of valid exit points
 	var/list/exit_point_list
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/enter_jaunt(mob/living/jaunter)
+/datum/action/spell/jaunt/ethereal_jaunt/enter_jaunt(mob/living/jaunter)
 	. = ..()
 	if(!.)
 		return
@@ -33,7 +33,7 @@
 	jaunter.ExtinguishMob()
 	do_steam_effects(cast_turf)
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/cast(mob/living/cast_on)
+/datum/action/spell/jaunt/ethereal_jaunt/cast(mob/living/cast_on)
 	. = ..()
 	do_jaunt(cast_on)
 
@@ -46,7 +46,7 @@
  * Or immediately calls start_jaunt:
  * - if jaunt_out_time = 0
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/do_jaunt(mob/living/cast_on)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/do_jaunt(mob/living/cast_on)
 	// Makes sure they don't die or get jostled or something during the jaunt entry
 	// Honestly probably not necessary anymore, but better safe than sorry
 	cast_on.notransform = TRUE
@@ -68,7 +68,7 @@
  *
  * Calls start_jaunt.
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/do_jaunt_out(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/do_jaunt_out(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
 
@@ -82,12 +82,12 @@
  *
  * Calls stop_jaunt after the jaunt runs out.
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/start_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/start_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
 
 	LAZYINITLIST(exit_point_list)
-	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_exit_point), target)
+	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_exit_point))
 	addtimer(CALLBACK(src, PROC_REF(stop_jaunt), cast_on, holder, get_turf(holder)), jaunt_duration)
 
 /**
@@ -99,7 +99,7 @@
  * - immediately, if jaunt_in_time >= 2.5 seconds
  * - 2.5 seconds - jaunt_in_time seconds otherwise
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/stop_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/start_point)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/stop_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/start_point)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
 
@@ -145,7 +145,7 @@
  *
  * Calls end_jaunt.
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/do_jaunt_in(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/final_point)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/do_jaunt_in(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/final_point)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
 
@@ -164,7 +164,7 @@
  * If the final_point is dense for some reason,
  * tries to put the caster in an adjacent turf.
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/end_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/final_point)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/end_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/final_point)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
 	cast_on.notransform = TRUE
@@ -186,7 +186,7 @@
  * spots are kept in the list, in case the last few changed since we passed
  * by (doors closing, engineers building walls, etc)
  */
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/update_exit_point(mob/living/source)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/update_exit_point(mob/living/source)
 	SIGNAL_HANDLER
 
 	var/turf/location = get_turf(source)
@@ -197,13 +197,13 @@
 		exit_point_list.Cut(5)
 
 /// Does some steam effects from the jaunt at passed loc.
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/do_steam_effects(turf/loc)
+/datum/action/spell/jaunt/ethereal_jaunt/proc/do_steam_effects(turf/loc)
 	var/datum/effect_system/steam_spread/steam = new()
 	steam.set_up(10, FALSE, loc)
 	steam.start()
 
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift
+/datum/action/spell/jaunt/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls."
 	background_icon_state = "bg_demon"
@@ -219,20 +219,20 @@
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/do_steam_effects(mobloc)
+/datum/action/spell/jaunt/ethereal_jaunt/shift/do_steam_effects(mobloc)
 	return
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/angelic
+/datum/action/spell/jaunt/ethereal_jaunt/shift/angelic
 	name = "Purified Phase Shift"
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith/angelic
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out/angelic
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/mystic
+/datum/action/spell/jaunt/ethereal_jaunt/shift/mystic
 	name = "Mystic Phase Shift"
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith/mystic
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out/mystic
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/golem
+/datum/action/spell/jaunt/ethereal_jaunt/shift/golem
 	name = "Runic Phase Shift"
 	cooldown_time = 80 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/carp
+/datum/action/spell/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
 	sound = 'sound/magic/summon_karp.ogg'

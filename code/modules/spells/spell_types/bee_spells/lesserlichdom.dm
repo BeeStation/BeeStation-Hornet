@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/lesserlichdom
+/datum/action/spell/lesserlichdom
 	name = "Lesser Bind Soul"
 	desc = "A weak version of the dark necromantic pact that can forever bind your soul to an \
 	item of your choosing. So long as both your body and the item remain \
@@ -13,7 +13,7 @@
 	cooldown_time = 10 SECONDS
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "skeleton"
-/datum/action/cooldown/spell/lesserlichdom/cast(list/targets,mob/user = usr)
+/datum/action/spell/lesserlichdom/cast(list/targets,mob/user = usr)
 	. = ..()
 	for(var/mob/M in targets)
 		var/list/hand_items = list()

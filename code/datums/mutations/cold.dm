@@ -5,9 +5,9 @@
 	instability = 10
 	difficulty = 10
 	energy_coeff = 1
-	power_path = /datum/action/cooldown/spell/conjure_item/snow
+	power_path = /datum/action/spell/conjure_item/snow
 
-/datum/action/cooldown/spell/conjure_item/snow
+/datum/action/spell/conjure_item/snow
 	name = "Create Snow"
 	desc = "Concentrates cryokinetic forces to create snow, useful for snow-like construction."
 	button_icon_state = "snow"
@@ -26,9 +26,9 @@
 	difficulty = 10
 	energy_coeff = 1
 	locked = TRUE
-	power_path = /datum/action/cooldown/spell/conjure_item/wax
+	power_path = /datum/action/spell/conjure_item/wax
 
-/datum/action/cooldown/spell/conjure_item/wax
+/datum/action/spell/conjure_item/wax
 	name = "Secrete Wax"
 	desc = "Concentrate to spit out some wax, useful for bee-themed construction."
 	item_type = /obj/item/stack/sheet/wax
@@ -45,9 +45,9 @@
 	difficulty = 12
 	energy_coeff = 1
 	power_coeff = 1
-	power_path = /datum/action/cooldown/spell/pointed/projectile/cryo
+	power_path = /datum/action/spell/pointed/projectile/cryo
 
-/datum/action/cooldown/spell/pointed/projectile/cryo
+/datum/action/spell/pointed/projectile/cryo
 	name = "Cryobeam"
 	desc = "This power fires a frozen bolt at a target."
 	button_icon_state = "icebeam0"

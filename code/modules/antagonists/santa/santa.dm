@@ -23,7 +23,7 @@
 		H.equipOutfit(/datum/outfit/santa)
 		H.dna.update_dna_identity()
 
-	var/datum/action/cooldown/spell/teleport/area_teleport/wizard/santa/teleport = new(owner)
+	var/datum/action/spell/teleport/area_teleport/wizard/santa/teleport = new(owner)
 	teleport.Grant(H)
 
 /datum/antagonist/santa/proc/give_objective()

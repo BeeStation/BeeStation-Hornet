@@ -12,7 +12,7 @@
 	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "carp_rift"
 
-/datum/action/innate/summon_rift/Activate()
+/datum/action/innate/summon_rift/on_activate()
 	var/datum/antagonist/space_dragon/dragon = owner.mind?.has_antag_datum(/datum/antagonist/space_dragon)
 	if(!dragon)
 		return

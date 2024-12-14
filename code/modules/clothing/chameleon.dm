@@ -5,10 +5,7 @@
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
-/datum/action/item_action/chameleon/drone/randomise/Trigger(trigger_flags)
-	if(!IsAvailable())
-		return
-
+/datum/action/item_action/chameleon/drone/randomise/on_activate(mob/user, atom/target)
 	// Damn our lack of abstract interfeces
 	if (istype(target, /obj/item/clothing/head/chameleon/drone))
 		var/obj/item/clothing/head/chameleon/drone/X = target
@@ -16,26 +13,21 @@
 	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
 		var/obj/item/clothing/mask/chameleon/drone/Z = target
 		Z.chameleon_action.random_look(owner)
-
-	return 1
-
+	return TRUE
 
 /datum/action/item_action/chameleon/drone/togglehatmask
 	name = "Toggle Headgear Mode"
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 
-/datum/action/item_action/chameleon/drone/togglehatmask/New()
+/datum/action/item_action/chameleon/drone/togglehatmask/New(master)
 	..()
 
-	if (istype(target, /obj/item/clothing/head/chameleon/drone))
+	if (istype(master, /obj/item/clothing/head/chameleon/drone))
 		button_icon_state = "drone_camogear_helm"
-	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
+	if (istype(master, /obj/item/clothing/mask/chameleon/drone))
 		button_icon_state = "drone_camogear_mask"
 
-/datum/action/item_action/chameleon/drone/togglehatmask/Trigger(trigger_flags)
-	if(!IsAvailable())
-		return
-
+/datum/action/item_action/chameleon/drone/togglehatmask/on_activate(mob/user, atom/target)
 	// No point making the code more complicated if no non-drone
 	// is ever going to use one of these
 
@@ -65,12 +57,12 @@
 		qdel(old_headgear)
 		// where is `ITEM_SLOT_HEAD` defined? WHO KNOWS
 		D.equip_to_slot(new_headgear, ITEM_SLOT_HEAD)
-	return 1
-
+	return TRUE
 
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
 	button_icon_state = "chameleon_outfit"
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
 	var/list/outfit_options //By default, this list is shared between all instances. It is not static because if it were, subtypes would not be able to have their own. If you ever want to edit it, copy it first.
 
 /datum/action/chameleon_outfit/New()
@@ -88,14 +80,14 @@
 		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger(trigger_flags)
-	return select_outfit(owner)
+/datum/action/chameleon_outfit/on_activate(mob/user, atom/target)
+	return select_outfit(user)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
-	if(!user || !IsAvailable())
+	if(!user || !is_available())
 		return FALSE
 	var/selected = input("Select outfit to change into", "Chameleon Outfit") as null|anything in outfit_options
-	if(!IsAvailable() || QDELETED(src) || QDELETED(user))
+	if(!is_available() || QDELETED(src) || QDELETED(user))
 		return FALSE
 	var/outfit_type = outfit_options[selected]
 	if(!outfit_type)
@@ -105,8 +97,8 @@
 
 	var/obj/item/card/id/syndicate/chamel_card // this is awful but this hardcoding is better than adding `obj/proc/get_chameleon_variable()` for every chalemon item
 	for(var/datum/action/item_action/chameleon/change/A in user.chameleon_item_actions)
-		if(istype(A.target, /obj/item/modular_computer))
-			var/obj/item/modular_computer/comp = A.target
+		if(istype(UNLINT(A.master), /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = UNLINT(A.master)
 			if(istype(comp.GetID(), /obj/item/card/id/syndicate))
 				chamel_card = comp.GetID()
 
@@ -188,7 +180,7 @@
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	name = "Change [chameleon_name] Appearance"
-	chameleon_blacklist |= typecacheof(target.type)
+	chameleon_blacklist |= typecacheof(master.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
@@ -231,14 +223,14 @@
 			return
 		update_item(picked_item, emp=emp, item_holder=user)
 
-		var/obj/item/thing = target
+		var/obj/item/thing = master
 		thing.update_slot_icon()
-	UpdateButtons()
+	update_buttons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE, mob/item_holder=null)
 	var/keepname = FALSE
-	if(isitem(target))
-		var/obj/item/clothing/I = target
+	if(isitem(master))
+		var/obj/item/clothing/I = master
 		I.worn_icon = initial(picked_item.worn_icon)
 		I.lefthand_file = initial(picked_item.lefthand_file)
 		I.righthand_file = initial(picked_item.righthand_file)
@@ -261,7 +253,7 @@
 		else
 			I.icon = initial(picked_item.icon)
 		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
-			var/obj/item/card/id/ID = target
+			var/obj/item/card/id/ID = master
 			var/obj/item/card/id/ID_from = picked_item
 			ID.hud_state = initial(ID_from.hud_state)
 			if(!emp)
@@ -279,7 +271,7 @@
 				ID.update_label()
 
 			// we're going to find a PDA that this ID card is inserted into, then force-update PDA
-			var/atom/current_holder = target
+			var/atom/current_holder = master
 			if(istype(current_holder, /obj/item/computer_hardware/card_slot))
 				current_holder = current_holder.loc
 				if(istype(current_holder, /obj/item/modular_computer))
@@ -290,8 +282,8 @@
 						comp.update_id_display()
 
 			update_mob_hud(item_holder)
-		if(istype(target, /obj/item/modular_computer))
-			var/obj/item/modular_computer/comp = target
+		if(istype(master, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = master
 			var/obj/item/card/id/id = comp.GetID()
 			if(id)
 				comp.saved_identification = id.registered_name
@@ -308,7 +300,7 @@
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
 	if(!ishuman(card_holder))
 		if(!card_holder)
-			card_holder = target
+			card_holder = master
 		if(istype(card_holder, /obj/item/storage/wallet))
 			card_holder = card_holder.loc // this should be human
 		if(istype(card_holder, /obj/item/computer_hardware/card_slot))
@@ -320,10 +312,7 @@
 	var/mob/living/carbon/human/card_holding_human = card_holder
 	card_holding_human.sec_hud_set_ID()
 
-/datum/action/item_action/chameleon/change/Trigger(trigger_flags)
-	if(!IsAvailable())
-		return
-
+/datum/action/item_action/chameleon/change/on_activate(mob/user, atom/target)
 	select_look(owner)
 	return 1
 
@@ -727,9 +716,9 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
 	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
-	togglehatmask_action.UpdateButtons()
+	togglehatmask_action.update_buttons()
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
-	randomise_action.UpdateButtons()
+	randomise_action.update_buttons()
 
 /datum/action/item_action/chameleon/tongue_change
 	name = "Tongue Change"
@@ -751,8 +740,8 @@
 		temporary_list[tongue_name] = found_item
 	tongue_list = sort_list(temporary_list)
 
-/datum/action/item_action/chameleon/tongue_change/Trigger(trigger_flags)
-	if(!IsAvailable() || !isitem(target))
+/datum/action/item_action/chameleon/tongue_change/on_activate(mob/user, atom/target)
+	if(!isitem(target))
 		return FALSE
 	var/obj/item/clothing/mask/target_mask = target
 	var/obj/item/organ/tongue/picked_tongue
@@ -866,9 +855,9 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
 	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
-	togglehatmask_action.UpdateButtons()
+	togglehatmask_action.update_buttons()
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
-	randomise_action.UpdateButtons()
+	randomise_action.update_buttons()
 
 /obj/item/clothing/mask/chameleon/drone/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>[src] does not have a voice changer.</span>")

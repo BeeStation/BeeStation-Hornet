@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/summon_spear // not conjure since this is like the marvel movie
+/datum/action/spell/summon_spear // not conjure since this is like the marvel movie
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
 
@@ -12,7 +12,7 @@
 
 	var/obj/item/marked_item
 
-/datum/action/cooldown/spell/summon_spear/cast(mob/user)
+/datum/action/spell/summon_spear/cast(mob/user)
 	. = ..()
 	if(QDELETED(marked_item))
 		qdel(src)

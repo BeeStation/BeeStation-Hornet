@@ -95,7 +95,7 @@
 		user.update_inv_wear_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtons()
+			A.update_buttons()
 		to_chat(user, "<span class='notice'>Your emotion mask has now morphed into [choice]!</span>")
 		return 1
 

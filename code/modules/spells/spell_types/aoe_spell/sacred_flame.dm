@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/sacred_flame
+/datum/action/spell/aoe/sacred_flame
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
 	button_icon_state = "sacredflame"
@@ -16,14 +16,14 @@
 	/// The amount of firestacks to put people afflicted.
 	var/firestacks_to_give = 20
 
-/datum/action/cooldown/spell/aoe/sacred_flame/get_things_to_cast_on(atom/center)
+/datum/action/spell/aoe/sacred_flame/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/mob/living/nearby_mob in view(aoe_radius, center))
 		things += nearby_mob
 
 	return things
 
-/datum/action/cooldown/spell/aoe/sacred_flame/cast_on_thing_in_aoe(mob/living/victim, mob/living/caster)
+/datum/action/spell/aoe/sacred_flame/cast_on_thing_in_aoe(mob/living/victim, mob/living/caster)
 	if(victim.can_block_magic(antimagic_flags))
 		return
 
@@ -33,7 +33,7 @@
 	if(victim != caster)
 		to_chat(victim, ("<span class='warning'>You suddenly feel very flammable.</span>"))
 
-/datum/action/cooldown/spell/aoe/sacred_flame/cast(mob/living/cast_on)
+/datum/action/spell/aoe/sacred_flame/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.IgniteMob()
 	to_chat(cast_on, ("<span class='danger'>You feel a roaring flame build up inside you!</span>"))

@@ -196,7 +196,7 @@
 		/datum/heretic_knowledge/curse/corrosion,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /datum/action/cooldown/spell/aoe/rust_conversion
+	spell_to_add = /datum/action/spell/aoe/rust_conversion
 	cost = 1
 	route = HERETIC_PATH_RUST
 
@@ -238,7 +238,7 @@
 		/datum/heretic_knowledge/final/rust_final,
 		/datum/heretic_knowledge/summon/rusty,
 	)
-	spell_to_add = /datum/action/cooldown/spell/cone/staggered/entropic_plume
+	spell_to_add = /datum/action/spell/cone/staggered/entropic_plume
 	cost = 1
 	route = HERETIC_PATH_RUST
 

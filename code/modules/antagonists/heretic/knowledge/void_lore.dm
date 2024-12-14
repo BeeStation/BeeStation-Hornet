@@ -173,7 +173,7 @@
 		/datum/heretic_knowledge/rune_carver,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /datum/action/cooldown/spell/pointed/void_phase
+	spell_to_add = /datum/action/spell/pointed/void_phase
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -222,7 +222,7 @@
 		/datum/heretic_knowledge/spell/blood_siphon,
 		/datum/heretic_knowledge/summon/rusty
 	)
-	spell_to_add = /datum/action/cooldown/spell/aoe/void_pull
+	spell_to_add = /datum/action/spell/aoe/void_pull
 	cost = 1
 	route = HERETIC_PATH_VOID
 

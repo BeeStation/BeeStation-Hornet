@@ -151,8 +151,8 @@
 	mob_size = MOB_SIZE_LARGE
 	force_threshold = 10
 	construct_spells = list(
-						/datum/action/cooldown/spell/forcewall/cult,
-		/datum/action/cooldown/spell/basic_projectile/juggernaut,
+						/datum/action/spell/forcewall/cult,
+		/datum/action/spell/basic_projectile/juggernaut,
 		/datum/action/innate/cult/create_rune/wall,
 	)
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand heavy punishment, \
@@ -218,7 +218,7 @@
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(
-		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift,
+		/datum/action/spell/jaunt/ethereal_jaunt/shift,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, \
@@ -239,7 +239,7 @@
 	. = ..()
 
 	if(. && isnum(prev_stat))
-		var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
+		var/datum/action/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
 		if(!jaunt)
 			return
 		var/mob/living/L = target
@@ -254,8 +254,8 @@
 		if(L.stat != DEAD && prev_stat != DEAD)
 			total_refund += attack_refund
 
-		jaunt.next_use_time -= total_refund
-		jaunt.UpdateButtons()
+		jaunt.reduce_cooldown(total_refund)
+		jaunt.update_buttons()
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -264,7 +264,7 @@
 /mob/living/simple_animal/hostile/construct/wraith/angelic
 	theme = THEME_HOLY
 	construct_spells = list(
-		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/angelic,
+		/datum/action/spell/jaunt/ethereal_jaunt/shift/angelic,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	loot = list(/obj/item/ectoplasm/angelic)
@@ -273,7 +273,7 @@
 /mob/living/simple_animal/hostile/construct/wraith/mystic
 	theme = THEME_WIZARD
 	construct_spells = list(
-		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/mystic,
+		/datum/action/spell/jaunt/ethereal_jaunt/shift/mystic,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	loot = list(/obj/item/ectoplasm/mystic)
@@ -300,11 +300,11 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_spells = list(
-		/datum/action/cooldown/spell/conjure/cult_floor,
-		/datum/action/cooldown/spell/conjure/cult_wall,
-		/datum/action/cooldown/spell/conjure/soulstone,
-		/datum/action/cooldown/spell/conjure/construct/lesser,
-		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/spell/conjure/cult_floor,
+		/datum/action/spell/conjure/cult_wall,
+		/datum/action/spell/conjure/soulstone,
+		/datum/action/spell/conjure/construct/lesser,
+		/datum/action/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, \
@@ -363,9 +363,9 @@
 	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
 	construct_spells = list(
-		/datum/action/cooldown/spell/conjure/soulstone/purified,
-		/datum/action/cooldown/spell/conjure/construct/lesser,
-		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/spell/conjure/soulstone/purified,
+		/datum/action/spell/conjure/construct/lesser,
+		/datum/action/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
@@ -373,21 +373,21 @@
 	theme = THEME_WIZARD
 	loot = list(/obj/item/ectoplasm/mystic)
 	construct_spells = list(
-		/datum/action/cooldown/spell/conjure/cult_floor,
-		/datum/action/cooldown/spell/conjure/cult_wall,
-		/datum/action/cooldown/spell/conjure/soulstone/mystic,
-		/datum/action/cooldown/spell/conjure/construct/lesser,
-		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/spell/conjure/cult_floor,
+		/datum/action/spell/conjure/cult_wall,
+		/datum/action/spell/conjure/soulstone/mystic,
+		/datum/action/spell/conjure/construct/lesser,
+		/datum/action/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
 /mob/living/simple_animal/hostile/construct/artificer/noncult
 	construct_spells = list(
-		/datum/action/cooldown/spell/conjure/cult_floor,
-		/datum/action/cooldown/spell/conjure/cult_wall,
-		/datum/action/cooldown/spell/conjure/soulstone/noncult,
-		/datum/action/cooldown/spell/conjure/construct/lesser,
-		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/spell/conjure/cult_floor,
+		/datum/action/spell/conjure/cult_wall,
+		/datum/action/spell/conjure/soulstone/noncult,
+		/datum/action/spell/conjure/construct/lesser,
+		/datum/action/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
@@ -406,8 +406,8 @@
 	attack_verb_simple = "butcher"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(
-		/datum/action/cooldown/spell/aoe/area_conversion,
-		/datum/action/cooldown/spell/forcewall/cult,
+		/datum/action/spell/aoe/area_conversion,
+		/datum/action/spell/forcewall/cult,
 	)
 	playstyle_string = "<B>You are a Harvester. You are incapable of directly killing humans, but your attacks will remove their limbs: \
 						Bring those who still cling to this world of illusion back to the Geometer so they may know Truth. Your form and any you are pulling can pass through runed walls effortlessly.</B>"
@@ -456,7 +456,7 @@
 	. = ..()
 	var/datum/action/innate/seek_prey/seek = new()
 	seek.Grant(src)
-	seek.Activate()
+	seek.trigger()
 
 /////////////////////////////Proteon/////////////////////////
 /mob/living/simple_animal/hostile/construct/proteon
@@ -496,7 +496,7 @@
 	the_construct = C
 	..()
 
-/datum/action/innate/seek_master/Activate()
+/datum/action/innate/seek_master/on_activate()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult)
 	if(!C)
 		return
@@ -528,7 +528,7 @@
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 
-/datum/action/innate/seek_prey/Activate()
+/datum/action/innate/seek_prey/on_activate()
 	if(GLOB.cult_narsie == null)
 		return
 	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner

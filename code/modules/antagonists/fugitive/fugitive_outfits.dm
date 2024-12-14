@@ -48,7 +48,7 @@
 	for(var/i in no_drops)
 		var/obj/item/I = i
 		ADD_TRAIT(I, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-	var/datum/action/cooldown/spell/aoe/knock/waldos_key = new /datum/action/cooldown/spell/aoe/knock/
+	var/datum/action/spell/aoe/knock/waldos_key = new /datum/action/spell/aoe/knock/
 	waldos_key.Grant(H)
 
 /datum/outfit/synthetic

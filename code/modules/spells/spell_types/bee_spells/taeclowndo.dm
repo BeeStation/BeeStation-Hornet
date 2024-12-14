@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure_item/summon_pie
+/datum/action/spell/conjure_item/summon_pie
 	name = "Summon Creampie"
 	desc = "A clown's weapon of choice.  Use this to summon a fresh pie, just waiting to acquaintain itself with someone's face."
 	invocation_type = INVOCATION_NONE
@@ -10,7 +10,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/action/cooldown/spell/pointed/banana_peel
+/datum/action/spell/pointed/banana_peel
 	name = "Conjure Banana Peel"
 	desc = "Make a banana peel appear out of thin air right under someone's feet!"
 	cooldown_time = 5 SECONDS
@@ -23,7 +23,7 @@
 	base_icon_state = "banana_peel"
 	button_icon_state = "banana"
 
-/datum/action/cooldown/spell/pointed/banana_peel/cast(atom/targets)
+/datum/action/spell/pointed/banana_peel/cast(atom/targets)
 	. = ..()
 	var/target = get_turf(targets)
 
@@ -34,7 +34,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/action/cooldown/spell/touch/megahonk
+/datum/action/spell/touch/megahonk
 	name = "Mega HoNk"
 	desc = "This spell channels your inner clown powers, concentrating them into one massive HONK."
 	hand_path = /obj/item/melee/touch_attack/megahonk
@@ -47,7 +47,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/action/cooldown/spell/touch/bspie
+/datum/action/spell/touch/bspie
 	name = "Bluespace Banana Pie"
 	desc = "An entire body would fit in there!"
 	hand_path = /obj/item/melee/touch_attack/bspie
@@ -129,7 +129,7 @@
 
 		M.forceMove(pie)
 
-/datum/action/cooldown/spell/touch/bspie/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/spell/touch/bspie/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return TRUE
 
 

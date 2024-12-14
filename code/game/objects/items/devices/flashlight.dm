@@ -585,7 +585,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 	for(var/X in found.actions)
 		var/datum/action/A = X
-		A.UpdateButtons()
+		A.update_buttons()
 	found.burn_pickup = TRUE
 
 /obj/item/flashlight/spotlight //invisible lighting source

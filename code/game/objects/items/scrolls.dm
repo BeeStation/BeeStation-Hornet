@@ -5,7 +5,7 @@
 	icon_state = "scroll"
 	var/uses = 4 /// Number of uses the scroll gets.
 	var/smoke_amt = 20 //How much smoke after teleporting
-	actions_types = list(/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll)
+	actions_types = list(/datum/action/spell/teleport/area_teleport/wizard/scroll)
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "paper"
 	throw_speed = 3
@@ -15,7 +15,7 @@
 /obj/item/teleportation_scroll/Initialize(mapload)
 	. = ..()
 	// In the future, this can be generalized into just "magic scrolls that give you a specific spell".
-	var/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/teleport = locate() in actions
+	var/datum/action/spell/teleport/area_teleport/wizard/scroll/teleport = locate() in actions
 	if(teleport)
 		teleport.name = name
 		teleport.icon_icon = icon
@@ -42,11 +42,11 @@
 	var/mob/living/carbon/human/human_user = user
 	if(human_user.incapacitated() || !human_user.is_holding(src))
 		return
-	var/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/teleport = locate() in actions
+	var/datum/action/spell/teleport/area_teleport/wizard/scroll/teleport = locate() in actions
 	if(!teleport)
 		to_chat(user, ("<span class='warning'>[src] seems to be a faulty teleportation scroll, and has no magic associated.</span>"))
 		return
-	if(!teleport.Activate(user))
+	if(!teleport.trigger(user))
 		return
 	if(--uses <= 0)
 		to_chat(user, ("<span class='warning'>[src] runs out of uses and crumbles to dust!</span>"))

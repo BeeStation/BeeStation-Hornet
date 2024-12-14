@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/forcewall
+/datum/action/spell/forcewall
 	name = "Forcewall"
 	desc = "Create a magical barrier that only you can pass through."
 	button_icon_state = "shield"
@@ -15,7 +15,7 @@
 	/// The typepath to the wall we create on cast.
 	var/wall_type = /obj/effect/forcefield/wizard
 
-/datum/action/cooldown/spell/forcewall/cast(atom/cast_on)
+/datum/action/spell/forcewall/cast(atom/cast_on)
 	. = ..()
 	new wall_type(get_turf(owner), owner)
 
@@ -27,7 +27,7 @@
 		new wall_type(get_step(owner, NORTH), owner, antimagic_flags)
 		new wall_type(get_step(owner, SOUTH), owner, antimagic_flags)
 
-/datum/action/cooldown/spell/forcewall/cult
+/datum/action/spell/forcewall/cult
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire."
 	background_icon_state = "bg_demon"
@@ -39,13 +39,12 @@
 
 	wall_type = /obj/effect/forcefield/cult
 
-/datum/action/cooldown/spell/forcewall/mime
+/datum/action/spell/forcewall/mime
 	name = "Invisible Blockade"
 	desc = "Form an invisible three tile wide blockade."
 	background_icon_state = "bg_mime"
 	icon_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "invisible_blockade"
-	panel = "Mime"
 	sound = null
 
 	school = SCHOOL_MIME
@@ -61,6 +60,6 @@
 
 	wall_type = /obj/effect/forcefield/mime/advanced
 
-/datum/action/cooldown/spell/forcewall/mime/before_cast(atom/cast_on)
+/datum/action/spell/forcewall/mime/before_cast(atom/cast_on)
 	. = ..()
 	invocation = ("<span class='notice'><b>[cast_on]</b> looks as if a blockade is in front of [cast_on.p_them()].</span>")

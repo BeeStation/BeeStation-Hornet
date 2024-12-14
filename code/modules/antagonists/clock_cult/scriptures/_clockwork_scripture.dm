@@ -261,12 +261,12 @@
 		activation_slab.invoking_scripture = null
 	..(M)
 
-/datum/action/innate/clockcult/quick_bind/IsAvailable()
+/datum/action/innate/clockcult/quick_bind/is_available()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/quick_bind/Activate()
+/datum/action/innate/clockcult/quick_bind/on_activate()
 	if(!activation_slab)
 		return
 	if(!activation_slab.invoking_scripture)
@@ -282,7 +282,7 @@
 	button_icon_state = "hierophant"
 	desc = "Transmit a message to your allies through the Hierophant."
 
-/datum/action/innate/clockcult/transmit/IsAvailable()
+/datum/action/innate/clockcult/transmit/is_available()
 	if(!is_servant_of_ratvar(owner))
 		Remove(owner)
 		return FALSE
@@ -290,7 +290,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/transmit/Activate()
+/datum/action/innate/clockcult/transmit/on_activate()
 	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE), owner, "<span class='brass'>")
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)

@@ -57,11 +57,11 @@
 
 	real_name = src.name
 
-	var/datum/action/cooldown/spell/aoe/repulse/xeno/tail_whip = new(src)
+	var/datum/action/spell/aoe/repulse/xeno/tail_whip = new(src)
 	tail_whip.Grant(src)
 	var/datum/action/small_sprite/queen/smallsprite = new(src)
 	smallsprite.Grant(src)
-	var/datum/action/cooldown/alien/promote/promotion = new(src)
+	var/datum/action/alien/promote/promotion = new(src)
 	promotion.Grant(src)
 	return ..()
 
@@ -102,33 +102,29 @@
 	..()
 
 //Queen verbs
-/datum/action/cooldown/alien/make_structure/lay_egg
+/datum/action/alien/make_structure/lay_egg
 	name = "Lay Egg"
 	desc = "Lay an egg to produce huggers to impregnate prey with."
 	button_icon_state = "alien_egg"
 	plasma_cost = 75
 	made_structure_type = /obj/structure/alien/egg
 
-/datum/action/cooldown/alien/make_structure/lay_egg/Activate(atom/target)
+/datum/action/alien/make_structure/lay_egg/on_activate(atom/target)
 	. = ..()
 	owner.visible_message(("<span class='alienalert'>[owner] lays an egg!</span>"))
 
 //Button to let queen choose her praetorian.
-/datum/action/cooldown/alien/promote
+/datum/action/alien/promote
 	name = "Create Royal Parasite"
 	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian."
 	button_icon_state = "alien_queen_promote"
 	/// The promotion only takes plasma when completed, not on activation.
 	var/promotion_plasma_cost = 500
 
-/datum/action/cooldown/alien/promote/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
+/datum/action/alien/promote/update_stat_status(list/stat)
+	stat[STAT_STATUS] = GENERATE_STAT_TEXT("PLASMA - [promotion_plasma_cost]")
 
-	.[PANEL_DISPLAY_STATUS] = "PLASMA - [promotion_plasma_cost]"
-
-/datum/action/cooldown/alien/promote/IsAvailable()
+/datum/action/alien/promote/is_available()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -142,7 +138,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/promote/Activate(atom/target)
+/datum/action/alien/promote/on_activate(atom/target)
 	var/obj/item/queen_promotion/existing_promotion = locate() in owner.held_items
 	if(existing_promotion)
 		to_chat(owner, ("<span class='noticealien'>You discard [existing_promotion].</span>"))
@@ -174,7 +170,7 @@
 	if(.)
 		return
 
-	var/datum/action/cooldown/alien/promote/promotion = locate() in queen.actions
+	var/datum/action/alien/promote/promotion = locate() in queen.actions
 	if(!promotion)
 		CRASH("[type] was created and handled by a mob ([queen]) that didn't have a promotion action associated.")
 
@@ -182,7 +178,7 @@
 		to_chat(queen, ("<span class='noticealien'>You may only use this with your adult, non-royal children!</span>"))
 		return
 
-	if(!promotion.IsAvailable())
+	if(!promotion.is_available())
 		to_chat(queen, ("<span class='noticealien'>You cannot promote a child right now!</span>"))
 		return
 

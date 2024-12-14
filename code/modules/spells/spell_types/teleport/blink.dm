@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/teleport/radius_turf/blink
+/datum/action/spell/teleport/radius_turf/blink
 	name = "Blink"
 	desc = "This spell randomly teleports you a short distance."
 	button_icon_state = "blink"

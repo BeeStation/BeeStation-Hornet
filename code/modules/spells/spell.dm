@@ -6,47 +6,46 @@
  * These spells function off of a cooldown-based system.
  *
  * ## Pre-spell checks:
- * - [can_cast_spell][/datum/action/cooldown/spell/can_cast_spell] checks if the OWNER
+ * - [can_cast_spell][/datum/action/spell/can_cast_spell] checks if the OWNER
  * of the spell is able to cast the spell.
- * - [is_valid_target][/datum/action/cooldown/spell/is_valid_target] checks if the TARGET
+ * - [is_valid_target][/datum/action/spell/is_valid_target] checks if the TARGET
  * THE SPELL IS BEING CAST ON is a valid target for the spell. NOTE: The CAST TARGET is often THE SAME as THE OWNER OF THE SPELL,
- * but is not always - depending on how [Pre Activate][/datum/action/cooldown/spell/PreActivate] is resolved.
- * - [can_invoke][/datum/action/cooldown/spell/can_invoke] is run in can_cast_spell to check if
+ * but is not always - depending on how [Pre Activate][/datum/action/spell/pre_activate] is resolved.
+ * - [can_invoke][/datum/action/spell/can_invoke] is run in can_cast_spell to check if
  * the OWNER of the spell is able to say the current invocation.
  *
  * ## The spell chain:
- * - [before_cast][/datum/action/cooldown/spell/before_cast] is the last chance for being able
+ * - [before_cast][/datum/action/spell/before_cast] is the last chance for being able
  * to interrupt a spell cast. This returns a bitflag. if SPELL_CANCEL_CAST is set, the spell will not continue.
- * - [spell_feedback][/datum/action/cooldown/spell/spell_feedback] is called right before cast, and handles
+ * - [spell_feedback][/datum/action/spell/spell_feedback] is called right before cast, and handles
  * invocation and sound effects. Overridable, if you want a special method of invocation or sound effects,
  * or you want your spell to handle invocation / sound via special means.
- * - [cast][/datum/action/cooldown/spell/cast] is where the brunt of the spell effects should be done
+ * - [cast][/datum/action/spell/cast] is where the brunt of the spell effects should be done
  * and implemented.
- * - [after_cast][/datum/action/cooldown/spell/after_cast] is the aftermath - final effects that follow
+ * - [after_cast][/datum/action/spell/after_cast] is the aftermath - final effects that follow
  * the main cast of the spell. By now, the spell cooldown has already started
  *
  * ## Other procs called / may be called within the chain:
- * - [invocation][/datum/action/cooldown/spell/invocation] handles saying any vocal (or emotive) invocations the spell
+ * - [invocation][/datum/action/spell/invocation] handles saying any vocal (or emotive) invocations the spell
  * may have, and can be overriden or extended. Called by spell_feedback.
- * - [reset_spell_cooldown][/datum/action/cooldown/spell/reset_spell_cooldown] is a way to handle reverting a spell's
+ * - [reset_spell_cooldown][/datum/action/spell/reset_spell_cooldown] is a way to handle reverting a spell's
  * cooldown and making it ready again if it fails to go off at any point. Not called anywhere by default. If you
  * want to cancel a spell in before_cast and would like the cooldown restart, call this.
  *
  * ## Other procs of note:
- * - [level_spell][/datum/action/cooldown/spell/level_spell] is where the process of adding a spell level is handled.
+ * - [level_spell][/datum/action/spell/level_spell] is where the process of adding a spell level is handled.
  * this can be extended if you wish to add unique effects on level up for wizards.
- * - [delevel_spell][/datum/action/cooldown/spell/delevel_spell] is where the process of removing a spell level is handled.
+ * - [delevel_spell][/datum/action/spell/delevel_spell] is where the process of removing a spell level is handled.
  * this can be extended if you wish to undo unique effects on level up for wizards.
- * - [update_spell_name][/datum/action/cooldown/spell/update_spell_name] updates the prefix of the spell name based on its level.
+ * - [update_spell_name][/datum/action/spell/update_spell_name] updates the prefix of the spell name based on its level.
  */
-/datum/action/cooldown/spell
+/datum/action/spell
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon_state = "bg_spell"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "spell_default"
 	check_flags = AB_CHECK_CONSCIOUS
-	panel = "Spells"
 
 	/// The sound played on cast.
 	var/sound = null
@@ -84,10 +83,10 @@
 	//Whether the spell is bound to our minds or is a result of hacky coding
 	var/mindbound = TRUE
 
-/datum/action/cooldown/spell/Grant(mob/grant_to)
+/datum/action/spell/Grant(mob/grant_to)
 	// If our spell is mind-bound, we only wanna grant it to our mind
-	if(istype(target, /datum/mind))
-		var/datum/mind/mind_target = target
+	if(istype(master, /datum/mind))
+		var/datum/mind/mind_target = master
 		if(mind_target.current != grant_to)
 			return
 
@@ -102,7 +101,7 @@
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
 	//owner.client?.stat_panel.send_message("check_spells") we are missing this from code
-/datum/action/cooldown/spell/Remove(mob/living/remove_from)
+/datum/action/spell/Remove(mob/living/remove_from)
 
 	//remove_from.client?.stat_panel.send_message("check_spells")
 	UnregisterSignal(remove_from, list(
@@ -114,35 +113,35 @@
 
 	return ..()
 
-/datum/action/cooldown/spell/IsAvailable()
+/datum/action/spell/is_available()
 	return ..() && can_cast_spell(feedback = FALSE)
 
-/datum/action/cooldown/spell/Trigger(trigger_flags, atom/target)
+/datum/action/spell/pre_activate(mob/user, atom/target)
 	// We implement this can_cast_spell check before the parent call of Trigger()
 	// to allow people to click unavailable abilities to get a feedback chat message
 	// about why the ability is unavailable.
-	// It is otherwise redundant, however, as IsAvailable() checks can_cast_spell as well.
+	// It is otherwise redundant, however, as is_available() checks can_cast_spell as well.
 	if(!can_cast_spell())
 		return FALSE
 
 	return ..()
 
-/datum/action/cooldown/spell/set_click_ability(mob/on_who)
+/datum/action/spell/set_click_ability(mob/on_who)
 	if(SEND_SIGNAL(on_who, COMSIG_MOB_SPELL_ACTIVATED, src) & SPELL_CANCEL_CAST)
 		return FALSE
 
 	return ..()
 
 // Where the cast chain starts
-/datum/action/cooldown/spell/PreActivate(atom/target)
+/datum/action/spell/pre_activate(mob/user, atom/target)
 	if(!is_valid_target(target))
 		return FALSE
 
-	return Activate(target)
+	return on_activate(user, target)
 
 /// Checks if the owner of the spell can currently cast it.
 /// Does not check anything involving potential targets.
-/datum/action/cooldown/spell/proc/can_cast_spell(feedback = TRUE)
+/datum/action/spell/proc/can_cast_spell(feedback = TRUE)
 	if(!owner)
 		CRASH("[type] - can_cast_spell called on a spell without an owner!")
 
@@ -212,13 +211,13 @@
  *
  * Return TRUE if cast_on is valid, FALSE otherwise
  */
-/datum/action/cooldown/spell/proc/is_valid_target(atom/cast_on)
+/datum/action/spell/proc/is_valid_target(atom/cast_on)
 	return TRUE
 
 // The actual cast chain occurs here, in Activate().
 // You should generally not be overriding or extending Activate() for spells.
 // Defer to any of the cast chain procs instead.
-/datum/action/cooldown/spell/Activate(atom/cast_on)
+/datum/action/spell/on_activate(atom/cast_on)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	// Pre-casting of the spell
@@ -239,12 +238,12 @@
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its set duration
-		StartCooldown()
+		start_cooldown()
 
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here
 	after_cast(cast_on)
-	UpdateButtons()
+	update_buttons()
 
 	return TRUE
 
@@ -259,7 +258,7 @@
  * - SPELL_NO_FEEDBACK will prevent the spell from calling [proc/spell_feedback] on cast. (invocation, sounds)
  * - SPELL_NO_IMMEDIATE_COOLDOWN will prevent the spell from starting its cooldown between cast and before after_cast.
  */
-/datum/action/cooldown/spell/proc/before_cast(atom/cast_on)
+/datum/action/spell/proc/before_cast(atom/cast_on)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST, cast_on)
@@ -273,7 +272,7 @@
  * For spells without a click intercept, [cast_on] will be the owner.
  * For click spells, [cast_on] is whatever the owner clicked on in casting the spell.
  */
-/datum/action/cooldown/spell/proc/cast(atom/cast_on)
+/datum/action/spell/proc/cast(atom/cast_on)
 	SHOULD_CALL_PARENT(TRUE)
 
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST, cast_on)
@@ -290,7 +289,7 @@
  * (for example, causing smoke *after* a teleport occurs in cast())
  * or to clean up variables or references post-cast.
  */
-/datum/action/cooldown/spell/proc/after_cast(atom/cast_on)
+/datum/action/spell/proc/after_cast(atom/cast_on)
 	SHOULD_CALL_PARENT(TRUE)
 
 	SEND_SIGNAL(src, COMSIG_SPELL_AFTER_CAST, cast_on)
@@ -309,7 +308,7 @@
 
 
 /// Provides feedback after a spell cast occurs, in the form of a cast sound and/or invocation
-/datum/action/cooldown/spell/proc/spell_feedback()
+/datum/action/spell/proc/spell_feedback()
 	if(!owner)
 		return
 
@@ -319,7 +318,7 @@
 		playsound(get_turf(owner), sound, 50, TRUE)
 
 /// The invocation that accompanies the spell, called from spell_feedback() before cast().
-/datum/action/cooldown/spell/proc/invocation()
+/datum/action/spell/proc/invocation()
 	switch(invocation_type)
 		if(INVOCATION_SHOUT)
 			if(prob(50))
@@ -337,7 +336,7 @@
 			owner.visible_message(invocation, invocation_self_message)
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
-/datum/action/cooldown/spell/proc/can_invoke(feedback = TRUE)
+/datum/action/spell/proc/can_invoke(feedback = TRUE)
 	if(spell_requirements & SPELL_CASTABLE_WITHOUT_INVOCATION)
 		return TRUE
 
@@ -365,16 +364,16 @@
 
 /// Resets the cooldown of the spell, sending COMSIG_SPELL_CAST_RESET
 /// and allowing it to be used immediately (+ updating button icon accordingly)
-/datum/action/cooldown/spell/proc/reset_spell_cooldown()
+/datum/action/spell/proc/reset_spell_cooldown()
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
 	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
-	UpdateButtons()
+	update_buttons()
 
 /**
  * Levels the spell up a single level, reducing the cooldown.
  * If bypass_cap is TRUE, will level the spell up past it's set cap.
  */
-/datum/action/cooldown/spell/proc/level_spell(bypass_cap = FALSE)
+/datum/action/spell/proc/level_spell(bypass_cap = FALSE)
 	// Spell cannot be levelled
 	if(spell_max_level <= 1)
 		return FALSE
@@ -391,7 +390,7 @@
 /**
  * Levels the spell down a single level, down to 1.
  */
-/datum/action/cooldown/spell/proc/delevel_spell()
+/datum/action/spell/proc/delevel_spell()
 	// Spell cannot be levelled
 	if(spell_max_level <= 1)
 		return FALSE
@@ -407,7 +406,7 @@
 /**
  * Updates the spell's name based on its level.
  */
-/datum/action/cooldown/spell/proc/update_spell_name()
+/datum/action/spell/proc/update_spell_name()
 	var/spell_title = ""
 	switch(spell_level)
 		if(2)
@@ -422,4 +421,4 @@
 			spell_title = "Ludicrous "
 
 	name = "[spell_title][initial(name)]"
-	UpdateButtons()
+	update_buttons()

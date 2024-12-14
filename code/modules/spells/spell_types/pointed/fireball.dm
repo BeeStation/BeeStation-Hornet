@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/projectile/fireball
+/datum/action/spell/pointed/projectile/fireball
 	name = "Fireball"
 	desc = "This spell fires an explosive fireball at a target."
 	button_icon_state = "fireball0"
@@ -18,6 +18,6 @@
 	cast_range = 8
 	projectile_type = /obj/projectile/magic/fireball
 
-/datum/action/cooldown/spell/pointed/projectile/fireball/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
+/datum/action/spell/pointed/projectile/fireball/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	to_fire.range = (6 + 2 * spell_level)

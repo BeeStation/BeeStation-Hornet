@@ -2,47 +2,47 @@
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
 	desc = "Fires several, slow moving, magic projectiles at nearby targets."
-	spell_type = /datum/action/cooldown/spell/aoe/magic_missile
+	spell_type = /datum/action/spell/aoe/magic_missile
 	category = "Defensive"
 
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
 	desc = "Disables all weapons, cameras and most other technology in range."
-	spell_type = /datum/action/cooldown/spell/emp/disable_tech
+	spell_type = /datum/action/spell/emp/disable_tech
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
 	desc = "Throws everything around the user away."
-	spell_type = /datum/action/cooldown/spell/aoe/repulse/wizard
+	spell_type = /datum/action/spell/aoe/repulse/wizard
 	category = "Defensive"
 
 /datum/spellbook_entry/lightning_packet
 	name = "Thrown Lightning"
 	desc = "Forged from eldrich energies, a packet of pure power, \
 		known as a spell packet will appear in your hand, that when thrown will stun the target."
-	spell_type = /datum/action/cooldown/spell/conjure_item/spellpacket
+	spell_type = /datum/action/spell/conjure_item/spellpacket
 	category = "Defensive"
 
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
 	desc = "Stops time for everyone except for you, allowing you to move freely \
 		while your enemies and even projectiles are frozen."
-	spell_type = /datum/action/cooldown/spell/timestop
+	spell_type = /datum/action/spell/timestop
 	category = "Defensive"
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
 	desc = "Spawns a cloud of choking smoke at your location."
-	spell_type = /datum/action/cooldown/spell/smoke
+	spell_type = /datum/action/spell/smoke
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
 	desc = "Create a magical barrier that only you can pass through."
-	spell_type = /datum/action/cooldown/spell/forcewall
+	spell_type = /datum/action/spell/forcewall
 	category = "Defensive"
 	cost = 1
 
@@ -52,21 +52,21 @@
 		turning you into an immortal Lich. So long as the item remains intact, you will revive from death, \
 		no matter the circumstances. Be wary - with each revival, your body will become weaker, and \
 		it will become easier for others to find your item of power."
-	spell_type =  /datum/action/cooldown/spell/lichdom
+	spell_type =  /datum/action/spell/lichdom
 	category = "Defensive"
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
 		randomizing the layout and making proper movement impossible. The strings vibrate..."
-	spell_type = /datum/action/cooldown/spell/spacetime_dist
+	spell_type = /datum/action/spell/spacetime_dist
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/the_traps
 	name = "The Traps!"
 	desc = "Summon a number of traps around you. They will damage and enrage any enemies that step on them."
-	spell_type = /datum/action/cooldown/spell/conjure/the_traps
+	spell_type = /datum/action/spell/conjure/the_traps
 	category = "Defensive"
 	cost = 1
 
@@ -74,7 +74,7 @@
 	name = "Lesser Summon Bees"
 	desc = "This spell magically kicks a transdimensional beehive, \
 		instantly summoning a swarm of bees to your location. These bees are NOT friendly to anyone."
-	spell_type = /datum/action/cooldown/spell/conjure/bee
+	spell_type = /datum/action/spell/conjure/bee
 	category = "Defensive"
 
 //There was supposed to be a cursed duffelbag that eats you but it requires code beyond the scope of this pr

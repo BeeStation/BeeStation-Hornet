@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/void_pull
+/datum/action/spell/aoe/void_pull
 	name = "Void Pull"
 	desc = "Calls the void, damaging, knocking down, and stunning people nearby. \
 		Distant foes are also pulled closer to you (but not damaged)."
@@ -21,7 +21,7 @@
 	var/stun_radius = 4
 
 // Before the cast, we do some small AOE damage around the caster
-/datum/action/cooldown/spell/aoe/void_pull/before_cast(atom/cast_on)
+/datum/action/spell/aoe/void_pull/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -33,7 +33,7 @@
 	for(var/mob/living/nearby_living as anything in people_near_us)
 		nearby_living.apply_damage(30, BRUTE)
 
-/datum/action/cooldown/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 0)
+/datum/action/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 0)
 	var/list/things = list()
 	for(var/mob/living/nearby_mob in view(radius_override || aoe_radius, center))
 		if(nearby_mob == owner || nearby_mob == center)
@@ -49,7 +49,7 @@
 	return things
 
 // For the actual cast, we microstun people nearby and pull them in
-/datum/action/cooldown/spell/aoe/void_pull/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+/datum/action/spell/aoe/void_pull/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	// If the victim's within the stun radius, they're stunned / knocked down
 	if(get_dist(victim, caster) < stun_radius)
 		victim.AdjustKnockdown(3 SECONDS)

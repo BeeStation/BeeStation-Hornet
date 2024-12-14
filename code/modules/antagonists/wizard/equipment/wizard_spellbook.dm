@@ -36,7 +36,7 @@
  *
  * Has no effect on charge, but gives a funny message to people who think they're clever.
  */
-/obj/item/spellbook/proc/on_magic_charge(datum/source, datum/action/cooldown/spell/spell, mob/living/caster)
+/obj/item/spellbook/proc/on_magic_charge(datum/source, datum/action/spell/spell, mob/living/caster)
 	SIGNAL_HANDLER
 
 	var/static/list/clever_girl = list(

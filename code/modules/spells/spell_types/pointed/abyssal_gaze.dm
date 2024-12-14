@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/abyssal_gaze
+/datum/action/spell/pointed/abyssal_gaze
 	name = "Abyssal Gaze"
 	desc = "This spell instills a deep terror in your target, temporarily chilling and blinding it."
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
@@ -23,10 +23,10 @@
 	/// The amount of temperature we take from our target
 	var/amount_to_cool = 200
 
-/datum/action/cooldown/spell/pointed/abyssal_gaze/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/abyssal_gaze/is_valid_target(atom/cast_on)
 	return iscarbon(cast_on)
 
-/datum/action/cooldown/spell/pointed/abyssal_gaze/cast(mob/living/carbon/cast_on)
+/datum/action/spell/pointed/abyssal_gaze/cast(mob/living/carbon/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(owner, ("<span class='warning'>The spell had no effect!</span>"))

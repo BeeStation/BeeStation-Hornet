@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/magic_missile
+/datum/action/spell/aoe/magic_missile
 	name = "Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	button_icon_state = "magicm"
@@ -16,7 +16,7 @@
 	/// The projectile type fired at all people around us
 	var/obj/projectile/projectile_type = /obj/projectile/magic/aoe/magic_missile
 
-/datum/action/cooldown/spell/aoe/magic_missile/get_things_to_cast_on(atom/center)
+/datum/action/spell/aoe/magic_missile/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/mob/living/nearby_mob in view(aoe_radius, center))
 		if(nearby_mob == owner || nearby_mob == center)
@@ -26,15 +26,15 @@
 
 	return things
 
-/datum/action/cooldown/spell/aoe/magic_missile/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+/datum/action/spell/aoe/magic_missile/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	fire_projectile(victim, caster)
 
-/datum/action/cooldown/spell/aoe/magic_missile/proc/fire_projectile(atom/victim, mob/caster)
+/datum/action/spell/aoe/magic_missile/proc/fire_projectile(atom/victim, mob/caster)
 	var/obj/projectile/to_fire = new projectile_type()
 	to_fire.preparePixelProjectile(victim, caster)
 	to_fire.fire()
 
-/datum/action/cooldown/spell/aoe/magic_missile/lesser
+/datum/action/spell/aoe/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	background_icon_state = "bg_demon"

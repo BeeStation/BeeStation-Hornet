@@ -4,7 +4,7 @@
 	for(var/I in overlays_standing)
 		add_overlay(I)
 
-	var/are_we_drooling = istype(click_intercept, /datum/action/cooldown/alien/acid)
+	var/are_we_drooling = istype(click_intercept, /datum/action/alien/acid)
 	if(stat == DEAD)
 		//If we mostly took damage from fire
 		if(getFireLoss() > 125)

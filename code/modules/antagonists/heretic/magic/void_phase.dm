@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/void_phase
+/datum/action/spell/pointed/void_phase
 	name = "Void Phase"
 	desc = "Let's you blink to your pointed destination, causes 3x3 aoe damage bubble \
 		around your pointed destination and your current location. \
@@ -21,7 +21,7 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/cooldown/spell/pointed/void_phase/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/void_phase/is_valid_target(atom/cast_on)
 	// We do the close range check first
 	if(get_dist(get_turf(owner), get_turf(cast_on)) < min_cast_range)
 		owner.balloon_alert(owner, "too close!")
@@ -29,7 +29,7 @@
 
 	return ..()
 
-/datum/action/cooldown/spell/pointed/void_phase/cast(atom/cast_on)
+/datum/action/spell/pointed/void_phase/cast(atom/cast_on)
 	. = ..()
 	var/turf/source_turf = get_turf(owner)
 	var/turf/targeted_turf = get_turf(cast_on)

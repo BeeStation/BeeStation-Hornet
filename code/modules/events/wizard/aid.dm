@@ -15,7 +15,7 @@
 			continue
 
 		var/spell_improved = FALSE
-		for(var/datum/action/cooldown/spell/spell in caster.actions)
+		for(var/datum/action/spell/spell in caster.actions)
 			if(spell.spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
 				spell.spell_requirements &= ~SPELL_REQUIRES_WIZARD_GARB
 				spell_improved = TRUE
@@ -38,7 +38,7 @@
 			continue
 
 		var/upgraded_a_spell = FALSE
-		for(var/datum/action/cooldown/spell/spell in caster.actions)
+		for(var/datum/action/spell/spell in caster.actions)
 			// If improved casting has already boosted this spell further beyond, go no further
 			if(spell.spell_level >= spell.spell_max_level + 1)
 				continue

@@ -9,7 +9,7 @@
  *
  * Refreshes uses on our spell granter, or make it quicker to read if it's already infinite use
  */
-/obj/item/book/granter/action/spell/proc/on_magic_charge(datum/source, datum/action/cooldown/spell/spell, mob/living/caster)
+/obj/item/book/granter/action/spell/proc/on_magic_charge(datum/source, datum/action/spell/spell, mob/living/caster)
 	SIGNAL_HANDLER
 
 	// What're the odds someone uses 2000 uses of an infinite use book?
@@ -46,7 +46,7 @@
 
 /obj/item/book/granter/action/spell/on_reading_finished(mob/living/user)
 	to_chat(user, ("<span class='notice'>You feel like you've experienced enough to cast [action_name]!</span>"))
-	var/datum/action/cooldown/spell/new_spell = new granted_action(user.mind || user)
+	var/datum/action/spell/new_spell = new granted_action(user.mind || user)
 	new_spell.Grant(user)
 	user.log_message("learned the spell [action_name] ([new_spell])", LOG_ATTACK, color = "orange")
 	if(uses <= 0)
@@ -82,8 +82,8 @@
 
 	var/static/list/spell_options
 	if(!spell_options)
-		spell_options = subtypesof(/datum/action/cooldown/spell)
-		for(var/datum/action/cooldown/spell/spell as anything in spell_options)
+		spell_options = subtypesof(/datum/action/spell)
+		for(var/datum/action/spell/spell as anything in spell_options)
 			if(initial(spell.school) in blacklisted_schools)
 				spell_options -= spell
 			if(initial(spell.name) == "Spell") // Abstract types

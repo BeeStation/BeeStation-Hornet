@@ -64,7 +64,7 @@
 
 /datum/species/psyphoza/primary_species_action()
 	. = ..()
-	PH?.Trigger()
+	PH?.trigger()
 
 /datum/species/psyphoza/get_species_description()
 	return "Psyphoza are a species of extra-sensory lesser-sensory \
@@ -193,8 +193,7 @@
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
-/datum/action/item_action/organ_action/psychic_highlight/Trigger(trigger_flags)
-	. = ..()
+/datum/action/item_action/organ_action/psychic_highlight/on_activate(mob/user, atom/target)
 	if(!owner || !check_head())
 		return
 	//Reveal larger area of sense
@@ -204,7 +203,7 @@
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
-	UpdateButtons()
+	update_buttons()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
@@ -222,11 +221,11 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger()
+		trigger()
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
-	UpdateButtons()
+	update_buttons()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -420,8 +419,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/Trigger(trigger_flags)
-	. = ..()
+/datum/action/change_psychic_visual/on_activate(mob/user, atom/target)
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
@@ -449,12 +447,11 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/Trigger(trigger_flags)
-	. = ..()
+/datum/action/change_psychic_auto/on_activate(mob/user, atom/target)
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
-	UpdateButtons()
+	update_buttons()
 
-/datum/action/change_psychic_auto/IsAvailable()
+/datum/action/change_psychic_auto/is_available()
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
@@ -485,8 +482,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/Trigger(trigger_flags)
-	. = ..()
+/datum/action/change_psychic_texture/on_activate(mob/user, atom/target)
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()
 	blind_overlay = blind_overlay || owner?.screens["blind"]

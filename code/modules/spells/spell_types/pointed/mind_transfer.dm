@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/mind_transfer
+/datum/action/spell/pointed/mind_transfer
 	name = "Mind Swap"
 	desc = "This spell allows the user to switch bodies with a target next to him."
 	button_icon_state = "mindswap"
@@ -31,7 +31,7 @@
 		/mob/living/simple_animal/hostile/megafauna,
 	))
 
-/datum/action/cooldown/spell/pointed/mind_transfer/can_cast_spell(feedback = TRUE)
+/datum/action/spell/pointed/mind_transfer/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -43,7 +43,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/mind_transfer/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/mind_transfer/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -73,11 +73,11 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/mind_transfer/cast(mob/living/cast_on)
+/datum/action/spell/pointed/mind_transfer/cast(mob/living/cast_on)
 	. = ..()
 	swap_minds(owner, cast_on)
 
-/datum/action/cooldown/spell/pointed/mind_transfer/proc/swap_minds(mob/living/caster, mob/living/cast_on)
+/datum/action/spell/pointed/mind_transfer/proc/swap_minds(mob/living/caster, mob/living/cast_on)
 
 	var/mob/living/to_swap = cast_on
 	if(isholopara(cast_on))

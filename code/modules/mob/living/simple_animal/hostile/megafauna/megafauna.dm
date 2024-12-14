@@ -159,7 +159,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/megafauna_attack/Activate()
+/datum/action/innate/megafauna_attack/on_activate()
 	var/mob/living/simple_animal/hostile/megafauna/fauna = owner
 	fauna.chosen_attack = chosen_attack_num
 	to_chat(fauna, chosen_message)

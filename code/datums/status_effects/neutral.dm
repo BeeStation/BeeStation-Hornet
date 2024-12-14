@@ -113,7 +113,7 @@
 		to_chat(owner, "<span class='boldnotice'>You hear something behind you talking...</span> <span class='notice'>Bounty claimed.</span>")
 		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
 		to_chat(rewarded, "<span class='greentext'>You feel a surge of mana flow into you!</span>")
-		for(var/datum/action/cooldown/spell/spell in rewarded.actions)
+		for(var/datum/action/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)

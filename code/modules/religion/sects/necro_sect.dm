@@ -42,7 +42,7 @@
 /// the creature chosen for the rite
 	var/mob/living/lich_to_be
 /// the the typepath of the spell to gran
-	var/datum/action/cooldown/spell/lichspell = /datum/action/cooldown/spell/lesserlichdom
+	var/datum/action/spell/lichspell = /datum/action/spell/lesserlichdom
 
 /datum/religion_rites/create_lesser_lich/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
@@ -56,7 +56,7 @@
 			to_chat(user,"<span class='warning'>[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool].</span>")
 			lich_to_be = null
 			return FALSE
-		for(var/datum/action/cooldown/spell/knownspell in lich_to_be.actions)
+		for(var/datum/action/spell/knownspell in lich_to_be.actions)
 			if(knownspell.type == lichspell)
 				to_chat(user,"<span class='warning'>You've already empowered [lich_to_be], get them to use the spell granted to them! To empower another, they must be buckled to [movable_reltool].</span>")
 				lich_to_be = null
@@ -72,7 +72,7 @@
 			to_chat(user,"<span class='warning'>You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool].</span>")
 			lich_to_be = null
 			return FALSE
-		for(var/datum/action/cooldown/spell/knownspell in lich_to_be.actions)
+		for(var/datum/action/spell/knownspell in lich_to_be.actions)
 			if(knownspell.type == lichspell)
 				to_chat(user,"<span class='warning'>You've already empowered yourself, use the spell granted to you! To empower another, they must be buckled to [movable_reltool].</span>")
 				lich_to_be = null
@@ -94,7 +94,7 @@
 			break
 	if(!lich_to_be)
 		return FALSE
-	lichspell = new /datum/action/cooldown/spell/lesserlichdom
+	lichspell = new /datum/action/spell/lesserlichdom
 	lichspell.Grant(lich_to_be)
 	lich_to_be.visible_message("<span class='notice'>[lich_to_be] has been empowered by the soul pool!</span>")
 	lich_to_be = null
@@ -134,7 +134,7 @@
 	undead.equip_to_slot_or_del(new /obj/item/clothing/under/costume/skeleton(undead), ITEM_SLOT_ICLOTHING)
 	undead.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(undead), ITEM_SLOT_OCLOTHING)
 	undead.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(undead), ITEM_SLOT_FEET)
-	var/datum/action/cooldown/spell/smoke = new /datum/action/cooldown/spell/smoke
+	var/datum/action/spell/smoke = new /datum/action/spell/smoke
 	smoke.Grant(undead)
 	if(GLOB.religion)
 		var/obj/item/storage/book/bible/booze/B = new

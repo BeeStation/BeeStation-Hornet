@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/charge
-	granted_action = /datum/action/cooldown/spell/charge
+	granted_action = /datum/action/spell/charge
 	action_name = "charge"
 	icon_state ="bookcharge"
 	desc = "This book is made of 100% postconsumer wizard."

@@ -27,9 +27,9 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/wizard,
 				/obj/item/staff)
 
-	var/datum/action/cooldown/spell/pointed/projectile/fireball/fireball
-	var/datum/action/cooldown/spell/teleport/radius_turf/blink/blink
-	var/datum/action/cooldown/spell/aoe/magic_missile/magic_missile
+	var/datum/action/spell/pointed/projectile/fireball/fireball
+	var/datum/action/spell/teleport/radius_turf/blink/blink
+	var/datum/action/spell/aoe/magic_missile/magic_missile
 
 	var/next_cast = 0
 
@@ -64,16 +64,16 @@
 	if(target && next_cast < world.time)
 		if((get_dir(src, target) in list(SOUTH, EAST, WEST, NORTH)) && fireball.can_cast_spell(feedback = FALSE))
 			setDir(get_dir(src, target))
-			fireball.Trigger(null, target)
+			fireball.pre_activate(src, target)
 			next_cast = world.time + 1 SECONDS
 			return
 
-		if(magic_missile.IsAvailable())
-			magic_missile.Trigger(null, target)
+		if(magic_missile.is_available())
+			magic_missile.pre_activate(src, target)
 			next_cast = world.time + 1 SECONDS
 			return
 
-		if(blink.IsAvailable()) // Spam Blink when you can
-			blink.Trigger(null, src)
+		if(blink.is_available()) // Spam Blink when you can
+			blink.pre_activate(src, src)
 			next_cast = world.time + 1 SECONDS
 			return

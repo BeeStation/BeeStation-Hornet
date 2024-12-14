@@ -21,7 +21,7 @@
 	var/datum/mind/swapper_mind = swapper.mind
 	var/datum/mind/to_swap_mind = to_swap.mind
 
-	var/datum/action/cooldown/spell/pointed/mind_transfer/mind_swap = new(swapper.mind)
+	var/datum/action/spell/pointed/mind_transfer/mind_swap = new(swapper.mind)
 	mind_swap.target_requires_key = FALSE
 	mind_swap.Grant(swapper)
 
@@ -32,8 +32,8 @@
 	TEST_ASSERT_EQUAL(swapper.mind, to_swap_mind, "[mind_swap] spell: Despite returning \"true\" on cast, swap failed to relocate the minds of the caster and the target.")
 	TEST_ASSERT_EQUAL(to_swap.mind, swapper_mind, "[mind_swap] spell: Despite returning \"true\" on cast, swap failed to relocate the minds of the target and the caster.")
 
-	var/datum/action/cooldown/spell/pointed/mind_transfer/should_be_null = locate() in swapper.actions
-	var/datum/action/cooldown/spell/pointed/mind_transfer/should_not_be_null = locate() in to_swap.actions
+	var/datum/action/spell/pointed/mind_transfer/should_be_null = locate() in swapper.actions
+	var/datum/action/spell/pointed/mind_transfer/should_not_be_null = locate() in to_swap.actions
 
 	TEST_ASSERT(!isnull(should_not_be_null), "[mind_swap] spell: The spell was not transferred to the caster's new body, despite successful mind reolcation.")
 	TEST_ASSERT(isnull(should_be_null), "[mind_swap] spell: The spell remained on the caster's original body, despite successful mind relocation.")

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/shapeshift/polar_bear
+/datum/action/spell/shapeshift/polar_bear
 	name = "Polar Bear Form"
 	desc = "Take on the shape of a polar bear."
 	invocation = "RAAAAAAAAWR!"

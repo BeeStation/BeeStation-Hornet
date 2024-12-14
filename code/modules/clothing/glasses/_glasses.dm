@@ -563,7 +563,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	vision_correction = 1  // why should the eye of a god have bad vision?
-	//var/datum/action/cooldown/scan/scan_ability
+	//var/datum/action/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
@@ -607,22 +607,22 @@
 		qdel(src)
 	..()
 /*
-/datum/action/cooldown/scan Given that the eye did nuffin previously I am leaving this bit of code in in case someone wants to change that
+/datum/action/scan Given that the eye did nuffin previously I am leaving this bit of code in in case someone wants to change that
 	name = "Scan"
 	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
 	background_icon_state = "bg_clock"
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "scan"
 
-	click_to_activate = TRUE
+	requires_target = TRUE
 	cooldown_time = 45 SECONDS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
 
-/datum/action/cooldown/scan/IsAvailable()
+/datum/action/scan/is_available()
 	return ..() && isliving(owner)
 
-/datum/action/cooldown/scan/Activate(atom/scanned)
-	StartCooldown(15 SECONDS)
+/datum/action/scan/on_activate(atom/scanned)
+	start_cooldown(15 SECONDS)
 
 	if(owner.stat != CONSCIOUS)
 		return FALSE
@@ -643,7 +643,7 @@
 	owner.balloon_alert(owner, "[living_scanned] scanned")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), owner, "scan recharged"), cooldown_time)
 
-	StartCooldown()
+	start_cooldown()
 	return TRUE
 */
 /obj/item/clothing/glasses/AltClick(mob/user)

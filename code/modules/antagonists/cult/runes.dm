@@ -373,7 +373,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	. = ..()
 	var/mob/living/user = invokers[1] //the first invoker is always the user
 	for(var/datum/action/innate/cult/blood_magic/BM in user.actions)
-		BM.Activate()
+		BM.trigger()
 
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"

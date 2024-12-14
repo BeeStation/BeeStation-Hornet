@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/manse_link
+/datum/action/spell/pointed/manse_link
 	name = "Manse Link"
 	desc = "This spell allows you to pierce through reality and connect minds to one another \
 		via your Mansus Link. All minds connected to your Mansus Link will be able to communicate discreetly across great distances."
@@ -19,19 +19,19 @@
 	/// The time it takes to link to a mob.
 	var/link_time = 6 SECONDS
 
-/datum/action/cooldown/spell/pointed/manse_link/New(Target)
+/datum/action/spell/pointed/manse_link/New(Target)
 	. = ..()
 	if(!istype(Target, /datum/component/mind_linker))
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
 
-/datum/action/cooldown/spell/pointed/manse_link/is_valid_target(atom/cast_on)
+/datum/action/spell/pointed/manse_link/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/pointed/manse_link/before_cast(mob/living/cast_on)
+/datum/action/spell/pointed/manse_link/before_cast(mob/living/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -43,8 +43,8 @@
 /**
 * The actual process of linking [linkee] to our network.
 */
-/datum/action/cooldown/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
-	var/datum/component/mind_linker/linker = target
+/datum/action/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
+	var/datum/component/mind_linker/linker = master
 	if(linkee.stat == DEAD)
 		to_chat(owner, ("<span class='warning'>They're dead!</span>"))
 		return FALSE
@@ -75,7 +75,7 @@
 	. = ..()
 	src.originator = originator
 
-/datum/action/innate/mansus_speech/Activate()
+/datum/action/innate/mansus_speech/on_activate()
 	var/mob/living/living_owner = owner
 	if(!originator?.linked_mobs[living_owner])
 		CRASH("Uh oh, a Mansus Link ([type]) got somehow called Activate() [isnull(originator) ? "without an originator Raw Prophet" : "without being in the originator's linked_mobs list"].")

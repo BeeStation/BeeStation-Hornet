@@ -93,7 +93,7 @@
 		/datum/heretic_knowledge/essence,
 		/datum/heretic_knowledge/medallion,
 	)
-	spell_to_add = /datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash
+	spell_to_add = /datum/action/spell/jaunt/ethereal_jaunt/ash
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -136,10 +136,10 @@
 	mark.on_effect()
 
 	// Also refunds 75% of charge!
-	var/datum/action/cooldown/spell/touch/mansus_grasp/grasp = locate() in user.actions
+	var/datum/action/spell/touch/mansus_grasp/grasp = locate() in user.actions
 	if(grasp)
-		grasp.next_use_time = min(round(grasp.next_use_time - grasp.cooldown_time * 0.75, 0), 0)
-		grasp.UpdateButtons()
+		grasp.reduce_cooldown(grasp.cooldown_time * 0.75)
+		grasp.update_buttons()
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 	next_knowledge = list(/datum/heretic_knowledge/mad_mask)
@@ -215,7 +215,7 @@
 		/datum/heretic_knowledge/summon/ashy,
 		/datum/heretic_knowledge/spell/cleave,
 	)
-	spell_to_add = /datum/action/cooldown/spell/aoe/fiery_rebirth
+	spell_to_add = /datum/action/spell/aoe/fiery_rebirth
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -257,9 +257,9 @@
 /datum/heretic_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	priority_announce("[generate_heretic_text()] Fear the blaze, for the Ashlord, [user.real_name] has ascended! The flames shall consume all! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
-	var/datum/action/cooldown/spell/fire_sworn/circle_spell = new(user.mind)
+	var/datum/action/spell/fire_sworn/circle_spell = new(user.mind)
 	circle_spell.Grant(user)
-	var/datum/action/cooldown/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
+	var/datum/action/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
 	screen_wide_fire_spell.Grant(user)
 	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)

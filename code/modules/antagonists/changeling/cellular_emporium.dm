@@ -86,5 +86,5 @@
 	else
 		CRASH("cellular_emporium action created with non emporium")
 
-/datum/action/innate/cellular_emporium/Activate()
+/datum/action/innate/cellular_emporium/on_activate()
 	cellular_emporium.ui_interact(owner)

@@ -61,19 +61,19 @@ SUBSYSTEM_DEF(augury)
 		SSaugury.watchers -= owner
 	return ..()
 
-/datum/action/innate/augury/Activate()
+/datum/action/innate/augury/on_activate(at)
 	SSaugury.watchers += owner
 	to_chat(owner, "<span class='notice'>You are now auto-following debris.</span>")
 	active = TRUE
-	UpdateButtons()
+	update_buttons()
 
 /datum/action/innate/augury/Deactivate()
 	SSaugury.watchers -= owner
 	to_chat(owner, "<span class='notice'>You are no longer auto-following debris.</span>")
 	active = FALSE
-	UpdateButtons()
+	update_buttons()
 
-/datum/action/innate/augury/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+/datum/action/innate/augury/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
 	..()
 	if(active)
 		button.icon_state = "template_active"

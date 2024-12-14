@@ -1,5 +1,5 @@
 /obj/item/book/granter/action/spell/mindswap
-	granted_action = /datum/action/cooldown/spell/pointed/mind_transfer
+	granted_action = /datum/action/spell/pointed/mind_transfer
 	action_name = "mindswap"
 	icon_state ="bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -44,7 +44,7 @@
 		to_chat(user, ("<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>"))
 		return
 
-	var/datum/action/cooldown/spell/pointed/mind_transfer/swapper = new(src)
+	var/datum/action/spell/pointed/mind_transfer/swapper = new(src)
 
 	if(swapper.swap_minds(user, real_stored_swap))
 		to_chat(user, ("<span class='warning'>You're suddenly somewhere else... and someone else?!</span>"))
