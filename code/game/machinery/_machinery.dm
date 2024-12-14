@@ -433,8 +433,8 @@ Class Procs:
 			return FALSE
 
 	if(silicon || admin_ghost) // If we are an AI or adminghsot, make sure the machine allows silicons to interact
-		if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON))
-			return FALSE
+		if(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON)
+			return TRUE
 
 	var/is_dextrous = FALSE
 	if(isanimal(user))
