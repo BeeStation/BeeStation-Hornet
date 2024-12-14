@@ -46008,10 +46008,6 @@
 	name = "Restrooms APC";
 	pixel_y = -24
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Restrooms";
-	name = "recreation camera"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -66332,11 +66328,11 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "twq" = (
@@ -66927,7 +66923,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
 "tFp" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
@@ -82227,9 +82223,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "ylX" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -82257,6 +82250,9 @@
 	pixel_y = -8
 	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 

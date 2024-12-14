@@ -15818,7 +15818,7 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "cgJ" = (
@@ -16743,9 +16743,6 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "cot" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -16760,6 +16757,9 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/toilet{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "cow" = (
@@ -20030,9 +20030,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "cUA" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -20045,6 +20042,9 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = -32
+	},
+/obj/structure/toilet{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
@@ -20089,9 +20089,6 @@
 /turf/open/space/basic,
 /area/space)
 "cVk" = (
-/obj/item/bedsheet,
-/obj/structure/bed,
-/obj/machinery/iv_drip,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -20100,6 +20097,9 @@
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
+	},
+/obj/machinery/computer/operating{
+	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_half,
 /area/security/brig)
@@ -31997,9 +31997,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "hfX" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -32013,6 +32010,9 @@
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	specialfunctions = 4
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -37012,9 +37012,6 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Restrooms"
-	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "iUh" = (
@@ -41219,6 +41216,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"kBJ" = (
+/obj/machinery/iv_drip,
+/turf/open/floor/iron/white/textured_large,
+/area/security/brig)
 "kBS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -42170,6 +42171,10 @@
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
+	},
+/obj/item/stack/medical/gauze,
+/obj/item/clothing/under/rank/medical/doctor/purple{
+	pixel_y = -4
 	},
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
@@ -45170,12 +45175,12 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "lZZ" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/light/small,
 /obj/machinery/newscaster{
 	pixel_x = -32
+	},
+/obj/structure/toilet{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/medical/break_room)
@@ -53800,9 +53805,6 @@
 /turf/open/floor/iron,
 /area/gateway)
 "pgu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -53815,6 +53817,9 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = -32
+	},
+/obj/structure/toilet{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
@@ -59832,8 +59837,8 @@
 /turf/open/floor/iron,
 /area/medical/chemistry)
 "rrR" = (
-/obj/structure/bodycontainer/morgue{
-	dir = 2
+/obj/machinery/vending/medical{
+	pixel_x = -2
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -60501,9 +60506,6 @@
 /area/crew_quarters/heads/hop)
 "rFe" = (
 /obj/machinery/light/small,
-/obj/machinery/camera/directional/west{
-	c_tag = "Auxilary Restrooms"
-	},
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/auxiliary)
 "rFh" = (
@@ -60657,9 +60659,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "rIr" = (
-/obj/structure/toilet{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -60674,6 +60673,9 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "rIV" = (
@@ -60848,7 +60850,6 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
 "rMU" = (
-/obj/structure/bed/roller,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -60857,6 +60858,10 @@
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
+	},
+/obj/structure/table/optable,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/white/smooth_half,
 /area/security/brig)
@@ -76880,9 +76885,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "xwS" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -76896,6 +76898,9 @@
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	specialfunctions = 4
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -77412,15 +77417,13 @@
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
 "xGs" = (
-/obj/structure/rack,
 /obj/machinery/camera/directional/south{
 	c_tag = "Brig - Infirmary"
 	},
-/obj/item/clothing/under/rank/medical/doctor/purple{
-	pixel_y = -4
-	},
-/obj/item/stack/medical/gauze,
 /obj/effect/turf_decal/tile/red/half,
+/obj/structure/bodycontainer/morgue{
+	dir = 1
+	},
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
 	},
@@ -105546,7 +105549,7 @@ ajm
 fIy
 xXp
 qpd
-xXp
+kBJ
 rMU
 ahx
 gTN

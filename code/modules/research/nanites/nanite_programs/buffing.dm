@@ -37,6 +37,11 @@
 	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	var/datum/armor/nanite_armor = /datum/armor/hardening_armor
+
+/datum/armor/hardening_armor
+	melee = 30
+	bullet = 30
 
 //TODO on_hit effect that turns skin grey for a moment
 
@@ -44,35 +49,37 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 30
-		H.physiology.armor.bullet += 30
+		H.physiology.physio_armor.add_other_armor(nanite_armor)
+
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 30
-		H.physiology.armor.bullet -= 30
+		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
 	use_rate = 0.50
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	var/datum/armor/nanite_armor = /datum/armor/refractive_armor
+
+/datum/armor/refractive_armor
+	laser = 30
+	energy = 30
 
 /datum/nanite_program/refractive/enable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 30
-		H.physiology.armor.energy += 30
+		H.physiology.physio_armor.add_other_armor(nanite_armor)
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 30
-		H.physiology.armor.energy -= 30
+		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"

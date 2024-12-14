@@ -270,6 +270,7 @@ class ChatRenderer {
       const highlightWholeMessage = setting.highlightWholeMessage;
       const matchWord = setting.matchWord;
       const matchCase = setting.matchCase;
+      const enabled = setting.enabled;
       const lines = String(text)
         .split(',')
         .map((str) => str.trim())
@@ -315,6 +316,7 @@ class ChatRenderer {
         this.highlightParsers = [];
       }
       this.highlightParsers.push({
+        enabled,
         highlightWords,
         highlightRegex,
         highlightColor,
@@ -478,14 +480,16 @@ class ChatRenderer {
 
         // Highlight text
         if ((!message.avoidHighlighting || this.highlightSelf) && this.highlightParsers) {
-          this.highlightParsers.map((parser) => {
-            const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
-              createHighlightNode(text, parser.highlightColor)
-            );
-            if (highlighted && parser.highlightWholeMessage) {
-              node.className += ' ChatMessage--highlighted';
-            }
-          });
+          this.highlightParsers
+            .filter((parser) => parser.enabled)
+            .map((parser) => {
+              const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
+                createHighlightNode(text, parser.highlightColor)
+              );
+              if (highlighted && parser.highlightWholeMessage) {
+                node.className += ' ChatMessage--highlighted';
+              }
+            });
         }
         // Linkify text
         const linkifyNodes = node.querySelectorAll('.linkify');
@@ -602,6 +606,27 @@ class ChatRenderer {
     this.processBatch(messages, {
       notifyListeners: false,
     });
+  }
+
+  /**
+   * @clearChat
+   * @copyright 2023
+   * @author Cheffie
+   * @link https://github.com/CheffieGithub
+   * @license MIT
+   */
+  clearChat() {
+    const messages = this.visibleMessages;
+    this.visibleMessages = [];
+    for (let i = 0; i < messages.length; i++) {
+      const message = messages[i];
+      this.rootNode.removeChild(message.node);
+      // Mark this message as pruned
+      message.node = 'pruned';
+    }
+    // Remove pruned messages from the message array
+    this.messages = this.messages.filter((message) => message.node !== 'pruned');
+    logger.log(`Cleared chat`);
   }
 
   saveToDisk() {

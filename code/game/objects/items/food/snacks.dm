@@ -9,14 +9,14 @@
 	trash_type = /obj/item/trash/candy
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
-		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/sugar = 3
 	)
 	junkiness = 25
 	tastes = list("candy" = 1)
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/sosjerky
 	name = "\improper Scaredy's Private Reserve Beef Jerky"
@@ -26,13 +26,13 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/sugar = 2,
-		/datum/reagent/consumable/sodiumchloride = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/sodiumchloride = 2
 	)
 	junkiness = 25
 	tastes = list("dried meat" = 1)
 	w_class = WEIGHT_CLASS_SMALL
 	foodtypes = JUNKFOOD | MEAT | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/sosjerky/healthy
 	name = "homemade beef jerky"
@@ -52,13 +52,13 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/sodiumchloride = 1,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/sodiumchloride = 1
 	)
 	junkiness = 20
 	tastes = list("salt" = 1, "crisps" = 1)
 	foodtypes = JUNKFOOD | FRIED
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/no_raisin
 	name = "\improper 4no raisins"
@@ -67,8 +67,7 @@
 	trash_type = /obj/item/trash/raisins
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		/datum/reagent/consumable/sugar = 4,
-		/datum/reagent/consumable/maltodextrin = 3.35
+		/datum/reagent/consumable/sugar = 4
 	)
 	junkiness = 25
 	tastes = list("dried raisins" = 1)
@@ -76,6 +75,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	custom_price = PAYCHECK_MEDIUM * 0.7
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/no_raisin/healthy
 	name = "homemade raisins"
@@ -93,14 +93,14 @@
 	icon_state = "space_twinkie"
 	desc = "Guaranteed to survive longer than you will."
 	food_reagents = list(
-		/datum/reagent/consumable/sugar = 4,
-		/datum/reagent/consumable/maltodextrin = 1.35
+		/datum/reagent/consumable/sugar = 4
 	)
 	junkiness = 25
 	foodtypes = JUNKFOOD | GRAIN | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	custom_price = PAYCHECK_EASY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/cheesiehonkers
 	name = "\improper Cheesie Honkers"
@@ -109,13 +109,13 @@
 	trash_type = /obj/item/trash/cheesie
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
-		/datum/reagent/consumable/sugar = 3,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/sugar = 3
 	)
 	junkiness = 25
 	tastes = list("cheese" = 5, "crisps" = 2)
 	foodtypes = JUNKFOOD | DAIRY | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/syndicake
 	name = "\improper Syndi-Cakes"
@@ -124,12 +124,12 @@
 	trash_type = /obj/item/trash/syndi_cakes
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/doctor_delight = 5,
-		/datum/reagent/consumable/maltodextrin = 4
+		/datum/reagent/consumable/doctor_delight = 5
 	)
 	tastes = list("sweetness" = 3, "cake" = 1)
 	foodtypes = GRAIN | FRUIT | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/energybar
 	name = "\improper High-power energy bars"
@@ -138,10 +138,10 @@
 	trash_type = /obj/item/trash/energybar
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/liquidelectricity = 10,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/liquidelectricity = 10
 	)
 	tastes = list("pure electricity" = 3, "fitness" = 2)
 	foodtypes = TOXIC
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1

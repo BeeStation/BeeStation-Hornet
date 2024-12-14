@@ -16,7 +16,6 @@
 	var/list/stored_profiles = list() //list of datum/changelingprofile
 	var/datum/changelingprofile/first_prof = null
 	var/absorbedcount = 0
-	var/trueabsorbs = 0//dna gained using absorb, not dna sting
 	var/chem_charges = 20
 	var/chem_storage = 75
 	var/chem_recharge_rate = 1

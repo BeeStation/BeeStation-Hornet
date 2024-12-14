@@ -10826,6 +10826,9 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "dqj" = (
@@ -11320,7 +11323,7 @@
 /turf/open/floor/plating,
 /area/medical/virology)
 "dzZ" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
@@ -11800,17 +11803,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/bridge)
-"dJA" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/machinery/camera/directional/east,
-/turf/open/floor/iron/white,
-/area/crew_quarters/toilet)
 "dJE" = (
 /obj/machinery/light_switch{
 	pixel_x = 1;
@@ -18973,6 +18965,15 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/science/lab)
+"gcM" = (
+/obj/machinery/power/supermatter_crystal/shard/engine{
+	moveable = 1
+	},
+/obj/machinery/mass_driver{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "gde" = (
 /obj/structure/cable/white,
 /obj/machinery/power/terminal{
@@ -24501,6 +24502,21 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
+"hPY" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "hQj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -39171,11 +39187,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"myE" = (
-/obj/machinery/airalarm/directional/south,
-/obj/machinery/camera/directional/south,
-/turf/open/floor/iron/white,
-/area/crew_quarters/toilet)
 "myH" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Room";
@@ -46447,6 +46458,16 @@
 /obj/structure/grille,
 /turf/open/space/basic,
 /area/space/nearstation)
+"oTD" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/toilet)
 "oTE" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/item/radio/intercom{
@@ -47466,6 +47487,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/visible,
 /turf/open/space/basic,
 /area/space/nearstation)
+"poY" = (
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/iron/white,
+/area/crew_quarters/toilet)
 "ppd" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
@@ -53864,20 +53889,6 @@
 /obj/machinery/gateway/station,
 /turf/open/floor/iron/dark,
 /area/gateway)
-"ruI" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/turf/open/floor/prison,
-/area/security/prison)
 "ruN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -61777,19 +61788,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"tZH" = (
-/obj/machinery/power/supermatter_crystal/shard/engine{
-	moveable = 1
-	},
-/obj/machinery/mass_driver{
-	armor = list("melee"=10,"bullet"=10,"laser"=10,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"fire"=100,"acid"=70);
-	critical_machine = 1;
-	dir = 8;
-	id = "smeject";
-	name = "emergency supermatter ejection pad"
-	},
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "tZK" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -88644,7 +88642,7 @@ aPU
 auG
 aJW
 aCQ
-tZH
+gcM
 asE
 agO
 aju
@@ -101300,7 +101298,7 @@ vhc
 aTr
 dMx
 bDY
-dJA
+oTD
 hlt
 hlt
 hlt
@@ -102331,7 +102329,7 @@ vAt
 lQt
 vAt
 fTf
-myE
+poY
 auR
 lWW
 uIh
@@ -112306,7 +112304,7 @@ cUn
 sgK
 bBp
 tZK
-ruI
+hPY
 hce
 vaO
 vhS

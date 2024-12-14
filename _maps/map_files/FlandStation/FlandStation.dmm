@@ -26525,7 +26525,7 @@
 	pixel_x = 4;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/cup/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = -8;
 	pixel_y = -5
 	},
@@ -28098,9 +28098,6 @@
 /turf/open/floor/iron/tech,
 /area/bridge)
 "hgA" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -28114,6 +28111,9 @@
 /obj/effect/landmark/start/assistant,
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -33667,7 +33667,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "iCm" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -34494,14 +34494,9 @@
 "iNl" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/closet/crate,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
+/obj/machinery/vending/medical{
+	pixel_x = -2
 	},
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/blood/OPlus,
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "iNo" = (
@@ -42237,6 +42232,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/main)
 "kKQ" = (
@@ -46657,9 +46655,6 @@
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "lNe" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -46672,6 +46667,9 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -47529,6 +47527,13 @@
 	c_tag = "Security - Medbay"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/reagent_containers/blood/OPlus,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "lZt" = (
@@ -53698,9 +53703,6 @@
 /turf/open/floor/iron,
 /area/medical/break_room)
 "nGN" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -53714,6 +53716,9 @@
 /obj/effect/landmark/blobstart,
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
@@ -65083,25 +65088,25 @@
 /obj/structure/closet/crate{
 	name = "food crate"
 	},
-/obj/item/reagent_containers/cup/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/cup/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/cup/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/cup/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 8;
 	pixel_y = -3
 	},

@@ -10,7 +10,7 @@
 	max_integrity = 50
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_window
 	CanAtmosPass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
@@ -32,6 +32,11 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.4
 
+
+
+/datum/armor/structure_window
+	fire = 80
+	acid = 100
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -401,12 +406,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "rwindow"
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/window_reinforced
 	max_integrity = 100
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	rad_insulation = RAD_HEAVY_INSULATION
 	ricochet_chance_mod = 0.8
+
+
+/datum/armor/window_reinforced
+	melee = 50
+	bomb = 25
+	rad = 100
+	fire = 80
+	acid = 100
 
 /obj/structure/window/reinforced/spawner/east
 	dir = EAST
@@ -426,10 +439,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "plasmawindow"
 	reinf = FALSE
 	heat_resistance = 25000
-	armor = list(MELEE = 75,  BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/window_plasma
 	max_integrity = 300
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	rad_insulation = RAD_NO_INSULATION
+
+
+/datum/armor/window_plasma
+	melee = 75
+	bullet = 5
+	bomb = 45
+	rad = 100
+	fire = 99
+	acid = 100
 
 /obj/structure/window/plasma/spawnDebris(location)
 	. = list()
@@ -458,10 +480,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "plasmarwindow"
 	reinf = TRUE
 	heat_resistance = 50000
-	armor = list(MELEE = 85,  BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/plasma_reinforced
 	max_integrity = 500
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
+
+
+/datum/armor/plasma_reinforced
+	melee = 85
+	bullet = 20
+	bomb = 60
+	rad = 100
+	fire = 99
+	acid = 100
 
 /obj/structure/window/plasma/reinforced/spawner/east
 	dir = EAST
@@ -489,11 +520,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "duwindow"
 	reinf = TRUE
 	heat_resistance = 50000
-	armor = list(MELEE = 45,  BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/window_depleteduranium
 	max_integrity = 500
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/mineral/uranium
 	rad_insulation = RAD_FULL_INSULATION
+
+
+/datum/armor/window_depleteduranium
+	melee = 45
+	bullet = 20
+	bomb = 60
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/structure/window/depleteduranium/spawner/east
 	dir = EAST
@@ -621,11 +661,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/window_shuttle
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
+
+
+/datum/armor/window_shuttle
+	melee = 50
+	bomb = 50
+	rad = 100
+	fire = 80
+	acid = 100
 
 /obj/structure/window/shuttle/narsie_act()
 	add_atom_colour("#3C3434", FIXED_COLOUR_PRIORITY)
@@ -651,10 +699,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/window_plastitanium
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
+
+
+/datum/armor/window_plastitanium
+	melee = 50
+	bomb = 50
+	rad = 100
+	fire = 80
+	acid = 100
 
 /obj/structure/window/plastitanium/unanchored
 	anchored = FALSE
@@ -678,7 +734,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	decon_speed = 10
 	CanAtmosPass = ATMOS_PASS_YES
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/none
 	breaksound = 'sound/items/poster_ripped.ogg'
 	hitsound = 'sound/weapons/slashmiss.ogg'
 	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/windows/paperframes.dmi',icon_state = "torn", layer = ABOVE_OBJ_LAYER - 0.1)
