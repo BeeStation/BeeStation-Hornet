@@ -1,4 +1,0 @@
-author: h42
-delete-after: true
-changes:
-  - bugfix: Easter bunnies place down easter eggs instead of errors again.
