@@ -3009,6 +3009,12 @@
 "blO" = (
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
+"blX" = (
+/obj/item/stack/ore/glass,
+/obj/item/pickaxe/mini,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "bmC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3579,10 +3585,9 @@
 	},
 /area/tcommsat/server)
 "bzO" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12";
-	security_level = 6
+/obj/machinery/door/airlock/security{
+	req_access_txt = "63";
+	name = "Labor Mining"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
@@ -9009,6 +9014,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
+"esR" = (
+/obj/structure/ore_box,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "esW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/firecloset/full,
@@ -13661,6 +13670,13 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"gDF" = (
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "gDJ" = (
 /obj/structure/chair{
 	dir = 1
@@ -15842,6 +15858,9 @@
 	},
 /turf/open/openspace,
 /area/hallway/primary/central)
+"hGQ" = (
+/turf/closed/mineral/random/labormineral/volcanic,
+/area/asteroid/paradise)
 "hGU" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -19485,6 +19504,13 @@
 /obj/structure/railing,
 /turf/open/openspace,
 /area/medical/medbay/central)
+"jHu" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "jHA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -23908,6 +23934,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
+"lTg" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing,
+/turf/open/openspace,
+/area/asteroid/paradise)
 "lTM" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -29154,6 +29185,13 @@
 	dir = 10
 	},
 /area/science/lab)
+"oDV" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/openspace,
+/area/asteroid/paradise)
 "oEg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -31945,12 +31983,11 @@
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/asteroid/paradise/surface)
 "pWG" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12";
-	security_level = 6
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security{
+	req_access_txt = "63";
+	name = "Labor Mining"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "pWN" = (
@@ -38548,6 +38585,11 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
+"trP" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing,
+/turf/open/openspace,
+/area/maintenance/department/security/brig)
 "trT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -40964,6 +41006,13 @@
 	},
 /turf/open/floor/iron,
 /area/science/lab)
+"uEn" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/openspace,
+/area/maintenance/department/security/brig)
 "uEq" = (
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -41626,14 +41675,14 @@
 /turf/open/floor/iron,
 /area/security/execution/education)
 "uRE" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security{
+	req_access_txt = "63";
+	name = "Labor Mining"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "uSG" = (
@@ -41888,6 +41937,11 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white/corner,
 /area/science/research)
+"uWV" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "uWZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -48244,6 +48298,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/security/warden)
+"yjD" = (
+/obj/item/pickaxe/mini,
+/obj/structure/rack,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "yjL" = (
 /obj/structure/flora/rock/icy,
 /turf/open/floor/plating/asteroid/planetary,
@@ -182632,10 +182696,10 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -182887,15 +182951,15 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -183143,17 +183207,17 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -183399,19 +183463,19 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -183655,20 +183719,20 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -183911,22 +183975,22 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -184168,22 +184232,22 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -184425,23 +184489,23 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -184682,24 +184746,24 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -184939,24 +185003,24 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -185196,24 +185260,24 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -185453,24 +185517,24 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+blO
+blO
+blO
+blX
+blO
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -185710,24 +185774,24 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -185967,24 +186031,24 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -186225,23 +186289,23 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+blO
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -186482,23 +186546,23 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+hGQ
+hGQ
+hGQ
+hGQ
+blO
+blO
+blO
+blO
+yjD
+gDF
+esR
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
 vqI
 vqI
 vqI
@@ -186740,21 +186804,21 @@ oXe
 vqI
 vqI
 vqI
+hGQ
+hGQ
+hGQ
+hGQ
+hGQ
+jHu
+uWV
 vqI
-vqI
-vqI
-vqI
-vqI
-bvw
-vqI
-vqI
-gEN
-gEN
-gEN
-gEN
-gEN
-gEN
-gEN
+qhT
+qhT
+qhT
+qhT
+qhT
+qhT
+qhT
 vqI
 vqI
 vqI
@@ -186999,19 +187063,19 @@ vqI
 vqI
 vqI
 vqI
-vqI
-vqI
-vqI
-bvw
-bvw
-vqI
-gEN
+hGQ
+hGQ
+hGQ
+jHu
+uWV
+blO
+qhT
 tAg
 tAg
 tAg
 tAg
 fFU
-gEN
+qhT
 vqI
 vqI
 vqI
@@ -187259,8 +187323,8 @@ vqI
 vqI
 vqI
 bvw
-bvw
-bvw
+oDV
+lTg
 bvw
 dTb
 tAg
@@ -187268,7 +187332,7 @@ tAg
 roN
 tAg
 tAg
-gEN
+qhT
 vqI
 vqI
 vqI
@@ -187516,8 +187580,8 @@ vqI
 bvw
 bvw
 bvw
-bvw
-bvw
+oDV
+lTg
 bvw
 dTb
 tAg
@@ -187773,8 +187837,8 @@ pub
 pub
 pub
 pub
-pub
-pub
+uEn
+trP
 pub
 gEN
 gEN
@@ -188030,8 +188094,8 @@ voC
 voC
 voC
 voC
-voC
-voC
+uEn
+trP
 voC
 gEN
 cGf

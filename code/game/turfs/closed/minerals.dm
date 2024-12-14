@@ -327,6 +327,10 @@
 		/turf/closed/mineral/bananium = 1,
 	)
 
+/turf/closed/mineral/random/labormineral/air
+	turf_type = /turf/open/floor/plating/asteroid
+	baseturfs = /turf/open/floor/plating/asteroid
+
 // Subtypes for mappers placing ores manually.
 
 /turf/closed/mineral/iron
