@@ -943,6 +943,16 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/aoe))
+		if(ispath(power, /datum/action/spell/aoe/revenant))
+			continue
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spell_aoe_rev()
+	set category = "Debug"
+	set name = "Give all revenant aoe spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/aoe/revenant))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_cone()
