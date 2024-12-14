@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	setup_parts()
 	middle.add_overlay("activated")
 	update_list()
-
+	update_mobs()
 
 /obj/machinery/gravity_generator/main/Destroy() // If we somehow get deleted, remove all of our other parts.
 	investigate_log("was destroyed!", INVESTIGATE_GRAVITY)
@@ -441,6 +441,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		on = TRUE
 	update_list()
 
+/obj/machinery/gravity_generator/main/proc/update_mobs()
+	for(var/mob/living/animal in GLOB.mob_living_list)
+		animal.refresh_gravity()
 
 // Misc
 
