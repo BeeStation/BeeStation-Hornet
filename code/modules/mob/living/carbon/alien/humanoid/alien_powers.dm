@@ -71,7 +71,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/alien/make_structure/on_activate(atom/target)
+/datum/action/alien/make_structure/on_activate(mob/user, atom/target)
 	new made_structure_type(owner.loc)
 	return TRUE
 
@@ -103,7 +103,7 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 	made_structure_type = /obj/structure/alien/weeds/node
 
-/datum/action/alien/make_structure/plant_weeds/on_activate(atom/target)
+/datum/action/alien/make_structure/plant_weeds/on_activate(mob/user, atom/target)
 	owner.visible_message(("<span class='alienalert'>[owner] plants some alien weeds!</span>"))
 	return ..()
 
@@ -113,7 +113,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_whisper"
 	plasma_cost = 10
 
-/datum/action/alien/whisper/on_activate(atom/target)
+/datum/action/alien/whisper/on_activate(mob/user, atom/target)
 	var/list/possible_recipients = list()
 	for(var/mob/living/recipient in oview(owner))
 		possible_recipients += recipient
@@ -151,7 +151,7 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 0
 	button_icon_state = "alien_transfer"
 
-/datum/action/alien/transfer/on_activate(atom/target)
+/datum/action/alien/transfer/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/carbon_owner = owner
 	var/list/mob/living/carbon/aliens_around = list()
 	for(var/mob/living/carbon/alien in view(owner))
@@ -215,7 +215,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/alien/acid/corrosion/on_activate(atom/target)
+/datum/action/alien/acid/corrosion/on_activate((mob/user, atom/target)
 	if(!target.acid_act(200, 1000))
 		to_chat(owner, ("<span class='noticealien'>You cannot dissolve this object.</span>"))
 		return FALSE
@@ -285,7 +285,7 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 // Has to return TRUE, otherwise is skipped.
-/datum/action/alien/acid/neurotoxin/on_activate(atom/target)
+/datum/action/alien/acid/neurotoxin/on_activate(mob/user, atom/target)
 	return TRUE
 
 /datum/action/alien/make_structure/resin
@@ -310,7 +310,7 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/alien/make_structure/resin/on_activate(atom/target)
+/datum/action/alien/make_structure/resin/on_activate(mob/user, atom/target)
 	var/choice = tgui_input_list(owner, "Select a shape to build", "Resin building", structures)
 	if(isnull(choice) || QDELETED(src) || QDELETED(owner) || !check_for_duplicate() || !is_available())
 		return FALSE
@@ -341,7 +341,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/alien/sneak/on_activate(atom/target)
+/datum/action/alien/sneak/on_activate(mob/user, atom/target)
 	if(HAS_TRAIT(owner, TRAIT_ALIEN_SNEAK))
 		// It's safest to go to the initial alpha of the mob.
 		// Otherwise we get permanent invisbility exploits.

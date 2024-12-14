@@ -586,7 +586,7 @@
 	button_icon_state = "wrap_1"
 	update_buttons()
 
-/datum/action/wrap/on_activate(atom/to_wrap)
+/datum/action/wrap/on_activate(mob/user, atom/target)
 	if(!owner.Adjacent(to_wrap))
 		owner.balloon_alert(owner, "must be closer!")
 		return FALSE
@@ -601,12 +601,12 @@
 		owner.balloon_alert(owner, "can't wrap spiders!")
 		return FALSE
 
-	var/atom/movable/target_movable = to_wrap
+	var/atom/movable/target_movable = target
 	if(target_movable.anchored)
 		return FALSE
 
 	start_cooldown(wrap_time)
-	INVOKE_ASYNC(src, PROC_REF(cocoon), to_wrap)
+	INVOKE_ASYNC(src, PROC_REF(cocoon), target)
 	return TRUE
 
 /datum/action/wrap/proc/cocoon(atom/movable/to_wrap)

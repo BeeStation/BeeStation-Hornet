@@ -176,10 +176,10 @@
 	if (istype(master, /obj/item/xenoartifact))
 		CRASH("Xeno artifact action assigned to a non-xeno artifact")
 
-/datum/action/xeno_senitent_action/on_activate(atom/cast_on)
+/datum/action/xeno_senitent_action/on_activate(mob/user, atom/target)
 	. = ..()
 	var/obj/item/xenoartifact/xeno = master
-	xeno.true_target += xeno.process_target(cast_on)
+	xeno.true_target += xeno.process_target(target)
 	xeno.default_activate(xeno.charge_req+10)
 	cooldown_time = xeno.cooldown+xeno.cooldownmod
 	start_cooldown()
