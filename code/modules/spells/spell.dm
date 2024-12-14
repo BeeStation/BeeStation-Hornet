@@ -223,7 +223,7 @@
 	// Pre-casting of the spell
 	// Pre-cast is the very last chance for a spell to cancel
 	// Stuff like target input can go here.
-	var/precast_result = before_cast(cast_on)
+	var/precast_result = before_cast(target)
 	if(precast_result & SPELL_CANCEL_CAST)
 		return FALSE
 
@@ -234,7 +234,7 @@
 		spell_feedback()
 
 	// Actually cast the spell. Main effects go here
-	cast(cast_on)
+	cast(target)
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its set duration
@@ -242,7 +242,7 @@
 
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here
-	after_cast(cast_on)
+	after_cast(target)
 	update_buttons()
 
 	return TRUE

@@ -587,17 +587,17 @@
 	update_buttons()
 
 /datum/action/wrap/on_activate(mob/user, atom/target)
-	if(!owner.Adjacent(to_wrap))
+	if(!owner.Adjacent(target))
 		owner.balloon_alert(owner, "must be closer!")
 		return FALSE
 
-	if(!ismob(to_wrap) && !isobj(to_wrap))
+	if(!ismob(target) && !isobj(target))
 		return FALSE
 
-	if(to_wrap == owner)
+	if(target == owner)
 		return FALSE
 
-	if(isspider(to_wrap))
+	if(isspider(target))
 		owner.balloon_alert(owner, "can't wrap spiders!")
 		return FALSE
 
