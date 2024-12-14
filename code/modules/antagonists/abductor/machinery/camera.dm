@@ -24,12 +24,12 @@
 
 /obj/machinery/computer/camera_advanced/abductor/Initialize(mapload)
 	. = ..()
-	var/datum/action/innate/teleport_in/tele_in_action = new(src)
-	var/datum/action/innate/teleport_out/tele_out_action = new(src)
-	var/datum/action/innate/teleport_self/tele_self_action = new(src)
-	var/datum/action/innate/vest_mode_swap/vest_mode_action = new(src)
-	var/datum/action/innate/vest_disguise_swap/vest_disguise_action = new(src)
-	var/datum/action/innate/set_droppoint/set_droppoint_action = new(src)
+	tele_in_action = new(src)
+	tele_out_action = new(src)
+	tele_self_action = new(src)
+	vest_mode_action = new(src)
+	vest_disguise_action = new(src)
+	set_droppoint_action = new(src)
 
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
 	..()

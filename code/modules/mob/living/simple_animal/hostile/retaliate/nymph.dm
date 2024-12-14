@@ -267,20 +267,20 @@
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
 /datum/action/nymph/evolve/on_activate(mob/user, atom/target)
-	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
-	if(!isnymph(user))
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
+	if(!isnymph(nymph))
 		return
-	if(user.is_drone)
-		to_chat(user, "<span class='danger'>You can't grow up as a drone!")
+	if(nymph.is_drone)
+		to_chat(nymph, "<span class='danger'>You can't grow up as a drone!")
 		return
-	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
+	if(nymph.movement_type & VENTCRAWLING)
+		to_chat(nymph, "<span class='danger'>You cannot evolve while in a vent.</span>")
 		return
-	if(user.amount_grown >= user.max_grown)
-		playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
-		user.evolve()
+	if(nymph.amount_grown >= nymph.max_grown)
+		playsound(nymph, 'sound/creatures/venus_trap_death.ogg', 25, 1)
+		nymph.evolve()
 	else
-		to_chat(user, "<span class='danger'>You are not ready to grow up by yourself.</span>")
+		to_chat(nymph, "<span class='danger'>You are not ready to grow up by yourself.</span>")
 		return FALSE
 
 /datum/action/nymph/SwitchFrom

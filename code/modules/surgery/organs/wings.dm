@@ -194,7 +194,7 @@
 		to_chat(L, "<span class='warning'>The atmosphere is too thin for you to dash!</span>")
 		return
 
-	var/turf/target = get_edge_target_turf(L, L.dir) //represents the user's direction
+	var/turf/dash_target = get_edge_target_turf(L, L.dir) //represents the user's direction
 	var/hoppingtable = FALSE // Triggers the trip
 	var/jumpdistancemoved = jumpdistance // temp jumpdistance
 	var/turf/checkjump = get_turf(L)
@@ -214,7 +214,7 @@
 	var/datum/callback/crashcallback
 	if(hoppingtable)
 		crashcallback = CALLBACK(src, PROC_REF(crash_into_table), get_step(checkjump, L.dir))
-	if(L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
+	if(L.throw_at(dash_target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		start_cooldown()

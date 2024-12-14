@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(augury)
 	active = TRUE
 	update_buttons()
 
-/datum/action/innate/augury/Deactivate()
+/datum/action/innate/augury/on_deactivate(mob/user, atom/target)
 	SSaugury.watchers -= owner
 	to_chat(owner, "<span class='notice'>You are no longer auto-following debris.</span>")
 	active = FALSE
