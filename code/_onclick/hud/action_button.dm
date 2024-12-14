@@ -52,6 +52,10 @@
 	usr.next_click = world.time + 1
 
 	linked_action.trigger()
+	SEND_SOUND(usr, 'sound/effects/pop.ogg')
+	transform = turn(matrix() * 0.9, pick(-8, 8))
+	alpha = 200
+	animate(src, transform = matrix(), time=0.4 SECONDS, alpha=255)
 	return TRUE
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
@@ -270,7 +274,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			for(var/datum/hud/hud as anything in action.viewers)
 				var/atom/movable/screen/movable/action_button/button = action.viewers[hud]
 				hud.position_action(button, SCRN_OBJ_DEFAULT)
-		to_chat(usr, ("<span class='notice'>Action button positions have been reset.</span>"))
+		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
 		return TRUE
 
 	set_expanded(!expanded)

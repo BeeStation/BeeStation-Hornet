@@ -410,7 +410,8 @@
 /datum/status_effect/changeling/mindshield
 	id = "changelingmindshield"
 	alert_type = /atom/movable/screen/alert/status_effect/changeling_mindshield
-	tick_interval = 30
+	tick_interval = 5 SECONDS
+	chem_per_tick = 1
 
 /datum/status_effect/changeling/mindshield/tick()
 	if(..() && owner.on_fire)

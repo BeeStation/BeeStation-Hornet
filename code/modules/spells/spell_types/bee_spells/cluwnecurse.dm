@@ -12,6 +12,8 @@
 
 /datum/action/spell/pointed/cluwnecurse/cast(mob/living/carbon/cast_on)
 	. = ..()
+	if(cast_on.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND))
+		return
 	cast_on.cluwneify()
 
 /datum/spellbook_entry/cluwnecurse

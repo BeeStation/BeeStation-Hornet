@@ -67,9 +67,6 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(c.absorbedcount < req_dna)
 		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
 		return FALSE
-	if(c.trueabsorbs < req_absorbs)
-		to_chat(user, "<span class='warning'>We require at least [req_absorbs] sample\s of DNA gained through our Absorb ability.</span>")
-		return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return FALSE

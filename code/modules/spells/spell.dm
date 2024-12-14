@@ -303,10 +303,8 @@
 		do_sparks(sparks_amt, FALSE, get_turf(owner))
 
 
-	if(ispath(smoke_type, /datum/effect_system/smoke_spread))
-		var/datum/effect_system/smoke_spread/smoke = new smoke_type()
-		smoke.set_up(smoke_amt, src)
-		smoke.start()
+	if(ispath(smoke_type, /obj/effect/particle_effect/smoke))
+		do_smoke(smoke_amt, owner.loc, smoke_type)
 
 
 /// Provides feedback after a spell cast occurs, in the form of a cast sound and/or invocation

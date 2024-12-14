@@ -153,7 +153,7 @@
 	// Block success! Add this parent to the list of antimagic sources
 	antimagic_sources += parent
 
-	if((charges != INFINITY) && charge_cost > 0)
+	if((charges != INFINITY) && charge_cost > 0 && drain_antimagic)
 		drain_antimagic?.Invoke(source, parent)
 		charges -= charge_cost
 		if(charges <= 0)

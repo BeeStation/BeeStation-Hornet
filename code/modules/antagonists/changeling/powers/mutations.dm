@@ -152,7 +152,7 @@
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	force = 20 //this is an undroppable melee weapon. should not be better than the fireaxe
+	force = 30
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
@@ -161,7 +161,7 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP
-	bleed_force = BLEED_CUT
+	bleed_force = BLEED_DEEP_WOUND
 	var/can_drop = FALSE
 	var/fake = FALSE
 
@@ -407,12 +407,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10, BLEED = 80)//Bit less armoured than the Syndicate space suit
-	slowdown = 0.2
+	armor_type = /datum/armor/space_changeling
+	slowdown = 0.1
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
 	actions_types = list()
 	cell = null
 	show_hud = FALSE
+
+
+/datum/armor/space_changeling
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 20
+	fire = 90
+	acid = 90
+	stamina = 10
+	bleed = 80
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -440,8 +454,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10, BLEED = 80)
+	armor_type = /datum/armor/space_changeling
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+
+/datum/armor/space_changeling
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 20
+	fire = 90
+	acid = 90
+	stamina = 10
+	bleed = 80
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
@@ -453,11 +481,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
-	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
+	helptext = "Upkeep of the armor slows our rate of chemical production. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2
-	req_absorbs = 3
 	req_human = 1
 	recharge_slowdown = 0.25
 
@@ -473,12 +500,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_state = null
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30, BLEED = 90)
+	armor_type = /datum/armor/armor_changeling
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
-	slowdown = 0.2
+	slowdown = 0
+
+
+/datum/armor/armor_changeling
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 50
+	bomb = 25
+	bio = 10
+	fire = 25
+	acid = 25
+	stamina = 30
+	bleed = 90
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
@@ -492,8 +532,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	icon_state = "lingarmorhelmet"
 	item_state = null
 	item_flags = DROPDEL
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30, BLEED = 90)
+	armor_type = /datum/armor/helmet_changeling
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
+
+
+/datum/armor/helmet_changeling
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 50
+	bomb = 25
+	bio = 10
+	fire = 25
+	acid = 25
+	stamina = 30
+	bleed = 90
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()
