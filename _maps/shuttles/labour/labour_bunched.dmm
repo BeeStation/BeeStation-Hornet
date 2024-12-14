@@ -144,8 +144,8 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 4
+/obj/effect/turf_decal/guideline/guideline_in/brown{
+	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/labor)
@@ -177,8 +177,8 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 8
+/obj/effect/turf_decal/guideline/guideline_in/brown{
+	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/labor)
@@ -290,9 +290,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_in/brown{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
