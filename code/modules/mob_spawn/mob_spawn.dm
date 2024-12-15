@@ -123,6 +123,9 @@
 	///Show these on spawn? Usually used for hardcoded special flavor
 	var/show_flavor = TRUE
 
+	//If we use the base 5 minute cooldown for this spawner, to prevent players from immediately hopping back in
+	var/use_cooldown = FALSE
+
 	////bans and policy
 
 	///which role to check for a job ban
@@ -162,6 +165,9 @@
 	if(!allow_spawn(user, silent = FALSE))
 		return
 	if(QDELETED(src) || QDELETED(user))
+		return
+	if(use_cooldown && user.client.next_ghost_role_tick > world.time)
+		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
 		return
 	log_game("[key_name(user)] became a [prompt_name]")
 	create(user)
