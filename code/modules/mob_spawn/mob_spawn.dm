@@ -31,14 +31,6 @@
 	///sets a human's skin tone
 	var/skin_tone
 
-	//All of these only affect the ID that the outfit has placed in the ID slot
-	//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
-	var/id_job = null
-	//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
-	var/id_access = null
-	//Allows you to manually add access to an ID card.
-	var/id_access_list = null
-
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(faction)
@@ -223,14 +215,22 @@
 	///burn damage this corpse will spawn with
 	var/burn_damage = 0
 
+	//All of these only affect the ID that the outfit has placed in the ID slot
+	//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
+	var/id_job = null
+	//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
+	var/id_access = null
+	//Allows you to manually add access to an ID card.
+	var/id_access_list = null
+
 /obj/effect/mob_spawn/corpse/Initialize(mapload)
 	. = ..()
 	switch(spawn_when)
 		if(CORPSE_INSTANT)
-			INVOKE_ASYNC(src, .proc/create)
+			INVOKE_ASYNC(src, PROC_REF(create))
 		if(CORPSE_ROUNDSTART)
 			if(mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))
-				INVOKE_ASYNC(src, .proc/create)
+				INVOKE_ASYNC(src, PROC_REF(create))
 
 /obj/effect/mob_spawn/corpse/special(mob/living/spawned_mob)
 	. = ..()
