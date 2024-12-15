@@ -59,7 +59,7 @@
 	id = /obj/item/card/id/syndicate
 
 
-/obj/effect/mob_spawn/human/clown/corpse
+/obj/effect/mob_spawn/corpse/human/clown
 	skin_tone = "caucasian1"
 	hairstyle = "Bald"
 	facial_hairstyle = "Shaved"
