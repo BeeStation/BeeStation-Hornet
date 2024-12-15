@@ -1,0 +1,6 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - refactor: genericizes how turfs handle armor
+  - bugfix: fix ripley goliath armor runtime
+  - bugfix: fix armor tag examination runtime
