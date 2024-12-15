@@ -1037,8 +1037,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if (!istype(human))
 		return
 	for (var/datum/mutation/mutation as anything in subtypesof(/datum/mutation))
-        if (!initial(mutation.power_path))
-            continue
+		if (!initial(mutation.power_path))
+			continue
 
 /// A debug verb to check the sources of currently running timers
 /client/proc/check_timer_sources()
