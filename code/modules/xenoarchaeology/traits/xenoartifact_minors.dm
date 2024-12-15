@@ -200,7 +200,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/xeno_senite
 	you_are_text = "You're a maleviolent sentience, possesing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
-	banType = ROLE_SENTIENT_XENOARTIFACT
+	role_ban = ROLE_SENTIENT_XENOARTIFACT
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
 

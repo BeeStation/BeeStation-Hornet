@@ -75,6 +75,11 @@
 /// Checks if the given mob is either a heretic or a heretic monster.
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
+/// Hostile creature
+#define FACTION_HOSTILE "hostile"
+/// Neutral creatures
+#define FACTION_NEUTRAL "neutral"
+
 /// Define for the heretic faction applied to heretics and heretic mobs.
 #define FACTION_HERETIC "heretics"
 
@@ -82,6 +87,7 @@
 #define FACTION_BLOB "Blob"
 #define FACTION_ALIEN "Xenomorph"
 #define FACTION_WIZARD "Wizard"
+#define FACTION_PIRATE "pirate"
 
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"

@@ -169,7 +169,7 @@
 	if(prob(50))
 		neck = /obj/item/bedsheet/rd/royal_cape
 	if(prob(10))
-		l_pocket = pick(list(/obj/item/crowbar/power, /obj/item/screwdriver/power, /obj/item/weldingtool/experimental))
+		l_pocket = pick(list(/obj/item/powertool/jaws_of_life, /obj/item/powertool/hand_drill, /obj/item/weldingtool/experimental))
 
 //this is so pointlessly gendered but whatever bro i'm here to refactor not judge
 /datum/outfit/consumed_dame
@@ -185,7 +185,6 @@
 /datum/outfit/consumed_dame/pre_equip(mob/living/carbon/human/dame, visualsOnly = FALSE)
 	if(!visualsOnly)
 		dame.gender = FEMALE
-		dame.body_type = FEMALE
 		dame.update_body()
 	if(prob(30))
 		back = /obj/item/nullrod/scythe/talking
@@ -218,7 +217,7 @@
 	backpack_contents = list(
 		/obj/item/cult_shift = 1,
 		/obj/item/flashlight/flare/culttorch = 1,
-		/obj/item/reagent_containers/cup/beaker/unholywater = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/unholywater = 1,
 		/obj/item/stack/sheet/runed_metal = 15,
 	)
 	r_pocket = /obj/item/clothing/glasses/hud/health/night/cultblind

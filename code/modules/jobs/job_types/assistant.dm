@@ -6,7 +6,7 @@ Assistant
 	description = "Help out around the station or ask the Head of Personnel for an assignment. As the lowest-level position, expect to be treated like an intern most of the time."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	supervisors = "absolutely everyone"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#dddddd"

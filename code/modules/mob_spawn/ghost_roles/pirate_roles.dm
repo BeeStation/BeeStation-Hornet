@@ -12,8 +12,8 @@
 	show_flavor = FALSE //Flavour only exists for spawners menu
 	you_are_text = "You are a space pirate."
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
-	spawner_job_path = /datum/job/space_pirate
-	banType = ROLE_SPACE_PIRATE
+	assignedrole = "Space Pirate"
+	role_ban = ROLE_SPACE_PIRATE
 	is_antagonist = TRUE
 	///Rank of the pirate on the ship, it's used in generating pirate names!
 	var/rank = "Deserter"
@@ -43,6 +43,7 @@
 */
 
 /obj/effect/mob_spawn/ghost_role/human/pirate/captain/special(mob/living/spawned_mob, mob/mob_possessor)
+	. = ..()
 	mob_possessor.fully_replace_character_name(mob_possessor.real_name, generate_pirate_name(mob_possessor.gender))
 	mob_possessor.mind.add_antag_datum(/datum/antagonist/pirate/captain)
 

@@ -485,11 +485,6 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	oxy_damage = 500
 	mob_species = /datum/species/skeleton
 	outfit = /datum/outfit/doctorhilbert
-	id_job = "Head Researcher"
-	id_access = ACCESS_RESEARCH
-	id_access_list = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
-	use_cooldown = TRUE
-	banType = ROLE_HOTEL_STAFF
 
 /datum/outfit/doctorhilbert
 	name = "Doctor Hilbert"

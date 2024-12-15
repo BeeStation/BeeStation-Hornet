@@ -17,9 +17,9 @@
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
 
-	banType = ROLE_FREE_GOLEM
+	role_ban = ROLE_FREE_GOLEM
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/golem)
 
 /obj/effect/mob_spawn/ghost_role/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -34,7 +34,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 		flavour_text = "You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools."
 		important_text = "Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
-		id = null // just in case (because adamantine golems get id card on their spawn)
 
 /obj/effect/mob_spawn/ghost_role/human/golem/special(mob/living/new_spawn, name)
 	. = ..()
@@ -102,4 +101,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
 	use_cooldown = TRUE	//Only the roundstart free golems are
+	outfit = /datum/outfit/adamantine_golem
+
+/datum/outfit/adamantine_golem
 	id = /obj/item/card/id/golem/spawner

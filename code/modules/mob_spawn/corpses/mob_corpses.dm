@@ -251,9 +251,7 @@
 	outfit = /datum/outfit/sniper
 	skin_tone = "caucasian1"
 	hairstyle = "Bald"
-	facial_hairstyle = "Full beard"
 	id_job = JOB_NAME_WARDEN
-	mob_gender = MALE
 
 /datum/outfit/sniper
 	name = "Sniper"
@@ -273,7 +271,6 @@
 	brute_damage = 300
 	hairstyle = "Bald"
 	facial_hairstyle = "Shaved"
-	mob_gender = MALE
 	skin_tone = "caucasian1"
 	outfit = /datum/outfit/minigunheavy
 

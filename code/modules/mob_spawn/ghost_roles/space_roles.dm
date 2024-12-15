@@ -13,9 +13,9 @@
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	important_text = "Work as a team with your fellow survivors and do not abandon them."
 	outfit = /datum/outfit/oldsec
-	spawner_job_path = /datum/job/ancient_crew
+	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
-	banType = ROLE_ANCIENT_CREW
+	role_ban = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/ghost_role/human/oldsec/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -42,9 +42,9 @@
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	important_text = "Work as a team with your fellow survivors and do not abandon them."
 	outfit = /datum/outfit/oldeng
-	spawner_job_path = /datum/job/ancient_crew
+	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
-	banType = ROLE_ANCIENT_CREW
+	role_ban = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/ghost_role/human/oldeng/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -71,9 +71,9 @@
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	important_text = "Work as a team with your fellow survivors and do not abandon them."
 	outfit = /datum/outfit/oldsci
-	spawner_job_path = /datum/job/ancient_crew
+	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
-	banType = ROLE_ANCIENT_CREW
+	role_ban = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/ghost_role/human/oldsci/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -95,14 +95,13 @@
 	prompt_name = "a hotel staff member"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
-	objectives = "Cater to visiting guests with your fellow staff. Do not leave your assigned hotel and always remember: The customer is always right!"
 	outfit = /datum/outfit/hotelstaff
 	you_are_text = "You are a staff member of a top-of-the-line space hotel!"
 	flavour_text = "Cater to visiting guests with your fellow staff, advertise the hotel, and make sure the manager doesn't fire you. Remember, the customer is always right!"
 	important_text = "Do NOT leave the hotel, as that is grounds for contract termination."
-	spawner_job_path = /datum/job/hotel_staff
+	assignedrole = "Hotel Staff"
 	use_cooldown = TRUE
-	banType = ROLE_HOTEL_STAFF
+	role_ban = ROLE_HOTEL_STAFF
 
 /datum/outfit/hotelstaff
 	name = "Hotel Staff"
@@ -120,7 +119,6 @@
 	flavour_text = "You have been assigned to this hotel to protect the interests of the company while keeping the peace between \
 		guests and the staff."
 	important_text = "Do NOT leave the hotel, as that is grounds for contract termination."
-	objectives = "Do not leave your assigned hotel. Try and keep the peace between staff and guests, non-lethal force heavily advised if possible."
 
 /datum/outfit/hotelstaff/security
 	name = "Hotel Security"

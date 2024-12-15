@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		announce_fugitive_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
-/proc/announce_fugitive_pod(obj/effect/mob_spawn/human/fugitive_hunter/spawner, list/candidates)
+/proc/announce_fugitive_pod(obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/spawner, list/candidates)
 	if(length(candidates))
 		var/mob/M = pick_n_take(candidates)
 		spawner.create(M.ckey)

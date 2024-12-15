@@ -12,9 +12,9 @@
 	flavour_text = "Each day you barely scrape by, and between the terrible conditions of your makeshift shelter, \
 	the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
-	spawner_job_path = /datum/job/hermit
+	assignedrole = "Hermit"
 	use_cooldown = TRUE
-	banType = ROLE_HERMIT
+	role_ban = ROLE_HERMIT
 
 /obj/effect/mob_spawn/ghost_role/human/hermit/Initialize(mapload)
 	. = ..()
@@ -49,14 +49,14 @@
 
 /datum/outfit/hermit
 	name = "Lavaland hermit"
-	uniform = /obj/item/clothing/under/color/grey/ancient
+	uniform = /obj/item/clothing/under/color/grey/glorf
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	back = /obj/item/storage/backpack
 	mask = /obj/item/clothing/mask/breath
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	r_pocket = /obj/item/flashlight/glowstick
 
-//MY NAME'S KEN!
+//I'M JUST KEN!
 
 /obj/effect/mob_spawn/ghost_role/human/beach
 	prompt_name = "a beach bum"
@@ -65,10 +65,10 @@
 	icon_state = "sleeper"
 	you_are_text = "You're, like, totally a dudebro, bruh."
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
-	spawner_job_path = /datum/job/beach_bum
+	assignedrole = "Beach Bum"
 	outfit = /datum/outfit/beachbum
 	use_cooldown = TRUE
-	banType = ROLE_BEACH_BUM
+	role_ban = ROLE_BEACH_BUM
 
 /obj/effect/mob_spawn/ghost_role/human/beach/lifeguard
 	you_are_text = "You're a spunky lifeguard!"
@@ -106,7 +106,7 @@
 	prompt_name = "a space bartender"
 	you_are_text = "You are a space bartender!"
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
-	spawner_job_path = /datum/job/space_bartender
+	assignedrole = "Space Bartender"
 	outfit = /datum/outfit/spacebartender
 	use_cooldown = TRUE
 
@@ -116,12 +116,8 @@
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	id = /obj/item/card/id/job/bartender
-
-/datum/outfit/spacebartender/post_equip(mob/living/carbon/human/bartender, visualsOnly = FALSE)
-	. = ..()
-	var/obj/item/card/id/id_card = bartender.wear_id
 
 //Preserved terrarium/seed vault: Spawns in seed vault structures in lavaland. Ghosts become plantpeople and are advised to begin growing plants in the room near them.
 /obj/effect/mob_spawn/ghost_role/human/seed_vault
@@ -138,9 +134,9 @@
 	Your goal is to protect the vault you are assigned to, cultivate the seeds passed onto you, \
 	and eventually bring life to this desolate planet while waiting for contact from your creators. \
 	Estimated time of last contact: Deployment, 5000 millennia ago."
-	spawner_job_path = /datum/job/lifebringer
+	assignedrole = "Lifebringer"
 	use_cooldown = TRUE
-	banType = ROLE_LIFEBRINGER
+	role_ban = ROLE_LIFEBRINGER
 
 /obj/effect/mob_spawn/ghost_role/human/seed_vault/special(mob/living/new_spawn)
 	. = ..()
@@ -209,11 +205,11 @@
 	flavour_text = "The wastes are sacred ground, its monsters a blessed bounty. \
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. \
 	Fresh sacrifices for your nest."
-	spawner_job_path = /datum/job/ash_walker
+	assignedrole = "Ash Walker"
 	var/datum/team/ashwalkers/team
 	var/obj/structure/ash_walker_eggshell/eggshell
 	use_cooldown = TRUE
-	banType = ROLE_ASHWALKER
+	role_ban = ROLE_ASHWALKER
 
 /obj/effect/mob_spawn/ghost_role/human/ash_walker/Destroy()
 	eggshell = null
@@ -271,9 +267,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/ash_walker)
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
 	important_text = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
-	spawner_job_path = /datum/job/lavaland_syndicate
+	assignedrole = "Lavaland Syndicate"
 	use_cooldown = TRUE
-	banType = ROLE_LAVALAND_SYNDICATE
+	role_ban = ROLE_LAVALAND_SYNDICATE
 
 /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/special(mob/living/new_spawn)
 	. = ..()
@@ -333,7 +329,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/ash_walker)
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
 	assignedrole = "Translocated Vet"
-	banType = ROLE_TRANSLOCATED_VET
+	role_ban = ROLE_TRANSLOCATED_VET
 
 /obj/effect/mob_spawn/ghost_role/human/doctor/lavaland/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())

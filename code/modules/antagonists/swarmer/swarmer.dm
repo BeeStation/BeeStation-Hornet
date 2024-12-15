@@ -19,7 +19,7 @@
 	mob_type = /mob/living/simple_animal/hostile/swarmer
 	mob_name = "a swarmer"
 	assignedrole = ROLE_SWARMER
-	banType = ROLE_SWARMER
+	role_ban = ROLE_SWARMER
 	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/ghost_role/swarmer/Initialize(mapload)

@@ -31,6 +31,14 @@
 	///sets a human's skin tone
 	var/skin_tone
 
+	//All of these only affect the ID that the outfit has placed in the ID slot
+	//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
+	var/id_job = null
+	//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
+	var/id_access = null
+	//Allows you to manually add access to an ID card.
+	var/id_access_list = null
+
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(faction)
@@ -125,17 +133,19 @@
 
 	//If we use the base 5 minute cooldown for this spawner, to prevent players from immediately hopping back in
 	var/use_cooldown = FALSE
+	/// If this should ignore admins disabling ghost roles (like lavaland roles), since it's actually an antagonist.
+	var/is_antagonist = FALSE
 
 	////bans and policy
 
 	///which role to check for a job ban
 	var/role_ban
-	/// Typepath indicating the kind of job datum this ghost role will have. PLEASE inherit this with a new job datum, it's not hard. jobs come with policy configs.
-	var/spawner_job_path = /datum/job/ghost_role
+	/// string containing the role/job name
+	var/assignedrole
 
 /obj/effect/mob_spawn/ghost_role/Initialize(mapload)
 	. = ..()
-	SSpoints_of_interest.make_point_of_interest(src)
+	AddElement(/datum/element/point_of_interest)
 	LAZYADD(GLOB.mob_spawners[name], src)
 
 /obj/effect/mob_spawn/Destroy()
@@ -183,7 +193,8 @@
 			output_message += "\n["<span class='userdanger'>[important_text]"]"
 		to_chat(spawned_mob, output_message)
 	var/datum/mind/spawned_mind = spawned_mob.mind
-	spawned_mob.mind.assigned_role = SSjob.GetJobType(spawner_job_path)
+	if(assignedrole)
+		spawned_mind.assigned_role = assignedrole
 	spawned_mind.name = spawned_mob.real_name
 
 //multiple use mob spawner functionality here- doesn't make sense on corpses
@@ -259,9 +270,12 @@
 	. = ..()
 	if(conceal_presence)
 		// We don't want corpse PDAs to show up in the messenger list.
-		var/obj/item/modular_computer/tablet/pda/messenger = locate(/obj/item/modular_computer/tablet/pda) in spawned_human
+		var/obj/item/modular_computer/tablet/pda/messenger = locate() in spawned_human
 		if(messenger)
-			messenger.toff = TRUE
+			var/obj/item/computer_hardware/hard_drive/hdd = messenger.all_components[MC_HDD]
+			var/datum/computer_file/program/messenger/message_app = locate() in hdd.stored_files
+			if(message_app)
+				message_app.invisible = TRUE
 		// Or on crew monitors
 		var/obj/item/clothing/under/sensor_clothes = spawned_human.w_uniform
 		if(istype(sensor_clothes))

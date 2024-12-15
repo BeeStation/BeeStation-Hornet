@@ -3,12 +3,11 @@
 	desc = "A small sleeper typically used to make long distance travel a bit more bearable."
 	mob_name = "a fugitive hunter"
 	assignedrole = ROLE_FUGITIVE_HUNTER
-	random = TRUE
 	show_flavor = FALSE
 	density = TRUE
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
-	banType = ROLE_FUGITIVE_HUNTER
+	role_ban = ROLE_FUGITIVE_HUNTER
 	is_antagonist = TRUE
 	/// This is set by the shuttle template
 	var/datum/fugitive_type/hunter/backstory

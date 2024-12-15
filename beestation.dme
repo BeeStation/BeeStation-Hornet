@@ -2138,6 +2138,7 @@
 #include "code\modules\antagonists\obsessed\objectives\spend_time.dm"
 #include "code\modules\antagonists\obsessed\objectives\steal_heirloom.dm"
 #include "code\modules\antagonists\pirate\pirate.dm"
+#include "code\modules\antagonists\pirate\pirate_outfits.dm"
 #include "code\modules\antagonists\prisoner\prisoner.dm"
 #include "code\modules\antagonists\revenant\revenant.dm"
 #include "code\modules\antagonists\revenant\revenant_abilities.dm"

@@ -10,7 +10,7 @@
 	prompt_name = "a skeletal guardian"
 	you_are_text = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plane and terrorize all living adventurers who dare cross your path."
-	spawner_job_path = /datum/job/skeleton
+	assignedrole = "Skeleton"
 
 /obj/effect/mob_spawn/ghost_role/human/skeleton/special(mob/living/new_spawn)
 	. = ..()
@@ -24,7 +24,7 @@
 	mob_name = "zombie"
 	prompt_name = "an undead guardian"
 	mob_species = /datum/species/zombie
-	spawner_job_path = /datum/job/zombie
+	assignedrole = "Zombie"
 	you_are_text = "By unknown powers, your rotting remains have been resurrected!"
 	flavour_text = "Walk this mortal plane and terrorize all living adventurers who dare cross your path."
 
