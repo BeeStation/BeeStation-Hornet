@@ -207,6 +207,22 @@
 		)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/firstaid/medical/physician
+	name = "brig physicians bag"
+
+/obj/item/storage/firstaid/medical/physician/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 2,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/reagent_containers/hypospray/medipen/ = 2,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 1,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 1,
+		/obj/item/reagent_containers/pill/patch/synthflesh = 2,
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/healthanalyzer = 1,)
+	generate_items_inside(items_inside,src)
+
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
 	icon_state = "firstaid-old"

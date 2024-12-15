@@ -57073,6 +57073,9 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/directional/west,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "scT" = (

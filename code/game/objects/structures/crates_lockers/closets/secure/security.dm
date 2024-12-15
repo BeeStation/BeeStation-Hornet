@@ -114,7 +114,7 @@
 	..()
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/blood_filter(src)
-	new /obj/item/radio/headset/headset_medsec(src)
+	new /obj/item/radio/headset/headset_sec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/toxin(src)
 	new /obj/item/storage/firstaid/o2(src)
