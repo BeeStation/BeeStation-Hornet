@@ -33,7 +33,7 @@
 
 	invocation = null
 	invocation_type = INVOCATION_NONE
-	bypass = TELEPORT_ALLOW_WIZARD
+	teleport_mode = TELEPORT_ALLOW_WIZARD
 	invocation_says_area = FALSE
 
 /datum/action/spell/teleport/area_teleport/wizard/scroll/is_available()

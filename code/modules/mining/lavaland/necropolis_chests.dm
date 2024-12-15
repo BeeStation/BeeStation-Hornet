@@ -359,7 +359,7 @@
 		user.forceMove(get_turf(link_holder))
 		qdel(link_holder)
 		return
-	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC_SELF)
 	sleep(2.5)
 	if(QDELETED(user))
 		qdel(link_holder)
@@ -1381,7 +1381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	sleep(2)
 	if(!M)
 		return
-	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC_SELF)
 	sleep(1)
 	if(!M)
 		return

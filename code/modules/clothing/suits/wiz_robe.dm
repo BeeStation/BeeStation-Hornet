@@ -256,7 +256,8 @@
 	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
 	. = ..()
 
-
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
+	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
 
 /datum/armor/shielded_wizard
 	melee = 30
@@ -270,9 +271,6 @@
 	acid = 100
 	stamina = 70
 	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	name = "battlemage helmet"

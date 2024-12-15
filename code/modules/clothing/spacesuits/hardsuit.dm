@@ -1395,7 +1395,6 @@
 	/// The icon for the shield
 	var/shield_icon = "shield-old"
 
-
 /datum/armor/hardsuit_shielded
 	melee = 30
 	bullet = 15
@@ -1413,9 +1412,6 @@
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
-
-/obj/item/clothing/suit/space/hardsuit/shielded/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = shield_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -9,14 +9,15 @@
 	school = SCHOOL_TRANSLOCATION
 
 	/// What channel the teleport is done under.
-	var/teleport_channel = TELEPORT_CHANNEL_MAGIC
+	var/teleport_channel = TELEPORT_CHANNEL_MAGIC_SELF
 	/// Whether we force the teleport to happen (ie, it cannot be blocked by TELEPORT_ALLOW_NONE areas or blessings or whatever)
 	var/force_teleport = FALSE
 	/// A list of flags related to determining if our destination target is valid or not.
 	var/destination_flags = NONE
 	/// The sound played on arrival, after the teleport.
 	var/post_teleport_sound = 'sound/weapons/zapbang.ogg'
-	var/bypass
+	/// The teleport mode to be used, for bypassing area protections
+	var/teleport_mode = TELEPORT_ALLOW_ALL
 
 /datum/action/spell/teleport/on_cast(mob/user, atom/target)
 	. = ..()
@@ -24,7 +25,7 @@
 	if(!length(destinations))
 		CRASH("[type] failed to find a teleport destination.")
 
-	do_teleport(user, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, bypass_area_restriction = bypass)
+	do_teleport(user, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, teleport_mode = teleport_mode)
 
 /// Gets a list of destinations that are valid
 /datum/action/spell/teleport/proc/get_destinations(atom/center)

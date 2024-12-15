@@ -56,7 +56,7 @@
 		targeted_turf,
 		precision = 1,
 		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
+		channel = TELEPORT_CHANNEL_MAGIC_SELF,
 	)
 
 /obj/effect/temp_visual/voidin
