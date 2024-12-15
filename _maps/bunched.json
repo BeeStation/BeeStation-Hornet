@@ -1,11 +1,11 @@
 {
-	"map_name": "bunched",
-	"map_link": "bunched",
-	"map_path": "map_files/bunched",
+	"map_name": "Bunched Station",
+	"map_link": "bunchedstation",
+	"map_path": "map_files/BunchedStation",
 	"map_file": "bunched5.dmm",
 	"shuttles": {
 		"cargo": "cargo_bunched",
-		"ferry": "ferry_fancy",
+		"ferry": "ferry_standard",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_bunched"
 	}
