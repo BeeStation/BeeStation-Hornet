@@ -1,11 +1,11 @@
 // Quick overview:
 //
-// Pipes combine to form pipelines
-// Pipelines and other atmospheric objects combine to form pipe_networks
+// Pipes combine to form pipenets
+// Pipenets and other atmospheric objects combine to form pipe_networks
 //   Note: A single pipe_network represents a completely open space
 //
-// Pipes -> Pipelines
-// Pipelines + Other Objects -> Pipe network
+// Pipes -> Pipenets
+// Pipenets + Other Objects -> Pipe network
 
 #define PIPE_VISIBLE_LEVEL 2
 #define PIPE_HIDDEN_LEVEL 1
@@ -144,15 +144,15 @@
 	SEND_SIGNAL(src, COMSIG_ATMOS_MACHINE_SET_ON, on)
 
 /// This should only be called by SSair as part of the rebuild queue.
-/// Handles rebuilding pipelines after init or they've been changed.
+/// Handles rebuilding pipenets after init or they've been changed.
 /obj/machinery/atmospherics/proc/rebuild_pipes()
 	var/list/targets = get_rebuild_targets()
 	rebuilding = FALSE
-	for(var/datum/pipeline/build_off as anything in targets)
-		build_off.build_pipeline(src) //This'll add to the expansion queue
+	for(var/datum/pipenet/build_off as anything in targets)
+		build_off.build_pipenet(src) //This'll add to the expansion queue
 
 /**
- * Returns a list of new pipelines that need to be built up
+ * Returns a list of new pipenets that need to be built up
  */
 /obj/machinery/atmospherics/proc/get_rebuild_targets()
 	return
@@ -309,9 +309,9 @@
 	return TRUE
 
 /**
- * Called on construction and when expanding the datum_pipeline, returns the nodes of the device
+ * Called on construction and when expanding the datum_pipenet, returns the nodes of the device
  */
-/obj/machinery/atmospherics/proc/pipeline_expansion()
+/obj/machinery/atmospherics/proc/pipenet_expansion()
 	return nodes
 
 /**
@@ -327,25 +327,25 @@
 	return initialize_directions
 
 /**
- * Called by addMember() in datum_pipeline.dm, returns the parent network the device is connected to
+ * Called by addMember() in datum_pipenet.dm, returns the parent network the device is connected to
  */
 /obj/machinery/atmospherics/proc/return_pipenet()
 	return
 
 /*
- * Called by add_machinery_member() in datum_pipeline.dm, returns a list of gas_mixtures and assigns them into other_airs (by add_machinery_member) to allow pressure redistribution for the machineries.
+ * Called by add_machinery_member() in datum_pipenet.dm, returns a list of gas_mixtures and assigns them into other_airs (by add_machinery_member) to allow pressure redistribution for the machineries.
  */
 /obj/machinery/atmospherics/proc/return_pipenet_airs()
 	return
 
 /**
- * Called by build_pipeline() and addMember() in datum_pipeline.dm, set the network the device is connected to, to the datum pipeline it has reference
+ * Called by build_pipenet() and addMember() in datum_pipenet.dm, set the network the device is connected to, to the datum pipenet it has reference
  */
 /obj/machinery/atmospherics/proc/set_pipenet()
 	return
 
 /**
- * Similar to setPipenet() but instead of setting a network to a pipeline, it replaces the old pipeline with a new one, called by Merge() in datum_pipeline.dm
+ * Similar to setPipenet() but instead of setting a network to a pipenet, it replaces the old pipenet with a new one, called by Merge() in datum_pipenet.dm
  */
 /obj/machinery/atmospherics/proc/replace_pipenet()
 	return
@@ -501,7 +501,7 @@
 		set_pipe_color(obj_color)
 	set_piping_layer(set_layer)
 	atmos_init()
-	var/list/nodes = pipeline_expansion()
+	var/list/nodes = pipenet_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)
 		A.atmos_init()
 		A.add_member(src)

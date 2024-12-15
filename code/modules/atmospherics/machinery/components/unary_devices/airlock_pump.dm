@@ -224,7 +224,7 @@
 
 /// Fill a tile with air from the distro node
 /obj/machinery/atmospherics/components/unary/airlock_pump/proc/fill_tile(turf/tile, moles, pressure_delta)
-	var/datum/pipeline/distro_pipe = parents[1]
+	var/datum/pipenet/distro_pipe = parents[1]
 	var/datum/gas_mixture/distro_air = airs[1]
 	var/datum/gas_mixture/tile_air = tile.return_air()
 	var/transfer_moles = (volume_rate / tile_air.volume) * (pressure_delta * tile_air.volume) / (distro_air.temperature * R_IDEAL_GAS_EQUATION)
@@ -241,7 +241,7 @@
 
 /// Siphon air from the tile to the waste node within the volume rate limit
 /obj/machinery/atmospherics/components/unary/airlock_pump/proc/siphon_tile(turf/tile)
-	var/datum/pipeline/waste_pipe = parents[2]
+	var/datum/pipenet/waste_pipe = parents[2]
 	var/datum/gas_mixture/waste_air = airs[2]
 	var/datum/gas_mixture/tile_air = tile.return_air()
 

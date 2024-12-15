@@ -1,15 +1,15 @@
 /obj/machinery/atmospherics/pipe
 	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
 	damage_deflection = 12
-	/// Temporary holder for gases in the absence of a pipeline
+	/// Temporary holder for gases in the absence of a pipenet
 	var/datum/gas_mixture/air_temporary
-	/// The gas capacity this pipe contributes to a pipeline
+	/// The gas capacity this pipe contributes to a pipenet
 	var/volume = 0
 
 	use_power = NO_POWER_USE
 	can_unwrench = 1
-	/// The pipeline this pipe is a member of
-	var/datum/pipeline/parent = null
+	/// The pipenet this pipe is a member of
+	var/datum/pipenet/parent = null
 
 	paintable = TRUE
 
@@ -33,7 +33,7 @@
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE) //if changing this, change the subtypes RemoveElements too, because thats how bespoke works
 
 /obj/machinery/atmospherics/pipe/on_deconstruction(disassembled)
-	//we delete the parent here so it initializes air_temporary for us. See /datum/pipeline/Destroy() which calls temporarily_store_air()
+	//we delete the parent here so it initializes air_temporary for us. See /datum/pipenet/Destroy() which calls temporarily_store_air()
 	QDEL_NULL(parent)
 
 	if(air_temporary)
@@ -98,7 +98,7 @@
 /obj/machinery/atmospherics/pipe/get_rebuild_targets()
 	if(!QDELETED(parent))
 		return
-	replace_pipenet(parent, new /datum/pipeline)
+	replace_pipenet(parent, new /datum/pipenet)
 	return list(parent)
 
 /obj/machinery/atmospherics/pipe/return_air()
@@ -127,7 +127,7 @@
 /obj/machinery/atmospherics/pipe/return_pipenet()
 	return parent
 
-/obj/machinery/atmospherics/pipe/replace_pipenet(datum/pipeline/old_pipenet, datum/pipeline/new_pipenet)
+/obj/machinery/atmospherics/pipe/replace_pipenet(datum/pipenet/old_pipenet, datum/pipenet/new_pipenet)
 	parent = new_pipenet
 
 /obj/machinery/atmospherics/pipe/return_pipenets()

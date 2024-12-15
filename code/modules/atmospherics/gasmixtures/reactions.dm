@@ -237,8 +237,8 @@
 	SET_REACTION_RESULTS(burned_fuel)
 
 	var/turf/open/location
-	if(istype(holder, /datum/pipeline)) //Find the tile the reaction is occurring on, or a random part of the network if it's a pipenet.
-		var/datum/pipeline/pipenet = holder
+	if(istype(holder, /datum/pipenet)) //Find the tile the reaction is occurring on, or a random part of the network if it's a pipenet.
+		var/datum/pipenet/pipenet = holder
 		location = pick(pipenet.members)
 	else if(isatom(holder))
 		location = holder

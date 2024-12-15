@@ -1,4 +1,4 @@
-/datum/pipeline
+/datum/pipenet
 	var/datum/gas_mixture/air
 	var/list/datum/gas_mixture/other_airs
 
@@ -11,17 +11,17 @@
 
 	///Should we equalize air amoung all our members?
 	var/update = TRUE
-	///Is this pipeline being reconstructed?
+	///Is this pipenet being reconstructed?
 	var/building = FALSE
 
-/datum/pipeline/New()
+/datum/pipenet/New()
 	other_airs = list()
 	members = list()
 	other_atmos_machines = list()
 	require_custom_reconcilation = list()
 	SSair.networks += src
 
-/datum/pipeline/Destroy()
+/datum/pipenet/Destroy()
 	SSair.networks -= src
 	if(building)
 		SSair.remove_from_expansion(src)
@@ -36,20 +36,20 @@
 		considered_component.nullify_pipenet(src)
 	return ..()
 
-/datum/pipeline/process()
+/datum/pipenet/process()
 	if(!update || building)
 		return
 
 	reconcile_air()
 	update = air.react(src)
 
-/datum/pipeline/proc/set_air(datum/gas_mixture/new_air)
+/datum/pipenet/proc/set_air(datum/gas_mixture/new_air)
 	if(new_air == air)
 		return
 	air = new_air
 
-///Preps a pipeline for rebuilding, inserts it into the rebuild queue
-/datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
+///Preps a pipenet for rebuilding, inserts it into the rebuild queue
+/datum/pipenet/proc/build_pipenet(obj/machinery/atmospherics/base)
 	building = TRUE
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
@@ -68,8 +68,8 @@
 	air.volume = volume
 	SSair.add_to_expansion(src, base)
 
-///Has the same effect as build_pipeline(), but this doesn't queue its work, so overrun abounds. It's useful for the pregame
-/datum/pipeline/proc/build_pipeline_blocking(obj/machinery/atmospherics/base)
+///Has the same effect as build_pipenet(), but this doesn't queue its work, so overrun abounds. It's useful for the pregame
+/datum/pipenet/proc/build_pipenet_blocking(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/considered_pipe = base
@@ -86,7 +86,7 @@
 	var/list/possible_expansions = list(base)
 	while(length(possible_expansions))
 		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
-			var/list/result = borderline.pipeline_expansion(src)
+			var/list/result = borderline.pipenet_expansion(src)
 			if(!result?.len)
 				possible_expansions -= borderline
 				continue
@@ -101,10 +101,10 @@
 				if(item.parent)
 					var/static/pipenetwarnings = 10
 					if(pipenetwarnings > 0)
-						log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
+						log_mapping("build_pipenet(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
 						pipenetwarnings--
 					if(pipenetwarnings == 0)
-						log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
+						log_mapping("build_pipenet(): further messages about pipenets will be suppressed")
 
 				members += item
 				possible_expansions += item
@@ -121,25 +121,25 @@
 	air.volume = volume
 
 /**
- *  For a machine to properly "connect" to a pipeline and share gases,
- *  the pipeline needs to acknowledge a gas mixture as it's member.
- *  This is currently handled by the other_airs list in the pipeline datum.
+ *  For a machine to properly "connect" to a pipenet and share gases,
+ *  the pipenet needs to acknowledge a gas mixture as it's member.
+ *  This is currently handled by the other_airs list in the pipenet datum.
  *
  *	Other_airs itself is populated by gas mixtures through the parents list that each machineries have.
 *	This parents list is populated when a machinery calls update_parents and is then added into the queue by the controller.
 */
 
-/datum/pipeline/proc/add_machinery_member(obj/machinery/atmospherics/components/considered_component)
+/datum/pipenet/proc/add_machinery_member(obj/machinery/atmospherics/components/considered_component)
 	other_atmos_machines |= considered_component
 	if(considered_component.custom_reconcilation)
 		require_custom_reconcilation |= considered_component
 	var/list/returned_airs = considered_component.return_pipenet_airs(src)
 	if (!length(returned_airs) || (null in returned_airs))
-		stack_trace("add_machinery_member: Nonexistent (empty list) or null machinery gasmix added to pipeline datum from [considered_component] \
+		stack_trace("add_machinery_member: Nonexistent (empty list) or null machinery gasmix added to pipenet datum from [considered_component] \
 		which is of type [considered_component.type]. Nearby: ([considered_component.x], [considered_component.y], [considered_component.z])")
 	other_airs |= returned_airs
 
-/datum/pipeline/proc/add_member(obj/machinery/atmospherics/reference_device, obj/machinery/atmospherics/device_to_add)
+/datum/pipenet/proc/add_member(obj/machinery/atmospherics/reference_device, obj/machinery/atmospherics/device_to_add)
 	if(!istype(reference_device, /obj/machinery/atmospherics/pipe))
 		reference_device.set_pipenet(src, device_to_add)
 		add_machinery_member(reference_device)
@@ -148,35 +148,35 @@
 		if(reference_pipe.parent)
 			merge(reference_pipe.parent)
 		reference_pipe.replace_pipenet(reference_pipe.parent, src)
-		var/list/adjacent = reference_pipe.pipeline_expansion()
+		var/list/adjacent = reference_pipe.pipenet_expansion()
 		for(var/obj/machinery/atmospherics/pipe/adjacent_pipe in adjacent)
 			if(adjacent_pipe.parent == src)
 				continue
-			var/datum/pipeline/parent_pipeline = adjacent_pipe.parent
-			merge(parent_pipeline)
+			var/datum/pipenet/parent_pipenet = adjacent_pipe.parent
+			merge(parent_pipenet)
 		if(!members.Find(reference_pipe))
 			members += reference_pipe
 			air.volume += reference_pipe.volume
 
-/datum/pipeline/proc/merge(datum/pipeline/parent_pipeline)
-	if(parent_pipeline == src)
+/datum/pipenet/proc/merge(datum/pipenet/parent_pipenet)
+	if(parent_pipenet == src)
 		return
-	air.volume += parent_pipeline.air.volume
-	members.Add(parent_pipeline.members)
-	for(var/obj/machinery/atmospherics/pipe/reference_pipe in parent_pipeline.members)
+	air.volume += parent_pipenet.air.volume
+	members.Add(parent_pipenet.members)
+	for(var/obj/machinery/atmospherics/pipe/reference_pipe in parent_pipenet.members)
 		reference_pipe.replace_pipenet(reference_pipe.parent, src)
-	air.merge(parent_pipeline.air)
-	for(var/obj/machinery/atmospherics/components/reference_component in parent_pipeline.other_atmos_machines)
-		reference_component.replace_pipenet(parent_pipeline, src)
+	air.merge(parent_pipenet.air)
+	for(var/obj/machinery/atmospherics/components/reference_component in parent_pipenet.other_atmos_machines)
+		reference_component.replace_pipenet(parent_pipenet, src)
 		if(reference_component.custom_reconcilation)
 			require_custom_reconcilation |= reference_component
-	other_atmos_machines |= parent_pipeline.other_atmos_machines
-	other_airs |= parent_pipeline.other_airs
-	parent_pipeline.members.Cut()
-	parent_pipeline.other_atmos_machines.Cut()
-	parent_pipeline.require_custom_reconcilation.Cut()
+	other_atmos_machines |= parent_pipenet.other_atmos_machines
+	other_airs |= parent_pipenet.other_airs
+	parent_pipenet.members.Cut()
+	parent_pipenet.other_atmos_machines.Cut()
+	parent_pipenet.require_custom_reconcilation.Cut()
 	update = TRUE
-	qdel(parent_pipeline)
+	qdel(parent_pipenet)
 
 /obj/machinery/atmospherics/proc/add_member(obj/machinery/atmospherics/considered_device)
 	return
@@ -185,13 +185,13 @@
 	parent.add_member(considered_device, src)
 
 /obj/machinery/atmospherics/components/add_member(obj/machinery/atmospherics/considered_device)
-	var/datum/pipeline/device_pipeline = return_pipenet(considered_device)
-	if(!device_pipeline)
+	var/datum/pipenet/device_pipenet = return_pipenet(considered_device)
+	if(!device_pipenet)
 		CRASH("null.add_member() called by [type] on [COORD(src)]")
-	device_pipeline.add_member(considered_device, src)
+	device_pipenet.add_member(considered_device, src)
 
 
-/datum/pipeline/proc/temporarily_store_air()
+/datum/pipenet/proc/temporarily_store_air()
 	//Update individual gas_mixtures by volume ratio
 
 	for(var/obj/machinery/atmospherics/pipe/member in members)
@@ -201,7 +201,7 @@
 
 		member.air_temporary.temperature = air.temperature
 
-/datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
+/datum/pipenet/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
 	var/total_heat_capacity = air.heat_capacity()
 	var/partial_heat_capacity = total_heat_capacity * (share_volume / air.volume)
 
@@ -221,24 +221,24 @@
 		target.temperature_expose(air, target.temperature)
 	update = TRUE
 
-/datum/pipeline/proc/return_air()
+/datum/pipenet/proc/return_air()
 	. = other_airs + air
 	if(list_clear_nulls(.))
 		stack_trace("[src] has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
 
-/datum/pipeline/proc/reconcile_air()
+/datum/pipenet/proc/reconcile_air()
 	var/list/datum/gas_mixture/gas_mixture_list = list()
-	var/list/datum/pipeline/pipeline_list = list()
-	pipeline_list += src
+	var/list/datum/pipenet/pipenet_list = list()
+	pipenet_list += src
 
-	for(var/i = 1; i <= pipeline_list.len; i++) //can't do a for-each here because we may add to the list within the loop
-		var/datum/pipeline/pipeline = pipeline_list[i]
-		if(!pipeline)
+	for(var/i = 1; i <= pipenet_list.len; i++) //can't do a for-each here because we may add to the list within the loop
+		var/datum/pipenet/pipenet = pipenet_list[i]
+		if(!pipenet)
 			continue
-		gas_mixture_list += pipeline.other_airs
-		gas_mixture_list += pipeline.air
-		for(var/obj/machinery/atmospherics/components/atmos_machine as anything in pipeline.require_custom_reconcilation)
-			pipeline_list |= atmos_machine.return_pipenets_for_reconcilation(src)
+		gas_mixture_list += pipenet.other_airs
+		gas_mixture_list += pipenet.air
+		for(var/obj/machinery/atmospherics/components/atmos_machine as anything in pipenet.require_custom_reconcilation)
+			pipenet_list |= atmos_machine.return_pipenets_for_reconcilation(src)
 			gas_mixture_list += atmos_machine.return_airs_for_reconcilation(src)
 
 	var/total_thermal_energy = 0
@@ -253,10 +253,10 @@
 
 	for(var/datum/gas_mixture/gas_mixture as anything in gas_mixture_list)
 		// Ensure we never walk the same mix twice
-		if(gas_mixture.pipeline_cycle == process_id)
+		if(gas_mixture.pipenet_cycle == process_id)
 			gas_mixture_list -= gas_mixture
 			continue
-		gas_mixture.pipeline_cycle = process_id
+		gas_mixture.pipenet_cycle = process_id
 		volume_sum += gas_mixture.volume
 
 		// This is sort of a combined merge + heat_capacity calculation

@@ -23,12 +23,12 @@
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.volume = 0
 	if(connected_device)
-		var/datum/pipeline/parent = parents[1]
+		var/datum/pipenet/parent = parents[1]
 		if(parent)
 			airs[1] = connected_device.air_contents
 			parent.reconcile_air()
 		else
-			CRASH("Portable canister without parent pipeline at [COORD(src)]")
+			CRASH("Portable canister without parent pipenet at [COORD(src)]")
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)
@@ -46,7 +46,7 @@
 		return
 	update_parents()
 
-/obj/machinery/atmospherics/components/unary/portables_connector/return_airs_for_reconcilation(datum/pipeline/requester)
+/obj/machinery/atmospherics/components/unary/portables_connector/return_airs_for_reconcilation(datum/pipenet/requester)
 	. = ..()
 	if(!connected_device)
 		return

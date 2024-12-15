@@ -10,8 +10,8 @@
 	var/showpipe = TRUE
 	///When the component is on a non default layer should we shift everything? Or just the underlay pipe
 	var/shift_underlay_only = TRUE
-	///Stores the component pipeline
-	var/list/datum/pipeline/parents
+	///Stores the component pipenet
+	var/list/datum/pipenet/parents
 	///If this is queued for a rebuild this var signifies whether parents should be updated after it's done
 	var/update_parents_after_rebuild = FALSE
 	///Stores the component gas mixture
@@ -115,22 +115,22 @@
 	for(var/i in 1 to device_type)
 		if(parents[i])
 			continue
-		parents[i] = new /datum/pipeline()
+		parents[i] = new /datum/pipenet()
 		to_return += parents[i]
 	return to_return
 
 /**
- * Called by nullify_node(), used to remove the pipeline the component is attached to
+ * Called by nullify_node(), used to remove the pipenet the component is attached to
  * Arguments:
- * * -reference: the pipeline the component is attached to
+ * * -reference: the pipenet the component is attached to
  */
-/obj/machinery/atmospherics/components/proc/nullify_pipenet(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/proc/nullify_pipenet(datum/pipenet/reference)
 	if(!reference)
 		CRASH("nullify_pipenet(null) called by [type] on [COORD(src)]")
 
 	for (var/i in 1 to length(parents))
 		if (parents[i] == reference)
-			reference.other_airs -= airs[i] // Disconnects from the pipeline side
+			reference.other_airs -= airs[i] // Disconnects from the pipenet side
 			parents[i] = null // Disconnects from the machinery side.
 
 	reference.other_atmos_machines -= src
@@ -138,9 +138,9 @@
 		reference.require_custom_reconcilation -= src
 
 	/**
-	 *  We explicitly qdel pipeline when this particular pipeline
+	 *  We explicitly qdel pipenet when this particular pipenet
 	 *  is projected to have no member and cause GC problems.
-	 *  We have to do this because components don't qdel pipelines
+	 *  We have to do this because components don't qdel pipenets
 	 *  while pipes must and will happily wreck and rebuild everything
 	 * again every time they are qdeleted.
 	 */
@@ -150,7 +150,7 @@
 			CRASH("nullify_pipenet() called on qdeleting [reference]")
 		qdel(reference)
 
-/obj/machinery/atmospherics/components/return_pipenet_airs(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/return_pipenet_airs(datum/pipenet/reference)
 	var/list/returned_air = list()
 
 	for (var/i in 1 to parents.len)
@@ -158,24 +158,24 @@
 			returned_air += airs[i]
 	return returned_air
 
-/obj/machinery/atmospherics/components/pipeline_expansion(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/pipenet_expansion(datum/pipenet/reference)
 	if(reference)
 		return list(nodes[parents.Find(reference)])
 	return ..()
 
-/obj/machinery/atmospherics/components/set_pipenet(datum/pipeline/reference, obj/machinery/atmospherics/target_component)
+/obj/machinery/atmospherics/components/set_pipenet(datum/pipenet/reference, obj/machinery/atmospherics/target_component)
 	parents[nodes.Find(target_component)] = reference
 
 /obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/target_component = nodes[1]) //returns parents[1] if called without argument
 	return parents[nodes.Find(target_component)]
 
-/obj/machinery/atmospherics/components/replace_pipenet(datum/pipeline/Old, datum/pipeline/New)
+/obj/machinery/atmospherics/components/replace_pipenet(datum/pipenet/Old, datum/pipenet/New)
 	parents[parents.Find(Old)] = New
 
 // Helpers
 
 /**
- * Called in most atmos processes and gas handling situations, update the parents pipelines of the devices connected to the source component
+ * Called in most atmos processes and gas handling situations, update the parents pipenets of the devices connected to the source component
  * This way gases won't get stuck
  */
 /obj/machinery/atmospherics/components/proc/update_parents()
@@ -185,7 +185,7 @@
 		update_parents_after_rebuild = TRUE
 		return
 	for(var/i in 1 to device_type)
-		var/datum/pipeline/parent = parents[i]
+		var/datum/pipenet/parent = parents[i]
 		if(!parent)
 			WARNING("Component is missing a pipenet! Rebuilding...")
 			SSair.add_to_rebuild_queue(src)
@@ -197,14 +197,14 @@
 	for(var/i in 1 to device_type)
 		. += return_pipenet(nodes[i])
 
-/// When this machine is in a pipenet that is reconciling airs, this proc can add pipelines to the calculation.
+/// When this machine is in a pipenet that is reconciling airs, this proc can add pipenets to the calculation.
 /// Can be either a list of pipenets or a single pipenet.
-/obj/machinery/atmospherics/components/proc/return_pipenets_for_reconcilation(datum/pipeline/requester)
+/obj/machinery/atmospherics/components/proc/return_pipenets_for_reconcilation(datum/pipenet/requester)
 	return list()
 
 /// When this machine is in a pipenet that is reconciling airs, this proc can add airs to the calculation.
 /// Can be either a list of airs or a single air mix.
-/obj/machinery/atmospherics/components/proc/return_airs_for_reconcilation(datum/pipeline/requester)
+/obj/machinery/atmospherics/components/proc/return_airs_for_reconcilation(datum/pipenet/requester)
 	return list()
 
 // UI Stuff

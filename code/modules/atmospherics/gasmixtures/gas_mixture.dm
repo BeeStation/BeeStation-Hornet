@@ -40,9 +40,9 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	var/list/analyzer_results
 	/// Whether to call garbage_collect() on the sharer during shares, used for immutable mixtures
 	var/gc_share = FALSE
-	/// When this gas mixture was last touched by pipeline processing
+	/// When this gas mixture was last touched by pipenet processing
 	/// I am sorry
-	var/pipeline_cycle = -1
+	var/pipenet_cycle = -1
 
 /datum/gas_mixture/New(volume)
 	gases = new

@@ -17,7 +17,7 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue//no parent vent
 			//Stops nymphs getting stuck in small networks.

@@ -288,7 +288,7 @@ All ShuttleMove procs go here
 
 	if(missing_nodes)
 		atmos_init()
-		for(var/obj/machinery/atmospherics/A in pipeline_expansion())
+		for(var/obj/machinery/atmospherics/A in pipenet_expansion())
 			A.atmos_init()
 			if(A.return_pipenet())
 				A.add_member(src)

@@ -331,15 +331,15 @@ SUBSYSTEM_DEF(air)
 		rebuild_queue += atmos_machine
 		atmos_machine.rebuilding = TRUE
 
-/datum/controller/subsystem/air/proc/add_to_expansion(datum/pipeline/line, starting_point)
+/datum/controller/subsystem/air/proc/add_to_expansion(datum/pipenet/line, starting_point)
 	var/list/new_packet = new(SSAIR_REBUILD_QUEUE)
-	new_packet[SSAIR_REBUILD_PIPELINE] = line
+	new_packet[SSAIR_REBUILD_PIPENET] = line
 	new_packet[SSAIR_REBUILD_QUEUE] = list(starting_point)
 	expansion_queue += list(new_packet)
 
-/datum/controller/subsystem/air/proc/remove_from_expansion(datum/pipeline/line)
+/datum/controller/subsystem/air/proc/remove_from_expansion(datum/pipenet/line)
 	for(var/list/packet in expansion_queue)
-		if(packet[SSAIR_REBUILD_PIPELINE] == line)
+		if(packet[SSAIR_REBUILD_PIPENET] == line)
 			expansion_queue -= packet
 			return
 
@@ -458,11 +458,11 @@ SUBSYSTEM_DEF(air)
 		var/list/queue = expansion_queue
 		while(queue.len)
 			var/list/pack = queue[queue.len]
-			//We operate directly with the pipeline like this because we can trust any rebuilds to remake it properly
-			var/datum/pipeline/linepipe = pack[SSAIR_REBUILD_PIPELINE]
+			//We operate directly with the pipenet like this because we can trust any rebuilds to remake it properly
+			var/datum/pipenet/linepipe = pack[SSAIR_REBUILD_PIPENET]
 			var/list/border = pack[SSAIR_REBUILD_QUEUE]
-			expand_pipeline(linepipe, border)
-			if(state != SS_RUNNING) //expand_pipeline can fail a tick check, we shouldn't let things get too fucky here
+			expand_pipenet(linepipe, border)
+			if(state != SS_RUNNING) //expand_pipenet can fail a tick check, we shouldn't let things get too fucky here
 				return
 
 			linepipe.building = FALSE
@@ -470,13 +470,13 @@ SUBSYSTEM_DEF(air)
 			if (MC_TICK_CHECK)
 				return
 
-///Rebuilds a pipeline by expanding outwards, while yielding when sane
-/datum/controller/subsystem/air/proc/expand_pipeline(datum/pipeline/net, list/border)
+///Rebuilds a pipenet by expanding outwards, while yielding when sane
+/datum/controller/subsystem/air/proc/expand_pipenet(datum/pipenet/net, list/border)
 	while(border.len)
 		var/obj/machinery/atmospherics/borderline = border[border.len]
 		border.len--
 
-		var/list/result = borderline.pipeline_expansion(net)
+		var/list/result = borderline.pipenet_expansion(net)
 		if(!length(result))
 			continue
 		for(var/obj/machinery/atmospherics/considered_device in result)
@@ -490,10 +490,10 @@ SUBSYSTEM_DEF(air)
 			if(item.parent)
 				var/static/pipenetwarnings = 10
 				if(pipenetwarnings > 0)
-					log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
+					log_mapping("build_pipenet(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
 					pipenetwarnings--
 				if(pipenetwarnings == 0)
-					log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
+					log_mapping("build_pipenet(): further messages about pipenets will be suppressed")
 
 			net.members += item
 			border += item
@@ -683,8 +683,8 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_pipenets()
 	for(var/obj/machinery/atmospherics/AM in atmos_machinery)
 		var/list/targets = AM.get_rebuild_targets()
-		for(var/datum/pipeline/build_off as anything in targets)
-			build_off.build_pipeline_blocking(AM)
+		for(var/datum/pipenet/build_off as anything in targets)
+			build_off.build_pipenet_blocking(AM)
 		CHECK_TICK
 
 GLOBAL_LIST_EMPTY(colored_turfs)
@@ -710,8 +710,8 @@ GLOBAL_LIST_EMPTY(colored_images)
 	for(var/A in 1 to atmos_machines.len)
 		AM = atmos_machines[A]
 		var/list/targets = AM.get_rebuild_targets()
-		for(var/datum/pipeline/build_off as anything in targets)
-			build_off.build_pipeline_blocking(AM)
+		for(var/datum/pipenet/build_off as anything in targets)
+			build_off.build_pipenet_blocking(AM)
 		CHECK_TICK
 
 

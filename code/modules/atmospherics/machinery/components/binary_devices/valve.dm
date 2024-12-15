@@ -30,7 +30,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	return !(machine_stat & BROKEN) && on // valves should block whatever is trying to go through them, regardless of power
 
 /**
- * Called by finish_interact(), switch between open and closed, reconcile the air between two pipelines
+ * Called by finish_interact(), switch between open and closed, reconcile the air between two pipenets
  */
 /obj/machinery/atmospherics/components/binary/valve/proc/set_open(to_open)
 	if(on == to_open)
@@ -41,7 +41,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	if(on)
 		update_icon_nopipes()
 		update_parents()
-		var/datum/pipeline/parent1 = parents[1]
+		var/datum/pipenet/parent1 = parents[1]
 		parent1.reconcile_air()
 		investigate_log("was opened by [usr ? key_name(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 		balloon_alert_to_viewers("valve opened")
@@ -54,7 +54,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 // This is what handles the actual functionality of combining 2 pipenets when the valve is open
 // Basically when a pipenet updates it will consider both sides to be the same for the purpose of the gas update
-/obj/machinery/atmospherics/components/binary/valve/return_pipenets_for_reconcilation(datum/pipeline/requester)
+/obj/machinery/atmospherics/components/binary/valve/return_pipenets_for_reconcilation(datum/pipenet/requester)
 	. = ..()
 	if(!on)
 		return

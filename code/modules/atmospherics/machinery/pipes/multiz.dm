@@ -44,7 +44,7 @@
 	add_overlay(center)
 
 /// Attempts to locate a multiz pipe that's above us, if it finds one it merges us into its pipenet
-/obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
+/obj/machinery/atmospherics/pipe/multiz/pipenet_expansion()
 	var/turf/T = get_turf(src)
 	for(var/obj/machinery/atmospherics/pipe/multiz/above in GET_TURF_ABOVE(T))
 		if(is_connectable(above, piping_layer))
@@ -52,7 +52,7 @@
 			above.nodes[3] = src //Two way travel :)
 	for(var/obj/machinery/atmospherics/pipe/multiz/below in GET_TURF_BELOW(T))
 		if(is_connectable(below, piping_layer))
-			below.pipeline_expansion() // If we've got one below us, force it to add us on facebook
+			below.pipenet_expansion() // If we've got one below us, force it to add us on facebook
 	return ..()
 
 // MAPPING

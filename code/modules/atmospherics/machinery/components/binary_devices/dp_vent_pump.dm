@@ -72,7 +72,7 @@
 				loc.assume_air_moles(air1, transfer_moles)
 
 
-				var/datum/pipeline/parent1 = parents[1]
+				var/datum/pipenet/parent1 = parents[1]
 				parent1.update = TRUE
 
 	else //external -> output
@@ -87,7 +87,7 @@
 			if(moles_delta > 0)
 				loc.transfer_air(air2, moles_delta)
 
-				var/datum/pipeline/parent2 = parents[2]
+				var/datum/pipenet/parent2 = parents[2]
 				parent2.update = TRUE
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/welder_act(mob/living/user, obj/item/I)

@@ -116,7 +116,7 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	var/datum/pipeline/connected_port_parent = connected_port.parents[1]
+	var/datum/pipenet/connected_port_parent = connected_port.parents[1]
 	if(connected_port_parent)
 		connected_port_parent.reconcile_air()
 

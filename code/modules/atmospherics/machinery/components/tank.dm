@@ -87,7 +87,7 @@
 /obj/machinery/atmospherics/components/tank/return_analyzable_air()
 	return air_contents
 
-/obj/machinery/atmospherics/components/tank/return_airs_for_reconcilation(datum/pipeline/requester)
+/obj/machinery/atmospherics/components/tank/return_airs_for_reconcilation(datum/pipenet/requester)
 	. = ..()
 	if(!air_contents)
 		return
