@@ -71,6 +71,11 @@
 	icon_state = "srvsec_cypherkey"
 	channels = list(RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_SECURITY = 1)
 
+/obj/item/encryptionkey/headset_medsec
+	name = "medical-security encryption key"
+	icon_state = "medsec_cypherkey"
+	channels = list(RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SECURITY = 1)
+
 /obj/item/encryptionkey/headset_com
 	name = "command radio encryption key"
 	icon_state = "com_cypherkey"
