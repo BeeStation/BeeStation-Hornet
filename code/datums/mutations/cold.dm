@@ -34,6 +34,7 @@
 	item_type = /obj/item/stack/sheet/wax
 	cooldown_time = 5 SECONDS
 	delete_old = FALSE
+	spell_requirements = NONE
 	button_icon_state = "honey"
 	mindbound = FALSE
 

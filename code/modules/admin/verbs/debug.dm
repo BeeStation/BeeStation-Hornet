@@ -1036,9 +1036,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/mob/living/carbon/human/human = mob
 	if (!istype(human))
 		return
-	for (var/datum/mutation/mutation as anything in subtypesof(/datum/mutation))
-		if (!initial(mutation.power_path))
-			continue
+	for (var/datum/mutation/test as anything in subtypesof(/datum/mutation))
+		if(tgui_alert(mob, "Do you want to [test] yourself?", "", list("Yes", "No")) == "Yes")
+			human.dna.add_mutation(test)
 
 /// A debug verb to check the sources of currently running timers
 /client/proc/check_timer_sources()

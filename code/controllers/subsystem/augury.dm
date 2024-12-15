@@ -78,4 +78,4 @@ SUBSYSTEM_DEF(augury)
 	if(active)
 		button.icon_state = "template_active"
 	else
-		button_icon_state = "template"
+		button.icon_state = "template"
