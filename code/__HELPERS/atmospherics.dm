@@ -25,22 +25,33 @@
 /proc/gas_mixture_parser(datum/gas_mixture/gasmix, name)
 	. = list(
 		"gases" = list(),
-		"name" = name,
+		"reactions" = list(),
+		"name" = format_text(name),
 		"total_moles" = null,
 		"temperature" = null,
 		"volume"= null,
 		"pressure"= null,
-		"ref" = null,
-		)
+		"reference" = null,
+	)
 	if(!gasmix)
 		return
-	for(var/gas_id in gasmix.gases)
-		.["gases"][gasmix.gases[gas_id][GAS_META][META_GAS_NAME]] = gasmix.gases[gas_id][MOLES]
+	for(var/gas_path in gasmix.gases)
+		.["gases"] += list(list(
+			gasmix.gases[gas_path][GAS_META][META_GAS_ID],
+			gasmix.gases[gas_path][GAS_META][META_GAS_NAME],
+			gasmix.gases[gas_path][MOLES],
+		))
+	for(var/datum/gas_reaction/reaction_result as anything in gasmix.reaction_results)
+		.["reactions"] += list(list(
+			initial(reaction_result.id),
+			initial(reaction_result.name),
+			gasmix.reaction_results[reaction_result],
+		))
 	.["total_moles"] = gasmix.total_moles()
 	.["temperature"] = gasmix.temperature
 	.["volume"] = gasmix.volume
 	.["pressure"] = gasmix.return_pressure()
-	.["ref"] = REF(gasmix)
+	.["reference"] = REF(gasmix)
 
 /proc/extract_id_tags(list/objects)
 	var/list/tags = list()

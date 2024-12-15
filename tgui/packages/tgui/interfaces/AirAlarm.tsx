@@ -322,7 +322,7 @@ const EditingModal = (props: EditingModalProps, context) => {
         ) : (
           <>
             <NumberInput
-              onChange={(value) =>
+              onChange={(e, value) =>
                 act('set_threshold', {
                   threshold: id,
                   threshold_type: type,
