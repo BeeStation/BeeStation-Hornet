@@ -197,6 +197,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/give_all_spells_jaunt,
 	/client/proc/give_all_spells_pointed,
 	/client/proc/give_all_mutations,
+	/client/proc/give_all_action_mutations,
 	/client/proc/give_all_spells_projectile,
 	/client/proc/give_all_spells_shapeshift,
 	/client/proc/give_all_spells_teleport,

@@ -8,7 +8,7 @@
 	school = SCHOOL_TRANSLOCATION
 	cooldown_time = 1 MINUTES
 	cooldown_reduction_per_rank = 10 SECONDS
-
+	spell_requirements = NONE
 	invocation = "SCYAR NILA"
 	invocation_type = INVOCATION_SHOUT
 
@@ -22,7 +22,6 @@
 	name = "Santa Teleport"
 
 	invocation = "HO HO HO!"
-	spell_requirements = NONE
 	antimagic_flags = NONE
 
 	invocation_says_area = FALSE // Santa moves in mysterious ways
@@ -34,7 +33,6 @@
 
 	invocation = null
 	invocation_type = INVOCATION_NONE
-	spell_requirements = NONE
 	bypass = TELEPORT_ALLOW_WIZARD
 	invocation_says_area = FALSE
 

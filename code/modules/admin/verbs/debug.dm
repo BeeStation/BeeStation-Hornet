@@ -1028,9 +1028,22 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(istype(power, /datum/action/spell))
 			power.Remove(mob)
 
-/client/proc/give_all_mutations()
+/client/proc/give_all_action_mutations()
 	set category = "Debug"
 	set name = "Give all action mutations"
+	if(!check_rights(R_DEBUG))
+		return
+	var/mob/living/carbon/human/human = mob
+	if (!istype(human))
+		return
+	for (var/datum/mutation/mutation as anything in subtypesof(/datum/mutation))
+		if (!initial(mutation.power_path))
+			continue
+		human.dna.add_mutation(mutation)
+
+/client/proc/give_all_mutations()
+	set category = "Debug"
+	set name = "Give all mutations"
 	if(!check_rights(R_DEBUG))
 		return
 	var/mob/living/carbon/human/human = mob
@@ -1039,6 +1052,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for (var/datum/mutation/test as anything in subtypesof(/datum/mutation))
 		if(tgui_alert(mob, "Do you want to [test] yourself?", "", list("Yes", "No")) == "Yes")
 			human.dna.add_mutation(test)
+
 
 /// A debug verb to check the sources of currently running timers
 /client/proc/check_timer_sources()
