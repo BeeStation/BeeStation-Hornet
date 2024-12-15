@@ -3,7 +3,7 @@
 	show_roundend_report = FALSE
 
 /datum/antagonist/ashwalker
-	name = "Ash Walker"
+	name = "\improper Ash Walker"
 	banning_key = ROLE_ASHWALKER
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
