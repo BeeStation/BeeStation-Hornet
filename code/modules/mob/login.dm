@@ -132,6 +132,10 @@
 
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 
+	// Set mouse pointer
+	client.mouse_override_icon = null
+	update_mouse_pointer()
+
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
 
 	return TRUE
