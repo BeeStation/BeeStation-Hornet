@@ -438,8 +438,7 @@
 /obj/effect/mob_spawn/corpse/human/nanotrasensoldier{
 	outfit_override = list("head" = null);
 	id_job = "Tradepost Officer";
-	name = "Tradeport Officer";
-	
+	name = "Tradeport Officer"
 	},
 /obj/item/paper/crumpled/ruins/bigderelict1/coward,
 /obj/effect/decal/cleanable/blood/old{
