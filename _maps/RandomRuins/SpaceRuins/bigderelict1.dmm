@@ -439,7 +439,7 @@
 	outfit_override = list("head" = null);
 	id_job = "Tradepost Officer";
 	name = "Tradeport Officer";
-	random = 1
+	
 	},
 /obj/item/paper/crumpled/ruins/bigderelict1/coward,
 /obj/effect/decal/cleanable/blood/old{

@@ -101,4 +101,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/golem)
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
 	use_cooldown = TRUE //Only the roundstart free golems aren't
-	outfit_override = list("id" = /obj/item/card/id/golem/spawner) //am not lazy! This is just a dumb snowflake usecase. Someone else refactor all of golems one day...

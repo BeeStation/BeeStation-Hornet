@@ -161,15 +161,38 @@
 
 /datum/outfit/consumed_golem/pre_equip(mob/living/carbon/human/golem, visualsOnly = FALSE)
 	if(!visualsOnly)
-		golem.set_species(pick(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
+		golem.set_species(pick(
+			/datum/species/golem/adamantine,
+			/datum/species/golem/plasma,
+			/datum/species/golem/diamond,
+			/datum/species/golem/gold,
+			/datum/species/golem/silver,
+			/datum/species/golem/plasteel,
+			/datum/species/golem/titanium,
+			/datum/species/golem/plastitanium
+		))
 	if(prob(30))
-		glasses = pick_weight(list(/obj/item/clothing/glasses/meson = 2, /obj/item/clothing/glasses/hud/health = 2, /obj/item/clothing/glasses/hud/diagnostic =2, /obj/item/clothing/glasses/science = 2, /obj/item/clothing/glasses/welding = 2, /obj/item/clothing/glasses/night = 1))
-	if(prob(10))
-		belt = pick(list(/obj/item/storage/belt/mining/vendor, /obj/item/storage/belt/utility/full))
+		glasses = pick_weight(list(
+			/obj/item/clothing/glasses/meson = 2,
+			/obj/item/clothing/glasses/hud/health = 2,
+			/obj/item/clothing/glasses/hud/diagnostic =2,
+			/obj/item/clothing/glasses/science = 2,
+			/obj/item/clothing/glasses/welding = 2,
+			/obj/item/clothing/glasses/night = 1
+		))
+	if(prob(10) && !visualsOnly)
+		belt = pick(list(
+			/obj/item/storage/belt/mining/vendor,
+			/obj/item/storage/belt/utility/full
+		))
 	if(prob(50))
 		neck = /obj/item/bedsheet/rd/royal_cape
-	if(prob(10))
-		l_pocket = pick(list(/obj/item/powertool/jaws_of_life, /obj/item/powertool/hand_drill, /obj/item/weldingtool/experimental))
+	if(prob(10) && !visualsOnly)
+		l_pocket = pick(list(
+			/obj/item/powertool/jaws_of_life,
+			/obj/item/powertool/hand_drill,
+			/obj/item/weldingtool/experimental
+		))
 
 //this is so pointlessly gendered but whatever bro i'm here to refactor not judge
 /datum/outfit/consumed_dame
