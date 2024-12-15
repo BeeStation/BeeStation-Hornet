@@ -197,6 +197,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/xeno_senite
 
 /obj/effect/mob_spawn/ghost_role/sentient_artifact
 	name = "Sentient Xenoartifact"
+	prompt_name ="A listless evil..."
 	you_are_text = "You're a maleviolent sentience, possesing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE

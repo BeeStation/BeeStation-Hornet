@@ -436,7 +436,7 @@
 /area/ruin/space/has_grav/derelictoutpost)
 "bq" = (
 /obj/effect/mob_spawn/corpse/human/nanotrasensoldier{
-	head = null;
+	outfit_override = list("head" = null);
 	id_job = "Tradepost Officer";
 	name = "Tradeport Officer";
 	random = 1

@@ -38,25 +38,23 @@ export const SpawnersMenu = (props, context) => {
                         onClick={() =>
                           act('jump', {
                             name: spawner.name,
-                          })}
+                          })
+                        }
                       />
                       <Button
                         content="Spawn"
                         onClick={() =>
                           act('spawn', {
                             name: spawner.name,
-                          })}
+                          })
+                        }
                       />
                     </Stack.Item>
                   </Stack>
                 }>
                 <LabeledList>
-                  <LabeledList.Item label="Origin">
-                    {spawner.you_are_text || 'Unknown'}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Directives">
-                    {spawner.flavor_text || 'None'}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Origin">{spawner.you_are_text || 'Unknown'}</LabeledList.Item>
+                  <LabeledList.Item label="Directives">{spawner.flavor_text || 'None'}</LabeledList.Item>
                   <LabeledList.Item color="bad" label="Conditions">
                     {spawner.important_text || 'None'}
                   </LabeledList.Item>

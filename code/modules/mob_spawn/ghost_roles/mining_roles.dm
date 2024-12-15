@@ -321,17 +321,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/ash_walker)
 
 
 //Broken rejuvenation pod: Spawns in animal hospitals in lavaland. Ghosts become disoriented interns and are advised to search for help.
-/obj/effect/mob_spawn/ghost_role/human/doctor/lavaland
+/obj/effect/mob_spawn/ghost_role/human/lavaland_doctor
 	name = "broken rejuvenation pod"
 	desc = "A small sleeper typically used to instantly restore minor wounds. This one seems broken, and its occupant is comatose."
-	mob_name = "a translocated vet"
+	mob_name = "a lavaland veterinarian"
+	prompt_name = "a lavaland veterinarian"
+	you_are_text = "I am here to heal animals... right?"
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
 	assignedrole = "Translocated Vet"
 	role_ban = ROLE_TRANSLOCATED_VET
 
-/obj/effect/mob_spawn/ghost_role/human/doctor/lavaland/Destroy()
+/obj/effect/mob_spawn/ghost_role/human/lavaland_doctor/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
 	return ..()
