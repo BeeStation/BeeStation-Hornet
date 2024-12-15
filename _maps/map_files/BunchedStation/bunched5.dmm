@@ -33280,6 +33280,9 @@
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/box,
 /obj/machinery/light_switch/directional/west,
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
 /turf/open/floor/iron/techmaint,
 /area/medical/morgue)
 "itZ" = (
@@ -42659,16 +42662,16 @@
 /area/medical/medbay/lobby)
 "kSx" = (
 /obj/structure/table/reinforced,
+/obj/item/stack/spacecash/c100{
+	pixel_x = 12;
+	pixel_y = 14
+	},
 /obj/structure/festivus{
 	desc = "Your mind struggles to comprehend what this pole could be used for.";
 	name = "pole";
 	pixel_x = -16;
 	pixel_y = 5;
-	layer = 3.1
-	},
-/obj/item/stack/spacecash/c100{
-	pixel_x = 12;
-	pixel_y = 14
+	anchored = 1
 	},
 /turf/open/floor/carpet/purple,
 /area/construction)
@@ -44288,9 +44291,6 @@
 	req_one_access_txt = "6;4;29"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Shutters"
@@ -93648,6 +93648,14 @@
 	dir = 1
 	},
 /area/science/robotics/lab)
+"xIa" = (
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/effect/turf_decal/stripes,
+/obj/structure/disposalpipe/junction{
+	dir = 8
+	},
+/turf/open/floor/iron/techmaint,
+/area/medical/morgue)
 "xId" = (
 /obj/structure/railing{
 	dir = 1
@@ -144537,7 +144545,7 @@ tuB
 lLf
 wJW
 itK
-vEl
+xIa
 fBN
 bbs
 bYg

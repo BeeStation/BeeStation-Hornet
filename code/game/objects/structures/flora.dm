@@ -116,6 +116,7 @@
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "festivus_pole"
 	desc = "During last year's Feats of Strength the Research Director was able to suplex this passing immobile rod into a planter."
+	layer = ABOVE_MOB_LAYER // so it doesn't get obscured by objects, windows and mobs on the tile north of it
 	zmm_flags = ZMM_LOOKAHEAD
 
 /obj/structure/festivus/anchored

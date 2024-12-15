@@ -345,7 +345,7 @@
 "Ev" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/alphabet/number_1/quarter{
-	color = "#8f251a"
+	color = "#801000"
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
@@ -422,7 +422,7 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/alphabet/number_5/quarter{
 	dir = 8;
-	color = "#8f251a"
+	color = "#801000"
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
