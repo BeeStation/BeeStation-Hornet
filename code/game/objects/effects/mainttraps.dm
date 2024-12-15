@@ -269,7 +269,7 @@
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
 	rapid_melee = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/cat_butcher, /obj/item/circular_saw)
+	loot = list(/obj/effect/mob_spawn/corpse/human/cat_butcher, /obj/item/circular_saw)
 	mobchatspan = "medicaldoctor"
 
 //this abomination goes in here because it doesnt really belong with normal cult runes

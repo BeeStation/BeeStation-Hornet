@@ -149,7 +149,7 @@
 
 //ids and ert code
 
-/obj/item/card/id/advanced/bountyhunter
+/obj/item/card/id/bountyhunter
 	assignment = "Bounty Hunter"
 	//icon_state = "card_flames" //oh SHIT
 	//trim = /datum/id_trim/bounty_hunter
@@ -164,6 +164,6 @@
 	id = /obj/item/card/id/silver/bounty/ert
 
 /*
-/obj/item/card/id/advanced/bountyhunter/ert
+/obj/item/card/id/centcom/bountyhunter/ert
 	trim = /datum/id_trim/centcom/bounty_hunter
 */

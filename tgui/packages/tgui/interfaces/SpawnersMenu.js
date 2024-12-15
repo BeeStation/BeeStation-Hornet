@@ -1,3 +1,4 @@
+import { capitalizeAll } from 'common/string';
 import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
@@ -35,12 +36,12 @@ export const SpawnersMenu = (props, context) => {
                 </>
               }>
               <Box bold mb={1} fontSize="20px">
-                {spawner.short_desc}
+                {spawner.you_are_text}
               </Box>
               <Box>{spawner.flavor_text}</Box>
-              {!!spawner.important_info && (
+              {!!spawner.important_text && (
                 <Box mt={1} bold color="bad" fontSize="26px">
-                  {spawner.important_info}
+                  {spawner.important_text}
                 </Box>
               )}
             </Section>

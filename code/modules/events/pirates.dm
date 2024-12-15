@@ -89,7 +89,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 /proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/async_map_generator/async_map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
-		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
+		for(var/obj/effect/mob_spawn/ghost_role/human/pirate/spawner in A)
 			if(candidates.len > 0)
 				var/mob/M = candidates[1]
 				spawner.create(M.ckey)

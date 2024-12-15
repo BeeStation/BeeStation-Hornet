@@ -117,7 +117,7 @@
 	///he who lives inside
 	var/mob/living/simple_animal/shade/man
 	///His doorbell
-	var/obj/effect/mob_spawn/sentient_artifact/S
+	var/obj/effect/mob_spawn/ghost_role/sentient_artifact/S
 
 /datum/xenoartifact_trait/minor/sentient/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='warning'>The [X.name] whispers to you...</span>")
@@ -195,26 +195,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/proc_holder/spell/targeted/xeno_senite
 	QDEL_NULL(man) //Kill the inner person. Otherwise invisible runs around
 	QDEL_NULL(S)
 
-/obj/effect/mob_spawn/sentient_artifact
-	death = FALSE
+/obj/effect/mob_spawn/ghost_role/sentient_artifact
 	name = "Sentient Xenoartifact"
-	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
+	you_are_text = "You're a maleviolent sentience, possesing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
 	banType = ROLE_SENTIENT_XENOARTIFACT
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/sentient_artifact)
 
-/obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
+/obj/effect/mob_spawn/ghost_role/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	if(!Z)
 		qdel(src)
 		return FALSE
 	artifact = Z
 	return ..()
 
-/obj/effect/mob_spawn/sentient_artifact/create(ckey, name)
+/obj/effect/mob_spawn/ghost_role/sentient_artifact/create(ckey, name)
 	var/datum/xenoartifact_trait/minor/sentient/S = artifact.get_trait(/datum/xenoartifact_trait/minor/sentient)
 	S.setup_sentience(artifact, ckey)
 

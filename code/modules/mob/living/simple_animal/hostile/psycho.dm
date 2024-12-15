@@ -30,7 +30,7 @@
 	stat_attack = HARD_CRIT
 	melee_damage = 15
 	lose_patience_timeout = 350
-	loot = list(/obj/effect/mob_spawn/human/corpse/psychost)
+	loot = list(/obj/effect/mob_spawn/corpse/human/psychost)
 
 /mob/living/simple_animal/hostile/psycho/regular
 	var/cooldown = 0
@@ -77,7 +77,7 @@
 	var/cooldown = 0
 	var/static/list/idle_sounds
 	speed = 0
-	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/muzzle)
+	loot = list(/obj/effect/mob_spawn/corpse/human/psychost/muzzle)
 
 /mob/living/simple_animal/hostile/psycho/muzzle/Initialize(mapload)
 	. = ..()
@@ -118,7 +118,7 @@
 	move_to_delay = 2
 	melee_damage = 15
 	attack_sound = null
-	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/trap)
+	loot = list(/obj/effect/mob_spawn/corpse/human/psychost/trap)
 	var/cooldown = 0
 	var/static/list/idle_sounds
 

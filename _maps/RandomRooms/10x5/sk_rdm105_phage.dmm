@@ -86,7 +86,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "D" = (
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/corpse/human/assistant,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron,
 /area/template_noop)
