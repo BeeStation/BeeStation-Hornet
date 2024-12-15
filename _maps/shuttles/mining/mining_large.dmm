@@ -170,17 +170,17 @@
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aE" = (
-/obj/machinery/power/apc/highcap{
-	dir = 4;
-	locked = 0;
-	name = "Mining Shuttle APC";
-	pixel_x = 24
-	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
+/obj/machinery/power/apc/highcap{
+	dir = 8;
+	locked = 0;
+	name = "Mining Shuttle APC";
+	pixel_x = -24
+	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aF" = (
