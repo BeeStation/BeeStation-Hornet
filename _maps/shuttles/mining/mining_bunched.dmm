@@ -7,14 +7,14 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "e" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "g" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/survival,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "i" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
@@ -30,7 +30,7 @@
 	},
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "j" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
@@ -45,10 +45,10 @@
 	preferred_direction = 2
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "k" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "l" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -57,7 +57,7 @@
 	dir = 5
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "n" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
@@ -66,13 +66,13 @@
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "p" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "r" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
@@ -83,16 +83,16 @@
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "s" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/ore_box,
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "t" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "w" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 10
@@ -109,7 +109,7 @@
 	},
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "x" = (
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 8
@@ -118,7 +118,7 @@
 	dir = 8
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "D" = (
 /obj/structure/shuttle/engine/propulsion/left{
 	dir = 4
@@ -127,13 +127,13 @@
 	dir = 6
 	},
 /turf/open/floor/plating/airless,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "E" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron/stairs{
 	dir = 4
 	},
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "H" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
@@ -145,11 +145,11 @@
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "I" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/open/floor/plating,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "J" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
@@ -163,7 +163,7 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_in/brown,
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "L" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -178,7 +178,7 @@
 	dir = 6
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "M" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -190,7 +190,7 @@
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "N" = (
 /obj/structure/shuttle/engine/propulsion/right{
 	dir = 4
@@ -199,7 +199,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating/airless,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "P" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
@@ -216,7 +216,7 @@
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "Q" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
@@ -227,7 +227,7 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_in/brown,
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "S" = (
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 4
@@ -240,7 +240,7 @@
 	},
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "T" = (
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
@@ -323,7 +323,7 @@
 /obj/effect/turf_decal/bot,
 /obj/item/storage/toolbox/emergency,
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "U" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -334,7 +334,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 "Y" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
@@ -345,7 +345,7 @@
 	dir = 9
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
+/area/shuttle/mining)
 
 (1,1,1) = {"
 e
