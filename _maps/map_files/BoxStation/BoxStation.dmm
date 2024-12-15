@@ -13513,7 +13513,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "czE" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -22425,6 +22425,13 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
+"fEL" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/engine/engineering)
 "fEW" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -33384,8 +33391,8 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "jWa" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/orange/visible{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -97718,7 +97725,7 @@ cAm
 cMH
 cMN
 qDH
-cSI
+fEL
 cSI
 cMm
 gww

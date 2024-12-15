@@ -511,6 +511,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			// An unplaced pipe never has any existing connections, so just directly assign the new configuration
 			target_unsecured_pipe.p_init_dir = p_init_dir
 			target_unsecured_pipe.update()
+			return
 
 	if(mode & BUILD_MODE)
 		switch(category) //if we've gotten this var, the target is valid
