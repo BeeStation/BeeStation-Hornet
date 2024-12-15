@@ -190,6 +190,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/reload_configuration,
 	/client/proc/remove_all_spells,
 	/client/proc/give_all_spells_aoe,
+	/client/proc/give_all_spell_aoe_rev,
 	/client/proc/give_all_spells_cone,
 	/client/proc/give_all_spells_conjure,
 	/client/proc/give_all_spells_conjure_item,

@@ -946,7 +946,10 @@
 		is_magic_blocked = TRUE
 
 	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
-		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+		for(var/atom/X in antimagic_sources)
+			if(X.loc == src.loc && !HAS_TRAIT(src, TRAIT_ANTIMAGIC_NO_SELFBLOCK))
+				continue
+			on_block_magic_effects(casted_magic_flags, antimagic_sources)
 
 	return is_magic_blocked
 
