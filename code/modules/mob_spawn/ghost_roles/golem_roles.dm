@@ -100,8 +100,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/golem)
 	prompt_name = "free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
-	use_cooldown = TRUE	//Only the roundstart free golems are
+	use_cooldown = TRUE //Only the roundstart free golems aren't
 	outfit = /datum/outfit/adamantine_golem
 
 /datum/outfit/adamantine_golem
+	name = "Adamantine ID"
 	id = /obj/item/card/id/golem/spawner
