@@ -198,7 +198,7 @@
 	layer = ABOVE_MOB_LAYER
 	pixel_x = -17
 
-/obj/structure/flora/bigplant/Initialize()
+/obj/structure/flora/bigplant/Initialize(mapload)
 	icon_state = "bigplant[rand(1, 2)]"
 	. = ..()
 
