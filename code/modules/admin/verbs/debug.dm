@@ -1030,18 +1030,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /client/proc/give_all_mutations()
 	set category = "Debug"
-	set name = "Give all mutations"
+	set name = "Give all action mutations"
 	if(!check_rights(R_DEBUG))
 		return
 	var/mob/living/carbon/human/human = mob
 	if (!istype(human))
 		return
-	for (var/mutation as anything in subtypesof(/datum/mutation))
-		if(ispath(mutation, /datum/mutation/race))
-			continue
-		human.dna.add_mutation(mutation)
-	if(tgui_alert(mob, "Do you want to monkify yourself?", "", list("Yes, No")) == "Yes")
-		human.dna.add_mutation(/datum/mutation/race)
+	for (var/datum/mutation/mutation as anything in subtypesof(/datum/mutation))
+        if (!initial(mutation.power_path))
+            continue
 
 /// A debug verb to check the sources of currently running timers
 /client/proc/check_timer_sources()
