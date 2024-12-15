@@ -97,8 +97,8 @@
 					tab_data["messages"] += list(msg)
 		if (STAT_TAB_ACTIONS)
 			for(var/datum/action/action in actions)
-				tab_data += list(
-					text = get_actions_for_statpanel(actions),
+				tab_data["[action.name]"] = list(
+					text = action.get_stat_label(),
 					type = STAT_BUTTON,
 					action = "do_action",
 					params = list("ref" = REF(action))

@@ -813,24 +813,6 @@
 /mob/proc/is_muzzled()
 	return FALSE
 
-
-/**
-  * Convert a list of actions into a displyable list for the statpanel
-  *
-  * shows spells we can cast, their level, and what cooldown they have and for actions just their cooldown
-  */
-
-/mob/proc/get_actions_for_statpanel(list/actions)
-	var/list/action_data = list()
-	if(!length(actions))
-		return action_data
-	client.stat_update_mode = STAT_MEDIUM_UPDATE
-	for(var/datum/action/action in actions)
-		action.update_stat_status(action_data)
-	for(var/datum/action/action in actions)
-		action_data["[action.name]"] = action.get_stat_label()
-	return action_data
-
 /datum/action/proc/get_stat_label()
 	var/label = ""
 	var/time_left = max(next_use_time - world.time, 0)
