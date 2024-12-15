@@ -223,13 +223,13 @@
 /datum/action/proc/pre_activate(mob/user, atom/target)
 	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
 		return
-	. = on_activate(user, target)
 	// If we successfully activated and are a toggle action, become active
 	if (toggleable)
 		active = TRUE
 		if (target)
 			selected_target = target
 			RegisterSignal(selected_target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+	. = on_activate(user, target)
 	// There is a possibility our action (or owner) is qdeleted in on_activate().
 	if(!QDELETED(src) && !QDELETED(owner))
 		SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
