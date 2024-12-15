@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	purchaseable = TRUE
 	base_value = 0.1
 	desc = "A very common gas that used to pad artificial atmospheres to habitable pressure."
-	primary_color = "#ffff00"
+	primary_color = COLOR_RED
 
 /datum/gas/carbon_dioxide //what the fuck is this?
 	id = GAS_CO2
