@@ -73,11 +73,9 @@
 	chamber_id = ATMOS_GAS_MONITOR_INCINERATOR
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input
-	on = FALSE
 	name = "toxins burn chamber input injector"
 	chamber_id = ATMOS_GAS_MONITOR_TOXINS_BURN
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_freezer_chamber_input
-	on = FALSE
 	name = "toxins freezer chamber input injector"
 	chamber_id = ATMOS_GAS_MONITOR_TOXINS_FREEZER

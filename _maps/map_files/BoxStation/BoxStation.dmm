@@ -26614,7 +26614,9 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "hqw" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	hide = 0
+	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "hqD" = (
