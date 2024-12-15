@@ -5,7 +5,7 @@
 	name = "Vitality Matrix"
 	desc = "Summons a vitality matrix, which drains the life force of non servants, and can be used to heal or revive servants. Requires 2 invokers."
 	tip = "Heal and revive dead servants, while draining the health from non servants."
-	button_icon_state = "Sigil of Vitality"
+	button_icon_state = "Vitality Matrix"
 	power_cost = 300
 	invokation_time = 50
 	invokation_text = list("My life in your hands.")
