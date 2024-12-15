@@ -258,11 +258,6 @@ All ShuttleMove procs go here
 	. = ..()
 	recharging_turf = get_step(loc, dir)
 
-/obj/machinery/atmospherics/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
-	. = ..()
-	if(pipe_vision_img)
-		pipe_vision_img.loc = loc
-
 /obj/machinery/computer/auxillary_base/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	if(is_mining_level(z)) //Avoids double logging and landing on other Z-levels due to badminnery
@@ -270,6 +265,8 @@ All ShuttleMove procs go here
 
 /obj/machinery/atmospherics/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
+	if(pipe_vision_img)
+		pipe_vision_img.loc = loc
 	var/missing_nodes = FALSE
 	for(var/i in 1 to device_type)
 		if(nodes[i])
