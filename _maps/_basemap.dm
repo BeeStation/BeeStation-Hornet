@@ -4,6 +4,7 @@
 // uncomment this for a map you need to use
 // #define FORCE_MAP "corgstation"
 // #define FORCE_MAP "boxstation"
+// #define FORCE_MAP "bunchedstation"
 // #define FORCE_MAP "metastation"
 // #define FORCE_MAP "deltastation"
 // #define FORCE_MAP "kilostation"

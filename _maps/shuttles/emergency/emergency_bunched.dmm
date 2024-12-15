@@ -2,6 +2,10 @@
 "ae" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/status_display/ai/directional/west,
+/obj/effect/turf_decal/alphabet/letter_u/quarter{
+	dir = 4
+	},
+/obj/effect/turf_decal/alphabet/letter_c/quarter,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aE" = (
@@ -321,13 +325,8 @@
 /area/shuttle/escape)
 "jX" = (
 /obj/effect/turf_decal/siding/red,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -367,6 +366,14 @@
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"mu" = (
+/obj/effect/turf_decal/tile/steelgrid/diagonal,
+/obj/effect/turf_decal/alphabet/letter_k/quarter{
+	dir = 4
+	},
+/obj/effect/turf_decal/alphabet/letter_y/quarter,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "nr" = (
 /obj/effect/turf_decal/stripes/line{
@@ -681,12 +688,7 @@
 	req_access_txt = "1";
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/iron/smooth_edge,
 /area/shuttle/escape)
 "us" = (
@@ -789,7 +791,8 @@
 /obj/docking_port/mobile/emergency{
 	name = "Bunched emergency shuttle";
 	width = 31;
-	dir = 1
+	dir = 1;
+	preferred_direction = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1005,6 +1008,7 @@
 	},
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/alphabet/letter_l/quarter,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ej" = (
@@ -1207,7 +1211,7 @@
 "Jp" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/effect/turf_decal/alphabet/number_1{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -1686,7 +1690,7 @@ aH
 us
 DK
 ae
-kP
+mu
 kP
 Nu
 gK
