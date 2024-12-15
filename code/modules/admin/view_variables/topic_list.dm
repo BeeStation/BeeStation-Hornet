@@ -8,9 +8,12 @@
 		var/dmlist_varname = href_list["dmlist_varname"]
 		if(dmlist_varname)
 			var/dmlist_secure_level = GLOB.vv_special_lists[dmlist_varname]
-			if(dmlist_secure_level == VV_LIST_EDITABLE)
+			if(isnull(dmlist_secure_level)) // href protection to make sure
+				log_admin("[key_name(src)] attempted to edit a special list ([dmlist_varname]), but this doesn't exist.")
+				return
+			else if(dmlist_secure_level == VV_LIST_EDITABLE)
 				log_world("### vv_do_list() called: [src] attempted to edit a special list ([dmlist_varname]) Security-level:[dmlist_secure_level](allowed)")
-				log_admin("[key_name(src)] attempted to edit  a special list ([dmlist_varname]) Security-level:[dmlist_secure_level](allowed)")
+				log_admin("[key_name(src)] attempted to edit a special list ([dmlist_varname]) Security-level:[dmlist_secure_level](allowed)")
 			else // fuck you exploiters
 				log_world("### vv_do_list() called: [src] attempted to edit a special list ([dmlist_varname]), but denied due to the Security-level:[dmlist_secure_level]")
 				log_admin("[key_name(src)] attempted to edit a special list ([dmlist_varname]), but denied due to the Security-level:[dmlist_secure_level]")
