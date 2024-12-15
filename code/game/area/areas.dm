@@ -418,6 +418,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	else
 		fault_location = null
 	SEND_SIGNAL(src, COMSIG_AREA_FIRE_CHANGED, fire)
+	for(var/obj/machinery/light/L in src)
+		L.update(TRUE, TRUE, TRUE)
 
 /area/proc/set_pressure_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE
