@@ -34494,14 +34494,9 @@
 "iNl" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/closet/crate,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
+/obj/machinery/vending/medical{
+	pixel_x = -2
 	},
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/blood/OPlus,
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "iNo" = (
@@ -42237,6 +42232,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/main)
 "kKQ" = (
@@ -47529,6 +47527,13 @@
 	c_tag = "Security - Medbay"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/reagent_containers/blood/OPlus,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "lZt" = (
