@@ -12,12 +12,6 @@
 		cell.charge-=(actualCost)
 
 	switch(specificCheck)
-		if(N_STEALTH_CANCEL)
-			cancel_stealth()//Get rid of it.
-		if(N_SMOKE_BOMB)
-			if(!s_bombs)
-				to_chat(H, span_danger("There are no more smoke bombs remaining."))
-				return 1
 		if(N_ADRENALINE)
 			if(!a_boost)
 				to_chat(H, span_danger("You do not have any more adrenaline boosters."))

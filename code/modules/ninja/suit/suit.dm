@@ -26,7 +26,6 @@ Contents:
 	show_hud = FALSE
 	actions_types = list(
 		/datum/action/item_action/initialize_ninja_suit,
-		/datum/action/item_action/ninjasmoke,
 		/datum/action/item_action/ninjaboost,
 		/datum/action/item_action/ninjapulse,
 		/datum/action/item_action/ninjastar,
@@ -63,7 +62,6 @@ Contents:
 	var/s_busy = FALSE//Is the suit busy with a process? Like AI hacking. Used for safety functions.
 
 		//Ability function variables.
-	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
 
 
@@ -78,7 +76,7 @@ Contents:
 	fire = 100
 	acid = 100
 	stamina = 70
-	bleed = 60
+	bleed = 90
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
 	. = ..()
@@ -86,7 +84,6 @@ Contents:
 		if(user == affecting)
 			. += "All systems operational. Current energy capacity: <B>[display_energy(cell.charge)]</B>.\n"+\
 			"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
-			"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
 			"There are <B>[a_boost]</B> adrenaline booster\s remaining."
 
 /obj/item/clothing/suit/space/space_ninja/Initialize(mapload)
@@ -116,6 +113,9 @@ Contents:
 	if(!user || !ishuman(user) || !(user.wear_suit == src))
 		return
 	user.adjust_bodytemperature(BODYTEMP_NORMAL - user.bodytemperature)
+	if (!s_initialized)
+		return
+	user.nutrition = NUTRITION_LEVEL_WELL_FED
 
 /obj/item/clothing/suit/space/space_ninja/Destroy()
 	QDEL_NULL(spark_system)
@@ -151,7 +151,6 @@ Contents:
 	s_cost = rand(1,10)
 	s_acost = rand(10,50)
 	s_delay = rand(10,100)
-	s_bombs = rand(5,20)
 	a_boost = rand(1,7)
 
 
@@ -201,7 +200,7 @@ Contents:
 		REMOVE_TRAIT(n_hood, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	if(n_shoes)
 		REMOVE_TRAIT(n_shoes, TRAIT_NODROP, NINJA_SUIT_TRAIT)
-		n_shoes.slowdown++
+		n_shoes.slowdown += 0.5
 	if(n_gloves)
 		n_gloves.icon_state = "s-ninja"
 		n_gloves.item_state = "s-ninja"
@@ -212,16 +211,13 @@ Contents:
 		var/mob/living/worn_mob = loc
 		worn_mob.update_equipment_speed_mods()
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, datum/action/action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))
 		toggle_on_off()
 		return TRUE
 	if(!s_initialized)
 		to_chat(user, span_warning("<b>ERROR</b>: suit offline.  Please activate suit."))
 		return FALSE
-	if(istype(action, /datum/action/item_action/ninjasmoke))
-		ninjasmoke()
-		return TRUE
 	if(istype(action, /datum/action/item_action/ninjaboost))
 		ninjaboost()
 		return TRUE

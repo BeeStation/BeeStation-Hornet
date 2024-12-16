@@ -6,38 +6,25 @@ Contents:
 
 */
 
-
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_stealth()
-	var/mob/living/carbon/human/U = affecting
-	if(!U)
-		return
-	if(stealth)
-		cancel_stealth()
-	else
-		if(cell.charge <= 0)
-			to_chat(U, span_warning("You don't have enough power to enable Stealth!"))
-			return
-		stealth = !stealth
-		animate(U, alpha = 50,time = 15)
-		U.visible_message(span_warning("[U.name] vanishes into thin air!"), \
-						span_notice("You are now mostly invisible to normal detection."))
-
-
-/obj/item/clothing/suit/space/space_ninja/proc/cancel_stealth()
-	var/mob/living/carbon/human/U = affecting
-	if(!U)
-		return 0
-	if(stealth)
-		stealth = !stealth
-		animate(U, alpha = 255, time = 15)
-		U.visible_message(span_warning("[U.name] appears from thin air!"), \
-						span_notice("You are now visible."))
-		return 1
-	return 0
-
-
 /obj/item/clothing/suit/space/space_ninja/proc/stealth()
-	if(!s_busy)
-		toggle_stealth()
-	else
-		to_chat(affecting, span_danger("Stealth does not appear to work!"))
+	affecting.say(pick(\
+		"Watch your back...",\
+		"They never see me coming.",\
+		"Don't drop your guard.",\
+		"Knowing is half the battle.",\
+		"See you soon...",\
+		"Be seeing you.",\
+		"Not if I see you first.",\
+		"Can't hit what you can't see.",\
+		"Behind you..."\
+	))
+	affecting.transfer_messages_to(get_turf(affecting))
+	for (var/obj/machinery/light/light in view(7, affecting))
+		light.break_light_tube()
+	var/datum/effect_system/smoke_spread/smoke = new()
+	smoke.set_up(3, affecting.loc)
+	smoke.start()
+	playsound(affecting.loc, 'sound/effects/bamf.ogg', 50, 2)
+	s_coold = 2
+	animate(affecting, time = 1 SECONDS, alpha = 0)
+	affecting.apply_status_effect(/datum/status_effect/cloaked)

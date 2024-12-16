@@ -3520,7 +3520,6 @@
 #include "code\modules\ninja\suit\n_suit_verbs\ninja_cost_check.dm"
 #include "code\modules\ninja\suit\n_suit_verbs\ninja_empulse.dm"
 #include "code\modules\ninja\suit\n_suit_verbs\ninja_net.dm"
-#include "code\modules\ninja\suit\n_suit_verbs\ninja_smoke.dm"
 #include "code\modules\ninja\suit\n_suit_verbs\ninja_stars.dm"
 #include "code\modules\ninja\suit\n_suit_verbs\ninja_stealth.dm"
 #include "code\modules\ninja\suit\n_suit_verbs\ninja_sword_recall.dm"

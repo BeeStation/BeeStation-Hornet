@@ -4,7 +4,8 @@
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 	var/current_charges = 1
-	var/max_charges = 1
+	/// If set to 0, doesn't require charges
+	var/max_charges = 0
 	var/charge_rate = 250
 	var/obj/item/dashing_item
 	var/dash_sound = 'sound/magic/blink.ogg'
@@ -22,7 +23,7 @@
 	return ..()
 
 /datum/action/innate/dash/is_available()
-	if(current_charges > 0)
+	if(current_charges > 0 || max_charges == 0)
 		return TRUE
 	else
 		return FALSE
@@ -34,20 +35,20 @@
 	if(!is_available())
 		return
 	var/turf/T = get_turf(target)
-	if(user in viewers(user.client.view, T))
-		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-		var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
-		if(new_location)
-			playsound(T, dash_sound, 25, 1)
-			var/obj/spot2 = new phasein(new_location, user.dir)
-			spot1.Beam(spot2,beam_effect,time=2 SECONDS)
-			if (owner)
-				owner.update_action_buttons_icon()
+	var/obj/spot1 = new phaseout(get_turf(user), user.dir)
+	var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
+	if(new_location)
+		playsound(T, dash_sound, 25, 1)
+		var/obj/spot2 = new phasein(new_location, user.dir)
+		spot1.Beam(spot2,beam_effect,time=2 SECONDS)
+		if (owner)
+			owner.update_action_buttons_icon()
+		if (max_charges > 0)
 			if (current_charges == max_charges)
 				addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 			current_charges--
-		else
-			to_chat(user, span_warning("You cannot dash here!"))
+	else
+		to_chat(user, span_warning("You cannot dash here!"))
 
 /datum/action/innate/dash/proc/dashslash(mob/user, turf/slash_location)
 	for(var/mob/living/target in slash_location)//Hit everything in the turf
@@ -60,7 +61,16 @@
 		// Slash through target
 		target.attackby(dashing_item, user)
 		user.do_item_attack_animation(target, used_item=dashing_item)
-		to_chat(target, span_userdanger("[user] goes through you faster than you can see!"))
+		to_chat(target, span_userdanger("[user] dashes towards you faster than you can react!"))
+		// Push the attacked person back
+		target.Move(get_step(target, get_dir(user, target)))
+		// Give the user a click cooldown
+		user.changeNext_move(1.4 SECONDS)
+		user.client?.give_cooldown_cursor(1.4 SECONDS)
+		return FALSE
+	// Give the user a click cooldown every time they dash
+	user.changeNext_move(1.4 SECONDS)
+	user.client?.give_cooldown_cursor(1.4 SECONDS)
 	return TRUE
 
 /datum/action/innate/dash/proc/charge()

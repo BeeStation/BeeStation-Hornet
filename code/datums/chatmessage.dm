@@ -206,16 +206,23 @@
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
-	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
-	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
-
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
+	// Add the chat message here so that we can reason about it without dealing with async behaviours
+	LAZYADD(message_loc.chat_messages, src)
+	// ==============================================
+	// =               ! SLEEPING !                 =
+	// =                                            =
+	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
+	// =                                            =
+	// ==============================================
+	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
+
 	if (LAZYLEN(message_loc.chat_messages))
 		var/idx = 1
 		var/combined_height = approx_lines
 		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
-			if(!m?.message)
+			if(!m?.message || m == src)
 				continue
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
@@ -259,8 +266,6 @@
 		C?.images |= message
 	animate(message, alpha = 255, pixel_y = bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
 
-	LAZYADD(message_loc.chat_messages, src)
-
 	// Register with the runechat SS to handle EOL and destruction
 	var/duration = lifespan - CHAT_MESSAGE_EOL_FADE
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
@@ -268,6 +273,13 @@
 /datum/chatmessage/proc/client_deleted(client/source)
 	SIGNAL_HANDLER
 	hearers -= source
+
+/datum/chatmessage/proc/transfer_to(atom/location)
+	LAZYREMOVE(message_loc.chat_messages, src)
+	message_loc = location
+	// Due to async, this may not have been created yet
+	message?.loc = location
+	LAZYADD(message_loc.chat_messages, src)
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
@@ -555,6 +567,9 @@
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/atom/proc/transfer_messages_to(atom/new_location)
+	for (var/datum/chatmessage/message as() in chat_messages)
+		message.transfer_to(new_location)
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT

@@ -10,12 +10,6 @@
 			a_boost++;
 			to_chat(U, span_notice("There are now [a_boost] adrenaline boosts remaining."))
 			return
-		if(I.reagents.has_reagent(/datum/reagent/smoke_powder, a_transfer) && s_bombs < s_maxamount)
-			I.reagents.remove_reagent(/datum/reagent/smoke_powder, a_transfer)
-			s_bombs++;
-			to_chat(U, span_notice("There are now [s_bombs] smoke bombs remaining."))
-			return
-
 
 	else if(istype(I, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/CELL = I

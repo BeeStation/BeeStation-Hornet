@@ -75,7 +75,6 @@
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_five(delay, mob/living/carbon/human/U)
 	to_chat(U, span_notice("VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>."))
-	cancel_stealth()//Shutdowns stealth.
 	addtimer(CALLBACK(src, PROC_REF(deinitialize_six), delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_six(delay, mob/living/carbon/human/U)

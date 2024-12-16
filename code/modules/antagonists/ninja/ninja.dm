@@ -40,7 +40,7 @@
 				else if(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 					possible_targets[M] = 1						//good-guy
 
-	var/list/possible_objectives = list(1,2,3,4)
+	var/list/possible_objectives = list(1,2,3)
 
 	while(objectives.len < quantity)
 		switch(pick_n_take(possible_objectives))
@@ -68,14 +68,6 @@
 				O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role]."
 				objectives += O
 				log_objective(owner, O.explanation_text)
-			if(4)	//capture
-				var/datum/objective/capture/O = new /datum/objective/capture()
-				O.owner = owner
-				O.gen_amount_goal()
-				objectives += O
-				log_objective(owner, O.explanation_text)
-			else
-				break
 	var/datum/objective/O = new /datum/objective/survive()
 	O.owner = owner
 	objectives += O

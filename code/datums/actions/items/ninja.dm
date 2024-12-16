@@ -1,12 +1,6 @@
 /datum/action/item_action/initialize_ninja_suit
 	name = "Toggle ninja suit"
 
-/datum/action/item_action/ninjasmoke
-	name = "Smoke Bomb"
-	desc = "Blind your enemies momentarily with a well-placed smoke bomb."
-	button_icon_state = "smoke"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
-
 /datum/action/item_action/ninjaboost
 	check_flags = NONE
 	name = "Adrenaline Boost"
