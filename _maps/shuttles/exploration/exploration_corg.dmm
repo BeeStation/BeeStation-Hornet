@@ -41,10 +41,10 @@
 /area/shuttle/exploration)
 "bS" = (
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/bridge_pipe/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ce" = (
@@ -503,7 +503,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "wc" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -759,7 +759,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Nl" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
@@ -813,6 +813,12 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Sd" = (
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -958,13 +964,13 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "YR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZB" = (
@@ -1190,7 +1196,7 @@ ZM
 jB
 aP
 nF
-wc
+Sd
 wc
 fO
 te

@@ -123,8 +123,8 @@
 /area/shuttle/exploration)
 "qa" = (
 /obj/machinery/atmospherics/components/tank/air{
-	dir = 4;
-	initialize_directions = 4
+	dir = 3;
+	initialize_directions = 3
 	},
 /obj/machinery/light/small,
 /turf/open/floor/mineral/plastitanium,
