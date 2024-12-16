@@ -772,15 +772,12 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "afB" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/violet/visible{
-	dir = 8
-	},
-/turf/open/space,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/engine/atmospherics_engine)
 "afD" = (
 /obj/machinery/meter,
 /obj/effect/turf_decal/stripes/line,
@@ -3380,13 +3377,6 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
-"awl" = (
-/obj/effect/spawner/structure/window/depleteduranium,
-/obj/machinery/atmospherics/pipe/smart/simple/violet/visible{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/maintenance/disposal/incinerator)
 "awn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
@@ -4315,15 +4305,12 @@
 /turf/open/space,
 /area/solar/port/fore)
 "aAR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/spawner/structure/window/depleteduranium,
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
+/turf/open/floor/plating/airless,
+/area/maintenance/disposal/incinerator)
 "aAT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6425,8 +6412,8 @@
 /area/maintenance/disposal/incinerator)
 "aPy" = (
 /obj/effect/spawner/structure/window/depleteduranium,
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/violet/visible{
+	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
@@ -6984,15 +6971,15 @@
 /turf/open/space,
 /area/space/nearstation)
 "aSQ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/structure/lattice/catwalk,
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/violet/visible{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
-/turf/open/floor/iron,
-/area/engine/atmos)
+/turf/open/space,
+/area/space/nearstation)
 "aSR" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment{
@@ -10274,14 +10261,15 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "bpS" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron,
-/area/engine/atmospherics_engine)
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "bpT" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Pure to Mix"
@@ -42553,11 +42541,13 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "hFo" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 5
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/catwalk_floor/iron,
 /area/engine/atmospherics_engine)
 "hFt" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
@@ -80403,6 +80393,16 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
+"tGN" = (
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "tHf" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -115431,7 +115431,7 @@ gXZ
 uCX
 gXZ
 gXZ
-afB
+aSQ
 wiQ
 wiQ
 wiQ
@@ -115941,11 +115941,11 @@ aGN
 xOv
 eSj
 gXZ
-awl
-aNS
 aPy
+aNS
+aAR
 gXZ
-afB
+aSQ
 aRF
 aRF
 aRF
@@ -116457,9 +116457,9 @@ aJH
 gXZ
 aMv
 aie
-aPy
+aAR
 gXZ
-afB
+aSQ
 aRF
 aWu
 aXW
@@ -119285,7 +119285,7 @@ aFr
 aRF
 sqz
 dVY
-aAR
+bpS
 fKN
 sVV
 jfg
@@ -122117,7 +122117,7 @@ aTd
 aUW
 aWO
 aYo
-aSQ
+tGN
 bbK
 bbK
 beH
@@ -123124,7 +123124,7 @@ alT
 cVY
 vhp
 fMS
-bpS
+hFo
 sDW
 snl
 xQg
@@ -123381,7 +123381,7 @@ alT
 alT
 alT
 avk
-hFo
+afB
 alT
 alT
 rSv
