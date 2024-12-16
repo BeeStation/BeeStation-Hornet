@@ -55,3 +55,8 @@
 	key = "warn"
 	message = "blares an alarm!"
 	sound = 'sound/machines/warning-buzzer.ogg'
+
+/datum/emote/silicon/slowclap
+	key = "slowclap"
+	message = "activates their slow clap processor."
+	sound = 'sound/machines/slowclap.ogg'
