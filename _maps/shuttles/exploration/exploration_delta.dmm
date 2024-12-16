@@ -183,10 +183,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "tq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/hidden{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ts" = (
