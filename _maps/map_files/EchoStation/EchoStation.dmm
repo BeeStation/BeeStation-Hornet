@@ -7670,7 +7670,8 @@
 /area/crew_quarters/cafeteria)
 "dGG" = (
 /obj/machinery/atmospherics/components/binary/pump{
-	name = "Pure to Mix"
+	name = "Pure to Mix";
+	dir = 1
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
