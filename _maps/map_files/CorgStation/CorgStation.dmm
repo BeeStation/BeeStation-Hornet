@@ -2587,12 +2587,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"aGK" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "aGN" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
@@ -7571,7 +7565,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 9
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
@@ -9893,10 +9887,10 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "dbq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible{
+	dir = 8
+	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "dbr" = (
@@ -18554,6 +18548,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "fWg" = (
@@ -20827,11 +20822,9 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "gHR" = (
-/obj/machinery/atmospherics/components/binary/volume_pump{
-	dir = 4;
-	name = "Thermoelectric generator loop"
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "gHY" = (
@@ -25323,7 +25316,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "icD" = (
@@ -28507,7 +28502,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "jcg" = (
@@ -37188,10 +37182,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "lWB" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/bridge_pipe/supply/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/supply/visible,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "lWV" = (
@@ -43119,8 +43113,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/volume_pump{
+	dir = 4;
+	name = "Thermoelectric generator loop"
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
@@ -54560,6 +54555,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "rGI" = (
@@ -56869,8 +56865,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 9
+/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
@@ -58859,6 +58855,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "tbj" = (
@@ -61978,7 +61977,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "udz" = (
@@ -90829,7 +90827,7 @@ avt
 aYg
 gjh
 aVV
-aGK
+aVV
 icx
 qEz
 mEI
