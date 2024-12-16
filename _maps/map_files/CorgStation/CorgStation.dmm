@@ -23765,6 +23765,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "hEH" = (
@@ -61025,7 +61026,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},

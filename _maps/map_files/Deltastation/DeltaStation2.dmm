@@ -6153,7 +6153,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "aME" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/pink/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -7274,11 +7273,11 @@
 /area/engine/atmos)
 "aUW" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -7290,11 +7289,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 10
 	},
 /turf/open/floor/iron/white/corner,
 /area/engine/atmos)
@@ -9121,6 +9120,13 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
+"biO" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "biP" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hos)
@@ -41188,8 +41194,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	luminosity = 2
+	burnt = 1
 	},
 /area/security/main)
 "hha" = (
@@ -43746,6 +43751,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"hVY" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/security/main)
 "hWe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92097,8 +92108,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	luminosity = 2
+	burnt = 1
 	},
 /area/security/main)
 "xov" = (
@@ -121857,7 +121867,7 @@ uhB
 aPS
 aRv
 cfI
-xQR
+biO
 xtg
 sVr
 kuO
@@ -153995,9 +154005,9 @@ aad
 aaa
 aaa
 bhd
-pVV
+hVY
 sHZ
-pVV
+hVY
 bnG
 bnG
 mnz
