@@ -41193,9 +41193,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/security/main)
 "hha" = (
 /obj/machinery/vending/coffee,
@@ -43751,12 +43749,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"hVY" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/security/main)
 "hWe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -63307,9 +63299,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating,
 /area/security/main)
 "ooQ" = (
 /obj/item/radio/intercom{
@@ -92095,10 +92085,6 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "xod" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/fans/tiny/invisible,
 /obj/docking_port/stationary{
 	dwidth = 1;
@@ -92107,10 +92093,8 @@
 	width = 3;
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/security/main)
+/turf/open/space/basic,
+/area/space)
 "xov" = (
 /obj/item/kirbyplants/random,
 /obj/item/radio/intercom{
@@ -154005,9 +153989,9 @@ aad
 aaa
 aaa
 bhd
-hVY
+pVV
 sHZ
-hVY
+pVV
 bnG
 bnG
 mnz
@@ -154263,7 +154247,7 @@ aaa
 aaa
 beh
 hgY
-xod
+hgY
 ooz
 beh
 aaa
@@ -154519,9 +154503,9 @@ wiQ
 aad
 aad
 beh
-aaa
-aaa
-aaa
+xZM
+xod
+xZM
 beh
 aad
 aad
