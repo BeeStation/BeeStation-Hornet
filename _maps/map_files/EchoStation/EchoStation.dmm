@@ -9103,6 +9103,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
+"evr" = (
+/obj/structure/stairs,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/science/mixing)
 "evs" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -20272,12 +20279,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Air to Distro";
 	target_pressure = 500
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
+	dir = 4
 	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
@@ -35441,13 +35448,6 @@
 	dir = 1
 	},
 /area/engine/engineering)
-"rQD" = (
-/obj/structure/stairs,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
-/area/science/mixing)
 "rQE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -133377,7 +133377,7 @@ aYd
 aAV
 aJn
 xGI
-rQD
+evr
 tlw
 aqu
 qUB
