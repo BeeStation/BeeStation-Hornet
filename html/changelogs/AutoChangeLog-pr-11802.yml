@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: limbs are now disabled upon taking 40 damage instead of 50.
+  - balance: This means stamina weapons can be strategically used to disable limbs
+      without chest-aimed full stamcrit always being the better option.
+  - balance: This also means it is somewhat easier for sharp weapons to de-limb.
