@@ -2888,7 +2888,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
@@ -3640,7 +3639,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Construction Area"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/wood,
 /area/library/abandoned)
 "bBz" = (
@@ -9276,7 +9274,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Dormitory"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "eyu" = (
@@ -25802,7 +25799,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "mOm" = (
