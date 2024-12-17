@@ -6055,6 +6055,7 @@
 	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
 	width = 3
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/space/basic,
 /area/space)
 "bvZ" = (
@@ -8185,7 +8186,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/science/mixing/chamber)
 "ccX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9057,10 +9058,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"cpK" = (
-/obj/machinery/atmospherics/pipe/color_adapter,
-/turf/open/floor/iron,
-/area/engine/atmos)
 "cpO" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/roboticist,
@@ -11062,6 +11059,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/arrival)
 "cRG" = (
@@ -14463,6 +14461,22 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
+"dMN" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
+/turf/open/floor/iron/sepia,
+/area/maintenance/department/engine)
 "dMR" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow{
@@ -15733,6 +15747,7 @@
 "egw" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/white/full,
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/arrival)
 "egK" = (
@@ -22334,6 +22349,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
+"fKv" = (
+/obj/machinery/atmospherics/pipe/color_adapter{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "fKP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30944,7 +30965,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/pink/visible,
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "hUy" = (
@@ -38426,11 +38447,11 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/engineering)
 "jPV" = (
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
-/turf/open/floor/iron/grid/steel,
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "jPW" = (
 /obj/machinery/door/airlock/engineering/glass{
@@ -38576,13 +38597,13 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "jRe" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "jRk" = (
@@ -42390,6 +42411,7 @@
 /obj/structure/cable/orange{
 	dir = 1
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/drydock/security)
 "kOu" = (
@@ -44950,10 +44972,11 @@
 /turf/closed/wall,
 /area/construction/mining/aux_base)
 "lqN" = (
-/obj/machinery/atmospherics/pipe/color_adapter{
+/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "lqQ" = (
 /obj/machinery/aug_manipulator,
@@ -49935,6 +49958,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/library)
+"mIN" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 1;
+	height = 4;
+	name = "escape pod loader";
+	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
+	width = 3
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/space/basic,
+/area/space)
 "mIV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
@@ -51201,6 +51236,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/arrival)
 "naZ" = (
@@ -54110,6 +54146,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "nOV" = (
@@ -58914,10 +58951,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"pem" = (
-/obj/machinery/air_sensor/toxins_burn_chamber,
-/turf/open/floor/engine/vacuum,
-/area/science/mixing/chamber)
 "pet" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -71959,10 +71992,12 @@
 /turf/open/floor/plating,
 /area/science/shuttle)
 "suJ" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
-/turf/open/floor/plating,
-/area/engine/engine_room)
+/obj/effect/spawner/structure/window/depleteduranium,
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/maintenance/disposal/incinerator)
 "suQ" = (
 /obj/structure/sign/departments/minsky/medical/medical2,
 /turf/closed/wall/r_wall,
@@ -73331,6 +73366,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating,
 /area/drydock)
 "sNs" = (
@@ -74836,6 +74872,7 @@
 "tgx" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/white/full,
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/drydock/security)
 "tgQ" = (
@@ -75319,6 +75356,7 @@
 "tnU" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/white/full,
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "tok" = (
@@ -80384,6 +80422,7 @@
 /obj/structure/cable/orange{
 	dir = 1
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/drydock/security)
 "uAZ" = (
@@ -82347,6 +82386,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating,
 /area/drydock)
 "vaQ" = (
@@ -85325,6 +85365,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "vGr" = (
@@ -91274,6 +91315,7 @@
 "xcc" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/white/full,
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating,
 /area/drydock)
 "xcg" = (
@@ -92436,7 +92478,6 @@
 /turf/open/floor/iron,
 /area/medical/break_room)
 "xmW" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -92444,6 +92485,7 @@
 	dir = 4;
 	name = "Thermoelectric Generator Input"
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "xnb" = (
@@ -92883,6 +92925,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
+"xss" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
+/turf/open/floor/plating,
+/area/engine/engine_room)
 "xsG" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -95741,21 +95788,9 @@
 /turf/closed/mineral,
 /area/engine/engine_room)
 "xVd" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
-/turf/open/floor/iron/sepia,
-/area/maintenance/department/engine)
+/obj/machinery/air_sensor/toxins_burn_chamber,
+/turf/open/floor/engine/vacuum,
+/area/science/mixing/chamber)
 "xVj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -96317,13 +96352,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
-"ybD" = (
-/obj/effect/spawner/structure/window/depleteduranium,
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/maintenance/disposal/incinerator)
 "ybG" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -96617,6 +96645,10 @@
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
+/area/engine/atmos)
+"yfk" = (
+/obj/machinery/atmospherics/pipe/color_adapter,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "yfp" = (
 /turf/open/floor/iron/dark,
@@ -110228,7 +110260,7 @@ ksU
 cTG
 xqF
 rqx
-pBR
+mIN
 nnx
 nnx
 nnx
@@ -137695,7 +137727,7 @@ vKD
 ylR
 hfo
 rdZ
-pem
+xVd
 rVe
 cYE
 wQe
@@ -140784,7 +140816,7 @@ tXi
 uzH
 ufF
 kqe
-jPV
+lqN
 rjX
 bsY
 uzf
@@ -141812,7 +141844,7 @@ oCi
 jas
 xZT
 kRa
-jPV
+lqN
 mcv
 uEz
 gJx
@@ -143863,12 +143895,12 @@ oRa
 wgX
 ksX
 fEQ
-cpK
+yfk
 hIw
 uzm
 ftI
 uzm
-lqN
+fKv
 uzm
 uzm
 jHm
@@ -144638,11 +144670,11 @@ oPF
 hzJ
 oPF
 oPF
-lae
+jPV
 qiY
 upr
 oPF
-lae
+jPV
 oMg
 vTo
 hcG
@@ -148478,7 +148510,7 @@ mdb
 vNM
 scz
 ose
-suJ
+xss
 dOV
 bGF
 rTd
@@ -148497,7 +148529,7 @@ vOV
 rTo
 dap
 lZI
-ybD
+suJ
 rTo
 voV
 rTo
@@ -149011,7 +149043,7 @@ sXg
 rTo
 vtx
 wVv
-ybD
+suJ
 rTo
 trG
 nnx
@@ -149251,7 +149283,7 @@ wjS
 oLf
 hvT
 iir
-xVd
+dMN
 aPp
 eCp
 vRN
