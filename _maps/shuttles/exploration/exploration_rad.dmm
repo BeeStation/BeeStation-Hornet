@@ -47,9 +47,6 @@
 	name = "Exploration Shuttle Shutters";
 	pixel_y = 24
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -175,7 +172,6 @@
 	id = "ExploIFuckedUp";
 	name = "Engine Room Vent"
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "tu" = (
@@ -315,7 +311,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Hc" = (
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/tank/air{
@@ -474,9 +469,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
