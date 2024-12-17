@@ -164,7 +164,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "adv" = (
 /obj/structure/chair/stool{
@@ -255,7 +257,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "agO" = (
@@ -297,7 +300,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "ais" = (
@@ -1074,7 +1078,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "auE" = (
 /turf/closed/wall/r_wall,
@@ -2113,7 +2119,9 @@
 "aRf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "aRi" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
@@ -2531,7 +2539,7 @@
 /obj/machinery/hydroponics/soil{
 	alpha = 200
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "baI" = (
 /obj/structure/closet/radiation,
@@ -2624,7 +2632,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "bdh" = (
@@ -2895,7 +2904,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "bkn" = (
 /obj/structure/table/reinforced,
@@ -2951,7 +2962,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "bkW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3558,7 +3571,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "bzE" = (
 /obj/structure/cable{
@@ -3945,8 +3960,8 @@
 /area/maintenance/department/medical/central)
 "bJq" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "bJr" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/turf_decal/tile/red{
@@ -4051,8 +4066,8 @@
 	light_power = 2;
 	light_range = 9
 	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "bMd" = (
 /obj/effect/decal/cleanable/shreds,
 /turf/open/floor/plating/airless,
@@ -4086,7 +4101,7 @@
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/airalarm/directional/north,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "bMW" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -4242,7 +4257,9 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "bSh" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -4867,7 +4884,7 @@
 	alpha = 100;
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "cjH" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -4879,7 +4896,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "cjY" = (
@@ -5425,7 +5443,8 @@
 "cwW" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "cxe" = (
@@ -5580,7 +5599,8 @@
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "cBs" = (
@@ -5976,8 +5996,8 @@
 /area/tcommsat/server)
 "cKQ" = (
 /obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "cKT" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/hallway/primary/fore)
@@ -5999,8 +6019,8 @@
 /area/engine/atmos)
 "cNa" = (
 /obj/structure/flora/ash/tall_shroom,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "cNm" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -6011,7 +6031,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "cNL" = (
 /obj/machinery/door/airlock/security{
@@ -6286,7 +6308,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "cXj" = (
@@ -6313,7 +6336,8 @@
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "cXD" = (
@@ -6420,11 +6444,11 @@
 /area/asteroid/paradise/surface)
 "cZv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/layer2/flipped{
-	dir = 8
-	},
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "N2 to Pure"
+	},
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/layer2/flipped/inverse{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
@@ -6856,7 +6880,7 @@
 	alpha = 100;
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "diS" = (
 /obj/structure/closet,
@@ -7428,7 +7452,7 @@
 	alpha = 100;
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "dBm" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -7490,7 +7514,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "dCG" = (
@@ -7643,7 +7668,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "dGh" = (
@@ -7905,15 +7931,15 @@
 /area/security/brig)
 "dML" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/machinery/atmospherics/components/binary/pump/layer2{
 	dir = 4;
 	name = "Distro to Waste"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4{
+	dir = 8
 	},
 /turf/open/floor/iron/textured_large,
 /area/engine/atmos)
@@ -7953,12 +7979,15 @@
 "dNK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "dNX" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "dOa" = (
@@ -8025,7 +8054,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "dPG" = (
@@ -8400,7 +8430,7 @@
 /obj/effect/turf_decal/siding/white/end{
 	alpha = 100
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "dYY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -8656,10 +8686,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "eiT" = (
@@ -9103,13 +9133,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
-"evr" = (
-/obj/structure/stairs,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
-/area/science/mixing)
 "evs" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -9341,7 +9364,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "eBm" = (
 /obj/structure/railing/corner,
@@ -9462,7 +9485,7 @@
 	pixel_x = 1;
 	pixel_y = 26
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "eDk" = (
 /obj/machinery/atmospherics/pipe/multiz/layer4{
@@ -9909,7 +9932,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "ePW" = (
@@ -10174,7 +10198,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "eVr" = (
@@ -10230,7 +10255,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "eWv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -10409,7 +10436,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "eZH" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
@@ -10461,8 +10490,8 @@
 "faZ" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/item/circuitboard/machine/circulator,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "fbe" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -10549,7 +10578,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "fcz" = (
@@ -10914,7 +10944,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "fkW" = (
@@ -11387,7 +11418,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "fzr" = (
@@ -11560,7 +11592,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "fEV" = (
@@ -11689,7 +11722,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -32
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "fHW" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -12051,8 +12084,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/table_frame,
-/obj/item/stack/rods/five,
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "fPV" = (
@@ -12520,7 +12551,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "gcq" = (
 /obj/machinery/light_switch{
@@ -12699,7 +12732,9 @@
 /area/science/research)
 "ggb" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "ggi" = (
 /obj/machinery/atmospherics/pipe/color_adapter{
@@ -12735,15 +12770,15 @@
 /area/hallway/primary/aft)
 "ghR" = (
 /obj/item/pipe_dispenser,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "ghT" = (
 /obj/machinery/air_sensor/engine_chamber,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "gid" = (
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "gij" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
@@ -12795,8 +12830,9 @@
 /turf/open/openspace,
 /area/engineering/hallway)
 "giS" = (
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/paradise)
 "giU" = (
 /obj/structure/chair/stool/bar/directional/west,
 /obj/structure/disposalpipe/segment{
@@ -13889,8 +13925,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/paradise)
 "gKl" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
@@ -13952,7 +13988,9 @@
 "gML" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/sandbags,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "gMP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -13972,7 +14010,9 @@
 /obj/effect/turf_decal/evac/evac_big{
 	dir = 4
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "gND" = (
 /obj/structure/table,
@@ -14124,7 +14164,8 @@
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "gRw" = (
@@ -14723,7 +14764,8 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "hgB" = (
@@ -15336,7 +15378,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "hwE" = (
@@ -16417,7 +16460,9 @@
 /area/engine/engineering)
 "ial" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/dirt/planetary,
+/turf/open/floor/plating/dirt/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "iao" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -16517,14 +16562,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible/layer2{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -16814,7 +16859,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "ill" = (
 /obj/machinery/light{
@@ -17357,7 +17404,7 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "iDs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18125,7 +18172,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "iYa" = (
 /obj/structure/window/plasma/reinforced,
@@ -18177,8 +18226,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
 	},
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "iZV" = (
 /turf/closed/wall,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -18446,7 +18495,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "jkj" = (
@@ -18978,8 +19028,8 @@
 /turf/open/openspace,
 /area/medical/medbay/central)
 "jwO" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible/layer2{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
+	dir = 9
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
@@ -19289,7 +19339,7 @@
 "jEW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/start/assistant,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "jFp" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -19503,7 +19553,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "jKk" = (
 /obj/effect/turf_decal/bot{
@@ -19622,7 +19672,7 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/fernybush,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "jLZ" = (
 /obj/effect/turf_decal/bot,
@@ -20279,12 +20329,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
+	dir = 4
+	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Air to Distro";
 	target_pressure = 500
-	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
-	dir = 4
 	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
@@ -20598,7 +20648,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "kme" = (
@@ -21164,7 +21215,8 @@
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "kyC" = (
@@ -21254,7 +21306,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "kBI" = (
 /obj/structure/statue/snow/snowman,
@@ -21439,7 +21493,6 @@
 /turf/open/floor/glass/reinforced,
 /area/asteroid/paradise/surface)
 "kFJ" = (
-/obj/machinery/camera/directional/north,
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/carbon_input{
 	dir = 4
 	},
@@ -22205,7 +22258,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "laI" = (
 /obj/machinery/conveyor/inverted{
@@ -23385,7 +23440,8 @@
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "lFO" = (
@@ -23462,11 +23518,11 @@
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/asteroid/paradise/surface/sand)
 "lHZ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible/layer2{
+	dir = 8
 	},
 /turf/open/floor/iron/textured_large,
 /area/engine/atmos)
@@ -23480,7 +23536,7 @@
 /obj/machinery/hydroponics/soil{
 	alpha = 200
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "lIu" = (
 /obj/effect/turf_decal/siding/dark{
@@ -24215,7 +24271,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "mbE" = (
@@ -24424,7 +24481,7 @@
 	pixel_x = 1;
 	pixel_y = -31
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "mhe" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -24482,7 +24539,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "mjt" = (
@@ -24692,7 +24750,7 @@
 /area/asteroid/paradise/surface)
 "moz" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "moU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -24771,7 +24829,9 @@
 /area/science/research)
 "msF" = (
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "msV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -25069,7 +25129,7 @@
 	alpha = 100;
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "myX" = (
 /obj/structure/table/optable,
@@ -25635,7 +25695,8 @@
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "mNm" = (
@@ -25660,7 +25721,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "mNH" = (
@@ -25949,8 +26011,8 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/paradise)
 "mVN" = (
 /obj/structure/lattice,
 /obj/structure/railing/corner,
@@ -25975,7 +26037,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "mWD" = (
@@ -25986,7 +26049,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "mWS" = (
@@ -26054,7 +26118,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "mYH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -26228,7 +26294,8 @@
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "ncd" = (
@@ -26354,10 +26421,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible/layer2,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "nhd" = (
@@ -26646,7 +26713,8 @@
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "npn" = (
@@ -26685,7 +26753,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "nrr" = (
@@ -27095,7 +27164,9 @@
 "nBs" = (
 /obj/structure/marker_beacon,
 /obj/item/ammo_casing/spent,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "nBT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -27118,8 +27189,8 @@
 /area/engine/atmos)
 "nCN" = (
 /obj/structure/frame/machine,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "nCT" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -27404,7 +27475,9 @@
 /area/hydroponics)
 "nIp" = (
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "nIr" = (
 /obj/effect/turf_decal/stripes/end{
@@ -27527,7 +27600,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "nKV" = (
@@ -27542,7 +27616,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "nKW" = (
 /obj/structure/closet/firecloset/full,
@@ -27668,11 +27742,13 @@
 "nPk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "nPw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -27992,7 +28068,7 @@
 	alpha = 100;
 	dir = 5
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "oby" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -28022,7 +28098,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "ocx" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -28244,7 +28322,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "ojC" = (
@@ -28599,7 +28678,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "orX" = (
 /turf/closed/wall,
@@ -28742,7 +28821,7 @@
 	name = "map - level 3";
 	pixel_x = 32
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "ouO" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -28807,7 +28886,8 @@
 "ovD" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "ovJ" = (
@@ -29273,15 +29353,15 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/box/white,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
 	name = "Pure to Ports"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
@@ -29572,7 +29652,8 @@
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "oNh" = (
@@ -29588,7 +29669,7 @@
 	alpha = 100
 	},
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "oNs" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -29644,7 +29725,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "oPI" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible{
@@ -29821,10 +29902,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -30335,8 +30416,8 @@
 /area/asteroid/paradise)
 "pgG" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "pgR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30590,10 +30671,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "pnX" = (
@@ -30918,7 +30999,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "pyW" = (
 /obj/structure/sign/warning/fire,
@@ -30966,7 +31049,9 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "pAJ" = (
 /obj/structure/window/reinforced{
@@ -31524,7 +31609,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "pQk" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -32323,7 +32410,7 @@
 	alpha = 100;
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "qkv" = (
 /obj/structure/cable/yellow{
@@ -32380,7 +32467,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "qlj" = (
@@ -32891,7 +32979,7 @@
 /turf/open/floor/wood,
 /area/library/abandoned)
 "qCg" = (
-/turf/open/floor/plating/beach/deep_water,
+/turf/open/floor/plating/beach/deep_water/cold,
 /area/asteroid/paradise/surface/water)
 "qCi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
@@ -33043,7 +33131,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "qJf" = (
@@ -33565,9 +33654,10 @@
 	},
 /area/hallway/primary/aft)
 "qXs" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
+/obj/structure/table_frame,
+/obj/item/stack/rods/five,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/paradise)
 "qXt" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -33659,8 +33749,8 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/paradise)
 "qYu" = (
 /obj/item/storage/fancy/donut_box{
 	name = "Holy donut box";
@@ -33806,7 +33896,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "rck" = (
@@ -33872,6 +33963,13 @@
 /obj/structure/grille/broken,
 /turf/open/floor/iron,
 /area/maintenance/department/engine/atmos)
+"rdC" = (
+/obj/structure/stairs,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/science/mixing)
 "rdU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -34177,8 +34275,8 @@
 /area/security/prison)
 "rjR" = (
 /obj/structure/flora/ash/stem_shroom,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "rjV" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4
@@ -34670,7 +34768,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "rvh" = (
@@ -34737,7 +34836,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "rxi" = (
-/turf/open/floor/plating/dirt/planetary,
+/turf/open/floor/plating/dirt/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "rxQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -35165,15 +35266,13 @@
 	},
 /area/hallway/primary/fore)
 "rIf" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible/layer2,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "rIj" = (
@@ -35316,7 +35415,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/machinery/light,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "rNb" = (
 /turf/open/floor/iron,
@@ -35347,7 +35446,7 @@
 /obj/machinery/hydroponics/soil{
 	alpha = 200
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "rOG" = (
 /obj/structure/ladder,
@@ -35452,7 +35551,8 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "rRc" = (
@@ -35488,8 +35588,8 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "rRV" = (
-/turf/open/lava/smooth,
-/area/engine/atmos)
+/turf/open/lava/smooth/airless,
+/area/asteroid/paradise)
 "rRY" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/turf_decal/trimline/yellow/warning,
@@ -35564,7 +35664,9 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "rUl" = (
 /obj/machinery/portable_thermomachine,
@@ -36213,7 +36315,7 @@
 	alpha = 100;
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "skF" = (
 /obj/machinery/newscaster{
@@ -36235,7 +36337,7 @@
 	pixel_x = 3;
 	pixel_y = -2
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "sls" = (
 /turf/closed/wall/r_wall,
@@ -36871,7 +36973,7 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "sEp" = (
 /obj/structure/stairs,
@@ -37109,7 +37211,8 @@
 "sLb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "sLd" = (
@@ -37243,10 +37346,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold/cyan/visible,
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/visible,
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "sOB" = (
@@ -37399,7 +37502,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "sUC" = (
@@ -37499,7 +37603,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "sXB" = (
 /turf/closed/wall/r_wall,
@@ -37844,7 +37950,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "tfl" = (
@@ -37890,7 +37997,9 @@
 "tgt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/fancy/plastic,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "tgH" = (
 /obj/machinery/holopad,
@@ -38135,7 +38244,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "tmh" = (
-/obj/structure/girder,
+/obj/structure/holosign/barrier/atmos,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "tmi" = (
@@ -38348,7 +38457,9 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "tqq" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/mix_input{
@@ -38385,7 +38496,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "trC" = (
 /obj/structure/table,
@@ -39031,6 +39144,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"tJh" = (
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
+/area/asteroid/paradise/surface)
 "tJk" = (
 /obj/structure/closet{
 	name = "Evidence Closet"
@@ -39185,7 +39303,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "tLZ" = (
@@ -39224,7 +39343,8 @@
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "tNh" = (
@@ -39600,7 +39720,8 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "tUN" = (
@@ -39661,7 +39782,9 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "tWL" = (
 /obj/effect/turf_decal/bot,
@@ -40034,8 +40157,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/basalt/airless,
+/area/asteroid/paradise)
 "ugo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -40217,7 +40340,6 @@
 /turf/closed/mineral/random/air,
 /area/asteroid/paradise)
 "umI" = (
-/obj/machinery/airalarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -40226,6 +40348,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
+/obj/machinery/airalarm/directional/west,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -40401,7 +40525,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "uqc" = (
@@ -40409,7 +40534,8 @@
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "uqA" = (
@@ -40610,7 +40736,9 @@
 "uwc" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/box,
-/turf/open/floor/plating,
+/turf/open/floor/plating{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "uwm" = (
 /obj/effect/turf_decal/stripes/line{
@@ -41149,7 +41277,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "uJX" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -41311,10 +41441,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "uNJ" = (
@@ -41462,7 +41592,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "uRd" = (
@@ -42440,7 +42571,8 @@
 	dir = 6
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "vnd" = (
@@ -42663,7 +42795,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "vry" = (
 /obj/structure/cable/yellow{
@@ -42759,7 +42893,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "vtn" = (
@@ -42856,7 +42991,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "vyl" = (
 /obj/effect/landmark/start/medical_doctor,
@@ -43100,7 +43237,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "vFR" = (
 /obj/structure/sign/warning/nosmoking/circle,
@@ -43311,7 +43450,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "vMx" = (
@@ -43374,7 +43514,8 @@
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "vPr" = (
@@ -43434,7 +43575,7 @@
 	dir = 10
 	},
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "vQN" = (
 /turf/open/openspace,
@@ -43849,7 +43990,7 @@
 	alpha = 100;
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "wbv" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -44129,7 +44270,7 @@
 	dir = 9
 	},
 /obj/machinery/firealarm/directional/south,
-/turf/open/floor/plating/asteroid/planetary,
+/turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "whG" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -44494,7 +44635,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "wtQ" = (
@@ -44592,7 +44734,8 @@
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "wxa" = (
@@ -45618,7 +45761,8 @@
 /area/asteroid/paradise/surface)
 "wWf" = (
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "wWF" = (
@@ -45785,7 +45929,9 @@
 	pixel_x = -4;
 	pixel_y = 7
 	},
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "xbu" = (
 /obj/machinery/airalarm/directional/south,
@@ -46086,7 +46232,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "xjn" = (
@@ -46337,7 +46484,8 @@
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "xpJ" = (
@@ -46393,7 +46541,9 @@
 /area/science/research)
 "xqm" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "xqw" = (
 /obj/structure/cable/yellow{
@@ -46489,7 +46639,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "xty" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -46900,7 +47052,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "xCQ" = (
 /obj/structure/railing{
@@ -47049,8 +47203,8 @@
 /area/maintenance/department/engine)
 "xIg" = (
 /obj/item/stack/cable_coil/red,
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/paradise)
 "xIl" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -47671,7 +47825,8 @@
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "xVJ" = (
@@ -47926,7 +48081,9 @@
 "ydE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/marker_beacon,
-/turf/open/floor/iron/techmaint/planetary,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	},
 /area/asteroid/paradise/surface)
 "ydF" = (
 /obj/structure/cable/yellow{
@@ -47974,7 +48131,8 @@
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
-	slowdown = 0
+	slowdown = 0;
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 	},
 /area/asteroid/paradise/surface)
 "yeM" = (
@@ -48026,7 +48184,7 @@
 /obj/item/toy/plush/lizard_plushie{
 	name = "Swims-the-ocean"
 	},
-/turf/open/floor/plating/beach/deep_water,
+/turf/open/floor/plating/beach/deep_water/cold,
 /area/asteroid/paradise/surface/water)
 "ygK" = (
 /obj/structure/extinguisher_cabinet{
@@ -57073,8 +57231,8 @@ uyb
 toh
 uli
 vqI
-jOo
-jOo
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -57329,9 +57487,9 @@ uNE
 mCk
 nlB
 uli
-jOo
-jOo
-jOo
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -57586,11 +57744,11 @@ hdU
 vgG
 drz
 tHO
-jOo
-jOo
-jOo
-jOo
-jOo
+vqI
+vqI
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -57843,12 +58001,12 @@ wGy
 tqq
 qMR
 tHO
-jOo
+vqI
 gid
-jOo
+vqI
 rRV
-jOo
-jOo
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -58100,12 +58258,12 @@ rIE
 dnm
 dbG
 uli
-qXs
+giS
 bJq
 pgG
 rRV
 rRV
-jOo
+vqI
 vqI
 vqI
 vqI
@@ -58362,8 +58520,8 @@ gid
 rRV
 rRV
 rRV
-jOo
-jOo
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -58618,9 +58776,9 @@ xIg
 ugf
 bLe
 rRV
-jOo
-jOo
-jOo
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -58868,16 +59026,16 @@ ehW
 sPS
 rBg
 qqo
-tmh
+vgG
 qXs
 ghR
 gKe
 nCN
 faZ
 rjR
-jOo
-jOo
-jOo
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -59126,14 +59284,14 @@ dpe
 ovq
 bOk
 vgG
-qXs
+giS
 qYq
 mVu
 iZP
 bJq
-jOo
-jOo
-jOo
+vqI
+vqI
+vqI
 vqI
 vqI
 vqI
@@ -133377,7 +133535,7 @@ aYd
 aAV
 aJn
 xGI
-evr
+rdC
 tlw
 aqu
 qUB
@@ -259339,10 +259497,10 @@ vfA
 bIK
 ofE
 xpq
-uXr
+tJh
 pAy
-uXr
-uXr
+tJh
+tJh
 msF
 wVV
 hHp
@@ -259853,11 +260011,11 @@ qKQ
 ggb
 pAb
 ruX
-uXr
-uXr
-uXr
-uXr
-uXr
+tJh
+tJh
+tJh
+tJh
+tJh
 cXz
 hHp
 yli
@@ -260364,7 +260522,7 @@ hWI
 gRw
 fdt
 jPI
-uXr
+tJh
 ngJ
 rqj
 hxu
@@ -263192,7 +263350,7 @@ ili
 bIK
 lEc
 tgt
-uXr
+tJh
 sol
 auy
 yfQ
@@ -263705,13 +263863,13 @@ wGC
 bYf
 lnM
 xzJ
-uXr
+tJh
 dNK
-uXr
+tJh
 uJN
 hfK
 ggb
-uXr
+tJh
 uJN
 bIK
 sBX
@@ -264221,7 +264379,7 @@ sBX
 xzJ
 eZG
 uJN
-uXr
+tJh
 trc
 lnM
 kqB
@@ -264991,7 +265149,7 @@ ggb
 wGC
 lEc
 xbj
-uXr
+tJh
 sol
 mYe
 yfQ
@@ -265248,7 +265406,7 @@ hfK
 kqB
 lEc
 xXl
-uXr
+tJh
 sol
 mYe
 yfQ
@@ -268069,14 +268227,14 @@ wWf
 wWf
 ggb
 ggb
-uXr
-uXr
-uXr
+tJh
+tJh
+tJh
 wwW
 wWf
 wWf
 wWf
-uXr
+tJh
 sLb
 fcm
 wVV
@@ -268324,8 +268482,8 @@ yli
 mWD
 wWf
 cjJ
-uXr
-uXr
+tJh
+tJh
 mNA
 fku
 fku
@@ -268582,15 +268740,15 @@ eVo
 wWf
 rQE
 klM
-uXr
-uXr
+tJh
+tJh
 dCl
 wWf
 wWf
 wWf
 wWf
 wtw
-uXr
+tJh
 wWf
 wWf
 npi
@@ -268840,14 +268998,14 @@ wWf
 rQE
 wWf
 cjJ
-uXr
-uXr
+tJh
+tJh
 nqZ
 wWf
 wWf
 wWf
 qlg
-uXr
+tJh
 mby
 wWf
 hfW
@@ -269098,13 +269256,13 @@ rQE
 sLb
 ovD
 wWf
-uXr
-uXr
+tJh
+tJh
 uqc
 ovD
 mNA
 dNX
-uXr
+tJh
 sLb
 wWf
 tUC
@@ -269354,14 +269512,14 @@ miz
 rQE
 dNK
 ggb
-uXr
+tJh
 ggb
 ggb
 uQK
-uXr
+tJh
 ggb
 ggb
-uXr
+tJh
 rQE
 wWf
 tUC

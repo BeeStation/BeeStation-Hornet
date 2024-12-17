@@ -128,3 +128,9 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input/@SUBTYPES : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input{@OLD}
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrogen_output/@SUBTYPES : /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrogen_output{@OLD}
 /obj/machinery/door/airlock/alarmlock : /obj/machinery/door/airlock/public/glass{@OLD}
+
+# Now for Echostation's COLD
+/turf/open/floor/plating/beach/deep_water : /turf/open/floor/plating/beach/deep_water/cold{@OLD}
+/turf/open/floor/plating/beach/coastline_t : /turf/open/floor/plating/beach/coastline_t/cold{@OLD}
+/turf/open/floor/plating/beach/coastline_b : /turf/open/floor/plating/beach/coastline_b/cold{@OLD}
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner : /turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold{@OLD}

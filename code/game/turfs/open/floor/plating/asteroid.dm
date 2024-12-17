@@ -84,6 +84,7 @@
 		return ..()
 
 /turf/open/floor/plating/asteroid/planetary
+	planetary_atmos = TRUE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
 /turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
@@ -141,6 +142,8 @@
 
 /turf/open/floor/plating/asteroid/basalt/planetary
 	resistance_flags = INDESTRUCTIBLE
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
 /turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
@@ -217,11 +220,12 @@
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/plating/asteroid/snow/temperate
-	initial_gas_mix = "o2=22;n2=82;TEMP=255.37"
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
 
 /turf/open/floor/plating/asteroid/snow/planetary
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE

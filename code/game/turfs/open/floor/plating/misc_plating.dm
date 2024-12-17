@@ -303,6 +303,18 @@
 	icon_state = "sandwater_inner"
 	baseturfs = /turf/open/floor/plating/beach/coastline_t/sandwater_inner
 
+/turf/open/floor/plating/beach/deep_water/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/plating/beach/coastline_t/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/plating/beach/coastline_b/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
 /turf/open/floor/plating/ironsand
 	gender = PLURAL
 	name = "iron sand"
@@ -354,7 +366,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/open/floor/plating/ice/smooth/planetary
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/ice/smooth/red
 	icon = 'icons/turf/floors/red_ice.dmi'
@@ -389,7 +402,9 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/open/floor/plating/snowed/cavern
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
+
 
 /turf/open/floor/plating/snowed/smoothed
 	planetary_atmos = TRUE
@@ -401,7 +416,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
 
 /turf/open/floor/plating/snowed/smoothed/planetary
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/snowed/colder
 	temperature = 140
