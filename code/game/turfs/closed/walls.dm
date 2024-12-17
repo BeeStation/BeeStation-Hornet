@@ -1,5 +1,4 @@
 #define MAX_DENT_DECALS 15
-#define LEANING_OFFSET 11
 
 /turf/closed/wall
 	name = "wall"
@@ -32,19 +31,23 @@
 	var/girder_type = /obj/structure/girder
 	var/list/dent_decals
 
-/turf/closed/wall/MouseDrop_T(mob/living/carbon/carbon_mob, mob/user)
+/turf/closed/wall/MouseDrop_T(atom/dropping, mob/user, params)
 	..()
-	if(carbon_mob != user)
+	if(dropping != user)
 		return
-	if(carbon_mob.is_leaning == TRUE)
+	if(!iscarbon(dropping) && !iscyborg(dropping))
 		return
-	if(carbon_mob.pulledby)
+	var/mob/living/leaner = dropping
+	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform)
 		return
-	if(!carbon_mob.density)
+	if(!leaner.density || leaner.pulledby || leaner.buckled || !(leaner.mobility_flags & MOBILITY_STAND))
 		return
-	var/turf/checked_turf = get_step(carbon_mob, turn(carbon_mob.dir, 180))
-	if(checked_turf == src)
-		carbon_mob.start_leaning(src)
+	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, LEANING_TRAIT))
+		return
+	var/turf/checked_turf = get_step(leaner, REVERSE_DIR(leaner.dir))
+	if(checked_turf != src)
+		return
+	leaner.start_leaning(src)
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
@@ -266,4 +269,3 @@
 	return ..()
 
 #undef MAX_DENT_DECALS
-#undef LEANING_OFFSET
