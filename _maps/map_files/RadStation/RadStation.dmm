@@ -4731,7 +4731,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "bwK" = (
 /obj/effect/landmark/start/assistant,
@@ -10720,7 +10720,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "dvV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -21837,7 +21837,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "gRR" = (
 /obj/machinery/camera/directional/west{
@@ -31832,7 +31832,7 @@
 "khS" = (
 /obj/machinery/telecomms/processor/preset_exploration,
 /obj/machinery/camera/directional/east,
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "khT" = (
 /obj/structure/disposalpipe/segment{
@@ -48428,10 +48428,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"ppE" = (
-/obj/machinery/air_sensor/toxins_burn_chamber,
-/turf/open/floor/engine/vacuum,
-/area/science/mixing/chamber)
 "ppT" = (
 /obj/structure/railing{
 	dir = 5
@@ -49084,7 +49080,7 @@
 	pixel_y = -8
 	},
 /obj/item/kirbyplants/random,
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "pCW" = (
 /obj/effect/turf_decal/stripes/line,
@@ -49662,6 +49658,10 @@
 /obj/item/organ/ears/cat,
 /turf/open/floor/iron,
 /area/medical/surgery)
+"pLu" = (
+/obj/machinery/air_sensor/toxins_burn_chamber,
+/turf/open/floor/engine/vacuum,
+/area/science/mixing/chamber)
 "pLG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50399,7 +50399,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "pWY" = (
 /obj/effect/landmark/start/chemist,
@@ -51530,7 +51530,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "qpA" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -70964,7 +70964,7 @@
 /area/security/detectives_office)
 "wHX" = (
 /obj/machinery/telecomms/server/presets/exploration,
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/circuit/green,
 /area/quartermaster/exploration_prep)
 "wHY" = (
 /obj/structure/closet,
@@ -97268,7 +97268,7 @@ jJT
 mxU
 fSH
 qbS
-ppE
+pLu
 kwX
 fFP
 kCC
