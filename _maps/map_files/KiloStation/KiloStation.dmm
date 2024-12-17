@@ -4430,19 +4430,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
-"aUq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "aUz" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
@@ -9883,11 +9870,6 @@
 /obj/structure/sign/departments/engineering,
 /turf/closed/wall,
 /area/quartermaster/warehouse)
-"bZy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "bZD" = (
 /obj/machinery/button/door{
 	id = "gatewayshutters";
@@ -11649,16 +11631,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
-"crn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "crq" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall/rust,
@@ -15711,15 +15683,13 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "djL" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = -22
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
-/turf/open/floor/engine{
-	initial_gas_mix = "n2=100;TEMP=80";
-	name = "mainframe floor"
-	},
-/area/tcommsat/server)
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "djS" = (
 /obj/machinery/light{
 	dir = 1
@@ -16959,6 +16929,16 @@
 	broken = 1
 	},
 /area/quartermaster/warehouse)
+"dDZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "dEg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -23827,6 +23807,11 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/fore)
+"fKl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "fKt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -35271,6 +35256,19 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/medbay/central)
+"jtU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "jtY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -42328,7 +42326,8 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	burnt = 1;
+	initial_gas_mix = "n2=100;TEMP=80"
 	},
 /area/tcommsat/server)
 "lLq" = (
@@ -56029,14 +56028,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
-"qeV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "qfj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -65328,7 +65319,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "tcZ" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Server Room";
 	req_access_txt = "61"
@@ -94947,7 +94937,7 @@ efH
 ajd
 qYh
 qYh
-crn
+dDZ
 qYh
 ajd
 ajd
@@ -95717,7 +95707,7 @@ hMh
 ajd
 aFN
 cnm
-qeV
+djL
 cnm
 cnm
 cnm
@@ -97266,7 +97256,7 @@ fgf
 mhB
 cJI
 cJr
-bZy
+fKl
 aer
 bNe
 bNe
@@ -98550,7 +98540,7 @@ agS
 agS
 exu
 dsJ
-bZy
+fKl
 fPs
 vLu
 xzJ
@@ -98810,7 +98800,7 @@ iDM
 oqS
 cnm
 cnm
-aUq
+jtU
 cnm
 cnm
 bNm
@@ -111599,7 +111589,7 @@ ajC
 qqf
 hdC
 xYi
-djL
+sPb
 oER
 rdL
 tDD
