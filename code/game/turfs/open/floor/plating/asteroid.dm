@@ -136,7 +136,7 @@
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
 /turf/open/floor/plating/asteroid/basalt/iceland_surface
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
 
@@ -167,7 +167,7 @@
 	icon_state = "fairygrass"
 	icon_plating = "fairygrass"
 	environment_type = "snow_cavern"
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
@@ -177,7 +177,7 @@
 	baseturfs = /turf/open/floor/plating/asteroid/snow
 	icon_state = "snow"
 	icon_plating = "snow"
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 	environment_type = "snow"
 	flags_1 = NONE
 	planetary_atmos = TRUE
