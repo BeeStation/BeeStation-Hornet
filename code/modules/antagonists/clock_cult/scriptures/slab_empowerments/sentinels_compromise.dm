@@ -45,7 +45,7 @@
 			L.adjustBruteLoss(-brutedamage, TRUE, FALSE)
 			L.adjustFireLoss(-burndamage, TRUE, FALSE)
 			L.adjustOxyLoss(-oxydamage)
-			L.adjustToxLoss(totaldamage * 0.5, TRUE, TRUE)
+			caller.adjustToxLoss(totaldamage * 0.5, TRUE, TRUE)
 			clockwork_say(caller, text2ratvar("[has_holy_water ? "Heal tainted" : "Mend wounded"] flesh!"))
 			log_combat(caller, L, "healed with Sentinel's Compromise")
 			L.visible_message(("<span class='warning'>A blue light washes over [L], [has_holy_water ? "causing [L.p_them()] to briefly glow as it mends" : " mending"] [L.p_their()] bruises and burns!</span>"), \

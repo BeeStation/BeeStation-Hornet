@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		return
 	if(quick_bound_scriptures[position])
 		//Unbind the scripture that is quickbound
+		quick_bound_scriptures.Remove(M)
 		qdel(quick_bound_scriptures[position])
 	//Put the quickbound action onto the slab, the slab should grant when picked up
 	var/datum/action/innate/clockcult/quick_bind/quickbound = new

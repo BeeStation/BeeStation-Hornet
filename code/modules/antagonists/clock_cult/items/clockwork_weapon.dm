@@ -25,12 +25,17 @@
 	var/clockwork_hint = ""
 	var/datum/action/spell/summon_spear/SS
 
+/obj/item/clockwork/weapon/Destroy()
+	if(SS)
+		SS.Remove(SS.owner)
+	. = ..()
+
+
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
 	if(!user.mind)
 		return
-	SS.Remove(user)
-	if(is_servant_of_ratvar(user))
+	if(is_servant_of_ratvar(user) && !SS)
 		SS = new
 		SS.marked_item = src
 		SS.Grant(user)

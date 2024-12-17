@@ -256,11 +256,6 @@
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
 	..(M)
 
-/datum/action/innate/clockcult/quick_bind/Remove(mob/M)
-	if(activation_slab.invoking_scripture == scripture)
-		activation_slab.invoking_scripture = null
-	..(M)
-
 /datum/action/innate/clockcult/quick_bind/is_available()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
 		return FALSE
