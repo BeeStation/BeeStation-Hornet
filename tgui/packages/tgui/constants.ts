@@ -149,7 +149,7 @@ const GASES = [
     path: '/datum/gas/nitrogen',
     name: 'Nitrogen',
     label: 'N₂',
-    color: 'yellow',
+    color: 'red',
   },
   {
     id: 'co2',
@@ -198,14 +198,14 @@ const GASES = [
     path: '/datum/gas/bz',
     name: 'BZ',
     label: 'BZ',
-    color: 'mediumpurple',
+    color: 'purple',
   },
   {
     id: 'pluoxium',
     path: '/datum/gas/pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
-    color: 'mediumslateblue',
+    color: '#7b68ee',
   },
   {
     id: 'nitryl',
