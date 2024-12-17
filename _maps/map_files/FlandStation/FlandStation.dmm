@@ -141,7 +141,9 @@
 /area/chapel/main)
 "abJ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/iron{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "abN" = (
 /turf/open/floor/plating/asteroid/airless,
@@ -164,7 +166,7 @@
 /area/hallway/primary/aft)
 "acn" = (
 /obj/structure/girder,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "aco" = (
 /obj/structure/lattice,
@@ -1083,7 +1085,9 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "aob" = (
-/turf/open/floor/plating/rust,
+/turf/open/floor/plating/rust{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "aod" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1133,7 +1137,9 @@
 /area/hydroponics/garden)
 "aoW" = (
 /obj/structure/girder,
-/turf/open/floor/plating/foam,
+/turf/open/floor/plating/foam{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "ape" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -8967,10 +8973,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
-"cov" = (
-/obj/structure/girder,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "coA" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -9170,12 +9172,6 @@
 /obj/item/shovel,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/solars/port)
-"crA" = (
-/obj/structure/girder,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/space/nearstation)
 "crB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/sepia,
@@ -15018,11 +15014,12 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "dUK" = (
-/obj/structure/lattice,
-/turf/open/floor/plating{
-	broken = 1
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 4
 	},
-/area/space/nearstation)
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "dVi" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -15664,10 +15661,21 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/misc_lab)
 "eew" = (
-/turf/open/floor/plating/rust{
-	initial_gas_mix = "TEMP=2.7"
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
 	},
-/area/space/nearstation)
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
+/turf/open/floor/iron/sepia,
+/area/maintenance/department/engine)
 "eeW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/closet,
@@ -21026,10 +21034,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
-"fuE" = (
-/obj/machinery/air_sensor/toxins_burn_chamber,
-/turf/open/floor/engine/vacuum,
-/area/science/mixing/chamber)
 "fuG" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -38421,12 +38425,12 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/engineering)
 "jPV" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
-	dir = 8
+/obj/effect/spawner/structure/window/depleteduranium,
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
+	dir = 4
 	},
-/turf/open/floor/iron,
-/area/engine/atmos)
+/turf/open/floor/plating/airless,
+/area/maintenance/disposal/incinerator)
 "jPW" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Server Room";
@@ -43537,10 +43541,10 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "lae" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "laz" = (
@@ -57232,22 +57236,6 @@
 	name = "mainframe floor"
 	},
 /area/tcommsat/server)
-"oGR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
-/turf/open/floor/iron/sepia,
-/area/maintenance/department/engine)
 "oHd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -64662,7 +64650,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
 /turf/open/floor/iron/sepia,
 /area/maintenance/department/engine)
 "qDZ" = (
@@ -71702,8 +71690,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "sqV" = (
-/obj/machinery/atmospherics/pipe/color_adapter{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -71970,7 +71959,9 @@
 /turf/open/floor/plating,
 /area/science/shuttle)
 "suJ" = (
-/obj/machinery/atmospherics/pipe/color_adapter,
+/obj/machinery/atmospherics/pipe/color_adapter{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "suQ" = (
@@ -85758,12 +85749,9 @@
 	},
 /area/docking/bridge)
 "vKJ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
+/obj/machinery/air_sensor/toxins_burn_chamber,
+/turf/open/floor/engine/vacuum,
+/area/science/mixing/chamber)
 "vKW" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
@@ -90496,12 +90484,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/construction/mining/aux_base)
-"wUn" = (
-/obj/structure/girder,
-/turf/open/floor/plating/foam{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/space/nearstation)
 "wUr" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/r_wall,
@@ -95762,12 +95744,9 @@
 /turf/closed/mineral,
 /area/engine/engine_room)
 "xVd" = (
-/obj/effect/spawner/structure/window/depleteduranium,
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/maintenance/disposal/incinerator)
+/obj/machinery/atmospherics/pipe/color_adapter,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "xVj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -97051,9 +97030,7 @@
 /area/security/nuke_storage)
 "yky" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ykA" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
@@ -125501,7 +125478,7 @@ tsN
 xJu
 hSG
 aco
-cov
+acn
 bXh
 csJ
 csJ
@@ -126007,7 +125984,7 @@ nnx
 nnx
 aar
 nnx
-dUK
+pqt
 bXh
 bXh
 bbZ
@@ -126525,8 +126502,8 @@ nnx
 nnx
 bbZ
 csJ
-crA
-dUK
+acn
+pqt
 cer
 amr
 csJ
@@ -127298,7 +127275,7 @@ csJ
 csJ
 nnx
 bbZ
-eew
+aob
 bhg
 acO
 aep
@@ -127808,7 +127785,7 @@ nnx
 nnx
 nnx
 bXh
-eew
+aob
 jID
 hsU
 ckh
@@ -128319,10 +128296,10 @@ nnx
 nnx
 bbZ
 nnx
-cov
+acn
 nnx
 nnx
-wUn
+aoW
 acY
 hgc
 uYO
@@ -137700,7 +137677,7 @@ vKD
 ylR
 hfo
 rdZ
-fuE
+vKJ
 rVe
 cYE
 wQe
@@ -141562,7 +141539,7 @@ xZT
 tqc
 pul
 smf
-vKJ
+sqV
 bcG
 xHa
 obK
@@ -143868,12 +143845,12 @@ oRa
 wgX
 ksX
 fEQ
-suJ
+xVd
 hIw
 uzm
 ftI
 uzm
-sqV
+suJ
 uzm
 uzm
 jHm
@@ -144137,7 +144114,7 @@ uzm
 uzm
 wrn
 ixv
-jPV
+lae
 oPF
 vIg
 uUs
@@ -144643,11 +144620,11 @@ oPF
 hzJ
 oPF
 oPF
-lae
+dUK
 qiY
 upr
 oPF
-lae
+dUK
 oMg
 vTo
 hcG
@@ -147714,7 +147691,7 @@ wjs
 ffV
 wWM
 ilA
-qDs
+eew
 aPp
 gNU
 gNU
@@ -148502,7 +148479,7 @@ vOV
 rTo
 dap
 lZI
-xVd
+jPV
 rTo
 voV
 rTo
@@ -149016,7 +148993,7 @@ sXg
 rTo
 vtx
 wVv
-xVd
+jPV
 rTo
 trG
 nnx
@@ -149256,7 +149233,7 @@ wjS
 oLf
 hvT
 iir
-oGR
+qDs
 aPp
 eCp
 vRN
