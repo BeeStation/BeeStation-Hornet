@@ -51,6 +51,12 @@
 		switch_personalities()
 	..()
 
+/datum/brain_trauma/severe/split_personality/on_death()
+	if(current_controller != OWNER)
+		switch_personalities(TRUE)
+	..()
+
+
 /datum/brain_trauma/severe/split_personality/on_lose()
 	if(current_controller != OWNER) //it would be funny to cure a guy only to be left with the other personality, but it seems too cruel
 		switch_personalities(TRUE)
