@@ -12047,7 +12047,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/side,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "dNE" = (
 /obj/effect/landmark/start/janitor,
 /obj/effect/landmark/xeno_spawn,
@@ -14366,7 +14366,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "eAY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -19077,10 +19077,15 @@
 	dir = 8;
 	pixel_x = -24
 	},
+/obj/effect/mapping_helpers/airalarm/tlv_no_checks,
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "toxinsburn"
+	},
+/obj/effect/mapping_helpers/airalarm/mixingchamber_access,
 /turf/open/floor/iron/dark/side{
 	dir = 10
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "fYr" = (
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal)
@@ -20843,7 +20848,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "gAU" = (
 /obj/machinery/vendor/mining,
 /obj/machinery/light{
@@ -32760,7 +32765,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "kwX" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input{
 	dir = 4
@@ -33027,7 +33032,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "kCk" = (
@@ -38597,7 +38602,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "msd" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted,
 /obj/item/ammo_casing/spent,
@@ -47264,7 +47269,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "oYy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -48423,6 +48428,10 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
+"ppE" = (
+/obj/machinery/air_sensor/toxins_burn_chamber,
+/turf/open/floor/engine/vacuum,
+/area/science/mixing/chamber)
 "ppT" = (
 /obj/structure/railing{
 	dir = 5
@@ -56827,7 +56836,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "rYY" = (
 /obj/item/paint/blue,
 /obj/structure/rack,
@@ -58894,7 +58903,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "sLf" = (
@@ -62463,7 +62472,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 6
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "tNi" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
@@ -62647,7 +62656,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "tQv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -66775,7 +66784,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
-/area/science/mixing/chamber)
+/area/science/mixing)
 "vlR" = (
 /obj/structure/table,
 /obj/structure/disposalpipe/segment{
@@ -71846,7 +71855,9 @@
 	pixel_x = -25;
 	pixel_y = -5
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north{
+	areastring = "/area/science/mixing/chamber"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -71857,7 +71868,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
-/area/science/mixing/chamber)
+/area/science/mixing)
 "wYC" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -97257,7 +97268,7 @@ jJT
 mxU
 fSH
 qbS
-frc
+ppE
 kwX
 fFP
 kCC

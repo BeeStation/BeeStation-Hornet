@@ -164,7 +164,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "rT" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1
 	},
@@ -417,7 +416,6 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "QO" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
