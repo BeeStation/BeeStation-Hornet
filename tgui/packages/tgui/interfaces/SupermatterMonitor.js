@@ -131,7 +131,7 @@ export const SupermatterMonitorContent = (props, context) => {
           <LabeledList>
             {gases.map((gas) => (
               <LabeledList.Item key={gas.name} label={gas.name}>
-                <ProgressBar color={getGasColor(gas)} value={gas.amount} minValue={0} maxValue={gasMaxAmount}>
+                <ProgressBar color={getGasColor(gas.name)} value={gas.amount} minValue={0} maxValue={gasMaxAmount}>
                   {toFixed(gas.amount, 2) + '%'}
                 </ProgressBar>
               </LabeledList.Item>
