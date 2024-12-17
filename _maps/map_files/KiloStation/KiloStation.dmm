@@ -9002,9 +9002,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "bNm" = (
 /obj/structure/sign/warning/pods,
@@ -16931,11 +16929,14 @@
 /area/quartermaster/warehouse)
 "dDZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -17431,9 +17432,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "dLX" = (
 /obj/structure/cable/yellow{
@@ -31272,9 +31271,7 @@
 	pixel_x = -25;
 	req_access_txt = "49"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "igj" = (
 /obj/machinery/door/poddoor/preopen{
@@ -35258,14 +35255,11 @@
 /area/medical/medbay/central)
 "jtU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -37181,9 +37175,7 @@
 /obj/structure/sign/warning/securearea{
 	pixel_x = 32
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "jZU" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -70566,9 +70558,7 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "uQe" = (
 /obj/structure/rack,
@@ -94937,7 +94927,7 @@ efH
 ajd
 qYh
 qYh
-dDZ
+jtU
 qYh
 ajd
 ajd
@@ -98800,7 +98790,7 @@ iDM
 oqS
 cnm
 cnm
-jtU
+dDZ
 cnm
 cnm
 bNm
