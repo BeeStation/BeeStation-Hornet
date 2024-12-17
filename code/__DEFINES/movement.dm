@@ -110,5 +110,3 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 
 /// Generic position of user offset for /datum/component/riding
 #define RIDING_OFFSET_ALL "ALL"
-
-#define LEANING_OFFSET 11
