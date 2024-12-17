@@ -17521,7 +17521,6 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
