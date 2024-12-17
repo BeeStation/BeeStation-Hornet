@@ -22552,7 +22552,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "fol" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
 	req_one_access_txt = "30;70"
@@ -29845,6 +29844,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "hIF" = (
@@ -45914,7 +45914,6 @@
 /turf/open/floor/iron/dark,
 /area/security/prison/shielded)
 "mVu" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},
@@ -55666,10 +55665,6 @@
 /obj/effect/landmark/blobstart,
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = 22
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
