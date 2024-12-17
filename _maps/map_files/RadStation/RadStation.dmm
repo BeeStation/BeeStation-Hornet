@@ -960,7 +960,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "aps" = (
 /obj/machinery/camera/directional/north{
@@ -8818,7 +8818,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "cNI" = (
 /obj/item/radio/intercom{
@@ -9806,7 +9806,7 @@
 /area/medical/break_room)
 "deN" = (
 /obj/structure/lattice/catwalk,
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "deW" = (
 /obj/effect/landmark/xeno_spawn,
@@ -9958,7 +9958,7 @@
 	uses = 10
 	},
 /obj/effect/turf_decal/box,
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "diq" = (
 /obj/machinery/camera/directional/east,
@@ -10844,6 +10844,10 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"dwX" = (
+/obj/machinery/air_sensor/toxins_burn_chamber,
+/turf/open/floor/engine/vacuum,
+/area/science/mixing/chamber)
 "dxa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark_red/anticorner/contrasted{
@@ -16975,7 +16979,7 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "fpi" = (
 /obj/effect/turf_decal/stripes/line{
@@ -19035,7 +19039,7 @@
 "fXw" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon,
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "fXJ" = (
 /turf/closed/wall/r_wall/rust,
@@ -26292,7 +26296,7 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "iqg" = (
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "iqm" = (
 /obj/structure/sign/warning/pods,
@@ -30617,7 +30621,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/turf/open/floor/engine/air,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "jNP" = (
 /obj/structure/cable/yellow{
@@ -33009,7 +33013,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "kBB" = (
 /obj/machinery/light/floor,
@@ -49658,10 +49662,6 @@
 /obj/item/organ/ears/cat,
 /turf/open/floor/iron,
 /area/medical/surgery)
-"pLu" = (
-/obj/machinery/air_sensor/toxins_burn_chamber,
-/turf/open/floor/engine/vacuum,
-/area/science/mixing/chamber)
 "pLG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50072,7 +50072,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "pSf" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -70243,7 +70243,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "wxK" = (
 /obj/structure/cable/yellow{
@@ -75239,7 +75239,7 @@
 	pixel_y = -5;
 	req_access_txt = "19"
 	},
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "ycs" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -75410,7 +75410,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/engine/o2,
+/turf/open/floor/engine/airless,
 /area/ai_monitored/turret_protected/ai)
 "ygY" = (
 /obj/effect/turf_decal/stripes/line,
@@ -97268,7 +97268,7 @@ jJT
 mxU
 fSH
 qbS
-pLu
+dwX
 kwX
 fFP
 kCC
