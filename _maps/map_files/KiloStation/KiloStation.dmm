@@ -4949,7 +4949,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/space/nearstation)
 "aZS" = (
 /turf/closed/wall/r_wall,
@@ -5017,7 +5019,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/space/nearstation)
 "baC" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -9880,15 +9884,7 @@
 /area/quartermaster/warehouse)
 "bZy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bZD" = (
@@ -11652,6 +11648,19 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
+"crn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "crq" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall/rust,
@@ -16952,6 +16961,14 @@
 	broken = 1
 	},
 /area/quartermaster/warehouse)
+"dDZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "dEg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -23820,11 +23837,6 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/fore)
-"fKl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "fKt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -35269,14 +35281,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/medbay/central)
-"jtU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "jtY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -95725,7 +95729,7 @@ hMh
 ajd
 aFN
 cnm
-jtU
+dDZ
 cnm
 cnm
 cnm
@@ -97274,7 +97278,7 @@ fgf
 mhB
 cJI
 cJr
-fKl
+bZy
 aer
 bNe
 bNe
@@ -98558,7 +98562,7 @@ agS
 agS
 exu
 dsJ
-fKl
+bZy
 fPs
 vLu
 xzJ
@@ -98818,7 +98822,7 @@ iDM
 oqS
 cnm
 cnm
-bZy
+crn
 cnm
 cnm
 bNm
