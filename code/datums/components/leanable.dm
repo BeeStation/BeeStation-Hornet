@@ -86,27 +86,27 @@
 	), PROC_REF(stop_leaning))
 
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
-	RegisterSignal(src, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
+	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
 
 /// You fall on your face if you get teleported while leaning
-/mob/living/proc/teleport_away_while_leaning()
+/mob/living/proc/teleport_away_while_leaning(datum/source)
 	SIGNAL_HANDLER
 
 	// Make sure we unregister signal handlers and reset animation
-	stop_leaning()
+	stop_leaning(source)
 	// -1000 aura
 	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the object you were leaning on vanishes from contact with you!</span>")
 	Knockdown(3 SECONDS)
 
-/mob/living/proc/airlock_opened()
+/mob/living/proc/airlock_opened(datum/source)
 	SIGNAL_HANDLER
 
 	// Make sure we unregister signal handlers and reset animation
-	stop_leaning()
+	stop_leaning(source)
 	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the airlock you were leaning on opens!</span>")
 	Knockdown(3 SECONDS) //boowomp
 
-/mob/living/proc/stop_leaning()
+/mob/living/proc/stop_leaning(datum/source)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(src, list(
@@ -115,6 +115,8 @@
 		COMSIG_MOVABLE_PULLED,
 		COMSIG_ATOM_TELEPORT_ACT,
 	))
+	UnregisterSignal(source, COMSIG_AIRLOCK_OPEN)
+
 	animate(src, 0.2 SECONDS, pixel_x = base_pixel_x + body_position_pixel_x_offset, pixel_y = base_pixel_y + body_position_pixel_y_offset)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
