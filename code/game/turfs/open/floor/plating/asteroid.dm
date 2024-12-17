@@ -85,14 +85,6 @@
 
 /turf/open/floor/plating/asteroid/planetary
 	planetary_atmos = TRUE
-	var/static/datum/gas_mixture/immutable/planetary/GM
-
-/turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	return
 
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -144,14 +136,6 @@
 	resistance_flags = INDESTRUCTIBLE
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = TRUE
-	var/static/datum/gas_mixture/immutable/planetary/GM
-
-/turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	return
 
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
