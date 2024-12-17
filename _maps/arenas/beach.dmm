@@ -116,10 +116,10 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "A" = (
-/turf/open/floor/plating/beach/coastline_t/cold,
+/turf/open/floor/plating/beach/coastline_t,
 /area/tdome/arena)
 "B" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold{
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
 /area/tdome/arena)
@@ -133,25 +133,25 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "F" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold,
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
 /area/tdome/arena)
 "G" = (
-/turf/open/floor/plating/beach/coastline_b/cold{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 5
 	},
 /area/tdome/arena)
 "H" = (
-/turf/open/floor/plating/beach/coastline_t/cold{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 10
 	},
 /area/tdome/arena)
 "I" = (
-/turf/open/floor/plating/beach/coastline_t/cold{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 6
 	},
 /area/tdome/arena)
 "J" = (
-/turf/open/floor/plating/beach/coastline_b/cold{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 9
 	},
 /area/tdome/arena)
