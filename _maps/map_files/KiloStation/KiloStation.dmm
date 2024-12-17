@@ -4431,15 +4431,18 @@
 /turf/open/floor/iron/showroomfloor,
 /area/science/xenobiology)
 "aUq" = (
-/obj/machinery/light/small,
-/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "aUz" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
@@ -4770,9 +4773,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "aYG" = (
 /obj/machinery/computer/card/minor/rd{
@@ -11650,14 +11651,11 @@
 /area/solar/port/fore)
 "crn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -16961,14 +16959,6 @@
 	broken = 1
 	},
 /area/quartermaster/warehouse)
-"dDZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "dEg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56044,9 +56034,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "qfj" = (
@@ -94959,7 +94947,7 @@ efH
 ajd
 qYh
 qYh
-qeV
+crn
 qYh
 ajd
 ajd
@@ -95729,7 +95717,7 @@ hMh
 ajd
 aFN
 cnm
-dDZ
+qeV
 cnm
 cnm
 cnm
@@ -95950,7 +95938,7 @@ aDQ
 aeu
 aDQ
 aDQ
-aUq
+sRS
 amA
 mGY
 hzg
@@ -98822,7 +98810,7 @@ iDM
 oqS
 cnm
 cnm
-crn
+aUq
 cnm
 cnm
 bNm
