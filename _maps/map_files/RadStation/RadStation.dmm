@@ -8122,9 +8122,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "cAT" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10449,9 +10446,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible/layer2{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible/layer4{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/power/terminal{
@@ -10461,6 +10455,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "dqx" = (
@@ -12223,7 +12218,6 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "dSE" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
 /obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -17974,7 +17968,6 @@
 "fEY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -19255,9 +19248,6 @@
 "gaL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4
-	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "gaV" = (
@@ -26079,9 +26069,6 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "imA" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/structure/table/reinforced,
 /obj/item/stack/rods/fifty,
 /obj/item/rcl/pre_loaded,
@@ -30020,10 +30007,6 @@
 /area/crew_quarters/kitchen)
 "jDD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
-/obj/machinery/atmospherics/components/binary/valve/layer4{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/power/terminal{
 	dir = 8
@@ -30035,6 +30018,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "jDH" = (
@@ -33575,9 +33560,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "kKG" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/light{
 	bulb_colour = "#22bfa2";
@@ -34767,9 +34749,6 @@
 /turf/open/floor/wood,
 /area/security/prison)
 "lef" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -39191,13 +39170,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "mBq" = (
@@ -39434,9 +39413,6 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "mEI" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -50615,9 +50591,6 @@
 /turf/open/floor/wood,
 /area/maintenance/central)
 "pZU" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/mineral/plasma/fifty,
@@ -53528,9 +53501,6 @@
 "qXU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 4
-	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "qYf" = (
@@ -56612,9 +56582,6 @@
 /turf/closed/wall,
 /area/medical/storage)
 "rVg" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 5
-	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/light{
 	bulb_colour = "#22bfa2";
@@ -59895,9 +59862,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "taY" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
@@ -69221,12 +69185,11 @@
 "wdh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible/layer4{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "wdi" = (
@@ -69769,7 +69732,6 @@
 "wor" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -74656,9 +74618,6 @@
 	},
 /area/hallway/primary/central)
 "xTh" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible/layer4{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/radio/intercom{
 	pixel_x = -32;
@@ -74849,16 +74808,6 @@
 	burnt = 1
 	},
 /area/maintenance/port/central)
-"xWf" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
-/turf/open/floor/iron/tech,
-/area/engine/engine_room)
 "xWu" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -103965,7 +103914,7 @@ qva
 ixS
 pvb
 hYY
-xWf
+voY
 svB
 jcW
 jcW
