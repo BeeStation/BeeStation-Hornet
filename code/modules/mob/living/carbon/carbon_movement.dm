@@ -79,3 +79,29 @@
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
 		else
 			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+
+/mob/living/carbon/proc/start_leaning(obj/wall)
+
+	switch(dir)
+		if(SOUTH)
+			pixel_y += LEANING_OFFSET
+		if(NORTH)
+			pixel_y += -LEANING_OFFSET
+		if(WEST)
+			pixel_x += LEANING_OFFSET
+		if(EAST)
+			pixel_x += -LEANING_OFFSET
+
+	ADD_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
+	visible_message("<span class='notice'>[src] leans against \the [wall]!</span>", \
+						"<span class='notice'>You lean against \the [wall]!</span>")
+	RegisterSignals(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_START_PULL, COMSIG_ATOM_TELEPORT_ACT, COMSIG_ATOM_DIR_CHANGE), PROC_REF(stop_leaning))
+	is_leaning = TRUE
+
+/mob/living/carbon/proc/stop_leaning()
+	SIGNAL_HANDLER
+	UnregisterSignal(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_START_PULL, COMSIG_ATOM_TELEPORT_ACT, COMSIG_ATOM_DIR_CHANGE))
+	is_leaning = FALSE
+	pixel_y = base_pixel_y + body_position_pixel_x_offset
+	pixel_x = base_pixel_y + body_position_pixel_y_offset
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)

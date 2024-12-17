@@ -85,4 +85,3 @@
 	/// Only load in visual organs
 	var/visual_only_organs = FALSE
 
-	var/is_leaning = FALSE
