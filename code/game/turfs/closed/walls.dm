@@ -1,4 +1,5 @@
 #define MAX_DENT_DECALS 15
+#define LEANING_OFFSET 11
 
 /turf/closed/wall
 	name = "wall"
@@ -30,6 +31,46 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 	var/list/dent_decals
+
+/turf/closed/wall/MouseDrop_T(mob/living/carbon/carbon_mob, mob/user)
+	..()
+	if(carbon_mob != user)
+		return
+	if(carbon_mob.is_leaning == TRUE)
+		return
+	if(carbon_mob.pulledby)
+		return
+	if(!carbon_mob.density)
+		return
+	carbon_mob.is_leaning = TRUE
+	var/turf/checked_turf = get_step(carbon_mob, turn(carbon_mob.dir, 180))
+	if(checked_turf == src)
+		carbon_mob.start_leaning(src)
+
+/mob/living/carbon/proc/start_leaning(obj/wall)
+
+	switch(dir)
+		if(SOUTH)
+			pixel_y += LEANING_OFFSET
+		if(NORTH)
+			pixel_y += -LEANING_OFFSET
+		if(WEST)
+			pixel_x += LEANING_OFFSET
+		if(EAST)
+			pixel_x += -LEANING_OFFSET
+
+	ADD_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
+	visible_message("<span class='notice'>[src] leans against \the [wall]!</span>", \
+						"<span class='notice'>You lean against \the [wall]!</span>")
+	RegisterSignals(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_START_PULL, COMSIG_ATOM_TELEPORT_ACT, COMSIG_ATOM_DIR_CHANGE), PROC_REF(stop_leaning))
+
+/mob/living/carbon/proc/stop_leaning()
+	SIGNAL_HANDLER
+	UnregisterSignal(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_START_PULL, COMSIG_ATOM_TELEPORT_ACT, COMSIG_ATOM_DIR_CHANGE))
+	is_leaning = FALSE
+	pixel_y = base_pixel_y + body_position_pixel_x_offset
+	pixel_x = base_pixel_y + body_position_pixel_y_offset
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
@@ -251,3 +292,4 @@
 	return ..()
 
 #undef MAX_DENT_DECALS
+#undef LEANING_OFFSET
