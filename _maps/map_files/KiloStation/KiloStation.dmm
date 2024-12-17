@@ -9878,6 +9878,11 @@
 /obj/structure/sign/departments/engineering,
 /turf/closed/wall,
 /area/quartermaster/warehouse)
+"bZy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "bZD" = (
 /obj/machinery/button/door{
 	id = "gatewayshutters";
@@ -23825,11 +23830,6 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/fore)
-"fKl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "fKt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -56040,6 +56040,16 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
+"qeV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "qfj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -77946,16 +77956,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/security/courtroom)
-"xbl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "xbm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -94960,7 +94960,7 @@ efH
 ajd
 qYh
 qYh
-xbl
+qeV
 qYh
 ajd
 ajd
@@ -97279,7 +97279,7 @@ fgf
 mhB
 cJI
 cJr
-fKl
+bZy
 aer
 bNe
 bNe
@@ -98563,7 +98563,7 @@ agS
 agS
 exu
 dsJ
-fKl
+bZy
 fPs
 vLu
 xzJ
