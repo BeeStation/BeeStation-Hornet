@@ -39,8 +39,7 @@
 		return
 	if (HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING))
 		return
-	var/turf/checked_turf = get_step(leaner, REVERSE_DIR(leaner.dir))
-	if (checked_turf != get_turf(source))
+	if(ISDIAGONALDIR(get_dir(leaner, source))) //Not leaning on a corner, idiot
 		return
 	leaner.start_leaning(source, leaning_offset)
 	leaning_mobs += leaner
@@ -51,6 +50,8 @@
 	SIGNAL_HANDLER
 	leaning_mobs -= source
 	UnregisterSignal(source, list(COMSIG_LIVING_STOPPED_LEANING, COMSIG_PARENT_QDELETING))
+	if(!length(leaning_mobs))
+		qdel(src)
 
 /**
  * Makes the mob lean on an atom
@@ -62,15 +63,15 @@
 /mob/living/proc/start_leaning(atom/lean_target, leaning_offset)
 	var/new_x = lean_target.pixel_x + base_pixel_x + body_position_pixel_x_offset
 	var/new_y = lean_target.pixel_y + base_pixel_y + body_position_pixel_y_offset
-	switch(dir)
+	switch(get_dir(src, lean_target))
 		if(SOUTH)
-			new_y += leaning_offset
-		if(NORTH)
 			new_y -= leaning_offset
+		if(NORTH)
+			new_y += leaning_offset
 		if(WEST)
-			new_x += leaning_offset
-		if(EAST)
 			new_x -= leaning_offset
+		if(EAST)
+			new_x += leaning_offset
 
 	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
 	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
@@ -79,13 +80,13 @@
 		"<span class='notice'>You lean against [lean_target].</span>",
 	)
 	RegisterSignals(src, list(
-		COMSIG_MOB_CLIENT_PRE_MOVE,
+		COMSIG_MOB_CLIENT_MOVED,
 		COMSIG_HUMAN_DISARM_HIT,
 		COMSIG_MOVABLE_PULLED,
 	), PROC_REF(stop_leaning))
 
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(lean_dir_changed))
+	RegisterSignal(src, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
 
 /// You fall on your face if you get teleported while leaning
 /mob/living/proc/teleport_away_while_leaning()
@@ -97,22 +98,23 @@
 	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the object you were leaning on vanishes from contact with you!</span>")
 	Knockdown(3 SECONDS)
 
+/mob/living/proc/airlock_opened()
+	SIGNAL_HANDLER
+
+	// Make sure we unregister signal handlers and reset animation
+	stop_leaning()
+	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the airlock you were leaning on opens!</span>")
+	Knockdown(3 SECONDS) //boowomp
+
 /mob/living/proc/stop_leaning()
 	SIGNAL_HANDLER
 
 	UnregisterSignal(src, list(
-		COMSIG_MOB_CLIENT_PRE_MOVE,
+		COMSIG_MOB_CLIENT_MOVED,
 		COMSIG_HUMAN_DISARM_HIT,
 		COMSIG_MOVABLE_PULLED,
-		COMSIG_ATOM_DIR_CHANGE,
 		COMSIG_ATOM_TELEPORT_ACT,
 	))
 	animate(src, 0.2 SECONDS, pixel_x = base_pixel_x + body_position_pixel_x_offset, pixel_y = base_pixel_y + body_position_pixel_y_offset)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
-
-/mob/living/proc/lean_dir_changed(atom/source, old_dir, new_dir)
-	SIGNAL_HANDLER
-
-	if (old_dir != new_dir)
-		INVOKE_ASYNC(src, PROC_REF(stop_leaning))
