@@ -205,7 +205,7 @@ const GASES = [
     path: '/datum/gas/pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
-    color: '#7b68ee',
+    color: 'yellow',
   },
   {
     id: 'nitryl',
@@ -219,7 +219,7 @@ const GASES = [
     path: '/datum/gas/stimulum',
     name: 'Stimulum',
     label: 'Stimulum',
-    color: '#E1A116',
+    color: 'orange',
   },
 ] as const;
 
