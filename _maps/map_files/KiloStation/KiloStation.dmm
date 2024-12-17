@@ -9878,11 +9878,6 @@
 /obj/structure/sign/departments/engineering,
 /turf/closed/wall,
 /area/quartermaster/warehouse)
-"bZy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "bZD" = (
 /obj/machinery/button/door{
 	id = "gatewayshutters";
@@ -16951,10 +16946,15 @@
 /area/quartermaster/warehouse)
 "dDZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
-/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "dEg" = (
@@ -23827,12 +23827,7 @@
 /area/hallway/primary/fore)
 "fKl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
+/obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "fKt" = (
@@ -26073,7 +26068,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating{
+	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	},
 /area/docking/arrival)
 "gwl" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -35277,6 +35274,14 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/medbay/central)
+"jtU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "jtY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -54780,9 +54785,7 @@
 /area/hallway/primary/starboard)
 "pJN" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
-/turf/open/floor/plating{
-	broken = 1
-	},
+/turf/open/floor/plating/airless,
 /area/engine/atmos)
 "pJP" = (
 /obj/effect/turf_decal/bot,
@@ -56037,19 +56040,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
-"qeV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "qfj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -58505,7 +58495,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless{
+/turf/open/floor/plating{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/docking/arrival)
@@ -77956,6 +77946,16 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/security/courtroom)
+"xbl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "xbm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
@@ -94960,7 +94960,7 @@ efH
 ajd
 qYh
 qYh
-fKl
+xbl
 qYh
 ajd
 ajd
@@ -95730,7 +95730,7 @@ hMh
 ajd
 aFN
 cnm
-dDZ
+jtU
 cnm
 cnm
 cnm
@@ -97279,7 +97279,7 @@ fgf
 mhB
 cJI
 cJr
-bZy
+fKl
 aer
 bNe
 bNe
@@ -98563,7 +98563,7 @@ agS
 agS
 exu
 dsJ
-bZy
+fKl
 fPs
 vLu
 xzJ
@@ -98823,7 +98823,7 @@ iDM
 oqS
 cnm
 cnm
-qeV
+dDZ
 cnm
 cnm
 bNm
@@ -107832,7 +107832,7 @@ aMY
 aFM
 acK
 bHB
-crn
+cko
 cko
 acm
 aaa
