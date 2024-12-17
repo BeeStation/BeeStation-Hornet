@@ -70119,7 +70119,6 @@
 /turf/open/floor/engine,
 /area/maintenance/department/science/xenobiology)
 "vdV" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	name = "Plasma to Pure"
@@ -70132,6 +70131,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "vdW" = (
