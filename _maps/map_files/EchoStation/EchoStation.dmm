@@ -7435,11 +7435,6 @@
 "dzW" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
-"dAb" = (
-/turf/open/openspace{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/asteroid/paradise)
 "dAf" = (
 /obj/structure/chair/fancy/bench/corporate{
 	dir = 1
@@ -8084,6 +8079,10 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/asteroid/paradise/surface)
+"dPG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/rust,
+/area/science/test_area)
 "dPH" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -8467,9 +8466,12 @@
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "dZF" = (
-/obj/structure/girder,
-/turf/open/floor/plating,
-/area/engine/atmos)
+/obj/structure/sign/warning/securearea{
+	desc = "A warning sign which reads 'BOMB RANGE";
+	name = "BOMB RANGE"
+	},
+/turf/open/floor/plating/rust,
+/area/science/test_area)
 "eaA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
@@ -13624,9 +13626,10 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "gBy" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/rust,
-/area/science/test_area)
+/turf/open/openspace{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
+/area/asteroid/paradise)
 "gBH" = (
 /obj/item/kirbyplants/random{
 	pixel_y = 22
@@ -21799,12 +21802,9 @@
 /turf/closed/wall/r_wall/rust,
 /area/science/mixing)
 "kNb" = (
-/obj/structure/sign/warning/securearea{
-	desc = "A warning sign which reads 'BOMB RANGE";
-	name = "BOMB RANGE"
-	},
-/turf/open/floor/plating/rust,
-/area/science/test_area)
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/engine/atmos)
 "kNj" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -25553,6 +25553,11 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/fitness/recreation)
+"mHX" = (
+/turf/open/openspace{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
+/area/maintenance/department/science/central)
 "mIh" = (
 /obj/structure/lattice,
 /turf/open/openspace,
@@ -35670,9 +35675,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"rRV" = (
-/turf/open/lava/smooth/airless,
-/area/asteroid/paradise)
 "rRY" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/turf_decal/trimline/yellow/warning,
@@ -44047,11 +44049,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"vZe" = (
-/turf/open/openspace{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/maintenance/department/science/central)
 "vZw" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
@@ -58141,7 +58138,7 @@ tHO
 vqI
 sLz
 vqI
-rRV
+bXA
 vqI
 vqI
 vqI
@@ -58398,8 +58395,8 @@ uli
 giS
 xqU
 mdK
-rRV
-rRV
+bXA
+bXA
 vqI
 vqI
 vqI
@@ -58654,9 +58651,9 @@ uli
 tHO
 cNa
 sLz
-rRV
-rRV
-rRV
+bXA
+bXA
+bXA
 vqI
 vqI
 vqI
@@ -58912,7 +58909,7 @@ cKQ
 xIg
 ugf
 bLe
-rRV
+bXA
 vqI
 vqI
 vqI
@@ -59163,7 +59160,7 @@ ehW
 sPS
 rBg
 qqo
-dZF
+kNb
 qXs
 ghR
 gKe
@@ -125484,9 +125481,9 @@ vqI
 vqI
 vqI
 oJl
-dAb
-dAb
-dAb
+gBy
+gBy
+gBy
 oJl
 vqI
 vqI
@@ -125741,9 +125738,9 @@ vqI
 vqI
 vqI
 oJl
-dAb
-dAb
-dAb
+gBy
+gBy
+gBy
 oJl
 vqI
 vqI
@@ -125998,9 +125995,9 @@ vqI
 vqI
 vqI
 oJl
-dAb
-dAb
-dAb
+gBy
+gBy
+gBy
 oJl
 vqI
 vqI
@@ -143439,7 +143436,7 @@ hfo
 tRJ
 jCG
 sBs
-gBy
+dPG
 gDJ
 hfo
 toz
@@ -143696,7 +143693,7 @@ eff
 pxq
 cZA
 fJV
-gBy
+dPG
 cbh
 qOu
 sdD
@@ -143951,9 +143948,9 @@ vqI
 hfo
 toz
 rwF
-gBy
+dPG
 wdl
-gBy
+dPG
 hUU
 toz
 toz
@@ -144468,7 +144465,7 @@ dPp
 sdD
 qZN
 wKO
-kNb
+dZF
 jsp
 jsp
 jsp
@@ -191020,9 +191017,9 @@ vqI
 vqI
 vqI
 oJl
-dAb
-dAb
-dAb
+gBy
+gBy
+gBy
 oJl
 vqI
 vqI
@@ -191277,9 +191274,9 @@ vqI
 vqI
 vqI
 oJl
-dAb
-dAb
-dAb
+gBy
+gBy
+gBy
 oJl
 vqI
 vqI
@@ -191534,9 +191531,9 @@ vqI
 vqI
 vqI
 oJl
-dAb
-dAb
-dAb
+gBy
+gBy
+gBy
 oJl
 vqI
 vqI
@@ -200228,7 +200225,7 @@ rZM
 rZM
 rrr
 eSv
-vZe
+mHX
 eSv
 rZM
 rZM
@@ -200485,7 +200482,7 @@ rZM
 rZM
 rZM
 eSv
-vZe
+mHX
 eSv
 rZM
 rZM
@@ -200742,7 +200739,7 @@ rZM
 rZM
 rZM
 eSv
-vZe
+mHX
 eSv
 rZM
 rZM
