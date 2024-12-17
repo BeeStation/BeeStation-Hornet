@@ -184,28 +184,28 @@ const GASES = [
     path: '/datum/gas/nitrous_oxide',
     name: 'Nitrous Oxide',
     label: 'N₂O',
-    color: 'bisque',
+    color: 'beige',
   },
   {
     id: 'tritium',
     path: '/datum/gas/tritium',
     name: 'Tritium',
     label: 'Tritium',
-    color: 'limegreen',
+    color: 'chartreuse',
   },
   {
     id: 'bz',
     path: '/datum/gas/bz',
     name: 'BZ',
     label: 'BZ',
-    color: 'purple',
+    color: 'mediumpurple',
   },
   {
     id: 'pluoxium',
     path: '/datum/gas/pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
-    color: 'yellow',
+    color: 'mediumslateblue',
   },
   {
     id: 'nitryl',
@@ -219,7 +219,7 @@ const GASES = [
     path: '/datum/gas/stimulum',
     name: 'Stimulum',
     label: 'Stimulum',
-    color: 'orange',
+    color: 'greenyellow',
   },
 ] as const;
 
