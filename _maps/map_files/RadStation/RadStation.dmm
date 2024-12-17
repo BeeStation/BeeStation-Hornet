@@ -10844,10 +10844,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"dwX" = (
-/obj/machinery/air_sensor/toxins_burn_chamber,
-/turf/open/floor/engine/vacuum,
-/area/science/mixing/chamber)
 "dxa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark_red/anticorner/contrasted{
@@ -48828,7 +48824,7 @@
 /area/security/prison)
 "pyp" = (
 /obj/structure/grille,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "pyt" = (
 /obj/structure/table,
@@ -71697,6 +71693,10 @@
 /obj/effect/landmark/start/security_officer,
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
+"wUV" = (
+/obj/machinery/air_sensor/toxins_burn_chamber,
+/turf/open/floor/engine/vacuum,
+/area/science/mixing/chamber)
 "wUW" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
@@ -97268,7 +97268,7 @@ jJT
 mxU
 fSH
 qbS
-dwX
+wUV
 kwX
 fFP
 kCC
