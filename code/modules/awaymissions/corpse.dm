@@ -560,3 +560,36 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
+
+
+///////////////// Colonial Marines! /////////////////
+/obj/effect/mob_spawn/human/corpse/marine
+	outfit = /datum/outfit/marine
+
+/obj/effect/mob_spawn/human/corpse/marine/corpsman
+	outfit = /datum/outfit/marine/medic
+
+/obj/effect/mob_spawn/human/corpse/marine/squadlead
+	outfit = /datum/outfit/marine/squadlead
+
+/datum/outfit/marine
+	name = "Dead Marine Generic"
+	head = /obj/item/clothing/head/helmet/marine
+	uniform = /obj/item/clothing/under/misc/marine
+	back = /obj/item/storage/backpack/marine
+	shoes = /obj/item/clothing/shoes/combat/swat
+	suit = /obj/item/clothing/suit/armor/marine
+	gloves = /obj/item/clothing/gloves/color/black
+
+/datum/outfit/marine/medic
+	name = "Dead Marine Corpsman"
+	head = /obj/item/clothing/head/helmet/marine/medicae
+	uniform = /obj/item/clothing/under/misc/marine/medic
+	back = /obj/item/storage/backpack/marine/medic
+	shoes = /obj/item/clothing/shoes/combat/swat
+	suit = /obj/item/clothing/suit/armor/marine
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
+
+/datum/outfit/marine/squadlead
+	name = "Dead Marine Squad Leader"
+	head = /obj/item/clothing/head/helmet/marine/squadlead
