@@ -372,7 +372,7 @@
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
-	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, detective's camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
+	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, detective's camera, special board for evidences, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
 	cost = 1700
 	max_supply = 1
 	access_budget = ACCESS_MORGUE
@@ -381,7 +381,8 @@
 					/obj/item/camera/detective,
 					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
-					/obj/item/clothing/head/fedora/det_hat)
+					/obj/item/clothing/head/fedora/det_hat,
+					/obj/item/wallframe/detectiveboard)
 	crate_name = "forensics crate"
 
 /datum/supply_pack/security/dumdum
