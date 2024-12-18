@@ -89,7 +89,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/wall/block_superconductivity()
-	return 1
+	return TRUE
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"

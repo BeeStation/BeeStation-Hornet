@@ -197,6 +197,9 @@
 	if(compressor)
 		compressor.locate_machinery()
 
+/obj/machinery/power/turbine/block_superconductivity()
+	return TRUE
+
 /obj/machinery/power/turbine/process()
 
 	if(!compressor)

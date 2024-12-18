@@ -32,6 +32,8 @@
 	alpha = 0
 	SSvis_overlays.add_vis_overlay(src, icon, icon_state, ABOVE_MOB_LAYER, plane, dir, add_appearance_flags = RESET_ALPHA) //you see mobs under it, but you hit them like they are above it
 
+
+
 /obj/structure/holosign/Destroy()
 	if(projector)
 		projector.signs -= src
@@ -127,6 +129,9 @@
 	var/turf/local = get_turf(loc)
 	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
 	return ..()
+
+/obj/structure/holosign/barrier/atmos/block_superconductivity() //Didn't used to do this, but it's "normal", and will help ease heat flow transitions with the players.
+	return TRUE
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"

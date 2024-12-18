@@ -491,6 +491,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
 
+/obj/structure/window/plasma/reinforced/block_superconductivity()
+	return TRUE
 
 /datum/armor/plasma_reinforced
 	melee = 85
