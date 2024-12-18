@@ -336,7 +336,7 @@
 	SSwardrobe.provide_type(/obj/item/surgical_drapes)
 	SSwardrobe.provide_type(/obj/item/scalpel/advanced)
 	SSwardrobe.provide_type(/obj/item/retractor/advanced)
-	SSwardrobe.provide_type(/obj/item/surgicaldrill/advanced)
+	SSwardrobe.provide_type(/obj/item/cautery/advanced)
 	SSwardrobe.provide_type(/obj/item/reagent_containers/medspray/sterilizine)
 	SSwardrobe.provide_type(/obj/item/gun/medbeam)
 
@@ -346,7 +346,7 @@
 	to_preload += /obj/item/surgical_drapes
 	to_preload += /obj/item/scalpel/advanced
 	to_preload += /obj/item/retractor/advanced
-	to_preload += /obj/item/surgicaldrill/advanced
+	to_preload += /obj/item/cautery/advanced
 	to_preload += /obj/item/reagent_containers/medspray/sterilizine
 	to_preload += /obj/item/gun/medbeam
 	return to_preload

@@ -158,7 +158,7 @@
 					halitem.icon_state = "plasticx40"
 			if(3) //sword
 				halitem.icon = 'icons/obj/transforming_energy.dmi'
-				halitem.icon_state = "sword0"
+				halitem.icon_state = "e_sword"
 				halitem.name = "Energy Sword"
 			if(4) //stun baton
 				halitem.icon = 'icons/obj/items_and_weapons.dmi'
