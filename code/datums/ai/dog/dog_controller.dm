@@ -30,6 +30,7 @@
 	RegisterSignal(new_pawn, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
 	RegisterSignals(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
+	RegisterSignal(new_pawn, COMSIG_ATOM_ADD_CONTEXT, PROC_REF(add_context))
 	RegisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING, PROC_REF(listened_throw))
 	return ..() //Run parent at end
 
@@ -273,3 +274,15 @@
 			if(living_pawn.buckled)
 				queue_behavior(/datum/ai_behavior/resist)//in case they are in bed or something
 			queue_behavior(/datum/ai_behavior/harass)
+
+/**
+ * Arguments:
+ * * source -
+ * * context -
+ * * user - refers to user who will see the screentip when the proper context is there
+ */
+/datum/ai_controller/dog/proc/add_context(datum/source, datum/screentip_context/context, mob/user)
+	if (user.a_intent == INTENT_HARM)
+		context.add_attack_hand_action("Punch")
+	else
+		context.add_attack_hand_action("Pet")

@@ -165,6 +165,8 @@
 		return FALSE
 	return ..()
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
+
 /obj/machinery/computer/camera_advanced/attack_hand(mob/user)
 	. = ..()
 	if(.)

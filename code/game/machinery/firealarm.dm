@@ -184,6 +184,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 /obj/machinery/firealarm/AltClick(mob/user)
 	try_lock(user)
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
+
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(buildstage != 2)
 		return ..()
