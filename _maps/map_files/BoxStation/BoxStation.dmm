@@ -46645,6 +46645,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"pxq" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "pxz" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -104145,7 +104149,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+pxq
 ahn
 obt
 ahn
@@ -131718,7 +131722,7 @@ bNG
 bNG
 aaf
 aaf
-aaa
+pxq
 aaa
 aaa
 aaa

@@ -58791,6 +58791,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/janitor/custodian)
+"mUj" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "mUm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -123079,7 +123083,7 @@ aaa
 aad
 aaa
 aaa
-aaa
+mUj
 aad
 aaa
 aaa
@@ -146459,7 +146463,7 @@ cIW
 cHU
 aaa
 aaa
-aaa
+mUj
 aaa
 aaa
 aaa
