@@ -146,6 +146,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()
+	var/verb_text = pick("throw", "toss", "hurl", "chuck", "fling")
 
 	if(!I)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
@@ -173,8 +174,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return TRUE
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
-						"<span class='danger'>You throw [thrown_thing].</span>")
+		visible_message("<span class='danger'>[src] [verb_text] [thrown_thing].</span>", \
+						"<span class='danger'>You [verb_text] [thrown_thing].</span>")
 		log_message("has thrown [thrown_thing]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
