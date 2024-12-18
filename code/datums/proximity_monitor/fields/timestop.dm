@@ -29,13 +29,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	for(var/A in immune_atoms)
 		immune[A] = TRUE
 	for(var/mob/living/L in GLOB.player_list)
-		if(locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in L.mind.spell_list) //People who can stop time are immune to its effects
+		if(locate(/datum/action/spell.timestop) in L.actions) //People who can stop time are immune to its effects
 			immune[L] = TRUE
 	for(var/mob/living/simple_animal/hostile/holoparasite/G in GLOB.holoparasites)
 		if(G?.summoner?.current)
-			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.summoner.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.summoner.current.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
+			if(((locate(/datum/action/spell/timestop) in G.summoner.current.actions))) //It would only make sense that a person's stand would also be immune.
 				immune[G] = TRUE
-			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.mind.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
+			if(((locate(/datum/action/spell/timestop) in G.actions))) //It would only make sense that a person's stand would also be immune.
 				immune[G.summoner.current] = TRUE
 				for(var/mob/living/simple_animal/hostile/holoparasite/GG in GLOB.holoparasites)
 					if(G.summoner == GG.summoner)
@@ -189,7 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/L)
 	frozen_mobs += L
-	if(L.anti_magic_check(check_anti_magic, check_holy))
+	if(L.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
 		immune += L
 		return
 	L.Stun(20, ignore_canstun = TRUE)

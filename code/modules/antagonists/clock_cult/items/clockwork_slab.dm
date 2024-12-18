@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 
 	var/holder_class
 	var/list/scriptures = list()
-
+	var/empowerment
 	var/charge_overlay
 
 	var/calculated_cogs = 0
@@ -93,6 +93,12 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		calculated_cogs += difference
 		cogs += difference
 
+/obj/item/clockwork/clockwork_slab/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	INVOKE_ASYNC(active_scripture, TYPE_PROC_REF(/datum/clockcult/scripture/slab, on_slab_attack), target, user)
+	if(active_scripture)
+		active_scripture.end_invokation()
+
 //==================================//
 // !   Quick bind spell handling  ! //
 //==================================//
@@ -102,6 +108,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		return
 	if(quick_bound_scriptures[position])
 		//Unbind the scripture that is quickbound
+		quick_bound_scriptures.Remove(M)
 		qdel(quick_bound_scriptures[position])
 	//Put the quickbound action onto the slab, the slab should grant when picked up
 	var/datum/action/innate/clockcult/quick_bind/quickbound = new

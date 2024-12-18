@@ -23,7 +23,10 @@
 			speak("neutral", prob(25))
 
 /datum/brain_trauma/special/godwoken/on_gain()
-	owner.AddComponent(/datum/component/anti_magic, TRAUMA_TRAIT, _magic = FALSE, _holy = TRUE)
+	owner.AddComponent(/datum/component/anti_magic, \
+	_source = TRAUMA_TRAIT, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND), \
+	)
 	..()
 
 /datum/brain_trauma/special/godwoken/on_lose()

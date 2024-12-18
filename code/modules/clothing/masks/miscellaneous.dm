@@ -95,7 +95,7 @@
 		user.update_inv_wear_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.update_buttons()
 		to_chat(user, "<span class='notice'>Your emotion mask has now morphed into [choice]!</span>")
 		return 1
 
@@ -375,3 +375,10 @@
 			message = replacetextEx(message,regex(capitalize(key),"g"), "[capitalize(value)]")
 			message = replacetextEx(message,regex(key,"g"), "[value]")
 	speech_args[SPEECH_MESSAGE] = trim(message)
+
+GLOBAL_LIST_INIT(cursed_animal_masks, list(
+		/obj/item/clothing/mask/pig/cursed,
+		/obj/item/clothing/mask/frog/cursed,
+		/obj/item/clothing/mask/cowmask/cursed,
+		/obj/item/clothing/mask/horsehead/cursed,
+	))
