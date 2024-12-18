@@ -37,7 +37,7 @@
 	color = "#c45c57"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/tdome/arena)
 "h" = (
@@ -64,7 +64,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/tdome/arena)
 "l" = (
@@ -147,27 +147,12 @@
 "y" = (
 /turf/open/floor/wood,
 /area/tdome/arena)
-"z" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/tdome/arena)
 "A" = (
 /turf/open/floor/carpet/red,
 /area/tdome/arena)
-"B" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/tdome/arena)
-"C" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/tdome/arena)
 "D" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/tdome/arena)
 "E" = (
@@ -233,7 +218,7 @@ k
 T
 q
 x
-B
+D
 y
 "}
 (3,1,1) = {"
@@ -302,7 +287,7 @@ g
 T
 q
 X
-z
+D
 A
 A
 "}
@@ -363,6 +348,6 @@ o
 m
 r
 x
-C
+D
 y
 "}
