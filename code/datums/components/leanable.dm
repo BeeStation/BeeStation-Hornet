@@ -46,7 +46,7 @@
 	RegisterSignals(leaner, list(COMSIG_LIVING_STOPPED_LEANING, COMSIG_PARENT_QDELETING), PROC_REF(stopped_leaning))
 	return TRUE
 
-/datum/component/leanable/proc/stopped_leaning(datum/source)
+/datum/component/leanable/proc/stopped_leaning(obj/source)
 	SIGNAL_HANDLER
 	leaning_mobs -= source
 	UnregisterSignal(source, list(COMSIG_LIVING_STOPPED_LEANING, COMSIG_PARENT_QDELETING))
@@ -73,6 +73,7 @@
 		if(EAST)
 			new_x += leaning_offset
 
+	leaned_object = lean_target
 	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
 	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	visible_message(
@@ -86,7 +87,7 @@
 	), PROC_REF(stop_leaning))
 
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
-	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
+	RegisterSignal(leaned_object, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
 
 /// You fall on your face if you get teleported while leaning
 /mob/living/proc/teleport_away_while_leaning(datum/source)
@@ -115,8 +116,9 @@
 		COMSIG_MOVABLE_PULLED,
 		COMSIG_ATOM_TELEPORT_ACT,
 	))
-	UnregisterSignal(source, COMSIG_AIRLOCK_OPEN)
+	UnregisterSignal(leaned_object, COMSIG_AIRLOCK_OPEN)
 
+	leaned_object = null
 	animate(src, 0.2 SECONDS, pixel_x = base_pixel_x + body_position_pixel_x_offset, pixel_y = base_pixel_y + body_position_pixel_y_offset)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
