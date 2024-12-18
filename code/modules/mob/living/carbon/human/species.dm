@@ -906,6 +906,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || (H.head?.flags_inv & HIDEEARS) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
+	if(mutant_bodyparts["ipc_chassis_markings"])
+		if(!H.dna.features["ipc_chassis_markings"] || H.dna.features["ipc_chassis_markings"] == "None" || (H.head?.flags_inv & HIDEJUMPSUIT))
+			bodyparts_to_add -= "ipc_chassis_markings"
+
 	if(mutant_bodyparts["apid_antenna"])
 		if(!H.dna.features["apid_antenna"] || H.dna.features["apid_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "apid_antenna"
@@ -1029,6 +1033,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
+				if("ipc_chassis_markings")
+					S = GLOB.ipc_chassis_markings_list[H.dna.features["ipc_chassis_markings"]]
 				if("insect_type")
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
 				if("apid_antenna")
