@@ -107,3 +107,10 @@
 	falloff_exponent = 10
 	falloff_distance = 5
 	vary = FALSE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/firealarm
+	mid_sounds = list('goon/sound/machinery/FireAlarm.ogg' = 1)
+	mid_length = 7 SECONDS
+	volume = 30

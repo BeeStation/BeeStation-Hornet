@@ -9,7 +9,7 @@
 
 	var/flipped = FALSE
 
-/obj/machinery/atmospherics/components/trinary/SetInitDirections()
+/obj/machinery/atmospherics/components/trinary/set_init_directions()
 	switch(dir)
 		if(NORTH)
 			initialize_directions = EAST|NORTH|SOUTH
@@ -24,7 +24,7 @@
 Housekeeping and pipe network stuff
 */
 
-/obj/machinery/atmospherics/components/trinary/getNodeConnects()
+/obj/machinery/atmospherics/components/trinary/get_node_connects()
 
 	//Mixer:
 	//1 and 2 is input
@@ -49,7 +49,9 @@ Housekeeping and pipe network stuff
 
 /obj/machinery/atmospherics/components/trinary/proc/set_overlay_offset(var/pipe_layer)
 	switch(pipe_layer)
-		if(1, 5)
-			return pipe_layer
+		if(1)
+			return 1
+		if(5)
+			return 5
 		else
 			return 0

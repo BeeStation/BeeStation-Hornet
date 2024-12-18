@@ -18,7 +18,7 @@
 	density = FALSE
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	anchored = FALSE
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	dir = NORTH
 	set_dir_on_move = FALSE
 
@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -47,7 +47,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/structure/windoor_assembly/Move()
@@ -73,11 +73,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 
 	return TRUE
 
-/obj/structure/windoor_assembly/CanAtmosPass(turf/T)
+/obj/structure/windoor_assembly/can_atmos_pass(turf/T, vertical = FALSE)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
