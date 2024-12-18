@@ -34,7 +34,8 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
-	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+	///The max temperature of the fire which it was subjected to, determines the melting point of turf
+	var/max_fire_temperature_sustained = 0
 
 	/// If this turf should initialize atmos adjacent turfs or not
 	/// Optimization, not for setting outside of initialize
