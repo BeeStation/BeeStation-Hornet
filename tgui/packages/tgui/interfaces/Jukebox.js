@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 
 export const Jukebox = (props, context) => {
   const { act, data } = useBackend(context);
-  const { active, track_selected, track_length, track_beat, volume } = data;
+  const { active, track_selected, track_length, volume } = data;
   const songs = flow([sortBy((song) => song.name)])(data.songs || []);
   return (
     <Window width={370} height={313}>
@@ -37,10 +37,6 @@ export const Jukebox = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Track Length">{track_selected ? track_length : 'No Track Selected'}</LabeledList.Item>
-            <LabeledList.Item label="Track Beat">
-              {track_selected ? track_beat : 'No Track Selected'}
-              {track_beat === 1 ? ' beat' : ' beats'}
-            </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Machine Settings">

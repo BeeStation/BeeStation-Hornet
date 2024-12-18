@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { PlayingFlags } from './AudioTrack';
 import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
 import { Button, Collapsible, Flex, Knob, Section } from 'tgui/components';
@@ -14,18 +15,24 @@ export const NowPlayingWidget = (props, context) => {
   const audio = useSelector(context, selectAudio),
     dispatch = useDispatch(context),
     settings = useSettings(context),
-    title = audio.meta?.title,
-    url = audio.meta?.link,
-    artist = audio.meta?.artist || 'Unknown Artist',
-    upload_date = audio.meta?.upload_date || 'Unknown Date',
-    album = audio.meta?.album || 'Unknown Album',
-    duration = audio.meta?.duration,
+    title = audio.track?.options?.title,
+    url = audio.track?.options?.link,
+    artist = audio.track?.options?.artist || 'Unknown Artist',
+    upload_date = audio.track?.options?.upload_date || 'Unknown Date',
+    album = audio.track?.options?.album || 'Unknown Album',
+    duration = audio.duration,
+    license_name = audio.track?.options?.license_title || 'Unknown License',
+    license_url = audio.track?.options?.license_url || null,
+    playing_flags = audio.track?.playing_flags || 0,
     date = !isNaN(upload_date)
       ? upload_date?.substring(0, 4) + '-' + upload_date?.substring(4, 6) + '-' + upload_date?.substring(6, 8)
       : upload_date;
 
+  const durationTime = new Date(0);
+  durationTime.setSeconds(duration);
+
   return (
-    <Flex align="center">
+    <Flex align="flex-start">
       {(audio.playing && (
         <Flex.Item
           mx={0.5}
@@ -40,11 +47,11 @@ export const NowPlayingWidget = (props, context) => {
               <Section>
                 {url !== 'Song Link Hidden' && (
                   <Flex.Item grow={1} color="label">
-                    URL: {url}
+                    URL: <a href={url}>{url}</a>
                   </Flex.Item>
                 )}
                 <Flex.Item grow={1} color="label">
-                  Duration: {duration}
+                  Duration: {durationTime.toTimeString().substring(0, 8)}
                 </Flex.Item>
                 {artist !== 'Song Artist Hidden' && artist !== 'Unknown Artist' && (
                   <Flex.Item grow={1} color="label">
@@ -61,6 +68,15 @@ export const NowPlayingWidget = (props, context) => {
                     Uploaded: {date}
                   </Flex.Item>
                 )}
+                {license_url ? (
+                  <Flex.Item grow={1} color="label">
+                    License: <a href={license_url}>[{license_name}]</a>
+                  </Flex.Item>
+                ) : (
+                  <Flex.Item grow={1} color="label">
+                    License: [{license_name}]
+                  </Flex.Item>
+                )}
               </Section>
             </Collapsible>
           }
@@ -70,14 +86,29 @@ export const NowPlayingWidget = (props, context) => {
           Nothing to play.
         </Flex.Item>
       )}
+      {audio.playing && !!(playing_flags & PlayingFlags.TITLE_MUSIC) && (
+        <>
+          <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
+            <Button
+              tooltip="Synchronise with server playlist"
+              icon="rotate"
+              onClick={() => Byond.sendMessage('music/synchronise')}
+            />
+          </Flex.Item>
+          <Flex.Item mt={0.1} mx={0.5} fontSize="0.9em">
+            <Button tooltip="Skip song" icon="forward" onClick={() => Byond.sendMessage('music/skipLobbyMusic')} />
+          </Flex.Item>
+        </>
+      )}
       {audio.playing && (
-        <Flex.Item mx={0.5} fontSize="0.9em">
+        <Flex.Item mt={0.1} mx={0.8} fontSize="0.9em">
           <Button
-            tooltip="Stop"
-            icon="stop"
+            tooltip="Mute"
+            icon={audio.muted ? 'volume-xmark' : 'volume-up'}
+            color={audio.muted ? 'red' : 'green'}
             onClick={() =>
               dispatch({
-                type: 'audio/stopMusic',
+                type: 'audio/muteMusic',
               })
             }
           />
