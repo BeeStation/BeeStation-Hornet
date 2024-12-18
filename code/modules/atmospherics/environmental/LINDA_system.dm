@@ -39,14 +39,14 @@
 		can_pass = FALSE
 		//the direction and open/closed are already checked on can_atmos_pass() so there are no arguments
 		if(checked_object.block_superconductivity())
-			atmos_supeconductivity |= direction
-			target_turf.atmos_supeconductivity |= opposite_direction
+			atmos_superconductivity |= direction
+			target_turf.atmos_superconductivity |= opposite_direction
 			return FALSE //no need to keep going, we got all we asked (Is this even faster? fuck you it's soul)
 
 	//Superconductivity is a bitfield of directions we can't conduct with
 	//Yes this is really weird. Fuck you
-	atmos_supeconductivity &= ~direction
-	target_turf.atmos_supeconductivity &= ~opposite_direction
+	atmos_superconductivity &= ~direction
+	target_turf.atmos_superconductivity &= ~opposite_direction
 
 	return can_pass
 

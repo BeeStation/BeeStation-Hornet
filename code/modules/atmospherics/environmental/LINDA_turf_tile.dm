@@ -7,7 +7,7 @@
 	///list of turfs adjacent to us that air can flow onto
 	var/list/atmos_adjacent_turfs
 	///bitfield of dirs in which we are superconducitng
-	var/atmos_supeconductivity = NONE
+	var/atmos_superconductivity = NONE
 
 	//used to determine whether we should archive
 	var/archived_cycle = 0
@@ -580,13 +580,13 @@ Then we space some of our heat, and think about if we should stop conducting.
 		archive()
 	return ALL_CARDINALS
 
-///Returns a set of directions that we should be conducting in, NOTE, atmos_supeconductivity is ACTUALLY inversed, don't worrry about it
+///Returns a set of directions that we should be conducting in, NOTE, atmos_superconductivity is ACTUALLY inversed, don't worrry about it
 /turf/open/conductivity_directions()
 	if(blocks_air)
 		return ..()
 	for(var/direction in GLOB.cardinals)
 		var/turf/checked_turf = get_step(src, direction)
-		if(!(checked_turf in atmos_adjacent_turfs) && !(atmos_supeconductivity & direction))
+		if(!(checked_turf in atmos_adjacent_turfs) && !(atmos_superconductivity & direction))
 			. |= direction
 
 ///These two procs are a bit of a web, I belive in you
