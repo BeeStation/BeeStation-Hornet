@@ -127,7 +127,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
 	else
 		var/datum/gas_mixture/affected = location.air.remove_ratio(volume/location.air.volume)
 		if(affected) //in case volume is 0
-			reference = affected // Our color and volume will depend on this small sparked gasmixreference = affected // Our color and volume will depend on this small sparked gasmix
+			reference = affected // Our color and volume will depend on this small sparked gasmix
 			affected.temperature = temperature
 			affected.react(src)
 			location.assume_air(affected)
