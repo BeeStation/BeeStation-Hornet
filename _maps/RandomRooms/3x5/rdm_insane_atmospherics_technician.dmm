@@ -49,7 +49,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/effect/mob_spawn/human/engineer{
+/obj/effect/mob_spawn/corpse/human/engineer{
 	name = "Insane Atmospherics Technician"
 	},
 /obj/effect/decal/cleanable/dirt,
