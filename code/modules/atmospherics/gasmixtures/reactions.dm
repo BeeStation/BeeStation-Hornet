@@ -645,11 +645,10 @@
 	if(!air.analyzer_results)
 		air.analyzer_results = new
 	var/list/cached_scan_results = air.analyzer_results
-	var/list/cached_gases = air.gases
 	var/thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
-	var/initial_plasma = cached_gases[/datum/gas/plasma][MOLES]
-	var/initial_carbon = cached_gases[/datum/gas/carbon_dioxide][MOLES]
+	var/initial_plasma = GET_MOLES(/datum/gas/plasma, air)
+	var/initial_carbon = GET_MOLES(/datum/gas/carbon_dioxide, air)
 	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
 	//The size of the phase space hypertorus
@@ -670,8 +669,8 @@
 	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
 	carbon = MODULUS(carbon - plasma, toroidal_size)
 
-	SET_MOLES(/datum/gas/plasma, 		 air.gases, plasma * scale_factor + FUSION_MOLE_THRESHOLD) //Scales the gases back up
-	SET_MOLES(/datum/gas/carbon_dioxide, air.gases, carbon * scale_factor + FUSION_MOLE_THRESHOLD)
+	SET_MOLES(/datum/gas/plasma, 		 air, plasma * scale_factor + FUSION_MOLE_THRESHOLD) //Scales the gases back up
+	SET_MOLES(/datum/gas/carbon_dioxide, air, carbon * scale_factor + FUSION_MOLE_THRESHOLD)
 
 	var/delta_plasma = min(initial_plasma - air.gases[/datum/gas/plasma][MOLES], toroidal_size * scale_factor * 1.5)
 
@@ -693,19 +692,16 @@
 		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
-	air.gases[/datum/gas/tritium][MOLES] -= FUSION_TRITIUM_MOLES_USED
+	REMOVE_MOLES(/datum/gas/tritium, air, FUSION_TRITIUM_MOLES_USED)
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
 	if (delta_plasma > 0)
-		ASSERT_GAS(/datum/gas/water_vapor, air)
-		air.gases[/datum/gas/water_vapor][MOLES] += standard_waste_gas_output
+		ADD_MOLES(/datum/gas/water_vapor, air, standard_waste_gas_output)
 	else
-		ASSERT_GAS(/datum/gas/bz, air)
-		air.gases[/datum/gas/bz][MOLES] += standard_waste_gas_output
+		ADD_MOLES(/datum/gas/bz, air, standard_waste_gas_output)
 	//Oxygen is a bit touchy subject
-	ASSERT_GAS(/datum/gas/oxygen, air)
-	air.gases[/datum/gas/oxygen][MOLES] += standard_waste_gas_output
+	ADD_MOLES(/datum/gas/oxygen, air, standard_waste_gas_output)
 
 	if(reaction_energy)
 		if(location)
