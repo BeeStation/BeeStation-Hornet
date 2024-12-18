@@ -27,10 +27,6 @@
 	if(panel_open)
 		. += "<span class='notice'>Its panel is open.</span>"
 
-/obj/machinery/power/generator/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
-
 /obj/machinery/power/generator/Destroy()
 	kill_circs()
 	SSair.stop_processing_machine(src)
@@ -224,6 +220,9 @@
 /obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)
 	default_deconstruction_crowbar(I)
 	return TRUE
+
+/obj/machinery/power/generator/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/power/generator/on_deconstruction()
 	kill_circs()

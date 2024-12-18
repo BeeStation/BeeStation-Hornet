@@ -275,7 +275,7 @@
 			if(!user.temporarilyRemoveItemFromInventory(W))
 				return
 
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/nocell(get_turf(loc))
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/nocell(get_turf(loc), user)
 			if(!O)
 				return
 

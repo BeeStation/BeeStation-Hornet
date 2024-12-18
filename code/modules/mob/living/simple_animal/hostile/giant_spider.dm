@@ -509,12 +509,13 @@
 /datum/action/innate/spider/block/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return
-	if(owner.a_intent == INTENT_HELP)
-		owner.a_intent = INTENT_HARM
-		owner.visible_message("<span class='notice'>[owner] widens its stance and blocks passage around it.</span>","<span class='notice'>You are now blocking others from passing around you.</span>")
+	var/mob/living/living_owner = owner
+	if(!living_owner.combat_mode)
+		living_owner.combat_mode = TRUE
+		living_owner.visible_message("<span class='notice'>[living_owner] widens its stance and blocks passage around it.</span>","<span class='notice'>You are now blocking others from passing around you.</span>")
 	else
-		owner.a_intent = INTENT_HELP
-		owner.visible_message("<span class='notice'>[owner] loosens up and allows others to pass again.</span>","<span class='notice'>You are no longer blocking others from passing around you.</span>")
+		living_owner.combat_mode = FALSE
+		living_owner.visible_message("<span class='notice'>[living_owner] loosens up and allows others to pass again.</span>","<span class='notice'>You are no longer blocking others from passing around you.</span>")
 
 /obj/effect/proc_holder/spider/Click()
 	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider))

@@ -11,6 +11,8 @@
 	..()
 
 /datum/wires/advanced_airlock_controller/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/advanced_airlock_controller/A = holder
 	if(A.panel_open && A.buildstage == 2)
 		return TRUE

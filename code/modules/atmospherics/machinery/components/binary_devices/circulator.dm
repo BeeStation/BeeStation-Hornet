@@ -19,13 +19,16 @@
 	var/mode = CIRCULATOR_HOT
 	var/obj/machinery/power/generator/generator
 
+/obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
+/obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold
 	mode = CIRCULATOR_COLD
-
-/obj/machinery/atmospherics/components/binary/circulator/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
 
 /obj/machinery/atmospherics/components/binary/circulator/Destroy()
 	if(generator)
@@ -163,7 +166,7 @@
 	generator.update_icon()
 	generator = null
 
-/obj/machinery/atmospherics/components/binary/circulator/setPipingLayer(new_layer)
+/obj/machinery/atmospherics/components/binary/circulator/set_piping_layer(new_layer)
 	..()
 	pixel_x = 0
 	pixel_y = 0
