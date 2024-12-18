@@ -148,17 +148,16 @@
 /obj/item/clothing/head/costume/speedwagon
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "speedwagon"
 	item_state = "speedwagon"
-	worn_x_dimension = 64
-	worn_y_dimension = 64
+	worn_y_offset = 4
 
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
-	icon_state = "speedwagon_cursed"
-	item_state = "speedwagon_cursed"
+	icon_state = "speedwagon"
+	item_state = "speedwagon"
+	worn_y_offset = 6
 
 /obj/item/clothing/head/franks_hat
 	name = "Frank's Hat"
