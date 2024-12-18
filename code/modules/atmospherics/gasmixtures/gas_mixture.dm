@@ -745,9 +745,11 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	if(href_list[VV_HK_EMPTY])
 		log_admin("[key_name(usr)] emptied gas mixture [REF(src)].")
 		message_admins("[key_name(usr)] emptied gas mixture [REF(src)].")
-		gases = null
+		gases = new()
 	if(href_list[VV_HK_SET_MOLES])
 		var/gas_input = tgui_input_list(usr, "What kind of gas?", "Set Gas", GLOB.meta_gas_info)
+		if(!gas_input)
+			return
 		var/list/gas_list = GLOB.meta_gas_info[gas_input]
 		var/gasid = gas_id2path(gas_list[META_GAS_ID])
 		if(!gasid)
