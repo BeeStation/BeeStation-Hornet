@@ -54,3 +54,9 @@
 
 /datum/config_entry/flag/limited_feedback	// Enable a more limited form of feedback tracking
 	protection = CONFIG_ENTRY_LOCKED
+
+
+/// The exe for mariadbd.exe.
+/// Shouldn't really be set on production servers, primarily for EZDB.
+/datum/config_entry/string/db_daemon
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
