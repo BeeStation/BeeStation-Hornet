@@ -658,9 +658,8 @@
 							(temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_BUFFER_DIVISOR \
 							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
-	for (var/gas_id in air.gases)
-		var/datum/gas/G = gas_id
-		gas_power += initial(G.fusion_power)*air.gases[gas_id][MOLES]
+	for (var/datum/gas/gas_id as anything in air.gases)
+		gas_power += initial(gas_id.fusion_power)*air.gases[gas_id][MOLES]
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
@@ -671,8 +670,9 @@
 	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
 	carbon = MODULUS(carbon - plasma, toroidal_size)
 
-	air.gases[/datum/gas/plasma][MOLES] = plasma*scale_factor + FUSION_MOLE_THRESHOLD //Scales the gases back up
-	air.gases[/datum/gas/carbon_dioxide][MOLES] = carbon*scale_factor + FUSION_MOLE_THRESHOLD
+	SET_MOLES(/datum/gas/plasma, 		 air.gases, plasma * scale_factor + FUSION_MOLE_THRESHOLD) //Scales the gases back up
+	SET_MOLES(/datum/gas/carbon_dioxide, air.gases, carbon * scale_factor + FUSION_MOLE_THRESHOLD)
+
 	var/delta_plasma = min(initial_plasma - air.gases[/datum/gas/plasma][MOLES], toroidal_size * scale_factor * 1.5)
 
 	//Energy is gained or lost corresponding to the creation or destruction of mass.
