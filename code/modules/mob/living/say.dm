@@ -259,8 +259,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/eavesdrop_range = 0
 	if(message_mods[WHISPER_MODE]) //If we're whispering
 		eavesdrop_range = EAVESDROP_EXTRA_RANGE
+
 	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source, SEE_INVISIBLE_MAXIMUM)
 	var/list/the_dead = list()
+	
 	for(var/mob/M as() in GLOB.player_list)
 		if(!M)				//yogs
 			continue		//yogs | null in player_list for whatever reason :shrug:
