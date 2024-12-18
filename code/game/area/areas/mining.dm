@@ -2,7 +2,7 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	lighting_colour_tube = "#ffe8d2"
 	lighting_colour_bulb = "#ffdcb7"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
@@ -88,7 +88,7 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	ambient_buzz = 'sound/ambience/magma.ogg'

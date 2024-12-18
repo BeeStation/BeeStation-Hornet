@@ -28,6 +28,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/sprite_number = 0
 	var/ztrait //Set to a valid ZTRAIT define to have the gravgen provide gravity to all of the zlevels with said trait. Ex: ZTRAIT_STATION
+	/// The gravity field created by the generator.
+	var/datum/proximity_monitor/advanced/gravity/gravity_field
 
 /obj/machinery/gravity_generator/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
 	return FALSE
@@ -97,12 +99,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/station
 	ztrait = ZTRAIT_STATION
 
-/obj/machinery/gravity_generator/main/station/Initialize(mapload)
-	. = ..()
-	setup_parts()
-	middle.add_overlay("activated")
-	update_list()
-
 //
 // Generator an admin can spawn
 //
@@ -130,6 +126,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/current_overlay = null
 	var/broken_state = 0
 	var/setting = 1	//Gravity value when on
+
+/obj/machinery/gravity_generator/main/Initialize(mapload)
+	. = ..()
+	setup_parts()
+	middle.add_overlay("activated")
+	update_list()
+	update_mobs()
 
 /obj/machinery/gravity_generator/main/Destroy() // If we somehow get deleted, remove all of our other parts.
 	investigate_log("was destroyed!", INVESTIGATE_GRAVITY)
@@ -173,7 +176,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	charge_count = 0
 	breaker = 0
 	set_power()
-	set_state(0)
+	disable()
 	investigate_log("has broken down.", INVESTIGATE_GRAVITY)
 
 /obj/machinery/gravity_generator/main/set_fix()
@@ -304,30 +307,40 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	investigate_log("is now [charging_state == POWER_UP ? "charging" : "discharging"].", INVESTIGATE_GRAVITY)
 	update_appearance()
 
-// Set the state of the gravity.
-/obj/machinery/gravity_generator/main/proc/set_state(new_state)
+/obj/machinery/gravity_generator/main/proc/enable()
 	charging_state = POWER_IDLE
-	on = new_state
-	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
-	// Sound the alert if gravity was just enabled or disabled.
-	var/alert = FALSE
-	if(SSticker.IsRoundInProgress())
-		if(on) // If we turned on and the game is live.
-			if(gravity_in_level() == 0)
-				alert = 1
-				investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
-				message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
-		else
-			if(gravity_in_level() == 1)
-				alert = 1
-				investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
-				message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
+	on = TRUE
+	use_power = ACTIVE_POWER_USE
 
+	var/old_gravity = gravity_in_level()
+	complete_state_update()
+	gravity_field = new(src, 2, TRUE, 6)
+
+	if (!old_gravity)
+		if(SSticker.current_state == GAME_STATE_PLAYING)
+			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
+			message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
+		shake_everyone()
+
+/obj/machinery/gravity_generator/main/proc/disable()
+	charging_state = POWER_IDLE
+	on = FALSE
+	use_power = IDLE_POWER_USE
+
+	QDEL_NULL(gravity_field)
+	var/old_gravity = gravity_in_level()
+	complete_state_update()
+
+	if (old_gravity)
+		if(SSticker.current_state == GAME_STATE_PLAYING)
+			investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
+			message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
+		shake_everyone()
+
+/obj/machinery/gravity_generator/main/proc/complete_state_update()
 	update_appearance()
 	update_list()
 	ui_update()
-	if(alert)
-		shake_everyone()
 
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 // Also emit radiation and handle the overlays.
@@ -336,9 +349,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	if(charging_state != POWER_IDLE)
 		if(charging_state == POWER_UP && charge_count >= 100)
-			set_state(1)
+			enable()
 		else if(charging_state == POWER_DOWN && charge_count <= 0)
-			set_state(0)
+			disable()
 		else
 			if(charging_state == POWER_UP)
 				charge_count += 2
@@ -417,11 +430,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				GLOB.gravity_generators["[theZ]"] -= src
 			SSmapping.calculate_z_level_gravity(z)
 
-/obj/machinery/gravity_generator/main/proc/change_setting(value)
-	if(value != setting)
-		setting = value
-		shake_everyone()
-
 /obj/machinery/gravity_generator/main/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
 	on = FALSE
@@ -433,6 +441,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		on = TRUE
 	update_list()
 
+/obj/machinery/gravity_generator/main/proc/update_mobs()
+	for(var/mob/living/animal in GLOB.mob_living_list)
+		animal.refresh_gravity()
 
 // Misc
 

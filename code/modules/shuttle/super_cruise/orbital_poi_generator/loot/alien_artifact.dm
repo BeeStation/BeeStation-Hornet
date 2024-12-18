@@ -58,7 +58,7 @@
 	clockwork_warp_allowed = FALSE
 	requires_power = FALSE
 	mood_bonus = -999
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE

@@ -18,7 +18,7 @@
 
 /area/planet
 	icon_state = "Unknown Planet"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	always_unpowered = TRUE

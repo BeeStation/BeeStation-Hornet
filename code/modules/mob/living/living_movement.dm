@@ -24,7 +24,7 @@
 	var/area/old_area = get_area(old_turf)
 	var/area/new_area = get_area(new_turf)
 	// If the area gravity has changed, then it's possible that our state has changed, so update
-	if(old_area.has_gravity != new_area.has_gravity)
+	if(old_area.default_gravity != new_area.default_gravity)
 		refresh_gravity()
 
 /mob/living/onTransitZ(old_z, new_z, same_z_layer, notify_contents)
