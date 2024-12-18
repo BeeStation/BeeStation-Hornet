@@ -153,8 +153,8 @@
 	var/obj/item/food_item = new chosen(T)
 	if(prob(5))//Fry it!
 		food_item.AddElement(/datum/element/fried_item, rand(15, 60))
-	//if(prob(5))//Grill it!
-		//food_item.AddElement(/datum/element/grilled_item, rand(30, 100))
+	if(prob(5))//Grill it!
+		food_item.AddElement(/datum/element/grilled_item, rand(30, 100))
 	..()
 
 /datum/chemical_reaction/slime/slimebork/proc/getbork()
