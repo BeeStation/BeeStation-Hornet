@@ -56,7 +56,7 @@
 	priority_alarms.Cut()
 	minor_alarms.Cut()
 	for (var/obj/machinery/airalarm/air_alarm as anything in GLOB.air_alarms)
-		if (air_alarm.z != z)
+		if (air_alarm.z != z || (air_alarm.machine_stat & (NOPOWER|BROKEN)))
 			continue
 		switch (air_alarm.danger_level)
 			if (AIR_ALARM_ALERT_NONE)
