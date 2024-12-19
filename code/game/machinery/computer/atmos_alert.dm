@@ -16,6 +16,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosAlertConsole")
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/computer/atmos_alert/ui_data(mob/user)
