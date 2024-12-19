@@ -243,8 +243,6 @@
 		default_deconstruction_crowbar(tool)
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-
 	internal_pressure -= environment_air.return_pressure()
 
 	if(internal_pressure > 2 * ONE_ATMOSPHERE)
