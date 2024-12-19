@@ -28,11 +28,7 @@
 		stack_layer  = ABOVE_MOB_LAYER + (0.02 * i) - 0.01 // Make each shelf piece render above the last, but below the crate that should be on it.
 		stack_offset = DEFAULT_SHELF_VERTICAL_OFFSET * i // Make each shelf piece physically above the last.
 		overlays += image(icon = 'icons/obj/objects.dmi', icon_state = "shelf", layer = stack_layer, pixel_y = stack_offset)
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/crate_shelf/LateInitialize()
-	for(var/obj/structure/closet/crate/crate in loc) // populating the shelf with crates on mapload
-		load(crate)
+	return
 
 /obj/structure/crate_shelf/Destroy()
 	QDEL_LIST(shelf_contents)
