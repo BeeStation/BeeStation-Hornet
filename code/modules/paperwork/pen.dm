@@ -252,7 +252,7 @@
 		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
-		sharpness = IS_SHARP
+		sharpness = IS_SHARP_DISMEMBER
 		bleed_force = BLEED_CUT
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")

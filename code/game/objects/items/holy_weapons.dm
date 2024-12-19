@@ -333,7 +333,7 @@
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1
 	block_power = 30
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -456,7 +456,7 @@
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
 	attack_verb_simple = list("chop", "slice", "cut", "reap")
@@ -579,7 +579,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
@@ -675,7 +675,7 @@
 	slot_flags = null
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/armblade/Initialize(mapload)
@@ -816,7 +816,7 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	armour_penetration = 10
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("stabs", "pokes", "slashes", "clocks")
@@ -836,7 +836,7 @@
 	throw_speed = 3
 	throw_range = 6
 	tool_behaviour = TOOL_KNIFE
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = IS_SHARP
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/nullrod/rainbow_knife/afterattack(atom/O, mob/user, proximity)

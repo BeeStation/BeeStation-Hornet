@@ -8,7 +8,6 @@
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
-	var/requires_sharpness = 1
 
 
 /obj/item/sharpener/attackby(obj/item/I, mob/user, params)
@@ -18,7 +17,7 @@
 	if(I.force >= max || I.throwforce >= max)//no esword sharpening
 		to_chat(user, "<span class='warning'>[I] is much too powerful to sharpen further!</span>")
 		return
-	if(requires_sharpness && !I.is_sharp())
+	if(!I.is_sharp())
 		to_chat(user, "<span class='warning'>You can only sharpen items that are already sharp, such as knives!</span>")
 		return
 	if(istype(I, /obj/item/melee/transforming/energy))
@@ -39,7 +38,6 @@
 		I.force = clamp(I.force + increment, 0, max)
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
-	I.sharpness = IS_SHARP_ACCURATE
 	I.bleed_force *= 1.1
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
@@ -54,4 +52,3 @@
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"
-	requires_sharpness = 0
