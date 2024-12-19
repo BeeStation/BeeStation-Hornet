@@ -15,7 +15,6 @@
 		/obj/item/reagent_containers/blood,
 		/obj/item/reagent_containers/chem_bag,
 		/obj/item/reagent_containers/cup,
-		/obj/item/food, //Fuck it. You want to stab an IV into that 100u blood tomato? Be my guest.
 		/obj/item/reagent_containers/cup
 		)
 	)
@@ -108,7 +107,7 @@
 
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
-	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
+	if(is_type_in_typecache(W, drip_containers))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
 			return
