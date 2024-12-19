@@ -43,6 +43,8 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	melee_damage = 35
 	mob_size = MOB_SIZE_LARGE
+	see_in_dark = NIGHTVISION_FOV_RANGE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	armour_penetration = 30
 	pixel_x = -16
 	turns_per_move = 5
@@ -88,6 +90,7 @@
 	small_sprite = new
 	small_sprite.Grant(src)
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER
@@ -382,7 +385,6 @@
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
 	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
-
 /**
  * Remove the speed boost from carps when hit by space dragon's flame breath
  *

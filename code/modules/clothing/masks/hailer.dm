@@ -14,6 +14,7 @@
 	visor_flags_inv = HIDEFACE | HIDESNOUT
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	unique_death = 'sound/voice/sec_death.ogg'
 	var/aggressiveness = 2
 	var/cooldown_special
 	var/recent_uses = 0
@@ -33,7 +34,23 @@
 	aggressiveness = 3
 	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDEEYES | HIDEEARS | HIDEHAIR | HIDESNOUT
 	visor_flags_inv = 0
-	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 30, BLEED = 30)
+	armor_type = /datum/armor/sechailer_swat
+
+
+/datum/armor/sechailer_swat
+	melee = 10
+	bullet = 5
+	laser = 5
+	energy = 5
+	bio = 50
+	fire = 20
+	acid = 40
+	stamina = 30
+	bleed = 30
+
+/obj/item/clothing/mask/gas/sechailer/swat/emagged
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. This one seems to have the safety toggled off..."
+	safety = FALSE
 
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	name = "spacepol mask"

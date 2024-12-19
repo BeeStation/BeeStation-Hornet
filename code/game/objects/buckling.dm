@@ -70,6 +70,10 @@
 	if(can_buckle && istype(M) && istype(user))
 		return user_buckle_mob(M, user)
 
+// Mobs have custom behaviour for buckling
+/mob/mouse_buckle_handling(mob/living/M, mob/living/user)
+	return FALSE
+
 /**
   * Returns TRUE if there are mobs buckled to this atom and FALSE otherwise
   */

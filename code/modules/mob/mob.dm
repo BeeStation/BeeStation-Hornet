@@ -155,32 +155,37 @@
 /mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)
-		return
+		return FALSE
 
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
+	// Return TRUE if we sent the original msg, otherwise return FALSE
+	. = TRUE
 	if(type)
 		if(type & MSG_VISUAL && (is_blind() && dist > BLIND_TEXT_DIST))//Vision related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 
 		if(type & MSG_AUDIBLE && !can_hear())//Hearing related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 				if(type & MSG_VISUAL && is_blind())
-					return
+					return FALSE
 	// voice muffling
 	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
+	return .
 
 
 /atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
@@ -233,8 +238,22 @@
 
 /mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
 	. = ..()
-	if(self_message)
-		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+	if(!self_message)
+		return
+	var/raw_self_message = self_message
+	var/self_runechat = FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>" // May make more sense as "You do x"
+
+	if(LAZYFIND(visible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
+		to_chat(src, self_message)
+		self_runechat = TRUE
+
+	else
+		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+
+	if(self_runechat && (LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, visible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = visible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this atom
@@ -280,8 +299,21 @@
   */
 /mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
 	. = ..()
-	if(self_message)
-		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+	if(!self_message)
+		return
+
+	var/raw_self_message = self_message
+	var/self_runechat = FALSE
+	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>"
+	if(LAZYFIND(audible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
+		to_chat(src, self_message)
+		self_runechat = TRUE
+	else
+		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+
+	if(self_runechat && (LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, audible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = audible_message_flags)
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
@@ -289,19 +321,28 @@
 		return FALSE
 	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 ///Get the item on the mob in the storage slot identified by the id passed in
 /mob/proc/get_item_by_slot(slot_id)
+	return null
+
+/// Gets what slot the item on the mob is held in.
+/// Returns null if the item isn't in any slots on our mob.
+/// Does not check if the passed item is null, which may result in unexpected outcoms.
+/mob/proc/get_slot_by_item(obj/item/looking_for)
+	if(looking_for in held_items)
+		return ITEM_SLOT_HANDS
+
 	return null
 
 ///Is the mob incapacitated
@@ -1011,7 +1052,7 @@
 /**
   * Fully update the name of a mob
   *
-  * This will update a mob's name, real_name, mind.name, GLOB.data_core records, pda, id and traitor text
+  * This will update a mob's name, real_name, mind.name, GLOB.manifest records, pda, id and traitor text
   *
   * Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
   */
@@ -1030,7 +1071,7 @@
 			log_played_names(mind.key,newname) //Just in case the mind is unsynced at the moment.
 
 	if(oldname)
-		//update the datacore records! This is goig to be a bit costly.
+		//update the manifest records! This is goig to be a bit costly.
 		replace_records_name(oldname,newname)
 
 		//update our pda and id if we have them on our person
@@ -1043,7 +1084,7 @@
 					obj.update_explanation_text()
 	return 1
 
-///Updates GLOB.data_core records with new name , see mob/living/carbon/human
+///Updates GLOB.manifest records with new name , see mob/living/carbon/human
 /mob/proc/replace_records_name(oldname,newname)
 	return
 

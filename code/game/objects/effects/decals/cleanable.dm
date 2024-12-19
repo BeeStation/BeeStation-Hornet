@@ -78,7 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 //This is on /cleanable because fuck this ancient mess
 /obj/effect/decal/cleanable/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-	if(iscarbon(AM) && blood_state && bloodiness >= 40)
+	if(iscarbon(AM) && blood_state && bloodiness >= 40 && !HAS_TRAIT(AM, TRAIT_LIGHT_STEP))
 		SEND_SIGNAL(AM, COMSIG_STEP_ON_BLOOD, src)
 		update_appearance()
 

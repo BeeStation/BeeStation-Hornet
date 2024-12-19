@@ -31,7 +31,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/der38
 	name = "palm pistol"
-	desc = "An 'Infiltrator' double-barreled derringer, chambered in .38-special. Not the best for head-on engagements."
+	desc = "An 'Infiltrator' double-barreled derringer, chambered in the powerful .357. Useful in a pinch but inadequate for longer engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = null //Too small to show in hand, unless examined
@@ -47,8 +47,6 @@
 	fire_sound_volume = 60
 	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
 	weapon_weight = WEAPON_LIGHT * 0.5 //Equivelant weight to 0.5 (Stechkin has weight 1)
-	wild_spread = TRUE
-	wild_factor = 0.70 //Minimum spread is 70% of spread value
 	equip_time = 0
 	has_weapon_slowdown = FALSE
 
@@ -77,6 +75,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
+	rack_sound = "sound/weapons/deaglerack.ogg"
+	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
+	lock_back_sound = "sound/weapons/deaglelock.ogg"
+	fire_sound = "sound/weapons/deagleshot.ogg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."

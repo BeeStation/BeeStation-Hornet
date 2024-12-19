@@ -9,7 +9,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
+	armor_type = /datum/armor/machinery_newscaster
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?
@@ -60,6 +60,12 @@
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
+
+
+/datum/armor/machinery_newscaster
+	melee = 50
+	fire = 50
+	acid = 30
 
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
@@ -142,9 +148,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(card?.registered_account)
 		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
-		var/datum/data/record/R = find_record("name", card.registered_account.account_holder, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(card.registered_account.account_holder, GLOB.manifest.general)
 		if(R)
-			data["user"]["job"] = R.fields["rank"]
+			data["user"]["job"] = R.rank
 		else if(card.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
 		else

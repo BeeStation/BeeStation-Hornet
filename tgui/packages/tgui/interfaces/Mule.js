@@ -92,7 +92,7 @@ export const Mule = (props, context) => {
                 <Button icon="home" content="Go Home" onClick={() => act('home')} />
               </LabeledList.Item>
               <LabeledList.Item label="Settings">
-                <Button.Checkbox checked={autoReturn} content="Auto-Return" onClick={() => act('autored')} />
+                <Button.Checkbox checked={autoReturn} content="Auto-Return" onClick={() => act('autoret')} />
                 <br />
                 <Button.Checkbox checked={autoPickup} content="Auto-Pickup" onClick={() => act('autopick')} />
                 <br />

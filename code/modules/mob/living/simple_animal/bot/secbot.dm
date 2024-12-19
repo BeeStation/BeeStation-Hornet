@@ -116,9 +116,7 @@
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
 	if(..())
-		return
-	if(!(bot_core.allowed(usr) || usr.has_unlimited_silicon_privilege) || locked)
-		return
+		return TRUE
 	switch(action)
 		if("check_id")
 			idcheck = !idcheck

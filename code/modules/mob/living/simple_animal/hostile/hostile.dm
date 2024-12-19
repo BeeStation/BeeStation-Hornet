@@ -55,6 +55,8 @@
 	var/lose_patience_timer_id //id for a timer to call LoseTarget(), used to stop mobs fixating on a target they can't reach
 	var/lose_patience_timeout = 300 //30 seconds by default, so there's no major changes to AI behaviour, beyond actually bailing if stuck forever
 
+	var/backup_nosound = FALSE //Should it not play a sound if it's requesting backup?
+
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
 	wanted_objects = typecacheof(wanted_objects)
@@ -367,7 +369,8 @@
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
 	do_alert_animation(src)
-	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
+	if(!backup_nosound)
+		playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	for(var/mob/living/simple_animal/hostile/M in oview(distance, target_from))
 		if(faction_check_mob(M, TRUE))
@@ -604,3 +607,5 @@
 	target = new_target
 	if(target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+
+

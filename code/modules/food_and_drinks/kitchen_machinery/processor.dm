@@ -157,6 +157,8 @@
 	desc = "An industrial grinder with a sticker saying appropriated for science department. Keep hands clear of intake area while operating."
 	circuit = /obj/item/circuitboard/machine/processor/slime
 	var/sbacklogged = FALSE
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/machinery/processor/slime/Initialize(mapload)
 	. = ..()

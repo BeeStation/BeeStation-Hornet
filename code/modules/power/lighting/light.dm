@@ -650,10 +650,19 @@
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
 
+GLOBAL_VAR_INIT(s_flickering_lights, FALSE)
+
+/// Flickers all lights the next time we sleep, or yield to byond.
+/// Concatenates all the flicking operations together.
 /proc/flicker_all_lights()
-	for(var/obj/machinery/light/L in GLOB.machines)
-		if(is_station_level(L.z))
-			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
+	if (GLOB.s_flickering_lights)
+		return
+	GLOB.s_flickering_lights = TRUE
+	spawn(0)
+		GLOB.s_flickering_lights = FALSE
+		for(var/obj/machinery/light/L in GLOB.machines)
+			if(is_station_level(L.z))
+				addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
 
 #undef LIGHT_ON_DELAY_UPPER
 #undef LIGHT_ON_DELAY_LOWER

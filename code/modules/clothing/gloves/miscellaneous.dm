@@ -19,13 +19,18 @@
 	icon_state = "leather"
 	item_state = "ggloves"
 	worn_icon_state = "ggloves"
-	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/gloves_botanic_leather
+
+
+/datum/armor/gloves_botanic_leather
+	bio = 50
+	fire = 70
+	acid = 30
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -34,14 +39,21 @@
 	item_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
 	strip_delay = 80
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 20, BLEED = 10)
+	armor_type = /datum/armor/gloves_combat
+
+
+/datum/armor/gloves_combat
+	bio = 90
+	fire = 80
+	acid = 50
+	stamina = 20
+	bleed = 10
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
@@ -57,7 +69,19 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 15,  BULLET = 35, LASER = 35, ENERGY = 20, BOMB = 35, BIO = 35, RAD = 35, FIRE = 0, ACID = 0, STAMINA = 20, BLEED = 20)
+	armor_type = /datum/armor/gloves_bracer
+
+
+/datum/armor/gloves_bracer
+	melee = 15
+	bullet = 35
+	laser = 35
+	energy = 20
+	bomb = 35
+	bio = 35
+	rad = 35
+	stamina = 20
+	bleed = 20
 
 /obj/item/clothing/gloves/rapid
 	name = "Gloves of the North Star"

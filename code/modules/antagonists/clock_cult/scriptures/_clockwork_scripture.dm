@@ -177,7 +177,7 @@
 	return ..()
 
 /datum/clockcult/scripture/slab/invoke()
-	progress = new(invoker, use_time)
+	progress = new(invoker, use_time, invoking_slab)
 	uses_left = uses
 	time_left = use_time
 	invoking_slab.charge_overlay = slab_overlay

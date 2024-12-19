@@ -18,6 +18,8 @@
 		. = ..()
 
 /mob/living/carbon/human/GetVoice()
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return ("Unknown")
 	var/current_name = real_name
 	if(GetSpecialVoice())
 		current_name = GetSpecialVoice()

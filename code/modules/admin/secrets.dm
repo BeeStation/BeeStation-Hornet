@@ -146,7 +146,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				for(var/mob/living/mob in thunderdome)
 					qdel(mob) //Clear mobs
 			for(var/obj/obj in thunderdome)
-				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/abstract/proximity_checker) && !istype(obj, /obj/effect/landmark/arena))
+				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/landmark/arena))
 					qdel(obj) //Clear objects
 
 			var/area/template = GLOB.areas_by_type[/area/tdome/arena_source]
@@ -301,8 +301,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			var/dat = "<B>Showing Crew Manifest.</B><HR>"
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-			for(var/datum/data/record/t in GLOB.data_core.general)
-				dat += "<tr><td>[t.fields["name"]]</td><td>[t.fields["rank"]]</td></tr>"
+			for(var/datum/record/crew/t in GLOB.manifest.general)
+				dat += "<tr><td>[t.name]</td><td>[t.rank]</td></tr>"
 			dat += "</table>"
 			usr << browse(dat, "window=manifest;size=440x410")
 		if("DNA")

@@ -11,7 +11,7 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_mineral_door
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -25,6 +25,15 @@
 
 	var/sheetType = /obj/item/stack/sheet/iron //what we're made of
 	var/sheetAmount = 7 //how much we drop when deconstructed
+
+
+/datum/armor/structure_mineral_door
+	melee = 10
+	energy = 100
+	bomb = 10
+	rad = 100
+	fire = 50
+	acid = 50
 
 /obj/structure/mineral_door/Initialize(mapload)
 	. = ..()

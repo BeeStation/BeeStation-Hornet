@@ -170,7 +170,7 @@
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
 	desc = "Stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/timestop
 	category = "Defensive"
 
 /datum/spellbook_entry/smoke

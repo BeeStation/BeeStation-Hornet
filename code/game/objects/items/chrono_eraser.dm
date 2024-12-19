@@ -10,6 +10,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	item_flags = DROPDEL
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
@@ -18,15 +19,6 @@
 
 /obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
-
-/obj/item/chrono_eraser/dropped()
-	..()
-	if(PA)
-		qdel(PA)
-
-/obj/item/chrono_eraser/Destroy()
-	dropped()
-	return ..()
 
 /obj/item/chrono_eraser/ui_action_click(mob/user)
 	if(iscarbon(user))

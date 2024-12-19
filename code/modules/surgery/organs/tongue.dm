@@ -2,6 +2,7 @@
 	name = "tongue"
 	desc = "A fleshy muscle mostly used for lying."
 	icon_state = "tonguenormal"
+	visual = FALSE
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
@@ -352,8 +353,8 @@
 	desc = "It's long and noodly."
 	say_mod = "flutters"
 	icon_state = "tonguemoth"
-	liked_food = VEGETABLES | DAIRY | CLOTH
-	disliked_food = FRUIT | GROSS | GORE
+	liked_food = FRUIT | VEGETABLES | DAIRY | CLOTH
+	disliked_food = GROSS | GORE
 	toxic_food = MEAT | RAW
 
 /obj/item/organ/tongue/teratoma

@@ -280,44 +280,37 @@
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params)
-	if(..() || (locked && !usr.has_unlimited_silicon_privilege))
-		return
-	switch(action)
-		if("lock")
-			if(usr.has_unlimited_silicon_privilege)
-				locked = !locked
-				. = TRUE
-		if("power")
-			if(on)
-				turn_off()
-			else if(open)
-				to_chat(usr, "<span class='warning'>[name]'s maintenance panel is open!</span>")
-				return
-			else if(cell)
-				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
-					return
-			. = TRUE
-		else
-			. = bot_control(action, usr, params) // Kill this later.
+	if (action == "power")
+		if(locked && !usr.has_unlimited_silicon_privilege)
+			return TRUE
+		if(on)
+			turn_off()
+		else if(open)
+			to_chat(usr, "<span class='warning'>[name]'s maintenance panel is open!</span>")
+			return TRUE
+		else if(cell)
+			if(!turn_on())
+				to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+				return TRUE
+	else
+		if(..())
+			return TRUE
+		. = bot_control(action, usr, params) // Kill this later.
 
 /mob/living/simple_animal/bot/mulebot/bot_control(command, mob/user, list/params = list(), pda = FALSE)
 	if(pda && wires.is_cut(WIRE_RX)) // MULE wireless is controlled by wires.
-		return
+		return TRUE
 
 	switch(command)
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
-				. = TRUE
 		if("go")
 			if(mode == BOT_IDLE)
 				start()
-				. = TRUE
 		if("home")
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
-				. = TRUE
 		if("destination")
 			var/new_dest
 			if(pda)
@@ -326,7 +319,6 @@
 				new_dest = params["value"]
 			if(new_dest)
 				set_destination(new_dest)
-				. = TRUE
 		if("setid")
 			var/new_id
 			if(pda)
@@ -335,7 +327,6 @@
 				new_id = params["value"]
 			if(new_id)
 				set_id(new_id)
-				. = TRUE
 		if("sethome")
 			var/new_home
 			if(pda)
@@ -344,26 +335,20 @@
 				new_home = params["value"]
 			if(new_home)
 				home_destination = new_home
-				. = TRUE
 		if("unload")
 			if(load && mode != BOT_HUNT)
 				if(loc == target)
 					unload(loaddir)
 				else
 					unload(0)
-				. = TRUE
 		if("autoret")
 			auto_return = !auto_return
-			. = TRUE
 		if("autopick")
 			auto_pickup = !auto_pickup
-			. = TRUE
 		if("report")
 			report_delivery = !report_delivery
-			. = TRUE
 		if("ejectpai")
 			ejectpairemote(user)
-			. = TRUE
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
