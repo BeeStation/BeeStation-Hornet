@@ -152,10 +152,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"abZ" = (
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "acb" = (
 /obj/machinery/status_display/ai{
 	pixel_x = -32
@@ -59467,10 +59463,6 @@
 /turf/open/floor/carpet/grimy,
 /area/library)
 "pmh" = (
-/obj/machinery/airalarm{
-	pixel_y = 22;
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -125219,7 +125211,7 @@ hTY
 kHH
 kHH
 baI
-abZ
+bXh
 yky
 aob
 csJ

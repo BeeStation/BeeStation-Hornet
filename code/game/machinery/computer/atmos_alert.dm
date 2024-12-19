@@ -67,7 +67,7 @@
 
 	// Either we got new alarms, or we have no alarms anymore
 	if ((alarm_count == 0) != (minor_alarms.len + priority_alarms.len == 0))
-		update_appearance(UPDATE_ICON)
+		update_icon()
 
 	return TRUE
 
