@@ -533,7 +533,8 @@
 	var/mob/living/carbon/human/target_collateral_human
 	var/obj/structure/table/target_table
 	var/obj/machinery/disposal/bin/target_disposal_bin
-	var/turf/open/indestructible/sound/pool/target_pool	//This list is getting pretty long, but its better than calling shove_act or something on every atom
+	var/turf/open/indestructible/sound/pool/target_pool
+	var/obj/machinery/oven/target_oven	//This list is getting pretty long, but its better than calling shove_act or something on every atom
 	var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
 
 	//Thank you based whoneedsspace
@@ -546,6 +547,7 @@
 			target_table = locate(/obj/structure/table) in target_shove_turf.contents
 			target_disposal_bin = locate(/obj/machinery/disposal/bin) in target_shove_turf.contents
 			target_pool = istype(target_shove_turf, /turf/open/indestructible/sound/pool) ? target_shove_turf : null
+			target_oven = locate(/obj/machinery/oven) in target_shove_turf.contents
 			shove_blocked = TRUE
 
 	if(IsKnockdown())
@@ -609,6 +611,12 @@
 				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_pool]!</span>",
 					"<span class='danger'>You shove [name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
+		else if(target_oven && target_oven.state_open == TRUE)
+			target_oven.close_machine(src)
+			user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_oven]]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_oven]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_oven] (swimming pool)")
+
 	else
 		if (!silent)
 			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",

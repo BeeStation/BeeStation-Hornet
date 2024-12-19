@@ -21,11 +21,10 @@
 	circuit = /obj/item/circuitboard/machine/oven
 	processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = FIRE_PROOF
+	state_open = FALSE
 
 	///The tray inside of this oven, if there is one.
 	var/obj/item/plate/oven_tray/used_tray
-	///Whether or not the oven is open.
-	var/open = FALSE
 	///Looping sound for the oven
 	var/datum/looping_sound/oven/oven_loop
 	///Current state of smoke coming from the oven
@@ -36,6 +35,7 @@
 	oven_loop = new(src)
 	if(mapload)
 		add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
+	occupant_typecache = GLOB.typecache_living
 
 /obj/machinery/oven/Destroy()
 	QDEL_NULL(oven_loop)
@@ -43,7 +43,7 @@
 	. = ..()
 
 /obj/machinery/oven/update_icon_state()
-	if(!open && used_tray?.contents.len)
+	if(!state_open && used_tray?.contents.len || occupant)
 		icon_state = "oven_on"
 	else
 		icon_state = "oven_off"
@@ -51,23 +51,29 @@
 
 /obj/machinery/oven/update_overlays()
 	. = ..()
-	if(open)
+	if(state_open)
 		var/mutable_appearance/door_overlay = mutable_appearance(icon, "oven_lid_open")
 		door_overlay.pixel_y = OVEN_LID_Y_OFFSET
 		. += door_overlay
 	else
 		. += mutable_appearance(icon, "oven_lid_closed")
-		if(used_tray?.contents.len)
+		if(used_tray?.contents.len || occupant)
 			. += emissive_appearance(icon, "oven_light_mask", alpha = src.alpha)
 
 /obj/machinery/oven/process(delta_time)
 	..()
-	if(!used_tray) //Are we actually working?
+	if(!used_tray || !occupant) //Are we actually working?
 		set_smoke_state(OVEN_SMOKE_STATE_NONE)
 		update_appearance(UPDATE_ICON)
 		return
 	///We take the worst smoke state, so if something is burning we always know.
 	var/worst_cooked_food_state = 0
+	if(occupant)
+		worst_cooked_food_state = OVEN_SMOKE_STATE_BAD
+		visible_message("<span class='danger'>You smell burning flesh coming from [src]!</span>")
+		for(var/mob/living/occupant in contents)
+			occupant.fire_act()
+
 	for(var/obj/item/baked_item in used_tray.contents)
 
 		var/signal_result = SEND_SIGNAL(baked_item, COMSIG_ITEM_BAKED, src, delta_time)
@@ -83,13 +89,13 @@
 		baked_item.fire_act(1000) //Hot hot hot!
 
 		if(DT_PROB(10, delta_time))
-			visible_message("<span class='danger'>You smell a burnt smell coming from [src]!</span>")
+			visible_message("<span class='danger'>You smell burning coming from [src]!</span>")
 	set_smoke_state(worst_cooked_food_state)
 	update_appearance()
 
 
 /obj/machinery/oven/attackby(obj/item/I, mob/user, params)
-	if(open && !used_tray && istype(I, /obj/item/plate/oven_tray))
+	if(state_open && !used_tray && istype(I, /obj/item/plate/oven_tray))
 		if(user.transferItemToLoc(I, src, silent = FALSE))
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			add_tray_to_oven(I)
@@ -100,7 +106,7 @@
 /obj/machinery/oven/proc/add_tray_to_oven(obj/item/plate/oven_tray)
 	used_tray = oven_tray
 
-	if(!open)
+	if(!state_open)
 		oven_tray.vis_flags |= VIS_HIDE
 	vis_contents += oven_tray
 	oven_tray.flags_1 |= IS_ONTOP_1
@@ -127,33 +133,68 @@
 	UnregisterSignal(oven_tray, COMSIG_MOVABLE_MOVED)
 	update_baking_audio()
 
-/obj/machinery/oven/attack_hand(mob/user, modifiers)
-	. = ..()
-	open = !open
-	if(open)
-		playsound(src, 'sound/machines/oven/oven_open.ogg', 75, TRUE)
-		set_smoke_state(OVEN_SMOKE_STATE_NONE)
-		to_chat(user, "<span class='notice'>You open [src].</span>")
-		end_processing()
-		if(used_tray)
-			used_tray.vis_flags &= ~VIS_HIDE
-	else
-		playsound(src, 'sound/machines/oven/oven_close.ogg', 75, TRUE)
-		to_chat(user, "<span class='notice'>You close [src].</span>")
-		if(used_tray)
-			begin_processing()
-			used_tray.vis_flags |= VIS_HIDE
-
-			// yeah yeah i figure you don't need connect loc for just baking trays
-			for(var/obj/item/baked_item in used_tray.contents)
-				SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PLACED_IN, src, user)
-
+/obj/machinery/oven/open_machine(mob/user)
+	state_open = TRUE
+	playsound(src, 'sound/machines/oven/oven_open.ogg', 75, TRUE)
+	set_smoke_state(OVEN_SMOKE_STATE_NONE)
+	end_processing()
+	if(used_tray)
+		used_tray.vis_flags &= ~VIS_HIDE
+	if(occupant)
+		var/turf/this_turf = get_turf(src)
+		for(var/mob/living/occupant in contents)
+			occupant.forceMove(this_turf)
+			occupant.Knockdown(10)
+			visible_message("<span class='danger'>[occupant] tumbles out from [src]!</span>")
 	update_appearance()
 	update_baking_audio()
+
+
+/obj/machinery/oven/close_machine(mob/user)
+	if(!state_open)
+		return
+	..()
+	playsound(src, 'sound/machines/oven/oven_close.ogg', 75, TRUE)
+	if(used_tray)
+		begin_processing()
+		used_tray.vis_flags |= VIS_HIDE
+		// yeah yeah i figure you don't need connect loc for just baking trays
+		for(var/obj/item/baked_item in used_tray.contents)
+			SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PLACED_IN, src)
+	update_appearance()
+	update_baking_audio()
+
+
+/obj/machinery/oven/attack_hand(mob/user, modifiers)
+	. = ..()
+	if(state_open)
+		close_machine()
+	else
+		open_machine()
 	return TRUE
 
+/obj/machinery/oven/MouseDrop_T(mob/target, mob/user)
+	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+		return
+	if(state_open)
+		if(target == user)
+			target.visible_message("<span class='notice'>[user] begins to climb into [src]...</span>", \
+									"<span class='userdanger'>You begin to climb into [src]...</span>")
+		else
+			target.visible_message("<span class='notice'>[user] begins to stuff [target] into [src]...</span>", \
+									"<span class='userdanger'>[user] begins to stuff you into [src]!</span>")
+		if(do_after(user, 20, target = target) && state_open)
+			close_machine(target)
+
+
+/obj/machinery/oven/container_resist(mob/living/user)
+	open_machine()
+
+/obj/machinery/oven/relaymove(mob/living/user, direction)
+	open_machine()
+
 /obj/machinery/oven/proc/update_baking_audio()
-	if(!open && used_tray?.contents.len)
+	if(!state_open && used_tray?.contents.len || occupant)
 		oven_loop.start()
 	else
 		oven_loop.stop()
