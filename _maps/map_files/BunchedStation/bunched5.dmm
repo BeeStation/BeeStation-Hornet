@@ -11773,7 +11773,15 @@
 	dir = 9
 	},
 /obj/structure/crate_shelf,
-/obj/structure/closet/crate/coffin,
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/coffin
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/coffin
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/coffin
+	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "cPO" = (
@@ -29327,9 +29335,14 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "hnw" = (
-/obj/structure/closet/crate/wooden,
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/structure/crate_shelf,
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/hydroponics
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/wooden
+	},
 /turf/open/floor/iron/dark/textured,
 /area/quartermaster/warehouse)
 "hnD" = (
@@ -55118,7 +55131,15 @@
 	dir = 5
 	},
 /obj/structure/crate_shelf,
-/obj/structure/closet/crate/coffin,
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/coffin
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/coffin
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/coffin
+	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "nJk" = (
@@ -58802,13 +58823,20 @@
 /turf/open/floor/carpet/purple,
 /area/construction)
 "oIl" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /obj/structure/crate_shelf,
-/obj/structure/closet/crate/wooden,
 /obj/machinery/light/small/directional/east,
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/wooden
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/wooden
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader{
+	crate_type = /obj/structure/closet/crate/engineering
+	},
 /turf/open/floor/iron/dark/textured,
 /area/quartermaster/warehouse)
 "oIt" = (
