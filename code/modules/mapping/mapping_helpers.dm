@@ -700,3 +700,21 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		qdel(each_placer)
 	init_group.Cut()
 
+//loads crate shelfs with crates on mapload. Done via a helper because of linters
+/obj/effect/mapping_helpers/crate_shelf_loader
+	icon_state = "crate_putter"
+	name = "crate shelf loader helper"
+	desc = "Place up to three of these on a crate shelf and set their crate_type (basic grey crate by default) to load it onto the shelf."
+	late = TRUE
+	var/crate_type = /obj/structure/closet/crate //for changing the crate type in the map editor
+	var/obj/structure/closet/crate/crate
+
+/obj/effect/mapping_helpers/crate_shelf_loader/LateInitialize()
+	. = ..()
+	var/obj/structure/crate_shelf/shelf = locate(/obj/structure/crate_shelf) in loc
+	if(crate_type && shelf)
+		crate = new crate_type(src)
+		shelf.load(crate)
+		qdel(src)
+		return
+	CRASH("Failed to find a crate shelf at [AREACOORD(src)] or the crate_type is undefined")
