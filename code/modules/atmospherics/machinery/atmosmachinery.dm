@@ -79,7 +79,6 @@
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
-	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
 		var/mob/living/L = user
 		if(L.ventcrawler)
