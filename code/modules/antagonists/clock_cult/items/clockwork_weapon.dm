@@ -19,7 +19,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = IS_SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""

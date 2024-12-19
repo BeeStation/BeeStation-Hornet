@@ -160,7 +160,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	var/can_drop = FALSE
 	var/fake = FALSE

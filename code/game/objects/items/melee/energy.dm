@@ -101,7 +101,7 @@
 	attack_verb_off = list("taps", "pokes")
 	throw_speed = 3
 	throw_range = 5
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER_EASY
 	bleed_force_on = BLEED_DEEP_WOUND
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 	armour_penetration = 35
@@ -134,7 +134,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	sword_color = null //stops icon from breaking when turned on.
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER_EASY
 	bleed_force_on = BLEED_DEEP_WOUND
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
@@ -165,7 +165,7 @@
 	sword_color = null //stops icon from breaking when turned on.
 	hitcost = 75 //Costs more than a standard cyborg esword
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER_EASY
 	bleed_force_on = BLEED_DEEP_WOUND
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
@@ -263,7 +263,7 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY//So you can't hide it in your pocket or some such.
 	var/datum/effect_system/spark_spread/spark_system
-	sharpness = IS_SHARP
+	sharpness = IS_SHARP_DISMEMBER_EASY
 	bleed_force_on = BLEED_DEEP_WOUND
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
