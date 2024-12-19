@@ -36,6 +36,9 @@
 	if(isnull(value))
 		return "<span class='value'>null</span>"
 
+	if(iscolortext(value))
+		return "<span class='value'>\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span></span>"
+
 	if(istext(value))
 		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
 

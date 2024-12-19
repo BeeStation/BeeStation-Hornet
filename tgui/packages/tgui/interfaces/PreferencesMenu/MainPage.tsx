@@ -2,7 +2,7 @@ import { classes } from 'common/react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
 import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon, FitText } from '../../components';
 import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
-import { CharacterPreview } from './CharacterPreview';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { MultiNameInput, NameInput } from './names';

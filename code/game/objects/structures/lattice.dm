@@ -9,13 +9,19 @@
 	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	density = FALSE
 	anchored = TRUE
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_lattice
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
 	var/number_of_rods = 1
 	//	flags = CONDUCT_1
 	z_flags = Z_BLOCK_OUT_DOWN
+
+
+/datum/armor/structure_lattice
+	melee = 50
+	fire = 80
+	acid = 50
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()

@@ -154,12 +154,22 @@
 /obj/item/dnainjector/cluwnemut
 	name = "\improper DNA injector (Cluwneify)"
 	desc = "This is your last chance to turn back."
-	add_mutations = list(CLOWNMUT)
+	add_mutations = list(CLUWNEMUT)
 
 /obj/item/dnainjector/anticluwne
 	name = "\improper DNA injector (Anti-Cluwne)"
+	desc = "This is going to hurt."
+	remove_mutations = list(CLUWNEMUT)
+
+/obj/item/dnainjector/cursedcluwnemut
+	name = "\improper DNA injector (Cluwneify)"
+	desc = "This is your last chance to turn back."
+	add_mutations = list(CURSEDCLUWNEMUT)
+
+/obj/item/dnainjector/anticursedcluwne
+	name = "\improper DNA injector (Anti-Cluwne)"
 	desc = "This isn't going to work."
-	remove_mutations = list(CLOWNMUT)
+	remove_mutations = list(CURSEDCLUWNEMUT)
 
 /obj/item/dnainjector/antitour
 	name = "\improper DNA injector (Anti-Tour.)"

@@ -6098,7 +6098,7 @@
 /area/mine/science)
 "Ss" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{

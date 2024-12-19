@@ -20,6 +20,9 @@ GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 #define isfilter(thing) (!hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
 
+GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA-F]{6})|([0-9a-fA-F]{3}))$"))
+#define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
+
 // simple check whether or not a player is a guest using their key
 #define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
 

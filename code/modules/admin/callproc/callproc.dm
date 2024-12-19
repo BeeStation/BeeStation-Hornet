@@ -40,9 +40,10 @@
 
 	// absolutely not
 	if(findtextEx(trim(LOWER_TEXT(procname)), "rustg"))
-		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call rust-g procs. Inform the host <u>at once</u>.</span>")
-		log_admin("[key_name(src)] attempted to proc call rust-g procs. Inform the host at once.")
-		send2tgs("SECURITY ALERT", "[key_name(src)] attempted to proc call rustg things. Inform the host at once.")
+		var/html_strip = html_encode(procname)
+		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call rust-g procs([html_strip]). Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(src)] attempted to proc call rust-g procs([html_strip]). Inform the host at once.")
+		send2tgs("SECURITY ALERT", "[key_name(src)] attempted to proc call rustg things([html_strip]). Inform the host at once.")
 		return
 
 	if(targetselected)

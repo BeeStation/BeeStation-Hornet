@@ -16,6 +16,7 @@
 	max_volume = 30
 	var/maint = FALSE
 	var/maint_overlay = ""
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/canned/Initialize(mapload)
 	. = ..()

@@ -2712,7 +2712,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -4243,43 +4243,6 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
-"aAm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/vomit/old,
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/turf/open/floor/plating,
-/area/crew_quarters/toilet/auxiliary)
-"aAn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/auxiliary)
-"aAo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/auxiliary)
 "aAp" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light/small,
@@ -5029,18 +4992,15 @@
 	dir = 8;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "aEt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/engine{
 	pixel_y = 23;
@@ -5051,6 +5011,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/engine/supermatter)
@@ -6177,6 +6140,7 @@
 /obj/machinery/airlock_sensor/incinerator_atmos{
 	pixel_y = 24
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aMy" = (
@@ -6218,6 +6182,18 @@
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
+"aMJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "aMK" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
@@ -6375,9 +6351,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aNT" = (
@@ -6466,6 +6439,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aPA" = (
@@ -8645,7 +8619,7 @@
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfa" = (
@@ -9355,6 +9329,25 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
+"bku" = (
+/obj/structure/table/wood,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/folder/blue,
+/obj/item/clothing/under/rank/centcom/commander{
+	desc = "A replica of a jumpsuit worn by the highest ranking commanders under Nanotrasen's central command.";
+	name = "Replica CentCom officer's jumpsuit"
+	},
+/obj/item/clothing/head/hats/centcom_cap{
+	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
+	name = "Replica CentCom hat"
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/open/floor/carpet/grimy,
+/area/bridge/showroom/corporate)
 "bkw" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 31
@@ -18551,7 +18544,7 @@
 /area/hallway/primary/aft)
 "cuy" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	pixel_y = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
@@ -21454,31 +21447,6 @@
 /obj/machinery/light/small,
 /obj/machinery/recharge_station,
 /turf/open/floor/plating,
-/area/crew_quarters/toilet/restrooms)
-"cIb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/restrooms)
-"cIc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
 "cId" = (
 /obj/structure/table/reinforced,
@@ -24387,7 +24355,7 @@
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "dcy" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/machinery/status_display/ai{
@@ -26120,7 +26088,7 @@
 /turf/open/floor/iron/white/corner,
 /area/hallway/secondary/entry)
 "dsR" = (
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -26444,7 +26412,7 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "dvE" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -29373,7 +29341,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "dRF" = (
-/obj/machinery/computer/med_data/laptop{
+/obj/machinery/computer/records/medical/laptop{
 	dir = 1;
 	pixel_y = 4
 	},
@@ -31357,23 +31325,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"ekz" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/camera/directional/north{
-	c_tag = "Auxiliary Restroom";
-	name = "restroom camera"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/auxiliary)
 "ekA" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/iron,
@@ -33809,6 +33760,9 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/item/storage/firstaid/regular,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "eUW" = (
@@ -34131,7 +34085,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/records/security,
 /obj/structure/sign/nanotrasen{
 	pixel_x = -32
 	},
@@ -34910,6 +34864,9 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
@@ -35774,6 +35731,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"fDc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "fDi" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -36162,7 +36132,7 @@
 /turf/open/floor/iron,
 /area/medical/virology)
 "fHN" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -37519,7 +37489,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -37590,6 +37560,9 @@
 	},
 /obj/machinery/airlock_sensor/incinerator_toxmix{
 	pixel_x = -24
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -38990,9 +38963,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "gyu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Supermatter Engine - Aft";
 	name = "atmospherics camera"
@@ -42240,20 +42210,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"hye" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Primary Restroom";
-	name = "restroom camera"
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/restrooms)
 "hyj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -43669,6 +43625,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/textured,
 /area/maintenance/disposal/incinerator)
+"hTI" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "hTK" = (
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -44082,6 +44048,22 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"iac" = (
+/obj/structure/table/wood,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/folder/red,
+/obj/item/toy/gun,
+/obj/item/clothing/head/beret/sec{
+	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
+	name = "replica officer's beret"
+	},
+/obj/item/radio/intercom{
+	pixel_x = 26
+	},
+/turf/open/floor/carpet/grimy,
+/area/bridge/showroom/corporate)
 "iam" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/white/line{
@@ -44631,9 +44613,14 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "ijv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -45328,7 +45315,7 @@
 /turf/open/floor/plating,
 /area/security/brig)
 "ivC" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/computer/security/telescreen/cmo{
@@ -45546,7 +45533,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "iyr" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -47725,23 +47712,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
-"joe" = (
-/obj/structure/table/wood,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/folder/red,
-/obj/item/toy/gun,
-/obj/item/clothing/head/beret/sec{
-	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"stamina"=0);
-	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
-	name = "replica officer's beret"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 26
-	},
-/turf/open/floor/carpet/grimy,
-/area/bridge/showroom/corporate)
 "jor" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -48157,7 +48127,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "juT" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -48861,7 +48831,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "jGA" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -49087,7 +49057,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "jME" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -52853,8 +52823,8 @@
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/mapping_helpers/atmos_auto_connect,
 /obj/machinery/airalarm/server{
-	pixel_x = -22;
-	dir = 4
+	dir = 8;
+	pixel_x = -22
 	},
 /turf/open/floor/iron,
 /area/tcommsat/server)
@@ -53999,7 +53969,7 @@
 	},
 /area/hallway/secondary/entry)
 "ltq" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
@@ -55236,6 +55206,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
@@ -57571,7 +57544,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "mAd" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -57908,6 +57881,18 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"mFz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/auxiliary)
 "mFB" = (
 /obj/machinery/status_display/evac{
 	pixel_x = 32
@@ -58841,7 +58826,7 @@
 	pixel_x = 26;
 	pixel_y = 26
 	},
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
@@ -58956,6 +58941,9 @@
 "mWZ" = (
 /obj/machinery/atmospherics/components/binary/pump,
 /obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -60732,7 +60720,7 @@
 /area/science/research)
 "nwF" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -63062,6 +63050,18 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/security/brig)
+"oiJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/toilet/auxiliary)
 "oiK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -64539,7 +64539,6 @@
 "oIE" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "oIF" = (
@@ -67054,6 +67053,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"pAx" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron,
+/area/engine/atmospherics_engine)
 "pAK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -71599,6 +71605,19 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
+"qWh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/auxiliary)
 "qWx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72807,6 +72826,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
+"rpy" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/auxiliary)
 "rpG" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -74171,7 +74203,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "rLs" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/records/medical,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -76084,7 +76116,7 @@
 /turf/open/floor/plating,
 /area/medical/patients_rooms)
 "spm" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -80073,7 +80105,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "tAd" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
@@ -80303,10 +80335,10 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
 "tDm" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags,
-/obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "tDJ" = (
@@ -82773,26 +82805,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"uuE" = (
-/obj/structure/table/wood,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/folder/blue,
-/obj/item/clothing/under/rank/centcom/commander{
-	desc = "A replica of a jumpsuit worn by the highest ranking commanders under Nanotrasen's central command.";
-	name = "Replica CentCom officer's jumpsuit"
-	},
-/obj/item/clothing/head/hats/centcom_cap{
-	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"stamina"=0);
-	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
-	name = "Replica CentCom hat"
-	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -32
-	},
-/turf/open/floor/carpet/grimy,
-/area/bridge/showroom/corporate)
 "uuH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -86883,11 +86895,14 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -88567,7 +88582,7 @@
 /area/holodeck/prison)
 "wkS" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -89654,7 +89669,7 @@
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "wyY" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -92294,7 +92309,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "xqG" = (
-/obj/machinery/computer/secure_data{
+/obj/machinery/computer/records/security{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -94971,6 +94986,8 @@
 "yfc" = (
 /obj/structure/bodycontainer/morgue,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/tech,
 /area/security/brig/medbay)
 "yfd" = (
@@ -121666,7 +121683,7 @@ aAY
 aCl
 awg
 aEt
-sAw
+pAx
 kQN
 alT
 aKa
@@ -131941,7 +131958,7 @@ avG
 awI
 awI
 azg
-aAm
+oiJ
 auj
 rZH
 aDL
@@ -132455,7 +132472,7 @@ avI
 qZq
 xFo
 azg
-aAn
+mFz
 auj
 rZH
 aDL
@@ -132966,10 +132983,10 @@ alf
 atf
 auj
 auj
-ekz
+rpy
 iuA
 azg
-aAo
+qWh
 auj
 dJr
 aDL
@@ -133037,7 +133054,7 @@ czY
 wXk
 cCU
 deI
-uuE
+bku
 wlz
 fQi
 qHr
@@ -135607,7 +135624,7 @@ czY
 hgl
 qOK
 vfF
-joe
+iac
 wlz
 cIS
 qHr
@@ -141257,7 +141274,7 @@ cyL
 cxf
 csO
 cAm
-hye
+hTI
 kwW
 cFh
 cAm
@@ -142032,7 +142049,7 @@ cBP
 sEz
 cFm
 leQ
-cIb
+aMJ
 cAm
 fmt
 jBl
@@ -142546,7 +142563,7 @@ sqY
 bKI
 cFm
 cGK
-cIc
+fDc
 cAm
 eWS
 xyY

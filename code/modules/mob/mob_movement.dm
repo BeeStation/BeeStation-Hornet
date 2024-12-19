@@ -354,6 +354,9 @@
 			continue
 		return rebound
 
+/mob/has_gravity(turf/gravity_turf)
+	return mob_negates_gravity() || ..()
+
 /**
   * Does this mob ignore gravity
   */
@@ -371,14 +374,6 @@
 /// Called when this mob slips over, override as needed
 /mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
 	return
-
-/// Update the gravity status of this mob
-/mob/proc/update_gravity(has_gravity, override=FALSE)
-	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
-	if(!speed_change)
-		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
-	else
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/gravity, multiplicative_slowdown=speed_change)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth

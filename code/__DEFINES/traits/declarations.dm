@@ -221,6 +221,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
 /// If this item's been fried
 #define TRAIT_FOOD_FRIED "food_fried"
+/// If this item's been made by a chef instead of spawned by the map or admins
+#define TRAIT_FOOD_CHEF_MADE "food_made_by_chef"
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
 #define TRAIT_DOOR_PRYER		"door-pryer"	//Item can be used on airlocks to pry them open (even when powered)
@@ -308,5 +310,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// For unit testing, all do_afters set on this mob complete instantly and do not sleep
 #define INSTANT_DO_AFTER "instant_do_after"
+
+/// This means the user is currently holding/wearing a "tactical camouflage" item (like a potted plant).
+#define TRAIT_TACTICALLY_CAMOUFLAGED "tactically_camouflaged"
+
+/// The person with this trait always appears as 'unknown'.
+#define TRAIT_UNKNOWN "unknown"
+
+/// We are ignoring gravity
+#define TRAIT_IGNORING_GRAVITY "ignores_gravity"
+/// We have some form of forced gravity acting on us
+#define TRAIT_FORCED_GRAVITY "forced_gravity"
+#define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
+#define TRAIT_NEGATES_GRAVITY "negates_gravity"
 
 // END TRAIT DEFINES

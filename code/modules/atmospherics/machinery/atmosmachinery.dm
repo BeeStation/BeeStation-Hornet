@@ -34,17 +34,34 @@
 
 	var/image/pipe_vision_img = null
 
+	///The type of the device (UNARY, BINARY, TRINARY, QUATERNARY)
 	var/device_type = 0
+	///The lists of nodes that a pipe/device has, depends on the device_type var (from 1 to 4)
 	var/list/obj/machinery/atmospherics/nodes
 
+	///The path of the pipe/device that will spawn after unwrenching it (such as pipe fittings)
 	var/construction_type
-	var/pipe_state //icon_state as a pipe item
+	///icon_state as a pipe item
+	var/pipe_state
+	///Check if the device should be on or off (mostly used in processing for machines)
 	var/on = FALSE
 	/// whether it can be painted
 	var/paintable = FALSE
 
+	armor_type = /datum/armor/machinery_atmospherics
+
+/datum/armor/machinery_atmospherics
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	rad = 100
+	fire = 100
+	acid = 70
+
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
 		var/mob/living/L = user
 		if(L.ventcrawler)
@@ -56,8 +73,6 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
-	if (!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
 	if(process)
 		SSair.start_processing_machine(src)

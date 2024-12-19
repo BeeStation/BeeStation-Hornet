@@ -69,3 +69,7 @@
 ///Called after a client connects to a mob and all UI elements have been setup
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
+
+/// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
+#define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
+	#define GUN_HIT_SELF (1 << 0)

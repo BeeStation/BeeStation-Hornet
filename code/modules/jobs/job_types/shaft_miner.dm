@@ -52,7 +52,7 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag
 	box = /obj/item/storage/box/survival/mining
 
-	chameleon_extras = /obj/item/gun/energy/kinetic_accelerator
+	chameleon_extras = /obj/item/gun/energy/recharge/kinetic_accelerator
 
 /datum/outfit/job/miner/equipped
 	name = "Shaft Miner (Equipment)"
@@ -66,7 +66,7 @@
 		/obj/item/knife/combat/survival=1,
 		/obj/item/mining_voucher=1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		/obj/item/gun/energy/kinetic_accelerator=1,\
+		/obj/item/gun/energy/recharge/kinetic_accelerator=1,\
 		/obj/item/stack/marker_beacon/ten=1)
 
 /datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

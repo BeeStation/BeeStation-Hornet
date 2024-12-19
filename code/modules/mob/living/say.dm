@@ -101,7 +101,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(!message)
 		return
 
-	message = check_for_custom_say_emote(message, message_mods)
+	if(!forced && !saymode)
+		message = check_for_custom_say_emote(message, message_mods)
 
 	switch(stat)
 		if(SOFT_CRIT)

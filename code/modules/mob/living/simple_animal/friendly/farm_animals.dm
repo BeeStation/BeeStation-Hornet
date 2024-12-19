@@ -368,3 +368,19 @@
 	validColors = list("plain")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
+
+/mob/living/simple_animal/chicken/rabbit
+	name = "\improper rabbit"
+	desc = "It's a rabbit, everyone knows what a rabbit is."
+	icon = 'icons/mob/easter.dmi'
+	icon_state = "b_rabbit_white"
+	icon_living = "b_rabbit_white"
+	icon_dead = "b_rabbit_white_dead"
+	speak = null
+	speak_emote = list("sniffles","twitches")
+	emote_hear = list("hops.")
+	emote_see = list("hops around","bounces up and down")
+	icon_prefix = "b_rabbit"
+	feedMessages = list("It nibbles happily.","It noms happily.")
+	butcher_results = list(/obj/item/food/meat/slab = 1)
+	food_type = /obj/item/food/grown/carrot

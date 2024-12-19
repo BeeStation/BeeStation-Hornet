@@ -149,8 +149,6 @@ All ShuttleMove procs go here
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-	if(proximity_monitor)
-		proximity_monitor.HandleMove()
 
 	return TRUE
 
@@ -401,7 +399,3 @@ All ShuttleMove procs go here
 	id = "mining_public" //It will not move with the base, but will become enabled as a docking point.
 	return FALSE
 
-/obj/effect/abstract/proximity_checker/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
-	//timer so it only happens once
-	addtimer(CALLBACK(monitor, TYPE_PROC_REF(/datum/proximity_monitor, SetRange), monitor.current_range, TRUE), 0, TIMER_UNIQUE)
-	return FALSE
