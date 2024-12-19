@@ -232,6 +232,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ThermoMachine", name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_data(mob/user)
