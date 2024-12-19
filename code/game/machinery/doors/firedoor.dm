@@ -481,11 +481,11 @@
 			return
 	return ..()
 
-/obj/machinery/door/firedoor/try_to_activate_door(obj/item/I, mob/user)
-	if(!density || welded)
+/obj/machinery/door/firedoor/try_to_activate_door(obj/item/attacked_item, mob/user)
+	if(!density || welded || !attacked_item)
 		return
 
-	var/obj/item/card/id/id_card = I.GetID()
+	var/obj/item/card/id/id_card = attacked_item.GetID()
 	if(istype(id_card))
 		if((alarm_type != FIRELOCK_ALARM_TYPE_GENERIC) || check_access(id_card))
 			playsound(src, 'sound/machines/beep.ogg', 50, 1)
