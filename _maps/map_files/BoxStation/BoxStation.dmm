@@ -5215,7 +5215,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/research)
 "biq" = (
@@ -5935,7 +5934,6 @@
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/research)
 "boB" = (
@@ -23671,6 +23669,14 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
+"geT" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Biohazard";
+	name = "biohazard Containment Door"
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/science/research)
 "gfd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -114638,7 +114644,7 @@ biR
 xFZ
 bjZ
 bvx
-eek
+geT
 boM
 bzE
 bsX
