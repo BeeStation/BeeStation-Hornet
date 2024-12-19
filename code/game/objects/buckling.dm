@@ -68,7 +68,7 @@
   */
 /atom/movable/proc/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && istype(M) && istype(user))
-		return user_buckle_mob(M, user)
+		return user_buckle_mob(M, user, check_loc = FALSE)
 
 // Mobs have custom behaviour for buckling
 /mob/mouse_buckle_handling(mob/living/M, mob/living/user)
