@@ -106,12 +106,12 @@
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
 
-		if((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_health) || weapon_sharpness == IS_SHARP_DISMEMBER_EASY && prob(I.force))
+		if((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_health) || weapon_sharpness == SHARP_DISMEMBER_EASY && prob(I.force))
 			dismember_limb = TRUE
 			//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 			//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
 
-		else if(weapon_sharpness > IS_SHARP || (weapon_sharpness == IS_SHARP && stat == DEAD))
+		else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && stat == DEAD))
 			//Delimbing cannot normally occur with blunt weapons
 			//You also aren't cutting someone's arm off with a scalpel unless they're already dead
 
