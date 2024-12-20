@@ -1849,13 +1849,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
-"aBv" = (
-/obj/effect/spawner/structure/window/depleteduranium,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/engine/atmospherics_engine)
 "aBx" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
@@ -9970,6 +9963,13 @@
 	dir = 8
 	},
 /area/medical/sleeper)
+"dit" = (
+/obj/effect/spawner/structure/window/depleteduranium,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/engine/atmospherics_engine)
 "diF" = (
 /obj/structure/transit_tube/station/reverse{
 	dir = 4
@@ -24424,8 +24424,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -53335,7 +53335,6 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -54349,23 +54348,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"rlf" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_in/yellow{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "rlg" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -56961,6 +56943,23 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"sbc" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_in/yellow{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "sbd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -71284,10 +71283,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "wNh" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = -22
-	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -108534,9 +108529,9 @@ pEe
 pEe
 pay
 nxJ
-rlf
 hHG
-hHG
+sbc
+sbc
 nzF
 dmD
 oEe
@@ -118819,7 +118814,7 @@ dHW
 dHW
 dHW
 gLb
-aBv
+dit
 jjt
 vZB
 gLb
