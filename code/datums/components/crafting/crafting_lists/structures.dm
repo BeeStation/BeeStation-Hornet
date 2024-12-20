@@ -120,3 +120,26 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
+/datum/crafting_recipe/weight_lifting_frame
+	name = "Weight lifting machine frame"
+	result = /obj/structure/weight_lifting_frame
+	time = 6 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/iron = 2,
+		/obj/item/stack/rods = 6,
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/punching_bag
+	name = "Punching bag"
+	result = /obj/structure/punching_bag
+	time = 6 SECONDS
+	reqs = list(
+	/obj/item/stack/sheet/cotton/cloth = 10,
+	)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+

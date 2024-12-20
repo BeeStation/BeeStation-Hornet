@@ -92,9 +92,13 @@
   * force - Set to TRUE to ignore src's can_buckle and M's can_buckle_to
   * check_loc - Set to FALSE to allow buckling from adjacent turfs, or TRUE if buckling is only allowed with src and M on the same turf.
   */
-/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, needs_anchored = FALSE)
 	if(!buckled_mobs)
 		buckled_mobs = list()
+
+	if(!anchored && needs_anchored)
+		to_chat(M, "<span class='warning'>Secure [src] first!</span>")
+		return FALSE
 
 	if(!is_buckle_possible(M, force, check_loc))
 		return FALSE
@@ -131,7 +135,7 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
-/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, needs_anchored = FALSE)
 	. = ..()
 	if(.)
 		if(resistance_flags & ON_FIRE) //Sets the mob on fire if you buckle them to a burning atom/movableect

@@ -10,6 +10,7 @@
 	anchored = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/mutable_appearance/overlay
+	var/weight_type = /obj/item/barbell/stacklifting
 
 	///How much we shift the user's pixel y when using the weight machine.
 	var/pixel_shift_y = -3
@@ -52,8 +53,27 @@
 	qdel(overlay)
 	return ..()
 
-/obj/structure/weightmachine/buckle_mob(mob/living/buckled, force, check_loc)
+/obj/structure/weightmachine/wrench_act(mob/living/user, obj/item/I)
+	if (default_unfasten_wrench(user, I, 50) == 2 && anchored)
+		setDir(SOUTH)
+	unbuckle_all_mobs()
+	return TRUE
+
+/obj/structure/weightmachine/screwdriver_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You begin to take apart [src]...</span>")
+	if(I.use_tool(src, user, 40, volume=50))
+		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+		new /obj/item/stack/sheet/iron(loc, 2)
+		new /obj/item/stack/rods(loc, 6)
+		new weight_type(loc)
+		unbuckle_all_mobs()
+		qdel(src)
+	return TRUE
+
+/obj/structure/weightmachine/buckle_mob(mob/living/buckled, force, check_loc, needs_anchored = TRUE)
 	. = ..()
+
+/obj/structure/weightmachine/post_buckle_mob(mob/living/buckled)
 	weight_action.Grant(buckled)
 	buckled.add_overlay(overlay)
 	src.cut_overlay(overlay)
@@ -106,3 +126,60 @@
 	icon_state = "benchpress"
 	base_icon_state = "benchpress"
 	pixel_shift_y = 5
+	weight_type = /obj/item/barbell
+
+/obj/structure/weight_lifting_frame //for making the weight lifting machines
+	name = "Weight lifting machine frame"
+	desc = "Just add some weights and start pushing it to the limit."
+	icon = 'icons/obj/fitness.dmi'
+	icon_state = "benchpress"
+	density = TRUE
+
+/obj/structure/weight_lifting_frame/attackby(obj/item/I)
+	if(istype(I, /obj/item/barbell/stacklifting))
+		new /obj/structure/weightmachine(get_turf(src))
+		qdel(src)
+		qdel(I)
+		return
+	if(istype(I, /obj/item/barbell))
+		new /obj/structure/weightmachine/weightlifter(get_turf(src))
+		qdel(src)
+		qdel(I)
+	..()
+
+/obj/structure/weight_lifting_frame/wrench_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You begin to take apart the frame...</span>")
+	if(I.use_tool(src, user, 40, volume=50))
+		to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
+		new /obj/item/stack/sheet/iron(loc, 2)
+		new /obj/item/stack/rods(loc, 6)
+		qdel(src)
+	return TRUE
+
+/obj/item/barbell
+	name = "barbell"
+	desc = "A long bar with some huge weights on the ends. Very impressive."
+	icon = 'icons/obj/fitness.dmi'
+	icon_state = "barbell"
+	lefthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
+	flags_1 = CONDUCT_1
+	force = 14
+	throwforce = 14
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	attack_weight = 2
+	w_class = WEIGHT_CLASS_HUGE
+	item_flags = SLOWS_WHILE_IN_HAND
+	custom_materials = list(/datum/material/iron=10000)
+	throw_speed = 1
+	throw_range = 2
+	slowdown = 2
+
+/obj/item/barbell/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands=TRUE, block_power_unwielded=block_power, block_power_wielded=block_power)
+
+/obj/item/barbell/stacklifting
+	name = "chest press handle"
+	desc = "A handle that attaches to some heavy weights. Looks complicated."
+	icon_state = "chestpress"
