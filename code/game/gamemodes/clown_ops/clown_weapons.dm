@@ -97,7 +97,7 @@
 	hitsound = null
 	attack_verb_on = list("slips")
 	clumsy_check = FALSE
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	sword_color = "yellow"
 	heat = 0
 	light_color = "#ffff00"

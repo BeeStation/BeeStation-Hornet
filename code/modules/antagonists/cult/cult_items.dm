@@ -47,7 +47,7 @@ Striking a noncultist, however, will tear their flesh."}
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
@@ -576,7 +576,7 @@ Striking a noncultist, however, will tear their flesh."}
 	block_upgrade_walk = 1
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/datum/action/innate/cult/spear/spear_act

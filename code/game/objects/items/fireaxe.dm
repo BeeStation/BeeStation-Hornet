@@ -15,7 +15,7 @@
 	attack_verb_continuous = list("attacks", "chops", "cleaves", "tears", "lacerates", "cuts")
 	attack_verb_simple = list("attack", "chop", "cleave", "tear", "lacerate", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	armor_type = /datum/armor/item_fireaxe

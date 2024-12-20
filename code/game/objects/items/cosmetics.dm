@@ -277,7 +277,7 @@
 		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
-		sharpness = IS_SHARP
+		sharpness = SHARP
 		bleed_force = BLEED_SURFACE
 		tool_behaviour = TOOL_SCALPEL
 	else
@@ -288,7 +288,7 @@
 		attack_verb_continuous = list("stubs", "pokes")
 		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
-		sharpness = IS_BLUNT
+		sharpness = BLUNT
 		bleed_force = 0
 		tool_behaviour = null
 
