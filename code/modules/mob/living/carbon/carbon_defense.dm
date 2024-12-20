@@ -78,7 +78,7 @@
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
-		var/limb_health = affecting.get_damage() //We need to save this for later to simplify dismemberment
+		var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
@@ -106,7 +106,7 @@
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
 
-		if((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_health) || weapon_sharpness == SHARP_DISMEMBER_EASY && prob(I.force))
+		if((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || weapon_sharpness == SHARP_DISMEMBER_EASY && prob(I.force))
 			dismember_limb = TRUE
 			//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 			//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
@@ -115,7 +115,7 @@
 			//Delimbing cannot normally occur with blunt weapons
 			//You also aren't cutting someone's arm off with a scalpel unless they're already dead
 
-			if(limb_health >= affecting.max_damage)
+			if(limb_damage >= affecting.max_damage)
 				dismember_limb = TRUE
 				//You can only cut a limb off if it is already damaged enough to be fully disabled
 

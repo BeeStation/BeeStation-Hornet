@@ -1773,7 +1773,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-	var/limb_health = affecting.get_damage() //We need to save this for later to simplify dismemberment
+	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
 
 	if (I.bleed_force)
@@ -1812,7 +1812,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/dismember_limb = FALSE
 	var/weapon_sharpness = I.is_sharp()
 
-	if((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_health) || weapon_sharpness == SHARP_DISMEMBER_EASY && prob(I.force))
+	if((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || weapon_sharpness == SHARP_DISMEMBER_EASY && prob(I.force))
 		dismember_limb = TRUE
 		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
@@ -1821,7 +1821,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		//Delimbing cannot normally occur with blunt weapons
 		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
 
-		if(limb_health >= affecting.max_damage)
+		if(limb_damage >= affecting.max_damage)
 			dismember_limb = TRUE
 			//You can only cut a limb off if it is already damaged enough to be fully disabled
 
