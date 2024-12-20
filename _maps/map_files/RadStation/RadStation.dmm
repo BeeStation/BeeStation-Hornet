@@ -1849,6 +1849,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
+"aBv" = (
+/obj/effect/spawner/structure/window/depleteduranium,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/engine/atmospherics_engine)
 "aBx" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
@@ -2723,9 +2730,6 @@
 	},
 /area/science/research)
 "aQE" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -12941,8 +12945,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
@@ -13879,8 +13883,8 @@
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "eua" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
@@ -24420,8 +24424,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
-	dir = 8
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -39225,7 +39229,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -54345,6 +54349,23 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"rlf" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_in/yellow{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "rlg" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -65810,23 +65831,6 @@
 	},
 /turf/open/floor/carpet,
 /area/library)
-"uTF" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_in/yellow{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "uTN" = (
 /turf/open/floor/iron/dark/corner{
 	dir = 4
@@ -70114,13 +70118,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"wuR" = (
-/obj/effect/spawner/structure/window/depleteduranium,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/engine/atmospherics_engine)
 "wvm" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Storage";
@@ -108537,9 +108534,9 @@ pEe
 pEe
 pay
 nxJ
+rlf
 hHG
-uTF
-uTF
+hHG
 nzF
 dmD
 oEe
@@ -118822,7 +118819,7 @@ dHW
 dHW
 dHW
 gLb
-wuR
+aBv
 jjt
 vZB
 gLb
