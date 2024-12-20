@@ -1,3 +1,4 @@
+/// Inert structures, such as girders, machine frames, and crates/lockers.
 /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
@@ -8,10 +9,13 @@
 	ricochet_chance_mod = 0.5
 	pass_flags_self = PASSSTRUCTURE
 	var/broken = FALSE
+	armor_type = /datum/armor/obj_structure
+
+/datum/armor/obj_structure
+	fire = 50
+	acid = 50
 
 /obj/structure/Initialize(mapload)
-	if (!armor)
-		armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
 	. = ..()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)

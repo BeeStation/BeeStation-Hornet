@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 100
 	deflect_chance = 3
-	armor = list(MELEE = 25,  BULLET = 20, LASER = 30, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/combat_reticence
 	max_temperature = 15000
 	wreckage = /obj/structure/mecha_wreckage/reticence
 	operation_req_access = list(ACCESS_THEATRE)
@@ -17,6 +17,15 @@
 	max_equip = 2
 	step_energy_drain = 3
 	color = "#87878715"
+
+
+/datum/armor/combat_reticence
+	melee = 25
+	bullet = 20
+	laser = 30
+	energy = 15
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/combat/reticence/loaded/Initialize(mapload)
 	. = ..()

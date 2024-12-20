@@ -77,12 +77,6 @@
 	. = ..()
 	create_reagents(reagent_amount, OPENCONTAINER)
 
-/obj/item/ammo_casing/c38/emp
-	name = ".38 'BLK_OUT' bullet casing"
-	desc = "A specialized .38 bullet casing that releases a small electromagnetic burst on impact."
-	icon_state = "sS-casing"
-	projectile_type = /obj/projectile/bullet/c38/emp
-
 /obj/item/ammo_casing/c38/improv
 	name = "improv .38 bullet casing"
 	desc = "An improvised .38 bullet casing."

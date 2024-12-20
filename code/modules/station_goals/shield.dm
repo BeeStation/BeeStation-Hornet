@@ -139,7 +139,7 @@
 
 /obj/item/meteor_shield/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/deployable, /obj/machinery/satellite/meteor_shield, time_to_deploy = 10 SECONDS)
+	AddComponent(/datum/component/deployable, /obj/machinery/satellite/meteor_shield, time_to_deploy = 0)
 
 /obj/machinery/satellite/meteor_shield
 	name = "\improper Meteor Shield Satellite"
