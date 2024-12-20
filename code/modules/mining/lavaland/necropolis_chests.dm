@@ -1173,7 +1173,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	attack_verb_continuous = list("clubs", "beats", "pummels")
 	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
-	actions_types = list(/datum/action/item_action/vortex_recall)
+	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	var/power = 15 //Damage of the magic tiles
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
@@ -1268,6 +1268,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	update_icon()
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
+		var/datum/action/toggle = action
+		friendly_fire_check = !friendly_fire_check
+		toggle.update_buttons()
+		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "on":"off"]!</span>")
+		return
 	if(timer > world.time)
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport

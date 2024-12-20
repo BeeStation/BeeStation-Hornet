@@ -142,12 +142,7 @@
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
 
-/obj/item/clothing/head/hardhat/weldhat/proc/toggle_welding_screen(mob/living/user)
-	if(weldingvisortoggle(user))
-		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	update_icon()
-
-/obj/item/clothing/head/hardhat/weldhat/ui_action_click(mob/user, actiontype)
+/obj/item/clothing/head/utility/hardhat/welding/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_welding_screen))
 		toggle_welding_screen(user)
 		return

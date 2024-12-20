@@ -13,3 +13,20 @@
 		if(teleport_stick.teleporting)
 			return FALSE
 	return ..()
+
+/datum/action/item_action/toggle_unfriendly_fire
+	name = "Toggle Friendly Fire \[ON\]"
+	desc = "Toggles if the club's blasts cause friendly fire."
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "vortex_ff_on"
+
+/datum/action/item_action/toggle_unfriendly_fire/update_button(atom/movable/screen/movable/action_button/button, status_only, force)
+	var/obj/item/hierophant_club/teleport_stick = master
+	if(istype(master, /obj/item/hierophant_club))
+		if(teleport_stick.friendly_fire_check == FALSE)
+			button_icon_state = "vortex_ff_off"
+			name = "Toggle Friendly Fire \[OFF\]"
+		else
+			button_icon_state = "vortex_ff_on"
+			name = "Toggle Friendly Fire \[ON\]"
+	return ..()
