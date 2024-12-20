@@ -1002,3 +1002,97 @@
 			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
 
 	return ..()
+
+/obj/item/stake
+	name = "wooden stake"
+	desc = "A simple wooden stake carved to a sharp point."
+	icon = 'icons/bloodsuckers/stakes.dmi'
+	icon_state = "wood"
+	item_state = "wood"
+	lefthand_file = 'icons/bloodsuckers/bs_leftinhand.dmi'
+	righthand_file = 'icons/bloodsuckers/bs_rightinhand.dmi'
+	slot_flags = ITEM_SLOT_POCKETS
+	w_class = WEIGHT_CLASS_SMALL
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb_continuous = list("staked", "stabbed", "tore into")
+	attack_verb_simple = list("staked", "stabbed", "tore into")
+	sharpness = IS_SHARP
+	embedding = list("embed_chance" = 20)
+	force = 6
+	throwforce = 10
+	max_integrity = 30
+
+	///Time it takes to embed the stake into someone's chest.
+	var/staketime = 12 SECONDS
+
+/obj/item/stake/attack(mob/living/target, mob/living/user, params)
+	. = ..()
+	if(.)
+		return
+	// Invalid Target, or not targetting the chest?
+	if(check_zone(user.zone_selected) != BODY_ZONE_CHEST)
+		return
+	if(target == user)
+		return
+	if(!target.can_be_staked()) // Oops! Can't.
+		to_chat(user, "<span class='danger'>You can't stake [target] when they are moving about! They have to be laying down or grabbed by the neck!</span>")
+		return
+	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+		to_chat(user, "<span class='danger'>[target]'s chest resists the stake. It won't go in.</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You put all your weight into embedding the stake into [target]'s chest...</span>")
+	playsound(user, 'sound/magic/Demon_consume.ogg', 50, 1)
+	if(!do_after(user, staketime, target, extra_checks = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, can_be_staked)))) // user / target / time / uninterruptable / show progress bar / extra checks
+		return
+	// Drop & Embed Stake
+	user.visible_message(
+		"<span class='danger'>[user.name] drives the [src] into [target]'s chest!</span>",
+		"<span class='danger'>You drive the [src] into [target]'s chest!</span>",
+	)
+	playsound(get_turf(target), 'sound/effects/splat.ogg', 40, 1)
+	if(tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
+		target.apply_damage(max(10, force * 1.2), BRUTE, BODY_ZONE_CHEST, wound_bonus = 0, sharpness = TRUE)
+	if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
+		return
+	if(!target.mind)
+		return
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = target.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	if(bloodsuckerdatum)
+		// If DEAD or TORPID... Kill Bloodsucker!
+		if(target.StakeCanKillMe())
+			bloodsuckerdatum.FinalDeath()
+		else
+			to_chat(target, "<span class='userdanger'>You have been staked! Your powers are useless, your death forever, while it remains in place.</span>")
+			target.balloon_alert(target, "you have been staked!")
+
+///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
+/mob/living/proc/can_be_staked()
+	return FALSE
+
+/mob/living/carbon/can_be_staked()
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return TRUE
+	return FALSE
+
+/// Created by welding and acid-treating a simple stake.
+/obj/item/stake/hardened
+	name = "hardened stake"
+	desc = "A wooden stake carved to a sharp point and hardened by fire."
+	icon_state = "hardened"
+	force = 8
+	throwforce = 12
+	armour_penetration = 10
+	embedding = list("embed_chance" = 35)
+	staketime = 80
+
+/obj/item/stake/hardened/silver
+	name = "silver stake"
+	desc = "Polished and sharp at the end. For when some mofo is always trying to iceskate uphill."
+	icon_state = "silver"
+	item_state = "silver"
+	siemens_coefficient = 1
+	force = 9
+	armour_penetration = 25
+	embedding = list("embed_chance" = 65)
+	staketime = 60

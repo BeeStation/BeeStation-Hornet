@@ -32,6 +32,32 @@ Woods Sheets
 /obj/item/stack/sheet/wood/get_recipes()
 	return GLOB.wood_recipes
 
+/obj/item/stack/sheet/mineral/wood/attackby(obj/item/item, mob/user, params)
+	if(!item.is_sharp())
+		return ..()
+	user.visible_message(
+		"<span class='notice'>[user] begins whittling [src] into a pointy object.</span>",
+		"<span class='notice'>You begin whittling [src] into a sharp point at one end.</span>",
+		"<span class='hear'>You hear wood carving.</span>",
+	)
+	// 5 Second Timer
+	if(!do_after(user, 5 SECONDS, src, NONE, TRUE))
+		return
+	// Make Stake
+	var/obj/item/stake/new_item = new(user.loc)
+	user.visible_message(
+		"<span class='notice'>[user] finishes carving a stake out of [src].</span>",
+		"<span class='notice'>You finish carving a stake out of [src].</span>",
+	)
+	// Prepare to Put in Hands (if holding wood)
+	var/obj/item/stack/sheet/mineral/wood/wood_stack = src
+	var/replace = (user.get_inactive_held_item() == wood_stack)
+	// Use Wood
+	wood_stack.use(1)
+	// If stack depleted, put item in that hand (if it had one)
+	if(!wood_stack && replace)
+		user.put_in_hands(new_item)
+
 /* Bamboo */
 
 /obj/item/stack/sheet/bamboo

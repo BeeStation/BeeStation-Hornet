@@ -53,6 +53,7 @@
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
 #define ROLE_PRISONER			"Prisoner"
+#define ROLE_BLOODSUCKER		"Bloodsucker"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -91,6 +92,7 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_FUGITIVE_HUNTER,
 	ROLE_SLAUGHTER_DEMON,
 	ROLE_CONTRACTOR_SUPPORT_UNIT,
+	ROLE_BLOODSUCKER,
 ))
 
 #define BAN_ROLE_FORCED_ANTAGONISTS			"Forced Antagonists"

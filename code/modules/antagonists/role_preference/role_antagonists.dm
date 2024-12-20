@@ -328,3 +328,19 @@
 	use_icon = /datum/role_preference/antagonist/traitor
 
 #undef TRAITOR_DESC_DETAILS
+
+/datum/role_preference/antagonist/bloodsucker
+	name = "Bloodsucker"
+	description="After your death, you awaken to see yourself as an undead monster.\nUse your Vampiric abilities as best you can.\nScrape by Space Station 13, or take over it, vassalizing your way."
+	antag_datum = /datum/antagonist/bloodsucker
+	preview_outfit = /datum/outfit/bloodsucker_outfit
+
+/datum/role_preference/midround_living/bloodsucker
+	name = "Vampiric Accident"
+	description="After your death, you awaken to see yourself as an undead monster.\nUse your Vampiric abilities as best you can.\nScrape by Space Station 13, or take over it, vassalizing your way."
+	antag_datum = /datum/antagonist/bloodsucker
+	preview_outfit = /datum/outfit/bloodsucker_outfit
+
+/datum/outfit/bloodsucker_outfit
+	name = "Bloodsucker outfit (Preview only)"
+	suit = /obj/item/clothing/suit/costume/dracula

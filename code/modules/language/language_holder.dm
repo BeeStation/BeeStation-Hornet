@@ -424,6 +424,12 @@ Key procs
 							/datum/language/sonus = list(LANGUAGE_ATOM),
 							/datum/language/sylvan = list(LANGUAGE_ATOM))
 
+/datum/language_holder/vampire
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/vampiric = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+							/datum/language/vampiric = list(LANGUAGE_ATOM))
+
 /datum/language_holder/empty
 	understood_languages = list()
 	spoken_languages = list()
