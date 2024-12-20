@@ -120,13 +120,27 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
-/datum/crafting_recipe/weight_lifting_frame
-	name = "Weight lifting machine frame"
-	result = /obj/structure/weight_lifting_frame
+/datum/crafting_recipe/weightmachine
+	name = "Chest press machine"
+	result = /obj/structure/weightmachine
 	time = 6 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/iron = 2,
 		/obj/item/stack/rods = 6,
+		/obj/item/barbell/stacklifting = 1,
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/weightmachine/weightlifter
+	name = "Inline bench press"
+	result = /obj/structure/weightmachine/weightlifter
+	time = 6 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/iron = 2,
+		/obj/item/stack/rods = 6,
+		/obj/item/barbell = 1,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_STRUCTURE

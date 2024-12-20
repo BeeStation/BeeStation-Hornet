@@ -67,12 +67,6 @@
 	to_chat(user, "<span class='notice'>You begin to take apart [src]...</span>")
 	if(I.use_tool(src, user, 40, volume=50))
 		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
-		new /obj/item/stack/sheet/iron(loc, 2)
-		new /obj/item/stack/rods(loc, 6)
-		new weight_type(loc)
-		unbuckle_all_mobs()
-		QDEL_NULL(weight_action)
-		qdel(overlay)
 		qdel(src)
 	return TRUE
 
@@ -133,34 +127,6 @@
 	base_icon_state = "benchpress"
 	pixel_shift_y = 5
 	weight_type = /obj/item/barbell
-
-/obj/structure/weight_lifting_frame //for making the weight lifting machines
-	name = "Weight lifting machine frame"
-	desc = "Just add some weights and start pushing it to the limit."
-	icon = 'icons/obj/fitness.dmi'
-	icon_state = "benchpress"
-	density = TRUE
-
-/obj/structure/weight_lifting_frame/attackby(obj/item/I)
-	if(istype(I, /obj/item/barbell/stacklifting))
-		new /obj/structure/weightmachine(get_turf(src))
-		qdel(src)
-		qdel(I)
-		return
-	if(istype(I, /obj/item/barbell))
-		new /obj/structure/weightmachine/weightlifter(get_turf(src))
-		qdel(src)
-		qdel(I)
-	..()
-
-/obj/structure/weight_lifting_frame/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to take apart the frame...</span>")
-	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-		new /obj/item/stack/sheet/iron(loc, 2)
-		new /obj/item/stack/rods(loc, 6)
-		qdel(src)
-	return TRUE
 
 /obj/item/barbell
 	name = "barbell"
