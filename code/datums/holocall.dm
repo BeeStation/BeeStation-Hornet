@@ -189,7 +189,7 @@
 	..()
 	hcall = HC
 
-/datum/action/innate/end_holocall/Activate()
+/datum/action/innate/end_holocall/on_activate()
 	hcall.Disconnect(hcall.calling_holopad)
 
 
