@@ -19,7 +19,6 @@
 
 /datum/status_effect/exercised/on_creation(mob/living/new_owner, exercise_amount)
 	src.exercise_amount = exercise_amount * EXERCISE_INCREMENT
-	update_exercise()
 	return ..()
 
 /datum/status_effect/exercised/merge(exercise_amount)
@@ -49,6 +48,7 @@
 		var/delta = exercise_amount - applied_amount
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology.stun_add -= delta
+		human_owner.physiology.stamina_mod -= delta
 		applied_amount = exercise_amount
 	switch (exercise_amount)
 		if (0.3 to 0.5)
