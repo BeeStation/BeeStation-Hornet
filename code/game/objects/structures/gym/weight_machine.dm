@@ -49,6 +49,10 @@
 	weight_action.weightpress = src
 
 /obj/structure/weightmachine/Destroy()
+	new /obj/item/stack/sheet/iron(loc, 2)
+	new /obj/item/stack/rods(loc, 6)
+	new weight_type(loc)
+	unbuckle_all_mobs()
 	QDEL_NULL(weight_action)
 	qdel(overlay)
 	return ..()
@@ -67,6 +71,8 @@
 		new /obj/item/stack/rods(loc, 6)
 		new weight_type(loc)
 		unbuckle_all_mobs()
+		QDEL_NULL(weight_action)
+		qdel(overlay)
 		qdel(src)
 	return TRUE
 
@@ -164,8 +170,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
 	flags_1 = CONDUCT_1
-	force = 14
-	throwforce = 14
+	force = 16
+	throwforce = 16
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_weight = 2
 	w_class = WEIGHT_CLASS_HUGE
