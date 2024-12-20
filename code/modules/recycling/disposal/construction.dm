@@ -95,16 +95,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 
 /obj/structure/disposalconstruct/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(post_rotation)))
 
-/obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
-	if(rotation_type == ROTATION_FLIP)
+/obj/structure/disposalconstruct/proc/post_rotation(mob/user, degrees)
+	if(degrees == ROTATION_FLIP)
 		var/obj/structure/disposalpipe/temp = pipe_type
 		if(initial(temp.flip_type))
-			if(dir in GLOB.diagonals)	// Fix RPD-induced diagonal turning
+			if(ISDIAGONALDIR(dir)) // Fix RPD-induced diagonal turning
 				setDir(turn(dir, 45))
 			pipe_type = initial(temp.flip_type)
-	update_icon()
+	update_appearance()
 
 /obj/structure/disposalconstruct/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)

@@ -282,7 +282,6 @@
 		update_hair()
 	// Close internal air tank if mask was the only breathing apparatus.
 	if(invalid_internals())
-		update_internals_hud_icon(0)
 		cutoff_internals()
 	if(I.flags_inv & HIDEEYES)
 		update_inv_glasses()

@@ -842,7 +842,7 @@
 
 //Spread is FORCED!
 /obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
-	var/turf/curloc = get_turf(source)
+	var/turf/current_location = get_turf(source)
 	var/turf/targloc = get_turf(target)
 	trajectory_ignore_forcemove = TRUE
 	forceMove(get_turf(source))
@@ -850,8 +850,8 @@
 	starting = get_turf(source)
 	original = target
 	if(targloc || !params)
-		yo = targloc.y - curloc.y
-		xo = targloc.x - curloc.x
+		yo = targloc.y - current_location.y
+		xo = targloc.x - current_location.x
 		set_angle(get_angle(src, targloc) + spread)
 
 	if(isliving(source) && params)
@@ -861,8 +861,8 @@
 
 		set_angle(calculated[1] + spread)
 	else if(targloc)
-		yo = targloc.y - curloc.y
-		xo = targloc.x - curloc.x
+		yo = targloc.y - current_location.y
+		xo = targloc.x - current_location.x
 		set_angle(get_angle(src, targloc) + spread)
 	else
 		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")

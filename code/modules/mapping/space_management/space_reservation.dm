@@ -19,6 +19,10 @@
 	reserved_turfs = list()
 	for(var/turf/reserved_turf as anything in reserved_copy)
 		SEND_SIGNAL(reserved_turf, COMSIG_TURF_RESERVATION_RELEASED, src)
+
+		// immediately disconnect from atmos
+		reserved_turf.blocks_air = TRUE
+		CALCULATE_ADJACENT_TURFS(reserved_turf, KILL_EXCITED)
 	// Makes the linter happy, even tho we don't await this
 	INVOKE_ASYNC(SSmapping, /datum/controller/subsystem/mapping/proc/reserve_turfs, reserved_copy)
 

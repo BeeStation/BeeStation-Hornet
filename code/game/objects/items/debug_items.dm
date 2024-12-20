@@ -182,10 +182,6 @@
 	atmos_build_speed = 0.1
 	disposal_build_speed = 0.1
 	transit_build_speed = 0.1
-	plumbing_build_speed = 0.1
-	destroy_speed = 0.1
-	paint_speed = 0.1
-	ranged = TRUE
 	upgrade_flags = RPD_UPGRADE_UNWRENCH
 
 /obj/item/spellbook/debug
