@@ -3288,7 +3288,7 @@
 	pixel_y = 8
 	},
 /turf/closed/wall,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "avQ" = (
 /turf/closed/wall,
 /area/quartermaster/warehouse)
@@ -13290,7 +13290,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "bNB" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -25091,7 +25091,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "djs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
@@ -33327,7 +33327,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "eNy" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Engineering - Shared Storage";
@@ -39030,7 +39030,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "gyX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -53463,7 +53463,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "lkk" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Space Access Airlock";
@@ -55365,7 +55365,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "lOI" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -63167,7 +63167,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "okM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -74216,7 +74216,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "rLQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -75715,7 +75715,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "sjf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -134759,13 +134759,13 @@ arQ
 jLZ
 aup
 avP
-avQ
+aig
 okL
-avQ
-avQ
-avQ
-avQ
-avQ
+aig
+aig
+aig
+aig
+aig
 aFe
 aGn
 aHG
@@ -135015,7 +135015,7 @@ abZ
 cmn
 jLZ
 aup
-avQ
+aig
 sjd
 rLP
 bNy
