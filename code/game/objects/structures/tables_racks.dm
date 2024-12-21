@@ -47,6 +47,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		buildstack = _buildstack
 	AddElement(/datum/element/climbable)
 
+/obj/structure/table/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
+
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
 	if(!istype(H))
