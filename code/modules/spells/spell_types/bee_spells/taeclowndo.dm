@@ -67,6 +67,8 @@
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_honker"
 
+/datum/action/spell/touch/megahonk/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	return TRUE
 
 /obj/item/melee/touch_attack/megahonk/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || !iscarbon(target) || !iscarbon(user) || user.handcuffed)

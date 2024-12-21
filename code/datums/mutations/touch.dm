@@ -51,4 +51,5 @@
 		ltarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
 	else
 		to_chat(user,"<span class='warning'>The electricity doesn't seem to affect [target]...</span>")
+	remove_hand_with_no_refund(user)
 	return ..()
