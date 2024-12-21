@@ -61,7 +61,7 @@
 	key = "gnarl"
 	key_third_person = "gnarls"
 	message = "gnarls and shows its teeth.."
-	mob_type_allowed_typecache = list(/mob/living/carbon/monkey)
+	mob_type_allowed_typecache = list(/mob/living/carbon/human/species/monkey)
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/moan
@@ -151,7 +151,7 @@
 /datum/emote/living/carbon/tail
 	key = "tail"
 	message = "waves their tail"
-	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
+	mob_type_allowed_typecache = list(/mob/living/carbon/human/species/monkey, /mob/living/carbon/alien)
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/wink

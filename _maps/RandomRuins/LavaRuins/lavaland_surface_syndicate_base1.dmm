@@ -2578,7 +2578,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/carbon/monkey{
+/mob/living/carbon/human/species/monkey{
 	faction = list("neutral","Syndicate")
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2937,7 +2937,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/carbon/monkey{
+/mob/living/carbon/human/species/monkey{
 	faction = list("neutral","Syndicate")
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

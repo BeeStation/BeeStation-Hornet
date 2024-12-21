@@ -218,6 +218,9 @@
 	if(!QDELETED(src))
 		qdel(src)
 
+/mob/living/carbon/human/species/monkey/tumor
+	var/creator_key = null
+
 /mob/living/carbon/human/species/monkey/tumor/handle_mutations_and_radiation()
 	return
 
@@ -231,3 +234,17 @@
 	dna.species.regenerate_organs(src, replace_current = TRUE)
 	//Fix initial DNA not properly handling our height
 	dna.update_body_size(height = pick(dna.species.get_species_height()))
+
+/mob/living/carbon/human/species/monkey/tumor/death(gibbed)
+	. = ..()
+	for (var/mob/living/creator in GLOB.player_list)
+		if (creator.key != creator_key)
+			continue
+		if (creator.stat == DEAD)
+			return
+		if (!creator.mind)
+			return
+		if (!creator.mind.has_antag_datum(/datum/antagonist/changeling))
+			return
+		to_chat(creator, "<span class='warning'>We gain the energy to birth another Teratoma...</span>")
+		return

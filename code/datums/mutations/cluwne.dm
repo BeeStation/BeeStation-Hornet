@@ -34,7 +34,7 @@
 				owner.Knockdown(20)
 				owner.Jitter(500)
 
-/datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/cluwne/on_losing(mob/living/carbon/owner)
 	owner.emote("scream")
 	owner.visible_message("<span class='warning'><span class='name'>[owner]</span> faints as [owner.p_their()] cursed cluwne clothing melts away!</span>")
 	owner.Unconscious(rand(45 SECONDS, 70 SECONDS))
@@ -48,7 +48,7 @@
 			qdel(clothing)
 	clothing_weakrefs.Cut()
 
-/datum/mutation/cluwne/proc/equip_cursed_clothing(type, slot)
+/datum/mutation/human/cluwne/proc/equip_cursed_clothing(type, slot)
 	var/obj/item/clothing/original_clothing = owner.get_item_by_slot(slot)
 	if(istype(original_clothing, type))
 		return
@@ -67,5 +67,5 @@
 	flash_act(override_blindness_check = TRUE)
 	client?.give_award(/datum/award/achievement/misc/cluwne, src)
 
-/datum/mutation/cluwne/cursed
+/datum/mutation/human/cluwne/cursed
 	scrambled = TRUE

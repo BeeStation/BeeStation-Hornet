@@ -35,7 +35,7 @@
 #define TELEPATHY	/datum/mutation/human/telepathy
 #define FIREBREATH	/datum/mutation/human/firebreath
 #define VOID		/datum/mutation/human/void
-#define STRONG    	/datum/mutation/human/strong
+#define STRONG /datum/mutation/human/strong
 #define FIRESWEAT	/datum/mutation/human/fire
 #define THERMAL		/datum/mutation/human/thermal
 #define ANTENNA		/datum/mutation/human/antenna
@@ -47,9 +47,10 @@
 #define BADBLINK	/datum/mutation/human/badblink
 #define SPASTIC		/datum/mutation/human/spastic
 #define EXTRASTUN	/datum/mutation/human/extrastun
-#define GELADIKINESIS		/datum/mutation/human/geladikinesis
+#define GELADIKINESIS /datum/mutation/human/geladikinesis
 #define CRYOKINESIS /datum/mutation/human/cryokinesis
 #define CLUWNEMUT   /datum/mutation/human/cluwne
+#define CURSEDCLUWNEMUT /datum/mutation/human/cluwne/cursed
 #define WAXSALIVA   /datum/mutation/human/wax_saliva
 #define STRONGWINGS /datum/mutation/human/strongwings
 #define CATCLAWS    /datum/mutation/human/catclaws

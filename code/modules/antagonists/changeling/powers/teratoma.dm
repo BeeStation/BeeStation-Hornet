@@ -28,7 +28,7 @@
 		to_chat(user, "<span class='warning'>Our current form has insufficient genetic material to create a Teratoma.</span>")
 		return FALSE
 	var/terratoma_count = 0
-	for (var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
+	for (var/mob/living/carbon/human/species/monkey/tumor/teratoma in GLOB.mob_living_list)
 		if (teratoma.creator_key != user.key || teratoma.stat == DEAD)
 			continue
 		terratoma_count ++
@@ -50,7 +50,7 @@
 	if (!user.key)
 		return FALSE
 	terratoma_count = 0
-	for (var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
+	for (var/mob/living/carbon/human/species/monkey/tumor/teratoma in GLOB.mob_living_list)
 		if (teratoma.creator_key != user.key || teratoma.stat == DEAD)
 			continue
 		terratoma_count ++
