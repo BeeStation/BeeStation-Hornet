@@ -10,7 +10,7 @@
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_CYBORG)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	required_candidates = 1
 	weight = 5
 	cost = 8	// Avoid raising traitor threat above this, as it is the default low cost ruleset.
@@ -32,6 +32,52 @@
 		M.mind.special_role = ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += M.mind
+	return TRUE
+
+
+//////////////////////////////////////////////
+//                                          //
+//            MALFUNCTIONING AI             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/malf_ai
+	name = "Malfunctioning AI"
+	antag_flag = ROLE_MALF
+	antag_datum = /datum/antagonist/malf_ai
+	minimum_required_age = 14
+	exclusive_roles = list("AI")
+	required_candidates = 1
+	weight = 3
+	cost = 18
+	requirements = list(101,101,80,70,60,60,50,50,40,40)
+	antag_cap = 1
+	flags = HIGH_IMPACT_RULESET
+
+/datum/dynamic_ruleset/roundstart/malf_ai/ready(forced)
+	var/datum/job/ai_job = SSjob.GetJob("AI")
+	if(!ai_job)
+		return FALSE
+
+	// If we're not forced, we're going to make sure we can actually have an AI in this shift,
+	if(!forced && min(ai_job.total_positions - ai_job.current_positions, ai_job.spawn_positions) <= 0)
+		return FALSE
+
+	return ..()
+
+/datum/dynamic_ruleset/roundstart/malf_ai/pre_execute(population)
+	. = ..()
+
+	var/datum/job/ai_job = SSjob.GetJob("AI")
+	// Maybe a bit too pedantic, but there should never be more malf AIs than there are available positions, spawn positions or antag cap allocations.
+	var/num_malf = min(get_antag_cap(population), min(ai_job.total_positions - ai_job.current_positions, ai_job.spawn_positions))
+	for (var/i in 1 to num_malf)
+		var/mob/new_malf = pick_n_take(candidates)
+		assigned += new_malf.mind
+		new_malf.mind.special_role = ROLE_MALF
+		GLOB.pre_setup_antags += new_malf.mind
+		// We need an AI for the malf roundstart ruleset to execute. This means that players who get selected as malf AI get priority, because antag selection comes before role selection.
+		LAZYADDASSOC(SSjob.dynamic_forced_occupations, new_malf, "AI")
 	return TRUE
 
 

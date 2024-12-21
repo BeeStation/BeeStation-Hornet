@@ -1,3 +1,8 @@
+/// Probability the AI going malf will be accompanied by an ion storm announcement and some ion laws.
+#define MALF_ION_PROB 33
+/// The probability to replace an existing law with an ion law instead of adding a new ion law.
+#define REPLACE_LAW_WITH_ION_PROB 10
+
 //////////////////////////////////////////////
 //                                          //
 //            MIDROUND RULESETS             //
@@ -233,7 +238,7 @@
 /datum/dynamic_ruleset/midround/malf
 	name = "Malfunctioning AI"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_datum = /datum/antagonist/traitor
+	antag_datum = /datum/antagonist/malf_ai
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_SCIENTIST, JOB_NAME_CHEMIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFENGINEER)
 	exclusive_roles = list(JOB_NAME_AI)
@@ -245,8 +250,6 @@
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
 	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
-	var/ion_announce = 33
-	var/removeDontImproveChance = 10
 
 /datum/dynamic_ruleset/midround/malf/acceptable(population = 0, threat_level = 0)
 	. = ..()
@@ -267,17 +270,17 @@
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/execute(forced = FALSE)
-	var/mob/living/silicon/ai/M = antag_pick_n_take(candidates)
-	assigned += M.mind
-	var/datum/antagonist/traitor/AI = new
-	M.mind.special_role = "Malf AI"
-	M.mind.add_antag_datum(AI)
-	if(prob(ion_announce))
+	var/mob/living/silicon/ai/new_malf_ai = pick_n_take(candidates)
+	assigned += new_malf_ai.mind
+	var/datum/antagonist/malf_ai/malf_antag_datum = new
+	new_malf_ai.mind.special_role = antag_flag
+	new_malf_ai.mind.add_antag_datum(malf_antag_datum)
+	if(prob(MALF_ION_PROB))
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
-		if(prob(removeDontImproveChance))
-			M.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
+		if(prob(REPLACE_LAW_WITH_ION_PROB))
+			new_malf_ai.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 		else
-			M.add_ion_law(generate_ion_law())
+			new_malf_ai.add_ion_law(generate_ion_law())
 	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
@@ -970,3 +973,8 @@
 	. = ..()
 	// Set their job in addition to their antag role to be a space ninja for logging purposes
 	new_character.mind.assigned_role = ROLE_NINJA
+
+/// Probability the AI going malf will be accompanied by an ion storm announcement and some ion laws.
+#undef MALF_ION_PROB
+/// The probability to replace an existing law with an ion law instead of adding a new ion law.
+#undef REPLACE_LAW_WITH_ION_PROB

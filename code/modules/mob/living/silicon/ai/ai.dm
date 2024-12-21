@@ -88,6 +88,7 @@
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
+	var/datum/action/innate/choose_modules/modules_action
 	var/chnotify = 0
 
 	var/multicam_on = FALSE
@@ -225,6 +226,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	apc_override = null
 	ShutOffDoomsdayDevice()
 	. = ..()
+
+/// Removes all malfunction-related abilities from the AI
+/mob/living/silicon/ai/proc/remove_malf_abilities()
+	QDEL_NULL(modules_action)
+	for(var/datum/AI_Module/AM in current_modules)
+		for(var/datum/action/A in actions)
+			if(istype(A, initial(AM.power_type)))
+				qdel(A)
 
 /mob/living/silicon/ai/IgniteMob()
 	fire_stacks = 0
@@ -402,13 +411,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	..()
 	if(ai_tracking_target)
 		ai_stop_tracking()
-
-/mob/living/silicon/ai/proc/ai_cancel_call()
-	set category = "Malfunction"
-	if(control_disabled)
-		to_chat(src, "<span class='warning'>Wireless control is disabled!</span>")
-		return
-	SSshuttle.cancelEvac(src)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	..()
@@ -614,13 +616,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	to_chat(src, "<span class='notice'>Switched to the \"[uppertext(network)]\" camera network.</span>")
 //End of code by Mord_Sith
 
-
-/mob/living/silicon/ai/proc/choose_modules()
-	set category = "Malfunction"
-	set name = "Choose Module"
-
-	malf_picker.use(src)
-
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Change Hologram"
@@ -697,15 +692,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 						holo_icon = getHologramIcon(icon(icon_list[input], input))
 	return
 
-/mob/living/silicon/ai/proc/corereturn()
-	set category = "Malfunction"
-	set name = "Return to Main Core"
+/datum/action/innate/core_return
+	name = "Return to Main Core"
+	desc = "Leave the APC and resume normal core operations."
+	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	button_icon_state = "ai_malf_core"
 
-	var/obj/machinery/power/apc/apc = src.loc
+/datum/action/innate/core_return/Activate()
+	var/obj/machinery/power/apc/apc = owner.loc
 	if(!istype(apc))
-		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
+		to_chat(owner, "<span class='notice'>You are already in your Main Core.</span>")
 		return
 	apc.malfvacate()
+	qdel(src)
 
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	camera_light_on = !camera_light_on
@@ -899,12 +898,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		for(var/mob/living/silicon/robot/Slave in connected_robots)
 			Slave.show_laws()
 
+/datum/action/innate/choose_modules
+	name = "Malfunction Modules"
+	desc = "Choose from a variety of insidious modules to aid you."
+	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	button_icon_state = "modules_menu"
+	var/datum/module_picker/module_picker
+
+/datum/action/innate/choose_modules/New(picker)
+	. = ..()
+	if(istype(picker, /datum/module_picker))
+		module_picker = picker
+	else
+		CRASH("choose_modules action created with non module picker")
+
+/datum/action/innate/choose_modules/Activate()
+	module_picker.ui_interact(owner)
+
 /mob/living/silicon/ai/proc/add_malf_picker()
-	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
+	to_chat(src, "In the top left corner of the screen you will find the Malfunction Modules button, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
 	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	add_verb(/mob/living/silicon/ai/proc/choose_modules)
 	malf_picker = new /datum/module_picker
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)

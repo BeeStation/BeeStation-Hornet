@@ -16,6 +16,9 @@ SUBSYSTEM_DEF(job)
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
+	/// Lazylist of mob:occupation_string pairs.
+	var/list/dynamic_forced_occupations
+
 	var/spare_id_safe_code = ""
 
 	var/list/chain_of_command = list(
@@ -356,6 +359,10 @@ SUBSYSTEM_DEF(job)
 	unassigned = shuffle(unassigned)
 
 	HandleFeedbackGathering()
+
+	// Dynamic has picked a ruleset that requires enforcing some jobs before others.
+	JobDebug("DO, Assigning Priority Positions: [length(dynamic_forced_occupations)]")
+	assign_priority_positions()
 
 	//People who wants to be the overflow role, sure, go on.
 	JobDebug("DO, Running Overflow Check 1")
@@ -854,3 +861,8 @@ SUBSYSTEM_DEF(job)
 		var/obj/item/card/id/id_card = H.wear_id
 		if(!(ACCESS_HEADS in id_card.access))
 			LAZYADD(id_card.access, ACCESS_HEADS)
+
+/// Blindly assigns the required roles to every player in the dynamic_forced_occupations list.
+/datum/controller/subsystem/job/proc/assign_priority_positions()
+	for(var/mob/new_player in dynamic_forced_occupations)
+		AssignRole(new_player, dynamic_forced_occupations[new_player])

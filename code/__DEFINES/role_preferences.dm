@@ -19,7 +19,7 @@
 #define ROLE_OPERATIVE			"Nuclear Operative"
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
-//#define ROLE_MALF				"Malf AI" // Currently under traitor datum, so we can't have this separate.
+#define ROLE_MALF				"Malf AI"
 #define ROLE_INCURSION			"Incursion Team"
 #define ROLE_EXCOMM				"Excommunicated Syndicate Agent"
 #define ROLE_REV				"Revolutionary"
