@@ -43,9 +43,7 @@
 
 /datum/dynamic_ruleset/roundstart/malf_ai
 	name = "Malfunctioning AI"
-	antag_flag = ROLE_MALF
 	antag_datum = /datum/antagonist/malf_ai
-	minimum_required_age = 14
 	exclusive_roles = list("AI")
 	required_candidates = 1
 	weight = 3

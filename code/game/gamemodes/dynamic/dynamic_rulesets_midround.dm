@@ -273,7 +273,7 @@
 	var/mob/living/silicon/ai/new_malf_ai = pick_n_take(candidates)
 	assigned += new_malf_ai.mind
 	var/datum/antagonist/malf_ai/malf_antag_datum = new
-	new_malf_ai.mind.special_role = antag_flag
+	new_malf_ai.mind.special_role = ROLE_MALF
 	new_malf_ai.mind.add_antag_datum(malf_antag_datum)
 	if(prob(MALF_ION_PROB))
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
