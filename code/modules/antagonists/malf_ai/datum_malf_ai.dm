@@ -6,7 +6,8 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Malf AI"
 	banning_key = ROLE_MALF
-	antag_hud_type = ANTAG_HUD_TRAITOR
+	var/antag_hud_type = ANTAG_HUD_TRAITOR
+	var/antag_hud_name = "malf_ai"
 	var/special_role = ROLE_MALF
 	var/employer = "The Syndicate"
 	var/should_give_codewords = TRUE
@@ -57,7 +58,7 @@
 		kill_objective.find_target()
 		objectives += kill_objective
 
-	var/datum/objective/survive/malf/dont_die_objective = new
+	var/datum/objective/survive/exist/dont_die_objective = new
 	dont_die_objective.owner = owner
 	objectives += dont_die_objective
 
