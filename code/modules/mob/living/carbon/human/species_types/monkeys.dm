@@ -171,9 +171,6 @@
 
 	return to_add
 
-/datum/species/monkey/get_species_height_map()
-	return icon('icons/effects/64x64.dmi', "height_displacement_monkey")
-
 /datum/dna/tumor
 	species = new /datum/species/monkey/teratoma
 
@@ -233,7 +230,7 @@
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
 	//Fix initial DNA not properly handling our height
-	dna.update_body_size(height = pick(dna.species.get_species_height()))
+	dna.update_body_size()
 
 /mob/living/carbon/human/species/monkey/tumor/death(gibbed)
 	. = ..()

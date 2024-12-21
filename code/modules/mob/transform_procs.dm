@@ -55,7 +55,7 @@
 	icon = initial(icon)
 	invisibility = 0
 	set_species(species)
-	dna.update_body_size(TRUE, height = dna.species?.get_species_height())
+	dna.update_body_size(TRUE)
 	regenerate_icons()
 	return src
 

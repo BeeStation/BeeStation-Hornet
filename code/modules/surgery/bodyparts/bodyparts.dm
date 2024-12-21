@@ -678,7 +678,9 @@
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	limb_id = SPECIES_MONKEY
-	is_dimorphic = TRUE
+	should_draw_greyscale = FALSE
+	is_dimorphic = FALSE
+	animal_origin = MONKEY_BODYPART
 
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"

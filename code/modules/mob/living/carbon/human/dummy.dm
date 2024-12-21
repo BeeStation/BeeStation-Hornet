@@ -181,10 +181,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 */
 /datum/dna/dummy
 
-/datum/dna/dummy/update_height_holder()
-	return
-
-/datum/dna/dummy/update_body_size(force, height)
+/datum/dna/dummy/update_body_size(force)
 	return
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
