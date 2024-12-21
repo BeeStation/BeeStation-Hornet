@@ -70,6 +70,7 @@
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
 	var/datum/action/innate/spider/lay_web/webbing
 	var/datum/action/wrap/wrap
+	var/datum/action/innate/spider/comm/comm
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	discovery_points = 1000
@@ -332,12 +333,12 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Initialize(mapload)
 	. = ..()
-	wrap = new
-	wrap.Grant()
 	lay_eggs = new
 	lay_eggs.Grant(src)
 	letmetalkpls = new
 	letmetalkpls.Grant(src)
+	set_directive = new
+	set_directive.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Destroy()
 	wrap.Remove()
@@ -610,39 +611,9 @@
 	return TRUE
 
 /datum/action/wrap/proc/cocoon(atom/movable/to_wrap)
-	owner.visible_message(
-		("<span class='notice'>[owner] begins to secrete a sticky substance around [to_wrap].</span>"),
-		("<span class='notice'>You begin wrapping [to_wrap] into a cocoon.</span>"),
-	)
-
-	var/mob/living/simple_animal/animal_owner = owner
-	if(istype(animal_owner))
-		animal_owner.stop_automated_movement = TRUE
-
-	if(do_after(owner, wrap_time, target = to_wrap))
-		var/obj/structure/spider/cocoon/casing = new(to_wrap.loc)
-		if(isliving(to_wrap))
-			var/mob/living/living_wrapped = to_wrap
-			// if they're not dead, you can consume them anyway
-			if(ishuman(living_wrapped) && (living_wrapped.stat != DEAD || !HAS_TRAIT(living_wrapped, TRAIT_SPIDER_CONSUMED)))
-				var/datum/action/innate/spider/lay_eggs/egg_power = locate() in owner.actions
-				if(egg_power)
-					egg_power.update_buttons()
-					owner.visible_message(
-						("<span class='danger'>[owner] sticks a proboscis into [living_wrapped] and sucks a viscous substance out.</span>"),
-						("<span class='notice'>You suck the nutriment out of [living_wrapped], feeding you enough to lay a cluster of enriched eggs.</span>"),
-					)
-
-				living_wrapped.death() //you just ate them, they're dead.
-			else
-				to_chat(owner, ("<span class='warning'>[living_wrapped] cannot sate your hunger!</span>"))
-
-		to_wrap.forceMove(casing)
-		if(to_wrap.density || ismob(to_wrap))
-			casing.icon_state = pick("cocoon_large1", "cocoon_large2", "cocoon_large3")
-
-	if(istype(animal_owner))
-		animal_owner.stop_automated_movement = TRUE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
+	spider.cocoon_target = to_wrap
+	spider.cocoon()
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
@@ -650,38 +621,56 @@
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/is_available()
-	if(..())
-		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-			return FALSE
-		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-		if(S.fed && !S.ckey)
-			return TRUE
+	. = ..()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
+	var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
+	if((S.fed || S.enriched_fed) && (spider_antag?.spider_team.directive || !S.ckey))
+		return TRUE
+	return FALSE
 
 /datum/action/innate/spider/lay_eggs/on_activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return
-	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spider = owner
+	var/datum/antagonist/spider/spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
 
-	var/obj/structure/spider/eggcluster/E = locate() in get_turf(S)
-	if(E)
-		to_chat(S, "<span class='warning'>There is already a cluster of eggs here!</span>")
-	else if(!S.fed)
-		to_chat(S, "<span class='warning'>You are too hungry to do this!</span>")
-	else if(S.busy != LAYING_EGGS)
-		S.busy = LAYING_EGGS
-		S.visible_message("<span class='notice'>[S] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
-		S.stop_automated_movement = TRUE
-		if(do_after(S, 50, target = get_turf(S)))
-			if(S.busy == LAYING_EGGS)
-				E = locate() in get_turf(S)
-				if(!E || !isturf(S.loc))
-					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(get_turf(S))
-					C.faction = S.faction.Copy()
-					S.fed--
-					update_buttons(TRUE)
-		S.busy = SPIDER_IDLE
-		S.stop_automated_movement = FALSE
+	var/obj/structure/spider/eggcluster/cluster = locate() in get_turf(spider)
+	if(cluster)
+		to_chat(spider, "<span class='warning'>There is already a cluster of eggs here!</span>")
+	else if(!(spider.fed || spider.enriched_fed))
+		to_chat(spider, "<span class='warning'>You are too hungry to do this!</span>")
+	else if(!spider_antag?.spider_team.directive && spider.ckey)
+		to_chat(spider, "<span class='warning'>You need to set a directive to do this!</span>")
+	else if(spider.busy != LAYING_EGGS)
+		spider.busy = LAYING_EGGS
+		spider.visible_message("<span class='notice'>[spider] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
+		spider.stop_automated_movement = TRUE
+		if(do_after(spider, 50, target = get_turf(spider)))
+			if(spider.busy == LAYING_EGGS)
+				cluster = locate() in get_turf(spider)
+				if(!cluster || !isturf(spider.loc))
+					var/obj/structure/spider/eggcluster/new_cluster = new /obj/structure/spider/eggcluster(get_turf(spider))
+					if(spider.enriched_fed) // Adds an extra spawn and the potential for an enriched spawn if feeding on high quality food
+						new_cluster.enriched_spawns++
+						new_cluster.spawns_remaining++
+						spider.enriched_fed--
+					else
+						spider.fed--
+						new_cluster.grow_time *= 2
+					if(spider_antag?.spider_team) //Is or was this broodmother sentient?
+						new_cluster.spider_team = spider_antag?.spider_team //pass that team she has along to the children
+					else if(spider.spider_team) //No? then it is probably a second generation broodmother that spawned for a lack of ghosts
+						new_cluster.spider_team = spider.spider_team //so we pass the team inherited directly via the previous broodmother
+					else //This is a first generation, non-sentient broodmother likely spawned by admins and laying eggs for the first time.
+						var/datum/team/spiders/spiders = new()
+						spider.spider_team = spiders					//lets make sure her potentially sentient children are all on the same team
+						new_cluster.spider_team = spider.spider_team
+					new_cluster.faction = spider.faction.Copy()
+					update_buttons()
+		spider.busy = SPIDER_IDLE
+		spider.stop_automated_movement = FALSE
 
 
 
@@ -784,6 +773,36 @@
 		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
 		return FALSE
 
+
+// Directive command, for giving children orders
+// The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob
+/datum/action/innate/spider/set_directive
+	name = "Set Directive"
+	desc = "Set a directive for your children to follow."
+	button_icon_state = "directive"
+
+
+/datum/action/innate/spider/set_directive/is_available()
+	if(..())
+		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+			return FALSE
+		return TRUE
+
+
+/datum/action/innate/spider/set_directive/on_activate()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+		return
+	if(!owner.mind)
+		return
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
+	var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
+	if(!spider_antag)
+		spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
+	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
+	if(new_directive)
+		spider_antag.spider_team.update_directives(new_directive)
+		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
+		S.lay_eggs.update_buttons()
 
 
 #undef SPIDER_IDLE
