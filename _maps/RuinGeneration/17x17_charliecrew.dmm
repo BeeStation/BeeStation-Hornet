@@ -116,7 +116,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "hQ" = (
-/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/gun/energy/recharge/kinetic_accelerator,
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,

@@ -99,7 +99,7 @@
 			return FALSE
 
 		if(accept_check(O))
-			load(O)
+			load(O, user)
 			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
 			if (visible_contents)
 				update_appearance()
@@ -112,7 +112,7 @@
 				if(contents.len >= max_n_of_items)
 					break
 				if(accept_check(G))
-					load(G)
+					load(G, user)
 					loaded++
 
 			if(loaded)
@@ -176,7 +176,7 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/proc/load(obj/item/O)
+/obj/machinery/smartfridge/proc/load(obj/item/O, mob/user)
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
@@ -308,6 +308,8 @@
 	has_emissive = FALSE
 	opacity = FALSE
 	var/drying = FALSE
+	/// The reference to the last user's mind. Needed for the chef made trait to be properly applied correctly to dried food.
+	var/datum/weakref/current_user
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
@@ -321,6 +323,10 @@
 
 	QDEL_LIST(old_parts)
 	RefreshParts()
+
+/obj/machinery/smartfridge/drying_rack/Destroy()
+	current_user = null
+	return ..()
 
 /obj/machinery/smartfridge/drying_rack/on_deconstruction()
 	new /obj/item/stack/sheet/wood(drop_location(), 10)
@@ -348,7 +354,7 @@
 		return
 	switch(action)
 		if("Dry")
-			toggle_drying(FALSE)
+			toggle_drying(FALSE, usr)
 			return TRUE
 	return FALSE
 
@@ -362,9 +368,13 @@
 	if(!powered())
 		toggle_drying(TRUE)
 
-/obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
-	..()
+/obj/machinery/smartfridge/drying_rack/load(obj/item/dried_object, mob/user) //For updating the filled overlay
+	. = ..()
+	if(!.)
+		return
 	update_appearance()
+	if(drying && user?.mind)
+		current_user = WEAKREF(user.mind)
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -390,15 +400,18 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
+/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff, mob/user)
 	if(drying || forceoff)
 		drying = FALSE
+		current_user = FALSE
 	else
 		drying = TRUE
+		if(user?.mind)
+			current_user = WEAKREF(user.mind)
 	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry(obj/item/target)
-	SEND_SIGNAL(target, COMSIG_ITEM_DRIED)
+	SEND_SIGNAL(target, COMSIG_ITEM_DRIED, current_user)
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	. = ..()
@@ -462,12 +475,17 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/organ/load(obj/item/O)
+/obj/machinery/smartfridge/organ/load(obj/item/item, mob/user)
 	. = ..()
 	if(!.)	//if the item loads, clear can_decompose
 		return
-	var/obj/item/organ/organ = O
-	organ.organ_flags |= ORGAN_FROZEN
+	if(isorgan(item))
+		var/obj/item/organ/organ = item
+		organ.organ_flags |= ORGAN_FROZEN
+	if(isbodypart(item))
+		var/obj/item/bodypart/bodypart = item
+		for(var/obj/item/organ/stored in bodypart.contents)
+			stored.organ_flags |= ORGAN_FROZEN
 
 /obj/machinery/smartfridge/organ/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)

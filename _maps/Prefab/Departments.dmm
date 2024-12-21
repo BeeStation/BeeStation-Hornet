@@ -360,6 +360,20 @@
 "ic" = (
 /turf/open/floor/wood,
 /area/security/detectives_office)
+"ir" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 11;
+	pixel_y = -5
+	},
+/obj/item/mop{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/key/janitor,
+/obj/vehicle/ridden/janicart,
+/turf/open/floor/iron,
+/area/janitor)
 "iw" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -411,11 +425,6 @@
 /obj/machinery/suit_storage_unit/captain,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain)
-"ky" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/genetics)
 "kz" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/door/firedoor,
@@ -813,15 +822,6 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
-"uB" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "uF" = (
 /obj/effect/turf_decal/edges/techfloor_orange{
 	dir = 8
@@ -846,6 +846,15 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
+"vi" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/mob/living/simple_animal/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "vl" = (
 /obj/effect/landmark/start/captain,
 /turf/open/floor/carpet/blue,
@@ -941,10 +950,6 @@
 /obj/item/book/manual/hydroponics_pod_people,
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
-"xP" = (
-/obj/machinery/computer/security/telescreen/entertainment,
-/turf/open/floor/iron/dark,
-/area/space)
 "xS" = (
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
@@ -1097,6 +1102,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
+"CQ" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/genetics)
 "CS" = (
 /obj/machinery/computer/security/telescreen/entertainment,
 /turf/open/floor/iron,
@@ -1282,20 +1292,6 @@
 /obj/machinery/vendor/exploration,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"ID" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 11;
-	pixel_y = -5
-	},
-/obj/item/mop{
-	pixel_x = -6;
-	pixel_y = 3
-	},
-/obj/item/key/janitor,
-/obj/vehicle/ridden/janicart,
-/turf/open/floor/iron,
-/area/janitor)
 "IO" = (
 /obj/structure/closet/secure_closet/RD,
 /turf/open/floor/carpet/purple,
@@ -1772,6 +1768,10 @@
 /obj/structure/disposalpipe/sorting/mail/destination/threatre,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
+"Tm" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/open/floor/iron/dark,
+/area/space)
 "Tn" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
@@ -2299,7 +2299,7 @@ QG
 ew
 To
 pY
-ky
+CQ
 oa
 qL
 oa
@@ -2359,7 +2359,7 @@ ee
 cc
 TS
 eL
-uB
+vi
 Qk
 ff
 Qk
@@ -2625,7 +2625,7 @@ Qk
 xh
 kK
 bF
-xP
+Tm
 EV
 xB
 mQ
@@ -2651,7 +2651,7 @@ Zj
 Bo
 "}
 (29,1,1) = {"
-ID
+ir
 SY
 PP
 ZU

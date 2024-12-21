@@ -8,7 +8,7 @@
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE //Cry in silence as you should.
 
 /datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -34,14 +34,16 @@
 	key = "dap"
 	key_third_person = "daps"
 	message = "sadly can't find anybody to give daps to, and daps themself. Shameful"
-	message_param = "give daps to %t"
+	message_param = "gives daps to %t"
 	hands_use_check = TRUE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/etwitch
 	key = "etwitch"
 	key_third_person = "twitches their ears"
 	message = "twitches their ears"
 	vary = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/etwitch/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
@@ -52,6 +54,7 @@
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "raises an eyebrow"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/grumble
 	key = "grumble"
@@ -64,7 +67,7 @@
 	message = "shakes their own hand"
 	message_param = "shakes hands with %t"
 	hands_use_check = TRUE
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/hug
 	key = "hug"
@@ -72,17 +75,18 @@
 	message = "hugs themself"
 	message_param = "hugs %t"
 	hands_use_check = TRUE
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/mumble
 	key = "mumble"
 	key_third_person = "mumbles"
 	message = "mumbles"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/offer
 	key = "offer"
 	message = "offers an item"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/moth
 	// allow mothroach as well as human base mob - species check is done in can_run_emote
@@ -101,7 +105,7 @@
 	message = "lets out a tiny squeak"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	sound = 'sound/emotes/mothsqueak.ogg'
+	sound = 'sound/emotes/moth/mothsqueak.ogg'
 
 /datum/emote/living/carbon/human/moth/chitter
 	key = "chitter"
@@ -109,13 +113,13 @@
 	message = "chitters"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	sound = 'sound/emotes/mothchitter.ogg'
+	sound = 'sound/emotes/moth/mothchitter.ogg'
 
 /datum/emote/living/carbon/human/scream
 	key = "scream"
 	key_third_person = "screams"
 	message = "screams"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	vary = TRUE
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
@@ -134,11 +138,13 @@
 /datum/emote/living/carbon/human/pale
 	key = "pale"
 	message = "goes pale for a second"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/raise
 	key = "raise"
 	key_third_person = "raises"
 	message = "raises a hand"
+	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/salute
@@ -146,17 +152,26 @@
 	key_third_person = "salutes"
 	message = "salutes"
 	message_param = "salutes to %t"
+	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
 	key_third_person = "shrugs"
 	message = "shrugs"
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/tilt
+	key = "tilt"
+	key_third_person = "tilts their head to the side"
+	message = "tilts their head to the side"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
 	message = "wags their tail"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -185,6 +200,7 @@
 	key = "wing"
 	key_third_person = "wings"
 	message = "their wings"
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -212,6 +228,7 @@
 			if(istype(wings))
 				if(wings.flight_level >= WINGS_FLYING)
 					return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
@@ -261,12 +278,14 @@
 	key_third_person = "beeps"
 	message = "beeps"
 	message_param = "beeps at %t"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/boop
 	key = "boop"
 	key_third_person = "boops"
 	message = "boops."
 	sound = 'sound/machines/boop.ogg'
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/beep/run_emote(mob/user, params)
 	if(..())
@@ -277,6 +296,7 @@
 	key_third_person = "buzzes"
 	message = "buzzes"
 	message_param = "buzzes at %t"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/buzz/run_emote(mob/user, params)
 	if(..())
@@ -285,6 +305,7 @@
 /datum/emote/living/carbon/human/robot_tongue/buzz2
 	key = "buzz2"
 	message = "buzzes twice"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/buzz2/run_emote(mob/user, params)
 	if(..())
@@ -294,6 +315,7 @@
 	key = "chime"
 	key_third_person = "chimes"
 	message = "chimes"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/chime/run_emote(mob/user, params)
 	if(..())
@@ -304,6 +326,7 @@
 	key_third_person = "pings"
 	message = "pings"
 	message_param = "pings at %t"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/ping/run_emote(mob/user, params)
 	if(..())
@@ -331,6 +354,7 @@
 	key = "honk"
 	key_third_person = "honks"
 	message = "honks"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk/run_emote(mob/user, params)
 	if(..())
@@ -340,6 +364,7 @@
 	key = "sad"
 	key_third_person = "plays a sad trombone"
 	message = "plays a sad trombone"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/sad/run_emote(mob/user, params)
 	if(..())

@@ -27,7 +27,7 @@
 	var/target_stabbed = FALSE
 	density = TRUE
 	for(var/mob/living/M in get_turf(src))
-		if(M.incorporeal_move || M.movement_type & (FLOATING|FLYING))
+		if(M.incorporeal_move || M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 			continue
 		if(buckle_mob(M, TRUE))
 			target_stabbed = TRUE

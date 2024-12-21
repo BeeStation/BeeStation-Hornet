@@ -10,6 +10,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	layer = ABOVE_WINDOW_LAYER
+	damage_deflection = 10
 	var/obj/item/assembly/flash/handheld/bulb
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
@@ -102,11 +103,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		if(anchored)
 			flash()
-
-/obj/machinery/flasher/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10) //any melee attack below 10 dmg does nothing
-		return 0
-	. = ..()
 
 /obj/machinery/flasher/proc/flash()
 	if (!powered() || !bulb)

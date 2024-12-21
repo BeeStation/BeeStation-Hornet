@@ -48,13 +48,6 @@
 
 	current_slot = slot
 
-	// update the item name to remove the wielded status, copied from twohanded.dm
-	var/sf = findtext(source.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
-	if(sf)
-		source.name = copytext(source.name, 1, sf)
-	else
-		source.name = "[initial(source.name)]"
-
 	on_icon_update(source)
 
 /datum/component/tactical/proc/on_icon_update(obj/item/source)
