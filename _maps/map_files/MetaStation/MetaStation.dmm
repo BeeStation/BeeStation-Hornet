@@ -48746,7 +48746,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4;
 	name = "Connector Port (Air Supply)"
@@ -48759,6 +48758,7 @@
 /obj/machinery/camera{
 	dir = 10
 	},
+/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "nqG" = (
@@ -72252,7 +72252,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4;
 	name = "Connector Port (Air Supply)"
@@ -72265,6 +72264,7 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
+/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "vOd" = (
