@@ -608,7 +608,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		else
 			warning_message = null
 
-	else
+	else if(!(my_area.fault_status & AREA_FAULT_MANUAL)) //Only clear ourselves automatically if it was not a manual trigger.
 		alarm_manager.clear_alarm(ALARM_ATMOS)
 		warning_message = null
 
