@@ -1347,6 +1347,7 @@
 #include "code\game\objects\effects\decals\cleanable\misc.dm"
 #include "code\game\objects\effects\decals\cleanable\nuclear_waste.dm"
 #include "code\game\objects\effects\decals\cleanable\robots.dm"
+#include "code\game\objects\effects\decals\turfdecal\alphabet.dm"
 #include "code\game\objects\effects\decals\turfdecal\dirt.dm"
 #include "code\game\objects\effects\decals\turfdecal\guideline.dm"
 #include "code\game\objects\effects\decals\turfdecal\markings.dm"

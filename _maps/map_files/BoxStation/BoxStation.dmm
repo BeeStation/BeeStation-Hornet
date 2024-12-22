@@ -17382,6 +17382,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/brig)
 "dHD" = (
