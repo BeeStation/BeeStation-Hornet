@@ -195,8 +195,6 @@
 
 	// Re-usable var used to remove a limited volume of each gas from the given gas mixture.
 	var/gas_breathed = 0
-	// Vars for N2O/healium induced euphoria, stun, and sleep.
-	var/n2o_euphoria = EUPHORIA_LAST_FLAG
 
 	// Partial pressures in the breath.
 	// Main Gases
