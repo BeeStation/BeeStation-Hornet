@@ -43,12 +43,7 @@ export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
 
   const middlewares: Middleware[] = !sideEffects
     ? []
-    : [
-      ...(middleware?.pre || []),
-      assetMiddleware,
-      backendMiddleware,
-      ...(middleware?.post || []),
-    ];
+    : [...(middleware?.pre || []), assetMiddleware, backendMiddleware, ...(middleware?.post || [])];
 
   if (process.env.NODE_ENV !== 'production') {
     // We are using two if statements because Webpack is capable of
@@ -70,10 +65,7 @@ export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
 
 const loggingMiddleware: Middleware = (store) => (next) => (action) => {
   const { type } = action;
-  logger.debug(
-    'action',
-    type === 'update' || type === 'backend/update' ? { type } : action
-  );
+  logger.debug('action', type === 'update' || type === 'backend/update' ? { type } : action);
   return next(action);
 };
 

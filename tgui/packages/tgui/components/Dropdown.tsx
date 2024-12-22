@@ -261,8 +261,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       selectedIndex = startIndex;
     }
 
-    const previousIndex =
-      selectedIndex === startIndex ? endIndex : selectedIndex - 1;
+    const previousIndex = selectedIndex === startIndex ? endIndex : selectedIndex - 1;
 
     this.setSelected(this.getOptionValue(this.props.options[previousIndex]));
   }
@@ -281,8 +280,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       selectedIndex = endIndex;
     }
 
-    const nextIndex =
-      selectedIndex === endIndex ? startIndex : selectedIndex + 1;
+    const nextIndex = selectedIndex === endIndex ? startIndex : selectedIndex + 1;
 
     this.setSelected(this.getOptionValue(this.props.options[nextIndex]));
   }

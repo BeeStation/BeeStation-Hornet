@@ -29,10 +29,7 @@ describe('Redux implementation tests', () => {
   });
 
   test('createStore with applyMiddleware works', () => {
-    const store = createStore(
-      counterReducer,
-      applyMiddleware(loggingMiddleware)
-    );
+    const store = createStore(counterReducer, applyMiddleware(loggingMiddleware));
     expect(store.getState()).toBe(0);
   });
 
