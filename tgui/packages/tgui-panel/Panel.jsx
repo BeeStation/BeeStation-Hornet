@@ -15,8 +15,8 @@ import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { ReconnectButtons } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
-import { useLocalState } from '../tgui/backend';
-import { Box, Divider, DraggableControl } from '../tgui/components';
+import { useLocalState } from 'tgui/backend';
+import { Box, Divider, DraggableControl } from 'tgui/components';
 import { updateSettings } from './settings/actions';
 
 export const Panel = (props, context) => {

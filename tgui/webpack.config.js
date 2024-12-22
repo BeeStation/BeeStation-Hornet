@@ -55,13 +55,13 @@ module.exports = (env = {}, argv) => {
       chunkLoadTimeout: 15000,
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js', '.jsx'],
       alias: {},
     },
     module: {
       rules: [
         {
-          test: /\.(js|cjs|ts|tsx)$/,
+          test: /\.(js(x)?|cjs|ts(x)?)$/,
           use: [
             {
               loader: require.resolve('babel-loader'),
