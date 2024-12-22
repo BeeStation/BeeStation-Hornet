@@ -587,7 +587,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	canSmoothWith = null
 	can_buckle = TRUE
 	buckle_lying = 90
-	buckle_requires_restraints = TRUE
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
