@@ -749,7 +749,7 @@
 		/obj/item/pushbroom
 		))
 
-/obj/item/storage/belt/janitor/full/PopulateContents()
+/obj/item/storage/belt/janitor/ertfull/PopulateContents()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap/nanotrasen(src)

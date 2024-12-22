@@ -287,7 +287,7 @@
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/reagent_containers/cup/bucket=1,
 		)
-	belt = /obj/item/storage/belt/janitor/full
+	belt = /obj/item/storage/belt/janitor/ertfull
 	glasses = /obj/item/clothing/glasses/night
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_hand = /obj/item/choice_beacon/janicart
@@ -314,7 +314,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack
-	belt = /obj/item/storage/belt/janitor/full
+	belt = /obj/item/storage/belt/janitor/ertfull
 	r_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_hand = /obj/item/scythe
