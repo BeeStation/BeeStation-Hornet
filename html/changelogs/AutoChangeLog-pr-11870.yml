@@ -1,0 +1,4 @@
+author: Therealdoooc213
+delete-after: true
+changes:
+  - tweak: Subtle messages, telepathy, and headset messages now show a balloon alert
