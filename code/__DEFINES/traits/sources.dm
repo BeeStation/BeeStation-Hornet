@@ -138,3 +138,7 @@
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
+
+/// Trait granted by [/mob/living/silicon/robot]
+/// Traits applied to a silicon mob by their module.
+#define MODULE_TRAIT "module_trait"
