@@ -228,11 +228,6 @@
 
 #define ui_pai_mod_int "SOUTH:6,WEST+12"
 
-
-//Ghosts
-
-#define ui_ghost_jumptomob "SOUTH:6,CENTER-3:24"
-
 //Team finder
 
 #define ui_team_finder "CENTER,CENTER"
