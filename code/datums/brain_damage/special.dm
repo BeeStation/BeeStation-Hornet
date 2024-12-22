@@ -269,7 +269,7 @@
 
 ///When the trauma is removed from a mob.
 /datum/brain_trauma/special/bluespace_prophet/phobetor/on_lose(silent)
-	for(var/obj/effect/client_image_holder/phobetor/phobetor_tears as anything in created_firsts)
+	for(var/obj/effect/hallucination/simple/phobetor/phobetor_tears as anything in created_firsts)
 		qdel(phobetor_tears)
 
 /datum/brain_trauma/special/bluespace_prophet/phobetor/on_life(seconds_per_tick, times_fired)
@@ -293,8 +293,8 @@
 	if(!second_tear)
 		return
 
-	var/obj/effect/client_image_holder/phobetor/first = new(first_tear, owner)
-	var/obj/effect/client_image_holder/phobetor/second = new(second_tear, owner)
+	var/obj/effect/hallucination/simple/phobetor/first = new(first_tear, owner)
+	var/obj/effect/hallucination/simple/phobetor/second = new(second_tear, owner)
 
 	first.linked_to = second
 	first.seer = owner
@@ -308,7 +308,7 @@
 	second.name += " ([get_area(first)])"
 
 	// Delete Next Portal if it's time (it will remove its partner)
-	var/obj/effect/client_image_holder/phobetor/first_on_the_stack = created_firsts[1]
+	var/obj/effect/hallucination/simple/phobetor/first_on_the_stack = created_firsts[1]
 	if(created_firsts.len && world.time >= first_on_the_stack.created_on + first_on_the_stack.exist_length)
 		var/targetGate = first_on_the_stack
 		created_firsts -= targetGate
@@ -356,32 +356,33 @@
  * The phobetor tears created by the Brain trauma.
  */
 
-/obj/effect/client_image_holder/phobetor
+/obj/effect/hallucination/simple/phobetor
 	name = "phobetor tear"
 	desc = "A subdimensional rip in reality, which gives extra-spacial passage to those who have woken from the sleepless dream."
-	icon = 'icons/effects/phobetor_tear.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "phobetor_tear"
+	image_layer = ABOVE_MOB_LAYER
 
 	/// How long this will exist for
 	var/exist_length = 50 SECONDS
 	/// The time of this tear's creation
 	var/created_on
 	/// The phobetor tear this is linked to
-	var/obj/effect/client_image_holder/phobetor/linked_to
+	var/obj/effect/hallucination/simple/phobetor/linked_to
 	/// The person able to see this tear.
 	var/mob/living/carbon/seer
 
-/obj/effect/client_image_holder/phobetor/Initialize()
+/obj/effect/hallucination/simple/phobetor/Initialize()
 	. = ..()
 	created_on = world.time
 
-/obj/effect/client_image_holder/phobetor/Destroy()
+/obj/effect/hallucination/simple/phobetor/Destroy()
 	if(linked_to)
 		linked_to.linked_to = null
 		QDEL_NULL(linked_to)
 	return ..()
 
-/obj/effect/client_image_holder/phobetor/proc/check_location_seen(atom/subject, turf/target_turf)
+/obj/effect/hallucination/simple/phobetor/proc/check_location_seen(atom/subject, turf/target_turf)
 	if(!target_turf)
 		return FALSE
 	if(!isturf(target_turf))
@@ -398,11 +399,8 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/client_image_holder/phobetor/attack_hand(mob/living/user, list/modifiers)
+/obj/effect/hallucination/simple/phobetor/attack_hand(mob/living/user, list/modifiers)
 	if(user != seer || !linked_to)
-		return
-	if(user.loc != src.loc)
-		to_chat(user, "Step into the Tear before using it.")
 		return
 	for(var/obj/item/implant/tracking/imp in user.implants)
 		if(imp)

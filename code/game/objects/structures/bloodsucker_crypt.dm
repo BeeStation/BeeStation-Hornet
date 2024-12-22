@@ -20,20 +20,24 @@
 			. += "<span class='cult'>It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential</span>"
 			return
 		. += "<span class='cult'>[bloodsucker_desc]</span>"
-	if(IS_VASSAL(user) && vassal_desc)
+	if(IS_VASSAL(user) && vassal_desc != "")
 		. += "<span class='cult'>[vassal_desc]</span>"
-	if(IS_CURATOR(user) && curator_desc)
-		. += "<span class='cult>[curator_desc]</span"
+	if(IS_CURATOR(user) && curator_desc != "")
+		. += "<span class='cult>[curator_desc]</span>"
 
 /// This handles bolting down the structure.
 /obj/structure/bloodsucker/proc/bolt(mob/user)
 	to_chat(user, "<span class='danger'>You have secured [src] in place.</span>")
 	to_chat(user, "<span class='announce'>* Bloodsucker Tip: Examine [src] to understand how it functions!</span>")
+	user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
+	set_anchored(TRUE)
 	owner = user
 
 /// This handles unbolting of the structure.
 /obj/structure/bloodsucker/proc/unbolt(mob/user)
 	to_chat(user, "<span class='danger'>You have unsecured [src].</span>")
+	user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
+	set_anchored(FALSE)
 	owner = null
 
 /obj/structure/bloodsucker/attackby(obj/item/item, mob/living/user, params)
@@ -66,7 +70,6 @@
 			return FALSE
 		switch(secure_response)
 			if("Yes")
-				user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
 				bolt(user)
 				return FALSE
 		return FALSE
@@ -96,8 +99,8 @@
 	buckle_lying = 180
 	ghost_desc = "This is a Vassal rack, which allows Bloodsuckers to thrall crewmembers into loyal minions."
 	bloodsucker_desc = "This is the Vassal rack, which allows you to thrall crewmembers into loyal minions in your service.\n\
-		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Right-click on the vassal rack to unbuckle them.\n\
-		To convert into a Vassal, repeatedly click on the persuasion rack. The time required scales with the tool in your off hand. This costs Blood to do.\n\
+		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Click on the persuasion rack to unbuckle them.\n\
+		To convert into a Vassal, repeatedly click on the persuasion rack, without being on help intent. The time required scales with the tool in your off hand, (sharp tools are better!). This costs Blood to do.\n\
 		Vassals can be turned into special ones by continuing to torture them once converted."
 	vassal_desc = "This is the vassal rack, which allows your master to thrall crewmembers into their minions.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
@@ -119,16 +122,6 @@
 	new /obj/item/stack/rods(loc, 4)
 	qdel(src)
 
-/obj/structure/bloodsucker/vassalrack/bolt()
-	. = ..()
-	density = FALSE
-	anchored = TRUE
-
-/obj/structure/bloodsucker/vassalrack/unbolt()
-	. = ..()
-	density = TRUE
-	anchored = FALSE
-
 /obj/structure/bloodsucker/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_BLOODSUCKER(user))
@@ -143,21 +136,9 @@
 		to_chat(user, "<span class='danger'>You realize that this machine cannot be vassalized, therefore it is useless to buckle them.</span>")
 		return
 	if(do_after(user, 5 SECONDS, living_target))
+		density = FALSE // Temporarily set density to false so the target is actually on the rack
 		attach_victim(living_target, user)
-
-/// Attempt Release (Owner vs Non Owner)
-/obj/structure/bloodsucker/vassalrack/attack_hand(mob/user, modifiers)
-	. = ..()
-	if(. == COMPONENT_CANCEL_ATTACK_CHAIN)
-		return
-	if(!has_buckled_mobs() || !isliving(user))
-		return
-	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
-	if(buckled_carbons)
-		if(user == owner)
-			unbuckle_mob(buckled_carbons)
-		else
-			user_unbuckle_mob(buckled_carbons, user)
+		density = TRUE
 
 /**
  * Attempts to buckle target into the vassalrack
@@ -172,7 +153,6 @@
 
 	playsound(loc, 'sound/effects/pop_expl.ogg', 25, 1)
 	update_appearance(UPDATE_ICON)
-	density = TRUE
 
 	// Set up Torture stuff now
 	convert_progress = 3
@@ -208,7 +188,6 @@
 	if(!.)
 		return FALSE
 	visible_message("<span class='danger'>[buckled_mob][buckled_mob.stat == DEAD ? "'s corpse" : ""] slides off of the rack.</span>")
-	density = FALSE
 	buckled_mob.Paralyze(2 SECONDS)
 	update_appearance(UPDATE_ICON)
 	return TRUE
@@ -217,21 +196,19 @@
 	. = ..()
 	if(!.)
 		return FALSE
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 	// Is there anyone on the rack & If so, are they being tortured?
 	if(!has_buckled_mobs())
 		return FALSE
-
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
-	// If I'm not a Bloodsucker, try to unbuckle them.
-	if(!istype(bloodsuckerdatum))
-		user_unbuckle_mob(buckled_carbons, user)
-		return
-	if(!bloodsuckerdatum.my_clan)
-		to_chat(user, "<span class='warning'>You can't vassalize people until you enter a Clan (Through your Antagonist UI button)</span>")
-		user.balloon_alert(user, "join a clan first!")
-		return
-
+	if(user.a_intent == INTENT_HELP)
+		if(istype(bloodsuckerdatum))
+			unbuckle_mob(buckled_carbons)
+			return FALSE
+		else
+			user_unbuckle_mob(buckled_carbons, user)
+			return
+	/// If I'm not a Bloodsucker, try to unbuckle them.
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_carbons)
 	// Are they our Vassal?
 	if(vassaldatum && (vassaldatum in bloodsuckerdatum.vassals))
@@ -424,12 +401,10 @@
 
 /obj/structure/bloodsucker/candelabrum/bolt()
 	. = ..()
-	set_anchored(TRUE)
 	density = TRUE
 
 /obj/structure/bloodsucker/candelabrum/unbolt()
 	. = ..()
-	set_anchored(FALSE)
 	density = FALSE
 
 /obj/structure/bloodsucker/candelabrum/attack_hand(mob/living/user, list/modifiers)
@@ -526,7 +501,9 @@
 	if(!anchored)
 		to_chat(user, "<span class='announce'>[src] is not bolted to the ground!</span>")
 		return
+	density = FALSE
 	. = ..()
+	density = TRUE
 	user.visible_message(
 		"<span class='notice'>[user] sits down on [src].</span>",
 		"<span class='boldnotice'>You sit down onto [src].</span>",

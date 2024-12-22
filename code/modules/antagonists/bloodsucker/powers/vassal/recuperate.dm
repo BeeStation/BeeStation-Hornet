@@ -28,7 +28,7 @@
 	to_chat(owner, "<span class='notice'>Your muscles clench as your master's immortal blood mixes with your own, knitting your wounds.</span>")
 	owner.balloon_alert(owner, "recuperate turned on.")
 
-/datum/action/cooldown/bloodsucker/recuperate/process(seconds_per_tick)
+/datum/action/cooldown/bloodsucker/recuperate/UsePower(seconds_per_tick)
 	. = ..()
 	if(!.)
 		return

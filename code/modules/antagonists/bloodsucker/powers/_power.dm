@@ -169,7 +169,7 @@
 /datum/action/cooldown/bloodsucker/proc/ActivatePower(trigger_flags)
 	active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
-		START_PROCESSING(SSprocessing, src)
+		RegisterSignal(owner, COMSIG_LIVING_LIFE, .proc/UsePower)
 
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
 	UpdateButtonIcon()
@@ -178,7 +178,7 @@
 	if(!active) //Already inactive? Return
 		return
 	if(power_flags & BP_AM_TOGGLE)
-		STOP_PROCESSING(SSprocessing, src)
+		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 	if(power_flags & BP_AM_SINGLEUSE)
 		remove_after_use()
 		return
@@ -187,20 +187,18 @@
 	UpdateButtonIcon()
 
 ///Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
-/datum/action/cooldown/bloodsucker/process(seconds_per_tick)
-	SHOULD_CALL_PARENT(TRUE) //Need this to call parent so the cooldown system works
-	. = ..()
-	if(!ContinueActive(owner)) // We can't afford the Power? Deactivate it.
+/datum/action/cooldown/bloodsucker/proc/UsePower(mob/living/user)
+	if(!ContinueActive(user)) // We can't afford the Power? Deactivate it.
 		DeactivatePower()
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
-	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && user.stat != CONSCIOUS)
 		if(bloodsuckerdatum_power)
 			bloodsuckerdatum_power.AddBloodVolume(-constant_bloodcost)
 		else
-			var/mob/living/living_owner = owner
-			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-				living_owner.blood_volume -= constant_bloodcost
+			var/mob/living/living_user = user
+			if(!HAS_TRAIT(living_user, TRAIT_NO_BLOOD))
+				living_user.blood_volume -= constant_bloodcost
 	return TRUE
 
 /// Checks to make sure this power can stay active

@@ -34,13 +34,12 @@
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 
-/datum/action/cooldown/bloodsucker/cloak/process(seconds_per_tick)
+/datum/action/cooldown/bloodsucker/cloak/UsePower(seconds_per_tick)
 	// Checks that we can keep using this.
 	. = ..()
 	if(!.)
 		return
-	if(!active)
-		return
+
 	var/mob/living/user = owner
 	animate(user, alpha = max(25, owner.alpha - min(75, 10 + 5 * level_current)), time = 1.5 SECONDS)
 	// Prevents running while on Cloak of Darkness

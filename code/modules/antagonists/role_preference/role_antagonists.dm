@@ -339,7 +339,7 @@
 	name = "Vampiric Accident"
 	description="After your death, you awaken to see yourself as an undead monster.\nUse your Vampiric abilities as best you can.\nScrape by Space Station 13, or take over it, vassalizing your way."
 	antag_datum = /datum/antagonist/bloodsucker
-	preview_outfit = /datum/outfit/bloodsucker_outfit
+	use_icon = /datum/role_preference/antagonist/bloodsucker
 
 /datum/outfit/bloodsucker_outfit
 	name = "Bloodsucker outfit (Preview only)"

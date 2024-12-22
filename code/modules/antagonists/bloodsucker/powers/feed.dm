@@ -124,7 +124,7 @@
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, FEED_TRAIT)
 	return ..()
 
-/datum/action/cooldown/bloodsucker/feed/process(seconds_per_tick)
+/datum/action/cooldown/bloodsucker/feed/UsePower(seconds_per_tick)
 	if(!active) //If we aren't active (running on SSfastprocess)
 		return ..() //Manage our cooldown timers
 	var/mob/living/user = owner

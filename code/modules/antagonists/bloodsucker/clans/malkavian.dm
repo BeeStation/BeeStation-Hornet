@@ -20,7 +20,7 @@
 	var/mob/living/carbon/carbon_owner = bloodsuckerdatum.owner.current
 	if(istype(carbon_owner))
 		carbon_owner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
-		carbon_owner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
+		carbon_owner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
 	owner_datum.owner.current.update_sight()
 
 	bloodsuckerdatum.owner.current.playsound_local(get_turf(bloodsuckerdatum.owner.current), 'sound/ambience/antag/creepalert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -32,7 +32,7 @@
 	var/mob/living/carbon/carbon_owner = bloodsuckerdatum.owner.current
 	if(istype(carbon_owner))
 		carbon_owner.cure_trauma_type(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
-		carbon_owner.cure_trauma_type(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
+		carbon_owner.cure_trauma_type(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
 	bloodsuckerdatum.owner.current.update_sight()
 	return ..()
 
@@ -40,7 +40,7 @@
 	. = ..()
 	if(prob(85) || bloodsuckerdatum.owner.current.stat != CONSCIOUS || HAS_TRAIT(bloodsuckerdatum.owner.current, TRAIT_MASQUERADE))
 		return
-	var/message = pick(strings("malkavian_revelations.json", "revelations", "fulp_modules/strings/bloodsuckers"))
+	var/message = pick(strings("malkavian_revelations.json", "revelations", "strings"))
 	INVOKE_ASYNC(bloodsuckerdatum.owner.current, /atom/movable/proc/say, message, , , , , , CLAN_MALKAVIAN)
 
 /datum/bloodsucker_clan/malkavian/on_favorite_vassal(datum/antagonist/bloodsucker/source, datum/antagonist/vassal/vassaldatum)

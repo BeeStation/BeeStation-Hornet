@@ -42,6 +42,8 @@
 /datum/antagonist/bloodsucker/proc/fix_masquerade(mob/admin)
 	if(!broke_masquerade)
 		return
+	antag_hud_name = "bloodsucker"
+	set_antag_hud(owner.current, antag_hud_name)
 	to_chat(owner.current, "<span class='cultboldtalic'>You have re-entered the Masquerade.</span>")
 	broke_masquerade = FALSE
 

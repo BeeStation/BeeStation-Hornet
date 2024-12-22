@@ -26,7 +26,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
 
-/datum/antagonist/bloodsucker/proc/on_death(mob/living/source, gibbed)
+/datum/antagonist/bloodsucker/proc/on_death(mob/living/source)
 	SIGNAL_HANDLER
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 	RegisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(HandleDeath))
@@ -146,34 +146,36 @@
  */
 
 /datum/antagonist/bloodsucker/proc/heal_vampire_organs()
-	var/mob/living/carbon/bloodsuckeruser = owner.current
+	var/mob/living/carbon/user = owner.current
 
-	bloodsuckeruser.cure_husk()
-	bloodsuckeruser.regenerate_organs(regenerate_existing = FALSE)
+	user.cure_husk()
+	user.regenerate_organs()
 
-	for(var/obj/item/organ/organ as anything in bloodsuckeruser.internal_organs)
+	for(var/obj/item/organ/organ as anything in user.internal_organs)
 		organ.setOrganDamage(0)
-	if(!HAS_TRAIT(bloodsuckeruser, TRAIT_MASQUERADE))
-		var/obj/item/organ/heart/current_heart = bloodsuckeruser.getorganslot(ORGAN_SLOT_HEART)
-		current_heart.beating = FALSE
-	var/obj/item/organ/eyes/current_eyes = bloodsuckeruser.getorganslot(ORGAN_SLOT_EYES)
+	if(!HAS_TRAIT(user, TRAIT_MASQUERADE))
+		var/obj/item/organ/heart/current_heart = user.getorganslot(ORGAN_SLOT_HEART)
+		current_heart.Stop()
+	var/obj/item/organ/eyes/current_eyes = user.getorganslot(ORGAN_SLOT_EYES)
 	if(current_eyes)
 		current_eyes.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
 		current_eyes.sight_flags = SEE_MOBS
-	bloodsuckeruser.update_sight()
+	user.update_sight()
 
-	if(bloodsuckeruser.stat == DEAD)
-		bloodsuckeruser.revive()
+	if(user.stat == DEAD)
+		user.revive()
 	// From [powers/panacea.dm]
 	var/list/bad_organs = list(
-		bloodsuckeruser.getorgan(/obj/item/organ/body_egg),
-		bloodsuckeruser.getorgan(/obj/item/organ/zombie_infection))
+		user.getorgan(/obj/item/organ/body_egg),
+		user.getorgan(/obj/item/organ/zombie_infection))
 	for(var/tumors in bad_organs)
 		var/obj/item/organ/yucky_organs = tumors
 		if(!istype(yucky_organs))
 			continue
-		yucky_organs.Remove(bloodsuckeruser)
-		yucky_organs.forceMove(get_turf(bloodsuckeruser))
+		yucky_organs.Remove(user)
+		yucky_organs.forceMove(get_turf(user))
+
+	user.adjustOxyLoss(-200)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,22 +185,24 @@
 
 /// FINAL DEATH
 /datum/antagonist/bloodsucker/proc/HandleDeath()
+	var/mob/living/carbon/user = owner.current
+
 	// Not "Alive"?
-	if(!owner.current)
+	if(!user)
 		FinalDeath()
 		return
 	// Fire Damage? (above double health)
-	if(owner.current.getFireLoss() >= owner.current.maxHealth * 2.5)
+	if(user.getFireLoss() >= user.maxHealth * 2.5 && bloodsucker_level < 4)
 		FinalDeath()
 		return
 	// Staked while "Temp Death" or Asleep
-	if(owner.current.StakeCanKillMe() && owner.current.am_staked())
+	if(user.StakeCanKillMe() && user.am_staked())
 		FinalDeath()
 		return
 	// Temporary Death? Convert to Torpor.
-	if(HAS_TRAIT(owner.current, TRAIT_NODEATH))
+	if(HAS_TRAIT(user, TRAIT_NODEATH))
 		return
-	to_chat(owner.current, "<span class='danger'>Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor.</span>")
+	to_chat(user, "<span class='danger'>Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor.</span>")
 	check_begin_torpor(TRUE)
 
 /datum/antagonist/bloodsucker/proc/HandleStarving() // I am thirsty for blood!

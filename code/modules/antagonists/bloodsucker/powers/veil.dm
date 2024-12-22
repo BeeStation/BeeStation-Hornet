@@ -12,9 +12,9 @@
 	bloodcost = 15
 	constant_bloodcost = 0.1
 	cooldown_time = 10 SECONDS
-	// Outfit Vars
-//	var/list/original_items = list()
+
 	// Identity Vars
+	var/prev_name
 	var/prev_gender
 	var/prev_skin_tone
 	var/prev_hair_style
@@ -25,29 +25,17 @@
 	var/prev_undershirt
 	var/prev_socks
 	var/prev_disfigured
+	var/prev_eye_color
 	var/list/prev_features // For lizards and such
 
 /datum/action/cooldown/bloodsucker/veil/ActivatePower(trigger_flags)
 	. = ..()
 	cast_effect() // POOF
-//	if(blahblahblah)
-//		Disguise_Outfit()
 	veil_user()
 	owner.balloon_alert(owner, "veil turned on.")
 
-/* // Meant to disguise your character's clothing into fake ones.
-/datum/action/cooldown/bloodsucker/veil/proc/Disguise_Outfit()
-	return
-	// Step One: Back up original items
-*/
-
 /datum/action/cooldown/bloodsucker/veil/proc/veil_user()
-	// Change Name/Voice
 	var/mob/living/carbon/human/user = owner
-	user.name_override = user.dna.species.random_name(user.gender)
-	user.name = user.name_override
-	user.SetSpecialVoice(user.name_override)
-	to_chat(owner, "<span class='warning'>You mystify the air around your person. Your identity is now altered.</span>")
 
 	// Store Prev Appearance
 	prev_gender = user.gender
@@ -59,9 +47,15 @@
 	prev_underwear = user.underwear
 	prev_undershirt = user.undershirt
 	prev_socks = user.socks
-//	prev_eye_color
-	prev_disfigured = HAS_TRAIT(user, TRAIT_DISFIGURED) // I was disfigured! //prev_disabilities = user.disabilities
+	prev_eye_color = user.eye_color
+	prev_disfigured = HAS_TRAIT(user, TRAIT_DISFIGURED) // I was disfigured!
 	prev_features = user.dna.features
+
+	// Change Name
+	prev_name = user.name
+	var/newname = user.dna.species.random_name()
+	user.real_name = newname
+	user.name = newname
 
 	// Change Appearance
 	user.gender = pick(MALE, FEMALE, PLURAL)
@@ -73,16 +67,19 @@
 	user.underwear = random_underwear(user.gender)
 	user.undershirt = random_undershirt(user.gender)
 	user.socks = random_socks(user.gender)
-	//user.eye_color = random_eye_color()
+	user.eye_color = random_eye_color()
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)
 	user.dna.features = random_features()
 
 	// Apply Appearance
-	user.update_body() // Outfit and underware, also body.
+	user.SetSpecialVoice(user.name)
+	user.update_body() // Outfit and underwear, also body.
 	user.update_mutant_bodyparts() // Lizard tails etc
 	user.update_hair()
 	user.update_body_parts()
+
+	to_chat(owner, "<span class='warning'>You mystify the air around your person. Your identity is now altered.</span>")
 
 /datum/action/cooldown/bloodsucker/veil/DeactivatePower()
 	. = ..()
@@ -90,10 +87,9 @@
 		return
 	var/mob/living/carbon/human/user = owner
 
-	// Revert Identity
-	user.UnsetSpecialVoice()
-	user.name_override = null
-	user.name = user.real_name
+	// Revert Name
+	user.name = prev_name
+	user.real_name = prev_name
 
 	// Revert Appearance
 	user.gender = prev_gender
@@ -105,15 +101,16 @@
 	user.underwear = prev_underwear
 	user.undershirt = prev_undershirt
 	user.socks = prev_socks
+	user.eye_color = prev_eye_color
 
-	//user.disabilities = prev_disabilities // Restore HUSK, CLUMSY, etc.
 	if(prev_disfigured)
 		//We are ASSUMING husk. // user.status_flags |= DISFIGURED // Restore "Unknown" disfigurement
 		ADD_TRAIT(user, TRAIT_DISFIGURED, TRAIT_HUSK)
 	user.dna.features = prev_features
 
 	// Apply Appearance
-	user.update_body() // Outfit and underware, also body.
+	user.UnsetSpecialVoice()
+	user.update_body() // Outfit and underwear, also body.
 	user.update_hair()
 	user.update_body_parts() // Body itself, maybe skin color?
 

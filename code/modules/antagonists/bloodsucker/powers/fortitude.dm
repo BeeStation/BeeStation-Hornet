@@ -37,7 +37,7 @@
 	if(was_running)
 		owner.toggle_move_intent()
 
-/datum/action/cooldown/bloodsucker/fortitude/process(seconds_per_tick)
+/datum/action/cooldown/bloodsucker/fortitude/UsePower(seconds_per_tick)
 	// Checks that we can keep using this.
 	. = ..()
 	if(!.)

@@ -39,7 +39,7 @@
 
 /datum/action/cooldown/bloodsucker/targeted/DeactivatePower()
 	if(power_flags & BP_AM_TOGGLE)
-		STOP_PROCESSING(SSprocessing, src)
+		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 	active = FALSE
 	UpdateButtonIcon()
 	unset_click_ability(owner)
@@ -62,6 +62,7 @@
 	return istype(target_atom)
 
 /datum/action/cooldown/bloodsucker/targeted/proc/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
+	owner.client.mouse_pointer_icon = null
 	SHOULD_CALL_PARENT(TRUE)
 
 	on_who.click_intercept = null
@@ -69,6 +70,7 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/targeted/proc/set_click_ability(mob/on_who)
+	owner.client.mouse_pointer_icon = 'icons/effects/cult_target.dmi'
 	SHOULD_CALL_PARENT(TRUE)
 
 	on_who.click_intercept = src

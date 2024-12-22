@@ -231,7 +231,7 @@
 		options[initial(vassaldatums.name)] = vassaldatums
 
 		var/datum/radial_menu_choice/option = new
-		option.image = image(icon = 'icons/bloodsuckers/bloodsucker_icons.dmi', icon_state = initial(vassaldatums.vassal_hud_name))
+		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassaldatums.vassal_hud_name))
 		option.info = "[initial(vassaldatums.name)] - ["<span class='boldnotice'>[initial(vassaldatums.vassal_description)]</span>"]"
 		radial_display[initial(vassaldatums.name)] = option
 

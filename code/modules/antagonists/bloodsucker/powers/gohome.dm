@@ -47,7 +47,7 @@
 	. = ..()
 	owner.balloon_alert(owner, "preparing to teleport...")
 
-/datum/action/cooldown/bloodsucker/gohome/process(seconds_per_tick)
+/datum/action/cooldown/bloodsucker/gohome/UsePower(seconds_per_tick)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -117,7 +117,7 @@
 	new new_mob(current_turf)
 	/// TELEPORT: Move to Coffin & Close it!
 	user.set_resting(TRUE, TRUE, FALSE)
-	do_teleport(owner, bloodsuckerdatum_power.coffin, no_effects = TRUE, forced = TRUE, channel = TELEPORT_CHANNEL_QUANTUM)
+	do_teleport(owner, bloodsuckerdatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, bypass_area_restriction = TRUE, no_effects = TRUE)
 	bloodsuckerdatum_power.coffin.close(owner)
 	bloodsuckerdatum_power.coffin.take_contents()
 	playsound(bloodsuckerdatum_power.coffin.loc, bloodsuckerdatum_power.coffin.close_sound, 15, 1, -3)

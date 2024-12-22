@@ -38,7 +38,7 @@
 		if(istype(power, /datum/action/cooldown/bloodsucker/gohome))
 			RemovePower(power)
 
-/// Cycle through all vamp antags and check if they're inside a closet.
+/// Cycle through all bloodsuckers and check if they're inside a closet.
 /datum/antagonist/bloodsucker/proc/handle_sol()
 	SIGNAL_HANDLER
 	if(!owner || !owner.current)
@@ -143,29 +143,36 @@
 			torpor_end()
 
 /datum/antagonist/bloodsucker/proc/torpor_begin()
-	to_chat(owner.current, "<span class='notice'>You enter the horrible slumber of deathless Torpor. You will heal until you are renewed.</span>")
+	var/mob/living/current = owner.current
 	// Force them to go to sleep
-	REMOVE_TRAIT(owner.current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
 	// Without this, you'll just keep dying while you recover.
-	ADD_TRAIT(owner, TRAIT_NODEATH, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_FAKEDEATH, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_DEATHCOMA, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_RESISTHIGHPRESSURE, BLOODSUCKER_TRAIT)
-	owner.current.jitteriness = 0
+	ADD_TRAIT(current, TRAIT_NODEATH, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(current, TRAIT_FAKEDEATH, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(current, TRAIT_DEATHCOMA, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(current, TRAIT_RESISTLOWPRESSURE, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(current, TRAIT_RESISTHIGHPRESSURE, BLOODSUCKER_TRAIT)
+	current.jitteriness = 0
 	// Disable ALL Powers
 	DisableAllPowers()
 
-/datum/antagonist/bloodsucker/proc/torpor_end()
-	owner.current.grab_ghost()
-	to_chat(owner.current, "<span class='warning'>You have recovered from Torpor.</span>")
+	to_chat(current, "<span class='notice'>You enter the horrible slumber of deathless Torpor. You will heal until you are renewed.</span>")
 
-	REMOVE_TRAIT(owner.current, TRAIT_NODEATH, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner.current, TRAIT_FAKEDEATH, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner.current, TRAIT_DEATHCOMA, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner.current, TRAIT_RESISTLOWPRESSURE, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner.current, TRAIT_RESISTHIGHPRESSURE, BLOODSUCKER_TRAIT)
-	if(!HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
-		ADD_TRAIT(owner.current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
+/datum/antagonist/bloodsucker/proc/torpor_end()
+	var/mob/living/current = owner.current
+	current.grab_ghost()
+
+	ADD_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_NODEATH, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_FAKEDEATH, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_DEATHCOMA, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_RESISTLOWPRESSURE, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_RESISTHIGHPRESSURE, BLOODSUCKER_TRAIT)
+	if(!HAS_TRAIT(current, TRAIT_MASQUERADE))
+		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
+
 	heal_vampire_organs()
+
+	to_chat(current, "<span class='warning'>You have recovered from Torpor.</span>")
 	SEND_SIGNAL(src, BLOODSUCKER_EXIT_TORPOR)

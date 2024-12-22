@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(sunlight)
 				vampire_warning_message = "<span class='danger'>Solar Flares will bombard the station with dangerous UV radiation in [TIME_BLOODSUCKER_DAY_WARN / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b></span>"
 			)
 		if(TIME_BLOODSUCKER_DAY_FINAL_WARN)
-			message_admins("BLOODSUCKER NOTICE: Daylight beginning in [TIME_BLOODSUCKER_DAY_FINAL_WARN] seconds.)")
+			message_admins("BLOODSUCKER NOTICE: Daylight beginning in [TIME_BLOODSUCKER_DAY_FINAL_WARN] seconds.")
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
 				vampire_warning_message = "<span class='danger'>Solar Flares are about to bombard the station! You have [TIME_BLOODSUCKER_DAY_FINAL_WARN] seconds to find cover!</span>",

@@ -5,7 +5,6 @@
 	banning_key = ROLE_BLOODSUCKER
 	required_living_playtime = 4
 	ui_name = "AntagInfoBloodsucker"
-	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/antag_hud_name = "bloodsucker"
 	/// How much blood we have, starting off at default blood levels.
@@ -53,7 +52,7 @@
 	var/list/datum/antagonist/vassal/special_vassals = list()
 
 	var/bloodsucker_level = 0
-	var/bloodsucker_level_unspent = 1
+	var/bloodsucker_level_unspent = 0
 	var/additional_regen
 	var/bloodsucker_regen_rate = 0.3
 
@@ -176,7 +175,7 @@
 /datum/antagonist/bloodsucker/get_admin_commands()
 	. = ..()
 	.["Give Level"] = CALLBACK(src, PROC_REF(RankUp))
-	if(bloodsucker_level_unspent >= 1)
+	if(bloodsucker_level_unspent > 0)
 		.["Remove Level"] = CALLBACK(src, PROC_REF(RankDown))
 
 	if(broke_masquerade)
@@ -244,7 +243,7 @@
 	//Give Bloodsucker Traits
 	if(old_body)
 		for(var/all_traits in bloodsucker_traits)
-			REMOVE_TRAIT(new_body, all_traits, BLOODSUCKER_TRAIT)
+			REMOVE_TRAIT(old_body, all_traits, BLOODSUCKER_TRAIT)
 
 	for(var/all_traits in bloodsucker_traits)
 		ADD_TRAIT(new_body, all_traits, BLOODSUCKER_TRAIT)
@@ -254,7 +253,7 @@
 	var/fullname = return_full_name()
 	to_chat(owner, "<span class='userdanger'>You are [fullname], a strain of vampire known as a Bloodsucker!</span>")
 	owner.announce_objectives()
-	if(bloodsucker_level_unspent >= 2)
+	if(bloodsucker_level_unspent >= 1)
 		to_chat(owner, "<span class='announce'>As a latejoin, you have [bloodsucker_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.</span>")
 	owner.current.playsound_local(null, 'sound/bloodsuckers/BloodsuckerAlert.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
@@ -269,7 +268,7 @@
 /datum/antagonist/bloodsucker/admin_add(datum/mind/new_owner, mob/admin)
 	var/levels = input("How many unspent Ranks would you like [new_owner] to have?","Bloodsucker Rank", bloodsucker_level_unspent) as null | num
 	var/msg = " made [key_name_admin(new_owner)] into \a [name]"
-	if(levels > 1)
+	if(levels > 0)
 		bloodsucker_level_unspent = levels
 		msg += " with [levels] extra unspent Ranks."
 	message_admins("[key_name_admin(usr)][msg]")
@@ -365,20 +364,20 @@
 /datum/antagonist/bloodsucker/proc/assign_starting_stats()
 	//Traits: Species
 	var/mob/living/carbon/human/user = owner.current
-	if(ishuman(owner.current))
+	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
 		user.dna?.remove_all_mutations()
 	//Give Bloodsucker Traits
 	for(var/all_traits in bloodsucker_traits)
-		ADD_TRAIT(owner.current, all_traits, BLOODSUCKER_TRAIT)
+		ADD_TRAIT(user, all_traits, BLOODSUCKER_TRAIT)
 	//No Skittish "People" allowed
-	if(HAS_TRAIT(owner.current, TRAIT_SKITTISH))
-		REMOVE_TRAIT(owner.current, TRAIT_SKITTISH, ROUNDSTART_TRAIT)
+	if(HAS_TRAIT(user, TRAIT_SKITTISH))
+		REMOVE_TRAIT(user, TRAIT_SKITTISH, ROUNDSTART_TRAIT)
 	// Tongue & Language
-	owner.current.grant_all_languages(FALSE, FALSE, TRUE)
-	owner.current.grant_language(/datum/language/vampiric)
+	user.grant_all_languages(FALSE, FALSE, TRUE)
+	user.grant_language(/datum/language/vampiric)
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
 

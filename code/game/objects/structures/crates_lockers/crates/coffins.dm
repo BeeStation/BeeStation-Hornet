@@ -14,6 +14,7 @@
 	azimuth_angle_2 = 180
 	door_anim_time = 5
 	door_hinge = 5
+
 /obj/structure/closet/crate/coffin/examine(mob/user)
 	. = ..()
 	if(user == resident)
@@ -25,7 +26,7 @@
 /obj/structure/closet/crate/coffin/blackcoffin
 	name = "black coffin"
 	desc = "For those departed who are not so dear."
-	icon_state = "coffin"
+	icon_state = "blackcoffin"
 	icon = 'icons/bloodsuckers/vamp_obj.dmi'
 	open_sound = 'sound/bloodsuckers/coffin_open.ogg'
 	close_sound = 'sound/bloodsuckers/coffin_close.ogg'
@@ -35,6 +36,7 @@
 	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 2
 	armor_type = /datum/armor/blackcoffin
+	door_anim_time = 0
 
 /datum/armor/blackcoffin
 	melee = 50
@@ -57,6 +59,10 @@
 	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 2
 	armor_type = /datum/armor/securecoffin
+	door_anim_angle = 140
+	azimuth_angle_2 = 180
+	door_anim_time = 5
+	door_hinge = 5
 
 /datum/armor/securecoffin
 	melee = 35
@@ -79,6 +85,7 @@
 	material_drop = /obj/item/food/meat/slab/human
 	material_drop_amount = 3
 	armor_type = /datum/armor/meatcoffin
+	door_anim_time = 0
 
 /datum/armor/meatcoffin
 	melee = 70
@@ -101,6 +108,10 @@
 	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 5
 	armor_type = /datum/armor/metalcoffin
+	door_anim_angle = 140
+	azimuth_angle_2 = 180
+	door_anim_time = 5
+	door_hinge = 5
 
 /datum/armor/metalcoffin
 	melee = 40
