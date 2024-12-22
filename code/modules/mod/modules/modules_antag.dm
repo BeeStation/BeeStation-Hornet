@@ -345,7 +345,7 @@
 ///Chameleon - lets the suit disguise as any item that would fit on that slot.
 /obj/item/mod/module/chameleon
 	name = "MOD chameleon module"
-	desc = "A module using chameleon technology to disguise the suit as another object."
+	desc = "A module using chameleon technology to disguise the MOD control unit as another backpack. Only works when the suit is deactivated."
 	icon_state = "chameleon"
 	module_type = MODULE_USABLE
 	complexity = 2
@@ -404,7 +404,7 @@
 /obj/item/mod/module/chameleon/proc/return_look()
 	mod.name = "[mod.theme.name] [initial(mod.name)]"
 	mod.desc = "[initial(mod.desc)] [mod.theme.desc]"
-	mod.icon_state = "[mod.skin]-[initial(mod.icon_state)]"
+	mod.update_icon_state()
 	var/list/mod_skin = mod.theme.variants[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	mod.worn_icon = mod_skin[MOD_WORN_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
