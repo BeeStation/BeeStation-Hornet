@@ -14559,6 +14559,31 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/central)
+"dNA" = (
+/obj/structure/table,
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/reagent_containers/syringe,
+/obj/effect/turf_decal/bot,
+/obj/machinery/camera/directional/east{
+	c_tag = "Security - Medbay"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/reagent_containers/blood/OPlus,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "dNK" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -25052,11 +25077,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
-"gsw" = (
-/obj/structure/reagent_dispensers/nutriment/fat/oil,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "gsz" = (
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
@@ -33664,6 +33684,11 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"iCm" = (
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "iCn" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/box/corners,
@@ -34484,19 +34509,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/grid/steel,
 /area/science/shuttle)
-"iNl" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/closet/crate,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/blood/OPlus,
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "iNo" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -41449,6 +41461,14 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"kAt" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "kAx" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
@@ -42217,20 +42237,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/main)
-"kKM" = (
-/obj/structure/table/optable,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/iron/white,
 /area/security/main)
 "kKQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -47506,24 +47512,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"lZe" = (
-/obj/structure/table,
-/obj/item/folder/red{
-	pixel_x = 3
-	},
-/obj/item/folder/white{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
-/obj/effect/turf_decal/bot,
-/obj/machinery/camera/directional/east{
-	c_tag = "Security - Medbay"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "lZt" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -73189,6 +73177,11 @@
 "sIe" = (
 /turf/closed/wall,
 /area/maintenance/starboard/aft)
+"sIf" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "sIg" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/r_wall,
@@ -88288,11 +88281,6 @@
 /obj/item/food/grown/tomato,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"wps" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "wpw" = (
 /obj/structure/sign/warning/pods{
 	pixel_x = -32
@@ -96097,6 +96085,23 @@
 "xWV" = (
 /turf/closed/wall/r_wall,
 /area/bridge/meeting_room/council)
+"xWX" = (
+/obj/structure/table/optable,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
+/turf/open/floor/iron/white,
+/area/security/main)
 "xWY" = (
 /turf/closed/mineral,
 /area/maintenance/aft)
@@ -121109,7 +121114,7 @@ arZ
 hho
 lcx
 xNi
-gsw
+iCm
 qdx
 cqg
 nRh
@@ -126298,7 +126303,7 @@ kuT
 vVR
 uaf
 wMZ
-wps
+sIf
 aJR
 quh
 qpR
@@ -131645,7 +131650,7 @@ wqJ
 sDy
 wrM
 vUR
-kKM
+xWX
 alr
 eNY
 fkN
@@ -132673,8 +132678,8 @@ vBi
 mTT
 oEj
 vUR
-lZe
-iNl
+dNA
+kAt
 oYn
 xIV
 iZK
