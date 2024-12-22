@@ -123,6 +123,7 @@
 
 /obj/machinery/door/firedoor/Destroy()
 	remove_from_areas()
+	unregister_adjacent_turfs()
 	QDEL_NULL(soundloop)
 	return ..()
 
