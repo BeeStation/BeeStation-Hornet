@@ -4,7 +4,7 @@
 	icon = 'icons/obj/atmospherics/components/thermomachine.dmi'
 	icon_state = "thermo_base"
 
-	name = "Thermomachine"
+	name = "thermomachine"
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 
 	desc = "Heats or cools gas in connected pipes."
@@ -128,7 +128,8 @@
 		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.</span>"
 
 /obj/machinery/atmospherics/components/unary/thermomachine/AltClick(mob/living/user)
-	. = ..()
+	if(!can_interact(user))
+		return FALSE
 	if(panel_open)
 		balloon_alert(user, "close panel!")
 		return TRUE
@@ -279,7 +280,8 @@
 	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/user)
-	. = ..()
+	if(!can_interact(user))
+		return FALSE
 	if(!anchored)
 		return TRUE
 	if(panel_open)
