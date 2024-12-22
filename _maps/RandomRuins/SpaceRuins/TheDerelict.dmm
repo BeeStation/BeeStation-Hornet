@@ -1851,11 +1851,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
-"gz" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "gA" = (
 /obj/machinery/light/small,
 /turf/open/floor/iron/airless,
@@ -1868,11 +1863,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
-"gC" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/unpowered/no_grav)
 "gD" = (
 /turf/open/floor/iron/airless{
 	broken = 1
@@ -1894,7 +1884,7 @@
 /area/ruin/unpowered/no_grav)
 "gH" = (
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/ruin/unpowered/no_grav)
 "gI" = (
@@ -2053,7 +2043,7 @@
 /area/ruin/space/derelict/singularity_engine)
 "hp" = (
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
+	burnt = 1
 	},
 /area/ruin/space/derelict/arrival)
 "hq" = (
@@ -2825,12 +2815,12 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jY" = (
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jZ" = (
@@ -2920,7 +2910,7 @@
 	amount = 2
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ko" = (
@@ -2957,7 +2947,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kw" = (
@@ -3468,7 +3458,7 @@
 /area/ruin/space/derelict/atmospherics)
 "mk" = (
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/ruin/space/derelict/atmospherics)
 "ml" = (
@@ -4250,7 +4240,7 @@
 /area/ruin/space/derelict/hallway/primary/port)
 "IA" = (
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
+	burnt = 1
 	},
 /area/space/nearstation)
 "KN" = (
@@ -10377,17 +10367,17 @@ fx
 fR
 gb
 gm
-gz
+jY
 fZ
 gL
 gL
 go
 fZ
-gz
+jY
 gm
 gm
 fZ
-gz
+jY
 go
 go
 jr
@@ -10609,12 +10599,12 @@ fZ
 gm
 gm
 fZ
-gz
-gz
+jY
+jY
 gL
-gz
-gz
-gz
+jY
+jY
+jY
 go
 js
 gL
@@ -10723,7 +10713,7 @@ go
 hb
 fZ
 fZ
-gz
+jY
 gk
 gk
 gk
@@ -10835,7 +10825,7 @@ gM
 go
 go
 fZ
-gz
+jY
 gm
 gk
 iq
@@ -10948,8 +10938,8 @@ gN
 go
 fZ
 fZ
-gz
-gz
+jY
+jY
 gk
 IA
 iq
@@ -11174,7 +11164,7 @@ gO
 fZ
 fZ
 fZ
-gz
+jY
 gL
 gk
 iq
@@ -11399,8 +11389,8 @@ cs
 cs
 ZB
 hc
-gC
-gC
+gH
+gH
 ch
 ZB
 ZB
@@ -11513,7 +11503,7 @@ cs
 ZB
 ch
 ay
-gC
+gH
 hc
 ZB
 aa
@@ -11626,7 +11616,7 @@ aa
 ay
 ch
 ay
-gC
+gH
 hc
 aa
 aa
@@ -11738,7 +11728,7 @@ cs
 ZB
 aa
 ch
-gC
+gH
 ay
 hc
 aa
@@ -11851,8 +11841,8 @@ aa
 ZB
 aa
 hc
-gC
-gC
+gH
+gH
 hc
 aa
 aa
@@ -12187,7 +12177,7 @@ aa
 aa
 aa
 ay
-gC
+gH
 gr
 gW
 hq
@@ -12752,7 +12742,7 @@ aa
 ay
 ay
 gG
-gC
+gH
 gV
 he
 hd
@@ -12976,7 +12966,7 @@ aa
 ay
 ay
 gr
-gC
+gH
 gr
 gD
 gV

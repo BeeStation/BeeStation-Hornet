@@ -484,7 +484,7 @@
 "Ax" = (
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
+	burnt = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Bu" = (
@@ -521,7 +521,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/shuttle/caravan/freighter1)
 "El" = (
