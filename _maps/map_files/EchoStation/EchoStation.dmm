@@ -18720,10 +18720,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 8;
-	name = "Medbay";
-	sortType = 10
+/obj/structure/disposalpipe/sorting/mail/destination/cmo_office/flip{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/central)
@@ -21374,10 +21372,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 8;
-	name = "Medbay";
-	sortType = 9
+/obj/structure/disposalpipe/sorting/mail/destination/medbay/flip{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/medical/medbay/central)
