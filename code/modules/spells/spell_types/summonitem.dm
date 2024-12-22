@@ -67,6 +67,10 @@
 						organ.Remove(organ.owner)
 			else
 				while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
+					if(istype(item_to_retrieve.loc, /obj/structure/anchored_mjolnir)) //mjolnir is funky so it gets a bypass
+						var/obj/structure/anchored_mjolnir/mjolnir = item_to_retrieve.loc
+						mjolnir.contained.forceMove(mjolnir.loc)
+						break
 					if(isitem(item_to_retrieve.loc))
 						var/obj/item/I = item_to_retrieve.loc
 						if(I.item_flags & ABSTRACT) //Being able to summon abstract things because your item happened to get placed there is a no-no
