@@ -775,7 +775,7 @@
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.update_buttons()
 	//Update the icon_state first
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
 	update_icon()
@@ -900,6 +900,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor_type = /datum/armor/hardsuit_wizard
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	clothing_flags = CASTING_CLOTHES
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 
@@ -923,6 +924,7 @@
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = CASTING_CLOTHES
 	armor_type = /datum/armor/hardsuit_wizard
 	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
@@ -949,8 +951,15 @@
 /obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, FALSE, INFINITY, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
 
+/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user, slot)
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
 
 	//Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
@@ -1386,7 +1395,6 @@
 	/// The icon for the shield
 	var/shield_icon = "shield-old"
 
-
 /datum/armor/hardsuit_shielded
 	melee = 30
 	bullet = 15
@@ -1404,9 +1412,6 @@
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
-
-/obj/item/clothing/suit/space/hardsuit/shielded/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = shield_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF

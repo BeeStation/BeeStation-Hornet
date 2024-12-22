@@ -1,6 +1,6 @@
 /obj/item/implant/sad_trombone
 	name = "sad trombone implant"
-	activated = 0
+	actions_types = null
 
 /obj/item/implant/sad_trombone/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
