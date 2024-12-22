@@ -1,9 +1,0 @@
-author: BarteG44
-delete-after: true
-changes:
-  - bugfix: fixes not being able to buckle to the weight lifting machines and their
-      animations
-  - bugfix: fixes the exercised status not giving stamina damage resistance
-  - bugfix: fixes the guillotine having the wrong offset
-  - tweak: increases the amount of exercise you get from weight lifting machines
-  - rscadd: makes gym equipment constructable via the construction menu
