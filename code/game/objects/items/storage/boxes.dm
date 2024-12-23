@@ -211,8 +211,7 @@
 	mask_type = /obj/item/clothing/mask/gas/explorer
 
 /obj/item/storage/box/survival/mining/PopulateContents()
-	new mask_type(src)
-	new internal_type(src)
+	..()
 	new /obj/item/stack/medical/gauze(src)
 
 // Engineer survival box
