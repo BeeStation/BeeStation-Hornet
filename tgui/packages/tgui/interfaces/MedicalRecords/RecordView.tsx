@@ -9,7 +9,7 @@ import { EditableText } from '../common/EditableText';
 
 /** Views a selected record. */
 export const MedicalRecordView = (props) => {
-  const foundRecord = getMedicalRecord(context);
+  const foundRecord = getMedicalRecord();
   if (!foundRecord) return <NoticeBox>No record selected.</NoticeBox>;
 
   const { act, data } = useBackend<MedicalRecordData>();

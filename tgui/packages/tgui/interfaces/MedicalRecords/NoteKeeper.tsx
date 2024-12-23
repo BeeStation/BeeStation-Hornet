@@ -6,7 +6,7 @@ import { MedicalNote, MedicalRecordData } from './types';
 
 /** Small section for adding notes. Passes a ref and note to Byond. */
 export const NoteKeeper = (props) => {
-  const foundRecord = getMedicalRecord(context);
+  const foundRecord = getMedicalRecord();
   if (!foundRecord) return <> </>;
 
   const { act } = useBackend<MedicalRecordData>();
@@ -57,7 +57,7 @@ export const NoteKeeper = (props) => {
 
 /** Displays the notes with an add tab next to. */
 const NoteTabs = (props) => {
-  const foundRecord = getMedicalRecord(context);
+  const foundRecord = getMedicalRecord();
   if (!foundRecord) return <> </>;
   const { medical_notes } = foundRecord;
 

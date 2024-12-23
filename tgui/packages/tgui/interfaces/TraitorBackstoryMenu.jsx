@@ -317,10 +317,14 @@ const MOTIVATION_ICONS = {
   'Fun': 'grin-tongue-wink',
 };
 
-const SelectBackstoryMenu = (
-  { set_ui_phase, selected_faction, set_selected_faction, selected_backstory, set_selected_backstory, show_nav },
-  context
-) => {
+const SelectBackstoryMenu = ({
+  set_ui_phase,
+  selected_faction,
+  set_selected_faction,
+  selected_backstory,
+  set_selected_backstory,
+  show_nav,
+}) => {
   const { act, data } = useBackend();
   const {
     allowed_backstories = [],

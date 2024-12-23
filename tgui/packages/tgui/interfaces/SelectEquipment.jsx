@@ -9,7 +9,7 @@ import { Window } from '../layouts';
 // custom outfits give a ref keyword instead of path
 const getOutfitKey = (outfit) => outfit.path || outfit.ref;
 
-const useOutfitTabs = (context, categories) => {
+const useOutfitTabs = (categories) => {
   return useLocalState('selected-tab', categories[0]);
 };
 
@@ -27,7 +27,7 @@ export const SelectEquipment = (props) => {
   // even if no custom outfits were sent, we still want to make sure there's
   // at least a 'Custom' tab so the button to create a new one pops up
   const categories = uniq([...outfits.map((entry) => entry.category), 'Custom']);
-  const [tab] = useOutfitTabs(context, categories);
+  const [tab] = useOutfitTabs(categories);
 
   const [searchText, setSearchText] = useLocalState('searchText', '');
   const searchFilter = createSearch(searchText, (entry) => entry.name + entry.path);
@@ -93,7 +93,7 @@ export const SelectEquipment = (props) => {
 
 const DisplayTabs = (props) => {
   const { categories } = props;
-  const [tab, setTab] = useOutfitTabs(context, categories);
+  const [tab, setTab] = useOutfitTabs(categories);
   return (
     <Tabs textAlign="center">
       {categories.map((category) => (

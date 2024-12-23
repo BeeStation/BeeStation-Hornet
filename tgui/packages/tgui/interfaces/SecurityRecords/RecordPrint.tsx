@@ -5,7 +5,7 @@ import { getSecurityRecord, getDefaultPrintDescription, getDefaultPrintHeader } 
 
 /** Handles printing posters and rapsheets */
 export const RecordPrint = (props) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <> </>;
 
   const { record_ref, crimes, name } = foundRecord;

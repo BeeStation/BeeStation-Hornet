@@ -46,7 +46,7 @@ const selectRemappedStaticData = (data) => {
 
 let remappedStaticData;
 
-const useRemappedBackend = (context) => {
+const useRemappedBackend = () => {
   const { data, ...rest } = useBackend();
   // Only remap the static data once, cache for future use
   if (!remappedStaticData) {
@@ -77,7 +77,7 @@ const abbreviateName = (name) => abbreviations[name] ?? name;
 // Actual Components
 
 export const Techweb = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { locked } = data;
   return (
     <Window width={947} height={735}>
@@ -99,7 +99,7 @@ export const Techweb = (props) => {
 };
 
 export const AppTechweb = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { locked } = data;
   return (
     <NtosWindow width={640} height={735}>
@@ -121,7 +121,7 @@ export const AppTechweb = (props) => {
 };
 
 export const TechwebContent = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { points, points_last_tick, web_org, sec_protocols, t_disk, d_disk, locked, linkedanalyzer, compact, tech_tier } = data;
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
   const [lastPoints, setLastPoints] = useLocalState('lastPoints', {});
@@ -213,7 +213,7 @@ const TechwebRouter = (props) => {
 };
 
 const TechwebOverview = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { nodes, node_cache, design_cache } = data;
   const [tabIndex, setTabIndex] = useLocalState('overviewTabIndex', 1);
   const [searchText, setSearchText] = useLocalState('searchText');
@@ -310,7 +310,7 @@ const TechwebOverview = (props) => {
 };
 
 const TechwebNodeDetail = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { nodes } = data;
   const { selectedNode } = props;
 
@@ -319,7 +319,7 @@ const TechwebNodeDetail = (props) => {
 };
 
 const TechwebDiskMenu = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { diskType } = props;
   const { t_disk, d_disk } = data;
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
@@ -376,7 +376,7 @@ const TechwebDiskMenu = (props) => {
 };
 
 const Techwebanalyzer = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { linkedanalyzer, analyzertechs, analyzeritem } = data;
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
 
@@ -414,7 +414,7 @@ const Techwebanalyzer = (props) => {
 };
 
 const TechwebItemmaterials = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { itemmats, itempoints } = data;
 
   return (
@@ -444,7 +444,7 @@ const TechwebItemmaterials = (props) => {
 };
 
 const TechwebItemtechs = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { analyzertechs } = data;
 
   return Object.keys(analyzertechs)
@@ -453,7 +453,7 @@ const TechwebItemtechs = (props) => {
 };
 
 const TechwebDesignDisk = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { design_cache, researched_designs, d_disk } = data;
   const { blueprints } = d_disk;
   const [selectedDesign, setSelectedDesign] = useLocalState('designDiskSelect', null);
@@ -540,7 +540,7 @@ const TechwebDesignDisk = (props) => {
 };
 
 const TechwebTechDisk = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { t_disk } = data;
   const { stored_research } = t_disk;
 
@@ -550,7 +550,7 @@ const TechwebTechDisk = (props) => {
 };
 
 const TechNodeDetail = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { nodes, node_cache } = data;
   const { node } = props;
   const { id } = node;
@@ -613,7 +613,7 @@ const DesignTooltip = (props) => {
 };
 
 const TechNode = (props) => {
-  const { act, data } = useRemappedBackend(context);
+  const { act, data } = useRemappedBackend();
   const { node_cache, design_cache, points, compact, researchable, tech_tier } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;

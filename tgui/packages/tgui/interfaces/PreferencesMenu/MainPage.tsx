@@ -65,20 +65,17 @@ const CharacterControls = (props: {
   );
 };
 
-const ChoicedSelection = (
-  props: {
-    name: string;
-    catalog: FeatureChoicedServerData;
-    selected: string;
-    supplementalFeature?: string;
-    supplementalValue?: unknown;
-    onClose: () => void;
-    onSelect: (value: string) => void;
-    searchText: string;
-    setSearchText: (value: string) => void;
-  },
-  context
-) => {
+const ChoicedSelection = (props: {
+  name: string;
+  catalog: FeatureChoicedServerData;
+  selected: string;
+  supplementalFeature?: string;
+  supplementalValue?: unknown;
+  onClose: () => void;
+  onSelect: (value: string) => void;
+  searchText: string;
+  setSearchText: (value: string) => void;
+}) => {
   const { act } = useBackend<PreferencesMenuData>();
 
   const { catalog, supplementalFeature, supplementalValue, searchText, setSearchText } = props;
@@ -229,13 +226,7 @@ const ChoicedSelection = (
   );
 };
 
-const GenderButton = (
-  props: {
-    handleSetGender: (gender: Gender) => void;
-    gender: Gender;
-  },
-  context
-) => {
+const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender: Gender }) => {
   const [genderMenuOpen, setGenderMenuOpen] = useLocalState('genderMenuOpen', false);
 
   return (
@@ -283,22 +274,19 @@ const GenderButton = (
   );
 };
 
-const MainFeature = (
-  props: {
-    catalog: FeatureChoicedServerData & {
-      name: string;
-      supplemental_feature?: string;
-    };
-    currentValue: string;
-    isOpen: boolean;
-    handleClose: () => void;
-    handleOpen: () => void;
-    handleSelect: (newClothing: string) => void;
-    randomization?: RandomSetting;
-    setRandomization: (newSetting: RandomSetting) => void;
-  },
-  context
-) => {
+const MainFeature = (props: {
+  catalog: FeatureChoicedServerData & {
+    name: string;
+    supplemental_feature?: string;
+  };
+  currentValue: string;
+  isOpen: boolean;
+  handleClose: () => void;
+  handleOpen: () => void;
+  handleSelect: (newClothing: string) => void;
+  randomization?: RandomSetting;
+  setRandomization: (newSetting: RandomSetting) => void;
+}) => {
   const { act, data } = useBackend<PreferencesMenuData>();
 
   const { catalog, currentValue, isOpen, handleOpen, handleClose, handleSelect, randomization, setRandomization } = props;
@@ -449,7 +437,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
   const { act, data } = useBackend<PreferencesMenuData>();
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>('currentClothingMenu', null);
   const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState('multiNameInputOpen', false);
-  const [randomToggleEnabled] = useRandomToggleState(context);
+  const [randomToggleEnabled] = useRandomToggleState();
 
   return (
     <ServerPreferencesFetcher

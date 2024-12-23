@@ -38,7 +38,7 @@ type CreateSetPriority = (priority: JobPriority | null) => () => void;
 
 const createSetPriorityCache: Record<string, CreateSetPriority> = {};
 
-const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPriority => {
+const createCreateSetPriorityFromName = (jobName: string): CreateSetPriority => {
   if (createSetPriorityCache[jobName] !== undefined) {
     return createSetPriorityCache[jobName];
   }
@@ -123,7 +123,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   const isOverflow = data.overflow_role === name;
   const priority = data.job_preferences[name];
 
-  const createSetPriority = createCreateSetPriorityFromName(context, name);
+  const createSetPriority = createCreateSetPriorityFromName(name);
 
   const experienceNeeded = data.job_required_experience && data.job_required_experience[name];
   const daysLeft = data.job_days_left ? data.job_days_left[name] : 0;

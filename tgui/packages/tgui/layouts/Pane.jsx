@@ -9,7 +9,7 @@ import { useBackend } from '../backend';
 import { Box } from '../components';
 import { Layout } from './Layout';
 
-export const Pane = (props, context) => {
+export const Pane = (props) => {
   const { theme, children, className, ...rest } = props;
   const { suspended, debug } = useBackend();
   let debugLayout = false;

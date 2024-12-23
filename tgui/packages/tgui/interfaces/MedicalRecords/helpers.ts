@@ -7,7 +7,7 @@ export const getQuirkStrings = (string: string) => {
 };
 
 /** We need an active reference and this a pain to rewrite */
-export const getMedicalRecord = (context) => {
+export const getMedicalRecord = () => {
   const [selectedRecord] = useLocalState<MedicalRecord | undefined>('medicalRecord', undefined);
   if (!selectedRecord) return;
   const { data } = useBackend<MedicalRecordData>();

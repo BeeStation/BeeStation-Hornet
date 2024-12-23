@@ -12,14 +12,14 @@ const pod_grey = {
   color: 'grey',
 };
 
-const useCompact = (context) => {
+const useCompact = () => {
   const [compact, setCompact] = useLocalState('compact', false);
   const toggleCompact = () => setCompact(!compact);
   return [compact, toggleCompact];
 };
 
 export const CentcomPodLauncher = (props) => {
-  const [compact] = useCompact(context);
+  const [compact] = useCompact();
   return (
     <Window
       key={'CPL_' + compact}
@@ -34,7 +34,7 @@ export const CentcomPodLauncher = (props) => {
 };
 
 const CentcomPodLauncherContent = (props) => {
-  const [compact] = useCompact(context);
+  const [compact] = useCompact();
   return (
     <Window.Content>
       <Stack fill vertical>
@@ -540,7 +540,7 @@ const TabDrop = (props) => {
 
 const PodStatusPage = (props) => {
   const { act, data } = useBackend();
-  const [compact, toggleCompact] = useCompact(context);
+  const [compact, toggleCompact] = useCompact();
   return (
     <Section fill width="100%">
       <Stack>
@@ -821,7 +821,7 @@ class PresetsPage extends Component {
               tooltip="Loads preset"
               onClick={() => {
                 // Line break to meet line length reqs
-                this.loadDataFromPreset(presetIndex, this.context);
+                this.loadDataFromPreset(presetIndex);
               }}
             />
             <Button
@@ -905,7 +905,7 @@ class PresetsPage extends Component {
 }
 
 const LaunchPage = (props) => {
-  const [compact] = useCompact(context);
+  const [compact] = useCompact();
   const { act, data } = useBackend();
   return (
     <Button
@@ -977,7 +977,7 @@ const StylePage = (props) => {
 
 const Bays = (props) => {
   const { act, data } = useBackend();
-  const [compact] = useCompact(context);
+  const [compact] = useCompact();
   return (
     <Section
       fill

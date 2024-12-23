@@ -13,15 +13,12 @@ const binaryInsertName = binaryInsertWith<NameWithKey>(({ key }) => key);
 
 const sortNameWithKeyEntries = sortBy<[string, NameWithKey[]]>(([key]) => key);
 
-export const MultiNameInput = (
-  props: {
-    handleClose: () => void;
-    handleRandomizeName: (nameType: string) => void;
-    handleUpdateName: (nameType: string, value: string) => void;
-    names: Record<string, string>;
-  },
-  context
-) => {
+export const MultiNameInput = (props: {
+  handleClose: () => void;
+  handleRandomizeName: (nameType: string) => void;
+  handleUpdateName: (nameType: string, value: string) => void;
+  names: Record<string, string>;
+}) => {
   const [currentlyEditingName, setCurrentlyEditingName] = useLocalState<string | null>('currentlyEditingName', null);
 
   return (

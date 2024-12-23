@@ -5,7 +5,7 @@ import { BlockQuote, Box, Button, Collapsible, Icon, Input, LabeledList, NoticeB
 
 /** Displays a list of crimes and allows to add new ones. */
 export const CrimeWatcher = (props) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <> </>;
 
   const { crimes, citations } = foundRecord;
@@ -39,7 +39,7 @@ export const CrimeWatcher = (props) => {
 
 /** Displays the crimes and citations of a record. */
 const CrimeList = (props) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <> </>;
 
   const { citations, crimes } = foundRecord;
@@ -61,7 +61,7 @@ const CrimeList = (props) => {
 
 /** Displays an individual crime */
 const CrimeDisplay = ({ item }: { item: Crime }) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <> </>;
 
   const { record_ref } = foundRecord;
@@ -185,7 +185,7 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
 
 /** Writes a new crime. Reducers don't seem to work here, so... */
 const CrimeAuthor = (props) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <> </>;
 
   const { record_ref } = foundRecord;

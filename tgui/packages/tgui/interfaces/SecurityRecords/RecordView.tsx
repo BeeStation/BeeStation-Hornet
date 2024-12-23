@@ -10,7 +10,7 @@ import { SecurityRecordsData } from './types';
 
 /** Views a selected record. */
 export const SecurityRecordView = (props) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <NoticeBox>Nothing selected.</NoticeBox>;
 
   const { data } = useBackend<SecurityRecordsData>();
@@ -34,7 +34,7 @@ export const SecurityRecordView = (props) => {
 };
 
 const RecordInfo = (props) => {
-  const foundRecord = getSecurityRecord(context);
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <NoticeBox>Nothing selected.</NoticeBox>;
 
   const { act, data } = useBackend<SecurityRecordsData>();

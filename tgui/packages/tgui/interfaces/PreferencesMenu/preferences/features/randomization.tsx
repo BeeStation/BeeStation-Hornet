@@ -8,7 +8,7 @@ import { Feature } from './base';
 export const body_is_always_random: Feature<RandomSetting> = {
   name: 'Random Body',
   component: (props) => {
-    const [randomToggle, setRandomToggle] = useRandomToggleState(context);
+    const [randomToggle, setRandomToggle] = useRandomToggleState();
 
     return (
       <Stack>

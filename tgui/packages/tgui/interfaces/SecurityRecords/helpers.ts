@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from 'tgui/backend';
 import { PRINTOUT, SecurityRecordsData, SecurityRecord } from './types';
 
 /** We need an active reference and this a pain to rewrite */
-export const getSecurityRecord = (context) => {
+export const getSecurityRecord = () => {
   const [selectedRecord] = useLocalState<SecurityRecord | undefined>('securityRecord', undefined);
   if (!selectedRecord) return;
   const { data } = useBackend<SecurityRecordsData>();
