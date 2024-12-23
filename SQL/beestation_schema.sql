@@ -128,7 +128,6 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`feature_ipc_screen` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_antenna` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_chassis` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
-	`feature_ipc_chassis_markings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_screen_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_antenna_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`feature_lizard_body_markings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
@@ -506,7 +505,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 4);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 3);
 
 
 
