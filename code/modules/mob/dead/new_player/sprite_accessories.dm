@@ -2571,47 +2571,48 @@
 
 /datum/sprite_accessory/ipc_chassis_markings
 	icon = 'icons/mob/species/ipc/bodymarkings.dmi'
+	icon_state = "who cares fuck you" // In order to pull the chassis correctly, we need AN icon_state(see line 36-39). It doesn't have to be useful, because it isn't used.
 	color_src = MUTCOLORS //RAINBOWS AND SUNSHINE
 
 /datum/sprite_accessory/ipc_chassis_markings/morpheuscybernetics
 	name = "Morpheus Cyberkinetics"
-	icon_state = "mcipc"
+	limbs_id = "mcipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/bishopcyberkinetics
 	name = "Bishop Cyberkinetics"
-	icon_state = "bshipc"
+	limbs_id = "bshipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/bishopcyberkinetics2
 	name = "Bishop Cyberkinetics 2.0"
-	icon_state = "bs2ipc"
+	limbs_id = "bs2ipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/hephaestussindustries
 	name = "Hephaestus Industries"
-	icon_state = "hsiipc"
+	limbs_id = "hsiipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/hephaestussindustries2
 	name = "Hephaestus Industries 2.0"
-	icon_state = "hi2ipc"
+	limbs_id = "hi2ipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/shellguardmunitions
 	name = "Shellguard Munitions Standard Series"
-	icon_state = "sgmipc"
+	limbs_id = "sgmipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/wardtakahashimanufacturing
 	name = "Ward-Takahashi Manufacturing"
-	icon_state = "wtmipc"
+	limbs_id = "wtmipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/xionmanufacturinggroup
 	name = "Xion Manufacturing Group"
-	icon_state = "xmgipc"
+	limbs_id = "xmgipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/xionmanufacturinggroup2
 	name = "Xion Manufacturing Group 2.0"
-	icon_state = "xm2ipc"
+	limbs_id = "xm2ipc"
 
 /datum/sprite_accessory/ipc_chassis_markings/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
-	icon_state = "zhpipc"
+	limbs_id = "zhpipc"
 
 /datum/sprite_accessory/insect_type
 	icon = null
