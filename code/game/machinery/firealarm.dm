@@ -139,7 +139,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		set_light(l_range = 2.5, l_power = 1.5)
 	else
 		set_light(l_range = 1.6, l_power = 1)
-	update_overlays()
 
 /obj/machinery/firealarm/update_icon_state()
 	if(panel_open)
