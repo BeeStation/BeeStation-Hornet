@@ -511,8 +511,10 @@ window.replaceHtml = function (inline_html) {
   );
 };
 
-// Signal tgui that we're ready to receive updates
-Byond.sendMessage('ready');
+document.addEventListener('DOMContentLoaded', function (event) {
+  // Signal tgui that we're ready to receive updates
+  Byond.sendMessage('ready');
+});
 </script>
 
 <style>
