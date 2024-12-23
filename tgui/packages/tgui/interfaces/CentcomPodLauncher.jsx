@@ -13,12 +13,12 @@ const pod_grey = {
 };
 
 const useCompact = (context) => {
-  const [compact, setCompact] = useLocalState(context, 'compact', false);
+  const [compact, setCompact] = useLocalState('compact', false);
   const toggleCompact = () => setCompact(!compact);
   return [compact, toggleCompact];
 };
 
-export const CentcomPodLauncher = (props, context) => {
+export const CentcomPodLauncher = (props) => {
   const [compact] = useCompact(context);
   return (
     <Window
@@ -33,7 +33,7 @@ export const CentcomPodLauncher = (props, context) => {
   );
 };
 
-const CentcomPodLauncherContent = (props, context) => {
+const CentcomPodLauncherContent = (props) => {
   const [compact] = useCompact(context);
   return (
     <Window.Content>
@@ -406,9 +406,9 @@ const EFFECTS_ALL = [
   },
 ];
 
-const ViewTabHolder = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabPageIndex, setTabPageIndex] = useLocalState(context, 'tabPageIndex', 1);
+const ViewTabHolder = (props) => {
+  const { act, data } = useBackend();
+  const [tabPageIndex, setTabPageIndex] = useLocalState('tabPageIndex', 1);
   const { mapRef } = data;
   const TabPageComponent = TABPAGES[tabPageIndex].component();
   return (
@@ -497,7 +497,7 @@ const ViewTabHolder = (props, context) => {
   );
 };
 
-const TabPod = (props, context) => {
+const TabPod = (props) => {
   return (
     <Box color="label">
       Note: You can right click on this
@@ -507,8 +507,8 @@ const TabPod = (props, context) => {
   );
 };
 
-const TabBay = (props, context) => {
-  const { act, data, config } = useBackend(context);
+const TabBay = (props) => {
+  const { act, data, config } = useBackend();
   return (
     <>
       <Button content="Teleport" icon="street-view" onClick={() => act('teleportCentcom')} />
@@ -522,8 +522,8 @@ const TabBay = (props, context) => {
   );
 };
 
-const TabDrop = (props, context) => {
-  const { act, data, config } = useBackend(context);
+const TabDrop = (props) => {
+  const { act, data, config } = useBackend();
   const { mapRef } = data;
   return (
     <>
@@ -538,8 +538,8 @@ const TabDrop = (props, context) => {
   );
 };
 
-const PodStatusPage = (props, context) => {
-  const { act, data } = useBackend(context);
+const PodStatusPage = (props) => {
+  const { act, data } = useBackend();
   const [compact, toggleCompact] = useCompact(context);
   return (
     <Section fill width="100%">
@@ -649,9 +649,9 @@ const PodStatusPage = (props, context) => {
   );
 };
 
-const ReverseMenu = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabPageIndex, setTabPageIndex] = useLocalState(context, 'tabPageIndex', 1);
+const ReverseMenu = (props) => {
+  const { act, data } = useBackend();
+  const [tabPageIndex, setTabPageIndex] = useLocalState('tabPageIndex', 1);
   return (
     <Section
       fill
@@ -752,8 +752,8 @@ class PresetsPage extends Component {
     storage.set('podlauncher_preset_' + id, data);
   }
 
-  async loadDataFromPreset(id, context) {
-    const { act, data } = useBackend(context);
+  async loadDataFromPreset(id) {
+    const { act, data } = useBackend();
     act('loadDataFromPreset', { payload: await storage.get('podlauncher_preset_' + id) });
   }
 
@@ -789,11 +789,11 @@ class PresetsPage extends Component {
   }
   render() {
     const { presets } = this.state;
-    const { act, data } = useBackend(this.context);
-    const [presetIndex, setSelectedPreset] = useLocalState(this.context, 'presetIndex', 0);
-    const [settingName, setEditingNameStatus] = useLocalState(this.context, 'settingName', 0);
-    const [newNameText, setText] = useLocalState(this.context, 'newNameText', '');
-    const [hue, setHue] = useLocalState(this.context, 'hue', 0);
+    const { act, data } = useBackend();
+    const [presetIndex, setSelectedPreset] = useLocalState('presetIndex', 0);
+    const [settingName, setEditingNameStatus] = useLocalState('settingName', 0);
+    const [newNameText, setText] = useLocalState('newNameText', '');
+    const [hue, setHue] = useLocalState('hue', 0);
     return (
       <Section
         scrollable
@@ -904,9 +904,9 @@ class PresetsPage extends Component {
   }
 }
 
-const LaunchPage = (props, context) => {
+const LaunchPage = (props) => {
   const [compact] = useCompact(context);
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   return (
     <Button
       fluid
@@ -926,8 +926,8 @@ const LaunchPage = (props, context) => {
   );
 };
 
-const StylePage = (props, context) => {
-  const { act, data } = useBackend(context);
+const StylePage = (props) => {
+  const { act, data } = useBackend();
   return (
     <Section
       fill
@@ -975,8 +975,8 @@ const StylePage = (props, context) => {
   );
 };
 
-const Bays = (props, context) => {
-  const { act, data } = useBackend(context);
+const Bays = (props) => {
+  const { act, data } = useBackend();
   const [compact] = useCompact(context);
   return (
     <Section
@@ -1021,8 +1021,8 @@ const Bays = (props, context) => {
   );
 };
 
-const Timing = (props, context) => {
-  const { act, data } = useBackend(context);
+const Timing = (props) => {
+  const { act, data } = useBackend();
   return (
     <Section
       fill
@@ -1064,8 +1064,8 @@ const Timing = (props, context) => {
     </Section>
   );
 };
-const DelayHelper = (props, context) => {
-  const { act, data } = useBackend(context);
+const DelayHelper = (props) => {
+  const { act, data } = useBackend();
   const { delay_list, reverse = false } = props;
   return (
     <LabeledControls wrap>
@@ -1095,8 +1095,8 @@ const DelayHelper = (props, context) => {
     </LabeledControls>
   );
 };
-const Sounds = (props, context) => {
-  const { act, data } = useBackend(context);
+const Sounds = (props) => {
+  const { act, data } = useBackend();
   return (
     <Section
       fill

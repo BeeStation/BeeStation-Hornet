@@ -117,7 +117,7 @@ const MAX_SEARCH_RESULTS = 25;
  *  - [*] resync_rd - Resync with nearby R&D Servers
  *
 */
-export const ModularFabricator = (props, context) => {
+export const ModularFabricator = (props) => {
   return (
     <Window width={1000} height={714}>
       <Window.Content>
@@ -137,11 +137,11 @@ export const ModularFabricator = (props, context) => {
   );
 };
 
-export const ModFabMain = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [category, setCategory] = useLocalState(context, 'category', '');
+export const ModFabMain = (props) => {
+  const { act, data } = useBackend();
+  const [category, setCategory] = useLocalState('category', '');
   const { items = [] } = data;
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [search, setSearch] = useLocalState('search', '');
   const testSearch = createSearch(search, (item) => {
     return item.name;
   });
@@ -173,10 +173,10 @@ export const ModFabMain = (props, context) => {
   );
 };
 
-export const ModFabCategoryList = (props, context) => {
+export const ModFabCategoryList = (props) => {
   const { categories } = props;
-  const [category, setCategory] = useLocalState(context, 'category', '');
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [category, setCategory] = useLocalState('category', '');
+  const [search, setSearch] = useLocalState('search', '');
   return (
     <Fragment>
       <Box bold>
@@ -212,13 +212,13 @@ export const ModFabCategoryList = (props, context) => {
   );
 };
 
-export const ModFabCategoryItems = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ModFabCategoryItems = (props) => {
+  const { act, data } = useBackend();
   const { allow_add_category = true } = data;
   const { items } = props;
-  const [category, setCategory] = useLocalState(context, 'category', '');
-  const [amount, setAmount] = useLocalState(context, 'amount', 1);
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [category, setCategory] = useLocalState('category', '');
+  const [amount, setAmount] = useLocalState('amount', 1);
+  const [search, setSearch] = useLocalState('search', '');
   return (
     <Fragment>
       <Button
@@ -290,8 +290,8 @@ export const ModFabCategoryItems = (props, context) => {
   );
 };
 
-export const ModFabData = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ModFabData = (props) => {
+  const { act, data } = useBackend();
   const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
   return (
     <Fragment>
@@ -340,8 +340,8 @@ export const ModFabData = (props, context) => {
   );
 };
 
-export const SyncWithServers = (props, context) => {
-  const { act } = useBackend(context);
+export const SyncWithServers = (props) => {
+  const { act } = useBackend();
   return (
     <Box inline>
       <Box bold textAlign="center">
@@ -363,8 +363,8 @@ export const SyncWithServers = (props, context) => {
   );
 };
 
-export const OutputDir = (props, context) => {
-  const { act, data } = useBackend(context);
+export const OutputDir = (props) => {
+  const { act, data } = useBackend();
   const { outputDir = 0 } = data;
   return (
     <Table width="80px" align="center">
@@ -437,8 +437,8 @@ export const OutputDir = (props, context) => {
   );
 };
 
-export const MaterialData = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MaterialData = (props) => {
+  const { act, data } = useBackend();
   const { materials = [] } = data;
   return (
     <Table>
@@ -493,9 +493,9 @@ export const MaterialData = (props, context) => {
   );
 };
 
-export const SidePanel = (props, context) => {
-  const { act } = useBackend(context);
-  const [queueRepeat, setQueueRepeat] = useLocalState(context, 'queueRepeat', 0);
+export const SidePanel = (props) => {
+  const { act } = useBackend();
+  const [queueRepeat, setQueueRepeat] = useLocalState('queueRepeat', 0);
   return (
     <Section width="100%" height="100%">
       <MaterialData />
@@ -529,8 +529,8 @@ export const SidePanel = (props, context) => {
   );
 };
 
-export const ProcessingBar = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ProcessingBar = (props) => {
+  const { act, data } = useBackend();
   const { being_build } = data;
   return (
     <div className="ModularFabricator__sidebar_bottom">
@@ -548,8 +548,8 @@ export const ProcessingBar = (props, context) => {
   );
 };
 
-export const FabricationQueue = (props, context) => {
-  const { act, data } = useBackend(context);
+export const FabricationQueue = (props) => {
+  const { act, data } = useBackend();
   const { queue = [] } = data;
   return (
     <Table>
@@ -586,8 +586,8 @@ export const FabricationQueue = (props, context) => {
   );
 };
 
-export const ModFabDataDisk = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ModFabDataDisk = (props) => {
+  const { act, data } = useBackend();
   const { acceptsDisk, diskInserted } = data;
   return (
     <Box inline>

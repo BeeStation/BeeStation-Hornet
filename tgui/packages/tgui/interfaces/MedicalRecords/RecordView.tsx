@@ -8,11 +8,11 @@ import { MedicalRecordData } from './types';
 import { EditableText } from '../common/EditableText';
 
 /** Views a selected record. */
-export const MedicalRecordView = (props, context) => {
+export const MedicalRecordView = (props) => {
   const foundRecord = getMedicalRecord(context);
   if (!foundRecord) return <NoticeBox>No record selected.</NoticeBox>;
 
-  const { act, data } = useBackend<MedicalRecordData>(context);
+  const { act, data } = useBackend<MedicalRecordData>();
   const { character_preview_view, physical_statuses, mental_statuses } = data;
 
   const { min_age, max_age } = data;

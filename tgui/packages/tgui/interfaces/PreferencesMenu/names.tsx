@@ -22,7 +22,7 @@ export const MultiNameInput = (
   },
   context
 ) => {
-  const [currentlyEditingName, setCurrentlyEditingName] = useLocalState<string | null>(context, 'currentlyEditingName', null);
+  const [currentlyEditingName, setCurrentlyEditingName] = useLocalState<string | null>('currentlyEditingName', null);
 
   return (
     <ServerPreferencesFetcher
@@ -129,15 +129,12 @@ export const MultiNameInput = (
   );
 };
 
-export const NameInput = (
-  props: {
-    handleUpdateName: (name: string) => void;
-    name: string;
-    openMultiNameInput: () => void;
-  },
-  context
-) => {
-  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useLocalState<string | null>(context, 'lastNameBeforeEdit', null);
+export const NameInput = (props: {
+  handleUpdateName: (name: string) => void;
+  name: string;
+  openMultiNameInput: () => void;
+}) => {
+  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useLocalState<string | null>('lastNameBeforeEdit', null);
   const editing = lastNameBeforeEdit === props.name;
 
   const updateName = (e, value) => {

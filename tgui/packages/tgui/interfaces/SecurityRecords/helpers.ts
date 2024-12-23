@@ -3,9 +3,9 @@ import { PRINTOUT, SecurityRecordsData, SecurityRecord } from './types';
 
 /** We need an active reference and this a pain to rewrite */
 export const getSecurityRecord = (context) => {
-  const [selectedRecord] = useLocalState<SecurityRecord | undefined>(context, 'securityRecord', undefined);
+  const [selectedRecord] = useLocalState<SecurityRecord | undefined>('securityRecord', undefined);
   if (!selectedRecord) return;
-  const { data } = useBackend<SecurityRecordsData>(context);
+  const { data } = useBackend<SecurityRecordsData>();
   const { records = [] } = data;
   const foundRecord = records.find((record) => record.record_ref === selectedRecord.record_ref);
   if (!foundRecord) return;

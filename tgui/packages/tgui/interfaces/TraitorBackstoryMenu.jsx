@@ -3,15 +3,15 @@ import { Button, Dimmer, Stack, Box, Section, Tabs, Flex, Icon, Tooltip } from '
 import { Window } from '../layouts';
 import { AntagInfoTraitorContent } from './AntagInfoTraitor';
 
-export const TraitorBackstoryMenu = (_, context) => {
-  const { data } = useBackend(context);
+export const TraitorBackstoryMenu = (_) => {
+  const { data } = useBackend();
   const { all_backstories = {}, all_factions = {}, backstory, faction } = data;
   let has_backstory = all_backstories[backstory];
   let has_faction = all_factions[faction];
-  let [ui_phase, set_ui_phase] = useLocalState(context, 'traitor_ui_phase', has_faction ? 2 : 0);
-  let [tabIndex, setTabIndex] = useLocalState(context, 'traitor_selected_tab', 1);
-  let [selected_faction, set_selected_faction_backend] = useLocalState(context, 'traitor_selected_faction', 'syndicate');
-  let [selected_backstory, set_selected_backstory] = useLocalState(context, 'traitor_selected_backstory', null);
+  let [ui_phase, set_ui_phase] = useLocalState('traitor_ui_phase', has_faction ? 2 : 0);
+  let [tabIndex, setTabIndex] = useLocalState('traitor_selected_tab', 1);
+  let [selected_faction, set_selected_faction_backend] = useLocalState('traitor_selected_faction', 'syndicate');
+  let [selected_backstory, set_selected_backstory] = useLocalState('traitor_selected_backstory', null);
   const set_selected_faction = (faction) => {
     set_selected_faction_backend(faction);
     if (selected_backstory && !all_backstories[selected_backstory].allowed_factions?.includes(faction)) {
@@ -98,8 +98,8 @@ export const TraitorBackstoryMenu = (_, context) => {
   );
 };
 
-const IntroductionMenu = ({ set_ui_phase }, context) => {
-  const { act, data } = useBackend(context);
+const IntroductionMenu = ({ set_ui_phase }) => {
+  const { act, data } = useBackend();
   const { faction } = data;
   return (
     <Dimmer>
@@ -151,8 +151,8 @@ const get_surrounding_factions = (faction_keys, selected_faction) => {
   return [prev_faction, next_faction];
 };
 
-const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_faction }, context) => {
-  const { data } = useBackend(context);
+const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_faction }) => {
+  const { data } = useBackend();
   const { allowed_factions = [], all_factions = {}, faction, recommended_factions = [] } = data;
   let faction_keys = Object.keys(all_factions);
 
@@ -321,7 +321,7 @@ const SelectBackstoryMenu = (
   { set_ui_phase, selected_faction, set_selected_faction, selected_backstory, set_selected_backstory, show_nav },
   context
 ) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const {
     allowed_backstories = [],
     all_backstories = {},
@@ -333,7 +333,7 @@ const SelectBackstoryMenu = (
     backstory,
   } = data;
 
-  let [motivations, set_motivations] = useLocalState(context, 'traitor_motivations', []);
+  let [motivations, set_motivations] = useLocalState('traitor_motivations', []);
 
   const toggle_motivation = (name) =>
     set_motivations((motivations) => {
@@ -466,11 +466,8 @@ const SelectBackstoryMenu = (
   );
 };
 
-const BackstorySection = (
-  { backstory, backstory_locked, show_button, backstory_key, faction_key, set_ui_phase, fill },
-  context
-) => {
-  const { act } = useBackend(context);
+const BackstorySection = ({ backstory, backstory_locked, show_button, backstory_key, faction_key, set_ui_phase, fill }) => {
+  const { act } = useBackend();
   return (
     <Section
       fill={fill}
@@ -555,8 +552,8 @@ const BackstoryTab = ({
   );
 };
 
-const BackstoryDetails = (_, context) => {
-  const { data } = useBackend(context);
+const BackstoryDetails = (_) => {
+  const { data } = useBackend();
   const { backstory, all_backstories = {} } = data;
   return <BackstorySection fill backstory={all_backstories[backstory]} />;
 };

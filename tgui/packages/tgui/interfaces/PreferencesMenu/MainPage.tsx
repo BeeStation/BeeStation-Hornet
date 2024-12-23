@@ -79,7 +79,7 @@ const ChoicedSelection = (
   },
   context
 ) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+  const { act } = useBackend<PreferencesMenuData>();
 
   const { catalog, supplementalFeature, supplementalValue, searchText, setSearchText } = props;
 
@@ -236,7 +236,7 @@ const GenderButton = (
   },
   context
 ) => {
-  const [genderMenuOpen, setGenderMenuOpen] = useLocalState(context, 'genderMenuOpen', false);
+  const [genderMenuOpen, setGenderMenuOpen] = useLocalState('genderMenuOpen', false);
 
   return (
     <Popper
@@ -299,12 +299,12 @@ const MainFeature = (
   },
   context
 ) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+  const { act, data } = useBackend<PreferencesMenuData>();
 
   const { catalog, currentValue, isOpen, handleOpen, handleClose, handleSelect, randomization, setRandomization } = props;
 
   const supplementalFeature = catalog.supplemental_feature;
-  let [searchText, setSearchText] = useLocalState(context, catalog.name + '_choiced_search', '');
+  let [searchText, setSearchText] = useLocalState(catalog.name + '_choiced_search', '');
   const handleCloseInternal = () => {
     handleClose();
     setSearchText('');
@@ -445,15 +445,10 @@ const PreferenceList = (props: {
   );
 };
 
-export const MainPage = (
-  props: {
-    openSpecies: () => void;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
-  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>(context, 'currentClothingMenu', null);
-  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(context, 'multiNameInputOpen', false);
+export const MainPage = (props: { openSpecies: () => void }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>('currentClothingMenu', null);
+  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState('multiNameInputOpen', false);
   const [randomToggleEnabled] = useRandomToggleState(context);
 
   return (

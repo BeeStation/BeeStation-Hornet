@@ -52,7 +52,7 @@ const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPri
     }
 
     const setPriority = () => {
-      const { act } = useBackend<PreferencesMenuData>(context);
+      const { act } = useBackend<PreferencesMenuData>();
 
       act('set_job_preference', {
         job: jobName,
@@ -116,15 +116,8 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
   );
 };
 
-const JobRow = (
-  props: {
-    className?: string;
-    job: Job;
-    name: string;
-  },
-  context
-) => {
-  const { data } = useBackend<PreferencesMenuData>(context);
+const JobRow = (props: { className?: string; job: Job; name: string }) => {
+  const { data } = useBackend<PreferencesMenuData>();
   const { className, job, name } = props;
 
   const isOverflow = data.overflow_role === name;
@@ -263,8 +256,8 @@ const Gap = (props: { amount: number }) => {
   return <Box height={`calc(${props.amount}px + 0.2em)`} />;
 };
 
-const JoblessRoleDropdown = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const JoblessRoleDropdown = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const selected = data.character_preferences.misc.joblessrole;
 
   const options = [
@@ -295,8 +288,8 @@ const JoblessRoleDropdown = (props, context) => {
   );
 };
 
-const ClearJobsButton = (_, context) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const ClearJobsButton = (_) => {
+  const { act } = useBackend<PreferencesMenuData>();
   return <Button content="Clear All" confirm onClick={() => act('clear_job_preferences')} />;
 };
 
