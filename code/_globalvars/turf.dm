@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(turf_texture_hallway, list(/datum/turf_texture/hallway))
 GLOBAL_LIST_INIT(turf_texture_maint, list(/datum/turf_texture/maint, /datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
 
 GLOBAL_LIST_INIT(turf_texture_iron, list(/datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
+GLOBAL_LIST_INIT(turf_texture_iron_nonsegmented, list(/datum/turf_texture/hallway_nonsegmented))
 GLOBAL_LIST_INIT(turf_texture_plating, list(/datum/turf_texture/maint))
 
 /*
