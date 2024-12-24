@@ -9,6 +9,8 @@
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 /// from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
+///from base of atom/examine_more(): (/mob)
+#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 	//Positions for overrides list
 	#define EXAMINE_POSITION_ARTICLE (1<<0)
 	#define EXAMINE_POSITION_BEFORE (1<<1)
@@ -93,8 +95,6 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
-///! from base of atom/set_light(): (l_range, l_power, l_color)
-#define COMSIG_ATOM_SET_LIGHT "atom_set_light"
 ///! from base of atom/setDir(): (old_dir, new_dir)
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
 ///! from base of atom/handle_atom_del(): (atom/deleted)
@@ -109,7 +109,7 @@
 	#define COMPONENT_BLOCK_CONTAMINATION 1
 ///! from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
-  #define COMPONENT_RAD_WAVE_HANDLED 1
+	#define COMPONENT_RAD_WAVE_HANDLED 1
 ///! from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_ALLOW_REACH (1<<0)
@@ -117,9 +117,10 @@
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
 ///when an atom is processed (mob/living/user, obj/item/I, list/atom/results)
 #define COMSIG_ATOM_PROCESSED "atom_processed"
-///! called when teleporting into a protected turf: (channel, turf/origin)
+///! from the base of atom/intercept_teleport: (channel, turf/origin, turf/destination)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
+#define COMSIG_ATOM_HEARER_IN_VIEW "atom_hearer_in_view" //called when an atom is added to the hearers on get_hearers_in_view(): (list/processing_list, list/hearers)
 ///called when an atom starts orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 /// called when an atom stops orbiting another atom: (atom)
@@ -128,6 +129,8 @@
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
 ///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
+///signal sent out by an atom upon onZImpact : (turf/impacted_turf, levels)
+#define COMSIG_ATOM_ON_Z_IMPACT "movable_on_z_impact"
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
@@ -142,7 +145,8 @@
 
 /////////////////
 #define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
-#define COMSIG_CLICK_SHIFT "shift_click"						//! from base of atom/ShiftClick(): (/mob)
+#define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
+	#define COMPONENT_ALLOW_EXAMINATE 1 //Allows the user to examinate regardless of client.eye.
 #define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
 	#define COMPONENT_INTERCEPT_ALT 1

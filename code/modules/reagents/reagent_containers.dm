@@ -31,6 +31,8 @@
 	///Does this container prevent grinding?
 	var/prevent_grinding = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
+
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
 	if(isnum_safe(vol) && vol > 0)
@@ -62,9 +64,48 @@
 				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u.")
 				return
 
-/obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+/// Tries to splash the target. Used on both right-click and normal click when in combat mode.
+/obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
+	if (!spillable)
+		return FALSE
+
+	if (!reagents?.total_volume)
+		return FALSE
+
+	var/punctuation = ismob(target) ? "!" : "."
+
+	var/reagent_text
+	user.visible_message(
+		"<span class='danger'>[user] splashes the contents of [src] onto [target][punctuation]</span>",
+		"<span class='danger'>You splash the contents of [src] onto [target][punctuation]</span>",
+		ignored_mobs = target,
+	)
+
+	if (ismob(target))
+		var/mob/target_mob = target
+		target_mob.show_message(
+			"<span class='userdanger'>[user] splash the contents of [src] onto you!</span>",
+			MSG_VISUAL,
+			"<span class='userdanger'>You feel drenched!</span>",
+		)
+
+	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
+		reagent_text += "[reagent] ([num2text(reagent.volume)]),"
+
+	var/mob/thrown_by = thrownby?.resolve()
+	if(isturf(target) && reagents.reagent_list.len && thrown_by)
+		log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
+		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
+
+	reagents.reaction(target, TOUCH)
+	log_combat(user, target, "splashed", reagent_text)
+	reagents.clear_reagents()
+
+	return TRUE
 
 /obj/item/reagent_containers/proc/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
@@ -101,8 +142,8 @@
 	if(target.CanPass(src, get_dir(target, src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 
-/obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)
-	if(!reagents || !reagents.total_volume || !spillable)
+/obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE, override_spillable = FALSE)
+	if(!reagents || !reagents.total_volume || (!spillable && !override_spillable))
 		return
 	var/mob/thrown_by = thrownby?.resolve()
 

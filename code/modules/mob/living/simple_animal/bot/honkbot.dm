@@ -84,20 +84,6 @@
 	text_dehack = "You reboot [name] and restore the sound control system."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
-/mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR>"
-	dat += "<BR>Status: <A href='?src=[REF(src)];power=[TRUE]'>[on ? "On" : "Off"]</A>"
-	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
-	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
-
-	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "<BR>"
-		dat += "<BR> Auto Patrol: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
-	return	dat
-
 /mob/living/simple_animal/bot/honkbot/proc/judgment_criteria()
 	var/final = NONE
 	if(check_records)
@@ -354,12 +340,12 @@
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \
-						  	"[C] dives out of [src]'s way!", \
-						  	"[C] stumbles over [src]!", \
-						  	"[C] jumps out of [src]'s path!", \
-						  	"[C] trips over [src] and falls!", \
-						  	"[C] topples over [src]!", \
-						  	"[C] leaps out of [src]'s way!")]</span>")
+								"[C] dives out of [src]'s way!", \
+								"[C] stumbles over [src]!", \
+								"[C] jumps out of [src]'s path!", \
+								"[C] trips over [src] and falls!", \
+								"[C] topples over [src]!", \
+								"[C] leaps out of [src]'s way!")]</span>")
 			C.Paralyze(10)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)

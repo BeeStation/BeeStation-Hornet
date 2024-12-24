@@ -63,11 +63,11 @@
 	REMOVE_TRAITS_NOT_IN(M, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT, TRAIT_GENERIC))
 	M.set_blurriness(0)
 	M.set_blindness(0)
-	M.SetKnockdown(0, FALSE)
-	M.SetStun(0, FALSE)
-	M.SetUnconscious(0, FALSE)
-	M.SetParalyzed(0, FALSE)
-	M.SetImmobilized(0, FALSE)
+	M.SetKnockdown(0)
+	M.SetStun(0)
+	M.SetUnconscious(0)
+	M.SetParalyzed(0)
+	M.SetImmobilized(0)
 	M.silent = FALSE
 	M.dizziness = 0
 	M.disgust = 0
@@ -81,9 +81,8 @@
 		M.blood_volume = BLOOD_VOLUME_NORMAL
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	for(var/organ in M.internal_organs)
-		var/obj/item/organ/O = organ
-		O.setOrganDamage(0)
+	for(var/obj/item/organ/organ as anything in M.internal_organs)
+		organ.setOrganDamage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(D.danger == DISEASE_BENEFICIAL || D.danger == DISEASE_POSITIVE)
@@ -105,11 +104,11 @@
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = max(M.drowsyness-5, 0)
-	M.AdjustStun(-20, FALSE)
-	M.AdjustKnockdown(-20, FALSE)
-	M.AdjustUnconscious(-20, FALSE)
-	M.AdjustImmobilized(-20, FALSE)
-	M.AdjustParalyzed(-20, FALSE)
+	M.AdjustStun(-20)
+	M.AdjustKnockdown(-20)
+	M.AdjustUnconscious(-20)
+	M.AdjustImmobilized(-20)
+	M.AdjustParalyzed(-20)
 	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
 		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5)
 	M.hallucination = max(0, M.hallucination - 10)
@@ -682,7 +681,7 @@
 			to_chat(M, "<span class ='notice'>Your hands spaz out and you drop what you were holding!</span>")
 			M.Jitter(10)
 
-	M.AdjustAllImmobility(-20, FALSE)
+	M.AdjustAllImmobility(-20)
 	M.adjustStaminaLoss(-10*REM, FALSE)
 	..()
 	return TRUE
@@ -791,7 +790,7 @@
 		if(12 to 24)
 			M.drowsyness += 1
 		if(24 to INFINITY)
-			M.Sleeping(40, 0)
+			M.Sleeping(40)
 			. = 1
 	..()
 
@@ -926,7 +925,7 @@
 	M.adjustStaminaLoss(-0.5*REM, 0)
 	. = 1
 	if(prob(20))
-		M.AdjustAllImmobility(-20, FALSE)
+		M.AdjustAllImmobility(-20)
 	..()
 
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/M)
@@ -1069,7 +1068,7 @@
 		M.adjustToxLoss(-1*REM, 0)
 		M.adjustBruteLoss(-1*REM, 0)
 		M.adjustFireLoss(-1*REM, 0)
-	M.AdjustAllImmobility(-60, FALSE)
+	M.AdjustAllImmobility(-60)
 	M.adjustStaminaLoss(-35*REM, 0)
 	..()
 	. = 1
@@ -1129,7 +1128,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/carbon/M)
-	if(M.AdjustSleeping(-20, FALSE))
+	if(M.AdjustSleeping(-20))
 		. = 1
 	M.reagents.remove_reagent(/datum/reagent/consumable/sugar, 3)
 	..()
@@ -1386,6 +1385,8 @@
 	M.adjustToxLoss(-5*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
 	M.adjustCloneLoss(-3*REM, 0)
+	if (M.blood_volume < BLOOD_VOLUME_NORMAL)
+		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL))
 	..()
 	. = 1
 
@@ -1472,7 +1473,7 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/M as mob)
-	M.AdjustAllImmobility(-20, FALSE)
+	M.AdjustAllImmobility(-20)
 	M.adjustStaminaLoss(-20, 0)
 	..()
 	return TRUE
@@ -1484,7 +1485,7 @@
 
 /datum/reagent/medicine/changelinghaste
 	name = "Changeling Haste"
-	description = "Drastically increases movement speed, but deals toxin damage."
+	description = "Drastically increases movement speed."
 	color = "#AE151D"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1
@@ -1496,11 +1497,6 @@
 /datum/reagent/medicine/changelinghaste/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/changelinghaste)
 	..()
-
-/datum/reagent/medicine/changelinghaste/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(2, 0)
-	..()
-	return TRUE
 
 /datum/reagent/medicine/corazone
 	// Heart attack code will not do damage if corazone is present
@@ -1565,7 +1561,7 @@
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/M)
 	if(!overdosed) // We do not want any effects on OD
 		overdose_threshold = overdose_threshold + rand(-10,10)/10 // for extra fun
-		M.AdjustAllImmobility(-20, FALSE)
+		M.AdjustAllImmobility(-20)
 		M.adjustStaminaLoss(-15*REM, 0)
 		M.Jitter(1)
 		metabolization_rate = 0.01 * REAGENTS_METABOLISM * rand(5,20) // randomizes metabolism between 0.02 and 0.08 per tick
@@ -1596,13 +1592,13 @@
 			if(prob(20))
 				to_chat(M, "You have a sudden fit!")
 				M.emote("moan")
-				M.Paralyze(20, 1, 0) // you should be in a bad spot at this point unless epipen has been used
+				M.Paralyze(20) // you should be in a bad spot at this point unless epipen has been used
 		if(81)
 			to_chat(M, "You feel too exhausted to continue!") // at this point you will eventually die unless you get charcoal
 			M.adjustOxyLoss(0.1*REM, 0)
 			M.adjustStaminaLoss(0.1*REM, 0)
 		if(82 to INFINITY)
-			M.Sleeping(100, 0, TRUE)
+			M.Sleeping(100)
 			M.adjustOxyLoss(1.5*REM, 0)
 			M.adjustStaminaLoss(1.5*REM, 0)
 	..()
@@ -1632,18 +1628,7 @@
 	M.dizziness = max(0, M.dizziness-6)
 	M.confused = max(0, M.confused-6)
 	M.disgust = max(0, M.disgust-6)
-	if(dosage >= 25) //45 seconds
-		if(is_hivemember(M))
-			for(var/datum/antagonist/hivemind/hive in GLOB.antagonists)
-				if(hive.hivemembers.Find(M.mind))
-					var/mob/living/carbon/C = hive.owner.current
-					if(C?.mind)
-						to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
-			if(IS_WOKEVESSEL(M))
-				M.mind.remove_antag_datum(/datum/antagonist/hivevessel)
-				ADD_TRAIT(M, TRAIT_HIVE_BURNT, HIVEMIND_TRAIT)
-			to_chat(M, "<span class='assimilator'>You hear supernatural wailing echo throughout your mind as you are finally set free. Deep down, you can feel the lingering presence of those who enslaved you... as can they!</span>")
-			remove_hivemember(M)
+
 
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	if(mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
@@ -1672,7 +1657,7 @@
 
 /datum/reagent/medicine/polypyr  //This is intended to be an ingredient in advanced chems.
 	name = "Polypyrylium Oligomers"
-	description = "A purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is valued as an intermediate in the synthesis of the cutting edge pharmaceuticals."
+	description = "A purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is a powerful pharmaceutical drug which provides minor healing and prevents bloodloss, making it incredibly useful for the synthesis of other drugs."
 	reagent_state = SOLID
 	color = "#9423FF"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
@@ -1683,10 +1668,9 @@
 /datum/reagent/medicine/polypyr/on_mob_life(mob/living/carbon/M) //I wanted a collection of small positive effects, this is as hard to obtain as coniine after all.
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.25)
 	M.adjustBruteLoss(-0.35, 0)
-	if(prob(50))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.bleed_rate = max(H.bleed_rate - 1, 0)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.cauterise_wounds(0.1)
 	..()
 	. = 1
 
@@ -1705,7 +1689,7 @@
 
 /datum/reagent/medicine/stabilizing_nanites
 	name = "Stabilizing nanites"
-	description = "Rapidly heals a patient out of crit by regenerating damaged cells. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
+	description = "Rapidly heals a patient out of crit by regenerating damaged cells and causing blood to clot, preventing bleeding. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
 	reagent_state = LIQUID
 	color = "#000000"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -1722,4 +1706,12 @@
 	if(prob(20))
 		M.Jitter(5)
 	M.losebreath = 0
+	if (M.blood_volume < BLOOD_VOLUME_SAFE)
+		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_SAFE))
 	..()
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NO_BLEEDING, type)
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)

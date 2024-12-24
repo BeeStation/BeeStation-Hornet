@@ -72,7 +72,8 @@
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
 		S.status_flags &= ~GODMODE
-		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
+		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -346,14 +347,15 @@
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	S.mobility_flags = NONE //Can't move out of the soul stone
+	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
+	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = shade_controller.key
 	S.copy_languages(T, LANGUAGE_MIND)//Copies the old mobs languages into the new mob holder.
-	S.copy_languages(user, LANGUAGE_MASTER)
-	S.update_atom_languages()
-	grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
+	if(user)
+		S.copy_languages(user, LANGUAGE_MASTER)
+	S.get_language_holder().omnitongue = TRUE //Grants omnitongue
 	if(user)
 		S.faction |= "[REF(user)]" //Add the master as a faction, allowing inter-mob cooperation
 	if(user && iscultist(user))

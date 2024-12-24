@@ -10,6 +10,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	item_flags = DROPDEL
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
@@ -18,15 +19,6 @@
 
 /obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
-
-/obj/item/chrono_eraser/dropped()
-	..()
-	if(PA)
-		qdel(PA)
-
-/obj/item/chrono_eraser/Destroy()
-	dropped()
-	return ..()
 
 /obj/item/chrono_eraser/ui_action_click(mob/user)
 	if(iscarbon(user))
@@ -111,7 +103,7 @@
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
 			var/mob/living/user = loc
-			if(currentpos == startpos && isliving(user) && (user.mobility_flags & MOBILITY_STAND) && (user.stat == CONSCIOUS) && (field in view(CHRONO_BEAM_RANGE, currentpos)))
+			if(currentpos == startpos && isliving(user) && user.body_position == STANDING_UP && !HAS_TRAIT(user, TRAIT_INCAPACITATED) && (field in view(CHRONO_BEAM_RANGE, currentpos)))
 				return TRUE
 		field_disconnect(F)
 		return FALSE
@@ -179,6 +171,8 @@
 	var/mutable_appearance/mob_underlay
 	var/RPpos = null
 	var/attached = TRUE //if the gun arg isn't included initially, then the chronofield will work without one
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
 
 /obj/structure/chrono_field/Initialize(mapload, mob/living/target, obj/item/gun/energy/chrono_gun/G)
 	if(target && isliving(target))

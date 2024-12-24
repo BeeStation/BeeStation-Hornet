@@ -208,6 +208,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos //Used for atmos waste loops
 	on = TRUE
 	icon_state = "filter_on-0"
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2
 	name = "nitrogen filter"
 	filter_type = "n2"
@@ -217,29 +218,12 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/co2
 	name = "carbon dioxide filter"
 	filter_type = "co2"
+
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2o
 	name = "nitrous oxide filter"
 	filter_type = "n2o"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma
-	name = "plasma filter"
-	filter_type = "plasma"
 
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped //This feels wrong, I know
-	icon_state = "filter_on-0_f"
-	flipped = TRUE
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2
-	name = "nitrogen filter"
-	filter_type = "n2"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2
-	name = "oxygen filter"
-	filter_type = "o2"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/co2
-	name = "carbon dioxide filter"
-	filter_type = "co2"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2o
-	name = "nitrous oxide filter"
-	filter_type = "n2o"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/plasma
+/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma
 	name = "plasma filter"
 	filter_type = "plasma"
 

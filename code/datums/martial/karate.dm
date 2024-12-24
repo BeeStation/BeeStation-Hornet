@@ -33,7 +33,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
-	if(!(D.mobility_flags & MOBILITY_STAND))
+	if(D.body_position == LYING_DOWN)
 		log_combat(A, D, "floor stomped (Karate)", name)
 		D.visible_message("<span class='warning'>[A] stomped [D] in the head!</span>", \
 							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -121,3 +121,8 @@
 	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
 	to_chat(usr, "<span class='notice'>Karate Chop</span>: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
 	to_chat(usr, "<span class='notice'>Floor Stomp</span>: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
+
+#undef CALF_KICK_COMBO
+#undef FLOOR_KICK_COMBO
+#undef JUMPING_KNEE_COMBO
+#undef KARATE_CHOP_COMBO

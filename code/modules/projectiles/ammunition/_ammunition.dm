@@ -54,7 +54,7 @@
 	return ..()
 
 /obj/item/ammo_casing/update_icon()
-	..()
+	. = ..()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
 
@@ -88,7 +88,7 @@
 /obj/item/ammo_casing/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(heavy_metal)
 		bounce_away(FALSE, NONE)
-	. = ..()
+	return ..()
 
 /obj/item/ammo_casing/proc/bounce_away(still_warm = FALSE, bounce_delay = 3)
 	update_icon()

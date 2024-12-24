@@ -47,9 +47,6 @@
 		tracking = null
 	return ..()
 
-/obj/item/camera_bug/interact(mob/user)
-	ui_interact(user)
-
 /obj/item/camera_bug/ui_interact(mob/user = usr)
 	. = ..()
 	var/datum/browser/popup = new(user, "camerabug","Camera Bug",nref=src)
@@ -187,7 +184,7 @@
 			else
 				names[M.name] = 1
 				dat += "[M.name]"
-			if(!(M.mobility_flags & MOBILITY_STAND))
+			if(M.body_position == LYING_DOWN)
 				if(M.buckled)
 					dat += " (Sitting)"
 				else

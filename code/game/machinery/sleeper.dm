@@ -100,7 +100,7 @@
 	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
-	if ((istype(I, /obj/item/reagent_containers/glass) \
+	if ((istype(I, /obj/item/reagent_containers/cup) \
 		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
 		&& user.a_intent != INTENT_HARM)
 		if (length(inserted_vials) >= max_vials)
@@ -129,7 +129,7 @@
 	if (!state_open && gone == occupant)
 		container_resist(gone)
 
-/obj/machinery/sleeper/relaymove(mob/user)
+/obj/machinery/sleeper/relaymove(mob/living/user, direction)
 	if (!state_open)
 		container_resist(user)
 
@@ -156,14 +156,13 @@
 	if(is_operational && occupant)
 		open_machine()
 
+
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
-	if(user.stat || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
 		return
-	if(isliving(user))
-		var/mob/living/L = user
-		if(!(L.mobility_flags & MOBILITY_STAND))
-			return
+
 	close_machine(target)
+
 
 /obj/machinery/sleeper/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

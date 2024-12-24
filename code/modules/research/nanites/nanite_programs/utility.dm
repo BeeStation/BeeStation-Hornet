@@ -262,7 +262,7 @@
 		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
 		return
 	var/mob/living/infectee = pick(target_hosts)
-	if(prob(100 - (infectee.get_permeability_protection() * 100)))
+	if(prob(100 - (infectee.getarmor(null, BIO))))
 		COOLDOWN_START(src, spread_cooldown, 7.5 SECONDS)
 		//this will potentially take over existing nanites!
 		infectee.AddComponent(/datum/component/nanites, 10)
@@ -291,7 +291,7 @@
 		consume_nanites(-5)
 		return
 	var/mob/living/infectee = pick(target_hosts)
-	if(prob(100 - (infectee.get_permeability_protection() * 100)))
+	if(prob(100 - (infectee.getarmor(null, BIO))))
 		//unlike with Infective Exo-Locomotion, this can't take over existing nanites, because Nanite Sting only targets non-hosts.
 		infectee.AddComponent(/datum/component/nanites, 5)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
@@ -354,7 +354,7 @@
 
 /datum/action/innate/nanite_button
 	name = "Button"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "power_green"
 	var/datum/nanite_program/dermal_button/program

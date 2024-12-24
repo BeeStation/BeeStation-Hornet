@@ -17,6 +17,8 @@
 	var/sun_angle = 0		// sun angle as set by sun datum
 	var/obj/machinery/power/solar_control/control = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/tracker)
+
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
 	Make(S)
@@ -68,7 +70,7 @@
 		deconstruct(TRUE)
 	return TRUE
 
-/obj/machinery/power/tracker/obj_break(damage_flag)
+/obj/machinery/power/tracker/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)

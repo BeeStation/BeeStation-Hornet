@@ -27,7 +27,7 @@
 	//Anti magic abilities
 	var/anti_magic_source = M.anti_magic_check(holy = TRUE)
 	if(anti_magic_source)
-		M.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
+		M.mob_light(color = LIGHT_COLOR_HOLY_MAGIC, range = 2, duration = 100)
 		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 		M.add_overlay(forbearance)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
@@ -37,7 +37,7 @@
 		return TRUE
 	//Blood Cultist Effect
 	if(iscultist(M))
-		M.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 2, _duration = 300)
+		M.mob_light(color = LIGHT_COLOR_BLOOD_MAGIC, range = 2, duration = 300)
 		M.stuttering += 15
 		M.Jitter(15)
 		var/mob_color = M.color
@@ -48,7 +48,7 @@
 		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
 		return TRUE
 	//Successful Invokation
-	invoker.mob_light(_color = LIGHT_COLOR_CLOCKWORK, _range = 2, _duration = 10)
+	invoker.mob_light(color = LIGHT_COLOR_CLOCKWORK, range = 2, duration = 10)
 	if(!is_reebe(invoker.z))
 		if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
 			M.Paralyze(150)

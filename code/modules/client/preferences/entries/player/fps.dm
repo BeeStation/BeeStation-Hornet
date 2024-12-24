@@ -10,11 +10,11 @@
 	return -1 // use the default
 
 /datum/preference/numeric/fps/apply_to_client(client/client, value)
-	client.fps = (value < 0) ? 40 : value
+	client.fps = (value < 0) ? 60 : value
 
 /datum/preference/numeric/fps/compile_constant_data()
 	var/list/data = ..()
 
-	data["recommended_fps"] = 40
+	data["recommended_fps"] = 60
 
 	return data

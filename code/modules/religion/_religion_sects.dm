@@ -46,7 +46,7 @@
 	var/altar_anchored = TRUE
 
 /datum/religion_sect/proc/is_available(mob/user)
-    return TRUE // basically all available
+	return TRUE // basically all available
 
 /datum/religion_sect/New()
 	. = ..()

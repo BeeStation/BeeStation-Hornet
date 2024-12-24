@@ -9,18 +9,24 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/storage/box/fakesyndiesuit = 2,
 		/obj/item/storage/crayons = 2,
 		/obj/item/toy/spinningtoy = 2,
-		/obj/item/toy/prize/ripley = 1,
-		/obj/item/toy/prize/fireripley = 1,
-		/obj/item/toy/prize/deathripley = 1,
-		/obj/item/toy/prize/gygax = 1,
-		/obj/item/toy/prize/durand = 1,
-		/obj/item/toy/prize/honk = 1,
-		/obj/item/toy/prize/marauder = 1,
-		/obj/item/toy/prize/seraph = 1,
-		/obj/item/toy/prize/mauler = 1,
-		/obj/item/toy/prize/odysseus = 1,
-		/obj/item/toy/prize/phazon = 1,
-		/obj/item/toy/prize/reticence = 1,
+		/obj/item/toy/mecha/ripley = 1,
+		/obj/item/toy/mecha/ripleymkii = 1,
+		/obj/item/toy/mecha/hauler = 1,
+		/obj/item/toy/mecha/clarke = 1,
+		/obj/item/toy/mecha/odysseus = 1,
+		/obj/item/toy/mecha/gygax = 1,
+		/obj/item/toy/mecha/durand = 1,
+		//obj/item/toy/mecha/savannahivanov = 1,
+		/obj/item/toy/mecha/phazon = 1,
+		/obj/item/toy/mecha/honk = 1,
+		/obj/item/toy/mecha/darkgygax = 1,
+		/obj/item/toy/mecha/mauler = 1,
+		/obj/item/toy/mecha/darkhonk = 1,
+		/obj/item/toy/mecha/deathripley = 1,
+		/obj/item/toy/mecha/reticence = 1,
+		/obj/item/toy/mecha/marauder = 1,
+		/obj/item/toy/mecha/seraph = 1,
+		/obj/item/toy/mecha/firefighter = 1,
 		/obj/item/toy/cards/deck = 2,
 		/obj/item/toy/nuke = 2,
 		/obj/item/toy/minimeteor = 2,
@@ -51,6 +57,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth/random = 2,
+		/obj/item/toy/plush/shark = 2,
 		/obj/item/toy/plush/slimeplushie/random = 2,
 		/obj/item/toy/plush/flushed = 2,
 		/obj/item/toy/plush/flushed/rainbow = 1,
@@ -270,7 +277,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 
 			if(obj_flags & EMAGGED)
-				new /obj/effect/spawner/newbomb/timer/syndicate(loc)
+				new /obj/effect/spawner/newbomb/timer(loc)
 				new /obj/item/clothing/head/collectable/petehat(loc)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
@@ -407,7 +414,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 /obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 
 /obj/machinery/computer/arcade/orion_trail/kobayashi
 	name = "Kobayashi Maru control computer"
@@ -481,12 +488,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		Radio.talk_into(src, "PSYCH ALERT: Crewmember [gamer] recorded displaying antisocial tendencies in [get_area(src)]. Please schedule psych evaluation.", FREQ_MEDICAL)
 
 		gamers[gamer] = -1
-
-		if(!isnull(GLOB.data_core.general))
-			for(var/datum/data/record/R in GLOB.data_core.general)
-				if(R.fields["name"] == gamer.name)
-					R.fields["m_stat"] = "*Unstable*"
-					return
 
 
 /obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user)
@@ -701,7 +702,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(isliving(usr))
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
-					var/S = new /obj/anomaly/singularity/academy(usr.loc)
+					var/S = new /obj/anomaly/singularity/stationary(usr.loc)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, say), "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else

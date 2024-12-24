@@ -91,7 +91,7 @@
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "r" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
@@ -145,7 +145,7 @@
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "z" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/effect/mapping_helpers/airlock/locked,

@@ -18,6 +18,14 @@
 		piping_layer = 4;				\
 		icon_state = Iconbase + "-4";	\
 	}									\
+	##Fulltype/visible/layer1 {			\
+		piping_layer = 1;				\
+		icon_state = Iconbase + "-1";	\
+	}									\
+	##Fulltype/visible/layer5 {			\
+		piping_layer = 5;				\
+		icon_state = Iconbase + "-5";	\
+	}									\
 	##Fulltype/hidden {					\
 		hide = TRUE;					\
 	}									\
@@ -28,6 +36,14 @@
 	##Fulltype/hidden/layer4 {			\
 		piping_layer = 4;				\
 		icon_state = Iconbase + "-4";	\
+	}									\
+	##Fulltype/hidden/layer1 {			\
+		piping_layer = 1;				\
+		icon_state = Iconbase + "-1";	\
+	}									\
+	##Fulltype/hidden/layer5 {			\
+		piping_layer = 5;				\
+		icon_state = Iconbase + "-5";	\
 	}
 
 #define HELPER_PARTIAL_NAMED(Fulltype, Type, Iconbase, Color, Name) \
@@ -39,12 +55,14 @@
 #define HELPER(Type, Color) \
 	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/simple/##Type, #Type, "pipe11", Color) 		\
 	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold/##Type, #Type, "manifold", Color)		\
-	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color)
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color)	\
+	HELPER_PARTIAL(/obj/effect/mapping_helpers/simple_pipes/##Type, #Type, "pipe", Color)
 
 #define HELPER_NAMED(Type, Name, Color) \
 	HELPER_PARTIAL_NAMED(/obj/machinery/atmospherics/pipe/simple/##Type, #Type, "pipe11", Color, Name) 		\
 	HELPER_PARTIAL_NAMED(/obj/machinery/atmospherics/pipe/manifold/##Type, #Type, "manifold", Color, Name)		\
-	HELPER_PARTIAL_NAMED(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color, Name)
+	HELPER_PARTIAL_NAMED(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color, Name)	\
+	HELPER_PARTIAL_NAMED(/obj/effect/mapping_helpers/simple_pipes/##Type, #Type, "pipe", Color, Name)
 
 HELPER(general, null)
 HELPER(yellow, rgb(255, 198, 0))

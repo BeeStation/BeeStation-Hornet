@@ -1019,7 +1019,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
 "dq" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -1241,7 +1241,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/derelict/bridge/access)
 "dZ" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
 "ea" = (
@@ -1489,7 +1489,7 @@
 /area/ruin/space/derelict/bridge)
 "eU" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -2260,7 +2260,7 @@
 /area/ruin/space/derelict/medical/chapel)
 "hG" = (
 /obj/machinery/door/morgue{
-	name = "coffin storage";
+	name = "coffin Storage";
 	req_access_txt = "22"
 	},
 /turf/open/floor/iron/dark,
@@ -2520,7 +2520,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
 "iC" = (
@@ -2734,7 +2734,7 @@
 	},
 /area/ruin/space/derelict/medical)
 "jk" = (
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/airless{
 	icon_state = "damaged3"
 	},
@@ -3374,7 +3374,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "lq" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
 	},
 /obj/item/paper/crumpled/bloody/ruins/thederelict/unfinished,

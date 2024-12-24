@@ -282,6 +282,8 @@
 /obj/item/paper/monitorkey
 	name = "monitor decryption key"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/monitorkey)
+
 /obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
 	..()
 	if (server)

@@ -56,10 +56,11 @@ Metals Sheets
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
-	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/alloy/plasteel=MINERAL_MATERIAL_AMOUNT)
+	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
+	armor_type = /datum/armor/sheet_plasteel
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
@@ -67,6 +68,11 @@ Metals Sheets
 	tableVariant = /obj/structure/table/reinforced
 	matter_amount = 12
 	material_flags = NONE
+
+
+/datum/armor/sheet_plasteel
+	fire = 100
+	acid = 80
 
 /obj/item/stack/sheet/plasteel/get_recipes()
 	return GLOB.plasteel_recipes
@@ -132,6 +138,8 @@ Metals Sheets
 /obj/item/stack/sheet/brass/get_recipes()
 	return GLOB.brass_recipes
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
+
 /obj/item/stack/sheet/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	pixel_x = 0
@@ -163,6 +171,8 @@ Metals Sheets
 
 /obj/item/stack/sheet/bronze/get_recipes()
 	return GLOB.bronze_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 
 /obj/item/stack/sheet/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

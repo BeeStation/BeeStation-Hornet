@@ -459,8 +459,7 @@
 	var/list/parts = list()
 	var/borg_spacer = FALSE //inserts an extra linebreak to separate AIs from independent borgs, and then multiple independent borgs.
 	//Silicon laws report
-	for (var/i in GLOB.ai_list)
-		var/mob/living/silicon/ai/aiPlayer = i
+	for (var/mob/living/silicon/ai/aiPlayer as anything in GLOB.ai_list)
 		if(aiPlayer.mind)
 			parts += "<b>[aiPlayer.name]</b> (Played by: <b>[aiPlayer.mind.key]</b>)'s laws [aiPlayer.stat != DEAD ? "at the end of the round" : "when it was <span class='redtext'>deactivated</span>"] were:"
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
@@ -482,7 +481,7 @@
 		if(!borg_spacer)
 			borg_spacer = TRUE
 
-	for (var/mob/living/silicon/robot/robo in GLOB.silicon_mobs)
+	for (var/mob/living/silicon/robot/robo as anything in GLOB.cyborg_list)
 		if (!robo.connected_ai && robo.mind)
 			parts += "[borg_spacer?"<br>":""]<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>) [(robo.stat != DEAD)? "<span class='greentext'>survived</span> as an AI-less borg!" : "was <span class='redtext'>unable to survive</span> the rigors of being a cyborg without an AI."] Its laws were:"
 
@@ -656,9 +655,9 @@
 		if(custom_title == mind.assigned_role) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
-		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
-			custom_title = R.fields["rank"] // get a custom title from datacore
+			custom_title = R.rank // get a custom title from manifest
 		if(custom_title == mind.assigned_role) // lame...
 			return
 

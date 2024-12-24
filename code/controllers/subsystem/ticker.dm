@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(ticker)
 	var/use_rare_music = prob(1)
 
 	for(var/S in provisional_title_music)
-		var/lower = lowertext(S)
+		var/lower = LOWER_TEXT(S)
 		var/list/L = splittext(lower,"+")
 		switch(L.len)
 			if(3) //rare+MAP+sound.ogg or MAP+rare.sound.ogg -- Rare Map-specific sounds
@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(ticker)
 	for(var/S in music)
 		var/list/L = splittext(S,".")
 		if(L.len >= 2)
-			var/ext = lowertext(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
+			var/ext = LOWER_TEXT(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
 			if(byond_sound_formats[ext])
 				continue
 		music -= S
@@ -329,24 +329,26 @@ SUBSYSTEM_DEF(ticker)
 	collect_minds()
 	equip_characters()
 
-	GLOB.data_core.manifest()
+	GLOB.manifest.build()
 
 	transfer_characters()	//transfer keys to the new mobs
-
-	for(var/I in round_start_events)
-		var/datum/callback/cb = I
-		cb.InvokeAsync()
-	LAZYCLEARLIST(round_start_events)
 
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
 	round_start_timeofday = world.timeofday
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundStart))
 
+	current_state = GAME_STATE_PLAYING
+
+	// Now that nothing can enter the callback list, fire them off
+	for(var/I in round_start_events)
+		var/datum/callback/cb = I
+		cb.InvokeAsync()
+	LAZYCLEARLIST(round_start_events)
+
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
 	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound()))
 
-	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	if(SSevents.holidays)
@@ -448,7 +450,7 @@ SUBSYSTEM_DEF(ticker)
 			if(mind.assigned_role == JOB_NAME_CAPTAIN)
 				captainless = FALSE
 				spare_id_candidates += N
-			else if(captainless && (mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
+			else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
 				if(!enforce_coc)
 					spare_id_candidates += N
 				else
@@ -739,3 +741,5 @@ SUBSYSTEM_DEF(ticker)
 
 	SEND_SOUND(world, sound(round_end_sound))
 	rustg_file_append(login_music, "data/last_round_lobby_music.txt")
+
+#undef ROUND_START_MUSIC_LIST

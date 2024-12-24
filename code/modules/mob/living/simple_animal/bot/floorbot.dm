@@ -40,6 +40,8 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
+
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color
@@ -84,35 +86,23 @@
 	text_dehack = "You detect errors in [name] and reset his programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Special tiles: "
-	if(tilestack)
-		dat += "<A href='?src=[REF(src)];operation=eject'>Loaded \[[tilestack.amount]/[maxtiles]\]</a><BR>"
-	else
-		dat += "None Loaded<BR>"
-
-	dat += "Behaviour controls are [locked ? "locked" : "unlocked"]<BR>"
+/mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Add tiles to new hull plating: <A href='?src=[REF(src)];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Place floor tiles: <A href='?src=[REF(src)];operation=place'>[placetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Replace existing floor tiles with custom tiles: <A href='?src=[REF(src)];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <A href='?src=[REF(src)];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <A href='?src=[REF(src)];operation=magnet'>[HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, BUSY_FLOORBOT_TRAIT) ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-		var/bmode
+		data["custom_controls"]["tile_hull"] = autotile
+		data["custom_controls"]["place_tiles"] = placetiles
+		data["custom_controls"]["place_custom"] = replacetiles
+		data["custom_controls"]["repair_damage"] = fixfloors
+		data["custom_controls"]["traction_magnets"] = HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, BUSY_FLOORBOT_TRAIT)
+		data["custom_controls"]["line_mode"] = FALSE
+		data["custom_controls"]["tile_stack"] = list(
+			"tilestack" = tilestack,
+			"amount" = tilestack?.amount,
+			"max_amount" = tilestack?.max_amount
+		)
 		if(targetdirection)
-			bmode = dir2text(targetdirection)
-		else
-			bmode = "disabled"
-		dat += "Line Mode : <A href='?src=[REF(src)];operation=linemode'>[bmode]</A><BR>"
-
-	return dat
+			data["custom_controls"]["line_mode"] = dir2text(targetdirection)
+	return data
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/iron))
@@ -159,26 +149,26 @@
 		if(change_icon)
 			update_icon()
 
-/mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
-	if(..())
+/mob/living/simple_animal/bot/floorbot/ui_act(action, params)
+	if (..())
 		return TRUE
 
-	switch(href_list["operation"])
-		if("replace")
+	switch(action)
+		if("place_custom")
 			replacetiles = !replacetiles
-		if("place")
+		if("place_tiles")
 			placetiles = !placetiles
-		if("fix")
+		if("repair_damage")
 			fixfloors = !fixfloors
-		if("autotile")
+		if("tile_hull")
 			autotile = !autotile
-		if("magnet")
+		if("traction_magnets")
 			toggle_magnet(!HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, BUSY_FLOORBOT_TRAIT), FALSE)
-		if("eject")
+		if("eject_tiles")
 			if(tilestack)
 				tilestack.forceMove(drop_location())
 
-		if("linemode")
+		if("line_mode")
 			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
 			switch(setdir)
 				if("north")
@@ -191,7 +181,6 @@
 					targetdirection = 8
 				if("disable")
 					targetdirection = null
-	update_controls()
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())
@@ -339,7 +328,7 @@
 		playsound(src, 'sound/effects/whistlereset.ogg', 50, TRUE)
 		return
 	if(isspaceturf(target_turf))
-		 //Must be a hull breach or in line mode to continue.
+		//Must be a hull breach or in line mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return

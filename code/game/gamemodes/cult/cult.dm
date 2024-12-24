@@ -71,7 +71,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	//cult scaling goes here
 	recommended_enemies = 1 + round(num_players()/CULT_SCALING_COEFFICIENT)

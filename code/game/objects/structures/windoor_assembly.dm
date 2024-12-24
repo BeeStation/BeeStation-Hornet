@@ -31,6 +31,8 @@
 	var/state = "01"	//How far the door assembly has progressed
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
+
 /obj/structure/windoor_assembly/Initialize(mapload, loc, set_dir)
 	. = ..()
 	if(set_dir)

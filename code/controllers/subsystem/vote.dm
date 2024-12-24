@@ -153,13 +153,6 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
 				SSmapping.map_voted = TRUE
-			if("transfer")
-				if(. == "Initiate Crew Transfer")
-					SSshuttle.requestEvac(null, "Crew Transfer Requested.")
-					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
-					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
-					if(C)
-						C.post_status("shuttle")
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins+GLOB.deadmins)
@@ -229,8 +222,6 @@ SUBSYSTEM_DEF(vote)
 					shuffle_inplace(maps)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
-			if("transfer")
-				choices.Add("Initiate Crew Transfer", "Continue Playing")
 			if("custom")
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)

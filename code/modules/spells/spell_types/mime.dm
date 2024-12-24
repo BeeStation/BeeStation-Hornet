@@ -14,7 +14,7 @@
 	cast_sound = null
 	human_req = TRUE
 
-	action_icon = 'icons/mob/actions/actions_mime.dmi'
+	action_icon = 'icons/hud/actions/actions_mime.dmi'
 	action_icon_state = "invisible_wall"
 	action_background_icon_state = "bg_mime"
 
@@ -44,7 +44,7 @@
 	cast_sound = null
 	human_req = TRUE
 
-	action_icon = 'icons/mob/actions/actions_mime.dmi'
+	action_icon = 'icons/hud/actions/actions_mime.dmi'
 	action_icon_state = "invisible_chair"
 	action_background_icon_state = "bg_mime"
 
@@ -82,7 +82,7 @@
 	cast_sound = null
 	human_req = TRUE
 
-	action_icon = 'icons/mob/actions/actions_mime.dmi'
+	action_icon = 'icons/hud/actions/actions_mime.dmi'
 	action_icon_state = "invisible_box"
 	action_background_icon_state = "bg_mime"
 
@@ -117,7 +117,7 @@
 	range = -1
 	include_user = TRUE
 
-	action_icon = 'icons/mob/actions/actions_mime.dmi'
+	action_icon = 'icons/hud/actions/actions_mime.dmi'
 	action_icon_state = "mime_speech"
 	action_background_icon_state = "bg_mime"
 
@@ -162,7 +162,7 @@
 	range = -1
 	include_user = TRUE
 
-	action_icon = 'icons/mob/actions/actions_mime.dmi'
+	action_icon = 'icons/hud/actions/actions_mime.dmi'
 	action_icon_state = "invisible_blockade"
 	action_background_icon_state = "bg_mime"
 
@@ -190,7 +190,7 @@
 	invocation_emote_self = "<span class='dangers'>You fire your finger gun!</span>"
 	sound = null
 
-	action_icon = 'icons/mob/actions/actions_mime.dmi'
+	action_icon = 'icons/hud/actions/actions_mime.dmi'
 	action_icon_state = "finger_guns0"
 	action_background_icon_state = "bg_mime"
 

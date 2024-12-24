@@ -1,3 +1,6 @@
+#define REVOLUTION_VICTORY 1
+#define STATION_VICTORY 2
+
 #define DECONVERTER_STATION_WIN "gamemode_station_win"
 #define DECONVERTER_REVS_WIN "gamemode_revs_win"
 //How often to check for promotion possibility
@@ -15,7 +18,7 @@
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(.)
-		if(new_owner.assigned_role in GLOB.command_positions)
+		if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			return FALSE
 		if(new_owner.unconvertable)
 			return FALSE
@@ -455,5 +458,9 @@
 /datum/objective/revolution/get_completion_message()
 	return "[explanation_text]"
 
+#undef REVOLUTION_VICTORY
+#undef STATION_VICTORY
 #undef DECONVERTER_STATION_WIN
 #undef DECONVERTER_REVS_WIN
+#undef HEAD_UPDATE_PERIOD
+

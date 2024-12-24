@@ -34,6 +34,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
+
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)

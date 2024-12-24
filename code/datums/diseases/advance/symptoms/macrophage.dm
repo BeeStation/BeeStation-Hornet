@@ -15,9 +15,9 @@
 	var/netspeed = 0
 	var/phagecounter = 10
 	threshold_desc = "<b>Stage Speed:</b>The higher the stage speed, the more frequently phages will burst from the host.<br>\
-                      <b>Resistance:</b>The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
-					  <b>Transmission 10:</b>Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
-                      <b>Transmission 12:</b>Phages will carry all diseases within the host, instead of only diseases containing their own symptom"
+						<b>Resistance:</b>The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
+						<b>Transmission 10:</b>Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
+						<b>Transmission 12:</b>Phages will carry all diseases within the host, instead of only diseases containing their own symptom"
 
 
 
@@ -43,7 +43,7 @@
 				to_chat(M, "<span class='notice'>Your skin crawls.</span>")
 		if(4)
 			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
-								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
+									"<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
 		if(5)
 			phagecounter -= max(2, A.stage_rate)
 			if(gigagerms && phagecounter <= 0) //only ever spawn one big germ
@@ -76,5 +76,5 @@
 				continue
 			phage.infections += D
 	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
-	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
+		"<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
 	addtimer(CALLBACK(phage, TYPE_PROC_REF(/mob/living/simple_animal/hostile/macrophage, shrivel)), 3000)

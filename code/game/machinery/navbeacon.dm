@@ -9,7 +9,7 @@
 	desc = "A radio beacon used for bot navigation."
 	layer = UNDER_CATWALK
 	max_integrity = 500
-	armor = list(MELEE = 70,  BULLET = 70, LASER = 70, ENERGY = 70, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	armor_type = /datum/armor/machinery_navbeacon
 
 	var/open = FALSE		// true if cover is open
 	var/locked = TRUE		// true if controls are locked
@@ -19,6 +19,15 @@
 	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
 
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+
+
+/datum/armor/machinery_navbeacon
+	melee = 70
+	bullet = 70
+	laser = 70
+	energy = 70
+	fire = 80
+	acid = 80
 
 /obj/machinery/navbeacon/Initialize(mapload)
 	. = ..()
@@ -95,7 +104,7 @@
 	else
 		return ..()
 
-/obj/machinery/navbeacon/attack_ai(mob/user)
+/obj/machinery/navbeacon/attack_silicon(mob/user)
 	interact(user, 1)
 
 /obj/machinery/navbeacon/attack_paw()

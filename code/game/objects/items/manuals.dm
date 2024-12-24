@@ -101,14 +101,6 @@
 				<li>Install the external reinforced armor plating (not included due to Nanotrasen regulations. Can be made using 5 reinforced iron sheets).</li>
 				<li>Secure the external reinforced armor plating with a wrench.</li>
 				<li>Weld the external reinforced armor plating to the chassis.</li>
-				<li></li>
-				<li>Additional Information:</li>
-				<li>The firefighting variation is made in a similar fashion.</li>
-				<li>A firesuit must be connected to the Firefighter chassis for heat shielding.</li>
-				<li>Internal armor is plasteel for additional strength.</li>
-				<li>External armor must be installed in 2 parts, totaling 10 sheets.</li>
-				<li>Completed mech is more resiliant against fire, and is a bit more durable overall.</li>
-				<li>Nanotrasen is determined to the safety of its <s>investments</s> employees.</li>
 				</ol>
 				</body>
 				</html>
@@ -253,7 +245,7 @@
 	if(!wikiurl)
 		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", "Open the wiki", list("Yes", "No")) != "Yes")
 		return
 
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
@@ -322,9 +314,6 @@
 					user.say("Number Three: In the 2030s, there were strict regulations to prevent monopolies; now those regulations have been dismantled, allowing a few companies to control entire industries. This concentration of power stifles competition and innovation.")
 				if (4)
 					user.say("Number Four: In the past, media outlets were independent; now a handful of conglomerates control the majority of information. Control the narrative, control the minds of the masses.")
-		else
-			var/datum/crime/chosen = pick(subtypesof(/datum/crime) - /datum/crime/minor - /datum/crime/capital - /datum/crime/major - /datum/crime/misdemeanour)
-			user.say("[initial(chosen.tooltip)]", forced = "space law")
 	if (user.do_afters)
 		return
 	if (!do_after(user, 2 SECONDS, target))
@@ -464,7 +453,7 @@
 			if(prob(50))
 				step(W, pick(GLOB.alldirs))
 		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		H.bleed_rate = 5
+		H.add_bleeding(BLEED_CRITICAL)
 		H.gib_animation()
 		sleep(3)
 		H.adjustBruteLoss(1000) //to make the body super-bloody

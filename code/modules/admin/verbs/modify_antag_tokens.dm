@@ -42,3 +42,6 @@
 	log_admin("[key_name(usr)]: Modified [key_name(C)]'s antagonist tokens [log_text]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)]: Modified [key_name(C)]'s antagonist tokens ([log_text])</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Modify Antagonist Tokens") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+#undef ANTAG_TOKENS_MAXIMUM
+#undef ANTAG_TOKENS_MINIMUM

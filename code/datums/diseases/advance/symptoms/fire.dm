@@ -33,9 +33,9 @@ Bonus
 	suffixes = list(" Combustion")
 	var/infective = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b> Increases the intensity of the flames.<br>\
-					  <b>Stage Speed 8:</b> Further increases flame intensity.<br>\
-					  <b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stage Speed 8:</b> Further increases flame intensity.<br>\
+						<b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
@@ -127,8 +127,8 @@ Bonus
 	var/chems = FALSE
 	var/explosion_power = 1
 	threshold_desc = "<b>Stealth 3:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
-					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
-					  <b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+						<b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
+						<b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()

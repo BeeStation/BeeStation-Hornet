@@ -2,6 +2,7 @@
 /obj/item/organ/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
+	visual = FALSE
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 	var/implant_color = "#FFFFFF"
@@ -151,7 +152,7 @@
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
+/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech

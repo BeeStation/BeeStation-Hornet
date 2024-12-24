@@ -6,7 +6,6 @@
 	desc = "a computer used to control the workshop in the prison"
 
 	mapped_start_area = /area/holodeck/prison
-	linked = /area/holodeck/prison //linked area
 	program_type = /datum/map_template/holodeck/prison //load workshop programs
 	req_access = list(ACCESS_SECURITY)
 	var/startup

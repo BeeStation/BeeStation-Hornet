@@ -79,7 +79,7 @@
 /area/template_noop)
 "A" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "B" = (
@@ -96,18 +96,18 @@
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -7;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -1
 	},
 /turf/open/floor/iron/cafeteria,

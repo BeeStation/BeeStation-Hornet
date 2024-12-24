@@ -127,7 +127,6 @@
 /datum/status_effect/wish_granters_gift/on_remove()
 	owner.revive(full_heal = TRUE, admin_revive = TRUE)
 	owner.visible_message("<span class='warning'>[owner] appears to wake from the dead, having healed all wounds!</span>", "<span class='notice'>You have regenerated.</span>")
-	owner.update_mobility()
 
 /atom/movable/screen/alert/status_effect/wish_granters_gift
 	name = "Wish Granter's Immortality"
@@ -411,7 +410,8 @@
 /datum/status_effect/changeling/mindshield
 	id = "changelingmindshield"
 	alert_type = /atom/movable/screen/alert/status_effect/changeling_mindshield
-	tick_interval = 30
+	tick_interval = 5 SECONDS
+	chem_per_tick = 1
 
 /datum/status_effect/changeling/mindshield/tick()
 	if(..() && owner.on_fire)
@@ -432,20 +432,6 @@
 	name = "Fake Mindshield"
 	desc = "We are emitting a signal, causing us to appear as mindshielded to security HUDs."
 	icon_state = "changeling_mindshield"
-
-/datum/status_effect/exercised
-	id = "Exercised"
-	duration = 1200
-	alert_type = null
-
-/datum/status_effect/exercised/on_creation(mob/living/new_owner, ...)
-	. = ..()
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSprocessing, src) //this lasts 20 minutes, so SSfastprocess isn't needed.
-
-/datum/status_effect/exercised/Destroy()
-	. = ..()
-	STOP_PROCESSING(SSprocessing, src)
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
@@ -613,6 +599,29 @@
 		if (anti_magic.source == MAGIC_TRAIT)
 			qdel(anti_magic)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
+
+/datum/status_effect/planthealing
+	id = "Photosynthesis"
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = -1
+	tick_interval = 25
+	alert_type = /atom/movable/screen/alert/status_effect/planthealing
+	examine_text = "<span class='notice'>Their leaves seem to be flourishing in the light!</span>"
+
+/atom/movable/screen/alert/status_effect/planthealing
+	name = "Photosynthesis"
+	desc = "Your wounds seem to be healing from the light."
+	icon_state = "blooming"
+
+/datum/status_effect/planthealing/on_apply()
+	ADD_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
+	return ..()
+
+/datum/status_effect/planthealing/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
+
+/datum/status_effect/planthealing/tick()
+	owner.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life
 
 /datum/status_effect/crucible_soul
 	id = "Blessing of Crucible Soul"

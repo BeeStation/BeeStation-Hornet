@@ -291,7 +291,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -328,7 +328,7 @@
 		return UI_UPDATE
 	if(!in_range(user,src))
 		return UI_CLOSE
-	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read

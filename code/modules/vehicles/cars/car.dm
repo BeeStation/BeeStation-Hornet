@@ -20,7 +20,7 @@
 	if(car_traits & CAN_KIDNAP)
 		initialize_controller_action_type(/datum/action/vehicle/sealed/DumpKidnappedMobs, VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/sealed/car/driver_move(mob/user, direction)
+/obj/vehicle/sealed/car/driver_move(mob/living/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return FALSE
@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/vehicle/sealed/car/mob_try_exit(mob/M, mob/user, silent = FALSE)
-	if(M == user && (occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
+	if(M == user && (LAZYACCESS(occupants, M) & VEHICLE_CONTROL_KIDNAPPED))
 		to_chat(user, "<span class='notice'>You push against the back of [src] trunk to try and get out.</span>")
 		if(!do_after(user, escape_time, target = src))
 			return FALSE
@@ -101,7 +101,7 @@
 	M.forceMove(src)
 	add_occupant(M, VEHICLE_CONTROL_KIDNAPPED)
 
-/obj/vehicle/sealed/car/obj_destruction(damage_flag)
+/obj/vehicle/sealed/car/atom_destruction(damage_flag)
 	explosion(loc, 0, 1, 2, 3, 0)
 	log_message("[src] exploded due to destruction", LOG_ATTACK)
 	return ..()

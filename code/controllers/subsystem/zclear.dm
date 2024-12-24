@@ -348,3 +348,6 @@ SUBSYSTEM_DEF(zclear)
 	var/tracking
 	//Callback when completed, z value passed as parameters
 	var/datum/callback/completion_callback
+
+#undef CLEAR_TURF_PROCESSING_TIME
+#undef CHECK_ZLEVEL_TICKS

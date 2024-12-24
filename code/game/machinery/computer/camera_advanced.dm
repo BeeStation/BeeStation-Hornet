@@ -35,7 +35,7 @@
 	. = ..()
 	for(var/i in networks)
 		networks -= i
-		networks += lowertext(i)
+		networks += LOWER_TEXT(i)
 	if(lock_override)
 		if(lock_override & CAMERA_LOCK_STATION)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_STATION)
@@ -270,7 +270,7 @@
 	ai_detector_visible = FALSE
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
+	var/acceleration = 0
 	var/mob/living/eye_user = null
 	var/obj/machinery/origin
 	var/eye_initialized = 0
@@ -313,9 +313,9 @@
 			user_image = image(icon,loc,icon_state,FLY_LAYER)
 			eye_user.client.images += user_image
 
-/mob/camera/ai_eye/remote/relaymove(mob/user,direct)
-	if(direct == UP || direct == DOWN)
-		zMove(direct, FALSE)
+/mob/camera/ai_eye/remote/relaymove(mob/living/user, direction)
+	if(direction == UP || direction == DOWN)
+		zMove(direction, FALSE)
 		return
 	var/initial = initial(sprint)
 	var/max_sprint = 50
@@ -324,7 +324,7 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
+		var/turf/step = get_turf(get_step(src, direction))
 		if(step)
 			setLoc(step)
 
@@ -336,7 +336,7 @@
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/Activate()
@@ -349,7 +349,7 @@
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/Activate()
@@ -389,7 +389,7 @@
 
 /datum/action/innate/camera_multiz_up
 	name = "Move up a floor"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_up"
 
 /datum/action/innate/camera_multiz_up/Activate()
@@ -404,7 +404,7 @@
 
 /datum/action/innate/camera_multiz_down
 	name = "Move down a floor"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_down"
 
 /datum/action/innate/camera_multiz_down/Activate()

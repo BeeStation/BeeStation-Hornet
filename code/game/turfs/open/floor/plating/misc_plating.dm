@@ -127,7 +127,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/static/datum/gas_mixture/immutable/planetary/GM
 
-/turf/open/floor/plating/grass/Initialize()
+/turf/open/floor/plating/grass/Initialize(mapload)
 	if(!GM)
 		GM = new
 	. = ..()
@@ -225,7 +225,7 @@
 	. = ..()
 	if(user != dropping)
 		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+			"<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
 	if(do_after(user, 4 SECONDS, target = dropping))
@@ -354,6 +354,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
+/turf/open/floor/plating/ice/smooth/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+
 /turf/open/floor/plating/ice/smooth/red
 	icon = 'icons/turf/floors/red_ice.dmi'
 	icon_state = "red_ice-0"
@@ -397,6 +400,9 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_SNOWED)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
+
+/turf/open/floor/plating/snowed/smoothed/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 
 /turf/open/floor/plating/snowed/colder
 	initial_temperature = 140

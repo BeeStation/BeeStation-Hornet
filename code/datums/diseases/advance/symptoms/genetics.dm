@@ -33,8 +33,8 @@ Bonus
 	bodies = list("Mutant")
 	var/no_reset = FALSE
 	threshold_desc = "<b>Resistance 8:</b> Causes two harmful mutations at once.<br>\
-					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\
-					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
+						<b>Stage Speed 10:</b> Increases mutation frequency.<br>\
+						<b>Stealth 5:</b> The mutations persist even if the virus is cured."
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()

@@ -130,4 +130,4 @@ Stands have a lot of procs which mimic mob procs. Rather than inserting hooks fo
     * Counterpart to `RegisterWithParent()`
     * Used to unregister the signals that should only be on the `parent` object
 
-### See/Define signals and their arguments in __DEFINES\components.dm
+### See/Define signals and their arguments in __DEFINES\dcs\flags.dm

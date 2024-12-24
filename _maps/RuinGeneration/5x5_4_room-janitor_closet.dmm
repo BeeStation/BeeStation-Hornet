@@ -49,7 +49,7 @@
 /area/ruin/unpowered)
 "S" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},

@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
 	its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
 	max_integrity = 1000
+	max_hit_damage = 25
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -88,7 +89,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
 		qdel(CC)
 	SSshuttle.clearHostileEnvironment(src)
-	set_security_level(SEC_LEVEL_RED)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
@@ -134,7 +135,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
-	set_security_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
 	addtimer(CALLBACK(src, PROC_REF(begin_assault)), grace_time)
@@ -240,6 +241,8 @@ GLOBAL_VAR(cult_ratvar)
 	var/ratvar_target
 	var/next_attack_tick
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
+
 /obj/eldritch/ratvar/Initialize(mapload, starting_energy = 50)
 	singularity = WEAKREF(AddComponent(
 		/datum/component/singularity, \
@@ -255,8 +258,8 @@ GLOBAL_VAR(cult_ratvar)
 	GLOB.cult_ratvar = src
 	. = ..()
 	desc = "[text2ratvar("That's Ratvar, the Clockwork Justicar. The great one has risen.")]"
-	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
-	to_chat(world, "<span class='ratvar'>The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!</span>")
+	sound_to_playing_players('sound/effects/ratvar_reveal.ogg')
+	send_to_playing_players("<span class='ratvar'>The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!</span>")
 	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(trigger_clockcult_victory), src)
 	check_gods_battle()

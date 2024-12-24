@@ -217,3 +217,9 @@
 				. = TRUE
 	if(.)
 		update_icon()
+
+#undef PUMP_OUT
+#undef PUMP_IN
+#undef PUMP_MAX_PRESSURE
+#undef PUMP_MIN_PRESSURE
+#undef PUMP_DEFAULT_PRESSURE

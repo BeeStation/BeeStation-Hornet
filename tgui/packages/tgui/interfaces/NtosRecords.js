@@ -86,9 +86,9 @@ export const NtosRecords = (props, context) => {
                       ' ' +
                       record.bloodtype +
                       ' ' +
-                      record.m_stat +
+                      record.mental_status +
                       ' ' +
-                      record.p_stat
+                      record.physical_status
                   )
                 )
               }>
@@ -115,8 +115,6 @@ export const NtosRecords = (props, context) => {
               Major Disabilities: {record.ma_dis}
               <br />
               Notes: {record.notes}
-              <br />
-              Notes Cont.d: {record.cnotes}
             </Section>
           ))}
       </NtosWindow.Content>

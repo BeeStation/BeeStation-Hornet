@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
 	item_state = "sheet-plastic"
-	custom_materials = list(/datum/material/plastic=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/plastic=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 7
 	merge_type = /obj/item/stack/sheet/plastic
 	material_type = /datum/material/plastic

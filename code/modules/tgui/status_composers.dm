@@ -101,6 +101,6 @@
 		return UI_UPDATE
 
 	var/mob/living/living_user = user
-	return (!(living_user.mobility_flags & MOBILITY_STAND) && living_user.stat == CONSCIOUS) \
+	return (living_user.body_position == LYING_DOWN && living_user.stat == CONSCIOUS) \
 		? UI_INTERACTIVE \
 		: UI_UPDATE

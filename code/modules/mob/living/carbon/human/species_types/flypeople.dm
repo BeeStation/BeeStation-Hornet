@@ -9,8 +9,7 @@
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
 	meat = /obj/item/food/meat/slab/human/mutant/fly
-	mutant_bodyparts = list("insect_type")
-	default_features = list("insect_type" = "fly", "body_size" = "Normal")
+	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7

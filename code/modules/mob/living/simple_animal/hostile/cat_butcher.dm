@@ -14,16 +14,14 @@
 	ranged_cooldown_time = 30
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
 	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
 	melee_damage = 15
-	attacktext = "slashes at"
+	attack_verb_continuous = "slashes at"
+	attack_verb_simple = "slash at"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
@@ -62,7 +60,7 @@
 			var/obj/item/organ/tail/cat/newtail = new
 			newtail.Insert(L)
 			return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat) && L.stat) //still does damage.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(L.stat)
 				L.emote("scream")
@@ -84,11 +82,11 @@
 	L.reagents.remove_reagent(/datum/reagent/toxin/chloralhydrate, 100)
 	if(L.blood_volume <= 500) //bandage them up and give em some blood if they're bleeding
 		L.blood_volume += 30
-		L.suppress_bloodloss(1800)
+		L.suppress_bloodloss(BLEED_DEEP_WOUND)
 	if(L.getBruteLoss() >= 50)
 		var/healing = min(L.getBruteLoss(), 120)
 		L.adjustBruteLoss(-healing)
-		L.suppress_bloodloss(1800)//bandage their ass
+		L.suppress_bloodloss(BLEED_DEEP_WOUND)//bandage their ass
 	FindTarget()
 
 /mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(var/mob/living/carbon/human/L)

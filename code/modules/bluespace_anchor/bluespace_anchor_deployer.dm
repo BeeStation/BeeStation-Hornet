@@ -14,6 +14,8 @@
 
 	var/obj/item/stock_parts/cell/power_cell
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/bluespace_anchor)
+
 /obj/item/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
 	set_cell(cell)

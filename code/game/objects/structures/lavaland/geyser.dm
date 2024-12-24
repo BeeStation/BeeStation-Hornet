@@ -60,7 +60,7 @@
 	var/plunge_mod = 1 //time*plunge_mod = total time we take to plunge an object
 	var/reinforced = FALSE //whether we do heavy duty stuff like geysers
 
-/obj/item/plunger/attack_obj(obj/O, mob/living/user)
+/obj/item/plunger/attack_atom(obj/O, mob/living/user)
 	if(!O.plunger_act(src, user, reinforced))
 		return ..()
 

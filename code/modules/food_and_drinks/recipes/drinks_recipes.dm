@@ -598,6 +598,22 @@
 	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/cocoa = 1)
 	mix_message = "The color changes as the mixture blends smoothly."
 
+/datum/chemical_reaction/hot_cocoa
+	name = "Hot Coco"
+	results = list(/datum/reagent/consumable/hot_cocoa = 6)
+	required_reagents = list(/datum/reagent/consumable/milk = 5, /datum/reagent/consumable/cocoa = 1)
+	required_temp = 320
+
+/datum/chemical_reaction/coffee
+	name = "Coffee"
+	results = list(/datum/reagent/consumable/coffee = 5)
+	required_reagents = list(/datum/reagent/toxin/coffeepowder = 1, /datum/reagent/water = 5)
+
+/datum/chemical_reaction/tea
+	name = "Tea"
+	results = list(/datum/reagent/consumable/tea = 5)
+	required_reagents = list(/datum/reagent/toxin/teapowder = 1, /datum/reagent/water = 5)
+
 /datum/chemical_reaction/eggnog
 	name = /datum/reagent/consumable/ethanol/eggnog
 	id = /datum/reagent/consumable/ethanol/eggnog
@@ -688,7 +704,7 @@
 	name = "Peppermint Patty"
 	id = /datum/reagent/consumable/ethanol/peppermint_patty
 	results = list(/datum/reagent/consumable/ethanol/peppermint_patty = 10)
-	required_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 6, /datum/reagent/consumable/ethanol/creme_de_cacao = 1, /datum/reagent/consumable/ethanol/creme_de_menthe = 1, /datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/consumable/menthol = 1)
+	required_reagents = list(/datum/reagent/consumable/hot_cocoa = 6, /datum/reagent/consumable/ethanol/creme_de_cacao = 1, /datum/reagent/consumable/ethanol/creme_de_menthe = 1, /datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/consumable/menthol = 1)
 	mix_message = "The cocoa turns mint green just as the strong scent hits your nose."
 
 /datum/chemical_reaction/alexander
@@ -875,6 +891,6 @@
 
 /datum/chemical_reaction/beeffizz
 	name = "Beef Fizz"
-	id = /datum/reagent/consumable/ethanol/beeffizz
-	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
+	id = /datum/reagent/consumable/beeffizz
+	results = list(/datum/reagent/consumable/beeffizz = 10)
 	required_reagents = list(/datum/reagent/consumable/beefbroth = 7, /datum/reagent/consumable/ice = 2, /datum/reagent/consumable/lemonjuice = 1 )

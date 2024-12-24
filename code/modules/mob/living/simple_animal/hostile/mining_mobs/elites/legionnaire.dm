@@ -27,7 +27,8 @@
 	maxHealth = 400
 	health = 400
 	melee_damage = 30
-	attacktext = "slashes its arms at"
+	attack_verb_continuous = "slashes at"
+	attack_verb_simple = "slash at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 1
@@ -219,7 +220,8 @@
 	maxHealth = 40
 	health = 40
 	melee_damage = 10
-	attacktext = "bites at"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	attack_sound = 'sound/effects/curse1.ogg'
 	throw_message = "simply misses"
 	speed = 0
@@ -302,3 +304,8 @@
 	A.GiveTarget(target)
 	A.friends = user
 	A.faction = user.faction.Copy()
+
+#undef LEGIONNAIRE_CHARGE
+#undef HEAD_DETACH
+#undef BONFIRE_TELEPORT
+#undef SPEW_SMOKE

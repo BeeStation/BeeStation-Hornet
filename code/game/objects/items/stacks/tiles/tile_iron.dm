@@ -10,7 +10,7 @@
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/iron
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
+	armor_type = /datum/armor/tile_iron
 	resistance_flags = FIRE_PROOF
 	matter_amount = 1
 	cost = 125
@@ -66,6 +66,11 @@
 		/obj/item/stack/tile/iron/grimy,
 		/obj/item/stack/tile/iron/sepia,
 	)
+
+
+/datum/armor/tile_iron
+	fire = 100
+	acid = 70
 
 /obj/item/stack/tile/iron/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -221,6 +226,13 @@
 	turf_type = /turf/open/floor/iron/checker
 	merge_type = /obj/item/stack/tile/iron/checker
 	tile_rotate_dirs = list(SOUTH, NORTH)
+
+/obj/item/stack/tile/iron/checker/other
+	name = "alternate checker tile"
+	singular_name = "alternate checker floor tile"
+	icon_state = "tile_checker"
+	turf_type = /turf/open/floor/iron/checker/other
+	merge_type = /obj/item/stack/tile/iron/checker/other
 
 /obj/item/stack/tile/iron/dark/textured
 	name = "dark textured tile"

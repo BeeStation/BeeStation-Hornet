@@ -42,6 +42,18 @@
 		return
 	if(!cargo_holder)
 		return
+	if(ismecha(target))
+		var/obj/vehicle/sealed/mecha/M = target
+		var/have_ammo
+		for(var/obj/item/mecha_ammo/box in cargo_holder.cargo)
+			if(istype(box, /obj/item/mecha_ammo) && box.rounds)
+				have_ammo = TRUE
+				if(M.ammo_resupply(box, source, TRUE))
+					return
+		if(have_ammo)
+			to_chat(source, "No further supplies can be provided to [M].")
+		else
+			to_chat(source, "No providable supplies found in cargo hold")
 
 	else if(isobj(target))
 		var/obj/clamptarget = target
@@ -487,10 +499,10 @@
 		equipment.attach(marktwo)
 	marktwo.mecha_flags = markone.mecha_flags
 	marktwo.strafe = markone.strafe
-	marktwo.obj_integrity = round((markone.obj_integrity / markone.max_integrity) * marktwo.obj_integrity) //Integ set to the same percentage integ as the old mecha, rounded to be whole number
+	//Integ set to the same percentage integ as the old mecha, rounded to be whole number
+	marktwo.update_integrity(round((markone.get_integrity() / markone.max_integrity) * marktwo.get_integrity()))
 	if(markone.name != initial(markone.name))
 		marktwo.name = markone.name
 	markone.wreckage = FALSE
 	qdel(markone)
 	playsound(get_turf(marktwo),'sound/items/ratchet.ogg',50,TRUE)
-	return

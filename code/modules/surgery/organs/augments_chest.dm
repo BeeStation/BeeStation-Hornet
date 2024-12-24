@@ -182,7 +182,7 @@
 	var/turf/T = get_turf(owner)
 	if(!T) // No more runtimes from being stuck in nullspace.
 		return 0
-	if(owner.is_flying() && owner.has_gravity())
+	if((owner.movement_type & (FLOATING|FLYING)) && owner.has_gravity())
 		return 0
 	// Priority 1: use air from environment.
 	var/datum/gas_mixture/environment = T.return_air()

@@ -35,7 +35,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SILVER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
-	custom_materials = list(/datum/material/silver = 4000)
 	max_integrity = 600
 
 /turf/closed/wall/mineral/copper
@@ -171,7 +170,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
-	custom_materials = list(/datum/material/wood = 4000)
 	max_integrity = 200
 	damage_deflection = 0
 
@@ -354,11 +352,16 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
-/turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+/turf/closed/wall/mineral/plastitanium/explosive
+	var/obj/item/bombcore/large/bombcore
+
+/turf/closed/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	bombcore = new(get_turf(src))
 	bombcore.installed = TRUE
+
+/turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	bombcore.detonate()
-	..()
 
 //have to copypaste this code
 /turf/closed/wall/mineral/plastitanium/interior/copyTurf(turf/T)

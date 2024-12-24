@@ -486,3 +486,7 @@
 	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
 	floor.blend_icon(colored_icon, ICON_OVERLAY)
 	insert_icon("[decal]_[dir]_[replacetext(color, "#", "")]", floor)
+
+#undef PAINTER_MOST
+#undef PAINTER_MID
+#undef PAINTER_LOW

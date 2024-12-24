@@ -13,7 +13,7 @@
 		var/datum/sprite_accessory/screen = GLOB.ipc_screens_list[screen_name]
 
 		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
-		if (screen.icon_state != "none")
+		if (screen_name != FEATURE_NONE)
 			var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
 			icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
 		icon_with_screen.scale(64, 64)

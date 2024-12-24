@@ -44,7 +44,7 @@
 
 	if(aicamera.in_camera_mode) //Cyborg picture taking
 		aicamera.camera_mode_off()
-		aicamera.captureimage(A, usr)
+		aicamera.captureimage(A, usr, null, aicamera.picture_size_x - 1, aicamera.picture_size_y - 1)
 		return
 
 	var/obj/item/W = get_active_held_item()
@@ -182,5 +182,8 @@
 	A.attack_robot(src)
 
 /atom/proc/attack_robot(mob/user)
-	attack_ai(user)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ROBOT, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(attack_silicon(user))
+		return TRUE
+	return FALSE

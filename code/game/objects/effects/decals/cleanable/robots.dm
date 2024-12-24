@@ -13,7 +13,7 @@
 	//beauty = -50
 	clean_type = CLEAN_TYPE_BLOOD
 
-/obj/effect/decal/cleanable/robot_debris/Initialize()
+/obj/effect/decal/cleanable/robot_debris/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 

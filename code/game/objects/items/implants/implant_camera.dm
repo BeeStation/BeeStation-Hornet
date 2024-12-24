@@ -15,7 +15,7 @@
 /obj/item/implant/camera/on_implanted(mob/user)
 	camera = new (user)		//Insert the camera directly into the mob so the camera actually shows what it sees
 	camera.c_tag = "IMPLANT #[rand(1, 999)]"
-	camera.network = list("ss13")
+	camera.network = list(CAMERA_NETWORK_STATION)
 	camera.internal_light = FALSE		//No AI camera light
 
 /obj/item/implant/camera/removed(mob/living/source, silent, special)

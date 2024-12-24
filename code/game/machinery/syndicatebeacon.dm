@@ -42,9 +42,8 @@
 		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
 
 
-/obj/machinery/power/singularity_beacon/attack_ai(mob/user)
-	return
-
+/obj/machinery/power/singularity_beacon/attack_silicon(mob/user)
+	return TRUE
 
 /obj/machinery/power/singularity_beacon/attack_hand(mob/user)
 	. = ..()

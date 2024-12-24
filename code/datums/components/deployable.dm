@@ -66,7 +66,7 @@
 		return
 	if (!consumed && reload_type && istype(target, reload_type))
 		if (loaded)
-			to_chat(user, "<span class='warning'>You already have \a target docked!</span>")
+			to_chat(user, "<span class='warning'>You already have a target docked!</span>")
 			return
 		if(target.has_buckled_mobs())
 			if(target.buckled_mobs.len > 1)

@@ -114,7 +114,7 @@ It is possible to destroy the net by the occupant or someone else.
 	// Teleport
 	var/turf/picked_station_level = get_random_station_turf()	//Don't want to limit this specifically to z 2 in case we get multi-z in rotation
 	var/turf/safe_location = find_safe_turf(picked_station_level.z, extended_safety_checks = TRUE, dense_atoms = FALSE)
-	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)
+	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, bypass_area_restriction = TRUE)
 	target.Unconscious(3 SECONDS)
 
 /obj/structure/energy_net/attack_paw(mob/user)

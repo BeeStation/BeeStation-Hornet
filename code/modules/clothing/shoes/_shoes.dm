@@ -9,11 +9,15 @@
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
 
-	permeability_coefficient = 0.5
+	armor_type = /datum/armor/clothing_shoes
 	slowdown = SHOES_SLOWDOWN
 	strip_delay = 1 SECONDS
 	var/offset = 0
 	var/equipped_before_drop = FALSE
+
+
+/datum/armor/clothing_shoes
+	bio = 50
 
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
 	if(prob(50))
@@ -43,8 +47,8 @@
 		if(HAS_BLOOD_DNA(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
 
-/obj/item/clothing/shoes/equipped(mob/user, slot)
-	. = ..()
+/obj/item/clothing/shoes/visual_equipped(mob/user, slot)
+	..()
 	if(offset && (slot_flags & slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)
@@ -61,7 +65,7 @@
 	if(offset && equipped_before_drop)
 		restore_offsets(user)
 
-/obj/item/clothing/shoes/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/shoes/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc

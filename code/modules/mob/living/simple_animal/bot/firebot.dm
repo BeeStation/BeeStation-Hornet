@@ -105,22 +105,13 @@
 	text_dehack = "You detect errors in [name] and reset his programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/firebot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Mobile Fire Extinguisher v1.0</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-
-	dat += "Behaviour controls are [locked ? "locked" : "unlocked"]<BR>"
+/mob/living/simple_animal/bot/firebot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Extinguish Fires: <A href='?src=[REF(src)];operation=extinguish_fires'>[extinguish_fires ? "Yes" : "No"]</A><BR>"
-		dat += "Extinguish People: <A href='?src=[REF(src)];operation=extinguish_people'>[extinguish_people ? "Yes" : "No"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-		dat += "Stationary Mode: <a href='?src=[REF(src)];operation=stationary_mode'>[stationary_mode ? "Yes" : "No"]</a><br>"
-
-	return dat
+		data["custom_controls"]["extinguish_fires"] = extinguish_fires
+		data["custom_controls"]["extinguish_people"] = extinguish_people
+		data["custom_controls"]["stationary_mode"] = stationary_mode
+	return data
 
 /mob/living/simple_animal/bot/firebot/on_emag(atom/target, mob/user)
 	..()
@@ -142,19 +133,16 @@
 		internal_ext.max_water = INFINITY
 		internal_ext.refill()
 
-/mob/living/simple_animal/bot/firebot/Topic(href, href_list)
+/mob/living/simple_animal/bot/firebot/ui_act(action, params)
 	if(..())
 		return TRUE
-
-	switch(href_list["operation"])
+	switch(action)
 		if("extinguish_fires")
 			extinguish_fires = !extinguish_fires
 		if("extinguish_people")
 			extinguish_people = !extinguish_people
 		if("stationary_mode")
 			stationary_mode = !stationary_mode
-
-	update_controls()
 	update_icon()
 
 /mob/living/simple_animal/bot/firebot/proc/is_burning(atom/target)

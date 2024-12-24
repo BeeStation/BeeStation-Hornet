@@ -52,8 +52,8 @@
 /obj/item/cultivator{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (
@@ -150,7 +150,7 @@
 /area/template_noop)
 "O" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/replicapod,
+/obj/item/seeds/dionapod,
 /turf/open/floor/grass,
 /area/template_noop)
 "P" = (

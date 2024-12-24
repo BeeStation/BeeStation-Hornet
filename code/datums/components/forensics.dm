@@ -31,7 +31,7 @@
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_act))
 
 /datum/component/forensics/UnregisterFromParent()
-    UnregisterSignal(parent, list(COMSIG_COMPONENT_CLEAN_ACT))
+	UnregisterSignal(parent, list(COMSIG_COMPONENT_CLEAN_ACT))
 
 /datum/component/forensics/PostTransfer()
 	if(!isatom(parent))

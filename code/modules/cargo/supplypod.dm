@@ -11,7 +11,8 @@
 	allow_dense = TRUE
 	delivery_icon = null
 	can_weld_shut = FALSE
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
+	divable = FALSE
+	armor_type = /datum/armor/closet_supplypod
 	anchored = TRUE //So it cant slide around after landing
 	anchorable = FALSE
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
@@ -59,6 +60,16 @@
 	var/list/reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE, "Mecha"=FALSE)
 	var/list/turfs_in_cargo = list()
 
+
+/datum/armor/closet_supplypod
+	melee = 30
+	bullet = 50
+	laser = 50
+	energy = 100
+	bomb = 100
+	fire = 100
+	acid = 80
+
 /obj/structure/closet/supplypod/bluespacepod
 	style = STYLE_BLUESPACE
 	bluespace = TRUE
@@ -88,6 +99,8 @@
 	delays = list(POD_TRANSIT = 40, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30) //Very slow
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 20
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
@@ -240,9 +253,8 @@
 							break
 			if (effectOrgans) //effectOrgans means remove every organ in our mob
 				var/mob/living/carbon/carbon_target_mob = target_living
-				for(var/organ in carbon_target_mob.internal_organs)
+				for(var/obj/item/organ/organ_to_yeet as anything in carbon_target_mob.internal_organs)
 					var/destination = get_edge_target_turf(turf_underneath, pick(GLOB.alldirs)) //Pick a random direction to toss them in
-					var/obj/item/organ/organ_to_yeet = organ
 					organ_to_yeet.Remove(carbon_target_mob) //Note that this isn't the same proc as for lists
 					organ_to_yeet.forceMove(turf_underneath) //Move the organ outta the body
 					organ_to_yeet.throw_at(destination, 2, 3) //Thow the organ at a random tile 3 spots away
@@ -540,6 +552,8 @@
 		verticle_offset = initial(verticle_offset)
 	pixel_y = verticle_offset
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
+
 /obj/effect/pod_landingzone_effect
 	name = ""
 	desc = ""
@@ -547,10 +561,14 @@
 	icon_state = "LZ_Slider"
 	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone_effect)
+
 /obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
 	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix()*0.01, time = pod.delays[POD_TRANSIT]+pod.delays[POD_FALLING])
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 
 /obj/effect/pod_landingzone //This is the object that forceMoves the supplypod to it's location
 	name = "Landing Zone Indicator"
@@ -564,6 +582,8 @@
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 
 /obj/effect/pod_landingzone/Initialize(mapload, podParam, single_order = null, clientman)
 	. = ..()

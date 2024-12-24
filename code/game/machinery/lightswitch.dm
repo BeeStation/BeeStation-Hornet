@@ -11,6 +11,8 @@
 	var/area/area = null
 	var/screwdrivered = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
+
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
 	if(istext(area))
@@ -117,4 +119,4 @@
 	desc = "Used for building wall-mounted light switches."
 	icon_state = "lightswitch"
 	result_path = /obj/machinery/light_switch
-	pixel_shift = -26
+	pixel_shift = 26

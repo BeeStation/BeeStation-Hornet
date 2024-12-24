@@ -295,7 +295,7 @@
 		visibility_flags &= ~HIDDEN_SCANNER
 
 	SetSpread()
-	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
+	spreading_modifier = max(CEILING(0.4 * transmission, 1), 1)
 	cure_chance = 15 - clamp(resistance, -5, 5) // can be between 10 and 20
 	stage_prob = max(stage_rate, 2)
 	SetDanger(severity)
@@ -505,7 +505,7 @@
 		var/datum/disease/advance/D2 = pick(diseases)
 		D2.Mix(D1)
 
-	 // Should be only 1 entry left, but if not let's only return a single entry
+	// Should be only 1 entry left, but if not let's only return a single entry
 	var/datum/disease/advance/to_return = pick(diseases)
 	to_return.dormant = FALSE
 	to_return.Refresh(new_name = TRUE)

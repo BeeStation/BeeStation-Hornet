@@ -61,7 +61,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 		D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
 							"<span class='userdanger'>[A] cuts your jugular vein!</span>")
 		D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
-		D.bleed_rate = clamp(D.bleed_rate + 20, 0, 30)
+		D.add_bleeding(BLEED_SURFACE)
 		D.apply_status_effect(/datum/status_effect/neck_slice)
 		A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
@@ -108,3 +108,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's head and confuses them for a short time.")
 	to_chat(usr, "<span class='notice'>Jugular Cut</span>: Harm Harm Grab. Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.")
 	to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
+
+#undef TAIL_SWEEP_COMBO
+#undef FACE_SCRATCH_COMBO
+#undef JUGULAR_CUT_COMBO
+#undef TAIL_GRAB_COMBO

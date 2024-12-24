@@ -1509,6 +1509,15 @@
 	template_width = 5
 	weight = 2
 
+/datum/map_template/random_room/sk_rdm176
+	name = "Room with spaceproof windows"
+	room_id = "sk_rdm176_spacewindowroom"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm176_spacewindowroom.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 1
+
 //Flandstation Dedicated Random Room
 
 /datum/map_template/random_room/sk_rdm_fln_01
@@ -1714,15 +1723,6 @@
 	template_width = 3
 	weight = 3
 
-/datum/map_template/random_room/rdm_blob
-	name = "blob"
-	room_id = "rdm_blob"
-	mappath = "_maps/RandomRooms/3x3/rdm_blob.dmm"
-	centerspawner = FALSE
-	template_height = 3
-	template_width = 3
-	weight = 3
-
 /datum/map_template/random_room/rdm_workout
 	name = "workout"
 	room_id = "rdm_workout"
@@ -1731,11 +1731,11 @@
 	template_height = 3
 	template_width = 3
 	weight = 2
-	
+
 /datum/map_template/random_room/rdm_insane_atmospherics_technician
 	name = "insane_atmospherics_technician"
 	room_id = "rdm_insane_atmospherics_technician"
-	mappath = "_maps/RandomRooms/5x3/rdm_insane_atmospherics_technician.dmm"
+	mappath = "_maps/RandomRooms/3x5/rdm_insane_atmospherics_technician.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
@@ -1777,3 +1777,11 @@
 	template_width = 5
 	weight = 3
 
+/datum/map_template/random_room/rdm_kilo
+	name = "kilo"
+	room_id = "rdm_kilo"
+	mappath = "_maps/RandomRooms/5x4/rdm_kilo.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 1

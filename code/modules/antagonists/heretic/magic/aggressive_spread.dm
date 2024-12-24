@@ -2,7 +2,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby surfaces."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "corrode"
 	action_background_icon_state = "bg_ecult"
 	invocation = "A'GRSV SPR'D"

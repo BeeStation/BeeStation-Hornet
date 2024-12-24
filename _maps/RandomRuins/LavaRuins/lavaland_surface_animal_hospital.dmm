@@ -393,7 +393,7 @@
 /area/ruin/powered/animal_hospital)
 "fx" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#354562" ;
+	color = "#354562";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -560,7 +560,7 @@
 /area/ruin/powered/animal_hospital)
 "qX" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#354562" ;
+	color = "#354562";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
@@ -641,7 +641,7 @@
 /area/ruin/powered/animal_hospital)
 "vf" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#354562" ;
+	color = "#354562";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -667,7 +667,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "vL" = (
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/cup/rag,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -745,7 +745,7 @@
 /obj/item/trash/cheesie,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/bodybag,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},

@@ -30,12 +30,12 @@
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	#define COMPONENT_HIT_REACTION_BLOCK (1<<0)
 #define COMSIG_ITEM_SHARPEN_ACT "sharpen_act"           //! from base of item/sharpener/attackby(): (amount, max)
-  #define COMPONENT_BLOCK_SHARPEN_APPLIED 1
-  #define COMPONENT_BLOCK_SHARPEN_BLOCKED 2
-  #define COMPONENT_BLOCK_SHARPEN_ALREADY 4
-  #define COMPONENT_BLOCK_SHARPEN_MAXED 8
+	#define COMPONENT_BLOCK_SHARPEN_APPLIED 1
+	#define COMPONENT_BLOCK_SHARPEN_BLOCKED 2
+	#define COMPONENT_BLOCK_SHARPEN_ALREADY 4
+	#define COMPONENT_BLOCK_SHARPEN_MAXED 8
 #define COMSIG_ITEM_CHECK_WIELDED "item_check_wielded"  //! used to check if the item is wielded for special effects
-  #define COMPONENT_IS_WIELDED 1
+	#define COMPONENT_IS_WIELDED 1
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [/obj/item/proc/disableEmbedding]:
 
 ///Called when an item is being offered, from [/obj/item/proc/on_offered(mob/living/carbon/offerer)]
@@ -82,3 +82,18 @@
 /// Tell a deployable item to force its deployment  (datum/source, atom/location)
 #define COMSIG_DEPLOYABLE_FORCE_DEPLOY "force_deploy"
 	#define DEPLOYMENT_SUCCESS	(1 << 0)	//Indicates that something was successfully deployed
+
+#define COMSIG_IGNITER_ACTIVATE "ignite_activate" //called when an igniter activates
+
+/// Called before beam is redrawn
+#define COMSIG_BEAM_BEFORE_DRAW "beam_before_draw"
+	#define BEAM_CANCEL_DRAW (1 << 0)
+
+/// Sent to a beam when an atom enters any turf the beam covers: (obj/effect/ebeam/hit_beam, atom/movable/entered)
+#define COMSIG_BEAM_ENTERED "beam_entered"
+
+/// Sent to a beam when an atom exits any turf the beam covers: (obj/effect/ebeam/hit_beam, atom/movable/exited)
+#define COMSIG_BEAM_EXITED "beam_exited"
+
+/// Sent to a beam when any turf the beam covers changes: (list/datum/callback/post_change_callbacks)
+#define COMSIG_BEAM_TURFS_CHANGED "beam_turfs_changed"

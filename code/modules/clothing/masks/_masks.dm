@@ -6,10 +6,11 @@
 	strip_delay = 40
 	equip_delay_other = 40
 	var/modifies_speech = FALSE
-	var/mask_adjusted = 0
+	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
+	var/unique_death /// The unique sound effect of dying while wearing this
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -47,7 +48,7 @@
 			if(HAS_BLOOD_DNA(src))
 				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
-/obj/item/clothing/mask/update_clothes_damaged_state(damaging = TRUE)
+/obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
@@ -61,7 +62,6 @@
 	if(!mask_adjusted)
 		icon_state = initial(icon_state)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
-		permeability_coefficient = initial(permeability_coefficient)
 		clothing_flags |= visor_flags
 		flags_inv |= visor_flags_inv
 		flags_cover |= visor_flags_cover
@@ -71,7 +71,6 @@
 		icon_state += "_up"
 		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
 		gas_transfer_coefficient = null
-		permeability_coefficient = null
 		clothing_flags &= ~visor_flags
 		flags_inv &= ~visor_flags_inv
 		flags_cover &= ~visor_flags_cover

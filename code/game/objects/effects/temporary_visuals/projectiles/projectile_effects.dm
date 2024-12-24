@@ -55,6 +55,8 @@
 /obj/effect/projectile_lighting
 	var/owner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/projectile_lighting)
+
 /obj/effect/projectile_lighting/Initialize(mapload, color, range, intensity, owner_key)
 	. = ..()
 	set_light(range, intensity, color)

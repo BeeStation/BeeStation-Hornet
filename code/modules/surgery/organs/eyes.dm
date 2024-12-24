@@ -2,6 +2,7 @@
 	name = BODY_ZONE_PRECISE_EYES
 	icon_state = "eyeballs"
 	desc = "I see you!"
+	visual = TRUE
 	zone = BODY_ZONE_PRECISE_EYES
 	slot = ORGAN_SLOT_EYES
 	gender = PLURAL
@@ -35,31 +36,35 @@
 	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
 	var/can_see = TRUE
 
-/obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
+/obj/item/organ/eyes/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/HMN = owner
-		old_eye_color = HMN.eye_color
+	if(ishuman(eye_owner))
+		var/mob/living/carbon/human/human_owner = eye_owner
+		old_eye_color = human_owner.eye_color
 		if(eye_color)
-			HMN.eye_color = eye_color
+			human_owner.eye_color = eye_color
 		else
-			eye_color = HMN.eye_color
-		if(HAS_TRAIT(HMN, TRAIT_NIGHT_VISION) && !lighting_alpha)
+			eye_color = human_owner.eye_color
+		if(HAS_TRAIT(human_owner, TRAIT_NIGHT_VISION) && !lighting_alpha)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
-	M.update_tint()
+	eye_owner.update_tint()
 	owner.update_sight()
-	if(M.has_dna() && ishuman(M))
-		M.dna.species.handle_body(M) //updates eye icon
+	if(eye_owner.has_dna() && ishuman(eye_owner))
+		eye_owner.dna.species.handle_body(eye_owner) //updates eye icon
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = 0, pref_load = FALSE)
 	..()
-	if(ishuman(M) && eye_color)
-		var/mob/living/carbon/human/HMN = M
-		HMN.eye_color = old_eye_color
-		HMN.update_body()
-	M.update_tint()
-	M.update_sight()
+	if(ishuman(eye_owner) && eye_color)
+		var/mob/living/carbon/human/human_owner = eye_owner
+		human_owner.eye_color = old_eye_color
+		human_owner.update_body()
+	eye_owner.update_tint()
+	eye_owner.update_sight()
 
+//Gotta reset the eye color, because that persists
+/obj/item/organ/eyes/enter_wardrobe()
+	. = ..()
+	eye_color = initial(eye_color)
 
 /obj/item/organ/eyes/on_life()
 	..()
@@ -87,7 +92,7 @@
 /obj/item/organ/eyes/night_vision
 	name = "shadow eyes"
 	desc = "A spooky set of eyes that can see in the dark."
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/night_vision = TRUE
@@ -146,7 +151,7 @@
 	name = "\improper X-ray eyes"
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile."
 	eye_color = "000"
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	flash_protect = -INFINITY
 	tint = -INFINITY
@@ -162,7 +167,7 @@
 	sight_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 
 /obj/item/organ/eyes/robotic/flashlight
 	name = "flashlight eyes"
@@ -377,6 +382,8 @@
 	var/obj/item/organ/eyes/robotic/glow/parent
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
+
 /obj/effect/abstract/eye_lighting/Initialize(mapload, light_object_range, light_object_power, current_color_string, light_flags)
 	. = ..()
 	parent = loc
@@ -396,7 +403,8 @@
 
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
-	desc = "These eyes seem to have increased sensitivity to bright light, with no improvement to low light vision."
+	desc = "These eyes seem to have increased sensitivity to bright light, with a small improvement to low light vision."
+	see_in_dark = NIGHTVISION_FOV_RANGE/2 //4 tiles compared to 8 of the apids
 	flash_protect = -1
 
 /obj/item/organ/eyes/snail
@@ -408,14 +416,14 @@
 /obj/item/organ/eyes/apid
 	name = "apid eyes"
 	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 
 /obj/item/organ/eyes/psyphoza
 	name = "psyphoza eyes"
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
 	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	blind_type = /atom/movable/screen/fullscreen/blind/psychic
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -436,3 +444,12 @@
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()
 	return ..()
+
+/obj/item/organ/eyes/diona
+	name = "receptor node"
+	desc = "A combination of plant matter and neurons used to produce visual feedback."
+	icon_state = "diona_eyeballs"
+	organ_flags = ORGAN_UNREMOVABLE
+	flash_protect = -1
+
+#undef RGB2EYECOLORSTRING

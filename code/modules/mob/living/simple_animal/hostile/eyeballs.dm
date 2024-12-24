@@ -8,9 +8,10 @@
 	icon_gib = ""
 	gender = NEUTER
 	mob_biotypes = list(MOB_ORGANIC)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "hits"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
 	emote_taunt = list("glares")
 	taunt_chance = 25
 	maxHealth = 45
@@ -19,9 +20,10 @@
 
 	obj_damage = 60
 	melee_damage = 20
-	attacktext = "blinks at"
+	attack_verb_continuous = "blinks at"
+	attack_verb_simple = "blink at"
 	attack_sound = 'sound/weapons/pierce.ogg'
-	movement_type = FLYING
+	is_flying_animal = TRUE
 
 	faction = list("spooky")
 	del_on_death = TRUE

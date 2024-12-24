@@ -82,7 +82,7 @@
 	<LI>You can only say 30 words for every announcement.</LI>
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI>
 	<LI>Numbers are in word format, e.g. eight, sixty, etc </LI>
-	<LI>Sound effects begin with an 's' before the actual word, e.g. scensor</LI>
+	<LI>Sound effects begin with 'sound' before the actual word, e.g. soundcensor. They're all at the top of the list.</LI>
 	<LI>Use Ctrl+F to see if a word exists in the list.</LI></UL><HR>
 	"}
 
@@ -125,7 +125,7 @@
 		words.len = 30
 
 	for(var/word in words)
-		word = lowertext(trim(word))
+		word = LOWER_TEXT(trim(word))
 		if(!word)
 			words -= word
 			continue
@@ -147,7 +147,7 @@
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
-	word = lowertext(word)
+	word = LOWER_TEXT(word)
 
 	if(GLOB.vox_sounds[word])
 
@@ -155,7 +155,7 @@
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 
- 		// If there is no single listener, broadcast to everyone in the same z level
+		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)

@@ -118,3 +118,7 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 		"bandaid_big_blank",))
 
 #define PATCH_SHAPE_LIST (GLOB.patch_shape_list)
+
+//used by chem master
+#define CONDIMASTER_STYLE_AUTO "auto"
+#define CONDIMASTER_STYLE_FALLBACK "_"

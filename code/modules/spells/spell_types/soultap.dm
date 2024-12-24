@@ -14,7 +14,7 @@
 	level_max = 0
 	cooldown_min = 10
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "soultap"
 
 /obj/effect/proc_holder/spell/self/tap/cast(mob/living/user = usr)
@@ -31,3 +31,5 @@
 		spell.charge_counter = spell.charge_max
 		spell.recharging = FALSE
 		spell.update_icon()
+
+#undef HEALTH_LOST_PER_SOUL_TAP

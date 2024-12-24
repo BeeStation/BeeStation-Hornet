@@ -36,8 +36,7 @@
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
-		for(var/M in observers)
-			var/mob/dead/observe = M
+		for(var/mob/dead/observe as anything in observers)
 			observe.reset_perspective(null)
 	qdel(hud_used)
 	for(var/cc in client_colours)
@@ -156,32 +155,37 @@
 /mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)
-		return
+		return FALSE
 
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
+	// Return TRUE if we sent the original msg, otherwise return FALSE
+	. = TRUE
 	if(type)
 		if(type & MSG_VISUAL && (is_blind() && dist > BLIND_TEXT_DIST))//Vision related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 
 		if(type & MSG_AUDIBLE && !can_hear())//Hearing related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 				if(type & MSG_VISUAL && is_blind())
-					return
+					return FALSE
 	// voice muffling
 	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
+	return .
 
 
 /atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
@@ -234,8 +238,22 @@
 
 /mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
 	. = ..()
-	if(self_message)
-		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+	if(!self_message)
+		return
+	var/raw_self_message = self_message
+	var/self_runechat = FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>" // May make more sense as "You do x"
+
+	if(LAZYFIND(visible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
+		to_chat(src, self_message)
+		self_runechat = TRUE
+
+	else
+		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+
+	if(self_runechat && (LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, visible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = visible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this atom
@@ -281,8 +299,21 @@
   */
 /mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
 	. = ..()
-	if(self_message)
-		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+	if(!self_message)
+		return
+
+	var/raw_self_message = self_message
+	var/self_runechat = FALSE
+	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>"
+	if(LAZYFIND(audible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
+		to_chat(src, self_message)
+		self_runechat = TRUE
+	else
+		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+
+	if(self_runechat && (LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, audible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = audible_message_flags)
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
@@ -290,14 +321,14 @@
 		return FALSE
 	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
@@ -305,8 +336,17 @@
 /mob/proc/get_item_by_slot(slot_id)
 	return null
 
+/// Gets what slot the item on the mob is held in.
+/// Returns null if the item isn't in any slots on our mob.
+/// Does not check if the passed item is null, which may result in unexpected outcoms.
+/mob/proc/get_slot_by_item(obj/item/looking_for)
+	if(looking_for in held_items)
+		return ITEM_SLOT_HANDS
+
+	return null
+
 ///Is the mob incapacitated
-/mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
+/mob/proc/incapacitated(flags)
 	return
 
 /**
@@ -445,18 +485,24 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
+	/*
+	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
+	*No issues atm, but if one occurs, try that solution first
+	*/
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
 	if(new_eye)
 		if(ismovable(new_eye))
-			//Set the the thing unless it's us
+			//Set the new eye unless it's us
 			if(new_eye != src)
 				client.perspective = EYE_PERSPECTIVE
 				client.set_eye(new_eye)
 			else
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
+
 		else if(isturf(new_eye))
 			//Set to the turf unless it's our current turf
 			if(new_eye != loc)
@@ -466,7 +512,7 @@
 				client.set_eye(client.mob)
 				client.perspective = MOB_PERSPECTIVE
 		else
-			//Do nothing
+			return TRUE //no setting eye to stupid things like areas or whatever
 	else
 		//Reset to common defaults: mob if on turf, otherwise current loc
 		if(isturf(loc))
@@ -518,12 +564,12 @@
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
 	/// our active hand, to check if it's disabled/detatched
 	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
-	if(!active_hand || active_hand.is_disabled() || LAZYLEN(do_afters) >= get_num_arms())
+	if(!active_hand || active_hand.bodypart_disabled || do_after_count() >= usable_hands)
 		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
 		return FALSE
 
 	//you can only queue up one examine on something at a time
-	if(examined_thing in do_afters)
+	if(DOING_INTERACTION_WITH_TARGET(src, examined_thing))
 		return FALSE
 
 	to_chat(src, "<span class='notice'>You start feeling around for something...</span>")
@@ -914,7 +960,7 @@
 			return src
 
 /**
-  * Buckle to another mob
+  * Buckle a living mob to this mob
   *
   * You can buckle on mobs if you're next to them since most are dense
   *
@@ -951,14 +997,6 @@
 		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
 			return 0
 	return 9
-
-///can the mob be buckled to something by default?
-/mob/proc/can_buckle()
-	return TRUE
-
-///can the mob be unbuckled from something by default?
-/mob/proc/can_unbuckle()
-	return 1
 
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -1014,7 +1052,7 @@
 /**
   * Fully update the name of a mob
   *
-  * This will update a mob's name, real_name, mind.name, GLOB.data_core records, pda, id and traitor text
+  * This will update a mob's name, real_name, mind.name, GLOB.manifest records, pda, id and traitor text
   *
   * Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
   */
@@ -1033,7 +1071,7 @@
 			log_played_names(mind.key,newname) //Just in case the mind is unsynced at the moment.
 
 	if(oldname)
-		//update the datacore records! This is goig to be a bit costly.
+		//update the manifest records! This is goig to be a bit costly.
 		replace_records_name(oldname,newname)
 
 		//update our pda and id if we have them on our person
@@ -1046,7 +1084,7 @@
 					obj.update_explanation_text()
 	return 1
 
-///Updates GLOB.data_core records with new name , see mob/living/carbon/human
+///Updates GLOB.manifest records with new name , see mob/living/carbon/human
 /mob/proc/replace_records_name(oldname,newname)
 	return
 
@@ -1083,6 +1121,10 @@
 /mob/proc/update_health_hud()
 	return
 
+/// Changes the stamina HUD based on new information
+/mob/proc/update_stamina_hud()
+	return
+
 ///Update the lighting plane and sight of this mob (sends COMSIG_MOB_UPDATE_SIGHT)
 /mob/proc/update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
@@ -1116,18 +1158,43 @@
 			client.mouse_pointer_icon = E.mouse_pointer
 
 
-///This mob is abile to read books
+/// This mob can read
 /mob/proc/is_literate()
 	return FALSE
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+**/
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	return mob_location.get_lumcount() > light_amount
+
+/**
+ * Can this mob see in the dark
+ *
+ * This checks all traits, glasses, and robotic eyeball implants to see if the mob can see in the dark
+ * this does NOT check if the mob is missing it's eyeballs. Also see_in_dark is a BYOND mob var (that defaults to 2)
+**/
+/mob/proc/has_nightvision()
+	return see_in_dark >= NIGHTVISION_FOV_RANGE
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
 	if(is_blind())
-		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
-		return
+		to_chat(src, "<span class='warning'You are blind and can't read anything!</span>")
+		return FALSE
+		//to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 	if(!is_literate())
-		to_chat(src, "<span class='notice'>You try to read [O], but can't comprehend any of it.</span>")
-		return
+		to_chat(src, "<span class='warning'>You try to read [O], but can't comprehend any of it.</span>")
+		return FALSE
+
+	if(!has_light_nearby() && !has_nightvision())
+		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
+		return FALSE
+
 	return TRUE
 
 ///Can this mob hold items
@@ -1212,12 +1279,11 @@
 	fully_replace_character_name(real_name, new_name)
 
 ///Show the language menu for this mob
-/mob/verb/open_language_menu()
+/mob/verb/open_language_menu_verb()
 	set name = "Open Language Menu"
 	set category = "IC"
 
-	var/datum/language_holder/H = get_language_holder()
-	H.open_language_menu(usr)
+	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob
 /mob/proc/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
@@ -1226,11 +1292,6 @@
 ///Force set the mob nutrition
 /mob/proc/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
-
-///Set the movement type of the mob and update it's movespeed
-/mob/setMovetype(newval)
-	. = ..()
-	update_movespeed(FALSE)
 
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()
@@ -1268,3 +1329,5 @@
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_active_storage(null)
+
+#undef MOB_FACE_DIRECTION_DELAY

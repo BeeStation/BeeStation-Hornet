@@ -9,6 +9,7 @@
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = FALSE
+
 	///Hair color
 	var/hair_color = "000"
 	///Hair style
@@ -27,6 +28,7 @@
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
 	var/age = 30		//Player's age
+	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/underwear_color = "000"
 	var/undershirt = "Nude" //Which undershirt the player wants
@@ -46,7 +48,6 @@
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 
 	var/bleed_rate = 0 //how much are we bleeding
-	var/bleedsuppress = 0 //for stopping bloodloss, eventually this will be limb-based like bleeding
 	/// How many "units of blood" we have on our hands
 	var/blood_in_hands = 0
 

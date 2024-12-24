@@ -61,6 +61,8 @@
 	icon_state = "floor1-old"
 	var/list/datum/disease/diseases = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
+
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
@@ -111,6 +113,8 @@
 	drydesc = "They look bloody and gruesome while some terrible smell fills the air."
 	///Information about the diseases our streaking spawns
 	var/list/streak_diseases
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
@@ -204,6 +208,8 @@
 	dryname = "old rotting gibs"
 	drydesc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	var/list/datum/disease/diseases = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs/old)
 
 /obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()

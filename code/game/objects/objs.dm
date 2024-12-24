@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj)
+
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -8,19 +10,23 @@
 
 	var/damtype = BRUTE
 	var/force = 0
+	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
+	var/bleed_force = 0
 
-	var/datum/armor/armor
-	/// The integrity the object starts at. Defaults to max_integrity.
-	var/obj_integrity
+	/*
+	VAR_PRIVATE/atom_integrity //defaults to max_integrity
 	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
+	/// The object will break once atom_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
 	var/integrity_failure = 0
-	///Damage under this value will be completely ignored
+	/// Damage under this value will be completely ignored
 	var/damage_deflection = 0
+	/// Maximum damage that can be taken in a single hit
+	var/max_hit_damage = null
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
+	*/
 
 	/// How much acid is on that obj
 	var/acid_level = 0
@@ -52,6 +58,8 @@
 	/// broadcasted to as long as the other guys network is on the same branch or above.
 	var/network_id = null
 
+	uses_integrity = TRUE
+
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
 	/// If the emag behavior should be toggleable
@@ -64,14 +72,6 @@
 	return ..()
 
 /obj/Initialize(mapload)
-	if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!armor)
-		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
 
 	. = ..() //Do this after, else mat datums is mad.
 
@@ -278,7 +278,6 @@
 	VV_DROPDOWN_OPTION("", "---")
 	VV_DROPDOWN_OPTION(VV_HK_MASS_DEL_TYPE, "Delete all of type")
 	VV_DROPDOWN_OPTION(VV_HK_OSAY, "Object Say")
-	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify armor values")
 
 /obj/vv_do_topic(list/href_list)
 	if(!(. = ..()))
@@ -286,29 +285,7 @@
 	if(href_list[VV_HK_OSAY])
 		if(check_rights(R_FUN, FALSE))
 			usr.client.object_say(src)
-	if(href_list[VV_HK_ARMOR_MOD])
-		var/list/pickerlist = list()
-		var/list/armorlist = armor.getList()
 
-		for (var/i in armorlist)
-			pickerlist += list(list("value" = armorlist[i], "name" = i))
-
-		var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [src]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
-
-		if (islist(result))
-			if (result["button"] != 2) // If the user pressed the cancel button
-				// text2num conveniently returns a null on invalid values
-				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
-			                  bullet = text2num(result["values"][BULLET]),\
-			                  laser = text2num(result["values"][LASER]),\
-			                  energy = text2num(result["values"][ENERGY]),\
-			                  bomb = text2num(result["values"][BOMB]),\
-			                  bio = text2num(result["values"][BIO]),\
-			                  rad = text2num(result["values"][RAD]),\
-			                  fire = text2num(result["values"][FIRE]),\
-			                  acid = text2num(result["values"][ACID]))
-				log_admin("[key_name(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]")
-				message_admins("<span class='notice'>[key_name_admin(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]</span>")
 	if(href_list[VV_HK_MASS_DEL_TYPE])
 		if(check_rights(R_DEBUG|R_SERVER))
 			var/action_type = alert("Strict type ([type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")

@@ -8,7 +8,8 @@
 	maxHealth = 80
 	obj_damage = 100
 	melee_damage = 35
-	attacktext = "slashes"
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("creature")
 	speak_emote = list("screams")
@@ -26,7 +27,8 @@
 	icon_state = "mi-go"
 	icon_living = "mi-go"
 	icon_dead = "mi-go-dead"
-	attacktext = "lacerates"
+	attack_verb_continuous = "lacerates"
+	attack_verb_simple = "lacerate"
 	speed = -0.5
 	var/static/list/migo_sounds
 	deathmessage = "wails as its form turns into a pulpy mush."
@@ -61,7 +63,8 @@
 	health = 100
 	maxHealth = 100
 	melee_damage = 10
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	deathmessage = "falls apart into a fine dust."
 
 /obj/structure/spawner/nether

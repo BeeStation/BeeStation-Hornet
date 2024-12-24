@@ -114,7 +114,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction |= "cult"
-	current.grant_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
+	current.grant_language(/datum/language/narsie, source = LANGUAGE_CULTIST)
 	if(!cult_team.cult_master)
 		vote.Grant(current)
 	communion.Grant(current)
@@ -142,7 +142,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction -= "cult"
-	current.remove_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
+	current.remove_language(/datum/language/narsie, source = LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
@@ -308,10 +308,10 @@
 /datum/objective/sacrifice/proc/make_image()
 	var/icon/reshape
 	if(target)
-		for(var/datum/data/record/R as() in GLOB.data_core.locked)
-			var/datum/mind/M = R.fields["mindref"]
+		for(var/datum/record/locked/R as() in GLOB.manifest.locked)
+			var/datum/mind/M = R.weakref_mind.resolve()
 			if(target == M)
-				reshape = R.fields["character_appearance"]
+				reshape = R.character_appearance
 				break
 	if(!reshape)
 		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
@@ -442,3 +442,5 @@
 
 /datum/team/cult/is_gamemode_hero()
 	return SSticker.mode.name == "cult"
+
+#undef SUMMON_POSSIBILITIES

@@ -8,88 +8,88 @@
 "c" = (
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"e" = (
-/turf/open/lava/smooth,
-/area/ruin/powered/gluttony)
-"f" = (
-/obj/item/reagent_containers/syringe/gluttony,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"g" = (
-/obj/effect/gluttony,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"h" = (
-/obj/item/veilrender/vealrender,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"i" = (
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"j" = (
-/obj/item/trash/plate,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"l" = (
-/obj/item/trash/candy,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"m" = (
+"d" = (
 /obj/item/trash/raisins,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
-"n" = (
-/obj/item/trash/pistachios,
+"e" = (
+/turf/open/lava/smooth,
+/area/ruin/powered/gluttony)
+"k" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
-"o" = (
-/obj/item/trash/popcorn,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"p" = (
-/obj/item/trash/semki,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"q" = (
+"s" = (
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
-"r" = (
+"y" = (
 /obj/effect/gluttony,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
-"t" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+"C" = (
+/obj/item/veilrender/vealrender,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
-"v" = (
-/obj/machinery/light/small,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered/gluttony)
-"z" = (
-/obj/item/trash/plate,
+"E" = (
+/obj/item/plate,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
-"A" = (
+"F" = (
+/obj/item/trash/candy,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"G" = (
 /obj/machinery/light/small{
 	dir = 4
+	},
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"H" = (
+/obj/machinery/door/airlock/uranium,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"I" = (
+/obj/machinery/light/small,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"J" = (
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"K" = (
+/obj/item/trash/pistachios,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"M" = (
+/obj/effect/gluttony,
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "R" = (
 /turf/closed/indestructible/riveted/uranium,
 /area/ruin/powered/gluttony)
-"S" = (
-/obj/machinery/door/airlock/uranium,
-/obj/structure/fans/tiny/invisible,
+"T" = (
+/obj/item/trash/semki,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"W" = (
+/obj/item/reagent_containers/syringe/gluttony,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"Y" = (
+/obj/item/plate,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered/gluttony)
+"Z" = (
+/obj/item/trash/popcorn,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 
@@ -170,7 +170,7 @@ b
 c
 R
 R
-S
+H
 R
 R
 c
@@ -191,9 +191,9 @@ b
 b
 c
 R
-h
-i
-o
+C
+J
+Z
 R
 c
 b
@@ -213,9 +213,9 @@ b
 b
 c
 R
-i
-i
-v
+J
+J
+I
 R
 c
 b
@@ -235,9 +235,9 @@ b
 b
 c
 R
-i
-l
-i
+J
+F
+J
 R
 c
 b
@@ -257,9 +257,9 @@ c
 c
 c
 R
-t
-i
-m
+k
+J
+d
 R
 c
 c
@@ -279,9 +279,9 @@ R
 R
 R
 R
-g
-m
-v
+y
+d
+I
 R
 R
 R
@@ -298,17 +298,17 @@ c
 R
 e
 R
-r
-g
-g
-g
-g
-i
-p
-i
-z
-l
-i
+M
+y
+y
+y
+y
+J
+T
+J
+E
+F
+J
 R
 c
 b
@@ -318,20 +318,20 @@ a
 b
 c
 R
-f
-g
-g
-g
-g
-g
-n
-i
-i
-i
-i
-i
-i
-S
+W
+y
+y
+y
+y
+y
+K
+J
+J
+J
+J
+J
+J
+H
 b
 b
 "}
@@ -342,17 +342,17 @@ c
 R
 e
 R
-r
-g
-g
-g
-i
-g
-i
-l
-A
-i
-q
+M
+y
+y
+y
+J
+y
+J
+F
+G
+J
+s
 R
 c
 b
@@ -367,9 +367,9 @@ R
 R
 R
 R
-g
-i
-v
+y
+J
+I
 R
 R
 R
@@ -389,9 +389,9 @@ c
 c
 c
 R
-r
-i
-i
+M
+J
+J
 R
 c
 c
@@ -411,9 +411,9 @@ b
 b
 c
 R
-i
-g
-i
+J
+y
+J
 R
 c
 b
@@ -433,9 +433,9 @@ b
 b
 c
 R
-j
-i
-v
+Y
+J
+I
 R
 c
 b
@@ -455,9 +455,9 @@ b
 b
 c
 R
-i
-n
-i
+J
+K
+J
 R
 c
 b
@@ -478,7 +478,7 @@ b
 c
 R
 R
-S
+H
 R
 R
 c

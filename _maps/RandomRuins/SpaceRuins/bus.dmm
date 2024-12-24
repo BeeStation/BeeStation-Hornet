@@ -50,7 +50,7 @@
 /area/ruin/unpowered/no_grav)
 "al" = (
 /obj/effect/decal/cleanable/food/salt,
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/saltshaker,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "am" = (
@@ -125,7 +125,7 @@
 /area/ruin/unpowered/no_grav)
 "aC" = (
 /obj/structure/fluff/bus/passable,
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/saltshaker,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/airless{
 	icon_state = "bus"
@@ -154,7 +154,7 @@
 /area/ruin/unpowered/no_grav)
 "aH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/cup/glass/coffee,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aI" = (
@@ -184,8 +184,7 @@
 /area/ruin/unpowered/no_grav)
 "aM" = (
 /obj/structure/fluff/bus/passable{
-	icon_state = "bottomdoor";
-	layer = 3
+	icon_state = "bottomdoor"
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
@@ -200,7 +199,7 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aQ" = (
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/cup/rag,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aR" = (

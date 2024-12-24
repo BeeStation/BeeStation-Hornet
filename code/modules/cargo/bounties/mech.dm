@@ -18,10 +18,10 @@
 	reward = 13000
 	wanted_types = list(/obj/vehicle/sealed/mecha/working/ripley/mk2)
 
-/datum/bounty/item/mech/firefighter
-	name = "APLU \"Firefighter\""
-	reward = 18000
-	wanted_types = list(/obj/vehicle/sealed/mecha/working/ripley/firefighter)
+/datum/bounty/item/mech/clarke
+	name = "Clarke"
+	reward = 16000
+	wanted_types = list(/obj/vehicle/sealed/mecha/working/clarke)
 
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"

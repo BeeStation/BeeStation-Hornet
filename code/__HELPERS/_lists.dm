@@ -279,9 +279,9 @@
 	return list_to_clear.len < start_len
 
 /**
- Returns list containing all the entries from first list that are not present in second.
- If skiprep = 1, repeated elements are treated as one.
- If either of arguments is not a list, returns null
+ * Returns list containing all the entries from first list that are not present in second.
+ * If skiprep = 1, repeated elements are treated as one.
+ * If either of arguments is not a list, returns null
 */
 /proc/difflist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
@@ -296,9 +296,9 @@
 	return result
 
 /**
- Returns list containing entries that are in either list but not both.
- If skipref = 1, repeated elements are treated as one.
- If either of arguments is not a list, returns null
+ * Returns list containing entries that are in either list but not both.
+ * If skipref = 1, repeated elements are treated as one.
+ * If either of arguments is not a list, returns null
  */
 /proc/unique_merge_list(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
@@ -467,12 +467,11 @@
 			inserted_list[key] = temp[key]
 
 /// for sorting clients or mobs by ckey
-/proc/sort_key(list/ckey_list, order=1)
+/proc/sort_key(list/ckey_list, order = 1)
 	return sortTim(ckey_list, order >= 0 ? GLOBAL_PROC_REF(cmp_ckey_asc) : GLOBAL_PROC_REF(cmp_ckey_dsc))
 
 /// Specifically for sorting record datums in a list.
-/proc/sort_record(list/record_list, field = "name", order = 1)
-	GLOB.cmp_field = field
+/proc/sort_record(list/record_list, order = 1)
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 /// sorting any value in a list with any comparator
@@ -532,13 +531,19 @@
 // Returns the key based on the index
 #define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)
 
-/// Returns datum/data/record
-/proc/find_record(field, value, list/inserted_list)
-	for(var/datum/data/record/record_to_check in inserted_list)
-		if(record_to_check.fields[field] == value)
-			return record_to_check
+/**
+ * Returns the first record in the list that matches the name
+ *
+ * Make sure to supply it with the proper record list.
+ * Either GLOB.manifest.general or GLOB.manifest.locked
+ *
+ * If no record is found, returns null
+ */
+/proc/find_record(value, list/inserted_list)
+	for(var/datum/record/target in inserted_list)
+		if(target.name == value)
+			return target
 	return null
-
 
 /**
  * Move a single element from position from_index within a list, to position to_index
@@ -672,9 +677,9 @@
 		copied_list[key_or_value] = new_value
 
 /**
- takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
-
- use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
+ * takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
+ *
+ * use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
 */
 /proc/avoid_assoc_duplicate_keys(input_key, list/used_key_list)
 	if(!input_key || !istype(used_key_list))
@@ -700,9 +705,9 @@
 		.[thing] = TRUE
 
 /*!
- #### Definining a counter as a series of key -> numeric value entries
+#### Definining a counter as a series of key -> numeric value entries
 
- #### All these procs modify in place.
+#### All these procs modify in place.
 */
 
 /proc/counterlist_scale(list/L, scalar)

@@ -99,7 +99,7 @@
 			</div>
 			<div class="section-rest">
 				<div class="section-content">
-					[html_encode(replacetext(body, "$theme", lowertext(holoparasite.theme.name)))]
+					[html_encode(replacetext(body, "$theme", LOWER_TEXT(holoparasite.theme.name)))]
 				</div>
 			</span>
 		</div>

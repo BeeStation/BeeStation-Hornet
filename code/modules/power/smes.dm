@@ -58,7 +58,7 @@
 					break dir_loop
 
 	if(!terminal)
-		set_machine_stat(machine_stat | BROKEN)
+		atom_break()
 		return
 	terminal.master = src
 	update_icon()
@@ -205,7 +205,7 @@
 	if(terminal)
 		terminal.master = null
 		terminal = null
-		set_machine_stat(machine_stat | BROKEN)
+		atom_break()
 
 
 /obj/machinery/power/smes/update_icon()

@@ -51,7 +51,7 @@
 			if(src in channel.muted_clients)
 				to_chat(usr, "<span class='warning'>ERROR: You are muted from this channel.</span>")
 				return
-			if(CHAT_FILTER_CHECK(message))
+			if(OOC_FILTER_CHECK(message))
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 				return
 			if(channel.password && (!(src in channel.active_clients) && !(src in channel.offline_clients)))
@@ -90,6 +90,9 @@
 			var/channel_title = reject_bad_text(params["new_channel_name"])
 			if(!channel_title)
 				return
+			if(OOC_FILTER_CHECK(channel_title))
+				to_chat(usr, "<span class='warning'>ERROR: Channel title contains prohibited word(s).</span>")
+				return
 			var/datum/ntnet_conversation/C = new /datum/ntnet_conversation()
 			C.add_client(src)
 			C.operator = src
@@ -112,6 +115,9 @@
 			var/newname = sanitize(params["new_name"])
 			newname = replacetext(newname, " ", "_")
 			if(!newname || newname == username)
+				return
+			if(OOC_FILTER_CHECK(newname))
+				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in new username.</span>")
 				return
 			for(var/datum/ntnet_conversation/anychannel as anything in SSnetworks.station_network.chat_channels)
 				if(src in anychannel.active_clients)
@@ -145,6 +151,9 @@
 			var/newname = reject_bad_text(params["new_name"])
 			if(!newname || !channel)
 				return
+			if(OOC_FILTER_CHECK(newname))
+				to_chat(usr, "<span class='warning'>ERROR: New channel title contains prohibited word(s).</span>")
+				return
 			channel.add_status_message("Channel renamed from [channel.title] to [newname] by operator.")
 			channel.title = newname
 			return TRUE
@@ -158,7 +167,8 @@
 				return
 
 			var/new_password = sanitize(params["new_password"])
-			if(!authed)
+			if(OOC_FILTER_CHECK(new_password))
+				to_chat(usr, "<span class='warning'>ERROR: New password contains prohibited word(s).</span>")
 				return
 
 			channel.password = new_password

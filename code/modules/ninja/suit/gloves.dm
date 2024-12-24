@@ -9,7 +9,7 @@
 
 	...
 	I guess you're a little cool.
-	 -Sayu
+	-Sayu
 
 
 	see ninjaDrainAct.dm for ninjadrain_act()
@@ -32,11 +32,23 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 120
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	armor_type = /datum/armor/gloves_space_ninja
 	var/draining = 0
 	var/candrain = 0
 	var/mindrain = 200
 	var/maxdrain = 400
 
+
+
+/datum/armor/gloves_space_ninja
+	melee = 40
+	bullet = 30
+	laser = 20
+	energy = 15
+	bomb = 30
+	bio = 100
+	fire = 100
+	acid = 100
 
 /obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
 	if(!candrain || draining)
@@ -78,4 +90,4 @@
 /obj/item/clothing/gloves/space_ninja/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, NINJA_SUIT_TRAIT))
-		. += "The energy drain mechanism is <B>[candrain?"active":"inactive"]</B>."
+		. += "[p_their(TRUE)] energy drain mechanism is <B>[candrain?"active":"inactive"]</B>."

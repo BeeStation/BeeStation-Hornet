@@ -38,12 +38,10 @@
 			var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
 			target = N
 		if(TRACK_MALF_AI)
-			for(var/V in GLOB.ai_list)
-				var/mob/living/silicon/ai/A = V
+			for(var/mob/living/silicon/ai/A as anything in GLOB.ai_list)
 				if(A.nuking)
 					target = A
-			for(var/V in GLOB.apcs_list)
-				var/obj/machinery/power/apc/A = V
+			for(var/obj/machinery/power/apc/A as anything in GLOB.apcs_list)
 				if(A.malfhack && A.occupier)
 					target = A
 		if(TRACK_INFILTRATOR)

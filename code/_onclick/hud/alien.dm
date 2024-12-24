@@ -1,5 +1,5 @@
 /atom/movable/screen/alien
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 
 /atom/movable/screen/alien/leap
 	name = "toggle leap"
@@ -11,21 +11,21 @@
 		AH.toggle_leap()
 
 /atom/movable/screen/alien/plasma_display
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "power_display2"
 	name = "plasma stored"
 	screen_loc = ui_alienplasmadisplay
 
 
 /atom/movable/screen/alien/alien_queen_finder
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 	icon_state = "queen_finder"
 	name = "queen sense"
 	desc = "Allows you to sense the general direction of your Queen."
 	screen_loc = ui_alien_queen_finder
 
 /datum/hud/alien
-	ui_style = 'icons/mob/screen_alien.dmi'
+	ui_style = 'icons/hud/screen_alien.dmi'
 
 /datum/hud/alien/New(mob/living/carbon/alien/humanoid/owner)
 	..()

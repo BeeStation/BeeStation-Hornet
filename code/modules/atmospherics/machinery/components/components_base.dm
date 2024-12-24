@@ -21,11 +21,7 @@
 		var/datum/gas_mixture/A = new(200)
 		airs[i] = A
 
-/obj/machinery/atmospherics/components/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
-
-/obj/machinery/atmospherics/components/Initialize()
+/obj/machinery/atmospherics/components/Initialize(mapload)
 	. = ..()
 
 	if(hide)

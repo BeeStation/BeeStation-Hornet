@@ -62,7 +62,7 @@
 	if(target != user)
 		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", \
 			"<span class='userdanger'>[user] is trying to inject you with [src]!</span>")
-		if(!do_after(user, target = target) || used)
+		if(!do_after(user, 3 SECONDS, target) || used)
 			return
 		target.visible_message("<span class='danger'>[user] injects [target] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects you with the syringe with [src]!</span>")
@@ -154,12 +154,22 @@
 /obj/item/dnainjector/cluwnemut
 	name = "\improper DNA injector (Cluwneify)"
 	desc = "This is your last chance to turn back."
-	add_mutations = list(CLOWNMUT)
+	add_mutations = list(CLUWNEMUT)
 
 /obj/item/dnainjector/anticluwne
 	name = "\improper DNA injector (Anti-Cluwne)"
+	desc = "This is going to hurt."
+	remove_mutations = list(CLUWNEMUT)
+
+/obj/item/dnainjector/cursedcluwnemut
+	name = "\improper DNA injector (Cluwneify)"
+	desc = "This is your last chance to turn back."
+	add_mutations = list(CURSEDCLUWNEMUT)
+
+/obj/item/dnainjector/anticursedcluwne
+	name = "\improper DNA injector (Anti-Cluwne)"
 	desc = "This isn't going to work."
-	remove_mutations = list(CLOWNMUT)
+	remove_mutations = list(CURSEDCLUWNEMUT)
 
 /obj/item/dnainjector/antitour
 	name = "\improper DNA injector (Anti-Tour.)"

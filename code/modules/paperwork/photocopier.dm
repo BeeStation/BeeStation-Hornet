@@ -130,10 +130,6 @@
 				if(istype(paper_copy, /obj/item/paper))
 					do_copy_loop(CALLBACK(src, PROC_REF(make_paper_copy)), usr)
 					return TRUE
-				// Devil contract paper.
-				if(istype(paper_copy, /obj/item/paper/contract/employment))
-					do_copy_loop(CALLBACK(src, PROC_REF(make_devil_paper_copy)), usr)
-					return TRUE
 			// Copying photo.
 			if(photo_copy)
 				do_copy_loop(CALLBACK(src, PROC_REF(make_photo_copy)), usr)
@@ -271,20 +267,6 @@
 	copied_item.pixel_y = copied_item.base_pixel_y + rand(-10, 10)
 
 /**
- * Handles the copying of devil contract paper. Transfers all the text, stamps and so on from the old paper, to the copy.
- *
- * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
- * Does not check if it has enough toner because devil contracts cost no toner to print.
- */
-/obj/machinery/photocopier/proc/make_devil_paper_copy()
-	if(!paper_copy)
-		return
-
-	var/obj/item/paper/contract/employment/E = paper_copy
-	var/obj/item/paper/contract/employment/C = new(loc, E.target.current)
-	give_pixel_offset(C)
-
-/**
  * Handles the copying of paper. Transfers all the text, stamps and so on from the old paper, to the copy.
  *
  * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
@@ -402,15 +384,10 @@
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper))
 		if(copier_empty())
-			if(istype(O, /obj/item/paper/contract/infernal))
-				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
-				resistance_flags |= FLAMMABLE
-				fire_act()
-			else
-				if(!user.temporarilyRemoveItemFromInventory(O))
-					return
-				paper_copy = O
-				do_insertion(O, user)
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
+			paper_copy = O
+			do_insertion(O, user)
 		else
 			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
 
@@ -445,7 +422,7 @@
 	else
 		return ..()
 
-/obj/machinery/photocopier/obj_break(damage_flag)
+/obj/machinery/photocopier/atom_break(damage_flag)
 	. = ..()
 	if(. && toner_cartridge.charges)
 		new /obj/effect/decal/cleanable/oil(get_turf(src))
@@ -536,7 +513,7 @@
  */
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "A small, lightweight cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A small, lightweight cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
@@ -549,7 +526,7 @@
 
 /obj/item/toner/large
 	name = "large toner cartridge"
-	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A hefty cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	grind_results = list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
 	charges = 25
 	max_charges = 25

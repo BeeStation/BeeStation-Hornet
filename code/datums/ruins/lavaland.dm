@@ -52,6 +52,7 @@
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	cost = 5
 	allow_duplicates = FALSE
+	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/syndicate_base
 	name = "Syndicate Lava Base"

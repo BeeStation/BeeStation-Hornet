@@ -7,11 +7,22 @@
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
+	/// armor more or less consistent with grille. max_integrity about one time and a half that of a grille.
+	armor_type = /datum/armor/structure_railing
 	max_integrity = 75
 
 	var/climbable = TRUE
 	///Initial direction of the railing.
 	var/ini_dir
+
+
+/datum/armor/structure_railing
+	melee = 50
+	bullet = 70
+	laser = 70
+	energy = 100
+	bomb = 10
+	rad = 100
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -37,13 +48,13 @@
 	add_fingerprint(user)
 
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
@@ -84,7 +95,7 @@
 /obj/structure/railing/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(border_dir & dir)
-		return . || mover.throwing || mover.movement_type & (FLYING | FLOATING)
+		return . || mover.throwing || mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND
 	return TRUE
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
@@ -102,7 +113,7 @@
 	if (leaving.throwing)
 		return
 
-	if (leaving.movement_type & (PHASING | FLYING | FLOATING))
+	if (leaving.movement_type & (PHASING | MOVETYPES_NOT_TOUCHING_GROUND))
 		return
 
 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)

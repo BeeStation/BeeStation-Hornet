@@ -2,7 +2,9 @@
 	/// A typecache of objects that the holoparasite where, if the holoparasite's summoner is inside of one of these objects, the holoparasite will not be allowed to manifest.
 	var/static/list/no_manifest_locs
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(_mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
+
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!no_manifest_locs)
 		no_manifest_locs = typecacheof(list(/obj/effect, /obj/machinery/clonepod)) - typecacheof(list(/obj/effect/abstract/sync_holder, /obj/effect/dummy))
@@ -30,7 +32,7 @@
 		return FALSE
 	if(range <= 0)
 		return FALSE
-	return (!permanently && attached_to_summoner) || stats?.range == 1
+	return (!permanently && attached_to_summoner)
 
 /**
  * Returns whether the holoparasite is within range of its summoner or not.

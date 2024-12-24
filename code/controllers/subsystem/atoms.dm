@@ -271,3 +271,10 @@ SUBSYSTEM_DEF(atoms)
 		rustg_file_append(initlog, "[GLOB.log_directory]/initialize.log")
 
 #undef SUBSYSTEM_INIT_SOURCE
+
+#undef BAD_INIT_QDEL_BEFORE
+#undef BAD_INIT_DIDNT_INIT
+#undef BAD_INIT_SLEPT
+#undef BAD_INIT_NO_HINT
+#undef PROFILE_INIT_ATOM_BEGIN
+#undef PROFILE_INIT_ATOM_END

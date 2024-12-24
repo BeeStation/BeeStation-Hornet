@@ -26,18 +26,22 @@
 	/// Path of the tile that this floor drops
 	var/floor_tile = null
 
+	/// Number of variant states
+	var/variant_states = 0
+	/// Probability of a variant occuring
+	var/variant_probability = 0
+
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
+	if (variant_probability && prob(variant_probability))
+		icon_state = "[icon_state][rand(1, variant_states)]"
 
 	if(mapload && prob(33))
 		MakeDirty()
 
 	if(is_station_level(z))
 		GLOB.station_turfs += src
-
-	//Choose a variant
-	if(variants)
-		icon_state = pick_weight(variants)
 
 /turf/open/floor/Destroy()
 	if(is_station_level(z))
@@ -78,6 +82,10 @@
 		remove_filter(i)
 		damage_overlays -= i
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+
+///For when the floor is placed under heavy load. Calls break_tile(), but exists to be overridden by floor types that should resist crushing force.
+/turf/open/floor/proc/crush()
+	break_tile()
 
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
 	if(!isfloorturf(src))
@@ -178,7 +186,13 @@
 /turf/open/floor/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
-			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 16)
+			var/obj/structure/girder/girder = locate() in src
+			if(girder)
+				return girder.rcd_vals(user, the_rcd)
+			return rcd_result_with_memory(
+				list("mode" = RCD_FLOORWALL, "delay" = 2 SECONDS, "cost" = 16),
+				src, RCD_MEMORY_WALL,
+			)
 		if(RCD_LADDER)
 			return list("mode" = RCD_LADDER, "delay" = 25, "cost" = 16)
 		if(RCD_AIRLOCK)
@@ -189,7 +203,10 @@
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 33)
 		if(RCD_WINDOWGRILLE)
-			return list("mode" = RCD_WINDOWGRILLE, "delay" = 10, "cost" = 4)
+			return rcd_result_with_memory(
+				list("mode" = RCD_WINDOWGRILLE, "delay" = 1 SECONDS, "cost" = 4),
+				src, RCD_MEMORY_WINDOWGRILLE,
+			)
 		if(RCD_MACHINE)
 			return list("mode" = RCD_MACHINE, "delay" = 20, "cost" = 25)
 		if(RCD_COMPUTER)
@@ -201,6 +218,9 @@
 /turf/open/floor/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
+			var/obj/structure/girder/girder = locate() in src
+			if(girder)
+				return girder.rcd_act(user, the_rcd, passed_mode)
 			to_chat(user, "<span class='notice'>You build a wall.</span>")
 			log_attack("[key_name(user)] has constructed a wall at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
@@ -214,7 +234,10 @@
 			L.set_anchored(TRUE)
 			return TRUE
 		if(RCD_AIRLOCK)
-			if(locate(/obj/machinery/door/airlock) in src || locate(/obj/machinery/door/window) in src)
+			for(var/obj/machinery/door/door in src)
+				if(door.sub_door)
+					continue
+				to_chat(user, "<span class='notice'>There is another door here!</span>")
 				return FALSE
 			if(ispath(the_rcd.airlock_type, /obj/machinery/door/window))
 				to_chat(user, "<span class='notice'>You build a windoor.</span>")
@@ -291,15 +314,6 @@
 			return TRUE
 
 	return FALSE
-
-///Autogenerates the variant list from 1 > max (name, name1, name2, name3)
-/turf/open/floor/proc/auto_gen_variants(max)
-	if(!max)
-		return
-	if(icon_state && icon_state != "")
-		variants += list("[icon_state]" = 1)
-	for(var/i in 1 to max)
-		variants += list("[icon_state][i]" = 1)
 
 /turf/open/floor/material
 	name = "floor"

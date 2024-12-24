@@ -83,12 +83,12 @@ SUBSYSTEM_DEF(topic)
  *
  * Params:
  *
- * * addr: address of the recieving BYOND server (*including* the byond://)
+ * * addr: address of the receiving BYOND server (*including* the byond://)
  * * query: name of the topic endpoint to request
- * * params: associated list of parameters to send to the recieving server
+ * * params: associated list of parameters to send to the receiving server
  * * anonymous: TRUE or FALSE whether to use anonymous token for the request *(default: FALSE)*
  * Note that request will fail if a token cannot be found for the target server and anonymous is not set.
- * * nocheck: TRUE or FALSE whether to check if the recieving server is authorized to get the topic call *(default: FALSE)*
+ * * nocheck: TRUE or FALSE whether to check if the receiving server is authorized to get the topic call *(default: FALSE)*
 */
 /datum/controller/subsystem/topic/proc/export_async(addr, query, list/params, anonymous = FALSE, nocheck = FALSE)
 	DECLARE_ASYNC

@@ -48,16 +48,16 @@ Striking a noncultist, however, will tear their flesh."}
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	force = 23
-	/// Force dealt to people that have holy protection, including from holding bibles
-	var/holy_force = 16
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
@@ -66,7 +66,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.visible_message("<span class='warning'>[user] cringes as they strike [target]!</span>", \
-							 "<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
+							"<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
 		user.adjustStaminaLoss(rand(force/2,force))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
 	if (target.anti_magic_check(magic = FALSE, holy = TRUE))
@@ -93,7 +93,7 @@ Striking a noncultist, however, will tear their flesh."}
 /datum/action/innate/dash/cult
 	name = "Rend the Veil"
 	desc = "Use the sword to shear open the flimsy fabric of this reality and teleport to your target."
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 	dash_sound = 'sound/magic/enter_blood.ogg'
 	recharge_sound = 'sound/magic/exit_blood.ogg'
@@ -138,11 +138,24 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "A torn, dust-caked hood. Strange letters line the inside."
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEEARS
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 40)
+	armor_type = /datum/armor/hooded_cult_hoodie
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
+
+
+/datum/armor/hooded_cult_hoodie
+	melee = 30
+	bullet = 30
+	laser = 20
+	energy = 20
+	bomb = 25
+	bio = 10
+	fire = 10
+	acid = 10
+	stamina = 40
+	bleed = 20
 
 /obj/item/clothing/suit/hooded/cultrobes
 	name = "ancient cultist robes"
@@ -151,15 +164,29 @@ Striking a noncultist, however, will tear their flesh."}
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	item_state = "cultrobes"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 40)
+	armor_type = /datum/armor/hooded_cultrobes
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 
+
+
+/datum/armor/hooded_cultrobes
+	melee = 30
+	bullet = 30
+	laser = 20
+	energy = 20
+	bomb = 25
+	bio = 10
+	fire = 10
+	acid = 10
+	stamina = 40
+	bleed = 20
 
 /obj/item/clothing/head/hooded/cult_hoodie/alt
 	name = "cultist hood"
@@ -187,8 +214,21 @@ Striking a noncultist, however, will tear their flesh."}
 	item_state = null
 	desc = "A helm worn by the followers of Nar'Sie."
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEARS|HIDEEYES|HIDESNOUT
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 50)
+	armor_type = /datum/armor/wizard_magus
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+
+/datum/armor/wizard_magus
+	melee = 50
+	bullet = 30
+	laser = 50
+	energy = 20
+	bomb = 25
+	bio = 10
+	fire = 10
+	acid = 10
+	stamina = 50
+	bleed = 50
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
@@ -199,12 +239,26 @@ Striking a noncultist, however, will tear their flesh."}
 	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 50)
+	armor_type = /datum/armor/suit_magusred
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+
+
+/datum/armor/suit_magusred
+	melee = 50
+	bullet = 30
+	laser = 50
+	energy = 20
+	bomb = 25
+	bio = 10
+	fire = 10
+	acid = 10
+	stamina = 50
+	bleed = 20
 
 /obj/item/sharpener/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
+	icon = 'icons/obj/cult.dmi'
 	icon_state = "cult_sharpener"
 	used = 0
 	increment = 5
@@ -216,35 +270,70 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist armor"
-	desc = "Empowered armor which creates a powerful shield around the user."
+	desc = "A set of runed armour scribbed with blood rites which shimmer in the light, reflecting projectiles."
 	icon_state = "cult_armor"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60, STAMINA = 40)
+	armor_type = /datum/armor/cultrobes_cult_shield
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	/// if anyone can equip this. used by the prefs menu
 	var/allow_any = FALSE
 
+
+/datum/armor/cultrobes_cult_shield
+	melee = 40
+	bullet = 30
+	laser = 40
+	energy = 30
+	bomb = 50
+	bio = 30
+	rad = 30
+	fire = 50
+	acid = 60
+	stamina = 40
+	bleed = 20
+
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/anyone
 	allow_any = TRUE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/Initialize()
-	. = ..()
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
 	// note that these charges don't regenerate
-	AddComponent(/datum/component/shielded, recharge_start_delay = 0, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
+	AddComponent(/datum/component/shielded, \
+		max_integrity = 100, \
+		charge_recovery = 0 SECONDS, \
+		shield_icon_file = 'icons/effects/cult_effects.dmi', \
+		shield_icon = "shield-cult", \
+		shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES, \
+		shield_alpha = 120, \
+		run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)) \
+		)
 
 /// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, current_integrity)
 	wearer.visible_message("<span class='danger'>[wearer]'s robes neutralize [attack_text] in a burst of blood-red sparks!</span>")
 	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
-	if(new_current_charges == 0)
+	if(current_integrity == 0)
 		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/head/hooded/cult_hoodie/cult_shield
 	name = "empowered cultist helmet"
-	desc = "Empowered helmet which creates a powerful shield around the user."
+	desc = "A runed helmet scribbed with blood rites which shimmer in the light, reflecting projectiles."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60, STAMINA = 40)
+	armor_type = /datum/armor/cult_hoodie_cult_shield
+
+
+/datum/armor/cult_hoodie_cult_shield
+	melee = 40
+	bullet = 30
+	laser = 40
+	energy = 30
+	bomb = 50
+	bio = 100
+	rad = 30
+	fire = 50
+	acid = 60
+	stamina = 40
+	bleed = 20
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
@@ -259,14 +348,30 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of reduced protection."
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 10,  BULLET = 20, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 40)
+	armor_type = /datum/armor/cultrobes_berserker
 	slowdown = -0.4
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
+
+
+/datum/armor/cultrobes_berserker
+	melee = 10
+	bullet = 20
+	laser = 10
+	stamina = 40
+	bleed = 20
 
 /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
 	name = "flagellant's hood"
 	desc = "Blood-soaked hood infused with dark magic."
-	armor = list(MELEE = 10,  BULLET = 20, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 40)
+	armor_type = /datum/armor/cult_hoodie_berserkerhood
+
+
+/datum/armor/cult_hoodie_berserkerhood
+	melee = 10
+	bullet = 20
+	laser = 10
+	stamina = 40
+	bleed = 20
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
 	..()
@@ -294,14 +399,6 @@ Striking a noncultist, however, will tear their flesh."}
 		user.Paralyze(100)
 		user.adjust_blindness(30)
 
-/obj/item/reagent_containers/glass/beaker/unholywater
-	name = "flask of unholy water"
-	desc = "Toxic to nonbelievers; reinvigorating to the faithful - this flask may be sipped or thrown."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "holyflask"
-	color = "#333333"
-	list_reagents = list(/datum/reagent/fuel/unholywater = 50)
-
 /obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
@@ -325,7 +422,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
-		var/security_num = seclevel2num(get_security_level())
+		var/security_num = SSsecurity_level.get_current_level_as_number()
 		var/set_coefficient = 1
 		switch(security_num)
 			if(SEC_LEVEL_GREEN)
@@ -353,7 +450,7 @@ Striking a noncultist, however, will tear their flesh."}
 			"The shuttle's transponder is emitting the encoded message 'FEAR THE OLD BLOOD' in lieu of its assigned identification signal.")
 		var/message = pick_n_take(curses)
 		message += " The shuttle will be delayed by three minutes."
-		priority_announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(priority_announce), message, "Priority Alert", 'sound/misc/announce_syndi.ogg', null, "Nanotrasen Department of Transportation: Central Command"), rand(2 SECONDS, 6 SECONDS))
 		curselimit++
 
 /obj/item/cult_shift
@@ -477,8 +574,10 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_speed = 2
 	armour_penetration = 30
 	block_upgrade_walk = 1
-	attack_verb = list("attacked", "impaled", "stabbed", "tore", "gored")
+	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/datum/action/innate/cult/spear/spear_act
 
@@ -739,7 +838,8 @@ Striking a noncultist, however, will tear their flesh."}
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
 	block_flags = BLOCKING_PROJECTILE
-	attack_verb = list("bumped", "prodded")
+	attack_verb_continuous = list("bumps", "prods")
+	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/illusions = 4
 

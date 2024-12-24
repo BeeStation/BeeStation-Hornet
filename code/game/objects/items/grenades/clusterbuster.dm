@@ -44,6 +44,8 @@
 	icon_state = "clusterbang_segment"
 	base_state = "clusterbang_segment"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/clusterbuster/segment)
+
 /obj/item/grenade/clusterbuster/segment/Initialize(mapload, obj/item/grenade/clusterbuster/base)
 	. = ..()
 	if(base)
@@ -74,6 +76,8 @@
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/payload_spawner)
+
 /obj/effect/payload_spawner/Initialize(mapload, type, numspawned)
 	..()
 	spawn_payload(type, numspawned)

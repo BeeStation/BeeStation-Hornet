@@ -2,7 +2,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser
 	charge_max = 3 MINUTES
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_demon"
 
@@ -20,7 +20,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	range = 2
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "areaconvert"
 	action_background_icon_state = "bg_cult"
 
@@ -41,7 +41,7 @@
 	invocation_type = INVOCATION_NONE
 	range = 0
 	summon_type = list(/turf/open/floor/engine/cult)
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "floorconstruct"
 	action_background_icon_state = "bg_cult"
 
@@ -56,7 +56,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	range = 0
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "lesserconstruct"
 	action_background_icon_state = "bg_cult"
 
@@ -73,7 +73,7 @@
 	invocation_type = INVOCATION_NONE
 	invocation_time = 50
 	range = 0
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "airlockconstruct"
 	action_background_icon_state = "bg_cult"
 
@@ -102,7 +102,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	range = 0
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_demon"
 
@@ -130,7 +130,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	wall_type = /obj/effect/forcefield/cult
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_demon"
 
@@ -144,7 +144,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	jaunt_duration = 5 SECONDS
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "phaseshift"
 	action_background_icon_state = "bg_demon"
 	jaunt_in_time = 0.6 SECONDS
@@ -219,7 +219,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "abyssal_gaze"
 
@@ -267,7 +267,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "dominate"
 
@@ -323,7 +323,7 @@
 	proj_type = /obj/projectile/magic/spell/juggernaut
 	charge_max = 35 SECONDS
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "cultfist"
 	action_background_icon_state = "bg_demon"
 	sound = 'sound/weapons/resonator_blast.ogg'

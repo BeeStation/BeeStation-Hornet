@@ -709,3 +709,5 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			qdel(P)
 		else
 			P.forceMove(drop_location())
+
+#undef PRINTER_COOLDOWN

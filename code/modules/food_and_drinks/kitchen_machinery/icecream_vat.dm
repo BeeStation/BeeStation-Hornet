@@ -8,7 +8,7 @@
 /obj/machinery/icecream_vat
 	name = "ice cream vat"
 	desc = "Ding-aling ding dong. Get your Nanotrasen-approved ice cream!"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "icecream_vat"
 	density = TRUE
 	anchored = FALSE
@@ -169,7 +169,7 @@
 /obj/item/food/icecream
 	name = "waffle cone"
 	desc = "Delicious waffle cone, but no ice cream."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "icecream_cone_waffle" //default for admin-spawned cones, href_list["cone"] should overwrite this all the time
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	bite_consumption = 4

@@ -138,7 +138,9 @@
 	booting = FALSE
 	on = TRUE
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Boot sequence complete, [name] operational")
-	update_mobility()
+	REMOVE_TRAIT(src, TRAIT_INCAPACITATED, POWER_LACK_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, POWER_LACK_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, POWER_LACK_TRAIT)
 	set_light_on(on)
 	update_icon()
 	diag_hud_set_botstat()
@@ -155,7 +157,9 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
-	update_mobility()
+	ADD_TRAIT(src, TRAIT_INCAPACITATED, POWER_LACK_TRAIT)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, POWER_LACK_TRAIT)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, POWER_LACK_TRAIT)
 	set_light_on(on)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
@@ -193,11 +197,6 @@
 		path_hud.add_hud_to(src)
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
-
-/mob/living/simple_animal/bot/update_mobility()
-	. = ..()
-	if(!on)
-		mobility_flags = NONE
 
 /mob/living/simple_animal/bot/Destroy()
 	if(path_hud)
@@ -307,18 +306,22 @@
 
 /mob/living/simple_animal/bot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HELP)
-		interact(H)
+		ui_interact(H)
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/attack_ai(mob/user)
+/mob/living/simple_animal/bot/attack_silicon(mob/user)
 	if(!topic_denied(user))
-		interact(user)
+		ui_interact(user)
 	else
 		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
 
-/mob/living/simple_animal/bot/interact(mob/user)
-	show_controls(user)
+/mob/living/simple_animal/bot/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "SimpleBot", name)
+		ui.set_autoupdate(TRUE)
+		ui.open()
 
 /mob/living/simple_animal/bot/proc/togglelock(mob/living/user)
 	if(bot_core.allowed(user) && !open && !emagged)
@@ -900,6 +903,77 @@ Pass a positive integer as an argument to override a bot's default speed.
 			D.open()
 			frustration = 0
 
+/mob/living/simple_animal/bot/ui_data(mob/user)
+	var/list/data = list()
+	data["can_hack"] = (issilicon(user) || IsAdminGhost(user))
+	data["custom_controls"] = list()
+	data["emagged"] = emagged
+	data["locked"] = locked
+	data["pai"] = list()
+	data["settings"] = list()
+	if(!locked || issilicon(user) || IsAdminGhost(user))
+		data["pai"]["allow_pai"] = allow_pai
+		data["pai"]["card_inserted"] = paicard
+		data["settings"]["airplane_mode"] = !remote_disabled
+		data["settings"]["maintenance_lock"] = !open
+		data["settings"]["power"] = on
+		data["settings"]["booting"] = booting
+		data["settings"]["patrol_station"] = auto_patrol
+	return data
+
+// Actions received from TGUI
+/mob/living/simple_animal/bot/ui_act(action, params)
+	// according to base proc ui_act(),
+	// if interaction is to be denied, return TRUE
+	// if operation was successful, return FALSE
+	. = ..()
+	if(.)
+		return TRUE
+	if(action == "lock")
+		if (!bot_core.allowed(usr) && !usr.has_unlimited_silicon_privilege)
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
+			return TRUE
+		locked = !locked
+		return FALSE
+	if(!usr.has_unlimited_silicon_privilege && locked)
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return TRUE
+	switch(action)
+		if("power")
+			if (on)
+				turn_off()
+			else
+				boot_up_sequence()
+		if("maintenance")
+			open = !open
+		if("patrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("airplane")
+			remote_disabled = !remote_disabled
+		if("hack")
+			if(!usr.has_unlimited_silicon_privilege)
+				return TRUE
+			if(emagged != 2)
+				emagged = 2
+				hacked = TRUE
+				locked = TRUE
+				to_chat(usr, "<span class='warning'>[text_hack]</span>")
+				message_admins("Safety lock of [ADMIN_LOOKUPFLW(src)] was disabled by [ADMIN_LOOKUPFLW(usr)] in [ADMIN_VERBOSEJMP(src)]")
+				log_game("Safety lock of [src] was disabled by [key_name(usr)] in [AREACOORD(src)]")
+				bot_reset()
+			else if(!hacked)
+				to_chat(usr, "<span class='boldannounce'>[text_dehack_fail]</span>")
+			else
+				emagged = FALSE
+				hacked = FALSE
+				to_chat(usr, "<span class='notice'>[text_dehack]</span>")
+				log_game("Safety lock of [src] was re-enabled by [key_name(usr)] in [AREACOORD(src)]")
+				bot_reset()
+		if("eject_pai")
+			to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
+			ejectpai(usr)
+
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
 	var/dat = ""
@@ -1097,6 +1171,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/Login()
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	access_card.access |= player_access
 	diag_hud_set_botmode()
 

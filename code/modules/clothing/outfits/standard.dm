@@ -19,6 +19,7 @@
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
 		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/map_template_diver=1,\
 		/obj/item/debug/orb_of_power=1
 		)
 
@@ -78,7 +79,7 @@
 	suit = null
 	head = null
 	r_hand = /obj/item/mop
-	l_hand = /obj/item/reagent_containers/glass/bucket
+	l_hand = /obj/item/reagent_containers/cup/bucket
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 	l_pocket = /obj/item/grenade/chem_grenade/cleaner
 	backpack_contents = list(/obj/item/stack/tile/iron=6)
@@ -87,7 +88,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/reagent_containers/glass/bucket/bucket = H.get_item_for_held_index(1)
+	var/obj/item/reagent_containers/cup/bucket/bucket = H.get_item_for_held_index(1)
 	bucket.reagents.add_reagent(/datum/reagent/water,70)
 
 /datum/outfit/laser_tag
@@ -218,7 +219,7 @@
 		qdel(briefcase_item)
 	for(var/i = 3 to 0 step -1)
 		SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/stack/spacecash/c1000, null, TRUE, TRUE)
-	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/energy/kinetic_accelerator/crossbow, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/energy/recharge/ebow, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/ballistic/revolver/mateba, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/a357, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
@@ -237,13 +238,13 @@
 	name = JOB_CENTCOM_COMMANDER
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
-	suit = /obj/item/clothing/suit/armor/bulletproof
+	suit = /obj/item/clothing/suit/armor/centcom_formal
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	head = /obj/item/clothing/head/hats/centhat
+	head = /obj/item/clothing/head/hats/centcom_cap
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	r_pocket = /obj/item/lighter
 	l_pocket = /obj/item/ammo_box/a357
@@ -282,7 +283,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	ears = /obj/item/radio/headset/headset_cent/commander
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	head = /obj/item/clothing/head/helmet/space/beret
+	head = /obj/item/clothing/head/hats/centhat
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	r_pocket = /obj/item/lighter
 	back = /obj/item/storage/backpack/satchel/leather
@@ -311,7 +312,6 @@
 	uniform = /obj/item/clothing/under/color/black/ghost
 	suit = /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	shoes = /obj/item/clothing/shoes/cult/alt/ghost
-	head = /obj/item/clothing/shoes/cult/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
 
 /datum/outfit/wizard
@@ -334,7 +334,7 @@
 
 	var/obj/item/spellbook/S = locate() in H.held_items
 	if(S)
-		S.owner = H
+		S.owner = H.mind
 
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"

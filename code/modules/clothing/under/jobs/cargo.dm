@@ -15,7 +15,7 @@
 	item_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -33,7 +33,7 @@
 	icon_state = "qmturtle_skirt"
 	item_state = "qmturtle_skirt"
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -53,7 +53,7 @@
 	item_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -62,6 +62,13 @@
 	name = "shaft miner's jumpsuit"
 	icon_state = "miner"
 	item_state = "miner"
+	armor_type = /datum/armor/cargo_miner
+
+
+/datum/armor/cargo_miner
+	bio = 10
+	fire = 80
+	bleed = 10
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	desc = "A green uniform for operating in hazardous environments."
@@ -92,6 +99,6 @@
 	item_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT

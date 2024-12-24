@@ -683,6 +683,10 @@
 	name = "Short Bangs"
 	icon_state = "hair_shortbangs"
 
+/datum/sprite_accessory/hair/shortbangs2
+	name = "Short Bangs 2"
+	icon_state = "hair_shortbangs2"
+
 /datum/sprite_accessory/hair/short
 	name = "Short Hair"
 	icon_state = "hair_a"
@@ -2626,6 +2630,207 @@
 /datum/sprite_accessory/psyphoza_cap/sponge
 	name = "Helvella"
 	icon_state = "sponge"
+
+//dionae
+
+/datum/sprite_accessory/diona_leaves
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_leaves/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_leaves/leaves
+	name = "Diona Leaves"
+
+/datum/sprite_accessory/diona_leaves/leaves/head
+	name = "Diona Leaves"
+	icon_state = "head"
+/datum/sprite_accessory/diona_leaves/leaves/r_arm
+	name = "Diona Leaves"
+	icon_state = "r_arm"
+/datum/sprite_accessory/diona_leaves/leaves/l_arm
+	name = "Diona Leaves"
+	icon_state = "l_arm"
+/datum/sprite_accessory/diona_leaves/leaves/r_leg
+	name = "Diona Leaves"
+	icon_state = "r_leg"
+/datum/sprite_accessory/diona_leaves/leaves/l_leg
+	name = "Diona Leaves"
+	icon_state = "l_leg"
+/datum/sprite_accessory/diona_leaves/leaves/torso
+	name = "Diona Leaves"
+	icon_state = "chest"
+
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_thorns
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_thorns/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_thorns/head
+	name = "Diona Thorns (Head)"
+	icon_state = "head"
+
+/datum/sprite_accessory/diona_thorns/torso
+	name = "Diona Thorns (Torso)"
+	icon_state = "chest"
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_flowers
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_flowers/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_flowers/head
+	name = "Diona Flowers (Head)"
+	icon_state = "head"
+
+/datum/sprite_accessory/diona_flowers/torso
+	name = "Diona Flowers (Torso)"
+	icon_state = "chest"
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_moss
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_moss/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_moss/torso
+	name = "Diona Moss"
+	icon_state = "chest"
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_mushroom
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_mushroom/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_mushroom/head
+	name = "Diona Mushroom"
+	icon_state = "head"
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_antennae
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_antennae/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_antennae/head
+	name = "Diona Antennae"
+	icon_state = "head"
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_eyes
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_eyes/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_eyes/bug_eyes
+	name = "Bug Eyes"
+	icon_state = "bugeyes_head"
+
+/datum/sprite_accessory/diona_eyes/human_eyes
+	name = "Human Eyes"
+	icon_state = "humaneyes_head"
+
+/datum/sprite_accessory/diona_eyes/small_horns
+	name = "Small Horns"
+	icon_state = "smallhorns_head"
+
+/datum/sprite_accessory/diona_eyes/horns
+	name = "Horns"
+	icon_state = "horns_head"
+
+/datum/sprite_accessory/diona_eyes/treebeard
+	name = "Treebeard"
+	icon_state = "treebeard_head"
+
+/datum/sprite_accessory/diona_eyes/tinyeye
+	name = "Tiny Eye"
+	icon_state = "tinyeye_head"
+
+/datum/sprite_accessory/diona_eyes/eyebrow
+	name = "Eyebrow"
+	icon_state = "eyebrow_head"
+
+/datum/sprite_accessory/diona_eyes/bullhorn
+	name = "Bullhorn"
+	icon_state = "bullhorn_head"
+
+/datum/sprite_accessory/diona_eyes/mono_eye
+	name = "Mono Eye"
+	icon_state = "monoeye_head"
+
+/datum/sprite_accessory/diona_eyes/trioptics
+	name = "Trioptics"
+	icon_state = "trioptics_head"
+
+/datum/sprite_accessory/diona_eyes/lopsided
+	name = "Lopsided"
+	icon_state = "lopsided_head"
+
+/datum/sprite_accessory/diona_eyes/helmethead
+	name = "Helmethead"
+	icon_state = "helmethead_head"
+
+/datum/sprite_accessory/diona_eyes/eyestalk
+	name = "Eyestalk"
+	icon_state = "eyestalk_head"
+
+/datum/sprite_accessory/diona_eyes/periscope
+	name = "Periscope"
+	icon_state = "periscope_head"
+
+/datum/sprite_accessory/diona_eyes/glorp
+	name = "Glorp"
+	icon_state = "glorp_head"
+
+/datum/sprite_accessory/diona_eyes/oak
+	name = "Oak"
+	icon_state = "oak_head"
+
+/datum/sprite_accessory/diona_eyes/smallhorns
+	name = "Small Horns"
+	icon_state = "smallhorns_head"
+
+/datum/sprite_accessory/diona_eyes/stump
+	name = "Stump"
+	icon_state = "stump_head"
+
+/datum/sprite_accessory/diona_eyes/snout
+	name = "Snout"
+	icon_state = "snout_head"
+/////////////////////////////////////////////////////
+/datum/sprite_accessory/diona_pbody
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_pbody/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/diona_pbody/pbody
+	name = "P-Body"
+	icon_state = "chest"
+/datum/sprite_accessory/diona_pbody/blinking
+	name = "Blinking P-Body"
+	icon_state = "blinking_chest"
+/////////////////////////////////////////////////////
 
 //apids
 

@@ -255,3 +255,29 @@
 	name = "supermatter waste input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
 
+
+#define LAYER_HELPER(FULLPATH)\
+##FULLPATH/layer2 {\
+	piping_layer = 2;\
+	icon_state = "inje_map-2";\
+}\
+##FULLPATH/layer4 {\
+	piping_layer = 4;\
+	icon_state = "inje_map-4";\
+}
+
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/mix_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrous_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/carbon_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_waste_input)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input)
+
+#undef LAYER_HELPER

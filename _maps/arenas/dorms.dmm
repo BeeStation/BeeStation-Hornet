@@ -238,9 +238,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "aW" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/tdome/arena)
@@ -255,16 +253,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
 "aY" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/tdome/arena)
-"aZ" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
+/obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/tdome/arena)
@@ -447,7 +436,7 @@ OA
 am
 hK
 ac
-aZ
+aY
 ac
 ac
 an

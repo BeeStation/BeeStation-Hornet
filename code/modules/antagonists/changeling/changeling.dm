@@ -1,7 +1,3 @@
-#define LING_FAKEDEATH_TIME					600 //1 minute.
-#define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
-#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
-
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category  = "changelings"
@@ -20,7 +16,6 @@
 	var/list/stored_profiles = list() //list of datum/changelingprofile
 	var/datum/changelingprofile/first_prof = null
 	var/absorbedcount = 0
-	var/trueabsorbs = 0//dna gained using absorb, not dna sting
 	var/chem_charges = 20
 	var/chem_storage = 75
 	var/chem_recharge_rate = 1
@@ -33,6 +28,7 @@
 	var/islinking = 0
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
+
 	var/mimicing = ""
 	var/canrespec = FALSE//set to TRUE in absorb.dm
 	var/changeling_speak = 0
@@ -42,6 +38,21 @@
 	var/datum/action/innate/cellular_emporium/emporium_action
 
 	var/static/list/all_powers = typecacheof(/datum/action/changeling,TRUE)
+
+	var/static/list/slot2type = list(
+		"head" = /obj/item/clothing/head/changeling,
+		"wear_mask" = /obj/item/clothing/mask/changeling,
+		"back" = /obj/item/changeling,
+		"wear_suit" = /obj/item/clothing/suit/changeling,
+		"w_uniform" = /obj/item/clothing/under/changeling,
+		"shoes" = /obj/item/clothing/shoes/changeling,
+		"belt" = /obj/item/changeling,
+		"gloves" = /obj/item/clothing/gloves/changeling,
+		"glasses" = /obj/item/clothing/glasses/changeling,
+		"ears" = /obj/item/changeling,
+		"wear_id" = /obj/item/card/id/changeling,
+		"s_store" = /obj/item/changeling,
+	)
 
 /datum/antagonist/changeling/New()
 	. = ..()
@@ -85,7 +96,8 @@
 	if(give_objectives)
 		forge_objectives()
 	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-	owner.current.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue. We are able to transform our body after all.
+	owner.current.get_language_holder().omnitongue = TRUE
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	. = ..()
 
 /datum/antagonist/changeling/on_removal()
@@ -354,15 +366,14 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(isipc(C))
+	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
 		C.set_species(/datum/species/human)
 		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == C.real_name)
-				E.fields["species"] = "\improper Human"
-				var/client/Clt = C.client
+		for(var/datum/record/crew/E in GLOB.manifest.general)
+			if(E.name == C.real_name)
+				E.species = "\improper Human"
 				var/static/list/show_directions = list(SOUTH, WEST)
-				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)
+				var/image = get_flat_existing_human_icon(C, show_directions)
 				var/datum/picture/pf = new
 				var/datum/picture/ps = new
 				pf.picture_name = "[C]"
@@ -371,11 +382,7 @@
 				ps.picture_desc = "This is [C]."
 				pf.picture_image = icon(image, dir = SOUTH)
 				ps.picture_image = icon(image, dir = WEST)
-				var/obj/item/photo/photo_front = new(null, pf)
-				var/obj/item/photo/photo_side = new(null, ps)
-				E.fields["photo_front"]	= photo_front
-				E.fields["photo_side"]	= photo_side
-				E.fields["sex"] = C.gender
+				E.gender = C.gender
 	if(ishuman(C))
 		add_new_profile(C)
 

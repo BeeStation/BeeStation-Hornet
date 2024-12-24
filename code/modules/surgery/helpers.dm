@@ -38,7 +38,7 @@
 				continue
 		else if(C && S.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 			continue
-		if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
+		if(S.lying_required && M.body_position != LYING_DOWN)
 			continue
 		if(!S.can_start(user, M, target_zone))
 			continue
@@ -68,7 +68,7 @@
 				return
 		else if(C && S.requires_bodypart)
 			return
-		if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
+		if(S.lying_required && M.body_position != LYING_DOWN)
 			return
 		if(!S.can_start(user, M, target_zone))
 			return

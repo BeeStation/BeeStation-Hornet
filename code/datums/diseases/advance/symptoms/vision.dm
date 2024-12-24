@@ -33,7 +33,7 @@ Bonus
 	suffixes = list(" Blindness")
 	var/remove_eyes = FALSE
 	threshold_desc = "<b>Resistance 12:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
 	. = ..()
@@ -41,7 +41,7 @@ Bonus
 		severity += 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Resistance 8:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())

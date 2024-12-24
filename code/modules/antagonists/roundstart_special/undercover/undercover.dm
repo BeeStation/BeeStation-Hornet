@@ -41,7 +41,7 @@
 	objectives += chosen_objective
 	log_objective(owner, chosen_objective.explanation_text)
 
-	if(owner.assigned_role in GLOB.engineering_positions)
+	if(owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING))
 		var/datum/objective/protect_sm/objective = new
 		if(objective.get_target())
 			objective.update_explanation_text()

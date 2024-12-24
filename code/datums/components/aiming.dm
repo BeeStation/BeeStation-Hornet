@@ -192,7 +192,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(holding_at_gunpoint)
 		possible_actions += LET_GO
 	for(var/option in possible_actions)
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+		options[option] = image(icon = 'icons/hud/radials/radial_aiming.dmi', icon_state = option)
 	if(choice_menu)
 		choice_menu.change_choices(options)
 		return
@@ -329,7 +329,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		return
 	var/list/options = list()
 	for(var/option in list(SURRENDER, IGNORE))
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+		options[option] = image(icon = 'icons/hud/radials/radial_aiming.dmi', icon_state = option)
 	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, PROC_REF(aim_react_act)))
 
 /datum/component/aiming/proc/aim_react_act(choice)
@@ -339,7 +339,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 // Shows a crosshair effect when aiming at a target
 /obj/effect/temp_visual/aiming
-	icon = 'icons/effects/aiming.dmi'
+	icon = 'icons/hud/radials/radial_aiming.dmi'
 	icon_state = "aiming"
 	duration = 3 SECONDS
 	layer = ABOVE_MOB_LAYER

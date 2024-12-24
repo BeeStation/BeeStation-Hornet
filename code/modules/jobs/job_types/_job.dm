@@ -125,7 +125,7 @@
 
 	if(!config_check())
 		lock_flags |= JOB_LOCK_REASON_CONFIG
-	if(!map_check())
+	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
 		lock_flags |= JOB_LOCK_REASON_MAP
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
@@ -247,15 +247,16 @@
 		if(!rep_value)
 			rep_value = 0
 		return rep_value
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[LOWER_TEXT(title)]
 	if(. == null)
 		return antag_rep
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
+//Returning FALSE is considered a failure. A null or mob return is a successful equip.
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
-	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
+	if(CONFIG_GET(flag/enforce_human_authority) && (title in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
@@ -335,9 +336,6 @@
 /datum/job/proc/config_check()
 	return TRUE
 
-/datum/job/proc/map_check()
-	return TRUE
-
 /datum/job/proc/get_lock_reason()
 	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
 		return "Not a real job"
@@ -362,7 +360,9 @@
 	belt = /obj/item/modular_computer/tablet/pda
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
+
+	preload = TRUE // These are used by the prefs ui, and also just kinda could use the extra help at roundstart
 
 	var/backpack = /obj/item/storage/backpack
 	var/satchel  = /obj/item/storage/backpack/satchel
@@ -437,6 +437,16 @@
 	types += duffelbag
 	return types
 
+/datum/outfit/job/get_types_to_preload()
+	var/list/preload = ..()
+	preload += backpack
+	preload += satchel
+	preload += duffelbag
+	preload += /obj/item/storage/backpack/satchel/leather
+	var/skirtpath = "[uniform]/skirt"
+	preload += text2path(skirtpath)
+	return preload
+
 //Warden and regular officers add this result to their get_access()
 /datum/job/proc/check_config_for_sec_maint()
 	return CONFIG_GET(flag/security_has_maint_access)
@@ -503,5 +513,5 @@
 			mmi.brainmob.real_name = organic_name //the name of the brain inside the cyborg is the robotized human's name.
 			mmi.brainmob.name = organic_name
 	// If this checks fails, then the name will have been handled during initialization.
-	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME && check_cyborg_name(player_client, mmi))
 		apply_pref_name(/datum/preference/name/cyborg, player_client)
