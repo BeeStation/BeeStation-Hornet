@@ -196,7 +196,8 @@ Class Procs:
 /obj/machinery/LateInitialize()
 	. = ..()
 	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
+	if(use_power == NO_POWER_USE)
+		return
 	setup_area_power_relationship()
 
 /obj/machinery/Destroy()
