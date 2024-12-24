@@ -5,7 +5,7 @@ import { eventHandlerMap } from '../handlers';
 import { getCss, getTheme, timers } from '../helpers';
 import { Component, createRef } from 'react';
 import { Modal, State } from '../types';
-import { KEY_ESCAPE } from 'common/keycodes';
+import { isEscape } from 'common/keys';
 
 /** Primary class for the TGUI say modal. */
 export class TguiSay extends Component<{}, State> {
@@ -49,7 +49,7 @@ export class TguiSay extends Component<{}, State> {
         className={getCss('modal', theme, size)}
         onMouseDown={dragStartHandler}
         onKeyDown={(event) => {
-          if (event.keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             onEscape();
           }
         }}>

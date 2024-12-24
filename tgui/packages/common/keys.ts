@@ -53,6 +53,6 @@ export enum KEY {
  * @param key - the key to check, typically from event.key
  * @returns true if key is Escape or Esc, false otherwise
  */
-export function isEscape(key: string): boolean {
+export const isEscape = (key: string): boolean => {
   return key === KEY.Esc || key === KEY.Escape;
-}
+};

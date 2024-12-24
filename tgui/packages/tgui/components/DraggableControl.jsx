@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
 import { clamp } from 'common/math';
 import { Component, createRef } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
@@ -207,7 +208,7 @@ export class DraggableControl extends Component {
           }
         }}
         onKeyDown={(e) => {
-          if (e.keyCode === 13) {
+          if (e.key === KEY.Enter) {
             let value;
             if (unclamped) {
               value = parseFloat(e.target.value);
@@ -233,7 +234,7 @@ export class DraggableControl extends Component {
             }
             return;
           }
-          if (e.keyCode === 27) {
+          if (isEscape(e.key)) {
             this.setState({
               editing: false,
             });

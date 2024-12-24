@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { KEY_ENTER, KEY_ESCAPE, KEY_SPACE } from 'common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
 import { Box, computeBoxClassName, computeBoxProps } from './Box';
@@ -67,9 +67,8 @@ export const Button = (props) => {
           return;
         }
 
-        const keyCode = window.event ? e.which : e.keyCode;
         // Simulate a click when pressing space or enter.
-        if (keyCode === KEY_SPACE || keyCode === KEY_ENTER) {
+        if (e.key === KEY.Space || e.key === KEY.Enter) {
           e.preventDefault();
           if (!disabled && onClick) {
             onClick(e);
@@ -77,7 +76,7 @@ export const Button = (props) => {
           return;
         }
         // Refocus layout on pressing escape.
-        if (keyCode === KEY_ESCAPE) {
+        if (isEscape(e.key)) {
           e.preventDefault();
           return;
         }
@@ -237,12 +236,12 @@ export class ButtonInput extends Component {
             this.commitResult(e);
           }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.keyCode === KEY_ENTER) {
+            if (e.key === KEY.Enter) {
               this.setInInput(false);
               this.commitResult(e);
               return;
             }
-            if (e.key === 'Esc' || e.keyCode === KEY_ESCAPE) {
+            if (isEscape(e.key)) {
               this.setInInput(false);
             }
           }}

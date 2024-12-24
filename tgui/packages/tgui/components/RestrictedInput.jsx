@@ -2,7 +2,7 @@ import { classes } from 'common/react';
 import { clamp } from 'common/math';
 import { Component, createRef } from 'react';
 import { Box } from './Box';
-import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;
@@ -64,7 +64,7 @@ export class RestrictedInput extends Component {
     };
     this.handleKeyDown = (e) => {
       const { maxValue, minValue, onChange, onEnter, allowFloats } = this.props;
-      if (e.keyCode === KEY_ENTER) {
+      if (e.key === KEY.Enter) {
         const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
         this.setEditing(false);
         if (onChange) {
@@ -76,7 +76,7 @@ export class RestrictedInput extends Component {
         e.target.blur();
         return;
       }
-      if (e.keyCode === KEY_ESCAPE) {
+      if (isEscape(e.key)) {
         if (this.props.onEscape) {
           this.props.onEscape(e);
           return;

@@ -7,7 +7,7 @@
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
 import { Box } from './Box';
-import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 
 export const toInputValue = (value) => (typeof value !== 'number' && typeof value !== 'string' ? '' : String(value));
 
@@ -47,7 +47,7 @@ export class Input extends Component {
     };
     this.handleKeyDown = (e) => {
       const { onInput, onChange, onEnter } = this.props;
-      if (e.keyCode === KEY_ENTER) {
+      if (e.key === KEY.Enter) {
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);
@@ -65,7 +65,7 @@ export class Input extends Component {
         }
         return;
       }
-      if (e.keyCode === KEY_ESCAPE) {
+      if (isEscape(e.key)) {
         if (this.props.onEscape) {
           this.props.onEscape(e);
           return;

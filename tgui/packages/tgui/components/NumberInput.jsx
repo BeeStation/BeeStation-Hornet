@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
 import { clamp } from 'common/math';
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
@@ -215,7 +216,7 @@ export class NumberInput extends Component {
             }
           }}
           onKeyDown={(e) => {
-            if (e.keyCode === 13) {
+            if (e.key === KEY.Enter) {
               const value = clamp(parseFloat(e.target.value), minValue, maxValue);
               if (Number.isNaN(value)) {
                 this.setState({
@@ -236,7 +237,7 @@ export class NumberInput extends Component {
               }
               return;
             }
-            if (e.keyCode === 27) {
+            if (isEscape(e.key)) {
               this.setState({
                 editing: false,
               });
