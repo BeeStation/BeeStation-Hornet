@@ -122,7 +122,7 @@
 	return
 
 /obj/machinery/door/firedoor/Destroy()
-	unregister_adjacent_turfs()
+	unregister_adjacent_turfs(src)
 	remove_from_areas()
 	QDEL_NULL(soundloop)
 	return ..()
@@ -212,7 +212,7 @@
 			continue
 		process_results(checked_turf)
 
-/obj/machinery/door/firedoor/proc/unregister_adjacent_turfs(atom/old_loc)
+/obj/machinery/door/firedoor/proc/(atom/old_loc)
 	if(!loc)
 		return
 
