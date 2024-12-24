@@ -36,6 +36,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/inhand_x_dimension = 32
 	/// y dimension of the inhand sprite
 	var/inhand_y_dimension = 32
+	/// Worn overlay will be shifted by this along y axis
+	var/worn_y_offset = 0
 
 	//Not on /clothing because for some reason any /obj/item can technically be "worn" with enough fuckery.
 	/// If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events
@@ -156,8 +158,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/flags_cover = 0
 	/// Used to define how hot it's flame will be when lit. Used it igniters, lighters, flares, candles, etc.
 	var/heat = 0
-	/// IS_BLUNT | IS_SHARP | IS_SHARP_ACCURATE Used to define whether the item is sharp or blunt. IS_SHARP is used if the item is supposed to be able to cut open things. See _DEFINES/combat.dm
-	var/sharpness = IS_BLUNT
+	/// BLUNT | SHARP | SHARP_DISMEMBER | SHARP_DISMEMBER_EASY Used to define whether the item is sharp or blunt. SHARP is used if the item is supposed to be able to cut open things. See _DEFINES/combat.dm
+	var/sharpness = BLUNT
 	//this multiplies an attacks force for secondary effects like attacking blocking implements, dismemberment, and knocking a target silly
 	var/attack_weight = 1
 
