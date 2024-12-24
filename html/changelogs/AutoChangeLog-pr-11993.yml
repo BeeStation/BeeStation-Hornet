@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed AIs being unable to select a crew member as a hologram.
+  - refactor: TGUI-ified the AI hologram selection menu.
