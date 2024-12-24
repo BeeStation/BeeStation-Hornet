@@ -178,7 +178,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/maintenance/get_turf_textures()
+/area/maintenance/get_area_textures()
 	return GLOB.turf_texture_maint
 
 //Maintenance - Departmental
@@ -242,7 +242,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Science Maintenance"
 	icon_state = "maint_sci"
 
-/area/maintenance/department/science/get_turf_textures()
+/area/maintenance/department/science/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/maintenance/department/science/central
@@ -420,7 +420,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_brightness_tube = 8
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/hallway/get_turf_textures()
+/area/hallway/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/hallway/primary
@@ -642,7 +642,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/warm_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/crew_quarters/get_turf_textures()
+/area/crew_quarters/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/crew_quarters/dorms
@@ -892,7 +892,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering"
 	icon_state = "engine"
 
-/area/engine/engineering/get_turf_textures()
+/area/engine/engineering/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/engineering/hallway
@@ -1216,7 +1216,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/warm_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/security/get_turf_textures()
+/area/security/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/security/main
@@ -1389,7 +1389,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/warm_yellow
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/quartermaster/get_turf_textures()
+/area/quartermaster/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/quartermaster/sorting
@@ -1473,7 +1473,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/hydroponics/get_turf_textures()
+/area/hydroponics/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/hydroponics/garden
@@ -1571,7 +1571,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Robotics"
 	icon_state = "robotics"
 
-/area/science/robotics/get_turf_textures()
+/area/science/robotics/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/science/robotics/mechbay
@@ -1615,7 +1615,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
 
-/area/storage/primary/get_turf_textures()
+/area/storage/primary/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/storage/art

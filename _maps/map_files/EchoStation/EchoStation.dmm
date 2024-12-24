@@ -11884,11 +11884,11 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white,
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /obj/machinery/vending/coffee,
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "fLS" = (
@@ -18694,10 +18694,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 8;
-	name = "Medbay";
-	sortType = 10
+/obj/structure/disposalpipe/sorting/mail/destination/cmo_office/flip{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/central)
@@ -21352,8 +21350,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/sorting/mail/destination/medbay/flip{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/medical/medbay/central)
@@ -29135,10 +29133,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 8;
-	name = "Medbay";
-	sortType = 9
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/medical/medbay/central)
@@ -46993,7 +46989,7 @@
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/trunk{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/central)
