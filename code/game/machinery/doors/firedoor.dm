@@ -122,8 +122,8 @@
 	return
 
 /obj/machinery/door/firedoor/Destroy()
-	unregister_adjacent_turfs(src)
 	remove_from_areas()
+	unregister_adjacent_turfs(loc)
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -630,6 +630,11 @@
 		else
 			new /obj/item/electronics/firelock (targetloc)
 	qdel(src)
+
+/obj/machinery/door/firedoor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	unregister_adjacent_turfs(old_loc)
+	register_adjacent_turfs()
 
 /obj/machinery/door/firedoor/closed
 	icon_state = "door_closed"
