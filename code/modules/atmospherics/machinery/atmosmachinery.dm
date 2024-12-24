@@ -21,6 +21,7 @@
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	flags_1 = STAT_UNIQUE_1
 	///Check if the object can be unwrenched
 	var/can_unwrench = FALSE
 	///Bitflag of the initialized directions (NORTH | SOUTH | EAST | WEST)

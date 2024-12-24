@@ -56,6 +56,68 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">24 December 2024</h2>
+			<h3 class="author">BarteG44 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Removes the second wire from the c4 charge</li>
+			</ul>
+			<h3 class="author">DeltaFire15 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">keycard authentication devices require an ID to use.</li>
+				<li class="balance">IDs used to initiate / confirm keycard auth events must not be the same ID.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Clients running 515 will now be able to see icons in the alt-click stat panel menu.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Completely overhauled dismemberment and weapon sharpness. Weapons now have four levels of sharpness: Blunt, Sharp, Dismember and Easy Dismember.</li>
+				<li class="balance">Blunt weapons are now only able to cause dismemberment on species that have the easy dismemberment trait, all of which can easily regenerate or otherwise slap their dismembered limb back into place.</li>
+				<li class="balance">Species with the easy dismemberment trait (Skeletons, IPCs, Oozelings) have a chance equal to the damage received to lose a targetted limb as long as the limb was already damaged before being struck.</li>
+				<li class="balance">Ordinary sharp weapons such as knives and surgical tools can only dismember a dead target.</li>
+				<li class="balance">Large weapons such as swords, axes and chainsaws are only able to dismember a limb which has already been fully disabled. This means that it will take at least three hits with a fire axe to take someone's leg off.</li>
+				<li class="balance">Bladed energy weapons have a chance equal to their damage to dismember a targetted limb regardless of how much damage it has taken, in addition to being guaranteed to dismember a limb that has been fully disabled by damage. The nightmare's light eater is the only non-energy weapon in this group right now.</li>
+				<li class="balance">Mobs cannot be decapitated through the simplified mechanics while they are fully conscious - they must at minimum be asleep or in crit in order for dismemberment to apply when targetting someone's head for balance reasons.</li>
+			</ul>
+			<h3 class="author">Therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">the blackbox is now a large item</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed AIs being unable to select a crew member as a hologram.</li>
+				<li class="refactor">TGUI-ified the AI hologram selection menu.</li>
+			</ul>
+			<h3 class="author">XeonMations, ManiacalAnxiety, therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Split personalities can no longer throw out their original body's mind out of their own body permenantly.</li>
+			</ul>
+			<h3 class="author">XeonMations, timothymtorres updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a lot of oversights related to gravity, such as lavaland not having gravity or simplemobs floating roundstart.</li>
+				<li class="bugfix">You can no longer defy gravity through the power of love</li>
+			</ul>
+			<h3 class="author">rkz, Ebb-Real, AnturK updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">GAGSifies bandanas</li>
+				<li class="refactor">refactors large mob icons to no longer need snowflaked .dmi sizes. Just edit a variable</li>
+			</ul>
+			<h3 class="author">rkz, MrMelbert, Cyberboss updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">refactored language holders, species changes will no longer delete all known languages</li>
+				<li class="refactor">refactored tongue language lists to kill typecache nonsense and handle subtypes sanely</li>
+				<li class="code_imp">unit tests language transfers</li>
+				<li class="code_imp">fix config errors before /world/New()</li>
+			</ul>
+			<h3 class="author">rkz, haukeschaumann, JohnFulpWillard, jlsnow301, Crumpaloo, San7890, MrStonedOne, Lilah Novi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fix custom typing indicators. Cyborgs, xenos, and lawyers (among others) now have unique typing indicators again after 3 years.</li>
+				<li class="rscadd">new *Animated* typing indicator sprites</li>
+				<li class="rscadd">typing in the command bar will now activate typing indicator.</li>
+				<li class="code_imp">traitified a typing indicator var</li>
+			</ul>
+
 			<h2 class="date">22 December 2024</h2>
 			<h3 class="author">BarteG44 updated:</h3>
 			<ul class="changes bgimages16">
@@ -68,6 +130,11 @@
 			<h3 class="author">PowerfulBacon updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixes echostation disposals resulting in random testing failures.</li>
+			</ul>
+			<h3 class="author">Therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Subtle messages, telepathy, and headset messages now show a balloon alert</li>
+				<li class="bugfix">you can no longer get to centcom with warped runes</li>
 			</ul>
 			<h3 class="author">Tsar-Salat updated:</h3>
 			<ul class="changes bgimages16">
@@ -752,64 +819,6 @@
 				<li class="bugfix">Dullahans can now properly whisper, sing and do all these funny things that they were unable to do before.</li>
 				<li class="bugfix">Dullahans can now succumb in hardcrit by whispering, as intended. This potentially fixes other species that worked similarly not being able to succumb, like abductors.</li>
 				<li class="bugfix">When switching from Dullahans to a different species, your old head will no longer stay behind.</li>
-			</ul>
-
-			<h2 class="date">22 October 2024</h2>
-			<h3 class="author">BarteG44 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed emitter welding</li>
-				<li class="bugfix">fixed cult robes using the wrong hood</li>
-			</ul>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">camera shake on fire</li>
-				<li class="tweak">BSA tgui panel has been upgraded!</li>
-				<li class="balance">removed ability to rapid fire BSA</li>
-				<li class="balance">BSA now requires 20MW to shoot</li>
-				<li class="bugfix">can hear BSA sounds once again!</li>
-				<li class="bugfix">fixes charging making it charge the correct way</li>
-				<li class="code_imp">kW MW GW defines now added</li>
-			</ul>
-			<h3 class="author">MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added anomaly cores to the Cargo bounty.</li>
-				<li class="rscadd">Added cores to be sellable, including ones made from the SM.</li>
-				<li class="balance">Added another method for Cargo to get fat stacks of cash.</li>
-				<li class="balance">Gave anomaly cores a non-bounty sell value, even ones made by the SM.</li>
-			</ul>
-			<h3 class="author">NotRanged updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Emitters now fire hitscan lasers!</li>
-				<li class="bugfix">Hitscan projectiles now reflect correctly</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Adds the ability to set Conveyor Belt direction directly from USB circuit Connections</li>
-			</ul>
-			<h3 class="author">Sarchutar, tralezab, Timberpoes, CoffeeDragon16, san7890, MrMelbert, Arkatos1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Wizard Spellbook TGUI, with a randomizer and four presets</li>
-				<li class="bugfix">slaughter demon bottles and apprentice contracts now give back their full point amount when refunded</li>
-				<li class="bugfix">refunding a laughter demon doesn't raise the buy limit of slaughter demons anymore</li>
-				<li class="bugfix">liches and mindswapped wizard can use their spellbook again</li>
-			</ul>
-			<h3 class="author">Tsar-Salat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">the oven tray should no longer appear above the oven when it should be inside</li>
-				<li class="bugfix">only roundstart ovens start with trays inside. Make them from autolathes.</li>
-				<li class="bugfix">ovens obey pass flags</li>
-				<li class="code_imp">fixes drinks updatepaths</li>
-			</ul>
-			<h3 class="author">ktlwjec updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="spellcheck">Adds descriptions to chav and wacky genes.</li>
-			</ul>
-
-			<h2 class="date">21 October 2024</h2>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed a game-crashing bug with the syndicate explosive walls</li>
-				<li class="bugfix">fixed gibtonite rocks remaining behind after blowing up indefinitely</li>
 			</ul>
 		</div>
 

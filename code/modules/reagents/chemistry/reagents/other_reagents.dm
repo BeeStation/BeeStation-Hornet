@@ -2191,12 +2191,12 @@
 
 /datum/reagent/consumable/ratlight/on_mob_metabolize(mob/living/L)
 	L.add_blocked_language(subtypesof(/datum/language/) - /datum/language/ratvar, LANGUAGE_REAGENT)
-	L.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.grant_language(/datum/language/ratvar, source = LANGUAGE_REAGENT)
 	..()
 
 /datum/reagent/consumable/ratlight/on_mob_end_metabolize(mob/living/L)
 	L.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_REAGENT)
-	L.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.remove_language(/datum/language/ratvar, source = LANGUAGE_REAGENT)
 	L.set_light(-1)
 
 	..()
