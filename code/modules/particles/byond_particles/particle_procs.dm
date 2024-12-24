@@ -34,6 +34,8 @@ particles like bonfires.
 		else
 			addtimer(CALLBACK(src, PROC_REF(remove_emitter), particle_key), lifespan)
 
+	return new_emitter
+
 /atom/proc/remove_emitter(particle_key, burst_mode = FALSE)
 	if(!particle_key)
 		CRASH("remove_emitter called without a key ref.")

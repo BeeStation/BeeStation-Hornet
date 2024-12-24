@@ -236,7 +236,7 @@
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
@@ -930,14 +930,17 @@
 	S.action.Grant(src)
 
 ///Remove a spell from the mobs spell list
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
+/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell, delete_spell = TRUE)
 	if(!spell)
 		return
 	for(var/X in mob_spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(istype(S, spell))
-			mob_spell_list -= S
-			qdel(S)
+		var/obj/effect/proc_holder/spell/spell_holder = X
+		if(istype(spell_holder, spell))
+			mob_spell_list -= spell_holder
+			if(delete_spell)
+				qdel(spell_holder)
+			else
+				spell_holder.action.Remove(src)
 
 ///Return any anti magic atom on this mob that matches the magic type
 /mob/proc/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)
@@ -951,9 +954,9 @@
 			return src
 
 ///Return any anti artifact atom on this mob
-/mob/proc/anti_artifact_check(self = FALSE)
+/mob/proc/anti_artifact_check(self = FALSE, slot)
 	var/list/protection_sources = list()
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources) & COMPONENT_BLOCK_ARTIFACT)
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources, slot) & COMPONENT_BLOCK_ARTIFACT)
 		if(protection_sources.len)
 			return pick(protection_sources)
 		else
