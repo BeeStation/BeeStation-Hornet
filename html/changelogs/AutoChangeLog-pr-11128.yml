@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Clients running 515 will now be able to see icons in the alt-click stat
-      panel menu.
