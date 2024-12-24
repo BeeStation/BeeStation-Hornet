@@ -10,9 +10,6 @@
 	/// SANTA IS EVIL
 	var/preload = FALSE
 
-/obj/item/storage/get_dumping_location(obj/item/storage/source,mob/user)
-	return src
-
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 	if(!empty)
