@@ -246,7 +246,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS) != JAM_FULL)
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS) == JAM_FULL)
 		return
 
 

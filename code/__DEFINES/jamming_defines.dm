@@ -4,7 +4,7 @@
 #define JAMMER_LEVEL_NONE -1			//Jams nothing
 #define RADIO_JAMMER_ABDUCTOR_LEVEL 1	//Power of the abductor radio jammer
 #define RADIO_JAMMER_TRAITOR_LEVEL 3	//Power of the traitor radio jammer
-#define RADIO_JAMMER_MAINTENANCE_LEVEL 1	// Maintenance jams some signals with minor jamming
+#define RADIO_JAMMER_MAINTENANCE_LEVEL 0	// Maintenance jams some signals with minor jamming
 
 //Radio jammer protection level
 #define JAMMER_PROTECTION_RADIO_BASIC 0		//Basic comms channels
