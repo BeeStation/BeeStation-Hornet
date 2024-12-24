@@ -124,10 +124,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return TRUE
 
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
-		language = message_mods[LANGUAGE_EXTENSION]
-
-	if(!language) // there's no language argument and LANGUAGE_EXTENSION has no language. failsafe.
-		language = get_selected_language()
+		language = message_mods[LANGUAGE_EXTENSION] || get_selected_language()
 
 	// if you add a new language that works like everyone doesn't understand (i.e. anti-metalanguage), add an additional condition after this
 	// i.e.) if(!language) language = /datum/language/nobody_understands
@@ -436,12 +433,3 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 /mob/living/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	say("#[message]", bubble_type, spans, sanitize, language, ignore_spam, forced)
-
-/mob/living/get_language_holder(shadow=TRUE)
-	if(mind && shadow)
-		// Mind language holders shadow mob holders.
-		. = mind.get_language_holder()
-		if(.)
-			return .
-
-	. = ..()
