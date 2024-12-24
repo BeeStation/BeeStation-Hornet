@@ -359,7 +359,8 @@
 
 /turf/closed/wall/mineral/plastitanium/explosive/Initialize(mapload)
 	. = ..()
-	bombcore = new /obj/item/bombcore/large/syndicate_base(src)
+	bombcore = new /obj/item/bombcore/large/syndicate_base(get_turf(src))
+	bombcore.forceMove(src)
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	bombcore.detonate()
