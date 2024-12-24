@@ -56,6 +56,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HTML_USE_INITAL_ICON_1 (1<<13)
 /// Prevents direct access for anything in the contents of this atom.
 #define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
+// Whether or not this atom is storing contents for a disassociated storage object
+#define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 
 //turf-only flags. These use flags_1 too.
 // These exist to cover /turf and /area at the same time
