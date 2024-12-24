@@ -1,6 +1,0 @@
-author: XeonMations, timothymtorres
-delete-after: true
-changes:
-  - bugfix: Fixed a lot of oversights related to gravity, such as lavaland not having
-      gravity or simplemobs floating roundstart.
-  - bugfix: You can no longer defy gravity through the power of love
