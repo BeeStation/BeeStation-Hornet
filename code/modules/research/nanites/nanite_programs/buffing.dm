@@ -177,6 +177,7 @@
 	name = "metallic armblade"
 	desc = "Nanites have formed this extremely sharp blade around your arm. Owie."
 	force = 15
+	sharpness = SHARP_DISMEMBER
 	icon = 'icons/obj/nanite.dmi'
 	icon_state = "nanite_blade"
 	item_state = "nanite_blade"
