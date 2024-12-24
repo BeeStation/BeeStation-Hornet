@@ -12,12 +12,14 @@
 	network_id = __NETWORK_SERVER // if its connected to the default one we will ignore it
 	var/network = "NULL"		// the network to probe
 	var/list/servers = list()	// the servers in the network
+	var/hardware_id = ""
 
 
 /obj/machinery/computer/telecomms/monitor/Initialize(mapload)
 	. = ..()
 	update_network()
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
+	hardware_id = GetComponent(/datum/component/ntnet_interface).hardware_id
 
 /obj/machinery/computer/telecomms/monitor/Destroy()
 	. = ..()
@@ -61,7 +63,7 @@
 	ntnet_send(data, network_id)
 
 /obj/machinery/computer/telecomms/monitor/proc/ntnet_receive(datum/source, datum/netdata/data)
-	if(islist(data.receiver_id))
+	if(!data.type == PACKET_TYPE_SERVER_STATUS)
 		return // if its broadcasting we don't want that packet, its probably our ping
 	servers[data.sender_id] = data.data
 	servers[data.sender_id]["last_update"] = world.time
@@ -77,10 +79,6 @@
 		if(!A.network_root_id)
 			log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
 			SSnetworks.lookup_area_root_id(A)
-			new_network_id = NETWORK_NAME_COMBINE(A.network_root_id, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
-		else
-			log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
-			new_network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
 	new_network_id = simple_network_name_fix(new_network_id) // make sure the network name is valid
 	var/datum/ntnet/new_network = SSnetworks.create_network_simple(new_network_id)
 	new_network.move_interface(GetComponent(/datum/component/ntnet_interface), new_network_id, network_id)
