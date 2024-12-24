@@ -1,14 +1,16 @@
+
+// A datum for dealing with threshold limit values
 /datum/tlv
 	var/warning_min
 	var/warning_max
 	var/hazard_min
 	var/hazard_max
 
-/datum/tlv/New(min2 as num, min1 as num, max1 as num, max2 as num)
-	if(min2)
-		hazard_min = min2
+/datum/tlv/New(min1 as num, min2 as num, max1 as num, max2 as num)
 	if(min1)
 		warning_min = min1
+	if(min2)
+		hazard_min = min2
 	if(max1)
 		warning_max = max1
 	if(max2)
@@ -94,7 +96,7 @@
 	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
 	var/datum/alarm_handler/alarm_manager
 
-	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = PROC_REF(check_air_dangerlevel))
+	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = PROC_REF(check_air_dangerlevel)) //STOP NAGGING ME
 
 	var/list/TLV = list( // Breathable air.
 		"pressure"		= new/datum/tlv(HAZARD_LOW_PRESSURE, WARNING_LOW_PRESSURE, WARNING_HIGH_PRESSURE, HAZARD_HIGH_PRESSURE), // kPa. Values are hazard_min, warning_min, warning_max, hazard_max
@@ -112,13 +114,6 @@
 		GAS_NITRYL		= new/datum/tlv/dangerous,
 		GAS_PLUOXIUM	= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
-
-
-/datum/armor/machinery_airalarm
-	energy = 100
-	rad = 100
-	fire = 90
-	acid = 30
 
 /obj/machinery/airalarm/server // No checks here.
 	TLV = list(
@@ -156,48 +151,15 @@
 		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
-/obj/machinery/airalarm/unlocked
-	locked = FALSE
-
-/obj/machinery/airalarm/engine
-	name = "engine air alarm"
-	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
-
-/obj/machinery/airalarm/mixingchamber
-	name = "chamber air alarm"
-	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX, ACCESS_TOX_STORAGE)
-
-/obj/machinery/airalarm/all_access
-	name = "all-access air alarm"
-	desc = "This particular atmospherics control unit appears to have no access restrictions."
-	locked = FALSE
-	req_access = null
-	req_one_access = null
-
-/obj/machinery/airalarm/syndicate //general syndicate access
-	req_access = list(ACCESS_SYNDICATE)
-
-/obj/machinery/airalarm/away //general away mission access
-	req_access = list(ACCESS_AWAY_GENERAL)
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
-
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
 	wires = new /datum/wires/airalarm(src)
+
 	if(ndir)
 		setDir(ndir)
-
 	if(nbuild)
 		buildstage = 0
 		panel_open = TRUE
-
 	if(name == initial(name))
 		name = "[get_area_name(src)] Air Alarm"
 
@@ -454,10 +416,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 
 
 /obj/machinery/airalarm/proc/shock(mob/user, prb)
-	if((machine_stat & (NOPOWER)))		// unpowered, no shock
+	if((machine_stat & (NOPOWER)))/// Unpowered, no shock
 		return TRUE
 	if(!prob(prb))
-		return FALSE //you lucked out, no shock for you
+		return FALSE ///You don't get shocked today... altought when was the last time soneone got shocked by a fire alarm?
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start() //sparks always.
@@ -673,31 +635,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 /**
  * main proc for throwing a shitfit if the air isnt right.
  * goes into warning mode if gas parameters are beyond the tlv warning bounds, goes into hazard mode if gas parameters are beyond tlv hazard bounds
- *
  */
+
 /obj/machinery/airalarm/proc/check_air_dangerlevel(turf/location, datum/gas_mixture/environment, exposed_temperature)
 	SIGNAL_HANDLER
 	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
 	var/datum/tlv/current_tlv
-	//cache for REALLY fast speed (lists are references anyways)
+	///Cache for REALLY fast speed (lists are references anyways), some atmos systems just gotta go fast.
 	var/list/cached_tlv = TLV
 
-	var/datum/tlv/cur_tlv
-
+	var/list/env_gases = environment.get_gases()
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * exposed_temperature / environment.return_volume()
 
 	current_tlv = cached_tlv["pressure"]
 	var/environment_pressure = environment.return_pressure()
-	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
+	var/pressure_dangerlevel = current_tlv.get_danger_level(environment_pressure)
 
 	current_tlv = cached_tlv["temperature"]
 	var/temperature_dangerlevel = current_tlv.get_danger_level(exposed_temperature)
 
 	var/gas_dangerlevel = 0
-	for(var/gas_id in environment.get_gases())
-		if(!(gas_id in cached_tlv)) // We're not interested in this gas, it seems.
+	for(var/gas_id in env_gases)
+		if(!(gas_id in cached_tlv)) /// We're not interested in this gas, it seems.
 			continue
 		current_tlv = cached_tlv[gas_id]
 		gas_dangerlevel = max(gas_dangerlevel, current_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure))
@@ -887,6 +848,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
+/datum/armor/machinery_airalarm
+	energy = 100
+	rad = 100
+	fire = 90
+	acid = 30
+
 /**ALL OF THAT AIR ALARMS VARIATIONS RIGHT HERE :CLAP:*/
 
 /obj/machinery/airalarm/server // No checks here.
@@ -1030,8 +997,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 		return
 
 	var/datum/tlv/settings = connected_alarm.TLV[options_map[current_option]]
-	settings.hazard_min = min_2
 	settings.warning_min = min_1
+	settings.hazard_min = min_2
 	settings.warning_max = max_1
 	settings.hazard_max = max_2
 
