@@ -422,7 +422,7 @@
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
-	ADD_TRAIT(H, TRAIT_NAIVE, INNATE_TRAIT)
+	ADD_TRAIT(H.mind, TRAIT_NAIVE, INNATE_TRAIT)
 
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name

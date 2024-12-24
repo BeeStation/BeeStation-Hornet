@@ -123,7 +123,7 @@
 	icon_state = "healthhud"
 	emissive_state = "hud_emissive"
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
-	hud_trait = TRAIT_MEDICAL_HUD
+	hud_trait = list(TRAIT_MEDICAL_HUD, TRAIT_ENTRAILS_READER)
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
 
 /obj/item/clothing/glasses/hud/health/night
