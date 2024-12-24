@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 import { useRef } from 'react';

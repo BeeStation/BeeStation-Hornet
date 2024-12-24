@@ -1,12 +1,25 @@
 import { Box } from './Box';
-import { addScrollableNode, removeScrollableNode } from '../events';
+import { useEffect, useRef } from 'react';
+import { addScrollableNode, removeScrollableNode } from 'tgui/events';
 
 export const ScrollableBox = (props) => {
   const { children, ...rest } = props;
-  return <Box {...rest}>{children}</Box>;
-};
+  const node = useRef(null);
+  useEffect(() => {
+    const self = node.current;
+    if (self && scrollable) {
+      addScrollableNode(self);
+    }
+    return () => {
+      if (self && scrollable) {
+        removeScrollableNode(self);
+      }
+    };
+  }, []);
 
-ScrollableBox.defaultHooks = {
-  onComponentDidMount: (node) => addScrollableNode(node),
-  onComponentWillUnmount: (node) => removeScrollableNode(node),
+  return (
+    <Box ref={node} {...rest}>
+      {children}
+    </Box>
+  );
 };
