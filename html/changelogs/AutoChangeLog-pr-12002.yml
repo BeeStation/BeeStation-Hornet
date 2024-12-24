@@ -1,0 +1,6 @@
+author: DeltaFire15
+delete-after: true
+changes:
+  - balance: keycard authentication devices require an ID to use.
+  - balance: IDs used to initiate / confirm keycard auth events must not be the same
+      ID.
