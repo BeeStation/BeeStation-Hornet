@@ -186,13 +186,6 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 24)
 
-//all air alarms in area are connected via magic
-/area
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
-
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/airalarm)
 
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
