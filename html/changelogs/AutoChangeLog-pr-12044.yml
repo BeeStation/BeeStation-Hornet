@@ -1,0 +1,5 @@
+author: XeonMations, ManiacalAnxiety, therealdoooc213
+delete-after: true
+changes:
+  - bugfix: Split personalities can no longer throw out their original body's mind
+      out of their own body permenantly.
