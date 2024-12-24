@@ -1,0 +1,6 @@
+author: rkz, Ebb-Real, AnturK
+delete-after: true
+changes:
+  - rscadd: GAGSifies bandanas
+  - refactor: refactors large mob icons to no longer need snowflaked .dmi sizes. Just
+      edit a variable

@@ -1,24 +1,24 @@
-/*	Note from Carnie:
+/* Note from Carnie:
 		The way datum/mind stuff works has been changed a lot.
 		Minds now represent IC characters rather than following a client around constantly.
 
 	Guidelines for using minds properly:
 
-	-	Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
+	- Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
 		ghost.mind is however used as a reference to the ghost's corpse
 
-	-	When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
-		the existing mind of the old mob should be transfered to the new mob like so:
+	- When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
+		the existing mind of the old mob should be transferred to the new mob like so:
 
 			mind.transfer_to(new_mob)
 
-	-	You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
+	- You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
 		By setting key or ckey explicitly after transferring the mind with transfer_to you will cause bugs like DCing
 		the player.
 
-	-	IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
+	- IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
 
-	-	When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
+	- When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
 		a ghost to become a xeno during an event). Simply assign the key or ckey like you've always done.
 
 			new_mob.key = key
@@ -30,22 +30,28 @@
 */
 
 /datum/mind
+	/// Key of the mob
 	var/key
-	var/name				//replaces mob/var/original_name
-	var/ghostname			//replaces name for observers name if set
-	/// The last living mob this mind occupied - if the player is dead, this is their body.
+	/// The name linked to this mind
+	var/name
+	/// replaces name for observers name if set
+	var/ghostname
+	/// Current mob this mind datum is attached to
 	var/mob/living/current
-	var/active = 0
+	/// Is this mind active?
+	var/active = FALSE
 
 	var/memory
 	var/list/quirks = list()
 
-	var/assigned_role
+	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
+	var/datum/job/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
 	var/linglink
+	/// Martial art on this mind
 	var/datum/martial_art/martial_art
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
@@ -61,7 +67,6 @@
 	var/no_cloning_at_all = FALSE
 
 	var/datum/mind/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
-	var/datum/language_holder/language_holder
 	var/unconvertable = FALSE
 	var/late_joiner = FALSE
 
@@ -97,7 +102,6 @@
 /datum/mind/Destroy()
 	SSticker.minds -= src
 	QDEL_LIST(antag_datums)
-	QDEL_NULL(language_holder)
 	soulOwner = null
 	set_current(null)
 	return ..()
@@ -114,11 +118,6 @@
 /datum/mind/proc/clear_current(datum/source)
 	SIGNAL_HANDLER
 	set_current(null)
-
-/datum/mind/proc/get_language_holder()
-	if(!language_holder)
-		language_holder = new (src)
-	return language_holder
 
 /datum/mind/proc/transfer_to(mob/new_character, var/force_key_move = 0)
 	if(current)	// remove ourself from our old body's mind variable
@@ -137,9 +136,22 @@
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
-	if(current)
-		current.transfer_observers_to(new_character, TRUE)	//transfer anyone observing the old character to the new one
-	set_current(new_character)								//associate ourself with our new body
+	if(old_current)
+		//transfer anyone observing the old character to the new one
+		old_current.transfer_observers_to(new_character)
+
+		// Offload all mind languages from the old holder to a temp one
+		var/datum/language_holder/empty/temp_holder = new()
+		var/datum/language_holder/old_holder = old_current.get_language_holder()
+		var/datum/language_holder/new_holder = new_character.get_language_holder()
+		// Off load mind languages to the temp holder momentarily
+		new_holder.transfer_mind_languages(temp_holder)
+		// Transfer the old holder's mind languages to the new holder
+		old_holder.transfer_mind_languages(new_holder)
+		// And finally transfer the temp holder's mind languages back to the old holder
+		temp_holder.transfer_mind_languages(old_holder)
+
+	set_current(new_character) //associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
 
 	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
@@ -151,13 +163,13 @@
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+	transfer_antag_huds(hud_to_transfer) //inherit the antag HUD
 	transfer_actions(new_character)
 	transfer_martial_arts(new_character)
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
-	current.update_atom_languages()
+
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 	// Update SSD indicators
 	if(isliving(old_current))

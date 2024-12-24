@@ -12,6 +12,26 @@
 	parts = list(/obj/item/camera = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/barbell
+	name = "Barbell"
+	result = /obj/item/barbell
+	time = 2 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/iron = 4,
+		/obj/item/stack/rods = 2,
+	)
+	category = CAT_MISC
+
+/datum/crafting_recipe/chestpress
+	name = "Chest press handle"
+	result = /obj/item/barbell/stacklifting
+	time = 2 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/iron = 4,
+		/obj/item/stack/rods = 2,
+	)
+	category = CAT_MISC
+
 /datum/crafting_recipe/lizardhat
 	name = "Lizard Cloche Hat"
 	result = /obj/item/clothing/head/costume/lizard
