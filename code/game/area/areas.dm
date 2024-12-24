@@ -140,6 +140,8 @@
 	/// What networks should cameras in this area belong to?
 	var/list/camera_networks = list()
 
+	var/area_jamming_level = JAMMER_LEVEL_NONE
+
 /**
   * A list of teleport locations
   *

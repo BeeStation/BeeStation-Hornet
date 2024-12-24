@@ -165,7 +165,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	min_ambience_cooldown = 20 SECONDS
 	max_ambience_cooldown = 35 SECONDS
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
 	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
@@ -177,6 +176,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	area_jamming_level = RADIO_JAMMER_MAINTENANCE_LEVEL
 
 /area/maintenance/get_area_textures()
 	return GLOB.turf_texture_maint

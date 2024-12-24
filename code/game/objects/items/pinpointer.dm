@@ -80,7 +80,7 @@
 	. = ..()
 	if(!active)
 		return
-	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance)))
+	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance) != JAM_NONE))
 		. += "pinon[alert ? "alert" : ""]null[icon_suffix]"
 		return
 	var/turf/here = get_turf(src)
@@ -163,7 +163,7 @@
 	if(!here || !there)
 		return FALSE
 
-	if(there.is_jammed(jam_level))
+	if(there.is_jammed(jam_level) != JAM_NONE)
 		return FALSE
 
 	if(!powerful_z_check) // z-check will be only limited within the same area (i.e. multi-floor'ed station)

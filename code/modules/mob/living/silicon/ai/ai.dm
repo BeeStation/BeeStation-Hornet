@@ -330,7 +330,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if ((ai.get_virtual_z_level() != target.get_virtual_z_level()) && !is_station_level(ai.z))
 		return FALSE
 
-	if(A.is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(A.is_jammed(JAMMER_PROTECTION_WIRELESS) == JAM_FULL)
 		return FALSE
 
 	if (istype(loc, /obj/item/aicard))
@@ -994,7 +994,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
-	if(target.is_jammed(JAMMER_PROTECTION_AI_SHELL))
+	if(target.is_jammed(JAMMER_PROTECTION_AI_SHELL) == JAM_FULL)
 		to_chat(src, "<span class='warning robot'>Unable to establish communication link with target.</span>")
 		return
 

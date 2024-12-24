@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/proc/ntnet_receive(datum/source, datum/netdata/data)
 
 	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS) || machine_stat & (BROKEN|NOPOWER|MAINT|EMPED))
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS) == JAM_FULL || machine_stat & (BROKEN|NOPOWER|MAINT|EMPED))
 		return
 
 	switch(data.data["type"])

@@ -63,7 +63,7 @@
 
 /datum/component/jam_receiver/proc/check_jammed()
 	var/atom/atom_parent = parent
-	var/new_state = atom_parent.is_jammed(intensity_resist)
+	var/new_state = atom_parent.is_jammed(intensity_resist) == JAM_FULL
 	set_jammed(new_state)
 
 /datum/component/jam_receiver/proc/set_jammed(new_state)

@@ -385,7 +385,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		return
 
 	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS) == JAM_FULL)
 		return
 
 	// Check packet access level.

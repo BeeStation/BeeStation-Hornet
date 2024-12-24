@@ -299,8 +299,11 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	if(is_jammed(freq == FREQ_CENTCOM || freq == FREQ_SYNDICATE ? JAMMER_PROTECTION_RADIO_ADVANCED : JAMMER_PROTECTION_RADIO_BASIC))
+	var/jam_level = is_jammed(freq == FREQ_CENTCOM || freq == FREQ_SYNDICATE ? JAMMER_PROTECTION_RADIO_ADVANCED : JAMMER_PROTECTION_RADIO_BASIC)
+	if(jam_level == JAM_FULL)
 		return
+	if (jam_level == JAM_MINOR)
+		message = Gibberish(message, TRUE)
 
 	// Determine the identity information which will be attached to the signal.
 	var/atom/movable/virtualspeaker/speaker = new(null, talking_movable, src)
@@ -369,7 +372,7 @@
 
 	if (input_frequency == FREQ_SYNDICATE && !syndie)
 		return FALSE
-
+	
 	// allow checks: are we listening on that frequency?
 	if (input_frequency == frequency)
 		return TRUE
