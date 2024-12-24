@@ -70,7 +70,7 @@ export const CloningConsole = (props) => {
                           <div
                             key={record['name']}
                             style={{
-                              'word-break': 'break-all',
+                              wordBreak: 'break-all',
                             }}>
                             Scan ID {record['id']}
                             <br />
@@ -177,7 +177,7 @@ export const CloningConsole = (props) => {
                     {diskData['id'] ? (
                       <Box
                         style={{
-                          'word-break': 'break-all',
+                          wordBreak: 'break-all',
                         }}>
                         ID: {diskData['id']}
                         <br />

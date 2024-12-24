@@ -237,7 +237,9 @@ const PreviewDisplay = (props) => {
 
 const SingleSprite = (props) => {
   const { source } = props;
-  return <Box as="img" src={source} width="100%" style={{ '-ms-interpolation-mode': 'nearest-neighbor' }} />;
+  return (
+    <Box as="img" src={source} width="100%" style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }} />
+  );
 };
 
 const LoadingAnimation = () => {

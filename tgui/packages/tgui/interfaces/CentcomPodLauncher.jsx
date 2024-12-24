@@ -889,7 +889,7 @@ class PresetsPage extends Component {
                     borderStyle: 'solid',
                     borderColor: `hsl(${preset.hue}, 80%, 80%)`,
                   }
-                  : ''
+                  : undefined
               }
             />
           ))

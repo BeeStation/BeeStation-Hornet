@@ -160,7 +160,7 @@ const CurrentlySelectedDisplay = (props) => {
         <Box
           title={entry?.path}
           style={{
-            'overflow': 'hidden',
+            overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
           }}>

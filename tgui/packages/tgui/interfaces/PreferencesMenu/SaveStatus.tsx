@@ -12,7 +12,7 @@ export const SaveStatus = (props) => {
       textAlign="center"
       ml={1}
       style={{
-        'border-radius': '2px',
+        borderRadius: '2px',
         display: 'inline',
         padding: '2px 5px',
       }}>

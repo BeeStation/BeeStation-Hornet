@@ -156,7 +156,7 @@ export const OrbitalMap = (props) => {
 
 export const InterdictionDisplay = (props) => {
   const boxTargetStyle = {
-    'fill-opacity': 0,
+    fillOpacity: 0,
     stroke: '#DDDDDD',
     strokeWidth: '1',
   };

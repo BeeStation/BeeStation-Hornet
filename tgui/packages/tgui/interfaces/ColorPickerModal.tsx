@@ -502,7 +502,7 @@ const Value = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: color.s,
             v: 0,

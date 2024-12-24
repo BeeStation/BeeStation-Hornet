@@ -22,7 +22,7 @@ export const NtosLogViewer = (props) => {
                 <Table.Row key={file.name} className="candystripe">
                   <Table.Cell>{file.name}.log</Table.Cell>
                   <Table.Cell>{!file.remote ? `${file.size}GQ` : 'Remote'}</Table.Cell>
-                  <Table.Cell collapsing style={{ 'text-align': 'right' }}>
+                  <Table.Cell collapsing style={{ textAlign: 'right' }}>
                     {!!file.remote && (
                       <Button
                         disabled={!file.online}

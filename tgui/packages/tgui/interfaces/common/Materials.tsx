@@ -4,6 +4,7 @@ import { classes } from 'common/react';
 import { formatMoney, formatSiUnit } from '../../format';
 import { useSharedState } from '../../backend';
 import { BoxProps } from '../../components/Box';
+import { CSSProperties } from 'react';
 
 export const MATERIAL_KEYS = {
   'iron': 'sheet-metal_3',
@@ -102,7 +103,7 @@ export const MaterialAmount = (props: {
   amount: number;
   formatting?: MaterialFormatting;
   color?: string;
-  style?: Record<string, string>;
+  style?: CSSProperties;
 }) => {
   const { name, amount, color, style } = props;
 

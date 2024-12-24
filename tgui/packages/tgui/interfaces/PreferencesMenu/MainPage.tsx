@@ -106,7 +106,7 @@ const ChoicedSelection = (props: {
         height: `${calculatedHeight}px`,
         width: `${calculatedWidth}px`,
       }}>
-      <Box className="PopupWindow" style={{ 'padding': '5px' }} width="100%" height="100%">
+      <Box className="PopupWindow" style={{ padding: '5px' }} width="100%" height="100%">
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
@@ -125,10 +125,10 @@ const ChoicedSelection = (props: {
               <Stack.Item grow>
                 <Box
                   style={{
-                    'border-bottom': '1px solid #888',
-                    'font-weight': 'bold',
-                    'font-size': '14px',
-                    'text-align': 'center',
+                    borderBottom: '1px solid #888',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    textAlign: 'center',
                   }}>
                   Select {props.name}
                 </Box>
@@ -201,10 +201,10 @@ const ChoicedSelection = (props: {
                 <Box
                   pb={0.25}
                   style={{
-                    'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
-                    'font-weight': 'bold',
-                    'font-size': '14px',
-                    'text-align': 'center',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    textAlign: 'center',
                   }}>
                   Select {features[supplementalFeature].name}
                 </Box>
@@ -375,7 +375,7 @@ const MainFeature = (props: {
         style={{
           height: `24px`,
           width: `${CLOTHING_CELL_SIZE}px`,
-          'overflow-wrap': 'anywhere',
+          overflowWrap: 'anywhere',
         }}
         textAlign="center">
         {catalog.name}

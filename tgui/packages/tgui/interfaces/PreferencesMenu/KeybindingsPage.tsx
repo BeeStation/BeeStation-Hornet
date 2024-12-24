@@ -394,8 +394,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
           fontSize="30px"
           textAlign="center"
           style={{
-            'background-color': 'rgba(0, 0, 0, 0.75)',
-            'font-weight': 'bold',
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            fontWeight: 'bold',
           }}>
           Error: Unable to fetch keybinding data.
           <br />
@@ -403,7 +403,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
           <br />
           Reconnecting will also likely fix this issue.
           <br />
-          <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
+          <Box textAlign="left" fontSize="12px" textColor="white" style={{ whiteSpace: 'pre-wrap' }}>
             Error Details:{'\n'}
             {typeof this.state.error === 'object' && Object.keys(this.state.error).includes('stack')
               ? this.state.error.stack

@@ -271,7 +271,7 @@ const JoblessRoleDropdown = (props) => {
   ];
 
   return (
-    <Box width="30%" style={{ 'margin': '5px auto' }}>
+    <Box width="30%" style={{ margin: '5px auto' }}>
       <Dropdown
         width="100%"
         selected={selected}

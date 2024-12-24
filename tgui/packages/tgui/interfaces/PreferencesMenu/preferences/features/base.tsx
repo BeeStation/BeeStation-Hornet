@@ -359,7 +359,7 @@ export const StandardizedPalette = (props: {
                   <Box
                     className="ColorSelectBox--inner"
                     style={{
-                      'background-color': hex_values ? choice : choices_to_hex[choice],
+                      backgroundColor: hex_values ? choice : choices_to_hex[choice],
                     }}
                   />
                 </Box>
@@ -381,7 +381,7 @@ export const StandardizedPalette = (props: {
                       <Box
                         className="ColorSelectBox--inner"
                         style={{
-                          'background-color': `${safeValue}`,
+                          backgroundColor: `${safeValue}`,
                         }}
                       />
                     </Box>
@@ -395,7 +395,7 @@ export const StandardizedPalette = (props: {
                   tooltipPosition="bottom"
                   height={height + 4 + 'px'}
                   fontSize={height - 4 + 'px'}
-                  style={{ 'border-radius': '0' }}
+                  style={{ borderRadius: '0' }}
                   textAlign="center"
                   icon="plus"
                   color="good"

@@ -184,8 +184,8 @@ const ListDisplay = (props) => {
             }}
             selected={index === selected}
             style={{
-              'animation': 'none',
-              'transition': 'none',
+              animation: 'none',
+              transition: 'none',
             }}>
             {capitalizeFirst(item)}
           </Button>

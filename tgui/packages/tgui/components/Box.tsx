@@ -235,7 +235,8 @@ export const Box = (props: BoxProps) => {
   const computedProps = computeBoxProps(rest);
 
   if (as === 'img') {
-    computedProps.style['-ms-interpolation-mode'] = 'nearest-neighbor';
+    computedProps.style['msInterpolationMode'] = 'nearest-neighbor';
+    computedProps.style['imageRendering'] = 'pixelated';
   }
 
   // Render the component

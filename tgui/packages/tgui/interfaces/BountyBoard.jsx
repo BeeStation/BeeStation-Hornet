@@ -58,7 +58,7 @@ export const BountyBoardContent = (_) => {
                 />
               </>
             }>
-            <BlockQuote style={{ 'white-space': 'pre-wrap', overflow: 'auto' }}>
+            <BlockQuote style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>
               <i>{request.description}</i>
             </BlockQuote>
             {!!applicants.length && (

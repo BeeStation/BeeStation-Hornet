@@ -77,12 +77,7 @@ export const GamePreferencesPage = (props) => {
     }
 
     const child = (
-      <Flex
-        className="candystripe"
-        key={featureId}
-        pt={1}
-        pb={1}
-        style={{ 'flex-flow': 'row nowrap', 'align-items': 'center' }}>
+      <Flex className="candystripe" key={featureId} pt={1} pb={1} style={{ flexFlow: 'row nowrap', alignItems: 'center' }}>
         <Flex.Item grow={1} basis={0} textColor="#e8e8e8">
           {name}
         </Flex.Item>
@@ -128,7 +123,7 @@ export const GamePreferencesPage = (props) => {
       let subcategories = sortByName(Object.entries(subcategory));
       return [
         category,
-        <Flex style={{ 'flex-flow': 'row wrap' }} key={category}>
+        <Flex style={{ flexFlow: 'row wrap' }} key={category}>
           {subcategories.length > 1
             ? subcategories.map(([subcategory, preferences], index) => (
               <Flex.Item
@@ -181,7 +176,7 @@ export const GamePreferencesPage = (props) => {
                     pb={1}
                     mb={2}
                     backgroundColor="rgba(40, 40, 45, 0.25)"
-                    style={{ 'box-shadow': '1px 1px 5px rgba(0, 0, 0, 0.4)' }}
+                    style={{ boxShadow: '1px 1px 5px rgba(0, 0, 0, 0.4)' }}
                     title={<Box fontSize={1.1}>{subcategory}</Box>}>
                     <Box backgroundColor="rgba(40, 40, 45, 0.75)">
                       {preferences.filter(search).map((preference) => preference.children)}
@@ -202,7 +197,7 @@ export const GamePreferencesPage = (props) => {
 
   return (
     <TabbedMenu categoryEntries={result} categoryScales={CATEGORY_SCALES}>
-      <Flex fontSize={1.2} pl="15px" pr="25px" mb="-5px" mt="5px" style={{ 'align-items': 'center' }}>
+      <Flex fontSize={1.2} pl="15px" pr="25px" mb="-5px" mt="5px" style={{ alignItems: 'center' }}>
         <Flex.Item mr={1}>
           <Icon name="search" />
         </Flex.Item>

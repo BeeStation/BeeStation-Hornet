@@ -57,8 +57,8 @@ export class ServerPreferencesFetcher extends Component<
         fontSize="30px"
         textAlign="center"
         style={{
-          'background-color': 'rgba(0, 0, 0, 0.75)',
-          'font-weight': 'bold',
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          fontWeight: 'bold',
         }}>
         Error: Unable to fetch preferences clientside data.
         <br />

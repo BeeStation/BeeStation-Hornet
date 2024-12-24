@@ -29,7 +29,7 @@ type Info = {
 const IntroSection = (_props) => {
   return (
     <Section>
-      <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+      <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
         You are the{' '}
         <Box inline textColor="bad">
           Malfunctioning AI

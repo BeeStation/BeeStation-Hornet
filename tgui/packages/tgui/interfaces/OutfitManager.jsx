@@ -37,14 +37,14 @@ export const OutfitManager = (props) => {
                     grow={1}
                     shrink={1}
                     style={{
-                      'overflow': 'hidden',
+                      overflow: 'hidden',
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
                     }}>
                     <Button
                       fluid
                       style={{
-                        'overflow': 'hidden',
+                        overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
                       }}

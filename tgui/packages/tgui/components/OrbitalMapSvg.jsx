@@ -159,7 +159,7 @@ export class OrbitalMapSvg extends Component {
   // Handles rendering of the orbital map
   render() {
     const boxTargetStyle = {
-      'fill-opacity': 0,
+      fillOpacity: 0,
       stroke: '#DDDDDD',
       strokeWidth: '1',
     };

@@ -238,7 +238,7 @@ const Notes = (_props) => {
           </Box>
         </Stack.Item>
         <Stack.Item>
-          <BlockQuote style={{ 'text-overflow': 'wrap' }} width="100%">
+          <BlockQuote style={{ textOverflow: 'wrap' }} width="100%">
             {notes}
           </BlockQuote>
         </Stack.Item>
