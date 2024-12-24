@@ -1,9 +1,0 @@
-author: rkz, haukeschaumann, JohnFulpWillard, jlsnow301, Crumpaloo, San7890, MrStonedOne,
-  Lilah Novi
-delete-after: true
-changes:
-  - bugfix: fix custom typing indicators. Cyborgs, xenos, and lawyers (among others)
-      now have unique typing indicators again after 3 years.
-  - rscadd: new *Animated* typing indicator sprites
-  - rscadd: typing in the command bar will now activate typing indicator.
-  - code_imp: traitified a typing indicator var
