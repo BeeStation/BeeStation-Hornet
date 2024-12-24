@@ -72,6 +72,7 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
       disabled={!data.content_unlocked}
       selected={props.value}
       displayText={props.value ? displayTexts[props.value] : null}
+      displayTextFirst
       clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"

@@ -18,6 +18,7 @@ const FpsInput = (props: FeatureValueProps<number, number, FpsServerData>) => {
       <Stack.Item basis="70%">
         <Dropdown
           displayText={props.value === -1 ? recommened : 'Custom'}
+          displayTextFirst
           selected={props.value === -1 ? recommened : 'Custom'}
           onSelected={(value) => {
             if (value === recommened) {

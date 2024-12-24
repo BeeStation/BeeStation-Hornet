@@ -37,6 +37,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
         options={Array.isArray(extraData) ? extraData : Object.keys(extraData)}
         onSelected={setValue}
         displayText={value}
+        displayTextFirst
         noscroll
       />
     );

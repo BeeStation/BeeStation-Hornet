@@ -111,6 +111,7 @@ export const createDropdownInput = <T extends string | number = string>(
       <Dropdown
         selected={props.value}
         displayText={choices[props.value]}
+        displayTextFirst
         onSelected={props.handleSetValue}
         width="100%"
         options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
@@ -161,6 +162,7 @@ export const StandardizedDropdown = (props: {
       displayHeight={displayHeight}
       width="100%"
       displayText={value ? displayNames[value] : ''}
+      displayTextFirst
       options={choices.map((choice) => {
         return {
           displayText: displayNames[choice],

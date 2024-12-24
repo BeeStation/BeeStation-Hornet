@@ -19,6 +19,7 @@ export type DropdownPartialProps = Partial<{
   disabled: boolean;
   displayHeight?: string;
   displayText: string | number | ReactNode;
+  displayTextFirst: boolean;
   dropdownStyle: any;
   icon: string;
   iconRotation: number;
@@ -297,6 +298,7 @@ export class Dropdown extends Component<Props, State> {
       selected,
       disabled,
       displayText,
+      displayTextFirst,
       displayHeight,
       buttons,
       ...boxProps
@@ -333,7 +335,7 @@ export class Dropdown extends Component<Props, State> {
               style={{
                 overflow: clipSelectedText ? 'hidden' : 'visible',
               }}>
-              {this.state.selected || displayText}
+              {displayTextFirst ? displayText || this.state.selected : this.state.selected || displayText}
             </span>
             {nochevron || (
               <span className="Dropdown__arrow-button" style={displayHeight ? { lineHeight: displayHeight } : undefined}>

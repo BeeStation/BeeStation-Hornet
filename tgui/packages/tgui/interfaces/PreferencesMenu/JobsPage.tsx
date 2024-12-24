@@ -278,6 +278,7 @@ const JoblessRoleDropdown = (props) => {
         onSelected={createSetPreference(act, 'joblessrole')}
         options={options}
         displayText={<Box pr={1}>{options.find((option) => option.value === selected)!.displayText}</Box>}
+        displayTextFirst
       />
     </Box>
   );

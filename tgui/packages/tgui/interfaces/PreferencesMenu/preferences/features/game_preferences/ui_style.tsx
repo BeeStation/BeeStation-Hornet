@@ -42,6 +42,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
       selected={value}
       clipSelectedText={false}
       displayText={value ? choices[value] : null}
+      displayTextFirst
       onSelected={props.handleSetValue}
       width="100%"
       displayHeight="32px"
