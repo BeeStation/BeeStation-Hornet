@@ -36,7 +36,7 @@
 		peel.juice_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
 */
 
-/obj/item/food/grown/banana/suicide_act(mob/user)
+/obj/item/food/grown/banana/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
