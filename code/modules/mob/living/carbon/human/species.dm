@@ -1812,7 +1812,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/dismember_limb = FALSE
 	var/weapon_sharpness = I.is_sharp()
 
-	if((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || weapon_sharpness == SHARP_DISMEMBER_EASY && prob(I.force))
+	if(((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
 		dismember_limb = TRUE
 		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
