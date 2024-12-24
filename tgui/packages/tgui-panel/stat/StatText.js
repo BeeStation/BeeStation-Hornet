@@ -203,7 +203,7 @@ export const StatTextAtom = (props, context) => {
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? '33%' : '100%'}>
+    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? '33%' : '50%'}>
       <Button
         height="100%"
         pl={0}
@@ -254,9 +254,9 @@ export const StatTextAtom = (props, context) => {
         }
         color="transparent">
         <div className="StatAtomElement">
-          <Flex direction="row" wrap="wrap" mt={1}>
+          <Flex direction="row" wrap="wrap">
             {Byond.BYOND_MAJOR >= 515 ? (
-              <Flex.Item mt={-1} mr={1}>
+              <Flex.Item mr={1}>
                 <img width="32px" height="32px" src={atom_icon} />
               </Flex.Item>
             ) : (
