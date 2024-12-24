@@ -963,7 +963,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Solars
 
 /area/solar
-	requires_power = FALSE
+	//requires_power = FALSE /* YOU WISH FOR INFINITE POWER YOU STINGY CHEAPO, TOO BAD */
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	area_flags = UNIQUE_AREA
 	flags_1 = NONE
@@ -1010,8 +1010,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar/port/fore
 	name = "Port Bow Solar Array"
 	icon_state = "panelsFP"
-
-
 
 //Solar Maint
 
