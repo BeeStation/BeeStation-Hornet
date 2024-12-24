@@ -2480,7 +2480,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			much to overload the reactor with these..."
 	item = /obj/item/fuel_rod/material/telecrystal
 	cost = 7
-	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 
 // Pointless
 /datum/uplink_item/badass
