@@ -18,6 +18,14 @@
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
+/// Approximation of the height
+#define APPROX_HEIGHT(font_size, lines) ((font_size * 1.7 * lines) + 2)
+/// Default font size (defined in skin.dmf), those are 1 size bigger than in skin, to account 1px black outline
+#define DEFAULT_FONT_SIZE 8
+/// Big font size, used by megaphones and such
+#define BIG_FONT_SIZE 9
+/// Small font size, used mostly by whispering
+#define WHISPER_FONT_SIZE 7
 
 // Message types
 #define CHATMESSAGE_CANNOT_HEAR 0
@@ -57,10 +65,6 @@
 	var/eol_complete
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
-	/// Contains the reference to the next chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/next
-	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/prev
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
 	/// Color of the message
@@ -69,6 +73,8 @@
 	var/fadertimer = null
 	/// States if end_of_life is being executed
 	var/isFading = FALSE
+	/// Text that will be displayed to the user. Remove after 515 and pointers
+	var/inner_text
 
 /**
   * Constructs a chat message overlay
@@ -81,10 +87,9 @@
   * * lifespan - The lifespan of the message in deciseconds
   */
 /datum/chatmessage/New(text, atom/target, list/client/hearers, language_icon, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN)
-	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, hearers, language_icon, extra_classes, lifespan)
+	generate_image(text, target, hearers, language_icon, extra_classes, lifespan)
 
 /datum/chatmessage/Destroy()
 	if (hearers)
@@ -122,6 +127,9 @@
 	/// Cached icons to show what language the user is speaking
 	var/static/list/language_icons
 
+	/// Save text
+	inner_text = text
+
 	// Store the hearers
 	src.hearers = hearers
 
@@ -139,11 +147,11 @@
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
-	text = replacetext(text, span_check, "")
+	inner_text = replacetext(inner_text, span_check, "")
 
 	// Clip message
-	if (length_char(text) > CHAT_MESSAGE_MAX_LENGTH)
-		text = copytext_char(text, 1, CHAT_MESSAGE_MAX_LENGTH + 1) + "..." // BYOND index moment
+	if (length_char(inner_text) > CHAT_MESSAGE_MAX_LENGTH)
+		inner_text = copytext_char(inner_text, 1, CHAT_MESSAGE_MAX_LENGTH + 1) + "..." // BYOND index moment
 
 	//The color of the message.
 
@@ -172,11 +180,11 @@
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
-	text = replacetext(text, url_scheme, "")
+	inner_text = replacetext(inner_text, url_scheme, "")
 
 	// Reject whitespace
 	var/static/regex/whitespace = new(@"^\s*$")
-	if (whitespace.Find(text))
+	if (whitespace.Find(inner_text))
 		qdel(src)
 		return
 
@@ -191,8 +199,19 @@
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_EMOTE
 
+	// Determine the font size
+	var/bold_font = FALSE
+	var/font_size = DEFAULT_FONT_SIZE
+	if (extra_classes.Find("megaphone"))
+		font_size = BIG_FONT_SIZE
+	else if (extra_classes.Find("italics") || extra_classes.Find("emote"))
+		font_size = WHISPER_FONT_SIZE
+	if (extra_classes.Find("yell"))
+		bold_font = TRUE
+
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
+	var/has_language_icon = FALSE
 	if (language_instance?.display_icon(first_hearer.mob))
 		var/icon/language_icon = LAZYACCESS(language_icons, language)
 		if (isnull(language_icon))
@@ -200,14 +219,16 @@
 			language_icon.Scale(CHAT_MESSAGE_ICON_SIZE, CHAT_MESSAGE_ICON_SIZE)
 			LAZYSET(language_icons, language, language_icon)
 		LAZYADD(prefixes, "\icon[language_icon]")
-
-	//Add on the icons.
-	text = "[prefixes?.Join("&nbsp;")][text]"
+		has_language_icon = TRUE
 
 	// Approximate text height
-	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
-	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
-	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
+	approx_lines = CEILING(approx_str_width(inner_text, font_size, bold_font, has_language_icon) / CHAT_MESSAGE_WIDTH, 1)
+
+	//Add on the icons. The icon isn't measured in str_width
+	inner_text = "[prefixes?.Join("&nbsp;")][inner_text]"
+
+	// Complete the text with rest of extra classes
+	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(inner_text)]</span>"
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
@@ -215,9 +236,9 @@
 		var/idx = 1
 		var/combined_height = approx_lines
 		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
-			if(!m?.message)
+			if(!m.message)
 				continue
-			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
+			animate(m.message, pixel_y = m.message.pixel_y + APPROX_HEIGHT(font_size, approx_lines), time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
 
 			// When choosing to update the remaining time we have to be careful not to update the
@@ -225,7 +246,7 @@
 			if (!m.isFading)
 				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
 				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
-				if (remaining_time)
+				if (remaining_time > 0)
 					deltimer(m.fadertimer, SSrunechat)
 					m.fadertimer = addtimer(CALLBACK(m, PROC_REF(end_of_life)), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 				else
@@ -248,7 +269,7 @@
 	message.alpha = 0
 	message.pixel_y = bound_height - MESSAGE_FADE_PIXEL_Y
 	message.maptext_width = CHAT_MESSAGE_WIDTH
-	message.maptext_height = mheight
+	message.maptext_height = APPROX_HEIGHT(font_size, approx_lines)
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
@@ -492,7 +513,7 @@
 	//handle color
 	if(color)
 		tgt_color = color
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner)
+	generate_image(text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
 	if(!QDELETED(message_loc))
@@ -509,6 +530,9 @@
 	var/client/owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
 
+	// Save text
+	inner_text = text
+
 	var/bound_width = world.icon_size
 	if (ismovable(target))
 		var/atom/movable/movable_source = target
@@ -521,11 +545,15 @@
 
 	if(LAZYLEN(message_loc.balloon_alerts))
 		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.balloon_alerts)  //We get rid of old alerts so it doesn't clutter up the screen
-			if (!m.isFading)
-				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
-				if (sched_remaining)
-					deltimer(m.fadertimer, SSrunechat)
-				m.end_of_life()
+			if (m.isFading)
+				continue
+			var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
+			if (sched_remaining)
+				deltimer(m.fadertimer, SSrunechat)
+			m.end_of_life()
+
+	// Approximate text height
+	approx_lines = CEILING(approx_str_width(inner_text, DEFAULT_FONT_SIZE, FALSE, FALSE) / CHAT_MESSAGE_WIDTH, 1)
 
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
@@ -533,15 +561,15 @@
 	message.alpha = 0
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
-	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
+	message.maptext_height = APPROX_HEIGHT(DEFAULT_FONT_SIZE, approx_lines)
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
-	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
+	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[inner_text]</span>")
 
 	// View the message
 	owned_by.images += message
 
 	var/duration_mult = 1
-	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
+	var/duration_length = length(inner_text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 
 	if(duration_length > 0)
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
@@ -555,6 +583,48 @@
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/**
+ * Approximates the chatmesseges width based on cached widths of each char.
+ * If the character is not found in this cache we assume the worst and add the highest possible value.
+ *
+ * Arguments:
+ * * font size - font size that the displayed string will be in, used to calculate font size multiplier
+ * * is_bold - passed if the font is bold, the approximation takes into account additional width of the font
+ * * has_icon - text has an icon, which adds extra 8 pixels
+ */
+/datum/chatmessage/proc/approx_str_width(font_size = DEFAULT_FONT_SIZE, is_bold = FALSE, has_icon = FALSE)
+	var/value = 0
+	var/index = NORMAL_FONT_INDEX
+	if(font_size == WHISPER_FONT_SIZE)
+		index = SMALL_FONT_INDEX
+	else if(font_size == BIG_FONT_SIZE)
+		index = BIG_FONT_INDEX
+
+	var/i = 1
+	while(i <= length(inner_text))
+		var/list/letters
+		var/letter_index = text2ascii(inner_text[i])
+		if(SSrunechat.letters.len >= letter_index)
+			letters = SSrunechat.letters[letter_index]
+
+		if(letters == null)
+			//Replace with question mark
+			var/char_len = length(inner_text[i])
+			inner_text = splicetext(inner_text, i, i += char_len, "?")
+			//63 is value of "?"
+			value += SSrunechat.letters[63][index]
+			i -= char_len
+		else
+			value += letters[index]
+
+		i += length(inner_text[i])
+
+	if(is_bold)
+		value += length(inner_text)
+
+	if(has_icon)
+		value += CHAT_MESSAGE_ICON_SIZE
+	return value
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
@@ -585,3 +655,7 @@
 #undef CM_COLOR_SAT_MAX
 #undef CM_COLOR_LUM_MIN
 #undef CM_COLOR_LUM_MAX
+#undef APPROX_HEIGHT
+#undef DEFAULT_FONT_SIZE
+#undef BIG_FONT_SIZE
+#undef WHISPER_FONT_SIZE
