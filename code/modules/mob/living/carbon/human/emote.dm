@@ -335,6 +335,16 @@
 	if(..())
 		playsound(user.loc, 'sound/emotes/dwoop.ogg', 50)
 
+/datum/emote/living/carbon/human/robot_tongue/slowclap
+	key = "slowclap"
+	key_third_person = "activates their slow clap processor."
+	message = "activates their slow clap processor."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/robot_tongue/slowclap/run_emote(mob/user, params)
+	if(..())
+		playsound(user.loc, 'sound/machines/slowclap.ogg', 50)
+
 // Clown Robotic Tongue ONLY. Henk.
 
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
