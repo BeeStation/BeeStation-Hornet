@@ -1,8 +1,6 @@
-/// Thinking
-GLOBAL_DATUM_INIT(thinking_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default3", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER)))
+
 /// Typing
 GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", (-TYPING_LAYER), BLIND_FEATURE_PLANE, appearance_flags = KEEP_TOGETHER))
-GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER)))
 
 /** Creates a thinking indicator over the mob. */
 /mob/proc/create_thinking_indicator()
@@ -33,21 +31,17 @@ GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('ico
 	remove_all_indicators()
 	return ..()
 
-/** Sets the mob as "thinking" - with indicator and variable thinking_IC */
+/** Sets the mob as "thinking" - with indicator and the TRAIT_THINKING_IN_CHARACTER trait */
 /datum/tgui_say/proc/start_thinking()
-	if(!window_open || !istype(client.mob))
+	if(!window_open)
 		return FALSE
-	/// Special exemptions
-	if(isabductor(client.mob))
-		return FALSE
-	client.mob.thinking_IC = TRUE
-	client.mob.create_thinking_indicator()
+	return client.start_thinking()
 
 /** Removes typing/thinking indicators and flags the mob as not thinking */
 /datum/tgui_say/proc/stop_thinking()
 	if(!istype(client.mob))
 		return FALSE
-	client.mob.remove_all_indicators()
+	return client.stop_thinking()
 
 /**
  * Handles the user typing. After a brief period of inactivity,
@@ -56,53 +50,48 @@ GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('ico
 /datum/tgui_say/proc/start_typing()
 	if(!istype(client.mob))
 		return FALSE
-	client.mob.remove_thinking_indicator()
-	if(!window_open || !client.mob.thinking_IC)
+	if(!window_open)
 		return FALSE
-	client.mob.create_typing_indicator()
-	addtimer(CALLBACK(src, PROC_REF(stop_typing)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+	return client.start_typing()
 
 /**
- * Callback to remove the typing indicator after a brief period of inactivity.
+ * Remove the typing indicator after a brief period of inactivity or during say events.
  * If the user was typing IC, the thinking indicator is shown.
  */
 /datum/tgui_say/proc/stop_typing()
-	if(!client?.mob)
+	if(!window_open)
 		return FALSE
-	client.mob.remove_typing_indicator()
-	if(!window_open || !client.mob.thinking_IC)
-		return FALSE
-	client.mob.create_thinking_indicator()
+	client.stop_typing()
 
 /// Overrides for overlay creation
 /mob/living/create_thinking_indicator()
-	if(thinking_indicator || typing_indicator || !thinking_IC || stat != CONSCIOUS )
+	if(active_thinking_indicator || active_typing_indicator || stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
 		return FALSE
-	add_overlay(GLOB.thinking_indicator)
-	thinking_indicator = TRUE
+	active_thinking_indicator = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]3", TYPING_LAYER)
+	add_overlay(active_thinking_indicator)
 
 /mob/living/remove_thinking_indicator()
-	if(!thinking_indicator)
+	if(!active_thinking_indicator)
 		return FALSE
-	cut_overlay(GLOB.thinking_indicator)
-	thinking_indicator = FALSE
+	cut_overlay(active_thinking_indicator)
+	active_thinking_indicator = null
 
 /mob/living/create_typing_indicator(override = FALSE)
-	if(typing_indicator || ((thinking_indicator || !thinking_IC) && !override) || stat != CONSCIOUS)
+	if(active_typing_indicator || ((active_thinking_indicator || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER)) && !override) || stat != CONSCIOUS)
 		return FALSE
-	add_overlay(GLOB.typing_indicator)
+	active_typing_indicator = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]0", TYPING_LAYER)
+	add_overlay(active_typing_indicator)
 	add_overlay(GLOB.blind_typing_indicator)
-	typing_indicator = TRUE
 
 /mob/living/remove_typing_indicator()
-	if(!typing_indicator)
+	if(!active_typing_indicator)
 		return FALSE
-	cut_overlay(GLOB.typing_indicator)
+	cut_overlay(active_typing_indicator)
 	cut_overlay(GLOB.blind_typing_indicator)
-	typing_indicator = FALSE
+	active_typing_indicator = null
 
 /mob/living/remove_all_indicators()
-	thinking_IC = FALSE
+	REMOVE_TRAIT(src, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
 	remove_thinking_indicator()
 	remove_typing_indicator()
 
