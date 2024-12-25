@@ -345,7 +345,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/verb/wipe_core()
 	set name = "Wipe Core"
-	set category = "OOC"
+	set category = "AI Commands"
 	set desc = "Wipe your core. This is functionally equivalent to cryo, freeing up your job slot."
 
 	if(stat)
