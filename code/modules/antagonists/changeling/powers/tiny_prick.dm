@@ -128,6 +128,7 @@
 
 /obj/item/melee/arm_blade/false
 	desc = "A grotesque mass of flesh that used to be your arm. Although it looks dangerous at first, you can tell it's actually quite dull and useless."
+	sharpness = BLUNT //Not actually sharp
 	force = 5 //Basically as strong as a punch
 	fake = TRUE
 

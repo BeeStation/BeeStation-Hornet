@@ -94,7 +94,7 @@
 
 /datum/design/noreactsyringe
 	name = "Cryo Syringe"
-	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
+	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
 	id = "noreactsyringe"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 2000, /datum/material/gold = 1000)

@@ -128,7 +128,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/pink/do_effect(mob/living/simple_animal/slime/S)
 	..()
-	S.grant_language(/datum/language/common, TRUE, TRUE)
+	S.grant_language(/datum/language/common)
 	var/datum/language_holder/LH = S.get_language_holder()
 	LH.selected_language = /datum/language/common
 

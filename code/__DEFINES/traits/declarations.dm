@@ -307,6 +307,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
+
+/// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
+#define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
+
 ///Turf trait for when a turf is transparent
 #define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
 
