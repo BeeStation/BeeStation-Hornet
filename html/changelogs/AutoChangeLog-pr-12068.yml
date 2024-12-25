@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Fixed an improperly handled list "required_organs" in species code
