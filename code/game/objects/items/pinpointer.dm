@@ -80,7 +80,7 @@
 	. = ..()
 	if(!active)
 		return
-	if(!target || (!isnull(jamming_resistance) && (src.is_jammed(jamming_resistance) != JAM_NONE || target.is_jammed(jamming_resistance) != JAM_NONE)))
+	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance) != JAM_NONE)
 		. += "pinon[alert ? "alert" : ""]null[icon_suffix]"
 		return
 	var/turf/here = get_turf(src)
@@ -118,7 +118,7 @@
 		z_level_direction = ""
 
 	// getting xy result
-	if(get_dist_euclidian(here,there) <= minimum_range)
+	if(get_dist_euclidian(here,there) <= minimum_range || (target.is_jammed(jamming_resistance) != JAM_NONE) && get_dist_euclidian(here,there) < minimum_range + 25))
 		pin_xy_result = "direct"
 	else
 		setDir(get_dir(here, there))
@@ -163,7 +163,7 @@
 	if(!here || !there)
 		return FALSE
 
-	if(there.is_jammed(jam_level) != JAM_NONE)
+	if(there.is_jammed(jam_level) == JAM_FULL)
 		return FALSE
 
 	if(!powerful_z_check) // z-check will be only limited within the same area (i.e. multi-floor'ed station)
