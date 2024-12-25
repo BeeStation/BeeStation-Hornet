@@ -144,6 +144,10 @@
 			user.visible_message("<span class='warning'>[user] [slip_in_message].</span>", null, null, null, user)
 			user.visible_message("<span class='warning'>[user] [slip_out_message].</span>", "<span class='notice'>...and find your way to the other side.</span>")
 
+/obj/effect/hallucination/simple/bluespace_stream/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.use_cache()
+	context.add_attack_hand_action("Teleport")
+
 /datum/brain_trauma/special/tenacity
 	name = "Tenacity"
 	desc = "Patient is psychologically unaffected by pain and injuries, and can remain standing far longer than a normal person."
