@@ -84,6 +84,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
 
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	/// For the area_contents list unit test
+	/// Allows us to know our area without needing to preassign it
+	/// Sorry for the mess
+	var/area/in_contents_of
+#endif
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
