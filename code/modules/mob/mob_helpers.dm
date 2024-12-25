@@ -102,8 +102,12 @@
 		switch(rand(1, 20))
 			if(1)
 				newletter += "'"
+			if(2 to 9)
+				newletter += ""
 			if(10)
 				newletter += "[newletter]"
+			if(11 to 19)
+				newletter += ""
 			if(20)
 				newletter += "[newletter][newletter]"
 		. += "[newletter]"
@@ -149,6 +153,8 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
+			if(6 to 15)
+				newletter += ""
 		. += newletter
 	return sanitize(.)
 
@@ -191,6 +197,8 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
+			if(6 to 15)
+				newletter += ""
 		. += newletter
 	return sanitize(.)
 
