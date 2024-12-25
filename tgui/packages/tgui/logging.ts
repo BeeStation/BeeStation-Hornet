@@ -12,15 +12,23 @@ const LEVEL_INFO = 2;
 const LEVEL_WARN = 3;
 const LEVEL_ERROR = 4;
 
-const log = (level, ns, ...args) => {
+interface Logger {
+  debug: (...args: any[]) => void;
+  log: (...args: any[]) => void;
+  info: (...args: any[]) => void;
+  warn: (...args: any[]) => void;
+  error: (...args: any[]) => void;
+}
+
+const log = (level: number, namespace = 'Generic', ...args: any[]): void => {
   // Send logs to a remote log collector
   if (process.env.NODE_ENV !== 'production') {
-    sendLogEntry(level, ns, ...args);
+    sendLogEntry(level, namespace, ...args);
   }
   // Send important logs to the backend
   if (level >= LEVEL_INFO) {
     const logEntry =
-      [ns, ...args]
+      [namespace, ...args]
         .map((value) => {
           if (typeof value === 'string') {
             return value;
@@ -36,18 +44,19 @@ const log = (level, ns, ...args) => {
       navigator.userAgent;
     Byond.sendMessage({
       type: 'log',
+      ns: namespace,
       message: logEntry,
     });
   }
 };
 
-export const createLogger = (ns) => {
+export const createLogger = (namespace?: string): Logger => {
   return {
-    debug: (...args) => log(LEVEL_DEBUG, ns, ...args),
-    log: (...args) => log(LEVEL_LOG, ns, ...args),
-    info: (...args) => log(LEVEL_INFO, ns, ...args),
-    warn: (...args) => log(LEVEL_WARN, ns, ...args),
-    error: (...args) => log(LEVEL_ERROR, ns, ...args),
+    debug: (...args) => log(LEVEL_DEBUG, namespace, ...args),
+    log: (...args) => log(LEVEL_LOG, namespace, ...args),
+    info: (...args) => log(LEVEL_INFO, namespace, ...args),
+    warn: (...args) => log(LEVEL_WARN, namespace, ...args),
+    error: (...args) => log(LEVEL_ERROR, namespace, ...args),
   };
 };
 
@@ -56,4 +65,4 @@ export const createLogger = (ns) => {
  *
  * Does not have a namespace associated with it.
  */
-export const logger = createLogger();
+export const logger: Logger = createLogger();

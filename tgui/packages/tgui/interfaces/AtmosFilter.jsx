@@ -1,7 +1,7 @@
 import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
-import { getGasLabel } from '../constants';
 import { Window } from '../layouts';
+import { getGasLabel } from '../constants';
 
 export const AtmosFilter = (props, context) => {
   const { act, data } = useBackend(context);

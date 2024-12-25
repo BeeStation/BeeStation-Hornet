@@ -4,14 +4,16 @@
  * @license MIT
  */
 
-import { selectBackend } from './backend';
 import { Icon, Section, Stack } from './components';
-import { selectDebug } from './debug/selectors';
+
+import { Store } from 'common/redux';
 import { Window } from './layouts';
+import { selectBackend } from './backend';
+import { selectDebug } from './debug/selectors';
 
 const requireInterface = require.context('./interfaces');
 
-const routingError = (type, name) => () => {
+const routingError = (type: 'notFound' | 'missingExport', name: string) => () => {
   return (
     <Window>
       <Window.Content scrollable>
@@ -30,6 +32,7 @@ const routingError = (type, name) => () => {
   );
 };
 
+// Displays an empty Window with scrollable content
 const SuspendedWindow = () => {
   return (
     <Window>
@@ -38,6 +41,7 @@ const SuspendedWindow = () => {
   );
 };
 
+// Displays a loading screen with a spinning icon
 const RefreshingWindow = () => {
   return (
     <Window title="Loading" theme="generic">
@@ -55,7 +59,8 @@ const RefreshingWindow = () => {
   );
 };
 
-export const getRoutedComponent = (store) => {
+// Get the component for the current route
+export const getRoutedComponent = (store: Store) => {
   const state = store.getState();
   const { suspended, config } = selectBackend(state);
   if (suspended) {
@@ -73,14 +78,14 @@ export const getRoutedComponent = (store) => {
   }
   const name = config?.interface;
   const interfacePathBuilders = [
-    (name) => `./${name}.tsx`,
-    (name) => `./${name}.js`,
-    (name) => `./${name}/index.tsx`,
-    (name) => `./${name}/index.js`,
+    (name: string) => `./${name}.tsx`,
+    (name: string) => `./${name}.jsx`,
+    (name: string) => `./${name}/index.tsx`,
+    (name: string) => `./${name}/index.jsx`,
   ];
   let esModule;
   while (!esModule && interfacePathBuilders.length > 0) {
-    const interfacePathBuilder = interfacePathBuilders.shift();
+    const interfacePathBuilder = interfacePathBuilders.shift()!;
     const interfacePath = interfacePathBuilder(name);
     try {
       esModule = requireInterface(interfacePath);

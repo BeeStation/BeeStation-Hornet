@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
-import { Box, Stack, Button, Dropdown } from '../../components';
+import { Box, Stack, Button } from '../../components';
 import { Component } from 'inferno';
-import { shallowDiffers } from '../../../common/react';
+import { shallowDiffers } from 'common/react';
 import { ABSOLUTE_Y_OFFSET } from './constants';
 import { Port } from './Port';
 
