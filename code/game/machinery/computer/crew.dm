@@ -252,7 +252,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			continue
 
 		// Radio transmitters are jammed
-		if(tracked_human.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
+		var/jam_state = tracked_human.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK)
+		if(jam_state == JAM_FULL)
 			continue
 
 		// The entry for this human
@@ -271,19 +272,19 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 				entry["ijob"] = jobs[I.hud_state]
 
 		// Binary living/dead status
-		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)
+		if ((nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING))
 			entry["life_status"] = !tracked_human.stat
 
 		// Damage
-		if (nanite_sensors || uniform.sensor_mode >= SENSOR_VITALS)
-			entry["oxydam"] = round(tracked_human.getOxyLoss(), 1)
-			entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
-			entry["burndam"] = round(tracked_human.getFireLoss(), 1)
-			entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
+		if ((nanite_sensors || uniform.sensor_mode >= SENSOR_VITALS))
+			entry["oxydam"] = jam_state == JAM_NONE ? round(tracked_human.getOxyLoss(), 1) : rand(0, 40)
+			entry["toxdam"] = jam_state == JAM_NONE ? round(tracked_human.getToxLoss(), 1) : rand(0, 40)
+			entry["burndam"] = jam_state == JAM_NONE ? round(tracked_human.getFireLoss(), 1) : rand(0, 40)
+			entry["brutedam"] = jam_state == JAM_NONE ? round(tracked_human.getBruteLoss(), 1) : rand(0, 40)
 
 		// Area
 		if (pos && (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS))
-			entry["area"] = get_area_name(tracked_human, TRUE)
+			entry["area"] = jam_state == JAM_NONE ? get_area_name(tracked_human, TRUE) : scramble_message_replace_chars(get_area_name(tracked_human, TRUE), 80)
 
 		// Trackability
 		entry["can_track"] = tracked_human.can_track()
