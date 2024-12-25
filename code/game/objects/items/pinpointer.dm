@@ -118,7 +118,7 @@
 		z_level_direction = ""
 
 	// getting xy result
-	if(get_dist_euclidian(here,there) <= minimum_range || (target.is_jammed(jamming_resistance) != JAM_NONE) && get_dist_euclidian(here,there) < minimum_range + 25))
+	if(get_dist_euclidian(here,there) <= minimum_range || (target.is_jammed(jamming_resistance) != JAM_NONE) && get_dist_euclidian(here,there) < minimum_range + 25)
 		pin_xy_result = "direct"
 	else
 		setDir(get_dir(here, there))
