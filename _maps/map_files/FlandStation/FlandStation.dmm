@@ -26262,6 +26262,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"gIB" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/nearstation)
 "gIC" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
@@ -28174,6 +28178,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"hhI" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "hhW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -125676,7 +125684,7 @@ nnx
 nnx
 csJ
 tsN
-tsN
+gIB
 tsN
 xJu
 hSG
@@ -135852,7 +135860,7 @@ kHH
 kHH
 kHH
 abN
-abN
+hhI
 abN
 abN
 abN
