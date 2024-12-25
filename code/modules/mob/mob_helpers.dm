@@ -106,8 +106,6 @@
 				newletter += "[newletter]"
 			if(20)
 				newletter += "[newletter][newletter]"
-			else
-				SWITCH_EMPTY_STATEMENT
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -151,8 +149,6 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
-			else
-				SWITCH_EMPTY_STATEMENT
 		. += newletter
 	return sanitize(.)
 
@@ -195,8 +191,6 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
-			else
-				SWITCH_EMPTY_STATEMENT
 		. += newletter
 	return sanitize(.)
 
