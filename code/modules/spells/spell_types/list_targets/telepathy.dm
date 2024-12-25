@@ -40,7 +40,7 @@
 	to_chat(owner, "<span class='[bold_telepathy_span]'>You transmit to [target]:</span> [formatted_message]")
 	if(!target.can_block_magic(antimagic_flags)) //hear no evil
 		to_chat(target, "<span class='[bold_telepathy_span]'>You hear something behind you talking...</span> [formatted_message]")
-
+		M.balloon_alert(M, "You hear a voice in your head...")
 	for(var/mob/dead/ghost as anything in GLOB.dead_mob_list)
 		if(!isobserver(ghost))
 			continue
