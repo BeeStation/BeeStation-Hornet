@@ -56,6 +56,7 @@
 
 /datum/wires/explosive/c4
 	holder_type = /obj/item/grenade/plastic/c4
+	duds_number = 1
 	randomize = TRUE	//Same behaviour since no wire actually disarms it
 
 /datum/wires/explosive/c4/interactable(mob/user)

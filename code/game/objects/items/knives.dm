@@ -18,13 +18,18 @@
 	custom_materials = list(/datum/material/iron=12000)
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor_type = /datum/armor/item_knife
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
+
+
+/datum/armor/item_knife
+	fire = 50
+	acid = 50
 
 /obj/item/knife/Initialize(mapload)
 	. = ..()
@@ -71,6 +76,7 @@
 	attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
+	sharpness = SHARP_DISMEMBER //This is a big boy knife
 
 /obj/item/knife/hunting
 	name = "hunting knife"
@@ -186,4 +192,4 @@
 	custom_materials = list()
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/none

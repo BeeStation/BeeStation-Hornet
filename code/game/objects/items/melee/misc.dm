@@ -46,7 +46,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 
 /obj/item/melee/synthetic_arm_blade/Initialize(mapload)
@@ -70,7 +70,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -149,7 +149,12 @@
 	lefthand_file = null
 	righthand_file = null
 	block_power = 60
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor_type = /datum/armor/sabre_mime
+
+
+/datum/armor/sabre_mime
+	fire = 100
+	acid = 100
 
 /obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
 	var/obj/item/storage/belt/sabre/mime/M = R.real_location()

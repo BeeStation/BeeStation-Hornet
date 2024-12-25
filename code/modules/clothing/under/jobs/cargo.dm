@@ -62,6 +62,13 @@
 	name = "shaft miner's jumpsuit"
 	icon_state = "miner"
 	item_state = "miner"
+	armor_type = /datum/armor/cargo_miner
+
+
+/datum/armor/cargo_miner
+	bio = 10
+	fire = 80
+	bleed = 10
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	desc = "A green uniform for operating in hazardous environments."
