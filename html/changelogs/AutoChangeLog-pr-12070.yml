@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: The keypad buttons on nuke interfaces no longer clip into the other buttons
