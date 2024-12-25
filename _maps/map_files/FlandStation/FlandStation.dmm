@@ -13302,7 +13302,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "dwQ" = (
@@ -38063,6 +38062,20 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/storage/primary)
+"jKV" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Engidesk";
+	name = "engineering Security Door"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/modular_fabricator/autolathe,
+/obj/machinery/door/window/westright{
+	name = "Atmospherics Autolathe";
+	req_access_txt = "24";
+	dir = 2
+	},
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "jLa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -48370,6 +48383,9 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/auxiliary)
+"mlo" = (
+/turf/open/floor/iron/dark,
+/area/maintenance/port)
 "mlt" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "medcell";
@@ -57987,11 +58003,6 @@
 	id = "atmos";
 	name = "Atmospherics Blast Door"
 	},
-/obj/machinery/door/window/westright{
-	dir = 2;
-	name = "Atmospherics Desk";
-	req_access_txt = "24"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/desk_bell{
@@ -57999,6 +58010,11 @@
 	},
 /obj/item/folder/yellow{
 	pixel_x = 4
+	},
+/obj/machinery/door/window/westleft{
+	name = "Atmospherics Desk";
+	req_access_txt = "24";
+	dir = 2
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
@@ -59747,6 +59763,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "pou" = (
@@ -62103,12 +62120,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/closet/crate,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "pVL" = (
@@ -117255,7 +117272,7 @@ qCS
 jYF
 jYF
 jYF
-jYF
+mlo
 wbE
 nck
 ocu
@@ -138892,7 +138909,7 @@ hEL
 pGC
 aYo
 dwC
-uUs
+jKV
 kpZ
 xDY
 uLr
