@@ -774,6 +774,18 @@ update_label("John Doe", "Clowny")
 	assignment = "CentCom Attorney"
 	icon_state = "centcom"
 
+/obj/item/card/id/ert/marine
+	assignment = "Squad Marine"
+
+/obj/item/card/id/ert/marine/leader
+	assignment = "Squad Leader"
+
+/obj/item/card/id/ert/Security/marine
+	assignment = "Squad Specialist"
+
+/obj/item/card/id/ert/Medical/marine
+	assignment = "Squad Corpsman"
+
 /// Trim for Bounty Hunters hired by centcom.
 /obj/item/card/id/silver/bounty/ert
 	registered_name = "Bounty Hunter"
