@@ -156,6 +156,7 @@
 	icon = 'icons/obj/clothing/head/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "crusader"
+	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
 	armor_type = /datum/armor/plate_crusader
@@ -185,12 +186,11 @@
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
 	icon_state = null
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	item_state = null
 	flags_1 = 0
 	armor_type = /datum/armor/crusader_prophet
-	worn_x_dimension = 64
-	worn_y_dimension = 64
+	worn_y_offset = 6
 
 
 /datum/armor/crusader_prophet
@@ -218,12 +218,10 @@
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
 	flags_inv = NONE
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "cage"
 	item_state = null
-	worn_x_dimension = 64
-	worn_y_dimension = 64
 	dynamic_hair_suffix = ""
+	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient
 	name = "ancient helmet"

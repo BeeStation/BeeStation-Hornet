@@ -41,6 +41,7 @@
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
 #include "keybinding_init.dm"
+#include "language_transfer.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "missing_icons.dm"

@@ -97,7 +97,7 @@
 	throw_speed = 4
 	colour = "crimson"
 	custom_materials = list(/datum/material/gold = 750)
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	resistance_flags = FIRE_PROOF
 	unique_reskin_icon = list("Oak" = "pen-fountain-o",
@@ -252,7 +252,7 @@
 		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
-		sharpness = IS_SHARP
+		sharpness = SHARP_DISMEMBER
 		bleed_force = BLEED_CUT
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
