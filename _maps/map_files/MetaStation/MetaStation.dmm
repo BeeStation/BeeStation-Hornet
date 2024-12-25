@@ -75378,18 +75378,19 @@
 /area/medical/surgery)
 "wXv" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/machinery/newscaster{
+	pixel_y = -31
+	},
+/obj/item/kirbyplants/random,
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "MedbayFoyer";
 	name = "Medbay Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = 25;
-	pixel_y = -24
+	pixel_y = -24;
+	req_access_txt = "5"
 	},
-/obj/machinery/newscaster{
-	pixel_y = -31
-	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "wXy" = (
