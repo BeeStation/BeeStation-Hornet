@@ -15,7 +15,7 @@
 	else if(A.loc)
 		abstract_move(get_turf(A))
 
-/mob/dead/observer/ClickOn(var/atom/A, var/params)
+/mob/dead/observer/ClickOn(atom/A, params)
 	if(check_click_intercept(params,A))
 		return
 

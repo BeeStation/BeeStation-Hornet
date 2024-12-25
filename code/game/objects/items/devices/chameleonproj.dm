@@ -145,13 +145,13 @@
 /obj/effect/dummy/chameleon/attack_hand()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_animal()
+/obj/effect/dummy/chameleon/attack_animal(mob/user, list/modifiers)
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_slime()
+/obj/effect/dummy/chameleon/attack_slime(mob/user, list/modifiers)
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_alien()
+/obj/effect/dummy/chameleon/attack_alien(mob/user, list/modifiers)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/ex_act(S, T)

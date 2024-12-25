@@ -98,13 +98,13 @@
 /obj/structure/speaking_tile/attack_hulk(mob/user, does_attack_animation = 0)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_larva(mob/user)
+/obj/structure/speaking_tile/attack_larva(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_silicon(mob/user)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_slime(mob/user)
+/obj/structure/speaking_tile/attack_slime(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_animal(mob/user)

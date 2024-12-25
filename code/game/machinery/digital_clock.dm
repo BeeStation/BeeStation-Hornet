@@ -23,7 +23,7 @@
 
 /obj/machinery/digital_clock/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
 	to_chat(user, "<span class='notice'>You start unsecuring [name]...</span>")
 	tool.play_tool_sound(src)
@@ -35,7 +35,7 @@
 
 /obj/machinery/digital_clock/welder_act(mob/living/user, obj/item/tool)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
 	if(atom_integrity >= max_integrity)
 		balloon_alert(user, "it doesn't need repairs!")
@@ -51,7 +51,7 @@
 
 /obj/machinery/digital_clock/multitool_act(mob/living/user, obj/item/tool)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
 	if(!(obj_flags & EMAGGED))
 		return

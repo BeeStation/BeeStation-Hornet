@@ -27,7 +27,7 @@
 		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto your head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
 		swirlie.adjustBruteLoss(5)
 
-	else if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	else if(user.pulling && isliving(user.pulling))
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/mob/living/GM = user.pulling
 		if(user.grab_state >= GRAB_AGGRESSIVE)
@@ -83,21 +83,20 @@
 			cistern = !cistern
 			update_icon()
 
-	else if(cistern)
-		if(user.a_intent != INTENT_HARM)
-			if(I.w_class > WEIGHT_CLASS_NORMAL)
-				to_chat(user, "<span class='warning'>[I] does not fit!</span>")
-				return
-			if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
-				to_chat(user, "<span class='warning'>The cistern is full!</span>")
-				return
-			if(!user.transferItemToLoc(I, src))
-				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the cistern!</span>")
-				return
-			w_items += I.w_class
-			to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
+	else if(cistern && !user.combat_mode)
+		if(I.w_class > WEIGHT_CLASS_NORMAL)
+			to_chat(user, "<span class='warning'>[I] does not fit!</span>")
+			return
+		if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
+			to_chat(user, "<span class='warning'>The cistern is full!</span>")
+			return
+		if(!user.transferItemToLoc(I, src))
+			to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the cistern!</span>")
+			return
+		w_items += I.w_class
+		to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
 
-	else if(istype(I, /obj/item/reagent_containers))
+	else if(istype(I, /obj/item/reagent_containers) && !user.combat_mode)
 		if (!open)
 			return
 		var/obj/item/reagent_containers/RG = I
@@ -130,11 +129,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	. = ..()
 	hiddenitem = new /obj/item/food/urinalcake
 
-/obj/structure/urinal/attack_hand(mob/user)
+/obj/structure/urinal/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/GM = user.pulling
 		if(user.grab_state >= GRAB_AGGRESSIVE)
 			if(GM.loc != get_turf(src))
@@ -228,6 +227,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	desc = "A sink frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
 
+/obj/structure/sinkframe/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a sink...")
@@ -242,12 +245,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 /obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-	return !anchored
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()
@@ -335,7 +333,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		to_chat(user, "<span class='notice'>You start washing [O]...</span>")
 		busy = TRUE
 		if(!do_after(user, 40, target = src))

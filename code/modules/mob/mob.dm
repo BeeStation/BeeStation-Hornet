@@ -355,7 +355,7 @@
   * Mostly tries to put the item into the slot if possible, or call attack hand
   * on the item in the slot if the users active hand is empty
   */
-/mob/proc/attack_ui(slot)
+/mob/proc/attack_ui(slot, params)
 	if(world.time <= usr.next_move)
 		return FALSE
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -371,7 +371,8 @@
 		// Activate the item
 		var/obj/item/I = get_item_by_slot(slot)
 		if(istype(I))
-			I.attack_hand(src)
+			var/list/modifiers = params2list(params)
+			I.attack_hand(src, modifiers)
 
 	return FALSE
 
@@ -588,11 +589,10 @@
 
 	//now we touch the thing we're examining
 	/// our current intent, so we can go back to it after touching
-	var/previous_intent = a_intent
-	a_intent = INTENT_HELP
+	var/previous_combat_mode = combat_mode
+	set_combat_mode(FALSE)
 	examined_thing.attack_hand(src)
-	a_intent = previous_intent
-
+	set_combat_mode(previous_combat_mode)
 	return TRUE
 
 /**
@@ -1148,14 +1148,14 @@
 	if (!client)
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
-	if (ismecha(loc))
-		var/obj/vehicle/sealed/mecha/M = loc
-		if(M.mouse_pointer)
-			client.mouse_pointer_icon = M.mouse_pointer
-	else if (istype(loc, /obj/vehicle/sealed))
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
+	if(istype(loc, /obj/vehicle/sealed))
 		var/obj/vehicle/sealed/E = loc
 		if(E.mouse_pointer)
 			client.mouse_pointer_icon = E.mouse_pointer
+	if(client.mouse_override_icon)
+		client.mouse_pointer_icon = client.mouse_override_icon
 
 
 /// This mob can read

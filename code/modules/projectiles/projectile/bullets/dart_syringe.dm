@@ -66,7 +66,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100) // not completely blocked
-			if(M.can_inject(null, FALSE, def_zone) && !HAS_TRAIT(M, TRAIT_BEEFRIEND))
+			if(M.can_inject(target_zone = def_zone) && !HAS_TRAIT(M, TRAIT_BEEFRIEND))
 				var/mob/living/simple_animal/hostile/poison/bees/B = new(src.loc)
 				for(var/datum/reagent/R in reagents.reagent_list)
 					B.assign_reagent(GLOB.chemical_reagents_list[R.type])

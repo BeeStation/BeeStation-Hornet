@@ -137,7 +137,7 @@
 				break
 	update_icon()
 
-/obj/machinery/atmospherics/proc/setPipingLayer(new_layer)
+/obj/machinery/atmospherics/proc/set_piping_layer(new_layer)
 	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
 	update_icon()
 
@@ -196,7 +196,7 @@
 	if(istype(W, /obj/item/pipe)) //lets you autodrop
 		var/obj/item/pipe/pipe = W
 		if(user.dropItemToGround(pipe))
-			pipe.setPipingLayer(piping_layer) //align it with us
+			pipe.set_piping_layer(piping_layer) //align it with us
 			return TRUE
 	else
 		return ..()
@@ -263,7 +263,7 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(can_unwrench)
 			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src)
-			stored.setPipingLayer(piping_layer)
+			stored.set_piping_layer(piping_layer)
 			if(!disassembled)
 				stored.take_damage(stored.max_integrity * 0.5, sound_effect=FALSE)
 			transfer_fingerprints_to(stored)
@@ -291,7 +291,7 @@
 	if(can_unwrench)
 		add_atom_colour(obj_color, FIXED_COLOUR_PRIORITY)
 		pipe_color = obj_color
-	setPipingLayer(set_layer)
+	set_piping_layer(set_layer)
 	atmosinit()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)

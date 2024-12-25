@@ -14,15 +14,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
-	var/stream_mode = 0 //whether we use the more focused mode
+	var/stream_mode = FALSE //whether we use the more focused mode
 	var/current_range = 3 //the range of tiles the sprayer will reach.
 	var/spray_range = 3 //the range of tiles the sprayer will reach when in spray mode.
 	var/stream_range = 1 //the range of tiles the sprayer will reach when in stream mode.
-	var/stream_amount = 10 //the amount of reagents transfered when in stream mode.
 	var/can_fill_from_container = TRUE
+	/// Are we able to toggle between stream and spray modes, which change the distance and amount sprayed?
+	var/can_toggle_range = TRUE
 	amount_per_transfer_from_this = 5
 	volume = 250
-	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
+	possible_transfer_amounts = list(5,10)
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	. = ..()
@@ -87,14 +88,22 @@
 	D.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
+	. = ..()
+	toggle_stream_mode(user)
+
+/obj/item/reagent_containers/spray/attack_self_secondary(mob/user)
+	. = ..()
+	toggle_stream_mode(user)
+
+/obj/item/reagent_containers/spray/proc/toggle_stream_mode(mob/user)
+	if(stream_range == spray_range || !stream_range || !spray_range || possible_transfer_amounts.len > 2 || !can_toggle_range)
+		return
 	stream_mode = !stream_mode
 	if(stream_mode)
-		amount_per_transfer_from_this = stream_amount
 		current_range = stream_range
 	else
-		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 		current_range = spray_range
-	to_chat(user, "<span class='notice'>You switch the nozzle setting to [stream_mode ? "\"stream\"":"\"spray\""]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
+	to_chat(user, "<span class='notice'>You switch the nozzle setting to [stream_mode ? "\"stream\"":"\"spray\""].</span>")
 
 /obj/item/reagent_containers/spray/attackby(obj/item/I, mob/user, params)
 	var/hotness = I.is_hot()
@@ -138,7 +147,7 @@
 	volume = 100
 	list_reagents = list(/datum/reagent/space_cleaner = 100)
 	amount_per_transfer_from_this = 2
-	stream_amount = 5
+	possible_transfer_amounts = list(2,5)
 
 /obj/item/reagent_containers/spray/cleaner/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -169,11 +178,11 @@
 	icon_state = "sunflower"
 	item_state = "sunflower"
 	amount_per_transfer_from_this = 1
+	has_variable_transfer_amount = FALSE
+	can_toggle_range = FALSE
+	current_range = 1
 	volume = 10
 	list_reagents = list(/datum/reagent/water = 10)
-
-/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
-	return
 
 /obj/item/reagent_containers/spray/waterflower/superlube
 	name = "clown flower"

@@ -114,12 +114,6 @@ They *could* go in their appropriate files, but this is supposed to be modular
 			corrupt()
 			update_icon()
 
-/obj/machinery/proc/AI_notify_hack()
-	var/turf/location = get_turf(src)
-	var/alertstr = "<span class='userdanger'>Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]</span>."
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		to_chat(AI, alertstr)
-
 //RDCONSOLE//
 /obj/machinery/computer/rdconsole/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
 	if(!S || !H || !G)

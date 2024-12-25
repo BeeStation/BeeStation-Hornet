@@ -22,6 +22,10 @@
 	desc = "A shower frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
 
+/obj/structure/showerframe/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
 /obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a shower...")
@@ -34,14 +38,8 @@
 			return
 	return ..()
 
-/obj/structure/showerframe/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/structure/showerframe/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-	return !anchored
+/obj/structure/showerframe/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/shower/Initialize(mapload)
 	. = ..()

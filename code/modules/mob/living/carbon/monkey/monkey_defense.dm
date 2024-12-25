@@ -27,34 +27,32 @@
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			apply_damage(damage, BRUTE, affecting)
 
-/mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M)
+/mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M, list/modifiers)
 	if(..())	//To allow surgery to return properly.
 		return
 
-	switch(M.a_intent)
-		if("help")
-			help_shake_act(M)
-		if("grab")
-			grabbedby(M)
-		if("harm")
-			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[M] punches [name]!</span>", \
-					"<span class='userdanger'>[M] punches you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
-			to_chat(M, "<span class='danger'>You punch [name]!</span>")
-			playsound(loc, "punch", 25, 1, -1)
-			var/damage = M.dna.species.punchdamage
-			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(damage, BRUTE, affecting)
-			log_combat(M, src, "attacked", "harm")
-		if("disarm")
+	if(M.combat_mode)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			if(stat < UNCONSCIOUS)
 				M.disarm(src)
+				return
+		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+		visible_message("<span class='danger'>[M] punches [name]!</span>", \
+				"<span class='userdanger'>[M] punches you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='danger'>You punch [name]!</span>")
+		playsound(loc, "punch", 25, 1, -1)
+		var/damage = M.dna.species.punchdamage
+		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
+		if(!affecting)
+			affecting = get_bodypart(BODY_ZONE_CHEST)
+		apply_damage(damage, BRUTE, affecting)
+		log_combat(M, src, "attacked", "harm")
+	else
+		help_shake_act(M)
 
-/mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
 	if(..()) //if harm or disarm intent.
-		if (M.a_intent == INTENT_HARM)
+		if (M.combat_mode)
 			if ((prob(95) && health > 0))
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
@@ -84,7 +82,7 @@
 								"<span class='danger'>You avoid [M]'s lunge!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, M)
 				to_chat(M, "<span class='warning'>Your lunge misses [name]!</span>")
 
-		if (M.a_intent == INTENT_DISARM)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			var/obj/item/I = null
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			if(prob(95))

@@ -72,6 +72,7 @@
 		. += "There is no power cell installed."
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Temperature range at <b>[settable_temperature_range]°C</b>.<br>Heating power at <b>[siunit(heating_power, "W", 1)]</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
+		. += "<span class='notice'><b>Right-click</b> to toggle [on ? "off" : "on"].</span>"
 
 /obj/machinery/portable_thermomachine/update_icon_state()
 	. = ..()
@@ -216,6 +217,12 @@
 
 /obj/machinery/portable_thermomachine/ui_state(mob/user)
 	return GLOB.physical_state
+
+/obj/machinery/portable_thermomachine/attack_hand_secondary(mob/user, list/modifiers)
+	if(!can_interact(user))
+		return
+	toggle_power()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/portable_thermomachine/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
