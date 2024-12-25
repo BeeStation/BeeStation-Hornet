@@ -91,7 +91,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/examine(mob/user)
 	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	. += "The engine heater's gas dial reads [GET_MOLES(gas_type, air_contents)] moles of gas.<br>"
+	. += "The engine heater's gas dial reads [air_contents.total_moles()] moles of gas.<br>"
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/updateGasStats()
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -106,7 +106,8 @@
 	return moles >= required
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(var/amount)
-	remove_air(amount)
+	var/datum/gas_mixture/air_contents = airs[1]
+	air_contents.remove(amount)
 	return
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
