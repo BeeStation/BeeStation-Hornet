@@ -11,13 +11,13 @@
 /area/template_noop)
 "c" = (
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -30,7 +30,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
 /turf/open/floor/plating,

@@ -91,7 +91,7 @@
 	if(!t_loc)
 		return
 	var/list/newsmokes = list()
-	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs(!circle))
+	for(var/turf/T in t_loc.get_atmos_adjacent_turfs(!circle))
 		var/obj/effect/particle_effect/smoke/foundsmoke = locate() in T //Don't spread smoke where there's already smoke!
 		if(foundsmoke)
 			continue
@@ -175,13 +175,14 @@
 	if(T.air)
 		var/datum/gas_mixture/G = T.air
 		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			G.set_temperature(temperature)
-		T.air_update_turf()
+			G.temperature = temperature
+		T.air_update_turf(FALSE, FALSE)
 		for(var/obj/effect/hotspot/H in T)
 			qdel(H)
-		if(G.get_moles(GAS_PLASMA))
-			G.adjust_moles(GAS_N2, G.get_moles(GAS_PLASMA))
-			G.set_moles(GAS_PLASMA, 0)
+		if(G.gases[/datum/gas/plasma][MOLES])
+			ADD_MOLES(/datum/gas/nitrogen, G, G.gases[/datum/gas/plasma][MOLES])
+			G.gases[/datum/gas/plasma][MOLES] = 0
+
 	if (weldvents)
 		for(var/obj/machinery/atmospherics/components/unary/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
@@ -204,7 +205,7 @@
 	..()
 
 /datum/effect_system/smoke_spread/freezing/decon
-	temperature = 293.15
+	temperature = T20C
 	distcheck = FALSE
 	weldvents = FALSE
 

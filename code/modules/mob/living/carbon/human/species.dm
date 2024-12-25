@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
 
 	//Breathing! Most changes are in mutantlungs, though
-	var/breathid = "o2"
+	var/breathid = GAS_O2
 
 	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
 	//List is called in health analyzer and displays all missing organs
@@ -1964,7 +1964,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/handle_body_temperature(mob/living/carbon/human/humi)
 	//when in a cryo unit we suspend all natural body regulation
-	if(istype(humi.loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+	if(istype(humi.loc, /obj/machinery/cryo_cell))
 		return
 
 	//Only stabilise core temp when alive and not in statis
