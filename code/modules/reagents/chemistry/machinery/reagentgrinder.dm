@@ -275,10 +275,9 @@
 			juice_item(juiced_item, user)
 
 /obj/machinery/reagentgrinder/proc/juice_item(obj/item/juiced_item, mob/user) //Juicing results can be found in respective object definitions
-	if(juiced_item.on_juice(src) == -1)
+	if(!juiced_item.juice(beaker, user))
 		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [juiced_item], and transfers it back to storage.</span>")
 		return
-	beaker.reagents.add_reagent_list(juiced_item.juice_results)
 	remove_object(juiced_item)
 
 /obj/machinery/reagentgrinder/proc/grind(mob/user)

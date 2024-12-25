@@ -20,6 +20,7 @@
 
 	var/motd
 
+	/// If the configuration is loaded
 	var/loaded = FALSE
 
 	var/static/regex/ic_filter_regex

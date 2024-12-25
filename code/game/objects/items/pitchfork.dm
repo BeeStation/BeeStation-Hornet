@@ -13,11 +13,16 @@
 	attack_verb_continuous = list("attacks", "impales", "pierces")
 	attack_verb_simple = list("attack", "impale", "pierce")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_pitchfork
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_pitchfork
+	fire = 100
+	acid = 30
 
 /obj/item/pitchfork/ComponentInitialize()
 	. = ..()
