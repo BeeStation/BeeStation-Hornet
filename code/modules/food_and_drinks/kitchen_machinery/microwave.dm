@@ -384,7 +384,7 @@
 		return
 
 	if(prob(max((5 / efficiency) - 5, dirty * 5))) //a clean unupgraded microwave has no risk of failure
-		muck(user)
+		muck()
 		return
 
 	// How many items are we cooking that aren't already food items
@@ -474,7 +474,7 @@
 		if(prob(max(iron_amount / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dump_inventory_contents(user)
+		dump_inventory_contents()
 
 	after_finish_loop()
 

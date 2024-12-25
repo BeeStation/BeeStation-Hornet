@@ -13,9 +13,6 @@
 	/// REF() to the mob which placed us on the griddle
 	var/who_placed_us
 
-	/// REF() to the mind which placed us on the griddle
-	var/who_placed_us
-
 /datum/component/grillable/Initialize(cook_result, required_cook_time, positive_result, use_large_steam_sprite)
 	. = ..()
 	if(!isitem(parent)) //Only items support grilling at the moment

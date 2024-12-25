@@ -243,10 +243,6 @@ Behavior that's still missing from this component that original food items had t
 	if(mind && HAS_TRAIT_FROM(owner, TRAIT_FOOD_CHEF_MADE, REF(mind)))
 		examine_list += "<span class='green'>[owner] was made by you!</span>"
 
-	var/datum/mind/mind = user.mind
-	if(mind && HAS_TRAIT_FROM(parent, TRAIT_FOOD_CHEF_MADE, REF(mind)))
-		examine_list += "<span class='green'>[parent] was made by you!</span>"
-
 	if(!(food_flags & FOOD_IN_CONTAINER))
 		switch(bitecount)
 			if(0)
