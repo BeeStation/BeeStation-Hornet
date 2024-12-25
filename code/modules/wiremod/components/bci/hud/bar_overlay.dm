@@ -45,18 +45,22 @@
 		number_clear = round(number_clear / 10) * 10
 	var/image/cool_overlay = image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = "[options_map[current_option]][number_clear]", layer = RIPPLE_LAYER)
 
-	if(image_pixel_x.value)
+	if(image_pixel_x.value != null)
 		cool_overlay.pixel_x = image_pixel_x.value
 
-	if(image_pixel_y.value)
+	if(image_pixel_y.value != null)
 		cool_overlay.pixel_y = image_pixel_y.value
 
-	active_overlays[target_atom] = WEAKREF(target_atom.add_alt_appearance(
+	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = target_atom.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/one_person,
 		"bar_overlay_[REF(src)]",
 		cool_overlay,
+		null,
 		owner,
-	))
+	)
+	alt_appearance.show_to(owner)
+
+	active_overlays[target_atom] = WEAKREF(alt_appearance)
 
 #undef COMP_BAR_OVERLAY_VERTICAL
 #undef COMP_BAR_OVERLAY_HORIZONTAL
