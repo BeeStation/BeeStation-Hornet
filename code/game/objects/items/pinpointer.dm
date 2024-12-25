@@ -80,7 +80,7 @@
 	. = ..()
 	if(!active)
 		return
-	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance) != JAM_NONE)
+	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance) != JAM_NONE))
 		. += "pinon[alert ? "alert" : ""]null[icon_suffix]"
 		return
 	var/turf/here = get_turf(src)
