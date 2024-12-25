@@ -23,6 +23,7 @@
 	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, PROC_REF(add_event))
 	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, PROC_REF(clear_event))
 	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(check_area_mood))
+	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
 	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, PROC_REF(modify_hud))
 	RegisterSignal(parent, COMSIG_HERETIC_MASK_ACT, PROC_REF(direct_sanity_drain))
@@ -93,7 +94,8 @@
 		msg += thought_msg
 	to_chat(user || parent, EXAMINE_BLOCK(msg))
 
-/datum/component/mood/proc/update_mood() //Called whenever a mood event is added or removed
+///Called after moodevent/s have been added/removed.
+/datum/component/mood/proc/update_mood()
 	mood = 0
 	shown_mood = 0
 	for(var/i in mood_events)
@@ -294,14 +296,14 @@
 		category = REF(category)
 	return mood_events[category]
 
-/datum/component/mood/proc/remove_temp_moods(var/admin) //Removes all temp moods
+/datum/component/mood/proc/remove_temp_moods() //Removes all temp moods
 	for(var/i in mood_events)
 		var/datum/mood_event/moodlet = mood_events[i]
 		if(!moodlet || !moodlet.timeout)
 			continue
 		mood_events -= moodlet.category
 		qdel(moodlet)
-		update_mood()
+	update_mood()
 
 
 /datum/component/mood/proc/modify_hud(datum/source)
@@ -379,6 +381,13 @@
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
 	else
 		clear_event(null, "area")
+
+///Called when parent is ahealed.
+/datum/component/mood/proc/on_revive(datum/source, full_heal)
+	if(!full_heal)
+		return
+	remove_temp_moods()
+	setSanity(initial(sanity))
 
 #undef MINOR_INSANITY_PEN
 #undef MAJOR_INSANITY_PEN
