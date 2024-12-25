@@ -292,11 +292,17 @@
 		return
 
 	// Check for jammers
-	var/turf/position = get_turf(computer)
-	for(var/datum/component/radio_jamming/jammer as anything in GLOB.active_jammers)
-		var/turf/jammer_turf = get_turf(jammer.parent)
-		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
-			return FALSE
+	var/jam_level = computer.is_jammed(JAMMER_PROTECTION_PDA_MESSAGE)
+
+	if (jam_level == JAM_FULL)
+		to_chat(user, "<span class='notice'>ERROR: Server isn't responding.</span>")
+		if(ringer_status)
+			playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
+		return
+
+	if (jam_level == JAM_MINOR)
+		// Slightly more robust than comms, not quite as gibberish
+		message = Gibberish(message, TRUE, 30)
 
 	// Send the signal
 	var/list/string_targets = list()

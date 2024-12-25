@@ -14,6 +14,7 @@
 #define JAMMER_PROTECTION_WIRELESS 1		//Wireless networking
 #define JAMMER_PROTECTION_AI_SHELL 2		//AI shell protection
 #define JAMMER_PROTECTION_SILICON_COMMS 1	//Silicon comms
+#define JAMMER_PROTECTION_PDA_MESSAGE 0		//PDA messages
 
 // Signal jamming
 /// Not jammed
