@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 		if(AIR_ALARM_BUILD_NO_WIRES)
 			. += "<span class = 'notice'>It is missing wiring.</span>"
 		if(AIR_ALARM_BUILD_COMPLETE)
-			. += "<span class = 'notice'>Right-click to [locked ? "unlock" : "lock"] the interface.</span>"
+			. += "<span class = 'notice'>Alt-click to [locked ? "unlock" : "lock"] the interface.</span>"
 
 /obj/machinery/airalarm/ui_status(mob/user, datum/ui_state/state)
 	if(issiliconoradminghost(user) && aidisabled)

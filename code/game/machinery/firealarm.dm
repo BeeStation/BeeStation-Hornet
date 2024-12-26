@@ -26,7 +26,7 @@
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
-	req_access = null
+	req_access = list(ACCESS_ATMOSPHERICS)
 
 	light_power = 0
 	light_range = 7
@@ -305,7 +305,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	update_icon()
 
 /obj/machinery/firealarm/AltClick(mob/user)
-	try_lock(user)
+	if(can_interact(user))
+		try_lock(user)
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(buildstage != 2)
