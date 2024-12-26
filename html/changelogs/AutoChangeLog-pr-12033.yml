@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: The syndicate lavaland base's explosives are no longer able to be picked
+      up.
