@@ -1,0 +1,4 @@
+author: rkz, LemonInTheDark
+delete-after: true
+changes:
+  - code_imp: optimized a slow unit test. Speedup CI a lot.
