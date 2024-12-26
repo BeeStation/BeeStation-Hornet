@@ -2311,40 +2311,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint,
 /area/science/storage)
-"aDC" = (
-/obj/structure/closet/crate{
-	name = "food crate"
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle/large{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle/large{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle/large{
-	pixel_x = -2
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle/large{
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle/large{
-	pixel_x = 1;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle/large{
-	pixel_x = 8;
-	pixel_y = -3
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/security/nuke_storage)
 "aDF" = (
 /turf/open/floor/plating/rust,
 /area/asteroid/nearstation)
@@ -3608,6 +3574,23 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port/central)
+"aQg" = (
+/obj/structure/table/optable,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
+/turf/open/floor/iron/white,
+/area/security/main)
 "aQp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -15782,25 +15765,6 @@
 	burnt = 1
 	},
 /area/maintenance/starboard/central)
-"egv" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "Toilet1";
-	name = "Lock Control";
-	normaldoorcontrol = 1;
-	pixel_x = -24;
-	specialfunctions = 4
-	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/structure/toilet{
-	dir = 4
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/toilet/restrooms)
 "egw" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/white/full,
@@ -26549,6 +26513,29 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)
+"gLr" = (
+/obj/item/food/canned/peaches{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/food/canned/peaches{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/food/canned/beans{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle{
+	pixel_x = -8;
+	pixel_y = -5
+	},
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/open/floor/iron/techmaint,
+/area/security/prison/shielded)
 "gLs" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -28111,6 +28098,26 @@
 	},
 /turf/open/floor/iron/tech,
 /area/bridge)
+"hgA" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "Toilet2";
+	name = "Lock Control";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	specialfunctions = 4
+	},
+/obj/effect/landmark/start/assistant,
+/obj/machinery/newscaster{
+	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "hgB" = (
 /turf/closed/wall,
 /area/maintenance/department/engine)
@@ -33660,6 +33667,11 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"iCm" = (
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "iCn" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/box/corners,
@@ -34480,19 +34492,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/grid/steel,
 /area/science/shuttle)
-"iNl" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/closet/crate,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/blood/OPlus,
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "iNo" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -41245,6 +41244,31 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
+"kxq" = (
+/obj/structure/table,
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/reagent_containers/syringe,
+/obj/effect/turf_decal/bot,
+/obj/machinery/camera/directional/east{
+	c_tag = "Security - Medbay"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/reagent_containers/blood/OPlus,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "kxA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -42213,20 +42237,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/main)
-"kKM" = (
-/obj/structure/table/optable,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/iron/white,
 /area/security/main)
 "kKQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -46645,6 +46655,25 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/primary)
+"lNe" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "Toilet1";
+	name = "Lock Control";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	specialfunctions = 4
+	},
+/obj/machinery/newscaster{
+	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "lNt" = (
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_x = -32
@@ -47483,24 +47512,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"lZe" = (
-/obj/structure/table,
-/obj/item/folder/red{
-	pixel_x = 3
-	},
-/obj/item/folder/white{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
-/obj/effect/turf_decal/bot,
-/obj/machinery/camera/directional/east{
-	c_tag = "Security - Medbay"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "lZt" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -50488,22 +50499,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
-"mPa" = (
-/obj/machinery/newscaster{
-	pixel_y = 31
-	},
-/obj/structure/table/wood/fancy/black,
-/obj/item/key/atv{
-	desc = "A small grey key, whatever you do, whatever you are thinking of, no, this is the wrong place (or universe if that matters) to look for a use for this key.";
-	name = "Iridium key"
-	},
-/obj/machinery/door/window/westright{
-	dir = 2;
-	name = "Museum Showcase Door";
-	req_access_txt = "37"
-	},
-/turf/open/floor/iron/dark,
-/area/library/lounge)
 "mPh" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -53683,6 +53678,26 @@
 	},
 /turf/open/floor/iron,
 /area/medical/break_room)
+"nGN" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "Toilet3";
+	name = "Lock Control";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	specialfunctions = 4
+	},
+/obj/effect/landmark/blobstart,
+/obj/machinery/newscaster{
+	pixel_y = -28
+	},
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "nGO" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 8
@@ -62444,6 +62459,14 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissaryFood)
+"qaI" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "qaJ" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/bot,
@@ -64515,26 +64538,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
-"qAW" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "Toilet3";
-	name = "Lock Control";
-	normaldoorcontrol = 1;
-	pixel_x = -24;
-	specialfunctions = 4
-	},
-/obj/effect/landmark/blobstart,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/structure/toilet{
-	dir = 4
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/toilet/restrooms)
 "qAX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -65065,6 +65068,40 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
+"qGZ" = (
+/obj/structure/closet/crate{
+	name = "food crate"
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
+	pixel_x = -2
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/machinery/status_display/ai{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/security/nuke_storage)
 "qHa" = (
 /obj/machinery/photocopier,
 /turf/open/floor/wood,
@@ -74875,26 +74912,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
 /area/bridge/showroom/corporate)
-"tfA" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "Toilet2";
-	name = "Lock Control";
-	normaldoorcontrol = 1;
-	pixel_x = -24;
-	specialfunctions = 4
-	},
-/obj/effect/landmark/start/assistant,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/structure/toilet{
-	dir = 4
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/toilet/restrooms)
 "tfD" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
@@ -87471,11 +87488,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
-"wdY" = (
-/obj/structure/reagent_dispensers/nutriment/fat/oil,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "wej" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/atmospherics{
@@ -91013,6 +91025,22 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"wXx" = (
+/obj/machinery/newscaster{
+	pixel_y = 31
+	},
+/obj/structure/table/wood/fancy/black,
+/obj/item/key/atv{
+	desc = "A small grey key, whatever you do, whatever you are thinking of, no, this is the wrong place (or universe if that matters) to look for a use for this key.";
+	name = "Iridium key"
+	},
+/obj/machinery/door/window/westright{
+	dir = 2;
+	name = "Museum Showcase Door";
+	req_access_txt = "37"
+	},
+/turf/open/floor/iron/dark,
+/area/library/lounge)
 "wXA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -93899,29 +93927,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"xAD" = (
-/obj/item/food/canned/peaches{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/food/canned/peaches{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/food/canned/beans{
-	pixel_x = 4;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/cup/glass/waterbottle{
-	pixel_x = -8;
-	pixel_y = -5
-	},
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/turf/open/floor/iron/techmaint,
-/area/security/prison/shielded)
 "xAI" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Primary Tool Storage"
@@ -119542,7 +119547,7 @@ qGE
 gGR
 qGE
 woq
-mPa
+wXx
 iED
 cIU
 efu
@@ -121111,7 +121116,7 @@ arZ
 hho
 lcx
 xNi
-wdY
+iCm
 qdx
 cqg
 nRh
@@ -131647,7 +131652,7 @@ wqJ
 sDy
 wrM
 vUR
-kKM
+aQg
 alr
 eNY
 fkN
@@ -132675,8 +132680,8 @@ vBi
 mTT
 oEj
 vUR
-lZe
-iNl
+kxq
+qaI
 oYn
 xIV
 iZK
@@ -135011,7 +135016,7 @@ fsb
 hcE
 mPD
 aJK
-xAD
+gLr
 fsb
 ehr
 cNy
@@ -137056,11 +137061,11 @@ taN
 rtW
 spV
 wCN
-qAW
+nGN
 wCN
-tfA
+hgA
 wCN
-egv
+lNe
 wCN
 xdP
 rFS
@@ -144479,7 +144484,7 @@ ydm
 xVC
 fvs
 gCA
-aDC
+qGZ
 hKK
 qIr
 ydm

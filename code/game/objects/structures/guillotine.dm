@@ -203,7 +203,7 @@
 			if (istype(S))
 				H.cut_overlays()
 				H.update_body_parts_head_only()
-				H.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
+				H.pixel_y -= GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
 				H.layer += GUILLOTINE_LAYER_DIFF
 			else
 				unbuckle_all_mobs()
@@ -212,12 +212,10 @@
 	else
 		unbuckle_all_mobs()
 
-	..()
-
 /obj/structure/guillotine/post_unbuckle_mob(mob/living/M)
 	M.regenerate_icons()
-	M.pixel_y -= -GUILLOTINE_HEAD_OFFSET // Move their body back
-	M.layer -= GUILLOTINE_LAYER_DIFF
+	M.pixel_y = M.base_pixel_y // Move their body back
+	M.layer = MOB_LAYER
 	..()
 
 /obj/structure/guillotine/can_be_unfasten_wrench(mob/user, silent)

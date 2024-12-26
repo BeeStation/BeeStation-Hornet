@@ -91,7 +91,7 @@
 	base_icon_state = "plate_shard"
 	force = 5
 	throwforce = 5
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	/// How many variants of shard there are
 	var/variants = 5
 
