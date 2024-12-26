@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					oldorgan = null
 			else
 				oldorgan.Remove(C, special = TRUE)
-				required_organs -= oldorgan
+				required_organs -= oldorgan.type
 				QDEL_NULL(oldorgan) //we cannot just tab this out because we need to skip the deleting if it is a decoy brain.
 
 		if(oldorgan)
@@ -342,7 +342,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else if(should_have && !(initial(neworgan.zone) in excluded_zones))
 			used_neworgan = TRUE
 			neworgan.Insert(C, TRUE, FALSE)
-			required_organs |= neworgan
+			required_organs |= neworgan.type
 
 		if(!used_neworgan)
 			qdel(neworgan)
@@ -1848,7 +1848,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			dismember_limb = TRUE
 			//You can only cut a limb off if it is already damaged enough to be fully disabled
 
-	if(dismember_limb && (affecting.body_zone != BODY_ZONE_HEAD || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
+	if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
 		I.add_mob_blood(H)
 		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 

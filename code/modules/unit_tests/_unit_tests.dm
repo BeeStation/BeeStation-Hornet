@@ -28,6 +28,7 @@
 */
 #include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "emoting.dm"
 #include "enumerables.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
