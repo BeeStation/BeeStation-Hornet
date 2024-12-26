@@ -1,0 +1,6 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Fixed an oversight in the dismemberment PR that allowed players to be
+      disembowled in a single hit. Players will need to be at least unconscious or
+      in crit before disembowling may occur.
