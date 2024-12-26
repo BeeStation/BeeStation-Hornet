@@ -185,6 +185,9 @@
 
 // Flags for debug_variable() that do little things to what we end up rendering
 
+/// a helper for repetitions of switch return cases
+#define LOCATE_VAR_POINTER(X) if(#X || p_thing.##X) {return &((*p_thing).##X)}
+
 /// ALWAYS render a reduced list, useful for fuckoff big datums that need to be condensed for the sake of client load
 #define VV_ALWAYS_CONTRACT_LIST (1<<0)
 #define VV_READ_ONLY (1<<1)
