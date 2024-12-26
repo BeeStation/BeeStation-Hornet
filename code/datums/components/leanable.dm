@@ -1,9 +1,10 @@
 /// Things with this component can be leaned onto, optionally exclusive to RMB dragging
 /datum/component/leanable
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 	/// How much will mobs that lean onto this object be offset
 	var/leaning_offset = 11
-	/// List of mobs currently leaning on our parent
-	var/list/leaning_mobs = list()
+	/// Leaning mob of our parent, as only one person can lean on us at a time
+	var/mob/living/leaning_mob
 
 /datum/component/leanable/Initialize(mob/living/leaner, leaning_offset = 11)
 	. = ..()
@@ -18,39 +19,36 @@
 	UnregisterSignal(parent, list(COMSIG_MOUSEDROPPED_ONTO, COMSIG_MOVABLE_MOVED))
 
 /datum/component/leanable/Destroy(force)
-	for (var/mob/living/leaner as anything in leaning_mobs)
-		leaner.stop_leaning()
-	leaning_mobs = null
+	leaning_mob = null
 	return ..()
 
 /datum/component/leanable/proc/on_moved(datum/source)
 	SIGNAL_HANDLER
 
-	for (var/mob/living/leaner as anything in leaning_mobs)
-		leaner.stop_leaning()
+	leaning_mob.stop_leaning()
 
 /datum/component/leanable/proc/mousedrop_receive(atom/source, atom/movable/dropped, mob/user, params)
-	if (dropped != user)
-		return
-	if (!iscarbon(dropped) && !iscyborg(dropped))
-		return
 	var/mob/living/leaner = dropped
+	if (dropped != user)
+		return FALSE
+	if (!iscarbon(dropped) && !iscyborg(dropped))
+		return FALSE
 	if (leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform)
-		return
+		return FALSE
 	if (HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING))
-		return
+		return FALSE
 	if(ISDIAGONALDIR(get_dir(leaner, source))) //Not leaning on a corner, idiot
-		return
+		return FALSE
 	leaner.start_leaning(source, leaning_offset)
-	leaning_mobs += leaner
+	leaning_mob = leaner
 	RegisterSignals(leaner, list(COMSIG_LIVING_STOPPED_LEANING, COMSIG_PARENT_QDELETING), PROC_REF(stopped_leaning))
 	return TRUE
 
 /datum/component/leanable/proc/stopped_leaning(obj/source)
 	SIGNAL_HANDLER
-	leaning_mobs -= source
+	leaning_mob = null
 	UnregisterSignal(source, list(COMSIG_LIVING_STOPPED_LEANING, COMSIG_PARENT_QDELETING))
-	if(!length(leaning_mobs))
+	if(!leaning_mob)
 		qdel(src)
 
 /**
