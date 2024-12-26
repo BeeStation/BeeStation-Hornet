@@ -24,7 +24,7 @@
 	/// Force while active.
 	var/active_bleedforce = 0
 	/// Sharpness while active.
-	var/active_sharpness = IS_SHARP
+	var/active_sharpness = SHARP
 	/// Hitsound played attacking while active.
 	var/active_hitsound = 'sound/weapons/blade1.ogg'
 	/// Weight class while active.
@@ -135,7 +135,7 @@
 	throw_speed = 3
 	throw_range = 5
 	armour_penetration = 100
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_1 = CONDUCT_1
 	light_color = LIGHT_COLOR_LIGHT_CYAN
@@ -195,7 +195,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	force = 18
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 // Faster than a normal saw.
@@ -230,7 +230,7 @@
 	force = 18
 	hitcost = 75 // Costs more than a standard cyborg esword.
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 // Faster than a normal saw.
@@ -328,7 +328,7 @@
 	hitsound = 'sound/weapons/blade1.ogg'
 	throw_speed = 3
 	throw_range = 1
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_DEEP_WOUND //it doesnt transform, bacon. Why would it be bleedforce_on?
 	heat = 3500
 	w_class = WEIGHT_CLASS_BULKY

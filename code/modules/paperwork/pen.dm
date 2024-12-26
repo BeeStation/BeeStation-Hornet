@@ -227,7 +227,7 @@
 /obj/item/pen/edagger
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	/// The real name of our item when extended.
 	var/hidden_name = "energy dagger"
 	/// Whether or pen is extended
@@ -241,7 +241,7 @@
 		throwforce_on = 35, \
 		throw_speed_on = 4, \
 		bleedforce_on = BLEED_CUT, \
-		sharpness_on = IS_SHARP, \
+		sharpness_on = SHARP, \
 		w_class_on = WEIGHT_CLASS_NORMAL)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
