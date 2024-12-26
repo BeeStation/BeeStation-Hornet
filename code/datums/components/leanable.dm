@@ -33,7 +33,7 @@
 		return FALSE
 	if (!iscarbon(dropped) && !iscyborg(dropped))
 		return FALSE
-	if (leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform)
+	if (leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled)
 		return FALSE
 	if (HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING))
 		return FALSE
