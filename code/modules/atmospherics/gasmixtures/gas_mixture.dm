@@ -754,7 +754,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		var/gasid = gas_id2path(gas_list[META_GAS_ID])
 		if(!gasid)
 			return
-		var/amount = tgui_input_number(usr, "Input amount", "Set Gas", 0, INFINITY, 0)
+		var/amount = tgui_input_number(usr, "Input amount", "Set Gas", 0, INFINITY, 0, round_value = FALSE)
 		if(!isnum(amount))
 			return
 		amount = max(0, amount)
