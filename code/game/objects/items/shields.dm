@@ -104,7 +104,7 @@
 	transparent = TRUE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee) && W.sharpness == IS_BLUNT)
+	if(istype(W, /obj/item/melee) && W.sharpness == BLUNT)
 		if(cooldown < world.time - 25)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)

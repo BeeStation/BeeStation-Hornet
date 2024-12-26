@@ -22,6 +22,8 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	var/datum/callback/ev
 	var/event = ""
 	var/obj/machinery/keycard_auth/event_source
+	///Triggering ID card relayed to auth devices to make sure two keycards are used.
+	var/obj/item/card/id/triggering_card
 	var/mob/triggerer = null
 	var/waiting = 0
 
@@ -67,24 +69,31 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 /obj/machinery/keycard_auth/ui_act(action, params)
 	if(..() || waiting || !allowed(usr))
 		return
+	var/obj/item/card/swipe_id = usr.get_idcard()
+	if(!swipe_id || !istype(swipe_id))
+		to_chat(usr, "<span class='warning'>No ID card detected.</span>")
+		return
 	switch(action)
 		if("red_alert")
 			if(!event_source)
-				sendEvent(KEYCARD_RED_ALERT)
+				sendEvent(KEYCARD_RED_ALERT, swipe_id)
 				. = TRUE
 		if("emergency_maint")
 			if(!event_source)
-				sendEvent(KEYCARD_EMERGENCY_MAINTENANCE_ACCESS)
+				sendEvent(KEYCARD_EMERGENCY_MAINTENANCE_ACCESS, swipe_id)
 				. = TRUE
 		if("auth_swipe")
 			if(event_source)
+				if(swipe_id == event_source.triggering_card)
+					to_chat(usr, "<span class='warning'>Invalid ID. Confirmation ID must not equal trigger ID.</span>")
+					return
 				event_source.trigger_event(usr)
 				event_source = null
 				update_appearance()
 				. = TRUE
 		if("bsa_unlock")
 			if(!event_source)
-				sendEvent(KEYCARD_BSA_UNLOCK)
+				sendEvent(KEYCARD_BSA_UNLOCK, swipe_id)
 				. = TRUE
 
 /obj/machinery/keycard_auth/update_appearance(updates)
@@ -102,8 +111,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 		. += mutable_appearance(icon, "auth_on")
 		. += emissive_appearance(icon, "auth_on", alpha = src.alpha)
 
-/obj/machinery/keycard_auth/proc/sendEvent(event_type)
+/obj/machinery/keycard_auth/proc/sendEvent(event_type, obj/item/card/id/swipe_id)
 	triggerer = usr
+	triggering_card = swipe_id //Shouldn't need qdel registering due to very short time before this var resets.
 	event = event_type
 	waiting = 1
 	GLOB.keycard_events.fireEvent("triggerEvent", src)
@@ -111,6 +121,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 
 /obj/machinery/keycard_auth/proc/eventSent()
 	triggerer = null
+	triggering_card = null
 	event = ""
 	waiting = 0
 

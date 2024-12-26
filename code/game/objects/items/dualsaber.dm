@@ -76,7 +76,7 @@
 		if(user.dna.check_mutation(HULK))
 			to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
 	w_class = w_class_on
 	hitsound = 'sound/weapons/blade1.ogg'
