@@ -490,7 +490,7 @@
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/custom
-	key = "me"
+	key = "custom"
 	key_third_person = "custom"
 	message = null
 	mob_type_blacklist_typecache = /mob/living/brain
