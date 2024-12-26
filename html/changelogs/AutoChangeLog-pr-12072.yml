@@ -1,0 +1,4 @@
+author: BarteG44
+delete-after: true
+changes:
+  - balance: Restricts the Telecrystal Fuel Rod to Engineers and Atmos techs
