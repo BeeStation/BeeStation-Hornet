@@ -95,7 +95,7 @@
 		run_cooldown_integer(user)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
-	var/msg = select_message_type(user, params, intentional)
+	var/msg = select_message_type(user, message, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
 
