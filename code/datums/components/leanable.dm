@@ -102,6 +102,7 @@
 
 	// Make sure we unregister signal handlers and reset animation
 	stop_leaning(source)
+	forceMove(get_turf(source))
 	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the airlock you were leaning on opens!</span>")
 	Knockdown(3 SECONDS) //boowomp
 
