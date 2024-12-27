@@ -694,9 +694,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	GLOB.wall_runes -= src
 	return ..()
 
-/obj/effect/rune/wall/block_superconductivity()
-	return density
-
 /obj/effect/rune/wall/invoke(var/list/invokers)
 	if(recharging)
 		return

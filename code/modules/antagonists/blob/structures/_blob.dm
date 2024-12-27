@@ -72,9 +72,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 						result++
 		. -= result - 1
 
-/obj/structure/blob/block_superconductivity()
-	return atmosblock
-
 /obj/structure/blob/can_atmos_pass(turf/T, vertical = FALSE)
 	return !atmosblock
 

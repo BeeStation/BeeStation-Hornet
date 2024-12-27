@@ -308,8 +308,7 @@
 #define SSAIR_HOTSPOTS 4
 #define SSAIR_EXCITEDGROUPS 5
 #define SSAIR_HIGHPRESSURE 6
-#define SSAIR_SUPERCONDUCTIVITY 7
-#define SSAIR_PROCESS_ATOMS 8
+#define SSAIR_PROCESS_ATOMS 7
 
 //Pipenet rebuild helper defines, these suck but it'll do for now
 #define SSAIR_REBUILD_PIPENET 1

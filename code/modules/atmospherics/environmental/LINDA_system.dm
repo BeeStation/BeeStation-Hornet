@@ -22,36 +22,11 @@
 /turf/open/can_atmos_pass(turf/target_turf, vertical = FALSE)
 	var/can_pass = TRUE
 	var/direction = vertical ? get_dir_multiz(src, target_turf) : get_dir(src, target_turf)
-	var/opposite_direction = REVERSE_DIR(direction)
 	if(vertical && !(zAirOut(direction, target_turf) && target_turf.zAirIn(direction, src)))
 		can_pass = FALSE
 	if(blocks_air || target_turf.blocks_air)
 		can_pass = FALSE
-	//This path is a bit weird, if we're just checking with ourselves no sense asking objects on the turf
-	if (target_turf == src)
-		return can_pass
-
-	//Can't just return if canpass is false here, we need to set superconductivity
-	for(var/obj/checked_object in contents + target_turf.contents)
-		var/turf/other = (checked_object.loc == src ? target_turf : src)
-		if(CANATMOSPASS(checked_object, other, vertical))
-			continue
-		can_pass = FALSE
-		//the direction and open/closed are already checked on can_atmos_pass() so there are no arguments
-		if(checked_object.block_superconductivity())
-			atmos_superconductivity |= direction
-			target_turf.atmos_superconductivity |= opposite_direction
-			return FALSE //no need to keep going, we got all we asked (Is this even faster? fuck you it's soul)
-
-	//Superconductivity is a bitfield of directions we can't conduct with
-	//Yes this is really weird. Fuck you
-	atmos_superconductivity &= ~direction
-	target_turf.atmos_superconductivity &= ~opposite_direction
-
 	return can_pass
-
-/atom/movable/proc/block_superconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
-	return FALSE
 
 /// This proc is a more deeply optimized version of immediate_calculate_adjacent_turfs
 /// It contains dumbshit, and also stuff I just can't do at runtime

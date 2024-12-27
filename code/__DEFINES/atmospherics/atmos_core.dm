@@ -144,7 +144,6 @@
 
 ///moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC (103 or so)
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))
-///compared against for superconductivity
 #define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005)
 /// percentage of oxygen in a normal mixture of air
 #define O2STANDARD 0.21

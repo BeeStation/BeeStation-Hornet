@@ -13,7 +13,6 @@ SUBSYSTEM_DEF(air)
 	var/cost_hotspots = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
-	var/cost_superconductivity = 0
 	var/cost_pipenets = 0
 	var/cost_atmos_machinery = 0
 	var/cost_rebuilds = 0
@@ -41,7 +40,6 @@ SUBSYSTEM_DEF(air)
 
 
 	//Special functions lists
-	var/list/turf/active_super_conductivity = list()
 	var/list/turf/open/high_pressure_delta = list()
 	var/list/atom_process = list()
 	/// Reactions which will contribute to a hotspot's size.
@@ -73,7 +71,6 @@ SUBSYSTEM_DEF(air)
 	msg += "HS:[round(cost_hotspots,1)]|"
 	msg += "EG:[round(cost_groups,1)]|"
 	msg += "HP:[round(cost_highpressure,1)]|"
-	msg += "SC:[round(cost_superconductivity,1)]|"
 	msg += "PN:[round(cost_pipenets,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]|"
 	msg += "AO:[round(cost_atoms, 1)]|"
@@ -84,7 +81,6 @@ SUBSYSTEM_DEF(air)
 	msg += "HS:[hotspots.len]|"
 	msg += "EG:[excited_groups.len]|"
 	msg += "HP:[high_pressure_delta.len]|"
-	msg += "SC:[active_super_conductivity.len]|"
 	msg += "PN:[networks.len]|"
 	msg += "AM:[atmos_machinery.len]|"
 	msg += "AO:[atom_process.len]|"
@@ -243,18 +239,6 @@ SUBSYSTEM_DEF(air)
 			return
 		cost_highpressure = MC_AVERAGE(cost_highpressure, TICK_DELTA_TO_MS(cached_cost))
 		resumed = FALSE
-		currentpart = SSAIR_SUPERCONDUCTIVITY
-
-	if(currentpart == SSAIR_SUPERCONDUCTIVITY)
-		timer = TICK_USAGE_REAL
-		if(!resumed)
-			cached_cost = 0
-		process_super_conductivity(resumed)
-		cached_cost += TICK_USAGE_REAL - timer
-		if(state != SS_RUNNING)
-			return
-		cost_superconductivity = MC_AVERAGE(cost_superconductivity, TICK_DELTA_TO_MS(cached_cost))
-		resumed = FALSE
 		currentpart = SSAIR_PROCESS_ATOMS
 
 	if(currentpart == SSAIR_PROCESS_ATOMS)
@@ -285,7 +269,6 @@ SUBSYSTEM_DEF(air)
 	gas_reactions = SSair.gas_reactions
 	atmos_gen = SSair.atmos_gen
 	planetary = SSair.planetary
-	active_super_conductivity = SSair.active_super_conductivity
 	high_pressure_delta = SSair.high_pressure_delta
 	atom_process = SSair.atom_process
 	currentrun = SSair.currentrun
@@ -369,19 +352,6 @@ SUBSYSTEM_DEF(air)
 			atmos_machinery -= M
 		if(M.process_atmos() == PROCESS_KILL)
 			stop_processing_machine(M)
-		if(MC_TICK_CHECK)
-			return
-
-
-/datum/controller/subsystem/air/proc/process_super_conductivity(resumed = FALSE)
-	if (!resumed)
-		src.currentrun = active_super_conductivity.Copy()
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/turf/T = currentrun[currentrun.len]
-		currentrun.len--
-		T.super_conduct()
 		if(MC_TICK_CHECK)
 			return
 
@@ -848,7 +818,6 @@ GLOBAL_LIST_EMPTY(colored_images)
 	data["active_size"] = active_turfs.len
 	data["hotspots_size"] = hotspots.len
 	data["excited_size"] = excited_groups.len
-	data["conducting_size"] = active_super_conductivity.len
 	data["frozen"] = can_fire
 	data["show_all"] = display_all_groups
 	data["fire_count"] = times_fired

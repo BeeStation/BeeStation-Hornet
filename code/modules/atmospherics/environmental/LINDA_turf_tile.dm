@@ -6,8 +6,6 @@
 
 	///list of turfs adjacent to us that air can flow onto
 	var/list/atmos_adjacent_turfs
-	///bitfield of dirs in which we are superconducitng
-	var/atmos_superconductivity = NONE
 
 	//used to determine whether we should archive
 	var/archived_cycle = 0
@@ -360,7 +358,7 @@
 		our_excited_group.turf_reactions |= reacting //Adds the flag to turf_reactions so excited groups can check for them before dismantling.
 
 	update_visuals()
-	if(!consider_superconductivity(starting = TRUE) && !active_hotspot && !(reacting & (REACTING | STOP_REACTIONS)))
+	if(!active_hotspot && !(reacting & (REACTING | STOP_REACTIONS)))
 		if(!our_excited_group) //If nothing of interest is happening, kill the active turf
 			SSair.remove_from_active(src) //This will kill any connected excited group, be careful (This broke atmos for 4 years)
 		if(cached_ticker > EXCITED_GROUP_DISMANTLE_CYCLES) //If you're stalling out, take a rest
@@ -559,133 +557,6 @@
 		wrapping_id++ //We do this after because lists index at 1
 		display_id = wrapping_id
 	thing.vis_contents += GLOB.colored_turfs[display_id]
-
-////////////////////////SUPERCONDUCTIVITY/////////////////////////////
-
-/**
-ALLLLLLLLLLLLLLLLLLLLRIGHT HERE WE GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
-Read the code for more details, but first, a brief concept discussion/area
-
-Our goal here is to "model" heat moving through solid objects, so walls, windows, and sometimes doors.
-We do this by heating up the floor itself with the heat of the gasmix ontop of it, this is what the coeffs are for here, they slow that movement
-Then we go through the process below.
-
-If an active turf is fitting, we add it to processing, conduct with any covered tiles, (read windows and sometimes walls)
-Then we space some of our heat, and think about if we should stop conducting.
-**/
-
-/turf/proc/conductivity_directions()
-	if(archived_cycle < SSair.times_fired)
-		archive()
-	return ALL_CARDINALS
-
-///Returns a set of directions that we should be conducting in, NOTE, atmos_superconductivity is ACTUALLY inversed, don't worrry about it
-/turf/open/conductivity_directions()
-	if(blocks_air)
-		return ..()
-	for(var/direction in GLOB.cardinals)
-		var/turf/checked_turf = get_step(src, direction)
-		if(!(checked_turf in atmos_adjacent_turfs) && !(atmos_superconductivity & direction))
-			. |= direction
-
-///These two procs are a bit of a web, I belive in you
-/turf/proc/neighbor_conduct_with_src(turf/open/other)
-	if(!other.blocks_air) //Solid but neighbor is open
-		other.temperature_share_open_to_solid(src)
-	else //Both tiles are solid
-		other.share_temperature_mutual_solid(src, thermal_conductivity)
-	temperature_expose(null, temperature)
-
-/turf/open/neighbor_conduct_with_src(turf/other)
-	if(blocks_air)
-		return ..()
-
-	if(!other.blocks_air) //Both tiles are open
-		var/turf/open/open_other = other
-		open_other.air.temperature_share(air, WINDOW_HEAT_TRANSFER_COEFFICIENT)
-	else //Open but neighbor is solid
-		temperature_share_open_to_solid(other)
-	SSair.add_to_active(src)
-
-/turf/proc/super_conduct()
-	var/conductivity_directions = conductivity_directions()
-
-	if(conductivity_directions)
-		//Conduct with tiles around me
-		for(var/direction in GLOB.cardinals)
-			if(!(conductivity_directions & direction))
-				continue
-			var/turf/neighbor = get_step(src, direction)
-
-			if(!neighbor.thermal_conductivity)
-				continue
-
-			if(neighbor.archived_cycle < SSair.times_fired)
-				neighbor.archive()
-
-			neighbor.neighbor_conduct_with_src(src)
-
-			neighbor.consider_superconductivity()
-
-	radiate_to_spess()
-
-	finish_superconduction()
-
-/turf/proc/finish_superconduction(temp = temperature)
-	//Make sure still hot enough to continue conducting heat
-	if(temp < MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION)
-		SSair.active_super_conductivity -= src
-		return FALSE
-
-/turf/open/finish_superconduction()
-	//Conduct with air on my tile if I have it
-	if(!blocks_air)
-		temperature = air.temperature_share(null, thermal_conductivity, temperature, heat_capacity)
-	..((blocks_air ? temperature : air.temperature))
-
-///Should we attempt to superconduct?
-/turf/proc/consider_superconductivity(starting)
-	if(!thermal_conductivity)
-		return FALSE
-
-	SSair.active_super_conductivity |= src
-	return TRUE
-
-/turf/open/consider_superconductivity(starting)
-	if(air.temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
-		return FALSE
-	if(air.heat_capacity() < M_CELL_WITH_RATIO) // Was: MOLES_CELLSTANDARD*0.1*0.05 Since there are no variables here we can make this a constant.
-		return FALSE
-	return ..()
-
-/turf/closed/consider_superconductivity(starting)
-	if(temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
-		return FALSE
-	return ..()
-
-/turf/proc/radiate_to_spess() //Radiate excess tile heat to space
-	if(temperature <= T0C) //Considering 0 degC as te break even point for radiation in and out
-		return
-	var/delta_temperature = (temperature_archived - TCMB) //hardcoded space temperature
-	// Because we keep losing energy, makes more sense for us to be the T2 here.
-	if(heat_capacity <= 0 || abs(delta_temperature) <= MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
-		return
-	// Heat should be positive in most cases
-	// coefficient applied first because some turfs have very big heat caps.
-	var/heat = CALCULATE_CONDUCTION_ENERGY(thermal_conductivity * delta_temperature, HEAT_CAPACITY_VACUUM, heat_capacity)
-	temperature -= heat / heat_capacity
-
-/turf/open/proc/temperature_share_open_to_solid(turf/sharer)
-	sharer.temperature = air.temperature_share(null, sharer.thermal_conductivity, sharer.temperature, sharer.heat_capacity)
-
-/turf/proc/share_temperature_mutual_solid(turf/sharer, conduction_coefficient) //This is all just heat sharing, don't get freaked out
-	var/delta_temperature = sharer.temperature_archived - temperature_archived
-	if(abs(delta_temperature) <= MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER || !heat_capacity || !sharer.heat_capacity)
-		return
-	var/heat = conduction_coefficient * CALCULATE_CONDUCTION_ENERGY(delta_temperature, heat_capacity, sharer.heat_capacity)
-	temperature += heat / heat_capacity //The higher your own heat cap the less heat you get from this arrangement
-	sharer.temperature -= heat / sharer.heat_capacity
 
 #undef LAST_SHARE_CHECK
 #undef PLANET_SHARE_CHECK
