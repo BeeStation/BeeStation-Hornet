@@ -3,9 +3,6 @@ on:
   schedule:
     - cron: "5 4 * * *"
   workflow_dispatch:
-  push:
-    branches:
-      - autowiki-development
 permissions:
   contents: read
 
