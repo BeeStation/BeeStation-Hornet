@@ -26,10 +26,13 @@
 
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
 
-/datum/antagonist/bloodsucker/proc/on_death(mob/living/source)
+/datum/antagonist/bloodsucker/proc/on_death(mob/living/source, gibbed)
 	SIGNAL_HANDLER
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 	RegisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(HandleDeath))
+	to_chat(world, gibbed ? "true" : "false")
+	if(gibbed == TRUE) // death code is stupid so the == TRUE has to be added.
+		FinalDeath(FALSE)
 
 /datum/antagonist/bloodsucker/proc/on_revive(mob/living/source)
 	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
@@ -160,6 +163,8 @@
 	if(current_eyes)
 		current_eyes.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
 		current_eyes.sight_flags = SEE_MOBS
+		current_eyes.see_in_dark = NIGHTVISION_FOV_RANGE
+		current_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	user.update_sight()
 
 	if(user.stat == DEAD)
@@ -186,13 +191,12 @@
 /// FINAL DEATH
 /datum/antagonist/bloodsucker/proc/HandleDeath()
 	var/mob/living/carbon/user = owner.current
-
 	// Not "Alive"?
 	if(!user)
 		FinalDeath()
 		return
 	// Fire Damage? (above double health)
-	if(user.getFireLoss() >= user.maxHealth * 2.5 && bloodsucker_level < 4)
+	if(user.getFireLoss() >= user.maxHealth * 2.5 && bloodsucker_level)
 		FinalDeath()
 		return
 	// Staked while "Temp Death" or Asleep
@@ -254,7 +258,8 @@
 	owner.current.blood_volume = bloodsucker_blood_volume
 
 /// Gibs the Bloodsucker, roundremoving them.
-/datum/antagonist/bloodsucker/proc/FinalDeath()
+/datum/antagonist/bloodsucker/proc/FinalDeath(var/gib = TRUE)
+	var/mob/living/carbon/user = owner.current
 	// If we have no body, end here.
 	if(!owner.current)
 		return
@@ -273,15 +278,16 @@
 	))
 	free_all_vassals()
 	DisableAllPowers(forced = TRUE)
-	if(!iscarbon(owner.current))
-		owner.current.gib(TRUE, FALSE, FALSE)
+	if(!gib)
+		return
+	if(!iscarbon(user))
+		user.gib(TRUE, FALSE, FALSE)
 		return
 	// Drop anything in us and play a tune
-	var/mob/living/carbon/user = owner.current
-	owner.current.drop_all_held_items()
-	owner.current.unequip_everything()
+	user.drop_all_held_items()
+	user.unequip_everything()
 	user.remove_all_embedded_objects()
-	playsound(owner.current, 'sound/effects/tendril_destroyed.ogg', 40, TRUE)
+	playsound(user, 'sound/effects/tendril_destroyed.ogg', 40, TRUE)
 
 	var/unique_death = SEND_SIGNAL(src, BLOODSUCKER_FINAL_DEATH)
 	if(unique_death & DONT_DUST)
@@ -296,11 +302,12 @@
 		)
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, dust)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 		return
+
 	user.visible_message(
 		"<span class='warning'>[user]'s skin bursts forth in a spray of gore and detritus. A horrible cry echoes from what is now a wet pile of decaying meat.</span>",
 		"<span class='userdanger'>Your soul escapes your withering body as the abyss welcomes you to your Final Death.</span>",
 		"<span class='hear'><span class='italics'>You hear a wet, bursting sound.</span>",
-		)
+	)
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, gib), TRUE, FALSE, FALSE), 2 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 #undef BLOODSUCKER_PASSIVE_BLOOD_DRAIN

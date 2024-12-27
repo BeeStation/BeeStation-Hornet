@@ -420,6 +420,8 @@
 	if(user_eyes)
 		user_eyes.flash_protect = initial(user_eyes.flash_protect)
 		user_eyes.sight_flags = initial(user_eyes.sight_flags)
+		user_eyes.see_in_dark = NIGHTVISION_FOV_RANGE
+		user_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	user.update_sight()
 
 /datum/antagonist/bloodsucker/proc/claim_coffin(obj/structure/closet/crate/claimed, area/current_area)

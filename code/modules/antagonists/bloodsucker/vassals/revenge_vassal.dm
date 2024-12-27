@@ -81,3 +81,8 @@
 	var/datum/action/antag_info/info_button = new(src)
 	info_button.Grant(owner.current)
 	info_button_ref = WEAKREF(info_button)
+
+	// Alert vassal that their master is dead
+	to_chat(owner.current, "<span class='cultlarge'>Your master has succumbed to final death! Avenge your Bloodsucker's death by recruiting their ex-vassals and continuing their operations.</span>")
+	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/tendril_destroyed.ogg', 30)
+	ui_interact()
