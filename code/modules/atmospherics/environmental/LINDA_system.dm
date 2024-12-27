@@ -26,6 +26,17 @@
 		can_pass = FALSE
 	if(blocks_air || target_turf.blocks_air)
 		can_pass = FALSE
+	//This path is a bit weird, if we're just checking with ourselves no sense asking objects on the turf
+	if (target_turf == src)
+		return can_pass
+
+	//Can't just return if canpass is false here, we need to set superconductivity
+	for(var/obj/checked_object in contents + target_turf.contents)
+		var/turf/other = (checked_object.loc == src ? target_turf : src)
+		if(CANATMOSPASS(checked_object, other, vertical))
+			continue
+		can_pass = FALSE
+		//the direction and open/closed are already checked on can_atmos_pass() so there are no arguments
 	return can_pass
 
 /// This proc is a more deeply optimized version of immediate_calculate_adjacent_turfs
