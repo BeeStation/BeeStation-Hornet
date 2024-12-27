@@ -22,9 +22,22 @@
 
 
 // LANGUAGE SOURCE DEFINES
-#define LANGUAGE_ALL "all"	// For use in full removal only.
+/// For use in full removal only.
+#define LANGUAGE_ALL "all"
+
+// Generic language sources.
+/// Language is linked to the movable directly.
 #define LANGUAGE_ATOM "atom"
+/// Language is linked to the mob's mind.
+/// If a mind transfer happens, language follows.
 #define LANGUAGE_MIND "mind"
+/// Language is linked to the mob's species.
+/// If a species change happens, language goes away.
+/// If applied to a non-human (no species) atom, this is effectively the same as [LANGUAGE_ATOM].
+#define LANGUAGE_SPECIES "species"
+
+// More specific language sources.
+// Only ever goes away when dismissed directly.
 #define LANGUAGE_FRIEND	"friend"
 #define LANGUAGE_ABSORB	"absorb"
 #define LANGUAGE_APHASIA "aphasia"
@@ -46,6 +59,13 @@
 #define LANGUAGE_MULTILINGUAL "multilingual"
 #define LANGUAGE_EMP "emp"
 #define LANGUAGE_HOLOPARA "holoparasite"
+#define LANGUAGE_BABEL "babel"
+
+// Language flags. Used in granting and removing languages.
+/// This language can be spoken.
+#define SPOKEN_LANGUAGE (1<<0)
+/// This language can be understood.
+#define UNDERSTOOD_LANGUAGE (1<<1)
 
 // Languages available from Multilingual
 GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(

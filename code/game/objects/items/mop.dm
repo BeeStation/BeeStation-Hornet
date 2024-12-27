@@ -125,6 +125,6 @@
 	throw_speed = 4
 	attack_verb_continuous = list("mops", "stabs", "shanks", "jousts")
 	attack_verb_simple = list("mop", "stab", "shank", "joust")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	embedding = list("armour_block" = 40)
