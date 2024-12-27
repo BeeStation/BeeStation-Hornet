@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - balance: Getting yourself EMP'd with a robotic limb will no longer hardstun you,
-      instead it will disable the limb.
