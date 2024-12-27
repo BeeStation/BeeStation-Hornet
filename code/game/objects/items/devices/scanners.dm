@@ -798,7 +798,7 @@ GENE SCANNER
 		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat"
 	if(T.effectmod)
 		message += span_notice("Core mutation in progress: [T.effectmod]")
-		message += "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>"
+		message += span_notice("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]")
 	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
 		var/slimeeffect = "\nTransformative extract effect detected: "
 		if(T.transformeffects & SLIME_EFFECT_GREY)

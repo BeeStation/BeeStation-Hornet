@@ -205,8 +205,8 @@
 /obj/item/melee/classic_baton/proc/get_on_description()
 	. = list()
 
-	.["local_on"] = "<span class ='warning'>You extend the baton.</span>"
-	.["local_off"] = "<span class ='notice'>You collapse the baton.</span>"
+	.["local_on"] = span_warning("You extend the baton.")
+	.["local_off"] = span_notice("You collapse the baton.")
 
 	return .
 
@@ -214,20 +214,20 @@
 /obj/item/melee/classic_baton/proc/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 
-	.["visibletrip"] =  "<span class ='danger'>[user] has knocked [target]'s legs out from under them with [src]!</span>"
-	.["localtrip"] = "<span class ='danger'>[user] has knocked your legs out from under you with [src]!</span>"
-	.["visibleknockout"] =  "<span class ='danger'>[user] has violently knocked out [target] with [src]!</span>"
-	.["localknockout"] = "<span class ='danger'>[user] has beat you with such force on the head with [src] you fall unconscious...</span>"
-	.["visibledisarm"] =  "<span class ='danger'>[user] has disarmed [target] with [src]!</span>"
-	.["localdisarm"] = "<span class ='danger'>[user] whacks your arm with [src], causing a coursing pain!</span>"
-	.["visiblestun"] =  "<span class ='danger'>[user] beat [target] with [src]!</span>"
-	.["localstun"] = "<span class ='danger'>[user] has beat you with [src]!</span>"
-	.["visibleshead"] =  "<span class ='danger'>[user] beat [target] on the head with [src]!</span>"
-	.["localhead"] = "<span class ='danger'>[user] has beat your head with [src]!</span>"
-	.["visiblearm"] =  "<span class ='danger'>[user] beat [target]'s arm with [src]!</span>"
-	.["localarm"] = "<span class ='danger'>[user] has beat your arm with [src]!</span>"
-	.["visibleleg"] =  "<span class ='danger'>[user] beat [target]'s leg with [src]!</span>"
-	.["localleg"] = "<span class ='danger'>[user] has beat you in the leg with [src]!</span>"
+	.["visibletrip"] =  span_danger("[user] has knocked [target]'s legs out from under them with [src]!")
+	.["localtrip"] = span_danger("[user] has knocked your legs out from under you with [src]!")
+	.["visibleknockout"] =  span_danger("[user] has violently knocked out [target] with [src]!")
+	.["localknockout"] = span_danger("[user] has beat you with such force on the head with [src] you fall unconscious...")
+	.["visibledisarm"] =  span_danger("[user] has disarmed [target] with [src]!")
+	.["localdisarm"] = span_danger("[user] whacks your arm with [src], causing a coursing pain!")
+	.["visiblestun"] =  span_danger("[user] beat [target] with [src]!")
+	.["localstun"] = span_danger("[user] has beat you with [src]!")
+	.["visibleshead"] =  span_danger("[user] beat [target] on the head with [src]!")
+	.["localhead"] = span_danger("[user] has beat your head with [src]!")
+	.["visiblearm"] =  span_danger("[user] beat [target]'s arm with [src]!")
+	.["localarm"] = span_danger("[user] has beat your arm with [src]!")
+	.["visibleleg"] =  span_danger("[user] beat [target]'s leg with [src]!")
+	.["localleg"] = span_danger("[user] has beat you in the leg with [src]!")
 
 	return .
 
@@ -260,7 +260,7 @@
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+		to_chat(user, span_danger("You hit yourself over the head."))
 		user.adjustStaminaLoss(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
@@ -499,7 +499,7 @@
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+		to_chat(user, span_danger("You hit yourself over the head."))
 
 		user.Paralyze(knockdown_time_carbon * force)
 		user.adjustStaminaLoss(stamina_damage)
@@ -902,8 +902,8 @@
 	if(cooldown <= world.time)
 		playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
 		log_combat(user, target, "knockedbacked", src)
-		target.visible_message("<span class ='danger'>[user] has knocked back [target] with [src]!</span>", \
-			"<span class ='userdanger'>[user] has knocked you back [target] with [src]!</span>")
+		target.visible_message(span_danger("[user] has knocked back [target] with [src]!"), \
+			span_userdanger("[user] has knocked you back [target] with [src]!"))
 
 		var/throw_dir = get_dir(user,target)
 		var/turf/throw_at = get_ranged_target_turf(target, throw_dir, knockbackpower)
@@ -947,7 +947,7 @@
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+		to_chat(user, span_danger("You hit yourself over the head."))
 		user.adjustStaminaLoss(stamina_force)
 
 		// Deal full damage

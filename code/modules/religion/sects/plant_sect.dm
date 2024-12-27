@@ -118,7 +118,7 @@
 			to_chat(user, span_warning("Only the faithful may control the disposition of [src]!"))
 			return
 		anchored = !anchored
-		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+		user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		user.do_attack_animation(src)
 		return

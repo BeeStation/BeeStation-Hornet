@@ -436,7 +436,7 @@
 		return
 	if(!powernet)
 		return
-	if(shieldstate) span_notice("You hear heavy droning.")
+	if(shieldstate)
 		visible_message(span_notice("The [src.name] hums as it powers down."), \
 			"If this message is ever seen, something is wrong.", \
 			span_notice("You hear heavy droning fade out."))

@@ -151,7 +151,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
 	update_icon(ALL, "alienh_pounce")
 	if(hit_atom == target && target.stat!=DEAD)
 		target.Paralyze(100)
-		target.visible_message(span_danger("[target] flails around wildly."),"<span class ='userdanger'>[name] pounces on you!</span>")
+		target.visible_message(span_danger("[target] flails around wildly."),span_userdanger("[name] pounces on you!"))
 
 // The numbers of seconds it takes to get to each stage of the xeno attack choreography
 #define XENO_ATTACK_STAGE_LEAP_AT_TARGET 1

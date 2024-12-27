@@ -230,7 +230,7 @@
 					if(D.spread_flags & DISEASE_SPREAD_FALTERED)
 						continue
 					M.ForceContractDisease(D)
-				to_chat(M, "<span class ='userdanger'>[src] burrows into your cytoplasm!</span>")
+				to_chat(M, span_userdanger("[src] burrows into your cytoplasm!"))
 				playsound(src.loc, 'sound/effects/blobattack.ogg', 60, TRUE)
 				death()
 				qdel(src)

@@ -24,14 +24,14 @@
 	L = surgery.operated_bodypart
 
 	if(!L)
-		user.visible_message("[user] looks for [target]'s [parse_zone(surgery.location)].", "<span class ='notice'>You look for [target]'s [parse_zone(surgery.location)]...</span>")
+		user.visible_message("[user] looks for [target]'s [parse_zone(surgery.location)].", span_notice("You look for [target]'s [parse_zone(surgery.location)]..."))
 		return
 
 	if(L?.bodypart_disabled)
 		to_chat(user, span_warning("You can't augment a limb with paralysis!"))
 		return -1
 	else
-		display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(surgery.location)]...</span>",
+		display_results(user, target, span_notice("You begin to augment [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to augment [target]'s [parse_zone(surgery.location)] with [aug].",
 			"[user] begins to augment [target]'s [parse_zone(surgery.location)].")
 

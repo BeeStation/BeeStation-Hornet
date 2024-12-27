@@ -77,7 +77,7 @@
 			qdel(src)
 			return
 		else
-			to_chat(usr, "<span class ='warning'>You must dry this first!</span>")
+			to_chat(usr, span_warning("You must dry this first!"))
 	else
 		return ..()
 

@@ -49,7 +49,7 @@
 					organ_rejection_dam = 30
 
 		if(surgery.location == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-			display_results(user, target, "<span class ='notice'>You begin to replace [target]'s [parse_zone(surgery.location)] with [tool]...</span>",
+			display_results(user, target, span_notice("You begin to replace [target]'s [parse_zone(surgery.location)] with [tool]..."),
 				"[user] begins to replace [target]'s [parse_zone(surgery.location)] with [tool].",
 				"[user] begins to replace [target]'s [parse_zone(surgery.location)].")
 		else

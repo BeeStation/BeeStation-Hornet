@@ -103,8 +103,8 @@
 
 /datum/martial_art/wrestling/teach(mob/living/carbon/human/H,make_temporary=0)
 	if(..())
-		to_chat(H, "<span class = 'userdanger'>SNAP INTO A THIN TIM!</span>")
-		to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
+		to_chat(H, span_userdanger("SNAP INTO A THIN TIM!"))
+		to_chat(H, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
 		drop.Grant(H)
 		kick.Grant(H)
 		slam.Grant(H)
@@ -112,7 +112,7 @@
 		strike.Grant(H)
 
 /datum/martial_art/wrestling/on_remove(mob/living/carbon/human/H)
-	to_chat(H, "<span class = 'userdanger'>You no longer feel that the tower of power is too sweet to be sour...</span>")
+	to_chat(H, span_userdanger("You no longer feel that the tower of power is too sweet to be sour..."))
 	drop.Remove(H)
 	kick.Remove(H)
 	slam.Remove(H)

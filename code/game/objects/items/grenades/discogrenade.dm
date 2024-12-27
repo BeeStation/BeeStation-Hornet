@@ -124,7 +124,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/discogrenade/subgrenade)
 		M.set_drugginess(5)
 		return
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
+		to_chat(M, span_userdanger("THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!"))
 		M.emote("scream")
 		return
 

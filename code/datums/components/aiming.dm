@@ -207,7 +207,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		return
 	if(choice != CANCEL && choice != SHOOT) // Handling voiceline cooldowns and mimes
 		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
-			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
+			to_chat(user, span_warning("You've already given a command recently!"))
 			show_ui(user, target, choice)
 			return
 		if(user.mind.assigned_role == JOB_NAME_MIME)

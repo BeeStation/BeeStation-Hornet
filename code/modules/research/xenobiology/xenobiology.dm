@@ -531,11 +531,11 @@
 			else
 				to_chat(user, span_notice("You feel yourself being pulled back to your anchor point..."))
 				if(!do_after(user, 2.5 SECONDS, target = user))
-					to_chat(user, "<span class ='warning'>Your teleport was interrupted!</span>")
+					to_chat(user, span_warning("Your teleport was interrupted!"))
 					return
 				teleport_ready = FALSE
 				if(!(teleport_x && teleport_y && teleport_z))
-					to_chat(user, "<span class ='warning'>Somehow you managed to trigger this without setting an anchor point. Good job.</span>")
+					to_chat(user, span_warning("Somehow you managed to trigger this without setting an anchor point. Good job."))
 					CRASH("Bluespace extract teleport was somehow triggered without x,y,z coordinates!")
 				var/turf/T = locate(teleport_x, teleport_y, teleport_z)
 				to_chat(user, span_notice("You snap back to your anchor point!"))
