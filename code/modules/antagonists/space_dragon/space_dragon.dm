@@ -6,6 +6,7 @@
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	// TODO: ui_name = "AntagInfoDragon"
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
