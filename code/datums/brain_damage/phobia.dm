@@ -9,8 +9,8 @@
 	name = "Phobia"
 	desc = "Patient is unreasonably afraid of something."
 	scan_desc = "phobia"
-	gain_text = "<span class='warning'>You start finding default values very unnerving...</span>"
-	lose_text = "<span class='notice'>You no longer feel afraid of default values.</span>"
+	gain_text = span_warning("You start finding default values very unnerving...")
+	lose_text = span_notice("You no longer feel afraid of default values.")
 	var/phobia_type
 	var/next_check = 0
 	var/fearscore = 0
@@ -37,8 +37,8 @@
 
 	faint_length=300
 	cooldown_length=faint_length*2  //Has to be at least faint_length, else it practically doesnt do anything
-	gain_text = "<span class='warning'>You start finding [phobia_type] very unnerving...</span>"
-	lose_text = "<span class='notice'>You no longer feel afraid of [phobia_type].</span>"
+	gain_text = span_warning("You start finding [phobia_type] very unnerving...")
+	lose_text = span_notice("You no longer feel afraid of [phobia_type].")
 	scan_desc += " of [phobia_type]"
 	trigger_words = SStraumas.phobia_words[phobia_type]
 	trigger_mobs = SStraumas.phobia_mobs[phobia_type]
@@ -177,7 +177,7 @@
 					stress++
 					if(prob(stress))
 						owner.set_heartattack(TRUE)
-						to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")
+						to_chat(owner, span_userdanger("Your heart stops!"))
 				else
 					owner.visible_message("<span class ='danger'>[owner] looks ghostly pale, trembling uncontrollably!</span>", "<span class ='userdanger'>This is HELL! OUT!! NOW!!!</span>")
 					owner.Jitter(10)
@@ -197,7 +197,7 @@
 		if(findtext(hearing_args[HEARING_RAW_MESSAGE], reg))
 			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
 				fearscore ++
-			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='phobia'>$1</span>")
+			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], span_phobia("$1"))
 			break
 
 /datum/brain_trauma/mild/phobia/handle_speech(datum/source, list/speech_args)
@@ -207,7 +207,7 @@
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
 		if(findtext(speech_args[SPEECH_MESSAGE], reg))
-			to_chat(owner, "<span class='warning'>Saying \"<span class='phobia'>[word]</span>\" puts you on edge!</span>")
+			to_chat(owner, span_warning("Saying \"<span class='phobia'>[word]</span>\" puts you on edge!"))
 			if(fear_state <= (PHOBIA_STATE_CALM))
 				fearscore ++
 

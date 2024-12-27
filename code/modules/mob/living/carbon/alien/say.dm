@@ -3,7 +3,7 @@
 	if(!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)

@@ -36,42 +36,42 @@
 			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna.uni_identity)])
 				possible |= potential_target
 		if(!length(possible))
-			to_chat(user, "<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")
+			to_chat(user, span_warning("Despite your best efforts, there are no scents to be found on [sniffed]..."))
 			return
 		tracking_target = tgui_input_list(user, "Choose a scent to remember.", "Scent Tracking", sort_names(possible))
 		if(!tracking_target)
 			if(!old_target)
-				to_chat(user,"<span class='warning'>You decide against remembering any scents. Instead, you notice your own nose in your peripheral vision. This goes on to remind you of that one time you started breathing manually and couldn't stop. What an awful day that was.</span>")
+				to_chat(user,span_warning("You decide against remembering any scents. Instead, you notice your own nose in your peripheral vision. This goes on to remind you of that one time you started breathing manually and couldn't stop. What an awful day that was."))
 				return
 			tracking_target = old_target
 			on_the_trail(user)
 			return
-		to_chat(user,"<span class='notice'>You pick up the scent of <span class='name'>[tracking_target]</span>. The hunt begins.</span>")
+		to_chat(user,span_notice("You pick up the scent of <span class='name'>[tracking_target]</span>. The hunt begins."))
 		on_the_trail(user)
 		return
 
 	if(!tracking_target)
-		to_chat(user,"<span class='warning'>You're not holding anything to smell, and you haven't smelled anything you can track. You smell your palm instead; it's kinda salty.</span>")
+		to_chat(user,span_warning("You're not holding anything to smell, and you haven't smelled anything you can track. You smell your palm instead; it's kinda salty."))
 		return
 
 	on_the_trail(user)
 
 /obj/effect/proc_holder/spell/targeted/olfaction/proc/on_the_trail(mob/living/user)
 	if(!tracking_target)
-		to_chat(user,"<span class='warning'>You're not tracking a scent, but the game thought you were. Something's gone wrong! Report this as a bug.</span>")
+		to_chat(user,span_warning("You're not tracking a scent, but the game thought you were. Something's gone wrong! Report this as a bug."))
 		return
 	if(tracking_target == user)
-		to_chat(user,"<span class='warning'>You smell out the trail to yourself. Yep, it's you.</span>")
+		to_chat(user,span_warning("You smell out the trail to yourself. Yep, it's you."))
 		return
 	if(usr.get_virtual_z_level() < tracking_target.get_virtual_z_level())
-		to_chat(user,"<span class='warning'>The trail leads... way up above you? Huh. They must be really, really far away.</span>")
+		to_chat(user,span_warning("The trail leads... way up above you? Huh. They must be really, really far away."))
 		return
 	else if(usr.get_virtual_z_level() > tracking_target.get_virtual_z_level())
-		to_chat(user,"<span class='warning'>The trail leads... way down below you? Huh. They must be really, really far away.</span>")
+		to_chat(user,span_warning("The trail leads... way down below you? Huh. They must be really, really far away."))
 		return
 	var/direction_text = "[dir2text(get_dir(usr, tracking_target))]"
 	if(direction_text)
-		to_chat(user,"<span class='notice'>You consider <span class='name'>[tracking_target]</span>'s scent. The trail leads <b>[direction_text].</b></span>")
+		to_chat(user,span_notice("You consider <span class='name'>[tracking_target]</span>'s scent. The trail leads <b>[direction_text].</b>"))
 
 /datum/mutation/firebreath
 	name = "Fire Breath"
@@ -116,7 +116,7 @@
 	if(user.is_mouth_covered())
 		user.adjust_fire_stacks(2)
 		user.IgniteMob()
-		to_chat(user, "<span class='warning'>Something in front of your mouth caught fire!</span>")
+		to_chat(user, span_warning("Something in front of your mouth caught fire!"))
 		return FALSE
 
 /obj/effect/proc_holder/spell/aimed/firebreath/ready_projectile(obj/projectile/magic/fireball/fireball, atom/target, mob/user, iteration)
@@ -191,7 +191,7 @@
 		if(part.body_part != HEAD && part.body_part != CHEST && part.dismemberable)
 			parts += part
 	if(!length(parts))
-		to_chat(user, "<span class='notice'>You can't shed any more limbs!</span>")
+		to_chat(user, span_notice("You can't shed any more limbs!"))
 		return
 	var/obj/item/bodypart/yeeted_limb = pick(parts)
 	yeeted_limb.dismember()
@@ -227,7 +227,7 @@
 	if(!isethereal(user))
 		return
 	var/list/mob/targets = oviewers(max_distance, get_turf(user))
-	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
+	visible_message(span_disarm("[user] emits a blinding light!"))
 	for(var/mob/living/carbon/target in targets)
 		if(target.flash_act(1))
 			target.Paralyze(10 + (5 * max_distance))
@@ -353,12 +353,12 @@
 	if(M.stat == CONSCIOUS)
 		M.visible_message("<span class='notice'>[M] \
 			stops moving and starts staring vacantly into space.</span>",
-			"<span class='notice'>You stop moving this form...</span>")
+			span_notice("You stop moving this form..."))
 	else
-		to_chat(C, "<span class='notice'>You abandon this nymph...</span>")
+		to_chat(C, span_notice("You abandon this nymph..."))
 	C.transfer_to(drone)
 	drone.mind = C
 	drone.visible_message("<span class='notice'>[drone] blinks and looks \
 		around.</span>",
-		"<span class='notice'>...and move this one instead.</span>")
+		span_notice("...and move this one instead."))
 

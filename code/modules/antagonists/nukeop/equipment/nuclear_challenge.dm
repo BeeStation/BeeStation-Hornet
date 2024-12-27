@@ -94,7 +94,7 @@
 
 	for (var/mob/living/L in orphans)
 		var/TC = new /obj/item/stack/sheet/telecrystal(L.drop_location(), tc_per_nukie)
-		to_chat(L, "<span class='warning'>Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"].</span>")
+		to_chat(L, span_warning("Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"]."))
 		tc_to_distribute -= tc_per_nukie
 
 	if (tc_to_distribute > 0) // What shall we do with the remainder...
@@ -102,7 +102,7 @@
 			if (C.stat != DEAD)
 				var/obj/item/stack/sheet/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
 				TC.throw_at(get_step(C, C.dir), 3, 3)
-				C.visible_message("<span class='notice'>[C] coughs up a half-digested telecrystal</span>","<span class='usernotice'>You cough up a half-digested telecrystal!</span>")
+				C.visible_message(span_notice("[C] coughs up a half-digested telecrystal"),span_usernotice("You cough up a half-digested telecrystal!"))
 				break
 
 	qdel(src)

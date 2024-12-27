@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set category = "OOC"
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	if(!mob)
@@ -15,16 +15,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	if(!holder)
 		if(!GLOB.ooc_allowed)
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, span_danger("OOC is globally muted."))
 			return
 		if(SSticker.current_state < GAME_STATE_PLAYING && !istype(mob, /mob/dead/new_player))
-			to_chat(src, "<span class='danger'>Observers cannot use OOC pre-game.</span>")
+			to_chat(src, span_danger("Observers cannot use OOC pre-game."))
 			return
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
-			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
+			to_chat(usr, span_danger("OOC for dead mobs has been turned off."))
 			return
 		if(prefs && (prefs.muted & MUTE_OOC))
-			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
+			to_chat(src, span_danger("You cannot use OOC (muted)."))
 			return
 	else
 		if(SSticker.current_state == GAME_STATE_PLAYING && holder.ooc_confirmation_enabled)
@@ -35,7 +35,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				if("Always yes for this round")
 					holder.ooc_confirmation_enabled = FALSE
 	if(is_banned_from(ckey, BAN_OOC))
-		to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
+		to_chat(src, span_danger("You have been banned from OOC."))
 		return
 	if(QDELETED(src))
 		return
@@ -67,10 +67,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			return
 
 	if(prefs && !prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
-		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
+		to_chat(src, span_danger("You have OOC muted."))
 		return
 	if(OOC_FILTER_CHECK(raw_msg))
-		to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span></span>")
+		to_chat(src, span_warning("That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span>"))
 		return
 
 	mob.log_talk(raw_msg, LOG_OOC)
@@ -158,7 +158,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(GLOB.admin_notice)
 		to_chat(src, "<span class='boldnotice'>Admin Notice:</span>\n \t [GLOB.admin_notice]")
 	else
-		to_chat(src, "<span class='notice'>There are no admin notices at the moment.</span>")
+		to_chat(src, span_notice("There are no admin notices at the moment."))
 
 /client/verb/motd()
 	set name = "MOTD"
@@ -169,7 +169,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(motd)
 		to_chat(src, "<div class=\"motd\">[motd]</div>", handle_whitespace=FALSE, allow_linkify = TRUE)
 	else
-		to_chat(src, "<span class='notice'>The Message of the Day has not been set.</span>")
+		to_chat(src, span_notice("The Message of the Day has not been set."))
 
 /client/proc/self_notes()
 	set name = "View Admin Remarks"
@@ -177,7 +177,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set desc = "View the notes that admins have written about you"
 
 	if(!CONFIG_GET(flag/see_own_notes))
-		to_chat(usr, "<span class='notice'>Sorry, that function is not enabled on this server.</span>")
+		to_chat(usr, span_notice("Sorry, that function is not enabled on this server."))
 		return
 
 	browse_messages(null, usr.ckey, null, TRUE)
@@ -188,7 +188,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set desc = "View the amount of playtime for roles the server has tracked."
 
 	if(!CONFIG_GET(flag/use_exp_tracking))
-		to_chat(usr, "<span class='notice'>Sorry, tracking is currently disabled.</span>")
+		to_chat(usr, span_notice("Sorry, tracking is currently disabled."))
 		return
 
 	new /datum/job_report_menu(src, usr)
@@ -321,7 +321,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set desc = "Open the runtime error viewer, with reduced information"
 
 	if(!isobserver(mob) && SSticker.current_state != GAME_STATE_FINISHED)
-		to_chat(src, "<span class='warning'>You cannot currently do that at this time, please wait until the round end or while you are observing.</span>")
+		to_chat(src, span_warning("You cannot currently do that at this time, please wait until the round end or while you are observing."))
 		return
 
 	GLOB.error_cache.show_to_minimal(src)
@@ -337,7 +337,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		Example: say ';laughs maniacally!|' >> \[Common] Joe Schmoe laughs maniacally!"
 
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /client/verb/vote_to_leave()
 	set name = "Vote to leave"

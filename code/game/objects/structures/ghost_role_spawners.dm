@@ -161,7 +161,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 		if(QDELETED(src) || uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		user.visible_message(span_notice("A faint light leaves [user], moving to [src] and animating it!"),span_notice("You leave your old body behind, and transfer into [src]!"))
 		show_flavour = FALSE
 		create(ckey = user.ckey,name = user.real_name)
 		user.death()

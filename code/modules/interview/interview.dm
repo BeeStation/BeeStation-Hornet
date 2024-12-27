@@ -53,7 +53,7 @@
 	GLOB.interviews.approved_ckeys |= owner_ckey
 	GLOB.interviews.close_interview(src)
 	log_admin_private("[key_name(approved_by)] has approved interview #[id] for [owner_ckey][!owner ? "(DC)": ""].")
-	message_admins("<span class='adminnotice'>[key_name(approved_by)] has approved interview #[id] for [owner_ckey][!owner ? "(DC)": ""].</span>")
+	message_admins(span_adminnotice("[key_name(approved_by)] has approved interview #[id] for [owner_ckey][!owner ? "(DC)": ""]."))
 	if (owner)
 		SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
 		to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
@@ -73,7 +73,7 @@
 	GLOB.interviews.denied_ckeys |= owner_ckey
 	var/can_retry = CONFIG_GET(flag/panic_bunker_interview_retries)
 	log_admin_private("[key_name(denied_by)] has denied interview #[id] for [owner_ckey][!owner ? "(DC)": ""]. Retries [can_retry ? "enabled" : "disabled"].")
-	message_admins("<span class='adminnotice'>[key_name(denied_by)] has denied interview #[id] for [owner_ckey][!owner ? "(DC)": ""]. Retries [can_retry ? "enabled" : "disabled"].</span>")
+	message_admins(span_adminnotice("[key_name(denied_by)] has denied interview #[id] for [owner_ckey][!owner ? "(DC)": ""]. Retries [can_retry ? "enabled" : "disabled"]."))
 	if(can_retry)
 		addtimer(CALLBACK(GLOB.interviews, TYPE_PROC_REF(/datum/interview_manager, release_from_cooldown), owner_ckey), 180 SECONDS)
 		if (owner)
@@ -109,7 +109,7 @@
 		if (I) // we can be returned nothing if the user is on cooldown
 			I.ui_interact(M)
 		else
-			to_chat(usr, "<span class='adminsay'>You are on cooldown for interviews. Please wait at least 3 minutes before starting a new questionnaire.</span>")
+			to_chat(usr, span_adminsay("You are on cooldown for interviews. Please wait at least 3 minutes before starting a new questionnaire."))
 
 /datum/interview/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

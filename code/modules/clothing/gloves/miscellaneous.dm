@@ -113,9 +113,9 @@
 /obj/item/clothing/gloves/rapid/attack_self(mob/user)
 	var/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
 	if(input == "*me") //If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
-		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry cannot contain *me.</span>")
+		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry cannot contain *me."))
 	else if(CHAT_FILTER_CHECK(input))
-		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry contains prohibited word(s).</span>")
+		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry contains prohibited word(s)."))
 	else if(input)
 		warcry = input
 
@@ -141,7 +141,7 @@
 	if(get_dist(A, user) <= 1 )
 		return FALSE
 	if(user in viewers(range, A))
-		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
+		user.visible_message(span_danger("[user] waves their hands at [A]"), span_notice("You begin manipulating [A]."))
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(do_after(user, 0.8 SECONDS, A))

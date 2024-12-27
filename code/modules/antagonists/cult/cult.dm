@@ -51,7 +51,7 @@
 		. = is_convertable_to_cult(new_owner.current,cult_team)
 
 /datum/antagonist/cult/greet()
-	to_chat(owner, "<span class='userdanger'>You are a member of the cult!</span>")
+	to_chat(owner, span_userdanger("You are a member of the cult!"))
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
@@ -97,13 +97,13 @@
 		if(istype(mob.back, /obj/item/storage/backpack))
 			var/obj/item/storage/backpack/B = mob.back
 			SEND_SIGNAL(B, COMSIG_TRY_STORAGE_INSERT, T, null, TRUE, TRUE)
-			to_chat(mob, "<span class='danger'>You have a [item_name] in your backpack.</span>")
+			to_chat(mob, span_danger("You have a [item_name] in your backpack."))
 			return TRUE
 		else
 			message_admins("[ADMIN_FULLMONTY(mob)] the cultist couldn't be equipped.")
 			return FALSE
 	else
-		to_chat(mob, "<span class='danger'>You have a [item_name] in your [where].</span>")
+		to_chat(mob, span_danger("You have a [item_name] in your [where]."))
 		if(where == "backpack")
 			SEND_SIGNAL(mob.back, COMSIG_TRY_STORAGE_SHOW, mob)
 		return TRUE
@@ -172,7 +172,7 @@
 	SSticker.mode.update_cult_icons_removed(owner)
 	if(!silent)
 		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!</span>", null, null, null, owner.current)
-		to_chat(owner.current, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of the Geometer and all your memories as her servant.</span>")
+		to_chat(owner.current, span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of the Geometer and all your memories as her servant."))
 		owner.current.log_message("has renounced the cult of Nar'Sie!", LOG_ATTACK, color="#960000")
 	if(cult_team.blood_target && cult_team.blood_target_image && owner.current.client)
 		owner.current.client.images -= cult_team.blood_target_image
@@ -198,11 +198,11 @@
 
 /datum/antagonist/cult/proc/admin_give_dagger(mob/admin)
 	if(!equip_cultist(metal=FALSE))
-		to_chat(admin, "<span class='danger'>Spawning dagger failed!</span>")
+		to_chat(admin, span_danger("Spawning dagger failed!"))
 
 /datum/antagonist/cult/proc/admin_give_metal(mob/admin)
 	if (!equip_cultist(metal=TRUE))
-		to_chat(admin, "<span class='danger'>Spawning runed metal failed!</span>")
+		to_chat(admin, span_danger("Spawning runed metal failed!"))
 
 /datum/antagonist/cult/proc/admin_take_all(mob/admin)
 	var/mob/living/current = owner.current
@@ -423,9 +423,9 @@
 	var/list/parts = list()
 
 	if(check_cult_victory())
-		parts += "<span class='greentext big'>The cult has succeeded! Nar'Sie has snuffed out another torch in the void!</span>"
+		parts += span_greentextbig("The cult has succeeded! Nar'Sie has snuffed out another torch in the void!")
 	else
-		parts += "<span class='redtext big'>The staff managed to stop the cult! Dark words and heresy are no match for Nanotrasen's finest!</span>"
+		parts += span_redtextbig("The staff managed to stop the cult! Dark words and heresy are no match for Nanotrasen's finest!")
 
 	if(objectives.len)
 		parts += "<b>The cultists' objectives were:</b>"
@@ -435,7 +435,7 @@
 			count++
 
 	if(members.len)
-		parts += "<span class='header'>The cultists were:</span>"
+		parts += span_header("The cultists were:")
 		parts += printplayerlist(members)
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

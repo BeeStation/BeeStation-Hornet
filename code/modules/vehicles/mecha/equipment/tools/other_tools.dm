@@ -472,7 +472,7 @@
 /obj/item/mecha_parts/mecha_equipment/thrusters/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M)
 	for(var/obj/item/I in M.equipment)
 		if(istype(I, src))
-			to_chat(user, "<span class='warning'>[M] already has this thruster package!</span>")
+			to_chat(user, span_warning("[M] already has this thruster package!"))
 			return FALSE
 	return ..()
 
@@ -542,7 +542,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/gas/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M)
 	if(!M.internal_tank)
-		to_chat(user, "<span class='warning'>[M] does not have an internal tank and cannot support this upgrade!</span>")
+		to_chat(user, span_warning("[M] does not have an internal tank and cannot support this upgrade!"))
 		return FALSE
 	return ..()
 

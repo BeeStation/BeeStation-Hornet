@@ -9,7 +9,7 @@
 	if(!length(msg))
 		return FALSE
 	if(CHAT_FILTER_CHECK(msg))
-		to_chat(src, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(src, span_warning("Your message contains forbidden words."))
 		return FALSE
 	if(sanitize)
 		msg = sanitize(msg)
@@ -34,7 +34,7 @@
 	if(!length(msg))
 		return FALSE
 	if(CHAT_FILTER_CHECK(msg))
-		to_chat(src, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(src, span_warning("Your message contains forbidden words."))
 		return FALSE
 	if(sanitize)
 		msg = sanitize(msg)

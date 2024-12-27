@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...</span>")
 			cell.explode()
 			return
-		to_chat(user, "<span class='notice'>You charged the [I.name] on [name]!</span>")
+		to_chat(user, span_notice("You charged the [I.name] on [name]!"))
 		cell.give(cell.maxcharge)
 		return
 	return ..()

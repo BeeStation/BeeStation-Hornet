@@ -47,7 +47,7 @@
 			return
 		sheets.Add(I)
 		amount++
-		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+		to_chat(user, span_notice("You put [I] in [src]."))
 		update_icon()
 
 	else if(default_unfasten_wrench(user, I, 5))
@@ -66,10 +66,10 @@
 
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(!user.transferItemToLoc(I, src))
-			to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot hide it among the sheets!</span>")
+			to_chat(user, span_warning("\The [I] is stuck to your hand, you cannot hide it among the sheets!"))
 			return
 		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
+		to_chat(user, span_notice("You hide [I] among the sheets."))
 
 
 /obj/structure/bedsheetbin/attack_paw(mob/user)
@@ -96,12 +96,12 @@
 
 		B.forceMove(drop_location())
 		user.put_in_hands(B)
-		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
+		to_chat(user, span_notice("You take [B] out of [src]."))
 		update_icon()
 
 		if(hidden)
 			hidden.forceMove(drop_location())
-			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
+			to_chat(user, span_notice("[hidden] falls out of [B]!"))
 			hidden = null
 
 	add_fingerprint(user)
@@ -120,7 +120,7 @@
 			B = new /obj/item/bedsheet(loc)
 
 		B.forceMove(drop_location())
-		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [B] from [src]."))
 		update_icon()
 
 		if(hidden)

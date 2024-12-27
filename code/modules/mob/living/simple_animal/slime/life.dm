@@ -107,14 +107,14 @@
 		switch(stat)
 			if(CONSCIOUS)
 				if(stasis)
-					to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
+					to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
 					set_stat(UNCONSCIOUS)
 					powerlevel = 0
 					rabid = FALSE
 					regenerate_icons()
 			if(UNCONSCIOUS, HARD_CRIT)
 				if(!stasis)
-					to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
+					to_chat(src, span_notice("You wake up from the stasis."))
 					set_stat(CONSCIOUS)
 					regenerate_icons()
 
@@ -150,7 +150,7 @@
 			rabid = 1
 
 		if(transformeffects & SLIME_EFFECT_GREEN)
-			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
+			visible_message(span_warning("[src] slurps up [M]!"))
 			adjust_nutrition(10)
 			layer = initial(layer)
 			qdel(M)

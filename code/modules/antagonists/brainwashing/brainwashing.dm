@@ -87,7 +87,7 @@
 
 /datum/antagonist/brainwashed/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/brainwash.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-	to_chat(owner, "<span class='warning'>Your mind reels as it begins focusing on a single purpose...</span>")
+	to_chat(owner, span_warning("Your mind reels as it begins focusing on a single purpose..."))
 	to_chat(owner, "<big><span class='warning'><b>Follow the Directives, at any cost!</b></span></big>")
 	var/i = 1
 	for(var/X in objectives)
@@ -99,7 +99,7 @@
 		Ensure you follow your directive, no matter the cost.")
 
 /datum/antagonist/brainwashed/farewell()
-	to_chat(owner, "<span class='warning'>Your mind suddenly clears...</span>")
+	to_chat(owner, span_warning("Your mind suddenly clears..."))
 	to_chat(owner, "<big><span class='warning'><b>You feel the weight of the Directives disappear! You no longer have to obey them.</b></span></big>")
 	owner.announce_objectives()
 

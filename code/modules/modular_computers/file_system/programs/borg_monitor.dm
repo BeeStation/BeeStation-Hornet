@@ -65,16 +65,16 @@
 			var/sender_name = get_id_name()
 			if(!sender_name)
 				// This can only happen if the action somehow gets called as UI blocks this action with no ID
-				computer.visible_message("<span class='notice'>Insert an ID to send messages.</span>")
+				computer.visible_message(span_notice("Insert an ID to send messages."))
 				playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 				return TRUE
 			if(R.stat == DEAD) //Dead borgs will listen to you no longer
-				to_chat(usr, "<span class='warn'>Error -- Could not open a connection to unit:[R]</span>")
+				to_chat(usr, span_warn("Error -- Could not open a connection to unit:[R]"))
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
 			if(OOC_FILTER_CHECK(message))
-				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
+				to_chat(usr, span_warning("ERROR: Prohibited word(s) detected in message."))
 				return
 			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
 			computer.send_sound()

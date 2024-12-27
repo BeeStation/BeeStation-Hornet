@@ -208,12 +208,12 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	if(banning_key)
 		if(is_banned_from(src.ckey, banning_key))
 			if(feedback)
-				to_chat(src, "<span class='warning'>You are banned from this role!</span>")
+				to_chat(src, span_warning("You are banned from this role!"))
 			return FALSE
 	if(req_hours) //minimum living hour count
 		if((src.get_exp_living(TRUE)/60) < req_hours)
 			if(feedback)
-				to_chat(src, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")
+				to_chat(src, span_warning("You do not have enough living hours to take this role ([req_hours]hrs required)!"))
 			return FALSE
 	return TRUE
 
@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	if(!istype(src))
 		return FALSE
 	if(is_ghost_role && !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !is_admin_spawned)
-		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		to_chat(src, span_warning("An admin has temporarily disabled non-admin ghost roles!"))
 		return FALSE
 	if(!src.should_include_for_role(
 		banning_key = banning_key,
@@ -229,7 +229,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	))
 		return FALSE
 	if(use_cooldown && src.next_ghost_role_tick > world.time)
-		to_chat(src, "<span class='warning'>You have died recently, you must wait [(src.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		to_chat(src, span_warning("You have died recently, you must wait [(src.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner."))
 		return FALSE
 	return TRUE
 

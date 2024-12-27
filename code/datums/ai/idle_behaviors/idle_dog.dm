@@ -12,7 +12,7 @@
 	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
 	if(controller.blackboard[BB_SIMPLE_CARRY_ITEM] && DT_PROB(5, delta_time))
 		var/obj/item/carry_item = controller.blackboard[BB_SIMPLE_CARRY_ITEM]
-		living_pawn.visible_message("<span class='notice'>[living_pawn] gently teethes on \the [carry_item] in [living_pawn.p_their()] mouth.</span>", vision_distance=COMBAT_MESSAGE_RANGE)
+		living_pawn.visible_message(span_notice("[living_pawn] gently teethes on \the [carry_item] in [living_pawn.p_their()] mouth."), vision_distance=COMBAT_MESSAGE_RANGE)
 
 	if(DT_PROB(5, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE))
 		var/move_dir = pick(GLOB.alldirs)

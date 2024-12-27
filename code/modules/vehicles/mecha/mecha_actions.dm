@@ -89,7 +89,7 @@
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!(chassis.mecha_flags & HAS_LIGHTS))
-		to_chat(owner, "<span class='warning'>This mechs lights are destroyed!</span>")
+		to_chat(owner, span_warning("This mechs lights are destroyed!"))
 		return
 	chassis.mecha_flags ^= LIGHTS_ON
 	if(chassis.mecha_flags & LIGHTS_ON)

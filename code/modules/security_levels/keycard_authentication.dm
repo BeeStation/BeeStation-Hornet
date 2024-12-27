@@ -62,7 +62,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	if(isanimal(user))
 		var/mob/living/simple_animal/A = user
 		if(!A.dextrous)
-			to_chat(user, "<span class='warning'>You are too primitive to use this device!</span>")
+			to_chat(user, span_warning("You are too primitive to use this device!"))
 			return UI_CLOSE
 	return ..()
 
@@ -71,7 +71,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 		return
 	var/obj/item/card/swipe_id = usr.get_idcard()
 	if(!swipe_id || !istype(swipe_id))
-		to_chat(usr, "<span class='warning'>No ID card detected.</span>")
+		to_chat(usr, span_warning("No ID card detected."))
 		return
 	switch(action)
 		if("red_alert")
@@ -85,7 +85,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 		if("auth_swipe")
 			if(event_source)
 				if(swipe_id == event_source.triggering_card)
-					to_chat(usr, "<span class='warning'>Invalid ID. Confirmation ID must not equal trigger ID.</span>")
+					to_chat(usr, span_warning("Invalid ID. Confirmation ID must not equal trigger ID."))
 					return
 				event_source.trigger_event(usr)
 				event_source = null
@@ -139,10 +139,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	message_admins("[ADMIN_LOOKUPFLW(triggerer)] triggered and [ADMIN_LOOKUPFLW(confirmer)] confirmed event [event]")
 
 	var/area/A1 = get_area(triggerer)
-	deadchat_broadcast("<span class='deadsay'><span class='name'>[triggerer]</span> triggered [event] at <span class='name'>[A1.name]</span>.</span>", triggerer)
+	deadchat_broadcast(span_deadsay("<span class='name'>[triggerer]</span> triggered [event] at <span class='name'>[A1.name]</span>."), triggerer)
 
 	var/area/A2 = get_area(confirmer)
-	deadchat_broadcast("<span class='deadsay'><span class='name'>[confirmer]</span> confirmed [event] at <span class='name'>[A2.name]</span>.</span>", confirmer)
+	deadchat_broadcast(span_deadsay("<span class='name'>[confirmer]</span> confirmed [event] at <span class='name'>[A2.name]</span>."), confirmer)
 	switch(event)
 		if(KEYCARD_RED_ALERT)
 			SSsecurity_level.set_level(SEC_LEVEL_RED)

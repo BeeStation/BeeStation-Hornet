@@ -41,7 +41,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(!loc || !ghost_usable)
 		return
 	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
 	if(!SSticker.HasRoundStarted())
 		return
@@ -101,7 +101,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(ckey)
 		M.ckey = ckey
 		if(show_flavour)
-			var/output_message = "<span class='big bold'>[short_desc]</span>"
+			var/output_message = span_bigbold("[short_desc]")
 			if(flavour_text != "")
 				output_message += "\n<span class='bold'>[flavour_text]</span>"
 			if(important_info != "")

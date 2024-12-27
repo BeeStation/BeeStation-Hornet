@@ -26,7 +26,7 @@
 	list_reagents = null
 
 /obj/item/reagent_containers/peppercloud_deployer/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!</span>")
+	user.visible_message(span_suicide("[user] begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!"))
 	deploy(get_turf(user), user, TRUE)
 	return OXYLOSS
 
@@ -38,20 +38,20 @@
 /obj/item/reagent_containers/peppercloud_deployer/afterattack(atom/target, mob/user)
 	if(istype(target, /obj/structure/reagent_dispensers/peppertank) && get_dist(src, target) <= 1)
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty.</span>")
+			to_chat(user, span_warning("[target] is empty."))
 			return
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 			return
 
 		playsound(src.loc, 'sound/effects/spray.ogg', 50, 1, -6)
 		var/trans = target.reagents.trans_to(src, 75, transfered_by = user) //transfer 75u , using the spray's transfer amount would take too long to refill
-		to_chat(user, "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [target].</span>")
+		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [target]."))
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
-		to_chat(user, "<span class='warning'>Not enough left!</span>")
+		to_chat(user, span_warning("Not enough left!"))
 		return
 
 	user.changeNext_move(CLICK_CD_RANGE*2)

@@ -239,7 +239,7 @@
 			occupant.throwing = TRUE //This is somewhat hacky, but is the best option available to avoid chasm detection for the split second between the next two lines
 			occupant.forceMove(get_turf(loc))
 			occupant.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(5, 8),rand(5, 8)) //resets the throwing variable above. Random values are independant on purpose to give variance to damage on wallslams and the distance the occupant is ejected.
-			occupant.visible_message("<span class='userdanger'>[occupant] is forcefully ejected from the mech!</span>", "<span class='userdanger'>You are forcefully ejected from the mech!</span>", null, COMBAT_MESSAGE_RANGE)
+			occupant.visible_message(span_userdanger("[occupant] is forcefully ejected from the mech!"), span_userdanger("You are forcefully ejected from the mech!"), null, COMBAT_MESSAGE_RANGE)
 			playsound(src, 'sound/machines/scanbuzz.ogg', 60, FALSE)
 			playsound(src, 'sound/vehicles/carcannon1.ogg', 150, TRUE)
 
@@ -392,7 +392,7 @@
 			for(var/held_item in H.held_items)
 				if(!isgun(held_item))
 					continue
-				. += "<span class='warning'>It looks like you can hit the pilot directly if you target the center or above.</span>"
+				. += span_warning("It looks like you can hit the pilot directly if you target the center or above.")
 				break //in case user is holding two guns
 
 //processing internal damage, temperature, air regulation, alert updates, lights power use.
@@ -450,7 +450,7 @@
 
 	for(var/mob/living/occupant as anything in occupants)
 		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
-			visible_message("<span class='warning'>[occupant] tumbles out of the cockpit!</span>")
+			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
 			mob_exit(occupant) //bye bye
 			continue
 		if(cell)
@@ -523,7 +523,7 @@
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 100, 1)
-	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
+	to_chat(user, span_warning("You short out the mech suit's internal controls."))
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
@@ -563,13 +563,13 @@
 	if(selected)
 		if(!Adjacent(target) && (selected.range & MECHA_RANGED))
 			if(HAS_TRAIT(livinguser, TRAIT_PACIFISM) && selected.harmful)
-				to_chat(livinguser, "<span class='warning'>You don't want to harm other living beings!</span>")
+				to_chat(livinguser, span_warning("You don't want to harm other living beings!"))
 				return
 			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
 			return
 		if((selected.range & MECHA_MELEE) && Adjacent(target))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(livinguser, TRAIT_PACIFISM))
-				to_chat(livinguser, "<span class='warning'>You don't want to harm other living beings!</span>")
+				to_chat(livinguser, span_warning("You don't want to harm other living beings!"))
 				return
 			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
 			return
@@ -786,7 +786,7 @@
 	if(user.can_dominate_mechs)
 		examine(user) //Get diagnostic information!
 		for(var/obj/item/mecha_parts/mecha_tracking/B in trackers)
-			to_chat(user, "<span class='danger'>Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:</span>")
+			to_chat(user, span_danger("Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:"))
 			to_chat(user, "[B.get_mecha_info()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
@@ -794,7 +794,7 @@
 		return
 	examine(user)
 	if(length(return_drivers()) > 0)
-		to_chat(user, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
+		to_chat(user, span_warning("This exosuit has a pilot and cannot be controlled."))
 		return
 	var/can_control_mech = FALSE
 	for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
@@ -802,7 +802,7 @@
 		to_chat(user, "<span class='notice'>[icon2html(src, user)] Status of [name]:</span>\n[A.get_mecha_info()]")
 		break
 	if(!can_control_mech)
-		to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
+		to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 		return
 	to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
 
@@ -815,13 +815,13 @@
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
 			if(!construction_state) //Mech must be in maint mode to allow carding.
-				to_chat(user, "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>")
+				to_chat(user, span_warning("[name] must have maintenance protocols active in order to allow a transfer."))
 				return
 			var/list/ai_pilots = list()
 			for(var/mob/living/silicon/ai/aipilot in occupants)
 				ai_pilots += aipilot
 			if(!ai_pilots.len) //Mech does not have an AI for a pilot
-				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
+				to_chat(user, span_warning("No AI detected in the [name] onboard computer."))
 				return
 			if(ai_pilots.len > 1) //Input box for multiple AIs, but if there's only one we'll default to them.
 				AI = input(user,"Which AI do you wish to card?", "AI Selection") as null|anything in sort_list(ai_pilots)
@@ -849,8 +849,8 @@
 		if(AI_MECH_HACK) //Called by AIs on the mech
 			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
 			if(AI.can_dominate_mechs && LAZYLEN(occupants)) //Oh, I am sorry, were you using that?
-				to_chat(AI, "<span class='warning'>Occupants detected! Forced ejection initiated!</span>")
-				to_chat(occupants, "<span class='danger'>You have been forcibly ejected!</span>")
+				to_chat(AI, span_warning("Occupants detected! Forced ejection initiated!"))
+				to_chat(occupants, span_danger("You have been forcibly ejected!"))
 				for(var/ejectee in occupants)
 					mob_exit(ejectee, TRUE, TRUE) //IT IS MINE, NOW. SUCK IT, RD!
 				AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
@@ -858,15 +858,15 @@
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
 			AI = card.AI
 			if(!AI)
-				to_chat(user, "<span class='warning'>There is no AI currently installed on this device.</span>")
+				to_chat(user, span_warning("There is no AI currently installed on this device."))
 				return
 			if(AI.deployed_shell) //Recall AI if shelled so it can be checked for a client
 				AI.disconnect_shell()
 			if(AI.stat || !AI.client)
-				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
+				to_chat(user, span_warning("[AI.name] is currently unresponsive, and cannot be uploaded."))
 				return
 			if(LAZYLEN(occupants) >= max_occupants) //Normal AIs cannot steal mechs!
-				to_chat(user, "<span class='warning'>Access denied. [name] is [LAZYLEN(occupants) >= max_occupants ? "currently fully occupied" : "secured with a DNA lock"].</span>")
+				to_chat(user, span_warning("Access denied. [name] is [LAZYLEN(occupants) >= max_occupants ? "currently fully occupied" : "secured with a DNA lock"]."))
 				return
 			AI.control_disabled = FALSE
 			AI.radio_enabled = TRUE
@@ -882,9 +882,9 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
-	to_chat(AI, AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" :\
-		"<span class='notice'>You have been uploaded to a mech's onboard computer.</span>")
-	to_chat(AI, "<span class='reallybig boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
+	to_chat(AI, AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!") :\
+		span_notice("You have been uploaded to a mech's onboard computer."))
+	to_chat(AI, span_reallybigboldnotice("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
 
 ///Handles an actual AI (simple_animal mecha pilot) entering the mech
 /obj/vehicle/sealed/mecha/proc/aimob_enter_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
@@ -915,34 +915,34 @@
 		return
 	log_message("[M] tries to move into [src].", LOG_MECHA)
 	if(!operation_allowed(M))
-		to_chat(M, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
+		to_chat(M, span_warning("Access denied. Insufficient operation keycodes."))
 		log_message("Permission denied (No keycode).", LOG_MECHA)
 		return
 	if(M.buckled)
-		to_chat(M, "<span class='warning'>You are currently buckled and cannot move.</span>")
+		to_chat(M, span_warning("You are currently buckled and cannot move."))
 		log_message("Permission denied (Buckled).", LOG_MECHA)
 		return
 	if(M.has_buckled_mobs()) //mob attached to us
-		to_chat(M, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		to_chat(M, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		log_message("Permission denied (Attached mobs).", LOG_MECHA)
 		return
 
-	visible_message("<span class='notice'>[M] starts to climb into [name].</span>")
+	visible_message(span_notice("[M] starts to climb into [name]."))
 
 	if(do_after(M, enter_delay, target = src))
 		if(atom_integrity <= 0)
-			to_chat(M, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
+			to_chat(M, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(LAZYLEN(occupants) >= max_occupants)
-			to_chat(M, "<span class='danger'>[occupants[occupants.len]] was faster! Try better next time, loser.</span>")//get the last one that hopped in
+			to_chat(M, span_danger("[occupants[occupants.len]] was faster! Try better next time, loser."))//get the last one that hopped in
 		else if(M.buckled)
-			to_chat(M, "<span class='warning'>You can't enter the exosuit while buckled.</span>")
+			to_chat(M, span_warning("You can't enter the exosuit while buckled."))
 		else if(M.has_buckled_mobs())
-			to_chat(M, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+			to_chat(M, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		else
 			moved_inside(M)
 			return ..()
 	else
-		to_chat(M, "<span class='warning'>You stop entering the exosuit!</span>")
+		to_chat(M, span_warning("You stop entering the exosuit!"))
 
 /obj/vehicle/sealed/mecha/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
@@ -972,16 +972,16 @@
 	if(!M.brain_check(user))
 		return FALSE
 	if(LAZYLEN(occupants) >= max_occupants)
-		to_chat(user, "<span class='warning'>It's full!</span>")
+		to_chat(user, span_warning("It's full!"))
 		return FALSE
-	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
+	visible_message(span_notice("[user] starts to insert an MMI into [name]."))
 
 	if(!do_after(user, 4 SECONDS, target = src))
-		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
+		to_chat(user, span_notice("You stop inserting the MMI."))
 		return FALSE
 	if(LAZYLEN(occupants) < max_occupants)
 		return mmi_moved_inside(M, user)
-	to_chat(user, "<span class='warning'>Maximum occupants exceeded!</span>")
+	to_chat(user, span_warning("Maximum occupants exceeded!"))
 	return FALSE
 
 /obj/vehicle/sealed/mecha/proc/mmi_moved_inside(obj/item/mmi/brain_obj, mob/user)
@@ -992,7 +992,7 @@
 
 	var/mob/living/brain/brain_mob = brain_obj.brainmob
 	if(!user.transferItemToLoc(brain_obj, src))
-		to_chat(user, "<span class='warning'>\the [brain_obj] is stuck to your hand, you cannot put it in \the [src]!</span>")
+		to_chat(user, span_warning("\the [brain_obj] is stuck to your hand, you cannot put it in \the [src]!"))
 		return FALSE
 
 
@@ -1013,15 +1013,15 @@
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.can_shunt)
-			to_chat(AI, "<span class='notice'>You can't leave a mech after dominating it!.</span>")
+			to_chat(AI, span_notice("You can't leave a mech after dominating it!."))
 			return FALSE
-	to_chat(user, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.</span>")
+	to_chat(user, span_notice("You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting."))
 	is_currently_ejecting = TRUE
 	if(do_after(user, has_gravity() ? exit_delay : 0 , target = src))
-		to_chat(user, "<span class='notice'>You exit the mech.</span>")
+		to_chat(user, span_notice("You exit the mech."))
 		mob_exit(user, TRUE)
 	else
-		to_chat(user, "<span class='notice'>You stop exiting the mech. Weapons are enabled again.</span>")
+		to_chat(user, span_notice("You stop exiting the mech. Weapons are enabled again."))
 	is_currently_ejecting = FALSE
 
 /obj/vehicle/sealed/mecha/mob_exit(mob/M, silent, forced)
@@ -1042,11 +1042,11 @@
 		else
 			if(!AI.linked_core)
 				if(!silent)
-					to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
+					to_chat(AI, span_userdanger("Inactive core destroyed. Unable to return."))
 				AI.linked_core = null
 				return
 			if(!silent)
-				to_chat(AI, "<span class='notice'>Returning to core...</span>")
+				to_chat(AI, span_notice("Returning to core..."))
 			AI.controlled_mech = null
 			AI.remote_control = null
 			mob_container = AI
@@ -1174,7 +1174,7 @@
 /obj/vehicle/sealed/mecha/proc/ammo_resupply(obj/item/mecha_ammo/A, mob/user,fail_chat_override = FALSE)
 	if(!A.rounds)
 		if(!fail_chat_override)
-			to_chat(user, "<span class='warning'>This box of ammo is empty!</span>")
+			to_chat(user, span_warning("This box of ammo is empty!"))
 		return FALSE
 	var/ammo_needed
 	var/found_gun
@@ -1197,7 +1197,7 @@
 			else
 				gun.projectiles_cache = gun.projectiles_cache + ammo_needed
 			playsound(get_turf(user),A.load_audio,50,TRUE)
-			to_chat(user, "<span class='notice'>You add [ammo_needed] [A.round_term][ammo_needed > 1?"s":""] to the [gun.name]</span>")
+			to_chat(user, span_notice("You add [ammo_needed] [A.round_term][ammo_needed > 1?"s":""] to the [gun.name]"))
 			A.rounds = A.rounds - ammo_needed
 			if(A.custom_materials)	//Change material content of the ammo box according to the amount of ammo deposited into the weapon
 				/// list of materials contained in the ammo box after we put it through the equation so we can stick this list into set_custom_materials()
@@ -1216,22 +1216,22 @@
 		else
 			gun.projectiles_cache = gun.projectiles_cache + A.rounds
 		playsound(get_turf(user),A.load_audio,50,TRUE)
-		to_chat(user, "<span class='notice'>You add [A.rounds] [A.round_term][A.rounds > 1?"s":""] to the [gun.name]</span>")
+		to_chat(user, span_notice("You add [A.rounds] [A.round_term][A.rounds > 1?"s":""] to the [gun.name]"))
 		A.rounds = 0
 		A.set_custom_materials(list(/datum/material/iron=2000))
 		A.update_appearance()
 		return TRUE
 	if(!fail_chat_override)
 		if(found_gun)
-			to_chat(user, "<span class='notice'>You can't fit any more ammo of this type!</span>")
+			to_chat(user, span_notice("You can't fit any more ammo of this type!"))
 		else
-			to_chat(user, "<span class='notice'>None of the equipment on this exosuit can use this ammo!</span>")
+			to_chat(user, span_notice("None of the equipment on this exosuit can use this ammo!"))
 	return FALSE
 
 /obj/vehicle/sealed/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(mecha_flags & HAS_LIGHTS)
-		visible_message("<span class='danger'>[src]'s lights burn out!</span>")
+		visible_message(span_danger("[src]'s lights burn out!"))
 		mecha_flags &= ~HAS_LIGHTS
 		set_light_on(FALSE)
 		for(var/occupant in occupants)

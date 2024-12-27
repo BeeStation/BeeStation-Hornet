@@ -35,7 +35,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/holy/generate_item_list()
@@ -169,7 +169,7 @@
 	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
 
 /obj/item/nullrod/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
+	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
@@ -440,7 +440,7 @@
 		var/obj/item/I = hitby
 		owner.attackby(src)
 		owner.attackby(src, owner)
-		owner.visible_message("<span class='danger'>[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!</span>")
+		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
 	return ..()
 
 /obj/item/nullrod/scythe
@@ -508,7 +508,7 @@
 	if(possessed)
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
-		to_chat(user, "<span class='notice'>Anomalous otherworldly energies block you from awakening the blade!</span>")
+		to_chat(user, span_notice("Anomalous otherworldly energies block you from awakening the blade!"))
 		return
 
 	to_chat(user, "You attempt to wake the spirit of the blade...")
@@ -630,8 +630,8 @@
 	if(prob(30) && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		user.reagents.trans_to(H, user.reagents.total_volume, 1, 1, 0, transfered_by = user)
-		to_chat(user, "<span class='notice'>Your pride reflects on [H].</span>")
-		to_chat(H, "<span class='userdanger'>You feel insecure, taking on [user]'s burden.</span>")
+		to_chat(user, span_notice("Your pride reflects on [H]."))
+		to_chat(H, span_userdanger("You feel insecure, taking on [user]'s burden."))
 
 /obj/item/nullrod/whip
 	name = "holy whip"

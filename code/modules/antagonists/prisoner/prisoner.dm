@@ -26,7 +26,7 @@
 	objectives += escape
 
 /datum/antagonist/prisoner/greet()
-	to_chat(owner, "<span class='big bold'>You are the Prisoner!</span>")
+	to_chat(owner, span_bigbold("You are the Prisoner!"))
 	to_chat(owner, "<span class='boldannounce'>Due to overcrowding, you have been transferred from a Nanotrasen security facility out to this middle-of-nowhere science station. This might be your chance to escape! \
 					Do anything you can to escape prison and sneak off the station when the shift ends, via an emergency pod or the main transfer shuttle. \
 					Avoid killing as much as possible, especially non-security staff, but everything else is fair game!</span>")

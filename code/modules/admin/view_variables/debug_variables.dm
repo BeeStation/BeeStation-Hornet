@@ -71,13 +71,13 @@
 	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] [REF(value)])" // Make sure this line can never runtime
 
 	if(isnull(value))
-		return "<span class='value'>null</span>"
+		return span_value("null")
 
 	if(iscolortext(value))
-		return "<span class='value'>\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span></span>"
+		return span_value("\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span>")
 
 	if(istext(value))
-		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
 	if(isicon(value))
 		#ifdef VARSICON
@@ -105,7 +105,7 @@
 		return "/filters\[child\] (<span class='value'>[value.type]</span>)"
 
 	if(isfile(value))
-		return "<span class='value'>'[value]'</span>"
+		return span_value("'[value]'")
 
 	if(isdatum(value))
 		var/datum/datum_value = value
@@ -164,7 +164,7 @@
 		else
 			return "NONE"
 	else
-		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return span_value("[VV_HTML_ENCODE(value)]")
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.

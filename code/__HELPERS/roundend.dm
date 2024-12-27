@@ -256,7 +256,7 @@
 
 	CHECK_TICK
 
-	set_observer_default_invisibility(0, "<span class='warning'>The round is over! You are now visible to the living.</span>")
+	set_observer_default_invisibility(0, span_warning("The round is over! You are now visible to the living."))
 	//These need update to actually reflect the real antagonists
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
@@ -354,7 +354,7 @@
 		var/info = statspage ? "<a href='?action=openLink&link=[rustg_url_encode(statspage)][GLOB.round_id]'>[GLOB.round_id]</a>" : GLOB.round_id
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
-	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? "<span class='redtext'>Destroyed</span>" : "[popcount["station_integrity"]]%"]</B>"
+	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? span_redtext("Destroyed") : "[popcount["station_integrity"]]%"]</B>"
 	parts += "[GLOB.TAB]Station Traits: <B>[english_list(SSstation.station_traits, nothing_text="none")]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
@@ -419,17 +419,17 @@
 			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 				if(!M.onCentCom() && !M.onSyndieBase())
 					parts += "<div class='panel stationborder'>"
-					parts += "<span class='marooned'>You managed to survive, but were marooned on [station_name()]...</span>"
+					parts += span_marooned("You managed to survive, but were marooned on [station_name()]...")
 				else
 					parts += "<div class='panel greenborder'>"
-					parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
+					parts += span_greentext("You managed to survive the events on [station_name()] as [M.real_name].")
 			else
 				parts += "<div class='panel greenborder'>"
-				parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
+				parts += span_greentext("You managed to survive the events on [station_name()] as [M.real_name].")
 
 		else
 			parts += "<div class='panel redborder'>"
-			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+			parts += span_redtext("You did not survive the events on [station_name()]...")
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
@@ -558,7 +558,7 @@
 /datum/controller/subsystem/ticker/proc/medal_report()
 	if(GLOB.commendations.len)
 		var/list/parts = list()
-		parts += "<span class='header'>Medal Commendations:</span>"
+		parts += span_header("Medal Commendations:")
 		for (var/com in GLOB.commendations)
 			parts += com
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
@@ -714,7 +714,7 @@
 
 /datum/controller/subsystem/ticker/proc/save_admin_data()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='admin prefix'>Admin rank DB Sync blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_adminprefix("Admin rank DB Sync blocked: Advanced ProcCall detected."))
 		return
 	if(CONFIG_GET(flag/admin_legacy_system)) //we're already using legacy system so there's nothing to save
 		return

@@ -531,7 +531,7 @@
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		to_chat(user, span_danger("Invalid emote."))
 		return TRUE
 	return FALSE
 
@@ -594,10 +594,10 @@
 	if(intentional)
 		var/obj/item/circlegame/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+			to_chat(user, span_notice("You make a circle with your hand."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to make a circle with."))
 
 /datum/emote/living/slap
 	key = "slap"
@@ -612,9 +612,9 @@
 	if(intentional)
 		var/obj/item/slapper/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+			to_chat(user, span_notice("You ready your slapping hand."))
 		else
-			to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+			to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
 /datum/emote/living/raisehand
 	key = "highfive"
@@ -628,10 +628,10 @@
 	if(intentional)
 		var/obj/item/highfive/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+			to_chat(user, span_notice("You raise your hand for a high-five."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to high-five with."))
 
 /datum/emote/living/fingergun
 	key = "fingergun"
@@ -645,10 +645,10 @@
 	if(intentional)
 		var/obj/item/gun/ballistic/revolver/mime/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+			to_chat(user, span_notice("You form your fingers into a gun."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to make fingerguns with."))
 
 /datum/emote/living/click
 	key = "click"

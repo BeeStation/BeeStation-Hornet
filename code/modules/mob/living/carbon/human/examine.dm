@@ -67,7 +67,7 @@
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 	else if(FR && length(FR.blood_DNA))
 		if(num_hands)
-			. += "<span class='warning'>[t_He] [t_has] [num_hands > 1 ? "" : "a"] blood-stained hand[num_hands > 1 ? "s" : ""]!</span>"
+			. += span_warning("[t_He] [t_has] [num_hands > 1 ? "" : "a"] blood-stained hand[num_hands > 1 ? "s" : ""]!")
 
 	//belt
 	if(belt && !(belt.item_flags & EXAMINE_SKIP))
@@ -89,7 +89,7 @@
 		if(glasses && !(glasses.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-			. += "<span class='warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>"
+			. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
 
 	//ears
 	if(ears && !(obscured & ITEM_SLOT_EARS) && !(ears.item_flags & EXAMINE_SKIP))
@@ -105,11 +105,11 @@
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)
-			. += "<span class='warning'><B>[t_He] [t_is] convulsing violently!</B></span>"
+			. += span_warning("<B>[t_He] [t_is] convulsing violently!</B>")
 		if(200 to 300)
-			. += "<span class='warning'>[t_He] [t_is] extremely jittery.</span>"
+			. += span_warning("[t_He] [t_is] extremely jittery.")
 		if(100 to 200)
-			. += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>"
+			. += span_warning("[t_He] [t_is] twitching ever so slightly.")
 
 	var/appears_dead = FALSE
 	var/just_sleeping = FALSE
@@ -121,19 +121,19 @@
 
 		if(!just_sleeping)
 			if(suiciding)
-				. += "<span class='warning'>[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>"
+				. += span_warning("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
 			if(ishellbound())
-				. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.</span>"
+				. += span_warning("[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.")
 			. += ""
 			if(soul_departed())
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...</span>"
+				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...")
 			else if(!client && key)
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...</span>"
+				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...")
 			else
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life...</span>"
+				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !getorgan(/obj/item/organ/brain))
-		. += "<span class='deadsay'>It appears that [t_his] brain is missing.</span>"
+		. += span_deadsay("It appears that [t_his] brain is missing.")
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
@@ -334,16 +334,16 @@
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += "<span class='warning'>[t_He] [t_is] restrained with cable!</span>"
+			. += span_warning("[t_He] [t_is] restrained with cable!")
 		else
-			. += "<span class='warning'>[t_He] [t_is] handcuffed with [handcuffed]!</span>"
+			. += span_warning("[t_He] [t_is] handcuffed with [handcuffed]!")
 
 	//legcuffed?
 	if(legcuffed)
-		. += "<span class='warning'>[t_He] [t_is] legcuffed with [legcuffed]!</span>"
+		. += span_warning("[t_He] [t_is] legcuffed with [legcuffed]!")
 
 	if (length(msg))
-		. += "<span class='warning'>[msg.Join("")]</span>"
+		. += span_warning("[msg.Join("")]")
 
 	var/trait_exam = common_trait_examine()
 	if (!isnull(trait_exam))
@@ -395,7 +395,7 @@
 						"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
 						"<a href='?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
 	else if(isobserver(user) && traitstring)
-		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
+		. += span_info("<b>Traits:</b> [traitstring]")
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()

@@ -216,9 +216,9 @@ GLOBAL_LIST(admin_antag_list)
 				break
 
 	if(objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += span_greentextbig("The [name] was successful!")
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
 
@@ -389,7 +389,7 @@ GLOBAL_LIST(admin_antag_list)
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(CLOWNMUT)
 			if(!silent && message)
-				to_chat(C, "<span class='boldnotice'>[message]</span>")
+				to_chat(C, span_boldnotice("[message]"))
 		else
 			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
 

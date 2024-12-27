@@ -41,18 +41,18 @@
 		failed = TRUE
 	if(failed)
 		if(ismob(target))
-			to_chat(user, "<span class='warning'>[target] seems a bit big for this...</span>")
+			to_chat(user, span_warning("[target] seems a bit big for this..."))
 		return
 	if(!(locate(target) in oview(range, user)))
 		if(ismob(target))
-			to_chat(user, "<span class='warning'>You can't lasso [target] from here!</span>")
+			to_chat(user, span_warning("You can't lasso [target] from here!"))
 		return
 	var/mob/living/simple_animal/C = target
 	if(IS_DEAD_OR_INCAP(C))
-		to_chat(user, "<span class='warning'>[target] is dead.</span>")
+		to_chat(user, span_warning("[target] is dead."))
 		return
 	if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
-		to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
+		to_chat(user, span_notice("You begin to untie [C]"))
 		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
 			user.faction |= "carpboy_[user]"
 			C.faction = list("neutral")
@@ -62,7 +62,7 @@
 			C.toggle_ai(AI_ON)
 			var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
 			T.add_ally(user)
-			to_chat(user, "<span class='notice'>[C] nuzzles you.</span>")
+			to_chat(user, span_notice("[C] nuzzles you."))
 			UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
 			mob_target = null
 			if(timer)
@@ -70,11 +70,11 @@
 				timer = null
 			uses--
 			if(!uses)
-				to_chat(user, "<span class='warning'>[src] falls apart!</span>")
+				to_chat(user, span_warning("[src] falls apart!"))
 				qdel(src)
 			return
 	else if(timer) //if trying to add new target while old target is still flipped
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	//Do lasso/beam for style points
 	user.Beam(BeamTarget=C,icon_state = "carp_lasso",icon='icons/effects/beam.dmi', time = 1 SECONDS)
@@ -84,7 +84,7 @@
 	C.transform = transform.Turn(180)
 	C.toggle_ai(AI_OFF)
 	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(handle_hard_del), override=TRUE)
-	to_chat(user, "<span class='notice'>You lasso [C]!</span>")
+	to_chat(user, span_notice("You lasso [C]!"))
 	timer = addtimer(CALLBACK(src, PROC_REF(fail_ally)), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
 /obj/item/mob_lasso/proc/check_allowed(atom/target)
@@ -93,7 +93,7 @@
 /obj/item/mob_lasso/proc/fail_ally()
 	if(!mob_target)
 		return
-	visible_message("<span class='warning'>[mob_target] breaks free!</span>")
+	visible_message(span_warning("[mob_target] breaks free!"))
 	mob_target.transform = transform.Turn(0)
 	mob_target.toggle_ai(AI_ON)
 	UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
@@ -125,7 +125,7 @@
 
 /obj/item/mob_lasso/drake/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
-		to_chat(user, "<span class='warning'>You don't know how to use this!</span>")
+		to_chat(user, span_warning("You don't know how to use this!"))
 		return
 	. = ..()
 

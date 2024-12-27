@@ -3,7 +3,7 @@
 	if(is_jammed(JAMMER_PROTECTION_SILICON_COMMS))
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	log_talk(message, LOG_SAY, tag="binary")
 	var/desig = "Default Cyborg" //ezmode for taters

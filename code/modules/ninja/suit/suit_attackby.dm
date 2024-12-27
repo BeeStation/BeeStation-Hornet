@@ -8,19 +8,19 @@
 		if(I.reagents.has_reagent(/datum/reagent/uranium/radium, a_transfer) && a_boost < a_maxamount)
 			I.reagents.remove_reagent(/datum/reagent/uranium/radium, a_transfer)
 			a_boost++;
-			to_chat(U, "<span class='notice'>There are now [a_boost] adrenaline boosts remaining.</span>")
+			to_chat(U, span_notice("There are now [a_boost] adrenaline boosts remaining."))
 			return
 		if(I.reagents.has_reagent(/datum/reagent/smoke_powder, a_transfer) && s_bombs < s_maxamount)
 			I.reagents.remove_reagent(/datum/reagent/smoke_powder, a_transfer)
 			s_bombs++;
-			to_chat(U, "<span class='notice'>There are now [s_bombs] smoke bombs remaining.</span>")
+			to_chat(U, span_notice("There are now [s_bombs] smoke bombs remaining."))
 			return
 
 
 	else if(istype(I, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/CELL = I
 		if(CELL.maxcharge > cell.maxcharge && n_gloves && n_gloves.candrain)
-			to_chat(U, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
+			to_chat(U, span_notice("Higher maximum capacity detected.\nUpgrading..."))
 			if (n_gloves?.candrain && do_after(U,s_delay, target = src))
 				U.transferItemToLoc(CELL, src)
 				CELL.charge = min(CELL.charge+cell.charge, CELL.maxcharge)
@@ -31,9 +31,9 @@
 				old_cell.corrupt()
 				old_cell.update_icon()
 				cell = CELL
-				to_chat(U, "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>")
+				to_chat(U, span_notice("Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%"))
 			else
-				to_chat(U, "<span class='danger'>Procedure interrupted. Protocol terminated.</span>")
+				to_chat(U, span_danger("Procedure interrupted. Protocol terminated."))
 		return
 
 	else if(istype(I, /obj/item/disk/tech_disk))//If it's a data disk, we want to copy the research on to the suit.
@@ -43,10 +43,10 @@
 			to_chat(U, "Research information detected, processing...")
 			if(do_after(U,s_delay, target = src))
 				TD.stored_research.copy_research_to(stored_research)
-				to_chat(U, "<span class='notice'>Data analyzed and updated. Disk erased.</span>")
+				to_chat(U, span_notice("Data analyzed and updated. Disk erased."))
 			else
 				to_chat(U, "<span class='userdanger'>ERROR</span>: Procedure interrupted. Process terminated.")
 		else
-			to_chat(U, "<span class='notice'>No research information detected.</span>")
+			to_chat(U, span_notice("No research information detected."))
 		return
 	return ..()

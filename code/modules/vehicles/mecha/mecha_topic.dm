@@ -71,7 +71,7 @@
 		<b>Air source: </b>[internal_tank?"[use_internal_tank?"Internal Airtank":"Environment"]":"Environment"]<br>
 		<b>Air tank pressure: </b>[internal_tank?"[tank_pressure]kPa":"N/A"]<br>
 		<b>Air tank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
-		<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>": cabin_pressure]kPa":"N/A"]<br>
+		<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? span_danger("[cabin_pressure]"): cabin_pressure]kPa":"N/A"]<br>
 		<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>"}
 	. += "[get_actions(user)]<br>"
 
@@ -89,11 +89,11 @@
 /obj/vehicle/sealed/mecha/proc/report_internal_damage()
 	. = ""
 	var/list/dam_reports = list(
-		"[MECHA_INT_FIRE]" = "<span class='userdanger'>INTERNAL FIRE.</span>",
-		"[MECHA_INT_TEMP_CONTROL]" = "<span class='userdanger'>LIFE SUPPORT SYSTEM MALFUNCTION.</span>",
-		"[MECHA_INT_TANK_BREACH]" = "<span class='userdanger'>GAS TANK BREACH.</span>",
+		"[MECHA_INT_FIRE]" = span_userdanger("INTERNAL FIRE."),
+		"[MECHA_INT_TEMP_CONTROL]" = span_userdanger("LIFE SUPPORT SYSTEM MALFUNCTION."),
+		"[MECHA_INT_TANK_BREACH]" = span_userdanger("GAS TANK BREACH."),
 		"[MECHA_INT_CONTROL_LOST]" = "<span class='userdanger'>COORDINATION SYSTEM CALIBRATION FAILURE.</span> - <a href='?src=[REF(src)];repair_int_control_lost=1'>Recalibrate</a>",
-		"[MECHA_INT_SHORT_CIRCUIT]" = "<span class='userdanger'>SHORT CIRCUIT.</span>"
+		"[MECHA_INT_SHORT_CIRCUIT]" = span_userdanger("SHORT CIRCUIT.")
 								)
 	for(var/tflag in dam_reports)
 		var/intdamflag = text2num(tflag)
@@ -302,7 +302,7 @@
 			if(isnull(new_pressure) || usr.incapacitated() || !construction_state)
 				return
 			internal_tank_valve = new_pressure
-			to_chat(usr, "<span class='notice'>The internal pressure valve has been set to [internal_tank_valve]kPa.</span>")
+			to_chat(usr, span_notice("The internal pressure valve has been set to [internal_tank_valve]kPa."))
 			return
 
 	//Start of all internal topic stuff.

@@ -56,7 +56,7 @@
 	if(!patient_insertion_check(target))
 		return
 	to_chat(source, "[icon2html(src, source)]<span class='notice'>You start putting [target] into [src]...</span>")
-	chassis.visible_message("<span class='warning'>[chassis] starts putting [target] into \the [src].</span>")
+	chassis.visible_message(span_warning("[chassis] starts putting [target] into \the [src]."))
 	if(!do_after(source, equip_cooldown, target=target))
 		return
 	if(!chassis || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
@@ -68,7 +68,7 @@
 	START_PROCESSING(SSobj, src)
 	update_equip_info()
 	to_chat(source, "[icon2html(src, source)]<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged.</span>")
-	chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
+	chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
 	log_message("[target] loaded. Life support functions engaged.", LOG_MECHA)
 	return ..()
 

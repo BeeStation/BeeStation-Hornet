@@ -49,7 +49,7 @@
 		qdel(src)
 	else
 		balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-		to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+		to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 
 /obj/item/choice_beacon/proc/spawn_option(obj/choice,mob/living/M)
 	var/obj/new_item = new choice()
@@ -92,7 +92,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/hero/generate_item_list()
@@ -227,7 +227,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/magic/generate_item_list()
@@ -302,7 +302,7 @@
 			kidnaptime += 10 SECONDS
 		if(target == user)
 			kidnaptime = 1 SECONDS
-		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
+		kidnapee.visible_message(span_warning("[user] starts pulling [src] over [kidnapee]'s head!"), span_userdanger("[user] starts pulling [src] over your head!"))
 		if(do_after(user, kidnaptime * kidnappingcoefficient, kidnapee))
 			if(kidnapee == user)
 				kidnapee.drop_all_held_items()
@@ -311,8 +311,8 @@
 			if(kidnapee.mob_size <= capacity)
 				src.contents += kidnapee
 				capacity -= kidnapee.mob_size
-				user.visible_message("<span class='warning'>[user] stuffs [kidnapee] into the [src]!</span>")
-				to_chat(kidnapee, "<span class='userdanger'>[user] stuffs you into the [src]!</span>")
+				user.visible_message(span_warning("[user] stuffs [kidnapee] into the [src]!"))
+				to_chat(kidnapee, span_userdanger("[user] stuffs you into the [src]!"))
 			else
 				to_chat(user, "[kidnapee] will not fit in the tophat!")
 	else if (isitem(target))
@@ -322,7 +322,7 @@
 		if(!itemheld)
 			src.contents += I
 			itemheld = TRUE
-			user.visible_message("<span class='warning'>[user] stuffs [I] into the [src]!</span>")
+			user.visible_message(span_warning("[user] stuffs [I] into the [src]!"))
 		else
 			to_chat(user, "[I] will not fit in the tophat!")
 
@@ -332,9 +332,9 @@
 	itemheld = FALSE
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
-		user.visible_message("<span class='warning'>[user] pulls [A] out of the hat!</span>")
+		user.visible_message(span_warning("[user] pulls [A] out of the hat!"))
 		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel air around you! You're free!</span>")
+			to_chat(A, span_notice("You suddenly feel air around you! You're free!"))
 		if(isitem(A))
 			var/obj/item/I = A
 			user.put_in_hands(I)
@@ -342,27 +342,27 @@
 /obj/item/clothing/head/hats/tophat/bluespace/examine(mob/user)
 	. = ..()
 	if(contents.len)
-		. += "<span class='notice'>You can make out [contents.len] object\s in the hat.</span>"
+		. += span_notice("You can make out [contents.len] object\s in the hat.")
 
 /obj/item/clothing/head/hats/tophat/bluespace/Destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
+			to_chat(A, span_notice("You suddenly feel the space around you tear apart! You're free!"))
 	return ..()
 
 /obj/item/clothing/head/hats/tophat/bluespace/container_resist(mob/living/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
+		to_chat(user, span_warning("You can't get out while you're restrained like this!"))
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
-	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
+	to_chat(user, span_notice("You claw at the fabric of [src], trying to tear it open..."))
+	to_chat(loc, span_warning("Someone starts trying to break free of [src]!"))
 	if(!do_after(user, 10 SECONDS, src, timed_action_flags = (IGNORE_TARGET_LOC_CHANGE|IGNORE_HELD_ITEM)))
-		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
+		to_chat(loc, span_warning("The pressure subsides. It seems that they've stopped resisting..."))
 		return
-	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")
+	loc.visible_message(span_warning("[user] suddenly appears in front of [loc]!"), span_userdanger("[user] breaks free of [src]!"))
 	user.forceMove(get_turf(src))
 	capacity += user.mob_size
 
@@ -376,7 +376,7 @@
 	attack_verb_simple = list("skub")
 
 /obj/item/skub/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] has declared themself as anti-skub! The skub tears them apart!</span>")
+	user.visible_message(span_suicide("[user] has declared themself as anti-skub! The skub tears them apart!"))
 
 	user.gib()
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1, -1)
@@ -420,7 +420,7 @@
 	if(!uses)
 		qdel(src)
 	else
-		to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+		to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 
 /obj/item/choice_beacon/pet/proc/spawn_mob(mob/living/M,name)
 	var/obj/structure/closet/supplypod/bluespacepod/pod = new()

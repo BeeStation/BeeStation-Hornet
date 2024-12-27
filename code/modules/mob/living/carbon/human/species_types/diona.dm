@@ -167,7 +167,7 @@
 	. = ..()
 	if(. && target != user && target.on_fire)
 		user.balloon_alert(user, "[user] you hug [target]")
-		target.visible_message("<span class='warning'>[user] catches fire from hugging [target]!</span>", "<span class='boldnotice'>[user] catches fire hugging you!</span>", "<span class='italics'>You hear a fire crackling.</span>")
+		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
 			user.IgniteMob()

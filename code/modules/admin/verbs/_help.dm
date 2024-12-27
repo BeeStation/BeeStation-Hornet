@@ -402,7 +402,7 @@
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)
-		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>", type = message_type)
+		to_chat(initiator, span_warning("Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket."), type = message_type)
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
 		ticket_counter--
 		qdel(src)
@@ -591,7 +591,7 @@
 //Reopen a closed ticket
 /datum/help_ticket/proc/Reopen()
 	if(state <= TICKET_ACTIVE)
-		to_chat(usr, "<span class='warning'>This ticket is already open.</span>")
+		to_chat(usr, span_warning("This ticket is already open."))
 		return
 
 	var/datum/help_tickets/data_glob = get_data_glob()
@@ -599,7 +599,7 @@
 		return
 
 	if(data_glob.CKey2ActiveTicket(initiator_ckey))
-		to_chat(usr, "<span class='warning'>This user already has an active ticket, cannot reopen this one.</span>")
+		to_chat(usr, span_warning("This user already has an active ticket, cannot reopen this one."))
 		return
 
 	data_glob.active_tickets += src

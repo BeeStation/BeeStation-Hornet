@@ -17,7 +17,7 @@
 	leap_icon.icon_state = "leap_[leap_on_click ? "on" : "off"]"
 	update_icons()
 	if(message)
-		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at" : "slash at"] enemies!</span>")
+		to_chat(src, span_noticealien("You will now [leap_on_click ? "leap at" : "slash at"] enemies!"))
 
 /mob/living/carbon/alien/humanoid/hunter/ClickOn(atom/A, params)
 	face_atom(A)
@@ -33,11 +33,11 @@
 		return
 
 	if(!(COOLDOWN_FINISHED(src, pounce_cooldown)))
-		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
+		to_chat(src, span_alertalien("You are too fatigued to pounce right now!"))
 		return
 
 	if(!has_gravity() || !A.has_gravity())
-		to_chat(src, "<span class='alertalien'>It is unsafe to leap without gravity!</span>")
+		to_chat(src, span_alertalien("It is unsafe to leap without gravity!"))
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
 

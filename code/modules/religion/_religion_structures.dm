@@ -29,7 +29,7 @@
 		return ..()
 	var/mob/living/pushed_mob = user.pulling
 	if(pushed_mob.buckled)
-		to_chat(user, "<span class='warning'>[pushed_mob] is buckled to [pushed_mob.buckled]!</span>")
+		to_chat(user, span_warning("[pushed_mob] is buckled to [pushed_mob.buckled]!"))
 		return ..()
 	to_chat(user,"<span class='notice>You try to coax [pushed_mob] onto [src]...</span>")
 	if(!do_after(user,(5 SECONDS),target = pushed_mob))
@@ -40,7 +40,7 @@
 /obj/structure/altar_of_gods/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
 		if(user.mind?.holy_role == NONE)
-			to_chat(user, "<span class='warning'>Only the faithful may control the disposition of [src]!</span>")
+			to_chat(user, span_warning("Only the faithful may control the disposition of [src]!"))
 			return
 		anchored = !anchored
 		if(GLOB.religious_sect)

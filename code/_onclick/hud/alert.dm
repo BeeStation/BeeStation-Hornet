@@ -722,7 +722,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		to_chat(usr, span_boldnotice("[name]</span> - <span class='info'>[desc]"))
 		return
 	if(usr != owner)
 		return

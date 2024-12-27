@@ -47,9 +47,9 @@
 
 /datum/action/slam/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
+		to_chat(owner, span_warning("You can't WRESTLE while you're OUT FOR THE COUNT."))
 		return
-	owner.visible_message("<span class='danger'>[owner] prepares to BODY SLAM!</span>", "<b><i>Your next attack will be a BODY SLAM.</i></b>")
+	owner.visible_message(span_danger("[owner] prepares to BODY SLAM!"), "<b><i>Your next attack will be a BODY SLAM.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "slam"
 
@@ -59,9 +59,9 @@
 
 /datum/action/throw_wrassle/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
+		to_chat(owner, span_warning("You can't WRESTLE while you're OUT FOR THE COUNT."))
 		return
-	owner.visible_message("<span class='danger'>[owner] prepares to THROW!</span>", "<b><i>Your next attack will be a THROW.</i></b>")
+	owner.visible_message(span_danger("[owner] prepares to THROW!"), "<b><i>Your next attack will be a THROW.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "throw"
 
@@ -71,9 +71,9 @@
 
 /datum/action/kick/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
+		to_chat(owner, span_warning("You can't WRESTLE while you're OUT FOR THE COUNT."))
 		return
-	owner.visible_message("<span class='danger'>[owner] prepares to KICK!</span>", "<b><i>Your next attack will be a KICK.</i></b>")
+	owner.visible_message(span_danger("[owner] prepares to KICK!"), "<b><i>Your next attack will be a KICK.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "kick"
 
@@ -83,9 +83,9 @@
 
 /datum/action/strike/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
+		to_chat(owner, span_warning("You can't WRESTLE while you're OUT FOR THE COUNT."))
 		return
-	owner.visible_message("<span class='danger'>[owner] prepares to STRIKE!</span>", "<b><i>Your next attack will be a STRIKE.</i></b>")
+	owner.visible_message(span_danger("[owner] prepares to STRIKE!"), "<b><i>Your next attack will be a STRIKE.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "strike"
 
@@ -95,9 +95,9 @@
 
 /datum/action/drop/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
+		to_chat(owner, span_warning("You can't WRESTLE while you're OUT FOR THE COUNT."))
 		return
-	owner.visible_message("<span class='danger'>[owner] prepares to LEG DROP!</span>", "<b><i>Your next attack will be a LEG DROP.</i></b>")
+	owner.visible_message(span_danger("[owner] prepares to LEG DROP!"), "<b><i>Your next attack will be a LEG DROP.</i></b>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.streak = "drop"
 
@@ -135,9 +135,9 @@
 	D.setDir(get_dir(D, A))
 
 	D.Stun(80)
-	D.visible_message("<span class='danger'>[A] starts spinning around with [D]!</span>", \
-					"<span class='userdanger'>You're spun around by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
-	to_chat(A, "<span class='danger'>You start spinning around with [D]!</span>")
+	D.visible_message(span_danger("[A] starts spinning around with [D]!"), \
+					span_userdanger("You're spun around by [A]!"), span_hear("You hear aggressive shuffling!"), null, A)
+	to_chat(A, span_danger("You start spinning around with [D]!"))
 	A.emote("scream")
 
 	for (var/i in 1 to 20)
@@ -189,9 +189,9 @@
 
 		D.forceMove(A.loc) // Maybe this will help with the wallthrowing bug.
 
-		D.visible_message("<span class='danger'>[A] throws [D]!</span>", \
-						"<span class='userdanger'>You're thrown by [A]!</span>", "<span class='hear'>You hear aggressive shuffling and a loud thud!</span>", null, A)
-		to_chat(A, "<span class='danger'>You throw [D]!</span>")
+		D.visible_message(span_danger("[A] throws [D]!"), \
+						span_userdanger("You're thrown by [A]!"), span_hear("You hear aggressive shuffling and a loud thud!"), null, A)
+		to_chat(A, span_danger("You throw [D]!"))
 		playsound(A.loc, "swing_hit", 50, 1)
 		var/turf/T = get_edge_target_turf(A, A.dir)
 		if (T && isturf(T))
@@ -219,9 +219,9 @@
 	A.setDir(get_dir(A, D))
 	D.setDir(get_dir(D, A))
 
-	D.visible_message("<span class='danger'>[A] lifts [D] up!</span>", \
-					"<span class='userdanger'>You're lifted up by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
-	to_chat(A, "<span class='danger'>You lift [D] up!</span>")
+	D.visible_message(span_danger("[A] lifts [D] up!"), \
+					span_userdanger("You're lifted up by [A]!"), span_hear("You hear aggressive shuffling!"), null, A)
+	to_chat(A, span_danger("You lift [D] up!"))
 
 	FlipAnimation()
 
@@ -291,9 +291,9 @@
 			if (3)
 				fluff = "atomic [fluff]"
 
-		D.visible_message("<span class='danger'>[A] [fluff] [D]!</span>", \
-						"<span class='userdanger'>You're [fluff]ed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='danger'>You [fluff] [D]!</span>")
+		D.visible_message(span_danger("[A] [fluff] [D]!"), \
+						span_userdanger("You're [fluff]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+		to_chat(A, span_danger("You [fluff] [D]!"))
 		playsound(A.loc, "swing_hit", 50, 1)
 		if (!D.stat)
 			D.emote("scream")
@@ -336,9 +336,9 @@
 		A.forceMove(D.loc)
 		addtimer(CALLBACK(src, PROC_REF(CheckStrikeTurf), A, T), 4)
 
-		D.visible_message("<span class='danger'>[A] headbutts [D]!</span>", \
-						"<span class='userdanger'>You're headbutted by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='danger'>You headbutt [D]!</span>")
+		D.visible_message(span_danger("[A] headbutts [D]!"), \
+						span_userdanger("You're headbutted by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+		to_chat(A, span_danger("You headbutt [D]!"))
 		D.adjustBruteLoss(rand(10,20))
 		playsound(A.loc, "swing_hit", 50, 1)
 		D.Unconscious(20)
@@ -351,9 +351,9 @@
 	A.emote("flip")
 	A.setDir(turn(A.dir, 90))
 
-	D.visible_message("<span class='danger'>[A] roundhouse-kicks [D]!</span>", \
-					"<span class='userdanger'>You're roundhouse-kicked by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, "<span class='danger'>You roundhouse-kick [D]!</span>")
+	D.visible_message(span_danger("[A] roundhouse-kicks [D]!"), \
+					span_userdanger("You're roundhouse-kicked by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+	to_chat(A, span_danger("You roundhouse-kick [D]!"))
 	playsound(A.loc, "swing_hit", 50, 1)
 	D.adjustBruteLoss(rand(10,20))
 
@@ -383,8 +383,8 @@
 
 	if (surface && (ST && isturf(ST)))
 		A.forceMove(ST)
-		A.visible_message("<span class='danger'>[A] climbs onto [surface]!</span>", \
-						"<span class='danger'>You climb onto [surface]!</span>")
+		A.visible_message(span_danger("[A] climbs onto [surface]!"), \
+						span_danger("You climb onto [surface]!"))
 		A.pixel_y = A.base_pixel_y + 10
 		falling = 1
 		sleep(10)
@@ -395,8 +395,8 @@
 		if ((falling == 0 && get_dist(A, D) > 1) || (falling == 1 && get_dist(A, D) > 2)) // We climbed onto stuff.
 			A.pixel_y = A.base_pixel_y
 			if (falling == 1)
-				A.visible_message("<span class='danger'>...and dives head-first into the ground, ouch!</span>", \
-								"<span class='userdanger'>...and dive head-first into the ground, ouch!</span>")
+				A.visible_message(span_danger("...and dives head-first into the ground, ouch!"), \
+								span_userdanger("...and dive head-first into the ground, ouch!"))
 				A.adjustBruteLoss(rand(10,20))
 				A.Paralyze(60)
 			to_chat(A, "[D] is too far away!")
@@ -415,9 +415,9 @@
 
 		A.forceMove(D.loc)
 
-		D.visible_message("<span class='danger'>[A] leg-drops [D]!</span>", \
-						"<span class='userdanger'>You're leg-dropped by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-		to_chat(A, "<span class='danger'>You leg-drop [D]!</span>")
+		D.visible_message(span_danger("[A] leg-drops [D]!"), \
+						span_userdanger("You're leg-dropped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
+		to_chat(A, span_danger("You leg-drop [D]!"))
 		playsound(A.loc, "swing_hit", 50, 1)
 		A.emote("scream")
 
@@ -451,9 +451,9 @@
 	if(A.pulling == D)
 		return 1
 	A.start_pulling(D)
-	D.visible_message("<span class='danger'>[A] gets [D] in a cinch!</span>", \
-					"<span class='userdanger'>You're put into a cinch by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, "<span class='danger'>You get [D] in a cinch!</span>")
+	D.visible_message(span_danger("[A] gets [D] in a cinch!"), \
+					span_userdanger("You're put into a cinch by [A]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, A)
+	to_chat(A, span_danger("You get [D] in a cinch!"))
 	D.Stun(rand(60,100))
 	log_combat(A, D, "cinched", name)
 	return 1
