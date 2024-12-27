@@ -49,7 +49,7 @@
 		unbrainwash(target)
 	switch(rand(0, 3))//Now let's see what hopefully-not-important part of the brain we cut off
 		if(0)
-			return TRUE
+			pass()
 		if(1)
 			target.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)
 		if(2)

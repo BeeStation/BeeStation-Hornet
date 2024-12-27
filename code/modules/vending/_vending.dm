@@ -585,7 +585,7 @@
 				if(41 to 50)
 					tilt(user, crit=TRUE)
 				if(51 to 100)
-					return
+					pass()
 
 /obj/machinery/vending/proc/freebie(mob/fatty, freebies)
 	visible_message("<span class='notice'>[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!</span>")

@@ -107,7 +107,7 @@
 			if(3)
 				newletter += "[newletter][newletter]"
 			if(4 to 20)
-				newletter += ""
+				pass()
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -152,7 +152,7 @@
 			if(5)
 				newletter = "glor"
 			if(6 to 15)
-				newletter = ""
+				pass()
 		. += newletter
 	return sanitize(.)
 
@@ -196,7 +196,7 @@
 			if(5)
 				newletter = "toc"
 			if(6 to 15)
-				newletter = ""
+				pass()
 		. += newletter
 	return sanitize(.)
 
