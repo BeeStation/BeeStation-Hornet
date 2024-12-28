@@ -359,8 +359,11 @@
 /obj/effect/hallucination/simple/phobetor
 	name = "phobetor tear"
 	desc = "A subdimensional rip in reality, which gives extra-spacial passage to those who have woken from the sleepless dream."
+	/// Both of these are here so ghosts can see the tears too.
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "phobetor_tear"
+	image_icon = 'icons/effects/effects.dmi'
+	image_state = "phobetor_tear"
 	image_layer = ABOVE_MOB_LAYER
 
 	/// How long this will exist for
@@ -393,6 +396,8 @@
 		if(nearby_viewers == subject)
 			continue
 		if(!isliving(nearby_viewers) || !nearby_viewers.mind)
+			continue
+		if(IS_BLOODSUCKER(nearby_viewers) || IS_VASSAL(nearby_viewers))
 			continue
 		if(nearby_viewers.has_unlimited_silicon_privilege || nearby_viewers.is_blind())
 			continue

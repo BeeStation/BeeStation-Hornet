@@ -25,6 +25,9 @@
  * conversion_target - Person being vassalized
  */
 /datum/antagonist/bloodsucker/proc/can_make_vassal(mob/living/conversion_target)
+	if(!my_clan)
+		to_chat(owner.current, "<span class='danger'>You must enter a clan before you can vassalize people!</span>")
+		return FALSE
 	if(!iscarbon(conversion_target) || conversion_target.stat > UNCONSCIOUS)
 		return FALSE
 	if(length(vassals) == return_current_max_vassals())
@@ -79,10 +82,15 @@
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = owner.has_antag_datum(/datum/antagonist/bloodsucker)
 	bloodsuckerdatum.SelectTitle(am_fledgling = FALSE)
 
-	//set the master, then give the datum.
+	//Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
 	vassaldatum.master = bloodsuckerdatum
 	conversion_target.mind.add_antag_datum(vassaldatum)
+
+	//Add to the bloodsucker's team # Taken from wizard.dm
+	if(!bloodsuckerdatum.bloodsucker_team)
+		bloodsuckerdatum.create_bloodsucker_team()
+	vassaldatum.bloodsucker_team = bloodsuckerdatum.bloodsucker_team
 
 	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")

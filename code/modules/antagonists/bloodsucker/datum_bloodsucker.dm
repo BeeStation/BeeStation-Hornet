@@ -13,7 +13,7 @@
 	var/max_blood_volume = 600
 
 	// Only created if bloodsucker makes vassals
-	var/datum/team/bloodsucker/vamp_team
+	var/datum/team/bloodsucker/bloodsucker_team
 
 	var/datum/bloodsucker_clan/my_clan
 
@@ -94,11 +94,11 @@
 	)
 
 // Taken from wizard.dm
-/datum/antagonist/bloodsucker/proc/create_vamp_team()
+/datum/antagonist/bloodsucker/proc/create_bloodsucker_team()
 	var/static/count = 0
-	vamp_team = new(owner)
-	vamp_team.name = "Vamp team No.[++count]" // only displayed to admins
-	vamp_team.master_bloodsucker = src
+	bloodsucker_team = new(owner)
+	bloodsucker_team.name = "Bloodsucker team No.[++count]" // only displayed to admins
+	bloodsucker_team.master_bloodsucker = src
 	add_antag_hud(ANTAG_HUD_BLOODSUCKER, antag_hud_name, owner.current)
 
 /datum/team/bloodsucker
@@ -372,6 +372,10 @@
 	//Give Bloodsucker Traits
 	for(var/all_traits in bloodsucker_traits)
 		ADD_TRAIT(user, all_traits, BLOODSUCKER_TRAIT)
+	//Clear Addictions
+	user.reagents.addiction_list = new()
+	owner.remove_quirk(/datum/quirk/junkie)
+	owner.remove_quirk(/datum/quirk/junkie/smoker)
 	//No Skittish "People" allowed
 	if(HAS_TRAIT(user, TRAIT_SKITTISH))
 		REMOVE_TRAIT(user, TRAIT_SKITTISH, ROUNDSTART_TRAIT)

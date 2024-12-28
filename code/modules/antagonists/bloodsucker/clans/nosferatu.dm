@@ -16,20 +16,17 @@
 		if(istype(power, /datum/action/cooldown/bloodsucker/masquerade) || istype(power, /datum/action/cooldown/bloodsucker/veil))
 			bloodsuckerdatum.RemovePower(power)
 
-	//if(!bloodsuckerdatum.owner.current.has_quirk(/datum/quirk/badback))
-	//		var/datum/quirk/badback/q = new /datum/quirk/badback
-	//		q.transfer_mob(bloodsuckerdatum.owner.current)
-
 	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, BLOODSUCKER_TRAIT)
+	bloodsuckerdatum.owner.add_quirk(/datum/quirk/badback)
 	bloodsuckerdatum.owner.current.ventcrawler = VENTCRAWLER_ALWAYS
 
 /datum/bloodsucker_clan/nosferatu/Destroy(force)
 	for(var/datum/action/cooldown/bloodsucker/power in bloodsuckerdatum.powers)
 		bloodsuckerdatum.RemovePower(power)
 	bloodsuckerdatum.give_starting_powers()
-	//bloodsuckerdatum.owner.current.remove_quirk(/datum/quirk/badback)
 
 	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, BLOODSUCKER_TRAIT)
+	bloodsuckerdatum.owner.remove_quirk(/datum/quirk/badback)
 	bloodsuckerdatum.owner.current.ventcrawler = VENTCRAWLER_NONE
 	return ..()
 

@@ -15,7 +15,7 @@
 	/// The Master Bloodsucker's antag datum.
 	var/datum/antagonist/bloodsucker/master
 	/// The Bloodsucker's team
-	var/datum/team/bloodsucker/vamp_team
+	var/datum/team/bloodsucker/bloodsucker_team
 	/// List of all Purchased Powers, like Bloodsuckers.
 	var/list/datum/action/powers = list()
 	///Whether this vassal is already a special type of Vassal.
@@ -34,7 +34,7 @@
 	add_antag_hud(ANTAG_HUD_BLOODSUCKER, vassal_hud_name, current_mob)
 	current_mob.faction |= FACTION_BLOODSUCKER
 
-	vamp_team = master.vamp_team
+	bloodsucker_team = master.bloodsucker_team
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()

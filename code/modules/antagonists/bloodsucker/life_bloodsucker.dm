@@ -30,9 +30,8 @@
 	SIGNAL_HANDLER
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 	RegisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(HandleDeath))
-	to_chat(world, gibbed ? "true" : "false")
-	if(gibbed == TRUE) // death code is stupid so the == TRUE has to be added.
-		FinalDeath(FALSE)
+	if(gibbed)
+		final_death(FALSE)
 
 /datum/antagonist/bloodsucker/proc/on_revive(mob/living/source)
 	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
@@ -193,15 +192,15 @@
 	var/mob/living/carbon/user = owner.current
 	// Not "Alive"?
 	if(!user)
-		FinalDeath()
+		final_death()
 		return
 	// Fire Damage? (above double health)
 	if(user.getFireLoss() >= user.maxHealth * 2.5 && bloodsucker_level)
-		FinalDeath()
+		final_death()
 		return
 	// Staked while "Temp Death" or Asleep
 	if(user.StakeCanKillMe() && user.am_staked())
-		FinalDeath()
+		final_death()
 		return
 	// Temporary Death? Convert to Torpor.
 	if(HAS_TRAIT(user, TRAIT_NODEATH))
@@ -258,7 +257,7 @@
 	owner.current.blood_volume = bloodsucker_blood_volume
 
 /// Gibs the Bloodsucker, roundremoving them.
-/datum/antagonist/bloodsucker/proc/FinalDeath(var/gib = TRUE)
+/datum/antagonist/bloodsucker/proc/final_death(var/gib = TRUE)
 	var/mob/living/carbon/user = owner.current
 	// If we have no body, end here.
 	if(!owner.current)

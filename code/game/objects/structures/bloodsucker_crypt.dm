@@ -239,7 +239,7 @@
 		balloon_alert(user, "its pointless to try and change their loyalties!")
 		return FALSE
 
-	if(disloyalty_requires == VASSALIZATION_BANNED)
+	if(disloyalty_requires == VASSALIZATION_BANNED || !ishuman(target))
 		balloon_alert(user, "can't be vassalized!")
 		return FALSE
 
@@ -359,7 +359,6 @@
 #else
 	if(!target || !target.client)
 #endif
-		balloon_alert(user, "target has no mind!")
 		return VASSALIZATION_BANNED
 
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(user)
@@ -367,9 +366,9 @@
 
 /obj/structure/bloodsucker/vassalrack/proc/remove_loyalties(mob/living/target)
 	// Find Mind Implant & Destroy
-	for(var/obj/item/implant/all_implants as anything in target.implants)
-		if(all_implants.type == /obj/item/implant/mindshield)
-			all_implants.removed(target, silent = TRUE)
+	for(var/obj/item/implant/implant as anything in target.implants)
+		if(istype(implant, /obj/item/implant/mindshield) && implant.removed(target, silent = TRUE))
+			qdel(implant)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -378,7 +377,7 @@
 	desc = "It burns slowly, but doesn't radiate any heat."
 	icon = 'icons/bloodsuckers/vamp_obj.dmi'
 	icon_state = "candelabrum"
-	light_color = "#66FFFF"//LIGHT_COLOR_BLUEGREEN // lighting.dm
+	light_color = "#66FFFF"
 	light_power = 3
 	density = FALSE
 	can_buckle = TRUE

@@ -66,11 +66,7 @@
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 	bloodsuckerdatum.frenzygrab.teach(user, TRUE)
 	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
-	var/obj/cuffs = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-	var/obj/legcuffs = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
-	if(user.handcuffed || user.legcuffed)
-		user.clear_cuffs(cuffs, TRUE)
-		user.clear_cuffs(legcuffs, TRUE)
+	user.uncuff()
 	bloodsuckerdatum.frenzied = TRUE
 	return ..()
 
