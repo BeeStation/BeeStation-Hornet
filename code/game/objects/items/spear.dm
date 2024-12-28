@@ -18,12 +18,17 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_spear
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
+
+
+/datum/armor/item_spear
+	fire = 50
+	acid = 30
 
 /obj/item/spear/ComponentInitialize()
 	. = ..()
@@ -196,7 +201,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 
 /obj/item/spear/bamboospear/ComponentInitialize()

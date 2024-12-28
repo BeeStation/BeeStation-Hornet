@@ -42,9 +42,9 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection *= 1 - min((C.get_armor_rating(d_type, src) / 100) * (1 - (penetration / 100)), 1)
+				protection *= 1 - min((C.get_armor_rating(d_type) / 100) * (1 - (penetration / 100)), 1)
 
-	protection *= 1 - CLAMP01(physiology.armor.getRating(d_type) / 100)
+	protection *= 1 - CLAMP01(physiology.physio_armor.get_rating(d_type) / 100)
 	return (1 - protection) * 100
 
 ///Get all the clothing on a specific body part
@@ -141,15 +141,14 @@
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
 				return 1
-	if(wear_suit)
-		if(wear_suit.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
-	if(w_uniform)
-		if(w_uniform.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
-	if(wear_neck)
-		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
+	if(wear_suit?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
+	if(w_uniform?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
+	if(wear_neck?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
+	if(belt?.hit_reaction(src, AM, attack_text, damage, attack_type))
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
@@ -454,21 +453,20 @@
 	if(. & EMP_PROTECT_CONTENTS)
 		return
 	var/informed = FALSE
-	for(var/obj/item/bodypart/L in src.bodyparts)
-		if(!IS_ORGANIC_LIMB(L))
+	for(var/obj/item/bodypart/bodypart in src.bodyparts)
+		if(!IS_ORGANIC_LIMB(bodypart))
 			if(!informed)
-				to_chat(src, "<span class='userdanger'>You feel a sharp pain as your robotic limbs overload.</span>")
+				to_chat(src, "<span class='userdanger'>You feel a sharp pain as [bodypart] overloads!</span>")
 				informed = TRUE
 			switch(severity)
-				if(1)
-					L.receive_damage(0,10)
-					Paralyze(200)
-				if(2)
-					L.receive_damage(0,5)
-					Paralyze(100)
-			if(HAS_TRAIT(L, TRAIT_EASYDISMEMBER) && L.body_zone != "chest")
+				if(EMP_HEAVY)
+					bodypart.receive_damage(0,10) //Burns, heavy.
+				if(EMP_LIGHT)
+					bodypart.receive_damage(0,5) //Burns, light.
+			bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
+			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
 				if(prob(20))
-					L.dismember(BRUTE)
+					bodypart.dismember(BRUTE)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()

@@ -29,30 +29,32 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
-	area_flags = UNIQUE_AREA
+	area_flags = UNIQUE_AREA | NO_GRAVITY
 	outdoors = TRUE
 	ambience_index = null
 	ambient_music_index = AMBIENCE_SPACE
 	ambient_buzz = null //Space is deafeningly quiet
 	sound_environment = SOUND_AREA_SPACE
 	fullbright_type = FULLBRIGHT_STARLIGHT
+	default_gravity = ZERO_GRAVITY
 
 /area/space/nearstation
 	icon_state = "space_near"
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	default_gravity = ZERO_GRAVITY
 
 /area/start
 	name = "start area"
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = null
 	ambient_buzz = null
 
 /area/testroom
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	name = "Test Room"
 	icon_state = "storage"
 
@@ -62,7 +64,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Asteroid"
 	icon_state = "asteroid"
 	always_unpowered = TRUE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_MINING
 	sound_environment = SOUND_AREA_ASTEROID
 	area_flags = UNIQUE_AREA
@@ -178,7 +180,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/maintenance/get_turf_textures()
+/area/maintenance/get_area_textures()
 	return GLOB.turf_texture_maint
 
 //Maintenance - Departmental
@@ -242,7 +244,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Science Maintenance"
 	icon_state = "maint_sci"
 
-/area/maintenance/department/science/get_turf_textures()
+/area/maintenance/department/science/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/maintenance/department/science/central
@@ -420,7 +422,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_brightness_tube = 8
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/hallway/get_turf_textures()
+/area/hallway/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/hallway/primary
@@ -642,7 +644,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/warm_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/crew_quarters/get_turf_textures()
+/area/crew_quarters/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/crew_quarters/dorms
@@ -892,7 +894,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering"
 	icon_state = "engine"
 
-/area/engine/engineering/get_turf_textures()
+/area/engine/engineering/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/engineering/hallway
@@ -965,10 +967,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
-	area_flags = UNIQUE_AREA
+	area_flags = UNIQUE_AREA | NO_GRAVITY
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_SPACE
+	default_gravity = ZERO_GRAVITY
 
 /area/solar/fore
 	name = "Fore Solar Array"
@@ -1216,7 +1219,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/warm_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/security/get_turf_textures()
+/area/security/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/security/main
@@ -1389,7 +1392,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/warm_yellow
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/quartermaster/get_turf_textures()
+/area/quartermaster/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/quartermaster/sorting
@@ -1473,7 +1476,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
-/area/hydroponics/get_turf_textures()
+/area/hydroponics/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/hydroponics/garden
@@ -1535,10 +1538,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/science/test_area
 	name = "Toxins Test Area"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED | UNIQUE_AREA | NO_GRAVITY
 	icon_state = "tox_test"
 	lights_always_start_on = TRUE
 	always_unpowered = TRUE
+
+/area/science/test_area/planet
+	name = "Planetary Toxins Test Area"
+	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 
 /area/science/mixing
 	name = "Toxins Mixing Lab"
@@ -1571,7 +1578,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Robotics"
 	icon_state = "robotics"
 
-/area/science/robotics/get_turf_textures()
+/area/science/robotics/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/science/robotics/mechbay
@@ -1615,7 +1622,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
 
-/area/storage/primary/get_turf_textures()
+/area/storage/primary/get_area_textures()
 	return GLOB.turf_texture_hallway
 
 /area/storage/art

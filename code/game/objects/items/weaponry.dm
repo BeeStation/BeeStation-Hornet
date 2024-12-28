@@ -13,8 +13,13 @@
 	attack_verb_continuous = list("bans")
 	attack_verb_simple = list("ban")
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_banhammer
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_banhammer
+	fire = 100
+	acid = 70
 
 /obj/item/banhammer/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
@@ -84,11 +89,16 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_upgrade_walk = 1
 	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_claymore
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_claymore
+	fire = 100
+	acid = 50
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -242,7 +252,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 0
 	block_power = 30
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/claymore_bone
+
+
+/datum/armor/claymore_bone
+	fire = 100
+	acid = 50
 
 /obj/item/katana
 	name = "katana"
@@ -265,11 +280,16 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_level = 1
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_katana
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_katana
+	fire = 100
+	acid = 50
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -337,7 +357,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
@@ -351,7 +371,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/throwing_star/toy
 	name = "toy throwing star"
 	desc = "An aerodynamic disc strapped with adhesive for sticking to people, good for playing pranks and getting yourself killed by security."
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	force = 0
 	throwforce = 0
 	embedding = list("pain_mult" = 0, "jostle_pain_mult" = 0, "embed_chance" = 300, "fall_chance" = 25, "armour_block" = 70)
@@ -404,7 +424,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
-		sharpness = IS_SHARP
+		sharpness = SHARP
 		bleed_force = BLEED_CUT
 	else
 		force = initial(force)
@@ -414,7 +434,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb_continuous = list("stubs", "pokes")
 		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
-		sharpness = IS_BLUNT
+		sharpness = BLUNT
 		bleed_force = 0
 
 /obj/item/switchblade/suicide_act(mob/living/user)
@@ -554,7 +574,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
@@ -1017,7 +1037,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 18
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -1038,7 +1058,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 20
 	throwforce = 20
 	throw_speed = 4
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("cuts", "slices", "dices")
 	attack_verb_simple = list("cut", "slice", "dice")

@@ -115,6 +115,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_mentor_pm(href_list["mentor_msg"], null)
 		return TRUE
 
+	if(href_list["commandbar_typing"])
+		handle_commandbar_typing(href_list)
+
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
@@ -208,6 +211,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	tgui_say = new(src, "tgui_say")
 	tgui_asay = new(src, "tgui_asay")
+
+	initialize_commandbar_spy()
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)

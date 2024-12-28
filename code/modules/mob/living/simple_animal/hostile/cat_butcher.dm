@@ -60,7 +60,7 @@
 			var/obj/item/organ/tail/cat/newtail = new
 			newtail.Insert(L)
 			return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat) && L.stat) //still does damage.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(L.stat)
 				L.emote("scream")

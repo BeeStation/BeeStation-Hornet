@@ -159,6 +159,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
 
+	// we need to update gravity for any mob on a tile that is being created or destroyed
+	for(var/mob/living/target in new_turf.contents)
+		target.refresh_gravity()
+
 	return new_turf
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags)

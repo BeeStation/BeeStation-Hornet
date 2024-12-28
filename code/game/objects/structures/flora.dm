@@ -322,6 +322,7 @@
 
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
 	AddComponent(/datum/component/storage/concrete/kirbyplants)
 
@@ -330,10 +331,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
 	animated = FALSE
-
-/obj/item/kirbyplants/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/tactical)
 
 /obj/item/kirbyplants/random
 	icon = 'icons/obj/flora/_flora.dmi'

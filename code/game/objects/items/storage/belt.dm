@@ -468,7 +468,7 @@
 		/obj/item/skeleton_key,
 		/obj/item/discovery_scanner,
 		/obj/item/gun/energy/e_gun/mini/exploration,
-		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/gun/energy/recharge/kinetic_accelerator,
 		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,

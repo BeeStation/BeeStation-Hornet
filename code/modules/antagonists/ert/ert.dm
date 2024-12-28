@@ -12,7 +12,7 @@
 	name = "Emergency Response Officer"
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
-	var/datum/outfit/outfit = /datum/outfit/ert/security
+	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
 	var/role = JOB_NAME_SECURITYOFFICER
 	var/list/name_source
@@ -55,47 +55,77 @@
 /datum/antagonist/ert/deathsquad/remove_innate_effects(mob/living/mob_override)
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
+/datum/antagonist/ert/official
+	name = JOB_CENTCOM_OFFICIAL
+	show_name_in_check_antagonists = TRUE
+	show_in_antagpanel = FALSE
+	can_elimination_hijack = ELIMINATION_PREVENT
+	var/datum/objective/mission
+	show_to_ghosts = TRUE
+	banning_key = ROLE_ERT
+	random_names = FALSE
+	outfit = /datum/outfit/centcom/centcom_official
+
+/datum/antagonist/ert/official/greet()
+	to_chat(owner, "<B><font size=3 color=red>You are a CentCom Official.</font></B>")
+	if (ert_team)
+		to_chat(owner, "Central Command is sending you to [station_name()] with the task: [ert_team.mission.explanation_text]")
+	else
+		to_chat(owner, "Central Command is sending you to [station_name()] with the task: [mission.explanation_text]")
+
+/datum/antagonist/ert/official/forge_objectives()
+	if (ert_team)
+		return ..()
+	if(mission)
+		return
+	var/datum/objective/missionobj = new ()
+	missionobj.owner = owner
+	missionobj.explanation_text = "Conduct a routine performance review of [station_name()] and its Captain."
+	missionobj.completed = TRUE
+	mission = missionobj
+	objectives |= mission
+
 /datum/antagonist/ert/security // kinda handled by the base template but here for completion
 
 /datum/antagonist/ert/security/red
-	outfit = /datum/outfit/ert/security/alert
+	outfit = /datum/outfit/centcom/ert/security/alert
 
 /datum/antagonist/ert/engineer
 	role = "Engineer"
-	outfit = /datum/outfit/ert/engineer
+	outfit = /datum/outfit/centcom/ert/engineer
 
 /datum/antagonist/ert/engineer/red
-	outfit = /datum/outfit/ert/engineer/alert
+	outfit = /datum/outfit/centcom/ert/engineer/alert
 
 /datum/antagonist/ert/medic
 	role = JOB_CENTCOM_MEDICAL_DOCTOR
-	outfit = /datum/outfit/ert/medic
+	outfit = /datum/outfit/centcom/ert/medic
 
 /datum/antagonist/ert/medic/red
-	outfit = /datum/outfit/ert/medic/alert
+	outfit = /datum/outfit/centcom/ert/medic/alert
 
 /datum/antagonist/ert/commander
 	role = "Commander"
-	outfit = /datum/outfit/ert/commander
+	outfit = /datum/outfit/centcom/ert/commander
 
 /datum/antagonist/ert/commander/red
-	outfit = /datum/outfit/ert/commander/alert
+	outfit = /datum/outfit/centcom/ert/commander/alert
 
 /datum/antagonist/ert/deathsquad
 	name = "Deathsquad Trooper"
-	outfit = /datum/outfit/death_commando
+	outfit = /datum/outfit/centcom/death_commando
 	role = "Trooper"
 	plasmaman_outfit = /datum/outfit/plasmaman/death_commando
 
 /datum/antagonist/ert/medic/inquisitor
-	outfit = /datum/outfit/ert/medic/inquisitor
+	outfit = /datum/outfit/centcom/ert/medic/inquisitor
 
 /datum/antagonist/ert/medic/inquisitor/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/security/inquisitor
-	outfit = /datum/outfit/ert/security/inquisitor
+	outfit = /datum/outfit/centcom/ert/security/inquisitor
 
 /datum/antagonist/ert/security/inquisitor/on_gain()
 	. = ..()
@@ -103,17 +133,17 @@
 
 /datum/antagonist/ert/chaplain
 	role = JOB_NAME_CHAPLAIN
-	outfit = /datum/outfit/ert/chaplain
+	outfit = /datum/outfit/centcom/ert/chaplain
 
 /datum/antagonist/ert/chaplain/inquisitor
-	outfit = /datum/outfit/ert/chaplain/inquisitor
+	outfit = /datum/outfit/centcom/ert/chaplain/inquisitor
 
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/commander/inquisitor
-	outfit = /datum/outfit/ert/commander/inquisitor
+	outfit = /datum/outfit/centcom/ert/commander/inquisitor
 
 /datum/antagonist/ert/commander/inquisitor/on_gain()
 	. = ..()
@@ -121,60 +151,79 @@
 
 /datum/antagonist/ert/janitor
 	role = JOB_NAME_JANITOR
-	outfit = /datum/outfit/ert/janitor
+	outfit = /datum/outfit/centcom/ert/janitor
 
 /datum/antagonist/ert/janitor/heavy
 	role = "Heavy Duty Janitor"
-	outfit = /datum/outfit/ert/janitor/heavy
+	outfit = /datum/outfit/centcom/ert/janitor/heavy
 
 /datum/antagonist/ert/kudzu
 	role = "Weed Whacker"
-	outfit = /datum/outfit/ert/kudzu
+	outfit = /datum/outfit/centcom/ert/kudzu
 
 /datum/antagonist/ert/deathsquad/leader
 	name = "Deathsquad Officer"
-	outfit = /datum/outfit/death_commando/officer
+	outfit = /datum/outfit/centcom/death_commando/officer
 	role = "Officer"
 
 /datum/antagonist/ert/intern
 	name = "CentCom Intern"
-	outfit = /datum/outfit/centcom_intern
+	outfit = /datum/outfit/centcom/centcom_intern
 	random_names = FALSE
 	role = "Intern"
 	plasmaman_outfit = /datum/outfit/plasmaman/intern
 
 /datum/antagonist/ert/intern/leader
 	name = "CentCom Head Intern"
-	outfit = /datum/outfit/centcom_intern/leader
+	outfit = /datum/outfit/centcom/centcom_intern/leader
+	random_names = FALSE
 	role = "Head Intern"
+
+/datum/antagonist/ert/intern/unarmed
+	outfit = /datum/outfit/centcom/centcom_intern/unarmed
+
+/datum/antagonist/ert/intern/leader/unarmed
+	outfit = /datum/outfit/centcom/centcom_intern/leader/unarmed
 
 /datum/antagonist/ert/lawyer
 	name = "CentCom Attorney"
-	outfit = /datum/outfit/centcom_attorney
+	outfit = /datum/outfit/centcom/centcom_attorney
 	role = "Attorney"
 	plasmaman_outfit = /datum/outfit/plasmaman/centcom_attorney
 
 /datum/antagonist/ert/doomguy
 	name = "The Juggernaut"
-	outfit = /datum/outfit/death_commando/doomguy
+	outfit = /datum/outfit/centcom/death_commando/doomguy
 	random_names = FALSE
 	role = "The Juggernaut"
 
 /datum/antagonist/ert/clown
 	name = "Comedy Response Officer"
-	outfit = /datum/outfit/centcom_clown
+	outfit = /datum/outfit/centcom/centcom_clown
 	role = "Prankster"
 	plasmaman_outfit = /datum/outfit/plasmaman/honk
 
 /datum/antagonist/ert/clown/honk
 	name = "HONK Squad Trooper"
-	outfit = /datum/outfit/centcom_clown/honk_squad
+	outfit = /datum/outfit/centcom/centcom_clown/honk_squad
 	role = "HONKER"
 	plasmaman_outfit = /datum/outfit/plasmaman/honk_squad
 
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team
+
+/datum/antagonist/ert/bounty_armor
+	role = "Armored Bounty Hunter"
+	outfit = /datum/outfit/bounty/armor/ert
+
+/datum/antagonist/ert/bounty_hook
+	role = "Hookgun Bounty Hunter"
+	outfit = /datum/outfit/bounty/hook/ert
+
+/datum/antagonist/ert/bounty_synth
+	role = "Synthetic Bounty Hunter"
+	outfit = /datum/outfit/bounty/synth/ert
 
 /datum/antagonist/ert/proc/forge_objectives()
 	if(ert_team)

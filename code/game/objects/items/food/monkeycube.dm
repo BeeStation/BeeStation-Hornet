@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/faction
 	var/spawned_mob = /mob/living/carbon/monkey
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/monkeycube/proc/Expand()
 	if(GLOB.total_cube_monkeys >= CONFIG_GET(number/max_cube_monkeys))

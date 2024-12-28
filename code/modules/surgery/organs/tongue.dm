@@ -7,7 +7,15 @@
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
 	attack_verb_simple = list("lick", "slobber", "slap", "french", "tongue")
-	var/list/languages_possible
+	/**
+	 * A cached list of paths of all the languages this tongue is capable of speaking
+	 *
+	 * Relates to a mob's ability to speak a language - a mob must be able to speak the language
+	 * and have a tongue able to speak the language (or omnitongue) in order to actually speak said language
+	 *
+	 * To modify this list for subtypes, see [/obj/item/organ/internal/tongue/proc/get_possible_languages]. Do not modify directly.
+	 */
+	VAR_PRIVATE/list/languages_possible
 	var/say_mod = "says"
 	var/ask_mod = "asks"
 	var/yell_mod = "yells"
@@ -15,9 +23,33 @@
 	var/liked_food = JUNKFOOD | FRIED
 	var/disliked_food = GROSS | RAW | CLOTH | GORE
 	var/toxic_food = TOXIC
-	var/taste_sensitivity = 15 // lower is more sensitive.
+	// Determines how "sensitive" this tongue is to tasting things, lower is more sensitive.
+	/// See [/mob/living/proc/get_taste_sensitivity].
+	var/taste_sensitivity = 15
+	/// Whether this tongue modifies speech via signal
 	var/modifies_speech = FALSE
-	var/static/list/languages_possible_base = typecacheof(list(
+
+/obj/item/organ/tongue/Initialize(mapload)
+	. = ..()
+	// Setup the possible languages list
+	// - get_possible_languages gives us a list of language paths
+	// - then we cache it via string list
+	// this results in tongues with identical possible languages sharing a cached list instance
+	languages_possible = string_list(get_possible_languages())
+
+/**
+ * Used in setting up the "languages possible" list.
+ *
+ * Override to have your tongue be only capable of speaking certain languages
+ * Extend to hvae a tongue capable of speaking additional languages to the base tongue
+ *
+ * While a user may be theoretically capable of speaking a language, they cannot physically speak it
+ * UNLESS they have a tongue with that language possible, UNLESS UNLESS they have omnitongue enabled.
+ */
+/obj/item/organ/tongue/proc/get_possible_languages()
+	RETURN_TYPE(/list)
+	// This is the default list of languages most humans should be capable of speaking
+	return list(
 		/datum/language/aphasia,
 		/datum/language/apidite,
 		/datum/language/beachbum,
@@ -36,11 +68,8 @@
 		/datum/language/sylvan,
 		/datum/language/terrum,
 		/datum/language/uncommon,
-		/datum/language/sonus))
-
-/obj/item/organ/tongue/Initialize(mapload)
-	. = ..()
-	languages_possible = languages_possible_base
+		/datum/language/sonus,
+	)
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
@@ -56,8 +85,8 @@
 	M.RegisterSignal(M, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()
 
-/obj/item/organ/tongue/could_speak_language(datum/language/dt)
-	return is_type_in_typecache(dt, languages_possible)
+/obj/item/organ/tongue/could_speak_language(datum/language/language_path)
+	return (language_path in languages_possible)
 
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
@@ -191,16 +220,17 @@
 	say_mod = "hisses"
 	taste_sensitivity = 10 // LIZARDS ARE ALIENS CONFIRMED
 	modifies_speech = TRUE // not really, they just hiss
-	var/static/list/languages_possible_alien = typecacheof(list(
+
+// Aliens can only speak alien and a few other languages.
+/obj/item/organ/tongue/alien/get_possible_languages()
+	return list(
 		/datum/language/xenocommon,
 		/datum/language/common,
+		/datum/language/uncommon,
 		/datum/language/draconic,
 		/datum/language/ratvar,
-		/datum/language/monkey))
-
-/obj/item/organ/tongue/alien/Initialize(mapload)
-	. = ..()
-	languages_possible = languages_possible_alien
+		/datum/language/monkey,
+	)
 
 /obj/item/organ/tongue/alien/handle_speech(datum/source, list/speech_args)
 	playsound(owner, "hiss", 25, 1, 1)
@@ -264,9 +294,8 @@
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
 
-/obj/item/organ/tongue/robot/Initialize(mapload)
-	. = ..()
-	languages_possible = languages_possible_base += typecacheof(/datum/language/machine) + typecacheof(/datum/language/voltaic)
+/obj/item/organ/tongue/robot/get_possible_languages()
+	return ..() + /datum/language/machine + /datum/language/voltaic
 
 /obj/item/organ/tongue/robot/emp_act(severity)
 	owner.emote("scream")
@@ -301,9 +330,8 @@
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
 	toxic_food = NONE
 
-/obj/item/organ/tongue/ethereal/Initialize(mapload)
-	. = ..()
-	languages_possible = languages_possible_base += typecacheof(/datum/language/voltaic)
+/obj/item/organ/tongue/ethereal/get_possible_languages()
+	return ..() + /datum/language/voltaic
 
 /obj/item/organ/tongue/golem
 	name = "mineral tongue"
@@ -312,9 +340,8 @@
 	taste_sensitivity = 101 //They don't eat.
 	icon_state = "adamantine_cords"
 
-/obj/item/organ/tongue/golem/Initialize(mapload)
-	. = ..()
-	languages_possible = languages_possible_base += typecacheof(/datum/language/terrum)
+/obj/item/organ/tongue/golem/get_possible_languages()
+	return ..() + /datum/language/terrum
 
 /obj/item/organ/tongue/golem/bananium
 	name = "bananium tongue"
@@ -344,9 +371,8 @@
 	toxic_food = NONE
 	disliked_food = NONE
 
-/obj/item/organ/tongue/slime/Initialize(mapload)
-	. = ..()
-	languages_possible = languages_possible_base += typecacheof(/datum/language/slime)
+/obj/item/organ/tongue/slime/get_possible_languages()
+	return ..() + /datum/language/slime
 
 /obj/item/organ/tongue/moth
 	name = "mothic tongue"

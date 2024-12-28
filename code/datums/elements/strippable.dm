@@ -395,6 +395,10 @@
 		result["name"] = item.name
 		result["alternate"] = item_data.get_alternate_action(owner, user)
 
+		var/datum/strip_context/context = new()
+		result["extra_actions"] = context.extra_actions
+		item.add_strip_actions(context)
+
 		items[strippable_key] = result
 
 	data["items"] = items
@@ -530,6 +534,24 @@
 			strippable_item.alternate_action(owner, user)
 
 			LAZYREMOVEASSOC(interactions, user, key)
+		if ("extra_act")
+			var/slot_id = params["key"]
+			var/datum/strippable_item/strippable_item = strippable.items[slot_id]
+
+			if(isnull(strippable_item))
+				return
+
+			if(!strippable_item.should_show(owner, user))
+				return
+
+			if(strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
+				return
+
+			var/obj/item/item = strippable_item.get_item(owner)
+			if(isnull(item))
+				return
+
+			item.perform_strip_actions(params["action"], user)
 
 /datum/strip_menu/ui_host(mob/user)
 	return owner
@@ -556,3 +578,30 @@
 		strippable_items[strippable_item.key] = strippable_item
 
 	return strippable_items
+
+/datum/strip_context
+	var/mob/living/actor
+	var/mob/living/wearer
+	var/list/extra_actions = list()
+
+/datum/strip_context/proc/add_item_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+	))
+
+/datum/strip_context/proc/add_power_off_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+		"action_icon" = "power-off",
+		"action_color" = "green"
+	))
+
+/datum/strip_context/proc/add_power_on_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+		"action_icon" = "power-off",
+		"action_color" = "red"
+	))

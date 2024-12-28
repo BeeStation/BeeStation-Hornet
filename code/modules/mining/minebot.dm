@@ -53,7 +53,7 @@
 	var/mode = MODE_MINING /// What mode the minebot is in
 	var/mining_enabled = FALSE /// Whether or not the minebot will mine new ores while in mining mode.
 	var/list/installed_upgrades /// A list of all the minebot's installed upgrades
-	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_pka /// The minebot's stored PKA
+	var/obj/item/gun/energy/recharge/kinetic_accelerator/minebot/stored_pka /// The minebot's stored PKA
 	var/obj/item/gun/energy/plasmacutter/stored_cutter /// The minebot's stored plasma cutter
 	var/obj/item/pickaxe/drill/stored_drill /// The minebot's stored drill
 	var/obj/item/t_scanner/adv_mining_scanner/stored_scanner /// The minebot's stored mining scanner
