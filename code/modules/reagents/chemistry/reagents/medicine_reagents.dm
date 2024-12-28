@@ -156,11 +156,11 @@
 	if(M.IsSleeping() || M.IsUnconscious())
 		var/power = -0.00003 * (M.bodytemperature ** 2) + 3
 		if(M.bodytemperature < T0C)
-			M.adjustOxyLoss(-3 * power, 0)
-			M.adjustBruteLoss(-power, 0)
-			M.adjustFireLoss(-power, 0)
-			M.adjustToxLoss(-power, 0, TRUE) //heals TOXINLOVERs
-			M.adjustCloneLoss(-power, 0)
+			M.adjustOxyLoss(-3 * power * REM * delta_time, 0)
+			M.adjustBruteLoss(-power * REM * delta_time, 0)
+			M.adjustFireLoss(-power * REM * delta_time, 0)
+			M.adjustToxLoss(-power * REM * delta_time, 0, TRUE) //heals TOXINLOVERs
+			M.adjustCloneLoss(-power * REM * delta_time, 0)
 			REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 			. = TRUE
 	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)//Metabolism rate is reduced in colder body temps making it more effective
