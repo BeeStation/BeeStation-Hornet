@@ -1,0 +1,5 @@
+author: Xeonmations
+delete-after: true
+changes:
+  - bugfix: Fixed pressing M making two menus popup.
+  - rscdel: Removed a deprecated emote menu popup.
