@@ -456,7 +456,7 @@
 	for(var/obj/item/bodypart/bodypart in src.bodyparts)
 		if(!IS_ORGANIC_LIMB(bodypart))
 			if(!informed)
-        to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
+        		to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
 				informed = TRUE
 			switch(severity)
 				if(EMP_HEAVY)
