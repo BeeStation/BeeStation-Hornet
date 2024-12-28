@@ -1,6 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - bugfix: fix RnD servers working while in maintenance mode
-  - bugfix: fix Tcomms monitoring app not finding any servers
-  - bugfix: fix Tcomms overheat again

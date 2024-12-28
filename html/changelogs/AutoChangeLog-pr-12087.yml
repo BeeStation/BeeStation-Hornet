@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - code_imp: Fixed some warnings in the compiler
