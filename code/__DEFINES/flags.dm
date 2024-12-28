@@ -56,14 +56,16 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HTML_USE_INITAL_ICON_1 (1<<13)
 /// Prevents direct access for anything in the contents of this atom.
 #define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
+/// Prevents aggregation of the item in the stack panel
+#define STAT_UNIQUE_1 (1<<15)
 
 //turf-only flags. These use flags_1 too.
 // These exist to cover /turf and /area at the same time
-#define NOJAUNT_1					(1<<15)
-#define UNUSED_RESERVATION_TURF_1	(1<<16)
-#define CAN_BE_DIRTY_1				(1<<17) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<18) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<19) //! Blocks ruins spawning on the turf
+#define NOJAUNT_1					(1<<16)
+#define UNUSED_RESERVATION_TURF_1	(1<<17)
+#define CAN_BE_DIRTY_1				(1<<18) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
+#define NO_LAVA_GEN_1				(1<<19) 	//! Blocks lava rivers being generated on the turf
+#define NO_RUINS_1					(1<<20) //! Blocks ruins spawning on the turf
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -111,6 +113,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HIDDEN_STASH_LOCATION		(1<<10)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
 #define REMOTE_APC					(1<<11)
+/// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
+#define NO_GRAVITY 					(1<<12)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask

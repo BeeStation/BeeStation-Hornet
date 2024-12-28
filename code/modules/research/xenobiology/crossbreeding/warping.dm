@@ -825,7 +825,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	icon_state = "yellow"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = TRUE
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/warped_room/get_virtual_z(turf/T)

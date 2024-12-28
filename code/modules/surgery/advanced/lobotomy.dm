@@ -57,8 +57,6 @@
 				target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_MAGIC)
 		if(3)
 			target.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
-		else
-			SWITCH_EMPTY_STATEMENT
 	return TRUE
 
 /datum/surgery_step/lobotomize/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
