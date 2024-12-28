@@ -67,7 +67,7 @@
 /obj/machinery/rnd/server/proc/mine()
 	use_power(active_power_usage, power_channel)
 	var/efficiency = get_efficiency()
-	if(!powered() || efficiency <= 0 && machine_stat)
+	if(!powered() || efficiency <= 0 || machine_stat)
 		return null
 	return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income * efficiency, 0))
 

@@ -512,22 +512,6 @@
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 
-	if(!params)
-		var/custom_emote = stripped_input(user, "Choose an emote to display.")
-		if(custom_emote && !check_invalid(user, custom_emote))
-			var/list/emote_list = list("Audible", "Visible", "Both")
-			var/type = tgui_input_list(user, "Is this a visible or audible emote?", "Emote Type", emote_list)
-			switch(type)
-				if("Audible")
-					emote_type |= EMOTE_AUDIBLE
-				if("Visible")
-					emote_type |= EMOTE_VISIBLE
-				if("Both")
-					emote_type |= EMOTE_VISIBLE | EMOTE_AUDIBLE
-			message = user.say_emphasis(custom_emote)
-	else
-		message = params
-
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
@@ -538,6 +522,7 @@
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	if(params && type_override)
 		emote_type = type_override
+	message = params
 	. = ..()
 	message = null
 	emote_type = null

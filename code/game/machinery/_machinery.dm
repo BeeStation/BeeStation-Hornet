@@ -603,7 +603,7 @@ Class Procs:
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
-			set_machine_stat(machine_stat & MAINT)
+			set_machine_stat(machine_stat | MAINT)
 			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
 		else
 			panel_open = FALSE
