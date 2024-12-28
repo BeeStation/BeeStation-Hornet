@@ -236,7 +236,10 @@
 
 	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
 
-	if(air1.total_moles() > CRYO_MIN_GAS_MOLES)
+	if(air1.total_moles())
+		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
+			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)
+			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
 		if(beaker)//How much to transfer. As efficiency is increased, less reagent from the beaker is used and more is magically transferred to occupant
 			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
 		use_power(1000 * efficiency)
@@ -275,27 +278,9 @@
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 			air1.temperature = clamp(air1.temperature - heat / air_heat_capacity, TCMB, MAX_TEMPERATURE)
 
-			//lets have the core temp match the body temp in humans
-			if(ishuman(mob_occupant))
-				var/mob/living/carbon/human/humi = mob_occupant
-				humi.adjust_coretemperature(humi.bodytemperature - humi.coretemperature)
+		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
 	internal_connector.gas_connector.update_parents()
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
-	if(breath_request <= 0)
-		return null
-
-	//return breathable air
-	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
-	var/breath_percentage = breath_request / air1.volume
-	. = air1.remove(air1.total_moles() * breath_percentage)
-
-	//update molar changes throughout the pipenet
-	internal_connector.gas_connector.update_parents()
-
-/obj/machinery/cryo_cell/assume_air(datum/gas_mixture/giver)
-	internal_connector.gas_connector.airs[1].merge(giver)
 
 /obj/machinery/cryo_cell/relaymove(mob/living/user, direction)
 	if(message_cooldown <= world.time)
