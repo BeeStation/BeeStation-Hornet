@@ -26295,9 +26295,9 @@
 	dir = 1;
 	name = "Connector Port (Air Supply)"
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "irm" = (
@@ -55144,10 +55144,10 @@
 	dir = 1;
 	name = "Connector Port (Air Supply)"
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "rRs" = (

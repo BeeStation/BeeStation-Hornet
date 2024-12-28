@@ -46452,6 +46452,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1;
 	name = "Connector Port (Air Supply)"
@@ -46460,7 +46461,6 @@
 /obj/item/storage/pod{
 	pixel_x = 32
 	},
-/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "iQy" = (
@@ -60153,6 +60153,7 @@
 /area/science/mixing)
 "npv" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1;
 	name = "Connector Port (Air Supply)"
@@ -60161,7 +60162,6 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
-/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "npW" = (

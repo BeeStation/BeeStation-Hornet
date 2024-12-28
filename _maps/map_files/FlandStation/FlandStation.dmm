@@ -46392,6 +46392,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -46400,7 +46401,6 @@
 	dir = 4;
 	light_color = "#c1caff"
 	},
-/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/engine,
 /area/medical/cryo)
 "lKQ" = (
@@ -48304,11 +48304,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/anesthetic_mix,
 /turf/open/floor/engine,
 /area/medical/cryo)
 "mmz" = (
