@@ -316,8 +316,6 @@
  */
 /datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
 	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
-		if(HAS_TRAIT(user, TRAIT_MUTE))
-			return FALSE
 		if(ishuman(user))
 			var/mob/living/carbon/human/loud_mouth = user
 			if(loud_mouth.mind?.miming) // vow of silence prevents outloud noises
