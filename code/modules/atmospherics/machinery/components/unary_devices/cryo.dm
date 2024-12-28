@@ -282,7 +282,7 @@
 
 	internal_connector.gas_connector.update_parents()
 
-/obj/machinery/cryo_cell/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
+/obj/machinery/atmospherics/components/unary/cryo_cell/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	if(breath_request <= 0)
 		return null
 
