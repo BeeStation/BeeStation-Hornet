@@ -95,7 +95,7 @@
 		run_cooldown_integer(user)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
-	var/msg = select_message_type(user, intentional)
+	var/msg = select_message_type(user, message, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
 
@@ -248,8 +248,8 @@
 		message = replacetext(message, "%s", user.p_s())
 	return message
 
-/datum/emote/proc/select_message_type(mob/user, intentional)
-	. = message
+/datum/emote/proc/select_message_type(mob/user, msg, intentional)
+	. = msg
 	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
 		return "makes a [pick("strong ", "weak ", "")]noise."
 	if(user.mind?.miming && message_mime)
@@ -270,6 +270,8 @@
 		. = message_insect
 	else if((isanimal(user) || isbasicmob(user)) && message_simple)
 		. = message_simple
+
+	return .
 
 /datum/emote/proc/select_param(mob/user, params)
 	return replacetext(message_param, "%t", params)
