@@ -305,10 +305,12 @@
 				torture_dmg_brute = 0
 				torture_dmg_burn = held_item.force / 4
 		switch(held_item.sharpness)
-			if(IS_SHARP)
+			if(SHARP)
 				torture_time -= 2
-			if(IS_SHARP_ACCURATE)
+			if(SHARP_DISMEMBER)
 				torture_time -= 3
+			if(SHARP_DISMEMBER_EASY)
+				torture_time -= 4
 
 	// Minimum 5 seconds.
 	torture_time = max(5 SECONDS, torture_time * 10)

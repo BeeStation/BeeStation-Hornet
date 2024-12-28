@@ -1016,7 +1016,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("staked", "stabbed", "tore into")
 	attack_verb_simple = list("staked", "stabbed", "tore into")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	embedding = list("embed_chance" = 20)
 	force = 6
 	throwforce = 10
@@ -1063,7 +1063,7 @@
 		if(target.StakeCanKillMe())
 			bloodsuckerdatum.FinalDeath()
 		else
-			to_chat(target, "<span class='userdanger'>You have been staked! Your powers are useless, your death forever, while it remains in place.</span>")
+			to_chat(target, "<span class='userdanger'>You have been staked! Your powers are useless while it remains in place.</span>")
 			target.balloon_alert(target, "you have been staked!")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
