@@ -16341,6 +16341,11 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"duw" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "duy" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -40527,6 +40532,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"lgU" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "lhi" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "1;4"
@@ -93611,7 +93620,7 @@ cnm
 cnm
 cnm
 ajd
-aeU
+lgU
 aeU
 aeU
 aeU
@@ -120253,7 +120262,7 @@ aaa
 aaa
 aaa
 aeU
-aUz
+duw
 aeu
 aeu
 alB

@@ -13142,6 +13142,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"edQ" = (
+/obj/structure/lattice,
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space/nearstation)
 "edS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -46504,6 +46509,10 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"oXo" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "oXu" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -80950,7 +80959,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+oXo
 aMT
 aMT
 aMT
@@ -88317,7 +88326,7 @@ aMT
 aMT
 oTx
 anT
-anT
+edQ
 anT
 anT
 anT
@@ -97155,7 +97164,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+oXo
 aMT
 aMT
 aMT

@@ -20107,7 +20107,7 @@
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 2;
-	height = 13;
+	height = 15;
 	id = "ferry_home";
 	name = "port bay 2";
 	width = 5
@@ -68253,6 +68253,10 @@
 	},
 /turf/open/floor/iron/smooth_large,
 /area/security/prison)
+"uuk" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "uuF" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "transittube";
@@ -92393,7 +92397,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+uuk
 aaa
 aaa
 aaa
@@ -125755,7 +125759,7 @@ aaa
 aaa
 aaa
 aaf
-aaa
+uuk
 aaf
 aaa
 aaa
