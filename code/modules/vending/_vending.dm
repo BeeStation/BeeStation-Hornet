@@ -580,12 +580,12 @@
 					freebie(user, 2)
 				if(16 to 25)
 					freebie(user, 1)
-				if(26 to 75)
-					return
-				if(76 to 90)
+				if(26 to 40)
 					tilt(user)
-				if(91 to 100)
+				if(41 to 50)
 					tilt(user, crit=TRUE)
+				if(51 to 100)
+					pass()
 
 /obj/machinery/vending/proc/freebie(mob/fatty, freebies)
 	visible_message("<span class='notice'>[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!</span>")

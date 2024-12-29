@@ -26,4 +26,4 @@
 		if(15 to 17)
 			L.emote("cry")
 		if(18 to 100)
-			return
+			pass()
