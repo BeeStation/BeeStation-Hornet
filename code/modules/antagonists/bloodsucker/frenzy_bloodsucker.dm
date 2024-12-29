@@ -88,6 +88,6 @@
 
 /datum/status_effect/frenzy/tick()
 	var/mob/living/carbon/human/user = owner
-	if(!bloodsuckerdatum.frenzied)
+	if(!bloodsuckerdatum?.frenzied)
 		return
 	user.adjustFireLoss(1.5 + (bloodsuckerdatum.humanity_lost / 10))

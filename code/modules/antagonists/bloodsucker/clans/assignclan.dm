@@ -8,12 +8,9 @@
  * person_selecting - Mob override for stuff like Admins selecting someone's clan.
  */
 /datum/antagonist/bloodsucker/proc/assign_clan_and_bane(mob/person_selecting)
-	if(my_clan)
+	if(my_clan || owner.current.has_status_effect(/datum/status_effect/frenzy))
 		return
-	if(owner.current.has_status_effect(/datum/status_effect/frenzy))
-		return
-	if(!person_selecting)
-		person_selecting = owner.current
+	person_selecting ||= owner.current
 
 	var/list/options = list()
 	var/list/radial_display = list()

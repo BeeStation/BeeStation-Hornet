@@ -16,7 +16,7 @@
 	// Default String
 	var/returnString = "\[<span class='warning'>"
 	var/returnIcon = ""
-	// Vassals and Bloodsuckers recognize eachother, while Monster Hunters can see Vassals.
+	// Vassals and Bloodsuckers recognize eachother, while Curators can see Vassals.
 	if(!IS_BLOODSUCKER(viewer) && !IS_VASSAL(viewer) && !IS_CURATOR(viewer))
 		return FALSE
 	// Am I Viewer's Vassal?

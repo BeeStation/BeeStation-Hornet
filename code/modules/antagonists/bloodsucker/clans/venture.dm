@@ -81,7 +81,9 @@
 		if(6 to INFINITY)
 			if(!target.mind.has_antag_datum(/datum/antagonist/bloodsucker))
 				to_chat(target, "<span class='notice'>You feel your heart stop pumping for the last time as you begin to thirst for blood, you feel... dead.</span>")
-				target.mind.add_antag_datum(/datum/antagonist/bloodsucker)
+
+				target.mind.remove_antag_datum(/datum/antagonist/vassal/favorite)
+				target.mind.make_bloodsucker(bloodsuckerdatum.owner)
 				SEND_SIGNAL(bloodsuckerdatum.owner, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
 			vassaldatum.set_vassal_level(target)
 

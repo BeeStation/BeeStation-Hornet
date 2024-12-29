@@ -93,6 +93,15 @@
 		TRAIT_TOXIMMUNE,
 	)
 
+	var/static/list/torpor_traits = list(
+		TRAIT_NODEATH,
+		TRAIT_FAKEDEATH,
+		TRAIT_DEATHCOMA,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESISTHIGHPRESSURE,
+	)
+
+
 // Taken from wizard.dm
 /datum/antagonist/bloodsucker/proc/create_bloodsucker_team()
 	var/static/count = 0
@@ -241,12 +250,8 @@
 		user_species.punchdamage += 2
 
 	//Give Bloodsucker Traits
-	if(old_body)
-		for(var/all_traits in bloodsucker_traits)
-			REMOVE_TRAIT(old_body, all_traits, BLOODSUCKER_TRAIT)
-
-	for(var/all_traits in bloodsucker_traits)
-		ADD_TRAIT(new_body, all_traits, BLOODSUCKER_TRAIT)
+	old_body?.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
+	new_body.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 
 /datum/antagonist/bloodsucker/greet()
 	. = ..()
@@ -362,16 +367,16 @@
 		BuyPower(new all_powers)
 
 /datum/antagonist/bloodsucker/proc/assign_starting_stats()
-	//Traits: Species
 	var/mob/living/carbon/human/user = owner.current
+
+	//Traits: Species
 	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
 		user.dna?.remove_all_mutations()
 	//Give Bloodsucker Traits
-	for(var/all_traits in bloodsucker_traits)
-		ADD_TRAIT(user, all_traits, BLOODSUCKER_TRAIT)
+	user.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 	//Clear Addictions
 	user.reagents.addiction_list = new()
 	owner.remove_quirk(/datum/quirk/junkie)
@@ -397,6 +402,8 @@
  * Update Sight - Done after Eyes are regenerated.
  */
 /datum/antagonist/bloodsucker/proc/clear_powers_and_stats()
+	var/mob/living/carbon/user = owner.current
+
 	// Remove clan first
 	if(my_clan)
 		QDEL_NULL(my_clan)
@@ -405,27 +412,24 @@
 		RemovePower(all_powers)
 	/// Stats
 	if(ishuman(owner.current))
-		var/mob/living/carbon/human/user = owner.current
+		//var/mob/living/carbon/human/user = owner.current
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits -= TRAIT_DRINKSBLOOD
 	// Remove all bloodsucker traits
-	for(var/all_traits in bloodsucker_traits)
-		REMOVE_TRAIT(owner.current, all_traits, BLOODSUCKER_TRAIT)
+	user.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 	// Update Health
 	owner.current.setMaxHealth(initial(owner.current.maxHealth))
 	// Language
 	owner.current.remove_language(/datum/language/vampiric)
-	// Heart & Eyes
-	var/mob/living/carbon/user = owner.current
+	// Heart
 	var/obj/item/organ/heart/newheart = owner.current.getorganslot(ORGAN_SLOT_HEART)
-	if(newheart)
-		newheart.beating = initial(newheart.beating)
+	newheart?.beating = initial(newheart.beating)
+	// Eyes
 	var/obj/item/organ/eyes/user_eyes = user.getorganslot(ORGAN_SLOT_EYES)
-	if(user_eyes)
-		user_eyes.flash_protect = initial(user_eyes.flash_protect)
-		user_eyes.sight_flags = initial(user_eyes.sight_flags)
-		user_eyes.see_in_dark = NIGHTVISION_FOV_RANGE
-		user_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	user_eyes?.flash_protect = initial(user_eyes.flash_protect)
+	user_eyes?.sight_flags = initial(user_eyes.sight_flags)
+	user_eyes?.see_in_dark = NIGHTVISION_FOV_RANGE
+	user_eyes?.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	user.update_sight()
 
 /datum/antagonist/bloodsucker/proc/claim_coffin(obj/structure/closet/crate/claimed, area/current_area)

@@ -66,7 +66,7 @@
 		if(owner.current.am_staked() && COOLDOWN_FINISHED(src, bloodsucker_spam_sol_burn))
 			to_chat(owner.current, "<span class='userdanger'>You are staked! Remove the offending weapon from your heart before sleeping.</span>")
 			COOLDOWN_START(src, bloodsucker_spam_sol_burn, BLOODSUCKER_SPAM_SOL) //This should happen twice per Sol
-		if(!HAS_TRAIT(owner.current, TRAIT_NODEATH))
+		if(!is_in_torpor())
 			check_begin_torpor(TRUE)
 			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 		return
@@ -122,7 +122,7 @@
 	var/total_burn = user.getFireLoss_nonProsthetic()
 	var/total_damage = total_brute + total_burn
 	/// Checks - Not daylight & Has more than 10 Brute/Burn & not already in Torpor
-	if(!SSsunlight.sunlight_active && total_damage >= 10 && !HAS_TRAIT(owner.current, TRAIT_NODEATH))
+	if(!SSsunlight.sunlight_active && total_damage >= 10 && !HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TORPOR_TRAIT))
 		torpor_begin()
 
 /datum/antagonist/bloodsucker/proc/check_end_torpor()
@@ -142,19 +142,19 @@
 		if(total_brute <= 10)
 			torpor_end()
 
+/datum/antagonist/bloodsucker/proc/is_in_torpor()
+	if(QDELETED(owner.current))
+		return FALSE
+	return HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TORPOR_TRAIT)
+
 /datum/antagonist/bloodsucker/proc/torpor_begin()
 	var/mob/living/current = owner.current
-	// Force them to go to sleep
+
 	REMOVE_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
 	REMOVE_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
-	// Without this, you'll just keep dying while you recover.
-	ADD_TRAIT(current, TRAIT_NODEATH, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(current, TRAIT_FAKEDEATH, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(current, TRAIT_DEATHCOMA, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(current, TRAIT_RESISTLOWPRESSURE, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(current, TRAIT_RESISTHIGHPRESSURE, BLOODSUCKER_TRAIT)
+	current.add_traits(torpor_traits, TORPOR_TRAIT)
 	current.jitteriness = 0
-	// Disable ALL Powers
+
 	DisableAllPowers()
 
 	to_chat(current, "<span class='notice'>You enter the horrible slumber of deathless Torpor. You will heal until you are renewed.</span>")
@@ -163,12 +163,11 @@
 	var/mob/living/current = owner.current
 	current.grab_ghost()
 
-	ADD_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(current, TRAIT_NODEATH, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(current, TRAIT_FAKEDEATH, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(current, TRAIT_DEATHCOMA, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(current, TRAIT_RESISTLOWPRESSURE, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(current, TRAIT_RESISTHIGHPRESSURE, BLOODSUCKER_TRAIT)
+	if(!HAS_TRAIT(current, TRAIT_MASQUERADE))
+		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
+		ADD_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
+
+	current.remove_traits(torpor_traits, TORPOR_TRAIT)
 	if(!HAS_TRAIT(current, TRAIT_MASQUERADE))
 		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
 

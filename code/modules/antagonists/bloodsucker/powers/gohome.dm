@@ -34,8 +34,7 @@
 	)
 
 /datum/action/cooldown/bloodsucker/gohome/can_use(mob/living/carbon/user, trigger_flags)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	/// Have No Lair (NOTE: You only got this power if you had a lair, so this means it's destroyed)
 	if(!istype(bloodsuckerdatum_power) || !bloodsuckerdatum_power.coffin)
@@ -44,12 +43,13 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/gohome/ActivatePower(trigger_flags)
-	. = ..()
+	..()
 	owner.balloon_alert(owner, "preparing to teleport...")
+	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED)))
+		teleport_to_coffin(owner.current)
 
 /datum/action/cooldown/bloodsucker/gohome/UsePower(seconds_per_tick)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	switch(teleporting_stage)
 		if(GOHOME_START)
@@ -58,14 +58,10 @@
 			INVOKE_ASYNC(src, PROC_REF(flicker_lights), 4, 40)
 		if(GOHOME_FLICKER_TWO)
 			INVOKE_ASYNC(src, PROC_REF(flicker_lights), 4, 60)
-			owner.balloon_alert(owner, "teleporting!")
-		if(GOHOME_TELEPORT)
-			INVOKE_ASYNC(src, PROC_REF(teleport_to_coffin), owner)
 	teleporting_stage++
 
 /datum/action/cooldown/bloodsucker/gohome/ContinueActive(mob/living/user, mob/living/target)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	if(!isturf(owner.loc))
 		return FALSE
@@ -84,24 +80,18 @@
 	var/drop_item = FALSE
 	var/turf/current_turf = get_turf(owner)
 	// If we aren't in the dark, anyone watching us will cause us to drop out stuff
-	if(current_turf && current_turf.lighting_object && current_turf.get_lumcount() >= 0.2)
-		for(var/mob/living/watchers in viewers(world.view, get_turf(owner)) - owner)
-			if(!watchers.client)
+	if(!QDELETED(current_turf?.lighting_object) && current_turf.get_lumcount() >= 0.2)
+		for(var/mob/living/watcher in viewers(world.view, get_turf(owner)) - owner)
+			if(!watcher.client)
 				continue
-			if(watchers.has_unlimited_silicon_privilege)
+			if(watcher.has_unlimited_silicon_privilege)
 				continue
-			if(watchers.is_blind())
+			if(watcher.is_blind())
 				continue
-			if(!IS_BLOODSUCKER(watchers) && !IS_VASSAL(watchers))
+			if(!IS_BLOODSUCKER(watcher) && !IS_VASSAL(watcher))
 				drop_item = TRUE
 				break
-	// Drop all necessary items (handcuffs, legcuffs, items if seen)
-	if(user.handcuffed)
-		var/obj/item/handcuffs = user.handcuffed
-		user.dropItemToGround(handcuffs)
-	if(user.legcuffed)
-		var/obj/item/legcuffs = user.legcuffed
-		user.dropItemToGround(legcuffs)
+	user.uncuff()
 	if(drop_item)
 		for(var/obj/item/literally_everything in owner)
 			owner.dropItemToGround(literally_everything, TRUE)

@@ -168,8 +168,9 @@
 	if(IS_CURATOR(target))
 		to_chat(target, "Their body refuses to react...")
 		return
-	if(!bloodsuckerdatum_power.make_vassal(target))
+	if(!bloodsuckerdatum_power.can_make_vassal(target))
 		return
+	bloodsuckerdatum_power.make_vassal(target)
 	power_activated_sucessfully()
 	to_chat(user, "<span class='warning'>We revive [target]!</span>")
 	target.mind.grab_ghost()

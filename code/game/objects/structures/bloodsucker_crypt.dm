@@ -13,17 +13,17 @@
 
 /obj/structure/bloodsucker/examine(mob/user)
 	. = ..()
-	if(!user.mind && ghost_desc != "")
+	if(!user.mind && ghost_desc)
 		. += "<span class='cult'>[ghost_desc]</span>"
 	if(IS_BLOODSUCKER(user) && bloodsucker_desc)
 		if(!owner)
 			. += "<span class='cult'>It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential</span>"
 			return
 		. += "<span class='cult'>[bloodsucker_desc]</span>"
-	if(IS_VASSAL(user) && vassal_desc != "")
+	if(IS_VASSAL(user) && vassal_desc)
 		. += "<span class='cult'>[vassal_desc]</span>"
-	if(IS_CURATOR(user) && curator_desc != "")
-		. += "<span class='cult>[curator_desc]</span>"
+	if(IS_CURATOR(user) && curator_desc)
+		. += "<span class='cult'>[curator_desc]</span>"
 
 /// This handles bolting down the structure.
 /obj/structure/bloodsucker/proc/bolt(mob/user)
@@ -49,10 +49,9 @@
 	return ..()
 
 /obj/structure/bloodsucker/attack_hand(mob/user, list/modifiers)
-//	. = ..() // Don't call parent, else they will handle unbuckling.
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(user)
 	/// Claiming the Rack instead of using it?
-	if(istype(bloodsuckerdatum) && !owner)
+	if(bloodsuckerdatum && !owner)
 		if(!bloodsuckerdatum.bloodsucker_lair_area)
 			to_chat(user, "<span class='danger'>You don't have a lair. Claim a coffin to make that location your lair.</span>")
 			return FALSE
@@ -66,12 +65,8 @@
 			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
 			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"))
 		var/secure_response = show_radial_menu(user, src, secure_options, radius = 36, require_near = TRUE)
-		if(!secure_response)
-			return FALSE
-		switch(secure_response)
-			if("Yes")
-				bolt(user)
-				return FALSE
+		if(secure_response == "Yes")
+			bolt(user)
 		return FALSE
 	return TRUE
 
@@ -79,14 +74,13 @@
 	. = ..()
 	if(user == owner && user.Adjacent(src))
 		balloon_alert(user, "unbolt [src]?")
-		var/static/list/unclaim_options = list(
+		var/static/list/unsecure_options = list(
 			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
 			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"),
 		)
-		var/unclaim_response = show_radial_menu(user, src, unclaim_options, radius = 36, require_near = TRUE)
-		switch(unclaim_response)
-			if("Yes")
-				unbolt(user)
+		var/unsecure_response = show_radial_menu(user, src, unsecure_options, radius = 36, require_near = TRUE)
+		if(unsecure_response == "Yes")
+			unbolt(user)
 
 /obj/structure/bloodsucker/vassalrack
 	name = "persuasion rack"
@@ -109,12 +103,14 @@
 		They usually ensure that victims are handcuffed, to prevent them from running away.\n\
 		Their rituals take time, allowing us to disrupt it."
 
-	/// Resets on each new character to be added to the chair. Some effects should lower it...
+	/// How many times a buckled person has to be tortured to be converted.
 	var/convert_progress = 3
 	/// Mindshielded and Antagonists willingly have to accept you as their Master.
-	var/disloyalty_confirm = FALSE
+	var/wants_vassilization = FALSE
 	/// Prevents popup spam.
-	var/disloyalty_offered = FALSE
+	var/vassilization_offered = FALSE
+	/// No spamming torture
+	var/is_torturing = FALSE
 
 /obj/structure/bloodsucker/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
@@ -156,8 +152,8 @@
 
 	// Set up Torture stuff now
 	convert_progress = 3
-	disloyalty_confirm = FALSE
-	disloyalty_offered = FALSE
+	wants_vassilization = FALSE
+	vassilization_offered = FALSE
 
 /// Attempt Unbuckle
 /obj/structure/bloodsucker/vassalrack/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
@@ -184,8 +180,7 @@
 	return ..()
 
 /obj/structure/bloodsucker/vassalrack/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	visible_message("<span class='danger'>[buckled_mob][buckled_mob.stat == DEAD ? "'s corpse" : ""] slides off of the rack.</span>")
 	buckled_mob.Paralyze(2 SECONDS)
@@ -193,148 +188,116 @@
 	return TRUE
 
 /obj/structure/bloodsucker/vassalrack/attack_hand(mob/user, list/modifiers)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
-	// Is there anyone on the rack & If so, are they being tortured?
 	if(!has_buckled_mobs())
 		return FALSE
-	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
+
+	var/datum/antagonist/vassal/bloodsuckerdatum = IS_BLOODSUCKER(user)
+	// Try Unbuckle
+	var/mob/living/carbon/buckled_person = pick(buckled_mobs)
 	if(user.a_intent == INTENT_HELP)
-		if(istype(bloodsuckerdatum))
-			unbuckle_mob(buckled_carbons)
+		if(bloodsuckerdatum)
+			unbuckle_mob(buckled_person)
 			return FALSE
 		else
-			user_unbuckle_mob(buckled_carbons, user)
+			user_unbuckle_mob(buckled_person, user)
 			return
-	/// If I'm not a Bloodsucker, try to unbuckle them.
-	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_carbons)
-	// Are they our Vassal?
-	if(vassaldatum && (vassaldatum in bloodsuckerdatum.vassals))
+
+	// Try to interact with vassal
+	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_person)
+	if(vassaldatum?.master == bloodsuckerdatum)
 		SEND_SIGNAL(bloodsuckerdatum, BLOODSUCKER_INTERACT_WITH_VASSAL, vassaldatum)
 		return
 
-	// Not our Vassal, but Alive & We're a Bloodsucker, good to torture!
-	torture_victim(user, buckled_carbons)
+	torture_victim(user, buckled_person)
 
 /**
  * Torture steps:
  *
- * * Tick Down Conversion from 3 to 0
- * * Break mindshielding/antag (on approve)
+ * * When convert_progress reaches 0, the victim is ready to be converted
+ * * Using a better tool will reduce the time required to torture
+ * * If the victim has a mindshield or is an antagonist, they must accept the conversion. If they don't accept, they aren't converted
  * * Vassalize target
  */
 /obj/structure/bloodsucker/vassalrack/proc/torture_victim(mob/living/user, mob/living/target)
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
-	if(IS_VASSAL(target))
-		var/datum/antagonist/vassal/vassaldatum = target.mind.has_antag_datum(/datum/antagonist/vassal)
-		if(!vassaldatum.master.broke_masquerade)
-			balloon_alert(user, "someone else's vassal!")
-			return FALSE
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(user)
 
-	var/disloyalty_requires = RequireDisloyalty(user, target)
+	if(!bloodsuckerdatum.can_make_vassal(target) || is_torturing)
+		return
 
-	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
-		balloon_alert(user, "its pointless to try and change their loyalties!")
-		return FALSE
-
-	if(disloyalty_requires == VASSALIZATION_BANNED || !ishuman(target))
-		balloon_alert(user, "can't be vassalized!")
-		return FALSE
-
-	// Conversion Process
-	if(convert_progress)
+	// These if statements can be simplified but aren't for better code-readability.
+	if(convert_progress > 0)
 		balloon_alert(user, "spilling blood...")
+
+		is_torturing = TRUE
+		target.Paralyze(1 SECONDS)
 		bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
 		if(!do_torture(user, target))
-			return FALSE
+			is_torturing = FALSE
+			return
+		is_torturing = FALSE
+
 		bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
-		// Prevent them from unbuckling themselves as long as we're torturing.
-		target.Paralyze(1 SECONDS)
 		convert_progress--
 
-		// We're done? Let's see if they can be Vassal.
-		if(convert_progress)
+		if(convert_progress > 0)
 			balloon_alert(user, "needs more persuasion...")
 			return
 
-		if(disloyalty_requires)
+		// If the victim is mindshielded or an antagonist, they choose to accept or refuse vassilization.
+		if(!wants_vassilization && (HAS_TRAIT(target, TRAIT_MINDSHIELD) || length(target.mind.antag_datums)))
 			balloon_alert(user, "has external loyalties! more persuasion required!")
-		else
-			balloon_alert(user, "ready for communion!")
-		return
+			if(!ask_for_vassilization(user, target))
+				balloon_alert(user, "refused persuasion!")
+				convert_progress++
+				return
 
-	if(!disloyalty_confirm && disloyalty_requires)
-		if(!do_disloyalty(user, target))
+		balloon_alert(user, "ready for communion!")
+	if(wants_vassilization || !(HAS_TRAIT(target, TRAIT_MINDSHIELD) || length(target.mind.antag_datums)))
+		user.balloon_alert_to_viewers("smears blood...", "paints bloody marks...")
+		if(!do_after(user, 5 SECONDS, target))
+			balloon_alert(user, "interrupted!")
 			return
-		if(!disloyalty_confirm)
-			balloon_alert(user, "refused persuasion!")
-		else
-			balloon_alert(user, "ready for communion!")
-		return
+		bloodsuckerdatum.AddBloodVolume(-TORTURE_CONVERSION_COST)
 
-	user.balloon_alert_to_viewers("smears blood...", "painting bloody marks...")
-	if(!do_after(user, 5 SECONDS, target))
-		balloon_alert(user, "interrupted!")
-		return
-	// Convert to Vassal!
-	bloodsuckerdatum.AddBloodVolume(-TORTURE_CONVERSION_COST)
-	if(bloodsuckerdatum.make_vassal(target))
-		remove_loyalties(target)
+		bloodsuckerdatum.make_vassal(target)
+		// Find Mind Implant & Destroy
+		for(var/obj/item/implant/implant as anything in target.implants)
+			if(istype(implant, /obj/item/implant/mindshield) && implant.removed(target, silent = TRUE))
+				qdel(implant)
 		SEND_SIGNAL(bloodsuckerdatum, BLOODSUCKER_MADE_VASSAL, user, target)
 
-/obj/structure/bloodsucker/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target, mult = 1)
-	// Fifteen seconds if you aren't using anything. Shorter with weapons and such.
-	var/torture_time = 15
-	var/torture_dmg_brute = 2
-	var/torture_dmg_burn = 0
-	var/obj/item/bodypart/selected_bodypart = pick(target.bodyparts)
-	// Get Weapon
+/obj/structure/bloodsucker/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target)
 	var/obj/item/held_item = user.get_inactive_held_item()
-	/// Weapon Bonus
-	if(held_item)
-		torture_time -= held_item.force / 4
-		if(!held_item.use_tool(src, user, 0, volume = 5))
-			return
-		switch(held_item.damtype)
-			if(BRUTE)
-				torture_dmg_brute = held_item.force / 4
-				torture_dmg_burn = 0
-			if(BURN)
-				torture_dmg_brute = 0
-				torture_dmg_burn = held_item.force / 4
-		switch(held_item.sharpness)
-			if(SHARP)
-				torture_time -= 2
-			if(SHARP_DISMEMBER)
-				torture_time -= 3
-			if(SHARP_DISMEMBER_EASY)
-				torture_time -= 4
+	var/torture_time = 15
+	torture_time -= held_item?.force / 4
+	torture_time -= held_item?.sharpness + 1
 
-	// Minimum 5 seconds.
-	torture_time = max(5 SECONDS, torture_time * 10)
-	// Now run process.
-	if(!do_after(user, (torture_time * mult), target))
+	// Minimum 5 seconds
+	torture_time = max(5 SECONDS, torture_time SECONDS)
+	if(do_after(user, torture_time, target))
+		held_item?.play_tool_sound(target)
+
+		var/obj/item/bodypart/selected_bodypart = pick(target.bodyparts)
+		target.visible_message(
+			"<span class='danger'>[user] performs a ritual, spilling some of [target]'s blood from their [selected_bodypart.name]!</span>",
+			"<span class='userdanger'>[user] performs a ritual, spilling some blood from your [selected_bodypart.name]!</span>")
+
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
+		target.Jitter(5 SECONDS)
+		target.apply_damage(held_item ? held_item.force / 4 : 2, held_item ? held_item.damtype : BRUTE, selected_bodypart)
+		return TRUE
+	else
+		balloon_alert(user, "interrupted!")
 		return FALSE
-
-	if(held_item)
-		held_item.play_tool_sound(target)
-	target.visible_message(
-		"<span class='danger'>[user] performs a ritual, spilling some of [target]'s blood from their [selected_bodypart.name] and shaking them up!</span>",
-		"<span class='userdanger'>[user] performs a ritual, spilling some blood from your [selected_bodypart.name], shaking you up!</span>")
-
-	INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
-	target.Jitter(5 SECONDS)
-	target.apply_damages(brute = torture_dmg_brute, burn = torture_dmg_burn, def_zone = selected_bodypart.body_zone)
-	return TRUE
 
 /// Offer them the oppertunity to join now.
-/obj/structure/bloodsucker/vassalrack/proc/do_disloyalty(mob/living/user, mob/living/target)
-	if(disloyalty_offered)
+/obj/structure/bloodsucker/vassalrack/proc/ask_for_vassilization(mob/living/user, mob/living/target)
+	if(vassilization_offered)
 		return FALSE
+	vassilization_offered = TRUE
 
-	disloyalty_offered = TRUE
 	to_chat(user, "<span class='notice'>[target] has been given the opportunity for servitude. You await their decision...</span>")
 	var/alert_response = tgui_alert(
 		user = target, \
@@ -343,32 +306,14 @@
 		title = "THE HORRIBLE PAIN! WHEN WILL IT END?!",
 		buttons = list("Accept", "Refuse"),
 		timeout = 10 SECONDS, \
-		autofocus = TRUE, \
+		autofocus = TRUE
 	)
-	switch(alert_response)
-		if("Accept")
-			disloyalty_confirm = TRUE
-		else
-			target.balloon_alert_to_viewers("stares defiantly", "refused vassalization!")
-	disloyalty_offered = FALSE
-	return TRUE
-
-/obj/structure/bloodsucker/vassalrack/proc/RequireDisloyalty(mob/living/user, mob/living/target)
-#ifdef BLOODSUCKER_TESTING
-	if(!target || !target.mind)
-#else
-	if(!target || !target.client)
-#endif
-		return VASSALIZATION_BANNED
-
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(user)
-	return bloodsuckerdatum.AmValidAntag(target)
-
-/obj/structure/bloodsucker/vassalrack/proc/remove_loyalties(mob/living/target)
-	// Find Mind Implant & Destroy
-	for(var/obj/item/implant/implant as anything in target.implants)
-		if(istype(implant, /obj/item/implant/mindshield) && implant.removed(target, silent = TRUE))
-			qdel(implant)
+	if(alert_response == "Accept")
+		wants_vassilization = TRUE
+	else
+		target.balloon_alert_to_viewers("stares defiantly", "refused vassalization!")
+	vassilization_offered = FALSE
+	return wants_vassilization
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -387,8 +332,7 @@
 	bloodsucker_desc = "This is a magical candle which drains at the sanity of mortals who are not under your command while it is active.\n\
 		You can right-click on it from any range to turn it on remotely, or simply be next to it and click on it to turn it on and off normally."
 	vassal_desc = "This is a magical candle which drains at the sanity of the fools who havent yet accepted your master, as long as it is active.\n\
-		You can turn it on and off by clicking on it while you are next to it.\n\
-		If your Master is part of the Ventrue Clan, they utilize this to upgrade their Favorite Vassal."
+		You can turn it on and off by clicking on it while you are next to it."
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
@@ -401,16 +345,15 @@
 	return ..()
 
 /obj/structure/bloodsucker/candelabrum/bolt()
-	. = ..()
 	density = TRUE
+	return ..()
 
 /obj/structure/bloodsucker/candelabrum/unbolt()
-	. = ..()
 	density = FALSE
+	return ..()
 
 /obj/structure/bloodsucker/candelabrum/attack_hand(mob/living/user, list/modifiers)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 	if(anchored && (IS_VASSAL(user) || IS_BLOODSUCKER(user)))
 		toggle()
@@ -465,14 +408,6 @@
 /obj/structure/bloodsucker/bloodthrone/Destroy()
 	QDEL_NULL(armrest)
 	return ..()
-
-/obj/structure/bloodsucker/bloodthrone/bolt()
-	. = ..()
-	anchored = TRUE
-
-/obj/structure/bloodsucker/bloodthrone/unbolt()
-	. = ..()
-	anchored = FALSE
 
 // Armrests
 /obj/structure/bloodsucker/bloodthrone/proc/GetArmrest()

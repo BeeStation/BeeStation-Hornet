@@ -7,17 +7,14 @@
 
 	if(isbrain(owner.current))
 		return
-	if(!owner)
-		INVOKE_ASYNC(src, PROC_REF(HandleDeath))
-		return
 	if(HAS_TRAIT(owner.current, TRAIT_NODEATH))
 		check_end_torpor()
 	// Deduct Blood
 	if(owner.current.stat == CONSCIOUS && !HAS_TRAIT(owner.current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(owner.current, TRAIT_NODEATH))
 		INVOKE_ASYNC(src, PROC_REF(AddBloodVolume), -BLOODSUCKER_PASSIVE_BLOOD_DRAIN)
-	if(HandleHealing())
+	if(handle_healing())
 		if((COOLDOWN_FINISHED(src, bloodsucker_spam_healing)) && bloodsucker_blood_volume > 0)
-			to_chat(owner.current, "<span class='notice'>The power of your blood begins knitting your wounds...</span>")
+			to_chat(owner.current, "<span class='notice'>The power of your blood knits your wounds...</span>")
 			COOLDOWN_START(src, bloodsucker_spam_healing, BLOODSUCKER_SPAM_HEALING)
 	// Standard Updates
 	SEND_SIGNAL(src, COMSIG_BLOODSUCKER_ON_LIFETICK)
@@ -25,17 +22,6 @@
 	INVOKE_ASYNC(src, PROC_REF(update_blood))
 
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
-
-/datum/antagonist/bloodsucker/proc/on_death(mob/living/source, gibbed)
-	SIGNAL_HANDLER
-	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
-	RegisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(HandleDeath))
-	if(gibbed)
-		final_death(FALSE)
-
-/datum/antagonist/bloodsucker/proc/on_revive(mob/living/source)
-	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
-	UnregisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK)
 
 /**
  * ## BLOOD STUFF
@@ -82,12 +68,17 @@
  */
 
 /// Constantly runs on Bloodsucker's LifeTick, and is increased by being in Torpor/Coffins
-/datum/antagonist/bloodsucker/proc/HandleHealing(mult = 1)
-	var/actual_regen = bloodsucker_regen_rate + additional_regen
+/datum/antagonist/bloodsucker/proc/handle_healing(mult = 1)
+	if(QDELETED(owner?.current))
+		return
+	var/in_torpor = is_in_torpor()
 	// Don't heal if I'm staked or on Masquerade (+ not in a Coffin). Masqueraded Bloodsuckers in a Coffin however, will heal.
-	if(owner.current.am_staked() || (HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && !HAS_TRAIT(owner.current, TRAIT_NODEATH)))
+	if(owner.current.am_staked())
 		return FALSE
-	owner.current.adjustCloneLoss(-1 * (actual_regen * 4) * mult, 0)
+	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+		return FALSE
+	var/actual_regen = bloodsucker_regen_rate + additional_regen
+	owner.current.adjustCloneLoss(-1 * (actual_regen * 4) * mult)
 	owner.current.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1 * (actual_regen * 4) * mult) //adjustBrainLoss(-1 * (actual_regen * 4) * mult, 0)
 	if(!iscarbon(owner.current)) // Damage Heal: Do I have damage to ANY bodypart?
 		return
@@ -95,29 +86,28 @@
 	var/costMult = 1 // Coffin makes it cheaper
 	var/bruteheal = min(user.getBruteLoss_nonProsthetic(), actual_regen) // BRUTE: Always Heal
 	var/fireheal = 0 // BURN: Heal in Coffin while Fakedeath, or when damage above maxhealth (you can never fully heal fire)
-	// Checks if you're in a coffin here, additionally checks for Torpor right below it.
-	var/amInCoffin = istype(user.loc, /obj/structure/closet/crate/coffin)
-	if(amInCoffin && HAS_TRAIT(user, TRAIT_NODEATH))
-		if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, bloodsucker_spam_healing)))
-			to_chat(user, "<span class='alert'>You do not heal while your Masquerade ability is active.</span>")
-			COOLDOWN_START(src, bloodsucker_spam_healing, BLOODSUCKER_SPAM_MASQUERADE)
-			return
-		fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen)
-		mult *= 5 // Increase multiplier if we're sleeping in a coffin.
-		costMult /= 2 // Decrease cost if we're sleeping in a coffin.
-		user.ExtinguishMob()
-		user.remove_all_embedded_objects() // Remove Embedded!
-		if(check_limbs(costMult))
-			return TRUE
-	// In Torpor, but not in a Coffin? Heal faster anyways.
-	else if(HAS_TRAIT(user, TRAIT_NODEATH))
-		fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen) / 1.2 // 20% slower than being in a coffin
-		mult *= 3
+	// Checks if you're in torpor here, additionally checks if you're in a coffin right below it.
+	if(in_torpor)
+		if(istype(user.loc, /obj/structure/closet/crate/coffin))
+			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, bloodsucker_spam_healing)))
+				to_chat(user, "<span class='alert'>You do not heal while your Masquerade ability is active.</span>")
+				COOLDOWN_START(src, bloodsucker_spam_healing, BLOODSUCKER_SPAM_MASQUERADE)
+				return
+			fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen)
+			mult *= 5 // Increase multiplier if we're sleeping in a coffin.
+			costMult /= 2 // Decrease cost if we're sleeping in a coffin.
+			user.ExtinguishMob()
+			user.remove_all_embedded_objects() // Remove Embedded!
+			if(check_limbs(costMult))
+				return TRUE
+		// In Torpor, but not in a Coffin? Heal faster anyways.
+		else
+			fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen) / 1.2 // 20% slower than being in a coffin
+			mult *= 3
 	// Heal if Damaged
-	if((bruteheal + fireheal > 0) && mult != 0) // Just a check? Don't heal/spend, and return.
+	if((bruteheal + fireheal > 0) && mult > 0) // Just a check? Don't heal/spend, and return.
 		// We have damage. Let's heal (one time)
-		user.adjustBruteLoss(-bruteheal * mult, forced=TRUE) // Heal BRUTE / BURN in random portions throughout the body.
-		user.adjustFireLoss(-fireheal * mult, forced=TRUE)
+		user.heal_overall_damage(brute = bruteheal * mult, burn = fireheal * mult) // Heal BRUTE / BURN in random portions throughout the body.
 		AddBloodVolume(((bruteheal * -0.5) + (fireheal * -1)) * costMult * mult) // Costs blood to heal
 		return TRUE
 
@@ -157,13 +147,13 @@
 		organ.setOrganDamage(0)
 	if(!HAS_TRAIT(user, TRAIT_MASQUERADE))
 		var/obj/item/organ/heart/current_heart = user.getorganslot(ORGAN_SLOT_HEART)
-		current_heart.Stop()
+		current_heart?.Stop()
+	// Eyes
 	var/obj/item/organ/eyes/current_eyes = user.getorganslot(ORGAN_SLOT_EYES)
-	if(current_eyes)
-		current_eyes.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
-		current_eyes.sight_flags = SEE_MOBS
-		current_eyes.see_in_dark = NIGHTVISION_FOV_RANGE
-		current_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	current_eyes?.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
+	current_eyes?.sight_flags = SEE_MOBS
+	current_eyes?.see_in_dark = NIGHTVISION_FOV_RANGE
+	current_eyes?.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	user.update_sight()
 
 	if(user.stat == DEAD)
@@ -186,26 +176,40 @@
 //			DEATH
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/datum/antagonist/bloodsucker/proc/on_death(mob/living/source, gibbed)
+	SIGNAL_HANDLER
 
-/// FINAL DEATH
-/datum/antagonist/bloodsucker/proc/HandleDeath()
-	var/mob/living/carbon/user = owner.current
+	if(source.stat != DEAD) // weirdness shield
+		return
+	INVOKE_ASYNC(src, PROC_REF(handle_death))
+
+/datum/antagonist/bloodsucker/proc/handle_death()
+	var/static/handling_death = FALSE
+	if(handling_death)
+		return
+	handling_death = TRUE
+	do_handle_death()
+	handling_death = FALSE
+
+/// FINAL DEATH.
+/// Don't call this directly, use handle_death().
+/datum/antagonist/bloodsucker/proc/do_handle_death()
 	// Not "Alive"?
-	if(!user)
+	if(QDELETED(owner.current))
 		final_death()
 		return
 	// Fire Damage? (above double health)
-	if(user.getFireLoss() >= user.maxHealth * 2.5 && bloodsucker_level)
+	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
 		final_death()
 		return
 	// Staked while "Temp Death" or Asleep
-	if(user.StakeCanKillMe() && user.am_staked())
+	if(owner.current.StakeCanKillMe() && owner.current.am_staked())
 		final_death()
 		return
 	// Temporary Death? Convert to Torpor.
-	if(HAS_TRAIT(user, TRAIT_NODEATH))
+	if(is_in_torpor())
 		return
-	to_chat(user, "<span class='danger'>Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor.</span>")
+	to_chat(owner.current, "<span class='userdanger'>Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor.</span>")
 	check_begin_torpor(TRUE)
 
 /datum/antagonist/bloodsucker/proc/HandleStarving() // I am thirsty for blood!
@@ -213,7 +217,7 @@
 	owner.current.set_nutrition(min(bloodsucker_blood_volume, NUTRITION_LEVEL_FED))
 
 	// BLOOD_VOLUME_GOOD: [336] - Pale
-//	handled in bloodsucker_integration.dm
+	// handled in bloodsucker_integration.dm
 
 	// BLOOD_VOLUME_EXIT: [250] - Exit Frenzy (If in one) This is high because we want enough to kill the poor soul they feed off of.
 	if(bloodsucker_blood_volume >= FRENZY_THRESHOLD_EXIT && frenzied)

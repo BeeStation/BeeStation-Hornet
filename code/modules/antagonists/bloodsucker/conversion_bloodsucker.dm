@@ -1,19 +1,11 @@
 /**
- * Checks if the target has antag datums and, if so,
- * are they allowed to be Vassalized, or not, or banned.
- * Args:
- * target - The person we check for antag datums.
+ * Checks if the target's antag_datums contain any of the banned antags.
  */
-/datum/antagonist/bloodsucker/proc/AmValidAntag(mob/target)
-	if(!target.mind || target.mind.unconvertable)
-		return VASSALIZATION_BANNED
-
-	var/vassalization_status = VASSALIZATION_ALLOWED
+/datum/antagonist/bloodsucker/proc/IsBlacklistedAntag(mob/target)
 	for(var/datum/antagonist/antag_datum as anything in target.mind.antag_datums)
 		if(antag_datum.type in vassal_banned_antags)
-			return VASSALIZATION_BANNED
-		vassalization_status = VASSALIZATION_DISLOYAL
-	return vassalization_status
+			return TRUE
+	return FALSE
 
 /**
  * # can_make_vassal
@@ -25,30 +17,30 @@
  * conversion_target - Person being vassalized
  */
 /datum/antagonist/bloodsucker/proc/can_make_vassal(mob/living/conversion_target)
+	var/mob/living/carbon/human/user = owner.current
+
 	if(!my_clan)
-		to_chat(owner.current, "<span class='danger'>You must enter a clan before you can vassalize people!</span>")
+		user.balloon_alert(user, "enter a clan first.")
 		return FALSE
-	if(!iscarbon(conversion_target) || conversion_target.stat > UNCONSCIOUS)
+	if(IsBlacklistedAntag(conversion_target) || !ishuman(conversion_target) || !conversion_target.mind || conversion_target.mind?.unconvertable)
+		user.balloon_alert(user, "can't be vassalized!")
 		return FALSE
-	if(length(vassals) == return_current_max_vassals())
-		to_chat(owner.current, "<span class='danger'>You find that your powers run thin and are unable to dominate their mind with your blood!</span>")
+	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
+	if(vassaldatum && !vassaldatum?.master.broke_masquerade)
+		user.balloon_alert(user, "someone else's vassal!")
 		return FALSE
-	// No Mind!
-	if(!conversion_target.mind)
-		to_chat(owner.current, "<span class='danger'>[conversion_target] isn't self-aware enough to be made into a Vassal.</span>")
+	if(conversion_target.stat > UNCONSCIOUS)
+		user.balloon_alert(user, "must be awake!")
 		return FALSE
-	if(AmValidAntag(conversion_target) == VASSALIZATION_BANNED)
-		to_chat(owner.current, "<span class='danger'>[conversion_target] resists the power of your blood to dominate their mind!</span>")
+	if(length(vassals) >= return_current_max_vassals())
+		user.balloon_alert(user, "max vassals reached!")
 		return FALSE
 	var/mob/living/master = conversion_target.mind.enslaved_to
-	if(!master || (master == owner.current))
-		return TRUE
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = master.mind.has_antag_datum(/datum/antagonist/bloodsucker)
-	if(bloodsuckerdatum && bloodsuckerdatum.broke_masquerade)
-		//vassal stealing
-		return TRUE
-	to_chat(owner.current, "<span class='danger'>[conversion_target]'s mind is overwhelmed with too much external force to put your own!</span>")
-	return FALSE
+	if(master && master != owner.current)
+		user.balloon_alert(user, "enslaved to someone else!")
+		return FALSE
+
+	return TRUE
 
 /**
  *  This proc is responsible for calculating how many vassals you can have at any given
@@ -64,33 +56,22 @@
 		else
 			return 4
 
-/**
- * First will check if the target can be turned into a Vassal, if so then it will
- * turn them into one, log it, sync their minds, then updates the Rank
- * Args:
- * conversion_target - The person converted.
- */
 /datum/antagonist/bloodsucker/proc/make_vassal(mob/living/conversion_target)
-	if(!can_make_vassal(conversion_target))
-		return FALSE
-
 	//Check if they used to be a Vassal and was stolen.
-	var/datum/antagonist/vassal/old_vassal = conversion_target.mind.has_antag_datum(/datum/antagonist/vassal)
-	if(old_vassal)
+	if(IS_VASSAL(conversion_target))
 		conversion_target.mind.remove_antag_datum(/datum/antagonist/vassal)
 
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = owner.has_antag_datum(/datum/antagonist/bloodsucker)
-	bloodsuckerdatum.SelectTitle(am_fledgling = FALSE)
+	SelectTitle(am_fledgling = FALSE)
 
 	//Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
-	vassaldatum.master = bloodsuckerdatum
+	vassaldatum.master = src
 	conversion_target.mind.add_antag_datum(vassaldatum)
 
 	//Add to the bloodsucker's team # Taken from wizard.dm
-	if(!bloodsuckerdatum.bloodsucker_team)
-		bloodsuckerdatum.create_bloodsucker_team()
-	vassaldatum.bloodsucker_team = bloodsuckerdatum.bloodsucker_team
+	if(!bloodsucker_team)
+		create_bloodsucker_team()
+	vassaldatum.bloodsucker_team = bloodsucker_team
 
 	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")

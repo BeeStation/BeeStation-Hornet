@@ -65,9 +65,7 @@
 		return
 	// Spend Rank Immediately?
 	if(!istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		to_chat(owner, "<span class='notice'><EM>You have grown more ancient! Sleep in a coffin (or put your Favorite Vassal on a persuasion rack for Ventrue) that you have claimed to thicken your blood and become more powerful.</EM></span>")
-		if(bloodsucker_level_unspent >= 2)
-			to_chat(owner, "<span class='announce'><EM>You have grown more ancient! Sleep in a coffin (or put your Favorite Vassal on a persuasion rack for Ventrue) that you have claimed to thicken your blood and become more powerful.</EM><Bloodsucker Tip: If you cannot find or steal a coffin to use, you can build one from wood or metal.</span>")
+		to_chat(owner, "<span class='notice'><EM>You have grown more ancient! Sleep in a coffin that you have claimed to thicken your blood and become more powerful[istype(my_clan, bloodsucker_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up" : ""]</EM></span>")
 		return
 	SpendRank()
 
@@ -136,10 +134,6 @@
 	// Default String
 	var/returnString = "\[<span class='warning'><EM>[return_full_name()]</EM></span>\]"
 	var/returnIcon = "[icon2html('icons/bloodsuckers/vampiric.dmi', world, "bloodsucker")]"
-
-	// In Disguise (Veil)?
-	//if (name_override != null)
-	//	returnString += "<span class='suicide'> ([real_name] in disguise!) </span>"
 
 	//returnString += "\n"  Don't need spacers. Using . += "" in examine.dm does this on its own.
 	return returnIcon + returnString

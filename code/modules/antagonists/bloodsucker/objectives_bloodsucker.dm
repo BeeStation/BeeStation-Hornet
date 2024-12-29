@@ -25,7 +25,7 @@
 /// Check Vassals and get their occupations
 /datum/objective/bloodsucker/proc/get_vassal_occupations()
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = owner.has_antag_datum(/datum/antagonist/bloodsucker)
-	if(!bloodsuckerdatum || !bloodsuckerdatum.vassals.len)
+	if(!length(bloodsuckerdatum?.vassals))
 		return FALSE
 	var/list/all_vassal_jobs = list()
 	var/vassal_job
