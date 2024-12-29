@@ -248,7 +248,7 @@
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/item_shard
 	max_integrity = 40
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	var/icon_prefix
 	embedding = list("embed_chance" = 65)

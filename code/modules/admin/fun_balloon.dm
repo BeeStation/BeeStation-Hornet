@@ -165,5 +165,5 @@
 
 /area/shuttle_arena
 	name = "arena"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	requires_power = FALSE

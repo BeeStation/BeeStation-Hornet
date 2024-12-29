@@ -160,7 +160,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
 	var/can_drop = FALSE
 	var/fake = FALSE
@@ -175,6 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 	if(synthetic)
 		can_drop = TRUE
+		sharpness = SHARP_DISMEMBER
 	AddComponent(/datum/component/butchering, 60, 80)
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
