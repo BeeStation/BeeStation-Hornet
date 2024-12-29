@@ -472,7 +472,7 @@
 			user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
 								"<span class='notice'>You undo [src]'s floor bolts.</span>")
 			deconstruct(TRUE)
-			return
+			return TRUE
 		if(C.tool_behaviour == TOOL_SCREWDRIVER)
 			user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
 								"<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
@@ -731,7 +731,7 @@
 	name = "firelock frame"
 	desc = "A partially completed firelock."
 	icon = 'icons/obj/doors/firelocks/doorfire.dmi'
-	icon_state = "frame1"
+	icon_state = "frame2"
 	anchored = FALSE
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
@@ -790,7 +790,7 @@
 				else
 					new /obj/machinery/door/firedoor(get_turf(src))
 				qdel(src)
-				return
+				return TRUE
 			if(istype(attacking_object, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/plasteel_sheet = attacking_object
 				if(reinforced)
@@ -810,7 +810,7 @@
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
 					plasteel_sheet.use(2)
 					reinforced = 1
-				return
+				return QDELING(plasteel_sheet)
 		if(CONSTRUCTION_NO_CIRCUIT)
 			if(istype(attacking_object, /obj/item/electronics/firelock))
 				user.visible_message("<span class = 'notice'>[user] starts adding [attacking_object] to [src]...</span>", \
@@ -825,7 +825,8 @@
 					"<span class = 'notice'>You insert and secure [attacking_object].</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
 				constructionStep = CONSTRUCTION_PANEL_OPEN
-				return
+				update_icon()
+				return TRUE
 			if(attacking_object.tool_behaviour == TOOL_WELDER)
 				if(!attacking_object.tool_start_check(user, amount=1))
 					return
@@ -842,6 +843,7 @@
 					if(reinforced)
 						new /obj/item/stack/sheet/plasteel(tagetloc, 2)
 					qdel(src)
+					return TRUE
 				return
 			if(istype(attacking_object, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/raspberrypi = attacking_object
