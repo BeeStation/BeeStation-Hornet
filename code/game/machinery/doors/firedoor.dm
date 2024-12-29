@@ -473,7 +473,7 @@
 			user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
 								"<span class='notice'>You undo [src]'s floor bolts.</span>")
 			deconstruct(TRUE)
-			return
+			return TRUE
 		if(C.tool_behaviour == TOOL_SCREWDRIVER)
 			user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
 								"<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
@@ -737,12 +737,11 @@
 	name = "firelock frame"
 	desc = "A partially completed firelock."
 	icon = 'icons/obj/doors/firelocks/doorfire.dmi'
-	icon_state = "frame1"
+	icon_state = "frame2"
 	anchored = FALSE
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/constructionStep = CONSTRUCTION_NO_CIRCUIT
-	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor
 
 /obj/structure/firelock_frame/examine(mob/user)
@@ -750,7 +749,7 @@
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			. += "<span class='notice'>It is <i>unbolted</i> from the floor. The circuit could be removed with a <b>crowbar</b>.</span>"
-			if(!reinforced)
+			if(firelock_type == /obj/machinery/door/firedoor)
 				. += "<span class='notice'>It could be reinforced with plasteel.</span>"
 		if(CONSTRUCTION_NO_CIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
@@ -778,7 +777,9 @@
 				update_icon()
 				return
 			if(attacking_object.tool_behaviour == TOOL_WRENCH)
-				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
+				var/obj/machinery/door/firedoor/conflicting = locate(/obj/machinery/door/firedoor) in get_turf(src)
+				if(conflicting && ((type != /obj/structure/firelock_frame/border) || \
+						!istype(conflicting, /obj/machinery/door/firedoor/border_only) || (conflicting.dir == dir)))
 					to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
 					return
 				attacking_object.play_tool_sound(src)
@@ -786,21 +787,26 @@
 					"<span class = 'notice'>You begin bolting [src]...</span>")
 				if(!attacking_object.use_tool(src, user, DEFAULT_STEP_TIME))
 					return
-				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
+
+				conflicting = locate(/obj/machinery/door/firedoor) in get_turf(src)
+				if(conflicting && ((type != /obj/structure/firelock_frame/border) || \
+						!istype(conflicting, /obj/machinery/door/firedoor/border_only) || (conflicting.dir == dir)))
+					to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
 					return
 				user.visible_message("<span class = 'notice'>[user] finishes the firelock.</span>", \
 					"<span class = 'notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
-				if(reinforced)
-					new /obj/machinery/door/firedoor/heavy(get_turf(src))
-				else
-					new /obj/machinery/door/firedoor(get_turf(src))
+				var/obj/machinery/door/firedoor/D = new firelock_type(get_turf(src))
+				D.setDir(dir) //Border firelocks
 				qdel(src)
-				return
+				return TRUE
 			if(istype(attacking_object, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/plasteel_sheet = attacking_object
-				if(reinforced)
+				if(firelock_type == /obj/machinery/door/firedoor/heavy)
 					to_chat(user, "<span class='warning'>[src] is already reinforced.</span>")
+					return
+				if(firelock_type != /obj/machinery/door/firedoor)
+					to_chat(user, "<span class='warning'>[src] cannot be reinforced.</span>")
 					return
 				if(plasteel_sheet.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to reinforce [src].</span>")
@@ -809,14 +815,15 @@
 					"<span class = 'notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
 				if(do_after(user, DEFAULT_STEP_TIME, target = src))
-					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || plasteel_sheet.get_amount() < 2 || !plasteel_sheet)
+					if(constructionStep != CONSTRUCTION_PANEL_OPEN || firelock_type == /obj/machinery/door/firedoor/heavy || \
+							plasteel_sheet.get_amount() < 2 || !plasteel_sheet)
 						return
 					user.visible_message("<span class = 'notice'>[user] reinforces [src].</span>", \
 						"<span class = 'notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
 					plasteel_sheet.use(2)
-					reinforced = 1
-				return
+					firelock_type = /obj/machinery/door/firedoor/heavy
+				return QDELING(plasteel_sheet)
 		if(CONSTRUCTION_NO_CIRCUIT)
 			if(istype(attacking_object, /obj/item/electronics/firelock))
 				user.visible_message("<span class = 'notice'>[user] starts adding [attacking_object] to [src]...</span>", \
@@ -831,7 +838,8 @@
 					"<span class = 'notice'>You insert and secure [attacking_object].</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
 				constructionStep = CONSTRUCTION_PANEL_OPEN
-				return
+				update_icon()
+				return TRUE
 			if(attacking_object.tool_behaviour == TOOL_WELDER)
 				if(!attacking_object.tool_start_check(user, amount=1))
 					return
@@ -845,9 +853,10 @@
 						"<span class = 'notice'>You cut [src] into metal.</span>")
 					var/turf/tagetloc = get_turf(src)
 					new /obj/item/stack/sheet/iron(tagetloc, 3)
-					if(reinforced)
+					if(firelock_type == /obj/machinery/door/firedoor/heavy)
 						new /obj/item/stack/sheet/plasteel(tagetloc, 2)
 					qdel(src)
+					return TRUE
 				return
 			if(istype(attacking_object, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/raspberrypi = attacking_object
@@ -883,7 +892,6 @@
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
-	reinforced = TRUE
 	firelock_type = /obj/machinery/door/firedoor/heavy
 
 /obj/structure/firelock_frame/border
