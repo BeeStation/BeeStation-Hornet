@@ -564,7 +564,7 @@ GENE SCANNER
 	if(!istype(location))
 		return
 
-	scan_turf(user, location)
+	atmos_scan(user=user, target=get_turf(src), silent=FALSE)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 
@@ -632,13 +632,9 @@ GENE SCANNER
 	. = ..()
 	if(!can_see(user, target, ranged_scan_distance))
 		return
-	if(target.tool_act(user, src, tool_behaviour))
-		return
-	// Tool act didn't scan it, so let's get it's turf.
-	var/turf/location = get_turf(target)
-	scan_turf(user, location)
+	atmos_scan(user, (target.return_analyzable_air() ? target : get_turf(target)))
 
-/proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE, to_chat = TRUE)
+/proc/atmos_scan(mob/user, atom/target, silent=FALSE)
 	var/mixture = target.return_analyzable_air()
 	if(!mixture)
 		return FALSE
@@ -687,57 +683,9 @@ GENE SCANNER
 			message += "<span class='boldnotice'>Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.</span>"
 			message += "<span class='notice'>Instability of the last fusion reaction: [instability].</span>"
 
-	if(to_chat)
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
-		return TRUE
-	else
-		return(jointext(message, "\n"))
-
-/obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
-	var/list/message = list()
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	message += "<span class='info'><B>Results:</B></span>"
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		message += "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>"
-	else
-		message += "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>"
-	if(total_moles)
-		var/o2_concentration = GET_MOLES(/datum/gas/oxygen, environment)/total_moles
-		var/n2_concentration = GET_MOLES(/datum/gas/nitrogen, environment)/total_moles
-		var/co2_concentration = GET_MOLES(/datum/gas/carbon_dioxide, environment)/total_moles
-		var/plasma_concentration = GET_MOLES(/datum/gas/plasma, environment)/total_moles
-
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(n2_concentration*total_moles, 0.01)] mol)</span>"
-		else
-			message += "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(n2_concentration*total_moles, 0.01)] mol)</span>"
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			message += "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(o2_concentration*total_moles, 0.01)] mol)</span>"
-		else
-			message += "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(o2_concentration*total_moles, 0.01)] mol)</span>"
-
-		if(co2_concentration > 0.01)
-			message += "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(co2_concentration*total_moles, 0.01)] mol)</span>"
-		else
-			message += "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(co2_concentration*total_moles, 0.01)] mol)</span>"
-
-		if(plasma_concentration > 0.005)
-			message += "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(plasma_concentration*total_moles, 0.01)] mol)</span>"
-		else
-			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(plasma_concentration*total_moles, 0.01)] mol)</span>"
-
-		for(var/id in environment.gases)
-			if(id in GLOB.hardcoded_gases)
-				continue
-			var/gas_concentration = GET_MOLES(id, environment)/total_moles
-			message += "<span class='alert'>[environment.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(gas_concentration*total_moles, 0.01)] mol)</span>"
-		message += "<span class='info'>Temperature: [round(environment.temperature-T0C, 0.01)] &deg;C ([round(environment.temperature, 0.01)] K)</span>"
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+	// we let the join apply newlines so we do need handholding
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	return TRUE
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."

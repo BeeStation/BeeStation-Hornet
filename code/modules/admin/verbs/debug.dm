@@ -31,10 +31,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Air Status in Location"
 	if(!mob)
 		return
-	var/turf/T = get_turf(mob)
-	if(!isturf(T))
+	var/turf/user_turf = get_turf(mob)
+	if(!isturf(user_turf))
 		return
-	atmosanalyzer_scan(usr, T, TRUE)
+	atmos_scan(mob, user_turf, TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status In Location") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)

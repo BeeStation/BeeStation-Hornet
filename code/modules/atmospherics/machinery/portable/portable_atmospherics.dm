@@ -59,10 +59,6 @@
 
 	return ..()
 
-/obj/machinery/portable_atmospherics/analyzer_act(mob/living/user, obj/item/I)
-	if(..() && holding)
-		return atmosanalyzer_scan(user, holding, TRUE)
-
 /obj/machinery/portable_atmospherics/process_atmos()
 	excited = (excited | air_contents.react(src))
 	if(!excited)
