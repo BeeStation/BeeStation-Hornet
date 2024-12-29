@@ -5350,6 +5350,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "bIM" = (
@@ -16130,24 +16131,13 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "fcE" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
+/turf/open/floor/iron/dark/side{
+	dir = 9
 	},
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/rock/jungle,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "hopqueue";
-	name = "HoP Queue Shutters"
-	},
-/turf/open/floor/grass/no_border,
-/area/crew_quarters/heads/hop)
+/area/hallway/primary/fore)
 "fcK" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -18171,6 +18161,7 @@
 	pixel_x = 23;
 	pixel_y = -8
 	},
+/obj/machinery/photobooth,
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "fIv" = (
@@ -21661,10 +21652,10 @@
 /area/hallway/primary/central)
 "gOj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/turf/open/floor/iron/dark/corner{
-	dir = 1
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
+	alpha = 180
 	},
+/turf/open/floor/iron,
 /area/hallway/primary/fore)
 "gOk" = (
 /obj/structure/sign/departments/minsky/security/command,
@@ -24666,6 +24657,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 10
 	},
 /turf/open/floor/iron/dark/corner{
 	dir = 4
@@ -29987,9 +29981,8 @@
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
 "jCt" = (
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
-	alpha = 180;
-	dir = 1
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
+	alpha = 180
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -30003,12 +29996,7 @@
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/darkblue{
 	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
-	dir = 10
-	},
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
+/turf/open/floor/iron,
 /area/hallway/primary/fore)
 "jCx" = (
 /obj/effect/turf_decal/stripes/line,
@@ -32620,9 +32608,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/darkblue,
-/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
-	dir = 8
-	},
 /obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
 	dir = 10
 	},
@@ -38495,9 +38480,6 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/east,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -65861,10 +65843,16 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
-	alpha = 180
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	alpha = 180;
+	dir = 1
 	},
-/turf/open/floor/iron,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
 /area/hallway/primary/fore)
 "uTj" = (
 /obj/effect/turf_decal/stripes/line{
@@ -73355,6 +73343,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/heads/hop)
@@ -108762,7 +108753,7 @@ wul
 jGN
 rlg
 mqa
-rlg
+fcE
 gOj
 bIG
 lWz
@@ -109019,8 +109010,8 @@ jvB
 grE
 moP
 gOk
+sAc
 dFh
-fcE
 xvA
 gHS
 fxw
