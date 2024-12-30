@@ -681,7 +681,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		var/list/souls = return_souls()
 		if(!length(souls))
 			return
-		to_chat(user, "<span class='notice'>You sense a presence here...")
+		to_chat(user, span_notice("You sense a presence here..."))
 		//Count of souls
 		var/list/present_souls = list()
 		for(var/soul in souls)

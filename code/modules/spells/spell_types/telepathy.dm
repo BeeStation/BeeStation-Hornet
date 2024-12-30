@@ -27,13 +27,13 @@
 			return
 		msg = user.treat_message_min(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, "[name]")
-		to_chat(user, "<span class='[boldnotice]'>You transmit to [M]:</span> <span class='[notice]'>[msg]</span>")
+		to_chat(user, "[span_boldnotice("You transmit to [M]:")] [span_notice(msg)]")
 		if(!M.anti_magic_check(magic_check, holy_check)) //hear no evil
-			to_chat(M, "<span class='[boldnotice]'>You hear something behind you talking...</span> <span class='[notice]'>[msg]</span>")
+			to_chat(M, "[span_boldnotice("You hear something behind you talking...")] [span_notice(msg)]")
 			M.balloon_alert(M, "You hear a voice in your head...")
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
 				continue
 			var/follow_rev = FOLLOW_LINK(ded, user)
 			var/follow_whispee = FOLLOW_LINK(ded, M)
-			to_chat(ded, "[follow_rev] <span class='[boldnotice]'>[user] [name]:</span> <span class='[notice]'>\"[msg]\" to</span> [follow_whispee] [span_name("[M]")]")
+			to_chat(ded, "[follow_rev] [span_boldnotice("[user] [name]:")] [span_notice(""\[msg]\" to")] [follow_whispee] [span_name(M)]")

@@ -869,7 +869,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
 		var/follow_link_user = FOLLOW_LINK(ghost, human_owner)
 		var/follow_link_target = FOLLOW_LINK(ghost, target)
-		to_chat(ghost, "[follow_link_user] [span_slime("<span class='name'>[human_owner]")] [span_bold("Slime Telepathy --> ")] [follow_link_target] [span_name("[target]")] [span_message("[msg]")]</span>", type = MESSAGE_TYPE_RADIO)
+		to_chat(ghost, "[follow_link_user] [span_slime(span_name(human_owner)] [span_bold("Slime Telepathy --> ")] [follow_link_target] [span_name(target)] [span_message(msg)]"), type = MESSAGE_TYPE_RADIO)
 
 /datum/action/innate/link_minds
 	name = "Link Minds"

@@ -450,7 +450,7 @@
 	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
 		valid_span_class += " big"
-	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak [span_name("[shown_name]")] [span_message("[message_a]")]</span>"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak [span_name(shown_name)] [span_message(message_a)]</span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

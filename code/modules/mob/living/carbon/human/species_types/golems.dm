@@ -749,7 +749,7 @@
 	nojumpsuit = FALSE
 	has_corpse = TRUE
 	random_eligible = FALSE
-	info_text = span_boldalloy("As a <span class='bold brass'>Clockwork Golem Servant</span>, you are faster than other types of golems.") //warcult golems leave a corpse
+	info_text = span_boldalloy("As a " + span_boldbrass("Clockwork Golem Servant") + ", you are faster than other types of golems.") //warcult golems leave a corpse
 
 /datum/species/golem/cloth
 	name = "Cloth Golem"

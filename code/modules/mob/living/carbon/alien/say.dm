@@ -8,7 +8,7 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<i>[span_srtradioalien("Hivemind, <span class='name'>[shown_name]")] [span_message("[message_a]")]</span></i>"
+	var/rendered = "<i>[span_srtradioalien("Hivemind, [span_name(shown_name)] [span_message(message_a)]")</i>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && S.hivecheck())
 			to_chat(S, rendered)

@@ -316,7 +316,7 @@
 	if (!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
-	return "<span class='[name][size_id] [sprite_name]'></span>"
+	return "span_[name][sizeid][spritename]("")"
 
 /datum/asset/spritesheet_batched/proc/icon_class_name(sprite_name)
 	var/sprite = sprites[sprite_name]
