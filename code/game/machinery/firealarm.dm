@@ -397,7 +397,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 							else
 								to_chat(user, "<span class='notice'>You pry out the circuit.</span>")
 								new /obj/item/electronics/firealarm(user.loc)
-							buildstage = FIRE_ALARM_BUILD_NO_WIRES
+							buildstage = FIRE_ALARM_BUILD_NO_CIRCUIT
 							update_icon()
 					return
 			if(FIRE_ALARM_BUILD_NO_CIRCUIT)
