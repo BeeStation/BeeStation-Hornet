@@ -25489,7 +25489,7 @@
 /area/engine/engineering)
 "gOp" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "gOt" = (
