@@ -16,11 +16,12 @@
 	return T.zPassOut(src, direction, destination) && destination.zPassIn(src, direction, T)
 
 /// Called when an atom changes z-levels for any reason. This includes shuttle transfer, teleports, etc.
-/atom/movable/proc/onTransitZ(old_z,new_z)
+/atom/movable/proc/onTransitZ(old_z, new_z)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_z, new_z)
 	for (var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
 		var/atom/movable/AM = item
-		AM.onTransitZ(old_z,new_z)
+		AM.onTransitZ(old_z, new_z)
+
 	for(var/client/each_client as anything in eye_users)
 		if(each_client.mob == src)
 			continue

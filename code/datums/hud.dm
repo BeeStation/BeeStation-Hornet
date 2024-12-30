@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_VALENTINE = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_HEARTBREAKER = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_PRISONER = new/datum/atom_hud/antag/hidden(),
-	))
+))
 
 /datum/atom_hud
 	///associative list of the form: list(z level = list(hud atom)).
@@ -60,11 +60,11 @@ GLOBAL_LIST_INIT(huds, list(
 	// by z level so when they change z's we can adjust what images they see from this hud.
 	var/list/hud_users = list()
 
-	///used for signal tracking purposes, associative list of the form: list(hud atom = TRUE) that isnt separated by z level
+	///used for signal tracking purposes, associative list of the form: list(hud atom = TRUE) that isn't separated by z level
 	var/list/atom/hud_atoms_all_z_levels = list()
 
 	///used for signal tracking purposes, associative list of the form: list(hud user = number of times this hud was added to this user).
-	///that isnt separated by z level
+	///that isn't separated by z level
 	var/list/mob/hud_users_all_z_levels = list()
 
 	///these will be the indexes for the atom's hud_list
@@ -74,10 +74,10 @@ GLOBAL_LIST_INIT(huds, list(
 	var/list/next_time_allowed = list()
 	///mobs that have triggered the cooldown and are queued to see the hud, but do not yet
 	var/list/queued_to_see = list()
-	/// huduser = list(atoms with their hud hidden) - aka everyone hates targeted invisiblity
+	/// huduser = list(atoms with their hud hidden) - aka everyone hates targeted invisibility
 	var/list/hud_exceptions = list()
 	///whether or not this atom_hud type updates the global huds_by_category list.
-	///some subtypes cant work like this since theyre supposed to "belong" to
+	///some subtypes can't work like this since they're supposed to "belong" to
 	///one target atom each. it will still go in the other global hud lists.
 	var/uses_global_hud_category = TRUE
 
@@ -170,7 +170,8 @@ GLOBAL_LIST_INIT(huds, list(
 
 		RegisterSignal(new_viewer, COMSIG_PARENT_QDELETING, PROC_REF(unregister_atom), override = TRUE) //both hud users and hud atoms use these signals
 		RegisterSignal(new_viewer, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
-		RegisterSignal(new_viewer.client, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
+		if(new_viewer.client)
+			RegisterSignal(new_viewer.client, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_client_eye_z_changed), override = TRUE)
 
 		var/turf/their_turf = get_turf(new_viewer)
 		if(!their_turf)
@@ -197,13 +198,13 @@ GLOBAL_LIST_INIT(huds, list(
 
 	hud_users_all_z_levels[former_viewer] -= 1//decrement number of sources for this hud on this user (bad way to track i know)
 
-	if (absolute || hud_users_all_z_levels[former_viewer] <= 0)//if forced or there arent any sources left, remove the user
+	if (absolute || hud_users_all_z_levels[former_viewer] <= 0)//if forced or there aren't any sources left, remove the user
 
-		if(!hud_atoms_all_z_levels[former_viewer])//make sure we arent unregistering changes on a mob thats also a hud atom for this hud
+		if(!hud_atoms_all_z_levels[former_viewer])//make sure we aren't unregistering changes on a mob that's also a hud atom for this hud
 			UnregisterSignal(former_viewer, COMSIG_MOVABLE_Z_CHANGED)
 			UnregisterSignal(former_viewer, COMSIG_PARENT_QDELETING)
-		if(former_viewer.client)
-			UnregisterSignal(former_viewer.client, COMSIG_CLIENT_EYE_Z_CHANGED)
+			if(former_viewer.client)
+				UnregisterSignal(former_viewer.client, COMSIG_CLIENT_EYE_Z_CHANGED)
 
 		hud_users_all_z_levels -= former_viewer
 
@@ -227,7 +228,10 @@ GLOBAL_LIST_INIT(huds, list(
 
 	// No matter where or who you are, you matter to me :)
 	RegisterSignal(new_hud_atom, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
-	RegisterSignal(new_hud_atom, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
+	RegisterSignal(new_hud_atom, COMSIG_PARENT_QDELETING, PROC_REF(unregister_atom), override = TRUE) //both hud atoms and hud users use these signals
+	var/mob/hud_mob = new_hud_atom
+	if(hud_mob.client)
+		RegisterSignal(hud_mob.client, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_client_eye_z_changed), override = TRUE)
 	hud_atoms_all_z_levels[new_hud_atom] = TRUE
 
 	var/turf/atom_turf = get_turf(new_hud_atom)
@@ -246,10 +250,13 @@ GLOBAL_LIST_INIT(huds, list(
 	if(!hud_atom_to_remove || !hud_atoms_all_z_levels[hud_atom_to_remove])
 		return FALSE
 
-	//make sure we arent unregistering a hud atom thats also a hud user mob
+	//make sure we aren't unregistering a hud atom that's also a hud user mob
 	if(!hud_users_all_z_levels[hud_atom_to_remove])
 		UnregisterSignal(hud_atom_to_remove, COMSIG_MOVABLE_Z_CHANGED)
 		UnregisterSignal(hud_atom_to_remove, COMSIG_PARENT_QDELETING)
+		var/mob/hud_mob = hud_atom_to_remove
+		if(hud_mob.client)
+			UnregisterSignal(hud_mob.client, COMSIG_CLIENT_EYE_Z_CHANGED)
 
 	for(var/mob/mob_to_remove as anything in hud_users_all_z_levels)
 		remove_atom_from_single_hud(mob_to_remove, hud_atom_to_remove)
@@ -302,20 +309,22 @@ GLOBAL_LIST_INIT(huds, list(
 	for(var/mob/hud_user as anything in get_hud_users_for_z_level(atom_turf.z))
 		if(!hud_user.client)
 			continue
-		hud_user.client.images -= hud_atom.active_hud_list[hud_category_to_remove]//by this point it shouldnt be in active_hud_list
+		hud_user.client.images -= hud_atom.active_hud_list[hud_category_to_remove]//by this point it shouldn't be in active_hud_list
 
 	return TRUE
 
-///when a hud atom or hud user changes z levels this makes sure it gets the images it needs and removes the images it doesnt need.
-///because of how signals work we need the same proc to handle both use cases because being a hud atom and being a hud user arent mutually exclusive
+
+/// a dedicated client proc that calls on_atom_or_user_z_level_changed()
+/datum/atom_hud/proc/on_client_eye_z_changed(client/client, old_z, new_z)
+	// Beestation note: our z system is a bit different than how TG does.
+	SIGNAL_HANDLER
+	on_atom_or_user_z_level_changed(client.eye, old_z, new_z)
+
+///when a hud atom or hud user changes z levels this makes sure it gets the images it needs and removes the images it doesn't need.
+///because of how signals work we need the same proc to handle both use cases because being a hud atom and being a hud user aren't mutually exclusive
 /datum/atom_hud/proc/on_atom_or_user_z_level_changed(atom/movable/moved_atom, old_z, new_z)
 	SIGNAL_HANDLER
-
-	if(isclient(moved_atom)) // need to do this because of COMSIG_CLIENT_EYE_Z_CHANGED signal
-		var/client/client = moved_atom
-		moved_atom = client.mob
-
-	if(old_z)
+	if(old_z > 0)
 		if(hud_users_all_z_levels[moved_atom])
 			hud_users[old_z] -= moved_atom
 
@@ -327,7 +336,7 @@ GLOBAL_LIST_INIT(huds, list(
 			//this wont include moved_atom since its removed
 			remove_atom_from_all_huds(get_hud_users_for_z_level(old_z), moved_atom)
 
-	if(new_z)
+	if(new_z > 0)
 		if(hud_users_all_z_levels[moved_atom])
 			hud_users[new_z][moved_atom] = TRUE //hud users is associative, hud atoms isnt
 
@@ -465,7 +474,7 @@ GLOBAL_LIST_INIT(huds, list(
 		if(hud?.hud_users_all_z_levels[src])
 			for(var/atom/hud_atom as anything in hud.get_hud_atoms_for_z_level(our_turf.z))
 				hud.add_atom_to_single_mob_hud(src, hud_atom)
-				hud.RegisterSignal(client, COMSIG_CLIENT_EYE_Z_CHANGED, TYPE_PROC_REF(/datum/atom_hud, on_atom_or_user_z_level_changed), override = TRUE)
+				hud.RegisterSignal(client, COMSIG_CLIENT_EYE_Z_CHANGED, TYPE_PROC_REF(/datum/atom_hud, on_client_eye_z_changed), override = TRUE)
 
 /mob/dead/new_player/reload_huds()
 	return
