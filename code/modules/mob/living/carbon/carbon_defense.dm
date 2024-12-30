@@ -342,7 +342,7 @@
 
 	if(body_position == LYING_DOWN)
 		if(buckled)
-			to_chat(M, "<span class='warning'>You need to unbuckle [src] first to do that!")
+			to_chat(M, span_warning("You need to unbuckle [src] first to do that!"))
 			return
 		M.visible_message(span_notice("[M] shakes [src] trying to get [p_them()] up!"), \
 						span_notice("You shake [src] trying to get [p_them()] up!"))

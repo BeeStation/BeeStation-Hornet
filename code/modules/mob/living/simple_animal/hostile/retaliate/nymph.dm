@@ -122,7 +122,7 @@
 		var/mob/living/simple_animal/hostile/retaliate/nymph/user = L
 		if(mind == null) // No RRing fellow nymphs
 			if(user.is_drone)
-				to_chat(user, "<span class='danger'>You can't grow up as a lone nymph drone!")
+				to_chat(user, span_danger("You can't grow up as a lone nymph drone!"))
 				return
 			if(user.assimilating)
 				return
@@ -147,10 +147,10 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/attack_ghost(mob/dead/observer/user)
 	if(client || key || ckey)
-		to_chat(user, "<span class='warning'>\The [src] already has a player.")
+		to_chat(user, span_warning("\The [src] already has a player."))
 		return
 	if(!is_ghost_spawn || stat == DEAD || is_drone)
-		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
+		to_chat(user, span_warning("\The [src] is not possessable!"))
 		return
 	var/control_ask = tgui_alert(usr, "Do you wish to take control of \the [src]", "Chirp Time?", list("Yes", "No"))
 	if(control_ask != "Yes" || !src || QDELETED(src) || QDELETED(user))
@@ -208,9 +208,8 @@
 		src.loc = L.loc
 		qdel(L)
 
-	src.visible_message(
-		(span_warning("[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of a new diona gestalt.")),
-		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
+	src.visible_message(span_warning("[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of a new diona gestalt."),
+		span_warning("You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
 	)
 
 	var/mob/living/simple_animal/hostile/retaliate/nymph/helpers
@@ -271,7 +270,7 @@
 	if(!isnymph(user))
 		return
 	if(user.is_drone)
-		to_chat(user, "<span class='danger'>You can't grow up as a drone!")
+		to_chat(user, span_danger("You can't grow up as a drone!"))
 		return
 	if(user.movement_type & VENTCRAWLING)
 		to_chat(user, span_danger("You cannot evolve while in a vent."))
@@ -316,16 +315,12 @@
 	var/datum/mind/C = user.mind
 	M = user.drone_parent
 	if(user.stat == CONSCIOUS)
-		user.visible_message("<span class='notice'>[user] \
-			stops moving and starts staring vacantly into space.</span>",
-			span_notice("You stop moving this form..."))
+		user.visible_message(span_notice("[user] stops moving and starts staring vacantly into space."), span_notice("You stop moving this form..."))
 	else
 		to_chat(M, span_notice("You abandon this nymph..."))
 	C.transfer_to(M)
 	M.mind = C
-	M.visible_message("<span class='notice'>[M] blinks and looks \
-		around.</span>",
-		span_notice("...and move this one instead."))
+	M.visible_message(span_notice("[M] blinks and looks around.</span>"), span_notice("...and move this one instead."))
 
 /mob/living/simple_animal/hostile/retaliate/nymph/mob_try_pickup(mob/living/user)
 	if(!ishuman(user))
@@ -368,7 +363,7 @@
 /obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	if(moving_cooldown <= world.time)
 		moving_cooldown = world.time + 50
-		user.visible_message("<span class='notice'>[user] starts to squirm in [loc]'s hands!",
+		user.visible_message(span_notice("[user] starts to squirm in [loc]'s hands!"),
 		span_notice("You start to squirm in [loc]'s hands..."))
 		if(on_head)
 			release()

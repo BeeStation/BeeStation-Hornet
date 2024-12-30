@@ -406,13 +406,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 		if(PROCESS_TYPE_LIT) //Burning
 			true_target = get_target_in_proximity(min(max_range, 5))
 			if(true_target[1])
-				visible_message("<span class='danger' size='4'>The [name] flicks out.</span>")
+				visible_message(span_danger("The [name] flicks out."))
 				default_activate(25, null, null)
 				process_type = null
 				return PROCESS_KILL
 		if(PROCESS_TYPE_TICK) //Clock-ing
 			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE)
-			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
+			visible_message(span_danger("The [name] ticks."))
 			true_target = get_target_in_proximity(min(max_range, 5))
 			default_activate(25, null, null)
 			if(DT_PROB(XENOA_TICK_CANCEL_PROB, delta_time) && COOLDOWN_FINISHED(src, xenoa_cooldown))

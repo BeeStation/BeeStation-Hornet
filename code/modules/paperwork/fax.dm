@@ -138,7 +138,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	allow_exotic_faxes = !allow_exotic_faxes
-	visible_message("<span class='warning'>[src] [allow_exotic_faxes ? "starts beeping" : "stops beeping"] ominously[allow_exotic_faxes ? "..." : "."]")
+	visible_message(span_warning("[src] [allow_exotic_faxes ? "starts beeping" : "stops beeping"] ominously[allow_exotic_faxes ? "..." : "."]"))
 
 /**
  * Unanchor/anchor
@@ -315,7 +315,7 @@
 			history_add("Send", params["name"])
 
 			GLOB.requests.fax_request(usr.client, "sent a fax message from [fax_name]/[fax_id] to [params["name"]]", fax_paper)
-			to_chat(GLOB.admins, "[span_adminnotice("[icon2html(src.icon, GLOB.admins)]<b><font color=green>FAX REQUEST: </font>[ADMIN_FULLMONTY(usr)]:</b> <span class='linkify'>sent a fax message from [fax_name]/[fax_id][ADMIN_FLW(src)] to [html_encode(params["name"])]")] [ADMIN_SHOW_PAPER(fax_paper)]")
+			to_chat(GLOB.admins, span_adminnotice("[icon2html(src.icon, GLOB.admins)]<b><font color=green>FAX REQUEST: </font>[ADMIN_FULLMONTY(usr)]:</b> [span_linkify("sent a fax message from [fax_name]/[fax_id][ADMIN_FLW(src)] to [html_encode(params["name"])]")] [ADMIN_SHOW_PAPER(fax_paper)]"))
 			log_fax(fax_paper, params["id"], params["name"])
 			loaded_item_ref = null
 

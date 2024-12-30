@@ -118,12 +118,12 @@
 		reagents.del_reagent(/datum/reagent/fuel) // not actually used for the explosion
 	if(reagents.total_volume)
 		if(!fuel_amt)
-			visible_message(("<span class='danger'>\The [src] ruptures!"))
+			visible_message(span_danger("\The [src] ruptures!"))
 		// Leave it up to future terrorists to figure out the best way to mix reagents with fuel for a useful boom here
 		chem_splash(loc, null, 2 + (reagents.total_volume + fuel_amt) / 1000, list(reagents), extra_heat=(fuel_amt / 50),adminlog=(fuel_amt<25))
 
 	if(fuel_amt) // with that done, actually explode
-		visible_message(("<span class='danger'>\The [src] explodes!"))
+		visible_message(span_danger("\The [src] explodes!"))
 		// old code for reference:
 		// standard fuel tank = 1000 units = heavy_impact_range = 1, light_impact_range = 5, flame_range = 5
 		// big fuel tank = 5000 units = devastation_range = 1, heavy_impact_range = 2, light_impact_range = 7, flame_range = 12

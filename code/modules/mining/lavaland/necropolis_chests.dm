@@ -774,9 +774,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/melee/transforming/cleaving_saw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].\n"+\
+	. += span_notice("It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].\n"+\
 	"Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.\n"+\
-	"Transforming it immediately after an attack causes the next attack to come out faster.</span>"
+	"Transforming it immediately after an attack causes the next attack to come out faster.")
 
 /obj/item/melee/transforming/cleaving_saw/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -1026,7 +1026,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!is_mining_level(user.z))
-		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
+		to_chat(user, span_warning("The staff's power is too dim to function this far from the necropolis"))
 		return
 	if(timer > world.time)
 		to_chat(user, span_warning("The staff is still recharging!"))

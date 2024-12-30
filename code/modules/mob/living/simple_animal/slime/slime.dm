@@ -455,7 +455,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	return
 
 /mob/living/simple_animal/slime/examine(mob/user)
-	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list(span_info("This is [icon2html(src, user)] \a <EM>[src]</EM>!"))
 	if (stat == DEAD)
 		. += span_deadsay("It is limp and unresponsive.")
 	else

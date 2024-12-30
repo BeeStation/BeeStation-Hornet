@@ -13,10 +13,10 @@
 		to_chat(user, span_warning("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
 		return ..()
 	if(C.preserved)
-		to_chat(user, "<span class='notice'>[M] is already stabilised.")
+		to_chat(user, span_notice("[M] is already stabilised."))
 		return
 	if(C.inert)
-		to_chat(user, "<span class='notice'>[M] is inert, it's not worth it to stabilize a nonfunctional one.")
+		to_chat(user, span_notice("[M] is inert, it's not worth it to stabilize a nonfunctional one."))
 		return
 	C.preserved()
 	to_chat(user, span_notice("You inject [M] with the stabilizer. It will no longer go inert."))

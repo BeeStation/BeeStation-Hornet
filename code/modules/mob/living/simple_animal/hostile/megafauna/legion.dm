@@ -186,7 +186,7 @@ Difficulty: Medium
 		to_chat(user, span_warning("The staff is still recharging!"))
 		return
 	if(!is_mining_level(user.z))
-		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
+		to_chat(user, span_warning("The staff's power is too dim to function this far from the necropolis"))
 		return
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)

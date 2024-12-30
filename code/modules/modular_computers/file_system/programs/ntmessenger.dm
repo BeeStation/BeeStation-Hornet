@@ -153,7 +153,7 @@
 
 			if(targets.len > 0)
 				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
-					to_chat(usr, "<span class='warning'>Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds.")
+					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds."))
 					return
 				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
 
@@ -346,7 +346,7 @@
 		signal.data["message"] = emoji_parse(signal.data["message"])
 
 	// Show it to ghosts
-	var/ghost_message = span_name("[message_data["name"]] </span>[span_gamesay("PDA Message")] --> [span_name("[target_text]")]: <span class='message'>[signal.format_message(include_photo = TRUE)]")
+	var/ghost_message = "[span_name(message_data["name"])] [span_gamesay("PDA Message")] --> [span_name(target_text)]: [span_message(signal.format_message(include_photo = TRUE))]"
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && M.client?.prefs.read_player_preference(/datum/preference/toggle/chat_ghostpda))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")

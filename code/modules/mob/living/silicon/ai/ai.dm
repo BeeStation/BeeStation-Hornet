@@ -827,28 +827,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(living_speaker.wear_id)
 				var/obj/item/card/id/has_id = living_speaker.wear_id.GetID()
 				if(has_id)
-					jobpart = "[has_id.assignment]"
+					jobpart = has_id.assignment
 		if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
 			var/obj/effect/overlay/holo_pad_hologram/holo = speaker
 			if(holo.Impersonation?.job)
-				jobpart = "[holo.Impersonation.job]"
+				jobpart = holo.Impersonation.job
 			else if(usr?.job) // not great, but AI holograms have no other usable ref
-				jobpart = "[usr.job]"
+				jobpart = usr.job
 
 	// duplication part from `game/say.dm` to make a language icon
 	var/language_icon = ""
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 	if(istype(D) && D.display_icon(src))
-		language_icon = "[D.get_icon()] "
+		language_icon = D.get_icon()
 
-	var/rendered = "<i>[span_gamesay("[start][language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message("[treated_message]")]")</i>"
+	var/rendered = "<i>[span_gamesay("[start][language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
 
 	show_message(rendered, 2)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
 /mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/treated_message = " [span_message("[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]")]"
+	var/treated_message = span_message(say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods)))
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -866,7 +866,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(istype(D) && D.display_icon(src))
 		language_icon = "[D.get_icon()] "
 
-	var/rendered = "[span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name("[hrefpart][namepart] ([jobpart])</a>")]</b>[treated_message]")"
+	var/rendered = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name("[hrefpart][namepart] ([jobpart])</a>")]</b> [treated_message]")
 	show_message(rendered, 2)
 	speaker.create_private_chat_message(
 		message = raw_message,
@@ -875,7 +875,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
-	rendered = "[span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b>[treated_message]")"
+	rendered = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [treated_message]")
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
@@ -885,8 +885,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			to_chat(each_ghost, "[follow_link] [rendered]")
 		else // ghost removed the language themselves
 			if(!rendered_scrambled_message)
-				rendered_scrambled_message = " [span_message("[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]")]"
-				rendered_scrambled_message = "[span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b>[rendered_scrambled_message]")"
+				rendered_scrambled_message = span_message(each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods)))
+				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [rendered_scrambled_message]")
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 

@@ -60,7 +60,7 @@
 			return TRUE
 	if(attacked_item.tool_behaviour == TOOL_SCREWDRIVER)
 		if(power >= SAFE_POWER_LEVEL)
-			to_chat(user, "<span class='notice'>You can't open the maintenance panel of \the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
+			to_chat(user, span_notice("You can't open the maintenance panel of \the [src] while it's still above [SAFE_POWER_LEVEL]% power!"))
 			return FALSE
 		if (length(fuel_rods) > 0)
 			to_chat(user, span_notice("You can't open the maintenance panel of \the [src] while it still has fuel rods inside!"))
@@ -71,7 +71,7 @@
 	if(attacked_item.tool_behaviour == TOOL_CROWBAR)
 		if(panel_open)
 			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, "<span class='notice'>You can't deconstruct \the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
+				to_chat(user, span_notice("You can't deconstruct \the [src] while it's still above [SAFE_POWER_LEVEL]% power!"))
 				return FALSE
 			if (length(fuel_rods) > 0)
 				to_chat(user, span_notice("You can't deconstruct \the [src] while it still has fuel rods inside!"))
@@ -80,7 +80,7 @@
 			return TRUE
 		else
 			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, "<span class='notice'>You can't remove any fuel rods while \the [src] is above [SAFE_POWER_LEVEL]% power!")
+				to_chat(user, span_notice("You can't remove any fuel rods while \the [src] is above [SAFE_POWER_LEVEL]% power!"))
 				return FALSE
 			if (length(fuel_rods) == 0)
 				to_chat(user, span_notice("\the [src] is empty of fuel rods!"))
@@ -155,9 +155,9 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/living/user)
 	if(active)
-		to_chat(user, ("<span class='notice'>You already activated the machine."))
+		to_chat(user, span_notice("You already activated the machine."))
 		return
-	to_chat(user, ("<span class='notice'>You activate the machine."))
+	to_chat(user, span_notice("You activate the machine."))
 	active = TRUE
 	start_power = TRUE
 	update_appearance()

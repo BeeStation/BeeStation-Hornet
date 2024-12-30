@@ -50,8 +50,8 @@
 		if(istype(D) && D.display_icon(src))
 			language_icon = "[D.get_icon()] "
 
-		message = span_robot("[say_emphasis(lang_treat(src, language, message))]")
-		message = "[span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")"
+		message = span_robot(say_emphasis(lang_treat(src, language, message)))
+		message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)

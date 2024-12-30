@@ -43,9 +43,9 @@
 	if(L.amount_grown >= L.max_grown)	//TODO ~Carn
 		to_chat(L, span_name("You are growing into a beautiful alien! It is time to choose a caste."))
 		to_chat(L, span_info("There are three to choose from:"))
-		to_chat(L, span_name("Hunters</span> <span class='info'>are the most agile caste, tasked with hunting for hosts. They are faster than a human and can even pounce, but are not much tougher than a drone."))
-		to_chat(L, span_name("Sentinels</span> <span class='info'>are tasked with protecting the hive. With their ranged spit, invisibility, and high health, they make formidable guardians and acceptable secondhand hunters."))
-		to_chat(L, span_name("Drones</span> <span class='info'>are the weakest and slowest of the castes, but can grow into a praetorian and then queen if no queen exists, and are vital to maintaining a hive with their resin secretion abilities."))
+		to_chat(L, "[span_name("Hunters")] [span_info("are the most agile caste, tasked with hunting for hosts. They are faster than a human and can even pounce, but are not much tougher than a drone.")]")
+		to_chat(L, "[span_name("Sentinels")] [span_info("are tasked with protecting the hive. With their ranged spit, invisibility, and high health, they make formidable guardians and acceptable secondhand hunters.")]")
+		to_chat(L, "[span_name("Drones")] [span_info("are the weakest and slowest of the castes, but can grow into a praetorian and then queen if no queen exists, and are vital to maintaining a hive with their resin secretion abilities.")]")
 		var/alien_caste = alert(L, "Please choose which alien caste you shall belong to.",,"Hunter","Sentinel","Drone")
 
 		if(user.incapacitated()) //something happened to us while we were choosing.

@@ -110,8 +110,8 @@
 	if(linked_mobs[mob_linked])
 		return FALSE
 
-	to_chat(mob_linked, "<span class='notice'>You feel something new enter your sphere of mind... \
-		You hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link.</span>")
+	to_chat(mob_linked, span_notice("You feel something new enter your sphere of mind... \
+		You hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link."))
 
 	var/datum/action/innate/mansus_speech/action = new(src)
 	linked_mobs[mob_linked] = action

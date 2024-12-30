@@ -88,7 +88,7 @@
 	log_mentor("Mentor PM: [key_name(src)]->[key_name(recipient)]: [rawmsg]")
 	for(var/client/X in GLOB.mentors | GLOB.admins)
 		if(X.key!=key && X.key!=recipient.key)	//check client/X is an Mentor and isn't the sender or recipient
-			to_chat(X, "<B>[span_mentorto("Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> <span class='mentorhelp'>[msg]")]", type = MESSAGE_TYPE_MENTORPM) //inform X
+			to_chat(X, "<B>[span_mentorto("Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> [span_mentorhelp(msg)]")]", type = MESSAGE_TYPE_MENTORPM) //inform X
 
 /// Basically the same thing as key_name_admin but with the mentorPM key instead
 /proc/key_name_mentor(var/whom, var/include_link = null)

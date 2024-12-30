@@ -24,10 +24,10 @@
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
-	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	. = list(span_info("This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!"))
 
 	if(obscure_examine)
-		return list("<span class='warning'>You're struggling to make out any details...")
+		return list(span_warning("You're struggling to make out any details..."))
 
 	//Psychic soul stuff
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
@@ -371,7 +371,7 @@
 			target_record = find_record(perpname, GLOB.manifest.general)
 			. += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
-				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
+				. += span_info("Detected physiological traits:\n[traitstring]")
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 			if((user.stat == CONSCIOUS || isobserver(user)) && user != src)

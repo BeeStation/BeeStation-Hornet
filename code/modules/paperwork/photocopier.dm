@@ -182,7 +182,7 @@
 		// Remove the toner cartridge from the copier.
 		if("remove_toner")
 			if(busy)
-				to_chat(usr, "span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
+				to_chat(usr, span_warning("[src] is currently busy copying something. Please wait until it is finished."))
 				return
 			if(issilicon(usr) || (ishuman(usr) && !usr.put_in_hands(toner_cartridge)))
 				toner_cartridge.forceMove(drop_location())
@@ -203,7 +203,7 @@
 				to_chat(usr, span_warning("[src] is currently busy copying something. Please wait until it is finished."))
 				return FALSE
 			if(toner_cartridge.charges - PAPER_TONER_USE < 0)
-				to_chat(usr, "<span class='warning'>There is not enough toner in [src] to print the form, please replace the cartridge.")
+				to_chat(usr, span_warning("There is not enough toner in [src] to print the form, please replace the cartridge."))
 				return FALSE
 			do_copy_loop(CALLBACK(src, PROC_REF(make_blank_print)), usr)
 			var/obj/item/paper/printblank = new /obj/item/paper (loc)

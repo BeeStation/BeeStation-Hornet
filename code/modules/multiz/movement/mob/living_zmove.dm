@@ -87,7 +87,7 @@
 
 /// Actually starts a zMove, doing movement animations
 /mob/living/proc/start_travel_z(mob/user, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS, allow_movement = TRUE)
-	user.visible_message(span_notice("[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!"), "<span class='notice'>You begin [move_verb] [upwards ? "upwards" : "downwards"].")
+	user.visible_message(span_notice("[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!"), span_notice("You begin [move_verb] [upwards ? "upwards" : "downwards"]."))
 	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
 	var/list/bucklemobs_c = user.buckled_mobs?.Copy()
 	for(var/mob/M in bucklemobs_c)
