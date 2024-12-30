@@ -125,7 +125,7 @@
 			return -1
 		else
 			for(var/obj/item/organ/O in organs)
-				O.on_find(user)
+				O.on_find(user, surgery.location)
 				organs -= O
 				organs[O.name] = O
 

@@ -5,7 +5,6 @@
 	var/status = ORGAN_ORGANIC
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = BODY_ZONE_CHEST
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/organ_flags = ORGAN_EDIBLE
@@ -96,7 +95,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	START_PROCESSING(SSobj, src)
 
 
-/obj/item/organ/proc/on_find(mob/living/finder)
+/obj/item/organ/proc/on_find(mob/living/finder, zone_found)
 	return
 
 /obj/item/organ/process(delta_time)

@@ -37,7 +37,7 @@
 	if(timer_id)
 		deltimer(timer_id)
 
-/obj/item/organ/zombie_infection/on_find(mob/living/finder)
+/obj/item/organ/zombie_infection/on_find(mob/living/finder, zone_found)
 	to_chat(finder, "<span class='warning'>Inside the head is a disgusting black \
 		web of pus and viscera, bound tightly around the brain like some \
 		biological harness.</span>")
