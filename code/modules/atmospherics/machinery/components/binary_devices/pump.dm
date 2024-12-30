@@ -14,14 +14,12 @@
 	icon_state = "pump_map-3"
 	name = "gas pump"
 	desc = "A pump that moves gas by pressure."
-
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
-
-	var/target_pressure = ONE_ATMOSPHERE
-
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "pump"
+	///Pressure that the pump will reach when on
+	var/target_pressure = ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/components/binary/pump/Initialize(mapload)
 	. = ..()

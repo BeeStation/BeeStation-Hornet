@@ -352,7 +352,7 @@
 /**
  * Disconnects the nodes
  *
- * Called by nullifyNode(), it disconnects two nodes by removing the reference id from the node itself that called this proc
+ * Called by nullify_node(), it disconnects two nodes by removing the reference id from the node itself that called this proc
  * Arguments:
  * * obj/machinery/atmospherics/reference - the machinery we are removing from the node connection
  */
