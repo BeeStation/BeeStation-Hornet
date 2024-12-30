@@ -71,6 +71,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	return ..()
 
 /obj/machinery/disposal/return_air()
+	if(!flushing)
+		return loc?.return_air()
 	return air_contents
 
 /obj/machinery/disposal/singularity_pull(S, current_size)
