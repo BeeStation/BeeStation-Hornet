@@ -5,7 +5,6 @@
 #define MODE_TRAY "t-ray"
 #define MODE_RAD "radiation"
 #define MODE_SHUTTLE "shuttle"
-#define MODE_PIPE_CONNECTABLE "connectable"
 
 /obj/item/clothing/glasses/meson/engine
 	name = "engineering scanner goggles"
@@ -50,12 +49,6 @@
 			darkness_view = 2
 			lighting_alpha = null
 
-		if(MODE_PIPE_CONNECTABLE)
-			vision_flags = NONE
-			darkness_view = 2
-			lighting_alpha = null
-			change_glass_color(user, /datum/client_colour/glass_colour/lightblue)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.glasses == src)
@@ -80,8 +73,6 @@
 			show_rads()
 		if(MODE_SHUTTLE)
 			show_shuttle()
-		if(MODE_PIPE_CONNECTABLE)
-			show_connections()
 
 /obj/item/clothing/glasses/meson/engine/proc/show_rads()
 	var/mob/living/carbon/human/user = loc
@@ -124,30 +115,6 @@
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
 			flick_overlay(pic, list(user.client), 8)
 
-/obj/item/clothing/glasses/meson/engine/proc/show_connections()
-	var/mob/living/carbon/human/user = loc
-
-	for(var/obj/machinery/atmospherics/pipe/smart/smart in connection_images)
-		if(get_dist(loc, smart.loc) > range)
-			connection_images -= smart
-
-	for(var/obj/machinery/atmospherics/pipe/smart/smart in orange(range, user))
-		if(!connection_images[smart])
-			connection_images[smart] = list()
-		for(var/direction in GLOB.cardinals)
-			if(!(smart.get_init_directions() & direction))
-				continue
-			if(!connection_images[smart][dir2text(direction)])
-				var/image/arrow
-				arrow = new('icons/obj/atmospherics/pipes/simple.dmi', get_turf(smart), "connection_overlay")
-				arrow.dir = direction
-				arrow.layer = smart.layer
-				arrow.color = smart.pipe_color
-				PIPING_LAYER_DOUBLE_SHIFT(arrow, smart.piping_layer)
-				connection_images[smart][dir2text(direction)] = arrow
-			if(connection_images.len)
-				flick_overlay(connection_images[smart][dir2text(direction)], list(user.client), 1.5 SECONDS)
-
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = "trayson-[mode]"
 	update_mob()
@@ -168,7 +135,7 @@
 	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
 	range = 2
 
-	modes = list(MODE_NONE = MODE_TRAY, MODE_TRAY = MODE_PIPE_CONNECTABLE, MODE_PIPE_CONNECTABLE = MODE_NONE)
+	modes = list(MODE_NONE = MODE_TRAY, MODE_TRAY = MODE_NONE)
 
 /obj/item/clothing/glasses/meson/engine/tray/dropped(mob/user)
 	. = ..()
@@ -188,4 +155,3 @@
 #undef MODE_TRAY
 #undef MODE_RAD
 #undef MODE_SHUTTLE
-#undef MODE_PIPE_CONNECTABLE
