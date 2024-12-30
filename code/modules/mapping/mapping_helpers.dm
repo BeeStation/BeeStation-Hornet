@@ -707,5 +707,5 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	layer = TEXT_EFFECT_UI_LAYER
 
 /obj/effect/mapping_helpers/Mapper_Comment/Initialize(mapload)
-	qdel(src) //Gets deleted on mapload since it has no actual function.
+	return INITIALIZE_HINT_QDEL
 
