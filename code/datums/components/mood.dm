@@ -39,7 +39,7 @@
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
-	var/msg = "<span class='info'><EM>Your current mood</EM>\n"
+	var/msg = "[span_info("<EM>Your current mood</EM>")]\n"
 	msg += span_notice("My mental status: ") //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
@@ -86,7 +86,7 @@
 		else
 			thought_msg += "[event.description]\n"
 	if(!mood_msg)
-		msg += "<span class='mood_neutral'>I don't have much of a reaction to anything right now.<span>\n"
+		msg += "[span_moodneutral("I don't have much of a reaction to anything right now.")]\n"
 	msg += mood_msg
 	if(thought_msg)
 		msg += "[span_notice("Thoughts:")]\n"

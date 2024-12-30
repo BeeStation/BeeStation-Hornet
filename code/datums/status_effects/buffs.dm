@@ -336,7 +336,7 @@
 	if(ticks_passed < 2)
 		return
 	else if(ticks_passed == 2)
-		to_chat(owner, "<span class=changeling>We begin to repair our tissue damage...</span>")
+		to_chat(owner, span_changeling("We begin to repair our tissue damage..."))
 	//Heals 2 brute per second, for a total of 60
 	owner.adjustBruteLoss(-2, FALSE, TRUE)
 	//Heals 1 fireloss per second, for a total of 30

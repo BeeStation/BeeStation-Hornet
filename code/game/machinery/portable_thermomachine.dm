@@ -185,7 +185,7 @@
 		cell = I
 		component_parts.Add(I)
 		I.add_fingerprint(usr)
-		user.visible_message(span_notice("\The [user] inserts a power cell into \the [src]."), "<span class ='notice'>You insert the power cell into \the [src].<span>")
+		user.visible_message(span_notice("\The [user] inserts a power cell into \the [src]."), span_notice("You insert the power cell into \the [src]."))
 		SStgui.update_uis(src)
 		return TRUE
 	return ..()

@@ -89,7 +89,7 @@
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
 		. += "[span_notice("The status display reads:")]\n"+\
-		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
+		"[span_notice("- Capacity: <b>[max_n_of_items]</b> items.")]\n"+\
 		span_notice("- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.")
 
 #define MICROWAVE_INGREDIENT_OVERLAY_SIZE 24

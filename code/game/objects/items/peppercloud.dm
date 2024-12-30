@@ -78,7 +78,7 @@
 /obj/item/reagent_containers/peppercloud_deployer/proc/deploy(turf/center, mob/user, force = FALSE)
 	// Check if we are currently on cooldown
 	if (world.time < cooldown_time && !force)
-		to_chat(user, "<span class='warning'>[src] isn't ready to be activated yet.<span>")
+		to_chat(user, span_warning("[src] isn't ready to be activated yet."))
 		return
 	// Clear any reagents that are not pepperspray
 	var/reagents_removed = FALSE
@@ -91,7 +91,7 @@
 		reagents.handle_reactions()
 	// Check that we have enough pepperspray remaining
 	if (reagents.get_reagent_amount(/datum/reagent/consumable/condensedcapsaicin) < 25)
-		to_chat(user, "<span class='warning'>[src] doesn't contain enough capsaicin to deploy, refill it!<span>")
+		to_chat(user, span_warning("[src] doesn't contain enough capsaicin to deploy, refill it!"))
 		return
 	cooldown_time = world.time + activation_cooldown
 	var/datum/reagents/R = new/datum/reagents(25)

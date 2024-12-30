@@ -1193,7 +1193,7 @@
 		else
 			. += span_notice("It's owned by [private_a.account_holder]")
 	else
-		. += "<span class='notice'>It's not owned by anyone!<span>"
+		. += span_notice("It's not owned by anyone!")
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE

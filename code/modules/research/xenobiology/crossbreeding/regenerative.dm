@@ -26,7 +26,7 @@ Regenerative extracts:
 		to_chat(user, span_warning("[src] will not work on the dead!"))
 		return
 	if(!do_after(user, 5 SECONDS, H))
-		to_chat(user, "<span class='notice'>You need to hold still to apply [src]!")
+		to_chat(user, span_notice("You need to hold still to apply [src]!"))
 		return
 	if(H != user)
 		user.visible_message(span_notice("[user] crushes the [src] over [H], the milky goo quickly regenerating all of [H.p_their()] injuries!"),
@@ -169,7 +169,7 @@ Regenerative extracts:
 	effect_desc = "Heals the target and stops time."
 
 /obj/item/slimecross/regenerative/sepia/core_effect_before(mob/living/target, mob/user)
-	to_chat(target, "<span class=notice>You try to forget how you feel.</span>")
+	to_chat(target, span_notice("You try to forget how you feel."))
 	target.AddComponent(/datum/component/dejavu)
 
 /obj/item/slimecross/regenerative/cerulean

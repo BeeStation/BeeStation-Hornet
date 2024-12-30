@@ -326,16 +326,16 @@
 	if(!iscarbon(user) || !user?.mind)
 		return FALSE
 	if(waiting)
-		to_chat(user, "<span class='warning'>You're already trying to summon a [theme.name]! Be patient!<span>")
+		to_chat(user, span_warning("You're already trying to summon a [theme.name]! Be patient!"))
 		user.balloon_alert(user, "failed, already trying to summon", show_in_chat = FALSE)
 		return FALSE
 	if(uses <= 0)
-		to_chat(user, "<span class='warning'>You've already used up this builder!<span>")
+		to_chat(user, span_warning("You've already used up this builder!"))
 		user.balloon_alert(user, "failed, builder used up", show_in_chat = FALSE)
 		return FALSE
 	holopara_name = reject_bad_name(holopara_name, allow_numbers = TRUE)
 	if(!length(holopara_name))
-		to_chat(user, "<span class='warning'>Your [theme.name] must have a name!<span>")
+		to_chat(user, span_warning("Your [theme.name] must have a name!"))
 		user.balloon_alert(user, "failed, empty name", show_in_chat = FALSE)
 		return FALSE
 	if(CHAT_FILTER_CHECK(holopara_name))

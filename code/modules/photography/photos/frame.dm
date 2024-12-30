@@ -20,7 +20,7 @@
 			displayed = I
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
+			to_chat(user, span_notice("\The [src] already contains a photo."))
 	..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
@@ -138,7 +138,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/picture_frame)
 			framed = P
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
+			to_chat(user, "[span_notice("\The [src] already contains a photo.")]")
 
 	..()
 

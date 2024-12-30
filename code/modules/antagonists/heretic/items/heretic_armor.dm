@@ -147,4 +147,4 @@
 
 	if(isliving(loc))
 		loc.balloon_alert(loc, "cloak revealed")
-		loc.visible_message("<span class=notice>A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!</span>")
+		loc.visible_message(span_notice("A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!"))
