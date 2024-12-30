@@ -30,15 +30,15 @@
 
 /datum/tlv/no_checks
 	hazard_min = TLV_DONT_CHECK
+	hazard_max = TLV_DONT_CHECK
 	warning_min = TLV_DONT_CHECK
 	warning_max = TLV_DONT_CHECK
-	hazard_max = TLV_DONT_CHECK
 
 /datum/tlv/dangerous
 	hazard_min = TLV_DONT_CHECK
+	hazard_max = 0.5
 	warning_min = TLV_DONT_CHECK
 	warning_max = 0.2
-	hazard_max = 0.5
 
 /obj/item/electronics/airalarm
 	name = "air alarm electronics"
@@ -625,7 +625,7 @@
 
 	var/gas_dangerlevel = 0
 	for(var/gas_id in env_gases)
-		if(!(gas_id in cached_tlv)) /// We're not interested in this gas, it seems.
+		if(!(gas_id in cached_tlv)) // We're not interested in this gas, it seems.
 			continue
 		current_tlv = cached_tlv[gas_id]
 		gas_dangerlevel = max(gas_dangerlevel, current_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure))
