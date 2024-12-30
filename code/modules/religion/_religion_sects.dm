@@ -68,7 +68,7 @@
 /datum/religion_sect/proc/can_sacrifice(obj/item/I, mob/living/chap)
 	. = TRUE
 	if(chap.mind.holy_role == HOLY_ROLE_DEACON)
-		to_chat(chap, "<span class='warning'>You are merely a deacon of [GLOB.deity], and therefore cannot perform rites.")
+		to_chat(chap, span_warning("You are merely a deacon of [GLOB.deity], and therefore cannot perform rites."))
 		return
 	if(!is_type_in_typecache(I,desired_items_typecache))
 		return FALSE

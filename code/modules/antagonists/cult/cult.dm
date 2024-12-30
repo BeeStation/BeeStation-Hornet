@@ -79,7 +79,7 @@
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, C)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, C)
-	to_chat(owner, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(owner, span_cult("These will help you start the cult on this station. Use them well, and remember - you are not the only one."))
 
 
 /datum/antagonist/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
@@ -263,7 +263,7 @@
 		for(var/datum/mind/B in members)
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
-				to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...")
+				to_chat(B.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(rise), B.current), 200)
 		cult_risen = TRUE
@@ -272,7 +272,7 @@
 		for(var/datum/mind/B in members)
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
+				to_chat(B.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE

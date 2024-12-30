@@ -136,7 +136,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 			. = Recreate_MC()
 
 	if (. == 1) //We were able to create a new master
-		to_chat_immediate(world, span_boldannounce("Master Controller failure detected. Attempting recovery.</span>\n<span class='danger'>Things may freeze up for a minute or two (or break entirely)."))
+		to_chat_immediate(world, "[span_boldannounce("Master Controller failure detected. Attempting recovery.")]\n[span_danger("Things may freeze up for a minute or two (or break entirely).")]")
 		master_iteration = 0
 		SSticker.Recover() //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this

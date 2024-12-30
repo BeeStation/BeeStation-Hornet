@@ -302,8 +302,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/flare/ignition_effect(atom/A, mob/user)
 	if(fuel && on)
-		. = "<span class='notice'>[user] lights [A] with [src] like a real \
-			badass.</span>"
+		. = span_notice("[user] lights [A] with [src] like a real badass.")
 	else
 		. = ""
 
@@ -434,7 +433,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 			log_combat(user, M, "attacked", "EMP-light")
 			M.visible_message(span_danger("[user] blinks \the [src] at \the [A]."), span_userdanger("[user] blinks \the [src] at you."))
 		else
-			A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].")
+			A.visible_message(span_danger("[user] blinks \the [src] at \the [A]."))
 		to_chat(user, "\The [src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(EMP_HEAVY)
 	else

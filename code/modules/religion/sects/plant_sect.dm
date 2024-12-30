@@ -143,7 +143,7 @@
 /datum/religion_rites/summon_animals/perform_rite(mob/living/user, atom/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	user.visible_message(span_notice("A tear in reality appears above the altar!"))
 	return ..()
 
 /datum/religion_rites/summon_animals/invoke_effect(mob/living/user, atom/religious_tool)

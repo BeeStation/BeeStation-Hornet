@@ -246,7 +246,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 				to_chat(user, span_warning("You start to grab \the [target]."))
 				to_chat(target, span_warning("[user] starts to grab you!"))
 				if(!do_after(user, 2 SECONDS, target))
-					to_chat(user, "<span class='warning>You fail to grab [target]!</span>")
+					to_chat(user, span_warning("You fail to grab [target]!"))
 					return
 				var/mob/living/carbon/human/H = user
 				user.a_intent = INTENT_GRAB
@@ -256,7 +256,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 				to_chat(user, span_warning("You start to strengthen your grip on [target]."))
 				to_chat(target, span_warning("[user] starts to strengthen their grip on you!"))
 				if(!do_after(user, 2 SECONDS, target))
-					to_chat(user, "<span class='warning>You fail to strengthen your grip on [target]!</span>")
+					to_chat(user, span_warning("You fail to strengthen your grip on [target]!"))
 					return
 				var/mob/living/carbon/human/H = user
 				user.a_intent = INTENT_GRAB

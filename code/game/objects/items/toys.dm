@@ -48,7 +48,7 @@
 	if(istype(I, /obj/item/stack/sheet/cotton))
 		var/obj/item/stack/S = I
 		if(S.amount< 3)
-			to_chat(user, "<span class'danger'>You need three stacks of cotton to stuff a plush!</span>")
+			to_chat(user, span_danger("You need three stacks of cotton to stuff a plush!"))
 			return
 		if(do_after(user, 3 SECONDS))
 			var/obj/item/toy/plush/P = pick(subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp)
@@ -1205,7 +1205,7 @@
 		icon_state = "nuketoyidle"
 	else
 		var/timeleft = (cooldown - world.time)
-		to_chat(user, span_alert("Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display."))
+		to_chat(user, "[span_alert("Nothing happens, and")] [round(timeleft/10)] [span_alert("appears on a small display.")]")
 
 /*
  * Fake meteor

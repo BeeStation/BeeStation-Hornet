@@ -735,7 +735,7 @@
 	output += message || "\A [handling_name] has handled your ticket.[extratext]<br />\
 		Thank you for creating a ticket, the [verb_name] verb will be returned to you shortly."
 	if(claimee)
-		output += "<br />Your ticket was handled by: [span_adminooc("[claimee.ckey]")]</span>"
+		output += "<br />Your ticket was handled by: [span_adminooc(claimee.ckey)]</span>"
 	to_chat(initiator, output, type = message_type)
 
 //

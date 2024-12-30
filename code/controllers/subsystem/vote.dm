@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(vote)
 		if(!active_admins)
 			SSticker.Reboot("Restart vote successful.", "restart vote")
 		else
-			to_chat(world, "<span style='boldannounce'>Notice:Restart vote will not restart the server automatically because there are active admins on.</span>")
+			to_chat(world, span_boldannounce("Notice:Restart vote will not restart the server automatically because there are active admins on."))
 			message_admins("A restart vote has passed, but there are active admins on with +server, so it has been canceled. If you wish, you may restart the server.")
 
 	return .
@@ -187,7 +187,7 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
 	//Server is still intializing.
 	if(!MC_RUNNING(init_stage))
-		to_chat(usr, "<span class='warning>Cannot start vote, server is not done initializing.</span>")
+		to_chat(usr, span_warning("Cannot start vote, server is not done initializing."))
 		return FALSE
 	if(!mode)
 		if(started_time)

@@ -183,9 +183,9 @@
 		sleep(100)
 		M.flash_act()
 		M.Unconscious(200)
-		to_chat(M, "<span class='reallybig hypnophrase'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
+		to_chat(M, span_reallybighypnophrase("A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
-					so it's only a matter of time before we ship you back...\"</i></span>")
+					so it's only a matter of time before we ship you back...\"</i>"))
 		M.blur_eyes(10)
 		M.Dizzy(15)
 		M.confused += 20
@@ -231,8 +231,8 @@
 
 		new /obj/effect/pod_landingzone(possible_drop_loc[pod_rand_loc], return_pod)
 	else
-		to_chat(M, "<span class='reallybig hypnophrase'>A million voices echo in your head... <i>\"Seems where you got sent here from won't \
-					be able to handle our pod... You will die here instead.\"</i></span>")
+		to_chat(M, span_reallybighypnophrase("A million voices echo in your head... <i>\"Seems where you got sent here from won't \
+					be able to handle our pod... You will die here instead.\"</i>"))
 		if (iscarbon(M))
 			var/mob/living/carbon/C = M
 			if (C.can_heartattack())

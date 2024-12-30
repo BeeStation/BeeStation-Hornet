@@ -372,7 +372,7 @@
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, span_italics("You hear a voice in your head saying: </span><span class='abductor'>[message]"))
+		to_chat(L, "[span_italics("You hear a voice in your head saying:")] [span_abductor(message)]")
 		to_chat(user, span_notice("You send the message to your target."))
 
 		for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
@@ -385,10 +385,8 @@
 /obj/item/firing_pin/abductor
 	name = "alien firing pin"
 	icon_state = "firing_pin_ayy"
-	desc = "This firing pin is slimy and warm; you can swear you feel it \
-		constantly trying to mentally probe you."
-	fail_message = "<span class='abductor'>\
-		Firing error, please contact Command.</span>"
+	desc = "This firing pin is slimy and warm; you can swear you feel it constantly trying to mentally probe you."
+	fail_message = span_abductor("Firing error, please contact Command.")
 
 /obj/item/firing_pin/abductor/pin_auth(mob/living/user)
 	. = isabductor(user)
@@ -720,7 +718,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(viable)
 		playsound(src, 'sound/effects/phasein.ogg', 50, TRUE)
 		var/new_machine = new spawned_machine(loc)
-		visible_message("<span class='notice'>[new_machine] warps on top of the beacon!")
+		visible_message(span_notice("[new_machine] warps on top of the beacon!"))
 		qdel(src)
 	else
 		playsound(src, 'sound/machines/buzz-two.ogg', 50)

@@ -953,7 +953,7 @@
 				. += "[R.volume] units of [R.name]"
 		else
 			. += "Nothing."
-		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
 /obj/item/borg/apparatus/container/update_overlays()
 	. = ..()
@@ -1025,7 +1025,7 @@
 	. = ..()
 	if(stored)
 		. += "The apparatus currently has [stored] secured."
-		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
 /obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
@@ -1060,6 +1060,6 @@
 	//Parent type handles this type. All other objects held are handled here.
 	if(!istype(stored, /obj/item/reagent_containers/cup))
 		. += "You are currently holding [stored]."
-		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
 #undef PKBORG_DAMPEN_CYCLE_DELAY

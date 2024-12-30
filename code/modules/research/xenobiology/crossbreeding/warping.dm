@@ -687,7 +687,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 		var/atom/movable/A = new path(rune_turf)
 		QDEL_LIST(valuable_items)
-		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you.</span>")
+		to_chat(user, span_notice("[src] shines and [A] appears before you."))
 	else
 		to_chat(user, span_warning("The sacrifice is insufficient."))
 	. = ..()

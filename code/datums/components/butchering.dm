@@ -38,8 +38,7 @@
 	if(user.a_intent == INTENT_GRAB && ishuman(M) && source.is_sharp())
 		var/mob/living/carbon/human/H = M
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
-							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
+			user.show_message(span_danger("[H]'s neck has already been already cut, you can't make the bleeding any worse!"), 1, span_danger("Their neck has already been already cut, you can't make the bleeding any worse!"))
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping())) // Only sleeping, neck grabbed, or crit, can be sliced.
 			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
@@ -67,8 +66,7 @@
 		item_force = 1
 	if(do_after(user, clamp(500 / item_force, 30, 100), H) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
-							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
+			user.show_message(span_danger("[H]'s neck has already been already cut, you can't make the bleeding any worse!"), 1, span_danger("Their neck has already been already cut, you can't make the bleeding any worse!"))
 			return
 
 		H.visible_message(span_danger("[user] slits [H]'s throat!"), \

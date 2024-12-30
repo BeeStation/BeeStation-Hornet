@@ -266,7 +266,7 @@
 	if(circuit == null && user.a_intent == INTENT_HARM)
 		var/obj/item/weldingtool/W = I
 		if(W.use_tool(src, user, 40, volume=50))
-			to_chat(user, "<span class='notice'>You start slicing off the bars of the [src]")
+			to_chat(user, span_notice("You start slicing off the bars of the [src]"))
 			new /obj/item/stack/rods/ten(get_turf(src))
 			qdel(src)
 			return
@@ -496,8 +496,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 				if(cable.get_amount() < 5)
 					to_chat(user, span_warning("You need five lengths of cable to wire the prisoner interface!"))
 					return
-				user.visible_message("[user.name] wires theprisoner interface.</span>", \
-									span_notice("You start wiring the prisoner interface."))
+				user.visible_message(span_notice("[user.name] wires the prisoner interface."), span_notice("You start wiring the prisoner interface."))
 				if (do_after(user, 20, target = src))
 					if (cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)

@@ -49,11 +49,11 @@
 /datum/religion_rites/summon_carp/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	user.visible_message(span_notice("A tear in reality appears above the altar!"))
 	var/list/candidates = poll_ghost_candidates("Do you wish to be summoned as a Holy Carp?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYCARP)
 	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)
-		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
+		user.visible_message(span_warning("The carp pool was not strong enough to bring forth a space carp."))
 		GLOB.religious_sect?.adjust_favor(400, user)
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
@@ -103,7 +103,7 @@
 
 /datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/religious_tool)
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
-		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
+		user.visible_message(span_notice("The [chosen_clothing] transforms!"))
 		chosen_clothing.atom_destruction()
 		chosen_clothing = null
 		new /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old(get_turf(religious_tool))

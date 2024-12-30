@@ -1,4 +1,4 @@
-/obj/machinery/modular_fabricator/autolathe 
+/obj/machinery/modular_fabricator/autolathe
 	name = "autolathe"
 	desc = "It produces items using iron, copper, and glass."
 	icon_state = "autolathe"
@@ -89,7 +89,7 @@
 		return TRUE
 
 	if (busy)
-		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))

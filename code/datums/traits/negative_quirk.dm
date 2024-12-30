@@ -271,8 +271,8 @@
 	desc = "You're not from around here. You don't know Galactic Common!"
 	icon = "question-circle"
 	value = -1
-	gain_text = "<span class='notice'>The words being spoken around you don't make any sense."
-	lose_text = "<span class='notice'>You've developed fluency in Galactic Common."
+	gain_text = span_notice("The words being spoken around you don't make any sense.")
+	lose_text = span_notice("You've developed fluency in Galactic Common.")
 	medical_record_text = "Patient does not speak Galactic Common and may require an interpreter."
 
 /datum/quirk/foreigner/add()
@@ -444,8 +444,8 @@
 	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
 
 /datum/quirk/prosthetic_limb/post_spawn()
-	to_chat(quirk_target, "<span class='boldannounce'>Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
-	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment.</span>")
+	to_chat(quirk_target, span_boldannounce("Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
+	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment."))
 
 /datum/quirk/pushover
 	name = "Pushover"
@@ -481,8 +481,8 @@
 /datum/quirk/insanity/post_spawn() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
 	if(quirk_holder.special_role)
 		return
-	to_chat(quirk_target, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
-	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
+	to_chat(quirk_target, span_bigboldinfo("Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
+	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers."))
 
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"

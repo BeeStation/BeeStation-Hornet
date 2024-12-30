@@ -38,9 +38,9 @@
 	. = ..()
 	. += span_notice("There are some <b>bolts</b> holding [src] together.")
 	if(shelf_contents.Find(null)) // If there's an empty space in the shelf, let the examiner know.
-		. += "<span class='notice'>You could <b>drag</b> a crate into [src]."
+		. += span_notice("You could <b>drag</b> a crate into [src].")
 	if(contents.len) // If there are any crates in the shelf, let the examiner know.
-		. += "<span class='notice'>You could <b>drag</b> a crate out of [src]."
+		. += span_notice("You could <b>drag</b> a crate out of [src].")
 		. += span_notice("[src] contains:")
 		for(var/obj/structure/closet/crate/crate in shelf_contents)
 			. += "	[icon2html(crate, user)] [crate]"
@@ -58,9 +58,7 @@
 	if(do_after(user, 30 SECONDS, target = crate))
 		if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
 			return // If the user is in a strange condition, return early.
-		visible_message(span_warning("[crate] falls off of [src]!"),
-						span_notice("You manage to knock [crate] free of [src]."),
-						"<span class='notice>You hear a thud.</span>")
+		visible_message(span_warning("[crate] falls off of [src]!"), span_notice("You manage to knock [crate] free of [src]."), span_notice("You hear a thud."))
 		crate.forceMove(drop_location()) // Drop the crate onto the shelf,
 		step_rand(crate, 1) // Then try to push it somewhere.
 		crate.layer = initial(crate.layer) // Reset the crate back to having the default layer, otherwise we might get strange interactions.
@@ -122,10 +120,10 @@
 				if(crate.open()) // Break some open, cause a little chaos.
 					crate.visible_message(span_warning("[crate]'s lid falls open!"))
 				else // If we somehow fail to open the crate, just break it instead!
-					crate.visible_message("<span class='warning'>[crate] falls apart!")
+					crate.visible_message(span_warning("[crate] falls apart!"))
 					crate.deconstruct()
 			if(7) // Break that crate!
-				crate.visible_message("<span class='warning'>[crate] falls apart!")
+				crate.visible_message(span_warning("[crate] falls apart!"))
 				crate.deconstruct()
 		shelf_contents[shelf_contents.Find(crate)] = null
 	if(!(flags_1&NODECONSTRUCT_1))

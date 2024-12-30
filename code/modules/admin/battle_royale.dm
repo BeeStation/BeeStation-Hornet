@@ -267,7 +267,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
-	to_chat(world, span_ratvar("<font size=24>Battle Royale will begin soon...</span>"))
+	to_chat(world, span_ratvar("<font size=24>Battle Royale will begin soon..."))
 	//Stop new player joining
 	GLOB.enter_allowed = FALSE
 

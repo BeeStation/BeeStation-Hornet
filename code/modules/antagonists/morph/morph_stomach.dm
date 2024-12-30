@@ -77,7 +77,7 @@
 	if(..())
 		return
 	if(morph.movement_type & VENTCRAWLING)
-		to_chat(morph, span_danger("It's too cramped, you can't do that here!.</span>"))
+		to_chat(morph, span_danger("It's too cramped, you can't do that here!"))
 		return
 	var/ref = params["id"]
 	var/atom/movable/target = locate(ref) in morph.contents

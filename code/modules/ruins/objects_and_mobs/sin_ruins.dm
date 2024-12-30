@@ -26,8 +26,8 @@
 		user.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 		user.gib()
 	else
-		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), "<span class='warning'>You feel a draining as you pull the lever, but you \
-		know it'll be worth it.</span>")
+		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel a draining as you pull the lever, but you \
+		know it'll be worth it."))
 	icon_state = "slots2"
 	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, 0)
 	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
@@ -59,19 +59,14 @@
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 600)
 
 /obj/structure/cursed_money/proc/collapse()
-	visible_message("<span class='warning'>[src] falls in on itself, \
-		canvas rotting away and contents vanishing.</span>")
+	visible_message(span_warning("[src] falls in on itself, canvas rotting away and contents vanishing."))
 	qdel(src)
 
 /obj/structure/cursed_money/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
-	user.visible_message("<span class='warning'>[user] opens the bag and \
-		and removes a die. The bag then vanishes.</span>",
-		"[span_boldwarning("You open the bag...!")]\n\
-		<span class='danger'>And see a bag full of dice. Confused, \
-		you take one... and the bag vanishes.</span>")
+	user.visible_message(span_warning("[user] opens the bag and and removes a die. The bag then vanishes."), "[span_boldwarning("You open the bag...!")]\n[span_danger("And see a bag full of dice. Confused, you take one... and the bag vanishes.")]")
 	var/turf/T = get_turf(user)
 	var/obj/item/dice/d20/fate/one_use/critical_fail = new(T)
 	user.put_in_hands(critical_fail)

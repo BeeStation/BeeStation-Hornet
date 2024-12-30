@@ -279,16 +279,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	if(brutedamage || burndamage)
 		convertee.adjustBruteLoss(-(brutedamage * 0.75))
 		convertee.adjustFireLoss(-(burndamage * 0.75))
-	convertee.visible_message("<span class='warning'>[convertee] writhes in pain \
-		[brutedamage || burndamage ? "even as [convertee.p_their()] wounds heal and close" : "as the markings below [convertee.p_them()] glow a bloody red"]!</span>", \
-		span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
+	convertee.visible_message(span_warning("[convertee] writhes in pain [brutedamage || burndamage ? "even as [convertee.p_their()] wounds heal and close" : "as the markings below [convertee.p_them()] glow a bloody red"]!"), span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
 	SSticker.mode.add_cultist(convertee.mind, 1)
 	new /obj/item/melee/cultblade/dagger(get_turf(src))
 	convertee.mind.special_role = ROLE_CULTIST
-	to_chat(convertee, "<span class='cult italic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
-	and something evil takes root.</b></span>")
-	to_chat(convertee, "<span class='cult italic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve the Geometer above all else. Bring it back.\
-	</b></span>")
+	to_chat(convertee, span_cultitalic("<b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
+	and something evil takes root.</b>"))
+	to_chat(convertee, span_cultitalic("<b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve the Geometer above all else. Bring it back.</b>"))
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
 		H.uncuff()

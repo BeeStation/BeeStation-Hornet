@@ -48,7 +48,7 @@
 	if(target == user)
 		user.visible_message(span_notice("[user] starts climbing into [src]."), span_notice("You start climbing into [src]."))
 	else
-		user.visible_message(span_warning("[user] starts stuffing [target] into [src]!"), "<span class= warning'>You start stuffing [target] into [src]!</span>")
+		user.visible_message(span_warning("[user] starts stuffing [target] into [src]!"), span_warning("You start stuffing [target] into [src]!"))
 
 	if(do_after(user, 60, src))
 		if(occupant)
@@ -61,8 +61,8 @@
 		if(target != user)
 			log_combat(user, occupant, "stuffed ", null, "into [src]", important = FALSE)
 		string.Grant(occupant)
-		to_chat(occupant, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
-		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
+		to_chat(occupant, span_notice("You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
+		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!"))
 	add_fingerprint(target)
 
 /obj/structure/popout_cake/relaymove(mob/user, direction)
@@ -76,16 +76,14 @@
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
-		user.visible_message(span_notice("[user] sticks the [W] inside [src] and stars fiddling around!"), \
-		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
+		user.visible_message(span_notice("[user] sticks the [W] inside [src] and stars fiddling around!"), span_notice("You start to rewind the hidden mechanism inside [src] with [W]."))
 		W.play_tool_sound(src, 50)
 		if(do_after(user, 20, target=src, timed_action_flags = IGNORE_HELD_ITEM))
 			used_string = FALSE
-			user.visible_message(span_notice("After hearing a click from [src], [user] pulls the [W] outside."), \
-		"<span class='notice>You successfully rewind the string inside [src]!</span>")
+			user.visible_message(span_notice("After hearing a click from [src], [user] pulls the [W] outside."), span_notice("You successfully rewind the string inside [src]!"))
 			return FALSE
 	if(W.is_sharp())
-		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
+		user.visible_message(span_notice("[user] begins cutting into [src] with [W]!"), span_notice("You starts cutting [src] with [W]!"))
 		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
 			qdel(src)

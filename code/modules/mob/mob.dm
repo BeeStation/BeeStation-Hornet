@@ -1184,7 +1184,7 @@
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
 	if(is_blind())
-		to_chat(src, "<span class='warning'You are blind and can't read anything!</span>")
+		to_chat(src, span_warning("You are blind and can't read anything!"))
 		return FALSE
 		//to_chat(src, span_warning("As you are trying to read [O], you suddenly feel very stupid!"))
 	if(!is_literate())

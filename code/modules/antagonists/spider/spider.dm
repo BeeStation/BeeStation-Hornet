@@ -79,7 +79,7 @@
 	else
 		to_chat(owner, span_spider("You do not have a directive. You'll need to set one before laying eggs."))
 	if(spider_team.master)
-		to_chat(owner, "<span class='spider'>Your master is: [spider_team.master]. Follow their orders when they do not conflict with your directives.")
+		to_chat(owner, span_spider("Your master is: [spider_team.master]. Follow their orders when they do not conflict with your directives."))
 		owner.store_memory("<b>Your master is: [spider_team.master]</b>")
 
 	if(!length(old_team.get_team_antags()))

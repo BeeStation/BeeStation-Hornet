@@ -128,4 +128,4 @@
 
 /obj/item/exploration_detonator/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class'warning'>You override the safety controls of [src]. You can now trigger explosives on the station.</span>")
+	to_chat(user, span_warning("You override the safety controls of [src]. You can now trigger explosives on the station."))

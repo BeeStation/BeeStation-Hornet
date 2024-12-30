@@ -351,14 +351,10 @@
 		return
 	var/datum/mind/C = M.mind
 	if(M.stat == CONSCIOUS)
-		M.visible_message("<span class='notice'>[M] \
-			stops moving and starts staring vacantly into space.</span>",
+		M.visible_message(span_notice("[M] stops moving and starts staring vacantly into space."),
 			span_notice("You stop moving this form..."))
 	else
 		to_chat(C, span_notice("You abandon this nymph..."))
 	C.transfer_to(drone)
 	drone.mind = C
-	drone.visible_message("<span class='notice'>[drone] blinks and looks \
-		around.</span>",
-		span_notice("...and move this one instead."))
-
+	drone.visible_message(span_notice("[drone] blinks and looks around."),span_notice("...and move this one instead."))

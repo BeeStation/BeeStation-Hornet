@@ -147,6 +147,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 			body_turf.Beam(item_turf,icon_state="lichbeam", time = 20 + 20 * resurrections) // beam shows for longer on the lesser spell
 		old_body.dust()
 	if(resurrections >= 2)
-		to_chat(lich,"<span class='userdanger'>You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death.")
+		to_chat(lich, span_userdanger("You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death."))
 		qdel(src)
 	return "Respawn of [mind] successful."

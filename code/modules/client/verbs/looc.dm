@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 			to_chat(src, span_danger("You cannot use LOOC while ghosting."))
 			return
 		if(OOC_FILTER_CHECK(raw_msg))
-			to_chat(src, span_warning("That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span>"))
+			to_chat(src, span_warning("That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n") + "<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span>")
 			return
 
 	msg = emoji_parse(msg)

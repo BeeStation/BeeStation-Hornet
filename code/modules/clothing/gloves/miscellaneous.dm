@@ -133,7 +133,7 @@
 		if(!wand.used && range == initial(range))
 			wand.used = TRUE
 			range = 6
-			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)

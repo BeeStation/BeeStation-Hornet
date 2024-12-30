@@ -320,7 +320,7 @@
 		to_chat(M, span_notice("You abandon this nymph..."))
 	C.transfer_to(M)
 	M.mind = C
-	M.visible_message(span_notice("[M] blinks and looks around.</span>"), span_notice("...and move this one instead."))
+	M.visible_message(span_notice("[M] blinks and looks around."), span_notice("...and move this one instead."))
 
 /mob/living/simple_animal/hostile/retaliate/nymph/mob_try_pickup(mob/living/user)
 	if(!ishuman(user))

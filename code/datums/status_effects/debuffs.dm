@@ -830,12 +830,12 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
-				fake_msg = pick(span_warning("[pick("Your head hurts.", "Your head pounds.")]"),
-				span_warning("[pick("You're having difficulty breathing.", "Your breathing becomes heavy.")]"),
-				span_warning("[pick("You feel dizzy.", "Your head spins.")]"),
-				"<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>",
-				span_warning("[pick("Your head hurts.", "Your mind blanks for a moment.")]"),
-				span_warning("[pick("Your throat hurts.", "You clear your throat.")]"))
+				fake_msg = pick(span_warning(pick("Your head hurts.", "Your head pounds.")),
+				span_warning(pick("You're having difficulty breathing.", "Your breathing becomes heavy.")),
+				span_warning(pick("You feel dizzy.", "Your head spins.")),
+				span_warning(pick("You swallow excess mucus.", "You lightly cough.")),
+				span_warning(pick("Your head hurts.", "Your mind blanks for a moment.")),
+				span_warning(pick("Your throat hurts.", "You clear your throat.")))
 		if(301 to 600)
 			if(prob(2))
 				fake_msg = pick(span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"),

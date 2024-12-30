@@ -227,7 +227,7 @@
 		dropping.visible_message(span_notice("[user] starts to lower [dropping] down into [src]."), \
 			span_notice("You start to lower [dropping] down into [src]."))
 	else
-		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
+		to_chat(user, span_notice("You start climbing down into [src]..."))
 	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 

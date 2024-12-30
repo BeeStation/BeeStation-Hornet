@@ -76,7 +76,7 @@
 		message = GLOB.syndicate_code_phrase_regex.Replace(message, span_blue("$1"))
 		message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	// Assemble the message prefix
-	var/message_prefix = "<span class='holoparasite italics robot'>\[[COLOR_TEXT(owner.accent_color, snare.name)]\] [speaker.GetVoice()]"
+	var/message_prefix = span_holoparasiteitalicsrobot("\"[COLOR_TEXT(owner.accent_color, snare.name)]\" [speaker.GetVoice()]")
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
@@ -84,7 +84,7 @@
 	else
 		var/atom/movable/source = speaker.GetSource() || speaker
 		message_part = source.say_quote(message, spans, message_mods)
-	message_part = span_message("[summoner.say_emphasis(message_part)]</span>")
+	message_part = span_message("[summoner.say_emphasis(message_part)]")
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
 	to_chat(owner.list_summoner_and_or_holoparasites(), final_message)

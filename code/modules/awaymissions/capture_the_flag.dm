@@ -363,7 +363,7 @@
 			for(var/mob/ctf_player in GLOB.player_list)
 				var/area/mob_area = get_area(ctf_player)
 				if(istype(mob_area, game_area))
-					to_chat(ctf_player, "<span class='userdanger [team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!</span>")
+					to_chat(ctf_player, span_userdanger("[team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!"))
 			if(points >= points_to_win)
 				victory()
 
@@ -372,7 +372,7 @@
 		var/mob/living/competitor = _competitor
 		var/area/mob_area = get_area(competitor)
 		if(istype(mob_area, game_area))
-			to_chat(competitor, "<span class='narsie [team_span]'>[team] team wins!</span>")
+			to_chat(competitor, span_narsie("[team_span]'>[team] team wins!"))
 			to_chat(competitor, victory_rejoin_text)
 			for(var/obj/item/ctf/W in competitor)
 				competitor.dropItemToGround(W)

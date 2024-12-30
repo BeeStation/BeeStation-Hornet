@@ -896,7 +896,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(mdp)
 		user.forceMove(get_turf(mdp))
 		message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
-		log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
+		log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.")
 		SSblackbox.record_feedback("text", "shuttle_manipulator", 1, "[mdp.name]")
 
 /datum/controller/subsystem/shuttle/proc/jump_to_preview(mob/user, datum/variable_ref/loaded_shuttle_reference)

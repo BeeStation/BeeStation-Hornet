@@ -6,5 +6,4 @@
 
 /datum/config_entry/string/death_message
 	config_entry_value = span_deathmessage(span_bigbold("You have died!")) + "<br/>\
-		Barring complete bodyloss, you can in most cases be revived by other players. If you do not wish to be brought back, use the \"Do Not Resuscitate\" verb in the ghost tab.<br/>\
-		<span class = 'bold red'>You do not remember the circumstances leading up to your death!</span></span>"
+		Barring complete bodyloss, you can in most cases be revived by other players. If you do not wish to be brought back, use the \"Do Not Resuscitate\" verb in the ghost tab.<br/> " + span_boldred("You do not remember the circumstances leading up to your death!")

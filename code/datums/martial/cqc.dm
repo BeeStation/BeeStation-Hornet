@@ -176,8 +176,7 @@
 	log_combat(A, D, "[picked_hit_type]s (CQC)")
 	log_combat(A, D, "[picked_hit_type] (CQC)", name)
 	if(A.resting && !D.stat && !D.IsParalyzed())
-		D.visible_message("<span class='danger'>[A] leg sweeps [D]!", \
-						span_userdanger("Your legs are sweeped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
+		D.visible_message(span_danger("[A] leg sweeps [D]!"), span_userdanger("Your legs are sweeped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 		to_chat(A, span_danger("You leg sweep [D]!"))
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE, blocked = def_check)

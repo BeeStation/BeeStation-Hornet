@@ -37,9 +37,9 @@
 	. = ..()
 	if(!isobserver(user))
 		return
-	. += "[span_boldnotice("Sound File:")] [sound_file ? sound_file : "None chosen"]"
-	. += span_boldnotice("Mode:</span> [motus_operandi]")
-	. += span_boldnotice("Range:</span> [emitter_range]")
+	. += span_boldnotice("Sound File: ") + (sound_file ? sound_file : "None chosen")
+	. += span_boldnotice("Mode: ") + motus_operandi
+	. += span_boldnotice("Range: ") + emitter_range
 	. += "<b>Sound is playing at [sound_volume]% volume.</b>"
 	if(user.client.holder)
 		. += "<b>Alt-click it to quickly activate it!</b>"

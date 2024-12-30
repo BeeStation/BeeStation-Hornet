@@ -117,9 +117,9 @@
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
 	var/list/candidates = poll_ghost_candidates("Do you wish to be resurrected as a Holy Summoned Undead?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYUNDEAD)
 	if(!length(candidates))
-		to_chat(user, "<span class='warning'>The soul pool is empty...")
+		to_chat(user, span_warning("The soul pool is empty..."))
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
-		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
+		user.visible_message(span_warning("The soul pool was not strong enough to bring forth the undead."))
 		GLOB.religious_sect?.adjust_favor(favor_cost, user) //refund if nobody takes the role
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
@@ -183,7 +183,7 @@
 			to_chat(user, span_warning("You can only resurrect dead bodies, this one is still alive!"))
 			return FALSE
 		if(!r_target.mind)
-			to_chat(user, "<span class='warning'>This creature has no connected soul...")
+			to_chat(user, span_warning("This creature has no connected soul..."))
 			return FALSE
 		raise_target = r_target
 		raise_target.notify_ghost_cloning("Your soul is being summoned back to your body by mystical power!", source = src)
@@ -196,7 +196,7 @@
 		raise_target = null
 		return FALSE
 	if(!raise_target.mind)
-		to_chat(user, "<span class='warning'>This creature's soul has left the pool...")
+		to_chat(user, span_warning("This creature's soul has left the pool..."))
 		raise_target = null
 		return FALSE
 	if(raise_target.stat != DEAD)

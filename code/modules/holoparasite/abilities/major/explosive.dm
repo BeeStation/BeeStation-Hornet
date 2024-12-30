@@ -225,7 +225,7 @@
 		owner.balloon_alert(owner, "failed, bomb disarmed", show_in_chat = FALSE)
 		return FALSE
 	if(trying_to_do_stupid_cheesy_instakill(bomb))
-		to_chat(owner, "<span class='warning'>You can't seem to detonate that bomb for some reason.../span>")
+		to_chat(owner, span_warning("You can't seem to detonate that bomb for some reason"))
 		owner.balloon_alert(owner, "failed to detonate", show_in_chat = FALSE)
 		return FALSE
 	owner.log_message("manually detonated the bomb trap ([bomb.name] | [bomb.type]) at [AREACOORD(bomb.loc)]", LOG_ATTACK)

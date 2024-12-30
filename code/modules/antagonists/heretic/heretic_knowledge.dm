@@ -413,7 +413,7 @@
 
 	var/drain_message = pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))
 	to_chat(user, span_boldnotice("[name] completed!"))
-	to_chat(user, span_hypnophrase("<span class='big>[drain_message]</span>"))
+	to_chat(user, span_hypnophrase(span_big(drain_message)))
 	desc += " (Completed!)"
 	return TRUE
 

@@ -81,7 +81,7 @@
 		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/chasmjaunt, user)
 		activate(user, FALSE)
 	else
-		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
+		to_chat(user, span_danger("[src] is not attached to your belt, preventing it from saving you from the chasm. RIP."))
 
 //jaunter tunnel
 /obj/effect/portal/jaunt_tunnel

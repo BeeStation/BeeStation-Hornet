@@ -27,8 +27,8 @@
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	msg = user.treat_message_min(msg)
-	to_chat(user, span_boldnotice("You concentrate and send thoughts to your other self:</span> <span class='notice'>[msg]"))
-	to_chat(trauma.owner, span_boldnotice("[flufftext]</span> <span class='notice'>[msg]"))
+	to_chat(user, "[span_boldnotice("You concentrate and send thoughts to your other self:")] [span_notice(msg)]")
+	to_chat(trauma.owner, "[span_boldnotice(flufftext)] [span_notice(msg)]")
 	log_directed_talk(user, trauma.owner, msg, LOG_SAY ,"[name]")
 	for(var/ded in GLOB.dead_mob_list)
 		if(!isobserver(ded))

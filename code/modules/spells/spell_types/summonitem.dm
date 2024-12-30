@@ -30,7 +30,7 @@
 					continue
 				if(HAS_TRAIT(item, TRAIT_NODROP))
 					message += "Though it feels redundant, "
-				marked_item = 		item
+				marked_item = item
 				message += "You mark [item] for recall.</span>"
 				name = "Recall [item]"
 				break

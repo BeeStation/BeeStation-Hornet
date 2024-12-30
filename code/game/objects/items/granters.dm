@@ -364,8 +364,8 @@
 	name = "mysterious scroll"
 	martialname = "sleeping carp"
 	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles \
-	directed toward you. However, you are also unable to use any ranged weaponry. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
+	greet = span_sciradio("You have learned the ancient martial art of the Sleeping Carp! Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles \
+	directed toward you. However, you are also unable to use any ranged weaponry. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of the sleeping carp...", "Stance means everything...", "Focus... And you'll be able to incapacitate any foe in seconds...", "I must pierce armor for maximum damage...", "I don't think this would combine with other martial arts...", "Grab them first so they don't retaliate...", "I must prove myself worthy of this power...")
@@ -382,8 +382,8 @@
 	name = "old scroll"
 	martialname = "tribal claw"
 	desc = "A scroll filled with ancient draconic markings."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of the Tribal Claw! You are now able to use your tail and claws in a fight much better than before. \
-	Check the combos you are now able to perform using the Recall Teachings verb in the Tribal Claw tab</span>"
+	greet = span_sciradio("You have learned the ancient martial art of the Tribal Claw! You are now able to use your tail and claws in a fight much better than before. \
+	Check the combos you are now able to perform using the Recall Teachings verb in the Tribal Claw tab")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of the Knoises clan...", "Use your tail to surprise any enemy...", "Your sharp claws can disorient them...", "I don't think this would combine with other martial arts...", "Ooga Booga...")
@@ -408,8 +408,8 @@
 	name = "frayed scroll"
 	martialname = "plasma fist"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
-	greet = "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist. Your combos are extremely hard to pull off, but include some of the most deadly moves ever seen including \
-	the plasma fist, which when pulled off will make someone violently explode.</span>"
+	greet = span_boldannounce("You have learned the ancient martial art of Plasma Fist. Your combos are extremely hard to pull off, but include some of the most deadly moves ever seen including \
+	the plasma fist, which when pulled off will make someone violently explode.")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	remarks = list("Balance...", "Power...", "Control...", "Mastery...", "Vigilance...", "Skill...")
@@ -426,8 +426,8 @@
 	name = "dusty scroll"
 	martialname = "karate"
 	desc = "A dusty scroll filled with martial lessons. There seems to be drawings of some sort of martial art."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of Karate! Your hand-to-hand combat has become more effective but require skill to combo effectively.\
-	You can learn more about your newfound art by using the Recall Teachings verb in the Karate tab.</span>"
+	greet = span_sciradio("You have learned the ancient martial art of Karate! Your hand-to-hand combat has become more effective but require skill to combo effectively.\
+	You can learn more about your newfound art by using the Recall Teachings verb in the Karate tab.")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of Karate...", "Disable their legs so they can't escape...", "Strike at pressure points to daze my foes...", "Stomp their head for maximum damage...", "I don't think this would combine with other martial arts...", "Wind them with a flying knee...", "I must practice to fully grasp these teachings...")
