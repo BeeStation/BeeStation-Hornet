@@ -229,9 +229,10 @@ GLOBAL_LIST_INIT(huds, list(
 	// No matter where or who you are, you matter to me :)
 	RegisterSignal(new_hud_atom, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_atom_or_user_z_level_changed), override = TRUE)
 	RegisterSignal(new_hud_atom, COMSIG_PARENT_QDELETING, PROC_REF(unregister_atom), override = TRUE) //both hud atoms and hud users use these signals
-	var/mob/hud_mob = new_hud_atom
-	if(hud_mob.client)
-		RegisterSignal(hud_mob.client, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_client_eye_z_changed), override = TRUE)
+	if(ismob(new_hud_atom))
+		var/mob/hud_mob = new_hud_atom
+		if(hud_mob.client)
+			RegisterSignal(hud_mob.client, COMSIG_CLIENT_EYE_Z_CHANGED, PROC_REF(on_client_eye_z_changed), override = TRUE)
 	hud_atoms_all_z_levels[new_hud_atom] = TRUE
 
 	var/turf/atom_turf = get_turf(new_hud_atom)
@@ -254,9 +255,10 @@ GLOBAL_LIST_INIT(huds, list(
 	if(!hud_users_all_z_levels[hud_atom_to_remove])
 		UnregisterSignal(hud_atom_to_remove, COMSIG_MOVABLE_Z_CHANGED)
 		UnregisterSignal(hud_atom_to_remove, COMSIG_PARENT_QDELETING)
-		var/mob/hud_mob = hud_atom_to_remove
-		if(hud_mob.client)
-			UnregisterSignal(hud_mob.client, COMSIG_CLIENT_EYE_Z_CHANGED)
+		if(ismob(hud_atom_to_remove))
+			var/mob/hud_mob = hud_atom_to_remove
+			if(hud_mob.client)
+				UnregisterSignal(hud_mob.client, COMSIG_CLIENT_EYE_Z_CHANGED)
 
 	for(var/mob/mob_to_remove as anything in hud_users_all_z_levels)
 		remove_atom_from_single_hud(mob_to_remove, hud_atom_to_remove)
