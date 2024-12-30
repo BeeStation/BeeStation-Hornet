@@ -1072,7 +1072,7 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port/fore)
 "anJ" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "anK" = (
@@ -4664,9 +4664,9 @@
 	req_access_txt = "2";
 	shuttledocked = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/security/brig)
 "beo" = (
@@ -15375,9 +15375,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/solars/starboard/fore)
 "cOM" = (
@@ -16065,8 +16063,8 @@
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -18759,7 +18757,7 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/fore)
 "ehY" = (
@@ -18784,7 +18782,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "eiI" = (
@@ -18911,8 +18909,8 @@
 	name = "MiniSat External Access";
 	req_access_txt = "65;13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -21968,8 +21966,8 @@
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
@@ -22928,12 +22926,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "fQq" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "fQu" = (
@@ -24915,7 +24911,7 @@
 	name = "Engineering External Access";
 	req_access_txt = "10;13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "gDB" = (
@@ -25087,9 +25083,7 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "gGK" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/closed/wall,
 /area/ai_monitored/turret_protected/aisat_interior)
 "gGV" = (
@@ -25581,7 +25575,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/solars/starboard/aft)
 "gRD" = (
@@ -26358,7 +26352,7 @@
 /obj/machinery/door/airlock/arrivals_external{
 	name = "Arrivals Airlock"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
 "hiT" = (
@@ -27975,9 +27969,7 @@
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
 "hQg" = (
@@ -30247,7 +30239,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Port Docking Bay 3"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
 "iJR" = (
@@ -32654,7 +32646,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/solars/port/fore)
 "jGs" = (
@@ -32899,10 +32891,10 @@
 /turf/open/floor/wood/big,
 /area/maintenance/aft)
 "jLl" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/dark{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "jLx" = (
@@ -38050,8 +38042,8 @@
 /obj/machinery/door/airlock/external{
 	name = "Port Docking Bay 2"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
@@ -40088,7 +40080,7 @@
 /obj/machinery/door/airlock/arrivals_external{
 	name = "Arrivals Airlock"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
 "mLU" = (
@@ -44430,8 +44422,8 @@
 /area/maintenance/port)
 "oyU" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -44917,7 +44909,7 @@
 	name = "Engineering External Access";
 	req_access_txt = "10;13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/engine/engineering)
 "oKv" = (
@@ -45490,9 +45482,7 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/fore)
 "oXS" = (
@@ -45512,7 +45502,7 @@
 "oYy" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+/obj/machinery/atmospherics/pipe/color_adapter{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -48857,7 +48847,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "qrL" = (
@@ -49006,7 +48996,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
 	dir = 8
 	},
 /turf/open/floor/catwalk_floor,
@@ -50609,12 +50599,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"rcc" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "rcg" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -51405,11 +51389,11 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "rnM" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/crowbar/red,
 /obj/item/clothing/head/utility/welding,
+/obj/machinery/atmospherics/pipe/layer_manifold/yellow,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "rnU" = (
@@ -52600,8 +52584,8 @@
 	name = "Supply Dock Airlock";
 	req_access_txt = "31"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor,
 /area/quartermaster/storage)
@@ -54444,7 +54428,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Port Docking Bay 4"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
 "sBr" = (
@@ -55208,8 +55192,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/quartermaster/miningdock)
@@ -55556,9 +55540,7 @@
 /area/crew_quarters/kitchen)
 "sTG" = (
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "sTK" = (
@@ -57011,7 +56993,7 @@
 "tyj" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "tyn" = (
@@ -58048,7 +58030,7 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
 	dir = 8
 	},
 /turf/open/floor/catwalk_floor,
@@ -67355,8 +67337,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/fore/secondary)
@@ -102959,7 +102941,7 @@ oyg
 bLK
 bLK
 fRd
-rcc
+gZV
 bSf
 bMZ
 bSJ
