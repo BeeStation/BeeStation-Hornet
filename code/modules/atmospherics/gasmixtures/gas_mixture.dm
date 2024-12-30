@@ -771,4 +771,4 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		message_admins("[key_name(usr)] modified gas mixture [REF(src)]: Changed temperature to [new_temperature].")
 		temperature = new_temperature
 	if(href_list[VV_HK_UPDATE_ACTIVE_TURF])
-		ssair.active_turfs += get_turf(src)
+		SSair.active_turfs += get_turf(src)
