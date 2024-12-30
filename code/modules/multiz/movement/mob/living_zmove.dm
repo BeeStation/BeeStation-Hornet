@@ -64,7 +64,7 @@
 		if(MOVETYPE_NONE_JUMP)
 			visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
 			do_jump_animation()
-			adjustStaminaLoss(15, forced = TRUE)
+			adjustStaminaLoss(10, forced = TRUE)
 			return FALSE
 		if(MOVETYPE_JAUNT)
 			move_verb = "moving"

@@ -686,23 +686,23 @@
 //Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
 //Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(movement_dir = 0)
+/atom/movable/proc/Process_Spacemove(movement_dir = FALSE)
 	if(has_gravity(src))
-		return 1
+		return TRUE
 
-	if(pulledby)
-		return 1
+	if(pulledby && (pulledby.pulledby != src || moving_from_pull))
+		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
 	if(!isturf(loc))
-		return 1
+		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 
 /// Only moves the object if it's under no gravity

@@ -1,9 +1,0 @@
-author: rkz, MrMelbert, Cyberboss
-delete-after: true
-changes:
-  - refactor: refactored language holders, species changes will no longer delete all
-      known languages
-  - refactor: refactored tongue language lists to kill typecache nonsense and handle
-      subtypes sanely
-  - code_imp: unit tests language transfers
-  - code_imp: fix config errors before /world/New()
