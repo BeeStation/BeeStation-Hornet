@@ -221,9 +221,9 @@
 /datum/antagonist/rev/head/farewell()
 	if((ishuman(owner.current)))
 		if(owner.current.stat != DEAD)
-			to_chat(owner, "<span class ='deconversion_message bold'>You have given up your cause of overthrowing the command staff. You are no longer a Head Revolutionary.</span>")
+			to_chat(owner, "[span_deconversionmessagebold("You have given up your cause of overthrowing the command staff. You are no longer a Head Revolutionary.")]")
 		else
-			to_chat(owner, "<span class ='deconversion_message bold'>The sweet release of death. You are no longer a Head Revolutionary.</span>")
+			to_chat(owner, "[span_deconversionmessagebold("The sweet release of death. You are no longer a Head Revolutionary.")]")
 	else if(issilicon(owner.current))
 		to_chat(owner, span_userdanger("The frame's firmware detects and suppresses your unwanted personality traits! You feel more content with the leadership around these parts."))
 

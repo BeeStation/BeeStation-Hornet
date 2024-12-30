@@ -690,7 +690,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		for(var/soul in present_souls)
 			if(!present_souls[soul] || !GLOB.soul_glimmer_colors[soul])
 				continue
-			to_chat(user, "\t<span class='notice'><span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+			to_chat(user, "\t[span_notice("<span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]")], [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -1982,7 +1982,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 			new /obj/effect/hotspot(T)
 		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
 		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
-		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
+		T.visible_message("<b>[span_userdanger("[src] ignites in a brilliant flash!")]</b>")
 		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
 			return TRUE
 		else if(isturf(src))

@@ -106,7 +106,7 @@
 		return FALSE
 	var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(src, silent=TRUE)
 	S.prefix = CLOCKCULT_PREFIX_EMINENCE
-	to_chat(src, "<span class='large_brass'>You are the Eminence!</span>")
+	to_chat(src, "[span_largebrass("You are the Eminence!")]")
 	to_chat(src, span_brass("Click on objects to perform actions, different objects have different actions, try them out!"))
 	to_chat(src, span_brass("Many of your spells require a target first. Click on a servant to select them!"))
 

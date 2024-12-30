@@ -103,10 +103,10 @@
 	if(!cloaking || !isliving(target))
 		return
 	if(owner.has_matching_summoner(target))
-		to_chat(owner, span_warning("There's no need to stalk <span class='name'>[target]</span>..."))
+		to_chat(owner, span_warning("There's no need to stalk [span_name("[target]")]..."))
 		return
 	if(!isturf(target.loc) || target.get_virtual_z_level() != owner.get_virtual_z_level() || !in_view_range(owner, target))
-		to_chat(owner, span_warning("<span class='name'>[target]</span> is too far away to begin stalking!"))
+		to_chat(owner, span_warning("[span_name("[target]")] is too far away to begin stalking!"))
 		return
 	begin_stalking(target)
 	return COMSIG_MOB_CANCEL_CLICKON
@@ -350,11 +350,11 @@
 		stop_stalking(silent = TRUE)
 	owner.incorporeal_move = FALSE
 	stalking = target
-	to_chat(owner, span_notice("You begin to stalk <span class='name'>[target]</span>, following [target.p_their()] every move from behind your cloak."))
+	to_chat(owner, span_notice("You begin to stalk [span_name("[target]")], following [target.p_their()] every move from behind your cloak."))
 	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
 	on_stalked_moved(target)
-	deadchat_broadcast(span_ghostalert("<span class='name'>[owner.real_name]</span> has begun to stalk <span class='name'>[target.real_name]</span>!"), follow_target = owner, turf_target = get_turf(owner))
+	deadchat_broadcast(span_ghostalert("[span_name("[owner.real_name]")] has begun to stalk [span_name("[target.real_name]")]!"), follow_target = owner, turf_target = get_turf(owner))
 	COOLDOWN_START(src, stalk_cooldown, 15 SECONDS)
 	if(target.has_holoparasites() && prob(80))
 		to_chat(target, span_holoparasiteitalics("You feel a strange yet familiar feeling, as if [COLOR_TEXT(owner.accent_color, "something")] was watching you..."))
@@ -367,7 +367,7 @@
 	if(!stalking)
 		return
 	if(!silent)
-		to_chat(owner, span_notice("You stop stalking <span class='name'>[stalking]</span>."))
+		to_chat(owner, span_notice("You stop stalking [span_name("[stalking]")]."))
 	if(stalkee_was_notified)
 		to_chat(stalking, span_holoparasiteitalics("You feel relief as the strange feeling of being watched fades away..."))
 	var/out_and_about = scouting && owner.is_manifested()

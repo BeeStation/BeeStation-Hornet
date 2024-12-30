@@ -124,7 +124,7 @@
 	if(prob(40) && isliving(target) && !target.anchored && !owner.has_matching_summoner(target))
 		new /obj/effect/temp_visual/holoparasite/phase/out(get_turf(target))
 		new /obj/effect/temp_visual/explosion(get_turf(target))
-		target.visible_message(span_danger("[owner.color_name] hits <span class='name'>[target]</span> with an explosive punch!"), \
+		target.visible_message(span_danger("[owner.color_name] hits [span_name("[target]")] with an explosive punch!"), \
 			span_userdanger("[owner.color_name]'s punch explodes violently, ripping you through space!"), \
 			vision_distance = COMBAT_MESSAGE_RANGE
 		)
@@ -245,7 +245,7 @@
 	if(!istype(source) || !istype(explodee) || owner.has_matching_summoner(explodee) || trying_to_do_stupid_cheesy_instakill(source))
 		return
 	to_chat(explodee, span_dangerbold("[source] was boobytrapped!"))
-	to_chat(owner, span_dangerbold("Success! Your trap caught <span class='name'>[explodee]</span>!"))
+	to_chat(owner, span_dangerbold("Success! Your trap caught [span_name("[explodee]")]!"))
 	var/turf/target_turf = get_turf(source)
 	explodee.log_message("was caught by a bomb trap ([source.name] | [source.type]) set by [key_name(owner)] at [AREACOORD(target_turf)]", LOG_ATTACK)
 	owner.log_message("caught [key_name(explodee)] with a bomb trap ([source.name] | [source.type]) at [AREACOORD(target_turf)]", LOG_ATTACK, log_globally = FALSE)

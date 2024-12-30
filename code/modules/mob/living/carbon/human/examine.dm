@@ -31,7 +31,7 @@
 
 	//Psychic soul stuff
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
-		to_chat(user, "<span class='notice'>[src] has a <span class='[GLOB.soul_glimmer_cfc_list[mind.soul_glimmer]]'>[mind.soul_glimmer]</span> presence.")
+		to_chat(user, "[span_notice("[src] has a <span class='[GLOB.soul_glimmer_cfc_list[mind.soul_glimmer]]'>[mind.soul_glimmer]")] presence.")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
@@ -188,7 +188,7 @@
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.limb_id != (dna.species.examine_limb_id ? dna.species.examine_limb_id : dna.species.id))
-			msg += "<span class='info'>[t_He] [t_has] \an [BP.name].</span>\n"
+			msg += "[span_info("[t_He] [t_has] \an [BP.name].")]\n"
 
 	var/list/harm_descriptors = dna?.species.get_harm_descriptors()
 	var/brute_msg = harm_descriptors?["brute"]
@@ -202,11 +202,11 @@
 	if (is_bleeding())
 		switch (get_bleed_rate())
 			if (BLEED_DEEP_WOUND to INFINITY)
-				msg += "<span class='warning'>[src] is [bleed_msg] extremely quickly.</span>\n"
+				msg += "[span_warning("[src] is [bleed_msg] extremely quickly.")]\n"
 			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
-				msg += "<span class='warning'>[src] is [bleed_msg] at a significant rate.</span>\n"
+				msg += "[span_warning("[src] is [bleed_msg] at a significant rate.")]\n"
 			else
-				msg += "<span class='warning'>[src] has some minor [bleed_msg] which look like it will stop soon.</span>\n"
+				msg += "[span_warning("[src] has some minor [bleed_msg] which look like it will stop soon.")]\n"
 	else if (is_bandaged())
 		msg += "[src] is [bleed_msg], but it is covered.\n"
 
@@ -325,9 +325,9 @@
 					msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 		if(getorgan(/obj/item/organ/brain))
 			if(ai_controller?.ai_status == AI_STATUS_ON)
-				msg += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
+				msg += "[span_deadsay("[t_He] do[t_es]n't appear to be [t_him]self.")]\n"
 			if(!key)
-				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
+				msg += "[span_deadsay("[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.")]\n"
 			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
 
@@ -355,7 +355,7 @@
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
 		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(target_record)
-			. += "<span class='deptradio'>Rank:</span> [target_record.rank]"
+			. += "[span_deptradio("Rank:")] [target_record.rank]"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 			var/list/cyberimp_detect = list()
 			for(var/obj/item/organ/cyberimp/CI in internal_organs)
@@ -385,11 +385,11 @@
 						security_note = target_record.security_note
 
 				if(ishuman(user))
-					. += "<span class='deptradio'>Criminal status:</span> <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
+					. += "[span_deptradio("Criminal status:")] <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
 				else
-					. += "<span class='deptradio'>Criminal status:</span> [wanted_status]"
+					. += "[span_deptradio("Criminal status:")] [wanted_status]"
 				. += "<span class='deptradio'>Important Notes: [security_note]"
-				. += "<span class='deptradio'>Security record:</span> <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
+				. += "[span_deptradio("Security record:")] <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
 				if(ishuman(user))
 					. += jointext(list("<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
 						"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",

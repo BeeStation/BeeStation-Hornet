@@ -244,7 +244,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		plasma_ignition(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)/10)
 		return
 	if(reagents.get_reagent_amount(/datum/reagent/fuel)) // the fuel explodes too, but much less violently
-		T.visible_message("<b><span class='userdanger'>[src] violently explodes!</span></b>")
+		T.visible_message("<b>[span_userdanger("[src] violently explodes!")]</b>")
 		explosion(src, 0, 0, 1, 0, flame_range = 1)
 		qdel(src)
 		return

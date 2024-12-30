@@ -139,10 +139,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	message_admins("[ADMIN_LOOKUPFLW(triggerer)] triggered and [ADMIN_LOOKUPFLW(confirmer)] confirmed event [event]")
 
 	var/area/A1 = get_area(triggerer)
-	deadchat_broadcast(span_deadsay("<span class='name'>[triggerer]</span> triggered [event] at <span class='name'>[A1.name]</span>."), triggerer)
+	deadchat_broadcast(span_deadsay("[span_name("[triggerer]")] triggered [event] at [span_name("[A1.name]")]."), triggerer)
 
 	var/area/A2 = get_area(confirmer)
-	deadchat_broadcast(span_deadsay("<span class='name'>[confirmer]</span> confirmed [event] at <span class='name'>[A2.name]</span>."), confirmer)
+	deadchat_broadcast(span_deadsay("[span_name("[confirmer]")] confirmed [event] at [span_name("[A2.name]")]."), confirmer)
 	switch(event)
 		if(KEYCARD_RED_ALERT)
 			SSsecurity_level.set_level(SEC_LEVEL_RED)

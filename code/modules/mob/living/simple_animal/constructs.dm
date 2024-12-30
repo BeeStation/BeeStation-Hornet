@@ -39,7 +39,7 @@
 	hud_type = /datum/hud/constructs
 	hardattacks = TRUE
 	var/list/construct_spells = list()
-	var/playstyle_string = "<span class='big bold'>You are a generic construct!</span><b> Your job is to not exist, and you should probably adminhelp this.</b>"
+	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
 	var/seeking = FALSE
 	var/can_repair_constructs = FALSE

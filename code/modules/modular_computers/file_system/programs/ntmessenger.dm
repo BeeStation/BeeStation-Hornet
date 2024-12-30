@@ -346,7 +346,7 @@
 		signal.data["message"] = emoji_parse(signal.data["message"])
 
 	// Show it to ghosts
-	var/ghost_message = span_name("[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message(include_photo = TRUE)]")
+	var/ghost_message = span_name("[message_data["name"]] </span>[span_gamesay("PDA Message")] --> [span_name("[target_text]")]: <span class='message'>[signal.format_message(include_photo = TRUE)]")
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && M.client?.prefs.read_player_preference(/datum/preference/toggle/chat_ghostpda))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")

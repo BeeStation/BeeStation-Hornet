@@ -66,7 +66,7 @@
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='srt_radio cultboldtalic'>The [user.name]: [message]</span>"
+	my_message = "[span_srtradiocultboldtalic("The [user.name]: [message]")]"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		if(iscultist(M))

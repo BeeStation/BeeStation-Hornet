@@ -57,13 +57,13 @@
 	if(!length(candidates))
 		to_chat(summoner.current, span_holoparasitebold("[color_name] could not be reset, as there were no eligible candidate personalities willing to take over!"))
 		if(self)
-			to_chat(src, span_holoparasitebold("Personality reset <span class='danger'>failed</span>: no eligible candidate personalities."))
+			to_chat(src, span_holoparasitebold("Personality reset [span_danger("failed")]: no eligible candidate personalities."))
 		return
 	var/mob/dead/observer/new_player = pick(candidates)
 	if(!new_player)
 		to_chat(summoner.current, span_holoparasitebold("[color_name] could not be reset due to an error!"))
 		if(self)
-			to_chat(summoner.current, span_holoparasitebold("Personality reset <span class='danger'>failed</span>: unknown error!"))
+			to_chat(summoner.current, span_holoparasitebold("Personality reset [span_danger("failed")]: unknown error!"))
 		return
 	to_chat(src, span_holoparasiteboldbig("[self ? "A ghost took control of you, at your request." : "Your summoner reset you! Better luck next time!"]"))
 	ghostize(can_reenter_corpse = FALSE)

@@ -76,7 +76,7 @@
 			drill.log_message("Drilled through [src]", LOG_MECHA)
 			dismantle_wall(TRUE, FALSE)
 	else
-		to_chat(user, "[icon2html(src, user)]<span class='danger'>[src] is too durable to drill through.</span>")
+		to_chat(user, "[icon2html(src, user)][span_danger("[src] is too durable to drill through.")]")
 
 /turf/closed/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill, mob/user)
 	var/turf/T = get_turf(drill.chassis)

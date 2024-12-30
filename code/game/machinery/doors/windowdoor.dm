@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	if(QDELETED(src))
 		return
 	operating = FALSE
-	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
+	desc += "<BR>[span_warning("Its access panel is smoking slightly.")]"
 	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)

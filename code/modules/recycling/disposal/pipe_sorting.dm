@@ -61,7 +61,7 @@
 	if(sortTypes.len)
 		. += span_notice("It is tagged with the following tags:")
 		for(var/t in sortTypes)
-			. += "<span class='notice'>\t[GLOB.TAGGERLOCATIONS[t]]</span>."
+			. += "[span_notice("\t[GLOB.TAGGERLOCATIONS[t]]")]."
 	else
 		. += span_notice("It has no sorting tags set. You can use a destination tagger on it to set its sorting tags.")
 

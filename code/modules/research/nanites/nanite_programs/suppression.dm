@@ -181,7 +181,7 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/message_setting = extra_settings[NES_MESSAGE]
 		sent_message = message_setting.get_value()
-	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"<span class='robot'>[html_encode(sent_message)]</span>\"")
+	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 	// send message to ghosts
 	if(!COOLDOWN_FINISHED(src, ghost_notification_time))

@@ -993,13 +993,13 @@
 		to_chat(user, span_warning("[src] can only be used on gendered things!"))
 		return
 
-	target.visible_message(span_danger("<span class='name'>[user]</span> starts to feed <span class='name'>[target]</span> [src]!"),
-		span_userdanger("<span class='name'>[user]</span> starts to feed you [src]!"))
+	target.visible_message(span_danger("[span_name("[user]")] starts to feed [span_name("[target]")] [src]!"),
+		span_userdanger("[span_name("[user]")] starts to feed you [src]!"))
 
 	if(!do_after(user, 5 SECONDS, target = target))
 		return
 
-	to_chat(user, span_notice("You feed <span class='name'>[target]</span> [src]!"))
+	to_chat(user, span_notice("You feed [span_name("[target]")] [src]!"))
 
 	if(!target.set_gender(target.gender == MALE ? FEMALE : MALE, forced = TRUE))
 		return
@@ -1020,7 +1020,7 @@
 		to_chat(user, span_warning("[src] is already being offered to someone!"))
 		return
 	if(!isliving(target))
-		to_chat(user, span_warning("You cannot rename <span class='name'>[target]</span>!"))
+		to_chat(user, span_warning("You cannot rename [span_name("[target]")]!"))
 		return
 	being_used = TRUE
 	if(!target.ckey && !target.mind)
@@ -1036,18 +1036,18 @@
 	if(QDELETED(src) || QDELETED(target))
 		return FALSE
 	if(target.stat == DEAD)
-		to_chat(user, span_warning("<span class='name'>[target]</span> died while you were choosing [target.p_their()] new name!"))
+		to_chat(user, span_warning("[span_name("[target]")] died while you were choosing [target.p_their()] new name!"))
 		return FALSE
 	if(!new_name || new_name == target.real_name)
-		to_chat(user, span_notice("You decide against renaming <span class='name'>[target]</span> for now."))
+		to_chat(user, span_notice("You decide against renaming [span_name("[target]")] for now."))
 		return FALSE
 	if(CHAT_FILTER_CHECK(new_name))
-		to_chat(user, span_warning("The name '<span class='bold name'>[new_name]</span>' is forbidden!"))
+		to_chat(user, span_warning("The name '[span_boldname("[new_name]")]' is forbidden!"))
 		return FALSE
 	if(!target.Adjacent(user))
-		to_chat(user, span_warning("<span class='name'>[target]</span> moved away from you while you were choosing [target.p_their()] new name!"))
+		to_chat(user, span_warning("[span_name("[target]")] moved away from you while you were choosing [target.p_their()] new name!"))
 		return FALSE
-	target.visible_message(span_notice("<span class='name'>[target]</span> has a new name, <span class='bold name'>[new_name]</span>."))
+	target.visible_message(span_notice("[span_name("[target]")] has a new name, [span_boldname("[new_name]")]."))
 	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(target)], renaming them to [new_name].")
 	log_game("[key_name(user)] used [src] on [target] ([target.type]), renaming them into [new_name].")
 	target.fully_replace_character_name(newname = new_name)
@@ -1055,31 +1055,31 @@
 /obj/item/slimepotion/slime/renaming/proc/rename_self(mob/living/target, mob/living/user)
 	. = TRUE
 	if(!target.client || target.client.is_afk())
-		to_chat(user, span_notice("<span class='name'>[target]</span> stares blankly back at you as you offer the potion. Perhaps try using the potion whenever they've woken up?"))
+		to_chat(user, span_notice("[span_name("[target]")] stares blankly back at you as you offer the potion. Perhaps try using the potion whenever they've woken up?"))
 		return FALSE
-	to_chat(user, span_notice("You offer [src] to <span class='name'>[target]</span>..."))
+	to_chat(user, span_notice("You offer [src] to [span_name("[target]")]..."))
 
 	var/new_name = tgui_input_text(target, "What would you like your name to be?", "Input a name", target.real_name, MAX_NAME_LEN, timeout = 2 MINUTES)
 	if(QDELETED(src) || QDELETED(target))
 		return FALSE
 	if(target.stat == DEAD)
-		to_chat(user, span_warning("<span class='name'>[target]</span> died while [target.p_they()] were choosing [target.p_their()] new name!"))
+		to_chat(user, span_warning("[span_name("[target]")] died while [target.p_they()] were choosing [target.p_their()] new name!"))
 		to_chat(target, span_warning("You died while choosing your new name!"))
 		return FALSE
 	if(!new_name || new_name == target.real_name)
 		to_chat(target, span_notice("You decide against renaming yourself for now."))
-		to_chat(user, span_notice("<span class='name'>[target]</span> considers for a bit, but decides against renaming [target.p_them()]self for now."))
+		to_chat(user, span_notice("[span_name("[target]")] considers for a bit, but decides against renaming [target.p_them()]self for now."))
 		return FALSE
 	if(CHAT_FILTER_CHECK(new_name))
-		to_chat(target, span_warning("The name '<span class='bold name'>[new_name]</span>' is forbidden!"))
-		to_chat(user, span_notice("<span class='name'>[target]</span> considers for a bit, but decides against renaming [target.p_them()]self for now."))
+		to_chat(target, span_warning("The name '[span_boldname("[new_name]")]' is forbidden!"))
+		to_chat(user, span_notice("[span_name("[target]")] considers for a bit, but decides against renaming [target.p_them()]self for now."))
 		return FALSE
 	if(!target.Adjacent(user))
-		to_chat(target, span_warning("You moved away from <span class='name'>[user]</span> while choosing your name!"))
-		to_chat(user, span_warning("<span class='name'>[target]</span> moved away from you while choosing [target.p_their()] new name!"))
+		to_chat(target, span_warning("You moved away from [span_name("[user]")] while choosing your name!"))
+		to_chat(user, span_warning("[span_name("[target]")] moved away from you while choosing [target.p_their()] new name!"))
 		return FALSE
 
-	target.visible_message(span_notice("<span class='name'>[target]</span> has a new name, <span class='name'>[new_name]</span>."), span_notice("Your old name of <span class='name'>[target.real_name]</span> fades away, and your new name <span class='name'>[new_name]</span> anchors itself in your mind."))
+	target.visible_message(span_notice("[span_name("[target]")] has a new name, [span_name("[new_name]")]."), span_notice("Your old name of [span_name("[target.real_name]")] fades away, and your new name [span_name("[new_name]")] anchors itself in your mind."))
 	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(target)], letting them rename themselves into [new_name].")
 	log_game("[key_name(user)] used [src] on [key_name(target)], letting them rename themselves into [new_name].")
 
@@ -1093,12 +1093,12 @@
 
 /obj/item/slimepotion/slime/slimeradio/attack(mob/living/target, mob/user)
 	if(!isanimal(target))
-		to_chat(user, span_warning("<span class='name'>[target]</span> is too complex for the potion!"))
+		to_chat(user, span_warning("[span_name("[target]")] is too complex for the potion!"))
 		return
 	if(target.stat == DEAD)
-		to_chat(user, span_warning("<span class='name'>[target]</span> is dead!"))
+		to_chat(user, span_warning("[span_name("[target]")] is dead!"))
 		return
-	to_chat(user, span_notice("You feed the potion to <span class='name'>[target]</span>."))
+	to_chat(user, span_notice("You feed the potion to [span_name("[target]")]."))
 	to_chat(target, span_notice("Your mind tingles as you are fed the potion. You can hear radio waves now!"))
 	var/obj/item/implant/radio/slime/imp = new(src)
 	imp.implant(target, user)

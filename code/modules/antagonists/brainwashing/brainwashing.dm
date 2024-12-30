@@ -57,7 +57,7 @@
 			removed_objectives += directive
 		log_admin("[key_name(victim)] had the following brainwashing objective[length(removed_objectives) > 1 ? "s" : ""] removed: [english_list(removed_objectives)].")
 		if(LAZYLEN(brainwash.objectives))
-			to_chat(victim, "<big><span class='warning'><b>[length(removed_objectives) > 1 ? "Some" : "One"] of your Directives fade away! You only have to obey the remaining Directives now.</b></span></big>")
+			to_chat(victim, "<big>[span_warning("<b>[length(removed_objectives) > 1 ? "Some" : "One"] of your Directives fade away! You only have to obey the remaining Directives now.</b>")]</big>")
 			victim.mind.announce_objectives()
 		else
 			victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
@@ -88,7 +88,7 @@
 /datum/antagonist/brainwashed/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/brainwash.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, span_warning("Your mind reels as it begins focusing on a single purpose..."))
-	to_chat(owner, "<big><span class='warning'><b>Follow the Directives, at any cost!</b></span></big>")
+	to_chat(owner, "<big>[span_warning("<b>Follow the Directives, at any cost!</b>")]</big>")
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X
@@ -100,7 +100,7 @@
 
 /datum/antagonist/brainwashed/farewell()
 	to_chat(owner, span_warning("Your mind suddenly clears..."))
-	to_chat(owner, "<big><span class='warning'><b>You feel the weight of the Directives disappear! You no longer have to obey them.</b></span></big>")
+	to_chat(owner, "<big>[span_warning("<b>You feel the weight of the Directives disappear! You no longer have to obey them.</b>")]</big>")
 	owner.announce_objectives()
 
 /datum/antagonist/brainwashed/apply_innate_effects(mob/living/mob_override)

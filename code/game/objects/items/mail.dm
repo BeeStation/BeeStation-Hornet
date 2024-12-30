@@ -85,9 +85,9 @@
 		recipient = recipient_ref.resolve()
 	var/msg = span_notice("<i>You notice the postmarking on the front of the mail...</i>")
 	if(recipient)
-		msg += "\n<span class='info'>Certified NT mail for [recipient].</span>"
+		msg += "\n[span_info("Certified NT mail for [recipient].")]"
 	else
-		msg += "\n<span class='info'>Certified mail for [GLOB.station_name].</span>"
+		msg += "\n[span_info("Certified mail for [GLOB.station_name].")]"
 	. += "\n[msg]"
 
 

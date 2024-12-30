@@ -111,7 +111,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 /obj/item/food/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>.\n"
+		var/msg = "[span_info("This is \a <span class='name'>[src]")].\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -119,7 +119,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 			for(var/reagent_id in seed.reagents_add)
 				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 				var/amt = reagents.get_reagent_amount(reagent_id)
-				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
+				reag_txt += "\n[span_info("- [R.name]: [amt]")]"
 
 		if(reag_txt)
 			msg += reag_txt

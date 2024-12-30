@@ -296,7 +296,7 @@
 	output += "<div id='ballot' class='center'><b><center>Most Preferred</center></b><ol id='sortable' class='rankings' style='padding:0px'>"
 	for(var/o in prepared_options)
 		var/datum/poll_option/option = o
-		output += "<li optionref='[REF(option)]' class='ranking'><span class='grippy'></span> [option.text]</li>\n"
+		output += "<li optionref='[REF(option)]' class='ranking'>[span_grippy("")] [option.text]</li>\n"
 	output += "</ol><b><center>Least Preferred</center></b><br>"
 	if(!length(voted_for) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"

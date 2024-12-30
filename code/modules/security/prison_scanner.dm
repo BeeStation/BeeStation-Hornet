@@ -17,9 +17,9 @@
 /obj/item/prison_scanner/examine(mob/user)
 	. = ..()
 	if(linked_id)
-		. += "<span class='notice'>[src] is currently linked with [linked_id]'s ID card</span>."
+		. += "[span_notice("[src] is currently linked with [linked_id]'s ID card")]."
 	if(!linked_id)
-		. += "<span class='notice'>[src] is currently unlinked</span>."
+		. += "[span_notice("[src] is currently unlinked")]."
 
 /obj/item/prison_scanner/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))

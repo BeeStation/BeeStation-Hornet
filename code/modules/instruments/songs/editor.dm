@@ -6,7 +6,7 @@
 	. += "<div class='statusDisplay'>"
 	. += "<b><a href='?src=[REF(src)];switchinstrument=1'>Current instrument</a>:</b> "
 	if(!using_instrument)
-		. += "<span class='danger'>No instrument loaded!</span><br>"
+		. += "[span_danger("No instrument loaded!")]<br>"
 	else
 		. += "[using_instrument.name]<br>"
 	. += "Playback Settings:<br>"
@@ -23,7 +23,7 @@
 			modetext = "<a href='?src=[REF(src)];setexpfalloff=1'>Exponential Falloff Factor</a>: [sustain_exponential_dropoff]% per decisecond<br>"
 	. += "<a href='?src=[REF(src)];setsustainmode=1'>Sustain Mode</a>: [smt]<br>"
 	. += modetext
-	. += using_instrument?.ready()? "Status: <span class='good'>Ready</span><br>" : "Status: <span class='bad'>!Instrument Definition Error!</span><br>"
+	. += using_instrument?.ready()? "Status: [span_good("Ready")]<br>" : "Status: [span_bad("!Instrument Definition Error!")]<br>"
 	. += "Instrument Type: [legacy? "Legacy" : "Synthesized"]<br>"
 	. += "<a href='?src=[REF(src)];setvolume=1'>Volume</a>: [volume]<br>"
 	. += "<a href='?src=[REF(src)];setdropoffvolume=1'>Volume Dropoff Threshold</a>: [sustain_dropoff_volume]<br>"

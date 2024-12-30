@@ -60,7 +60,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(istype(H.ears, /obj/item/radio/headset))
-			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>Item request received. Your package is inbound, please stand back from the landing site.</span> Message ends.\""
+			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: [span_bold("Item request received. Your package is inbound, please stand back from the landing site.")] Message ends.\""
 	to_chat(M, msg)
 
 	new /obj/effect/pod_landingzone(get_turf(src), pod)
@@ -115,7 +115,7 @@
 	name = "Courageous Tomb Raider - 1940's."
 	var/icon/item_icon_file = 'icons/misc/premade_loadouts.dmi'
 	var/item_icon_state = "indiana"
-	var/info_text = "Courageous Tomb Raider - 1940's. \n<span class='notice'>Comes with a whip</span>"
+	var/info_text = "Courageous Tomb Raider - 1940's. \n" + span_notice("Comes with a whip")
 
 /obj/item/storage/box/hero/PopulateContents()
 	new /obj/item/clothing/head/fedora/curator(src)
@@ -127,7 +127,7 @@
 /obj/item/storage/box/hero/astronaut
 	name = "First Man on the Moon - 1960's."
 	item_icon_state = "voidsuit"
-	info_text = "First Man on the Moon - 1960's. \n<span class='notice'>Comes with an air tank and a GPS</span>"
+	info_text = "First Man on the Moon - 1960's. \n" + span_notice("Comes with an air tank and a GPS")
 
 /obj/item/storage/box/hero/astronaut/PopulateContents()
 	new /obj/item/clothing/suit/space/nasavoid(src)
@@ -138,7 +138,7 @@
 /obj/item/storage/box/hero/scottish
 	name = "Braveheart, the Scottish rebel - 1300's."
 	item_icon_state = "scottsman"
-	info_text = "Braveheart, the Scottish rebel - 1300's. \n<span class='notice'>Comes with a claymore and a spraycan</span>"
+	info_text = "Braveheart, the Scottish rebel - 1300's. \n" + span_notice("Comes with a claymore and a spraycan")
 
 /obj/item/storage/box/hero/scottish/PopulateContents()
 	new /obj/item/clothing/under/costume/kilt(src)
@@ -149,7 +149,7 @@
 /obj/item/storage/box/hero/ghostbuster
 	name = "Spectre Inspector - 1980's."
 	item_icon_state = "ghostbuster"
-	info_text = "Spectre Inspector - 1980's. \n<span class='notice'>Comes with some anti-spectre grenades</span>"
+	info_text = "Spectre Inspector - 1980's. \n" + span_notice("Comes with some anti-spectre grenades")
 
 /obj/item/storage/box/hero/ghostbuster/PopulateContents()
 	new /obj/item/clothing/glasses/welding/ghostbuster(src)
@@ -164,7 +164,7 @@
 /obj/item/storage/box/hero/carphunter
 	name = "Carp Hunter, Wildlife Expert - 2506."
 	item_icon_state = "carp"
-	info_text = "Carp Hunter, Wildlife Expert - 2506. \n<span class='notice'>Comes with a hunting knife</span>"
+	info_text = "Carp Hunter, Wildlife Expert - 2506. \n" + span_notice("Comes with a hunting knife")
 
 /obj/item/storage/box/hero/carphunter/PopulateContents()
 	new /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old(src)
@@ -174,7 +174,7 @@
 /obj/item/storage/box/hero/ronin
 	name = "Sword Saint, Wandering Vagabond - 1600's."
 	item_icon_state = "samurai"
-	info_text = "Sword Saint, Wandering Vagabond - 1600's. \n<span class='notice'>Comes with a replica katana</span>"
+	info_text = "Sword Saint, Wandering Vagabond - 1600's. \n" + span_notice("Comes with a replica katana")
 
 /obj/item/storage/box/hero/ronin/PopulateContents()
 	new /obj/item/clothing/under/costume/kamishimo(src)
@@ -205,7 +205,7 @@
 
 /obj/item/choice_beacon/augments/spawn_option(obj/choice,mob/living/M)
 	new choice(get_turf(M))
-	to_chat(M, "You hear something crackle from the beacon for a moment before a voice speaks.  \"Please stand by for a message from S.E.L.F. Message as follows: <span class='bold'>Item request received. Your package has been transported, use the autosurgeon supplied to apply the upgrade.</span> Message ends.\"")
+	to_chat(M, "You hear something crackle from the beacon for a moment before a voice speaks.  \"Please stand by for a message from S.E.L.F. Message as follows: [span_bold("Item request received. Your package has been transported, use the autosurgeon supplied to apply the upgrade.")] Message ends.\"")
 
 /obj/item/choice_beacon/radial/magic
 	name = "beacon of summon magic"
@@ -250,7 +250,7 @@
 	name = "Tele-Gloves"
 	var/icon/item_icon_file = 'icons/obj/clothing/gloves.dmi'
 	var/item_icon_state = "white"
-	var/info_text = "Tele-Gloves. \n<span class='notice'>Allow object manipulation from a distance.</span>"
+	var/info_text = "Tele-Gloves. \n" + span_notice("Allow object manipulation from a distance.")
 
 /obj/item/storage/box/magic/PopulateContents()
 	new /obj/item/clothing/gloves/color/white/magic(src)
@@ -259,7 +259,7 @@
 	name = "Invisibility Cloak"
 	item_icon_file = 'icons/obj/beds_chairs/beds.dmi'
 	item_icon_state = "sheetmagician"
-	info_text = "Invisibility Cloak. \n<span class='notice'>Allows for temporary invisibility.</span>"
+	info_text = "Invisibility Cloak. \n" + span_notice("Allows for temporary invisibility.")
 
 /obj/item/storage/box/magic/cloak/PopulateContents()
 	new /obj/item/shadowcloak/magician(src)
@@ -268,7 +268,7 @@
 	name = "Bottomless Top Hat"
 	item_icon_file = 'icons/obj/clothing/head/hats.dmi'
 	item_icon_state = "tophat"
-	info_text = "Bottomless Top Hat. \n<span class='notice'>Allows for storage of items and living beings inside.</span>"
+	info_text = "Bottomless Top Hat. \n" + span_notice("Allows for storage of items and living beings inside.")
 
 /obj/item/storage/box/magic/hat/PopulateContents()
 	new /obj/item/clothing/head/hats/tophat/bluespace(src)
@@ -432,7 +432,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(istype(H.ears, /obj/item/radio/headset))
-			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>One pet delivery straight from Central Command. Stand clear!</span> Message ends.\""
+			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: [span_bold("One pet delivery straight from Central Command. Stand clear!")] Message ends.\""
 	to_chat(M, msg)
 	new /obj/effect/pod_landingzone(get_turf(src), pod)
 

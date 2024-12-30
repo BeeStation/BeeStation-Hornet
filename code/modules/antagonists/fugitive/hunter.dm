@@ -156,9 +156,9 @@
 		var/objective_count = 1
 		for(var/datum/objective/objective in objectives)
 			if(objective.check_completion())
-				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
 			else
-				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
 			objective_count++
 
 	result += "<br />"

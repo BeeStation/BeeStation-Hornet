@@ -46,7 +46,7 @@
 			tracking_target = old_target
 			on_the_trail(user)
 			return
-		to_chat(user,span_notice("You pick up the scent of <span class='name'>[tracking_target]</span>. The hunt begins."))
+		to_chat(user,span_notice("You pick up the scent of [span_name("[tracking_target]")]. The hunt begins."))
 		on_the_trail(user)
 		return
 
@@ -71,7 +71,7 @@
 		return
 	var/direction_text = "[dir2text(get_dir(usr, tracking_target))]"
 	if(direction_text)
-		to_chat(user,span_notice("You consider <span class='name'>[tracking_target]</span>'s scent. The trail leads <b>[direction_text].</b>"))
+		to_chat(user,span_notice("You consider [span_name("[tracking_target]")]'s scent. The trail leads <b>[direction_text].</b>"))
 
 /datum/mutation/firebreath
 	name = "Fire Breath"

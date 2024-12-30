@@ -76,7 +76,7 @@
 		return
 
 	if(light_power < 1)
-		to_chat(user, "<span class='warning'>\The [src] isn't bright enough to see anything!</span> ")
+		to_chat(user, "[span_warning("\The [src] isn't bright enough to see anything!")] ")
 		return
 
 	user.visible_message(span_notice("[user] shines the light at [M]!"), ignored_mobs = list(user))
@@ -432,8 +432,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 		if(ismob(A))
 			var/mob/M = A
 			log_combat(user, M, "attacked", "EMP-light")
-			M.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
-								"<span class='userdanger'>[user] blinks \the [src] at you.")
+			M.visible_message(span_danger("[user] blinks \the [src] at \the [A]."), span_userdanger("[user] blinks \the [src] at you."))
 		else
 			A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].")
 		to_chat(user, "\The [src] now has [emp_cur_charges] charge\s.")

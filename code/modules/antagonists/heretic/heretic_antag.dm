@@ -137,7 +137,7 @@
 /datum/antagonist/heretic/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/heretic/heretic_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	var/list/msg = list()
-	msg += span_big("You are the <span class='bold umbra'>Heretic</span>!")
+	msg += span_big("You are the [span_boldumbra("Heretic")]!")
 	msg += "The book whispers, the forbidden knowledge walks once again!"
 	msg += "The Forbidden Knowledge panel allows you to research abilities, read it very carefully! You cannot undo what has been done!"
 	msg += "You gain charges by either collecting influences or sacrificing people tracked by the living heart"
@@ -419,7 +419,7 @@
 		return
 	var/datum/mind/new_target = pick(candidates)
 	add_sacrifice_target(new_target)
-	to_chat(owner, span_danger("The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... <span class='hypnophrase'>[new_target.name]</span>. Go forth and sacrifice [new_target.current.p_them()]!"))
+	to_chat(owner, span_danger("The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... [span_hypnophrase("[new_target.name]")]. Go forth and sacrifice [new_target.current.p_them()]!"))
 
 /**
  * Increments knowledge by one.
@@ -452,7 +452,7 @@
 			count++
 
 	if(ascended)
-		parts += span_greentext("<span class='big'>THE HERETIC ASCENDED!</span>")
+		parts += span_greentext("[span_big("THE HERETIC ASCENDED!")]")
 
 	else
 		if(succeeded)

@@ -37,10 +37,9 @@ GLOBAL_VAR(clockcult_eminence)
 
 	title_icon = "clockcult"
 	announce_span = "danger"
-	announce_text = "A powerful group of fanatics is trying to summon their deity!\n\
-	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
-	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
-
+	announce_text = "A powerful group of fanatics is trying to summon their deity!\n \
+	" + span_danger("Servants") + ": Convert more servants and defend the Ark of the Clockwork Justicar!\n \
+	" + span_notice("Crew") + ": Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
 	var/clock_cultists = CLOCKCULT_SERVANTS
 	var/list/selected_servants = list()

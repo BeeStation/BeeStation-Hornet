@@ -90,7 +90,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return completed
 
 /datum/objective/proc/get_completion_message()
-	return check_completion() ? "[explanation_text] <span class='greentext'>Success!</span>" : "[explanation_text] <span class='redtext'>Fail.</span>"
+	return check_completion() ? "[explanation_text] [span_greentext("Success!")]" : "[explanation_text] [span_redtext("Fail.")]"
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
@@ -278,11 +278,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				A.objectives -= src
 			own.crew_objectives -= src
 
-			to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 			own.announce_objectives()
 		qdel(src)
 	else
 		update_explanation_text()
 		for(var/datum/mind/own as() in get_owners())
-			to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()

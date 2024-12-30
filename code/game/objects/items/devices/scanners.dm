@@ -218,23 +218,23 @@ GENE SCANNER
 
 	// Damage descriptions
 	if(brute_loss > 10)
-		message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"
+		message += "\t[span_alert("[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.")]"
 	if(fire_loss > 10)
-		message += "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>"
+		message += "\t[span_alert("[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.")]"
 	if(oxy_loss > 10)
-		message += "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>"
+		message += "\t[span_info("<span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.")]"
 	if(tox_loss > 10)
-		message += "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>"
+		message += "\t[span_alert("[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.")]"
 	if(M.getStaminaLoss())
-		message += "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>"
+		message += "\t[span_alert("Subject appears to be suffering from fatigue.")]"
 		if(advanced)
-			message += "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>"
+			message += "\t[span_info("Fatigue Level: [M.getStaminaLoss()]%.")]"
 	if(M.getCloneLoss())
-		message += "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>"
+		message += "\t[span_alert("Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.")]"
 		if(advanced)
-			message += "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>"
+			message += "\t[span_info("Cellular Damage Level: [M.getCloneLoss()].")]"
 	if(!M.getorgan(/obj/item/organ/brain))
-		message += "\t<span class='alert'>Subject lacks a brain.</span>"
+		message += "\t[span_alert("Subject lacks a brain.")]"
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(LAZYLEN(C.get_traumas()))
@@ -250,64 +250,64 @@ GENE SCANNER
 						trauma_desc += "permanent "
 				trauma_desc += B.scan_desc
 				trauma_text += trauma_desc
-			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
+			message += "\t[span_alert("Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].")]"
 		if(length(C.last_mind?.quirks))
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_quirk_string()].</span>"
+			message += "\t[span_info("Subject has the following physiological traits: [C.get_quirk_string()].")]"
 	if(advanced)
-		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
+		message += "\t[span_info("Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.")]"
 
 	if(M.radiation)
-		message += "\t<span class='alert'>Subject is irradiated.</span>"
+		message += "\t[span_alert("Subject is irradiated.")]"
 		if(advanced)
-			message += "\t<span class='info'>Radiation Level: [M.radiation]%.</span>"
+			message += "\t[span_info("Radiation Level: [M.radiation]%.")]"
 
 	if(advanced && M.hallucinating())
-		message += "\t<span class='info'>Subject is hallucinating.</span>"
+		message += "\t[span_info("Subject is hallucinating.")]"
 
 	//Eyes and ears
 	if(advanced)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-			message += "\t<span class='info'><b>==EAR STATUS==</b></span>"
+			message += "\t[span_info("<b>==EAR STATUS==</b>")]"
 			if(istype(ears))
 				var/healthy = TRUE
 				if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
 					healthy = FALSE
-					message += "\t<span class='alert'>Subject is genetically deaf.</span>"
+					message += "\t[span_alert("Subject is genetically deaf.")]"
 				else if(HAS_TRAIT(C, TRAIT_DEAF))
 					healthy = FALSE
-					message += "\t<span class='alert'>Subject is deaf.</span>"
+					message += "\t[span_alert("Subject is deaf.")]"
 				else
 					if(ears.damage)
-						message += "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>"
+						message += "\t[span_alert("Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.")]"
 						healthy = FALSE
 					if(ears.deaf)
-						message += "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>"
+						message += "\t[span_alert("Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.")]"
 						healthy = FALSE
 				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>"
+					message += "\t[span_info("Healthy.")]"
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
+			message += "\t[span_info("<b>==EYE STATUS==</b>")]"
 			if(istype(eyes))
 				var/healthy = TRUE
 				if(C.is_blind())
-					message += "\t<span class='alert'>Subject is blind.</span>"
+					message += "\t[span_alert("Subject is blind.")]"
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
-					message += "\t<span class='alert'>Subject is nearsighted.</span>"
+					message += "\t[span_alert("Subject is nearsighted.")]"
 					healthy = FALSE
 				if(eyes.damage > 30)
-					message += "\t<span class='alert'>Subject has severe eye damage.</span>"
+					message += "\t[span_alert("Subject has severe eye damage.")]"
 					healthy = FALSE
 				else if(eyes.damage > 20)
-					message += "\t<span class='alert'>Subject has significant eye damage.</span>"
+					message += "\t[span_alert("Subject has significant eye damage.")]"
 					healthy = FALSE
 				else if(eyes.damage)
-					message += "\t<span class='alert'>Subject has minor eye damage.</span>"
+					message += "\t[span_alert("Subject has minor eye damage.")]"
 					healthy = FALSE
 				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>"
+					message += "\t[span_info("Healthy.")]"
 
 	// Body part damage report
 	if(iscarbon(M))
@@ -379,32 +379,32 @@ GENE SCANNER
 				report_organs = TRUE
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!max_damage)
-				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
+				max_damage = "\t[span_alert("Non-Functional Organs: ")]"
 			else
 				max_damage += "</span>"
 			if(!major_damage)
-				major_damage = "\t<span class='info'>Severely Damaged Organs: </span>"
+				major_damage = "\t[span_info("Severely Damaged Organs: ")]"
 			else
 				major_damage += "</span>"
 			if(!minor_damage)
-				minor_damage = "\t<span class='info'>Mildly Damaged Organs: </span>"
+				minor_damage = "\t[span_info("Mildly Damaged Organs: ")]"
 			else
 				minor_damage += "</span>"
 			message += minor_damage
 			message += major_damage
 			message += max_damage
 			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
-				message += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
+				message += "\t[span_alert("Missing Organs: [english_list(missing_organ_list)]")]"
 		//Genetic damage
 		if(advanced && H.has_dna())
-			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
+			message += "\t[span_info("Genetic Stability: [H.dna.stability]%.")]"
 			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
-				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
+				message += "\t[span_info("Subject's DNA appears to be in an unstable state.")]"
 
 		// Embedded Items
 		for(var/obj/item/bodypart/limb as anything in H.bodyparts)
 			for(var/obj/item/embed as anything in limb.embedded_objects)
-				message += "\t<span class='alert'>Foreign object embedded in subject's [limb.name].</span>"
+				message += "\t[span_alert("Foreign object embedded in subject's [limb.name].")]"
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -947,10 +947,10 @@ GENE SCANNER
 		full_list_mutations[each_mutation.type] = "Temporary"
 
 	for(var/A in full_list_mutations)
-		to_chat(user, "\t<span class='notice'>[get_display_name(A)]</span>") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
-	to_chat(user, "\t<span class='info'>Genetic Stability: [C.dna.stability]%.</span>")
+		to_chat(user, "\t[span_notice("[get_display_name(A)]")]") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
+	to_chat(user, "\t[span_info("Genetic Stability: [C.dna.stability]%.")]")
 	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
-		to_chat(user, "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>")
+		to_chat(user, "\t[span_info("Subject's DNA appears to be in an unstable state.")]")
 
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
@@ -975,7 +975,7 @@ GENE SCANNER
 					display += "-"
 				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
 
-			to_chat(user, "<span class='boldnotice'>[display]</span><br>")
+			to_chat(user, "[span_boldnotice("[display]")]<br>")
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"

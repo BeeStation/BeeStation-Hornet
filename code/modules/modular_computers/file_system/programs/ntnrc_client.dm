@@ -61,7 +61,7 @@
 
 			channel.add_message(message, username)
 			var/mob/living/user = usr
-			var/ghost_message = span_name("[user] (as [username])</span> <span class='game say'>NTRC Message to </span> <span class='name'>[channel.title]</span>: <span class='message'>[message]")
+			var/ghost_message = span_name("[user] (as [username])</span> [span_gamesay("NTRC Message to ")] [span_name("[channel.title]")]: <span class='message'>[message]")
 			for(var/mob/M in GLOB.player_list)
 				if(isobserver(M) && M.client?.prefs.read_player_preference(/datum/preference/toggle/chat_ghostpda)) // TODO tablet-pda add a preference for this (currently frozen)
 					to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")

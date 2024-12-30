@@ -141,17 +141,17 @@
 	var/response_href = ""
 	if(can_respond(target, check_time = FALSE, silent = TRUE))
 		can_respond_until[target] = world.time + HOLOPARA_TELEPATHY_RESPONSE_TIME
-		response_href = "<a href=?src=[REF(src)];respond=1><b>\[<span class='hypnophrase'>RESPOND</span>\]</b></a> "
+		response_href = "<a href=?src=[REF(src)];respond=1><b>\[[span_hypnophrase("RESPOND")]\]</b></a> "
 	SSblackbox.record_feedback("amount", "holoparasite_telepathy_sent", 1)
-	to_chat(owner, span_holoparasite("You telepathically said: \"<span class='message'>[message]</span>\" to <span class='name'>[target]</span>."), type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
-	to_chat(target, span_holoparasite("[response_href]<span class='notice'>You hear a strange, resonating voice in your head... </span><span class='message'>[COLOR_TEXT(owner.accent_color, message)]</span>"), type = MESSAGE_TYPE_RADIO)
+	to_chat(owner, span_holoparasite("You telepathically said: \"[span_message("[message]")]\" to [span_name("[target]")]."), type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
+	to_chat(target, span_holoparasite("[response_href][span_notice("You hear a strange, resonating voice in your head... ")][span_message("[COLOR_TEXT(owner.accent_color, message)]")]"), type = MESSAGE_TYPE_RADIO)
 	log_directed_talk(owner, target, message, LOG_SAY, "holoparasite telepathy")
 	for(var/mob/dead/dead in GLOB.dead_mob_list)
 		if(!isobserver(dead) || !dead.client)
 			continue
 		var/follow_link_user = FOLLOW_LINK(dead, owner)
 		var/follow_link_target = FOLLOW_LINK(dead, target)
-		to_chat(dead, span_holoparasite("[follow_link_user] [owner.color_name] Telepathy --> [follow_link_target] <span class='name'>[target]</span></span> <span class='holoparasite message'>[message]"), type = MESSAGE_TYPE_RADIO)
+		to_chat(dead, span_holoparasite("[follow_link_user] [owner.color_name] Telepathy --> [follow_link_target] [span_name("[target]")]</span> <span class='holoparasite message'>[message]"), type = MESSAGE_TYPE_RADIO)
 
 /**
  * Handles telepathic responses.
@@ -167,14 +167,14 @@
 		to_chat(usr, span_warning("You cannot send a telepathic response that contains prohibited words."))
 		return
 	SSblackbox.record_feedback("amount", "holoparasite_telepathy_responses", 1)
-	to_chat(usr, span_holoparasite("You telepathically respond to the message with \"<span class='message'>[message]</span>\"."), type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
-	to_chat(owner, span_holoparasite("Telepathic response from <span class='name'>[usr]</span>: <span class='message'>[message]</span>"), type = MESSAGE_TYPE_RADIO)
+	to_chat(usr, span_holoparasite("You telepathically respond to the message with \"[span_message("[message]")]\"."), type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
+	to_chat(owner, span_holoparasite("Telepathic response from [span_name("[usr]")]: [span_message("[message]")]"), type = MESSAGE_TYPE_RADIO)
 	log_directed_talk(usr, owner, message, LOG_SAY, "holoparasite telepathy response")
 	create_chat_message(usr, /datum/language/metalanguage, list(owner), raw_message = message, spans = list("holoparasite"))
 	for(var/mob/dead/observer/gost in GLOB.dead_mob_list)
 		var/follow_link_user = FOLLOW_LINK(gost, usr)
 		var/follow_link_owner = FOLLOW_LINK(gost, owner)
-		to_chat(gost, span_holoparasite("[follow_link_user] <span class='name'>[usr]</span> Telepathic Response --> [follow_link_owner] [owner.color_name] <span class='message'>[message]</span>"), type = MESSAGE_TYPE_RADIO)
+		to_chat(gost, span_holoparasite("[follow_link_user] [span_name("[usr]")] Telepathic Response --> [follow_link_owner] [owner.color_name] [span_message("[message]")]"), type = MESSAGE_TYPE_RADIO)
 
 /datum/holoparasite_ability/lesser/telepathy/proc/can_respond(mob/living/responder, check_time = TRUE, silent = FALSE)
 	. = TRUE

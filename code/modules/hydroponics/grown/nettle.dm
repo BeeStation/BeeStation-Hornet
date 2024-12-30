@@ -90,7 +90,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
 /obj/item/food/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
+	desc = "The " + span_danger("glowing") + " nettle incites " + span_boldannounce("rage") + " in you just from looking at it!"
 	icon_state = "deathnettle"
 	bite_consumption_mod = 4 // I guess if you really wanted to
 	force = 25

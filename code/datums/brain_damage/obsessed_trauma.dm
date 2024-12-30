@@ -82,7 +82,7 @@
 /datum/brain_trauma/special/obsessed/proc/reveal()
 	revealed = TRUE
 	scan_desc = true_scan_desc
-	to_chat(owner, span_hypnophrase("The deep, overwhelming concern for <span class='name'>[obsession.name]</span> within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious..."))
+	to_chat(owner, span_hypnophrase("The deep, overwhelming concern for [span_name("[obsession.name]")] within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious..."))
 
 /datum/brain_trauma/special/obsessed/proc/on_obsession_cryoed()
 	SIGNAL_HANDLER

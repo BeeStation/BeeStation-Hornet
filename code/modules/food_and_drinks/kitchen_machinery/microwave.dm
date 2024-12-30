@@ -88,7 +88,7 @@
 		. += span_notice("\The [src] is empty.")
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
-		. += "<span class='notice'>The status display reads:</span>\n"+\
+		. += "[span_notice("The status display reads:")]\n"+\
 		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
 		span_notice("- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.")
 

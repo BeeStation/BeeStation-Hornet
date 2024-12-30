@@ -88,7 +88,7 @@
 	log_mentor("Mentor PM: [key_name(src)]->[key_name(recipient)]: [rawmsg]")
 	for(var/client/X in GLOB.mentors | GLOB.admins)
 		if(X.key!=key && X.key!=recipient.key)	//check client/X is an Mentor and isn't the sender or recipient
-			to_chat(X, "<B><span class='mentorto'>Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> <span class='mentorhelp'>[msg]</span>", type = MESSAGE_TYPE_MENTORPM) //inform X
+			to_chat(X, "<B>[span_mentorto("Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> <span class='mentorhelp'>[msg]")]", type = MESSAGE_TYPE_MENTORPM) //inform X
 
 /// Basically the same thing as key_name_admin but with the mentorPM key instead
 /proc/key_name_mentor(var/whom, var/include_link = null)
@@ -189,6 +189,6 @@
 
 /// Send a message to all mentors (MENTOR LOG:)
 /proc/message_mentors(msg, client/target)
-	msg = span_mentor("<span class='prefix'>MENTOR LOG:</span> <span class='message linkify'>[msg]</span>")
+	msg = span_mentor("[span_prefix("MENTOR LOG:")] [span_messagelinkify("[msg]")]")
 	for(var/client/client in GLOB.mentors | GLOB.admins)
 		to_chat(client, msg, type = MESSAGE_TYPE_MENTORLOG, avoid_highlighting = client == target)

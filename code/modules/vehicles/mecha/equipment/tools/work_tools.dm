@@ -97,7 +97,7 @@
 				target.visible_message(span_danger("[chassis] tosses [target] like a piece of paper!"), \
 					span_userdanger("[chassis] tosses you like a piece of paper!"))
 			else
-				to_chat(source, "[icon2html(src, source)]<span class='notice'>You push [target] out of the way.</span>")
+				to_chat(source, "[icon2html(src, source)][span_notice("You push [target] out of the way.")]")
 				playsound(chassis, clampsound, 50, FALSE, -6)
 				chassis.visible_message(span_notice("[chassis] pushes [target] out of the way."), \
 				span_notice("[chassis] pushes you aside."))
@@ -170,7 +170,7 @@
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
-		to_chat(source, "[icon2html(src, source)]<span class='notice'>Extinguisher refilled.</span>")
+		to_chat(source, "[icon2html(src, source)][span_notice("Extinguisher refilled.")]")
 		playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 	else
 		if(reagents.total_volume <= 0)
@@ -246,7 +246,7 @@
 
 	switch(mode)
 		if(MODE_DECONSTRUCT)
-			to_chat(source, "[icon2html(src, source)]<span class='notice'>Deconstructing [target]...</span>")
+			to_chat(source, "[icon2html(src, source)][span_notice("Deconstructing [target]...")]")
 			if(iswallturf(target))
 				var/turf/closed/wall/W = target
 				if(!do_after_cooldown(W, source))
@@ -264,19 +264,19 @@
 		if(MODE_WALL)
 			if(isspaceturf(target))
 				var/turf/open/space/S = target
-				to_chat(source, "[icon2html(src, source)]<span class='notice'>Building Floor...</span>")
+				to_chat(source, "[icon2html(src, source)][span_notice("Building Floor...")]")
 				if(!do_after_cooldown(S, source))
 					return
 				S.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else if(isfloorturf(target))
 				var/turf/open/floor/F = target
-				to_chat(source, "[icon2html(src, source)]<span class='notice'>Building Wall...</span>")
+				to_chat(source, "[icon2html(src, source)][span_notice("Building Wall...")]")
 				if(!do_after_cooldown(F, source))
 					return
 				F.PlaceOnTop(/turf/closed/wall)
 		if(MODE_AIRLOCK)
 			if(isfloorturf(target))
-				to_chat(source, "[icon2html(src, source)]<span class='notice'>Building Airlock...</span>")
+				to_chat(source, "[icon2html(src, source)][span_notice("Building Airlock...")]")
 				if(!do_after_cooldown(target, source))
 					return
 				var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
@@ -292,13 +292,13 @@
 		mode = text2num(href_list["mode"])
 		switch(mode)
 			if(MODE_DECONSTRUCT)
-				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='notice'>Switched RCD to Deconstruct.</span>")
+				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Switched RCD to Deconstruct.")]")
 				energy_drain = initial(energy_drain)
 			if(MODE_WALL)
-				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='notice'>Switched RCD to Construct Walls and Flooring.</span>")
+				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Switched RCD to Construct Walls and Flooring.")]")
 				energy_drain = 2*initial(energy_drain)
 			if(MODE_AIRLOCK)
-				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='notice'>Switched RCD to Construct Airlock.</span>")
+				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Switched RCD to Construct Airlock.")]")
 				energy_drain = 2*initial(energy_drain)
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()

@@ -21,7 +21,7 @@
 		if(master?.current)
 			to_chat(master.current, span_warning("The essence of [owner], your servant, fades from your mind."))
 		if(owner.current)
-			to_chat(owner.current, "<span class='deconversion_message'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
+			to_chat(owner.current, "[span_deconversionmessage("Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!")]")
 			owner.current.visible_message("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!", ignored_mobs = owner.current)
 
 	master = null

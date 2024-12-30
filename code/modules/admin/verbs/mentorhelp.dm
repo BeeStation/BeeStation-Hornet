@@ -155,7 +155,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = span_mentornotice("<span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[sanitized_msg]</span>")
+	var/admin_msg = span_mentornotice("[span_mentorhelp("Mentor Ticket [TicketHref("#[id]", ref_src)]")]: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: [span_linkify("[sanitized_msg]")]")
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
@@ -170,7 +170,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	//show it to the person adminhelping too
 	if(add_to_ticket)
-		to_chat(initiator, span_mentornotice("PM to-<b>Mentors</b>: <span class='linkify'>[sanitized_msg]</span>"), type = message_type)
+		to_chat(initiator, span_mentornotice("PM to-<b>Mentors</b>: [span_linkify("[sanitized_msg]")]"), type = message_type)
 
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
 	if(state > TICKET_ACTIVE)

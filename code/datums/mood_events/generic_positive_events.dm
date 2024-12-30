@@ -119,12 +119,12 @@
 	mood_change = 5
 
 /datum/mood_event/artgood
-	description = "<span class='nicegreen'>What a thought-provoking piece of art. I'll remember that for a while.</span>\n"
+	description = span_nicegreen("What a thought-provoking piece of art. I'll remember that for a while.")
 	mood_change = 3
 	timeout = 3 MINUTES
 
 /datum/mood_event/artgreat
-	description = "<span class='nicegreen'>That work of art was so great it made me believe in the goodness of humanity. Says a lot in a place like this.</span>\n"
+	description = span_nicegreen("That work of art was so great it made me believe in the goodness of humanity. Says a lot in a place like this.")
 	mood_change = 4
 	timeout = 4 MINUTES
 

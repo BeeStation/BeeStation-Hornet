@@ -86,7 +86,7 @@
 	switch(action)
 		if("drop")
 			morph.RemoveContents(target)
-			morph.visible_message(span_warning("[morph] spits <span class='name'>[target]</span> out!"))
+			morph.visible_message(span_warning("[morph] spits [span_name("[target]")] out!"))
 			playsound(morph, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
 			return TRUE
 		if("disguise")
@@ -94,7 +94,7 @@
 			return FALSE
 		if("throw")
 			morph.throwatom = target
-			to_chat(morph, span_danger("You prepare to throw <span class='name'>[target]</span>"))
+			to_chat(morph, span_danger("You prepare to throw [span_name("[target]")]"))
 			return TRUE
 		if("unthrow")
 			morph.throwatom = null
@@ -110,11 +110,11 @@
 		switch(action)
 			if("digest")
 				if(HAS_TRAIT(living_target, TRAIT_HUSK))
-					to_chat(morph, span_warning("<span class='name'>[living_target]</span> has already been stripped of all nutritional value!"))
+					to_chat(morph, span_warning("[span_name("[living_target]")] has already been stripped of all nutritional value!"))
 					return FALSE
 				if(morph.throwatom == living_target)
 					morph.throwatom = null
-				to_chat(morph, span_danger("You begin digesting <span class='name'>[living_target]</span>"))
+				to_chat(morph, span_danger("You begin digesting [span_name("[living_target]")]"))
 				if(do_after(morph, living_target.maxHealth))
 					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/simple_animal/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 						var/list/turfs_to_throw = view(2, morph)
@@ -130,7 +130,7 @@
 					living_target.take_overall_damage(burn = 50)
 					living_target.become_husk("burn") // Digested bodies can be fixed with synthflesh.
 					morph.adjustHealth(-(living_target.maxHealth * 0.5))
-					to_chat(morph, span_danger("You digest <span class='name'>[living_target]</span>, restoring some health"))
+					to_chat(morph, span_danger("You digest [span_name("[living_target]")], restoring some health"))
 					playsound(morph, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
 					return TRUE
 	else if(isitem(target))

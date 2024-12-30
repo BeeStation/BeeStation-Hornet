@@ -159,9 +159,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		return
 	var/list/info_block = list()
 	info_block += span_bigholoparasite("You can use :[MODE_KEY_HOLOPARASITE] or .[MODE_KEY_HOLOPARASITE] to privately communicate with your summoner!")
-	info_block += span_holoparasite("You are [color_name], bound to serve <span class='name'>[summoner.name]</span>.")
+	info_block += span_holoparasite("You are [color_name], bound to serve [span_name("[summoner.name]")].")
 	info_block += span_holoparasite("You are capable of manifesting or recalling to your summoner with the buttons on your HUD. You will also find a button to communicate with [summoner.current.p_them()] privately there.")
-	info_block += span_holoparasite("While personally invincible, you will die if <span class='name'>[summoner.name]</span> does, and any damage dealt to you will have a portion passed on to [summoner.current.p_them()] as you feed upon [summoner.current.p_them()] to sustain yourself.")
+	info_block += span_holoparasite("While personally invincible, you will die if [span_name("[summoner.name]")] does, and any damage dealt to you will have a portion passed on to [summoner.current.p_them()] as you feed upon [summoner.current.p_them()] to sustain yourself.")
 	info_block += span_holoparasitebold("Click the INFO button on your HUD in order to learn more about your stats, abilities, and your summoner.")
 	setup_barriers()
 	first_time_show_popup?.ui_interact(src)
@@ -169,16 +169,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	if(stats.ability)
 		var/ability_info = stats.ability.notify_user()
 		if(length(ability_info))
-			stat_popups += "<span class='holoparasite big'>Ability: <b>[stats.ability.name]</b></span>\n[ability_info]"
+			stat_popups += "[span_holoparasitebig("Ability: <b>[stats.ability.name]</b>")]\n[ability_info]"
 	for(var/datum/holoparasite_ability/lesser/lability as() in stats.lesser_abilities)
 		var/ability_info = lability.notify_user()
 		if(length(ability_info))
-			stat_popups += "<span class='holoparasite big'>Lesser Ability: <b>[lability.name]</b></span>\n[ability_info]"
+			stat_popups += "[span_holoparasitebig("Lesser Ability: <b>[lability.name]</b>")]\n[ability_info]"
 	var/weapon_info = stats.weapon.notify_user()
 	if(length(weapon_info))
-		stat_popups += "<span class='holoparasite big'>Weapon: <b>[stats.weapon.name]</b></span>\n[weapon_info]"
+		stat_popups += "[span_holoparasitebig("Weapon: <b>[stats.weapon.name]</b>")]\n[weapon_info]"
 	if(length(stat_popups))
-		info_block += list(span_info("================"), span_bigboldinfo("\[ABILITY NOTES\]"), "[stat_popups.Join("\n<span class='info'>====</span>\n")]")
+		info_block += list(span_info("================"), span_bigboldinfo("\[ABILITY NOTES\]"), "[stat_popups.Join("\n[span_info("====")]\n")]")
 	to_chat(src, EXAMINE_BLOCK(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
 
 /mob/living/simple_animal/hostile/holoparasite/Life()

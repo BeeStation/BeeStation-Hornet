@@ -792,7 +792,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		forceMove(card)
 		card.AI = src
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+		to_chat(user, "[span_boldnotice("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 
 /mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
@@ -841,14 +841,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(istype(D) && D.display_icon(src))
 		language_icon = "[D.get_icon()] "
 
-	var/rendered = "<i><span class='game say'>[start][language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
+	var/rendered = "<i>[span_gamesay("[start][language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a> ")][span_message("[treated_message]")]</span></i>"
 
 	show_message(rendered, 2)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
 /mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/treated_message = " <span class='message'>[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+	var/treated_message = " [span_message("[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]")]"
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -866,7 +866,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(istype(D) && D.display_icon(src))
 		language_icon = "[D.get_icon()] "
 
-	var/rendered = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
+	var/rendered = "[span_srtradioholocall("<b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a>")]</b>[treated_message]</span>"
 	show_message(rendered, 2)
 	speaker.create_private_chat_message(
 		message = raw_message,
@@ -875,7 +875,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
-	rendered = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
+	rendered = "[span_srtradioholocall("<b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]")]</b>[treated_message]</span>"
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
@@ -885,8 +885,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			to_chat(each_ghost, "[follow_link] [rendered]")
 		else // ghost removed the language themselves
 			if(!rendered_scrambled_message)
-				rendered_scrambled_message = " <span class='message'>[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
-				rendered_scrambled_message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
+				rendered_scrambled_message = " [span_message("[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]")]"
+				rendered_scrambled_message = "[span_srtradioholocall("<b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]")]</b>[rendered_scrambled_message]</span>"
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 

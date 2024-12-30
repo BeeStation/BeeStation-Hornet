@@ -37,7 +37,7 @@
 	. = ..()
 	if(!isobserver(user))
 		return
-	. += "<span class='boldnotice'>Sound File:</span> [sound_file ? sound_file : "None chosen"]"
+	. += "[span_boldnotice("Sound File:")] [sound_file ? sound_file : "None chosen"]"
 	. += span_boldnotice("Mode:</span> [motus_operandi]")
 	. += span_boldnotice("Range:</span> [emitter_range]")
 	. += "<b>Sound is playing at [sound_volume]% volume.</b>"

@@ -58,4 +58,4 @@
 					to_chat(usr, "No instances of this type exist")
 					return
 				log_admin("[key_name(usr)] deleted all instances of type or subtype of [O_type] ([i] instances deleted) ")
-				message_admins("<span class='notice'>[key_name(usr)] deleted all instances of type or subtype of [O_type] ([i] instances deleted)</span> ")
+				message_admins("[span_notice("[key_name(usr)] deleted all instances of type or subtype of [O_type] ([i] instances deleted)")] ")

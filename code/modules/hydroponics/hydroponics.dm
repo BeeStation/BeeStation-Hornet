@@ -328,7 +328,7 @@
 /obj/machinery/hydroponics/examine(user)
 	. = ..()
 	if(myseed)
-		. += span_info("It has <span class='name'>[myseed.plantname]</span> planted.")
+		. += span_info("It has [span_name("[myseed.plantname]")] planted.")
 		if (dead)
 			. += span_warning("It's dead!")
 		else if (harvest)
@@ -339,7 +339,7 @@
 		. += span_info("It's empty.")
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater].</span>\n"+\
+		. += "[span_info("Water: [waterlevel]/[maxwater].")]\n"+\
 		span_info("Nutrient: [nutrilevel]/[maxnutri].")
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
@@ -805,17 +805,17 @@
 		var/list/message = list()
 		if(myseed)
 			message += "*** <B>[myseed.plantname]</B> ***"
-			message += "- Plant Age: <span class='notice'>[age]</span>"
+			message += "- Plant Age: [span_notice("[age]")]"
 			var/list/text_string = myseed.get_analyzer_text()
 			if(text_string)
 				message += text_string
 		else
 			message += "<B>No plant found.</B>"
-		message += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
-		message += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
-		message += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
-		message += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
-		message += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+		message += "- Weed level: [span_notice("[weedlevel] / 10")]"
+		message += "- Pest level: [span_notice("[pestlevel] / 10")]"
+		message += "- Toxicity level: [span_notice("[toxic] / 100")]"
+		message += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
+		message += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
 		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))

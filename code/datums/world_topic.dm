@@ -325,7 +325,7 @@
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(!("discord-[unm]" in C.prefs.ignoring))
-				to_chat(C, span_dooc("<b><span class='prefix'>OOC: </span> <EM>[unm]:</EM> <span class='message linkify'>[msg]</span></b>"))
+				to_chat(C, span_dooc("<b>[span_prefix("OOC: ")] <EM>[unm]:</EM> [span_messagelinkify("[msg]")]</b>"))
 	statuscode = 200
 	response = "Message forwarded to OOC"
 

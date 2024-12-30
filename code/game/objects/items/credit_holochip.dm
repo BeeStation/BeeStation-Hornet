@@ -17,7 +17,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
 
 /obj/item/holochip/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's loaded with [credits] credit[( credits > 1 ) ? "s" : ""]</span>\n"+\
+	. += "[span_notice("It's loaded with [credits] credit[( credits > 1 ) ? "s" : ""]")]\n"+\
 	span_notice("Alt-Click to split.")
 
 /obj/item/holochip/get_item_credit_value()

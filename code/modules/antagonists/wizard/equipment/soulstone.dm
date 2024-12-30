@@ -196,7 +196,7 @@
 				init_shade(T, user)
 				return TRUE
 			else
-				to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
+				to_chat(user, "[span_userdanger("Capture failed!")]: The soul has already fled its mortal frame. You attempt to bring it back...")
 				return getCultGhost(T,user)
 
 		if("VICTIM")
@@ -209,27 +209,27 @@
 					to_chat(user, span_danger("The soulstone seems to reject this soul."))
 				return FALSE
 			if(contents.len)
-				to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soulstone is full! Free an existing soul to make room.")
+				to_chat(user, "[span_userdanger("Capture failed!")]: The soulstone is full! Free an existing soul to make room.")
 			else
 				if((!old_shard && T.stat != CONSCIOUS) || (old_shard && T.stat == DEAD))
 					if(T.client == null)
-						to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
+						to_chat(user, "[span_userdanger("Capture failed!")]: The soul has already fled its mortal frame. You attempt to bring it back...")
 						getCultGhost(T,user)
 					else
 						if(old_shard) //no insta cremating on the spot
-							to_chat(user, "<span class='userdanger'>Capture failed!</span>: The old shard is not powerful enough to absorb the soul of this being.")
+							to_chat(user, "[span_userdanger("Capture failed!")]: The old shard is not powerful enough to absorb the soul of this being.")
 							return FALSE
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
 						init_shade(T, user, message_user = 1)
 						qdel(T)
 				else
-					to_chat(user, "<span class='userdanger'>Capture failed!</span>: Kill or maim the victim first!")
+					to_chat(user, "[span_userdanger("Capture failed!")]: Kill or maim the victim first!")
 
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			if(contents.len)
-				to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soulstone is full! Free an existing soul to make room.")
+				to_chat(user, "[span_userdanger("Capture failed!")]: The soulstone is full! Free an existing soul to make room.")
 			else
 				T.forceMove(src) //put shade in stone
 				T.status_flags |= GODMODE
@@ -246,7 +246,7 @@
 				name = "soulstone: Shade of [T.real_name]"
 				to_chat(T, span_notice("Your soul has been captured by the soulstone. Its arcane energies are reknitting your ethereal form."))
 				if(user != T)
-					to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been captured and stored within the soulstone.")
+					to_chat(user, "[span_info("<b>Capture successful!</b>:")] [T.real_name]'s soul has been captured and stored within the soulstone.")
 
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
@@ -265,7 +265,7 @@
 				qdel(T)
 				qdel(src)
 			else
-				to_chat(user, "<span class='userdanger'>Creation failed!</span>: [src] is empty! Go kill someone!")
+				to_chat(user, "[span_userdanger("Creation failed!")]: [src] is empty! Go kill someone!")
 
 /obj/item/soulstone/proc/check_menu(mob/user)
 	if(!istype(user))
@@ -375,7 +375,7 @@
 		else if(role_check(user))
 			to_chat(S, "Your soul has been captured! You are now bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.")
 		if(message_user)
-			to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [T.p_their()] body and stored within [src].")
+			to_chat(user, "[span_info("<b>Capture successful!</b>:")] [T.real_name]'s soul has been ripped from [T.p_their()] body and stored within [src].")
 
 
 /obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/user)

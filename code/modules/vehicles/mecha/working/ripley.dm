@@ -177,7 +177,7 @@
 	if(href_list["drop_from_cargo"])
 		var/obj/cargoobj = locate(href_list["drop_from_cargo"]) in cargo
 		if(cargoobj)
-			to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>You unload [cargoobj].</span>")
+			to_chat(occupants, "[icon2html(src, occupants)][span_notice("You unload [cargoobj].")]")
 			cargoobj.forceMove(drop_location())
 			LAZYREMOVE(cargo, cargoobj)
 			if(cargoobj == box)

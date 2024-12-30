@@ -276,7 +276,7 @@
 		disembowel_target(sac_target)
 		return
 
-	to_chat(sac_target, span_big("<span class='hypnophrase'>Unnatural forces begin to claw at your very being from beyond the veil.</span>"))
+	to_chat(sac_target, span_big("[span_hypnophrase("Unnatural forces begin to claw at your very being from beyond the veil.")]"))
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
 	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
@@ -312,7 +312,7 @@
 	sac_target.hallucination += 12
 	sac_target.emote("scream")
 
-	to_chat(sac_target, span_reallybig("<span class='hypnophrase'>The grasping hands of the Mansus reveal themselves to you!</span>"))
+	to_chat(sac_target, span_reallybig("[span_hypnophrase("The grasping hands of the Mansus reveal themselves to you!")]"))
 	to_chat(sac_target, span_hypnophrase("You feel invigorated! Fight to survive!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
@@ -424,7 +424,7 @@
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_hypnophrase("The fight is over, but at great cost. You have been returned to the station in one piece."))
-	to_chat(sac_target, span_big("<span class='hypnophrase'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span>"))
+	to_chat(sac_target, span_big("[span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")]"))
 
 	// Oh god where are we?
 	sac_target.flash_act()
@@ -449,7 +449,7 @@
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_hypnophrase("You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station."))
-	to_chat(sac_target, span_big("<span class='hypnophrase'>The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.</span>"))
+	to_chat(sac_target, span_big("[span_hypnophrase("The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.")]"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
 	illusion.name = "\improper weakened rift in reality"

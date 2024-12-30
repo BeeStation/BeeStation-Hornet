@@ -230,7 +230,7 @@ or something covering your eyes."
 	var/mob/living/L = usr
 	if(L != owner)
 		return
-	to_chat(L, "<span class='mind_control'>[command]</span>")
+	to_chat(L, "[span_mindcontrol("[command]")]")
 
 /atom/movable/screen/alert/drunk
 	name = "Drunk"
@@ -722,7 +722,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, span_boldnotice("[name]</span> - <span class='info'>[desc]"))
+		to_chat(usr, span_boldnotice("[name] - [span_info(desc)]"))
 		return
 	if(usr != owner)
 		return

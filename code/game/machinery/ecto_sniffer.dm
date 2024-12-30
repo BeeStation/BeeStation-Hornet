@@ -97,4 +97,4 @@
 	var/mob/ghost = get_mob_by_ckey(ghost_ckey)
 	if(!ghost || isliving(ghost))
 		return
-	to_chat(ghost, "[FOLLOW_LINK(ghost, src)] <span class='nicegreen'>The coating of ectoplasmic residue you left on [src]'s sensors has decayed.</span>")
+	to_chat(ghost, "[FOLLOW_LINK(ghost, src)] [span_nicegreen("The coating of ectoplasmic residue you left on [src]'s sensors has decayed.")]")

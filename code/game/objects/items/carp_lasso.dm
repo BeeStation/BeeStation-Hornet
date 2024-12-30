@@ -1,6 +1,6 @@
 /obj/item/mob_lasso
 	name = "space lasso"
-	desc = "Comes standard with every space-cowboy.\n<span class='notice'>Can be used to tame space carp.</span>"
+	desc = "Comes standard with every space-cowboy.\n" + span_notice("Can be used to tame space carp.")
 	icon = 'icons/obj/carp_lasso.dmi'
 	icon_state = "lasso"
 	///Ref to timer
@@ -108,8 +108,7 @@
 ///Primal version, allows lavaland goobers to tame goliaths
 /obj/item/mob_lasso/primal
 	name = "primal lasso"
-	desc = "A lasso fashioned out of goliath plating that is often found in the possession of Ash Walkers.\n\
-		<span class='notice'>Can be used to tame some lavaland animals</span>."
+	desc = "A lasso fashioned out of goliath plating that is often found in the possession of Ash Walkers.\n" + span_notice("Can be used to tame some lavaland animals")
 	uses = 2
 
 /obj/item/mob_lasso/primal/init_whitelists(mapload)
@@ -118,8 +117,7 @@
 
 /obj/item/mob_lasso/drake
 	name = "drake lasso"
-	desc = "A lasso fashioned out of the scaly hide of an ash drake.\n\
-		<span class='notice'>Can be used to tame one, if you can get close enough.</span>"
+	desc = "A lasso fashioned out of the scaly hide of an ash drake.\n" + span_notice("Can be used to tame one, if you can get close enough.")
 	range = 3
 	uses = 1
 
@@ -134,7 +132,7 @@
 
 /obj/item/mob_lasso/traitor
 	name = "bluespace lasso"
-	desc = "Comes standard with every evil space-cowboy!\n<span class='notice'>Can be used to tame almost anything.</span>"
+	desc = "Comes standard with every administrator space-cowboy!\n" + span_notice("Can be used to tame almost anything.")
 	uses = INFINITY
 
 /obj/item/mob_lasso/traitor/init_whitelists(mapload)
@@ -142,9 +140,8 @@
 
 /obj/item/mob_lasso/debug
 	name = "debug lasso"
-	desc = "Comes standard with every administrator space-cowboy!\n<span class='notice'>Can be used to tame anything.</span>"
+	desc = "Comes standard with every administrator space-cowboy!\n" + span_notice("Can be used to tame anything.")
 	uses = INFINITY
 
 /obj/item/mob_lasso/debug/init_whitelists(mapload)
 	blacklist_mob_cache[type] = list() // An empty list so we know this got initialized
-

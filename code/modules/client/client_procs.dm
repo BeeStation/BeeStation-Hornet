@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 					message_admins(span_danger("<B>[message_type]: </B></span><span class='notice'>Connecting player [key_name_admin(src)] has the same [matches] as [key_name_admin(C)]<b>[in_round]</b>."))
 					log_admin_private("[message_type]: Connecting player [key_name(src)] has the same [matches] as [key_name(C)][in_round].")
 				else
-					message_admins("<span class='danger'><B>[message_type]: </B></span><span class='notice'>Connecting player [key_name_admin(src)] has the same [matches] as [joined_player_ckey](no longer logged in)<b>[in_round]</b>.</span> ")
+					message_admins("[span_danger("<B>[message_type]: </B>")][span_notice("Connecting player [key_name_admin(src)] has the same [matches] as [joined_player_ckey](no longer logged in)<b>[in_round]</b>.")] ")
 					log_admin_private("[message_type]: Connecting player [key_name(src)] has the same [matches] as [joined_player_ckey](no longer logged in)[in_round].")
 	if(GLOB.player_details[ckey])
 		player_details = GLOB.player_details[ckey]

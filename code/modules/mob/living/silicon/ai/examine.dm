@@ -1,5 +1,5 @@
 /mob/living/silicon/ai/examine(mob/user)
-	. = list("<span class='info'>This is [icon2html(src, user)] <EM>[src]</EM></span>!")
+	. = list("[span_info("This is [icon2html(src, user)] <EM>[src]</EM>")]!")
 	if (stat == DEAD)
 		. += span_deadsay("It appears to be powered-down.")
 	else

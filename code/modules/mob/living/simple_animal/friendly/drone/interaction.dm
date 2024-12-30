@@ -119,8 +119,8 @@
 			Stun(40)
 			return
 		if(clockwork)
-			to_chat(src, "<span class='large_brass'><b>ERROR: LAW OVERRIDE DETECTED</b></span>")
-			to_chat(src, "<span class='heavy_brass'>From now on, these are your laws:</span>")
+			to_chat(src, "[span_largebrass("<b>ERROR: LAW OVERRIDE DETECTED</b>")]")
+			to_chat(src, "[span_heavybrass("From now on, these are your laws:")]")
 			laws = "1. Purge all untruths and honor Ratvar."
 		else
 			visible_message(span_warning("[src]'s display glows a vicious red!"), \

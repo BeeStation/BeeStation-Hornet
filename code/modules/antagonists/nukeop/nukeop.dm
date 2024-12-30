@@ -388,7 +388,7 @@
 			parts += span_neutraltextbig("Neutral Victory")
 			parts += "<B>Mission aborted!</B>"
 
-	var/text = "<br><span class='header'>The syndicate operatives were:</span>"
+	var/text = "<br>[span_header("The syndicate operatives were:")]"
 	var/purchases = ""
 	var/TC_uses = 0
 	var/effective_tc = 0

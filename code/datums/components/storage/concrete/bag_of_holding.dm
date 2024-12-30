@@ -19,7 +19,7 @@
 		return
 	var/turf/loccheck = get_turf(A)
 	if(is_reebe(loccheck.z))
-		user.visible_message(span_warning("An unseen force knocks [user] to the ground!"), "<span class='big_brass'>\"I think not!\"</span>")
+		user.visible_message(span_warning("An unseen force knocks [user] to the ground!"), "[span_bigbrass("\"I think not!\"")]")
 		user.Paralyze(60)
 		return
 	to_chat(user, span_danger("The Bluespace interfaces of the two devices catastrophically malfunction!"))

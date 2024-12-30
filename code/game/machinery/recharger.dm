@@ -31,7 +31,7 @@
 		return
 
 	if(charging)
-		. += "<span class='notice'>\The [src] contains:</span>\n"+\
+		. += "[span_notice("\The [src] contains:")]\n"+\
 		span_notice("- \A [charging].")
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))

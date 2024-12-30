@@ -361,7 +361,7 @@
 			readout += "<br /><b>COVERAGE</b>"
 			readout += "<br />It will block Facehuggers."
 			/* We dont have the tooltips for this
-			readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
+			readout += "[span_tooltip("Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them")]."
 			*/
 
 		readout += "</span>"

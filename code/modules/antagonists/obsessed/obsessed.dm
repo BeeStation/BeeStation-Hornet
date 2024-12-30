@@ -123,7 +123,7 @@
 		objective.update_explanation_text()
 
 /datum/antagonist/obsessed/roundend_report_header()
-	return 	"<span class='header'>Someone became obsessed!</span><br>"
+	return 	"[span_header("Someone became obsessed!")]<br>"
 
 /datum/antagonist/obsessed/roundend_report()
 	var/list/report = list()

@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	icon_state = "clockwork_gateway_charging"
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, s)
-		to_chat(M, "<span class='big_brass'>The Ark has been activated, you will be transported soon!</span>")
+		to_chat(M, "[span_bigbrass("The Ark has been activated, you will be transported soon!")]")
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hierophant_message), "Invoke 'Clockwork Armaments' using your Clockwork Slab to get powerful armour and weapons.", "Nezbere", "nezbere", FALSE, FALSE), 10)
 	addtimer(CALLBACK(src, PROC_REF(announce_gateway)), 300)
 	addtimer(CALLBACK(src, PROC_REF(recall_sound)), 270)

@@ -68,7 +68,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 			continue
 		if(in_view[get_turf(client.mob)])
 			targets |= client
-			to_chat(client, span_looc("<span class='prefix'>LOOC:</span> <EM><span class='name'>[mob.name]</span>:</EM> <span class='message'>[msg]</span>"), avoid_highlighting = (client == src))
+			to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 
 	for(var/client/client in GLOB.admins)
 		if(!client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
@@ -78,7 +78,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 			prefix = "[(client in targets) ? "" : "(R)"]LOOC (NEARBY)"
 		else
 			prefix = "[(client in targets) ? "" : "(R)"]LOOC"
-		to_chat(client, span_looc("<span class='prefix'>[prefix]:</span> <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> <span class='message'>[msg]</span>"), avoid_highlighting = (client == src))
+		to_chat(client, span_looc("[span_prefix("[prefix]:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))
