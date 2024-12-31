@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - admin: added bitfield panel to machine_stat var in VV
