@@ -46,10 +46,10 @@
 
 /obj/item/gun/energy/disabler
 	name = "disabler"
-	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
+	desc = "A self-defense sidearm that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
 	item_state = null
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/weak)
 	ammo_x_offset = 2
 
 /obj/item/gun/energy/disabler/add_seclight_point()
@@ -65,6 +65,7 @@
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	requires_wielding = FALSE
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler) // Why not give them the good one if they're admin spawn
 
 /obj/item/gun/energy/pulse/carbine/cyborg
 	name = "cyborg pulse carbine"

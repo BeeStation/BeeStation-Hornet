@@ -97,6 +97,9 @@
 	damage_type = STAMINA
 	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
+/obj/projectile/beam/disabler/weak
+	damage = 17 // begone pocket hand cannon
+
 /obj/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"

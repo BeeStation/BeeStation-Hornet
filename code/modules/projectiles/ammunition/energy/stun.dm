@@ -32,3 +32,7 @@
 /obj/item/ammo_casing/energy/disabler/hos
 	projectile_type = /obj/projectile/beam/disabler
 	e_cost = 50
+
+/obj/item/ammo_casing/energy/disabler/weak
+	projectile_type = /obj/projectile/beam/disabler/weak
+	e_cost = 65
