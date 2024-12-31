@@ -6977,8 +6977,6 @@
 /area/wizard_station)
 "aBg" = (
 /mob/living/simple_animal/bot/medbot/mysterious{
-	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
-	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_CREATURE);
 	name = "Nobody's Perfect"
 	},
 /turf/open/floor/engine/cult,
