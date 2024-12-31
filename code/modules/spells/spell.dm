@@ -99,10 +99,22 @@
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
-	//owner.client?.stat_panel.send_message("check_spells") we are missing this from code
-/datum/action/spell/Remove(mob/living/remove_from)
+	blackbox_transmit(grant_to, TRUE)
 
-	//remove_from.client?.stat_panel.send_message("check_spells")
+/datum/action/spell/proc/blackbox_transmit(mob/target, var/granted)
+	if(granted)
+		if(target.mind.antag_datums)
+			SSblackbox.record_feedback("nested tally", "spell_granted", 1, list("[target.mind.antag_datums[1]]", "[name]")) //Antag datums are a list but because most of the time people have one antag we only
+		else
+			SSblackbox.record_feedback("nested tally", "spell_granted", 1, list("Non-Antag", "[name]"))
+	else
+		if(target.mind.antag_datums)
+			SSblackbox.record_feedback("nested tally", "spell_removed", 1, list("[target.mind.antag_datums[1]]", "[name]")) //Antag datums are a list but because most of the time people have one antag we only
+		else
+			SSblackbox.record_feedback("nested tally", "spell_removed", 1, list("Non-Antag", "[name]"))
+
+/datum/action/spell/Remove(mob/living/remove_from)
+	blackbox_transmit(remove_from, TRUE)
 	UnregisterSignal(remove_from, list(
 		COMSIG_MOB_AFTER_EXIT_JAUNT,
 		COMSIG_MOB_ENTER_JAUNT,
