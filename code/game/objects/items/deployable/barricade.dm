@@ -200,10 +200,20 @@
 	icon_state = "barrier1"
 	max_integrity = 180
 	proj_pass_rate = 20
-	armor = list(MELEE = 10,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/barricade_security
 	req_access = list(ACCESS_SECURITY)
 	pickup_damaged = FALSE
 	locked_down = TRUE
+
+
+/datum/armor/barricade_security
+	melee = 10
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 10
 
 /obj/structure/barricade/security/pick_up_barricade()
 	var/obj/item/security_barricade/carryable = new(loc)

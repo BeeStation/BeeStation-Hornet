@@ -8,8 +8,9 @@
 	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
+	damage_deflection = 12
 
-	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_camera
 	max_integrity = 100
 	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
@@ -54,6 +55,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/emp_proof, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/motion, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
+
+/datum/armor/machinery_camera
+	melee = 50
+	bullet = 20
+	laser = 20
+	energy = 20
+	fire = 90
+	acid = 50
 
 /obj/machinery/camera/preset/toxins //Bomb test site in space
 	name = "Hardened Bomb-Test Camera"
@@ -172,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	if(panel_open)
 		. += "<span class='info'>Its maintenance panel is currently open.</span>"
 		if(!status && powered())
-			. += "<span class='info'>It can reactivated with a <b>screwdriver</b>.</span>"
+			. += "<span class='info'>It can reactivated with a <b>wirecutters</b>.</span>"
 
 /obj/machinery/camera/vv_edit_var(vname, vval)
 	// Can't mess with these since they are references
@@ -390,8 +399,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	return ..()
 
 /obj/machinery/camera/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 12 && !(machine_stat & BROKEN))
-		return 0
+	if(machine_stat & BROKEN)
+		return damage_amount
 	. = ..()
 
 /obj/machinery/camera/atom_break(damage_flag)

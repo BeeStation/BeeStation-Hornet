@@ -185,6 +185,6 @@
 	area.power_change()
 
 /obj/machinery/power/apc/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10 && (!(machine_stat & BROKEN) || malfai))
-		return 0
+	if(machine_stat & BROKEN)
+		return damage_amount
 	. = ..()

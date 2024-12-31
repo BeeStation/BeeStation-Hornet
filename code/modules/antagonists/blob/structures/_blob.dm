@@ -12,7 +12,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	max_integrity = 30
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_blob
 	var/health_regen = 2 //how much health this blob regens when pulsed
 	var/pulse_timestamp = 0 //we got pulsed when?
 	var/heal_timestamp = 0 //we got healed when?
@@ -22,6 +22,11 @@
 	var/mob/camera/blob/overmind
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
+
+
+/datum/armor/structure_blob
+	fire = 80
+	acid = 70
 
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
@@ -280,7 +285,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 			return 0
 	var/armor_protection = 0
 	if(damage_flag)
-		armor_protection = armor.getRating(damage_flag)
+		armor_protection = get_armor_rating(damage_flag)
 	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
 	if(overmind && damage_flag)
 		damage_amount = overmind.blobstrain.damage_reaction(src, damage_amount, damage_type, damage_flag)
