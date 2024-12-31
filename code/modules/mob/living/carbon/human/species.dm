@@ -1102,17 +1102,41 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
 
-			if(S.hasinner)
-				var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
-				if(S.gender_specific)
-					inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
+			if(S.hasinner)	// Im so fucking sorry. I can't do this any other way without refactoring all of IPC limb code.
+							// This is due to the fact that IPC chassis are considered a bodypart. Not their actual bodypart limbs.
+				if(bodypart == "ipc_chassis")
+					var/list/robot_bodyparts = list( //Have to do custom body_parts list because bodypart.body_zone doesnt get the hands
+						BODY_ZONE_HEAD,
+						BODY_ZONE_CHEST,
+						BODY_ZONE_L_ARM,
+						BODY_ZONE_R_ARM,
+						BODY_ZONE_PRECISE_L_HAND,
+						BODY_ZONE_PRECISE_R_HAND,
+						BODY_ZONE_L_LEG,
+						BODY_ZONE_R_LEG,
+					)
+					for(var/robot_bodypart in robot_bodyparts)
+						var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
+						inner_accessory_overlay.icon_state = "m_[robot_bodypart]inner_[S.icon_state]_[layertext]"
+						switch(S.hasinnercolor)
+							if(MUTCOLORS)
+								if(fixed_mut_color)
+									inner_accessory_overlay.color = "#[fixed_mut_color]"
+								else
+									inner_accessory_overlay.color = "#[H.dna.features["mcolor"]]"
+						standing += inner_accessory_overlay
+
 				else
-					inner_accessory_overlay.icon_state = "m_[bodypart]inner_[S.icon_state]_[layertext]"
+					var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
+					if(S.gender_specific)
+						inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
+					else
+						inner_accessory_overlay.icon_state = "m_[bodypart]inner_[S.icon_state]_[layertext]"
 
-				if(S.center)
-					inner_accessory_overlay = center_image(inner_accessory_overlay, S.dimension_x, S.dimension_y)
+					if(S.center)
+						inner_accessory_overlay = center_image(inner_accessory_overlay, S.dimension_x, S.dimension_y)
 
-				standing += inner_accessory_overlay
+					standing += inner_accessory_overlay
 
 		H.overlays_standing[layer] = standing.Copy()
 		standing = list()
