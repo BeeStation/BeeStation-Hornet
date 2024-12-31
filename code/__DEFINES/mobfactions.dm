@@ -23,8 +23,6 @@
 #define FACTION_CREATURE "creature"
 /// Faithless and shadowpeople
 #define FACTION_FAITHLESS "faithless"
-/// Gnomes
-#define FACTION_GNOME "gnomes"
 /// Gondolas
 #define FACTION_GONDOLA "gondola"
 /// Slaughterdemons
@@ -57,7 +55,7 @@
 #define FACTION_PENGUIN "penguin"
 /// Plants, lots of overlap with vines
 #define FACTION_PLANTS "plants"
-/// Rats and mice
+/// Rats and mice | just mice for now, actually
 #define FACTION_RAT "rats"
 /// Creatures from Space Russia
 #define FACTION_RUSSIAN "russian"
