@@ -98,16 +98,6 @@
 		if(surgery.location != I.zone || target.getorganslot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(surgery.location)]!</span>")
 			return -1
-		if(istype(I, /obj/item/organ/brain/positron))
-			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
-			if(!affected)
-				return -1
-			if(IS_ORGANIC_LIMB(affected))
-				to_chat(user, "<span class='notice'>You can't put [I] into a meat enclosure!</span>")
-				return -1
-			if(!isipc(target))
-				to_chat(user, "<span class='notice'>[target] does not have the proper connectors to interface with [I].</span>")
-				return -1
 		var/obj/item/organ/meatslab = tool
 		if(!meatslab.useable)
 			to_chat(user, "<span class='warning'>[I] seems to have been chewed on, you can't use this!</span>")
