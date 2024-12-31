@@ -1,4 +1,3 @@
-#define CHALLENGE_TELECRYSTALS 280
 #define CHALLENGE_TIME_LIMIT 5 MINUTES
 #define CHALLENGE_MIN_PLAYERS 30
 #define CHALLENGE_SHUTTLE_DELAY 35 MINUTES	//35 minutes, giving nukies at least 20 minutes to enact their assault.
@@ -81,29 +80,9 @@
 	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
 	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
 
-	if(!check_pop())
-		qdel(src)
-		return
-
-	var/tc_to_distribute = CHALLENGE_TELECRYSTALS
-	var/tc_per_nukie = round(tc_to_distribute / (length(orphans)+length(uplinks)))
-	for (var/datum/component/uplink/uplink in uplinks)
-		uplink.telecrystals += tc_per_nukie
-		tc_to_distribute -= tc_per_nukie
-
-
-	for (var/mob/living/L in orphans)
-		var/TC = new /obj/item/stack/sheet/telecrystal(L.drop_location(), tc_per_nukie)
-		to_chat(L, "<span class='warning'>Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"].</span>")
-		tc_to_distribute -= tc_per_nukie
-
-	if (tc_to_distribute > 0) // What shall we do with the remainder...
-		for (var/mob/living/simple_animal/hostile/carp/cayenne/C in GLOB.mob_living_list)
-			if (C.stat != DEAD)
-				var/obj/item/stack/sheet/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
-				TC.throw_at(get_step(C, C.dir), 3, 3)
-				C.visible_message("<span class='notice'>[C] coughs up a half-digested telecrystal</span>","<span class='usernotice'>You cough up a half-digested telecrystal!</span>")
-				break
+	if(check_pop())
+		for (var/datum/component/uplink/uplink in uplinks)
+			uplink.telecrystals += GLOB.joined_player_list.len / 2
 
 	qdel(src)
 
@@ -132,7 +111,6 @@
 /obj/item/nuclear_challenge/clownops
 	uplink_type = /obj/item/uplink/clownop
 
-#undef CHALLENGE_TELECRYSTALS
 #undef CHALLENGE_TIME_LIMIT
 #undef CHALLENGE_MIN_PLAYERS
 #undef CHALLENGE_SHUTTLE_DELAY
