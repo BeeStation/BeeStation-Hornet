@@ -1,5 +1,4 @@
 import { BooleanLike } from 'common/react';
-import { capitalizeAll } from 'common/string';
 import { useBackend, useSharedState } from '../backend';
 import { Box, Button, LabeledList, Icon, NoticeBox, ProgressBar, Section, Stack, Table, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
@@ -291,7 +290,7 @@ const InstalledSoftware = (props, context) => {
         installed.map((software) => {
           return (
             <Button key={software} onClick={() => onInstallClick(software)}>
-              {capitalizeAll(software)}
+              {software.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase())}
             </Button>
           );
         })
@@ -311,7 +310,18 @@ const InstalledInfo = (props) => {
     return <RecordsDisplay record_type="security" />;
   } else {
     return (
-      <Section fill scrollable title={!software ? 'Select a Program' : capitalizeAll(software)}>
+      <Section
+        fill
+        scrollable
+        title={
+          !software
+            ? 'Select a Program'
+            : software.replace(
+              /(^\w{1})|(\s+\w{1})/g,
+              (letter) => letter.toUpperCase()
+              // eslint-disable-next-line react/jsx-indent
+            )
+        }>
         {software && (
           <Stack fill vertical>
             <Stack.Item>{SOFTWARE_DESC[software] || ''}</Stack.Item>
@@ -506,7 +516,7 @@ const AvailableRow = (props, context) => {
   return (
     <Table.Row className="candystripe">
       <Table.Cell collapsible>
-        <Box color="label">{capitalizeAll(software.name)}</Box>
+        <Box color="label">{software.name.replace(/^\w/, (c) => c.toUpperCase())}</Box>
       </Table.Cell>
       <Table.Cell collapsible>
         <Box color={ram < software.value && 'bad'} textAlign="right">

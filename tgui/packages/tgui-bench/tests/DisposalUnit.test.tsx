@@ -1,10 +1,9 @@
-import { StoreProvider, configureStore } from 'tgui/store';
-
-import { DisposalUnit } from 'tgui/interfaces/DisposalUnit';
 import { backendUpdate } from 'tgui/backend';
+import { DisposalUnit } from 'tgui/interfaces/DisposalUnit';
 import { createRenderer } from 'tgui/renderer';
+import { configureStore, StoreProvider } from 'tgui/store';
 
-const store = configureStore({ sideEffects: false });
+const store = configureStore({ sideEffets: false });
 
 const renderUi = createRenderer((dataJson: string) => {
   store.dispatch(

@@ -4,14 +4,6 @@
  * @license MIT
  */
 
-type Gas = {
-  id: string;
-  path: string;
-  name: string;
-  label: string;
-  color: string;
-};
-
 // UI states, which are mirrored from the BYOND code.
 export const UI_INTERACTIVE = 2;
 export const UI_UPDATE = 1;
@@ -39,12 +31,7 @@ export const COLORS = {
     burn: '#e67e22',
     brute: '#e74c3c',
   },
-  // reagent / chemistry related colours
-  reagent: {
-    acidicbuffer: '#fbc314',
-    basicbuffer: '#3853a4',
-  },
-} as const;
+};
 
 // Colors defined in CSS
 export const CSS_COLORS = [
@@ -139,7 +126,7 @@ export const RADIO_CHANNELS = [
     freq: 1459,
     color: '#1ecc43',
   },
-] as const;
+];
 
 const GASES = [
   {
@@ -170,7 +157,7 @@ const GASES = [
     'id': 'water_vapor',
     'name': 'Water Vapor',
     'label': 'H₂O',
-    'color': 'lightsteelblue',
+    'color': 'grey',
   },
   {
     'id': 'nob',
@@ -182,7 +169,7 @@ const GASES = [
     'id': 'n2o',
     'name': 'Nitrous Oxide',
     'label': 'N₂O',
-    'color': 'bisque',
+    'color': 'red',
   },
   {
     'id': 'no2',
@@ -194,25 +181,25 @@ const GASES = [
     'id': 'tritium',
     'name': 'Tritium',
     'label': 'Tritium',
-    'color': 'limegreen',
+    'color': 'green',
   },
   {
     'id': 'bz',
     'name': 'BZ',
     'label': 'BZ',
-    'color': 'mediumpurple',
+    'color': 'purple',
   },
   {
     'id': 'stim',
     'name': 'Stimulum',
     'label': 'Stimulum',
-    'color': 'darkviolet',
+    'color': 'purple',
   },
   {
     'id': 'pluox',
     'name': 'Pluoxium',
     'label': 'Pluoxium',
-    'color': 'mediumslateblue',
+    'color': 'blue',
   },
   {
     'id': 'miasma',
@@ -221,87 +208,21 @@ const GASES = [
     'color': 'olive',
   },
   {
-    'id': 'Freon',
-    'name': 'Freon',
-    'label': 'Freon',
-    'color': 'paleturquoise',
-  },
-  {
     'id': 'hydrogen',
     'name': 'Hydrogen',
     'label': 'H₂',
     'color': 'white',
   },
-  // Bee doesn't have most of these \/ - but having them for future proofing is useful. Nothing iterates this list.
-  {
-    'id': 'healium',
-    'name': 'Healium',
-    'label': 'Healium',
-    'color': 'salmon',
-  },
-  {
-    'id': 'proto_nitrate',
-    'name': 'Proto Nitrate',
-    'label': 'Proto-Nitrate',
-    'color': 'greenyellow',
-  },
-  {
-    'id': 'zauker',
-    'name': 'Zauker',
-    'label': 'Zauker',
-    'color': 'darkgreen',
-  },
-  {
-    'id': 'halon',
-    'name': 'Halon',
-    'label': 'Halon',
-    'color': 'purple',
-  },
-  {
-    'id': 'helium',
-    'name': 'Helium',
-    'label': 'He',
-    'color': 'aliceblue',
-  },
-  {
-    'id': 'antinoblium',
-    'name': 'Antinoblium',
-    'label': 'Anti-Noblium',
-    'color': 'maroon',
-  },
-] as const;
+];
 
-// Returns gas label based on gasId
-export const getGasLabel = (gasId: string, fallbackValue?: string) => {
-  const gasSearchString = gasId.toLowerCase();
+export const getGasLabel = (gasId, fallbackValue) => {
+  const gasSearchString = String(gasId).toLowerCase();
   const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
-  return gas?.label || fallbackValue || gasId;
+  return (gas && gas.label) || fallbackValue || gasId;
 };
 
-// Returns gas color based on gasId
-export const getGasColor = (gasId: string) => {
-  const gasSearchString = gasId.toLowerCase();
+export const getGasColor = (gasId) => {
+  const gasSearchString = String(gasId).toLowerCase();
   const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
-  return gas?.color;
+  return gas && gas.color;
 };
-
-/*
-From https://github.com/tgstation/tgstation/pull/69240
-
-PLEASE enable the tests in constants.test.ts if you port this
-
-// Returns gas object based on gasId
-export const getGasFromId = (gasId: string): Gas | undefined => {
-  const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find(
-    (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
-  );
-  return gas;
-};
-
-// Returns gas object based on gasPath
-export const getGasFromPath = (gasPath: string): Gas | undefined => {
-  return GASES.find((gas) => gas.path === gasPath);
-};
-*/

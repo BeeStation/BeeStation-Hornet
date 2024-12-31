@@ -4,65 +4,27 @@
  * @license MIT
  */
 
-export type Reducer<State = any, ActionType extends Action = AnyAction> = (
-  state: State | undefined,
-  action: ActionType
-) => State;
-
-export type Store<State = any, ActionType extends Action = AnyAction> = {
-  dispatch: Dispatch<ActionType>;
-  subscribe: (listener: () => void) => void;
-  getState: () => State;
-};
-
-type MiddlewareAPI<State = any, ActionType extends Action = AnyAction> = {
-  getState: () => State;
-  dispatch: Dispatch<ActionType>;
-};
-
-export type Middleware = <State = any, ActionType extends Action = AnyAction>(
-  storeApi: MiddlewareAPI<State, ActionType>
-) => (next: Dispatch<ActionType>) => Dispatch<ActionType>;
-
-export type Action<TType = any> = {
-  type: TType;
-};
-
-export type AnyAction = Action & {
-  [extraProps: string]: any;
-};
-
-export type Dispatch<ActionType extends Action = AnyAction> = (action: ActionType) => void;
-
-type StoreEnhancer = (createStoreFunction: Function) => Function;
-
-type PreparedAction = {
-  payload?: any;
-  meta?: any;
-};
+import { compose } from './fp';
 
 /**
  * Creates a Redux store.
  */
-export const createStore = <State, ActionType extends Action = AnyAction>(
-  reducer: Reducer<State, ActionType>,
-  enhancer?: StoreEnhancer
-): Store<State, ActionType> => {
+export const createStore = (reducer, enhancer) => {
   // Apply a store enhancer (applyMiddleware is one of them).
   if (enhancer) {
     return enhancer(createStore)(reducer);
   }
 
-  let currentState: State;
-  let listeners: Array<() => void> = [];
+  let currentState;
+  let listeners = [];
 
-  const getState = (): State => currentState;
+  const getState = () => currentState;
 
-  const subscribe = (listener: () => void): void => {
+  const subscribe = (listener) => {
     listeners.push(listener);
   };
 
-  const dispatch = (action: ActionType): void => {
+  const dispatch = (action) => {
     currentState = reducer(currentState, action);
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();
@@ -71,7 +33,9 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
 
   // This creates the initial store by causing each reducer to be called
   // with an undefined state
-  dispatch({ type: '@@INIT' } as ActionType);
+  dispatch({
+    type: '@@INIT',
+  });
 
   return {
     dispatch,
@@ -84,29 +48,28 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
  * Creates a store enhancer which applies middleware to all dispatched
  * actions.
  */
-export const applyMiddleware = (...middlewares: Middleware[]): StoreEnhancer => {
-  return (createStoreFunction: (reducer: Reducer, enhancer?: StoreEnhancer) => Store) => {
-    return (reducer, ...args): Store => {
-      const store = createStoreFunction(reducer, ...args);
+export const applyMiddleware = (...middlewares) => {
+  return (createStore) =>
+    (reducer, ...args) => {
+      const store = createStore(reducer, ...args);
 
-      let dispatch: Dispatch = () => {
+      let dispatch = () => {
         throw new Error('Dispatching while constructing your middleware is not allowed.');
       };
 
-      const storeApi: MiddlewareAPI = {
+      const storeApi = {
         getState: store.getState,
         dispatch: (action, ...args) => dispatch(action, ...args),
       };
 
       const chain = middlewares.map((middleware) => middleware(storeApi));
-      dispatch = chain.reduceRight((next, middleware) => middleware(next), store.dispatch);
+      dispatch = compose(...chain)(store.dispatch);
 
       return {
         ...store,
         dispatch,
       };
     };
-  };
 };
 
 /**
@@ -117,24 +80,20 @@ export const applyMiddleware = (...middlewares: Middleware[]): StoreEnhancer => 
  * in the state that are not present in the reducers object. This function
  * is also more flexible than the redux counterpart.
  */
-export const combineReducers = (reducersObj: Record<string, Reducer>): Reducer => {
+export const combineReducers = (reducersObj) => {
   const keys = Object.keys(reducersObj);
-
+  let hasChanged = false;
   return (prevState = {}, action) => {
     const nextState = { ...prevState };
-    let hasChanged = false;
-
-    for (const key of keys) {
+    for (let key of keys) {
       const reducer = reducersObj[key];
       const prevDomainState = prevState[key];
       const nextDomainState = reducer(prevDomainState, action);
-
       if (prevDomainState !== nextDomainState) {
         hasChanged = true;
         nextState[key] = nextDomainState;
       }
     }
-
     return hasChanged ? nextState : prevState;
   };
 };
@@ -155,42 +114,37 @@ export const combineReducers = (reducersObj: Record<string, Reducer>): Reducer =
  *
  * @public
  */
-export const createAction = <TAction extends string>(type: TAction, prepare?: (...args: any[]) => PreparedAction) => {
-  const actionCreator = (...args: any[]) => {
-    let action: Action<TAction> & PreparedAction = { type };
-
-    if (prepare) {
-      const prepared = prepare(...args);
-      if (!prepared) {
-        throw new Error('prepare function did not return an object');
-      }
-      action = { ...action, ...prepared };
-    } else {
-      action.payload = args[0];
+export const createAction = (type, prepare = null) => {
+  const actionCreator = (...args) => {
+    if (!prepare) {
+      return { type, payload: args[0] };
     }
-
+    const prepared = prepare(...args);
+    if (!prepared) {
+      throw new Error('prepare function did not return an object');
+    }
+    const action = { type };
+    if ('payload' in prepared) {
+      action.payload = prepared.payload;
+    }
+    if ('meta' in prepared) {
+      action.meta = prepared.meta;
+    }
     return action;
   };
-
-  actionCreator.toString = () => type;
+  actionCreator.toString = () => '' + type;
   actionCreator.type = type;
   actionCreator.match = (action) => action.type === type;
-
   return actionCreator;
 };
 
 // Implementation specific
 // --------------------------------------------------------
 
-export const useDispatch = <TAction extends Action = AnyAction>(context: {
-  store: Store<unknown, TAction>;
-}): Dispatch<TAction> => {
+export const useDispatch = (context) => {
   return context.store.dispatch;
 };
 
-export const useSelector = <State, Selected>(
-  context: { store: Store<State, Action> },
-  selector: (state: State) => Selected
-): Selected => {
+export const useSelector = (context, selector) => {
   return selector(context.store.getState());
 };

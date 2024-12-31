@@ -1,14 +1,22 @@
-import { capitalizeFirst } from 'common/string';
-import { useBackend } from 'tgui/backend';
-import { Box, Icon, Flex, Button, Section, Collapsible } from 'tgui/components';
-import { Window } from 'tgui/layouts';
+import { useBackend } from '../backend';
+import { Box, Icon, Flex, Button, Section, Collapsible } from '../components';
+import { Window } from '../layouts';
+import { logger } from '../logging';
 
 export const Vote = (props, context) => {
   const { data } = useBackend(context);
   const { mode, question, lower_admin } = data;
 
   return (
-    <Window theme="generic" title={`Vote${mode ? `: ${capitalizeFirst(question || mode)}` : ''}`} width={400} height={500}>
+    <Window
+      theme="generic"
+      title={`Vote${
+        mode
+          ? `: ${question ? question.replace(/^\w/, (c) => c.toUpperCase()) : mode.replace(/^\w/, (c) => c.toUpperCase())}`
+          : ''
+      }`}
+      width={400}
+      height={500}>
       <Window.Content overflowY="scroll">
         <Flex direction="column" height="100%">
           {!!lower_admin && <AdminPanel />}
@@ -139,7 +147,7 @@ const DisplayChoices = (props, context) => {
             });
           }}
           disabled={choice === props.choices[selectedChoice - props.startIndex - 1]}>
-          {capitalizeFirst(choice.name)}
+          {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
         </Button>
         <Box mt={0.4} ml={1}>
           {choice === props.choices[selectedChoice - props.startIndex - 1] && <Icon color="green" name="vote-yea" />}
