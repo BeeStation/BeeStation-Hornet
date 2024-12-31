@@ -401,7 +401,7 @@
 /area/ruin/space/has_grav/abandonedzoo)
 "bJ" = (
 /mob/living/simple_animal/crab{
-	faction = list("carp")
+	faction = list(FACTION_CARP)
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)

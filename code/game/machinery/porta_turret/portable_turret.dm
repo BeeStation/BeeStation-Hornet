@@ -87,7 +87,7 @@
 
 	var/on = TRUE				//determines if the turret is on
 
-	var/list/faction = list("turret") // Same faction mobs will never be shot at, no matter the other settings
+	var/list/faction = list(FACTION_TURRET) // Same faction mobs will never be shot at, no matter the other settings
 
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
@@ -752,7 +752,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/syndicate/energy/raven
 	stun_projectile =  /obj/projectile/beam/laser
 	stun_projectile_sound = 'sound/weapons/laser.ogg'
-	faction = list("neutral","silicon","turret")
+	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 
 
 /obj/machinery/porta_turret/syndicate/pod
@@ -794,7 +794,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		return TRUE
 
 /obj/machinery/porta_turret/ai
-	faction = list("silicon")
+	faction = list(FACTION_SILICON)
 	var/emp_proofing = FALSE
 
 /obj/machinery/porta_turret/ai/emp_act(severity)
@@ -814,7 +814,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	lethal_projectile = /obj/projectile/plasma/turret
 	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	mode = TURRET_LETHAL //It would be useless in stun mode anyway
-	faction = list("neutral","silicon","turret") //Minebots, medibots, etc that should not be shot.
+	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET) //Minebots, medibots, etc that should not be shot.
 
 /obj/machinery/porta_turret/aux_base/assess_perp(mob/living/carbon/human/perp)
 	return 0 //Never shoot humanoids. You are on your own if Ashwalkers or the like attack!
@@ -843,7 +843,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	stun_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
-	faction = list("neutral","silicon","turret")
+	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 	mode = TURRET_LETHAL
 
 /obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()

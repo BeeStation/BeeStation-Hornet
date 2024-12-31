@@ -34,7 +34,7 @@
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE)
 	move_to_delay = 0
 	obj_damage = 0
 	ventcrawler = VENTCRAWLER_ALWAYS
