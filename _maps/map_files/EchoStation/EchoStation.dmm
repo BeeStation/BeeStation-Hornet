@@ -7336,6 +7336,7 @@
 	},
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/fans/tiny,
 /turf/open/openspace,
 /area/hallway/primary/fore)
 "dyv" = (
@@ -12991,6 +12992,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "glK" = (
+/obj/structure/fans/tiny,
 /turf/open/floor/plating/snowed/colder,
 /area/hallway/primary/fore)
 "glQ" = (
@@ -17769,6 +17771,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
+"iKP" = (
+/obj/structure/fans/tiny,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "iKR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -37228,6 +37234,7 @@
 "sLn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/newscaster/directional/west,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating/snowed/colder,
 /area/hallway/primary/fore)
 "sLu" = (
@@ -38975,6 +38982,7 @@
 /area/science/robotics)
 "tCm" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating/snowed/colder,
 /area/hallway/primary/fore)
 "tCn" = (
@@ -260006,7 +260014,7 @@ aNl
 aNl
 eDp
 lmY
-qCv
+iKP
 rAm
 tWG
 nBs
