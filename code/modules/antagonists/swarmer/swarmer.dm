@@ -82,7 +82,7 @@
 	friendly_verb_continuous = "pinches"
 	friendly_verb_simple = "pinch"
 	speed = 0
-	faction = list(FACTION_SILICON, FACTION_NEUTRAL)
+	faction = list(FACTION_SWARMER, FACTION_NEUTRAL)
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_TINY
