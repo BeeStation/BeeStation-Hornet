@@ -295,6 +295,12 @@
 	. = ..()
 	if(LAZYLEN(raw_text_inputs) && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
+<<<<<<< HEAD
+=======
+	else
+		icon_state = initial(icon_state)
+	return ..()
+>>>>>>> 128b453502b (Paper actually resets its icon state to the clear one when cleared (#88765))
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
