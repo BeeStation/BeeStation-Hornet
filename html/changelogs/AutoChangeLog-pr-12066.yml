@@ -1,0 +1,21 @@
+author: itsmeow, jlsnow301, esainane, Watermelon914, ZephyrTFA, san7890, Cyberboss,
+  stylemistake, AnturK, lebedev, KoJIT2009
+delete-after: true
+changes:
+  - tweak: The TGUI Blue Screen will now always include the correct in-universe year.
+  - tweak: TGUI Dropdowns will now highlight the currently selected item inside the
+      dropdown
+  - tweak: Gas bars shown inside TGUI have more distinct colors.
+  - refactor: Converted many core TGUI files to typescript
+  - bugfix: Dropdown prev/next buttons will now work even if nothing is initially
+      selected.
+  - bugfix: External TGChat links starting with www will no longer open incorrectly.
+  - code_imp: Added string capitalization utils to TGUI
+  - code_imp: Renamed goon style folder to tgchat
+  - code_imp: All TGUI component files that return JSX have been renamed from .js
+      to .jsx
+  - code_imp: Updated several TGUI dependencies.
+  - code_imp: TGUI should build faster.
+  - tweak: Dropped IE8 transpilation support from TGUI, since IE8 doesn't work currently
+      anyway.
+  - bugfix: Updated TGUI initialization hook to work with newer browsers (OpenDream/Webview2)
