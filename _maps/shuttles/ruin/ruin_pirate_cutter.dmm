@@ -61,7 +61,7 @@
 "eL" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 10;
-	faction = list(FACTION_PIRATE)
+	faction = list("pirate")
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
@@ -186,7 +186,7 @@
 /obj/structure/rack,
 /obj/item/storage/bag/money/vault,
 /mob/living/simple_animal/parrot{
-	faction = list(FACTION_PIRATE);
+	faction = list("pirate");
 	name = "Pegwing"
 	},
 /obj/effect/turf_decal/tile/blue{
