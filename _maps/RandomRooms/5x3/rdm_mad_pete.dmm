@@ -9,10 +9,7 @@
 	dir = 1
 	},
 /obj/effect/trap/nexus/doorbolt,
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Rabid Maintenance Pete";
-	faction = list(FACTION_HOSTILE)
-	},
+/mob/living/simple_animal/hostile/retaliate/goat/rabid,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "d" = (
