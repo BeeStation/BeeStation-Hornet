@@ -642,17 +642,6 @@
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
-"ahv" = (
-/obj/effect/turf_decal/siding/wideplating_new/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wideplating_new/light{
-	dir = 4
-	},
-/turf/open/floor/iron/white/textured_half{
-	dir = 1
-	},
-/area/space)
 "ahD" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -3304,15 +3293,6 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
-"aSe" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/space)
 "aSf" = (
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -7440,6 +7420,7 @@
 /area/engine/atmos)
 "bRs" = (
 /obj/structure/girder,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "bRv" = (
@@ -8595,13 +8576,14 @@
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "cdu" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/effect/turf_decal/stripes/white/line,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = -32
 	},
-/turf/open/floor/iron/white/textured_half,
-/area/space)
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "cdE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -9341,10 +9323,6 @@
 /area/bridge)
 "ckK" = (
 /obj/machinery/light/floor,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=8-CARGO";
-	location = "7-ATMOS"
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ckU" = (
@@ -12267,6 +12245,11 @@
 /area/medical/exam_room)
 "cVW" = (
 /obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/item/lighter/greyscale{
+	pixel_x = 8;
+	pixel_y = 4
+	},
 /turf/open/floor/plating,
 /area/space/nearstation)
 "cWc" = (
@@ -15556,15 +15539,6 @@
 	},
 /turf/open/floor/vault/rock,
 /area/engine/engine_room)
-"dPj" = (
-/obj/effect/turf_decal/siding/wideplating_new/light,
-/obj/effect/turf_decal/siding/wideplating_new/light{
-	dir = 1
-	},
-/turf/open/floor/iron/white/textured_half{
-	dir = 4
-	},
-/area/space)
 "dPm" = (
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/smooth_half,
@@ -17424,10 +17398,6 @@
 	dir = 8
 	},
 /area/science/xenobiology)
-"erF" = (
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron/smooth_half,
-/area/space)
 "erK" = (
 /obj/effect/turf_decal/siding/red,
 /turf/open/floor/iron/white,
@@ -25420,9 +25390,18 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "gpI" = (
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron/white/textured_half,
-/area/space)
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/obj/structure/sign/warning/vacuum{
+	pixel_y = -32
+	},
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/maintenance/department/cargo)
 "gpT" = (
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 8
@@ -26477,10 +26456,9 @@
 /turf/open/floor/iron/tech,
 /area/quartermaster/office)
 "gDi" = (
-/mob/living/simple_animal/bot/medbot{
-	auto_patrol = 1;
-	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
-	name = "Inspector Johnson"
+/mob/living/simple_animal/bot/medbot/filled{
+	name = "Inspector Johnson";
+	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed."
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -37576,7 +37554,7 @@
 	dir = 1
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=26-BRIDGE";
+	codes_txt = "patrol;next_patrol=26-SHOWROOM";
 	location = "25-TOOLSTORAGE"
 	},
 /turf/open/floor/iron,
@@ -40401,6 +40379,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=2-SCIENCE";
+	location = "BRIDGE"
+	},
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
@@ -41548,13 +41530,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"knL" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/wideplating_new,
-/turf/open/floor/iron/textured_half,
-/area/space)
 "knM" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 1
@@ -45743,13 +45718,15 @@
 	},
 /area/hallway/primary/starboard)
 "lqB" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 8
 	},
-/turf/open/floor/iron/smooth_half{
-	dir = 1
+/mob/living/simple_animal/bot/medbot/filled{
+	name = "Nurse Mary";
+	desc = "A little medical robot. She looks somewhat underwhelmed."
 	},
-/area/space)
+/turf/open/floor/iron/white,
+/area/medical/surgery/aux)
 "lqI" = (
 /obj/effect/turf_decal/stripes/white/box,
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
@@ -53706,16 +53683,20 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "nob" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark{
+/obj/machinery/door/airlock/external{
+	name = "Bridge External Access";
+	req_access_txt = "17"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/space)
+/area/maintenance/department/cargo)
 "noe" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -58167,17 +58148,12 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/tcommsat/computer)
 "org" = (
-/obj/structure/railing,
-/obj/effect/turf_decal/siding/white,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=2-SCIENCE";
-	location = "1-BRIDGE"
-	},
-/mob/living/simple_animal/bot/secbot/beepsky{
-	name = "Officer Beepsky"
+	codes_txt = "patrol;next_patrol=8-CARGO";
+	location = "7-ATMOS"
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/port)
+/area/hallway/primary/aft)
 "orj" = (
 /obj/effect/landmark/start/geneticist,
 /obj/machinery/holopad{
@@ -60490,9 +60466,11 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "oVD" = (
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/engine/vacuum,
-/area/space)
+/mob/living/simple_animal/bot/secbot/beepsky{
+	name = "Officer Beepsky"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "oVJ" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/techstorage/AI,
@@ -69053,13 +69031,6 @@
 "raT" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/engine/engine_room/external)
-"raW" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured_half,
-/area/space)
 "rbl" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -70254,13 +70225,6 @@
 /obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/white,
 /area/storage/art)
-"rrO" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/space)
 "rrQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -71684,13 +71648,10 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "rMT" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron/white/textured_half{
-	dir = 1
-	},
-/area/space)
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/advanced_airlock_controller/directional/south,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/maintenance/department/cargo)
 "rMY" = (
 /obj/structure/fluff/hedge/opaque,
 /turf/open/floor/iron/smooth,
@@ -72808,16 +72769,12 @@
 /turf/open/floor/iron/dark/smooth_corner,
 /area/quartermaster/storage)
 "sao" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 8
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=7-ATMOS";
+	location = "6-XENOBIO"
 	},
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 4
-	},
-/turf/open/floor/iron/textured_half{
-	dir = 1
-	},
-/area/space)
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "sas" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -73477,19 +73434,9 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "sia" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 4
-	},
-/turf/open/floor/iron/white/textured_half{
-	dir = 1
-	},
-/area/space)
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "sif" = (
 /obj/machinery/light/dim/directional/west,
 /obj/machinery/vending/coffee,
@@ -74254,12 +74201,16 @@
 	amount = 12;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/medspray/sterilizine,
+/obj/item/reagent_containers/medspray/sterilizine{
+	pixel_y = 2
+	},
 /obj/item/reagent_containers/medspray/styptic{
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 2
 	},
 /obj/item/reagent_containers/medspray/silver_sulf{
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -77104,6 +77055,12 @@
 	name = "Kitchen Delivery";
 	req_access_txt = "28"
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=1";
+	dir = 1;
+	freq = 1400;
+	location = "Kitchen"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "tei" = (
@@ -77223,6 +77180,9 @@
 	},
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 1
+	},
+/obj/item/reagent_containers/medspray/sterilizine{
+	pixel_y = 8
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -81286,11 +81246,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "udE" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/external{
+	name = "Bridge External Access";
+	req_access_txt = "17"
 	},
-/turf/open/floor/engine/vacuum,
-/area/space)
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/turf/open/floor/iron/dark/textured_half,
+/area/maintenance/department/cargo)
 "udF" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/grass,
@@ -81863,10 +81826,6 @@
 "ujJ" = (
 /obj/machinery/light/floor,
 /obj/effect/landmark/start/assistant,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=7-ATMOS";
-	location = "6-XENOBIO"
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ujR" = (
@@ -82976,6 +82935,9 @@
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/table/glass,
+/obj/item/reagent_containers/medspray/sterilizine{
+	pixel_y = 8
+	},
 /turf/open/floor/iron/tiled,
 /area/medical/surgery/aux)
 "uwa" = (
@@ -89334,8 +89296,8 @@
 /area/ai_monitored/security/armory)
 "vUX" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=1-BRIDGE";
-	location = "26-BRIDGE"
+	codes_txt = "patrol;next_patrol=BRIDGE";
+	location = "26-SHOWROOM"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
@@ -113734,14 +113696,14 @@ nzj
 nzj
 nzj
 nzj
-udE
-aSe
-lqB
-rMT
-sia
-ahv
-sao
-nob
+nzj
+nzj
+nzj
+nzj
+nzj
+nzj
+nzj
+nzj
 nzj
 nzj
 nzj
@@ -113991,14 +113953,14 @@ nzj
 nzj
 nzj
 nzj
-oVD
-rrO
-erF
-gpI
-cdu
-dPj
-knL
-raW
+nzj
+nzj
+nzj
+nzj
+nzj
+nzj
+nzj
+nzj
 nzj
 nzj
 nzj
@@ -117478,7 +117440,7 @@ jQX
 mka
 xcC
 kaZ
-org
+auK
 cLv
 ket
 exv
@@ -128062,7 +128024,7 @@ lfm
 asP
 ptp
 ujJ
-ptp
+sao
 kMA
 rqR
 wVc
@@ -128259,7 +128221,7 @@ yda
 sdc
 oqp
 urU
-bMr
+lqB
 iJK
 bMr
 gxG
@@ -130063,7 +130025,7 @@ huW
 huW
 esV
 kSz
-tPY
+oVD
 tPY
 sKq
 uvD
@@ -133459,7 +133421,7 @@ tOr
 asP
 ptp
 ckK
-ptp
+org
 ehi
 sSF
 umg
@@ -138080,7 +138042,7 @@ oBz
 wMT
 oBz
 iYl
-wEZ
+kFe
 wEZ
 wEZ
 quw
@@ -138569,10 +138531,10 @@ yam
 nSl
 uLV
 vXA
-rvw
+sia
+udE
+rMT
 qkz
-hyT
-hyT
 hyT
 cmx
 cmx
@@ -138826,11 +138788,11 @@ wBA
 nqL
 jKy
 vXA
-rvw
+cdu
+qkz
+gpI
 qkz
 hyT
-nzj
-nzj
 nzj
 nzj
 nzj
@@ -139085,9 +139047,9 @@ jKy
 vXA
 kgT
 qkz
+nob
+qkz
 hyT
-nzj
-nzj
 nzj
 nzj
 nzj
@@ -139342,9 +139304,9 @@ jKy
 kfp
 dKV
 qkz
+uLJ
+gFo
 hyT
-nzj
-nzj
 nzj
 nzj
 nzj
@@ -139600,8 +139562,8 @@ xVL
 dKV
 fJQ
 hyT
-nzj
-nzj
+hyT
+hyT
 nzj
 nzj
 nzj
