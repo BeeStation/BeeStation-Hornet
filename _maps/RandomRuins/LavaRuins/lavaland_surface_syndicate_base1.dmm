@@ -1984,7 +1984,7 @@
 /area/ruin/unpowered/syndicate_lava_base/science)
 "tV" = (
 /mob/living/simple_animal/chicken/rabbit{
-	faction = list(FACTION_SYNDICATE);
+	faction = list("syndicate");
 	desc = "Just a mildly evil rabbit."
 	},
 /turf/open/floor/wood,
