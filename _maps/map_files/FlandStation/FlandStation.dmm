@@ -3169,7 +3169,7 @@
 	req_access_txt = "10; 13"
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/solars/port/fore)
 "aMK" = (
@@ -3721,7 +3721,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
 "aRL" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -4067,10 +4067,10 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port/central)
 "aVr" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "aVv" = (
@@ -9700,7 +9700,7 @@
 /area/engine/atmos)
 "cyO" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -15188,7 +15188,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -15309,7 +15309,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "eah" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -16475,10 +16475,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
 "ere" = (
@@ -19084,7 +19082,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
@@ -19092,6 +19089,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/solars/port/aft)
 "eVR" = (
@@ -21063,13 +21061,13 @@
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "fuW" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Connector";
 	req_one_access_txt = "10;24;5"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/medical)
 "fuX" = (
@@ -21189,7 +21187,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/miningdock)
 "fwa" = (
@@ -22666,7 +22664,7 @@
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "fOb" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -23825,7 +23823,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -24585,10 +24583,10 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden,
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
 "gnA" = (
@@ -26630,12 +26628,12 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Distribution Loop";
 	req_access_txt = "24"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine)
@@ -27125,11 +27123,11 @@
 "gSY" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Connector";
 	req_one_access_txt = "10;24;5"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/starboard/aft)
 "gTm" = (
@@ -27810,7 +27808,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Main Docking Port"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
 "hcD" = (
@@ -28229,7 +28227,7 @@
 	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden,
 /turf/open/floor/iron/techmaint,
 /area/science/shuttle)
 "hiQ" = (
@@ -33409,7 +33407,7 @@
 	name = "External Docking Port";
 	req_access_txt = "49"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -38289,7 +38287,7 @@
 	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/security/execution/transfer)
 "jPk" = (
@@ -38957,7 +38955,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Labour Shuttle Airlock"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/security/execution/transfer)
 "jWO" = (
@@ -39125,7 +39123,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor,
@@ -40976,11 +40974,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "kwm" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/shuttle)
@@ -43673,10 +43671,10 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden,
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
 "lcG" = (
@@ -46355,7 +46353,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Labour Shuttle Airlock"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor,
@@ -47755,7 +47753,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden,
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
 "meW" = (
@@ -48294,11 +48292,11 @@
 /obj/machinery/door/airlock/external{
 	name = "Inner Docking Port"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
@@ -52748,7 +52746,7 @@
 /turf/open/floor/carpet/grimy,
 /area/maintenance/department/security/brig)
 "nxn" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -54756,7 +54754,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
 "oam" = (
@@ -62735,7 +62733,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -69342,10 +69340,10 @@
 "rOe" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
 "rOk" = (
@@ -76745,7 +76743,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor,
@@ -78995,7 +78993,7 @@
 	name = "External Airlock";
 	req_one_access_txt = "13;24;10"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine)
 "ulx" = (
@@ -81938,7 +81936,7 @@
 /area/hallway/secondary/service)
 "uXD" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "uXH" = (
@@ -82295,8 +82293,7 @@
 /turf/open/floor/iron/dark,
 /area/gateway)
 "vaY" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/structure/lattice/catwalk/over,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine)
 "vbd" = (
@@ -87905,12 +87902,12 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Connector";
 	req_one_access_txt = "10;24;5"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/starboard/aft)
@@ -92762,11 +92759,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
@@ -94300,7 +94297,7 @@
 	name = "Labour Shuttle Airlock";
 	req_access_txt = "63"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/catwalk_floor,
@@ -95317,10 +95314,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
 "xQc" = (
