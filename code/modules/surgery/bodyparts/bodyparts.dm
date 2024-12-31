@@ -85,6 +85,8 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	var/list/organ_slots = null
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -658,6 +660,19 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
 	is_dimorphic = TRUE
+	organ_slots = list(
+		ORGAN_SLOT_APPENDIX,
+		ORGAN_SLOT_WINGS,
+		ORGAN_SLOT_STOMACH,
+		ORGAN_SLOT_LUNGS,
+		ORGAN_SLOT_HEART,
+		ORGAN_SLOT_ZOMBIE,
+		ORGAN_SLOT_THRUSTERS,
+		ORGAN_SLOT_LIVER,
+		ORGAN_SLOT_HEART_AID,
+		ORGAN_SLOT_TAIL,
+		ORGAN_SLOT_PARASITE_EGG
+	)
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
@@ -726,7 +741,9 @@
 	px_x = -6
 	px_y = 0
 	can_be_disabled = TRUE
-
+	organ_slots = list(
+		ORGAN_SLOT_LEFT_ARM_AUG
+	)
 
 /obj/item/bodypart/l_arm/set_owner(new_owner)
 	. = ..()
@@ -831,7 +848,9 @@
 	px_x = 6
 	px_y = 0
 	can_be_disabled = TRUE
-
+	organ_slots = list(
+		ORGAN_SLOT_RIGHT_ARM_AUG
+	)
 
 /obj/item/bodypart/r_arm/set_owner(new_owner)
 	. = ..()

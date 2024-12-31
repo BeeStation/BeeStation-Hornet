@@ -30,8 +30,7 @@
 	name = "plasma vessel"
 	icon_state = "plasma"
 	w_class = WEIGHT_CLASS_NORMAL
-	zone = BODY_ZONE_CHEST
-	slot = "plasmavessel"
+	slot = ORGAN_SLOT_PLASMA_VESSEL
 	alien_powers = list(/obj/effect/proc_holder/alien/plant, /obj/effect/proc_holder/alien/transfer)
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/plasma = 10)
 
@@ -102,8 +101,7 @@
 /obj/item/organ/alien/hivenode
 	name = "hive node"
 	icon_state = "hivenode"
-	zone = BODY_ZONE_HEAD
-	slot = "hivenode"
+	slot = ORGAN_SLOT_HIVE_NODE
 	w_class = WEIGHT_CLASS_TINY
 	alien_powers = list(/obj/effect/proc_holder/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
@@ -156,31 +154,24 @@
 /obj/item/organ/alien/resinspinner
 	name = "resin spinner"
 	icon_state = "stomach-x"
-	zone = BODY_ZONE_PRECISE_MOUTH
-	slot = "resinspinner"
+	slot = ORGAN_SLOT_RESIN_SPINNER
 	alien_powers = list(/obj/effect/proc_holder/alien/resin)
-
 
 /obj/item/organ/alien/acid
 	name = "acid gland"
 	icon_state = "acid"
-	zone = BODY_ZONE_PRECISE_MOUTH
-	slot = "acidgland"
+	slot = ORGAN_SLOT_ACID_GLAND
 	alien_powers = list(/obj/effect/proc_holder/alien/acid)
-
 
 /obj/item/organ/alien/neurotoxin
 	name = "neurotoxin gland"
 	icon_state = "neurotox"
-	zone = BODY_ZONE_PRECISE_MOUTH
-	slot = "neurotoxingland"
+	slot = ORGAN_SLOT_NEUROTOXIN_GLAND
 	alien_powers = list(/obj/effect/proc_holder/alien/neurotoxin)
-
 
 /obj/item/organ/alien/eggsac
 	name = "egg sac"
 	icon_state = "eggsac"
-	zone = BODY_ZONE_PRECISE_GROIN
-	slot = "eggsac"
+	slot = ORGAN_SLOT_EGGSAC
 	w_class = WEIGHT_CLASS_BULKY
 	alien_powers = list(/obj/effect/proc_holder/alien/lay_egg)

@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
   * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
  * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
+/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current = TRUE, visual_only = FALSE)
 	//what should be put in if there is no mutantorgan (brains handled seperately)
 	var/list/slot_mutantorgans = list(
 		ORGAN_SLOT_BRAIN = mutantbrain,
@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		neworgan = SSwardrobe.provide_type(neworgan)
 		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
-		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
+		if(oldorgan && (!should_have || replace_current) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/brain/brain = oldorgan
 				if(!brain.decoy_override)//"Just keep it if it's fake" - confucius, probably
@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(oldorgan)
 			oldorgan.setOrganDamage(0)
-		else if(should_have && !(initial(neworgan.zone) in excluded_zones))
+		else if(should_have)
 			used_neworgan = TRUE
 			neworgan.Insert(C, TRUE, FALSE)
 			required_organs |= neworgan.type

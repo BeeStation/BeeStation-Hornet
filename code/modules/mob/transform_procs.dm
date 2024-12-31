@@ -113,12 +113,13 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
-				var/obj/item/organ/G = X
-				if(BP.body_zone == check_zone(G.zone))
-					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
-						continue //so headless changelings don't lose their brain when transforming
-					qdel(G) //we lose the organs in the missing limbs
+			for (var/organ_slot in BP.organ_slots)
+				var/obj/item/organ/G = getorganslot(organ_slot)
+				if(!G)
+					continue
+				if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
+					continue //so headless changelings don't lose their brain when transforming
+				qdel(G) //we lose the organs in the missing limbs
 		qdel(BP)
 
 	//transfer mind if we didn't yet
@@ -263,12 +264,13 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
-				var/obj/item/organ/G = X
-				if(BP.body_zone == check_zone(G.zone))
-					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
-						continue //so headless changelings don't lose their brain when transforming
-					qdel(G) //we lose the organs in the missing limbs
+			for(var/organ_slot in BP.organ_slots)
+				var/obj/item/organ/G = getorganslot(organ_slot)
+				if(!G)
+					continue
+				if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
+					continue //so headless changelings don't lose their brain when transforming
+				qdel(G) //we lose the organs in the missing limbs
 		qdel(BP)
 
 	//transfer mind if we didn't yet
@@ -410,12 +412,13 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
-				var/obj/item/organ/G = X
-				if(BP.body_zone == check_zone(G.zone))
-					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
-						continue //so headless changelings don't lose their brain when transforming
-					qdel(G) //we lose the organs in the missing limbs
+			for(var/X in BP.organ_slots)
+				var/obj/item/organ/G = getorganslot(X)
+				if (!G)
+					continue
+				if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
+					continue //so headless changelings don't lose their brain when transforming
+				qdel(G) //we lose the organs in the missing limbs
 		qdel(BP)
 
 	if(mind)

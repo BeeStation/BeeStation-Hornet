@@ -298,25 +298,19 @@
 	forceMove(LB)
 
 /obj/item/organ/nymph_organ/r_arm
-	zone = BODY_ZONE_R_ARM
 	slot = ORGAN_SLOT_R_ARM_NYMPH
 
 /obj/item/organ/nymph_organ/l_arm
-	zone = BODY_ZONE_L_ARM
 	slot = ORGAN_SLOT_L_ARM_NYMPH
 
 /obj/item/organ/nymph_organ/r_leg
-	zone = BODY_ZONE_R_LEG
 	slot = ORGAN_SLOT_R_LEG_NYMPH
 
 /obj/item/organ/nymph_organ/l_leg
-	zone = BODY_ZONE_L_LEG
 	slot = ORGAN_SLOT_L_LEG_NYMPH
 
 /obj/item/organ/nymph_organ/chest
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_CHEST_NYMPH
-
 
 ////////////////////////////////////// Preferences menu stuffs ////////////////////////////////////////////////////////////
 /datum/species/diona/get_species_description()

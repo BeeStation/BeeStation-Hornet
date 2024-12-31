@@ -142,32 +142,54 @@
 /// If we have a limb-specific overlay sprite
 #define HAS_MARKINGS 25
 
-//organ slots
+// ============================
+// Organ Slots
+// ============================
+
+// Head
 #define ORGAN_SLOT_BRAIN "brain"
+#define ORGAN_SLOT_EARS "ears"
+#define ORGAN_SLOT_BREATHING_TUBE "breathing_tube"
+#define ORGAN_SLOT_EYES "eye_sight"
+#define ORGAN_SLOT_HUD "eye_hud"
+#define ORGAN_SLOT_TONGUE "tongue"
+#define ORGAN_SLOT_VOICE "vocal_cords"
+#define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
+#define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
+#define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
+#define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
+#define ORGAN_SLOT_NEUROTOXIN_GLAND "neurotoxingland"
+#define ORGAN_SLOT_HIVE_NODE "hive_node"
+#define ORGAN_SLOT_RESIN_SPINNER "resin_spinner"
+#define ORGAN_SLOT_ACID_GLAND "acid_gland"
+
+// Chest
 #define ORGAN_SLOT_APPENDIX "appendix"
-#define ORGAN_SLOT_RIGHT_ARM_AUG "r_arm_device"
-#define ORGAN_SLOT_LEFT_ARM_AUG "l_arm_device"
+#define ORGAN_SLOT_WINGS "wings"
 #define ORGAN_SLOT_STOMACH "stomach"
 #define ORGAN_SLOT_STOMACH_AID "stomach_aid"
-#define ORGAN_SLOT_BREATHING_TUBE "breathing_tube"
-#define ORGAN_SLOT_EARS "ears"
-#define ORGAN_SLOT_EYES "eye_sight"
 #define ORGAN_SLOT_LUNGS "lungs"
 #define ORGAN_SLOT_HEART "heart"
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
 #define ORGAN_SLOT_THRUSTERS "thrusters"
-#define ORGAN_SLOT_HUD "eye_hud"
 #define ORGAN_SLOT_LIVER "liver"
-#define ORGAN_SLOT_TONGUE "tongue"
-#define ORGAN_SLOT_VOICE "vocal_cords"
-#define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
 #define ORGAN_SLOT_HEART_AID "heartdrive"
-#define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
-#define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
-#define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_TAIL "tail"
-#define ORGAN_SLOT_WINGS "wings"
-#define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
+#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
+#define ORGAN_SLOT_PLASMA_VESSEL "plasma_vessel"
+#define ORGAN_SLOT_EGGSAC "eggsac"
+
+// Arms
+#define ORGAN_SLOT_RIGHT_ARM_AUG "r_arm_device"
+#define ORGAN_SLOT_LEFT_ARM_AUG "l_arm_device"
+
+// Legs
+
+// IPC
+#define ORGAN_SLOT_IPC_BRAIN "positronic_brain"
+
+// Other
+#define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph"
 #define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"

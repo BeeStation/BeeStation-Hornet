@@ -6,7 +6,6 @@
 	throw_speed = 3
 	throw_range = 5
 	layer = ABOVE_MOB_LAYER
-	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
 	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
@@ -236,8 +235,7 @@
 
 /obj/item/organ/brain/positron
 	name = "positronic brain"
-	slot = ORGAN_SLOT_BRAIN
-	zone = BODY_ZONE_CHEST
+	slot = ORGAN_SLOT_IPC_BRAIN
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
