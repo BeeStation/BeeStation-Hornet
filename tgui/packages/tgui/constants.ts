@@ -278,6 +278,13 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   return gas?.label || fallbackValue || gasId;
 };
 
+// Returns gas color based on gasId
+export const getGasColor = (gasId: string) => {
+  const gasSearchString = gasId.toLowerCase();
+  const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
+  return gas?.color;
+};
+
 /*
 From https://github.com/tgstation/tgstation/pull/69240
 
