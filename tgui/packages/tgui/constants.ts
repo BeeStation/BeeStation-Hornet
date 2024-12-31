@@ -170,7 +170,7 @@ const GASES = [
     path: '/datum/gas/water_vapor',
     name: 'Water Vapor',
     label: 'H₂O',
-    color: 'lightsteelblue',
+    color: 'grey',
   },
   {
     id: 'hypernoblium',
@@ -184,28 +184,28 @@ const GASES = [
     path: '/datum/gas/nitrous_oxide',
     name: 'Nitrous Oxide',
     label: 'N₂O',
-    color: 'beige',
+    color: 'brown',
   },
   {
     id: 'tritium',
     path: '/datum/gas/tritium',
     name: 'Tritium',
     label: 'Tritium',
-    color: 'chartreuse',
+    color: 'green',
   },
   {
     id: 'bz',
     path: '/datum/gas/bz',
     name: 'BZ',
     label: 'BZ',
-    color: 'mediumpurple',
+    color: 'purple',
   },
   {
     id: 'pluoxium',
     path: '/datum/gas/pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
-    color: 'mediumslateblue',
+    color: 'blue',
   },
   {
     id: 'nitryl',
@@ -219,7 +219,7 @@ const GASES = [
     path: '/datum/gas/stimulum',
     name: 'Stimulum',
     label: 'Stimulum',
-    color: 'greenyellow',
+    color: 'purple',
   },
 ] as const;
 
