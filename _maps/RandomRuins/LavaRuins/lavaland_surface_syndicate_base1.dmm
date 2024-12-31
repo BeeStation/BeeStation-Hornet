@@ -4162,7 +4162,7 @@
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list(FACTION_NEUTRAL,FACTION_SYNDICATE)
+	faction = list("neutral","syndicate")
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
