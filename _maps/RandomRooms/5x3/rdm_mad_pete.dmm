@@ -2,7 +2,7 @@
 "a" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Rabid Maintenance Pete";
-	faction = list("hostile");
+	faction = list(FACTION_HOSTILE);
 	melee_damage = 10;
 	health = 50
 	},
