@@ -386,7 +386,7 @@
 /obj/effect/turf_decal/bot_red,
 /mob/living/simple_animal/bot/secbot{
 	emagged = 1;
-	faction = list(FACTION_SILICON,FACTION_TURRET);
+	faction = list("silicon","turret");
 	name = "Officer Buzzsky"
 	},
 /turf/open/floor/iron/tech/grid,
