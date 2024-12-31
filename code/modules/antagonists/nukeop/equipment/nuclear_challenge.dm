@@ -1,6 +1,6 @@
 #define CHALLENGE_TELECRYSTALS 280
 #define CHALLENGE_TIME_LIMIT 5 MINUTES
-#define CHALLENGE_MIN_PLAYERS 50
+#define CHALLENGE_MIN_PLAYERS 30
 #define CHALLENGE_SHUTTLE_DELAY 35 MINUTES	//35 minutes, giving nukies at least 20 minutes to enact their assault.
 
 /obj/item/nuclear_challenge
