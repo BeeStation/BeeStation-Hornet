@@ -30,7 +30,7 @@
 
 /mob/living/carbon/getorganszone(zone)
 	var/list/returnorg = list()
-	var/obj/item/bodypart/bodypart = get_bodypart(zone)
+	var/obj/item/bodypart/bodypart = get_bodypart(check_zone(zone))
 	if (!bodypart)
 		return returnorg
 	for(var/slot in bodypart.organ_slots)

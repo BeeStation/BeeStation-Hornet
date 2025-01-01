@@ -95,19 +95,19 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		var/obj/item/bodypart/target_bodypart = target.get_bodypart(surgery.location)
+		var/obj/item/bodypart/target_bodypart = target.get_bodypart(check_zone(surgery.location))
 		if (!target_bodypart)
 			CRASH("Surgery somehow was completed when the target didn't have the correct bodypart at [surgery.location].")
-		if (!(I.slot in target_bodypart.organ_slots))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(surgery.location)]!</span>")
+		if (!(I.slot in target_bodypart.organ_slots) || target.getorganslot(I.slot))
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(check_zone(surgery.location))]!</span>")
 			return -1
 		var/obj/item/organ/meatslab = tool
 		if(!meatslab.useable)
 			to_chat(user, "<span class='warning'>[I] seems to have been chewed on, you can't use this!</span>")
 			return -1
-		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(surgery.location)]...</span>",
-			"<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(surgery.location)].</span>",
-			"<span class='notice'>[user] begins to insert something into [target]'s [parse_zone(surgery.location)].</span>")
+		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(check_zone(surgery.location))]...</span>",
+			"<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(check_zone(surgery.location))].</span>",
+			"<span class='notice'>[user] begins to insert something into [target]'s [parse_zone(check_zone(surgery.location))].</span>")
 		log_combat(user, target, "tried to insert [I.name] into")
 
 	else if(implement_type in implements_extract)

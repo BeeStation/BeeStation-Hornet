@@ -33,9 +33,10 @@
 
 
 /datum/species/dullahan/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
+	//if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
+	//	return TRUE
+	//return ..()
+	return FALSE
 
 /datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species)
 	. = ..()
@@ -163,9 +164,11 @@
 /obj/item/organ/brain/dullahan
 	decoy_override = TRUE
 	organ_flags = NONE
+	organ_flags = ORGAN_UNREMOVABLE
 
 /obj/item/organ/tongue/dullahan
 	modifies_speech = TRUE
+	organ_flags = ORGAN_UNREMOVABLE
 
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
 	if(ishuman(owner))
@@ -178,12 +181,14 @@
 	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/ears/dullahan
+	organ_flags = ORGAN_UNREMOVABLE
 
 /obj/item/organ/eyes/dullahan
 	name = "head vision"
 	desc = "An abstraction."
 	actions_types = list(/datum/action/item_action/organ_action/dullahan)
 	tint = INFINITY // to switch the vision perspective to the head on species_gain() without issue.
+	organ_flags = ORGAN_UNREMOVABLE
 
 /datum/action/item_action/organ_action/dullahan
 	name = "Toggle Perspective"
