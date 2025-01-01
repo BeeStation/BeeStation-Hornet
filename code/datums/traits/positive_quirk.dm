@@ -125,11 +125,11 @@
 	var/datum/language/known_language
 
 /datum/quirk/multilingual/proc/set_up_language()
-	var/datum/language_holder/LH = quirk_holder.get_language_holder()
+	var/datum/language_holder/LH = quirk_target.get_language_holder()
 	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
 	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
-	var/list/languages_possible = T.languages_possible
+	var/list/languages_possible = T.get_possible_languages()
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
 	languages_possible = languages_possible - LH.understood_languages
 	languages_possible = languages_possible - LH.spoken_languages
@@ -142,14 +142,14 @@
 	known_language = read_choice_preference(/datum/preference/choiced/quirk/multilingual_language)
 	if(!known_language) // default to random
 		set_up_language()
-	var/datum/language_holder/LH = quirk_holder.get_language_holder()
-	LH.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+	var/datum/language_holder/LH = quirk_target.get_language_holder()
+	LH.grant_language(known_language, source = LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/multilingual/remove()
 	if(!known_language)
 		return
-	var/datum/language_holder/LH = quirk_holder.get_language_holder()
-	LH.remove_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+	var/datum/language_holder/LH = quirk_target.get_language_holder()
+	LH.remove_language(known_language, source = LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/night_vision
 	name = "Night Vision"

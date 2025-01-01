@@ -2,8 +2,8 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Input, Section, Stack } from '../components';
 import { useBackend, useLocalState } from '../backend';
-import { decodeHtmlEntities } from '../../common/string';
-import { KEY_A, KEY_DOWN, KEY_ESCAPE, KEY_ENTER, KEY_UP, KEY_Z } from '../../common/keycodes';
+import { capitalizeFirst, decodeHtmlEntities } from 'common/string';
+import { KEY_A, KEY_DOWN, KEY_ESCAPE, KEY_ENTER, KEY_UP, KEY_Z } from 'common/keycodes';
 import { Window } from '../layouts';
 
 type ListInputData = {
@@ -187,7 +187,7 @@ const ListDisplay = (props, context) => {
               'animation': 'none',
               'transition': 'none',
             }}>
-            {item.replace(/^\w/, (c) => c.toUpperCase())}
+            {capitalizeFirst(item)}
           </Button>
         );
       })}

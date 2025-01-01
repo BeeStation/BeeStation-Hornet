@@ -33760,6 +33760,9 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/item/storage/firstaid/regular,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "eUW" = (
@@ -58788,6 +58791,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/janitor/custodian)
+"mUj" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "mUm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -80332,10 +80339,10 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
 "tDm" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags,
-/obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "tDJ" = (
@@ -94983,6 +94990,8 @@
 "yfc" = (
 /obj/structure/bodycontainer/morgue,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/tech,
 /area/security/brig/medbay)
 "yfd" = (
@@ -123074,7 +123083,7 @@ aaa
 aad
 aaa
 aaa
-aaa
+mUj
 aad
 aaa
 aaa
@@ -146454,7 +146463,7 @@ cIW
 cHU
 aaa
 aaa
-aaa
+mUj
 aaa
 aaa
 aaa
