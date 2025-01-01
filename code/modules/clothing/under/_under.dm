@@ -39,7 +39,7 @@
 		has_sensor = HAS_SENSORS
 		update_sensors(NO_SENSORS)
 		to_chat(user,"<span class='notice'>You repair the suit sensors on [src] with [C].</span>")
-		return 1
+		return TRUE
 	if(!attach_accessory(I, user))
 		return ..()
 
@@ -53,6 +53,28 @@
 	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
 		has_sensor = HAS_SENSORS
 	update_sensors(NO_SENSORS)
+	register_context()
+
+/obj/item/clothing/under/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+
+	//if(isnull(held_item) && has_sensor == HAS_SENSORS)
+	//	context.add_right_click_action("Toggle suit sensors")
+
+	//Sorry, I know we want to avoid held_item calls, but I didnt really see another way to put this serie of checks in
+	if(istype(context.held_item, /obj/item/clothing/accessory) && !attached_accessory)
+		var/obj/item/clothing/accessory/accessory = context.held_item
+		if(accessory.can_attach_accessory(src, user))
+			context.add_left_click_action("Attach accessory")
+
+	if(has_sensor == BROKEN_SENSORS)
+		context.add_left_click_item_action("Repair suit sensors", /obj/item/stack/cable_coil)
+
+	if(attached_accessory)
+		context.add_alt_click_item_action("Remove accessory", null)
+	else if(can_adjust)
+		context.add_alt_click_action(adjusted == ALT_STYLE ? "Wear normally" : "Wear casually")
+
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()

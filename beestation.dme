@@ -3035,6 +3035,7 @@
 #include "code\modules\mob\living\brain\say.dm"
 #include "code\modules\mob\living\brain\status_procs.dm"
 #include "code\modules\mob\living\carbon\carbon.dm"
+#include "code\modules\mob\living\carbon\carbon_context.dm"
 #include "code\modules\mob\living\carbon\carbon_defense.dm"
 #include "code\modules\mob\living\carbon\carbon_defines.dm"
 #include "code\modules\mob\living\carbon\carbon_movement.dm"
