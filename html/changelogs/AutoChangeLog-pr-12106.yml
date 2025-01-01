@@ -1,4 +1,0 @@
-author: Therealdoooc213
-delete-after: true
-changes:
-  - tweak: Nar'sie now uses play_soundtrack_music instead of sound_to_playing_players
