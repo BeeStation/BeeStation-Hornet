@@ -96,7 +96,7 @@
 
 		var/list/mouth_organs = new
 		for(var/obj/item/organ/organ as anything in M.internal_organs)
-			if(organ.zone == BODY_ZONE_PRECISE_MOUTH)
+			if(organ.slot == ORGAN_SLOT_TONGUE || organ.slot == ORGAN_SLOT_ACID_GLAND || organ.slot == ORGAN_SLOT_VOICE || organ.slot == ORGAN_SLOT_ADAMANTINE_RESONATOR || organ.slot == ORGAN_SLOT_NEUROTOXIN_GLAND || organ.slot == ORGAN_SLOT_HIVE_NODE || organ.slot == ORGAN_SLOT_RESIN_SPINNER)
 				mouth_organs.Add(organ)
 		var/organ_list = ""
 		var/organ_count = LAZYLEN(mouth_organs)

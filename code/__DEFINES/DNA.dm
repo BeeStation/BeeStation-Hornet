@@ -185,16 +185,6 @@
 
 // Legs
 
-// IPC
-#define ORGAN_SLOT_IPC_BRAIN "positronic_brain"
-
-// Other
-#define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph"
-#define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
-#define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
-#define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
-#define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
-
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 	100
 #define STANDARD_ORGAN_HEALING 		0.001

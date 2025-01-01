@@ -28,18 +28,14 @@
 /mob/living/carbon/getorgan(typepath)
 	return (locate(typepath) in internal_organs)
 
-/mob/living/carbon/getorganszone(zone, subzones = 0)
+/mob/living/carbon/getorganszone(zone)
 	var/list/returnorg = list()
-	if(subzones)
-		// Include subzones - groin for chest, eyes and mouth for head
-		if(zone == BODY_ZONE_HEAD)
-			returnorg = getorganszone(BODY_ZONE_PRECISE_EYES) + getorganszone(BODY_ZONE_PRECISE_MOUTH)
-		if(zone == BODY_ZONE_CHEST)
-			returnorg = getorganszone(BODY_ZONE_PRECISE_GROIN)
-
-	for(var/X in internal_organs)
-		var/obj/item/organ/O = X
-		if(zone == O.zone)
+	var/obj/item/bodypart/bodypart = get_bodypart(zone)
+	if (!bodypart)
+		return returnorg
+	for(var/slot in bodypart.organ_slots)
+		var/obj/item/organ/O = getorganslot(slot)
+		if(O)
 			returnorg += O
 	return returnorg
 

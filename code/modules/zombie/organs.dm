@@ -1,7 +1,6 @@
 /obj/item/organ/zombie_infection
 	name = "festering ooze"
 	desc = "A black web of pus and viscera."
-	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_ZOMBIE
 	icon_state = "blacktumor"
 	visual = FALSE

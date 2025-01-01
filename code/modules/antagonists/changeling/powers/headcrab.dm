@@ -26,7 +26,7 @@
 		to_chat(user, "<span class='warning'>You can't become a headslug right now!</span>")
 		return FALSE
 	var/datum/mind/M = user.mind
-	var/list/organs = user.getorganszone(BODY_ZONE_HEAD, 1)
+	var/list/organs = user.getorganszone(BODY_ZONE_HEAD)
 	..()
 
 	for(var/obj/item/organ/I in organs)

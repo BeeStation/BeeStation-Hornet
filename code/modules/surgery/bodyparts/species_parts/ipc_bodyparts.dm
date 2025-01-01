@@ -13,6 +13,14 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	organ_slots = list(
+		ORGAN_SLOT_EARS,
+		ORGAN_SLOT_EYES,
+		ORGAN_SLOT_HUD,
+		ORGAN_SLOT_TONGUE,
+		ORGAN_SLOT_VOICE
+	)
+
 /obj/item/bodypart/chest/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -28,6 +36,17 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+	organ_slots = list(
+		ORGAN_SLOT_BRAIN,
+		ORGAN_SLOT_STOMACH,
+		ORGAN_SLOT_STOMACH_AID,
+		ORGAN_SLOT_WINGS,
+		ORGAN_SLOT_HEART,
+		ORGAN_SLOT_THRUSTERS,
+		ORGAN_SLOT_HEART_AID,
+		ORGAN_SLOT_TAIL
+	)
 
 /obj/item/bodypart/l_arm/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'

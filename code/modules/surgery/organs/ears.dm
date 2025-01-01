@@ -2,7 +2,6 @@
 	name = "ears"
 	icon_state = "ears"
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
-	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
 	visual = FALSE
 	gender = PLURAL
@@ -148,8 +147,7 @@
 	name = "auditory sensors"
 	icon_state = "robotic_ears"
 	desc = "A pair of microphones intended to be installed in an IPC head, that grant the ability to hear."
-	zone = "head"
-	slot = "ears"
+	slot = ORGAN_SLOT_EARS
 	gender = PLURAL
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC

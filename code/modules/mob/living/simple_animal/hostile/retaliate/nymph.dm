@@ -229,8 +229,6 @@
 			body_part.brute_dam = brute_damage
 			body_part.burn_dam = fire_damage
 		else // If its not a chest AND not a head
-			for(var/obj/item/organ/nymph_organ/I in body_part)
-				QDEL_NULL(I)
 			body_part.drop_limb(TRUE)
 
 	if(!("neutral" in src.faction))

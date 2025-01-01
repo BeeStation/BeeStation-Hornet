@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/used_neworgan = FALSE
 		neworgan = SSwardrobe.provide_type(neworgan)
-		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
+		var/should_have = neworgan.get_availability(C, src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
 		if(oldorgan && (!should_have || replace_current) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
 			if(slot == ORGAN_SLOT_BRAIN)

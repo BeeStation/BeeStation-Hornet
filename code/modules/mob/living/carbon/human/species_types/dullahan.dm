@@ -165,7 +165,6 @@
 	organ_flags = NONE
 
 /obj/item/organ/tongue/dullahan
-	zone = "abstract"
 	modifies_speech = TRUE
 
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
@@ -179,13 +178,11 @@
 	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/ears/dullahan
-	zone = "abstract"
 
 /obj/item/organ/eyes/dullahan
 	name = "head vision"
 	desc = "An abstraction."
 	actions_types = list(/datum/action/item_action/organ_action/dullahan)
-	zone = "abstract"
 	tint = INFINITY // to switch the vision perspective to the head on species_gain() without issue.
 
 /datum/action/item_action/organ_action/dullahan

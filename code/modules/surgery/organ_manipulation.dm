@@ -95,7 +95,10 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(surgery.location != I.zone || target.getorganslot(I.slot))
+		var/obj/item/bodypart/target_bodypart = target.get_bodypart(surgery.location)
+		if (!target_bodypart)
+			CRASH("Surgery somehow was completed when the target didn't have the correct bodypart at [surgery.location].")
+		if (!(I.slot in target_bodypart.organ_slots))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(surgery.location)]!</span>")
 			return -1
 		var/obj/item/organ/meatslab = tool

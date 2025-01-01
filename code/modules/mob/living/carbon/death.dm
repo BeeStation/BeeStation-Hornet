@@ -47,9 +47,6 @@
 				var/obj/item/brain = getorganslot(ORGAN_SLOT_BRAIN)
 				if (brain)
 					qdel(brain)
-				brain = getorganslot(ORGAN_SLOT_IPC_BRAIN)
-				if (brain)
-					qdel(brain)
 	else
 		for(var/X in internal_organs)
 			var/obj/item/organ/I = X
