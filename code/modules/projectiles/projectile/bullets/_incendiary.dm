@@ -1,5 +1,6 @@
 /obj/projectile/bullet/incendiary
 	damage = 20
+	sharpness = 80
 	var/fire_stacks = 4
 
 /obj/projectile/bullet/incendiary/on_hit(atom/target, blocked = FALSE)

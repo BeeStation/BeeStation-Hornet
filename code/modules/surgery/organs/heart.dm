@@ -27,8 +27,6 @@
 	///Color of the heart, is set by the species on gain
 	//var/ethereal_color = "#9c3030"
 
-
-
 /obj/item/organ/heart/update_icon()
 	if(beating)
 		icon_state = "[icon_base]-on"

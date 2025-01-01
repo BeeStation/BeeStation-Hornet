@@ -4,12 +4,14 @@
 	name = "7.62x38mmR bullet"
 	damage = 55
 	armour_penetration = 12
+	sharpness = 120
 
 // .50AE (Desert Eagle)
 
 /obj/projectile/bullet/a50AE
 	name = ".50AE bullet"
 	damage = 60
+	sharpness = 140
 
 // .38 (Detective's Gun)
 
@@ -20,6 +22,7 @@
 	ricochet_chance = 50
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
+	sharpness = 90
 
 /obj/projectile/bullet/c38/match
 	name = ".38 Match bullet"
@@ -129,6 +132,7 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
+	sharpness = 140
 
 /obj/projectile/bullet/a357/improv
 	damage = 50

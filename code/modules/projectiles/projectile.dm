@@ -154,6 +154,7 @@
 	var/shrapnel_type
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
+	var/sharpness = 0
 
 /obj/projectile/Initialize(mapload)
 	. = ..()

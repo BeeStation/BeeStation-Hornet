@@ -55,7 +55,7 @@
 		var/msg
 		if(damage)
 			msg += "[user] [sharp? "impales" : "slams into"] [target] [sharp? "on" : "with"] their [parent]"
-			target.apply_damage(damage, BRUTE, user.get_combat_bodyzone(target), 0)
+			target.apply_damage(damage, BRUTE, user.get_combat_bodyzone(target), 0, damage_flag = MELEE, sharpness = I.sharpness)
 		if(prob(knockdown_chance))
 			msg += " and knocks [target] [target_buckled? "off of [target.buckled]" : "down"]"
 			if(target_buckled)

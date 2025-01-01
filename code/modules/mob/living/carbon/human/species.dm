@@ -1712,12 +1712,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+			target.apply_damage(damage*1.5, attack_type, affecting, armor_block, FALSE, MELEE, 0)
 			if((damage * 1.5) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked", "punch")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
+			target.apply_damage(damage, attack_type, affecting, armor_block, FALSE, MELEE, 0)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
@@ -1797,7 +1797,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
-	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
+	apply_damage(I.force, I.damtype, def_zone, armor_block, H, FALSE, MELEE, I.sharpness)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
@@ -1865,7 +1865,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
-/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
+/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, damage_flag = NONE, sharpness = 0)
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
 	var/hit_percent = (100-(blocked+armor))/100
 	hit_percent = (hit_percent * (100-H.physiology.damage_resistance))/100
@@ -1889,6 +1889,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(BP)
 				if(BP.receive_damage(damage_amount, 0))
 					H.update_damage_overlays()
+				if (damage_flag)
+					BP.run_limb_injuries(damage_amount, damage_flag, sharpness)
 			else//no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
@@ -1897,6 +1899,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(BP)
 				if(BP.receive_damage(0, damage_amount))
 					H.update_damage_overlays()
+				if (damage_flag)
+					BP.run_limb_injuries(damage_amount, damage_flag, sharpness)
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)

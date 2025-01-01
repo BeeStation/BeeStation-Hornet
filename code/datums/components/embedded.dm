@@ -148,6 +148,7 @@
 			to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] stings a little!</span>")
 		else
 			limb.receive_damage(brute=damage_to_deal, stamina=(pain_stam_pct * damage) + damage_as_stam)
+			limb.run_limb_injuries(damage_to_deal, MELEE, weapon.sharpness)
 			to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] hurts!</span>")
 
 	var/fallchance_current =  DT_PROB_RATE(fall_chance / 100, delta_time) * 100
@@ -170,6 +171,7 @@
 	if(harmful && prob(chance))
 		var/damage = weapon.w_class * jostle_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
+		limb.run_limb_injuries(damage, MELEE, weapon.sharpness)
 		to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] jostles and stings!</span>")
 
 
@@ -180,6 +182,7 @@
 	if(harmful)
 		var/damage = weapon.w_class * remove_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
+		limb.run_limb_injuries(damage, MELEE, weapon.sharpness)
 
 	victim.visible_message("<span class='danger'>[weapon] falls [harmful ? "out" : "off"] of [victim.name]'s [limb.name]!</span>", "<span class='userdanger'>[weapon] falls [harmful ? "out" : "off"] of your [limb.name]!</span>")
 	safeRemove()
@@ -208,6 +211,7 @@
 	if(harmful)
 		var/damage = weapon.w_class * remove_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage) //It hurts to rip it out, get surgery you dingus.
+		limb.run_limb_injuries(damage, MELEE, weapon.sharpness)
 		victim.emote("scream")
 
 	victim.visible_message("<span class='notice'>[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!</span>", "<span class='notice'>You successfully remove [weapon] from your [limb.name].</span>")
@@ -323,6 +327,7 @@
 	if(harmful && damage_multiplier)
 		var/damage = weapon.w_class * remove_pain_mult * damage_multiplier
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
+		limb.run_limb_injuries(damage, MELEE, weapon.sharpness)
 		victim.emote("scream")
 
 	//Remove it

@@ -4,6 +4,7 @@
 	icon_state = "spellcard"
 	damage_type = BRUTE
 	damage = 2
+	sharpness = 50
 
 /obj/projectile/spellcard/New(loc, spell_level)
 	. = ..()

@@ -3,22 +3,26 @@
 /obj/projectile/bullet/c45
 	name = ".45 bullet"
 	damage = 30
+	sharpness = 100
 
 // 4.6x30mm (Autorifles)
 
 /obj/projectile/bullet/c46x30mm
 	name = "4.6x30mm bullet"
 	damage = 20
+	sharpness = 100
 
 /obj/projectile/bullet/c46x30mm_ap
 	name = "4.6x30mm armor-piercing bullet"
 	damage = 15
 	armour_penetration = 40
+	sharpness = 100
 
 /obj/projectile/bullet/incendiary/c46x30mm
 	name = "4.6x30mm incendiary bullet"
 	damage = 10
 	fire_stacks = 1
+	sharpness = 100
 
 //Slightly worse disabler, but fully automatic
 /obj/projectile/bullet/c46x30mm_rubber
@@ -32,3 +36,4 @@
 	ricochet_decay_damage = 0.85
 	armour_penetration = -15
 	bleed_force = BLEED_SCRATCH
+	sharpness = 160

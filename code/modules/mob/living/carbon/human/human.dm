@@ -951,6 +951,7 @@
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
 				if(BP)
 					BP.receive_damage(36) //so 3 toolbox hits
+					BP.run_limb_injuries(36, MELEE, 0)
 
 				T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
 
@@ -977,8 +978,10 @@
 				if(BP)
 					if(T.gender == MALE)
 						BP.receive_damage(25)
+						BP.run_limb_injuries(25, MELEE, 0)
 					else
 						BP.receive_damage(15)
+						BP.run_limb_injuries(15, MELEE, 0)
 
 				T.visible_message("<span class='warning'>[src] kicks [T] in the groin!</span>", "<span class='warning'>[src] kicks you in the groin!</span")
 

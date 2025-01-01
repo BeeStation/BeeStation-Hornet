@@ -471,6 +471,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
 			var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+				affecting.run_limb_injuries(5, FIRE, 0)
 				C.update_damage_overlays()
 			return
 
@@ -481,6 +482,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
 				var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+					affecting.run_limb_injuries(5, FIRE, 0)
 					C.update_damage_overlays()
 
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.
@@ -627,6 +629,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/blockhand = 0
 	var/attackforce = 0
+	var/attackflag = MELEE
+	var/sharpness = 0
 	if(owner.get_active_held_item() == src) //this feels so hacky...
 		if(owner.active_hand_index == 1)
 			blockhand = BODY_ZONE_L_ARM
@@ -641,9 +645,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/projectile/P = hitby
 		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
+		attackflag = P.armor_flag
+		sharpness = P.sharpness
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
+		sharpness = I.sharpness
 		if(I.is_sharp())
 			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
 		if(!I.damtype == BRUTE)
@@ -668,7 +675,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
+	owner.apply_damage(attackforce, STAMINA, blockhand, block_power, FALSE, attackflag, sharpness)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	if(attackforce)
@@ -837,7 +844,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
+		U.apply_damage(7, BRUTE, affecting, 0, FALSE, MELEE, sharpness)
 
 	else
 		M.take_bodypart_damage(7)
@@ -1340,10 +1347,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		victim.visible_message("<span class='warning'>[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!</span>", \
 							"<span class='boldwarning'>OH GOD! Was that a crunch? That didn't feel good at all!!</span>")
 
-		victim.apply_damage(max(15, force), BRUTE, BODY_ZONE_HEAD)
+		victim.apply_damage(max(15, force), BRUTE, BODY_ZONE_HEAD, 0, FALSE, CONSUME, sharpness)
 		victim.losebreath += 2
 		if(tryEmbed(victim.get_bodypart(BODY_ZONE_CHEST), forced = TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
-			victim.apply_damage(max(25, force*1.5), BRUTE, BODY_ZONE_CHEST)
+			victim.apply_damage(max(25, force*1.5), BRUTE, BODY_ZONE_CHEST, 0, FALSE, CONSUME, sharpness)
 			victim.losebreath += 6
 			discover_after = FALSE
 		if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)

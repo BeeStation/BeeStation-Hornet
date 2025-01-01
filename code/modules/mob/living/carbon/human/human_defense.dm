@@ -461,9 +461,11 @@
 			switch(severity)
 				if(1)
 					L.receive_damage(0,10)
+					L.run_limb_injuries(10, FIRE, 0)
 					Paralyze(200)
 				if(2)
 					L.receive_damage(0,5)
+					L.run_limb_injuries(5, FIRE, 0)
 					Paralyze(100)
 			if(HAS_TRAIT(L, TRAIT_EASYDISMEMBER) && L.body_zone != "chest")
 				if(prob(20))
@@ -584,10 +586,12 @@
 	//DAMAGE//
 	for(var/obj/item/bodypart/affecting in damaged)
 		affecting.receive_damage(acidity, 2*acidity)
+		affecting.run_limb_injuries(2*acidity, ACID, 0)
 
 		if(affecting.name == BODY_ZONE_HEAD)
 			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity, 2*acidity)
+				affecting.run_limb_injuries(2*acidity, ACID, 0)
 				emote("scream")
 				facial_hair_style = "Shaved"
 				hair_style = "Bald"

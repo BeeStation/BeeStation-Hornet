@@ -83,6 +83,7 @@
 	to_chat(user, "<span class='userdanger'>Holy magics residing in \the [src] burn your hand!</span>")
 	var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 	affecting.receive_damage( 0, 10 )	// 10 burn damage
+	affecting.run_limb_injuries(10, FIRE, 0)
 	user.emote("scream")
 	user.update_damage_overlays()
 	user.dropItemToGround(src)

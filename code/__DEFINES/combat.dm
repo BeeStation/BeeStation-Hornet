@@ -243,10 +243,15 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
 // Object/Item sharpness
-#define BLUNT					0	//Can only remove limbs if they're easy to remove
-#define SHARP					1	//Can only remove limbs if target is dead
-#define SHARP_DISMEMBER			2	//Can only remove limbs if the limb is already disabled
-#define SHARP_DISMEMBER_EASY	3	//Has a chance equal to weapon force to remove limb on every attack, in some cases taking them off in one swing
+/// Item has no sharpness and will not penetrate armour
+#define BLUNT					0
+/// Has some sharpness, but isn't the most powerful and won't penetrate all the way to the bone
+/// Deals skin damage but cannot hurt the bone due to penetration falling off
+#define SHARP					25
+/// Item can dismember damaged limbs, or if the target has no armour at all
+#define SHARP_DISMEMBER			45
+/// Very penetrating item, dismembers easy even through armour
+#define SHARP_DISMEMBER_EASY	65
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.

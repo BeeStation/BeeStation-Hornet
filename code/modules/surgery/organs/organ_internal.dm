@@ -31,6 +31,8 @@
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
+	/// Size between 0-100, determines probability of being hit by penetrating attacks
+	var/organ_size = 25
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.

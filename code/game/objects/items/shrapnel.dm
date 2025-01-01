@@ -52,6 +52,7 @@
 	ricochet_incidence_leeway = 60
 	hit_stunned_targets = TRUE
 	bleed_force = BLEED_SURFACE
+	sharpness = 40
 
 /obj/projectile/bullet/shrapnel/mega
 	name = "flying shrapnel hunk"
