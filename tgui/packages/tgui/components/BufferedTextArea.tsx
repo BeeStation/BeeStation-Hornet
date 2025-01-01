@@ -18,7 +18,7 @@ interface BufferedTextAreaPropsUnique {
 type BufferedTextAreaProps = BufferedTextAreaPropsUnique & Record<string, unknown>;
 
 export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedTextAreaState> {
-  bufferTimer: NodeJS.Timer;
+  bufferTimer: NodeJS.Timeout;
   state = {
     bufferedText: this.props.value || '',
     textChanged: false,

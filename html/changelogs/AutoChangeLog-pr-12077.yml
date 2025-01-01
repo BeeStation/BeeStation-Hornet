@@ -1,0 +1,5 @@
+author: BarteG44
+delete-after: true
+changes:
+  - rscadd: Added a "Mapper Comment" mapping helper object visible only in a mapping
+      editor

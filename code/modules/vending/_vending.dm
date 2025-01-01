@@ -32,10 +32,8 @@
 	var/custom_price
 	///Does the item have a custom premium price override
 	var/custom_premium_price
-	/**  GAGs recolorability
 	///Whether the product can be recolored by the GAGS system
-	var/colorable
-	**/
+	//var/colorable
 	///List of items that have been returned to the vending machine.
 	var/list/returned_products
 	/// The category the product was in, if any.
@@ -348,9 +346,7 @@
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		/* GAGS recolorability
 		//R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
-		*/
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -584,12 +580,12 @@
 					freebie(user, 2)
 				if(16 to 25)
 					freebie(user, 1)
-				if(76 to 90)
+				if(26 to 40)
 					tilt(user)
-				if(91 to 100)
+				if(41 to 50)
 					tilt(user, crit=TRUE)
-				else
-					SWITCH_EMPTY_STATEMENT
+				if(51 to 100)
+					pass()
 
 /obj/machinery/vending/proc/freebie(mob/fatty, freebies)
 	visible_message("<span class='notice'>[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!</span>")
@@ -907,8 +903,8 @@
 	switch(action)
 		if("vend")
 			. = vend(params)
-		//if("select_colors")
-		//	. = select_colors(params)
+		if("select_colors")
+			. = select_colors(params)
 
 /obj/machinery/vending/proc/can_vend(user, silent=FALSE)
 	. = FALSE

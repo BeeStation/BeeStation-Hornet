@@ -702,3 +702,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		qdel(each_placer)
 	init_group.Cut()
 
+/obj/effect/mapping_helpers/Mapper_Comment //exists just to hold it's name and description to allow mappers to add comments to parts of their map in the editor.
+	name = "Mapper Comment (Read 'Desc' variable)"
+	desc = "Edit this text to your desired description."
+	icon_state = "Comment"
+	layer = TEXT_EFFECT_UI_LAYER
+
+/obj/effect/mapping_helpers/Mapper_Comment/Initialize(mapload)
+	return INITIALIZE_HINT_QDEL
+

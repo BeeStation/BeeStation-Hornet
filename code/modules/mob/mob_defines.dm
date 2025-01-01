@@ -216,6 +216,9 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	var/memory_throttle_time = 0
 
+	/// Used for tracking last uses of emotes for cooldown purposes
+	var/list/emotes_used
+
 	///Whether the mob is updating glide size when movespeed updates or not
 	var/updating_glide_size = TRUE
 
@@ -233,9 +236,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///Is the mob actively shifting?
 	var/shifting
 
-	///Currently possesses a typing indicator icon
-	var/typing_indicator = FALSE
-	/// Thinking indicator - mob has input window open
-	var/thinking_indicator = FALSE
-	/// User is thinking in character. Used to revert to thinking state after stop_typing
-	var/thinking_IC = FALSE
+	///the icon currently used for the typing indicator's bubble
+	var/active_typing_indicator
+	///the icon currently used for the thinking indicator's bubble
+	var/active_thinking_indicator
