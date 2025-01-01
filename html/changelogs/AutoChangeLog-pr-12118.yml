@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - code_imp: Downgraded dompurify to v2.5.7 due to issues with newer versions.
