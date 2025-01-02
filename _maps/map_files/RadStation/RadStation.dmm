@@ -40465,10 +40465,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
-"mTc" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
 "mTe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -109858,7 +109854,7 @@ dFC
 dFC
 wYg
 wYg
-mTc
+wYg
 dFC
 ayJ
 eFL
