@@ -9,8 +9,8 @@
 	item_state = "clip_general_hat"
 	dog_fashion = /datum/dog_fashion/head/general
 
-/obj/item/clothing/head/driphat/cowboyhat
+/obj/item/clothing/head/driphat/cowboy_hat
 	name = "Cowboy hat"
 	desc = "Likely worn by a true cowboy."
-	icon_state = "cowboyhat"
-	item_state = "cowboyhat"
+	icon_state = "cowboy_hat"
+	item_state = "cowboy_hat"
