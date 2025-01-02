@@ -109,14 +109,14 @@
 /obj/item/clothing/head/driphats/beret_grey
 	name = "Grey beret"
 	desc = "Dust coloured beret, just don't blow on it!"
-	icon_state = "beret-grey"
-	item_state = "beret-grey"
+	icon_state = "beret_grey"
+	item_state = "beret_grey"
 
 /obj/item/clothing/head/driphats/captain_bicorne
 	name = "Captain bicorne"
 	desc = "It's french, you'd normally see a mime wear this."
-	icon_state = "captain-bicorne"
-	item_state = "captain-bicorne"
+	icon_state = "captain_bicorne"
+	item_state = "captain_bicorne"
 
 /obj/item/clothing/head/driphats/beret_dark_blue
 	name = "Dark blue beret"
@@ -127,8 +127,8 @@
 /obj/item/clothing/head/driphats/beret_green
 	name = "Green beret"
 	desc = "Are you sure this is green? It's more like olive!"
-	icon_state = "beret-green"
-	item_state = "beret-green"
+	icon_state = "beret_green"
+	item_state = "beret_green"
 
 /obj/item/clothing/head/driphats/syndi_ship_commander_cap
 	name = "Old syndicate commander cap"
@@ -139,5 +139,5 @@
 /obj/item/clothing/head/driphats/beret_old
 	name = "Old beret"
 	desc = "It's been somewhere for quite a while."
-	icon_state = "beret-old"
-	item_state = "beret-old"
+	icon_state = "beret_old"
+	item_state = "beret_old"
