@@ -178,3 +178,7 @@
 /datum/dog_fashion/back/deathsquad
 	name = "Trooper REAL_NAME"
 	desc = "That's not red paint. That's real corgi blood."
+
+/datum/dog_fashion/head/general
+	name = "General REAL_NAME"
+	desc = "He will lead you to victory!"
