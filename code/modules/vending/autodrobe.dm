@@ -155,7 +155,7 @@
 				   /obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 				   /obj/item/clothing/head/chaplain/clownmitre = 1,
 		           /obj/item/skub = 1,
-				   /obj/item/clothing/mask/inteq_gas_mask = 3)
+				   /obj/item/clothing/masks/inteq_gas_mask = 3)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 	default_price = 50
