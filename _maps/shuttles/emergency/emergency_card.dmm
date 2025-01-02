@@ -789,7 +789,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile/emergency{
-	name = "Bunched emergency shuttle";
+	name = "Card emergency shuttle";
 	width = 31;
 	dir = 1;
 	preferred_direction = 8

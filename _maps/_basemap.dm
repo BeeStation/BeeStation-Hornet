@@ -4,7 +4,7 @@
 // uncomment this for a map you need to use
 // #define FORCE_MAP "corgstation"
 // #define FORCE_MAP "boxstation"
-// #define FORCE_MAP "bunchedstation"
+// #define FORCE_MAP "cardstation"
 // #define FORCE_MAP "metastation"
 // #define FORCE_MAP "deltastation"
 // #define FORCE_MAP "kilostation"
@@ -28,7 +28,7 @@
 		#include "map_files\flandstation\flandstation.dmm"
 		#include "map_files\RadStation\RadStation.dmm"
 		#include "map_files\EchoStation\EchoStation.dmm"
-		#include "map_files\BunchedStation\bunched5.dmm"
+		#include "map_files\CardStation\CardStation.dmm"
 
 		#ifdef CIBUILDING
 			#include "templates.dm"

@@ -379,9 +379,9 @@
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
 
-/datum/map_template/shuttle/emergency/bunched
-	suffix = "bunched"
-	name = "Bunched Station Emergency Shuttle"
+/datum/map_template/shuttle/emergency/card
+	suffix = "card"
+	name = "Card Station Emergency Shuttle"
 	credit_cost = 2000
 	description = "Bazinga."
 
@@ -716,9 +716,9 @@
 	name = "exploration shuttle"
 	can_be_bought = FALSE
 
-/datum/map_template/shuttle/exploration/bunched
-	suffix = "bunched"
-	name = "bunched exploration shuttle"
+/datum/map_template/shuttle/exploration/card
+	suffix = "card"
+	name = "card exploration shuttle"
 
 /datum/map_template/shuttle/exploration/corg
 	suffix = "corg"
@@ -752,21 +752,21 @@
 	suffix = "delta"
 	name = "arrival shuttle (Delta)"
 
-/datum/map_template/shuttle/arrival/bunched
-	suffix = "bunched"
-	name = "arrival shuttle (Bunched)"
+/datum/map_template/shuttle/arrival/card
+	suffix = "card"
+	name = "arrival shuttle (Card)"
 
-/datum/map_template/shuttle/cargo/bunched
-	suffix = "bunched"
-	name = "cargo ferry (Bunched)"
+/datum/map_template/shuttle/cargo/card
+	suffix = "card"
+	name = "cargo ferry (Card)"
 
-/datum/map_template/shuttle/mining/bunched
-	suffix = "bunched"
-	name = "mining shuttle (Bunched)"
+/datum/map_template/shuttle/mining/card
+	suffix = "card"
+	name = "mining shuttle (Card)"
 
-/datum/map_template/shuttle/labour/bunched
-	suffix = "bunched"
-	name = "labour shuttle (Bunched)"
+/datum/map_template/shuttle/labour/card
+	suffix = "card"
+	name = "labour shuttle (Card)"
 
 /datum/map_template/shuttle/arrival/kilo
 	suffix = "kilo"

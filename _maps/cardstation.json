@@ -1,0 +1,12 @@
+{
+	"map_name": "Card Station",
+	"map_link": "cardstation",
+	"map_path": "map_files/CardStation",
+	"map_file": "cardstation.dmm",
+	"shuttles": {
+		"cargo": "cargo_card",
+		"ferry": "ferry_standard",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_card"
+	}
+}
