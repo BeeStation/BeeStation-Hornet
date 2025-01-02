@@ -54,6 +54,7 @@
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
 				/obj/item/clothing/head/fedora = 1,
+				/obj/item/clothing/head/driphat/cowboyhat = 1,
 				/obj/item/clothing/head/cowboy = 1,
 				/obj/item/clothing/head/costume/sombrero = 1,
 
