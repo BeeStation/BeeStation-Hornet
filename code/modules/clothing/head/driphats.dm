@@ -105,3 +105,39 @@
 	desc = "A bowler with some REAL style!"
 	icon_state = "purple_bowler"
 	item_state = "purple_bowler"
+
+/obj/item/clothing/head/driphats/beret_grey
+	name = "Grey beret"
+	desc = "Dust coloured beret, just don't blow on it!"
+	icon_state = "beret-grey"
+	item_state = "beret-grey"
+
+/obj/item/clothing/head/driphats/captain_bicorne
+	name = "Captain bicorne"
+	desc = "It's french, you'd normally see a mime wear this."
+	icon_state = "captain-bicorne"
+	item_state = "captain-bicorne"
+
+/obj/item/clothing/head/driphats/beret_dark_blue
+	name = "Dark blue beret"
+	desc = "A beret with a nice cool shade of dark blue."
+	icon_state = "beret_dark_blue"
+	item_state = "beret_dark_blue"
+
+/obj/item/clothing/head/driphats/beret_green
+	name = "Green beret"
+	desc = "Are you sure this is green? It's more like olive!"
+	icon_state = "beret-green"
+	item_state = "beret-green"
+
+/obj/item/clothing/head/driphats/syndi_ship_commander_cap
+	name = "Old syndicate commander cap"
+	desc = "Some say this cap was made in the 84th of the 20th century"
+	icon_state = "syndi_ship_commander_cap"
+	item_state = "syndi_ship_commander_cap"
+
+/obj/item/clothing/head/driphats/beret_old
+	name = "Old beret"
+	desc = "It's been somewhere for quite a while."
+	icon_state = "beret-old"
+	item_state = "beret-old"

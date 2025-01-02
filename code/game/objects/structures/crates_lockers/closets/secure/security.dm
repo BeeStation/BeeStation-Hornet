@@ -56,6 +56,7 @@
 	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/head/driphats/clip_general_hat(src)
 	new /obj/item/clothing/head/driphats/cowboy_cap(src)
+	new /obj/item/clothing/head/driphats/captain_bicorne(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/hop
