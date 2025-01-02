@@ -3992,6 +3992,7 @@
 "aXZ" = (
 /obj/machinery/computer/cargo,
 /obj/machinery/newscaster/directional/north,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "aYi" = (
@@ -8188,6 +8189,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "bXk" = (
@@ -8710,6 +8712,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "cbY" = (
@@ -10733,6 +10738,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 28
 	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/stairs/left{
 	dir = 4
 	},
@@ -13240,6 +13246,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black,
 /obj/structure/window/plasma/reinforced,
 /obj/structure/railing,
+/obj/effect/turf_decal/siding/purple,
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -13482,7 +13489,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/preopen{
 	id = "hosprivacy";
 	name = "HoS Privacy Blast Door"
 	},
@@ -16697,6 +16704,9 @@
 	},
 /obj/machinery/door/window/brigdoor/northright,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "eaE" = (
@@ -17434,6 +17444,13 @@
 	dir = 1
 	},
 /area/hallway/primary/starboard)
+"ekj" = (
+/obj/structure/closet/secure_closet/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/machinery/camera/directional/south,
+/turf/open/floor/vault/rock,
+/area/quartermaster/miningoffice)
 "ekB" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -19815,6 +19832,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/portable_thermomachine,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
 "eRQ" = (
@@ -21574,6 +21592,15 @@
 	},
 /obj/effect/turf_decal/trimline/dark_red/filled/line,
 /obj/machinery/camera/directional/south,
+/obj/machinery/button/door{
+	name = "Privacy Shutters";
+	id = "hosprivacy";
+	pixel_y = -24
+	},
+/obj/machinery/light_switch/directional/south{
+	pixel_x = 10;
+	pixel_y = -23
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "fpL" = (
@@ -24682,7 +24709,6 @@
 /area/engine/storage_shared)
 "gcO" = (
 /obj/machinery/disposal/bin,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/box,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -25628,6 +25654,7 @@
 	dir = 8;
 	id = "cargolobbyin"
 	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/monotile/steel,
 /area/quartermaster/storage)
 "gnk" = (
@@ -27370,6 +27397,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
 	dir = 2
+	},
+/obj/effect/turf_decal/siding/purple{
+	dir = 8
 	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
@@ -29855,7 +29885,9 @@
 /obj/effect/turf_decal/alphabet/letter_l{
 	dir = 4
 	},
-/turf/open/floor/iron/half,
+/turf/open/floor/iron/half{
+	dir = 1
+	},
 /area/hallway/primary/fore)
 "hlf" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
@@ -32795,14 +32827,14 @@
 /turf/open/floor/carpet/black,
 /area/bridge)
 "hVG" = (
-/obj/structure/sign/warning/radiation{
-	pixel_x = 32
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
+	},
+/obj/structure/sign/warning/radiation{
+	pixel_x = 32
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/bridge)
@@ -38947,6 +38979,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
 "jyF" = (
@@ -39005,6 +39038,10 @@
 "jzq" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/siding/wideplating_new,
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 1
+	},
 /turf/open/floor/iron/textured_half,
 /area/hallway/upper/primary/starboard)
 "jzs" = (
@@ -40213,7 +40250,6 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/machinery/light_switch/directional/west,
 /obj/item/computer_hardware/hard_drive/role/detective{
 	pixel_y = 3;
 	pixel_x = -2
@@ -42753,13 +42789,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
 "ksE" = (
-/obj/machinery/door/window/brigdoor/southright,
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /obj/structure/railing/corner,
 /obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple,
+/obj/machinery/door/window/brigdoor/southright,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "ksL" = (
@@ -43475,10 +43512,13 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/yellow/warning{
-	dir = 5
+	dir = 1
 	},
 /obj/effect/turf_decal/trimline/yellow/warning{
-	dir = 5
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/window{
 	id = "gateshutter";
@@ -43620,19 +43660,16 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
 "kEk" = (
-/obj/effect/turf_decal/trimline/yellow/warning{
-	dir = 4
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "6-9"
 	},
-/obj/effect/turf_decal/trimline/yellow/warning{
+/obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/window{
 	id = "gateshutter";
 	name = "Gateway Access Shutter"
-	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "6-9"
 	},
 /turf/open/floor/iron/techmaint,
 /area/gateway)
@@ -44941,7 +44978,9 @@
 /obj/effect/turf_decal/alphabet/letter_a{
 	dir = 4
 	},
-/turf/open/floor/iron/half,
+/turf/open/floor/iron/half{
+	dir = 1
+	},
 /area/hallway/primary/fore)
 "kWd" = (
 /obj/effect/turf_decal/siding/white/corner{
@@ -48061,6 +48100,9 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/purple{
+	dir = 4
+	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 8
 	},
@@ -50217,11 +50259,10 @@
 /area/science/mixing)
 "mjf" = (
 /obj/effect/turf_decal/siding/yellow,
-/obj/effect/turf_decal/trimline/yellow/warning{
-	dir = 6
-	},
-/obj/effect/turf_decal/trimline/yellow/warning{
-	dir = 6
+/obj/effect/turf_decal/trimline/yellow/warning,
+/obj/effect/turf_decal/trimline/yellow/warning,
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/window{
 	id = "gateshutter";
@@ -52878,7 +52919,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "mQw" = (
-/turf/closed/mineral/ash_rock,
+/turf/closed/mineral/ash_rock/station,
 /area/security/nuke_storage)
 "mQx" = (
 /turf/closed/wall,
@@ -52945,6 +52986,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "mRv" = (
@@ -54098,6 +54140,7 @@
 /obj/structure/window/plasma/reinforced,
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "ngy" = (
@@ -58417,6 +58460,10 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/turf_decal/siding/wideplating_new,
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 1
+	},
 /turf/open/floor/iron/textured_half,
 /area/hallway/upper/primary/starboard)
 "ogD" = (
@@ -63479,6 +63526,9 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/portable_atmospherics/canister,
+/obj/effect/turf_decal/siding/purple{
+	dir = 8
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "prl" = (
@@ -63620,6 +63670,7 @@
 /obj/machinery/computer/bounty{
 	dir = 4
 	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/storage)
 "psR" = (
@@ -65262,11 +65313,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/machinery/button/door{
-	name = "Privacy Shutters";
-	id = "hosprivacy";
-	pixel_y = -24
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "pOb" = (
@@ -66741,6 +66787,13 @@
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
+"qhV" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron/grid/steel,
+/area/quartermaster/storage)
 "qhZ" = (
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/dark/smooth_edge{
@@ -68214,6 +68267,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/vault/rock,
 /area/quartermaster/miningdock)
 "qBt" = (
@@ -68885,6 +68939,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "qIO" = (
@@ -70032,6 +70089,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 8
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "qXi" = (
@@ -71043,6 +71103,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/vault/rock,
 /area/quartermaster/miningoffice)
 "rkQ" = (
@@ -71349,6 +71410,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/broken_bottle,
+/obj/effect/turf_decal/siding/purple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/construction)
 "roV" = (
@@ -71993,6 +72057,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
@@ -74899,6 +74964,10 @@
 	icon_state = "0-10"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor{
+	id = "hosprivacybed";
+	name = "HoS Privacy Blast Door"
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "six" = (
@@ -76965,6 +77034,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 8
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "sKi" = (
@@ -77657,7 +77729,7 @@
 /obj/machinery/light/small/directional/south,
 /obj/machinery/button/door{
 	name = "Privacy Shutters";
-	id = "hosprivacy";
+	id = "hosprivacybed";
 	pixel_y = -24
 	},
 /turf/open/floor/carpet/red,
@@ -78662,7 +78734,7 @@
 /area/medical/virology)
 "tfm" = (
 /obj/structure/cable/yellow,
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/preopen{
 	id = "hosprivacy";
 	name = "HoS Privacy Blast Door"
 	},
@@ -79192,7 +79264,7 @@
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/siding/purple{
-	dir = 4
+	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/construction)
@@ -81263,6 +81335,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "tKE" = (
@@ -82193,6 +82268,10 @@
 	icon_state = "0-9"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor{
+	id = "hosprivacybed";
+	name = "HoS Privacy Blast Door"
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "tVT" = (
@@ -82872,6 +82951,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/purple{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "uep" = (
@@ -83887,7 +83969,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/white/corner{
 	dir = 8
 	},
@@ -88054,6 +88135,15 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"voF" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor{
+	id = "hosprivacybed";
+	name = "HoS Privacy Blast Door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
 "voG" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 5
@@ -89436,6 +89526,9 @@
 	dir = 4;
 	color = "#9b1d70"
 	},
+/obj/effect/turf_decal/siding/purple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/construction)
 "vEP" = (
@@ -89498,6 +89591,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4{
 	dir = 6
+	},
+/obj/effect/turf_decal/siding/purple{
+	dir = 1
 	},
 /turf/open/floor/iron/smooth_edge,
 /area/engine/atmos)
@@ -90980,6 +91076,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/light_switch/directional/south,
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "vUX" = (
@@ -92325,6 +92422,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible/layer4{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/purple{
 	dir = 1
 	},
 /turf/open/floor/iron/smooth_edge,
@@ -97803,6 +97903,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/portable_atmospherics/canister,
+/obj/effect/turf_decal/siding/purple{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "xFc" = (
@@ -98926,6 +99029,7 @@
 	},
 /obj/item/target/clown,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "xSz" = (
@@ -99399,6 +99503,7 @@
 /obj/item/food/donut/berry{
 	name = "suspicious pink donut"
 	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "xZj" = (
@@ -135741,7 +135846,7 @@ qeO
 jQh
 vQX
 hUY
-byp
+qhV
 iGQ
 tHi
 sQc
@@ -138068,7 +138173,7 @@ kon
 jUO
 stm
 oNU
-oNU
+ekj
 agD
 efV
 dyH
@@ -143108,7 +143213,7 @@ hyT
 hyT
 hyT
 hyT
-tfm
+voF
 ggH
 ivT
 lAt
@@ -143365,7 +143470,7 @@ nzj
 nzj
 nzj
 hyT
-tfm
+voF
 pXA
 hAM
 sTd
@@ -143622,7 +143727,7 @@ nzj
 nzj
 nzj
 hyT
-tfm
+voF
 bSK
 pgC
 lOd
@@ -143880,9 +143985,9 @@ nzj
 nzj
 nzj
 phN
-tfm
-tfm
-tfm
+voF
+voF
+voF
 phN
 lQk
 jsd
