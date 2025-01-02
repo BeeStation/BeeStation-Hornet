@@ -97,8 +97,8 @@
 /obj/item/clothing/head/driphats/syndi_gold_cap
 	name = "Cybersun loyalist cap"
 	desc = "Only the most loyal to the syndicate has worn this."
-	icon_state = "stylist_hat"
-	item_state = "stylist_hat"
+	icon_state = "syndi_gold_cap"
+	item_state = "syndi_gold_cap"
 
 /obj/item/clothing/head/driphats/purple_bowler
 	name = "Purple bowler"
