@@ -82,7 +82,9 @@
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/head/soft/paramedic = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
-					/obj/item/clothing/mask/surgical = 4)
+					/obj/item/clothing/mask/surgical = 4,
+					/obj/item/clothing/head/hat/soft/medical_ship_cap = 4
+					/obj/item/clothing/head/hat/soft/alt_medical_ship_cap = 4)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
@@ -174,7 +176,8 @@
 		/obj/item/clothing/under/misc/mailman = 2,
 		/obj/item/storage/backpack/satchel/mail = 2,
 		/obj/item/clothing/under/plasmaman/mailman = 2,
-		/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
+		/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2,
+		/obj/item/clothing/head/hats/soft/cargointel_cap = 2
 	)
 	contraband = list(
 		/obj/item/radio/headset/headset_quartermaster = 1,

@@ -139,3 +139,18 @@
 	name = "ERROR cap"
 	desc = "It's a baseball hat in a tasteless ERROR ERROR ERROR ERROR ERROR ERROR!!!!"
 	icon_state = "deniedsoft"
+
+/obj/item/clothing/head/soft/medical_ship_cap
+	name = "Surgery cap"
+	desc = "Why would you wear this during surgery?"
+	icon_state = medical_ship_capsoft
+
+/obj/item/clothing/head/soft/alt_medical_ship_cap
+	name = "Medical cap"
+	desc = "Have some style when healing your comrades."
+	icon_state = alt_medical_ship_capsoft
+
+/obj/item/clothing/head/soft/cargointel_cap
+	name = "Ancient cargo cap"
+	desc = "Worn by the ancestors of cargo, it's an honour to wear this!"
+	icon_state = cargointel_capsoft
