@@ -30,7 +30,7 @@
 				/obj/item/clothing/head/driphats/beret_grey = 3,
 				/obj/item/clothing/head/driphats/beret_dark_blue = 3,
 				/obj/item/clothing/head/driphats/beret_green = 3,
-				/obj/item/clothing/head/driphats/beret_old = 1
+				/obj/item/clothing/head/driphats/beret_old = 1,
 				/obj/item/clothing/head/beret/black = 3,
 				/obj/item/clothing/mask/bandana = 3,
 				/obj/item/clothing/mask/bandana/striped = 3,
