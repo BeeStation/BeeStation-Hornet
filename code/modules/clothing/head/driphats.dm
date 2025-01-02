@@ -72,7 +72,7 @@
 
 /obj/item/clothing/head/driphats/flamebearer_hat
 	name = "Flamebearer hat"
-	desc = "Whoever wears this will look sick no matter what!"
+	desc = "Forged by flames, but doesn't even hold any magical properties."
 	icon_state = "flamebearer_hat"
 	item_state = "flamebearer_hat"
 
