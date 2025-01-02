@@ -282,3 +282,16 @@
 /obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
 	voice_change = !voice_change
 	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
+
+/obj/item/clothing/mask/inteq_gas_mask
+	name = "Ruined gas mask"
+	desc = "Found of a strange space ruin by Nanotrasen explorers, safety not guaranteed."
+	icon_state = "inteq_gas_mask"
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	w_class = WEIGHT_CLASS_NORMAL
+	item_state = "inteq_gas_mask"
+	gas_transfer_coefficient = 0.01
+	armor_type = /datum/armor/mask_gas
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	resistance_flags = NONE
