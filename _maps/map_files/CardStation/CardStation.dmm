@@ -3589,6 +3589,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
+"aTN" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron/grid/steel,
+/area/quartermaster/storage)
 "aTO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -13238,6 +13245,17 @@
 /obj/machinery/light_switch/directional/north,
 /turf/open/floor/carpet,
 /area/medical/exam_room)
+"dfh" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "dfG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass,
@@ -17444,13 +17462,6 @@
 	dir = 1
 	},
 /area/hallway/primary/starboard)
-"ekj" = (
-/obj/structure/closet/secure_closet/miner,
-/obj/item/clothing/suit/hooded/wintercoat/miner,
-/obj/item/tank/internals/oxygen/yellow,
-/obj/machinery/camera/directional/south,
-/turf/open/floor/vault/rock,
-/area/quartermaster/miningoffice)
 "ekB" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -27980,6 +27991,7 @@
 "gOu" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/effect/landmark/event_spawn,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/checker,
 /area/vacant_room/commissary/commissaryFood)
 "gOy" = (
@@ -28599,7 +28611,6 @@
 /turf/open/floor/iron/tiled,
 /area/medical/sleeper)
 "gVg" = (
-/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/trimline/white/filled/line{
 	dir = 5
 	},
@@ -30661,6 +30672,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/east,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/aft)
 "hvJ" = (
@@ -45891,6 +45903,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-9"
 	},
+/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "lfW" = (
@@ -55110,6 +55123,15 @@
 /obj/effect/spawner/xmastree/rdrod,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hor)
+"nrd" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosprivacy";
+	name = "HoS Privacy Blast Door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
 "nrj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -66433,6 +66455,7 @@
 /obj/structure/chair/fancy/bench/corporate{
 	cover_color = "#334E6D"
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "qew" = (
@@ -66787,13 +66810,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
-"qhV" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/grid/steel,
-/area/quartermaster/storage)
 "qhZ" = (
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/dark/smooth_edge{
@@ -78734,8 +78750,8 @@
 /area/medical/virology)
 "tfm" = (
 /obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
+/obj/machinery/door/poddoor{
+	id = "hosprivacybed";
 	name = "HoS Privacy Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
@@ -79184,6 +79200,7 @@
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 4
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "tmj" = (
@@ -85032,6 +85049,13 @@
 	dir = 1
 	},
 /area/science/research)
+"uCe" = (
+/obj/structure/closet/secure_closet/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/machinery/camera/directional/south,
+/turf/open/floor/vault/rock,
+/area/quartermaster/miningoffice)
 "uCh" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 8
@@ -88135,15 +88159,6 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
-"voF" = (
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor{
-	id = "hosprivacybed";
-	name = "HoS Privacy Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/crew_quarters/heads/hos)
 "voG" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 5
@@ -95369,6 +95384,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/wood,
 /area/crew_quarters/fitness/recreation)
 "wXV" = (
@@ -99021,6 +99037,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/aft)
 "xSr" = (
@@ -131412,7 +131429,7 @@ nNl
 odc
 viE
 gbu
-gbu
+dfh
 gbu
 sMY
 odc
@@ -135846,7 +135863,7 @@ qeO
 jQh
 vQX
 hUY
-qhV
+aTN
 iGQ
 tHi
 sQc
@@ -138173,7 +138190,7 @@ kon
 jUO
 stm
 oNU
-ekj
+uCe
 agD
 efV
 dyH
@@ -140903,7 +140920,7 @@ phN
 phN
 diz
 cuN
-tfm
+nrd
 phN
 ufR
 gds
@@ -143213,7 +143230,7 @@ hyT
 hyT
 hyT
 hyT
-voF
+tfm
 ggH
 ivT
 lAt
@@ -143470,7 +143487,7 @@ nzj
 nzj
 nzj
 hyT
-voF
+tfm
 pXA
 hAM
 sTd
@@ -143727,7 +143744,7 @@ nzj
 nzj
 nzj
 hyT
-voF
+tfm
 bSK
 pgC
 lOd
@@ -143985,9 +144002,9 @@ nzj
 nzj
 nzj
 phN
-voF
-voF
-voF
+tfm
+tfm
+tfm
 phN
 lQk
 jsd
