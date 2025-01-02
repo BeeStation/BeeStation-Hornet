@@ -53569,6 +53569,13 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
+"nFq" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/item/clothing/shoes/jackboots,
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "nFF" = (
 /obj/effect/turf_decal/guideline/guideline_mid/darkblue{
 	dir = 1
@@ -79456,6 +79463,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
+"unP" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/item/clothing/shoes/jackboots_replica/white,
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "unR" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -83658,6 +83672,13 @@
 	broken = 1
 	},
 /area/maintenance/starboard/fore)
+"vnI" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/item/clothing/shoes/jackboots_replica,
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "vnP" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
@@ -121671,7 +121692,7 @@ tvG
 snc
 tCP
 sAh
-xPG
+nFq
 fgd
 roS
 tTc
@@ -121928,7 +121949,7 @@ avq
 kmD
 lPp
 piR
-xPG
+vnI
 fYe
 keB
 xGp
@@ -122185,7 +122206,7 @@ xyi
 lwy
 sda
 sAh
-xPG
+unP
 aLl
 fiO
 xGp
