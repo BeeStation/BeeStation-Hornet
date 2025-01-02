@@ -52,37 +52,37 @@
 	icon_state = "beige_hat"
 	item_state = "beige_hat"
 
-	/obj/item/clothing/head/driphats/feathered_fedora
+/obj/item/clothing/head/driphats/feathered_fedora
 	name = "Feathered fedora"
 	desc = "How long has the feather been there?"
 	icon_state = "feathered_fedora"
 	item_state = "feathered_fedora"
 
-	/obj/item/clothing/head/driphats/brown_tophat
+/obj/item/clothing/head/driphats/brown_tophat
 	name = "Brown tophat"
 	desc = "Dust free, or not? Who knows!"
 	icon_state = "brown_tophat"
 	item_state = "brown_tophat"
 
-	/obj/item/clothing/head/driphats/grey_tophat
+/obj/item/clothing/head/driphats/grey_tophat
 	name = "Grey tophat"
 	desc = "Is it grey or gray? We will never decide."
 	icon_state = "grey_tophat"
 	item_state = "grey_tophat"
 
-	/obj/item/clothing/head/driphats/flamebearer_hat
+/obj/item/clothing/head/driphats/flamebearer_hat
 	name = "Flamebearer hat"
 	desc = "Whoever wears this will look sick no matter what!"
 	icon_state = "flamebearer_hat"
 	item_state = "flamebearer_hat"
 
-	/obj/item/clothing/head/driphats/ancient_hat
+/obj/item/clothing/head/driphats/ancient_hat
 	name = "Ancient hat"
 	desc = "When was this thing made, more importantly, how old is the feather?!"
 	icon_state = "ancient_hat"
 	item_state = "ancient_hat"
 
-	/obj/item/clothing/head/driphats/stylist_hat
+/obj/item/clothing/head/driphats/stylist_hat
 	name = "Stylist hat"
 	desc = "This hat has some STYLE to it!"
 	icon_state = "stylist_hat"
