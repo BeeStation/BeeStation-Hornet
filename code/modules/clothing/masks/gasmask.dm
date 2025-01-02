@@ -283,10 +283,9 @@
 	voice_change = !voice_change
 	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
 
-/obj/item/clothing/mask/inteq_gas_mask
+/obj/item/clothing/masks/inteq_gas_mask
 	name = "Ruined gas mask"
-	desc = "Found of a strange space ruin by Nanotrasen explorers, safety not guaranteed."
+	desc = "Found in a strange space ruin by Nanotrasen explorers, safety not guaranteed."
 	icon_state = "inteq_gas_mask"
 	item_state = "inteq_gas_mask"
-	gas_transfer_coefficient = 0.01
 	armor_type = /datum/armor/mask_gas
