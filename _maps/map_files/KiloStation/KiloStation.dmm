@@ -31932,6 +31932,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/prison,
 /area/security/prison)
+"irO" = (
+/obj/machinery/air_sensor/engine_chamber,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "irP" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -58492,15 +58496,18 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
 	dir = 1
 	},
-/obj/machinery/airalarm{
-	pixel_y = -24
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm/directional/south,
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "engine"
+	},
+/obj/effect/mapping_helpers/airalarm/unlocked,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engineering)
 "qVh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -117795,7 +117802,7 @@ uWK
 xnL
 svb
 aUO
-ayn
+irO
 azm
 ayn
 axX

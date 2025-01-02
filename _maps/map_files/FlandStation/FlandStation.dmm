@@ -10426,7 +10426,6 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
 	},
-/obj/machinery/air_sensor/engine_chamber,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cKl" = (
@@ -53847,7 +53846,7 @@
 	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/iron/ameridiner,
-/area/engine/supermatter)
+/area/engine/engine_room)
 "nKL" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -65689,12 +65688,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = 24
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "engine"
 	},
+/obj/effect/mapping_helpers/airalarm/unlocked,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /turf/open/floor/iron/ameridiner,
-/area/engine/supermatter)
+/area/engine/engine_room)
 "qRl" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/turf_decal/tile/green/opposingcorners{
@@ -89848,6 +89849,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
 	},
+/obj/machinery/air_sensor/engine_chamber,
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},

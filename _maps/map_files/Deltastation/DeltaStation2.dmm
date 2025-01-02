@@ -4977,10 +4977,6 @@
 /area/engine/atmospherics_engine)
 "aEt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm{
-	pixel_y = 23;
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4990,8 +4986,14 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "engine"
+	},
+/obj/effect/mapping_helpers/airalarm/unlocked,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /turf/open/floor/iron,
-/area/engine/supermatter)
+/area/engine/atmospherics_engine)
 "aEu" = (
 /obj/machinery/meter,
 /obj/structure/cable{
@@ -12803,6 +12805,10 @@
 /obj/machinery/computer/security/telescreen/entertainment,
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain)
+"bJB" = (
+/obj/machinery/air_sensor/engine_chamber,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "bJL" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -120536,7 +120542,7 @@ avb
 awh
 axz
 ayK
-axz
+bJB
 aAW
 axz
 uYS

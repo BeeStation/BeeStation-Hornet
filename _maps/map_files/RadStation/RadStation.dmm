@@ -16052,14 +16052,16 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = -23
-	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "Gas to Filter"
 	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/link{
+	chamber_id = "engine"
+	},
+/obj/effect/mapping_helpers/airalarm/unlocked,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "fbJ" = (
