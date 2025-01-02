@@ -54,6 +54,7 @@
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/head/hats/caphat/parade(src)
 	new /obj/item/clothing/head/costume/crown/fancy(src)
+	new /obj/item/clothing/head/driphats/clip_general_hat(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/hop
