@@ -182,3 +182,4 @@
 /datum/dog_fashion/head/general
 	name = "General REAL_NAME"
 	desc = "He will lead you to victory!"
+	obj_icon_state = "general"
