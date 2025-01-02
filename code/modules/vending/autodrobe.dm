@@ -78,6 +78,9 @@
 					/obj/item/clothing/head/costume/pirate/bandana = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
 					/obj/item/clothing/head/costume/ushanka = 1,
+					/obj/item/clothing/head/driphats/helm_desert = 1,
+					/obj/item/clothing/head/driphats/helm_wood = 1,
+					/obj/item/clothing/head/driphats/helm_snow = 1,
 					/obj/item/clothing/suit/costume/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,
 					/obj/item/clothing/suit/chaplainsuit/holidaypriest = 1,
@@ -142,6 +145,8 @@
 						/obj/item/gun/magic/wand = 2,
 						/obj/item/clothing/glasses/sunglasses/advanced/garb = 2,
 						/obj/item/clothing/glasses/blindfold = 1,
+						/obj/item/clothing/head/driphats/operatorhelm = 1,
+						/obj/item/clothing/head/driphats/helm_degraded_urban = 1,
 						/obj/item/clothing/mask/muzzle = 2)
 
 	premium = list(/obj/item/clothing/suit/costume/pirate/captain = 2,
@@ -155,6 +160,7 @@
 				   /obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 				   /obj/item/clothing/head/chaplain/clownmitre = 1,
 		           /obj/item/skub = 1,
+				   /obj/item/clothing/head/driphats/traumahelm = 1,
 				   /obj/item/clothing/mask/gas/atmos/ruined_gas_mask = 3)
 
 	refill_canister = /obj/item/vending_refill/autodrobe

@@ -146,3 +146,68 @@
 	desc = "It's been somewhere for quite a while."
 	icon_state = "beret_old"
 	item_state = "beret_old"
+
+/obj/item/clothing/head/driphats/security_ship_helmet
+	name = "Black helmet"
+	desc = "A standardized nanotrasen helmet, painted black, used by the most daring."
+	icon_state = "security_ship_helmet"
+	item_state = "security_ship_helmet"
+	armor_type = /datum/armor/beret_sec
+	strip_delay = 60
+
+/obj/item/clothing/head/driphats/security_ship_swat
+	name = "Reinforced black helmet"
+	desc = "A reinforced standardized helmet, found by Nanotrasen explorer."
+	icon_state = "security_ship_swat"
+	item_state = "security_ship_swat"
+	armor_type = /datum/armor/helmet_swat
+	strip_delay = 80
+
+/obj/item/clothing/head/driphats/operatorhelm
+	name = "Degraded operator helmet"
+	desc = "Feels like it hasn't been used for a while, not recommended to be used for safety reasons."
+	icon_state = "operatorhelm"
+	item_state = "operatorhelm"
+
+/obj/item/clothing/head/driphats/traumahelm
+	name = "Decommissioned trama helmet"
+	desc = "Used to be used by surgeons who treated the wounded on a battlefield, no longer used galactically."
+	icon_state = "traumahelm"
+	item_state = "traumahelm"
+	armor_type = /datum/armor/traumahelmet
+
+/datum/armor/traumahelmet
+	melee = 5
+	bullet = 5
+	laser = 5
+	energy = 5
+	bomb = 5
+	fire = 5
+	acid = 5
+	stamina = 5
+	bleed = 5
+
+/obj/item/clothing/head/driphats/helm_desert
+	name = "Worn desert helmet"
+	desc = "Its been worn out from constant usage in sandy enviroments."
+	icon_state = "helm_desert"
+	item_state = "helm_desert"
+
+/obj/item/clothing/head/driphats/helm_wood
+	name = "Worn wood helmet"
+	desc = "Its been worn out from constant usage in woodland enviroments."
+	icon_state = "helm_wood"
+	item_state = "helm_wood"
+
+/obj/item/clothing/head/driphats/helm_snow
+	name = "Worn snow helmet"
+	desc = "Its been worn out from constant usage in snowy enviroments."
+	icon_state = "helm_snow"
+	item_state = "helm_snow"
+
+/obj/item/clothing/head/driphats/helm_degraded_urban
+	name = "Degraded urban helmet"
+	desc = "Barely protecting its wearer from harm, absolutely destroyed from excessive use in urban enviroments."
+	icon_state = "helm_degraded_urban"
+	item_state = "helm_degraded_urban"
+	armor_type = /datum/armor/traumahelmet

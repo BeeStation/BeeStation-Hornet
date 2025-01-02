@@ -46,6 +46,8 @@
 		/obj/item/clothing/under/rank/security/officer/formal = 3,
 		/obj/item/clothing/suit/jacket/officer/blue = 3,
 		/obj/item/clothing/head/beret/sec/navyofficer = 3,
+		/obj/item/clothing/head/driphats/security_ship_helmet = 3,
+		/obj/item/clothing/head/driphats/security_ship_swat = 3,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
