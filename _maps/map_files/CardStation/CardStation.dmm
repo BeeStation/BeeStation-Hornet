@@ -1663,6 +1663,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"avK" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/medical/surgery/aux)
 "avM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -3589,13 +3596,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
-"aTN" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/grid/steel,
-/area/quartermaster/storage)
 "aTO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -4594,6 +4594,13 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/noslip/standard,
 /area/crew_quarters/cryopods)
+"bfl" = (
+/obj/structure/closet/secure_closet/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/machinery/camera/directional/south,
+/turf/open/floor/vault/rock,
+/area/quartermaster/miningoffice)
 "bfr" = (
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/carpet/orange,
@@ -6201,10 +6208,9 @@
 "byI" = (
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
+/obj/machinery/door/window/brigdoor/westleft{
 	name = "Medical Booth";
-	req_one_access_txt = "5";
-	dir = 8
+	req_one_access_txt = "5"
 	},
 /obj/structure/desk_bell,
 /turf/open/floor/plating,
@@ -13245,17 +13251,6 @@
 /obj/machinery/light_switch/directional/north,
 /turf/open/floor/carpet,
 /area/medical/exam_room)
-"dfh" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "dfG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass,
@@ -17933,6 +17928,9 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/white/textured_half{
 	dir = 4
 	},
@@ -40305,6 +40303,13 @@
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/bridge)
+"jOW" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron/grid/steel,
+/area/quartermaster/storage)
 "jOY" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -43929,7 +43934,7 @@
 	req_access_txt = "37"
 	},
 /obj/item/folder{
-	pixel_x = 16
+	pixel_x = 20
 	},
 /obj/item/flashlight/lamp/green{
 	pixel_x = -3;
@@ -49620,6 +49625,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"mbN" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/medical/surgery/aux)
 "mbO" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 6
@@ -55123,15 +55135,6 @@
 /obj/effect/spawner/xmastree/rdrod,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hor)
-"nrd" = (
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/crew_quarters/heads/hos)
 "nrj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57185,6 +57188,9 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/white/textured,
 /area/medical/surgery/aux)
 "nRd" = (
@@ -65507,6 +65513,9 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white/textured,
 /area/medical/surgery/aux)
 "pRi" = (
@@ -72273,6 +72282,11 @@
 "ryU" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/white,
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/pen,
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "rze" = (
@@ -77404,6 +77418,11 @@
 "sOA" = (
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/pen,
 /turf/open/floor/iron/white,
 /area/medical/surgery/aux)
 "sOJ" = (
@@ -79265,6 +79284,9 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/white/textured,
 /area/medical/surgery/aux)
 "tmX" = (
@@ -80916,6 +80938,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"tFT" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "tFW" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 8
@@ -85049,13 +85082,6 @@
 	dir = 1
 	},
 /area/science/research)
-"uCe" = (
-/obj/structure/closet/secure_closet/miner,
-/obj/item/clothing/suit/hooded/wintercoat/miner,
-/obj/item/tank/internals/oxygen/yellow,
-/obj/machinery/camera/directional/south,
-/turf/open/floor/vault/rock,
-/area/quartermaster/miningoffice)
 "uCh" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 8
@@ -99104,6 +99130,15 @@
 	color = "#808080"
 	},
 /area/maintenance/department/medical/central)
+"xTC" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosprivacy";
+	name = "HoS Privacy Blast Door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
 "xTN" = (
 /obj/effect/turf_decal/guideline/guideline_out/yellow{
 	dir = 10
@@ -130173,7 +130208,7 @@ urU
 bIq
 iJK
 bMr
-gxG
+avK
 qrs
 eLk
 dvO
@@ -130688,9 +130723,9 @@ frk
 ndx
 xbY
 oqp
-jyT
+mbN
 byI
-jyT
+mbN
 szq
 vAU
 miL
@@ -131429,7 +131464,7 @@ nNl
 odc
 viE
 gbu
-dfh
+tFT
 gbu
 sMY
 odc
@@ -135863,7 +135898,7 @@ qeO
 jQh
 vQX
 hUY
-aTN
+jOW
 iGQ
 tHi
 sQc
@@ -138190,7 +138225,7 @@ kon
 jUO
 stm
 oNU
-uCe
+bfl
 agD
 efV
 dyH
@@ -140920,7 +140955,7 @@ phN
 phN
 diz
 cuN
-nrd
+xTC
 phN
 ufR
 gds
