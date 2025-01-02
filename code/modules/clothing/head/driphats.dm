@@ -88,3 +88,20 @@
 	icon_state = "stylist_hat"
 	item_state = "stylist_hat"
 
+/obj/item/clothing/head/driphats/syndi_general_hat
+	name = "Cybersun general hat"
+	desc = "You should run from whoevers wearing this."
+	icon_state = "syndi_general_hat"
+	item_state = "syndi_general_hat"
+
+/obj/item/clothing/head/driphats/syndi_gold_cap
+	name = "Cybersun loyalist cap"
+	desc = "Only the most loyal to the syndicate has worn this."
+	icon_state = "stylist_hat"
+	item_state = "stylist_hat"
+
+/obj/item/clothing/head/driphats/purple_bowler
+	name = "Purple bowler"
+	desc = "A bowler with some REAL style!"
+	icon_state = "purple_bowler"
+	item_state = "purple_bowler"
