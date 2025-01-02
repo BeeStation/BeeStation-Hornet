@@ -37,6 +37,7 @@
 		/obj/item/clothing/neck/tie/red = 6,
 		/obj/item/clothing/neck/tie/black = 6,
 		/obj/item/clothing/head/driphats/cowboy_sec = 3,
+		/obj/item/clothing/glasses/ballistic_goggles = 3,
 		)
 	contraband = list(
 		/obj/item/clothing/suit/hooded/wintercoat/security/old = 3,

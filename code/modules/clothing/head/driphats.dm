@@ -117,6 +117,11 @@
 	desc = "It's french, you'd normally see a mime wear this."
 	icon_state = "captain_bicorne"
 	item_state = "captain_bicorne"
+	flags_inv = 0
+	strip_delay = 60
+	armor_type = /datum/armor/hats_caphat
+	dying_key = DYE_REGISTRY_CAP
+
 
 /obj/item/clothing/head/driphats/beret_dark_blue
 	name = "Dark blue beret"
