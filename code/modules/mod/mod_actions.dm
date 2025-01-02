@@ -146,6 +146,7 @@
 	RegisterSignal(linked_module, COMSIG_MODULE_USED, PROC_REF(on_module_use))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
+	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
 	module.pinned_to -= pinner_ref
 	module = null
 	return ..()

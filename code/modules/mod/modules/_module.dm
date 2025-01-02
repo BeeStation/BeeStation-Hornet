@@ -163,7 +163,7 @@
 	active = TRUE
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
 	mod.wearer.update_clothing(mod.slot_flags)
-	SEND_SIGNAL(src, COMSIG_MODULE_USED)
+	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
 	on_activation()
 	return TRUE
 
