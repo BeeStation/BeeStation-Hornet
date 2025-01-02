@@ -115,12 +115,3 @@
 #define ACCESS_MECH_SECURITY 302
 #define ACCESS_MECH_SCIENCE 303
 #define ACCESS_MECH_ENGINE 304
-
-/// Used in ID card access adding procs. Will try to add all accesses and utilises free wildcards, skipping over any accesses it can't add.
-#define TRY_ADD_ALL 0
-/// Used in ID card access adding procs. Will try to add all accesses and does not utilise wildcards, skipping anything requiring a wildcard.
-#define TRY_ADD_ALL_NO_WILDCARD 1
-/// Used in ID card access adding procs. Will forcefully add all accesses.
-#define FORCE_ADD_ALL 2
-/// Used in ID card access adding procs. Will stack trace on fail.
-#define ERROR_ON_FAIL 3

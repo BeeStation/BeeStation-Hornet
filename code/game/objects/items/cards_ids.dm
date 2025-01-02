@@ -206,9 +206,6 @@
 		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
 	add_fingerprint(user)
 
-/obj/item/card/id/proc/set_access(list/new_access_list, mode = ERROR_ON_FAIL)
-	return
-
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(.)

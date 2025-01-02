@@ -15,7 +15,7 @@
 	var/obj/item/mod/control/mod = new_pawn
 	id_card = new /obj/item/card/id()
 	if(length(mod.req_access))
-		id_card.set_access(mod.req_access)
+		id_card.access = mod.req_access
 	return ..() //Run parent at end
 
 /datum/ai_controller/mod/UnpossessPawn(destroy)

@@ -105,3 +105,7 @@
 
 /// Sent to a beam when any turf the beam covers changes: (list/datum/callback/post_change_callbacks)
 #define COMSIG_BEAM_TURFS_CHANGED "beam_turfs_changed"
+
+/// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
+#define COMSIG_SPEED_POTION_APPLIED "speed_potion"
+	#define SPEED_POTION_STOP (1<<0)

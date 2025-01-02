@@ -37,7 +37,3 @@
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR "movable_light_overlay_set_range"
 ///Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
-
-/// from base of atom/movable/Process_Spacemove(): (movement_dir)
-#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
-	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
