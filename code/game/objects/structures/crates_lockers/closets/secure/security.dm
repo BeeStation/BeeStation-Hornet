@@ -55,6 +55,7 @@
 	new /obj/item/clothing/head/hats/caphat/parade(src)
 	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/head/driphats/clip_general_hat(src)
+	new /obj/item/clothing/head/driphats/cowboy_hos(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -185,6 +186,7 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
 	new /obj/item/clothing/head/hats/hos(src)
+	new /obj/item/clothing/head/driphats/cowboy_hos(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
