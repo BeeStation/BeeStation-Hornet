@@ -7,4 +7,4 @@
 	desc = "Smells like superiority, worn by the finest captains."
 	icon_state = "clip_general_hat"
 	item_state = "clip_general_hat"
-	dog_fashion = /datum/dog_fashion/general
+	dog_fashion = /datum/dog_fashion/head/general
