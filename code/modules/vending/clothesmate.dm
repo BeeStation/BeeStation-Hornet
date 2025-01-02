@@ -196,7 +196,9 @@
 		/obj/item/clothing/suit/costume/vapeshirt = 1,
 		/obj/item/clothing/under/costume/geisha = 1,
 		/obj/item/clothing/under/rank/centcom/officer/replica = 1,
-		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1
+		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1,
+		/obj/item/clothing/head/driphats/syndi_general_hat = 1,
+		/obj/item/clothing/head/driphats/syndi_gold_cap = 1
 	)
 	premium = list(
 		/obj/item/clothing/under/suit/checkered = 1,

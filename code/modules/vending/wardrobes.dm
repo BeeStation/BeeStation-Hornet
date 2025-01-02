@@ -320,6 +320,7 @@
 		/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
 		/obj/item/clothing/accessory/waistcoat = 2,
 		/obj/item/clothing/suit/apron/purple_bartender = 2,
+		/obj/item/clothing/head/driphats/purple_bowler = 2,
 		/obj/item/clothing/head/soft/black = 2,
 		/obj/item/clothing/shoes/sneakers/black = 2,
 		/obj/item/reagent_containers/cup/rag = 2,
