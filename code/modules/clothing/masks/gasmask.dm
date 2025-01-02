@@ -286,7 +286,7 @@
 /obj/item/clothing/masks/inteq_gas_mask
 	name = "Ruined gas mask"
 	desc = "Found in a strange space ruin by Nanotrasen explorers, safety not guaranteed."
-	icon_state = "inteq_gas_mask"
 	icon = 'icons/obj/clothing/masks.dmi'
+	icon_state = "inteq_gas_mask"
 	item_state = "inteq_gas_mask"
 	armor_type = /datum/armor/mask_gas
