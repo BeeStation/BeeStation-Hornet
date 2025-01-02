@@ -23,6 +23,13 @@
 	item_state = "gas_centcom"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/mask/gas/atmos/ruined_gas_mask
+	name = "\improper Ruined gas mask"
+	desc = "Found in a strange space ruin by Nanotrasen explorers, safety not guaranteed."
+	icon = 'icons/obj/clothing/masks.dmi'
+	icon_state = "ruined_gas_mask"
+	item_state = "ruined_gas_mask"
+
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding
@@ -282,11 +289,3 @@
 /obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
 	voice_change = !voice_change
 	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
-
-/obj/item/clothing/masks/inteq_gas_mask
-	name = "Ruined gas mask"
-	desc = "Found in a strange space ruin by Nanotrasen explorers, safety not guaranteed."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "inteq_gas_mask"
-	item_state = "inteq_gas_mask"
-	armor_type = /datum/armor/mask_gas
