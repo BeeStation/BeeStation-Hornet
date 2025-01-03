@@ -91,11 +91,8 @@
 // Vassalize a head of staff
 /datum/objective/bloodsucker/conversion/command
 	name = "vassalizationcommand"
-	target_amount = 1
-
-// EXPLANATION
-/datum/objective/bloodsucker/conversion/command/update_explanation_text()
 	explanation_text = "Guarantee a Vassal ends up as a Department Head or in a Leadership role."
+	target_amount = 1
 
 // WIN CONDITIONS?
 /datum/objective/bloodsucker/conversion/command/check_completion()

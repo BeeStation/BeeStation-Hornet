@@ -24,8 +24,7 @@
 /atom/movable/screen/alert/status_effect/frenzy
 	name = "Frenzy"
 	desc = "You are in a Frenzy! You are entirely Feral and, depending on your Clan, fighting for your life!"
-	icon = 'icons/bloodsuckers/actions_bloodsucker.dmi'
-	icon_state = "power_recover"
+	icon_state = "frenzy"
 	alerttooltipstyle = "cult"
 
 /datum/status_effect/frenzy
@@ -52,7 +51,7 @@
 
 	// Disable ALL Powers and notify their entry
 	bloodsuckerdatum.DisableAllPowers(forced = TRUE)
-	to_chat(owner, "<span class='userdanger'><FONT size = 3>Blood! You need Blood, now! You enter a total Frenzy!</span>")
+	to_chat(owner, "<span class='userdanger'><FONT size = 10>BLOOD! YOU NEED BLOOD NOW!</span>")
 	to_chat(owner, "<span class='announce'>* Bloodsucker Tip: While in Frenzy, you instantly Aggresively grab, have stun resistance, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it).</span>")
 	owner.balloon_alert(owner, "you enter a frenzy!")
 	SEND_SIGNAL(bloodsuckerdatum, BLOODSUCKER_ENTERS_FRENZY)
@@ -63,9 +62,11 @@
 	if(!HAS_TRAIT(owner, TRAIT_DISCOORDINATED))
 		was_tooluser = TRUE
 		ADD_TRAIT(owner, TRAIT_DISCOORDINATED, FRENZY_TRAIT)
+
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 	bloodsuckerdatum.frenzygrab.teach(user, TRUE)
 	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
+	user.Jitter(60 SECONDS)
 	user.uncuff()
 	bloodsuckerdatum.frenzied = TRUE
 	return ..()

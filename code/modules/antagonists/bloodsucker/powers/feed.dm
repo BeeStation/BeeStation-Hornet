@@ -28,12 +28,11 @@
 	var/silent_feed = TRUE
 
 /datum/action/cooldown/bloodsucker/feed/can_use(mob/living/carbon/user, trigger_flags)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	if(target_ref) //already sucking blood.
 		return FALSE
-	if(user.is_mouth_covered() && !isplasmaman(user))
+	if(user?.is_mouth_covered() && !isplasmaman(user))
 		owner.balloon_alert(owner, "mouth covered!")
 		return FALSE
 	//Find target, it will alert what the problem is, if any.

@@ -78,24 +78,6 @@
 	return TRUE
 
 /*
- *	# can_make_special
- *
- * MIND Helper proc that ensures the person can be a Special Vassal,
- * without actually giving the antag datum to them.
- * This is because Special Vassals get special abilities, without the unique Bloodsucker blood tracking,
- * and we don't want this to be infinite.
- * Args:
- * creator - Person attempting to convert them.
- */
-/datum/mind/proc/can_make_special(datum/mind/creator)
-	var/mob/living/user = current
-	if(!(user.mob_biotypes & MOB_ORGANIC))
-		if(creator)
-			to_chat(creator, "<span class='danger'>[user]'s DNA isn't compatible!</span>")
-		return FALSE
-	return TRUE
-
-/*
  *	# make_bloodsucker
  *
  * MIND Helper proc that turns the person into a Bloodsucker

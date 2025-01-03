@@ -11,11 +11,6 @@
 	/// Cooldown you'll have to wait between each use, decreases depending on level.
 	cooldown_time = 2 SECONDS
 
-	///Background icon when the Power is active.
-	var/active_background_icon_state = "vamp_power_on"
-	///Background icon when the Power is NOT active.
-	var/base_background_icon_state = "vamp_power_off"
-
 	var/background_icon_state_on = "vamp_power_on"
 	var/background_icon_state_off = "vamp_power_off"
 
@@ -24,7 +19,6 @@
 	///The owner's stored Bloodsucker datum
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum_power
 
-	// FLAGS //
 	/// The effects on this Power (Toggled/Single Use/Static Cooldown)
 	var/power_flags = BP_AM_TOGGLE|BP_AM_SINGLEUSE|BP_AM_STATIC_COOLDOWN|BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
@@ -32,7 +26,6 @@
 	/// Who can purchase the Power
 	var/purchase_flags = NONE // BLOODSUCKER_CAN_BUY|BLOODSUCKER_DEFAULT_POWER|TREMERE_CAN_BUY|VASSAL_CAN_BUY
 
-	// VARS //
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/active = FALSE
 	///Can increase to yield new abilities - Each Power ranks up each Rank
@@ -44,7 +37,7 @@
 
 // Modify description to add cost.
 /datum/action/cooldown/bloodsucker/New(Target)
-	. = ..()
+	..()
 	if(bloodcost > 0)
 		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
 	if(constant_bloodcost > 0)
@@ -60,7 +53,7 @@
 	return next_use_time <= world.time
 
 /datum/action/cooldown/bloodsucker/Grant(mob/user)
-	. = ..()
+	..()
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(owner)
 	if(bloodsuckerdatum)
 		bloodsuckerdatum_power = bloodsuckerdatum
@@ -70,13 +63,20 @@
 	if(active && can_deactivate()) // Active? DEACTIVATE AND END!
 		DeactivatePower()
 		return FALSE
-	if(!can_pay_cost() || !can_use(owner, trigger_flags))
+	if(!can_pay_cost() || !can_use())
 		return FALSE
 	pay_cost()
 	ActivatePower(trigger_flags)
 	if(!(power_flags & BP_AM_TOGGLE) || !active)
 		StartCooldown()
 	return TRUE
+
+///Called when the Power is upgraded.
+/datum/action/cooldown/bloodsucker/proc/upgrade_power()
+	level_current++
+	// Decrease cooldown time
+	if(power_flags & !BP_AM_STATIC_COOLDOWN) // cooldown_time / 16 * (level_current - 1)
+		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
 /datum/action/cooldown/bloodsucker/proc/can_pay_cost()
 	if(!owner || !owner.mind)
@@ -100,12 +100,10 @@
 		return FALSE
 	return TRUE
 
-///Called when the Power is upgraded.
-/datum/action/cooldown/bloodsucker/proc/upgrade_power()
-	level_current++
-
 ///Checks if the Power is available to use.
-/datum/action/cooldown/bloodsucker/proc/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/bloodsucker/proc/can_use()
+	var/mob/living/carbon/user = owner
+
 	if(!owner)
 		return FALSE
 	if(!isliving(user))
@@ -136,22 +134,12 @@
 		return FALSE
 	return TRUE
 
-/// NOTE: With this formula, you'll hit half cooldown at level 8 for that power.
-/datum/action/cooldown/bloodsucker/StartCooldown()
-	// Calculate Cooldown (by power's level)
-	if(power_flags & BP_AM_STATIC_COOLDOWN)
-		cooldown_time = initial(cooldown_time)
-	else
-		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current-1)))
-
-	return ..()
-
 /datum/action/cooldown/bloodsucker/proc/can_deactivate()
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/UpdateButtonIcon(force = FALSE)
 	background_icon_state = active ? background_icon_state_on : background_icon_state_off
-	. = ..()
+	..()
 
 /datum/action/cooldown/bloodsucker/proc/pay_cost()
 	// Non-bloodsuckers will pay in other ways.

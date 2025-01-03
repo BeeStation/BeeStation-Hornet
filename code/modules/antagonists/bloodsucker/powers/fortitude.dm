@@ -14,13 +14,12 @@
 	bloodcost = 30
 	cooldown_time = 8 SECONDS
 	constant_bloodcost = 0.2
-	var/was_running
 	var/fortitude_resist // So we can raise and lower your brute resist based on what your level_current WAS.
 
 /datum/action/cooldown/bloodsucker/fortitude/ActivatePower(trigger_flags)
-	. = ..()
+	..()
 	owner.balloon_alert(owner, "fortitude turned on.")
-	to_chat(owner, "<span class='notice'>Your flesh, skin, and muscles become as hard as steel.</span>")
+	to_chat(owner, "<span class='notice'>Your flesh has become as hard as steel!</span>")
 	// Traits & Effects
 	ADD_TRAIT(owner, TRAIT_PIERCEIMMUNE, BLOODSUCKER_TRAIT)
 	ADD_TRAIT(owner, TRAIT_NODISMEMBER, BLOODSUCKER_TRAIT)
@@ -33,24 +32,14 @@
 		bloodsucker_user.physiology.brute_mod *= fortitude_resist
 		bloodsucker_user.physiology.stamina_mod *= fortitude_resist
 
-	was_running = (owner.m_intent == MOVE_INTENT_RUN)
-	if(was_running)
-		owner.toggle_move_intent()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 
 /datum/action/cooldown/bloodsucker/fortitude/UsePower(seconds_per_tick)
-	// Checks that we can keep using this.
-	. = ..()
-	if(!.)
+	if(!..() || !active)
 		return
-	if(!active)
-		return
-	var/mob/living/carbon/user = owner
-	/// Prevents running while on Fortitude
-	if(user.m_intent != MOVE_INTENT_WALK)
-		user.toggle_move_intent()
-		user.balloon_alert(user, "you attempt to run, crushing yourself.")
-		user.adjustBruteLoss(rand(5,15))
+
 	/// We don't want people using fortitude being able to use vehicles
+	var/mob/living/carbon/user = owner
 	if(user.buckled && istype(user.buckled, /obj/vehicle))
 		user.buckled.unbuckle_mob(src, force=TRUE)
 
@@ -68,8 +57,7 @@
 	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, BLOODSUCKER_TRAIT)
 	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, BLOODSUCKER_TRAIT)
 
-	if(was_running && bloodsucker_user.m_intent == MOVE_INTENT_WALK)
-		owner.toggle_move_intent()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 	owner.balloon_alert(owner, "fortitude turned off.")
 
 	return ..()

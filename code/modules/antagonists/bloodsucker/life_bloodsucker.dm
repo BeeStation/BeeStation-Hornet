@@ -176,7 +176,7 @@
 //			DEATH
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/datum/antagonist/bloodsucker/proc/on_death(mob/living/source, gibbed)
+/datum/antagonist/bloodsucker/proc/on_death(mob/living/source)
 	SIGNAL_HANDLER
 
 	if(source.stat != DEAD) // weirdness shield
@@ -261,10 +261,20 @@
 	owner.current.blood_volume = bloodsucker_blood_volume
 
 /// Gibs the Bloodsucker, roundremoving them.
-/datum/antagonist/bloodsucker/proc/final_death(var/gib = TRUE)
+/datum/antagonist/bloodsucker/proc/final_death()
 	var/mob/living/carbon/user = owner.current
+
+	// Free vassals
+	for(var/datum/antagonist/vassal/vassal in vassals)
+		// Skip over any Bloodsucker Vassals, they're too far gone to have all their stuff taken away from them
+		vassal.owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
+		if(vassal.special_type == REVENGE_VASSAL)
+			continue
+		vassal.owner.add_antag_datum(/datum/antagonist/ex_vassal)
+		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
+
 	// If we have no body, end here.
-	if(!owner.current)
+	if(!user)
 		return
 	UnregisterSignal(src, list(
 		COMSIG_BLOODSUCKER_ON_LIFETICK,
@@ -279,10 +289,8 @@
 		COMSIG_SOL_RISE_TICK,
 		COMSIG_SOL_WARNING_GIVEN,
 	))
-	free_all_vassals()
+
 	DisableAllPowers(forced = TRUE)
-	if(!gib)
-		return
 	if(!iscarbon(user))
 		user.gib(TRUE, FALSE, FALSE)
 		return

@@ -27,7 +27,7 @@
 	return "Master : [master.owner.name]"
 
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
-	. = ..()
+	..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.apply_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
@@ -37,21 +37,14 @@
 	bloodsucker_team = master.bloodsucker_team
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
-	. = ..()
+	..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
 	remove_antag_hud(ANTAG_HUD_BLOODSUCKER, current_mob)
 	current_mob.faction -= FACTION_BLOODSUCKER
 
-/datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, examine_text)
-	SIGNAL_HANDLER
-	var/vassal_examine = return_vassal_examine(examiner)
-	if(vassal_examine)
-		examine_text += vassal_examine
-
 /datum/antagonist/vassal/on_gain()
-	RegisterSignal(owner.current, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 	/// Enslave them to their Master
 	if(!master || !istype(master, master))
@@ -96,13 +89,13 @@
 	return ..()
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
-	. = ..()
+	..()
 	for(var/datum/action/cooldown/bloodsucker/all_powers as anything in powers)
 		all_powers.Remove(old_body)
 		all_powers.Grant(new_body)
 
 /datum/antagonist/vassal/greet()
-	. = ..()
+	..()
 	if(silent)
 		return
 

@@ -316,8 +316,7 @@
 
 /datum/role_preference/antagonist/wizard
 	name = "Wizard"
-	description = "GREETINGS. WE'RE THE WIZARDS OF THE WIZARD'S FEDERATION.\n\
-	Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
+	description = "GREETINGS. WE'RE THE WIZARDS OF THE WIZARD'S FEDERATION.\nChoose between a variety of powerful spells in order to cause chaos among Space Station 13."
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
 
@@ -331,16 +330,22 @@
 
 /datum/role_preference/antagonist/bloodsucker
 	name = "Bloodsucker"
-	description="After your death, you awaken to see yourself as an undead monster.\nUse your Vampiric abilities as best you can.\nScrape by Space Station 13, or take over it, vassalizing your way."
+	description = "After your death, you awaken to see yourself as an undead monster.\nScrape by Space Station 13, or take it over, vassalizing your way!"
 	antag_datum = /datum/antagonist/bloodsucker
-	preview_outfit = /datum/outfit/bloodsucker_outfit
+	preview_outfit = /datum/outfit/bloodsucker
+
+/datum/role_preference/antagonist/bloodsucker/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/bloodsucker)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+
+	return finish_preview_icon(icon)
 
 /datum/role_preference/midround_living/bloodsucker
 	name = "Vampiric Accident"
-	description="After your death, you awaken to see yourself as an undead monster.\nUse your Vampiric abilities as best you can.\nScrape by Space Station 13, or take over it, vassalizing your way."
+	description = "After your death, you awaken to see yourself as an undead monster.\nScrape by Space Station 13, or take over it, vassalizing your way!"
 	antag_datum = /datum/antagonist/bloodsucker
 	use_icon = /datum/role_preference/antagonist/bloodsucker
 
-/datum/outfit/bloodsucker_outfit
+/datum/outfit/bloodsucker
 	name = "Bloodsucker outfit (Preview only)"
 	suit = /obj/item/clothing/suit/costume/dracula

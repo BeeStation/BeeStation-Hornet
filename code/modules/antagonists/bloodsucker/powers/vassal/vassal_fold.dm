@@ -18,8 +18,7 @@
 	var/datum/weakref/target_ref
 
 /datum/action/cooldown/bloodsucker/vassal_blood/can_use(mob/living/carbon/user, trigger_flags)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	var/datum/antagonist/vassal/revenge/revenge_vassal = owner.mind.has_antag_datum(/datum/antagonist/ex_vassal)
 	if(revenge_vassal)
@@ -45,7 +44,7 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/vassal_blood/ActivatePower(trigger_flags, var/altclick = FALSE)
-	. = ..()
+	..()
 	var/datum/antagonist/vassal/revenge/revenge_vassal = owner.mind.has_antag_datum(/datum/antagonist/vassal/revenge)
 
 	if(target_ref)
@@ -71,7 +70,7 @@
 /datum/action/cooldown/bloodsucker/vassal_checkstatus
 	name = "Check Vassals"
 	desc = "Check vassal status"
-	button_icon_state = "original_moon"
+	button_icon_state = "power_mez"
 	power_explanation = "Help Vassal:\nShow the status of all Vassals"
 	power_flags = NONE
 	check_flags = NONE
@@ -80,8 +79,7 @@
 	cooldown_time = 10 SECONDS
 
 /datum/action/cooldown/bloodsucker/vassal_checkstatus/can_use(mob/living/carbon/user, trigger_flags)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	var/datum/antagonist/vassal/revenge/revenge_vassal = owner.mind.has_antag_datum(/datum/antagonist/ex_vassal)
@@ -95,7 +93,7 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/vassal_checkstatus/ActivatePower(trigger_flags)
-	. = ..()
+	..()
 	var/datum/antagonist/vassal/revenge/revenge_vassal = owner.mind.has_antag_datum(/datum/antagonist/vassal/revenge)
 	for(var/datum/antagonist/ex_vassal/former_vassals as anything in revenge_vassal.ex_vassals)
 		var/information = "[former_vassals.owner.current]"

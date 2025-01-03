@@ -19,12 +19,12 @@
 	timeout = 8 MINUTES
 
 /datum/mood_event/drankkilled
-	description = "<span class='boldwarning'>I fed off of a dead person. I feel... less human.</span>\n"
+	description = "<span class='boldwarning'>I fed off of a dead person. I feel... inhuman.</span>\n"
 	mood_change = -15
 	timeout = 10 MINUTES
 
 /datum/mood_event/madevamp
-	description = "<span class='boldwarning'>A mortal has reached an apotheosis- undeath- by my own hand.</span>\n"
+	description = "<span class='boldwarning'>A mortal has reached the undeath- by my own hand.</span>\n"
 	mood_change = 15
 	timeout = 20 MINUTES
 

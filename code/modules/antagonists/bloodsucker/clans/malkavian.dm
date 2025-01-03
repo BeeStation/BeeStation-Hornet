@@ -54,7 +54,7 @@
 	var/mob/living/carbon/carbonowner = bloodsuckerdatum.owner.current
 	if(istype(carbonowner))
 		carbonowner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
-		carbonowner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
+		carbonowner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/bloodsucker_clan/malkavian/on_final_death(datum/antagonist/bloodsucker/source)
 	var/obj/item/soulstone/bloodsucker/stone = new /obj/item/soulstone/bloodsucker(get_turf(bloodsuckerdatum.owner.current))
@@ -63,6 +63,7 @@
 
 /datum/bloodsucker_clan/malkavian/proc/on_bloodsucker_broke_masquerade(datum/source, datum/antagonist/bloodsucker/masquerade_breaker)
 	SIGNAL_HANDLER
+
 	if(masquerade_breaker == bloodsuckerdatum)
 		return
 

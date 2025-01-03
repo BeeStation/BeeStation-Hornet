@@ -13,8 +13,8 @@
 	icon_icon = 'icons/bloodsuckers/actions_tremere_bloodsucker.dmi'
 	button_icon_state = "power_auspex"
 
-	active_background_icon_state = "tremere_power_on"
-	base_background_icon_state = "tremere_power_off"
+	background_icon_state_on = "tremere_power_on"
+	background_icon_state_off = "tremere_power_off"
 
 	// Tremere powers don't level up, we have them hardcoded.
 	level_current = 0

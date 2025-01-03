@@ -58,9 +58,8 @@
 	power_explanation = "Level 4: Auspex:\n\
 		When Activated, you will be hidden in a Cloak of Darkness.\n\
 		Click any area up to teleport there, ending the Power and causing people at your end location to start bleeding."
-	background_icon_state = "tremere_power_gold_off"
-	active_background_icon_state = "tremere_power_gold_on"
-	base_background_icon_state = "tremere_power_gold_off"
+	background_icon_state_on = "tremere_power_gold_on"
+	background_icon_state_off = "tremere_power_gold_off"
 	bloodcost = 20
 	cooldown_time = 6 SECONDS
 	target_range = null

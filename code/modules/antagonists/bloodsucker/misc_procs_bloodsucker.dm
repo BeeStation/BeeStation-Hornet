@@ -1,12 +1,3 @@
-/datum/antagonist/bloodsucker/proc/on_examine(datum/source, mob/examiner, examine_text)
-	SIGNAL_HANDLER
-
-	if(!iscarbon(source))
-		return
-	var/vamp_examine = return_vamp_examine(examiner)
-	if(vamp_examine)
-		examine_text += vamp_examine
-
 ///Called when a Bloodsucker buys a power: (power)
 /datum/antagonist/bloodsucker/proc/BuyPower(datum/action/cooldown/bloodsucker/power)
 	for(var/datum/action/cooldown/bloodsucker/current_powers as anything in powers)
@@ -65,7 +56,7 @@
 		return
 	// Spend Rank Immediately?
 	if(!istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		to_chat(owner, "<span class='notice'><EM>You have grown more ancient! Sleep in a coffin that you have claimed to thicken your blood and become more powerful[istype(my_clan, bloodsucker_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up" : ""]</EM></span>")
+		to_chat(owner, "<span class='notice'><EM>You have grown more ancient! Sleep in a coffin that you have claimed to thicken your blood and become more powerful[istype(my_clan, /datum/bloodsucker_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up" : ""]</EM></span>")
 		return
 	SpendRank()
 
@@ -97,46 +88,6 @@
 	if(!owner || !owner.current || !owner.current.client || (cost_rank && bloodsucker_level_unspent <= 0))
 		return
 	SEND_SIGNAL(src, BLOODSUCKER_RANK_UP, target, cost_rank, blood_cost)
-
-/**
- * Called when a Bloodsucker reaches Final Death
- * Releases all Vassals and gives them the ex_vassal datum.
- */
-/datum/antagonist/bloodsucker/proc/free_all_vassals()
-	for(var/datum/antagonist/vassal/all_vassals in vassals)
-		// Skip over any Bloodsucker Vassals, they're too far gone to have all their stuff taken away from them
-		if(all_vassals.owner.has_antag_datum(/datum/antagonist/bloodsucker))
-			all_vassals.owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
-			continue
-		if(all_vassals.special_type == REVENGE_VASSAL)
-			continue
-		all_vassals.owner.add_antag_datum(/datum/antagonist/ex_vassal)
-		all_vassals.owner.remove_antag_datum(/datum/antagonist/vassal)
-
-/**
- * Returns a Vampire's examine strings.
- * Args:
- * viewer - The person examining.
- */
-/datum/antagonist/bloodsucker/proc/return_vamp_examine(mob/living/viewer)
-	if(!viewer.mind)
-		return FALSE
-	// Viewer is Target's Vassal?
-	if(viewer.mind.has_antag_datum(/datum/antagonist/vassal) in vassals)
-		var/returnString = "\[<span class='warning'><EM>This is your Master!</EM></span>\]"
-		var/returnIcon = "[icon2html('icons/bloodsuckers/vampiric.dmi', world, "bloodsucker")]"
-		returnString += "\n"
-		return returnIcon + returnString
-	// Viewer not a Vamp AND not the target's vassal?
-	if(!viewer.mind.has_antag_datum((/datum/antagonist/bloodsucker)) && !(viewer in vassals))
-		if(!broke_masquerade)
-			return FALSE
-	// Default String
-	var/returnString = "\[<span class='warning'><EM>[return_full_name()]</EM></span>\]"
-	var/returnIcon = "[icon2html('icons/bloodsuckers/vampiric.dmi', world, "bloodsucker")]"
-
-	//returnString += "\n"  Don't need spacers. Using . += "" in examine.dm does this on its own.
-	return returnIcon + returnString
 
 /**
  * CARBON INTEGRATION

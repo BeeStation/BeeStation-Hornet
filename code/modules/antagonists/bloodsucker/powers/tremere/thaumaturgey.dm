@@ -63,8 +63,8 @@
 		If the Blood beam hits a person, it will deal 40 Burn damage.\n\
 		If it hits a locker or door, it will break it open."
 	background_icon_state = "tremere_power_gold_off"
-	active_background_icon_state = "tremere_power_gold_on"
-	base_background_icon_state = "tremere_power_gold_off"
+	background_icon_state_on = "tremere_power_gold_on"
+	background_icon_state_off = "tremere_power_gold_off"
 	prefire_message = "Click where you wish to fire (using your power removes blood shield)."
 	bloodcost = 60
 	cooldown_time = 6 SECONDS
@@ -84,7 +84,7 @@
 	cooldown_time = 8 SECONDS
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/thaumaturgy/ActivatePower(trigger_flags)
-	. = ..()
+	..()
 	owner.balloon_alert(owner, "you start thaumaturgy")
 	if(level_current >= 2) // Only if we're at least level 2.
 		var/obj/item/shield/bloodsucker/new_shield = new
@@ -105,7 +105,7 @@
 	return ..()
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/thaumaturgy/FireTargetedPower(atom/target_atom)
-	. = ..()
+	..()
 
 	var/mob/living/user = owner
 	owner.balloon_alert(owner, "you fire a blood bolt!")
@@ -176,7 +176,7 @@
 	block_power = 75
 
 /obj/item/shield/bloodsucker/Initialize()
-	. = ..()
+	..()
 	ADD_TRAIT(src, TRAIT_NODROP, BLOODSUCKER_TRAIT)
 
 /obj/item/shield/bloodsucker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

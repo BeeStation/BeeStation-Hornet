@@ -12,8 +12,6 @@
 	name = "Vanishing Act"
 	desc = "As dawn aproaches, disperse into mist and return directly to your Lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
 	button_icon_state = "power_gohome"
-	active_background_icon_state = "vamp_power_off_oneshot"
-	base_background_icon_state = "vamp_power_off_oneshot"
 	power_explanation = "Vanishing Act: \n\
 		Activating Vanishing Act will, after a short delay, teleport the user to their Claimed Coffin. \n\
 		The power will cancel out if the Claimed Coffin is somehow destroyed. \n\
@@ -45,8 +43,8 @@
 /datum/action/cooldown/bloodsucker/gohome/ActivatePower(trigger_flags)
 	..()
 	owner.balloon_alert(owner, "preparing to teleport...")
-	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED)))
-		teleport_to_coffin(owner.current)
+	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))
+		teleport_to_coffin(owner)
 
 /datum/action/cooldown/bloodsucker/gohome/UsePower(seconds_per_tick)
 	if(!..())

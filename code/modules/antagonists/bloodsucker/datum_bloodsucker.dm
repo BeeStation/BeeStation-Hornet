@@ -119,9 +119,8 @@
  * while on_gain is called ONCE per ANTAG, this is called ONCE per BODY.
  */
 /datum/antagonist/bloodsucker/apply_innate_effects(mob/living/mob_override)
-	. = ..()
+	..()
 	var/mob/living/current_mob = mob_override || owner.current
-	RegisterSignal(current_mob, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	handle_clown_mutation(current_mob, mob_override ? null : "As a vampiric clown, you are no longer a danger to yourself. Your clownish nature has been subdued by your thirst for blood.")
@@ -320,7 +319,7 @@
 	var/list/report = list()
 
 	// Vamp name
-	report += "<br><span class='header'><b>\[[return_full_name()]\]</b></span>"
+	report += "<br><span class='header'><b>\"[return_full_name()]\"</b></span>"
 	report += printplayer(owner)
 	if(my_clan)
 		report += "They were part of the <b>[my_clan.name]</b>!"
@@ -480,7 +479,7 @@
 	// Objective 1: Vassalize a Head/Command, or a specific target
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
-			var/datum/objective/bloodsucker/conversion/chosen_subtype = pick(subtypesof(/datum/objective/bloodsucker/conversion))
+			var/datum/objective/bloodsucker/conversion/chosen_subtype = /datum/objective/bloodsucker/conversion/command //pick(subtypesof(/datum/objective/bloodsucker/conversion))
 			var/datum/objective/bloodsucker/conversion/conversion_objective = new chosen_subtype
 			conversion_objective.owner = owner
 			conversion_objective.name = "Optional Objective"

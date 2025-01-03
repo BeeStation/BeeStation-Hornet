@@ -3,14 +3,14 @@
 	description = "The Tremere Clan is extremely weak to True Faith, and will burn when entering areas considered such, like the Chapel. \n\
 		Additionally, a whole new moveset is learned, built on Blood magic rather than Blood abilities, which are upgraded overtime. \n\
 		More ranks can be gained by Vassalizing crewmembers. \n\
-		The Favorite Vassal gains the Batform spell, being able to morph themselves at will."
+		The Favorite Vassal gains the ability to morph themselves into a bat at will."
 	clan_objective = /datum/objective/bloodsucker/tremere_power
 	join_icon_state = "tremere"
 	join_description = "You will burn if you enter the Chapel, lose all default powers, \
 		but gain Blood Magic instead, powers you level up overtime."
 
 /datum/bloodsucker_clan/tremere/New(mob/living/carbon/user)
-	. = ..()
+	..()
 	bloodsuckerdatum.remove_nondefault_powers(return_levels = TRUE)
 	for(var/datum/action/cooldown/bloodsucker/power as anything in bloodsuckerdatum.all_bloodsucker_powers)
 		if((initial(power.purchase_flags) & TREMERE_CAN_BUY) && initial(power.level_current) == 1)
@@ -23,7 +23,7 @@
 	return ..()
 
 /datum/bloodsucker_clan/tremere/handle_clan_life(datum/antagonist/bloodsucker/source)
-	. = ..()
+	..()
 	var/area/current_area = get_area(bloodsuckerdatum.owner.current)
 	if(istype(current_area, /area/chapel))
 		to_chat(bloodsuckerdatum.owner.current, "<span class='warning'>You don't belong in holy areas! The Faith burns you!</span>")
@@ -73,10 +73,10 @@
 	finalize_spend_rank(bloodsuckerdatum, cost_rank, blood_cost)
 
 /datum/bloodsucker_clan/tremere/on_favorite_vassal(datum/antagonist/bloodsucker/source, datum/antagonist/vassal/vassaldatum)
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/bat/batform
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/bat/batform = new
 	vassaldatum.owner.current.AddSpell(batform)
 
 /datum/bloodsucker_clan/tremere/on_vassal_made(datum/antagonist/bloodsucker/source, mob/living/user, mob/living/target)
-	. = ..()
+	..()
 	to_chat(bloodsuckerdatum.owner.current, "<span class='danger'>You have now gained an additional Rank to spend!</span>")
 	bloodsuckerdatum.bloodsucker_level_unspent++

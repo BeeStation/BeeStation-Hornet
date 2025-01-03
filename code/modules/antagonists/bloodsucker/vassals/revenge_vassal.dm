@@ -66,7 +66,6 @@
 		if(master_powers.purchase_flags & BLOODSUCKER_DEFAULT_POWER)
 			continue
 		master_powers.Grant(owner.current)
-		owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
 	var/datum/objective/survive/new_objective = new
 	new_objective.name = "Avenge Bloodsucker"

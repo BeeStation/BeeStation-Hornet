@@ -49,14 +49,12 @@
 	cooldown_time = 35 SECONDS
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/CheckValidTarget(atom/target_atom)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	return isliving(target_atom)
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/CheckCanTarget(atom/target_atom)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
 	var/mob/living/selected_target = target_atom
 	if(!selected_target.mind)
@@ -76,8 +74,8 @@
 		If you use this on a currently dead normal Vassal, you will instead revive them normally.\n\
 		Despite being Mute and Deaf, they will still have complete loyalty to you, until their death in 5 minutes upon use."
 	background_icon_state = "tremere_power_gold_off"
-	active_background_icon_state = "tremere_power_gold_on"
-	base_background_icon_state = "tremere_power_gold_off"
+	background_icon_state_on = "tremere_power_gold_on"
+	background_icon_state_off = "tremere_power_gold_off"
 	bloodcost = 80
 	cooldown_time = 3 MINUTES
 
@@ -97,9 +95,9 @@
 
 // The advanced version
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/advanced/CheckCanTarget(atom/target_atom)
-	. = ..()
-	if(!.)
+	if(!..())
 		return FALSE
+
 	var/mob/living/selected_target = target_atom
 	if((IS_VASSAL(selected_target) || selected_target.stat >= SOFT_CRIT) && !owner.Adjacent(selected_target))
 		owner.balloon_alert(owner, "out of range.")
@@ -107,7 +105,7 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/FireTargetedPower(atom/target_atom)
-	. = ..()
+	..()
 	var/mob/living/target = target_atom
 	var/mob/living/user = owner
 	if(target.stat >= SOFT_CRIT && user.Adjacent(target) && level_current >= 4)
