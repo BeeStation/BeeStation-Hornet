@@ -148,11 +148,6 @@
 						/obj/item/clothing/head/driphats/operatorhelm = 1,
 						/obj/item/clothing/head/driphats/helm_degraded_urban = 1,
 						/obj/item/clothing/mask/gas/atmos/syndi_ruined_gas_mask = 1,
-						/obj/item/clothing/mask/gas/atmos/mask_alpha = 1,
-						/obj/item/clothing/mask/gas/atmos/mask_bravo = 1,
-						/obj/item/clothing/mask/gas/atmos/mask_charlie = 1,
-						/obj/item/clothing/mask/gas/atmos/mask_delta = 1,
-						/obj/item/clothing/mask/gas/atmos/mysterious_mask = 3,
 						/obj/item/clothing/mask/muzzle = 2)
 
 	premium = list(/obj/item/clothing/suit/costume/pirate/captain = 2,

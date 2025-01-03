@@ -51,40 +51,6 @@
 	icon_state = "gasmask_tear"
 	item_state = "gasmask_tear"
 
-/obj/item/clothing/mask/gas/atmos/mask_alpha
-	name = "\improper Mask Alpha"
-	desc = "You've seen this mask before."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "mask_alpha"
-	item_state = "mask_alpha"
-
-/obj/item/clothing/mask/gas/atmos/mask_bravo
-	name = "\improper Mask Bravo"
-	desc = "Perhaps this mask is part of a group of more than just itself."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "mask_bravo"
-	item_state = "mask_bravo"
-
-/obj/item/clothing/mask/gas/atmos/mask_charlie
-	name = "\improper Mask Charlie"
-	desc = "Somethings off with this one."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "mask_charlie"
-	item_state = "mask_charlie"
-
-/obj/item/clothing/mask/gas/atmos/mask_delta
-	name = "\improper Mask Delta"
-	desc = "This one seems the most aggressive."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "mask_delta"
-	item_state = "mask_delta"
-
-/obj/item/clothing/mask/gas/atmos/mysterious_mask
-	name = "\improper Mysterious Mask"
-	desc = "This mask looks like a tribute to something, or someone."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "mysterious_mask"
-	item_state = "mysterious_mask"
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding
