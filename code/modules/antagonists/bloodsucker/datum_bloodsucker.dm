@@ -479,7 +479,7 @@
 	// Objective 1: Vassalize a Head/Command, or a specific target
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
-			var/datum/objective/bloodsucker/conversion/chosen_subtype = /datum/objective/bloodsucker/conversion/command //pick(subtypesof(/datum/objective/bloodsucker/conversion))
+			var/datum/objective/bloodsucker/conversion/chosen_subtype = pick(subtypesof(/datum/objective/bloodsucker/conversion))
 			var/datum/objective/bloodsucker/conversion/conversion_objective = new chosen_subtype
 			conversion_objective.owner = owner
 			conversion_objective.name = "Optional Objective"
