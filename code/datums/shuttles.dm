@@ -382,8 +382,8 @@
 /datum/map_template/shuttle/emergency/card
 	suffix = "card"
 	name = "Card Station Emergency Shuttle"
-	credit_cost = 2000
-	description = "Bazinga."
+	credit_cost = 4000
+	description = "A standard pattern exfiltration shuttle, equipped with a medbay, brig and an aft engineering section. It's upgraded engines ensure the smoothest and quickest ride."
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
