@@ -41,8 +41,8 @@
 	name = "\improper Naut gas mask"
 	desc = "Found floating in space by a local hermit traded to Nanotrasen, hygiene not guaranteed."
 	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "naut_gas_mask"
-	item_state = "naut_gas_mask"
+	icon_state = "naut_gasmask"
+	item_state = "naut_gasmask"
 
 /obj/item/clothing/mask/gas/atmos/gasmask_tear
 	name = "\improper Tear gas mask"
