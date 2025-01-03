@@ -15616,6 +15616,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ctf)
+"onl" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
+	faction = list("neutral","silicon","creature");
+	name = "Nobody's Perfect"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
 "oxO" = (
 /obj/effect/turf_decal/tile/brown/half{
 	dir = 1
@@ -16823,14 +16831,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/control)
-"wiM" = (
-/mob/living/simple_animal/bot/medbot/mysterious{
-	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
-	faction = list("neutral","silicon","creature");
-	name = "Nobody's Perfect"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "wjV" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/siding/wood{
@@ -23260,7 +23260,7 @@ ayD
 aqZ
 aqZ
 aqZ
-wiM
+onl
 aqE
 aqZ
 aqZ
