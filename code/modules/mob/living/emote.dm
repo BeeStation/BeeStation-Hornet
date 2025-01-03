@@ -589,11 +589,10 @@
 	key_third_person = "slaps"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	cooldown = 2 SECONDS
 
 /datum/emote/living/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return
 	if(intentional)
 		var/obj/item/slapper/N = new(user)
 		if(user.put_in_hands(N))
