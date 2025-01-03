@@ -7,7 +7,7 @@
 	slot_flags = ITEM_SLOT_MASK
 	adjusted_flags = ITEM_SLOT_HEAD
 	dying_key = DYE_REGISTRY_BANDANA
-	//flags_1 = IS_PLAYER_COLORABLE_1
+	flags_1 = IS_PLAYER_COLORABLE_1
 	name = "bandana"
 	desc = "A fine bandana with nanotech lining."
 	icon_state = "bandana"

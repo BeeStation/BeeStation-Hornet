@@ -60,6 +60,7 @@
 	name = "captain's beret"
 	desc = "For the Captains known for their sense of fashion."
 	icon_state = "beret_badge"
+	icon = 'icons/obj/clothing/head/beret.dmi'
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#0070B7#FFCE5B"
@@ -152,6 +153,8 @@
 	name = "beret"
 	desc = "A beret, a mime's favorite headwear."
 	icon_state = "beret"
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	icon_state_preview = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
 	greyscale_config = /datum/greyscale_config/beret
 	greyscale_config_worn = /datum/greyscale_config/beret/worn
@@ -164,7 +167,7 @@
 
 /obj/item/clothing/head/beret/rainbow
 	name = "rainbow beret"
-	icon_state = "rainbow"
+	icon_state = "beret_rainbow"
 	icon = 'icons/obj/clothing/head/beret_unique.dmi'
 	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
 	greyscale_colors = null
@@ -220,6 +223,7 @@
 	name = "head of security's beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_badge"
+	icon = 'icons/obj/clothing/head/beret.dmi'
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#f0cc8f"
