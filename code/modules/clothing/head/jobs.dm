@@ -165,6 +165,8 @@
 /obj/item/clothing/head/beret/rainbow
 	name = "rainbow beret"
 	icon_state = "rainbow"
+	icon = 'icons/obj/clothing/head/beret_unique.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
 	greyscale_colors = null
 	flags_1 = NONE
 
@@ -172,6 +174,8 @@
 	name = "invisible beret"
 	desc = "Only a very scholarly mime is able to cram enough mimery into a beret for this to happen."
 	icon_state = "beret_mime"
+	icon = 'icons/obj/clothing/head/beret_unique.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
 	greyscale_colors = null
 	flags_1 = NONE
 
@@ -179,6 +183,8 @@
 	name = "H.O.N.K. tactical beret"
 	desc = "A tactical beret to be used during the enacting of the most dangerous of pranks."
 	icon_state = "beret_clown"
+	icon = 'icons/obj/clothing/head/beret_unique.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
 	greyscale_colors = null
 	flags_1 = NONE
 
@@ -608,7 +614,7 @@
 	desc = "That was white fabric. <i>Was.</i>"
 	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
 
-/obj/item/clothing/head/beret/highlander/Initialize()
+/obj/item/clothing/head/beret/highlander/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
 
