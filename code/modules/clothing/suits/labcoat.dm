@@ -45,17 +45,16 @@
 	item_state = null
 
 /obj/item/clothing/suit/toggle/labcoat/paramedic
-	name = "\improper EMT's jacket"
-	desc = "A dark blue jacket with reflective strips for emergency medical technicians."
-	icon_state = "labcoat_emt"
-	item_state = "labcoat_cmo"
+	name = "paramedic's jacket"
+	desc = "A dark blue jacket for paramedics with reflective stripes."
+	icon_state = "labcoat_paramedic"
+	item_state = null
 
 /obj/item/clothing/suit/toggle/labcoat/brig_physician
 	name = "security medic's labcoat"
 	icon_state = "labcoat_sec"
-	item_state = "labcoat_sec"
+	item_state = null
 	armor_type = /datum/armor/labcoat_brig_physician
-
 
 /datum/armor/labcoat_brig_physician
 	melee = 10
@@ -74,25 +73,51 @@
 /obj/item/clothing/suit/toggle/labcoat/genetics
 	name = "geneticist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."
-	icon_state = "labcoat_gen"
+	icon_state = "labcoat_job"
+	greyscale_config = /datum/greyscale_config/labcoat
+	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
+	greyscale_colors = "#EEEEEE#4A77A1#4A77A1#7095C2"
 
 /obj/item/clothing/suit/toggle/labcoat/chemist
 	name = "chemist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has an orange stripe on the shoulder."
-	icon_state = "labcoat_chem"
+	icon_state = "labcoat_job"
+	greyscale_config = /datum/greyscale_config/labcoat
+	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
+	greyscale_colors = "#EEEEEE#F17420#F17420#EB6F2C"
+
+/obj/item/clothing/suit/toggle/labcoat/chemist/Initialize(mapload)
+	. = ..()
+	allowed += /obj/item/storage/bag/chemistry
 
 /obj/item/clothing/suit/toggle/labcoat/virologist
 	name = "virologist labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
-	icon_state = "labcoat_vir"
+	icon_state = "labcoat_job"
+	greyscale_config = /datum/greyscale_config/labcoat
+	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
+	greyscale_colors = "#EEEEEE#198019#198019#40992E"
+
+/obj/item/clothing/suit/toggle/labcoat/virologist/Initialize(mapload)
+	. = ..()
+	allowed += /obj/item/storage/bag/bio
 
 /obj/item/clothing/suit/toggle/labcoat/science
 	name = "scientist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
-	icon_state = "labcoat_tox"
+	icon_state = "labcoat_job"
+	greyscale_config = /datum/greyscale_config/labcoat
+	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
+	greyscale_colors = "#EEEEEE#7E1980#7E1980#B347A1"
 
-/obj/item/clothing/suit/toggle/labcoat/research_director
-	name = "research director's labcoat"
-	desc = "Popped collar, ancient science fair medal from middle school.. worn out buttons that barely keep the coat closed? Oh yeah, its plasma research time. Has a legacy purple U stripe along the back."
-	icon_state = "labcoat_rd"
-	item_state = "labcoat_tox"
+/obj/item/clothing/suit/toggle/labcoat/science/Initialize(mapload)
+	. = ..()
+	allowed += /obj/item/storage/bag
+
+/obj/item/clothing/suit/toggle/labcoat/roboticist
+	name = "roboticist labcoat"
+	desc = "More like an eccentric coat than a labcoat. Helps pass off bloodstains as part of the aesthetic. Comes with red shoulder pads."
+	icon_state = "labcoat_job"
+	greyscale_config = /datum/greyscale_config/labcoat
+	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
+	greyscale_colors = "#EEEEEE#88242D#88242D#39393F"

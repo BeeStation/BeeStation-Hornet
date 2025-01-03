@@ -26825,7 +26825,7 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "dzA" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/research_director,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
@@ -46309,7 +46309,7 @@
 "iMX" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/doctor/purple{
+/obj/item/clothing/under/rank/medical/scrubs/purple{
 	pixel_y = -4
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
