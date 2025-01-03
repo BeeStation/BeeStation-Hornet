@@ -21,7 +21,6 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "gas_centcom"
 	item_state = "gas_centcom"
-	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/mask/gas/atmos/ruined_gas_mask
 	name = "\improper Ruined gas mask"
@@ -29,6 +28,8 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "ruined_gas_mask"
 	item_state = "ruined_gas_mask"
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/mask/gas/atmos/syndi_ruined_gas_mask
 	name = "\improper Syndicate Ruined gas mask"
@@ -36,6 +37,8 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "syndi_ruined_gas_mask"
 	item_state = "syndi_ruined_gas_mask"
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/mask/gas/atmos/naut_gas_mask
 	name = "\improper Naut gas mask"
@@ -43,6 +46,8 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "naut_gasmask"
 	item_state = "naut_gasmask"
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/mask/gas/atmos/gasmask_tear
 	name = "\improper Tear gas mask"
@@ -50,6 +55,8 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "gasmask_tear"
 	item_state = "gasmask_tear"
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT|HIDEHAIR
 
 // **** Welding gas mask ****
 
