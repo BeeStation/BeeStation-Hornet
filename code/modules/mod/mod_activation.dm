@@ -99,7 +99,7 @@
 			"<span class='notice'>[part] deploy[part.p_s()] with a mechanical hiss.</span>",
 			"<span class='hear'>You hear a mechanical hiss.</span>")
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		SEND_SIGNAL(src, COMSIG_MOD_PART_DEPLOYED, user, part)
+		//SEND_SIGNAL(src, COMSIG_MOD_PART_DEPLOYED, user, part)
 		return TRUE
 	else
 		if(part_datum.overslotting)
@@ -128,7 +128,7 @@
 		if(!QDELING(wearer) && !wearer.equip_to_slot_if_possible(overslot, overslot.slot_flags, qdel_on_fail = FALSE, disable_warning = TRUE))
 			wearer.dropItemToGround(overslot, force = TRUE, silent = TRUE)
 	wearer.update_clothing(slot_flags)
-	SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTED, user, part)
+	//SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTED, user, part)
 	if(!user)
 		return TRUE
 	wearer.visible_message("<span class='notice'>[wearer.name]'s [part] retract[part.p_s()] back into [src] with a mechanical hiss.",
