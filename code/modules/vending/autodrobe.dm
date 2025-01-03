@@ -147,6 +147,12 @@
 						/obj/item/clothing/glasses/blindfold = 1,
 						/obj/item/clothing/head/driphats/operatorhelm = 1,
 						/obj/item/clothing/head/driphats/helm_degraded_urban = 1,
+						/obj/item/clothing/mask/gas/atmos/syndi_ruined_gas_mask = 1,
+						/obj/item/clothing/mask/gas/atmos/mask_alpha = 1,
+						/obj/item/clothing/mask/gas/atmos/mask_bravo = 1,
+						/obj/item/clothing/mask/gas/atmos/mask_charlie = 1,
+						/obj/item/clothing/mask/gas/atmos/mask_delta = 1,
+						/obj/item/clothing/mask/gas/atmos/mysterious_mask = 3,
 						/obj/item/clothing/mask/muzzle = 2)
 
 	premium = list(/obj/item/clothing/suit/costume/pirate/captain = 2,
@@ -161,7 +167,9 @@
 				   /obj/item/clothing/head/chaplain/clownmitre = 1,
 		           /obj/item/skub = 1,
 				   /obj/item/clothing/head/driphats/traumahelm = 1,
-				   /obj/item/clothing/mask/gas/atmos/ruined_gas_mask = 3)
+				   /obj/item/clothing/mask/gas/atmos/ruined_gas_mask = 3,
+				   /obj/item/clothing/mask/gas/atmos/naut_gas_mask = 3,
+				   /obj/item/clothing/mask/gas/atmos/gasmask_tear = 3)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 	default_price = 50
