@@ -126,7 +126,7 @@
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
-	new /obj/item/clothing/head/beret/cmo(src)
+	new /obj/item/clothing/head/beret/medical/cmo(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

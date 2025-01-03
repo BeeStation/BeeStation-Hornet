@@ -54,7 +54,6 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
-
 	dog_fashion = null
 
 /obj/item/clothing/head/caphat/beret
@@ -219,7 +218,7 @@
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#f0cc8f"
 
-/obj/item/clothing/head/hos/beret/navyhos
+/obj/item/clothing/head/hats/hos/beret/navyhos
 	name = "head of security's beret"
 	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
 	greyscale_colors = "#638799#f0cc8f"
@@ -325,10 +324,10 @@
 /obj/item/clothing/head/beret/corpwarden
 	name = "corporate warden beret"
 	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
-	icon_state = "beret_corporate_warden"
+	icon_state = "beret_badge"
+	greyscale_colors = "#3f3c4#ACACAC"
 	armor_type = /datum/armor/beret_corpwarden
-	strip_delay = 60
-
+	flags_1 = NONE
 
 /datum/armor/beret_corpwarden
 	melee = 40
@@ -367,10 +366,10 @@
 /obj/item/clothing/head/beret/corpsec
 	name = "corporate security beret"
 	desc = "A special black beret for the mundane life of a corporate security officer."
-	icon_state = "beret_corporate_officer"
+	icon_state = "beret_badge"
+	greyscale_colors = "#3f3c4#FF0000"
 	armor_type = /datum/armor/beret_corpsec
-	strip_delay = 60
-
+	flags_1 = NONE
 
 /datum/armor/beret_corpsec
 	melee = 40
@@ -386,10 +385,10 @@
 /obj/item/clothing/head/beret/spacepol
 	name = "spacepol officer beret"
 	desc = "A special black beret for the mundane life of a SpacePol officer."
-	icon_state = "beret_corporate_officer"
+	icon_state = "beret_badge"
+	greyscale_colors = "#3f3c4#FF0000"
 	armor_type = /datum/armor/beret_spacepol
-	strip_delay = 60
-
+	flags_1 = NONE
 
 /datum/armor/beret_spacepol
 	melee = 40
@@ -401,11 +400,6 @@
 	acid = 50
 	stamina = 30
 	bleed = 25
-
-/obj/item/clothing/head/hos/beret/navyhos
-	name = "head of security's beret"
-	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
-	icon_state = "hosberet"
 
 /obj/item/clothing/head/beret/sec/navywarden
 	name = "warden's beret"
@@ -469,10 +463,10 @@
 	desc = "For finding corpses in style!"
 	greyscale_colors = "#16313D"
 
-/obj/item/clothing/head/beret/cmo
+/obj/item/clothing/head/beret/medical/cmo
 	name = "chief medical officer beret"
-	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
-	icon_state = "beret_badge"
+	desc = "A beret in a distinct surgical turquoise!"
+	greyscale_colors = "#5EB8B8"
 	armor_type = /datum/armor/beret_cmo
 
 /datum/armor/beret_cmo
@@ -533,119 +527,14 @@
 	rad = 10
 	fire = 10
 
-//CentCom
-
-/obj/item/clothing/head/beret/cccaptain
-	name = "central command captain beret"
-	desc = "A pure white beret with a Captain insignia of Central Command."
-	icon_state = "beret_centcom_captain"
-	armor_type = /datum/armor/beret_cccaptain
-
-/datum/armor/beret_cccaptain
-	melee = 80
-	bullet = 80
-	laser = 80
-	energy = 80
-	bomb = 80
-	bio = 80
-	rad = 80
-	fire = 80
-	acid = 80
-	stamina = 80
-	bleed = 80
-
-/obj/item/clothing/head/beret/ccofficer
-	name = "central command officer beret"
-	desc = "A black Central Command Officer beret with matching insignia."
-	icon_state = "beret_centcom_officer"
-	armor_type = /datum/armor/beret_ccofficer
-	strip_delay = 120
-
-
-/datum/armor/beret_ccofficer
-	melee = 80
-	bullet = 80
-	laser = 80
-	energy = 80
-	bomb = 80
-	bio = 80
-	rad = 80
-	fire = 80
-	acid = 80
-	stamina = 80
-	bleed = 80
-
-/obj/item/clothing/head/beret/ccofficernavy
-	name = "central command naval officer beret"
-	desc = "A Navy beret commonly worn by Central Command Naval Officers."
-	icon_state = "beret_centcom_officer_navy"
-	armor_type = /datum/armor/beret_ccofficernavy
-	strip_delay = 120
-
-//For blueshields, but those aren't in so I renamed them to centcom guards
-
-/datum/armor/beret_ccofficernavy
-	melee = 80
-	bullet = 80
-	laser = 80
-	energy = 80
-	bomb = 80
-	bio = 80
-	rad = 80
-	fire = 80
-	acid = 80
-	stamina = 80
-	bleed = 80
-
-/obj/item/clothing/head/beret/ccguard
-	name = "officer beret"
-	desc = "A black CentCom guard's beret."
-	icon_state = "beret_centcom_officer"
-	armor_type = /datum/armor/beret_ccguard
-	strip_delay = 60
-
-
-/datum/armor/beret_ccguard
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 5
-	rad = 5
-	fire = 5
-	acid = 30
-	stamina = 30
-	bleed = 20
-
-/obj/item/clothing/head/beret/ccguardnavy
-	name = "navy officer beret"
-	desc = "A navy CentCom guard's beret."
-	icon_state = "beret_centcom_officer_navy"
-	armor_type = /datum/armor/beret_ccguardnavy
-	strip_delay = 60
-
-
-/datum/armor/beret_ccguardnavy
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 5
-	rad = 5
-	fire = 5
-	acid = 30
-	stamina = 30
-	bleed = 20
-
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
 	desc = "A navy SpacePol sergeant's beret."
-	icon_state = "beret_centcom_officer_navy"
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#39393f#BBBBBB"
 	armor_type = /datum/armor/beret_sergeant
-	strip_delay = 60
-
 
 /datum/armor/beret_sergeant
 	melee = 40
@@ -659,14 +548,6 @@
 	acid = 30
 	stamina = 30
 	bleed = 20
-
-/obj/item/clothing/head/beret/captain
-	name = "captain beret"
-	desc = "A lovely blue Captain beret with a gold and white insignia."
-	icon_state = "beret_captain"
-	armor_type = /datum/armor/beret_captain
-	strip_delay = 90
-
 
 //CentCom
 
