@@ -88,7 +88,7 @@
 					/obj/item/clothing/mask/surgical = 4,
 					/obj/item/clothing/head/soft/medical_ship_cap = 4,
 					/obj/item/clothing/head/soft/alt_medical_ship_cap = 4,
-					/obj/item/clothing/neck/cloak/dripcloaks/healercloak = 4,
+					/obj/item/clothing/neck/cloak/chap/healercloak = 4,
 	)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
@@ -176,7 +176,7 @@
 
 	premium = list(
 		/obj/item/clothing/under/rank/cargo/miner = 3,
-		/obj/item/clothing/neck/cloak/dripcloaks/minercloak = 3,
+		/obj/item/clothing/neck/cloak/chap/minercloak = 3,
 		/obj/item/clothing/head/costume/mailman = 2,
 		/obj/item/clothing/under/misc/mailman/skirt = 2,
 		/obj/item/clothing/under/misc/mailman = 2,
@@ -387,7 +387,7 @@
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 2,
 					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
-					/obj/item/clothing/neck/cloak/dripcloaks/cleanercloak = 2,
+					/obj/item/clothing/neck/cloak/chap/cleanercloak = 2,
 					/obj/item/clothing/under/plasmaman/janitor = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/janitor = 2,
 					/obj/item/computer_hardware/hard_drive/role/janitor = 2,
@@ -485,7 +485,7 @@
 					/obj/item/clothing/head/beanie/rasta = 1)
 	contraband = list(/obj/item/toy/plush/plushvar = 1,
 					/obj/item/toy/plush/narplush = 1,
-					/obj/item/clothing/neck/cloak/dripcloaks/reaper_cloak = 1,
+					/obj/item/clothing/neck/cloak/chap/reaper_cloak = 1,
 					/obj/item/clothing/head/chaplain/medievaljewhat = 3,
 					/obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 					/obj/item/clothing/head/chaplain/clownmitre = 1,
