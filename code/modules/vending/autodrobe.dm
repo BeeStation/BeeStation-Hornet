@@ -161,7 +161,7 @@
 				   /obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 				   /obj/item/clothing/head/chaplain/clownmitre = 1,
 		           /obj/item/skub = 1,
-				   /obj/item/clothing/neck/cloak/gamercloak = 1,
+				   /obj/item/clothing/neck/cloak/dripcloaks/gamercloak = 1,
 				   /obj/item/clothing/head/driphats/traumahelm = 1,
 				   /obj/item/clothing/mask/gas/atmos/ruined_gas_mask = 3,
 				   /obj/item/clothing/mask/gas/atmos/naut_gas_mask = 3,
