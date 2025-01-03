@@ -325,6 +325,8 @@
 	name = "corporate warden beret"
 	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
 	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#ACACAC"
 	armor_type = /datum/armor/beret_corpwarden
 	flags_1 = NONE
@@ -367,6 +369,8 @@
 	name = "corporate security beret"
 	desc = "A special black beret for the mundane life of a corporate security officer."
 	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#FF0000"
 	armor_type = /datum/armor/beret_corpsec
 	flags_1 = NONE
@@ -386,6 +390,8 @@
 	name = "spacepol officer beret"
 	desc = "A special black beret for the mundane life of a SpacePol officer."
 	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#FF0000"
 	armor_type = /datum/armor/beret_spacepol
 	flags_1 = NONE
@@ -501,6 +507,8 @@
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#E1E1E1#D0D000"
 	armor_type = /datum/armor/beret_ce
 	flags_1 = NONE
