@@ -1,0 +1,6 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - balance: gives nukeops a TC increase per player
+  - balance: decreased the nuke op war extra tc player minimum from 50 to 30
+  - tweak: nuke op reinforcements aren't given the declare war tc
