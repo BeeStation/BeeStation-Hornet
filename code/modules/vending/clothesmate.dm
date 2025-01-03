@@ -50,8 +50,6 @@
 				/obj/item/clothing/neck/stripedredscarf = 3,
 				/obj/item/clothing/neck/stripedbluescarf = 3,
 				/obj/item/clothing/neck/stripedgreenscarf = 3,
-				/obj/item/clothing/neck/cloak/chap/transcloak = 3,
-				/obj/item/clothing/neck/cloak/chap/bi_cloak = 3,
 				/obj/item/clothing/neck/tie/blue = 3,
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,

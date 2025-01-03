@@ -229,11 +229,6 @@
 	desc = "A replica of a cloak that was given to a dedicated moth."
 	icon_state = "healercloak"
 
-/obj/item/clothing/neck/cloak/chap/transcloak
-	name = "Transgender cloak"
-	desc = "Be proud of yourself."
-	icon_state = "transcloak"
-
 /obj/item/clothing/neck/cloak/chap/duality_weibel
 	name = "Duality cloak"
 	desc = "Some call this the yin and yang."
@@ -248,8 +243,3 @@
 	name = "Cloak of Superiority"
 	desc = "Possibly still in use by the Syndicate, safety not guaranteed. "
 	icon_state = "superior_cloak"
-
-/obj/item/clothing/neck/cloak/chap/bi_cloak
-	name = "Bisexual cloak"
-	desc = "Be proud of yourself."
-	icon_state = "bicloak"
