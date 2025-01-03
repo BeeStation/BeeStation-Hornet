@@ -33,7 +33,7 @@
 	///Does the item have a custom premium price override
 	var/custom_premium_price
 	///Whether the product can be recolored by the GAGS system
-	//var/colorable
+	var/colorable
 	///List of items that have been returned to the vending machine.
 	var/list/returned_products
 	/// The category the product was in, if any.
@@ -346,7 +346,7 @@
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		//R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
+		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -889,7 +889,7 @@
 		var/list/product_data = list(
 			name = product_record.name,
 			amount = product_record.amount,
-			//colorable = product_record.colorable,
+			colorable = product_record.colorable,
 		)
 
 		.["stock"][product_record.name] = product_data
@@ -1245,7 +1245,7 @@
 				price = item_price,
 				img = base64,
 				amount = vending_machine_input[O],
-				//colorable = FALSE,
+				colorable = FALSE,
 				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
 			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]

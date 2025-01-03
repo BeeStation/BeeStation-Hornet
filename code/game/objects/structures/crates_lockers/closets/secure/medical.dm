@@ -41,7 +41,7 @@
 
 /obj/structure/closet/secure_closet/medical3/PopulateContents()
 	..()
-	new /obj/item/clothing/head/beret/med(src)
+	new /obj/item/clothing/head/beret/medical(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)

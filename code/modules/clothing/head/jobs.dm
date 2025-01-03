@@ -57,6 +57,14 @@
 
 	dog_fashion = null
 
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	desc = "For the Captains known for their sense of fashion."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#0070B7#FFCE5B"
+
 //Head of Personnel
 /obj/item/clothing/head/hats/hopcap
 	name = "head of personnel's cap"
@@ -144,83 +152,38 @@
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, a mime's favorite headwear."
-	icon = 'icons/obj/clothing/head/beret.dmi'
-	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
-	dynamic_hair_suffix = "+generic"
-	dynamic_fhair_suffix = "+generic"
-	w_class = WEIGHT_CLASS_SMALL
-	dying_key = DYE_REGISTRY_BERET
+	greyscale_config = /datum/greyscale_config/beret
+	greyscale_config_worn = /datum/greyscale_config/beret/worn
+	greyscale_colors = "#972A2A"
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/head/beret/color
 	name = "white beret"
-	icon_state = "beret_white"
+	greyscale_colors = "#ffffff"
 
 /obj/item/clothing/head/beret/rainbow
 	name = "rainbow beret"
-	desc = "The result of a passionate relationship between a mime and a clown."
-	icon_state = "beret_rainbow"
+	icon_state = "rainbow"
+	greyscale_colors = null
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/mime
 	name = "invisible beret"
 	desc = "Only a very scholarly mime is able to cram enough mimery into a beret for this to happen."
 	icon_state = "beret_mime"
+	greyscale_colors = null
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/clown
-	name = "H.O.N.K tactical beret"
-	desc = "A tactical berret to be used during the enacting of the most dangerous of pranks."
+	name = "H.O.N.K. tactical beret"
+	desc = "A tactical beret to be used during the enacting of the most dangerous of pranks."
 	icon_state = "beret_clown"
-
-/obj/item/clothing/head/beret/vintage
-	name = "vintage beret"
-	desc = "A well-worn beret."
-	icon_state = "vintageberet"
-	dog_fashion = null
-
-/obj/item/clothing/head/beret/navy
-	name = "navy beret"
-	icon_state = "beret_blue"
-	dog_fashion = null
-
-/obj/item/clothing/head/beret/archaic
-	name = "archaic beret"
-	desc = "An absolutely ancient beret, allegedly worn by the first mime to ever step foot on a Nanotrasen station."
-	icon_state = "archaicberet"
-	dog_fashion = null
-
-/obj/item/clothing/head/beret/black
-	name = "black beret"
-	desc = "A black beret, perfect for war veterans and dark, brooding, anti-hero mimes."
-	icon_state = "beretblack"
-
-/obj/item/clothing/head/beret/highlander
-	desc = "That was white fabric. <i>Was.</i>"
-	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
-
-/obj/item/clothing/head/beret/highlander/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
-
-/obj/item/clothing/head/beret/durathread
-	name = "durathread beret"
-	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
-	icon_state = "beretdurathread"
-	armor_type = /datum/armor/beret_durathread
+	greyscale_colors = null
+	flags_1 = NONE
 
 //Security
-
-
-/datum/armor/beret_durathread
-	melee = 15
-	bullet = 25
-	laser = 15
-	energy = 20
-	bomb = 10
-	fire = 30
-	acid = 5
-	stamina = 20
-	bleed = 45
 
 /obj/item/clothing/head/hats/hos
 	name = "head of security cap"
@@ -249,12 +212,17 @@
 	desc = "A black cap fit for a high ranking syndicate officer."
 
 /obj/item/clothing/head/hats/hos/beret
-	name = "head of security beret"
-	icon = 'icons/obj/clothing/head/beret.dmi'
-	worn_icon = 'icons/mob/clothing/head/beret.dmi'
+	name = "head of security's beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
-	icon_state = "hosberetblack"
-	dying_key = DYE_REGISTRY_CAP
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#39393f#f0cc8f"
+
+/obj/item/clothing/head/hos/beret/navyhos
+	name = "head of security's beret"
+	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
+	greyscale_colors = "#638799#f0cc8f"
 
 /obj/item/clothing/head/hats/hos/beret/syndicate
 	name = "syndicate beret"
@@ -268,7 +236,6 @@
 	armor_type = /datum/armor/hats_warden
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
-
 
 /datum/armor/hats_warden
 	melee = 40
@@ -350,6 +317,11 @@
 					message = replacetextEx(message, ".", pick(", eh?", ", EH?"), length(message))
 		speech_args[SPEECH_MESSAGE] = message
 
+#undef DRILL_DEFAULT
+#undef DRILL_SHOUTING
+#undef DRILL_YELLING
+#undef DRILL_CANADIAN
+
 /obj/item/clothing/head/beret/corpwarden
 	name = "corporate warden beret"
 	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
@@ -373,10 +345,13 @@
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#972A2A#F2F2F2"
 	armor_type = /datum/armor/beret_sec
 	strip_delay = 60
 	dog_fashion = null
-
+	flags_1 = NONE
 
 /datum/armor/beret_sec
 	melee = 35
@@ -427,7 +402,7 @@
 	stamina = 30
 	bleed = 25
 
-/obj/item/clothing/head/beret/sec/navyhos
+/obj/item/clothing/head/hos/beret/navyhos
 	name = "head of security's beret"
 	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
 	icon_state = "hosberet"
@@ -435,7 +410,7 @@
 /obj/item/clothing/head/beret/sec/navywarden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
-	icon_state = "wardenberet"
+	greyscale_colors = "#3C485A#00AEEF"
 	armor_type = /datum/armor/sec_navywarden
 	strip_delay = 60
 
@@ -453,21 +428,65 @@
 
 /obj/item/clothing/head/beret/sec/navyofficer
 	desc = "A special beret with the security insignia emblazoned on it. For officers with class."
-	icon_state = "officerberet"
+	greyscale_colors = "#3C485A#FF0000"
 
-//Curator
-/obj/item/clothing/head/fedora/curator
-	name = "treasure hunter's fedora"
-	desc = "You got red text today kid, but it doesn't mean you have to like it."
-	icon_state = "curator"
+//Science
 
-/obj/item/clothing/head/beret/eng
+/obj/item/clothing/head/beret/science
+	name = "science beret"
+	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
+	armor_type = /datum/armor/beret_sci
+	greyscale_colors = "#8D008F"
+	flags_1 = NONE
+
+/obj/item/clothing/head/beret/science/fancy
+	desc = "A science-themed beret for our hardworking scientists. This one comes with a fancy badge!"
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#8D008F#FFFFFF"
+
+/datum/armor/beret_sci
+	bomb = 5
+	bio = 5
+	fire = 5
+	acid = 10
+
+//Medical
+
+/obj/item/clothing/head/beret/medical
+	name = "medical beret"
+	desc = "A medical-flavored beret for the doctor in you!"
+	greyscale_colors = "#FFFFFF"
+	armor_type = /datum/armor/beret_med
+	flags_1 = NONE
+
+/datum/armor/beret_med
+	bio = 20
+
+/obj/item/clothing/head/beret/medical/paramedic
+	name = "paramedic beret"
+	desc = "For finding corpses in style!"
+	greyscale_colors = "#16313D"
+
+/obj/item/clothing/head/beret/cmo
+	name = "chief medical officer beret"
+	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
+	icon_state = "beret_badge"
+	armor_type = /datum/armor/beret_cmo
+
+/datum/armor/beret_cmo
+	bio = 30
+	rad = 10
+	acid = 20
+
+//Engineering
+/obj/item/clothing/head/beret/engi
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
-	icon_state = "beret_engineering"
 	armor_type = /datum/armor/beret_eng
-	strip_delay = 60
-
+	greyscale_colors = "#FFBC30"
+	flags_1 = NONE
 
 /datum/armor/beret_eng
 	rad = 10
@@ -475,11 +494,10 @@
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
-	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
-	icon_state = "beret_atmospherics"
+	desc = "A beret for those who have shown immaculate proficiency in piping. Or plumbing."
 	armor_type = /datum/armor/beret_atmos
-	strip_delay = 60
-
+	greyscale_colors = "#FFDE15"
+	flags_1 = NONE
 
 /datum/armor/beret_atmos
 	rad = 10
@@ -488,35 +506,26 @@
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
-	icon_state = "beret_ce"
+	icon_state = "beret_badge"
 	armor_type = /datum/armor/beret_ce
-	strip_delay = 60
-
+	flags_1 = NONE
 
 /datum/armor/beret_ce
 	rad = 20
 	fire = 30
 
-/obj/item/clothing/head/beret/sci
-	name = "science beret"
-	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
-	icon_state = "beret_sci"
-	armor_type = /datum/armor/beret_sci
-	strip_delay = 60
-
-
-/datum/armor/beret_sci
-	bomb = 5
-	bio = 5
-	fire = 5
-	acid = 10
-
-/obj/item/clothing/head/beret/supply
-	name = "supply beret"
+/obj/item/clothing/head/beret/cargo
+	name = "cargo beret"
 	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
-	icon_state = "beret_supply"
 	armor_type = /datum/armor/beret_supply
-	strip_delay = 60
+	greyscale_colors = "#ECCA30"
+	flags_1 = NONE
+
+//Curator
+/obj/item/clothing/head/fedora/curator
+	name = "treasure hunter's fedora"
+	desc = "You got red text today kid, but it doesn't mean you have to like it."
+	icon_state = "curator"
 
 //Medical
 
@@ -524,38 +533,13 @@
 	rad = 10
 	fire = 10
 
-/obj/item/clothing/head/beret/med
-	name = "medical beret"
-	desc = "A white beret with a blue cross finely threaded into it. It has that sterile smell about it."
-	icon_state = "beret_med"
-	armor_type = /datum/armor/beret_med
-	strip_delay = 60
-
-
-/datum/armor/beret_med
-	bio = 20
-
-/obj/item/clothing/head/beret/cmo
-	name = "chief medical officer beret"
-	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
-	icon_state = "beret_cmo"
-	armor_type = /datum/armor/beret_cmo
-	strip_delay = 60
-
 //CentCom
-
-/datum/armor/beret_cmo
-	bio = 30
-	rad = 10
-	acid = 20
 
 /obj/item/clothing/head/beret/cccaptain
 	name = "central command captain beret"
 	desc = "A pure white beret with a Captain insignia of Central Command."
 	icon_state = "beret_centcom_captain"
 	armor_type = /datum/armor/beret_cccaptain
-	strip_delay = 120
-
 
 /datum/armor/beret_cccaptain
 	melee = 80
@@ -699,19 +683,57 @@
 	stamina = 40
 	bleed = 20
 
+
+//Miscellaneous
+
+/obj/item/clothing/head/beret/black
+	name = "black beret"
+	desc = "A black beret, perfect for war veterans and dark, brooding, anti-hero mimes."
+	icon_state = "beret"
+	greyscale_config = /datum/greyscale_config/beret
+	greyscale_config_worn = /datum/greyscale_config/beret/worn
+	greyscale_colors = "#3f3c40"
+
+/obj/item/clothing/head/beret/durathread
+	name = "durathread beret"
+	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#C5D4F3#ECF1F8"
+	armor_type = /datum/armor/beret_durathread
+
+/datum/armor/beret_durathread
+	melee = 15
+	bullet = 25
+	laser = 15
+	energy = 20
+	bomb = 10
+	fire = 30
+	acid = 5
+	stamina = 20
+	bleed = 45
+
+/obj/item/clothing/head/beret/highlander
+	desc = "That was white fabric. <i>Was.</i>"
+	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
+
+/obj/item/clothing/head/beret/highlander/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+
+
+//CentCom
+
 /obj/item/clothing/head/beret/centcom_formal
 	name = "\improper CentCom Formal Beret"
-	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Nanotrasen's most recent nano-fabric durability enhancements, this time, it's not the case."
+	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Central Command's most recent nano-fabric durability enhancements, this time, it's not the case."
 	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#46b946#f2c42e"
 	armor_type = /datum/armor/beret_centcom_formal
 	strip_delay = 10 SECONDS
-
-#undef DRILL_DEFAULT
-#undef DRILL_SHOUTING
-#undef DRILL_YELLING
-#undef DRILL_CANADIAN
-
 
 /datum/armor/beret_centcom_formal
 	melee = 80
