@@ -50,6 +50,8 @@
 				/obj/item/clothing/neck/stripedredscarf = 3,
 				/obj/item/clothing/neck/stripedbluescarf = 3,
 				/obj/item/clothing/neck/stripedgreenscarf = 3,
+				/obj/item/clothing/neck/cloak/transcloak = 3,
+				/obj/item/clothing/neck/cloak/bi_cloak = 3,
 				/obj/item/clothing/neck/tie/blue = 3,
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
@@ -205,7 +207,8 @@
 		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1,
 		/obj/item/clothing/head/driphats/syndi_general_hat = 1,
 		/obj/item/clothing/head/driphats/syndi_gold_cap = 1,
-		/obj/item/clothing/head/driphats/syndi_ship_commander_cap = 1
+		/obj/item/clothing/head/driphats/syndi_ship_commander_cap = 1,
+		/obj/item/clothing/neck/cloak/superior_cloak = 1,
 	)
 	premium = list(
 		/obj/item/clothing/under/suit/checkered = 1,
@@ -213,7 +216,8 @@
 		/obj/item/clothing/suit/jacket/leather/overcoat = 1,
 		/obj/item/clothing/under/pants/mustangjeans = 1,
 		/obj/item/clothing/neck/necklace/dope = 3,
-		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1
+		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1,
+		/obj/item/clothing/neck/cloak/duality_weibel = 1,
 	)
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_MEDIUM
