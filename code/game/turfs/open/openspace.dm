@@ -1,7 +1,9 @@
+CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
+
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon_state = "transparent"
+	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	overfloor_placed = FALSE
@@ -28,6 +30,13 @@
 
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/openspace/Initialize(mapload)
+	. = ..()
+	var/area/our_area = loc
+	if(istype(our_area, /area/space))
+		force_no_gravity = TRUE
+	return INITIALIZE_HINT_LATELOAD
 
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

@@ -62,3 +62,5 @@
 	log_game("[key_name(revvie)] was spawned as a revenant by an event.")
 	spawned_mobs += revvie
 	return SUCCESSFUL_SPAWN
+
+#undef REVENANT_SPAWN_THRESHOLD

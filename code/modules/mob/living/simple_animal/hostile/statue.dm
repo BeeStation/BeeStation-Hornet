@@ -11,8 +11,10 @@
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 
-	response_help = "touches"
-	response_disarm = "pushes"
+	response_help_continuous = "touches"
+	response_help_simple = "touch"
+	response_disarm_continuous = "pushes"
+	response_disarm_simple = "push"
 
 	speed = -1
 	maxHealth = 50000
@@ -21,7 +23,8 @@
 
 	obj_damage = 100
 	melee_damage = 70
-	attacktext = "claws"
+	attack_verb_continuous = "claws"
+	attack_verb_simple = "claw"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -53,6 +56,8 @@
 	discovery_points = 10000
 
 // No movement while seen code.
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
@@ -224,8 +229,3 @@
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
-
-/mob/living/simple_animal/hostile/statue/restrained(ignore_grab)
-	. = ..()
-	if(can_be_seen(loc))
-		return 1

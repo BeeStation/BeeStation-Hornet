@@ -15,7 +15,7 @@
 	antag_datum = /datum/antagonist/rev/head
 	false_report_weight = 10
 	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	required_jobs = list(list(JOB_NAME_CAPTAIN=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1),list(JOB_NAME_CHIEFENGINEER=1),list(JOB_NAME_RESEARCHDIRECTOR=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1)) //Any head present
+	required_jobs = list(list(JOB_NAME_CAPTAIN=1, JOB_NAME_LAWYER=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1, JOB_NAME_LAWYER=1),list(JOB_NAME_CHIEFENGINEER=1, JOB_NAME_LAWYER=1),list(JOB_NAME_RESEARCHDIRECTOR=1, JOB_NAME_LAWYER=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1, JOB_NAME_LAWYER=1)) //Any head present and a deconverter present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
@@ -159,9 +159,11 @@
 //Checks for rev victory//
 //////////////////////////
 /datum/game_mode/revolution/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in revolution.objectives)
-		if(!(objective.check_completion()))
-			return FALSE
+	for(var/datum/mind/staff_mind in SSjob.get_all_heads())
+		var/turf/location = get_turf(staff_mind.current)
+		if(!considered_afk(staff_mind) && considered_alive(staff_mind) && is_station_level(location.z))
+			if(ishuman(staff_mind.current))
+				return FALSE
 	return TRUE
 
 /////////////////////////////

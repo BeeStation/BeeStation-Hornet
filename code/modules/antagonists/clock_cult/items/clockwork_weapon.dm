@@ -17,8 +17,10 @@
 	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
-	sharpness = IS_SHARP_ACCURATE
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
@@ -97,8 +99,9 @@
 	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	armour_penetration = 6
-	sharpness = IS_BLUNT
-	attack_verb = list("bashed", "smitted", "hammered", "attacked")
+	sharpness = BLUNT
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
 /obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
@@ -121,7 +124,8 @@
 	force = 26
 	throwforce = 20
 	armour_penetration = 12
-	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
 	COOLDOWN_DECLARE(emp_cooldown)
 
@@ -136,7 +140,7 @@
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
+/obj/item/clockwork/weapon/brass_sword/attack_atom(obj/O, mob/living/user)
 	..()
 	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return
@@ -154,10 +158,12 @@
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
 
+//Clockbow, different pathing
+
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
-	icon_state = "bow_clockwork_unloaded"
+	icon_state = "bow_clockwork"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15

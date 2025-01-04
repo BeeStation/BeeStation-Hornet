@@ -198,8 +198,8 @@ Spiked Skin
 	No transmission bonus
 
 Thresholds
-  transmission 6 Can give minor armour
-  resistance 6 Does more damage
+	transmission 6 Can give minor armour
+	resistance 6 Does more damage
 
 //////////////////////////////////////
 */
@@ -220,7 +220,7 @@ Thresholds
 	var/armor = 0
 	var/done = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Spikes deal more damage.<br>\
-					  <b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
+						<b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()

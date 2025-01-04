@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/gentle)
+
 /obj/item/slimecross/gentle
 	name = "gentle extract"
 	desc = "It pulses slowly, as if breathing."

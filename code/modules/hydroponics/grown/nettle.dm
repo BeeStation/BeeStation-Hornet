@@ -44,7 +44,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("stung")
+	attack_verb_continuous = list("stings")
+	attack_verb_simple = list("sting")
 
 /obj/item/food/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -80,6 +81,8 @@
 /obj/item/food/grown/nettle/basic
 	seed = /obj/item/seeds/nettle
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
+
 /obj/item/food/grown/nettle/basic/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	force = round((5 + seed.potency / 5), 1)
@@ -93,6 +96,8 @@
 	force = 25
 	throwforce = 12
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 
 /obj/item/food/grown/nettle/death/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()

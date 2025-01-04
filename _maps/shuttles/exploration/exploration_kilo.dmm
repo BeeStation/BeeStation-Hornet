@@ -1,11 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aT" = (
 /obj/structure/closet/crate/bin,
-/obj/effect/turf_decal/delivery,
 /obj/item/toy/beach_ball,
 /obj/item/bikehorn/rubberducky,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
+"aY" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "dt" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -19,9 +26,6 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
 	},
@@ -29,17 +33,14 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "gl" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "hz" = (
@@ -49,24 +50,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
-"hW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
-"ie" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
@@ -93,27 +76,13 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "nZ" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/computer/objective,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "pY" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
-"qC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "qZ" = (
 /obj/machinery/door/airlock/external/glass,
@@ -127,6 +96,9 @@
 	port_direction = 8;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 14
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -168,20 +140,20 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
-"vQ" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "wn" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/closet/crate/science,
+/obj/item/stack/sheet/mineral/plasma/twenty,
+/obj/item/pickaxe,
+/obj/item/mining_scanner,
+/obj/item/wrench,
+/obj/item/multitool,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/radio/headset/headset_exploration,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "wE" = (
@@ -210,19 +182,22 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Bk" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "CT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark{
+	dir = 6
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Dr" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Fy" = (
@@ -244,7 +219,6 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "In" = (
-/obj/effect/turf_decal/delivery,
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/emergency_oxygen/engi{
 	pixel_x = -10;
@@ -255,10 +229,10 @@
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Mi" = (
@@ -294,31 +268,16 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"Ql" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/structure/closet/crate/science,
-/obj/item/multitool,
-/obj/item/wrench,
-/obj/item/stack/sheet/mineral/plasma/twenty,
-/obj/item/mining_scanner,
-/obj/item/pickaxe,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration)
 "Qu" = (
 /obj/machinery/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "St" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark{
+	dir = 10
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "SQ" = (
@@ -326,46 +285,29 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"SX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "TQ" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 8;
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "TZ" = (
-/obj/effect/turf_decal/delivery,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/item/storage/box/donkpockets,
 /obj/item/storage/box/donkpockets/donkpockethonk{
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Uu" = (
@@ -374,8 +316,7 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "Vg" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -385,6 +326,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "XD" = (
@@ -400,20 +342,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"XK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "XZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
@@ -427,8 +356,8 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ZG" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/stripes,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 
@@ -453,13 +382,13 @@ AZ
 AZ
 Fy
 hz
-vQ
-SX
-XK
-ie
+pY
+pY
+pY
+pY
 fg
 wG
-qC
+kU
 TQ
 si
 Vg
@@ -467,11 +396,11 @@ Vg
 (3,1,1) = {"
 AZ
 TZ
+Dr
+Dr
+Dr
 St
-St
-St
-St
-hW
+pY
 uE
 pY
 ZG
@@ -487,12 +416,12 @@ wE
 SQ
 Bh
 VA
-hW
+pY
 XD
 pY
 ZG
 kU
-Ql
+dt
 uU
 PK
 "}
@@ -503,7 +432,7 @@ Mi
 SQ
 mj
 VA
-hW
+pY
 Ze
 pY
 ZG
@@ -515,9 +444,9 @@ PK
 (6,1,1) = {"
 AZ
 In
-CT
-CT
-CT
+aY
+aY
+aY
 CT
 XZ
 pY

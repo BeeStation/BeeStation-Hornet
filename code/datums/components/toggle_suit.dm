@@ -49,7 +49,7 @@
 		source.balloon_alert(user, "you're incapacitated!")
 		return
 
-	if(living_user.get_num_arms() <= 0)
+	if(living_user.usable_hands <= 0)
 		source.balloon_alert(user, "you don't have hands!")
 		return
 

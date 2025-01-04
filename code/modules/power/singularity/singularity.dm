@@ -11,7 +11,7 @@
 	plane = MASSIVE_OBJ_PLANE
 	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	energy = 100 //How strong are we?
@@ -31,6 +31,8 @@
 	var/datum/weakref/singularity_component
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 
 /obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
@@ -352,9 +354,9 @@
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
 		if(G?.active)
 			return 0
-	else if(locate(/obj/machinery/shieldwallgen) in T)
-		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S?.active)
+	else if(locate(/obj/machinery/power/shieldwallgen) in T)
+		var/obj/machinery/power/shieldwallgen/S = locate(/obj/machinery/power/shieldwallgen) in T
+		if(S?.shieldstate)
 			return 0
 	return 1
 
@@ -378,7 +380,7 @@
 /obj/anomaly/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+							"<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -418,10 +420,25 @@
 /obj/anomaly/singularity/deadchat_controlled
 	move_self = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
+
 /obj/anomaly/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
 	AddComponent(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
-	 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, NORTH),
-	 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
-	 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
-	 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))
+		"up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, NORTH),
+		"down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
+		"left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
+		"right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))
+
+/// The immobile, close pulling singularity
+/obj/anomaly/singularity/stationary
+	move_self = FALSE
+
+/obj/anomaly/singularity/stationary/Initialize(mapload)
+	. = ..()
+	var/datum/component/singularity/singularity = singularity_component.resolve()
+	singularity?.grav_pull = TRUE
+
+/obj/anomaly/singularity/stationary/process(delta_time)
+	if(DT_PROB(0.5, delta_time))
+		mezzer()

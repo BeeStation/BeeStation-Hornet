@@ -9,22 +9,29 @@
 
 /atom/movable/screen
 	name = ""
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	plane = HUD_PLANE
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/obj/master = null
 	/// A reference to the owner HUD, if any.
 	var/datum/hud/hud = null
-
-
-/atom/movable/screen/Destroy()
-	master = null
-	hud = null
-	return ..()
+	/**
+	 * Map name assigned to this object.
+	 * Automatically set by /client/proc/add_obj_to_map.
+	 */
+	var/assigned_map
+	/**
+	 * Mark this object as garbage-collectible after you clean the map
+	 * it was registered on.
+	 *
+	 * This could probably be changed to be a proc, for conditional removal.
+	 * But for now, this works.
+	 */
+	var/del_on_map_removal = TRUE
+	///Can we throw things at this
+	var/can_throw_target = FALSE
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -53,7 +60,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated())
+	if(usr.incapacitated(IGNORE_STASIS))
 		return 1
 
 	if(ismob(usr))
@@ -63,13 +70,13 @@
 
 /atom/movable/screen/craft
 	name = "crafting menu"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "craft"
 	screen_loc = ui_crafting
 
 /atom/movable/screen/area_creator
 	name = "create new area"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "area_edit"
 	screen_loc = ui_building
 
@@ -84,33 +91,24 @@
 
 /atom/movable/screen/language_menu
 	name = "language menu"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "talk_wheel"
 	screen_loc = ui_language_menu
 
 /atom/movable/screen/language_menu/Click()
-	var/mob/M = usr
-	var/datum/language_holder/H = M.get_language_holder()
-	H.open_language_menu(usr)
+	usr.get_language_holder().open_language_menu(usr)
 
 /atom/movable/screen/inventory
-	var/slot_id	// The indentifier for the slot. It has nothing to do with ID cards.
-	var/icon_empty // Icon when empty. For now used only by humans.
-	var/icon_full  // Icon when contains an item. For now used only by humans.
-	var/list/object_overlays = list()
+	var/slot_id
+	/// Icon when empty. For now used only by humans.
+	var/icon_empty
+	/// Icon when contains an item. For now used only by humans.
+	var/icon_full
+	/// The overlay when hovering over with an item in your hand
+	var/image/object_overlay
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
-	// At this point in client Click() code we have passed the 1/10 sec check and little else
-	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
-		return TRUE
-
-	if(usr.incapacitated())
-		return TRUE
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
@@ -130,8 +128,8 @@
 
 /atom/movable/screen/inventory/MouseExited()
 	..()
-	cut_overlay(object_overlays)
-	object_overlays.Cut()
+	cut_overlay(object_overlay)
+	QDEL_NULL(object_overlay)
 	remove_stored_outline()
 
 /atom/movable/screen/inventory/proc/add_stored_outline()
@@ -176,12 +174,13 @@
 	else
 		item_overlay.color = "#00ff00"
 
-	object_overlays += item_overlay
-	add_overlay(object_overlays)
+	cut_overlay(object_overlay)
+	object_overlay = item_overlay
+	add_overlay(object_overlay)
 
 /atom/movable/screen/inventory/hand
 	var/mutable_appearance/handcuff_overlay
-	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
+	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/hud/screen_gen.dmi', "blocked")
 	var/held_index = 0
 
 /atom/movable/screen/inventory/hand/update_overlays()
@@ -189,7 +188,7 @@
 
 	if(!handcuff_overlay)
 		var/state = (!(held_index % 2)) ? "markus" : "gabrielle"
-		handcuff_overlay = mutable_appearance('icons/mob/screen_gen.dmi', state)
+		handcuff_overlay = mutable_appearance('icons/hud/screen_gen.dmi', state)
 
 	if(!hud?.mymob)
 		return
@@ -233,9 +232,16 @@
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
 
+	/// A reference to the object in the slot. Grabs or items, generally.
+	var/datum/component/storage/master = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
+
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
+	if (master && !istype(master))
+		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
 /atom/movable/screen/close/Click()
 	var/datum/component/storage/S = master
@@ -244,7 +250,7 @@
 
 /atom/movable/screen/drop
 	name = "drop"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_drop"
 	plane = HUD_PLANE
 
@@ -285,11 +291,11 @@
 		return ..()
 
 /atom/movable/screen/act_intent/alien
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 	screen_loc = ui_movi
 
 /atom/movable/screen/act_intent/robot
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
 
 /atom/movable/screen/internals
@@ -354,9 +360,14 @@
 		return
 	C.update_action_buttons_icon()
 
+/atom/movable/screen/spacesuit
+	name = "Space suit cell status"
+	icon_state = "spacesuit_0"
+	screen_loc = ui_spacesuit
+
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "running"
 
 /atom/movable/screen/mov_intent/Click()
@@ -377,7 +388,7 @@
 
 /atom/movable/screen/pull
 	name = "stop pulling"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "pull"
 
 /atom/movable/screen/pull/Click()
@@ -394,7 +405,7 @@
 
 /atom/movable/screen/resist
 	name = "resist"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_resist"
 	plane = HUD_PLANE
 
@@ -405,14 +416,14 @@
 
 /atom/movable/screen/rest
 	name = "rest"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_rest"
 	plane = HUD_PLANE
 
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
 		var/mob/living/L = usr
-		L.lay_down()
+		L.toggle_resting()
 
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob
@@ -430,27 +441,24 @@
 	icon_state = "block"
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
+	/// A reference to the object in the slot. Grabs or items, generally.
+	var/datum/component/storage/master = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
+	if (master && !istype(master))
+		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
-/atom/movable/screen/storage/Click(location, control, params)
-	if(world.time <= usr.next_move)
-		return TRUE
-	if(usr.incapacitated())
-		return TRUE
-	if (ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-	if(master)
-		var/obj/item/I = usr.get_active_held_item()
-		if(I)
-			master.attackby(null, I, usr, params)
+/atom/movable/screen/storage/attackby(obj/item/W, mob/user, params)
+	master.attackby(src, W, user, params)
 	return TRUE
 
 /atom/movable/screen/throw_catch
 	name = "throw/catch"
-	icon = 'icons/mob/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_throw_off"
 
 /atom/movable/screen/throw_catch/Click()
@@ -505,7 +513,7 @@
 	vis_contents += overlay_object
 
 /obj/effect/overlay/zone_sel
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 128
 	anchored = TRUE
@@ -569,22 +577,22 @@
 /atom/movable/screen/zone_sel/update_icon()
 	. = ..()
 	cut_overlay(selecting_appearance)
-	selecting_appearance = mutable_appearance('icons/mob/screen_gen.dmi', "[selecting]")
+	selecting_appearance = mutable_appearance('icons/hud/screen_gen.dmi', "[selecting]")
 	add_overlay(selecting_appearance)
 	hud?.mymob?._set_zone_selected(selecting)
 
 /atom/movable/screen/zone_sel/alien
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 
 /atom/movable/screen/zone_sel/alien/update_icon()
 	. = ..()
 	cut_overlay(selecting_appearance)
-	selecting_appearance = mutable_appearance('icons/mob/screen_alien.dmi', "[selecting]")
+	selecting_appearance = mutable_appearance('icons/hud/screen_alien.dmi', "[selecting]")
 	add_overlay(selecting_appearance)
 	hud?.mymob?._set_zone_selected(selecting)
 
 /atom/movable/screen/zone_sel/robot
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 
 
 /atom/movable/screen/flash
@@ -596,7 +604,7 @@
 	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/damageoverlay
-	icon = 'icons/mob/screen_full.dmi'
+	icon = 'icons/hud/fullscreen/screen_full.dmi'
 	icon_state = "oxydamageoverlay0"
 	name = "dmg"
 	blend_mode = BLEND_MULTIPLY
@@ -611,15 +619,15 @@
 	screen_loc = ui_health
 
 /atom/movable/screen/healths/alien
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 	screen_loc = ui_alien_health
 
 /atom/movable/screen/healths/robot
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_health
 
 /atom/movable/screen/healths/minebot
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_health
 
 /atom/movable/screen/healths/blob
@@ -639,7 +647,7 @@
 	icon_state = "corehealth"
 
 /atom/movable/screen/healths/clock
-	icon = 'icons/mob/actions.dmi'
+	icon = 'icons/hud/actions/action_generic.dmi'
 	icon_state = "bg_clock"
 	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -651,25 +659,25 @@
 
 /atom/movable/screen/healths/revenant
 	name = "essence"
-	icon = 'icons/mob/actions.dmi'
+	icon = 'icons/hud/actions/action_generic.dmi'
 	icon_state = "bg_revenant"
 	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healths/construct
-	icon = 'icons/mob/screen_construct.dmi'
+	icon = 'icons/hud/screen_construct.dmi'
 	icon_state = "artificer_health0"
 	screen_loc = ui_construct_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healths/slime
-	icon = 'icons/mob/screen_slime.dmi'
+	icon = 'icons/hud/screen_slime.dmi'
 	icon_state = "slime_health0"
 	screen_loc = ui_slime_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healths/lavaland_elite
-	icon = 'icons/mob/screen_elite.dmi'
+	icon = 'icons/hud/screen_elite.dmi'
 	icon_state = "elite_health0"
 	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -694,13 +702,15 @@
 	screen_loc = ui_mood
 
 /atom/movable/screen/splash
-	icon = 'icons/blank_title.png'
+	icon = 'icons/blanks/blank_title.png'
 	icon_state = ""
 	screen_loc = "1,1"
 	plane = SPLASHSCREEN_PLANE
 	var/client/holder
 
 INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/splash)
 
 /atom/movable/screen/splash/Initialize(mapload, client/C, visible, use_previous_title)
 	. = ..()
@@ -743,6 +753,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
+
 /atom/movable/screen/component_button/Initialize(mapload, atom/movable/screen/parent)
 	. = ..()
 	src.parent = parent
@@ -750,3 +762,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/stamina
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina

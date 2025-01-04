@@ -49,24 +49,20 @@
 		return
 	if(get_active_held_item())
 		return
-	if(!(mobility_flags & MOBILITY_MOVE))
-		return
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	return TRUE
 
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(!skipcatch)	//ugly, but easy
-		if(can_catch_item())
-			if(istype(AM, /obj/item))
-				var/obj/item/I = AM
-				if(isturf(I.loc))
-					I.attack_hand(src)
-					if(get_active_held_item() == I) //if our attack_hand() picks up the item...
-						visible_message("<span class='warning'>[src] catches [I]!</span>", \
-										"<span class='userdanger'>You catch [I] in mid-air!</span>")
-						throw_mode_off(THROW_MODE_TOGGLE)
-						return 1
+	if(!skipcatch && can_catch_item() && isitem(AM))
+		var/obj/item/I = AM
+		if(isturf(I.loc))
+			I.attack_hand(src)
+			if(get_active_held_item() == I) //if our attack_hand() picks up the item...
+				visible_message("<span class='warning'>[src] catches [I]!</span>", \
+						"<span class='userdanger'>You catch [I] in mid-air!</span>")
+				throw_mode_off(THROW_MODE_TOGGLE)
+				return TRUE
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
@@ -77,7 +73,12 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
+	if (I.bleed_force)
+		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
+		var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
@@ -97,20 +98,69 @@
 					if(head)
 						head.add_mob_blood(src)
 						update_inv_head()
+		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
+			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
+			to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
-		//dismemberment
-		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.is_sharp(), 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
-		if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
-			dismemberthreshold -= 50
-		if(I.is_sharp())
-			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
-			if(stat == DEAD)
-				dismemberthreshold = dismemberthreshold / 3
-		if(I.force >= dismemberthreshold && I.force >= 10)
-			if(affecting.dismember(I.damtype))
-				I.add_mob_blood(src)
-				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
+		var/dismember_limb = FALSE
+		var/weapon_sharpness = I.is_sharp()
+
+		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
+			dismember_limb = TRUE
+			//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
+			//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
+
+		else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && stat == DEAD))
+			//Delimbing cannot normally occur with blunt weapons
+			//You also aren't cutting someone's arm off with a scalpel unless they're already dead
+
+			if(limb_damage >= affecting.max_damage)
+				dismember_limb = TRUE
+				//You can only cut a limb off if it is already damaged enough to be fully disabled
+
+		if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || stat != CONSCIOUS) && affecting.dismember(I.damtype))
+			I.add_mob_blood(src)
+			playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
+
 		return TRUE //successful attack
+
+/mob/living/carbon/send_item_attack_message(obj/item/I, mob/living/user, hit_area, obj/item/bodypart/hit_bodypart)
+	if(!I.force && !length(I.attack_verb_simple) && !length(I.attack_verb_continuous))
+		return
+	var/message_verb_continuous = length(I.attack_verb_continuous) ? "[pick(I.attack_verb_continuous)]" : "attacks"
+	var/message_verb_simple = length(I.attack_verb_simple) ? "[pick(I.attack_verb_simple)]" : "attack"
+
+	var/extra_wound_details = ""
+	/*
+	if(I.damtype == BRUTE && hit_bodypart.can_dismember())
+		var/mangled_state = hit_bodypart.get_mangled_state()
+		var/bio_state = get_biological_state()
+		if(mangled_state == BODYPART_MANGLED_BOTH)
+			extra_wound_details = ", threatening to sever it entirely"
+		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
+			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] through to the bone"
+		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
+			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] at the remaining tissue"
+	*/
+
+	var/message_hit_area = ""
+	if(hit_area)
+		message_hit_area = " in the [hit_area]"
+	var/attack_message_spectator = "[src] [message_verb_continuous][message_hit_area] with [I][extra_wound_details]!"
+	var/attack_message_victim = "You're [message_verb_continuous][message_hit_area] with [I][extra_wound_details]!"
+	var/attack_message_attacker = "You [message_verb_simple] [src][message_hit_area] with [I]!"
+	if(user in viewers(src, null))
+		attack_message_spectator = "[user] [message_verb_continuous] [src][message_hit_area] with [I][extra_wound_details]!"
+		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I][extra_wound_details]!"
+	if(user == src)
+		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I][extra_wound_details]!"
+	visible_message("<span class='danger'>[attack_message_spectator]</span>",\
+		"<span class='userdanger'>[attack_message_victim]</span>", null, COMBAT_MESSAGE_RANGE, user)
+	if(user != src)
+		to_chat(user, "<span class='danger'>[attack_message_attacker]</span>")
+	return TRUE
+
 
 /mob/living/carbon/attack_drone(mob/living/simple_animal/drone/user)
 	return //so we don't call the carbon's attack_hand().
@@ -132,7 +182,7 @@
 			ContactContractDisease(D)
 
 	for(var/datum/surgery/S in surgeries)
-		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
+		if(body_position == LYING_DOWN || !S.lying_required)
 			if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 				if(S.next_step(user, user.a_intent))
 					return 1
@@ -202,6 +252,32 @@
 		return affecting.body_zone
 	return dam_zone
 
+/**
+ * Attempt to disarm the target mob.
+ * Will shove the target mob back, and drop them if they're in front of something dense
+ * or another carbon.
+*/
+/mob/living/carbon/proc/disarm(mob/living/carbon/target)
+	do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	if (ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		human_target.w_uniform?.add_fingerprint(src)
+
+	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
+	target.disarm_effect(src)
+
+/mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
+	for (var/obj/item/clothing/clothing in get_equipped_items())
+		if(clothing.blocks_shove_knockdown)
+			return TRUE
+	return FALSE
+
+/mob/living/carbon/proc/clear_shove_slowdown()
+	remove_movespeed_modifier(/datum/movespeed_modifier/shove)
+	var/active_item = get_active_held_item()
+	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
+		visible_message("<span class='warning'>[name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
@@ -264,7 +340,7 @@
 	if(M == src && check_self_for_injuries())
 		return
 
-	if(!(mobility_flags & MOBILITY_STAND))
+	if(body_position == LYING_DOWN)
 		if(buckled)
 			to_chat(M, "<span class='warning'>You need to unbuckle [src] first to do that!")
 			return
@@ -321,6 +397,8 @@
 	AdjustParalyzed(-60)
 	AdjustImmobilized(-60)
 	set_resting(FALSE)
+	if(body_position != STANDING_UP && !resting && !buckled && !HAS_TRAIT(src, TRAIT_FLOORED))
+		get_up(TRUE)
 
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
@@ -388,14 +466,10 @@
 
 			else
 				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
-		if(has_bane(BANE_LIGHT))
-			mind.disrupt_spells(-500)
 		return 1
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
-		if(has_bane(BANE_LIGHT))
-			mind.disrupt_spells(0)
 
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
@@ -469,3 +543,56 @@
 			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	else if(getOxyLoss() <= 50)
 		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+/mob/living/carbon/bullet_act(obj/projectile/P, def_zone, piercing_hit)
+	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
+	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
+		affecting = bodyparts[1]
+	if (P.bleed_force)
+		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(P.bleed_force * hit_amount)
+	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
+		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
+		playsound(src, 'sound/surgery/cautery2.ogg', 70)
+		to_chat(src, "<span class='userdanger'>The heat from [P] cauterizes your bleeding!</span>")
+
+	return ..()
+
+/mob/living/carbon/attack_basic_mob(mob/living/basic/user)
+	. = ..()
+	if(!.)
+		return
+	var/affected_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/dam_zone = dismembering_strike(user, affected_zone)
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
+	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
+	// Apply bleeding
+	if (user.melee_damage_type == BRUTE)
+		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = user.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(user.melee_damage * 0.1 * hit_amount)
+
+/mob/living/carbon/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(!.)
+		return
+	var/affected_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/dam_zone = dismembering_strike(M, affected_zone)
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
+	apply_damage(M.melee_damage, M.melee_damage_type, affecting, armor)
+	// Apply bleeding
+	if (M.melee_damage_type == BRUTE)
+		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(M.melee_damage * 0.1 * hit_amount)

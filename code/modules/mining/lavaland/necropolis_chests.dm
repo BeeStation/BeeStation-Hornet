@@ -28,22 +28,13 @@
 	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
-
-/obj/effect/spawner/mail/maintloot
-	name = "\improper Random maintenance loot spawner"
-
-/obj/effect/spawner/mail/maintloot/Initialize()
-	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
-	new mail_maintloot(loc)
-	return ..()
-
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pick_weight(loot)
 	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
 		/obj/item/clothing/glasses/godeye									= 5,
-		/obj/item/pickaxe/diamond											= 5,
+		/obj/item/clothing/gloves/concussive_gauntlets						= 5,
 		/obj/item/rod_of_asclepius											= 5,
 		/obj/item/organ/heart/cursed/wizard						 			= 5,
 		/obj/item/ship_in_a_bottle											= 5,
@@ -54,8 +45,8 @@
 		/obj/item/gun/magic/hook											= 5,
 		/obj/item/book_of_babel 											= 5,
 		/obj/item/clothing/neck/necklace/memento_mori						= 5,
-		/obj/item/reagent_containers/glass/waterbottle/relic				= 5,
-		/obj/item/reagent_containers/glass/bottle/necropolis_seed			= 5,
+		/obj/item/reagent_containers/cup/glass/waterbottle/relic				= 5,
+		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
 		/obj/item/staff/storm												= 5
@@ -311,13 +302,13 @@
 		qdel(src)
 
 // Relic water bottle
-/obj/item/reagent_containers/glass/waterbottle/relic
+/obj/item/reagent_containers/cup/glass/waterbottle/relic
 	name = "ancient bottle of unknown reagent"
 	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
 	list_reagents = list()
 
-/obj/item/reagent_containers/glass/waterbottle/relic/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
@@ -427,6 +418,7 @@
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	knockdown = 30
+	bleed_force = BLEED_SURFACE
 	var/chain
 
 /obj/projectile/hook/fire(setAngle)
@@ -477,7 +469,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE)
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -497,6 +489,8 @@
 	icon = 'icons/effects/effects.dmi'
 	var/vanish_description = "vanishes from reality"
 	var/can_destroy = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 
 /obj/effect/immortality_talisman/Initialize(mapload, mob/new_user)
 	. = ..()
@@ -564,6 +558,8 @@
 	STR.max_items = 21
 	new /obj/item/shared_storage/blue(drop_location(), STR)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
+
 /obj/item/shared_storage/blue/Initialize(mapload, datum/component/storage/concrete/master)
 	. = ..()
 	if(!istype(master))
@@ -586,22 +582,22 @@
 	if(!user.can_read(src))
 		return FALSE
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
-	user.grant_all_languages()
+	user.grant_all_languages(source = LANGUAGE_BABEL)
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
 
 //Potion of Flight
-/obj/item/reagent_containers/glass/bottle/potion
+/obj/item/reagent_containers/cup/bottle/potion
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "potionflask"
 
-/obj/item/reagent_containers/glass/bottle/potion/flight
+/obj/item/reagent_containers/cup/bottle/potion/flight
 	name = "strange elixir"
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list(/datum/reagent/flightpotion = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/cup/bottle/potion/update_icon()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -646,7 +642,7 @@
 				C.emote("scream")
 		if(holycheck)
 			to_chat(C, "<span class='notice'>You feel blessed!</span>")
-			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 	..()
 
 
@@ -663,7 +659,7 @@
 	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i) || is_debug_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -673,6 +669,57 @@
 /obj/structure/ladder/unbreakable/jacob
 	name = "jacob's ladder"
 	desc = "An indestructible celestial ladder that violates the laws of physics."
+
+/obj/item/clothing/gloves/concussive_gauntlets
+	name = "concussive gauntlets"
+	desc = "Pickaxes... for your hands!"
+	icon_state = "concussive_gauntlets"
+	worn_icon_state = "concussive_gauntlets"
+	item_state = "combatgloves"
+	toolspeed = 0.1 //Sonic jackhammer, but only works on minerals.
+	strip_delay = 40
+	equip_delay_other = 20
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = LAVA_PROOF | FIRE_PROOF //they are from lavaland after all
+	armor_type = /datum/armor/gloves_concussive_gauntlets
+
+
+/datum/armor/gloves_concussive_gauntlets
+	melee = 15
+	bullet = 35
+	laser = 35
+	energy = 20
+	bomb = 35
+	bio = 35
+	rad = 35
+	stamina = 20
+	bleed = 20
+
+/obj/item/clothing/gloves/concussive_gauntlets/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_GLOVES)
+		tool_behaviour = TOOL_MINING
+		RegisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(rocksmash))
+		RegisterSignal(user, COMSIG_MOVABLE_BUMP, PROC_REF(rocksmash))
+	else
+		stopmining(user)
+
+/obj/item/clothing/gloves/concussive_gauntlets/dropped(mob/user)
+	. = ..()
+	stopmining(user)
+
+/obj/item/clothing/gloves/concussive_gauntlets/proc/stopmining(mob/user)
+	tool_behaviour = initial(tool_behaviour)
+	UnregisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
+	UnregisterSignal(user, COMSIG_MOVABLE_BUMP)
+
+/obj/item/clothing/gloves/concussive_gauntlets/proc/rocksmash(mob/living/carbon/human/user, atom/rocks, proximity)
+	if(!ismineralturf(rocks))
+		return
+	rocks.attackby(src, user)
 
 ///Bosses
 
@@ -713,12 +760,13 @@
 	icon_state_on = "cleaving_saw_open"
 	worn_icon_state = "cleaving_saw"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb_off = list("attacked", "sawed", "sliced", "tore", "ripped", "diced", "cut")
-	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
+	attack_verb_off = list("attacks", "saws", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_on = list("cleaves", "swipes", "slashes", "chops")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 	faction_bonus_force = 45
 	nemesis_factions = list("mining", "boss")
 	var/transform_cooldown
@@ -811,7 +859,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
@@ -820,7 +869,8 @@
 	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/effects/ghost2.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
@@ -1119,7 +1169,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 5 //Melee attacks also invoke a 15 burn damage AoE, for a total of 20 damage
-	attack_verb = list("clubbed", "beat", "pummeled")
+	attack_verb_continuous = list("clubs", "beats", "pummels")
+	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	var/power = 15 //Damage of the magic tiles
@@ -1391,3 +1442,5 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "skeleton_key"
 	w_class = WEIGHT_CLASS_SMALL
+
+#undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

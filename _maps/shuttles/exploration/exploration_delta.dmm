@@ -5,7 +5,7 @@
 /turf/template_noop,
 /area/shuttle/exploration)
 "cg" = (
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -61,7 +61,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
 	},
@@ -332,7 +332,7 @@
 "NT" = (
 /obj/structure/table,
 /obj/item/trash/pistachios,
-/obj/item/trash/can/food/beans{
+/obj/item/trash/canned/beans{
 	pixel_y = 10
 	},
 /turf/open/floor/mineral/titanium,

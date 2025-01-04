@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/void_phase
 	name = "Void Phase"
 	desc = "Lets you blink to your pointed destination, causes 3x3 AoE damage bubble around your destination and your current location. It has a minimum range of 3 tiles and a maximum range of 9 tiles."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "voidblink"
 	action_background_icon_state = "bg_ecult"
 	invocation = "RE'L'TY PH'S'E"

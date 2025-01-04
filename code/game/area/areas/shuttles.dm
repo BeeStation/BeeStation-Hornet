@@ -6,7 +6,7 @@
 	name = "Shuttle"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	area_flags = NONE
@@ -188,6 +188,7 @@
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
+	camera_networks = list(CAMERA_NETWORK_EVAC)
 
 /area/shuttle/escape/backup
 	name = "Backup Emergency Shuttle"
@@ -231,9 +232,11 @@
 
 /area/shuttle/caravan/syndicate1
 	name = "Syndicate Fighter"
+	camera_networks = list(CAMERA_NETWORK_CARAVAN_SYNDICATE)
 
 /area/shuttle/caravan/syndicate2
 	name = "Syndicate Fighter"
+	camera_networks = list(CAMERA_NETWORK_CARAVAN_SYNDICATE)
 
 /area/shuttle/caravan/syndicate3
 	name = "Syndicate Drop Ship"

@@ -2,7 +2,7 @@
 
 /datum/action/item_action/chameleon/drone/randomise
 	name = "Randomise Headgear"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
 /datum/action/item_action/chameleon/drone/randomise/Trigger()
@@ -22,7 +22,7 @@
 
 /datum/action/item_action/chameleon/drone/togglehatmask
 	name = "Toggle Headgear Mode"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 
 /datum/action/item_action/chameleon/drone/togglehatmask/New()
 	..()
@@ -356,9 +356,20 @@
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/under_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+
+/datum/armor/under_chameleon
+	melee = 10
+	bullet = 10
+	laser = 10
+	bio = 10
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/chameleon/envirosuit
 	name = "plasma envirosuit"
@@ -433,9 +444,19 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/suit_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+
+/datum/armor/suit_chameleon
+	melee = 10
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/suit/chameleon/Initialize(mapload)
 	. = ..()
@@ -477,9 +498,19 @@
 	icon_state = "meson"
 	item_state = "meson"
 	resistance_flags = NONE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/glasses_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+
+/datum/armor/glasses_chameleon
+	melee = 10
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
 	. = ..()
@@ -530,9 +561,19 @@
 	worn_icon_state = "ygloves"
 
 	resistance_flags = NONE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/gloves_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+
+/datum/armor/gloves_chameleon
+	melee = 10
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/gloves/chameleon/Initialize(mapload)
 	. = ..()
@@ -575,13 +616,23 @@
 	item_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
 	strip_delay = 80
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/chameleon_combat
+
+
+/datum/armor/chameleon_combat
+	melee = 10
+	bullet = 10
+	laser = 10
+	bio = 50
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
@@ -591,9 +642,19 @@
 	clothing_flags = SNUG_FIT
 	icon_state = "greysoft"
 	resistance_flags = NONE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/head_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+
+/datum/armor/head_chameleon
+	melee = 5
+	bullet = 5
+	laser = 5
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/head/chameleon/Initialize(mapload)
 	. = ..()
@@ -655,7 +716,7 @@
 	// The camohat, I mean, holographic hat projection, is part of the
 	// drone itself.
 	clothing_flags = SNUG_FIT
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 	// which means it offers no protection, it's just air and light
 
 /obj/item/clothing/head/chameleon/drone/Initialize(mapload)
@@ -709,17 +770,27 @@
 	icon_state = "gas_alt"
 	item_state = "gas_alt"
 	resistance_flags = NONE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/mask_chameleon
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
 	voice_change = TRUE
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 	var/datum/action/item_action/chameleon/tongue_change/tongue_action
+
+
+/datum/armor/mask_chameleon
+	melee = 5
+	bullet = 5
+	laser = 5
+	bio = 100
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
@@ -778,9 +849,13 @@
 
 /obj/item/clothing/mask/chameleon/drone
 	//Same as the drone chameleon hat, undroppable and no protection
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/chameleon_drone
 	// Can drones use the voice changer part? Let's not find out.
 	voice_change = FALSE
+
+
+/datum/armor/chameleon_drone
+	bleed = 10
 
 /obj/item/clothing/mask/chameleon/drone/Initialize(mapload)
 	. = ..()
@@ -801,12 +876,22 @@
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
 	desc = "A pair of black shoes."
-	permeability_coefficient = 0.05
 	resistance_flags = NONE
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10)
+	armor_type = /datum/armor/shoes_chameleon
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+
+/datum/armor/shoes_chameleon
+	melee = 10
+	bullet = 10
+	laser = 10
+	bio = 90
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/shoes/chameleon/Initialize(mapload)
 	. = ..()
@@ -1043,7 +1128,12 @@
 	desc = "A neosilk clip-on tie."
 	icon_state = "blacktie"
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/neck_chameleon
+
+
+/datum/armor/neck_chameleon
+	fire = 50
+	acid = 50
 
 /obj/item/clothing/neck/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -1076,3 +1166,5 @@
 			log_game("[key_name(user)] has locked the disguise of the chameleon necktie ([name]) with [W]")
 			return
 	. = ..()
+
+#undef EMP_RANDOMISE_TIME

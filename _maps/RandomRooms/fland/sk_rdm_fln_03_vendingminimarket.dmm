@@ -139,7 +139,7 @@
 /area/template_noop)
 "u" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Vending machine Store Backroom"
+	name = "Vending Machine Store Backroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -192,7 +192,7 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Vending machine Store Maintenance";
+	name = "Vending Machine Store Maintenance";
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -252,7 +252,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "R" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{

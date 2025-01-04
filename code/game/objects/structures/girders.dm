@@ -1,7 +1,13 @@
 /obj/structure/girder
 	name = "girder"
-	icon_state = "girder"
-	desc = "A large structural assembly made out of iron; It requires a layer of iron before it can be considered a wall."
+	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall."
+	icon = 'icons/obj/smooth_structures/girders/girder.dmi'
+	icon_state = "girder-0"
+	base_icon_state = "girder"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_GIRDER)
+	canSmoothWith = list(SMOOTH_GROUP_GIRDER)
+
 	anchored = TRUE
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
@@ -312,30 +318,43 @@
 	new /obj/structure/girder/cult(loc)
 	qdel(src)
 
+// Displaced girder
 /obj/structure/girder/displaced
 	name = "displaced girder"
-	icon_state = "displaced"
+	desc = "A large structural frame made out of iron; It requires a layer of materials before it can be considered a wall. This one has unachored from the ground."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "displaced_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120
 
+// Reinforced girder
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
-	icon_state = "reinforced"
+	desc = "A large structural frame made out of iron; This one has been reinforced and It requires a layer of plasteel before it can be considered a reinforced wall."
+	icon = 'icons/obj/smooth_structures/girders/reinforced_girder.dmi'
+	icon_state = "reinforced_girder-0"
+	base_icon_state = "reinforced_girder"
 	state = GIRDER_REINF
 	girderpasschance = 0
 	max_integrity = 350
 
-
-
-//////////////////////////////////////////// cult girder //////////////////////////////////////////////
-
+//////////////////////////////////////////// cult girders //////////////////////////////////////////////
+///they will get a proper smoothing icon later :D, but not today, courier pigeon's word! 4/09/24
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
-	icon = 'icons/obj/cult.dmi'
-	icon_state= "cultgirder"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "bloodcult_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	can_displace = FALSE
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
@@ -395,7 +414,10 @@
 /obj/structure/girder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
-			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 8)
+			return rcd_result_with_memory(
+				list("mode" = RCD_FLOORWALL, "delay" = 2 SECONDS, "cost" = 8),
+				get_turf(src), RCD_MEMORY_WALL,
+			)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 13)
 	return FALSE
@@ -422,8 +444,12 @@
 /obj/structure/girder/bronze
 	name = "wall gear"
 	desc = "A girder made out of sturdy bronze, made to resemble a gear."
-	icon = 'icons/obj/clockwork_objects.dmi'
-	icon_state = "wall_gear"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "clockcult_girder"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	can_displace = FALSE
 
 /obj/structure/girder/bronze/attackby(obj/item/W, mob/living/user, params)

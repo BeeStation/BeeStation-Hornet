@@ -92,6 +92,8 @@
 	var/datum/soullink/shapeshift/slink
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/source
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/shapeshift_holder)
+
 /obj/shapeshift_holder/Initialize(mapload,obj/effect/proc_holder/spell/targeted/shapeshift/source,mob/living/caster, convert_damage = FALSE)
 	. = ..()
 	src.source = source

@@ -34,7 +34,7 @@
 	if(!isliving(arrived))
 		return
 	var/mob/living/victim = arrived
-	if(!(victim.movement_type & FLYING) && victim.slip(knockdown_time, parent, lube_flags, paralyze_time, force_drop_items) && callback)
+	if(!(victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && victim.slip(knockdown_time, parent, lube_flags, paralyze_time, force_drop_items) && callback)
 		callback.Invoke(victim)
 
 /datum/component/slippery/UnregisterFromParent()

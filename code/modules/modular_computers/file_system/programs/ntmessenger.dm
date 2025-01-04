@@ -186,6 +186,14 @@
 			computer.saved_image = null
 			photo_path = null
 			return TRUE
+		if("PDA_viewPhotos")
+			if(!issilicon(usr))
+				return
+			var/mob/living/silicon/user = usr
+			var/obj/item/camera/siliconcam/aicamera = user.aicamera
+			if(isnull(aicamera))
+				return
+			aicamera.viewpictures(user)
 		if("PDA_selectPhoto")
 			if(!issilicon(usr))
 				return
@@ -279,7 +287,7 @@
 		message += "\nSent from my PDA"
 
 	// Filter
-	if(CHAT_FILTER_CHECK(message))
+	if(OOC_FILTER_CHECK(message))
 		to_chat(user, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 		return
 

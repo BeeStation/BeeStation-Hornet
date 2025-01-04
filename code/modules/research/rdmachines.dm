@@ -13,7 +13,7 @@
 	var/requires_console = TRUE
 	var/disabled = FALSE
 	var/obj/machinery/computer/rdconsole/linked_console
-	var/obj/item/loaded_item = null //the item loaded inside the machine (currently only used by experimentor and destructive analyzer)
+	var/obj/item/loaded_item = null //the item loaded inside the machine (currently only used by the destructive analyzer)
 
 /obj/machinery/rnd/proc/reset_busy()
 	busy = FALSE

@@ -248,7 +248,7 @@
 		var/cablesuffix = "[min(fromdir,dirnum)]-[max(fromdir,dirnum)]"
 		if(fromdir == dirnum) //cables can't loop back on themselves
 			cablesuffix = "invalid"
-		var/image/img = image(icon = 'icons/mob/radial.dmi', icon_state = "cable_[cablesuffix]")
+		var/image/img = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cable_[cablesuffix]")
 		img.color = GLOB.cable_colors[colors[current_color_index]]
 		wiredirs[icondir] = img
 	return wiredirs

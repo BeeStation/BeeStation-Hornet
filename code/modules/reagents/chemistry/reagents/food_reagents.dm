@@ -111,18 +111,18 @@
 	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
 	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
 
-/datum/reagent/consumable/cooking_oil
-	name = "Cooking Oil"
-	description = "A variety of cooking oil derived from fat or plants. Used in food preparation and frying."
-	color = "#EADD6B" //RGB: 234, 221, 107 (based off of canola oil)
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
-	taste_mult = 0.8
-	taste_description = "oil"
-	nutriment_factor = 7 * REAGENTS_METABOLISM //Not very healthy on its own
-	metabolization_rate = 10 * REAGENTS_METABOLISM
+/datum/reagent/consumable/nutriment/fat
+	name = "Fat"
+	description = "Triglycerides found in vegetable oils and fatty animal tissue."
+	color = "#f0eed7"
+	taste_description = "lard"
+	brute_heal = 0
+	burn_heal = 1
+	nutriment_factor = 18 // Twice as nutritious compared to protein and carbohydrates
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
 
-/datum/reagent/consumable/cooking_oil/reaction_obj(obj/exposed_obj, reac_volume)
+/datum/reagent/consumable/nutriment/fat/reaction_obj(obj/exposed_obj, reac_volume)
+	. = ..()
 	if(!holder || (holder.chem_temp <= fry_temperature))
 		return
 	if(!isitem(exposed_obj) || HAS_TRAIT(exposed_obj, TRAIT_FOOD_FRIED))
@@ -139,16 +139,17 @@
 	log_game("[exposed_obj.name] ([exposed_obj.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(exposed_obj)].")
 	exposed_obj.visible_message("<span class='warning'>[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow.</span>")
 	exposed_obj.AddElement(/datum/element/fried_item, volume)
-	exposed_obj.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
+	exposed_obj.reagents.add_reagent(src.type, reac_volume)
 
-/datum/reagent/consumable/cooking_oil/reaction_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if(!(method == VAPOR || method == TOUCH) || isnull(holder) || (holder.chem_temp < fry_temperature))
+/datum/reagent/consumable/nutriment/fat/reaction_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
+	. = ..()
+	if(!(methods & (VAPOR|TOUCH)) || isnull(holder) || (holder.chem_temp < fry_temperature)) //Directly coats the mob, and doesn't go into their bloodstream
 		return
 
-	var/oil_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
-	if(method & TOUCH)
-		oil_damage *= max(1 - touch_protection, 0)
-	var/FryLoss = round(min(38, oil_damage * reac_volume))
+	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
+	if(methods & TOUCH)
+		burn_damage *= max(1 - touch_protection, 0)
+	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
 		exposed_mob.visible_message("<span class='warning'>The boiling oil sizzles as it covers [exposed_mob]!</span>", \
 		"<span class='userdanger'>You're covered in boiling oil!</span>")
@@ -159,15 +160,30 @@
 		addtimer(CALLBACK(exposed_mob, TYPE_PROC_REF(/mob/living, unfry_mob)), 3)
 	if(FryLoss)
 		exposed_mob.adjustFireLoss(FryLoss)
-	return TRUE
 
-/datum/reagent/consumable/cooking_oil/reaction_turf(turf/open/exposed_turf, reac_volume)
+/datum/reagent/consumable/nutriment/fat/reaction_turf(turf/open/exposed_turf, reac_volume)
+	. = ..()
 	if(!istype(exposed_turf) || isgroundlessturf(exposed_turf) || (reac_volume < 5))
 		return
-
 	exposed_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume * 1.5 SECONDS)
 	exposed_turf.name = "deep-fried [initial(exposed_turf.name)]"
 	exposed_turf.add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY)
+
+/datum/reagent/consumable/nutriment/fat/oil
+	name = "Vegetable Oil"
+	description = "A variety of cooking oil derived from plant fats. Used in food preparation and frying."
+	color = "#EADD6B" //RGB: 234, 221, 107 (based off of canola oil)
+	taste_mult = 0.8
+	taste_description = "oil"
+	nutriment_factor = 7 //Not very healthy on its own
+	metabolization_rate = 10 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/nutriment/fat/oil/olive
+	name = "Olive Oil"
+	description = "A high quality oil, suitable for dishes where the oil is a key flavour."
+	taste_description = "olive oil"
+	color = "#DBCF5C"
+	nutriment_factor = 10
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"
@@ -178,16 +194,16 @@
 	taste_mult = 1.5 // stop sugar drowning out other flavours
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	metabolization_rate = 2 * REAGENTS_METABOLISM
-	overdose_threshold = 200 // Hyperglycaemic shock
+	overdose_threshold = 100 // Hyperglycaemic shock
 	taste_description = "sweetness"
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, "<span class='userdanger'>You go into hyperglycaemic shock! Lay off the twinkies!</span>")
-	M.AdjustSleeping(600, FALSE)
+	M.AdjustSleeping(600)
 	. = 1
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M)
-	M.AdjustSleeping(40, FALSE)
+	M.AdjustSleeping(40)
 	..()
 	. = 1
 
@@ -341,12 +357,6 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
-/datum/reagent/consumable/sodiumchloride/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M))
-		return
-	if(M.has_bane(BANE_SALT))
-		M.mind.disrupt_spells(-200)
-
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
 		return
@@ -376,24 +386,6 @@
 	if(iscatperson(M))
 		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
 		M.vomit(20)
-
-
-
-/datum/reagent/consumable/cocoa/hot_cocoa
-	name = "Hot Chocolate"
-	description = "Made with love! And cocoa beans."
-	reagent_state = LIQUID
-	nutriment_factor = 3 * REAGENTS_METABOLISM
-	color = "#403010" // rgb: 64, 48, 16
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "creamy chocolate"
-	glass_icon_state  = "chocolateglass"
-	glass_name = "glass of chocolate"
-	glass_desc = "Tasty."
-
-/datum/reagent/consumable/cocoa/hot_cocoa/on_mob_life(mob/living/carbon/M)
-	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
-	..()
 
 /datum/reagent/drug/mushroomhallucinogen
 	name = "Mushroom Hallucinogen"
@@ -462,25 +454,6 @@
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
-
-/datum/reagent/consumable/cornoil
-	name = "Corn Oil"
-	description = "An oil derived from various types of corn."
-	nutriment_factor = 20 * REAGENTS_METABOLISM
-	color = "#302000" // rgb: 48, 32, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
-	taste_description = "slime"
-
-/datum/reagent/consumable/cornoil/reaction_turf(turf/open/T, reac_volume)
-	if (!istype(T))
-		return
-	T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume*2 SECONDS)
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.return_air()
-		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,TCMB))
-		lowertemp.react(src)
-		qdel(hotspot)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
@@ -688,19 +661,35 @@
 /datum/reagent/consumable/maltodextrin
 	name = "Maltodextrin"
 	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
-	color = "#ffffff"
+	color = "#d4e1ee"
 	chem_flags = CHEMICAL_RNG_GENERAL
 	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
 	taste_description = "processed goodness"
-	nutriment_factor = 0
+	nutriment_factor = -0.3
 	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
 
-/datum/reagent/consumable/maltodextrin/on_mob_life(mob/living/carbon/M)
-	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
-	..()
+/datum/reagent/consumable/maltodextrin/microplastics
+	name = "Microplastics"
+	description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"
+	color = "#dbd6cb"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // The funny
+	taste_description = "Plastic"
+	nutriment_factor = -0.15 // it's plastic after all, it taste really good and it's real special!
+	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin
+
+/datum/reagent/consumable/maltodextrin/microplastics/on_mob_metabolize(mob/living/carbon/human/H)
+	. = ..()
+	if(!istype(H))
+		return
+	H.physiology.tox_mod *= 2
+
+/datum/reagent/consumable/maltodextrin/microplastics/on_mob_end_metabolize(mob/living/carbon/human/H)
+	. = ..()
+	if(!istype(H))
+		return
+	H.physiology.tox_mod *= 0.5
 
 ////Lavaland Flora Reagents////
-
 
 /datum/reagent/consumable/entpoly
 	name = "Entropic Polypnium"
@@ -797,6 +786,14 @@
 		playsound(M, "sparks", 50, 1)
 	return ..()
 
+/datum/reagent/consumable/chlorophyll
+	name = "Liquid Chlorophyll"
+	description = "A plant-specific elixir of life."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#00df30"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "bitter, dry, broccoli soup"
+
 /datum/reagent/consumable/astrotame
 	name = "Astrotame"
 	description = "A space age artifical sweetener."
@@ -849,3 +846,16 @@
 	if(prob(10))
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
+
+/datum/reagent/consumable/nutriment/cloth
+	name = "Cloth"
+	description = "The finest fabric in the universe..."
+	reagent_state = SOLID
+	color = "#c2bbb7"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	taste_description = "a roll of gauze"
+	metabolization_rate = 2 * REAGENTS_METABOLISM //speedy metabolization (per tick)
+
+/datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/M)
+	holder.add_reagent(/datum/reagent/consumable/nutriment, 1)
+	holder.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)

@@ -2,6 +2,7 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
+	bleed_force = BLEED_SURFACE
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 

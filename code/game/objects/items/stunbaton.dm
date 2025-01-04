@@ -11,8 +11,9 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
-	attack_verb = list("enforced the law upon")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	attack_verb_continuous = list("enforces the law upon")
+	attack_verb_simple = list("enforce the law upon")
+	armor_type = /datum/armor/melee_baton
 
 	var/stunforce = 40
 	var/turned_on = FALSE
@@ -20,6 +21,12 @@
 	var/hitcost = 1000
 	var/throw_hit_chance = 35
 	var/preload_cell_type //if not empty the baton starts with this type of cell
+
+
+/datum/armor/melee_baton
+	bomb = 50
+	fire = 80
+	acid = 80
 
 /obj/item/melee/baton/get_cell()
 	return cell
@@ -55,7 +62,7 @@
 	..()
 	//Only mob/living types have stun handling
 	if(turned_on && prob(throw_hit_chance) && iscarbon(hit_atom))
-		baton_stun(hit_atom)
+		baton_stun(hit_atom, throwingdatum.thrower)
 
 /obj/item/melee/baton/loaded //this one starts with a cell pre-installed.
 	preload_cell_type = /obj/item/stock_parts/cell/high
@@ -119,7 +126,7 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost && !(obj_flags & OBJ_EMPED))
 		turned_on = !turned_on
-		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
+		balloon_alert(user, "You turn [src] [turned_on ? "on" : "off"].")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE
@@ -187,13 +194,14 @@
 	target.stuttering = 20
 
 	// Shoving
-	var/shove_dir = get_dir(user.loc, target.loc)
-	var/turf/target_shove_turf = get_step(target.loc, shove_dir)
-	var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
-	if (target_collateral_human && target_shove_turf != get_turf(user))
-		target.Knockdown(0.5 SECONDS)
-		target_collateral_human.Knockdown(0.5 SECONDS)
-	target.Move(target_shove_turf, shove_dir)
+	if(user.a_intent == INTENT_DISARM)
+		var/shove_dir = get_dir(user.loc, target.loc)
+		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+		if (target_collateral_human && target_shove_turf != get_turf(user))
+			target.Knockdown(0.5 SECONDS)
+			target_collateral_human.Knockdown(0.5 SECONDS)
+		target.Move(target_shove_turf, shove_dir)
 
 	target.do_stun_animation()
 

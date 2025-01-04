@@ -24,7 +24,7 @@
 	switch(screen)
 
 
-	  // --- Main Menu ---
+		// --- Main Menu ---
 
 		if(0)
 			dat += "<br>[temp]<br>"
@@ -40,7 +40,7 @@
 				dat += "<br>No servers detected. Scan for servers: <a href='?src=[REF(src)];operation=scan'>\[Scan\]</a>"
 
 
-	  // --- Viewing Server ---
+		// --- Viewing Server ---
 
 		if(1)
 			dat += "<br>[temp]<br>"

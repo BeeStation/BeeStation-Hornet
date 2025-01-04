@@ -29,7 +29,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "k" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (
@@ -97,9 +97,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "I" = (
-/obj/item/kirbyplants/photosynthetic{
-	layer = 3.1
-	},
+/obj/item/kirbyplants/photosynthetic,
 /obj/structure/window/fulltile,
 /turf/open/floor/plating,
 /area/ruin/unpowered)

@@ -6,7 +6,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 200
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/structure_light_construct
 
 	var/stage = 1
 	var/fixture_type = "tube"
@@ -15,6 +15,16 @@
 	var/obj/item/stock_parts/cell/cell
 
 	var/cell_connectors = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
+
+
+/datum/armor/structure_light_construct
+	melee = 50
+	bullet = 10
+	laser = 10
+	fire = 80
+	acid = 50
 
 /obj/structure/light_construct/Initialize(mapload, ndir, building)
 	. = ..()

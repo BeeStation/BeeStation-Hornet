@@ -71,7 +71,7 @@
 
 // /datum/component/two_handed signals
 #define COMSIG_TWOHANDED_WIELD "twohanded_wield"              //from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
-      #define COMPONENT_TWOHANDED_BLOCK_WIELD 1
+		#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"          //from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 
 // /datum/action signals
@@ -88,8 +88,11 @@
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
 ///Subsystem signals
-///From base of datum/controller/subsystem/Initialize: (start_timeofday)
+///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
+
+///from SSsecurity_level when the security level changes : (new_level)
+#define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"
 
 /// a weather event of some kind occured
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
@@ -117,5 +120,5 @@
 #define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"
 
 /// Called when a buffer tries to send some stored data to something (datum/source, mob/user, datum/buffer, obj/item/buffer_parent) (buffer item may be null)
-#define COMSIG_PARENT_RECIEVE_BUFFER "recieve_buffer"
-	#define COMPONENT_BUFFER_RECIEVED (1 << 0)
+#define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
+	#define COMPONENT_BUFFER_RECEIVED (1 << 0)

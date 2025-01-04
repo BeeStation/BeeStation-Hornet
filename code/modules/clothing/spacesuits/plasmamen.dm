@@ -1,11 +1,11 @@
- //Suits for the pink and grey skeletons! //EVA version no longer used in favor of the Jumpsuit version
+//Suits for the pink and grey skeletons! //EVA version no longer used in favor of the Jumpsuit version
 
 
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "EVA plasma envirosuit"
 	desc = "A special plasma containment suit designed to be space-worthy, as well as worn over other clothing. Like its smaller counterpart, it can automatically extinguish the wearer in a crisis, and holds twice as many charges."
 	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor_type = /datum/armor/eva_plasmaman
 	resistance_flags = FIRE_PROOF
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -13,6 +13,13 @@
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 10
 
+
+
+/datum/armor/eva_plasmaman
+	bio = 100
+	fire = 100
+	acid = 75
+	bleed = 10
 
 /obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
 	. = ..()
@@ -47,13 +54,13 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor_type = /datum/armor/space_plasmaman
 	resistance_flags = FIRE_PROOF
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_on = FALSE
 	var/helmet_on = FALSE
@@ -68,6 +75,13 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEEYES|HIDEFACE|HIDEFACIALHAIR
+
+
+/datum/armor/space_plasmaman
+	bio = 100
+	fire = 100
+	acid = 75
+	bleed = 10
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
@@ -244,7 +258,16 @@
 	name = "security envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from burning alive, along-side other undesirables."
 	greyscale_colors = "#9F2A2E#2D2D2D#7D282D"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 10)
+	armor_type = /datum/armor/plasmaman_security
+
+
+/datum/armor/plasmaman_security
+	melee = 10
+	bio = 100
+	fire = 100
+	acid = 75
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's envirosuit helmet"
@@ -295,8 +318,16 @@
 	name = "engineering envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	greyscale_colors = "#F0DE00#D75600#F0DE00"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor_type = /datum/armor/plasmaman_engineering
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
+
+/datum/armor/plasmaman_engineering
+	bio = 100
+	rad = 10
+	fire = 100
+	acid = 75
+	bleed = 10
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
 	name = "atmospherics envirosuit helmet"
@@ -461,7 +492,16 @@
 	name = "security Mk.II envirosuit helmet"
 	desc = "A stylish new iteration upon the original plasmaman containment helmet design for security officers, retaining all the old protections for a new era of fragile law enforcement."
 	greyscale_colors = "#9F2A2E#2D2D2D"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, STAMINA = 10)
+	armor_type = /datum/armor/mark2_security
+
+
+/datum/armor/mark2_security
+	melee = 10
+	bio = 100
+	fire = 100
+	acid = 75
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/security/warden
 	name = "warden's Mk.II envirosuit helmet"
@@ -512,8 +552,16 @@
 	name = "engineering Mk.II envirosuit helmet"
 	desc = "A new iteration upon the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor_type = /datum/armor/mark2_engineering
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
+
+/datum/armor/mark2_engineering
+	bio = 100
+	rad = 10
+	fire = 100
+	acid = 75
+	bleed = 10
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/engineering/atmospherics
 	name = "atmospherics Mk.II envirosuit helmet"
@@ -713,8 +761,16 @@
 	name = "engineering protective envirosuit helmet"
 	desc = "A safer looking re-imagining of the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 100, ACID = 75, STAMINA = 0)
+	armor_type = /datum/armor/protective_engineering
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
+
+/datum/armor/protective_engineering
+	bio = 100
+	rad = 10
+	fire = 100
+	acid = 75
+	bleed = 10
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/engineering/atmospherics
 	name = "atmospherics protective envirosuit helmet"

@@ -15,17 +15,20 @@ handles linking back and forth.
 	var/category
 	var/allow_standalone
 	var/local_size = INFINITY
+	///Flags used when converting inserted materials into their component materials.
+	var/mat_container_flags = NONE
 
-/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE)
+/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE, mat_container_flags=NONE)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.category = category
 	src.allow_standalone = allow_standalone
+	src.mat_container_flags = mat_container_flags
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
-	RegisterSignal(parent, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(recieve_buffer))
+	RegisterSignal(parent, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(receive_buffer))
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
@@ -71,7 +74,7 @@ handles linking back and forth.
 		/datum/material/plastic,
 		)
 
-	mat_container = parent.AddComponent(/datum/component/material_container, allowed_mats, local_size, allowed_types=/obj/item/stack)
+	mat_container = parent.AddComponent(/datum/component/material_container, allowed_mats, local_size, mat_container_flags, /obj/item/stack)
 
 /datum/component/remote_materials/proc/set_local_size(size)
 	local_size = size
@@ -115,10 +118,10 @@ handles linking back and forth.
 	SIGNAL_HANDLER
 
 	if (silo && istype(I, /obj/item/stack))
-		if (silo.remote_attackby(parent, user, I))
+		if (silo.remote_attackby(parent, user, I, mat_container_flags))
 			return COMPONENT_NO_AFTERATTACK
 
-/datum/component/remote_materials/proc/recieve_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
+/datum/component/remote_materials/proc/receive_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
 		var/atom/P = parent
 		if (!is_valid_link(P, buffer))
@@ -139,7 +142,7 @@ handles linking back and forth.
 		mat_container = silo.GetComponent(/datum/component/material_container)
 		to_chat(user, "<span class='notice'>You connect [parent] to [silo] from the multitool's buffer.</span>")
 		SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 
 /datum/component/remote_materials/proc/on_hold()
 	return silo && silo.holds["[get_area(parent)]/[category]"]

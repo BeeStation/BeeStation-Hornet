@@ -1,20 +1,20 @@
 
 /*
- Mecha Pilots!
- by Remie Richards
+	Mecha Pilots!
+	by Remie Richards
 
- Mecha pilot mobs are able to pilot Mecha to a rudimentary level
- This allows for certain mobs to be more of a threat (Because they're in a MECH)
+	Mecha pilot mobs are able to pilot Mecha to a rudimentary level
+	This allows for certain mobs to be more of a threat (Because they're in a MECH)
 
- Mecha Pilots can either spawn with one, or steal one!
+	Mecha Pilots can either spawn with one, or steal one!
 
- (Inherits from syndicate just to avoid copy-paste)
+	(Inherits from syndicate just to avoid copy-paste)
 
- Featuring:
- * Mecha piloting skills
- * Uses Mecha equipment
- * Uses Mecha special abilities in specific situations
- * Pure Evil Incarnate
+	Featuring:
+	* Mecha piloting skills
+	* Uses Mecha equipment
+	* Uses Mecha special abilities in specific situations
+	* Pure Evil Incarnate
 
 */
 
@@ -123,7 +123,7 @@
 		return FALSE
 	if(!M.has_charge(required_mecha_charge))
 		return FALSE
-	if(M.obj_integrity < M.max_integrity*0.5)
+	if(M.get_integrity() < M.max_integrity*0.5)
 		return FALSE
 	return TRUE
 
@@ -217,7 +217,7 @@
 			return
 
 		//Too Much Damage - Eject
-		if(mecha.obj_integrity < mecha.max_integrity*0.1)
+		if(mecha.get_integrity() < mecha.max_integrity*0.1)
 			exit_mecha(mecha)
 			return
 
@@ -228,7 +228,7 @@
 				action.Trigger()
 
 		//Heavy damage - Defense Power or Retreat
-		if(mecha.obj_integrity < mecha.max_integrity*0.25)
+		if(mecha.get_integrity() < mecha.max_integrity*0.25)
 			if(prob(defense_mode_chance))
 				if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_defense_mode) && !mecha.defense_mode)
 					var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
@@ -292,6 +292,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Goto(target, delay, minimum_distance)
 	if(mecha)
-		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay * mecha.step_multiplier)
+		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay)
 	else
 		..()

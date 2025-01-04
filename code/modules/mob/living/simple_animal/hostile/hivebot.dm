@@ -15,7 +15,8 @@
 	maxHealth = 15
 	healable = 0
 	melee_damage = 3
-	attacktext = "claws"
+	attack_verb_continuous = "claws"
+	attack_verb_simple = "claw"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshot.ogg'
 	projectiletype = /obj/projectile/hivebotbullet

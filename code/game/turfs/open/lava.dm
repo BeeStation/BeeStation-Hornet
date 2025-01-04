@@ -115,8 +115,8 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.fire > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor = O.armor.setRating(fire = 50)
+			if(O.get_armor_rating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
+				O.set_armor_rating(FIRE, 50)
 			O.fire_act(10000, 1000 * delta_time)
 			if(istype(O, /obj/structure/closet))
 				var/obj/structure/closet/C = O
@@ -125,11 +125,9 @@
 		else if (isliving(thing))
 			. = 1
 			var/mob/living/L = thing
-			if(L.movement_type & FLYING)
+			if(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 				continue	//YOU'RE FLYING OVER IT
-			var/buckle_check = L.buckling
-			if(!buckle_check)
-				buckle_check = L.buckled
+			var/buckle_check = L.buckled
 			if(isobj(buckle_check))
 				var/obj/O = buckle_check
 				if(O.resistance_flags & LAVA_PROOF)

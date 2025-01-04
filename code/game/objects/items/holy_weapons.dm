@@ -2,11 +2,11 @@
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
@@ -84,7 +84,7 @@
 	icon_state = "studentuni"
 	item_state = "studentuni"
 	body_parts_covered = ARMS|CHEST
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 /obj/item/storage/box/holy/sentinel
 	name = "Stone Sentinel Kit"
@@ -161,7 +161,7 @@
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
 	AddComponent(/datum/component/effect_remover, \
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
@@ -212,8 +212,10 @@
 			"Unholy Pitchfork" = /obj/item/nullrod/pitchfork,
 			"Egyptian Staff" = /obj/item/nullrod/egyptian,
 			"Hypertool" = /obj/item/nullrod/hypertool,
-			"Ancient Spear" = /obj/item/nullrod/spear
+			"Ancient Spear" = /obj/item/nullrod/spear,
+			"Rainbow Knife" = /obj/item/nullrod/rainbow_knife
 		)
+
 	if(isnull(unique_reskin_icon))
 		unique_reskin_icon = list(
 			"Null Rod" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "nullrod"),
@@ -249,8 +251,10 @@
 			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
 			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
 			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
-			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear")
-	)
+			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear"),
+			"Rainbow Knife" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "rainbowknife")
+		)
+
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
@@ -282,7 +286,8 @@
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	attack_verb = list("punched", "cross countered", "pummeled")
+	attack_verb_continuous = list("punches", "cross counters", "pummels")
+	attack_verb_simple = list("punch", "cross counter", "pummel")
 	block_upgrade_walk = 0
 
 /obj/item/nullrod/godhand/Initialize(mapload)
@@ -328,9 +333,11 @@
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1
 	block_power = 30
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
@@ -352,7 +359,8 @@
 	item_state = "chainswordon"
 	worn_icon_state = "chainswordon"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1.5 //slower than a real saw
@@ -423,7 +431,8 @@
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 1
 
 /obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -447,8 +456,10 @@
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_SHARP
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
+	attack_verb_simple = list("chop", "slice", "cut", "reap")
 
 /obj/item/nullrod/scythe/Initialize(mapload)
 	. = ..()
@@ -462,7 +473,8 @@
 	worn_icon_state = "hfrequency0"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
+	attack_verb_continuous = list("chops", "slices", "cuts", "zandatsu's")
+	attack_verb_simple = list("chop", "slice", "cut", "zandatsu")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/spellblade
@@ -484,11 +496,12 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	worn_icon_state = "talking_sword"
-	attack_verb = list("chopped", "sliced", "cut")
+	attack_verb_continuous = list("chops", "slices", "cuts")
+	attack_verb_simple= list("chop", "slice", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/relaymove(mob/user)
+/obj/item/nullrod/scythe/talking/relaymove(mob/living/user, direction)
 	return //stops buckled message spam for the ghost.
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
@@ -511,8 +524,7 @@
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
-		S.update_atom_languages()
-		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
+		S.get_language_holder().omnitongue = TRUE //Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
@@ -537,7 +549,8 @@
 	chaplain_spawnable = FALSE
 	force = 30
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5 //faster than normal saw
@@ -552,7 +565,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("smashed", "bashed", "hammered", "crunched")
+	attack_verb_continuous = list("smashes", "bashes", "hammers", "crunches")
+	attack_verb_simple = list("smash", "bash", "hammer", "crunch")
 	attack_weight = 2
 
 /obj/item/nullrod/chainsaw
@@ -564,8 +578,10 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON
-	sharpness = IS_SHARP
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
@@ -588,8 +604,10 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	worn_icon_state = "render"
 	hitsound = 'sound/items/bikehorn.ogg'
-	sharpness = IS_SHARP
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 
 /obj/item/nullrod/pride_hammer
 	name = "Pride-struck Hammer"
@@ -600,7 +618,8 @@
 	throwforce = 15
 	w_class = 4
 	slot_flags = ITEM_SLOT_BACK
-	attack_verb = list("attacked", "smashed", "crushed", "splattered", "cracked")
+	attack_verb_continuous = list("attacks", "smashes", "crushes", "splatters", "cracks")
+	attack_verb_simple = list("attack", "smash", "crush", "splatter", "crack")
 	hitsound = 'sound/weapons/blade1.ogg'
 	attack_weight = 2
 
@@ -623,7 +642,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed")
+	attack_verb_continuous = list("whips", "lashes")
+	attack_verb_simple = list("whip", "lash")
 	hitsound = 'sound/weapons/chainhit.ogg'
 
 /obj/item/nullrod/fedora
@@ -638,8 +658,10 @@
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 30
-	sharpness = IS_SHARP
-	attack_verb = list("enlightened", "redpilled")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("enlightens", "redpills")
+	attack_verb_simple = list("enlighten", "redpill")
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
@@ -652,7 +674,8 @@
 	slot_flags = null
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
@@ -675,7 +698,8 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 15
-	attack_verb = list("bitten", "eaten", "fin slapped")
+	attack_verb_continuous = list("bites", "eats", "fin slaps")
+	attack_verb_simple = list("bite", "eat", "fin slap")
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
 
@@ -693,9 +717,10 @@
 	force = 14
 	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	hitsound = "swing_hit"
-	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
+	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
+	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
@@ -711,10 +736,12 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	item_flags = SLOWS_WHILE_IN_HAND
 
 /obj/item/nullrod/tribal_knife/Initialize(mapload)
@@ -742,9 +769,11 @@
 	worn_icon_state = "pitchfork0"
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BACK
-	attack_verb = list("poked", "impaled", "pierced", "jabbed")
+	attack_verb_continuous = list("pokes", "impales", "pierces", "jabs")
+	attack_verb_simple = list("poke", "impale", "pierce", "jab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/egyptian
 	name = "egyptian staff"
@@ -757,7 +786,8 @@
 	worn_icon_state = "pharoah_sceptre"
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BACK
-	attack_verb = list("bashes", "smacks", "whacks")
+	attack_verb_continuous = list("bashes", "smacks", "whacks")
+	attack_verb_simple = list("bash", "smack", "whack")
 
 /obj/item/nullrod/hypertool
 	name = "hypertool"
@@ -771,7 +801,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	armour_penetration = 35
 	damtype = BRAIN
-	attack_verb = list("pulsed", "mended", "cut")
+	attack_verb_continuous = list("pulses", "mends", "cuts")
+	attack_verb_simple = list("pulse", "mend", "cut")
 	hitsound = 'sound/effects/sparks4.ogg'
 
 /obj/item/nullrod/spear
@@ -784,7 +815,52 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	armour_penetration = 10
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("stabbed", "poked", "slashed", "clocked")
+	attack_verb_continuous = list("stabs", "pokes", "slashes", "clocks")
+	attack_verb_simple = list("stab", "poke", "slash", "clock")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/nullrod/rainbow_knife
+	name = "rainbow knife"
+	desc = "A strange, transparent knife which constantly shifts color. This one glitters with a holy aura."
+	icon = 'icons/obj/knives.dmi'
+	icon_state = "rainbowknife"
+	item_state = "rainbowknife"
+	force = 15
+	throwforce = 15
+	damtype = BRUTE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	throw_speed = 3
+	throw_range = 6
+	tool_behaviour = TOOL_KNIFE
+	sharpness = SHARP
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/nullrod/rainbow_knife/afterattack(atom/O, mob/user, proximity)
+	if(proximity && istype(O, /mob/living))
+		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
+	switch(damtype)
+		if(BRUTE)
+			hitsound = 'sound/weapons/bladeslice.ogg'
+			attack_verb_continuous = list("slashes", "slices", "cuts")
+			attack_verb_simple = list("slash", "slice", "cut")
+		if(BURN)
+			hitsound = 'sound/weapons/sear.ogg'
+			attack_verb_continuous = list("burns", "sings", "heats")
+			attack_verb_simple = list("burn", "sing", "heat")
+		if(TOX)
+			hitsound = 'sound/weapons/pierce.ogg'
+			attack_verb_continuous = list("poisons", "doses", "toxifies")
+			attack_verb_simple = list("poison", "dose", "toxify")
+		if(OXY)
+			hitsound = 'sound/effects/space_wind.ogg'
+			attack_verb_continuous = list("suffocates", "winds", "vacuums")
+			attack_verb_simple = list("suffocate", "wind", "vacuum")
+		if(CLONE)
+			hitsound = 'sound/items/geiger/ext1.ogg'
+			attack_verb_continuous = list("irradiates", "mutates", "maligns")
+			attack_verb_simple = list("irradiate", "mutate", "malign")
+	return ..()
+

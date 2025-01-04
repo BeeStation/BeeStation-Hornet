@@ -10,7 +10,7 @@
 	include_user = TRUE
 	cooldown_min = 0
 	overlay = null
-	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	action_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	action_icon_state = "ninja_cloak"
 	action_background_icon_state = "bg_alien"
 
@@ -45,7 +45,7 @@
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/effect/dummy/phased_mob/shadow/relaymove(mob/user, direction)
+/obj/effect/dummy/phased_mob/shadow/relaymove(mob/living/user, direction)
 	var/turf/newLoc = get_step(src,direction)
 	if(isspaceturf(newLoc))
 		to_chat(user, "<span class='warning'>It really would not be wise to go into space.</span>")

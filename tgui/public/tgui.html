@@ -7,6 +7,8 @@
 <!-- Inlined metadata -->
 <meta id="tgui:windowId" content="[tgui:windowId]">
 <meta id="tgui:strictMode" content="[tgui:strictMode]">
+<meta id="tgui:byondMajor" content="[tgui:byondMajor]">
+<meta id="tgui:byondMinor" content="[tgui:byondMinor]">
 
 <!-- Early setup -->
 <script type="text/javascript">
@@ -39,6 +41,8 @@
 
   // Expose inlined metadata
   Byond.windowId = parseMetaTag('tgui:windowId');
+  Byond.BYOND_MAJOR = parseMetaTag('tgui:byondMajor');
+  Byond.BYOND_MINOR = parseMetaTag('tgui:byondMinor');
 
   // Backwards compatibility
   window.__windowId__ = Byond.windowId;
@@ -511,8 +515,10 @@ window.replaceHtml = function (inline_html) {
   );
 };
 
-// Signal tgui that we're ready to receive updates
-Byond.sendMessage('ready');
+document.addEventListener('DOMContentLoaded', function (event) {
+  // Signal tgui that we're ready to receive updates
+  Byond.sendMessage('ready');
+});
 </script>
 
 <style>
@@ -635,7 +641,7 @@ Thank you for your cooperation.
 </marquee>
 <div id="FatalError__stack" class="FatalError__stack"></div>
 <div class="FatalError__footer">
-Nanotrasen (c) 2525-2559
+<!-- tgui:nt-copyright -->
 </div>
 </div>
 

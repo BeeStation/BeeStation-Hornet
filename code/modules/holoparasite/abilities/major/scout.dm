@@ -447,7 +447,9 @@
 	var/static/exit_icon = "cancel"
 	var/datum/holoparasite_ability/major/scout/ability
 
-/atom/movable/screen/holoparasite/toggle_scout/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/scout/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/toggle_scout)
+
+/atom/movable/screen/holoparasite/toggle_scout/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/scout/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make scout holoparasite HUD without proper reference to scout ability")

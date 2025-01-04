@@ -218,7 +218,7 @@
 	..()
 	emp_act(EMP_HEAVY)
 
-/obj/machinery/power/port_gen/pacman/attack_ai(mob/user)
+/obj/machinery/power/port_gen/pacman/attack_silicon(mob/user)
 	interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_paw(mob/user)

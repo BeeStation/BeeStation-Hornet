@@ -183,7 +183,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 	if(panel_open)
 		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 			to_chat(user, "<span class='notice'>You download the data to the [buffer_parent.name]'s buffer.</span>")
-			return COMPONENT_BUFFER_RECIEVED
+			return COMPONENT_BUFFER_RECEIVED
 	else
 		if(istype(buffer, /obj/machinery/teleport/station) && buffer != src)
 			if(linked_stations.len < efficiency)
@@ -192,7 +192,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 				to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
-			return COMPONENT_BUFFER_RECIEVED
+			return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/teleport/station/interact(mob/user)

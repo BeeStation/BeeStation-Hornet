@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(master_crystal)
 		invisibility = INVISIBILITY_MAXIMUM
 		max_integrity = 1000
-		obj_integrity = 1000
+		atom_integrity = 1000
 
 /obj/structure/slime_crystal/Initialize(mapload)
 	. = ..()
@@ -219,10 +219,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
 		if(cell.charge == cell.maxcharge)
-			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...")
+			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...</span>")
 			cell.explode()
 			return
-		to_chat("<span class = 'notice'> You charged the [I.name] on [name]!")
+		to_chat(user, "<span class='notice'>You charged the [I.name] on [name]!</span>")
 		cell.give(cell.maxcharge)
 		return
 	return ..()
@@ -352,6 +352,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/max_stage = 5
 	var/datum/weakref/pylon
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
+
 /obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()
 	if(istype(master_pylon))
@@ -398,7 +400,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
-	while(crystals < 3)
+	for (var/i in 1 to 10) // doesn't guarantee 3 but it's a good effort
 		spawn_crystal()
 
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
@@ -474,10 +476,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(blood_amt < 10)
 		return ..()
 
-	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
+	if(!istype(I, /obj/item/reagent_containers/cup/beaker))
 		return ..()
 
-	var/obj/item/reagent_containers/glass/beaker/item_beaker = I
+	var/obj/item/reagent_containers/cup/beaker/item_beaker = I
 
 	if(!item_beaker.is_refillable() || (item_beaker.reagents.total_volume + 10 > item_beaker.reagents.maximum_volume))
 		return ..()

@@ -53,7 +53,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.2
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/machinery_advanced_airlock_controller
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
@@ -76,6 +76,14 @@
 	var/list/airlocks = list()
 	var/list/vents = list()
 	var/obj/vis_target = null
+
+
+/datum/armor/machinery_advanced_airlock_controller
+	energy = 100
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/machinery/advanced_airlock_controller/lavaland
 	exterior_pressure = WARNING_LOW_PRESSURE + 10
@@ -812,7 +820,7 @@
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 
-/obj/machinery/advanced_airlock_controller/obj_break(damage_flag)
+/obj/machinery/advanced_airlock_controller/atom_break(damage_flag)
 	..()
 	update_icon()
 
@@ -821,7 +829,7 @@
 		new /obj/item/stack/sheet/iron(loc, 2)
 		var/obj/item/I = new /obj/item/electronics/advanced_airlock_controller(loc)
 		if(!disassembled)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.take_damage(I.max_integrity * 0.5, sound_effect = FALSE)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
@@ -853,3 +861,18 @@
 		for(var/obj/machinery/door/airlock/A in T)
 			if(A.aac)
 				A.aac.update_docked_status(TRUE)
+
+#undef AIRLOCK_CYCLESTATE_INOPEN
+#undef AIRLOCK_CYCLESTATE_INOPENING
+#undef AIRLOCK_CYCLESTATE_INCLOSING
+#undef AIRLOCK_CYCLESTATE_CLOSED
+#undef AIRLOCK_CYCLESTATE_OUTCLOSING
+#undef AIRLOCK_CYCLESTATE_OUTOPENING
+#undef AIRLOCK_CYCLESTATE_OUTOPEN
+#undef AIRLOCK_CYCLESTATE_DOCKED
+#undef AIRLOCK_CYCLESTATE_ERROR
+
+#undef AIRLOCK_CYCLEROLE_INT_PRESSURIZE
+#undef AIRLOCK_CYCLEROLE_INT_DEPRESSURIZE
+#undef AIRLOCK_CYCLEROLE_EXT_PRESSURIZE
+#undef AIRLOCK_CYCLEROLE_EXT_DEPRESSURIZE

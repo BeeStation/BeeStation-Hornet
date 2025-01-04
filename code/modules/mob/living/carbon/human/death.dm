@@ -67,13 +67,6 @@
 	if(SSticker.HasRoundStarted())
 		SSblackbox.ReportDeath(src)
 		log_game("[key_name(src)] has died (BRUTE: [src.getBruteLoss()], BURN: [src.getFireLoss()], TOX: [src.getToxLoss()], OXY: [src.getOxyLoss()], CLONE: [src.getCloneLoss()]) ([AREACOORD(src)])")
-	if(is_devil(src))
-		INVOKE_ASYNC(is_devil(src), TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck), src)
-	if(is_hivemember(src))
-		remove_hivemember(src)
-	if(IS_HIVEHOST(src))
-		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
-		hive.destroy_hive()
 	if(HAS_TRAIT(src, TRAIT_DROPS_ITEMS_ON_DEATH)) //if you want to add anything else, do it before this if statement
 		var/list/turfs_to_throw = view(2, src)
 		for(var/obj/item/I in contents)
@@ -95,6 +88,10 @@
 	var/death_message = CONFIG_GET(string/death_message)
 	if (death_message)
 		to_chat(src, death_message)
+
+/mob/living/carbon/human/gib(no_brain, no_organs, no_bodyparts)
+	dna.species.spec_gib(no_brain, no_organs, no_bodyparts, src)
+	return
 
 /mob/living/carbon/human/proc/reagents_readout()
 	var/readout = "Blood:"

@@ -22,7 +22,9 @@
 	var/finish_color = null
 
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
+	//This is the typepath to load "into" the pda
 	var/obj/item/insert_type = /obj/item/pen
+	//This is the currently inserted item
 	var/obj/item/inserted_item
 
 	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
@@ -108,11 +110,11 @@
 			return
 	..()
 
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
+/obj/item/modular_computer/tablet/attack_atom(obj/target, mob/living/user)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the gas scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
+		if(thread.use_attack_obj && !thread.attack_atom(target, user))
 			return
 	..()
 
@@ -274,7 +276,7 @@
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)
 				self_monitoring = null
-				CRASH("Cyborg [borgo]'s tablet hard drive rejected recieving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
+				CRASH("Cyborg [borgo]'s tablet hard drive rejected receiving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
 	return self_monitoring
 
 //Makes the light settings reflect the borg's headlamp settings
@@ -323,11 +325,13 @@
 	theme_locked = TRUE
 
 
-/obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
+/obj/item/modular_computer/tablet/integrated/syndicate/Initialize(mapload)
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
+
+GLOBAL_LIST_EMPTY(PDAs)
 
 // Round start tablets
 
@@ -384,7 +388,7 @@
 		add_overlay(mutable_appearance(init_icon, "light_overlay"))
 
 
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
+/obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 
@@ -406,3 +410,20 @@
 		inserted_item = new insert_type(src)
 		// show the inserted item
 		update_icon()
+
+/// Return a list of types you want to pregenerate and use later
+/// Do not pass in things that care about their init location, or expect extra input
+/// Also as a courtesy to me, don't pass in any bombs
+/obj/item/modular_computer/tablet/pda/proc/get_types_to_preload()
+	var/list/preload = list()
+	//preload += default_cartridge
+	preload += insert_type
+	return preload
+
+/// Callbacks for preloading pdas
+/obj/item/modular_computer/tablet/pda/proc/display_pda()
+	GLOB.PDAs += src
+
+/// See above, we don't want jerry from accounting to try and message nullspace his new bike
+/obj/item/modular_computer/tablet/pda/proc/cloak_pda()
+	GLOB.PDAs -= src

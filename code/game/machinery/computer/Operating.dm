@@ -14,7 +14,7 @@
 	var/datum/techweb/linked_techweb
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/machinery/computer/operating/Initialize()
+/obj/machinery/computer/operating/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	link_with_table()
@@ -182,7 +182,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
 	new_stasis_bed.op_computer = src
 	sbed = new_stasis_bed
 	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 #undef MENU_OPERATION
 #undef MENU_SURGERIES

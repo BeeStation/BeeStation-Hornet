@@ -25,7 +25,6 @@
 //port:					5  items,  5 spots 0 extra (08/08/2014)
 
 GLOBAL_LIST_INIT(maintenance_loot, list(
-	"" = 3,
 	/obj/effect/spawner/lootdrop/gloves = 8,
 	/obj/effect/spawner/lootdrop/glowstick = 4,
 	/obj/item/airlock_painter = 1,
@@ -73,15 +72,14 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/poster/random_official = 1,
 	/obj/item/radio/headset = 1,
 	/obj/item/radio/off = 2,
-	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
+	/obj/item/reagent_containers/cup/glass/bottle/homemaderum = 1,
 	/obj/item/food/canned/peaches/maint = 1,
 	/obj/item/food/grown/citrus/orange = 1,
 	/obj/item/food/grown/flower/poppy = 10,
-	/obj/item/reagent_containers/glass/rag = 3,
+	/obj/item/reagent_containers/cup/rag = 3,
 	/obj/item/reagent_containers/pill/floorpill = 4,
 	/obj/item/reagent_containers/spray/pestspray = 1,
 	/obj/item/reagent_containers/syringe/used = 4,
-	/obj/item/relic = 3,
 	/obj/item/screwdriver = 3,
 	/obj/item/stack/cable_coil/random = 4,
 	/obj/item/stack/cable_coil/random/five = 6,
@@ -114,7 +112,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/weldingtool = 3,
 	/obj/item/wirecutters = 1,
 	/obj/item/wrench = 4,
-	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
+	/obj/item/reagent_containers/cup/glass/bottle/homemaderum = 1,
 	/obj/item/xenoartifact/maint = 1,
 	/obj/item/paper_reader = 1,
 ))

@@ -14,12 +14,11 @@
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
-	mutant_brain = /obj/item/organ/brain/psyphoza
+	mutantbrain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap")
-	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
@@ -135,7 +134,7 @@
 /datum/action/item_action/organ_action/psychic_highlight
 	name = "Psychic Sense"
 	desc = "Sense your surroundings psychically."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
@@ -304,7 +303,7 @@
 //keep this type-
 /atom/movable/screen/fullscreen/blind/psychic
 	icon_state = "trip"
-	icon = 'icons/mob/psychic.dmi'
+	icon = 'icons/hud/fullscreen/psychic.dmi'
 	///The color we return to after going black & back.
 	var/origin_color = "#111"
 	///Index for texture setting - Useful if we add more presets
@@ -352,7 +351,7 @@
 //And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
 	icon_state = "trip"
-	icon = 'icons/mob/psychic.dmi'
+	icon = 'icons/hud/fullscreen/psychic.dmi'
 	render_target = ""
 	plane = FULLSCREEN_PLANE
 	layer = 4.1
@@ -415,7 +414,7 @@
 /datum/action/change_psychic_visual
 	name = "Change Psychic Sense"
 	desc = "Change the visual style of your psychic sense."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_color"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
@@ -443,7 +442,7 @@
 /datum/action/change_psychic_auto
 	name = "Auto Psychic Sense"
 	desc = "Change your psychic sense to auto."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_generic"
 	///Ref to the action
 	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action
@@ -476,7 +475,7 @@
 /datum/action/change_psychic_texture
 	name = "Change Psychic Texture"
 	desc = "Change your psychic texture."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_texture"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay

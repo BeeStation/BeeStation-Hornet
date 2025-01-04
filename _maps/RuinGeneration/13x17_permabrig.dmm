@@ -8,13 +8,6 @@
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
-"bv" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "bO" = (
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -48,9 +41,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "gN" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
+/obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -120,7 +111,7 @@
 	},
 /obj/machinery/hydroponics/soil,
 /obj/item/plant_analyzer,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
@@ -369,7 +360,7 @@
 /area/ruin/unpowered)
 "Le" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "My" = (
@@ -449,7 +440,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "SX" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "TT" = (
@@ -533,7 +524,7 @@ KP
 Nf
 xe
 NR
-bv
+gN
 NR
 VL
 dn
@@ -628,7 +619,7 @@ NR
 jz
 NR
 NR
-bv
+gN
 NR
 NR
 NR

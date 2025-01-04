@@ -22,3 +22,9 @@ washing machine loop sounds made by modifying a sound by Nkzdra licensed under C
 Present in:
 washingmachinestart.ogg, washingmid1.ogg, washingmid2.ogg, washingmid3.ogg, washingmid4.ogg, washingmid5.ogg, washingmid6.ogg, washingmid7.ogg and washingmid8.ogg
 (https://freesound.org/people/Nkzdra/sounds/347965/)
+
+alert.ogg by bbrocer. Extended, looped, and reverbed
+https://freesound.org/people/bbrocer/sounds/389511/
+
+airraid.ogg by Jwade722. Shortened and cut.
+https://freesound.org/people/Jwade722/sounds/534550/

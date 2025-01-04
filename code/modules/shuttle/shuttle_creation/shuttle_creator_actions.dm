@@ -1,6 +1,6 @@
 //============ Actions ============
 /datum/action/innate/shuttle_creator
-	icon_icon = 'icons/mob/actions/actions_shuttle.dmi'
+	icon_icon = 'icons/hud/actions/actions_shuttle.dmi'
 	var/mob/living/C
 	var/mob/camera/ai_eye/remote/shuttle_creation/remote_eye
 	var/obj/item/shuttle_creator/shuttle_creator

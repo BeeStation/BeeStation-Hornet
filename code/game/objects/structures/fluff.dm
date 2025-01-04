@@ -185,3 +185,10 @@
 
 /obj/structure/fluff/hedge/opaque //useful for mazes and such
 	opacity = TRUE
+
+/obj/structure/fluff/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fan_tiny"
+	name = "environmental regulation system"
+	desc = "A vent nested into the wall, managing the airflow between the rooms"
+	anchored = TRUE

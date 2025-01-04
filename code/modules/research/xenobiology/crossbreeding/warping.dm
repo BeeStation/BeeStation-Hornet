@@ -379,9 +379,22 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/storage/backpack/holding/bluespace
 	name = "warped rune"
 	anchored = TRUE
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100)
+	armor_type = /datum/armor/holding_bluespace
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+
+/datum/armor/holding_bluespace
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 100
 
 /obj/item/slimecross/warping/bluespace
 	colour = "bluespace"
@@ -594,7 +607,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/bubbleplush,
 		/obj/item/toy/plush/plushvar,
 		/obj/item/toy/plush/narplush,
-		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/lizard_plushie,
 		/obj/item/toy/plush/snakeplushie,
 		/obj/item/toy/plush/nukeplushie,
 		/obj/item/toy/plush/slimeplushie/random,
@@ -604,6 +617,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/gondola,
 		/obj/item/toy/plush/flushed = 2,
 		/obj/item/toy/plush/flushed/rainbow,
+		/obj/item/toy/plush/shark,
 		/obj/item/toy/eightball/haunted,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/katana,
@@ -769,7 +783,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/adamantinespace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src) - rune_turf)
 		var/obj/structure/reflector/box/anchored/mob_pass/D = new (T)
-		D.setAngle(dir2angle(get_dir(src, D)))
+		D.set_angle(dir2angle(get_dir(src, D)))
 		D.admin = TRUE
 		QDEL_IN(D, 300)
 	activated_on_step = TRUE
@@ -811,7 +825,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	icon_state = "yellow"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = TRUE
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/warped_room/get_virtual_z(turf/T)

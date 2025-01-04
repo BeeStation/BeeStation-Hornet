@@ -44,7 +44,7 @@ const UplinkSubsection = (_props, context) => {
             <Stack.Divider />
             {failsafe_code && (
               <>
-                <Stack.Item bold>{code && <span style={goalstyle}>Code: {code}</span>}</Stack.Item>
+                <Stack.Item bold>{failsafe_code && <span style={goalstyle}>Failsafe: {failsafe_code}</span>}</Stack.Item>
                 <Stack.Divider />
               </>
             )}

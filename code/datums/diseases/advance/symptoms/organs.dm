@@ -14,8 +14,8 @@
 	var/trauma_heal_mild = FALSE
 	var/trauma_heal_severe = FALSE
 	threshold_desc = "<b>Resistance 6:</b> Heals minor brain traumas.<br>\
-					  <b>Resistance 9:</b> Heals severe brain traumas.<br>\
-					  <b>Transmission 8:</b> Purges alcohol in the bloodstream."
+						<b>Resistance 9:</b> Heals severe brain traumas.<br>\
+						<b>Transmission 8:</b> Purges alcohol in the bloodstream."
 
 /datum/symptom/mind_restoration/Start(datum/disease/advance/A)
 	if(!..())
@@ -125,7 +125,7 @@
 	var/curing = FALSE
 	var/regenorgans = FALSE
 	threshold_desc = "<b>Stealth 4:</b> The host will regenerate missing organs over a long period of time.<br>\
-					  <b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
+						<b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
 
 /datum/symptom/organ_restoration/severityset(datum/disease/advance/A)
 	. = ..()
@@ -202,15 +202,6 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
-				if(!M.getorgan(/obj/item/organ/tail))
-					if(S.mutanttail)
-						var/obj/item/organ/tail/O = new S.mutanttail()
-						O.Insert(M, drop_if_replaced = FALSE)
-						M.adjustOrganLoss(ORGAN_SLOT_TAIL, 200)
-						M.visible_message("<span class='notice'>[M] sprouts a new tail!", "<span_class='userdanger'>You sprout a new tail!.</span>")
-						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
-						M.add_splatter_floor(get_turf(M))
-						return
 				if(!M.getorgan(/obj/item/organ/wings))
 					if(S.mutantwings)
 						var/obj/item/organ/wings/O = new S.mutantwings()

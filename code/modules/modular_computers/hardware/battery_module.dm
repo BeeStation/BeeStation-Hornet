@@ -10,6 +10,8 @@
 /obj/item/computer_hardware/battery/get_cell()
 	return battery
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
+
 /obj/item/computer_hardware/battery/Initialize(mapload, battery_type)
 	. = ..()
 	if(battery_type)

@@ -16,9 +16,9 @@
 	var/recorded = "" //the activation message
 	var/mode = 1
 	var/static/list/modes = list("inclusive",
-								 "exclusive",
-								 "recognizer",
-								 "voice sensor")
+								"exclusive",
+								"recognizer",
+								"voice sensor")
 
 /obj/item/assembly/voice/Initialize(mapload)
 	. = ..()

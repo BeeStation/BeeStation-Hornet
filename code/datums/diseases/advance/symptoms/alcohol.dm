@@ -12,7 +12,7 @@
 	prefixes = list("Drunken ", "Alcoholic ")
 	var/target = 30 //how drunk should the target get? by default, its *just* below enough to cause vomiting
 	threshold_desc = "<b>Stealth 3:</b> The host only reaches a slight buzz.<br>\
-					  <b>Stage Speed 6:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold.<br>"
+						<b>Stage Speed 6:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold.<br>"
 
 /datum/symptom/alcohol/severityset(datum/disease/advance/A)
 	. = ..()

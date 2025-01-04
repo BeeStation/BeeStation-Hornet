@@ -127,7 +127,6 @@
 /datum/status_effect/wish_granters_gift/on_remove()
 	owner.revive(full_heal = TRUE, admin_revive = TRUE)
 	owner.visible_message("<span class='warning'>[owner] appears to wake from the dead, having healed all wounds!</span>", "<span class='notice'>You have regenerated.</span>")
-	owner.update_mobility()
 
 /atom/movable/screen/alert/status_effect/wish_granters_gift
 	name = "Wish Granter's Immortality"
@@ -411,7 +410,8 @@
 /datum/status_effect/changeling/mindshield
 	id = "changelingmindshield"
 	alert_type = /atom/movable/screen/alert/status_effect/changeling_mindshield
-	tick_interval = 30
+	tick_interval = 5 SECONDS
+	chem_per_tick = 1
 
 /datum/status_effect/changeling/mindshield/tick()
 	if(..() && owner.on_fire)
@@ -432,20 +432,6 @@
 	name = "Fake Mindshield"
 	desc = "We are emitting a signal, causing us to appear as mindshielded to security HUDs."
 	icon_state = "changeling_mindshield"
-
-/datum/status_effect/exercised
-	id = "Exercised"
-	duration = 1200
-	alert_type = null
-
-/datum/status_effect/exercised/on_creation(mob/living/new_owner, ...)
-	. = ..()
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSprocessing, src) //this lasts 20 minutes, so SSfastprocess isn't needed.
-
-/datum/status_effect/exercised/Destroy()
-	. = ..()
-	STOP_PROCESSING(SSprocessing, src)
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
@@ -548,6 +534,7 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 	var/power = 1
+	var/duration_mod = 1
 	var/alreadyinfected = FALSE
 
 /datum/status_effect/regenerative_core/on_apply()
@@ -557,10 +544,11 @@
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(owner.z == 5)
-		power = 2
-	owner.adjustBruteLoss(-50 * power)
-	owner.adjustFireLoss(-50 * power)
+	if(is_mining_level(owner.z))
+		power = 5
+		duration_mod = 2
+	owner.adjustBruteLoss(-20 * power)
+	owner.adjustFireLoss(-20 * power)
 	owner.cure_nearsighted()
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
@@ -572,7 +560,7 @@
 		var/mob/living/carbon/human/humi = owner
 		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
-	duration = rand(150, 450) * power
+	duration = rand(150, 450) * duration_mod
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
@@ -601,14 +589,39 @@
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message("<span class='notice'>[owner] is coated with a dull aura!</span>")
-	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	owner.AddComponent(/datum/component/anti_magic, MAGIC_TRAIT, _magic = TRUE, _holy = FALSE)
 	//glowing wings overlay
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
 /datum/status_effect/antimagic/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+		if (anti_magic.source == MAGIC_TRAIT)
+			qdel(anti_magic)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
+
+/datum/status_effect/planthealing
+	id = "Photosynthesis"
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = -1
+	tick_interval = 25
+	alert_type = /atom/movable/screen/alert/status_effect/planthealing
+	examine_text = "<span class='notice'>Their leaves seem to be flourishing in the light!</span>"
+
+/atom/movable/screen/alert/status_effect/planthealing
+	name = "Photosynthesis"
+	desc = "Your wounds seem to be healing from the light."
+	icon_state = "blooming"
+
+/datum/status_effect/planthealing/on_apply()
+	ADD_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
+	return ..()
+
+/datum/status_effect/planthealing/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
+
+/datum/status_effect/planthealing/tick()
+	owner.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life
 
 /datum/status_effect/crucible_soul
 	id = "Blessing of Crucible Soul"

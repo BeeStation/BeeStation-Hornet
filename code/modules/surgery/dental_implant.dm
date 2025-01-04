@@ -18,6 +18,7 @@
 	if(!istype(tool))
 		return 0
 
+	target.cauterise_wounds()
 	user.transferItemToLoc(tool, target, TRUE)
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)

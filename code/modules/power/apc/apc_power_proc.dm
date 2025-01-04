@@ -11,7 +11,7 @@
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(loc)
-	terminal.setDir(tdir)
+	terminal.setDir(dir)
 	terminal.master = src
 
 /obj/machinery/power/apc/disconnect_terminal()
@@ -184,7 +184,7 @@
 		area.power_environ = FALSE
 	area.power_change()
 
-/obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10 && (!(machine_stat & BROKEN) || malfai))
-		return 0
+/obj/machinery/power/apc/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(machine_stat & BROKEN)
+		return damage_amount
 	. = ..()

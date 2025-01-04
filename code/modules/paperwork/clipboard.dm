@@ -141,7 +141,7 @@
 	if(.)
 		return
 
-	if(usr.stat != CONSCIOUS || usr.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(action)

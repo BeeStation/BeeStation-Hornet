@@ -40,6 +40,8 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
+
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color
@@ -84,35 +86,23 @@
 	text_dehack = "You detect errors in [name] and reset his programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Special tiles: "
-	if(tilestack)
-		dat += "<A href='?src=[REF(src)];operation=eject'>Loaded \[[tilestack.amount]/[maxtiles]\]</a><BR>"
-	else
-		dat += "None Loaded<BR>"
-
-	dat += "Behaviour controls are [locked ? "locked" : "unlocked"]<BR>"
+/mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Add tiles to new hull plating: <A href='?src=[REF(src)];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Place floor tiles: <A href='?src=[REF(src)];operation=place'>[placetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Replace existing floor tiles with custom tiles: <A href='?src=[REF(src)];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <A href='?src=[REF(src)];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <A href='?src=[REF(src)];operation=magnet'>[HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, BUSY_FLOORBOT_TRAIT) ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-		var/bmode
+		data["custom_controls"]["tile_hull"] = autotile
+		data["custom_controls"]["place_tiles"] = placetiles
+		data["custom_controls"]["place_custom"] = replacetiles
+		data["custom_controls"]["repair_damage"] = fixfloors
+		data["custom_controls"]["traction_magnets"] = HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, BUSY_FLOORBOT_TRAIT)
+		data["custom_controls"]["line_mode"] = FALSE
+		data["custom_controls"]["tile_stack"] = list(
+			"tilestack" = tilestack,
+			"amount" = tilestack?.amount,
+			"max_amount" = tilestack?.max_amount
+		)
 		if(targetdirection)
-			bmode = dir2text(targetdirection)
-		else
-			bmode = "disabled"
-		dat += "Line Mode : <A href='?src=[REF(src)];operation=linemode'>[bmode]</A><BR>"
-
-	return dat
+			data["custom_controls"]["line_mode"] = dir2text(targetdirection)
+	return data
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/iron))
@@ -159,26 +149,26 @@
 		if(change_icon)
 			update_icon()
 
-/mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
-	if(..())
+/mob/living/simple_animal/bot/floorbot/ui_act(action, params)
+	if (..())
 		return TRUE
 
-	switch(href_list["operation"])
-		if("replace")
+	switch(action)
+		if("place_custom")
 			replacetiles = !replacetiles
-		if("place")
+		if("place_tiles")
 			placetiles = !placetiles
-		if("fix")
+		if("repair_damage")
 			fixfloors = !fixfloors
-		if("autotile")
+		if("tile_hull")
 			autotile = !autotile
-		if("magnet")
+		if("traction_magnets")
 			toggle_magnet(!HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, BUSY_FLOORBOT_TRAIT), FALSE)
-		if("eject")
+		if("eject_tiles")
 			if(tilestack)
 				tilestack.forceMove(drop_location())
 
-		if("linemode")
+		if("line_mode")
 			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
 			switch(setdir)
 				if("north")
@@ -191,7 +181,6 @@
 					targetdirection = 8
 				if("disable")
 					targetdirection = null
-	update_controls()
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())
@@ -339,7 +328,7 @@
 		playsound(src, 'sound/effects/whistlereset.ogg', 50, TRUE)
 		return
 	if(isspaceturf(target_turf))
-		 //Must be a hull breach or in line mode to continue.
+		//Must be a hull breach or in line mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return
@@ -352,10 +341,12 @@
 		if(do_after(src, 50, target = target_turf) && mode == BOT_REPAIRING)
 			if(autotile) //Build the floor and include a tile.
 				if(replacetiles && tilestack)
+					target_turf.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)	//make sure a hull is actually below the floor tile
 					tilestack.place_tile(target_turf)
 					if(!tilestack)
 						speak("Requesting refill of custom floor tiles to continue replacing.")
 				else
+					target_turf.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)	//make sure a hull is actually below the floor tile
 					target_turf.PlaceOnTop(/turf/open/floor/iron, flags = CHANGETURF_INHERIT_AIR)
 			else //Build a hull plating without a floor tile.
 				target_turf.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
@@ -380,12 +371,20 @@
 				success = TRUE
 
 		if(success)
-			F = F.make_plating(TRUE) || F
-			if(was_replacing && tilestack)
-				tilestack.place_tile(F)
+			var/area/is_this_maints = get_area(F)
+			if(was_replacing && tilestack)	//turn the tile into plating (if needed), then replace it
+				F = F.make_plating(TRUE) || F
+				tilestack.place_tile(F, src)
 				if(!tilestack)
 					speak("Requesting refill of custom floor tiles to continue replacing.")
-			else
+			else if(F.broken || F.burnt)	//repair the tile and reset it to be undamaged (rather than replacing it)
+				F.broken = FALSE
+				F.burnt = FALSE
+				F.icon_state = initial(F.icon_state)
+			else if(istype(is_this_maints, /area/maintenance))	//place catwalk if it's plating and we're in maints
+				F.PlaceOnTop(/turf/open/floor/catwalk_floor, flags = CHANGETURF_INHERIT_AIR)
+			else	//place normal tile if it's plating anywhere else
+				F = F.make_plating(TRUE) || F
 				F.PlaceOnTop(/turf/open/floor/iron, flags = CHANGETURF_INHERIT_AIR)
 
 	if(!QDELETED(src))
@@ -411,7 +410,7 @@
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 
-	new /obj/item/stack/tile/iron(Tsec, 1)
+	new /obj/item/stack/tile/iron/base(Tsec, 1)
 
 	do_sparks(3, TRUE, src)
 	..()
@@ -420,6 +419,8 @@
 	req_one_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(isturf(A))
 		repair(A)
 	else

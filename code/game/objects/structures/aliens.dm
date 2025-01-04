@@ -11,7 +11,7 @@
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
 
-/obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/alien/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
@@ -154,7 +154,8 @@
 		blacklisted_turfs = typecacheof(list(
 			/turf/open/space,
 			/turf/open/chasm,
-			/turf/open/lava))
+			/turf/open/lava,
+			/turf/open/openspace))
 
 
 	last_expand = world.time + rand(growth_cooldown_low, growth_cooldown_high)
@@ -248,6 +249,8 @@
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 	var/obj/item/clothing/mask/facehugger/child
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien/egg/Initialize(mapload)
 	. = ..()
@@ -258,7 +261,7 @@
 		addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	proximity_monitor = new(src, status == GROWN ? 1 : 0)
 	if(status == BURST)
-		obj_integrity = integrity_failure * max_integrity
+		atom_integrity = integrity_failure * max_integrity
 
 /obj/structure/alien/egg/update_icon()
 	..()
@@ -305,12 +308,12 @@
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon()
-	proximity_monitor.SetRange(1)
+	proximity_monitor.set_range(1)
 
 //drops and kills the hugger if any is remaining
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)
 	if(status == GROWN || status == GROWING)
-		proximity_monitor.SetRange(0)
+		proximity_monitor.set_range(0)
 		status = BURSTING
 		update_icon()
 		flick("egg_opening", src)
@@ -331,7 +334,8 @@
 						child.Leap(C)
 						break
 
-/obj/structure/alien/egg/obj_break(damage_flag)
+/obj/structure/alien/egg/atom_break(damage_flag)
+	. = ..()
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(status != BURST)
 			Burst(kill=TRUE)

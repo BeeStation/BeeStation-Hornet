@@ -1,6 +1,3 @@
-#define TRAITOR_HUMAN "human"
-#define TRAITOR_AI	  "AI"
-
 /datum/antagonist/traitor
 	name = "Traitor"
 	roundend_category = "traitors"
@@ -99,7 +96,7 @@
 		if(TRAITOR_AI)
 			add_law_zero()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-			owner.current.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MALF)
+			owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 		if(TRAITOR_HUMAN)
 			ui_interact(owner.current)
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
@@ -245,7 +242,7 @@
 		backstory_text += "<span class='redtext'>No backstory was selected!</span><br>"
 	result += backstory_text
 
-	var/special_role_text = lowertext(name)
+	var/special_role_text = LOWER_TEXT(name)
 
 	if (contractor_hub)
 		result += contractor_round_end()

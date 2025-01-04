@@ -1,8 +1,18 @@
 GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
+
+CREATION_TEST_IGNORE_SELF(/turf)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	flags_1 = CAN_BE_DIRTY_1
+	uses_integrity = TRUE
+
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -33,8 +43,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
-	flags_1 = CAN_BE_DIRTY_1
-
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
 
@@ -59,6 +67,14 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	/// If this turf contained an RCD'able object (or IS one, for walls)
+	/// but is now destroyed, this will preserve the value.
+	/// See __DEFINES/construction.dm for RCD_MEMORY_*.
+	var/rcd_memory
+
+	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
+	var/force_no_gravity = FALSE
+
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
@@ -67,6 +83,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
+
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	/// For the area_contents list unit test
+	/// Allows us to know our area without needing to preassign it
+	/// Sorry for the mess
+	var/area/in_contents_of
+#endif
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -140,6 +163,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		set_custom_materials(temp_list)
 
 	ComponentInitialize()
+
+	if(uses_integrity)
+		atom_integrity = max_integrity
+
 	if(isopenturf(src))
 		var/turf/open/O = src
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
@@ -198,7 +225,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/attack_hand(mob/user)
 	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
-		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+		if(!user.has_gravity(src) || (user.movement_type & (FLOATING|FLYING)))
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
@@ -276,13 +303,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+
 	if(canPassSelf || (mover.movement_type & PHASING))
-		for(var/i in contents)
+		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
 				return FALSE		//We were deleted, do not attempt to proceed with movement.
-			if(i == mover || i == mover.loc) // Multi tile objects and moving out of other objects
+			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
 				continue
-			var/atom/movable/thing = i
 			if(!thing.Cross(mover))
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
@@ -352,7 +379,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
@@ -554,7 +581,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
 		var/area/A = loc
-		if(TF in A?.get_turf_textures())
+		if(TF in A?.get_area_textures())
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
 	if(turf_texture)
 		vis_contents += load_turf_texture(turf_texture)

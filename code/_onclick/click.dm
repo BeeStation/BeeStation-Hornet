@@ -23,8 +23,7 @@
 /mob/living/changeNext_move(num)
 	var/mod = next_move_modifier
 	var/adj = next_move_adjust
-	for(var/i in status_effects)
-		var/datum/status_effect/S = i
+	for(var/datum/status_effect/S as anything in status_effects)
 		mod *= S.nextmove_modifier()
 		adj += S.nextmove_adjust()
 	next_move = world.time + ((num + adj)*mod)
@@ -41,6 +40,7 @@
 /atom/Click(location,control,params)
 	if(flags_1 & INITIALIZED_1)
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
+
 		usr.ClickOn(src, params)
 
 /atom/DblClick(location,control,params)
@@ -101,7 +101,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1))
+	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
 		return
 
 	face_atom(A)
@@ -112,9 +112,9 @@
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
 		return
 
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		RestrainedClickOn(A)
+		UnarmedAttack(A)
 		return
 
 	if(throw_mode && throw_item(A))
@@ -130,7 +130,7 @@
 
 	//These are always reachable.
 	//User itself, current loc, and user inventory
-	if(A in DirectAccess())
+	if(HasDirectAccess(A))
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
@@ -181,11 +181,11 @@
   * logically "in" anything adjacent to us.
   */
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
+
 	while (checking.len && depth > 0)
 		var/list/next = list()
 		--depth
@@ -193,7 +193,8 @@
 		for(var/atom/target in checking)  // will filter out nulls
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
-			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (isobj(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+
+			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -209,14 +210,35 @@
 		checking = next
 	return FALSE
 
-/atom/movable/proc/DirectAccess()
-	return list(src, loc)
+/atom/movable/proc/HasDirectAccess(atom/target)
+	// We can always directly access ourselves
+	if (target == src)
+		return TRUE
+	// We can directly access our location if it lets us touch it from the contents
+	if (target == loc && !(target.flags_1 & NO_DIRECT_ACCESS_FROM_CONTENTS_1))
+		return TRUE
+	return FALSE
 
-/mob/DirectAccess(atom/target)
-	return ..() + contents
+/mob/HasDirectAccess(atom/target)
+	if (..())
+		return TRUE
+	if (istype(target, /atom/movable/screen))
+		return TRUE
+	// We can directly access things that are inside of us
+	if (target.loc == src)
+		return TRUE
+	return FALSE
 
-/mob/living/DirectAccess(atom/target)
-	return ..() + GetAllContents()
+/mob/living/HasDirectAccess(atom/target)
+	if (..())
+		return TRUE
+	// We can directly access things that are recursively inside of us
+	var/atom/current = target
+	while (current && !isturf(current))
+		if (current == src)
+			return TRUE
+		current = current.loc
+	return FALSE
 
 /atom/proc/AllowClick()
 	return FALSE
@@ -278,20 +300,11 @@
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 
 /**
-  * Restrained ClickOn
-  *
-  * Used when you are handcuffed and click things.
-  * Not currently used by anything but could easily be.
-  */
-/mob/proc/RestrainedClickOn(atom/A)
-	return
-
-/**
   * Middle click
   * Mainly used for swapping hands
   */
-/mob/proc/MiddleClickOn(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A)
+/mob/proc/MiddleClickOn(atom/A, params)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, params)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
 	swap_hand()
@@ -305,8 +318,8 @@
 	A.ShiftClick(src)
 	return
 /atom/proc/ShiftClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user)
-	if(user.client && user.client.eye == user || user.client.eye == user.loc)
+	var/flags = SEND_SIGNAL(user, COMSIG_CLICK_SHIFT, src)
+	if(user.client && (user.client.eye == user || user.client.eye == user.loc || flags & COMPONENT_ALLOW_EXAMINATE))
 		user.examinate(src)
 	return
 
@@ -444,7 +457,7 @@
 	transform = M
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -454,7 +467,7 @@
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32)			//Not using world.icon_size on purpose.
 
 /atom/movable/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
-	var/icon/newicon = icon('icons/mob/screen_gen.dmi', "catcher")
+	var/icon/newicon = icon('icons/hud/screen_gen.dmi', "catcher")
 	var/ox = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_x)
 	var/oy = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_y)
 	var/px = view_size_x * world.icon_size
@@ -516,3 +529,6 @@
 			return TRUE
 
 	return FALSE
+
+#undef MAX_SAFE_BYOND_ICON_SCALE_TILES
+#undef MAX_SAFE_BYOND_ICON_SCALE_PX

@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/suit/armor/vest/russian_coat,
 		/obj/item/clothing/suit/armor/hos/trenchcoat,
 		/obj/item/clothing/mask/chameleon,
-		/obj/item/clothing/head/hats/centhat,
+		/obj/item/clothing/head/hats/centcom_cap,
 		/obj/item/clothing/head/costume/crown,
 		/obj/item/clothing/head/hats/hos/syndicate,
 		/obj/item/clothing/head/helmet,
@@ -461,3 +461,5 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // =====
 /obj/item/organ/regenerative_core/battle_royale
 	preserved = TRUE
+
+#undef BATTLE_ROYALE_AVERBS

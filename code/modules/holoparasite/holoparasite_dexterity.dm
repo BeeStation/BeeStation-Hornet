@@ -21,7 +21,7 @@
 			dexterity.internal_storage = null
 			update_inv_internal_storage()
 
-/mob/living/simple_animal/hostile/holoparasite/incapacitated(ignore_restraints, ignore_grab, ignore_stasis)
+/mob/living/simple_animal/hostile/holoparasite/incapacitated(flags)
 	return !can_use_abilities || ..()
 
 /mob/living/simple_animal/hostile/holoparasite/can_put_in_hand(item, hand_index)

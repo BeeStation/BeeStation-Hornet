@@ -345,7 +345,8 @@
 	weapon_weight = WEAPON_MEDIUM
 	can_sawoff = FALSE
 	force = 10 //it has a hook on it
-	attack_verb = list("slashed", "hooked", "stabbed")
+	attack_verb_continuous = list("slashes", "hooks", "stabs")
+	attack_verb_simple = list("slash", "hook", "stab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	//our hook gun!
 	var/obj/item/gun/magic/hook/bounty/hook
@@ -379,3 +380,41 @@
 	else
 		return ..()
 
+///Lever action shotgun, formerly on thefactory.dm
+
+/obj/item/gun/ballistic/shotgun/lever_action
+	name = "lever action shotgun"
+	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
+	w_class = WEIGHT_CLASS_LARGE
+	dual_wield_spread = 0
+	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
+	item_state = "leveraction"
+	icon_state = "leveraction"
+	worn_icon_state = "shotgun"
+	rack_sound = "sound/weapons/leveractionrack.ogg"
+	fire_sound = "sound/weapons/leveractionshot.ogg"
+	vary_fire_sound = FALSE
+	rack_sound_vary = FALSE
+	recoil = 1
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/lever
+	pb_knockback = 5
+
+/obj/item/gun/ballistic/shotgun/lever_action/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You will instantly reload it after a shot if you have another hand free.</span>"
+
+/obj/item/gun/ballistic/shotgun/lever_action/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+	..()
+	if(user.get_inactive_held_item())
+		return
+	else
+		rack()
+
+/obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
+	if (user)
+		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
+	process_chamber(!chambered, FALSE)
+	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+	update_icon()
+	if(user.get_inactive_held_item() && prob(50) && chambered)
+		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")

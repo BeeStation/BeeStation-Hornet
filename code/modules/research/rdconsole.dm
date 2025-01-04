@@ -536,10 +536,6 @@ Nothing else in the console has ID requirements.
 /obj/machinery/computer/rdconsole/core
 	name = "Core R&D Console"
 
-/obj/machinery/computer/rdconsole/experiment
-	name = "E.X.P.E.R.I-MENTOR R&D Console"
-
-
 /obj/machinery/computer/rdconsole/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")

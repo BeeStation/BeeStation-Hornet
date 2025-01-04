@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	desc = "A small portable microcomputer."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "laptop"
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
 	light_color = "#FFFFFF"
@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	integrity_failure = 0.5
 	max_integrity = 100
-	armor = list(MELEE = 0,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/item_modular_computer
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -99,6 +99,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
+
+
+/datum/armor/item_modular_computer
+	bullet = 20
+	laser = 20
+	energy = 100
+	rad = 100
 
 /obj/item/modular_computer/Initialize(mapload)
 	allowed_themes = GLOB.ntos_device_themes_default
@@ -235,7 +242,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return attack_self(M)
 	return ..()
 
-/obj/item/modular_computer/attack_ai(mob/user)
+/obj/item/modular_computer/attack_silicon(mob/user)
 	return attack_self(user)
 
 /obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
@@ -280,9 +287,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		. += "<span class='danger'>It is heavily damaged!</span>"
-	else if(obj_integrity < max_integrity)
+	else if(atom_integrity < max_integrity)
 		. += "<span class='warning'>It is damaged.</span>"
 
 	. += get_modular_computer_parts_examine(user)
@@ -302,7 +309,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(can_store_pai && stored_pai_card)
 		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
 
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		add_overlay(mutable_appearance(init_icon, "bsod"))
 		add_overlay(mutable_appearance(init_icon, "broken"))
 
@@ -312,7 +319,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			ui_interact(user)
 		return TRUE
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		if(issynth)
 			to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but it responds with an error code. It must be damaged.</span>")
 		else
@@ -347,7 +354,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		last_power_usage = 0
 		return 0
 
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		shutdown_computer()
 		return 0
 
@@ -672,7 +679,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 
 	if(attacking_item.tool_behaviour == TOOL_WELDER)
-		if(obj_integrity == max_integrity)
+		if(atom_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
 			return
 
@@ -681,7 +688,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
 		return

@@ -79,7 +79,7 @@
 	check_clapper(user)
 	// The lack of varying is intentional. The only variance occurs on the strike the bell breaks.
 	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-	flick("desk_bell_ring", src)
+	flick("[initial(icon_state)]_ring", src)
 	times_rang++
 	return TRUE
 

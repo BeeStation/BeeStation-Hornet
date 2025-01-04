@@ -3,8 +3,9 @@
 /obj/machinery/microwave
 	name = "microwave oven"
 	desc = "Cooks and boils stuff."
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "mw"
+	icon = 'icons/obj/machines/microwave.dmi'
+	icon_state = "map_icon"
+	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -19,14 +20,15 @@
 	var/dirty = 0 // 0 to 100 // Does it need cleaning?
 	var/dirty_anim_playing = FALSE
 	var/broken = 0 // 0, 1 or 2 // How broken is it???
+	var/open = FALSE
 	var/max_n_of_items = 10
 	var/efficiency = 0
 	var/datum/looping_sound/microwave/soundloop
 	var/list/ingredients = list() // may only contain /atom/movables
 
-	var/static/radial_examine = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_examine")
-	var/static/radial_eject = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject")
-	var/static/radial_use = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_use")
+	var/static/radial_examine = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_examine")
+	var/static/radial_eject = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_eject")
+	var/static/radial_use = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_use")
 
 	// we show the button even if the proc will not work
 	var/static/list/radial_options = list("eject" = radial_eject, "use" = radial_use)
@@ -37,6 +39,8 @@
 	wires = new /datum/wires/microwave(src)
 	create_reagents(100)
 	soundloop = new(src, FALSE)
+
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/microwave/Destroy()
 	eject()
@@ -88,19 +92,93 @@
 		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
 		"<span class='notice'>- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.</span>"
 
+#define MICROWAVE_INGREDIENT_OVERLAY_SIZE 24
+
+/obj/machinery/microwave/update_overlays()
+	// When this is the nth ingredient, whats its pixel_x?
+	var/static/list/ingredient_shifts = list(
+		0,
+		3,
+		-3,
+		4,
+		-4,
+		2,
+		-2,
+	)
+
+	. = ..()
+
+	// All of these will use a full icon state instead
+	if (panel_open || dirty == 100 || broken || dirty_anim_playing)
+		return .
+
+	var/ingredient_count = 0
+
+	for (var/atom/movable/ingredient as anything in ingredients)
+		var/image/ingredient_overlay = image(ingredient, src)
+
+		var/icon/ingredient_icon = icon(ingredient.icon, ingredient.icon_state)
+
+		ingredient_overlay.transform = ingredient_overlay.transform.Scale(
+			MICROWAVE_INGREDIENT_OVERLAY_SIZE / ingredient_icon.Width(),
+			MICROWAVE_INGREDIENT_OVERLAY_SIZE / ingredient_icon.Height(),
+		)
+
+		ingredient_overlay.pixel_y = -4
+		ingredient_overlay.layer = FLOAT_LAYER
+		ingredient_overlay.plane = FLOAT_PLANE
+		ingredient_overlay.blend_mode = BLEND_INSET_OVERLAY
+		ingredient_overlay.pixel_x = ingredient_shifts[(ingredient_count % ingredient_shifts.len) + 1]
+
+		ingredient_count += 1
+
+		. += ingredient_overlay
+
+	var/border_icon_state
+	var/door_icon_state
+
+	if(open)
+		door_icon_state = "door_open"
+		border_icon_state = "mwo"
+	else if(operating)
+		door_icon_state = "door_on"
+		border_icon_state = "mw"
+	else
+		door_icon_state = "door_off"
+		border_icon_state = "mw"
+
+	. += mutable_appearance(
+		icon,
+		door_icon_state,
+		alpha = ingredients.len > 0 ? 128 : 255,
+	)
+
+	. += border_icon_state
+
+	if (!open)
+		. += "door_handle"
+
+	return .
+
+#undef MICROWAVE_INGREDIENT_OVERLAY_SIZE
+
 /obj/machinery/microwave/update_icon()
 	if(broken)
 		icon_state = "mwb"
 	else if(dirty_anim_playing)
 		icon_state = "mwbloody1"
 	else if(dirty == 100)
-		icon_state = "mwbloody"
+		icon_state = open ? "mwbloodyo" : "mwbloody"
 	else if(operating)
-		icon_state = "mw1"
+		icon_state = "back_on"
+	else if(open)
+		icon_state = "back_open"
 	else if(panel_open)
 		icon_state = "mw-o"
 	else
-		icon_state = "mw"
+		icon_state = "back_off"
+
+	return ..()
 
 /obj/machinery/microwave/attackby(obj/item/O, mob/user, params)
 	if(operating)
@@ -147,7 +225,7 @@
 			to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
 		return TRUE
 
-	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag))
+	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/cup/rag))
 		var/cleanspeed = 50
 		if(istype(O, /obj/item/soap))
 			var/obj/item/soap/used_soap = O
@@ -177,6 +255,7 @@
 				ingredients += S
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] items into \the [src].</span>")
+			update_appearance()
 		return
 
 	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && user.a_intent == INTENT_HELP)
@@ -189,13 +268,14 @@
 
 		ingredients += O
 		user.visible_message("[user] has added \a [O] to \the [src].", "<span class='notice'>You add [O] to \the [src].</span>")
+		update_appearance()
 		return
 
 	..()
 
 /obj/machinery/microwave/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(usr)))
-		cook()
+		cook(user)
 
 /obj/machinery/microwave/ui_interact(mob/user)
 	. = ..()
@@ -234,8 +314,9 @@
 		var/atom/movable/AM = i
 		AM.forceMove(drop_location())
 	ingredients.Cut()
+	open()
 
-/obj/machinery/microwave/proc/cook()
+/obj/machinery/microwave/proc/cook(mob/user)
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(operating || broken > 0 || panel_open || !anchored || dirty == 100)
@@ -247,13 +328,13 @@
 		return
 
 	if(prob(max((5 / efficiency) - 5, dirty * 5))) //a clean unupgraded microwave has no risk of failure
-		muck()
+		muck(user)
 		return
 	for(var/obj/O in ingredients)
-		if(istype(O, /obj/item/reagent_containers/food) || istype(O, /obj/item/grown))
+		if(istype(O, /obj/item/food) || istype(O, /obj/item/grown))
 			continue
 		if(prob(min(dirty * 5, 100)))
-			start_can_fail()
+			start_can_fail(user)
 			return
 		break
 	start()
@@ -266,32 +347,32 @@
 	soundloop.start()
 	update_icon()
 
-/obj/machinery/microwave/proc/spark()
+/obj/machinery/microwave/proc/spark(mob/user)
 	visible_message("<span class='warning'>Sparks fly around [src]!</span>")
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(2, 1, src)
-	s.start()
+	s.start(user)
 
 #define MICROWAVE_NORMAL 0
 #define MICROWAVE_MUCK 1
 #define MICROWAVE_PRE 2
 
-/obj/machinery/microwave/proc/start()
+/obj/machinery/microwave/proc/start(mob/user)
 	wzhzhzh()
-	loop(MICROWAVE_NORMAL, 10)
+	loop(MICROWAVE_NORMAL, 10, user)
 
-/obj/machinery/microwave/proc/start_can_fail()
+/obj/machinery/microwave/proc/start_can_fail(mob/user)
 	wzhzhzh()
-	loop(MICROWAVE_PRE, 4)
+	loop(MICROWAVE_PRE, 4, user)
 
-/obj/machinery/microwave/proc/muck()
+/obj/machinery/microwave/proc/muck(mob/user)
 	wzhzhzh()
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	dirty_anim_playing = TRUE
 	update_icon()
-	loop(MICROWAVE_MUCK, 4)
+	loop(MICROWAVE_MUCK, 4, user)
 
-/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
+/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2), mob/user) // standard wait is 10
 	if(machine_stat & (NOPOWER|BROKEN))
 		operating = FALSE
 		if(type == MICROWAVE_PRE)
@@ -301,7 +382,7 @@
 	if(!time)
 		switch(type)
 			if(MICROWAVE_NORMAL)
-				loop_finish()
+				loop_finish(user)
 			if(MICROWAVE_MUCK)
 				muck_finish()
 			if(MICROWAVE_PRE)
@@ -311,8 +392,9 @@
 	use_power(500)
 	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
-/obj/machinery/microwave/proc/loop_finish()
+/obj/machinery/microwave/proc/loop_finish(mob/user)
 	operating = FALSE
+
 
 	var/iron = 0
 	for(var/obj/item/O in ingredients)
@@ -327,12 +409,15 @@
 		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dump_inventory_contents()
+		dump_inventory_contents(user)
 
 	after_finish_loop()
 
-/obj/machinery/microwave/dump_inventory_contents()
+/obj/machinery/microwave/dump_inventory_contents(mob/user)
 	. = ..()
+	if(user && user.mind)
+		for(var/obj/item/result as anything in ingredients)
+			ADD_TRAIT(result, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
 	ingredients.Cut()
 
 /obj/machinery/microwave/proc/pre_fail()
@@ -354,7 +439,16 @@
 /obj/machinery/microwave/proc/after_finish_loop()
 	set_light(0)
 	soundloop.stop()
-	update_icon()
+	open()
+
+/obj/machinery/microwave/proc/open()
+	open = TRUE
+	update_appearance()
+	addtimer(CALLBACK(src, PROC_REF(close)), 0.8 SECONDS)
+
+/obj/machinery/microwave/proc/close()
+	open = FALSE
+	update_appearance(UPDATE_ICON)
 
 #undef MICROWAVE_NORMAL
 #undef MICROWAVE_MUCK

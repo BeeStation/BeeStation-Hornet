@@ -31,7 +31,7 @@ Bonus
 	prefixes = list("Aural ")
 	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/deafness/severityset(datum/disease/advance/A)
 	. = ..()

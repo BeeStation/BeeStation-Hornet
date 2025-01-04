@@ -2,13 +2,15 @@
 	name = "brain"
 	desc = "A piece of juicy meat found in a person's head."
 	icon_state = "brain"
+	visual = TRUE
 	throw_speed = 3
 	throw_range = 5
 	layer = ABOVE_MOB_LAYER
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
 	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
-	attack_verb = list("attacked", "slapped", "whacked")
+	attack_verb_continuous = list("attacks", "slaps", "whacks")
+	attack_verb_simple = list("attack", "slap", "whack")
 
 	///The brain's organ variables are significantly more different than the other organs, with half the decay rate for balance reasons, and twice the maxHealth
 	decay_factor = STANDARD_ORGAN_DECAY	/ 2		//30 minutes of decaying to result in a fully damaged brain, since a fast decay rate would be unfun gameplay-wise
@@ -20,8 +22,9 @@
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
-	var/decoy_override = FALSE	//if it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
-	//two variables necessary for calculating whether we get a brain trauma or not
+	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
+	var/decoy_override = FALSE
+	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
 
 	var/list/datum/brain_trauma/traumas = list()
@@ -126,8 +129,8 @@
 	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
 		O.attack(brainmob, user) //Oh noooeeeee
 
-  if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
-	  setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
+	if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
+		setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 
 /obj/item/organ/brain/examine(mob/user)
 	. = ..()
@@ -135,7 +138,7 @@
 	if(suicided)
 		. += "<span class='info'>It's started turning slightly grey. They must not have been able to handle the stress of it all.</span>"
 	else if(brainmob)
-		if(brainmob.get_ghost(FALSE, TRUE))
+		if(!brainmob.soul_departed())
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += "<span class='info'>It's lifeless and severely damaged.</span>"
 			else if(organ_flags & ORGAN_FAILING)
@@ -218,6 +221,18 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
+
+/obj/item/organ/brain/diona
+	name = "diona nymph"
+	desc = "A small mass of roots and plant matter, it looks to be moving."
+	icon_state = "diona_brain"
+	decoy_override = TRUE
+
+/obj/item/organ/brain/diona/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load)
+	if(special)
+		return
+	C.dna.species.spec_death(FALSE, src)
+	QDEL_NULL(src)
 
 /obj/item/organ/brain/positron
 	name = "positronic brain"

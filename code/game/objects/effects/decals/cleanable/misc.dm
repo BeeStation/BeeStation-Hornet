@@ -142,6 +142,8 @@
 	desc = "You try not to look at the chunks, and fail."
 	var/list/datum/disease/diseases = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
+
 /obj/effect/decal/cleanable/vomit/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	icon_state += "-old"

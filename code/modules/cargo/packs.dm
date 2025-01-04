@@ -77,7 +77,7 @@
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
 					/obj/item/clothing/head/soft/cargo,
-					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
+					/obj/item/clothing/mask/bandana/skull/black)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
 
@@ -248,9 +248,9 @@
 					/obj/item/clothing/suit/utility/radiation,
 					/obj/item/geiger_counter,
 					/obj/item/geiger_counter,
-					/obj/item/reagent_containers/food/drinks/bottle/vodka,
-					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass)
+					/obj/item/reagent_containers/cup/glass/bottle/vodka,
+					/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+					/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass)
 	crate_name = "radiation protection crate"
 	crate_type = /obj/structure/closet/crate/radiation
 
@@ -1099,6 +1099,17 @@
 	crate_name = "power cell crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
+/datum/supply_pack/engineering/sealant
+	name = "Engine Sealant Crate"
+	desc = "Nuclear reactor looking a bit cracked? Don't be afraid to slap on some NT brand sealant to patch those holes right up!"
+	cost = 1000
+	max_supply = 1
+	contains = list(/obj/item/sealant,
+					/obj/item/sealant,
+					/obj/item/sealant)
+	crate_name = "sealant crate"
+	crate_type = /obj/structure/closet/crate/engineering/
+
 /datum/supply_pack/engineering/shuttle_engine
 	name = "Shuttle Engine Crate"
 	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
@@ -1124,6 +1135,20 @@
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
 	crate_name = "toolbox crate"
+
+/datum/supply_pack/engineering/fuel_rods
+	name = "Uranium Fuel Rod Crate"
+	desc = "A five nuclear reactor grade fuel rod crate. Warning: Due to budget constraints, this crate is not lead-lined! Wear radiation protection around this crate."
+	cost = 3000
+	max_supply = 2
+	access_budget = ACCESS_ENGINE
+	contains = list(/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod)
+	crate_name = "fuel rod crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_pack/engineering/vending/engineering
 	name = "Engineering Vending Crate"
@@ -1335,6 +1360,28 @@
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
 	crate_name = "collector crate"
+
+/datum/supply_pack/engine/nuclear_reactor
+	name = "RBMK Nuclear Reactor Engine Crate"
+	desc = "Contains the boards for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
+	cost = 7000
+	max_supply = 1
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
+	contains = list(/obj/item/RBMK_box/core,
+					/obj/item/RBMK_box/body/coolant_input,
+					/obj/item/RBMK_box/body/moderator_input,
+					/obj/item/RBMK_box/body/waste_output,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/circuitboard/computer/control_rods,
+					/obj/item/book/manual/wiki/rbmk)
+	crate_name = "nuclear engine crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
 
 /datum/supply_pack/engine/sing_gen
 	name = "Singularity Generator Crate"
@@ -1657,10 +1704,10 @@
 	desc = "Contains four 100u cartons of synthflesh in case the cloner ran out of it."
 	cost = 1400
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
-					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
-					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
-					/obj/item/reagent_containers/food/drinks/bottle/synthflesh)
+	contains = list(/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
+					/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
+					/obj/item/reagent_containers/cup/glass/bottle/synthflesh,
+					/obj/item/reagent_containers/cup/glass/bottle/synthflesh)
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
@@ -1724,19 +1771,19 @@
 	desc = "Contains thirteen different chemicals, for all the fun experiments you can make."
 	cost = 1000
 	max_supply = 4
-	contains = list(/obj/item/reagent_containers/glass/bottle/hydrogen,
-					/obj/item/reagent_containers/glass/bottle/carbon,
-					/obj/item/reagent_containers/glass/bottle/nitrogen,
-					/obj/item/reagent_containers/glass/bottle/oxygen,
-					/obj/item/reagent_containers/glass/bottle/fluorine,
-					/obj/item/reagent_containers/glass/bottle/phosphorus,
-					/obj/item/reagent_containers/glass/bottle/silicon,
-					/obj/item/reagent_containers/glass/bottle/chlorine,
-					/obj/item/reagent_containers/glass/bottle/radium,
-					/obj/item/reagent_containers/glass/bottle/sacid,
-					/obj/item/reagent_containers/glass/bottle/ethanol,
-					/obj/item/reagent_containers/glass/bottle/potassium,
-					/obj/item/reagent_containers/glass/bottle/sugar,
+	contains = list(/obj/item/reagent_containers/cup/bottle/hydrogen,
+					/obj/item/reagent_containers/cup/bottle/carbon,
+					/obj/item/reagent_containers/cup/bottle/nitrogen,
+					/obj/item/reagent_containers/cup/bottle/oxygen,
+					/obj/item/reagent_containers/cup/bottle/fluorine,
+					/obj/item/reagent_containers/cup/bottle/phosphorus,
+					/obj/item/reagent_containers/cup/bottle/silicon,
+					/obj/item/reagent_containers/cup/bottle/chlorine,
+					/obj/item/reagent_containers/cup/bottle/radium,
+					/obj/item/reagent_containers/cup/bottle/sacid,
+					/obj/item/reagent_containers/cup/bottle/ethanol,
+					/obj/item/reagent_containers/cup/bottle/potassium,
+					/obj/item/reagent_containers/cup/bottle/sugar,
 					/obj/item/clothing/glasses/science,
 					/obj/item/reagent_containers/dropper,
 					/obj/item/storage/box/beakers)
@@ -1766,11 +1813,11 @@
 	desc = "Contains a little bit of everything needed to stock a medbay or to form your own."
 	cost = 2000
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/glass/bottle/charcoal,
-					/obj/item/reagent_containers/glass/bottle/epinephrine,
-					/obj/item/reagent_containers/glass/bottle/morphine,
-					/obj/item/reagent_containers/glass/bottle/toxin,
-					/obj/item/reagent_containers/glass/beaker/large,
+	contains = list(/obj/item/reagent_containers/cup/bottle/charcoal,
+					/obj/item/reagent_containers/cup/bottle/epinephrine,
+					/obj/item/reagent_containers/cup/bottle/morphine,
+					/obj/item/reagent_containers/cup/bottle/toxin,
+					/obj/item/reagent_containers/cup/beaker/large,
 					/obj/item/reagent_containers/pill/insulin,
 					/obj/item/stack/medical/gauze,
 					/obj/item/storage/box/beakers,
@@ -1804,6 +1851,14 @@
 					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
 
+/datum/supply_pack/medical/implants
+	name = "Surplus Implants Crate"
+	desc = "Do you want implants, but those R&D folks hasn't learnt how to do their job? Just get started with this crate containing several of our dusty surplus implants. (Surgical tools not included)"
+	cost = 1000
+	max_supply = 2
+	contains = list(/obj/item/storage/backpack/duffelbag/med/implant)
+	crate_name = "implant supplies crate"
+
 /datum/supply_pack/medical/salglucanister
 	name = "Heavy-Duty Saline Canister"
 	desc = "Contains a bulk supply of saline-glucose condensed into a single canister that should last several days, with a large pump to fill containers with. Direct injection of saline should be left to medical professionals as the pump is capable of overdosing patients. Requires medbay access to open."
@@ -1819,11 +1874,11 @@
 	max_supply = 3
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/glass/bottle/inorganic_virion,
-					/obj/item/reagent_containers/glass/bottle/necrotic_virion,
-					/obj/item/reagent_containers/glass/bottle/evolution_virion,
-					/obj/item/reagent_containers/glass/bottle/adaptation_virion,
-					/obj/item/reagent_containers/glass/bottle/aggression_virion)
+	contains = list(/obj/item/reagent_containers/cup/bottle/inorganic_virion,
+					/obj/item/reagent_containers/cup/bottle/necrotic_virion,
+					/obj/item/reagent_containers/cup/bottle/evolution_virion,
+					/obj/item/reagent_containers/cup/bottle/adaptation_virion,
+					/obj/item/reagent_containers/cup/bottle/aggression_virion)
 	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
@@ -1831,7 +1886,7 @@
 /datum/supply_pack/medical/randomvirus/fill(obj/structure/closet/crate/C)
 	for(var/item in contains)
 		if(CONFIG_GET(flag/chemviro_allowed))
-			new /obj/item/reagent_containers/glass/bottle/random_virus(C)
+			new /obj/item/reagent_containers/cup/bottle/random_virus(C)
 		else
 			new item(C)
 
@@ -1843,10 +1898,10 @@
 	max_supply = 4
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/food/monkeycube,
-					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
-					/obj/item/reagent_containers/glass/bottle/mutagen,
-					/obj/item/reagent_containers/glass/bottle/formaldehyde,
-					/obj/item/reagent_containers/glass/bottle/synaptizine,
+					/obj/item/reagent_containers/cup/glass/bottle/virusfood,
+					/obj/item/reagent_containers/cup/bottle/mutagen,
+					/obj/item/reagent_containers/cup/bottle/formaldehyde,
+					/obj/item/reagent_containers/cup/bottle/synaptizine,
 					/obj/item/storage/box/beakers,
 					/obj/item/toy/figure/virologist)
 	crate_name = "Junior Epidemiology Kit"
@@ -1869,12 +1924,12 @@
 	access = ACCESS_CMO
 	access_budget = ACCESS_VIROLOGY
 	contraband = TRUE
-	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
-					/obj/item/reagent_containers/glass/bottle/magnitis,
-					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
-					/obj/item/reagent_containers/glass/bottle/brainrot,
-					/obj/item/reagent_containers/glass/bottle/anxiety,
-					/obj/item/reagent_containers/glass/bottle/beesease)
+	contains = list(/obj/item/reagent_containers/cup/bottle/fake_gbs,
+					/obj/item/reagent_containers/cup/bottle/magnitis,
+					/obj/item/reagent_containers/cup/bottle/pierrot_throat,
+					/obj/item/reagent_containers/cup/bottle/brainrot,
+					/obj/item/reagent_containers/cup/bottle/anxiety,
+					/obj/item/reagent_containers/cup/bottle/beesease)
 	crate_name = "virus crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
@@ -1992,10 +2047,12 @@
 	max_supply = 4
 	access = ACCESS_TELEPORTER
 	access = ACCESS_TELEPORTER
-	contains = list(/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen)
+	contains = list(
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen
+	)
 	crate_name = "shield generators crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
@@ -2092,9 +2149,9 @@
 	cost = 800
 	max_supply = 4
 	access_budget = ACCESS_JANITOR
-	contains = list(/obj/item/reagent_containers/glass/bucket,
-					/obj/item/reagent_containers/glass/bucket,
-					/obj/item/reagent_containers/glass/bucket,
+	contains = list(/obj/item/reagent_containers/cup/bucket,
+					/obj/item/reagent_containers/cup/bucket,
+					/obj/item/reagent_containers/cup/bucket,
 					/obj/item/mop,
 					/obj/item/pushbroom,
 					/obj/item/clothing/suit/caution,
@@ -2102,7 +2159,7 @@
 					/obj/item/clothing/suit/caution,
 					/obj/item/storage/bag/trash,
 					/obj/item/reagent_containers/spray/cleaner,
-					/obj/item/reagent_containers/glass/rag,
+					/obj/item/reagent_containers/cup/rag,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner)
@@ -2145,15 +2202,15 @@
 	cost = 1500
 	max_supply = 5
 	contains = list(/obj/item/storage/box/drinkingglasses,
-					/obj/item/reagent_containers/food/drinks/shaker,
-					/obj/item/reagent_containers/food/drinks/bottle/patron,
-					/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-					/obj/item/reagent_containers/food/drinks/ale,
-					/obj/item/reagent_containers/food/drinks/ale,
-					/obj/item/reagent_containers/food/drinks/beer,
-					/obj/item/reagent_containers/food/drinks/beer,
-					/obj/item/reagent_containers/food/drinks/beer,
-					/obj/item/reagent_containers/food/drinks/beer,
+					/obj/item/reagent_containers/cup/glass/shaker,
+					/obj/item/reagent_containers/cup/glass/bottle/patron,
+					/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
+					/obj/item/reagent_containers/cup/glass/bottle/ale,
+					/obj/item/reagent_containers/cup/glass/bottle/ale,
+					/obj/item/reagent_containers/cup/glass/bottle/beer,
+					/obj/item/reagent_containers/cup/glass/bottle/beer,
+					/obj/item/reagent_containers/cup/glass/bottle/beer,
+					/obj/item/reagent_containers/cup/glass/bottle/beer,
 					/obj/item/flashlight/glowstick,
 					/obj/item/flashlight/glowstick/red,
 					/obj/item/flashlight/glowstick/blue,
@@ -2381,9 +2438,9 @@
 	max_supply = 3
 	access_budget = ACCESS_HYDROPONICS
 	contains = list(/obj/item/seeds/nettle,
-					/obj/item/seeds/replicapod,
-					/obj/item/seeds/replicapod,
-					/obj/item/seeds/replicapod,
+					/obj/item/seeds/dionapod,
+					/obj/item/seeds/dionapod,
+					/obj/item/seeds/dionapod,
 					/obj/item/seeds/plump,
 					/obj/item/seeds/liberty,
 					/obj/item/seeds/amanita,
@@ -2404,15 +2461,15 @@
 	cost = 1000
 	max_supply = 4
 	access_budget = ACCESS_KITCHEN
-	contains = list(/obj/item/reagent_containers/food/condiment/flour,
-					/obj/item/reagent_containers/food/condiment/rice,
-					/obj/item/reagent_containers/food/condiment/milk,
-					/obj/item/reagent_containers/food/condiment/soymilk,
-					/obj/item/reagent_containers/food/condiment/saltshaker,
-					/obj/item/reagent_containers/food/condiment/peppermill,
+	contains = list(/obj/item/reagent_containers/condiment/flour,
+					/obj/item/reagent_containers/condiment/rice,
+					/obj/item/reagent_containers/condiment/milk,
+					/obj/item/reagent_containers/condiment/soymilk,
+					/obj/item/reagent_containers/condiment/saltshaker,
+					/obj/item/reagent_containers/condiment/peppermill,
 					/obj/item/storage/fancy/egg_box,
-					/obj/item/reagent_containers/food/condiment/enzyme,
-					/obj/item/reagent_containers/food/condiment/sugar,
+					/obj/item/reagent_containers/condiment/enzyme,
+					/obj/item/reagent_containers/condiment/sugar,
 					/obj/item/food/meat/slab/monkey,
 					/obj/item/food/grown/banana,
 					/obj/item/food/grown/banana,
@@ -2453,8 +2510,8 @@
 	access_budget = ACCESS_HYDROPONICS
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/spray/plantbgone,
-					/obj/item/reagent_containers/glass/bottle/ammonia,
-					/obj/item/reagent_containers/glass/bottle/ammonia,
+					/obj/item/reagent_containers/cup/bottle/ammonia,
+					/obj/item/reagent_containers/cup/bottle/ammonia,
 					/obj/item/hatchet,
 					/obj/item/cultivator,
 					/obj/item/plant_analyzer,
@@ -2475,7 +2532,8 @@
 
 /datum/supply_pack/organic/pizza
 	name = "Pizza Crate"
-	desc = "Best prices on this side of the galaxy. All deliveries are guaranteed to be 99% anomaly-free!"
+	desc = "Why visit the kitchen when you can have five random pizzas in a fraction of the time? \
+		Best prices this side of the galaxy! All deliveries are guaranteed to be 99% anomaly-free."
 	cost = 5000 // Best prices this side of the galaxy.
 	max_supply = 3
 	contains = list(/obj/item/pizzabox/margherita,
@@ -2484,15 +2542,37 @@
 					/obj/item/pizzabox/vegetable,
 					/obj/item/pizzabox/pineapple)
 	crate_name = "pizza crate"
+	///Whether we've provided an infinite pizza box already this shift or not.
 	var/static/anomalous_box_provided = FALSE
+	///The percentage chance (per pizza) of this supply pack to spawn an anomalous pizza box.
+	var/anna_molly_box_chance = 1
+	///Total tickets in our figurative lottery (per pizza) to decide if we create a bomb box, and if so what type. 1 to 3 create a bomb. The rest do nothing.
+	var/boombox_tickets = 100
+	///Whether we've provided a bomb pizza box already this shift or not.
+	var/boombox_provided = FALSE
 
 /datum/supply_pack/organic/pizza/fill(obj/structure/closet/crate/C)
 	. = ..()
-	if(!anomalous_box_provided)
-		for(var/obj/item/pizzabox/P in C)
-			if(prob(1)) //1% chance for each box, so 4% total chance per order
+
+	var/list/pizza_types = list(
+		/obj/item/food/pizza/margherita = 10,
+		/obj/item/food/pizza/meat = 10,
+		/obj/item/food/pizza/mushroom = 10,
+		/obj/item/food/pizza/vegetable = 10,
+		/obj/item/food/pizza/donkpocket = 10,
+		/obj/item/food/pizza/dank = 7,
+		/obj/item/food/pizza/sassysage = 10,
+		/obj/item/food/pizza/pineapple = 10,
+		/obj/item/food/pizza/arnold = 3
+	) //weighted by chance to disrupt eaters' rounds
+
+	for(var/obj/item/pizzabox/P in C)
+		if(!anomalous_box_provided)
+			if(prob(anna_molly_box_chance)) //1% chance for each box, so 4% total chance per order
 				var/obj/item/pizzabox/infinite/fourfiveeight = new(C)
 				fourfiveeight.boxtag = P.boxtag
+				fourfiveeight.boxtag_set = TRUE
+				fourfiveeight.update_icon()
 				qdel(P)
 				anomalous_box_provided = TRUE
 				log_game("An anomalous pizza box was provided in a pizza crate at during cargo delivery")
@@ -2500,7 +2580,34 @@
 					addtimer(CALLBACK(src, PROC_REF(anomalous_pizza_report)), rand(300, 1800))
 				else
 					message_admins("An anomalous pizza box was silently created with no command report in a pizza crate delivery.")
-				break
+				continue
+
+		if(!boombox_provided)
+			var/boombox_lottery = rand(1,boombox_tickets)
+			var/boombox_type
+			switch(boombox_lottery)
+				if(1 to 2)
+					boombox_type = /obj/item/pizzabox/bomb/armed //explodes after opening
+				if(3)
+					boombox_type = /obj/item/pizzabox/bomb //free bomb
+
+			if(boombox_type)
+				new boombox_type(C)
+				qdel(P)
+				boombox_provided = TRUE
+				log_game("A bomb pizza box was created by a pizza crate delivery.")
+				message_admins("A bomb pizza box has arrived in a pizza crate delivery.")
+				continue
+
+		//here we randomly replace our pizzas for a chance at the full range
+		var/obj/item/food/pizza/replacement_type = pick_weight(pizza_types)
+		pizza_types -= replacement_type
+		if(replacement_type && !istype(P.pizza, replacement_type))
+			QDEL_NULL(P.pizza)
+			P.pizza = new replacement_type
+			P.boxtag = P.pizza.boxtag
+			P.boxtag_set = TRUE
+			P.update_icon()
 
 /datum/supply_pack/organic/pizza/proc/anomalous_pizza_report()
 	print_command_report("[station_name()], our anomalous materials divison has reported a missing object that is highly likely to have been sent to your station during a routine cargo \
@@ -2578,7 +2685,7 @@
 	crate_type = /obj/structure/closet/crate
 	contains = list(/obj/item/stack/sheet/mineral/coal/five,
 					/obj/machinery/grill/unwrenched,
-					/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy
+					/obj/item/reagent_containers/cup/soda_cans/monkey_energy
 					)
 	crate_name = "grilling starter kit crate"
 
@@ -2589,7 +2696,7 @@
 	max_supply = 5
 	crate_type = /obj/structure/closet/crate
 	contains = list(/obj/item/stack/sheet/mineral/coal/ten,
-					/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy
+					/obj/item/reagent_containers/cup/soda_cans/monkey_energy
 					)
 	crate_name = "grilling fuel kit crate"
 
@@ -2795,6 +2902,13 @@
 					/mob/living/simple_animal/hostile/retaliate/poison/snake)
 	crate_name = "snake crate"
 
+/datum/supply_pack/critter/capybara
+	name = "Capybara Crate"
+	desc = "Coconut doggy"
+	cost = 10000
+	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	crate_name = "capybara crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2850,7 +2964,7 @@
 					/obj/item/storage/pill_bottle/aranesp,
 					/obj/item/storage/pill_bottle/stimulant,
 					/obj/item/toy/cards/deck/syndicate,
-					/obj/item/reagent_containers/food/drinks/bottle/absinthe,
+					/obj/item/reagent_containers/cup/glass/bottle/absinthe,
 					/obj/item/clothing/under/syndicate/tacticool,
 					/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
@@ -3002,7 +3116,7 @@
 					/obj/item/clothing/mask/gas/mime,
 					/obj/item/clothing/head/frenchberet,
 					/obj/item/clothing/suit/suspenders,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+					/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
 					/obj/item/storage/backpack/mime)
 	crate_name = "standard costume crate"
 	crate_type = /obj/structure/closet/crate/wooden
@@ -3394,8 +3508,8 @@
 	cost = 4000
 	max_supply = 3
 	access_budget = ACCESS_CHAPEL_OFFICE
-	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater,
+	contains = list(/obj/item/reagent_containers/cup/glass/bottle/holywater,
+					/obj/item/reagent_containers/cup/glass/bottle/holywater,
 					/obj/item/storage/book/bible/booze,
 					/obj/item/storage/book/bible/booze,
 					/obj/item/clothing/neck/crucifix/rosary,

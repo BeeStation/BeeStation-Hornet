@@ -1,7 +1,7 @@
 /datum/job/botanist
 	title = JOB_NAME_BOTANIST
 	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew. Clone people with Replica Pods when needed."
-	department_for_prefs = DEPT_BITFLAG_SRV
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -11,8 +11,8 @@
 
 	outfit = /datum/outfit/job/botanist
 
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
+	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
+	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG

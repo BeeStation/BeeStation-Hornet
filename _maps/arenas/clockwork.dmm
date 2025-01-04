@@ -1,10 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/stack/tile/bronze/ten,
+/obj/item/stack/tile/mineral/bronze/ten,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "c" = (
-/obj/item/stack/tile/bronze,
+/obj/item/stack/tile/mineral/bronze,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "d" = (
@@ -15,7 +15,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "f" = (
-/obj/item/stack/tile/bronze/twenty,
+/obj/item/stack/tile/mineral/bronze/twenty,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "g" = (

@@ -36,6 +36,10 @@
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = null
 
+/obj/item/clothing/head/collectable/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/series, /obj/item/clothing/head/collectable, "Super duper collectable hats")
+
 /obj/item/clothing/head/collectable/petehat
 	name = "ultra rare Pete's hat"
 	desc = "It smells faintly of plasma."

@@ -9,7 +9,7 @@
 	name = "Summon Rift"
 	desc = "Summon a rift to bring forth a horde of space carp."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "carp_rift"
 
 /datum/action/innate/summon_rift/Activate()
@@ -24,7 +24,7 @@
 		return
 	var/area/A = get_area(S)
 	if(!(A in dragon.chosen_rift_areas))
-		to_chat(S, "<span class='warning'>You can't summon a rift here!</span>")
+		owner.balloon_alert(owner, "can't summon a rift here, check your objectives!")
 		return
 	for(var/obj/structure/carp_rift/rift in dragon.rift_list)
 		var/area/RA = get_area(rift)
@@ -60,8 +60,9 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/structure_carp_rift
 	max_integrity = 300
+	max_hit_damage = 50
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
@@ -86,15 +87,17 @@
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
 
+
+/datum/armor/structure_carp_rift
+	energy = 100
+	bomb = 50
+	rad = 100
+	fire = 100
+	acid = 100
+
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent( \
-		/datum/component/gravity_aura, \
-		range = 15, \
-		requires_visibility = FALSE, \
-		gravity_strength = 1, \
-	)
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()
@@ -174,7 +177,7 @@
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
 		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations")
-		obj_integrity = INFINITY
+		atom_integrity = INFINITY
 		icon_state = "carp_rift_charged"
 		set_light_color(LIGHT_COLOR_DIM_YELLOW)
 		update_light()

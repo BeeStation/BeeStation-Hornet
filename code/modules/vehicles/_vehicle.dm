@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "error"
 	max_integrity = 300
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0)
+	armor_type = /datum/armor/obj_vehicle
 	density = TRUE
 	anchored = FALSE
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
@@ -25,6 +25,15 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
+
+/datum/armor/obj_vehicle
+	melee = 30
+	bullet = 30
+	laser = 30
+	bomb = 30
+	fire = 60
+	acid = 60
+
 /obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
 		return 1
@@ -44,7 +53,7 @@
 	. = ..()
 	if(resistance_flags & ON_FIRE)
 		. += "<span class='warning'>It's on fire!</span>"
-	var/healthpercent = obj_integrity/max_integrity * 100
+	var/healthpercent = atom_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
 			. += "It looks slightly damaged."
@@ -60,7 +69,7 @@
 	return occupants
 
 /obj/vehicle/proc/occupant_amount()
-	return length(occupants)
+	return LAZYLEN(occupants)
 
 /obj/vehicle/proc/return_amount_of_controllers_with_flag(flag)
 	. = 0
@@ -85,12 +94,13 @@
 	return is_occupant(M) && occupants[M] & VEHICLE_CONTROL_DRIVE
 
 /obj/vehicle/proc/is_occupant(mob/M)
-	return !isnull(occupants[M])
+	return !isnull(LAZYACCESS(occupants, M))
 
 /obj/vehicle/proc/add_occupant(mob/M, control_flags)
-	if(!istype(M) || occupants[M])
+	if(!istype(M) || is_occupant(M))
 		return FALSE
-	occupants[M] = NONE
+
+	LAZYSET(occupants, M, NONE)
 	add_control_flags(M, control_flags)
 	after_add_occupant(M)
 	grant_passenger_actions(M)
@@ -108,19 +118,19 @@
 		return FALSE
 	remove_control_flags(M, ALL)
 	remove_passenger_actions(M)
-	occupants -= M
+	LAZYREMOVE(occupants, M)
 	cleanup_actions_for_mob(M)
 	after_remove_occupant(M)
 	return TRUE
 
 /obj/vehicle/proc/after_remove_occupant(mob/M)
 
-/obj/vehicle/relaymove(mob/user, direction)
+/obj/vehicle/relaymove(mob/living/user, direction)
 	if(is_driver(user))
 		return driver_move(user, direction)
 	return FALSE
 
-/obj/vehicle/proc/driver_move(mob/user, direction)
+/obj/vehicle/proc/driver_move(mob/living/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return FALSE
@@ -149,7 +159,7 @@
 	return
 
 /obj/vehicle/proc/add_control_flags(mob/controller, flags)
-	if(!istype(controller) || !flags)
+	if(!is_occupant(controller) || !flags)
 		return FALSE
 	occupants[controller] |= flags
 	for(var/i in GLOB.bitflags)
@@ -158,7 +168,7 @@
 	return TRUE
 
 /obj/vehicle/proc/remove_control_flags(mob/controller, flags)
-	if(!istype(controller) || !flags)
+	if(!is_occupant(controller) || !flags)
 		return FALSE
 	occupants[controller] &= ~flags
 	for(var/i in GLOB.bitflags)
@@ -166,12 +176,13 @@
 			remove_controller_actions_by_flag(controller, i)
 	return TRUE
 
-/obj/vehicle/Bump(atom/movable/M)
+/obj/vehicle/Bump(atom/A)
 	. = ..()
 	if(emulate_door_bumps)
-		if(istype(M, /obj/machinery/door))
+		if(istype(A, /obj/machinery/door))
+			var/obj/machinery/door/conditionalwall = A
 			for(var/m in occupants)
-				M.Bumped(m)
+				conditionalwall.bumpopen(m)
 
 /obj/vehicle/Move(newloc, dir)
 	. = ..()

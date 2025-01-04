@@ -68,7 +68,7 @@
 	volume = sound_info["volume"]
 	SSblackbox.record_feedback("tally", "synth_sound_selected", 1, selected_sound_name)
 
-/obj/item/soundsynth/Initialize()
+/obj/item/soundsynth/Initialize(mapload)
 	. = ..()
 	if(!length(sounds) || !length(sound_filenames))
 		for(var/sound_name in sound_list)

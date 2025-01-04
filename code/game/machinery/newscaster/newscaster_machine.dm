@@ -9,7 +9,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
+	armor_type = /datum/armor/machinery_newscaster
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?
@@ -57,6 +57,16 @@
 	///Text of the currently written bounty
 	var/bounty_text = ""
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
+
+
+/datum/armor/machinery_newscaster
+	melee = 50
+	fire = 50
+	acid = 30
+
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
 	GLOB.allCasters += src
@@ -91,7 +101,7 @@
 			. += emissive_appearance(icon, "[base_icon_state]_alert", layer, alpha = src.alpha)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-	var/hp_percent = (obj_integrity * 100) / max_integrity
+	var/hp_percent = (atom_integrity * 100) / max_integrity
 	switch(hp_percent)
 		if(75 to 100)
 			return
@@ -138,9 +148,9 @@
 	if(card?.registered_account)
 		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
-		var/datum/data/record/R = find_record("name", card.registered_account.account_holder, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(card.registered_account.account_holder, GLOB.manifest.general)
 		if(R)
-			data["user"]["job"] = R.fields["rank"]
+			data["user"]["job"] = R.rank
 		else if(card.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
 		else
@@ -547,7 +557,7 @@
 				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				set_machine_stat(machine_stat & ~BROKEN)
 				update_icon()
 		else
@@ -581,7 +591,7 @@
 		new /obj/item/shard(loc)
 	qdel(src)
 
-/obj/machinery/newscaster/obj_break(damage_flag)
+/obj/machinery/newscaster/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
@@ -593,7 +603,7 @@
 	else
 		take_damage(5, BRUTE, MELEE)
 
-/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	update_icon()
 
@@ -954,6 +964,6 @@
 	icon_state = "newscaster"
 	custom_materials = list(/datum/material/iron=14000, /datum/material/glass=8000)
 	result_path = /obj/machinery/newscaster
-	pixel_shift = -32
+	pixel_shift = 30
 
 #undef ALERT_DELAY

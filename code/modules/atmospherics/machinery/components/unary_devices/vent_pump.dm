@@ -448,6 +448,27 @@
 	name = "supermatter waste output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
 
+#define LAYER_HELPER(FULLPATH)\
+##FULLPATH/layer2 {\
+	piping_layer = 2;\
+	icon_state = "vent_map_siphon_on-2";\
+}\
+##FULLPATH/layer4 {\
+	piping_layer = 4;\
+	icon_state = "vent_map_siphon_on-4";\
+}
+
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/mix_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/incinerator_output)
+LAYER_HELPER(/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxins_mixing_output)
+
+#undef LAYER_HELPER
+
 #undef INT_BOUND
 #undef EXT_BOUND
 #undef NO_BOUND

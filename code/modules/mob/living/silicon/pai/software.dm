@@ -163,9 +163,9 @@
 				return FALSE
 			refresh_spam = TRUE
 			if(params["list"] == "medical")
-				medical_records = GLOB.data_core.get_general_records()
+				medical_records = GLOB.manifest.get_general_records()
 			if(params["list"] == "security")
-				security_records = GLOB.data_core.get_security_records()
+				security_records = GLOB.manifest.get_security_records()
 			ui.send_full_update(bypass_cooldown = TRUE)
 			addtimer(CALLBACK(src, PROC_REF(refresh_again)), 3 SECONDS)
 		if("remote_signaler")
@@ -180,7 +180,7 @@
 				sec.remove_hud_from(src)
 		if("universal_translator")
 			if(!languages_granted)
-				grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_SOFTWARE)
+				grant_all_languages(source = LANGUAGE_SOFTWARE)
 				languages_granted = TRUE
 		if("wipe_core")
 			var/confirm = alert(src, "Are you certain you want to wipe yourself?", "Personality Wipe", "Yes", "No")

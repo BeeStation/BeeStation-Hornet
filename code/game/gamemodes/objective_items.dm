@@ -133,19 +133,6 @@
 /datum/objective_item/steal/supermatter/TargetExists()
 	return GLOB.main_supermatter_engine != null
 
-//Items with special checks!
-/datum/objective_item/steal/plasma
-	name = "28 moles of plasma (full tank). Be sure to fill up the tank with additional plasma since it doesn't start full!"
-	targetitem = /obj/item/tank
-	difficulty = 3
-	excludefromjob = list(JOB_NAME_CHIEFENGINEER,JOB_NAME_RESEARCHDIRECTOR,JOB_NAME_STATIONENGINEER,JOB_NAME_SCIENTIST,JOB_NAME_ATMOSPHERICTECHNICIAN)
-
-/datum/objective_item/steal/plasma/check_special_completion(obj/item/tank/T)
-	var/target_amount = text2num(name)
-	var/found_amount = 0
-	found_amount += T.air_contents.get_moles(GAS_PLASMA)
-	return found_amount>=target_amount
-
 /datum/objective_item/steal/functionalai
 	name = "a functional AI."
 	targetitem = /obj/item/aicard

@@ -28,11 +28,11 @@
 /area/template_noop)
 "g" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 5;
 	pixel_y = 4
 	},
@@ -83,7 +83,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
-/obj/item/trash/can/food/peaches/maint,
+/obj/item/trash/canned/peaches/maint,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -184,7 +184,7 @@
 /area/template_noop)
 "J" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 4;
 	pixel_y = 4
 	},

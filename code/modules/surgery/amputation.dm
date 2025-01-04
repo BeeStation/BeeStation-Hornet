@@ -28,5 +28,5 @@
 	if(surgery.operated_bodypart)
 		var/obj/item/bodypart/target_limb = surgery.operated_bodypart
 		target_limb.drop_limb()
-
+	target.cauterise_wounds()
 	return 1

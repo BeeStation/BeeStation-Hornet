@@ -311,7 +311,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.max_items = 2
-	STR.can_hold = typecacheof(list(/obj/item/gun/energy/dueling))
+	STR.set_holdable(list(/obj/item/gun/energy/dueling))
 
 /obj/item/storage/lockbox/dueling/PopulateContents()
 	. = ..()
@@ -322,3 +322,12 @@
 	gun_B.duel = D
 	D.gun_A = gun_A
 	D.gun_B = gun_B
+
+#undef DUEL_IDLE
+#undef DUEL_PREPARATION
+#undef DUEL_READY
+#undef DUEL_COUNTDOWN
+#undef DUEL_FIRING
+#undef DUEL_SETTING_A
+#undef DUEL_SETTING_B
+#undef DUEL_SETTING_C

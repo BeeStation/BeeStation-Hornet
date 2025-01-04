@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/turf/open)
+
 /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
@@ -26,9 +28,6 @@
 
 	//Refs to filters, for later removal
 	var/list/damage_overlays
-
-	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
-	var/list/variants
 
 	///Is this floor no-slip?
 	var/traction = FALSE
@@ -100,7 +99,7 @@
 /turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 
-	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))
+	if(istype(arrived) && !(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis
@@ -220,7 +219,7 @@
 	return TRUE
 
 /turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
-	if(slipper.movement_type & FLYING)
+	if(slipper.movement_type & (FLOATING|FLYING))
 		return 0
 	if(has_gravity(src))
 		var/obj/buckled_obj
@@ -229,7 +228,7 @@
 			if(!(lube&GALOSHES_DONT_HELP)) //can't slip while buckled unless it's lube.
 				return 0
 		else
-			if(!(lube & SLIP_WHEN_CRAWLING) && (!(slipper.mobility_flags & MOBILITY_STAND) || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+			if(!(lube & SLIP_WHEN_CRAWLING) && slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)) // can't slip unbuckled mob if they're lying or can't fall.
 				return 0
 			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
 				return 0

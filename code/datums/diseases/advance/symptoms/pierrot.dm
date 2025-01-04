@@ -13,8 +13,8 @@
 	var/clownmask = FALSE
 	var/clumsy = FALSE
 	threshold_desc = "<b>Transmission 10:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
-					  <b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
-					  <b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
+						<b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
+						<b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
 
 /datum/symptom/pierrot/severityset(datum/disease/advance/A)
 	. = ..()
@@ -26,8 +26,8 @@
 			severity += 2
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Transmission 10:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
-					  <b>Resistance 8:</b> The host grows a peculiar clown mask.<br>\
-					  <b>Resistance 10:</b>	Host becomes clumsy, similar to a clown."
+						<b>Resistance 8:</b> The host grows a peculiar clown mask.<br>\
+						<b>Resistance 10:</b>	Host becomes clumsy, similar to a clown."
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
 	if(!..())

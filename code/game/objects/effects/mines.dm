@@ -125,7 +125,7 @@
 /obj/effect/mine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity() || triggered)
+	if(!isturf(loc) || AM.throwing || (AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !AM.has_gravity() || triggered)
 		return
 	if(ismob(AM))
 		checksmartmine(AM)
@@ -158,7 +158,7 @@
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
 
-/obj/effect/mine/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+/obj/effect/mine/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	triggermine()
 

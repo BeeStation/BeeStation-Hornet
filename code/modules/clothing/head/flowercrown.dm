@@ -5,7 +5,8 @@
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	icon_state = "lily_crown"
 	dynamic_hair_suffix = ""
-	attack_verb = list("crowned")
+	attack_verb_continuous = list("crowns")
+	attack_verb_simple = list("crown")
 
 /obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
 	. = ..()

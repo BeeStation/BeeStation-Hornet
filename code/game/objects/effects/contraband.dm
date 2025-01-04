@@ -12,6 +12,8 @@
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
+
 /obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
 	. = ..()
 	poster_structure = new_poster_structure
@@ -603,7 +605,7 @@
 
 /obj/structure/sign/poster/official/no_erp
 	name = "No ERP"
-	desc = "This poster reminds the crew that Eroticism, Rape and Pornography are banned on Nanotrasen stations."
+	desc = "This poster reminds the crew that Eroticism, Reproduction and Pornography are banned on Nanotrasen stations."
 	icon_state = "poster34_legit"
 
 /obj/structure/sign/poster/official/wtf_is_co2

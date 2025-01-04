@@ -1,21 +1,3 @@
-/turf/open/floor/goonplaque
-	name = "commemorative plaque"
-	icon_state = "plaque"
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
-	floor_tile = /obj/item/stack/tile/iron
-	tiled_dirt = FALSE
-
-/turf/open/floor/goonplaque/fland
-	name = "commemorative plaque"
-	icon_state = "plaque"
-	desc = "\"This plaque commemorates all the effort that has been put by the construction workers of this station, their department experts advisors, and the many roaming spacemans, that took the effort to walk around this station discovering anomalies that has been found during it's construction. This is a heartfelt thanks from the head developer of this station, hoping that the station will last for as long as possible.\" Beneath the text, you see engraved on the plaque a weird orb like being with a propeller on his head and a smile on it's face."
-	floor_tile = /obj/item/stack/tile/iron
-	tiled_dirt = FALSE
-
-/turf/open/floor/vault
-	icon_state = "rockvault"
-	floor_tile = /obj/item/stack/tile/iron
-
 //Circuit flooring, glows a little
 /turf/open/floor/circuit
 	icon = 'icons/turf/floors.dmi'
@@ -165,7 +147,7 @@
 /turf/open/floor/oldshuttle
 	icon = 'icons/turf/shuttleold.dmi'
 	icon_state = "floor"
-	floor_tile = /obj/item/stack/tile/iron
+	floor_tile = /obj/item/stack/tile/iron/base
 
 /turf/open/floor/bluespace
 	slowdown = -1
@@ -188,9 +170,20 @@
 /turf/open/floor/bronze
 	name = "bronze floor"
 	desc = "Some heavy bronze tiles."
-	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "clockwork_floor"
 	floor_tile = /obj/item/stack/sheet/bronze
+
+/turf/open/floor/bronze/flat
+	icon_state = "reebe"
+	floor_tile = /obj/item/stack/tile/mineral/bronze/flat
+
+/turf/open/floor/bronze/filled
+	icon = 'icons/obj/clockwork_objects.dmi'
+	floor_tile = /obj/item/stack/tile/mineral/bronze/filled
+
+/turf/open/floor/bronze/filled/lavaland
+	planetary_atmos = TRUE
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/floor/white
 	name = "white floor"
@@ -234,3 +227,34 @@
 /turf/open/floor/plating/rust/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rust)
+
+/turf/open/floor/vault
+	name = "strange floor"
+	desc = "You feel a strange nostalgia from looking at this..."
+	icon_state = "rockvault"
+	base_icon_state = "rockvault"
+
+/turf/open/floor/vault/rock
+	name = "rocky floor"
+
+/turf/open/floor/vault/alien
+	name = "alien floor"
+	icon_state = "alienvault"
+	base_icon_state = "alienvault"
+
+/turf/open/floor/vault/sandstone
+	name = "sandstone floor"
+	icon_state = "sandstonevault"
+	base_icon_state = "sandstonevault"
+
+/turf/open/floor/cult
+	name = "engraved floor"
+	icon_state = "cult"
+	base_icon_state = "cult"
+	floor_tile = /obj/item/stack/tile/cult
+
+/turf/open/floor/cult/narsie_act()
+	return
+
+/turf/open/floor/cult/airless
+	initial_gas_mix = AIRLESS_ATMOS

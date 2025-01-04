@@ -2,7 +2,7 @@ import { Box, Tabs, Button, Tooltip, Stack, Flex, Table, Section, Icon, Input } 
 import { LoadoutGear, PreferencesMenuData } from './data';
 import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
-import { CharacterPreview } from './CharacterPreview';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { createSearch } from 'common/string';
 
 const isPurchased = (purchased_gear: string[], gear: LoadoutGear) => purchased_gear.includes(gear.id) && !gear.multi_purchase;

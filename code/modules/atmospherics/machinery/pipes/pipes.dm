@@ -1,4 +1,5 @@
 /obj/machinery/atmospherics/pipe
+	damage_deflection = 12
 	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
 	var/volume = 0
 
@@ -10,13 +11,13 @@
 	//Buckling
 	can_buckle = 1
 	buckle_requires_restraints = 1
-	buckle_lying = -1
+	buckle_lying = NO_BUCKLE_LYING
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
 			icon_state = INSTANCE_VAR_DEFAULT\
-        ),\
-    )
+		),\
+	)
 
 /obj/machinery/atmospherics/pipe/New()
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)
@@ -29,10 +30,6 @@
 
 	if(hide)
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
-
-/obj/machinery/atmospherics/pipe/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 
 /obj/machinery/atmospherics/pipe/nullifyNode(i)
 	var/obj/machinery/atmospherics/oldN = nodes[i]
@@ -105,11 +102,6 @@
 
 /obj/machinery/atmospherics/pipe/returnPipenets()
 	. = list(parent)
-
-/obj/machinery/atmospherics/pipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 12)
-		return 0
-	. = ..()
 
 /obj/machinery/atmospherics/pipe/paint(paint_color)
 	if(paintable)

@@ -782,12 +782,14 @@
 			reagent_source.update_icon()
 		return 1
 
-	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
+	else if(O.tool_behaviour == TOOL_SEED && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
 			if(!user.transferItemToLoc(O, src))
 				return
+			if(!istype(O, /obj/item/seeds)) //If the given item is supposed to be a seed, but isn't a subtype of /obj/item/seed
+				O = O.fake_seed // use the item's fake_seed variable instead.
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
@@ -884,6 +886,10 @@
 		return
 	harvest_plant(user)
 
+/obj/machinery/hydroponics/attack_robot(mob/living/user) // robots have little manipulator bits
+	if(Adjacent(user))
+		return harvest_plant(user)
+
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)
@@ -901,7 +907,7 @@
 /obj/machinery/hydroponics/proc/update_tray(mob/user)
 	harvest = 0
 	lastproduce = age
-	if(istype(myseed, /obj/item/seeds/replicapod))
+	if(istype(myseed, /obj/item/seeds/dionapod))
 		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
 	else if(myseed.getYield() <= 0)
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")

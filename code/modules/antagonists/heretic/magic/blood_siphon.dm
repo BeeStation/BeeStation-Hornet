@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/blood_siphon
 	name = "Blood Siphon"
 	desc = "A spell that heals your wounds while damaging the enemy."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "blood_siphon"
 	action_background_icon_state = "bg_ecult"
 	invocation = "FL'MS O'ET'RN'ITY"

@@ -249,13 +249,3 @@ GLOBAL_LIST_INIT(command_huds, list(
 		JOB_HUD_UNKNOWN = JOB_CHATCOLOR_UNKNOWN
 	)
 	return hud_to_chatcolor[jobname] || JOB_CHATCOLOR_UNKNOWN
-
-/proc/get_job_departments(field)
-	. = list()
-	for(var/flag in GLOB.bitflags)
-		var/key = "[flag]"
-		var/department = GLOB.dept_bitflag_to_name[key]
-		if(!department || !GLOB.departments[department])
-			continue
-		if(CHECK_BITFIELD(field, flag))
-			. += department

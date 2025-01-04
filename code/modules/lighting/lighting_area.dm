@@ -1,5 +1,5 @@
 /area
-	luminosity           = TRUE
+	luminosity = TRUE
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	var/fullbright_type = FULLBRIGHT_DEFAULT
 

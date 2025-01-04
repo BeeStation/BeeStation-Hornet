@@ -60,7 +60,7 @@
 "l" = (
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor2";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
 	dir = 8;
@@ -117,7 +117,7 @@
 "r" = (
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
 	dir = 4;

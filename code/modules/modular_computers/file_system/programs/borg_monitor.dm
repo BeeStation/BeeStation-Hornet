@@ -28,7 +28,7 @@
 	data["card"] = !!get_id_name()
 
 	data["cyborgs"] = list()
-	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 		if(!evaluate_borg(R))
 			continue
 
@@ -59,7 +59,7 @@
 
 	switch(action)
 		if("messagebot")
-			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.cyborg_list
 			if(!istype(R))
 				return TRUE
 			var/sender_name = get_id_name()
@@ -73,7 +73,7 @@
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
-			if(CHAT_FILTER_CHECK(message))
+			if(OOC_FILTER_CHECK(message))
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 				return
 			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")

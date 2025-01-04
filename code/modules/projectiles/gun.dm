@@ -11,15 +11,16 @@
 	worn_icon_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	item_flags = SLOWS_WHILE_IN_HAND
+	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN
 	custom_materials = list(/datum/material/iron=2000)
 	w_class = WEIGHT_CLASS_LARGE
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	force = 5
-	item_flags = NEEDS_PERMIT
-	attack_verb = list("struck", "hit", "bashed")
+	item_flags = NEEDS_PERMIT || ISWEAPON
+	attack_verb_continuous = list("strikes", "hits", "bashes")
+	attack_verb_simple = list("strike", "hit", "bash")
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE
@@ -75,6 +76,9 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/zoom_out_amt = 0
 	var/datum/action/toggle_scope_zoom/azoom
+
+	var/automatic = 0 //can gun use it, 0 is no, anything above 0 is the delay between clicks in ds
+
 	var/fire_rate = null //how many times per second can a gun fire? default is 2.5
 	//Autofire
 	var/atom/autofire_target = null //What are we aiming at? This will change if you move your mouse whilst spraying.
@@ -100,7 +104,7 @@
 			pin = new pin(src)
 
 	add_seclight_point()
-	
+
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
@@ -113,7 +117,7 @@
 		spread_unwielded = weapon_weight * 10 + 10
 	if (has_weapon_slowdown)
 		if (!slowdown)
-			slowdown = 0.3 + weapon_weight * 0.1
+			slowdown = 0.1 + weapon_weight * 0.3
 		item_flags |= SLOWS_WHILE_IN_HAND
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
@@ -227,7 +231,7 @@
 	return loc != user ? TRUE : FALSE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	balloon_alert(user, "[src] clicks.")
+	balloon_alert_to_viewers("*click*")
 	playsound(src, dry_fire_sound, 30, TRUE)
 
 /obj/item/gun/proc/fire_sounds()
@@ -312,7 +316,7 @@
 				return
 		// On simplified mode, contextually determine if we want to suicide them
 		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
-		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || living_target.restrained() || living_target.buckled || living_target.IsUnconscious()))
+		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || HAS_TRAIT(living_target, TRAIT_HANDS_BLOCKED) || living_target.buckled || living_target.IsUnconscious()))
 			handle_suicide(user, target, params)
 			return
 
@@ -404,7 +408,9 @@
 		else //Smart spread
 			sprd = round((((rand_spr/burst_size) * iteration) - (0.5 + (rand_spr * 0.25))) * (randomized_gun_spread + randomized_bonus_spread))
 		sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
-		before_firing(target,user)
+		var/result = before_firing(target,user)
+		if (result & GUN_HIT_SELF)
+			target = user
 		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd, spread_multiplier, src))
 			shoot_with_empty_chamber(user)
 			firing_burst = FALSE
@@ -464,7 +470,9 @@
 					return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (spread + bonus_spread))
 			sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
-			before_firing(target, user, aimed)
+			var/result = before_firing(target, user, aimed)
+			if (result & GUN_HIT_SELF)
+				target = user
 			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, spread_multiplier, src))
 				shoot_with_empty_chamber(user)
 				return
@@ -512,7 +520,7 @@
 			return ..()
 	return
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_atom(obj/O, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)
@@ -659,6 +667,7 @@
 	if(aimed == GUN_AIMED_POINTBLANK)
 		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
 		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
+	return SEND_SIGNAL(user, COMSIG_MOB_BEFORE_FIRE_GUN, src, target, aimed)
 
 /////////////
 // ZOOMING //
@@ -666,8 +675,8 @@
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_LYING
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 

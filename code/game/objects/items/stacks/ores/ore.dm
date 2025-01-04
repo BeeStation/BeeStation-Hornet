@@ -61,6 +61,8 @@
 			new refined_type(drop_location(),amountrefined)
 			qdel(src)
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/ore)
+
 /obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	pixel_x = base_pixel_x + rand(0,16) - 8

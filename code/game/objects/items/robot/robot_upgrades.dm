@@ -742,8 +742,8 @@
 			R.module.remove_module(C, TRUE)
 
 /obj/item/borg/upgrade/beaker_app
-	name = "beaker storage apparatus"
-	desc = "A supplementary beaker storage apparatus for medical cyborgs."
+	name = "container storage apparatus"
+	desc = "A supplementary container storage apparatus for medical cyborgs."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/medical)
@@ -752,7 +752,7 @@
 /obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if(E)
 			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
 			return FALSE
@@ -764,10 +764,9 @@
 /obj/item/borg/upgrade/beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
-
 
 /obj/item/borg/upgrade/speciality
 	name = "Speciality Module"

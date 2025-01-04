@@ -10,6 +10,8 @@
 	max_integrity = 100
 	z_flags = Z_BLOCK_OUT_DOWN
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
+
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
 	if (up)
@@ -165,7 +167,7 @@
 			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")
 			if(I.use_tool(src, user, 50, volume=100))
 				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
-									 "<span class='notice'>You cut [src].</span>")
+									"<span class='notice'>You cut [src].</span>")
 				I.play_tool_sound(src, 100)
 				var/drop_loc = drop_location()
 				var/obj/R = new /obj/item/stack/rods(drop_loc, 10)

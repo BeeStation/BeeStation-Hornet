@@ -18,7 +18,8 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), emittercd)
-	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
 	set_density(TRUE)
 	if(isliving(card.loc))
 		var/mob/living/L = card.loc
@@ -32,7 +33,7 @@
 	card.forceMove(src)
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
-		client.eye = src
+		client.set_eye(src)
 	set_light_on(FALSE)
 	icon_state = "[chassis]"
 	held_state = "[chassis]"
@@ -59,11 +60,12 @@
 		MH.release()
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
-		client.eye = card
+		client.set_eye(card)
 	var/turf/T = drop_location()
 	card.forceMove(T)
 	forceMove(card)
-	mobility_flags = NONE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
 	set_density(FALSE)
 	set_light_on(FALSE)
 	holoform = FALSE

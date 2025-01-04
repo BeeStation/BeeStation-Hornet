@@ -48,6 +48,8 @@
 	var/first_cycle = TRUE
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hotspot)
+
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
 	. = ..()
 	SSair.hotspots += src
@@ -135,7 +137,7 @@
 		var/mutable_appearance/fusion_overlay = mutable_appearance('icons/effects/atmospherics.dmi', "fusion_gas")
 		fusion_overlay.blend_mode = BLEND_ADD
 		fusion_overlay.alpha = fusion_amt * 255
-		var/mutable_appearance/rainbow_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "druggy")
+		var/mutable_appearance/rainbow_overlay = mutable_appearance('icons/hud/screen_gen.dmi', "druggy")
 		rainbow_overlay.blend_mode = BLEND_ADD
 		rainbow_overlay.alpha = fusion_amt * 255
 		rainbow_overlay.appearance_flags = RESET_COLOR
@@ -233,10 +235,5 @@
 
 /obj/effect/hotspot/singularity_pull()
 	return
-
-/obj/effect/dummy/lighting_obj/moblight/fire
-	name = "fire"
-	light_color = LIGHT_COLOR_FIRE
-	light_range = LIGHT_RANGE_FIRE
 
 #undef INSUFFICIENT

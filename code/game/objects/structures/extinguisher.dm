@@ -11,6 +11,10 @@
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
+
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
@@ -133,7 +137,8 @@
 	else
 		icon_state = "extinguisher_empty"
 
-/obj/structure/extinguisher_cabinet/obj_break(damage_flag)
+/obj/structure/extinguisher_cabinet/atom_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = 1
 		opened = 1
@@ -159,4 +164,4 @@
 	desc = "Used for building wall-mounted extinguisher cabinets."
 	icon_state = "extinguisher"
 	result_path = /obj/structure/extinguisher_cabinet
-	pixel_shift = -30
+	pixel_shift = 29

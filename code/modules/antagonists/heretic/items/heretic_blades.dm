@@ -9,12 +9,14 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER_EASY
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_LARGE
 	force = 24
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	var/after_use_message = ""
 
 /obj/item/melee/sickly_blade/attack(mob/living/M, mob/living/user)

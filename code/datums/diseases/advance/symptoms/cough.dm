@@ -31,10 +31,10 @@ BONUS
 	bodies = list("Cough")
 	var/infective = FALSE
 	threshold_desc = "<b>Resistance 3:</b> Host will drop small items when coughing.<br>\
-					  <b>Resistance 10:</b> Occasionally causes coughing fits that stun the host.<br>\
-					  <b>Stage Speed 6:</b> Increases cough frequency.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active.<br>\
-					  <b>Transmission 11:</b> The host's coughing will occasionally spread the virus."
+						<b>Resistance 10:</b> Occasionally causes coughing fits that stun the host.<br>\
+						<b>Stage Speed 6:</b> Increases cough frequency.<br>\
+						<b>Stealth 4:</b> The symptom remains hidden until active.<br>\
+						<b>Transmission 11:</b> The host's coughing will occasionally spread the virus."
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
 	. = ..()

@@ -24,8 +24,8 @@
 #define ACID "acid"
 /// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
 #define BIO "bio"
-/// Involves ionizing radiation.
-#define RAD	"rad"
+/// Bleed prevention
+#define BLEED "bleed"
 /// Involves a shockwave, usually from an explosion.
 #define BOMB "bomb"
 /// Involves a solid projectile.
@@ -40,13 +40,23 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
-/// Involves magic.
-#define MAGIC "magic"
-
+/// Involves ionizing radiation.
+#define RAD	"rad"
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
 */
+
+#define ARMOR_ALL "all_damage_types"
+
+/// Armor values that are used for damage
+#define ARMOR_LIST_DAMAGE list(BIO, BLEED, BOMB, BULLET, ENERGY, LASER, MELEE, RAD)
+
+/// Armor values that are used for durability
+#define ARMOR_LIST_DURABILITY list(ACID, FIRE)
+
+/// All armors, preferable in the order as seen above
+#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD, STAMINA)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -233,9 +243,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
 // Object/Item sharpness
-#define IS_BLUNT			0
-#define IS_SHARP			1
-#define IS_SHARP_ACCURATE	2
+#define BLUNT					0	//Can only remove limbs if they're easy to remove
+#define SHARP					1	//Can only remove limbs if target is dead
+#define SHARP_DISMEMBER			2	//Can only remove limbs if the limb is already disabled
+#define SHARP_DISMEMBER_EASY	3	//Has a chance equal to weapon force to remove limb on every attack, in some cases taking them off in one swing
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.
@@ -283,3 +294,13 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BULLET_ACT_FORCE_PIERCE		"PIERCE"	//! It pierces through the object regardless of the bullet being piercing by default.
 
 #define NICE_SHOT_RICOCHET_BONUS	10			//if the shooter has the NICE_SHOT trait and they fire a ricocheting projectile, add this to the ricochet chance and auto aim angle
+
+// Flags for energy shields
+/// Energy shields will block projectiles
+#define ENERGY_SHIELD_BLOCK_PROJECTILES (1 << 0)
+/// Energy shields will block melee attacks
+#define ENERGY_SHIELD_BLOCK_MELEE (1 << 1)
+/// Energy shield will not have a visible shield
+#define ENERGY_SHIELD_INVISIBLE (1 << 2)
+/// Energy shield will take max damage when EMP'd
+#define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)

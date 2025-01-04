@@ -1,7 +1,7 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
 	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -11,8 +11,8 @@
 
 	outfit = /datum/outfit/job/chaplain
 
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
+	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
+	extra_access = list()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
@@ -56,7 +56,7 @@
 
 	B.deity_name = new_deity
 
-	switch(lowertext(new_religion))
+	switch(LOWER_TEXT(new_religion))
 		if("christianity") // DEFAULT_RELIGION
 			B.name = pick("The Holy Bible","The Dead Sea Scrolls")
 		if("buddhism")

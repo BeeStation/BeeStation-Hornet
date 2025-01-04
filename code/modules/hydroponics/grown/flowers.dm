@@ -95,6 +95,8 @@
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 	rarity = 30
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
+
 /obj/item/seeds/flower/trumpet/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
@@ -192,7 +194,7 @@
 	icon_grow = "sunflower-grow"
 	icon_dead = "sunflower-dead"
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
-	reagents_add = list(/datum/reagent/consumable/cornoil = 0.08, /datum/reagent/consumable/nutriment = 0.04)
+	reagents_add = list(/datum/reagent/consumable/nutriment/fat/oil = 0.08, /datum/reagent/consumable/nutriment = 0.04)
 
 /obj/item/grown/sunflower // FLOWER POWER!
 	seed = /obj/item/seeds/sunflower
@@ -280,9 +282,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("roasted", "scorched", "burned")
+	attack_verb_continuous = list("roasts", "scorches", "burns")
+	attack_verb_simple = list("roast", "scorch", "burn")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 
 /obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()

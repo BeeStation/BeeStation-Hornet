@@ -160,3 +160,5 @@
 /obj/machinery/airlock_sensor/Destroy()
 	SSradio.remove_object(src,frequency)
 	return ..()
+
+#undef AIRLOCK_CONTROL_RANGE

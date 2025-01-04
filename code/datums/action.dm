@@ -1,8 +1,3 @@
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUN 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
-
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
@@ -13,10 +8,10 @@
 	var/buttontooltipstyle = ""
 	var/transparent_when_unavailable = TRUE
 
-	var/button_icon = 'icons/mob/actions/backgrounds.dmi' //This is the file for the BACKGROUND icon
+	var/button_icon = 'icons/hud/actions/backgrounds.dmi' //This is the file for the BACKGROUND icon
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND //And this is the state for the background icon
 
-	var/icon_icon = 'icons/mob/actions.dmi' //This is the file for the ACTION icon
+	var/icon_icon = 'icons/hud/actions/action_generic.dmi' //This is the file for the ACTION icon
 	var/button_icon_state = "default" //And this is the state for the action icon
 	var/mob/owner
 
@@ -106,22 +101,16 @@
 /datum/action/proc/IsAvailable()
 	if(!owner)
 		return FALSE
-	if(check_flags & AB_CHECK_RESTRAINED)
-		if(owner.restrained())
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
+		return FALSE
+	if((check_flags & AB_CHECK_LYING) && isliving(owner))
+		var/mob/living/action_user = owner
+		if(action_user.body_position == LYING_DOWN)
 			return FALSE
-	if(check_flags & AB_CHECK_STUN)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(L.IsParalyzed() || L.IsStun())
-				return FALSE
-	if(check_flags & AB_CHECK_LYING)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(!(L.mobility_flags & MOBILITY_STAND))
-				return FALSE
-	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(owner.stat)
-			return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		return FALSE
 	return TRUE
 
 /datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
@@ -161,7 +150,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = null
 	// If you want to override the normal icon being the item
 	// then change this to an icon state
@@ -222,12 +211,12 @@
 
 /datum/action/item_action/rcl_col
 	name = "Change Cable Color"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "rcl_rainbow"
 
 /datum/action/item_action/rcl_gui
 	name = "Toggle Fast Wiring Gui"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "rcl_gui"
 
 /datum/action/item_action/startchainsaw
@@ -298,10 +287,34 @@
 	if(istype(H))
 		H.interact(owner)
 
+/datum/action/item_action/toggle_spacesuit
+	name = "Toggle Suit Thermal Regulator"
+	icon_icon = 'icons/hud/actions/actions_spacesuit.dmi'
+	button_icon_state = "thermal_off"
+
+/datum/action/item_action/toggle_spacesuit/New(Target)
+	. = ..()
+	RegisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE, PROC_REF(toggle))
+
+/datum/action/item_action/toggle_spacesuit/Destroy()
+	UnregisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE)
+	return ..()
+
+/datum/action/item_action/toggle_spacesuit/Trigger()
+	var/obj/item/clothing/suit/space/suit = target
+	if(!istype(suit))
+		return
+	suit.toggle_spacesuit()
+
+/// Toggle the action icon for the space suit thermal regulator
+/datum/action/item_action/toggle_spacesuit/proc/toggle(obj/item/clothing/suit/space/suit)
+	button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
+	UpdateButtonIcon()
+
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
 	desc = "Toggles if the club's blasts cause friendly fire."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "vortex_ff_on"
 
 /datum/action/item_action/toggle_unfriendly_fire/Trigger()
@@ -322,7 +335,7 @@
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "vortex_recall"
 
 /datum/action/item_action/vortex_recall/IsAvailable()
@@ -350,12 +363,12 @@
 
 /datum/action/item_action/toggle_beacon
 	name = "Toggle Hardsuit Locator Beacon"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-transmission"
 
 /datum/action/item_action/toggle_beacon_hud
 	name = "Toggle Hardsuit Locator HUD"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-hud"
 
 /datum/action/item_action/toggle_beacon_hud/explorer
@@ -363,7 +376,7 @@
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change-code"
 
 /datum/action/item_action/crew_monitor
@@ -440,7 +453,7 @@
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan_mode"
 	var/active = FALSE
 
@@ -497,7 +510,7 @@
 /datum/action/item_action/cult_dagger
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	icon_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "draw"
 	buttontooltipstyle = "cult"
 	background_icon_state = "bg_demon"
@@ -520,20 +533,23 @@
 		owner.put_in_hands(target_item)
 		target_item.attack_self(owner)
 		return
+	if(!isliving(owner))
+		to_chat(owner, "<span class='warning'>You lack the necessary living force for this action.</span>")
+		return
+	var/mob/living/living_owner = owner
+	if (living_owner.usable_hands <= 0)
+		to_chat(living_owner, "<span class='warning'>You dont have any usable hands!</span>")
 	else
-		if (owner.get_num_arms() <= 0)
-			to_chat(owner, "<span class='warning'>You don't have any usable hands!</span>")
-		else
-			to_chat(owner, "<span class='warning'>Your hands are full!</span>")
+		to_chat(living_owner, "<span class='warning'>Your hands are full!</span>")
 
 
 ///MGS BOX!
 /datum/action/item_action/agent_box
 	name = "Deploy Box"
 	desc = "Find inner peace, here, in the box."
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_agent"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "deploy_box"
 	///The type of closet this action spawns.
 	var/boxtype = /obj/structure/closet/cardboard/agent
@@ -692,47 +708,33 @@
 /datum/action/item_action/stickmen
 	name = "Summon Stick Minions"
 	desc = "Allows you to summon faithful stickmen allies to aide you in battle."
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "art_summon"
 
 //surf_ss13
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
-
-/datum/action/language_menu
-	name = "Language Menu"
-	desc = "Open the language menu to review your languages, their keys, and select your default language."
-	button_icon_state = "language_menu"
-	check_flags = NONE
-
-/datum/action/language_menu/Trigger()
-	if(!..())
-		return FALSE
-	if(ismob(owner))
-		var/mob/M = owner
-		var/datum/language_holder/H = M.get_language_holder()
-		H.open_language_menu(usr)
 
 /datum/action/item_action/wheelys
 	name = "Toggle Wheely-Heel's Wheels"
 	desc = "Pops out or in your wheely-heel's wheels."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "wheelys"
 
 /datum/action/item_action/kindleKicks
 	name = "Activate Kindle Kicks"
 	desc = "Kick you feet together, activating the lights in your Kindle Kicks."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "kindleKicks"
 
 //Small sprites
 /datum/action/small_sprite
 	name = "Toggle Giant Sprite"
 	desc = "Others will always see you as giant."
-	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
+	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "smallqueen"
 	background_icon_state = "bg_alien"
 	var/small = FALSE
@@ -744,7 +746,7 @@
 	small_icon_state = "alienq"
 
 /datum/action/small_sprite/megafauna
-	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
+	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
 	small_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 
 /datum/action/small_sprite/megafauna/drake
@@ -789,7 +791,7 @@
 /datum/action/item_action/storage_gather_mode
 	name = "Switch gathering mode"
 	desc = "Switches the gathering mode of a storage object."
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "storage_gather_switch"
 
 /datum/action/item_action/storage_gather_mode/ApplyIcon(atom/movable/screen/movable/action_button/current_button)

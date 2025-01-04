@@ -12,22 +12,13 @@
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
 
-/obj/item/clothing/head/hooded/flashsuit
-	name = "flash button"
-	desc = "You will learn to fear the flash."
-	icon = 'icons/obj/clothing/head/costume.dmi'
-	worn_icon = 'icons/mob/clothing/head/costume.dmi'
-	icon_state = "flashsuit"
-	body_parts_covered = HEAD
-	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACIALHAIR|HIDEFACE|HIDEMASK|HIDESNOUT
-
 /obj/item/clothing/suit/costume/pirate
 	name = "pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
-	allowed = list(/obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
+	allowed = list(/obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/cup/glass/bottle/rum)
 
 /obj/item/clothing/suit/costume/pirate/captain
 	name = "pirate captain coat"
@@ -35,7 +26,7 @@
 	icon_state = "hgpirate"
 	item_state = null
 
-/obj/item/clothing/suit/costume/cyborg_suit
+/obj/item/clothing/suit/costume/cyborg_suit //unavailable save for adminbus
 	name = "cyborg suit"
 	desc = "Suit for a cyborg costume."
 	icon_state = "death"
@@ -118,7 +109,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/costume/chickensuit
 	name = "chicken suit"
@@ -127,7 +118,6 @@
 	item_state = "chickensuit"
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/costume/monkeysuit
 	name = "monkey suit"
@@ -226,9 +216,21 @@
 	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
 	icon_state = "ponchoshame_alt"
 	item_state = "ponchoshame_alt"
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 30, STAMINA = 35)
+	armor_type = /datum/armor/ponchoshame_outlaw
 	body_parts_covered = CHEST|GROIN
 	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
+
+
+/datum/armor/ponchoshame_outlaw
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 20
+	bomb = 30
+	bio = 30
+	rad = 20
+	acid = 30
+	stamina = 35
 
 /obj/item/clothing/suit/costume/whitedress
 	name = "white dress"
@@ -251,27 +253,6 @@
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/pneumatic_cannon/speargun)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
 
-/obj/item/clothing/head/hooded/carp_hood
-	name = "carp hood"
-	desc = "A hood attached to a carp costume."
-	icon = 'icons/obj/clothing/head/costume.dmi'
-	worn_icon = 'icons/mob/clothing/head/costume.dmi'
-	icon_state = "carp_casual"
-	body_parts_covered = HEAD
-	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEHAIR|HIDEEARS
-
-/obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		user.faction |= "carp"
-
-/obj/item/clothing/head/hooded/carp_hood/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		user.faction -= "carp"
-
 //Carpsuit, bestsuit, lovesuit
 
 /obj/item/clothing/suit/hooded/carp_costume/spaceproof
@@ -280,7 +261,7 @@
 	icon_state = "carp_suit"
 	item_state = "space_suit_syndicate"
 	slowdown = 0	//Space carp magic, never stop believing
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
+	armor_type = /datum/armor/carp_costume_spaceproof
 	allowed = list(
 		/obj/item/tank/internals,
 		/obj/item/pneumatic_cannon/speargun,
@@ -298,32 +279,18 @@
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof
 	resistance_flags = NONE
 
-/obj/item/clothing/head/hooded/carp_hood/spaceproof
-	name = "carp helmet"
-	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
-	icon_state = "carp_helm"
-	item_state = "syndicate"
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
-	light_system = NO_LIGHT_SUPPORT
-	light_range = 0 //luminosity when on
-	actions_types = list()
 
-/obj/item/clothing/head/hooded/carp_hood/spaceproof/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
-
-/obj/item/clothing/head/hooded/carp_hood/spaceproof/old
-	name = "battered carp helmet"
-	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
-
-/obj/item/clothing/suit/hooded/carp_costume/spaceproof/old
-	name = "battered carp space suit"
-	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
-	slowdown = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
-	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
+/datum/armor/carp_costume_spaceproof
+	melee = 20
+	bullet = 10
+	laser = 20
+	energy = 20
+	bomb = 30
+	bio = 100
+	rad = 75
+	fire = 60
+	acid = 75
+	stamina = 40
 
 /obj/item/clothing/suit/hooded/ian_costume	//It's Ian, rub his bell- oh god what happened to his inside parts?
 	name = "corgi costume"
@@ -339,17 +306,6 @@
 	hoodtype = /obj/item/clothing/head/hooded/ian_hood
 	dog_fashion = /datum/dog_fashion/back
 
-/obj/item/clothing/head/hooded/ian_hood
-	name = "corgi hood"
-	desc = "A hood that looks just like a corgi's head, it won't guarantee dog biscuits."
-	icon = 'icons/obj/clothing/suits/costume.dmi'
-	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
-	icon_state = "ian"
-	body_parts_covered = HEAD
-	//cold_protection = HEAD
-	//min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEHAIR|HIDEEARS
-
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
 	desc = "Bee the true Queen!"
@@ -360,25 +316,6 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	clothing_flags = THICKMATERIAL
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood
-
-/obj/item/clothing/head/hooded/bee_hood
-	name = "bee hood"
-	desc = "A hood attached to a bee costume."
-	icon = 'icons/obj/clothing/suits/costume.dmi'
-	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
-	icon_state = "bee"
-	body_parts_covered = HEAD
-	clothing_flags = THICKMATERIAL | SNUG_FIT
-	flags_inv = HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/suit/hooded/bee_costume/syndie
-	name = "BLF costume"
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 40, BOMB = 0, BIO = 60, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 40)
-	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
-
-/obj/item/clothing/head/hooded/bee_hood/syndie
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 40, BOMB = 0, BIO = 60, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 40)
 
 /obj/item/clothing/suit/hooded/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -391,17 +328,6 @@
 	allowed = list()
 	actions_types = list(/datum/action/item_action/toggle_human_head)
 	hoodtype = /obj/item/clothing/head/hooded/human_head
-
-
-/obj/item/clothing/head/hooded/human_head
-	name = "bloated human head"
-	desc = "A horribly bloated and mismatched human head."
-	icon = 'icons/obj/clothing/head/costume.dmi'
-	worn_icon = 'icons/mob/clothing/head/costume.dmi'
-	icon_state = "lingspacehelmet"
-	body_parts_covered = HEAD
-	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/suit/costume/striped_sweater
 	name = "striped sweater"
@@ -448,7 +374,8 @@
 	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
-	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+	armor_type = /datum/armor/costume_bronze
+
 
 /obj/item/clothing/suit/costume/joker
 	name = "comedian coat"

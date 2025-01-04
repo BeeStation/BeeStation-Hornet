@@ -22,7 +22,6 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_LARGE
 	var/skin_type = MEDBOT_SKIN_DEFAULT
-	var/empty = FALSE
 
 /obj/item/storage/firstaid/regular
 	icon_state = "firstaid"
@@ -33,8 +32,6 @@
 	return BRUTELOSS
 
 /obj/item/storage/firstaid/regular/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -49,8 +46,6 @@
 	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
 
 /obj/item/storage/firstaid/compact/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -63,7 +58,8 @@
 	name = "doctor's bag"
 	icon_state = "firstaid-surgeryalt"
 	item_state = "firstaid-surgeryalt"
-	worn_icon_state = "baguette"
+	worn_icon = 'icons/mob/clothing/belt.dmi'
+	worn_icon_state = "firstaid_surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY
@@ -75,12 +71,12 @@
 	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
 	STR.max_items = 12
 	STR.max_combined_w_class = 24
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -126,8 +122,6 @@
 		))
 
 /obj/item/storage/firstaid/medical/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -140,6 +134,79 @@
 		/obj/item/cautery = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/firstaid/medical/paramedic
+	name = "paramedics medical bag"
+	icon_state = "firstaid-surgeryalt"
+	item_state = "firstaid-surgeryalt"
+	worn_icon = 'icons/mob/clothing/belt.dmi'
+	worn_icon_state = "firstaid_surgeryalt"
+	desc = "A not-so fancy high capacity aid kit for paramedics, filled with 'top of the line' medical supplies."
+	skin_type = null
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/storage/firstaid/medical/paramedic/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
+	STR.max_items = 13
+	STR.max_combined_w_class = 24
+	STR.set_holdable(list(
+		/obj/item/healthanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/medspray,
+		/obj/item/lighter,
+		/obj/item/weldingtool/mini,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/pill_bottle,
+		/obj/item/stack/medical,
+		/obj/item/flashlight/pen,
+		/obj/item/extinguisher/mini,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/sensor_device,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/clothing/mask/surgical,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath/medical,
+		/obj/item/geiger_counter,
+		/obj/item/clothing/neck/stethoscope,
+		/obj/item/stamp,
+		/obj/item/clothing/glasses,
+		/obj/item/wrench/medical,
+		/obj/item/clothing/mask/muzzle,
+		/obj/item/reagent_containers/blood,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/implantcase,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/pinpointer/crew,
+		/obj/item/holosign_creator/medical,
+		/obj/item/rollerbed
+		))
+
+
+/obj/item/storage/firstaid/medical/paramedic/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/healthanalyzer = 1,
+		/obj/item/reagent_containers/cup/bottle/formaldehyde = 1,
+		/obj/item/reagent_containers/syringe = 1,
+		/obj/item/rollerbed = 1,
+		/obj/item/weldingtool/mini = 1, // stopping IPC bleeding while delivering them to robotics (STOP DELIVERING IPCS TO MEDBAY I SWEAR TO GOD) -doc
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
+		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 1
+		)
+	generate_items_inside(items_inside,src)
+
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
 	icon_state = "firstaid-old"
@@ -147,8 +214,6 @@
 	skin_type = null
 
 /obj/item/storage/firstaid/ancient/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 2,
 		/obj/item/stack/medical/bruise_pack = 3,
@@ -173,8 +238,6 @@
 	icon_state = pick("firstaid-burn","firstaid-burnalt")
 
 /obj/item/storage/firstaid/fire/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
 		/obj/item/storage/pill_bottle/kelotane = 1,
@@ -222,8 +285,6 @@
 	return TOXLOSS
 
 /obj/item/storage/firstaid/radbgone/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/antirad_plus = 2,
 		/obj/item/reagent_containers/pill/antirad = 2,
@@ -382,12 +443,12 @@
 	STR.max_combined_w_class = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -413,7 +474,6 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/defibrillator/compact
 		))
-	STR.can_hold = can_hold
 
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
@@ -425,6 +485,27 @@
 		/obj/item/reagent_containers/pill/patch/styptic = 2,
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
 		/obj/item/clothing/glasses/hud/health/night = 1)
+	generate_items_inside(items_inside,src)
+
+//infiltrator kit, buyable by traitors
+/obj/item/storage/firstaid/infiltrator
+	name = "infiltrator medical kit"
+	desc = "(Un)fortunately for you, the Syndicate has a good medical plan."
+	icon_state = "firstaid-combat"
+	item_state = "firstaid-combat"
+	skin_type = MEDBOT_SKIN_SYNDI
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/firstaid/infiltrator/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/reagent_containers/pill/patch/synthflesh = 2,
+		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
 //medibot assembly
@@ -479,7 +560,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_quick_gather = TRUE
 	STR.click_gather = TRUE
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/dice))
+	STR.set_holdable(list(/obj/item/reagent_containers/pill, /obj/item/dice))
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

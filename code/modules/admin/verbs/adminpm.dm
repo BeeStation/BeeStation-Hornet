@@ -251,7 +251,7 @@
 	var/client/C = GLOB.directory[target]
 
 	var/datum/help_ticket/ticket = C ? C.current_adminhelp_ticket : GLOB.ahelp_tickets.CKey2ActiveTicket(target)
-	var/compliant_msg = trim(lowertext(msg))
+	var/compliant_msg = trim(LOWER_TEXT(msg))
 	var/tgs_tagged = "[sender](TGS/External)"
 	var/list/splits = splittext(compliant_msg, " ")
 	if(splits.len && splits[1] == "ticket")
@@ -352,3 +352,5 @@
 	return	stealth
 
 #undef EXTERNALREPLYCOUNT
+
+#undef TGS_AHELP_USAGE

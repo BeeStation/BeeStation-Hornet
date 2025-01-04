@@ -92,3 +92,5 @@
 	printer.stored_paper -= CANVAS_PAPER_COST
 	to_chat(usr, "<span class='notice'>You have printed [title] onto a new canvas.</span>")
 	playsound(computer.physical, 'sound/items/poster_being_created.ogg', 100, TRUE)
+
+#undef CANVAS_PAPER_COST

@@ -23,13 +23,12 @@
 //>necessary
 //I'm not fixing it because i'm fucking bored of this code already, but someone should just reroute these to the parent turret's procs.
 
-/obj/machinery/porta_turret_cover/attack_ai(mob/user)
+/obj/machinery/porta_turret_cover/attack_silicon(mob/user)
 	. = ..()
 	if(.)
 		return
 
 	return parent_turret.attack_ai(user)
-
 
 /obj/machinery/porta_turret_cover/attack_hand(mob/user)
 	. = ..()
@@ -71,7 +70,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, parent_turret))
 		to_chat(user, "<span class='notice'>You add [parent_turret] to multitool buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/porta_turret_cover/attacked_by(obj/item/I, mob/user)

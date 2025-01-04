@@ -135,7 +135,7 @@
 	return ..()
 
 /datum/antagonist/heretic/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/heretic/heretic_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	var/list/msg = list()
 	msg += "<span class='big'>You are the <span class='bold umbra'>Heretic</span>!</span>"
 	msg += "The book whispers, the forbidden knowledge walks once again!"
@@ -300,7 +300,7 @@
 	drawing_rune = TRUE
 
 	target_turf.balloon_alert(user, "You start drawing a rune")
-	if(!do_after(user, drawing_time, target = target_turf, extra_checks = additional_checks))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
 		target_turf.balloon_alert(user, "Interrupted")
 		drawing_rune = FALSE
 		return
@@ -342,7 +342,7 @@
 
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.client && (player.mind.assigned_role in GLOB.command_positions))
+		if(player.client && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 			num_heads++
 	// Give normal sacrifice objective
 	var/datum/objective/minor_sacrifice/sac_objective = new()
@@ -622,7 +622,7 @@
 		return TRUE
 	// You can ALWAYS sacrifice heads of staff if you need to do so.
 	var/datum/objective/major_sacrifice/major_sacc_objective = locate() in objectives
-	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in GLOB.command_positions))
+	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		return TRUE
 
 /*

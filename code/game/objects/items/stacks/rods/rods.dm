@@ -13,7 +13,8 @@
 	mats_per_unit = list(/datum/material/iron=1000)
 	max_amount = 50
 	merge_type = /obj/item/stack/rods
-	attack_verb = list("hit", "bludgeoned", "whacked")
+	attack_verb_continuous = list("hits", "bludgeons", "whacks")
+	attack_verb_simple = list("hit", "bludgeon", "whack")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	embedding = list()
 	novariants = TRUE
@@ -24,6 +25,8 @@
 /obj/item/stack/rods/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")//it looks like theyre ur mum
 	return BRUTELOSS
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 
 /obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -57,8 +60,8 @@
 		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
 			user.visible_message("[user.name] shaped [src] into iron with [W].", \
-						 "<span class='notice'>You shape [src] into iron with [W].</span>", \
-						 "<span class='italics'>You hear welding.</span>")
+						"<span class='notice'>You shape [src] into iron with [W].</span>", \
+						"<span class='italics'>You hear welding.</span>")
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_held_item()==R)

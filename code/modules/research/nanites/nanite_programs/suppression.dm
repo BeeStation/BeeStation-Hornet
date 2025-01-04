@@ -123,9 +123,9 @@
 	var/datum/nanite_extra_setting/comm_code = extra_settings[NES_COMM_CODE]
 	if(!activated || !comm_code)
 		return
-	if(signal_comm_code == comm_code)
+	if(signal_comm_code == comm_code.get_value())
 		host_mob.investigate_log("'s [name] nanite program was messaged by [comm_source] with comm code [signal_comm_code] and message '[comm_message]'.", INVESTIGATE_NANITES)
-		trigger(comm_message)
+		trigger(comm_message=comm_message)
 
 /datum/nanite_program/comm/speech
 	name = "Forced Speech"

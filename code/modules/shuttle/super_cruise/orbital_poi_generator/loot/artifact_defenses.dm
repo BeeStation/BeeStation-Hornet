@@ -16,6 +16,8 @@
 	icon_state = "watcher"
 	var/cooldown = 0
 	var/range //Trigger range
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien_artifact/watcher/Initialize(mapload)
 	. = ..()
@@ -114,6 +116,8 @@
 
 /obj/effect/temp_visual/hierophant/blast/defenders/emp
 	duration = 1 SECONDS
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast/defenders/emp)
 
 /obj/effect/temp_visual/hierophant/blast/defenders/emp/Initialize(mapload, new_caster, friendly_fire)
 	. = ..()

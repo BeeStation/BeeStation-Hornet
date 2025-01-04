@@ -27,9 +27,9 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
-    if(!iscarbon(target) && !issilicon(target))
-        damage = 30
-    return ..()
+	if(!iscarbon(target) && !issilicon(target))
+		damage = 30
+	return ..()
 
 //Cutting projectile - Damage against objects
 

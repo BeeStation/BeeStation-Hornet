@@ -44,12 +44,12 @@
 		if(GLOB.clockcult_power < 200)
 			to_chat(user, "<span class='nzcrentr'>You need [200 - GLOB.clockcult_power]W more to repair the [C]...</span>")
 			return
-		if(C.max_integrity == C.obj_integrity)
+		if(C.max_integrity == C.get_integrity())
 			to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
 			return
 		to_chat(user, "<span class='nzcrentr'>You begin repairing [C]...</span>")
 		if(do_after(user, 60, target=target))
-			if(C.max_integrity == C.obj_integrity)
+			if(C.max_integrity == C.get_integrity())
 				to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
 				return
 			if(GLOB.clockcult_power < 200)
@@ -57,7 +57,7 @@
 				return
 			GLOB.clockcult_power -= 200
 			to_chat(user, "<span class='nzcrentr'>You repair some of the damage on \the [C].</span>")
-			C.obj_integrity = clamp(C.obj_integrity + 15, 0, C.max_integrity)
+			C.repair_damage(clamp(C.get_integrity() + 15, 0, C.max_integrity))
 		else
 			to_chat(user, "<span class='nzcrentr'>You fail to repair the damage of \the [C]...</span>")
 
@@ -69,3 +69,5 @@
 	new /obj/item/stack/sheet/brass(target, sheets)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='brass'>You fabricate [sheets] brass.</span>")
+
+#undef BRASS_POWER_COST

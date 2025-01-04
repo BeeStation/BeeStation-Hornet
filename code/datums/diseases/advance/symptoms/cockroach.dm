@@ -46,7 +46,7 @@
 		if(5)
 			if(prob(30))
 				M.visible_message("<span class='danger'>[M] squirms as a cockroach crawls from their pores!</span>", \
-								  "<span class='userdanger'>A cockroach crawls out of your face!!</span>")
+									"<span class='userdanger'>A cockroach crawls out of your face!!</span>")
 				new /mob/living/basic/cockroach(M.loc)
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")

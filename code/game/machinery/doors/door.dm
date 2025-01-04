@@ -12,7 +12,7 @@
 	pass_flags_self = PASSDOORS
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
+	armor_type = /datum/armor/machinery_door
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
@@ -42,19 +42,16 @@
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
 
-/obj/machinery/door/examine(mob/user)
-	. = ..()
-	if(red_alert_access)
-		if(GLOB.security_level >= SEC_LEVEL_RED)
-			. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
-		else
-			. += "<span class='notice'>In the event of a red alert, its access requirements will automatically lift.</span>"
-		. += "<span class='notice'>Its maintenance panel is <b>screwed</b> in place.</span>"
 
-/obj/machinery/door/check_access_list(list/access_list)
-	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
-		return TRUE
-	return ..()
+/datum/armor/machinery_door
+	melee = 30
+	bullet = 30
+	laser = 20
+	energy = 20
+	bomb = 10
+	rad = 100
+	fire = 80
+	acid = 70
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -68,15 +65,21 @@
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(check_security_level))
+
+/obj/machinery/door/examine(mob/user)
+	. = ..()
 	if(red_alert_access)
-		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
+		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+			. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
+		else
+			. += "<span class='notice'>In the event of a red alert, its access requirements will automatically lift.</span>"
+		. += "<span class='notice'>Its maintenance panel is <b>screwed</b> in place.</span>"
 
-/obj/machinery/door/proc/handle_alert(datum/source, new_alert)
-	SIGNAL_HANDLER
-	if(new_alert >= SEC_LEVEL_RED)
-		visible_message("<span class='notice'>[src] whirs as it automatically lifts access requirements!</span>")
-		playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
-
+/obj/machinery/door/check_access_list(list/access_list)
+	if(red_alert_access && SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+		return TRUE
+	return ..()
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -105,7 +108,7 @@
 			if(world.time - M.last_bumped <= 10)
 				return	//Can bump-open one airlock per second. This is to prevent shock spam.
 			M.last_bumped = world.time
-			if(M.restrained() && !check_access(null))
+			if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !check_access(null))
 				return
 			bumpopen(M)
 			return
@@ -233,9 +236,9 @@
 		return 1
 	return ..()
 
-/obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0)
+	if(. && atom_integrity > 0)
 		if(damage_amount >= 10 && prob(30))
 			spark_system.start()
 
@@ -426,3 +429,20 @@
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0
+
+/**
+ * Signal handler for checking if we notify our surrounding that access requirements are lifted accordingly to a newly set security level
+ *
+ * Arguments:
+ * * source The datum source of the signal
+ * * new_level The new security level that is in effect
+ */
+/obj/machinery/door/proc/check_security_level(datum/source, new_level)
+	SIGNAL_HANDLER
+
+	if(new_level <= SEC_LEVEL_BLUE)
+		return
+	if(!red_alert_access)
+		return
+	audible_message("<span class='notice'>[src] whirr[p_s()] as [p_they()] automatically lift[p_s()] access requirements!</span>")
+	playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)

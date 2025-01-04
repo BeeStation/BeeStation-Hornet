@@ -17,4 +17,6 @@
 	for (var/datum/component/comp in GetComponents(/datum/component/moved_relay))
 		qdel(comp)
 
+	clear_important_client_contents(client)
+
 	return TRUE

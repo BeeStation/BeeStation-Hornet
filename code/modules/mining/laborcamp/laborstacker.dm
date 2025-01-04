@@ -17,7 +17,7 @@ GLOBAL_LIST(labor_sheet_values)
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
 	. = ..()
 	integrated_radio = new /obj/item/radio(src)
-	integrated_radio.listening = FALSE
+	integrated_radio.set_listening(FALSE)
 	locate_stacking_machine()
 	//If we can't find a stacking machine end it all ok?
 	if(!stacking_machine)

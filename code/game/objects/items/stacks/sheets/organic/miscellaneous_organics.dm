@@ -6,6 +6,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "chitin"
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/xenochitin
 
 /obj/item/xenos_claw
 	name = "alien claw"
@@ -46,6 +47,7 @@
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/sinew
 
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \

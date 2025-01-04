@@ -13,7 +13,7 @@
 	item_state = "tesla"
 	ammo_type = list(/obj/item/ammo_casing/energy/tesla_revolver)
 	pin = null
-	shaded_charge = 1
+	shaded_charge = TRUE
 	fire_rate = 1.5
 
 /obj/item/gun/energy/tesla_revolver/add_seclight_point()
@@ -35,6 +35,14 @@
 
 /obj/item/gun/energy/e_gun/advtaser/cyborg/add_seclight_point()
 	return
+
+/obj/item/gun/energy/e_gun/advtaser/heirloom
+	name = "old hybrid taser"
+	desc = "A old and dusty taser, used so much its cell no longer charges. there is a text scribbled on the side saying \"Dont forget your origins.\""
+	w_class = WEIGHT_CLASS_NORMAL
+	can_charge = FALSE
+	dead_cell = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/broken) //Fool, you think you can outsmart me. But i am smarter.
 
 /obj/item/gun/energy/disabler
 	name = "disabler"

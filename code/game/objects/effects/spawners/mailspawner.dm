@@ -9,15 +9,15 @@
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"
 
-/obj/effect/spawner/mail/maintloot/Initialize()
-	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
-	new mail_maintloot(loc)
+/obj/effect/spawner/mail/maintloot/Initialize(mapload)
+	var/picked_item = pick_weight(GLOB.maintenance_loot)
+	new picked_item(loc)
 	return ..()
 
 /obj/effect/spawner/mail/organminor
 	name = "\improper Random minor organs spawner"
 
-/obj/effect/spawner/mail/organminor/Initialize()
+/obj/effect/spawner/mail/organminor/Initialize(mapload)
 	var/static/list/mail_organminor = pick(
 		/obj/item/organ/tongue,
 		/obj/item/organ/tongue/lizard,
@@ -47,7 +47,7 @@
 /obj/effect/spawner/mail/organmajor
 	name = "\improper Random major organs spawner"
 
-/obj/effect/spawner/mail/organmajor/Initialize()
+/obj/effect/spawner/mail/organmajor/Initialize(mapload)
 	var/static/list/mail_organmajor= pick(
 		/obj/item/organ/adamantine_resonator,
 		/obj/item/organ/ears/penguin,
@@ -73,7 +73,7 @@
 /obj/effect/spawner/mail/advmedtool
 	name = "\improper Random advanced medical tool spawner"
 
-/obj/effect/spawner/mail/advmedtool/Initialize()
+/obj/effect/spawner/mail/advmedtool/Initialize(mapload)
 	var/static/list/mail_advmedtool= pick(
 		/obj/item/scalpel/advanced,
 		/obj/item/retractor/advanced,
@@ -84,7 +84,7 @@
 /obj/effect/spawner/mail/ayymedtool
 	name = "\improper Random alien medical tool spawner"
 
-/obj/effect/spawner/mail/ayymedtool/Initialize()
+/obj/effect/spawner/mail/ayymedtool/Initialize(mapload)
 	var/static/list/mail_ayymedtool= pick(
 		/obj/item/scalpel/alien,
 		/obj/item/hemostat/alien,
@@ -98,7 +98,7 @@
 /obj/effect/spawner/mail/donut
 	name = "\improper Random common donut spawner"
 
-/obj/effect/spawner/mail/donut/Initialize()
+/obj/effect/spawner/mail/donut/Initialize(mapload)
 	var/static/list/mail_donut= pick(
 		/obj/item/food/donut/berry,
 		/obj/item/food/donut/apple,
@@ -111,7 +111,7 @@
 /obj/effect/spawner/mail/rdonut
 	name = "\improper Random rare donut spawner"
 
-/obj/effect/spawner/mail/rdonut/Initialize()
+/obj/effect/spawner/mail/rdonut/Initialize(mapload)
 	var/static/list/mail_rdonut= pick(
 		/obj/item/food/donut/meat,
 		/obj/item/food/donut/trumpet,
@@ -124,7 +124,7 @@
 /obj/effect/spawner/mail/genes
 	name = "\improper Random genes spawner"
 
-/obj/effect/spawner/mail/genes/Initialize()
+/obj/effect/spawner/mail/genes/Initialize(mapload)
 	var/static/list/mail_genes= pick(
 		/obj/item/chromosome/energy,
 		/obj/item/chromosome/power,
@@ -137,12 +137,11 @@
 /obj/effect/spawner/mail/science
 	name = "\improper Random science junk spawner"
 
-/obj/effect/spawner/mail/science/Initialize()
+/obj/effect/spawner/mail/science/Initialize(mapload)
 	var/static/list/mail_science= pick(
 		/obj/item/laser_pointer,
 		/obj/item/paicard,
 		/obj/item/nanite_remote,
-		/obj/item/nanite_injector,
 		/obj/item/nanite_scanner,
 		/obj/item/disk/tech_disk,
 		/obj/item/assembly/prox_sensor,

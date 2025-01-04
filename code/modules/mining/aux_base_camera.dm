@@ -16,9 +16,10 @@
 		return ..()
 	//While players are only allowed to build in the base area, but consoles starting outside the base can move into the base area to begin work.
 
-/mob/camera/ai_eye/remote/base_construction/relaymove(mob/user, direct)
-	dir = direct //This camera eye is visible as a drone, and needs to keep the dir updated
-	..()
+
+/mob/camera/ai_eye/remote/base_construction/relaymove(mob/living/user, direction)
+	dir = direction //This camera eye is visible as a drone, and needs to keep the dir updated
+	return ..()
 
 /obj/item/construction/rcd/internal //Base console's internal RCD. Roundstart consoles are filled, rebuilt cosoles start empty.
 	name = "internal RCD"
@@ -128,7 +129,7 @@
 	eyeobj.invisibility = INVISIBILITY_MAXIMUM //Hide the eye when not in use.
 
 /datum/action/innate/aux_base //Parent aux base action
-	icon_icon = 'icons/mob/actions/actions_construction.dmi'
+	icon_icon = 'icons/hud/actions/actions_construction.dmi'
 	var/mob/living/C //Mob using the action
 	var/mob/camera/ai_eye/remote/base_construction/remote_eye //Console's eye mob
 	var/obj/machinery/computer/camera_advanced/base_construction/B //Console itself

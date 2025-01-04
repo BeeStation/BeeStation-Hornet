@@ -232,7 +232,7 @@ SUBSYSTEM_DEF(zclear)
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
 				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || M.get_ghost(FALSE, TRUE))
+					if(M.key || !M.soul_departed())
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
 				if(valid)
@@ -348,3 +348,6 @@ SUBSYSTEM_DEF(zclear)
 	var/tracking
 	//Callback when completed, z value passed as parameters
 	var/datum/callback/completion_callback
+
+#undef CLEAR_TURF_PROCESSING_TIME
+#undef CHECK_ZLEVEL_TICKS

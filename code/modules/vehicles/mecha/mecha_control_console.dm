@@ -33,7 +33,7 @@
 		var/obj/vehicle/sealed/mecha/M = MT.chassis
 		var/list/mech_data = list(
 			name = M.name,
-			integrity = round((M.obj_integrity / M.max_integrity) * 100),
+			integrity = round((M.get_integrity() / M.max_integrity) * 100),
 			charge = M.cell ? round(M.cell.percent()) : null,
 			airtank = M.internal_tank ? M.return_pressure() : null,
 			pilot = M.return_drivers(),
@@ -45,7 +45,7 @@
 		if(istype(M, /obj/vehicle/sealed/mecha/working/ripley))
 			var/obj/vehicle/sealed/mecha/working/ripley/RM = M
 			mech_data += list(
-				cargo_space = round((RM.cargo.len / RM.cargo_capacity) * 100)
+				cargo_space = round((LAZYLEN(RM.cargo) / RM.cargo_capacity) * 100)
 		)
 
 		data["mechs"] += list(mech_data)
@@ -74,8 +74,8 @@
 			var/obj/vehicle/sealed/mecha/M = MT.chassis
 			if(M)
 				MT.shock()
-				log_game("[key_name(usr)] has activated remote EMP on exosuit [M], located at [loc_name(M)], which [M.occupants ? "has the occupants [M.occupants]." : "without a pilot."] ")
-				message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] has activated remote EMP on exosuit [M][ADMIN_JMP(M)], which is currently [M.occupants ? "occupied by [M.occupants][ADMIN_FLW(M)]." : "without a pilot."] ")
+				log_game("[key_name(usr)] has activated remote EMP on exosuit [M], located at [loc_name(M)], which is currently [LAZYLEN(M.occupants) ? "occupied by [M.occupants.Join(",")][ADMIN_FLW(M)]." : "without a pilot."]")
+				message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] has activated remote EMP on exosuit [M][ADMIN_JMP(M)], which is currently [LAZYLEN(M.occupants) ? "occupied by [M.occupants.Join(",")][ADMIN_FLW(M)]." : "without a pilot."]")
 				. = TRUE
 
 /obj/item/mecha_parts/mecha_tracking
@@ -100,7 +100,7 @@
 
 	var/cell_charge = chassis.get_charge()
 	var/answer = {"<b>Name:</b> [chassis.name]<br>
-				<b>Integrity:</b> [round((chassis.obj_integrity/chassis.max_integrity * 100), 0.01)]%<br>
+				<b>Integrity:</b> [round((chassis.get_integrity()/chassis.max_integrity * 100), 0.01)]%<br>
 				<b>Cell Charge:</b> [isnull(cell_charge) ? "Not Found":"[chassis.cell.percent()]%"]<br>
 				<b>Airtank:</b> [chassis.internal_tank ? "[round(chassis.return_pressure(), 0.01)]" : "Not Equipped"] kPa<br>
 				<b>Pilot:</b> [chassis.return_drivers() || "None"]<br>
@@ -108,7 +108,7 @@
 				<b>Active Equipment:</b> [chassis.selected || "None"]"}
 	if(istype(chassis, /obj/vehicle/sealed/mecha/working/ripley))
 		var/obj/vehicle/sealed/mecha/working/ripley/RM = chassis
-		answer += "<br><b>Used Cargo Space:</b> [round((RM.cargo.len / RM.cargo_capacity * 100), 0.01)]%"
+		answer += "<br><b>Used Cargo Space:</b> [round((LAZYLEN(RM.cargo) / RM.cargo_capacity * 100), 0.01)]%"
 
 	return answer
 

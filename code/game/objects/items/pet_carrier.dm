@@ -12,7 +12,8 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 5
-	attack_verb = list("bashed", "carried")
+	attack_verb_continuous = list("bashes", "carries")
+	attack_verb_simple = list("bash", "carry")
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 3
@@ -23,6 +24,7 @@
 	var/occupant_weight = 0
 	var/max_occupants = 3 //Hard-cap so you can't have infinite mice or something in one carrier
 	var/max_occupant_weight = MOB_SIZE_SMALL //This is calculated from the mob sizes of occupants
+	COOLDOWN_DECLARE(movement_cooldown)
 
 /obj/item/pet_carrier/Destroy()
 	if(occupants.len)
@@ -38,7 +40,7 @@
 		occupant_weight -= L.mob_size
 
 /obj/item/pet_carrier/handle_atom_del(atom/A)
-	if(A in occupants && isliving(A))
+	if((A in occupants) && isliving(A))
 		var/mob/living/L = A
 		occupants -= L
 		occupant_weight -= L.mob_size
@@ -119,8 +121,10 @@
 		container_resist(user)
 
 /obj/item/pet_carrier/container_resist(mob/living/user)
+	if(!COOLDOWN_FINISHED(src, movement_cooldown))
+		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
-	user.last_special = world.time + CLICK_CD_BREAKOUT
+	COOLDOWN_START(src, movement_cooldown, CLICK_CD_BREAKOUT)
 	if(user.mob_size <= MOB_SIZE_SMALL)
 		to_chat(user, "<span class='notice'>You poke a limb through [src]'s bars and start fumbling for the lock switch... (This will take some time.)</span>")
 		to_chat(loc, "<span class='warning'>You see [user] reach through the bars and fumble for the lock switch!</span>")
@@ -170,12 +174,12 @@
 	user.visible_message("<span class='notice'>[user] starts loading [target] into [src].</span>", \
 	"<span class='notice'>You start loading [target] into [src]...</span>", null, null, target)
 	to_chat(target, "<span class='userdanger'>[user] starts loading you into [user.p_their()] [name]!</span>")
-	if(!do_after(user, 3 SECONDS, target))
-		return
 	if(target in occupants)
 		return
 	if(pet_carrier_full(src)) //Run the checks again, just in case
 		to_chat(user, "<span class='warning'>[src] is already carrying too much!</span>")
+		return
+	if(target.mob_size >= MOB_SIZE_HUMAN && !do_after(user, 3 SECONDS, target)) // If the mob is small or smaller, no need for a do_after.
 		return
 	user.visible_message("<span class='notice'>[user] loads [target] into [src]!</span>", \
 	"<span class='notice'>You load [target] into [src].</span>", null, null, target)
@@ -183,7 +187,7 @@
 	add_occupant(target)
 
 /obj/item/pet_carrier/proc/add_occupant(mob/living/occupant)
-	if(occupant in occupants || !istype(occupant))
+	if((occupant in occupants) || !istype(occupant))
 		return
 	occupant.forceMove(src)
 	occupants += occupant

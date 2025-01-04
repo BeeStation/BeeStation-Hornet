@@ -56,7 +56,7 @@
 	req_access_txt = "1"
 	},
 /obj/structure/window/reinforced/spawner,
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/template_noop)

@@ -8,6 +8,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/credits = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
+
 /obj/item/holochip/Initialize(mapload, amount)
 	. = ..()
 	credits = amount

@@ -7,9 +7,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
+/obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
@@ -49,7 +47,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
- /obj/machinery/vending/boozeomat/maint,
+/obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/template_noop)
 "l" = (
@@ -58,15 +56,15 @@
 /area/template_noop)
 "m" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 6;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
+/obj/item/reagent_containers/cup/glass/bottle/tequila{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
@@ -135,11 +133,11 @@
 /area/template_noop)
 "y" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 4;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
@@ -150,7 +148,7 @@
 /area/template_noop)
 "A" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/gin{
+/obj/item/reagent_containers/cup/glass/bottle/gin{
 	pixel_y = 8
 	},
 /obj/machinery/light/small{
@@ -159,9 +157,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "C" = (
@@ -281,7 +277,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/structure/sink{
 	dir = 4;

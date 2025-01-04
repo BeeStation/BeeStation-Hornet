@@ -9,7 +9,7 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/door_window
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
@@ -24,6 +24,19 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
+
+
+/datum/armor/door_window
+	melee = 20
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 70
+	acid = 100
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
@@ -60,7 +73,7 @@
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	air_update_turf(1)
-	if(obj_integrity == 0)
+	if(atom_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
 	return ..()
@@ -98,7 +111,7 @@
 	if(!SSticker)
 		return
 	var/mob/M = AM
-	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
+	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || ((isdrone(M) || iscyborg(M)) && M.stat != CONSCIOUS))
 		return
 	bumpopen(M)
 
@@ -284,7 +297,7 @@
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] removes the electronics from the [name].", \
-									 "<span class='notice'>You start to remove electronics from the [name]...</span>")
+									"<span class='notice'>You start to remove electronics from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -380,8 +393,8 @@
 		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = LOWER_TEXT(data.data["data"])
+	var/command_value = LOWER_TEXT(data.data["data_secondary"])
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -437,10 +450,18 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/window_clockwork
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE
+
+
+/datum/armor/window_clockwork
+	bomb = 10
+	bio = 100
+	rad = 100
+	fire = 70
+	acid = 100
 
 /obj/machinery/door/window/clockwork/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
@@ -496,7 +517,7 @@
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] begins to deconstruct [name].", \
-									 "<span class='notice'>You start to deconstruct from the [name]...</span>")
+									"<span class='notice'>You start to deconstruct from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						qdel(src)

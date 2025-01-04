@@ -42,17 +42,17 @@
 	if(iscultist(user) || isobserver(user))
 		var/t_It = p_they(TRUE)
 		var/t_is = p_are()
-		return "<span class='cult'>[t_It] [t_is] at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
+		return "<span class='cult'>[t_It] [t_is] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.</span>"
 	return ..()
 
 /obj/structure/destructible/cult/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/artificer))
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			M.changeNext_move(CLICK_CD_MELEE)
-			obj_integrity = min(max_integrity, obj_integrity + 5)
+			atom_integrity = min(max_integrity, atom_integrity + 5)
 			Beam(M, icon_state="sendbeam", time=4)
 			M.visible_message("<span class='danger'>[M] repairs \the <b>[src]</b>.</span>", \
-				"<span class='cult'>You repair <b>[src]</b>, leaving [p_they()] at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>")
+				"<span class='cult'>You repair <b>[src]</b>, leaving [p_they()] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.</span>")
 		else
 			to_chat(M, "<span class='cult'>You cannot repair [src], as [p_theyre()] undamaged!</span>")
 	else
@@ -85,7 +85,7 @@
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/list/items = list(
-		"Eldritch Whetstone" = image(icon = 'icons/obj/kitchen.dmi', icon_state = "cult_sharpener"),
+		"Eldritch Whetstone" = image(icon = 'icons/obj/cult.dmi', icon_state = "cult_sharpener"),
 		"Construct Shell" = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct_cult"),
 		"Flask of Unholy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask")
 		)
@@ -97,7 +97,7 @@
 		if("Construct Shell")
 			pickedtype += /obj/structure/constructshell
 		if("Flask of Unholy Water")
-			pickedtype += /obj/item/reagent_containers/glass/beaker/unholywater
+			pickedtype += /obj/item/reagent_containers/cup/glass/bottle/unholywater
 		else
 			return
 	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && iscultist(user) && cooldowntime <= world.time)
@@ -188,11 +188,13 @@
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 			if(ishuman(L))
+				var/mob/living/carbon/C = L
 				L.adjustBruteLoss(-5*delta_time, 0)
 				L.adjustFireLoss(-5*delta_time, 0)
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+					L.blood_volume += 20
+				C.cauterise_wounds(1.4)
 			else if(isshade(L) || isconstruct(L))
 				var/mob/living/simple_animal/M = L
 				M.adjustHealth(-15*delta_time)

@@ -39,7 +39,7 @@
 	//the turret's health
 	max_integrity = 160
 	integrity_failure = 0.5
-	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor_type = /datum/armor/machinery_porta_turret
 
 	//if the turret's behaviour control access is locked
 	var/locked = TRUE
@@ -99,6 +99,16 @@
 	var/datum/action/turret_quit/quit_action
 	var/datum/action/turret_toggle/toggle_action
 	var/mob/remote_controller
+
+
+/datum/armor/machinery_porta_turret
+	melee = 50
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 30
+	fire = 90
+	acid = 90
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -336,7 +346,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret)
 DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You add [src] to multitool buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/porta_turret/on_emag(mob/user)
@@ -372,9 +382,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 		addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), rand(60,600))
 
-/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0) //damage received
+	if(. && atom_integrity > 0) //damage received
 		if(prob(30))
 			spark_system.start()
 		if(on && !attacked && !(obj_flags & EMAGGED))
@@ -387,7 +397,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
 	qdel(src)
 
-/obj/machinery/porta_turret/obj_break(damage_flag)
+/obj/machinery/porta_turret/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		power_change()
@@ -628,7 +638,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_toggle
 	name = "Toggle Mode"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/turret_toggle/Trigger()
@@ -639,7 +649,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_quit
 	name = "Release Control"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
 /datum/action/turret_quit/Trigger()
@@ -762,7 +772,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	lethal_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
 	lethal_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor_type = /datum/armor/syndicate_shuttle
+
+
+/datum/armor/syndicate_shuttle
+	melee = 50
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 80
+	fire = 90
+	acid = 90
 
 /obj/machinery/porta_turret/syndicate/shuttle/target(atom/movable/target)
 	if(target)
@@ -865,22 +885,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	var/lethal = FALSE
 	/// Variable dictating if the panel is locked, preventing changes to turret settings
 	var/locked = TRUE
-	 /// An area in which linked turrets are located, it can be an area name, path or nothing
+	/// An area in which linked turrets are located, it can be an area name, path or nothing
 	var/control_area = null
-	 /// Silicons are unable to use this machine if set to TRUE
+	/// Silicons are unable to use this machine if set to TRUE
 	var/ailock = FALSE
 	/// Variable dictating if linked turrets will shoot cyborgs
 	var/shoot_cyborgs = FALSE
 	/// List of all linked turrets
 	var/list/turrets = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
+
 /obj/machinery/turretid/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
 	if(built)
-		setDir(ndir)
 		locked = FALSE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 	power_change() //Checks power and initial settings
 
 /obj/machinery/turretid/Destroy()
@@ -934,7 +953,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	if(buffer && istype(buffer, /obj/machinery/porta_turret))
 		turrets |= buffer
 		to_chat(user, "You link \the [buffer] with \the [src]")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/turretid/on_emag(mob/user)
@@ -942,13 +961,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	locked = FALSE
 
-/obj/machinery/turretid/attack_robot(mob/user)
-	if(!ailock)
-		return attack_hand(user)
-	else
-		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-
-/obj/machinery/turretid/attack_ai(mob/user)
+/obj/machinery/turretid/attack_silicon(mob/user)
 	if(!ailock || IsAdminGhost(user))
 		return attack_hand(user)
 	else
@@ -1044,6 +1057,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	icon_state = "apc"
 	result_path = /obj/machinery/turretid
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	pixel_shift = 29
 
 /obj/item/gun/proc/get_turret_properties()
 	. = list()
@@ -1169,3 +1183,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 			if(istype(P, /obj/projectile/beam/lasertag/bluetag))
 				toggle_on(FALSE)
 				addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), 10 SECONDS)
+
+#undef TURRET_STUN
+#undef TURRET_LETHAL
+
+#undef POPUP_ANIM_TIME
+#undef POPDOWN_ANIM_TIME

@@ -41,7 +41,7 @@
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
 	src.icon_state = "[initial(icon_state)]"
 	hood_up = FALSE
-	
+
 	if(hood)
 		if(ishuman(hood.loc))
 			var/mob/living/carbon/human/H = hood.loc
@@ -175,6 +175,7 @@
 	if(!helmettype)
 		return
 	if(!helmet)
+		to_chat(H, "<span class='warning'>The helmet's lightbulb seems to be damaged! You'll need a replacement bulb.</span>")
 		return
 	if(!helmet_on)
 		if(ishuman(src.loc))

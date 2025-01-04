@@ -35,6 +35,8 @@ All the important duct code:
 	///wheter we just unanchored or drop whatever is in the variable. either is safe
 	var/drop_on_wrench = /obj/item/stack/ducts
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
+
 /obj/machinery/duct/Initialize(mapload, no_anchor, color_of_duct = "#ffffff", layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()
 
@@ -352,6 +354,8 @@ All the important duct code:
 
 	active = FALSE
 	anchored = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct/multilayered)
 
 /obj/machinery/duct/multilayered/Initialize(mapload, no_anchor, color_of_duct, layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()

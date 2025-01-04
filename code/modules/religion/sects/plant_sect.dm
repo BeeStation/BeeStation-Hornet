@@ -8,7 +8,7 @@
 	desired_items = list(
 		/obj/item/seeds)
 	rites_list = list(
-		/datum/religion_rites/create_podperson,
+		/datum/religion_rites/create_diona,
 		/datum/religion_rites/create_sandstone,
 		/datum/religion_rites/grass_generator,
 		/datum/religion_rites/summon_animals)
@@ -60,10 +60,10 @@
 		for(var/mob/living/L in range(5, src))
 			if(L.health == L.maxHealth)
 				continue
-			if(!ispodperson(L) && !L.mind?.holy_role)
+			if(!isdiona(L) && !L.mind?.holy_role)
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#47ac05")
-			if(ispodperson(L) || L.mind?.holy_role)
+			if(isdiona(L) || L.mind?.holy_role)
 				L.adjustBruteLoss(-2*delta_time, 0)
 				L.adjustToxLoss(-2*delta_time, 0)
 				L.adjustOxyLoss(-2*delta_time, 0)
@@ -72,7 +72,7 @@
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
-			CHECK_TICK
+
 	if(last_spread <= world.time)
 		var/list/validturfs = list()
 		var/list/natureturfs = list()
@@ -85,7 +85,11 @@
 				/turf/open/floor/grass,
 				/turf/open/space,
 				/turf/open/lava,
-				/turf/open/chasm))
+				/turf/open/chasm,
+				/turf/open/openspace,
+				/turf/open/floor/plating/beach,
+				/turf/open/indestructible,
+				/turf/open/floor/prison))
 			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
@@ -173,7 +177,7 @@
 
 /datum/religion_rites/grass_generator
 	name = "Blessing of Nature"
-	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Pod-People or Holy people nearby."
+	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Dionae or Holy people nearby."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Let the plantlife grow ...",
@@ -190,7 +194,7 @@
 		new /obj/structure/destructible/religion/nature_pylon(T)
 	return ..()
 
-/datum/religion_rites/create_podperson
+/datum/religion_rites/create_diona
 	name = "Nature Conversion"
 	desc = "Convert a human-esque individual into a being of nature. Buckle a human to convert them, otherwise it will convert you."
 	ritual_length = 30 SECONDS
@@ -201,7 +205,7 @@
 	invoke_msg = "... May the grass be greener on the other side, show us what it means to be one with nature!!"
 	favor_cost = 300
 
-/datum/religion_rites/create_podperson/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_diona/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 		return FALSE
@@ -214,13 +218,13 @@
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 			return FALSE
-		if(ispodperson(user))
+		if(isdiona(user))
 			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
 			return FALSE
 		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
 	return ..()
 
-/datum/religion_rites/create_podperson/invoke_effect(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_diona/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
@@ -235,6 +239,6 @@
 				break
 	if(!rite_target)
 		return FALSE
-	rite_target.set_species(/datum/species/pod)
+	rite_target.set_species(/datum/species/diona)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE

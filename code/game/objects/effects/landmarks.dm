@@ -220,6 +220,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
 	J.spawn_positions += 1
+	SSjob.job_manager_blacklisted -= J.title
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
@@ -342,6 +343,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/carpspawn
 	name = "carpspawn"
 	icon_state = "carp_spawn"
+
+/obj/effect/landmark/loneops
+	name = "lone ops"
+	icon_state = "lone_ops"
 
 //observer start
 /obj/effect/landmark/observer_start
@@ -483,6 +488,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
+
 /obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
 	. = ..()
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
@@ -514,7 +521,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	if(prob(70))
 		var/bottle_count = pick(10;1, 5;2, 2;3)
 		for(var/index in 1 to bottle_count)
-			var/obj/item/reagent_containers/food/drinks/beer/almost_empty/B = new(get_turf(src))
+			var/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty/B = new(get_turf(src))
 			B.pixel_x += rand(-6, 6)
 			B.pixel_y += rand(-6, 6)
 	return INITIALIZE_HINT_QDEL

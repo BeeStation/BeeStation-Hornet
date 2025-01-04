@@ -4,7 +4,7 @@
 #define BEE_PROB_GOHOME 35 //Probability to go home when idle is below BEE_IDLE_GOHOME
 #define BEE_PROB_GOROAM 5 //Probability to go roaming when idle is above BEE_IDLE_ROAMING
 #define BEE_TRAY_RECENT_VISIT 200 //How long in deciseconds until a tray can be visited by a bee again
-#define BEE_DEFAULT_COLOUR "#e5e500" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
+#define BEE_DEFAULT_COLOUR "#bc721a" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
 
 #define BEE_POLLINATE_YIELD_CHANCE 33
 #define BEE_POLLINATE_PEST_CHANCE 33
@@ -23,10 +23,14 @@
 	emote_hear = list("buzzes")
 	turns_per_move = 0
 	melee_damage = 1
-	attacktext = "stings"
-	response_help  = "shoos"
-	response_disarm = "swats away"
-	response_harm   = "squashes"
+	attack_verb_continuous = "stings"
+	attack_verb_simple = "sting"
+	response_help_continuous = "shoos"
+	response_help_simple = "shoo"
+	response_disarm_continuous = "swats away"
+	response_disarm_simple = "swat away"
+	response_harm_continuous = "squashes"
+	response_harm_simple = "squash"
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
@@ -40,7 +44,8 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -109,11 +114,11 @@
 
 	var/static/mutable_appearance/greyscale_overlay
 	greyscale_overlay = greyscale_overlay || mutable_appearance('icons/mob/bees.dmi')
-	greyscale_overlay.icon_state = "[icon_base]_grey"
+	greyscale_overlay.icon_state = "bee_grey"
 	greyscale_overlay.color = col
 	add_overlay(greyscale_overlay)
 
-	add_overlay("[icon_base]_wings")
+	add_overlay("bee_wings")
 
 
 //We don't attack beekeepers/people dressed as bees//Todo: bee costume
@@ -139,7 +144,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
- 	//Pollinate
+	//Pollinate
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
@@ -325,3 +330,14 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
+
+#undef BEE_IDLE_ROAMING
+#undef BEE_IDLE_GOHOME
+#undef BEE_PROB_GOHOME
+#undef BEE_PROB_GOROAM
+#undef BEE_TRAY_RECENT_VISIT
+#undef BEE_DEFAULT_COLOUR
+#undef BEE_POLLINATE_YIELD_CHANCE
+#undef BEE_POLLINATE_PEST_CHANCE
+#undef BEE_POLLINATE_POTENCY_CHANCE
+#undef BEE_FOODGROUPS
