@@ -615,3 +615,9 @@
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)
+
+/obj/item/clothing/glasses/ballistic_goggles
+	name = "Ballistic goggles"
+	desc = "Known to make you look cool as fuck."
+	icon_state = "ballistic_goggles"
+	item_state = "ballistic_goggles"

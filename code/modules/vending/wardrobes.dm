@@ -36,6 +36,8 @@
 		/obj/item/clothing/under/rank/security/officer/mallcop = 3,
 		/obj/item/clothing/neck/tie/red = 6,
 		/obj/item/clothing/neck/tie/black = 6,
+		/obj/item/clothing/head/driphats/cowboy_sec = 3,
+		/obj/item/clothing/glasses/ballistic_goggles = 3,
 		)
 	contraband = list(
 		/obj/item/clothing/suit/hooded/wintercoat/security/old = 3,
@@ -44,6 +46,8 @@
 		/obj/item/clothing/under/rank/security/officer/formal = 3,
 		/obj/item/clothing/suit/jacket/officer/blue = 3,
 		/obj/item/clothing/head/beret/sec/navyofficer = 3,
+		/obj/item/clothing/head/driphats/security_ship_helmet = 3,
+		/obj/item/clothing/head/driphats/security_ship_swat = 3,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
@@ -81,7 +85,11 @@
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/head/soft/paramedic = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
-					/obj/item/clothing/mask/surgical = 4)
+					/obj/item/clothing/mask/surgical = 4,
+					/obj/item/clothing/head/soft/medical_ship_cap = 4,
+					/obj/item/clothing/head/soft/alt_medical_ship_cap = 4,
+					/obj/item/clothing/neck/cloak/chap/healercloak = 4,
+	)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
@@ -168,12 +176,14 @@
 
 	premium = list(
 		/obj/item/clothing/under/rank/cargo/miner = 3,
+		/obj/item/clothing/neck/cloak/chap/minercloak = 3,
 		/obj/item/clothing/head/costume/mailman = 2,
 		/obj/item/clothing/under/misc/mailman/skirt = 2,
 		/obj/item/clothing/under/misc/mailman = 2,
 		/obj/item/storage/backpack/satchel/mail = 2,
 		/obj/item/clothing/under/plasmaman/mailman = 2,
-		/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
+		/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2,
+		/obj/item/clothing/head/soft/cargointel_cap = 2
 	)
 	contraband = list(
 		/obj/item/radio/headset/headset_quartermaster = 1,
@@ -319,6 +329,7 @@
 		/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
 		/obj/item/clothing/accessory/waistcoat = 2,
 		/obj/item/clothing/suit/apron/purple_bartender = 2,
+		/obj/item/clothing/head/driphats/purple_bowler = 2,
 		/obj/item/clothing/head/soft/black = 2,
 		/obj/item/clothing/shoes/sneakers/black = 2,
 		/obj/item/reagent_containers/cup/rag = 2,
@@ -376,6 +387,7 @@
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 2,
 					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
+					/obj/item/clothing/neck/cloak/chap/cleanercloak = 2,
 					/obj/item/clothing/under/plasmaman/janitor = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/janitor = 2,
 					/obj/item/computer_hardware/hard_drive/role/janitor = 2,
@@ -473,6 +485,7 @@
 					/obj/item/clothing/head/beanie/rasta = 1)
 	contraband = list(/obj/item/toy/plush/plushvar = 1,
 					/obj/item/toy/plush/narplush = 1,
+					/obj/item/clothing/neck/cloak/chap/reaper_cloak = 1,
 					/obj/item/clothing/head/chaplain/medievaljewhat = 3,
 					/obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 					/obj/item/clothing/head/chaplain/clownmitre = 1,
