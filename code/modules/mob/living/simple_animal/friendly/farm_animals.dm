@@ -20,7 +20,7 @@
 	response_disarm_simple = "gently push aside"
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	attack_same = 1
 	attack_verb_continuous = "kicks"
@@ -98,6 +98,10 @@
 			H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", \
 									"<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
 			NB.dismember()
+/mob/living/simple_animal/hostile/retaliate/goat/rabid
+	name = "Rabid Maintenance Pete"
+	faction = list(FACTION_HOSTILE)
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"

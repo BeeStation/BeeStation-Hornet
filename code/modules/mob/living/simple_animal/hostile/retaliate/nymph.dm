@@ -7,7 +7,7 @@
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
-	faction = list("diona")
+	faction = list(FACTION_DIONA)
 	gender = NEUTER
 	gold_core_spawnable = FRIENDLY_SPAWN
 	ventcrawler = VENTCRAWLER_ALWAYS

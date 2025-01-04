@@ -13,7 +13,7 @@
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
 	attack_sound = 'sound/weapons/bite.ogg'
-	faction = list("creature")
+	faction = list(FACTION_NEUTRAL)
 	robust_searching = 1
 	stat_attack = DEAD
 	obj_damage = 0
