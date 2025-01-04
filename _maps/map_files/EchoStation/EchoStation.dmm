@@ -43249,16 +43249,6 @@
 "vRu" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/machinery/camera/autoname{
-	network = list("ss13","rd")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/vending/wardrobe/robo_wardrobe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -44310,32 +44300,16 @@
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
 "wuv" = (
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/power/apc/auto_name/directional/north{
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
-	},
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6

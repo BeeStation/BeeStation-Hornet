@@ -93,7 +93,7 @@
 /area/maintenance/starboard/fore)
 "aar" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "aas" = (
 /obj/docking_port/stationary/random{
@@ -128,10 +128,10 @@
 "aaA" = (
 /obj/item/robot_suit,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "aaC" = (
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "aaE" = (
 /obj/structure/lattice/catwalk,
@@ -7625,6 +7625,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"bbj" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/obj/effect/landmark/start/roboticist,
+/turf/open/floor/iron/smooth,
+/area/science/robotics/mechbay)
 "bbH" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/decal/cleanable/dirt,
@@ -10361,7 +10368,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/random,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "btw" = (
 /obj/structure/extinguisher_cabinet{
@@ -10518,7 +10525,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "buZ" = (
 /obj/machinery/meter,
@@ -21260,7 +21267,7 @@
 "cSR" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "cST" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -23922,14 +23929,14 @@
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "dqO" = (
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
 "dqQ" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "dqR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24059,7 +24066,7 @@
 "dsk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "dsl" = (
 /obj/machinery/door/poddoor/shutters{
@@ -24243,7 +24250,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "dtx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24401,7 +24408,7 @@
 	pixel_y = -38
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "dvc" = (
 /turf/closed/wall,
@@ -24835,7 +24842,7 @@
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dzG" = (
 /obj/item/paper_bin,
@@ -24853,19 +24860,19 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dzH" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dzJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dzK" = (
 /obj/structure/table/reinforced,
@@ -24883,7 +24890,7 @@
 	pixel_y = 38
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dzM" = (
 /obj/structure/cable/yellow{
@@ -25039,7 +25046,7 @@
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dAK" = (
 /obj/structure/cable/yellow{
@@ -25048,7 +25055,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dAL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25058,7 +25065,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dAM" = (
 /obj/structure/cable/yellow{
@@ -25067,7 +25074,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dAN" = (
 /obj/structure/cable/yellow{
@@ -25076,7 +25083,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dAO" = (
 /obj/structure/chair/office/light{
@@ -25086,7 +25093,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dAQ" = (
 /obj/machinery/camera/directional/west{
@@ -25231,7 +25238,7 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dCq" = (
 /obj/structure/cable/yellow{
@@ -25241,7 +25248,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dCt" = (
 /obj/structure/table/wood,
@@ -25537,7 +25544,7 @@
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /obj/item/paicard,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dEI" = (
 /obj/structure/cable/yellow{
@@ -25546,7 +25553,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dFe" = (
 /turf/closed/wall,
@@ -25669,22 +25676,22 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dGa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dGc" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dGd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dGO" = (
 /obj/structure/table/wood,
@@ -25874,11 +25881,11 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dHx" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dHz" = (
 /obj/machinery/holopad,
@@ -26002,7 +26009,7 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dIM" = (
 /obj/structure/cable/yellow{
@@ -26010,7 +26017,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dIN" = (
 /obj/machinery/vending/wardrobe/robo_wardrobe,
@@ -26027,7 +26034,7 @@
 	name = "Robotics Delivery";
 	req_access_txt = "29"
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dIP" = (
 /obj/structure/table/reinforced,
@@ -26038,7 +26045,7 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "dIQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -30027,7 +30034,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/machinery/mechpad,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "ezG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -33284,7 +33291,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/aug_manipulator,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "fxV" = (
 /obj/effect/spawner/randomvend/snack,
@@ -34240,8 +34247,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/lab)
 "fMV" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -35508,7 +35514,7 @@
 	pixel_y = -1
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "ggu" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -36050,7 +36056,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "gpK" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -37275,7 +37281,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "gIR" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -37673,7 +37679,7 @@
 /obj/structure/bodycontainer/morgue{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "gPj" = (
 /obj/structure/chair/office/light{
@@ -37771,7 +37777,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/tile/purple,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "gPs" = (
 /obj/structure/cable/yellow{
@@ -38618,7 +38624,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "had" = (
 /obj/structure/cable/yellow{
@@ -39978,8 +39984,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/lab)
 "hvK" = (
 /obj/machinery/light{
@@ -40216,8 +40221,7 @@
 /area/hallway/secondary/entry)
 "hzq" = (
 /obj/effect/landmark/start/roboticist,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/lab)
 "hzt" = (
 /obj/machinery/hydroponics/constructable,
@@ -43805,7 +43809,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "iDQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -44160,9 +44164,8 @@
 /area/hallway/primary/port)
 "iJf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/roboticist,
 /obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "iJi" = (
 /obj/structure/bodycontainer/morgue,
@@ -44363,8 +44366,7 @@
 /area/quartermaster/storage)
 "iMg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/lab)
 "iMk" = (
 /obj/structure/closet/l3closet/security,
@@ -46003,7 +46005,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "jqu" = (
 /obj/machinery/door/airlock/public/glass{
@@ -48353,7 +48355,7 @@
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "kdD" = (
 /obj/structure/cable/yellow{
@@ -49200,7 +49202,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/machinery/ecto_sniffer,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "knP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -50341,7 +50343,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/cyborg,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "kFO" = (
 /obj/structure/cable/yellow{
@@ -54558,7 +54560,7 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "lST" = (
 /obj/structure/chair/office{
@@ -54854,7 +54856,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "lWt" = (
 /obj/structure/cable/yellow{
@@ -56171,7 +56173,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "mtF" = (
 /obj/structure/disposalpipe/segment,
@@ -56213,7 +56215,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "muA" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -60373,7 +60375,7 @@
 	pixel_y = 4
 	},
 /obj/item/clothing/gloves/color/latex,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "nCA" = (
 /obj/structure/closet/secure_closet/personal/patient,
@@ -60937,7 +60939,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "nLG" = (
 /obj/structure/cable/yellow{
@@ -61887,7 +61889,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "obd" = (
 /obj/machinery/holopad,
@@ -63346,7 +63348,7 @@
 /obj/item/circuitboard/mecha/ripley/main,
 /obj/item/circuitboard/mecha/ripley/peripherals,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "oBJ" = (
 /obj/machinery/door/firedoor,
@@ -63555,22 +63557,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/machinery/power/apc/auto_name/directional/north,
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/mechbay)
 "oHb" = (
 /obj/structure/cable/yellow,
@@ -63895,7 +63883,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "oMD" = (
 /obj/item/radio/intercom{
@@ -64976,7 +64964,7 @@
 /area/engine/atmos)
 "pea" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/mechbay)
 "pev" = (
 /obj/effect/turf_decal/stripes/line{
@@ -65364,7 +65352,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "pkR" = (
 /obj/effect/landmark/event_spawn,
@@ -68494,32 +68482,17 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera{
-	c_tag = "Science - Mech Bay";
-	dir = 1;
-	name = "science camera";
-	network = list("ss13","rd")
-	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
 /obj/machinery/light{
 	light_color = "#e8eaff"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Science - Mech Bay";
 	name = "science camera"
 	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "qlS" = (
 /obj/structure/disposalpipe/segment,
@@ -70142,7 +70115,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "qKU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -72228,7 +72201,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "rsP" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -72529,7 +72502,7 @@
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/cyborg,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "ryl" = (
 /obj/machinery/door/airlock{
@@ -79963,7 +79936,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/clothing/head/utility/welding,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "tLe" = (
 /obj/effect/spawner/room/threexthree,
@@ -80160,7 +80133,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "tOQ" = (
 /obj/structure/table/reinforced,
@@ -82735,7 +82708,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "uCu" = (
-/turf/open/floor/iron,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/science/robotics/mechbay)
 "uCN" = (
 /obj/structure/rack,
@@ -84167,7 +84140,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "uWV" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
@@ -87712,7 +87685,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "vXR" = (
 /obj/effect/turf_decal/stripes/line,
@@ -89723,7 +89696,7 @@
 /area/maintenance/department/medical/central)
 "wBH" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/lab)
 "wBO" = (
 /obj/structure/disposalpipe/segment{
@@ -90157,7 +90130,7 @@
 /obj/machinery/computer/mechpad{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "wHx" = (
 /obj/machinery/portable_atmospherics/pump,
@@ -92396,7 +92369,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "xqE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -93549,7 +93522,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "xLr" = (
 /obj/structure/cable/yellow{
@@ -94476,7 +94449,7 @@
 	pixel_y = 26
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/smooth,
 /area/science/robotics/mechbay)
 "xZq" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -133085,7 +133058,7 @@ dlN
 rsO
 oaJ
 jpS
-oaJ
+bbj
 oaJ
 oaJ
 mtC

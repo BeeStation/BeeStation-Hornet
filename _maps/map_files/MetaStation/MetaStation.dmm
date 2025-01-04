@@ -17242,6 +17242,7 @@
 /turf/open/floor/iron,
 /area/medical/surgery)
 "cyr" = (
+/obj/effect/landmark/start/roboticist,
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
 "cyu" = (
@@ -24927,16 +24928,6 @@
 "eRZ" = (
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Mech Bay";
-	dir = 8;
-	network = list("ss13","rd")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Mech Bay"
@@ -39145,27 +39136,14 @@
 	pixel_y = 5
 	},
 /obj/item/storage/belt/utility,
-/obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/turf_decal/delivery,
 /obj/item/radio/intercom{
 	pixel_y = 20
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
-/obj/structure/rack,
-/obj/item/book/manual/wiki/robotics_cyborgs{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/storage/belt/utility,
 /obj/item/reagent_containers/cup/beaker/large,
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "jZT" = (
@@ -60240,13 +60218,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/airalarm/directional/east,
-/obj/effect/landmark/start/roboticist,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -64695,10 +64667,6 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "sZg" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -65407,24 +65375,13 @@
 /area/science/nanite)
 "tld" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
-/obj/machinery/camera{
-	c_tag = "Robotics - Fore";
-	network = list("ss13","rd")
-	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/machinery/camera/directional/north{
 	c_tag = "Robotics - Fore"
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "tlg" = (
@@ -69543,9 +69500,6 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = -29
 	},
 /turf/open/floor/iron/dark,
 /area/science/nanite)
@@ -79479,26 +79433,11 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Research Division - Nanite Lab";
-	dir = 4;
-	network = list("ss13","rd")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 4
+/obj/machinery/camera/directional/west{
+	c_tag = "Research Division - Nanite Lab"
 	},
 /obj/item/radio/intercom{
 	pixel_x = -29
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Research Division - Nanite Lab"
 	},
 /turf/open/floor/iron/dark,
 /area/science/nanite)

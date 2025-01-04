@@ -25535,7 +25535,6 @@
 	name = "Mech Bay APC";
 	pixel_y = 24
 	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
@@ -30908,25 +30907,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/maintenance{
-	name = "mech Bay Maintenance";
-	req_access_txt = "29"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "iny" = (
@@ -37429,15 +37412,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "khs" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/structure/grille/broken,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/closed/wall,
 /area/science/robotics/mechbay)
 "khO" = (
@@ -38060,7 +38035,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
@@ -47981,18 +47955,7 @@
 	},
 /area/maintenance/starboard/fore)
 "nHR" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet{
-	name = "skirt closet"
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
 /turf/closed/wall/rust,
 /area/science/robotics/mechbay)
 "nHV" = (
@@ -48422,21 +48385,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "nNN" = (
-/obj/effect/turf_decal/stripes/corner,
 /obj/machinery/mechpad,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "nNO" = (
@@ -62672,15 +62627,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/supply)
-"sms" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall,
-/area/science/robotics/mechbay)
 "smx" = (
 /obj/machinery/computer/records/security{
 	dir = 1
@@ -77080,7 +77026,6 @@
 /area/maintenance/disposal)
 "wKv" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
@@ -80292,15 +80237,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/fore)
 "xEh" = (
@@ -116902,7 +116839,7 @@ vjz
 cGS
 jbV
 axg
-sms
+khs
 whw
 nNN
 oFV

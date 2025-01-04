@@ -5086,9 +5086,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
 /turf/open/floor/plating,
 /area/science/robotics/mechbay)
 "biL" = (
@@ -17121,6 +17118,8 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/light,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow,
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
 "dZe" = (
@@ -36351,15 +36350,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"lsJ" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/crowbar/large,
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "lsM" = (
 /obj/machinery/door/airlock/virology/glass{
 	name = "Monkey Pen";
@@ -39218,16 +39208,8 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -40619,15 +40601,6 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/crowbar/large,
-/obj/machinery/light,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -43120,20 +43093,6 @@
 	pixel_y = 8
 	},
 /obj/machinery/recharge_station,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/mech_bay_recharge_port{
-	dir = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
-	},
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
 "odS" = (
@@ -45350,6 +45309,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"pbs" = (
+/obj/machinery/light_switch/directional/east,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/crowbar/large,
+/turf/open/floor/iron,
+/area/science/robotics/mechbay)
 "pbP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -112236,10 +112202,10 @@ xoN
 aYV
 xpu
 jOR
+pbs
 rSo
 vOH
 hAg
-lsJ
 bfT
 boG
 bqa
