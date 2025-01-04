@@ -154,8 +154,8 @@
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
-	icon_state = "jackboots"
-	item_state = "jackboots"
+	icon_state = "sec_jackboots"
+	item_state = "sec_jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	strip_delay = 30
@@ -164,21 +164,29 @@
 	armor_type = /datum/armor/shoes_jackboots
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-
 /datum/armor/shoes_jackboots
 	bio = 90
 
-/obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
-	name = "replica jackboots"
-	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal. This pair is better fit for everyday wear rather than combat."
-	icon_state = "jackboots"
-	item_state = "jackboots"
-	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
 	slowdown = -1
+
+/obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
+	name = "replica jackboots"
+	desc = "An unarmored replica of Nanotrasen's Security combat boots. Unlike the real deal, this pair is better fit for everyday wear rather than combat."
+	icon_state = "jackboots"
+	item_state = "jackboots"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+
+/obj/item/clothing/shoes/jackboots_replica/white
+	name = "white replica jackboots"
+	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal, this pair is better fit for everyday wear rather than combat."
+	icon_state = "white_jackboots"
+	item_state = "white_jackboots"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -191,7 +199,6 @@
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
-
 
 /datum/armor/shoes_winterboots
 	bio = 80
