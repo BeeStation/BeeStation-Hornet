@@ -1279,7 +1279,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "IO" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/research_director,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "Jb" = (

@@ -40895,7 +40895,7 @@
 /turf/open/floor/wood,
 /area/maintenance/port)
 "nam" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/research_director,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
