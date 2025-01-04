@@ -15,8 +15,8 @@
 	response_disarm_simple = "push"
 	faction = list("plants")
 	speed = 1
-	maxHealth = 250
-	health = 250
+	maxHealth = 100
+	health = 100
 	mob_size = MOB_SIZE_LARGE
 
 	pixel_x = -16
