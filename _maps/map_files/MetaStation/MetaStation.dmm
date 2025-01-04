@@ -17568,14 +17568,6 @@
 "cCn" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/mechbay)
-"cCo" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics_shutters";
-	name = "robotics shutters"
-	},
-/turf/open/floor/plating,
-/area/science/robotics/mechbay)
 "cCq" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/lab)
@@ -24424,9 +24416,6 @@
 /area/medical/medbay/aft)
 "eGJ" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
@@ -26633,9 +26622,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/mech_bay_recharge_port,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /turf/open/floor/plating,
 /area/science/robotics/mechbay)
 "fwW" = (
@@ -39144,6 +39130,9 @@
 	pixel_y = 32
 	},
 /obj/item/reagent_containers/cup/beaker/large,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "jZT" = (
@@ -108544,7 +108533,7 @@ rte
 sZg
 uzR
 vBw
-cCo
+xnj
 eGJ
 jDB
 cFf

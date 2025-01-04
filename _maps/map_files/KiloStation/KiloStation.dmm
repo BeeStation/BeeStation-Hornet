@@ -21856,7 +21856,7 @@
 /area/maintenance/starboard)
 "fsh" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "1-2"
 	},
 /turf/open/floor/mech_bay_recharge_floor,
 /area/science/robotics/mechbay)
@@ -25538,6 +25538,9 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "gFZ" = (
@@ -28358,17 +28361,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
-"hwB" = (
-/obj/machinery/computer/mech_bay_power_console{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/science/robotics/mechbay)
 "hwI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -37538,11 +37530,6 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"kjY" = (
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/tcommsat/server)
 "kkg" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -38037,6 +38024,9 @@
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -48737,10 +48727,6 @@
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -28
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Mech Bay";
-	name = "science camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -77030,6 +77016,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/camera/directional/north{
+	c_tag = "Mech Bay";
+	name = "science camera"
+	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "wKB" = (
@@ -80230,14 +80220,14 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "xEb" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "mech bay maintenance";
-	req_access_txt = "29"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	name = "Mech Bay Maintenance";
+	req_access_txt = "29"
+	},
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/fore)
 "xEh" = (
@@ -112979,7 +112969,7 @@ adQ
 oDh
 eYj
 jng
-kjY
+ahh
 rDn
 xlB
 weS
@@ -116327,7 +116317,7 @@ auC
 qET
 ban
 kuk
-hwB
+aCS
 aBI
 aCS
 xQE
