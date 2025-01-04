@@ -135,7 +135,11 @@
 					/obj/item/clothing/under/dress/sailor = 1,
 					/obj/item/clothing/head/wig/random = 3,
 					/obj/item/clothing/head/costume/delinquent = 1,
-					/obj/item/clothing/ears/headphones = 2)
+					/obj/item/clothing/ears/headphones = 2,
+					/obj/item/clothing/suit/jacket/undergroundserpents = 1,
+					/obj/item/clothing/suit/jacket/lieutenant = 1,
+					/obj/item/clothing/suit/jacket/teenbiker = 1,
+					/obj/item/clothing/suit/jacket/driver = 1)
 
 	contraband = list(/obj/item/clothing/suit/costume/judgerobe = 1,
 						/obj/item/clothing/head/costume/powdered_wig = 1,
