@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	spawning_simulation = TRUE
 	active = (map_id != offline_program)
-	use_power = active + IDLE_POWER_USE
+	update_use_power(active + IDLE_POWER_USE)
 	program = map_id
 
 	//clear the items from the previous program
@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 				derez(item)
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.tick()
-	active_power_usage = 50 + spawned.len * 3 + effects.len * 5
+	update_mode_power_usage(ACTIVE_POWER_USE, 50 + spawned.len * 3 + effects.len * 5)
 
 /obj/machinery/computer/holodeck/proc/toggle_power(toggleOn = FALSE)
 	if(active == toggleOn)

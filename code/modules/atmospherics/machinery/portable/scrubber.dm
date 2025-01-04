@@ -53,7 +53,7 @@
 		return
 	if(is_operational)
 		if(prob(50 / severity))
-			on = !on
+			on = FALSE //rip on = !on
 		update_appearance()
 
 
@@ -136,7 +136,7 @@
 	if((!anchored && !movable) || !is_operational)
 		on = FALSE
 		update_icon()
-	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+	update_use_power(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	if(!on)
 		return
 
