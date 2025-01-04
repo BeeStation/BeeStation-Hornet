@@ -725,3 +725,6 @@
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
 	user.update_inv_back() //for overlays update
+
+/datum/action/item_action/activate_injector
+	name = "Activate Injector"

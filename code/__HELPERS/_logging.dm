@@ -220,6 +220,11 @@
 	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
 	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
 
+/// Logging for wizard powers learned
+/proc/log_spellbook(text)
+	WRITE_LOG(world.log, text)
+
+
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
 #ifdef USE_CUSTOM_ERROR_HANDLER
@@ -367,3 +372,4 @@
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
+
