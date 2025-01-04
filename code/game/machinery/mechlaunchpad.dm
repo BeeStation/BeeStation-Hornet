@@ -11,7 +11,7 @@
 	///Can we carry mobs or just mechs?
 	var/mech_only = FALSE
 
-/obj/machinery/mechpad/Initialize()
+/obj/machinery/mechpad/Initialize(mapload)
 	. = ..()
 	display_name = "Orbital Pad - [get_area_name(src)]"
 	GLOB.mechpad_list += src

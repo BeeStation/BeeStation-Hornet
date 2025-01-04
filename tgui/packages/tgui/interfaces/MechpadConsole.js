@@ -25,7 +25,17 @@ export const MechpadControl = (props, context) => {
         <Box color="bad" textAlign="center">
           No Launch Pad Connected.
         </Box>
-      )) || <Button fluid icon="upload" disabled={!pad_active} content={mechonly ? 'Launch (Mech Only)' : 'Launch'} color={mechonly ? 'default' : 'good'} textAlign="center" onClick={() => act('launch')} />}
+      )) || (
+        <Button
+          fluid
+          icon="upload"
+          disabled={!pad_active}
+          content={mechonly ? 'Launch (Mech Only)' : 'Launch'}
+          color={mechonly ? 'default' : 'good'}
+          textAlign="center"
+          onClick={() => act('launch')}
+        />
+      )}
     </Section>
   );
 };
