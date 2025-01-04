@@ -10,7 +10,7 @@
 	var/bg_color = "#7f7f7f"
 
 /obj/item/folder/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/folder/Initialize(mapload)
@@ -27,11 +27,11 @@
 /obj/item/folder/examine()
 	. = ..()
 	if(length(contents))
-		. += "<span class='notice'>Alt-click to remove [contents[1]].</span>"
+		. += span_notice("Alt-click to remove [contents[1]].")
 
 /obj/item/folder/proc/rename(mob/user)
 	if(!user.is_literate())
-		to_chat(user, "<span class='notice'>You scribble illegibly on the cover of [src]!</span>")
+		to_chat(user, span_notice("You scribble illegibly on the cover of [src]!"))
 		return
 
 	var/inputvalue = stripped_input(user, "What would you like to label the folder?", "Folder Labelling", null, MAX_NAME_LEN)
@@ -46,7 +46,7 @@
 	if(istype(I))
 		I.forceMove(user.loc)
 		user.put_in_hands(I)
-		to_chat(user, "<span class='notice'>You remove [I] from [src].</span>")
+		to_chat(user, span_notice("You remove [I] from [src]."))
 		update_icon()
 		ui_update()
 
@@ -69,7 +69,7 @@
 		//Add paper, photo or documents into the folder
 		if(!user.transferItemToLoc(W, src))
 			return
-		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
+		to_chat(user, span_notice("You put [W] into [src]."))
 		update_icon()
 		ui_update()
 	else if(istype(W, /obj/item/pen))

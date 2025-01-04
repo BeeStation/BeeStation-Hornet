@@ -21,7 +21,7 @@
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
 /obj/item/chair/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins hitting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src,hitsound,50,1)
 	return BRUTELOSS
 
@@ -36,13 +36,13 @@
 /obj/item/chair/proc/plant(mob/user)
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/chair))
-			to_chat(user, "<span class='danger'>There is already a chair here.</span>")
+			to_chat(user, span_danger("There is already a chair here."))
 			return
 		if(A.density && !(A.flags_1 & ON_BORDER_1))
-			to_chat(user, "<span class='danger'>There is already something here.</span>")
+			to_chat(user, span_danger("There is already something here."))
 			return
 
-	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
+	user.visible_message(span_notice("[user] rights \the [src.name]."), span_notice("You right \the [name]."))
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
 	C.set_custom_materials(custom_materials)
 	TransferComponents(C)
@@ -67,7 +67,7 @@
 	if(!proximity)
 		return
 	if(prob(break_chance))
-		user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
+		user.visible_message(span_danger("[user] smashes \the [src] to pieces against \the [target]"))
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)

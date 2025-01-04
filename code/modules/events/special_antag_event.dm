@@ -25,7 +25,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 	if (alert_observers)
-		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been triggered!</span>")
+		deadchat_broadcast(span_deadsay("<b>[name]</b> has just been triggered!"))
 	return E
 
 ////////////////////////////////

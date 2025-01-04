@@ -109,7 +109,7 @@
 				precision = max(rand(1,100)*bagholding.len,100)
 				if(isliving(teleatom))
 					var/mob/living/MM = teleatom
-					to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+					to_chat(MM, span_warning("The bluespace interface on your bag of holding interferes with the teleport!"))
 
 	// if effects are not specified and not explicitly disabled, sparks
 	if ((!effectin || !effectout) && !no_effects)
@@ -321,12 +321,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	// Checking for exile implants
 	if(!isnull(implants))
 		for(var/obj/item/implant/exile/baddie in implants)
-			visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>The portal has detected your [baddie] and not letting you through!</span>")
+			visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("The portal has detected your [baddie] and not letting you through!"))
 			return COMPONENT_BLOCK_TELEPORT
 
 	// Ashwalker check
 	if(is_species(src, /datum/species/lizard/ashwalker))
-		visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can seem to go through the portal!</span>")
+		visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can seem to go through the portal!"))
 		return COMPONENT_BLOCK_TELEPORT
 
 /mob/living/simple_animal/hostile/megafauna/intercept_teleport(channel, turf/origin, turf/destination)
@@ -335,7 +335,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
 		return
 
-	visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can't seem to pass through the portal!</span>")
+	visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can't seem to pass through the portal!"))
 	return COMPONENT_BLOCK_TELEPORT
 
 /mob/living/simple_animal/hostile/asteroid/elite/intercept_teleport(channel, turf/origin, turf/destination)
@@ -344,7 +344,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
 		return
 
-	visible_message("<span class='warning'>The portal bends inward, but [src] can't seem to pass through it!</span>", "<span class='warning'>You can't seem to pass through the portal!</span>")
+	visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can't seem to pass through the portal!"))
 	return COMPONENT_BLOCK_TELEPORT
 
 /mob/living/simple_animal/hostile/swarmer/intercept_teleport(channel, turf/origin, turf/destination)
@@ -353,7 +353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
 		return
 
-	visible_message("<span class='warning'>[src] stops just before entering the portal.</span>", "<span class='warning'>Going back the way you came would not be productive. Aborting.</span>")
+	visible_message(span_warning("[src] stops just before entering the portal."), span_warning("Going back the way you came would not be productive. Aborting."))
 	return COMPONENT_BLOCK_TELEPORT
 
 /**

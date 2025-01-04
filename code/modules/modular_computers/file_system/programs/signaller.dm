@@ -25,7 +25,7 @@
 		return
 	set_frequency(signal_frequency)
 	if(!computer?.get_modular_computer_part(MC_SIGNALLER)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\".</span>")
+		to_chat(user, span_warning("\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\"."))
 
 /datum/computer_file/program/signaller/kill_program(forced)
 	. = ..()

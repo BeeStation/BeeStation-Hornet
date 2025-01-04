@@ -7,7 +7,7 @@
 		return
 
 	if(!length(GLOB.cyborg_list))
-		to_chat(usr, "<span class='warning'>There are no borgs to show a panel for!</span>")
+		to_chat(usr, span_warning("There are no borgs to show a panel for!"))
 		return
 
 	if(isnull(borgo))
@@ -17,7 +17,7 @@
 		return
 
 	if(QDELING(borgo))
-		to_chat(usr, "<span class='warning'>Cannot open a panel for that borg, it's being/been deleted!</span>")
+		to_chat(usr, span_warning("Cannot open a panel for that borg, it's being/been deleted!"))
 		return
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)

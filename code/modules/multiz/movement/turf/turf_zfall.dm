@@ -9,7 +9,7 @@
 		if(flags & FALL_STOP_INTERCEPTING)
 			break
 	if(prev_turf && !(flags & FALL_NO_MESSAGE))
-		prev_turf.visible_message("<span class='danger'>[A] falls through [prev_turf]!</span>")
+		prev_turf.visible_message(span_danger("[A] falls through [prev_turf]!"))
 	if(flags & FALL_INTERCEPTED)
 		return FALSE
 	if(zFall(A, levels + 1, from_zfall = TRUE))
@@ -21,7 +21,7 @@
 /turf/proc/do_z_impact(atom/movable/A, levels)
 	// You can "crash into" openspace above zero gravity, but it looks weird to say that
 	if(!isopenspace(src))
-		A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
+		A.visible_message(span_danger("[A] crashes into [src]!"))
 	A.onZImpact(src, levels)
 
 /// returns if an atom is allowed to zfall through this turf, using zPassOut and zPassIn

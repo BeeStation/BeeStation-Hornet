@@ -54,7 +54,7 @@
 /obj/effect/proc_holder/spell/targeted/shapeshift/proc/Shapeshift(mob/living/caster)
 	var/obj/shapeshift_holder/H = locate() in caster
 	if(H)
-		to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
+		to_chat(caster, span_warning("You're already shapeshifted!"))
 		return
 
 	var/mob/living/shape = new shapeshift_type(caster.loc)

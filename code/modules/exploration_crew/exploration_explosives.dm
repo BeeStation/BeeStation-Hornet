@@ -30,7 +30,7 @@
 		var/obj/item/exploration_detonator/detonator = W
 		detonator.linked_explosives |= src
 		attached_detonators |= detonator
-		to_chat(user, "<span class='notice'>You link [src] to [W].</span>")
+		to_chat(user, span_notice("You link [src] to [W]."))
 		return
 	. = ..()
 
@@ -38,7 +38,7 @@
 	. = ..()
 
 	if(!length(attached_detonators))
-		to_chat(user, "<span class='notice'>[src] needs to be linked to a detonator first!</span>")
+		to_chat(user, span_notice("[src] needs to be linked to a detonator first!"))
 		return
 
 	if(!flag)
@@ -46,7 +46,7 @@
 	if(ismob(AM))
 		return
 
-	to_chat(user, "<span class='notice'>You start planting [src].</span>")
+	to_chat(user, span_notice("You start planting [src]."))
 
 	if(do_after(user, 30, target = AM))
 		if(!user.temporarilyRemoveItemFromInventory(src))
@@ -71,7 +71,7 @@
 			plastic_overlay.layer = FLOAT_LAYER
 
 		target.add_overlay(plastic_overlay)
-		to_chat(user, "<span class='notice'>You plant the bomb.</span>")
+		to_chat(user, span_notice("You plant the bomb."))
 
 /obj/item/grenade/exploration/prime(mob/living/lanced_by)
 	. = ..()
@@ -113,7 +113,7 @@
 		return
 	var/turf/T = get_turf(user)
 	if(is_station_level(T.z) && !(obj_flags & EMAGGED))
-		to_chat(user, "<span class='warning'>STATION SAFETY ENABLED.</span>")
+		to_chat(user, span_warning("STATION SAFETY ENABLED."))
 		return
 	var/explosives_trigged = 0
 	for(var/obj/item/grenade/exploration/exploration in linked_explosives)
@@ -124,8 +124,8 @@
 		if(T2.get_virtual_z_level() == T.get_virtual_z_level() && get_dist(exploration.target, user) <= range)
 			addtimer(CALLBACK(exploration, TYPE_PROC_REF(/obj/item/grenade/exploration, prime)), 10)
 			explosives_trigged ++
-	to_chat(user, "<span class='notice'>[explosives_trigged] explosives triggered.</span>")
+	to_chat(user, span_notice("[explosives_trigged] explosives triggered."))
 
 /obj/item/exploration_detonator/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class'warning'>You override the safety controls of [src]. You can now trigger explosives on the station.</span>")
+	to_chat(user, span_warning("You override the safety controls of [src]. You can now trigger explosives on the station."))

@@ -66,7 +66,7 @@
 	SIGNAL_HANDLER
 	var/mob/living/summoner = owner.summoner.current
 	summoner.add_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy/major)
-	to_chat(summoner, "<span class='notice holoparasite'>You feel much faster, as if you could outrun <i>anything!</i></span>")
+	to_chat(summoner, span_noticeholoparasite("You feel much faster, as if you could outrun <i>anything!</i>"))
 	summoner.balloon_alert(summoner, "frenzy speed boost applied", show_in_chat = FALSE)
 
 /**
@@ -76,7 +76,7 @@
 	SIGNAL_HANDLER
 	var/mob/living/summoner = owner.summoner.current
 	summoner.remove_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy)
-	to_chat(summoner, "<span class='notice holoparasite'>You feel the incredible energy within you fade away, leaving you to move at a normal speed once more...</span>")
+	to_chat(summoner, span_noticeholoparasite("You feel the incredible energy within you fade away, leaving you to move at a normal speed once more..."))
 	summoner.balloon_alert(summoner, "frenzy speed boost lost", show_in_chat = FALSE)
 
 /datum/holoparasite_ability/major/frenzy/proc/on_ranged_attack(datum/_source, mob/living/target, params)
@@ -85,7 +85,7 @@
 	if(!istype(target) || !COOLDOWN_FINISHED(src, rush_cooldown) || !owner.is_manifested())
 		return
 	if(owner.has_matching_summoner(target))
-		to_chat(owner, "<span class='danger bold'>You can't attack your summoner!</span>")
+		to_chat(owner, span_dangerbold("You can't attack your summoner!"))
 		return
 	playsound(owner, 'sound/magic/blind.ogg', vol = 60, vary = FALSE)
 	owner.forceMove(get_step(get_turf(target), get_dir(owner, target)))
@@ -94,13 +94,13 @@
 	owner.changeNext_move(CLICK_CD_RAPID)
 	if(rush_knockback)
 		target.throw_at(get_edge_target_turf(target, get_dir(owner, target)), knockback_distance, 4, owner, TRUE)
-		owner.visible_message("<span class='danger'>[owner.color_name] violently rushes and attacks <span class='name'>[target]</span>, flinging them backwards!</span>", "<span class='warning'>We violently rush and attack <span class='name'>[target]</span>, flinging them backwards!</span>", ignored_mobs = list(target))
-		to_chat(target, "<span class='userdanger'>[owner.color_name] suddenly rushes you violently, delivering a powerful attack that sends you flying back!</span>")
+		owner.visible_message(span_danger("[owner.color_name] violently rushes and attacks [span_name("[target]")], flinging them backwards!"), span_warning("We violently rush and attack [span_name("[target]")], flinging them backwards!"), ignored_mobs = list(target))
+		to_chat(target, span_userdanger("[owner.color_name] suddenly rushes you violently, delivering a powerful attack that sends you flying back!"))
 		target.log_message("was flung [knockback_distance] tiles by a frenzy rush from [key_name(owner)]", LOG_ATTACK)
 		owner.log_message("flung [key_name(target)] [knockback_distance] tiles with a frenzy rush", LOG_ATTACK, log_globally = FALSE)
 	else
-		owner.visible_message("<span class='danger'>[owner.color_name] violently rushes and attacks <span class='name'>[target]</span>!</span>", "<span class='warning'>We violently rush and attack <span class='name'>[target]</span>!</span>", ignored_mobs = list(target))
-		to_chat(target, "<span class='userdanger'>[owner.color_name] suddenly rushes you violently, delivering a powerful attack!</span>")
+		owner.visible_message(span_danger("[owner.color_name] violently rushes and attacks [span_name("[target]")]!"), span_warning("We violently rush and attack [span_name("[target]")]!"), ignored_mobs = list(target))
+		to_chat(target, span_userdanger("[owner.color_name] suddenly rushes you violently, delivering a powerful attack!"))
 		target.log_message("was attacked with a frenzy rush from [key_name(owner)]", LOG_ATTACK)
 		owner.log_message("hit [key_name(target)] with a frenzy rush", LOG_ATTACK, log_globally = FALSE)
 	SSblackbox.record_feedback("amount", "holoparasite_frenzy_rushes", 1)

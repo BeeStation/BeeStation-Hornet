@@ -154,31 +154,31 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	if(QDELETED(summoner?.current))
 		message_admins("BUG: [ADMIN_LOOKUPFLW(src)], a holoparasite, somehow either has no summoner, or is in their body while their summoner is dead. This is <b>very bad</b>, and unless you caused this by screwing around with holoparasites using admin tools, is most definitely a bug, in which case <a href='byond://winset?command=report-issue'><i>please</i> report this ASAP!!</a>")
 		log_runtime("BUG: [key_name(src)], a holoparasite, somehow either has no summoner, or is in their body while their summoner is dead. This is very bad and is most definitely a bug!!")
-		to_chat(src, "<span class='userdanger'>For some reason, somehow, you have no summoner. <a href='byond://winset?command=report-issue'>Please report this bug immediately</a>, because this should <i>never</i> be possible! (outside of admins screwing with stuff they don't fully understand)</span>")
+		to_chat(src, span_userdanger("For some reason, somehow, you have no summoner. <a href='byond://winset?command=report-issue'>Please report this bug immediately</a>, because this should <i>never</i> be possible! (outside of admins screwing with stuff they don't fully understand)"))
 		ghostize(FALSE)
 		return
 	var/list/info_block = list()
-	info_block += "<span class='big holoparasite'>You can use :[MODE_KEY_HOLOPARASITE] or .[MODE_KEY_HOLOPARASITE] to privately communicate with your summoner!</span>"
-	info_block += "<span class='holoparasite'>You are [color_name], bound to serve <span class='name'>[summoner.name]</span>.</span>"
-	info_block += "<span class='holoparasite'>You are capable of manifesting or recalling to your summoner with the buttons on your HUD. You will also find a button to communicate with [summoner.current.p_them()] privately there.</span>"
-	info_block += "<span class='holoparasite'>While personally invincible, you will die if <span class='name'>[summoner.name]</span> does, and any damage dealt to you will have a portion passed on to [summoner.current.p_them()] as you feed upon [summoner.current.p_them()] to sustain yourself.</span>"
-	info_block += "<span class='holoparasite bold'>Click the INFO button on your HUD in order to learn more about your stats, abilities, and your summoner.</span>"
+	info_block += span_bigholoparasite("You can use :[MODE_KEY_HOLOPARASITE] or .[MODE_KEY_HOLOPARASITE] to privately communicate with your summoner!")
+	info_block += span_holoparasite("You are [color_name], bound to serve [span_name("[summoner.name]")].")
+	info_block += span_holoparasite("You are capable of manifesting or recalling to your summoner with the buttons on your HUD. You will also find a button to communicate with [summoner.current.p_them()] privately there.")
+	info_block += span_holoparasite("While personally invincible, you will die if [span_name("[summoner.name]")] does, and any damage dealt to you will have a portion passed on to [summoner.current.p_them()] as you feed upon [summoner.current.p_them()] to sustain yourself.")
+	info_block += span_holoparasitebold("Click the INFO button on your HUD in order to learn more about your stats, abilities, and your summoner.")
 	setup_barriers()
 	first_time_show_popup?.ui_interact(src)
 	var/list/stat_popups = list()
 	if(stats.ability)
 		var/ability_info = stats.ability.notify_user()
 		if(length(ability_info))
-			stat_popups += "<span class='holoparasite big'>Ability: <b>[stats.ability.name]</b></span>\n[ability_info]"
+			stat_popups += "[span_holoparasitebig("Ability: <b>[stats.ability.name]</b>")]\n[ability_info]"
 	for(var/datum/holoparasite_ability/lesser/lability as() in stats.lesser_abilities)
 		var/ability_info = lability.notify_user()
 		if(length(ability_info))
-			stat_popups += "<span class='holoparasite big'>Lesser Ability: <b>[lability.name]</b></span>\n[ability_info]"
+			stat_popups += "[span_holoparasitebig("Lesser Ability: <b>[lability.name]</b>")]\n[ability_info]"
 	var/weapon_info = stats.weapon.notify_user()
 	if(length(weapon_info))
-		stat_popups += "<span class='holoparasite big'>Weapon: <b>[stats.weapon.name]</b></span>\n[weapon_info]"
+		stat_popups += "[span_holoparasitebig("Weapon: <b>[stats.weapon.name]</b>")]\n[weapon_info]"
 	if(length(stat_popups))
-		info_block += list("<span class='info'>================</span>", "<span class='big bold info'>\[ABILITY NOTES\]</span>", "[stat_popups.Join("\n<span class='info'>====</span>\n")]")
+		info_block += list(span_info("================"), span_bigboldinfo("\[ABILITY NOTES\]"), "[stat_popups.Join("\n[span_info("====")]\n")]")
 	to_chat(src, EXAMINE_BLOCK(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
 
 /mob/living/simple_animal/hostile/holoparasite/Life()
@@ -208,7 +208,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 
 /mob/living/simple_animal/hostile/holoparasite/suicide()
 	set hidden = TRUE
-	to_chat(src, "<span class='warning'>You cannot commit suicide! Reset yourself (or contact an admin) if you wish to stop being a holoparasite!</span>")
+	to_chat(src, span_warning("You cannot commit suicide! Reset yourself (or contact an admin) if you wish to stop being a holoparasite!"))
 
 /mob/living/simple_animal/hostile/holoparasite/set_resting(rest, silent = TRUE)
 	return FALSE
@@ -217,25 +217,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	if(SEND_SIGNAL(src, COMSIG_HOLOPARA_CAN_FIRE_GUN, gun) & HOLOPARA_CAN_FIRE_GUN)
 		return TRUE
 	balloon_alert(src, "cannot fire [gun]", show_in_chat = FALSE)
-	to_chat(src, "<span class='warning'>You can't fire \the [gun]!</span>")
+	to_chat(src, span_warning("You can't fire \the [gun]!"))
 	return FALSE // No... just... no.
 
 /mob/living/simple_animal/hostile/holoparasite/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
 	var/datum/antagonist/traitor/summoner_traitor = summoner?.has_antag_datum(/datum/antagonist/traitor)
 	if(summoner_traitor?.has_codewords)
-		raw_message = GLOB.syndicate_code_phrase_regex.Replace(raw_message, "<span class='blue'>$1</span>")
-		raw_message = GLOB.syndicate_code_response_regex.Replace(raw_message, "<span class='red'>$1</span>")
+		raw_message = GLOB.syndicate_code_phrase_regex.Replace(raw_message, span_blue("$1"))
+		raw_message = GLOB.syndicate_code_response_regex.Replace(raw_message, span_red("$1"))
 	return ..()
 
 /mob/living/simple_animal/hostile/holoparasite/examine(mob/user)
 	. = ..()
 	if(isobserver(user) || has_matching_summoner(user))
 		if(!stats.weapon.hidden)
-			. += "<span class='holoparasite'><b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", LOWER_TEXT(theme.name))]</span>"
+			. += span_holoparasite("<b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", LOWER_TEXT(theme.name))]")
 		if(stats.ability)
-			. += "<span class='holoparasite'><b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", LOWER_TEXT(theme.name))]</span>"
+			. += span_holoparasite("<b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", LOWER_TEXT(theme.name))]")
 		for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
-			. += "<span class='holoparasite'><b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", LOWER_TEXT(theme.name))]</span>"
+			. += span_holoparasite("<b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", LOWER_TEXT(theme.name))]")
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 
 /mob/living/simple_animal/hostile/holoparasite/get_idcard(hand_first = TRUE)
@@ -266,7 +266,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	. = ..()
 	if(a_intent != INTENT_HELP && is_manifested() && isobj(target) && Adjacent(target))
 		if(target.ui_interact(src) != FALSE) // unimplemented ui_interact returns FALSE, while implemented typically just returns... nothing.
-			to_chat(src, "<span class='notice'>You take a closer look at [costly_icon2html(target, src)] [target]...</span>")
+			to_chat(src, span_notice("You take a closer look at [costly_icon2html(target, src)] [target]..."))
 			return
 
 /mob/living/simple_animal/hostile/holoparasite/shared_ui_interaction(host)
@@ -284,17 +284,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		if(light_range != initial(light_range) || light_power != initial(light_power))
 			set_light_range(initial(light_range))
 			set_light_power(initial(light_power))
-			to_chat(src, "<span class='notice'>You activate your light.</span>")
+			to_chat(src, span_notice("You activate your light."))
 			balloon_alert(src, "light activated", show_in_chat = FALSE)
 		else
 			set_light_range(0)
 			set_light_power(0.1)
-			to_chat(src, "<span class='notice'>You deactivate your light.</span>")
+			to_chat(src, span_notice("You deactivate your light."))
 			balloon_alert(src, "light deactivated", show_in_chat = FALSE)
 	else
 		set_light_on(!light_on)
 		var/prefix = light_on ? "" : "de"
-		to_chat(src, "<span class='notice'>You [prefix]activate your light.</span>")
+		to_chat(src, span_notice("You [prefix]activate your light."))
 		balloon_alert(src, "light [prefix]activated", show_in_chat = FALSE)
 
 /**

@@ -29,27 +29,27 @@
 	SIGNAL_HANDLER
 	if(!user.research_scanner)
 		return
-	to_chat(user, "<span class='notice'>Scientific data detected.</span>")
-	to_chat(user, "<span class='notice'>Scanned: [scanned ? "True" : "False"].</span>")
-	to_chat(user, "<span class='notice'>Discovery Value: [point_reward].</span>")
+	to_chat(user, span_notice("Scientific data detected."))
+	to_chat(user, span_notice("Scanned: [scanned ? "True" : "False"]."))
+	to_chat(user, span_notice("Discovery Value: [point_reward]."))
 
 /datum/component/discoverable/proc/discovery_scan(datum/techweb/linked_techweb, mob/user)
 	//Already scanned our atom.
 	var/atom/A = parent
 	if(scanned)
-		to_chat(user, "<span class='warning'>[A] has already been analysed.</span>")
+		to_chat(user, span_warning("[A] has already been analysed."))
 		return
 	//Already scanned another of this type.
 	var/discover_id = get_discover_id?.Invoke() || A.type
 	if(linked_techweb.scanned_atoms[discover_id] && !unique)
-		to_chat(user, "<span class='warning'>Datapoints about [A] already in system.</span>")
+		to_chat(user, span_warning("Datapoints about [A] already in system."))
 		return
 	if(A.flags_1 & HOLOGRAM_1)
-		to_chat(user, "<span class='warning'>[A] is holographic, no datapoints can be extracted.</span>")
+		to_chat(user, span_warning("[A] is holographic, no datapoints can be extracted."))
 		return
 	scanned = TRUE
 	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
 	linked_techweb.scanned_atoms[discover_id] = TRUE
 	playsound(user, 'sound/machines/terminal_success.ogg', 60)
-	to_chat(user, "<span class='notice'>New datapoint scanned, [point_reward] discovery points gained.</span>")
+	to_chat(user, span_notice("New datapoint scanned, [point_reward] discovery points gained."))
 	pulse_effect(get_turf(A), 4)

@@ -95,7 +95,7 @@
 
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You loaded [num_loaded] shell\s into \the [src]!</span>")
+			to_chat(user, span_notice("You loaded [num_loaded] shell\s into \the [src]!"))
 			if(istype(A, /obj/item/ammo_casing))
 				playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
 		A.update_icon()
@@ -109,7 +109,7 @@
 		if(!user.is_holding(src) || !user.put_in_hands(A))	//incase they're using TK
 			A.bounce_away(FALSE, NONE)
 		playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
-		to_chat(user, "<span class='notice'>You remove a round from [src]!</span>")
+		to_chat(user, span_notice("You remove a round from [src]!"))
 		update_icon()
 
 /obj/item/ammo_box/update_icon()
@@ -161,7 +161,7 @@
 /obj/item/ammo_box/pouch/attack_self(mob/user)
 	//If it's out of ammo, use it in hand to return the sheet of paper and 'destroy' the ammo box
 	if(!stored_ammo.len)
-		to_chat(user, "<span class='notice'>You flatten the empty [src]!</span>")
+		to_chat(user, span_notice("You flatten the empty [src]!"))
 		var/obj/item/paper/unfolded = new /obj/item/paper
 		unfolded.forceMove(loc)
 		qdel(src)

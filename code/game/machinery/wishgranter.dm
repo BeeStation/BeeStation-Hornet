@@ -105,10 +105,10 @@
 
 	var/mob/living/carbon/C = usr
 	if(!C.stat)
-		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
+		to_chat(C, span_notice("You're not dead yet!"))
 		return
 	if(C.has_status_effect(STATUS_EFFECT_WISH_GRANTERS_GIFT))
-		to_chat(C, "<span class='warning'>You're already resurrecting!</span>")
+		to_chat(C, span_warning("You're already resurrecting!"))
 		return
 	C.apply_status_effect(STATUS_EFFECT_WISH_GRANTERS_GIFT)
 	return 1

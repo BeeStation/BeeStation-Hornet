@@ -193,7 +193,7 @@
 		AI.camera_visibility(AI.eyeobj)
 		AI.clear_fullscreen("flash", 5)
 	else
-		to_chat(AI, "<span class='warning'>There is nothing in that direction!</span>")
+		to_chat(AI, span_warning("There is nothing in that direction!"))
 
 /atom/movable/screen/ai/move_z/down
 	name = "View Below"

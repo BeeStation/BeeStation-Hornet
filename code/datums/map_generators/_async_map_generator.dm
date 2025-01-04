@@ -37,4 +37,4 @@
 		on_completion.Invoke(arglist(arguments))
 	for (var/datum/callback/on_completion as() in late_completion_callbacks)
 		on_completion.Invoke(arglist(arguments))
-	//to_chat(world, "<span class='announce'>[get_name()] completed and loaded successfully.</span>")
+	//to_chat(world, span_announce("[get_name()] completed and loaded successfully."))

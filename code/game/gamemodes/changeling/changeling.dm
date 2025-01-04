@@ -13,9 +13,9 @@
 	reroll_friendly = 1
 
 	announce_span = "green"
-	announce_text = "Alien changelings have infiltrated the crew!\n\
-	<span class='green'>Changelings</span>: Accomplish the objectives assigned to you.\n\
-	<span class='notice'>Crew</span>: Root out and eliminate the changeling menace."
+	announce_text = "Alien changelings have infiltrated the crew!\n \
+	" + span_green("Changelings") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Root out and eliminate the changeling menace!"
 
 	title_icon = "changeling"
 

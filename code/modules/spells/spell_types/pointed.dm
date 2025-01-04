@@ -14,15 +14,15 @@
 		return
 	var/msg
 	if(!can_cast(user))
-		msg = "<span class='warning'>You can no longer cast [name]!</span>"
+		msg = span_warning("You can no longer cast [name]!")
 		remove_ranged_ability(msg)
 		return
 	if(active)
-		msg = "<span class='notice'>[deactive_msg]</span>"
+		msg = span_notice("[deactive_msg]")
 		remove_ranged_ability(msg)
 		on_deactivation(user)
 	else
-		msg = "<span class='notice'>[active_msg] <B>Left-click to activate spell on a target!</B></span>"
+		msg = span_notice("[active_msg] <B>Left-click to activate spell on a target!</B>")
 		add_ranged_ability(user, msg, TRUE)
 		on_activation(user)
 

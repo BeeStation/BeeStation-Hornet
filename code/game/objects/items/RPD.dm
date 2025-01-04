@@ -324,15 +324,15 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
   */
 /obj/item/pipe_dispenser/proc/install_upgrade(obj/item/rpd_upgrade/rpd_up, mob/user)
 	if(rpd_up.upgrade_flags& upgrade_flags)
-		to_chat(user, "<span class='warning'>[src] has already installed this upgrade!</span>")
+		to_chat(user, span_warning("[src] has already installed this upgrade!"))
 		return
 	upgrade_flags |= rpd_up.upgrade_flags
-	to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
+	to_chat(user, span_notice("You install this upgrade into [src]."))
 	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(rpd_up)
 
 /obj/item/pipe_dispenser/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide...</span>")
+	user.visible_message(span_suicide("[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide..."))
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, 1)
 	playsound(get_turf(user), 'sound/items/deconstruct.ogg', 50, 1)
 	return BRUTELOSS
@@ -479,7 +479,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	. = TRUE
 
 	if((mode & DESTROY_MODE) && is_type_in_typecache(A, rpd_targets))
-		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
+		to_chat(user, span_notice("You start destroying a pipe..."))
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, destroy_speed, target = attack_target))
 			activate()
@@ -489,19 +489,19 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	if(mode & PAINT_MODE)
 		var/obj/machinery/atmospherics/M = attack_target
 		if(istype(M) && M.paintable)
-			to_chat(user, "<span class='notice'>You start painting \the [M] [paint_color]...</span>")
+			to_chat(user, span_notice("You start painting \the [M] [paint_color]..."))
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, paint_speed, target = M))
 				M.paint(GLOB.pipe_paint_colors[paint_color]) //paint the pipe
-				user.visible_message("<span class='notice'>[user] paints \the [M] [paint_color].</span>","<span class='notice'>You paint \the [M] [paint_color].</span>")
+				user.visible_message(span_notice("[user] paints \the [M] [paint_color]."),span_notice("You paint \the [M] [paint_color]."))
 			return
 		var/obj/item/pipe/P = attack_target
 		if(istype(P) && P.paintable)
-			to_chat(user, "<span class='notice'>You start painting \the [P] [paint_color]...</span>")
+			to_chat(user, span_notice("You start painting \the [P] [paint_color]..."))
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, paint_speed, target = P))
 				P.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY) //paint the pipe
-				user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
+				user.visible_message(span_notice("[user] paints \the [P] [paint_color]."),span_notice("You paint \the [P] [paint_color]."))
 			return
 
 	if(mode & BUILD_MODE)
@@ -511,7 +511,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if (recipe.type == /datum/pipe_info/meter)
-					to_chat(user, "<span class='notice'>You start building a meter...</span>")
+					to_chat(user, span_notice("You start building a meter..."))
 					if(do_after(user, atmos_build_speed, target = attack_target))
 						activate()
 						var/obj/item/pipe_meter/PM = new /obj/item/pipe_meter(get_turf(attack_target))
@@ -520,12 +520,12 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 							PM.wrench_act(user, src)
 				else
 					if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5))
-						to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
+						to_chat(user, span_notice("You can't build this object on the layer..."))
 						return
-					to_chat(user, "<span class='notice'>You start building a pipe...</span>")
+					to_chat(user, span_notice("You start building a pipe..."))
 					if(do_after(user, atmos_build_speed, target = attack_target))
 						if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5)) // double check to stop cheaters (and to not waste time waiting for something that can't be placed)
-							to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
+							to_chat(user, span_notice("You can't build this object on the layer..."))
 							return
 						activate()
 						var/obj/machinery/atmospherics/path = queued_p_type
@@ -549,15 +549,15 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
-					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
+					to_chat(user, span_warning("[src]'s error light flickers; there's something in the way!"))
 					return
-				to_chat(user, "<span class='notice'>You start building a disposals pipe...</span>")
+				to_chat(user, span_notice("You start building a disposals pipe..."))
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if(do_after(user, disposal_build_speed, target = attack_target))
 					var/obj/structure/disposalconstruct/C = new (attack_target, queued_p_type, queued_p_dir, queued_p_flipped)
 
 					if(!C.can_place())
-						to_chat(user, "<span class='warning'>There's not enough room to build that here!</span>")
+						to_chat(user, span_warning("There's not enough room to build that here!"))
 						qdel(C)
 						return
 
@@ -574,9 +574,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
-					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
+					to_chat(user, span_warning("[src]'s error light flickers; there's something in the way!"))
 					return
-				to_chat(user, "<span class='notice'>You start building a transit tube...</span>")
+				to_chat(user, span_notice("You start building a transit tube..."))
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if(do_after(user, transit_build_speed, target = attack_target))
 					activate()
@@ -604,9 +604,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
-					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
+					to_chat(user, span_warning("[src]'s error light flickers; there's something in the way!"))
 					return
-				to_chat(user, "<span class='notice'>You start building a fluid duct...</span>")
+				to_chat(user, span_notice("You start building a fluid duct..."))
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if(do_after(user, plumbing_build_speed, target = A))
 					var/obj/machinery/duct/D
@@ -644,7 +644,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		return
 	SStgui.update_uis(src)
 
-	to_chat(source, "<span class='notice'>You set the layer to [piping_layer].</span>")
+	to_chat(source, span_notice("You set the layer to [piping_layer]."))
 
 /obj/item/pipe_dispenser/plumbing
 	name = "Plumberinator"
@@ -664,7 +664,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	recipe = first_plumbing
 
 /obj/item/pipe_dispenser/plumbing/install_upgrade(obj/item/rpd_upgrade/rpd_up, mob/user)
-	to_chat(user, "<span class='warning'>You fail to install this upgrade into [src]!</span>")
+	to_chat(user, span_warning("You fail to install this upgrade into [src]!"))
 
 #undef ATMOS_CATEGORY
 #undef DISPOSALS_CATEGORY

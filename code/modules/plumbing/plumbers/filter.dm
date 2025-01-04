@@ -59,7 +59,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/filter)
 							right += chem_id
 							. = TRUE
 			else
-				to_chat(usr, "<span class='warning'>No such known reagent exists!</span>")
+				to_chat(usr, span_warning("No such known reagent exists!"))
 
 		if("remove")
 			var/chem_name = params["reagent"]

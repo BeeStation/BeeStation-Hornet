@@ -93,32 +93,32 @@
 	if(other)
 		if(close_other) //increase the odds
 			for(var/i in 1 to 5)
-				message_pool.Add("<span class='warning'>You feel a tiny prick!</span>")
+				message_pool.Add(span_warning("You feel a tiny prick!"))
 		var/obj/item/storage/equipped_backpack = other.get_item_by_slot(ITEM_SLOT_BACK)
 		if(istype(equipped_backpack))
 			for(var/i in 1 to 5) //increase the odds
-				message_pool.Add("<span class='notice'>[other] puts the [pick(\
+				message_pool.Add(span_notice("[other] puts the [pick(\
 					"revolver","energy sword","cryptographic sequencer","power sink","energy bow",\
 					"hybrid taser","stun baton","flash","syringe gun","circular saw","tank transfer valve",\
 					"ritual dagger","clockwork slab","spellbook",\
 					"pulse rifle","captain's spare ID","hand teleporter","hypospray","antique laser gun","X-01 MultiPhase Energy Gun","station's blueprints"\
-					)] into [equipped_backpack].</span>")
+					)] into [equipped_backpack]."))
 
 		message_pool.Add("<B>[other]</B> [pick("sneezes","coughs")].")
 
-	message_pool.Add("<span class='notice'>You hear something squeezing through the ducts...</span>", \
-		"<span class='notice'>Your [pick("arm", "leg", "back", "head")] itches.</span>",\
-		"<span class='warning'>You feel [pick("hot","cold","dry","wet","woozy","faint")].</span>",
-		"<span class='warning'>Your stomach rumbles.</span>",
-		"<span class='warning'>Your head hurts.</span>",
-		"<span class='warning'>You hear a faint buzz in your head.</span>",
+	message_pool.Add(span_notice("You hear something squeezing through the ducts..."), \
+		span_notice("Your [pick("arm", "leg", "back", "head")] itches."),\
+		span_warning("You feel [pick("hot","cold","dry","wet","woozy","faint")]."),
+		span_warning("Your stomach rumbles."),
+		span_warning("Your head hurts."),
+		span_warning("You hear a faint buzz in your head."),
 		"<B>[target]</B> sneezes.")
 	if(prob(10))
-		message_pool.Add("<span class='warning'>Behind you.</span>",\
-			"<span class='warning'>You hear a faint laughter.</span>",
-			"<span class='warning'>You see something move.</span>",
-			"<span class='warning'>You hear skittering on the ceiling.</span>",
-			"<span class='warning'>You see an inhumanly tall silhouette moving in the distance.</span>")
+		message_pool.Add(span_warning("Behind you."),\
+			span_warning("You hear a faint laughter."),
+			span_warning("You see something move."),
+			span_warning("You hear skittering on the ceiling."),
+			span_warning("You see an inhumanly tall silhouette moving in the distance."))
 	if(prob(10))
 		message_pool.Add("[pick_list_replacements(HAL_LINES_FILE, "advice")]")
 	var/chosen = pick(message_pool)
@@ -184,6 +184,6 @@
 			)
 		if("supermatter")
 			SEND_SOUND(target, 'sound/magic/charge.ogg')
-			to_chat(target, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+			to_chat(target, span_boldannounce("You feel reality distort for a moment..."))
 
 #undef HAL_LINES_FILE

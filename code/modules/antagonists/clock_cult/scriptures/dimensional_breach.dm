@@ -21,13 +21,13 @@
 		return FALSE
 	var/turf/location = get_turf(invoker)
 	if(!is_reebe(location.z))
-		to_chat(invoker, "<span class='brass'>You need to be near the gateway to channel its energy!</span>")
+		to_chat(invoker, span_brass("You need to be near the gateway to channel its energy!"))
 		return FALSE
 	return TRUE
 
 /datum/clockcult/scripture/ark_activation/invoke_success()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
 	if(!gateway)
-		to_chat(invoker, "<span class='brass'>No celestial gateway located, contact the admins.</span>")
+		to_chat(invoker, span_brass("No celestial gateway located, contact the admins."))
 		return FALSE
 	gateway.open_gateway()

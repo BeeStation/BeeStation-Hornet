@@ -33,7 +33,7 @@
 	if(!to_be_colored)
 		return
 	if(!is_type_in_list(to_be_colored, allowed_targets) || is_type_in_list(to_be_colored, forbidden_targets))
-		to_chat(user, "<span class='warning'>This colorizer is not compatible with that!</span>")
+		to_chat(user, span_warning("This colorizer is not compatible with that!"))
 		return
 
 	if(apply_icon)
@@ -50,7 +50,7 @@
 		if(apply_lefthand_file)
 			target_item.righthand_file = apply_lefthand_file
 
-	to_chat(user, "<span class='notice'>Color applied!</span>")
+	to_chat(user, span_notice("Color applied!"))
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 	uses_left --
 	if(!uses_left)

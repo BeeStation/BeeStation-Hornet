@@ -64,7 +64,7 @@
 
 /obj/item/assembly/proc/is_secured(mob/user)
 	if(!secured)
-		to_chat(user, "<span class='warning'>The [name] is unsecured!</span>")
+		to_chat(user, span_warning("The [name] is unsecured!"))
 		return FALSE
 	return TRUE
 
@@ -122,7 +122,7 @@
 
 		holder = new /obj/item/assembly_holder(get_turf(src))
 		holder.assemble(src, new_assembly, user)
-		to_chat(user, "<span class='notice'>You attach and secure \the [new_assembly] to \the [src]!</span>")
+		to_chat(user, span_notice("You attach and secure \the [new_assembly] to \the [src]!"))
 		return
 
 	if(istype(W, /obj/item/assembly_holder))
@@ -136,15 +136,15 @@
 	if(..())
 		return TRUE
 	if(toggle_secure())
-		to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
+		to_chat(user, span_notice("\The [src] is ready!"))
 	else
-		to_chat(user, "<span class='notice'>\The [src] can now be attached!</span>")
+		to_chat(user, span_notice("\The [src] can now be attached!"))
 	add_fingerprint(user)
 	return TRUE
 
 /obj/item/assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>\The [src] [secured? "is secured and ready to be used!" : "can be attached to other things."]</span>"
+	. += span_notice("\The [src] [secured? "is secured and ready to be used!" : "can be attached to other things."]")
 
 /obj/item/assembly/ui_host(mob/user)
 	// In order, return:

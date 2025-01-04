@@ -12,10 +12,10 @@
 	if(!has_active_hand()) //can't attack without a hand.
 		var/obj/item/bodypart/check_arm = get_active_hand()
 		if(check_arm?.bodypart_disabled)
-			to_chat(src, "<span class='warning'>Your [check_arm.name] is in no condition to be used.</span>")
+			to_chat(src, span_warning("Your [check_arm.name] is in no condition to be used."))
 			return
 
-		to_chat(src, "<span class='notice'>You look at your arm and sigh.</span>")
+		to_chat(src, span_notice("You look at your arm and sigh."))
 		return
 
 	// Special glove functions:
@@ -58,7 +58,7 @@
 	if(!user.can_interact_with(src, interaction_flags_atom & INTERACT_ATOM_ALLOW_USER_LOCATION))
 		return FALSE
 	if((interaction_flags_atom & INTERACT_ATOM_REQUIRES_DEXTERITY) && !user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return FALSE
 	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
@@ -147,14 +147,14 @@
 			affecting = human_victim.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		var/armor = victim.run_armor_check(affecting, MELEE)
 		if(prob(25))
-			victim.visible_message("<span class='danger'>[src]'s bite misses [victim]!</span>",
-				"<span class='danger'>You avoid [src]'s bite!</span>", "<span class='hear'>You hear jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, src)
-			to_chat(src, "<span class='danger'>Your bite misses [victim]!</span>")
+			victim.visible_message(span_danger("[src]'s bite misses [victim]!"),
+				span_danger("You avoid [src]'s bite!"), span_hear("You hear jaws snapping shut!"), COMBAT_MESSAGE_RANGE, src)
+			to_chat(src, span_danger("Your bite misses [victim]!"))
 			return
 		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
-		victim.visible_message("<span class='danger'>[name] bites [victim]!</span>",
-			"<span class='userdanger'>[name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, name)
-		to_chat(name, "<span class='danger'>You bite [victim]!</span>")
+		victim.visible_message(span_danger("[name] bites [victim]!"),
+			span_userdanger("[name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, name)
+		to_chat(name, span_danger("You bite [victim]!"))
 		if(armor >= 2)
 			return
 		for(var/d in diseases)

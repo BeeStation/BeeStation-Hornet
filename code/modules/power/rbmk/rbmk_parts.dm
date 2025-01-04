@@ -92,7 +92,7 @@
 					reactor_core.linked_interface = src
 					reactor_core.ui_update()
 					reactor = reactor_core
-					to_chat(user, "<span class='notice'>You upload the link to the [src].</span>")
+					to_chat(user, span_notice("You upload the link to the [src]."))
 
 
 /obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)

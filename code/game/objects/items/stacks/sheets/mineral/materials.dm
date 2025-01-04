@@ -87,7 +87,7 @@ Mineral Sheets
 	walltype = /turf/closed/wall/mineral/plasma
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
 /obj/item/stack/sheet/mineral/plasma/get_recipes()

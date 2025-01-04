@@ -44,12 +44,12 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	set name = "Adminhelp"
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	//handle muting and automuting
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<span class='danger'>Error: Admin-PM: You cannot send adminhelps (Muted).</span>")
+		to_chat(src, span_danger("Error: Admin-PM: You cannot send adminhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
@@ -67,7 +67,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 				current_adminhelp_ticket.TimeoutVerb()
 				return
 			else
-				to_chat(usr, "<span class='warning'>Ticket not found, creating new one...</span>")
+				to_chat(usr, span_warning("Ticket not found, creating new one..."))
 		else
 			current_adminhelp_ticket.AddInteraction("yellow", "[usr] opened a new ticket.")
 			current_adminhelp_ticket.Close()
@@ -147,7 +147,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [msg]")
 		log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
 		if(admin_number_present <= 0)
-			to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>", type = message_type)
+			to_chat(initiator, span_notice("No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord."), type = message_type)
 			heard_by_no_admins = TRUE
 
 	bwoink = is_bwoink
@@ -163,7 +163,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [initial_msg]")
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
 	if(admin_number_present <= 0)
-		to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>")
+		to_chat(initiator, span_notice("No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord."))
 		heard_by_no_admins = TRUE
 	sendadminhelp2ext("**ADMINHELP: (#[id]) [initiator.key]: ** \"[initial_msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
 	return TRUE
@@ -198,7 +198,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(sanitized_msg)]</span></span>"
+	var/admin_msg = span_adminnotice("[span_adminhelp("Ticket [TicketHref("#[id]", ref_src)]")]<b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> [span_linkify("[keywords_lookup(sanitized_msg)]")]")
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
@@ -217,7 +217,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(add_to_ticket)
 		to_chat(initiator,
 			type = message_type,
-			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[sanitized_msg]</span></span>")
+			html = span_adminnotice("PM to-<b>Admins</b>: [span_linkify("[sanitized_msg]")]"))
 
 
 /datum/help_ticket/admin/proc/FullMonty(ref_src)
@@ -293,7 +293,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
 	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_MHELP)
-		message_admins(src, "<span class='danger'>Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted.</span>")
+		message_admins(src, span_danger("Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted."))
 		return
 	message_admins(msg)
 	log_admin_private(msg)

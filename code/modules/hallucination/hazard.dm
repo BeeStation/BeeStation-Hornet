@@ -101,9 +101,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/chasm)
 	if(AM == target)
 		if(istype(target, /obj/effect/dummy/phased_mob))
 			return
-		to_chat(target, "<span class='userdanger'>You fall into the chasm!</span>")
+		to_chat(target, span_userdanger("You fall into the chasm!"))
 		target.Paralyze(40)
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), target, "<span class='notice'>It's surprisingly shallow.</span>"), 15)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), target, span_notice("It's surprisingly shallow.")), 15)
 		QDEL_IN(src, 30)
 
 /obj/effect/hallucination/danger/anomaly
@@ -151,7 +151,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
 	update_icon(ALL, "alienh_pounce")
 	if(hit_atom == target && target.stat!=DEAD)
 		target.Paralyze(100)
-		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
+		target.visible_message(span_danger("[target] flails around wildly."),span_userdanger("[name] pounces on you!"))
 
 // The numbers of seconds it takes to get to each stage of the xeno attack choreography
 #define XENO_ATTACK_STAGE_LEAP_AT_TARGET 1
@@ -186,10 +186,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
 	if (time_processing >= stage)
 		switch (time_processing)
 			if (XENO_ATTACK_STAGE_FINISH to INFINITY)
-				to_chat(target, "<span class='notice'>[xeno.name] scrambles into the ventilation ducts!</span>")
+				to_chat(target, span_notice("[xeno.name] scrambles into the ventilation ducts!"))
 				qdel(src)
 			if (XENO_ATTACK_STAGE_CLIMB to XENO_ATTACK_STAGE_FINISH)
-				to_chat(target, "<span class='notice'>[xeno.name] begins climbing into the ventilation system...</span>")
+				to_chat(target, span_notice("[xeno.name] begins climbing into the ventilation system..."))
 				stage = XENO_ATTACK_STAGE_FINISH
 			if (XENO_ATTACK_STAGE_LEAP_AT_PUMP to XENO_ATTACK_STAGE_CLIMB)
 				xeno.update_icon(ALL, "alienh_leap", 'icons/mob/alienleap.dmi', -32, -32)
@@ -286,7 +286,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/clown)
 			target.adjustStaminaLoss(40)
 			step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
-			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>","<span class='userdanger'>[bubblegum] slams into you!</span>")
+			target.visible_message(span_warning("[target] jumps backwards, falling on the ground!"),span_userdanger("[bubblegum] slams into you!"))
 		next_action = 0.2
 	else
 		STOP_PROCESSING(SSfastprocess, src)
