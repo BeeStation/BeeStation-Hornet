@@ -82,6 +82,7 @@
 #define FACTION_BLOB "Blob"
 #define FACTION_ALIEN "Xenomorph"
 #define FACTION_WIZARD "Wizard"
+#define FACTION_BLOODSUCKER "Bloodsucker"
 
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"

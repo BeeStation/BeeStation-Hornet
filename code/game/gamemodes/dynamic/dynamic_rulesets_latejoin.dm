@@ -117,3 +117,36 @@
 	new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
 
 	return DYNAMIC_EXECUTE_SUCCESS
+
+//////////////////////////////////////////////
+//                                          //
+//          LATEJOIN BLOODSUCKER            //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/latejoin/bloodsucker
+	name = "Bloodsucker Breakout"
+	antag_datum = /datum/antagonist/bloodsucker
+	role_preference = /datum/role_preference/antagonist/bloodsucker
+	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 1
+	weight = 5
+	cost = 10
+	requirements = list(10,10,10,10,10,10,10,10,10,10)
+	repeatable = FALSE
+
+/datum/dynamic_ruleset/latejoin/bloodsucker/execute()
+	var/mob/latejoiner = pick(candidates) // This should contain a single player, but in case.
+	assigned += latejoiner.mind
+
+	for(var/datum/mind/candidate_mind as anything in assigned)
+		var/datum/antagonist/bloodsucker/bloodsuckerdatum = candidate_mind.make_bloodsucker()
+		if(!bloodsuckerdatum)
+			assigned -= candidate_mind
+			message_admins("[ADMIN_LOOKUPFLW(candidate_mind)] was selected by the [name] ruleset, but couldn't be made into a Bloodsucker.")
+			continue
+		bloodsuckerdatum.bloodsucker_level_unspent = rand(2,3)
+		message_admins("[ADMIN_LOOKUPFLW(candidate_mind)] was selected by the [name] ruleset and has been made into a midround Bloodsucker.")
+		log_game("DYNAMIC: [key_name(candidate_mind)] was selected by the [name] ruleset and has been made into a midround Bloodsucker.")
+	return TRUE
