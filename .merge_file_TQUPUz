@@ -18394,11 +18394,11 @@
 /area/security/checkpoint/supply)
 "fQu" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/beer/light{
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 5;
 	pixel_y = 10
 	},
@@ -43336,7 +43336,7 @@
 /area/medical/surgery)
 "nPW" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -1;
 	pixel_y = 4
 	},
@@ -52369,11 +52369,11 @@
 	pixel_y = -1;
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 3;
 	pixel_y = 1
 	},
@@ -55500,7 +55500,7 @@
 /area/crew_quarters/bar)
 "rUv" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -9;
 	pixel_y = 4
 	},
@@ -73748,9 +73748,9 @@
 "xNY" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},

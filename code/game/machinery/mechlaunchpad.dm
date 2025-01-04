@@ -44,7 +44,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mechpad)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
 		balloon_alert(user, "saved in buffer")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/mechpad/wirecutter_act(mob/living/user, obj/item/tool)
