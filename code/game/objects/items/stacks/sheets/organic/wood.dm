@@ -32,7 +32,7 @@ Woods Sheets
 /obj/item/stack/sheet/wood/get_recipes()
 	return GLOB.wood_recipes
 
-/obj/item/stack/sheet/mineral/wood/attackby(obj/item/item, mob/user, params)
+//obj/item/stack/sheet/wood/attackby(obj/item/item, mob/user, params)
 	if(!item.is_sharp())
 		return ..()
 	user.visible_message(
@@ -50,7 +50,7 @@ Woods Sheets
 		"<span class='notice'>You finish carving a stake out of [src].</span>",
 	)
 	// Prepare to Put in Hands (if holding wood)
-	var/obj/item/stack/sheet/mineral/wood/wood_stack = src
+	var//obj/item/stack/sheet/wood/wood_stack = src
 	var/replace = (user.get_inactive_held_item() == wood_stack)
 	// Use Wood
 	wood_stack.use(1)
