@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(minor_mapping)
 
 	while(turfs.len && amount > 0)
 		var/turf/T = pick_n_take(turfs)
-		var/obj/item/storage/backpack/satchel/flat/F = new(T)
+		var/obj/item/storage/backpack/satchel/flat/fake/F = new(T)
 
 		SEND_SIGNAL(F, COMSIG_OBJ_HIDE, T.underfloor_accessibility)
 		amount--
