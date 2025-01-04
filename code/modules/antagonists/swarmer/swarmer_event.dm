@@ -21,7 +21,7 @@
 		return FALSE // There is no gateway
 	if(!GLOB.the_gateway.powered() || !GLOB.the_gateway.active)
 		return FALSE // The gateway
-	new /obj/effect/mob_spawn/swarmer(get_step(GLOB.the_gateway, SOUTH))
+	new /obj/effect/mob_spawn/ghost_role/swarmer(get_step(GLOB.the_gateway, SOUTH))
 	if(prob(25)) //25% chance to announce it to the crew
 		announce_swarmer()
 

@@ -89,14 +89,14 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 /proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/async_map_generator/async_map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
-		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
+		for(var/obj/effect/mob_spawn/ghost_role/human/pirate/spawner in A)
 			if(candidates.len > 0)
-				var/mob/M = candidates[1]
-				spawner.create(M.ckey)
-				candidates -= M
-				notify_ghosts("The pirate ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+				var/mob/our_candidate = candidates[1]
+				var/mob/spawned_mob = spawner.create(our_candidate)
+				candidates -= our_candidate
+				notify_ghosts("The pirate ship has an object of interest: [spawned_mob]!", source = spawned_mob, action = NOTIFY_ORBIT, header="Pirates!")
 			else
-				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
+				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source = spawner, action = NOTIFY_ORBIT, header="Pirate Spawn Here!")
 
 //Shuttle equipment
 
