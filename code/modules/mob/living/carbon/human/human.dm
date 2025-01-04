@@ -356,49 +356,30 @@
 /mob/living/carbon/human/proc/canUseHUD()
 	return (mobility_flags & MOBILITY_USE)
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-		return FALSE
-	if(penetrate_thick)
-		return TRUE
+/mob/living/carbon/human/can_inject(mob/user, target_zone, injection_flags)
+	. = TRUE // Default to returning true.
+	if(user && !target_zone)
+		target_zone = user.get_combat_bodyzone()
+	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
+	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)
+		if(HAS_TRAIT_NOT_FROM(src, TRAIT_PIERCEIMMUNE, SPECIES_TRAIT))
+			. = FALSE
+	else if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
+		. = FALSE
+	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
+	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
+	if(!(injection_flags & INJECT_CHECK_PENETRATE_THICK))
+		for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+			if(iter_clothing.clothing_flags & THICKMATERIAL)
+				. = FALSE
+				break
 
-	if(!target_zone)
-		if(user)
-			target_zone = user.get_combat_bodyzone(src, FALSE, BODYZONE_CONTEXT_INJECTION)
-		else
-			target_zone = BODY_ZONE_CHEST
-	// If targeting the head, see if the head item is thin enough.
-	// If targeting anything else, see if the wear suit is thin enough.
-	if(above_neck(target_zone))
-		if(!head || !isclothing(head))
-			return TRUE
-		var/obj/item/clothing/head/CH = head
-		if(CH.clothing_flags & THICKMATERIAL)
-			balloon_alert(user, "There is no exposed flesh on [p_their()] head.")
-			return FALSE
-		return TRUE
-	if(!wear_suit || !isclothing(wear_suit))
-		return TRUE
-	var/obj/item/clothing/suit/CS = wear_suit
-	if(CS.clothing_flags & THICKMATERIAL)
-		switch(target_zone)
-			if(BODY_ZONE_CHEST)
-				if(CS.body_parts_covered & CHEST)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] chest.")
-					return FALSE
-			if(BODY_ZONE_PRECISE_GROIN)
-				if(CS.body_parts_covered & GROIN)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] groin.")
-					return FALSE
-			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-				if(CS.body_parts_covered & ARMS)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] arms.")
-					return FALSE
-			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				if(CS.body_parts_covered & LEGS)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] legs.")
-					return FALSE
-	return TRUE
+/mob/living/carbon/human/try_inject(mob/user, target_zone, injection_flags)
+	. = ..()
+	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE) && user)
+		var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
+
+		to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] [the_part.name].</span>")
 
 /mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgment_criteria & JUDGE_EMAGGED)
@@ -908,7 +889,7 @@
 
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return ..()
 
 	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
@@ -923,10 +904,10 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && (T.body_position == LYING_DOWN) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && (T.body_position == LYING_DOWN) && src.combat_mode && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
-			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.body_position == STANDING_UP) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
+			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.body_position == STANDING_UP) || !src.combat_mode|| src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
 				src.is_busy = FALSE
 				return
 
@@ -1253,12 +1234,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/golem/clockwork/no_scrap
 	race = /datum/species/golem/clockwork/no_scrap
-
-/mob/living/carbon/human/species/golem/capitalist
-	race = /datum/species/golem/capitalist
-
-/mob/living/carbon/human/species/golem/soviet
-	race = /datum/species/golem/soviet
 
 /mob/living/carbon/human/species/ipc
 	race = /datum/species/ipc

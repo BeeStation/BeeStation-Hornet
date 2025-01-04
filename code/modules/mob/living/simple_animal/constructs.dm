@@ -15,7 +15,7 @@
 	icon = 'icons/mob/cult.dmi'
 	speed = 0
 	spacewalk = TRUE
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/weapons/punch1.ogg'

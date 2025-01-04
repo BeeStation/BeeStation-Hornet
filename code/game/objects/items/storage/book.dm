@@ -278,7 +278,7 @@
 		desc += "<span class='warning'>The name [ownername] is written in blood inside the cover.</span>"
 
 /obj/item/storage/book/bible/syndicate/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
-	if (user.a_intent == INTENT_HELP)
+	if (!user.combat_mode)
 		return ..()
 	else
 		return ..(M,user,heal_mode = FALSE)

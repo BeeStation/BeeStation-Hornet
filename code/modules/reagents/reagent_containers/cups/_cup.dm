@@ -73,10 +73,6 @@
 	if(!istype(target_mob))
 		return
 
-	if(user.a_intent == INTENT_HARM)
-		//Early terminate, move to afterattack where we splash
-		return
-
 	if(target_mob != user)
 		target_mob.visible_message("<span class='danger'>[user] attempts to feed [target_mob] something from [src].</span>", \
 				"<span class='userdanger'>[user] attempts to feed you something from [src].</span>")
@@ -139,13 +135,6 @@
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
-
-	else if(reagents.total_volume)
-		if(user.a_intent == INTENT_HARM)
-			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
-								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
-			reagents.reaction(target, TOUCH)
-			reagents.clear_reagents()
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
 	var/hotness = attacking_item.is_hot()

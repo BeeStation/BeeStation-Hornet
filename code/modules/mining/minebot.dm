@@ -15,7 +15,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // So our equipment doesn't go poof
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	hud_type = /datum/hud/minebot
 	// Atmos
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -141,7 +141,7 @@
 	. += "<span class='notice'>Field repairs can be performed with a welder.</span>"
 	if(stored_pka && stored_pka.max_mod_capacity)
 		. += "<span class='notice'>\The [stored_pka] has <b>[stored_pka.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
-		for(var/A as anything in stored_pka.get_modkits())
+		for(var/A as anything in stored_pka.modkits)
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
 	if(stored_cutter)
@@ -192,10 +192,10 @@
 	check_friendly_fire = FALSE
 
 /// Handles installing new tools/upgrades and interacting with the minebot
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/user, params)
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/living/user, params)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
-	if(user.a_intent != INTENT_HELP)
+	if(user.combat_mode)
 		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
 		if(!do_after(user, 20, src))
@@ -286,7 +286,7 @@
 
 /// Handles humans toggling minebot modes
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/user)
-	if(user.a_intent != INTENT_HELP) // Smacking/grabbing
+	if(user.combat_mode) // Smacking/grabbing
 		return ..()
 	if(client) // No messing with the minebot while there's a player inside it.
 		to_chat(user, "<span class='info'>[src]'s equipment is currently slaved to its onboard AI. Best not to touch it.</span>")
@@ -327,7 +327,7 @@
 	if(istype(mover, /obj/projectile/kinetic))
 		var/obj/projectile/kinetic/kinetic_proj = mover
 		if(kinetic_proj.kinetic_gun)
-			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
+			for(var/A as anything in kinetic_proj.kinetic_gun.modkits)
 				var/obj/item/borg/upgrade/modkit/modkit = A
 				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE

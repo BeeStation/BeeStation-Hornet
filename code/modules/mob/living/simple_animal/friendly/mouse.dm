@@ -142,8 +142,8 @@
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
 
-/obj/item/food/deadmouse/attackby(obj/item/I, mob/user, params)
-	if(I.is_sharp() && user.a_intent == INTENT_HARM)
+/obj/item/food/deadmouse/attackby(obj/item/I, mob/living/user, params)
+	if(I.is_sharp() && user.combat_mode)
 		if(isturf(loc))
 			new /obj/item/food/meat/slab/mouse(loc)
 			to_chat(user, "<span class='notice'>You butcher [src].</span>")

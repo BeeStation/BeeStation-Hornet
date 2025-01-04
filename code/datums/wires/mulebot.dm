@@ -12,6 +12,8 @@
 	..()
 
 /datum/wires/mulebot/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/mob/living/simple_animal/bot/mulebot/M = holder
 	if(M.open)
 		return TRUE

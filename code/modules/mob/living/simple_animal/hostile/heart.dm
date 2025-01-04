@@ -9,7 +9,7 @@
 	turns_per_move = 5
 	speak_emote = list("beats")
 	emote_see = list("beats")
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	maxHealth = 24
 	health = 24
 	speed = -1

@@ -47,6 +47,8 @@
 	..()
 
 /datum/wires/airlock/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/door/airlock/A = holder
 	if(A.panel_open)
 		return TRUE

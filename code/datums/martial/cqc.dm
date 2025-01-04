@@ -135,7 +135,7 @@
 		return FALSE
 	if(A==D)
 		return FALSE //prevents grabbing yourself
-	if(A.a_intent == INTENT_GRAB)
+	if(A.combat_mode)
 		add_to_streak("G",D)
 		if(check_streak(A,D)) //doing combos is prioritized over upgrading grabs
 			return TRUE

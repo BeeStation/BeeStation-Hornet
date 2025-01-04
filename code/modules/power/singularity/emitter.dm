@@ -58,11 +58,6 @@
 	///stores the direction and orientation of the last projectile
 	var/last_projectile_params
 
-
-/obj/machinery/power/emitter/welded/Initialize(mapload)
-	welded = TRUE
-	. = ..()
-
 /obj/machinery/power/emitter/Initialize(mapload)
 	. = ..()
 	RefreshParts()
@@ -75,10 +70,12 @@
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
-
-/obj/machinery/power/emitter/ComponentInitialize()
-	. = ..()
+	AddComponent(/datum/component/simple_rotation)
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
+
+/obj/machinery/power/emitter/welded/Initialize(mapload)
+	welded = TRUE
+	. = ..()
 
 /obj/machinery/power/emitter/set_anchored(anchorvalue)
 	. = ..()
@@ -120,16 +117,6 @@
 	else
 		. += "<span class='notice'>Its status display reads: Emitting one beam every <b>[DisplayTimeText(fire_delay)]</b>.</span>"
 		. += "<span class='notice'>Power consumption at <b>[display_power(active_power_usage)]</b>.</span>"
-
-/obj/machinery/power/emitter/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/machinery/power/emitter/proc/can_be_rotated(mob/user, rotation_type)
-	if(!anchored)
-		return TRUE
-	to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-	return FALSE
 
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
@@ -332,6 +319,9 @@
 		if(integrate(item,user))
 			return
 	return ..()
+
+/obj/machinery/power/emitter/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/power/emitter/proc/integrate(obj/item/gun/energy/energy_gun, mob/user)
 	if(!istype(energy_gun, /obj/item/gun/energy))

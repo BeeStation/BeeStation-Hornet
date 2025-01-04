@@ -19,6 +19,8 @@
 	..()
 
 /datum/wires/airalarm/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/airalarm/A = holder
 	if(A.panel_open && A.buildstage == 2)
 		return TRUE
