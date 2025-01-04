@@ -50,7 +50,6 @@
 		structure_climber.Paralyze(40)
 		structure_climber.visible_message("<span class='warning'>[structure_climber] is knocked off [climbed_thing].</span>", "<span class='warning'>You're knocked off [climbed_thing]!</span>", "<span class='hear'>You hear a cry from [structure_climber], followed by a slam.</span>")
 
-
 /datum/element/climbable/proc/climb_structure(atom/climbed_thing, mob/living/user, params)
 	if(!can_climb(climbed_thing, user))
 		return

@@ -1,10 +1,9 @@
 #define AIRLOCK_CONTROL_RANGE 5
 
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
-/obj/machinery/door/airlock
-	var/frequency
-	var/datum/radio_frequency/radio_connection
-	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
+/obj/machinery/door/airlock/var/frequency
+/obj/machinery/door/airlock/var/datum/radio_frequency/radio_connection
+/obj/machinery/door/airlock/smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
 /obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if(!signal)
@@ -119,6 +118,8 @@
 			icon_state = "airlock_sensor_standby"
 	else
 		icon_state = "airlock_sensor_off"
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/airlock_sensor, "Use")
 
 /obj/machinery/airlock_sensor/attack_hand(mob/user)
 	. = ..()

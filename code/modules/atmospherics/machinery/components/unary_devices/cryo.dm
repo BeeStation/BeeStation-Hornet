@@ -58,6 +58,8 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
+	register_context()
+
 /obj/machinery/atmospherics/components/unary/cryo_cell/set_occupant(atom/movable/new_occupant)
 	. = ..()
 	update_icon()
@@ -80,6 +82,11 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Efficiency at <b>[efficiency*100]%</b>.</span>"
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("[state_open ? "Close" : "Open"] door")
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
 	QDEL_NULL(radio)

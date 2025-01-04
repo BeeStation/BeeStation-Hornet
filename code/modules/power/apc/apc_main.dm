@@ -239,11 +239,18 @@
 			log_mapping("Duplicate APC created at [AREACOORD(src)] [area.type]. Original at [AREACOORD(area.apc)] [area.type].")
 		area.apc = src
 
+	register_context()
 	update_appearance()
 
 	make_terminal()
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
+
+/obj/machinery/power/apc/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	context.add_ctrl_click_action("Unlock interface")
+	if (context.accept_silicons())
+		context.add_alt_click_action("Toggle Power")
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()

@@ -40,6 +40,12 @@
 	initialize_directions = dir
 	RefreshParts()
 	update_appearance()
+	register_context()
+
+/obj/machinery/atmospherics/components/unary/thermomachine/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Cycle temperature")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
