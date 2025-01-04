@@ -101,7 +101,6 @@ Woods Sheets
 	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/paperframes
 	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/sheet/paperframes
 
 /obj/item/stack/sheet/paperframes/get_recipes()
 	return GLOB.paperframe_recipes
