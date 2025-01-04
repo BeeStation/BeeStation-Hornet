@@ -406,12 +406,12 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
 			// Stops Aliens getting stuck in small networks.
 			// See: Security, Virology
-			if(length(temp_vent_parent.other_atmosmch) > 20)
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
 				vents += temp_vent
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
@@ -704,11 +704,11 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
-			if(length(temp_vent_parent.other_atmosmch) > 20)
-				vents += temp_vent // Makes sure the pipeline is large enough
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
+				vents += temp_vent // Makes sure the pipenet is large enough
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
 		return FALSE

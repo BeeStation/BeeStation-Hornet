@@ -58,6 +58,7 @@
 
 	our_area.active_alarms[alarm_type] += 1
 
+	SEND_SIGNAL(src, COMSIG_ALARM_TRIGGERED, alarm_type, our_area)
 	SEND_GLOBAL_SIGNAL(COMSIG_ALARM_FIRE(alarm_type), src, alarm_type, our_area, our_z_level, optional_camera)
 
 	return TRUE
@@ -90,6 +91,7 @@
 	if(!length(our_area.active_alarms))
 		our_area.active_alarms -= alarm_type
 
+	SEND_SIGNAL(src, COMSIG_ALARM_CLEARED, alarm_type, our_area)
 	SEND_GLOBAL_SIGNAL(COMSIG_ALARM_CLEAR(alarm_type), src, alarm_type, our_area)
 	return TRUE
 
