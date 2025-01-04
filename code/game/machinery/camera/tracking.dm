@@ -99,7 +99,7 @@
 			track_time -= 1 SECONDS
 		// Check for sensor beacon
 		var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS)
-		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (nanite_sensors || HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)))
+		if(target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) == JAM_NONE && (nanite_sensors || HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)))
 			// Check for a uniform if not using nanites
 			// If the GPS is on, track instantly
 			var/obj/item/clothing/under/uniform = human_target.w_uniform
