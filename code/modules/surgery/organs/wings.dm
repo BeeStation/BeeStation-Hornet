@@ -3,7 +3,6 @@
 	desc = "A pair of wings. They look skinny and useless"
 	icon_state = "angelwings"
 	visual = TRUE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_WINGS
 	var/flight_level = WINGS_COSMETIC
 	var/basewings = "wings" //right now, this just determines whether the wings are normal wings or moth wings

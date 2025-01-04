@@ -25,7 +25,7 @@
 	if(!head)
 		return
 	var/turf/T = get_turf(M)
-	var/list/organs = M.getorganszone("head") + M.getorganszone("eyes") + M.getorganszone("mouth")
+	var/list/organs = M.getorganszone(BODY_ZONE_HEAD)
 	for(var/internal_organ in organs)
 		var/obj/item/organ/I = internal_organ
 		I.Remove(M)

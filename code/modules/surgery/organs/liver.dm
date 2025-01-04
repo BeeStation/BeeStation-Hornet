@@ -6,7 +6,6 @@
 	icon_state = "liver"
 	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
 	desc = "Pairing suggestion: chianti and fava beans."
 
@@ -68,8 +67,8 @@
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN
 
-/obj/item/organ/liver/get_availability(datum/species/S)
-	return !(TRAIT_NOMETABOLISM in S.species_traits)
+/obj/item/organ/liver/get_availability(mob/living/carbon/target, datum/species/species)
+	return !(TRAIT_NOMETABOLISM in species.species_traits) && ..()
 
 /obj/item/organ/liver/fly
 	name = "insectoid liver"

@@ -8,7 +8,6 @@
 	name = "lungs"
 	icon_state = "lungs"
 	visual = FALSE
-	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
@@ -367,8 +366,8 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/get_availability(datum/species/S)
-	return !(TRAIT_NOBREATH in S.species_traits)
+/obj/item/organ/lungs/get_availability(mob/living/carbon/target, datum/species/species)
+	return !(TRAIT_NOBREATH in species.species_traits) && ..()
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"

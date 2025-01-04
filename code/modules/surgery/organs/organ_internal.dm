@@ -5,7 +5,6 @@
 	var/status = ORGAN_ORGANIC
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = BODY_ZONE_CHEST
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/organ_flags = ORGAN_EDIBLE
@@ -96,7 +95,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	START_PROCESSING(SSobj, src)
 
 
-/obj/item/organ/proc/on_find(mob/living/finder)
+/obj/item/organ/proc/on_find(mob/living/finder, zone_found)
 	return
 
 /obj/item/organ/process(delta_time)
@@ -127,7 +126,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	if(damage > high_threshold)
 		. += "<span class='warning'>[src] is starting to look discolored.</span>"
-	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.</span>"
+	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[replacetext(slot, "_", " ")] slot</b>.</span>"
 
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
@@ -152,7 +151,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		var/mob/living/carbon/target = eater
 		for(var/S in target.surgeries)
 			var/datum/surgery/surgery = S
-			if(surgery.location == zone)
+			var/obj/item/bodypart/part = surgery.target.get_bodypart(surgery.location)
+			if (!part)
+				continue
+			if(slot in part.organ_slots)
 				return FALSE
 	return TRUE
 
@@ -263,8 +265,12 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
   * Arguments:
   * S - species, needed to return whether the species has an organ specific trait
   */
-/obj/item/organ/proc/get_availability(datum/species/S)
-	return TRUE
+/obj/item/organ/proc/get_availability(mob/living/carbon/target, datum/species/species)
+	. = FALSE
+	for (var/obj/item/bodypart/part in target.bodyparts)
+		// If we have a bodypart that can hold this, then we should have this organ
+		if (slot in part.organ_slots)
+			. = TRUE
 
 /// Called before organs are replaced in regenerate_organs with new ones
 /obj/item/organ/proc/before_organ_replacement(obj/item/organ/replacement)
