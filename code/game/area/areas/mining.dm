@@ -66,6 +66,10 @@
 	name = "Mining Station Gateway Terminal"
 	icon_state = "mining_dock"
 
+/area/mine/mechbay
+	name = "Mining Station Mech Bay"
+	icon_state = "mechbay"
+
 /area/mine/laborcamp
 	name = "Labor Camp"
 
