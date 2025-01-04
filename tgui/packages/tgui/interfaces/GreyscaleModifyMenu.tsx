@@ -258,7 +258,7 @@ const LoadingAnimation = () => {
 export const GreyscaleModifyMenu = (props, context) => {
   const { act, data } = useBackend<GreyscaleMenuData>(context);
   return (
-    <Window title="Color Configuration" width={325} height={800}>
+    <Window title="Color Configuration" width={325} height={470}>
       <Window.Content scrollable>
         <ConfigDisplay />
         <ColorDisplay />
