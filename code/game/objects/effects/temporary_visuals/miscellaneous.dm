@@ -616,3 +616,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/launchpad)
 	duration = time
 	animate(src, time=time, alpha=255)
 	return ..()
+
+/obj/effect/temp_visual/light_ash
+	icon_state = "light_ash"
+	icon = 'icons/effects/weather_effects.dmi'
+	duration = 3.2 SECONDS

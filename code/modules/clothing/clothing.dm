@@ -27,8 +27,6 @@
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
-	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
-
 	var/clothing_flags = NONE
 
 	/// What items can be consumed to repair this clothing (must by an /obj/item/stack)
@@ -41,6 +39,9 @@
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+	var/list/clothing_traits
 
 	var/pocket_storage_component_path
 
@@ -234,8 +235,7 @@
 		RegisterSignal(C, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
 
 	zones_disabled++
-	for(var/i in body_zone2cover_flags(def_zone))
-		body_parts_covered &= ~i
+	body_parts_covered &= ~body_zone2cover_flags(def_zone)
 
 	if(body_parts_covered == NONE) // if there are no more parts to break then the whole thing is kaput
 		atom_destruction((damage_type == BRUTE ? MELEE : LASER)) // melee/laser is good enough since this only procs from direct attacks anyway and not from fire/bombs
@@ -262,6 +262,8 @@
 	if(!istype(user))
 		return
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	for(var/trait in clothing_traits)
+		REMOVE_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
 
 	if(LAZYLEN(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
@@ -277,8 +279,9 @@
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
-
-		if(LAZYLEN(user_vars_to_edit))
+		for(var/trait in clothing_traits)
+			ADD_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
+		if (LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
@@ -542,6 +545,8 @@ BLIND     // can't see anything
 	new /obj/effect/decal/cleanable/shreds(get_turf(src), name)
 
 /obj/item/clothing/atom_destruction(damage_flag)
+	if(damage_flag in list(ACID, FIRE))
+		return ..()
 	if(damage_flag == BOMB)
 		//so the shred survives potential turf change from the explosion.
 		addtimer(CALLBACK(src, PROC_REF(_spawn_shreds)), 1)
@@ -553,7 +558,7 @@ BLIND     // can't see anything
 			var/mob/living/possessing_mob = loc
 			possessing_mob.visible_message("<span class='danger'>[src] is consumed until naught but shreds remains!</span>", "<span class='boldwarning'>[src] falls apart into little bits!</span>")
 		deconstruct(FALSE)
-	else if(!(damage_flag in list(ACID, FIRE)))
+	else
 		body_parts_covered = NONE
 		slot_flags = NONE
 		update_clothes_damaged_state(CLOTHING_SHREDDED)
@@ -566,8 +571,6 @@ BLIND     // can't see anything
 				M.visible_message("<span class='danger'>[src] fall[p_s()] apart, completely shredded!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 		name = "shredded [initial(name)]" // change the name -after- the message, not before.
 		update_appearance()
-	else
-		..()
 
 /// If we're a clothing with at least 1 shredded/disabled zone, give the wearer a periodic heads up letting them know their clothes are damaged
 /obj/item/clothing/proc/bristle(mob/living/L)

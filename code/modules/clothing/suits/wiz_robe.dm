@@ -9,7 +9,7 @@
 	armor_type = /datum/armor/head_wizard
 	strip_delay = 50
 	equip_delay_other = 50
-	clothing_flags = SNUG_FIT | THICKMATERIAL
+	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
@@ -91,7 +91,7 @@
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
 
 
 /datum/armor/suit_wizrobe
@@ -225,73 +225,10 @@
 	to_chat(usr, "<span class='notice'>The robe hums, its internal magic supply restored.</span>")
 
 
-//Shielded Armour
-
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	name = "battlemage armour"
-	desc = "Not all wizards are afraid of getting up close and personal."
-	icon_state = "battlemage"
-	item_state = "battlemage"
-	recharge_delay = 0 // no auto-recharge
-	shield_integrity = 300
-	shield_icon = "shield-red"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	armor_type = /datum/armor/shielded_wizard
-	slowdown = 0
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-
-/datum/armor/shielded_wizard
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 20
-	bio = 20
-	rad = 20
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	name = "battlemage helmet"
-	desc = "A suitably impressive helmet.."
-	icon_state = "battlemage"
-	item_state = "battlemage"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor_type = /datum/armor/shielded_wizard
-	actions_types = null //No inbuilt light
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-
-/datum/armor/shielded_wizard
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 20
-	bio = 20
-	rad = 20
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 70
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
-	return
-
 // The actual code for this is handled in the shielded component, see [/datum/component/shielded/proc/check_recharge_rune]
 /obj/item/wizard_armour_charge
 	name = "battlemage shield charges"
 	desc = "A powerful rune that will increase the number of hits a suit of battlemage armour can take before failing.."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	/// How many charges get restored
-	var/added_shield = 400
+	added_shield = 400

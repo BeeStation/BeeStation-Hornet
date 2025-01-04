@@ -912,8 +912,12 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potyellow"
 
-/obj/item/slimepotion/speed/pre_attack(obj/thingy, mob/user)
+/obj/item/slimepotion/speed/pre_attack(obj/thingy, mob/user, proximity)
 	. = ..()
+	if(!proximity)
+		return
+	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+		return
 	if(isitem(thingy))
 		var/obj/item/item = thingy
 		if(item.anchored)
@@ -946,6 +950,15 @@
 	thingy.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
 	qdel(src)
 	return FALSE
+
+/obj/item/slimepotion/speed/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	if(!isitem(storage_holder))
+		return TRUE
+	if(istype(storage_holder, /obj/item/mod/control))
+		var/obj/item/mod/control/mod = storage_holder
+		return mod.slowdown_inactive <= 0
+	var/obj/item/storage_item = storage_holder
+	return storage_item.slowdown <= 0
 
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"

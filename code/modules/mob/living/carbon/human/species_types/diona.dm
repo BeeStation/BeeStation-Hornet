@@ -4,7 +4,6 @@
 	id = SPECIES_DIONA
 	sexes = 0
 	bodyflag = FLAG_DIONA
-	default_color = "59CE00"
 	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
@@ -182,7 +181,7 @@
 	button_icon_state = "split"
 	var/Activated = FALSE
 
-/datum/action/diona/split/Trigger(special)
+/datum/action/diona/split/Trigger(trigger_flags, special)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!isdiona(user))
@@ -253,7 +252,7 @@
 	button_icon_state = "grow"
 	var/ability_partition_cooldown
 
-/datum/action/diona/partition/Trigger(special)
+/datum/action/diona/partition/Trigger(trigger_flags, special)
 	. = ..()
 	if(!IsAvailable())
 		return

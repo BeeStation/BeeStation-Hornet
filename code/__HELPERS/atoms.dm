@@ -20,6 +20,17 @@
 			assembled += A
 	return assembled
 
+///identical to get_all_contents but returns a list of atoms of the type passed in the argument.
+/atom/proc/GetAllContentsType(type)
+	var/list/processing_list = list(src)
+	. = list()
+	while(length(processing_list))
+		var/atom/checked_atom = processing_list[1]
+		processing_list.Cut(1, 2)
+		processing_list += checked_atom.contents
+		if(istype(checked_atom, type))
+			. += checked_atom
+
 /// Gets all contents of contents and returns them all in a list, ignoring a chosen typecache.
 //Update GetAllContentsIgnoring to get_all_contents_ignoring so it easier to read in
 /atom/proc/GetAllContentsIgnoring(list/ignore_typecache)
@@ -291,6 +302,20 @@
 ///A do nothing proc
 /proc/pass(...)
 	return
+
+///Returns a list of the parents of all storage components that contain the target item
+/proc/get_storage_locs(obj/item/target)
+	. = list()
+	if(!istype(target) || !(target.item_flags & IN_STORAGE))
+		return
+	var/datum/component/storage/concrete/storage_datum = target.loc.GetComponent(/datum/component/storage/concrete)
+	if(!storage_datum)
+		return
+	. += storage_datum.parent
+	for(var/datum/component/storage/slave as anything in storage_datum.slaves)
+		if(!isatom(slave.parent))
+			continue
+		. += slave.parent
 
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
