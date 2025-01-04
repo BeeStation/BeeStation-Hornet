@@ -50,7 +50,7 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "t" = (

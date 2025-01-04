@@ -15,17 +15,12 @@
 "e" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
-"f" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/oldteleporter)
 "g" = (
 /obj/structure/light_construct/small{
 	dir = 1
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	broken = 1
 	},
 /area/ruin/space/oldteleporter)
 "h" = (
@@ -58,7 +53,7 @@
 /area/ruin/space/oldteleporter)
 "m" = (
 /turf/open/floor/iron/airless{
-	icon_state = "damaged4"
+	broken = 1
 	},
 /area/ruin/space/oldteleporter)
 "n" = (
@@ -209,7 +204,7 @@ a
 b
 c
 d
-f
+m
 e
 j
 e
@@ -240,7 +235,7 @@ d
 c
 e
 k
-f
+m
 d
 c
 "}

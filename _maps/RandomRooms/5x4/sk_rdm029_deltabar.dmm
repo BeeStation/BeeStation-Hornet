@@ -67,7 +67,7 @@
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
