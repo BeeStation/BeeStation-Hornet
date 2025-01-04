@@ -126,7 +126,7 @@
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	reqs = list(
 		/obj/item/stack/sheet/cotton/cloth = 1,
-		//obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/sheet/wood = 5,
 		/obj/item/stack/sheet/iron = 1,
 	)
 	time = 15 SECONDS
@@ -172,7 +172,7 @@
 	result = /obj/structure/bloodsucker/vassalrack
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(
-		//obj/item/stack/sheet/wood = 3,
+		/obj/item/stack/sheet/wood = 3,
 		/obj/item/stack/sheet/iron = 2,
 		/obj/item/restraints/handcuffs/cable = 2,
 	)
@@ -200,7 +200,7 @@
 	reqs = list(
 		/obj/item/stack/sheet/cotton/cloth = 3,
 		/obj/item/stack/sheet/iron = 5,
-		//obj/item/stack/sheet/wood = 1,
+		/obj/item/stack/sheet/wood = 1,
 	)
 	time = 5 SECONDS
 	category = CAT_STRUCTURE

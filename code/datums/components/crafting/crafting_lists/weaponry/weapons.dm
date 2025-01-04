@@ -400,7 +400,7 @@
 /datum/crafting_recipe/stake
 	name = "Stake"
 	result = /obj/item/stake
-	reqs = list(//obj/item/stack/sheet/wood = 3)
+	reqs = list(/obj/item/stack/sheet/wood = 3)
 	time = 8 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
