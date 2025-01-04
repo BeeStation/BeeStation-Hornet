@@ -52613,7 +52613,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/chair,
 /obj/item/radio/intercom{
 	freerange = 1;
 	name = "Prison intercom";
@@ -52621,7 +52620,7 @@
 	prison_radio = 1;
 	pixel_y = 25
 	},
-/obj/effect/landmark/start/assistant,
+/obj/machinery/photobooth/security,
 /turf/open/floor/iron,
 /area/security/prison)
 "paG" = (
@@ -54410,9 +54409,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "pCf" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -54424,6 +54420,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/photobooth,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hop)
 "pCj" = (

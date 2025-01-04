@@ -51833,7 +51833,7 @@
 /area/engine/atmos)
 "qJy" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/coffee,
+/obj/machinery/photobooth,
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "qJS" = (
@@ -53601,13 +53601,13 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "rpj" = (
-/obj/structure/closet/secure_closet/genpop,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/camera/directional/east,
+/obj/machinery/photobooth/security,
 /turf/open/floor/iron,
 /area/security/prison)
 "rpq" = (
@@ -71843,6 +71843,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/genpop,
 /turf/open/floor/iron,
 /area/security/prison)
 "xmB" = (

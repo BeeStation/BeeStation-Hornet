@@ -10808,13 +10808,8 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
 "bzQ" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/pen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/photobooth,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
 "bzR" = (
@@ -54034,20 +54029,10 @@
 /turf/open/floor/iron/dark/smooth_corner,
 /area/security/checkpoint/medical)
 "plF" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/sneakers/orange,
-/obj/item/clothing/shoes/sneakers/orange,
-/obj/item/clothing/shoes/sneakers/orange,
-/obj/item/clothing/shoes/sneakers/orange,
-/obj/item/clothing/shoes/sneakers/orange,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
 /obj/effect/turf_decal/tile/dark_red/half{
 	dir = 8
 	},
+/obj/machinery/photobooth/security,
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
 "plM" = (
@@ -71318,8 +71303,18 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/chair/fancy/bench/right,
 /obj/effect/turf_decal/tile/dark_red,
+/obj/structure/rack,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
 /turf/open/floor/iron/smooth_corner,
 /area/security/prison)
 "vxn" = (

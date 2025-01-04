@@ -21812,9 +21812,9 @@
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "fto" = (
-/obj/structure/closet/crate/bin,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/photobooth/security,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "ftv" = (
@@ -32853,6 +32853,16 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
+"jLd" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/maintenance/central)
 "jLe" = (
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 1
@@ -39442,8 +39452,9 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "mxi" = (
-/obj/structure/grille,
-/turf/open/floor/plating,
+/obj/machinery/photobooth,
+/obj/effect/turf_decal/siding/wideplating_new,
+/turf/open/floor/iron,
 /area/maintenance/central)
 "mye" = (
 /obj/structure/sign/departments/minsky/research/research{
@@ -50909,7 +50920,12 @@
 /turf/open/floor/carpet/blue,
 /area/medical/break_room)
 "rfh" = (
-/obj/structure/grille/broken,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -94425,8 +94441,8 @@ jVq
 sCF
 eWC
 iXb
-rfh
 eWC
+mxi
 dbO
 bqy
 cBr
@@ -94681,8 +94697,8 @@ wfq
 vfO
 hem
 eWC
-hfr
-mxi
+rfh
+eWC
 bmr
 cmE
 kPV
@@ -95195,7 +95211,7 @@ kcl
 akZ
 lyg
 bjz
-hfr
+jLd
 bmr
 bmr
 wQJ
