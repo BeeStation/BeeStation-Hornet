@@ -26,6 +26,12 @@
 	playsound(src, 'sound/machines/button2.ogg', 15, 1)
 	activate_capsule(user)
 
+/obj/item/bluespace_capsule/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!.)
+		playsound(src, 'sound/machines/button2.ogg', 15, 1)
+		activate_capsule(null)
+
 /obj/item/bluespace_capsule/proc/activate_capsule(mob/user)
 	if(active)
 		return
