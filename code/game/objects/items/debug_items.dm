@@ -363,11 +363,11 @@
 	user.grant_language(/datum/language/metalanguage, source = "debug")
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	hud.add_hud_to(user)
+	hud.show_to(user)
 	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	hud.add_hud_to(user)
+	hud.show_to(user)
 	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.add_hud_to(user)
+	hud.show_to(user)
 
 	if(!isliving(user))
 		user.update_sight()
@@ -395,13 +395,13 @@
 	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.remove_hud_from(user)
+	hud.hide_from(user)
 	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.remove_hud_from(user)
+		hud.hide_from(user)
 	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.remove_hud_from(user)
+		hud.hide_from(user)
 
 // kinda works like hilbert, but not really
 /obj/item/map_template_diver
