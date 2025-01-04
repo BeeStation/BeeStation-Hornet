@@ -6,6 +6,7 @@
 	antagpanel_category = "Morph"
 	show_name_in_check_antagonists = TRUE
 	ui_name = "AntagInfoMorph"
+	required_living_playtime = 4
 
 //It does nothing! (Besides tracking)//Scratch that, it does something now at least
 
