@@ -54,10 +54,6 @@
 /datum/gas_mixture/immutable/space/remove_ratio()
 	return copy() //we're always empty, so we can just return a copy.
 
-//used by cloners
-/datum/gas_mixture/immutable/cloner
-	initial_temperature = T20C
-
 //planet side stuff
 /datum/gas_mixture/immutable/planetary
 	var/list/initial_gas = list()
@@ -93,3 +89,16 @@
 		ADD_GAS(id, gases)
 		gases[id][MOLES] = mix[id][MOLES]
 		gases[id][ARCHIVE] = mix[id][MOLES]
+
+//used by cloners
+//you may be wondering - why planetary?
+//because this allows us to specify an initial gas mix AND keep it
+//hoped for an initial_gas_string but apparently that's a turf thing
+/datum/gas_mixture/immutable/planetary/cloner
+    initial_temperature = T20C
+    initial_gas = list(
+        /datum/gas/nitrogen = list(
+            MOLES = 104,
+            ARCHIVE = 104
+        )
+    )
