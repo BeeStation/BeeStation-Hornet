@@ -19,7 +19,6 @@
 	var/unsorted = TRUE			// have we been sorted yet?
 
 /obj/structure/disposalholder/Destroy()
-	QDEL_NULL(gas)
 	active = FALSE
 	last_pipe = null
 	current_pipe = null
