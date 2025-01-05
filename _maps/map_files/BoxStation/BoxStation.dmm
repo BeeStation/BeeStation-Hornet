@@ -6738,31 +6738,25 @@
 /turf/closed/wall,
 /area/maintenance/aft)
 "bzt" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "bzu" = (
 /obj/machinery/rnd/server,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "bzv" = (
-/obj/machinery/atmospherics/pipe/smart/simple{
-	dir = 10
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
 "bzw" = (
-/obj/machinery/atmospherics/pipe/smart/simple{
-	dir = 4
-	},
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'SERVER ROOM'.";
 	name = "SERVER ROOM";
@@ -6845,11 +6839,14 @@
 /area/maintenance/aft)
 "bAy" = (
 /obj/effect/landmark/blobstart,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
 "bAA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -6858,20 +6855,23 @@
 	name = "Server Room";
 	req_one_access_txt = "30;70"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/science/server)
 "bAC" = (
-/obj/machinery/atmospherics/pipe/smart/simple{
-	dir = 9
-	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 9
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
 "bAD" = (
 /obj/structure/chair/office/light,
-/obj/machinery/atmospherics/pipe/smart/simple{
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -6932,20 +6932,20 @@
 	},
 /area/science/research)
 "bBS" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 4;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "bBU" = (
-/obj/machinery/atmospherics/pipe/smart/simple{
-	dir = 9
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
+	},
+/obj/effect/mapping_helpers/atmos_auto_connect,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -6954,9 +6954,6 @@
 	desc = "A warning sign which reads 'SERVER ROOM'.";
 	name = "SERVER ROOM";
 	pixel_y = -32
-	},
-/obj/machinery/atmospherics/pipe/smart/simple{
-	dir = 4
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -15768,6 +15765,13 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"cVd" = (
+/obj/machinery/rnd/server,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
+/turf/open/floor/circuit/telecomms/server,
+/area/science/server)
 "cVm" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
@@ -39647,6 +39651,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
 "mKG" = (
@@ -110741,7 +110746,7 @@ box
 eek
 eao
 byf
-bzu
+cVd
 mKv
 bzu
 bDb

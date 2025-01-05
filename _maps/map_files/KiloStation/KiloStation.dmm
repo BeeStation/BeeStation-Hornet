@@ -21699,13 +21699,11 @@
 /turf/open/floor/iron,
 /area/security/prison)
 "fda" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 1;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -22452,11 +22450,11 @@
 	name = "Server Access";
 	req_one_access_txt = "30;70"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -25547,12 +25545,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "gpF" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "gpP" = (
@@ -26239,9 +26235,6 @@
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "gCq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -26253,6 +26246,9 @@
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/server)
@@ -32143,6 +32139,9 @@
 "ixT" = (
 /obj/machinery/rnd/server,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "ixZ" = (
@@ -38100,9 +38099,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "krz" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -38112,6 +38108,9 @@
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
+	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/server)
@@ -42730,10 +42729,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "lWL" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/wrench,
-/obj/item/crowbar/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -42746,6 +42741,11 @@
 	c_tag = "Server Room";
 	name = "science camera"
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/atmos_auto_connect,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/iron/showroomfloor,
 /area/science/server)
 "lWX" = (
@@ -55422,7 +55422,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
@@ -56894,9 +56894,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "qwf" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
 "qwj" = (
@@ -66146,6 +66144,9 @@
 /obj/machinery/rnd/server,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)

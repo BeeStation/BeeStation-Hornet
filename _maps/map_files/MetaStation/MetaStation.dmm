@@ -17632,12 +17632,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/server)
-"cvY" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
-/turf/open/floor/circuit/green,
-/area/science/server)
 "cwb" = (
 /obj/structure/chair{
 	dir = 4
@@ -17713,10 +17707,8 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "cwY" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 1;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -29289,11 +29281,8 @@
 "gap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/rnd/server,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
 	},
 /turf/open/floor/circuit,
 /area/science/server)
@@ -35542,6 +35531,9 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "irA" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/green,
 /area/science/server)
 "irE" = (
@@ -42540,7 +42532,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "lft" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -56851,9 +56843,6 @@
 /turf/open/floor/iron,
 /area/storage/tools)
 "qoZ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
 	req_one_access_txt = "30;70"
@@ -56862,6 +56851,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -59852,6 +59844,9 @@
 "rvR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/rnd/server,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/circuit,
 /area/science/server)
 "rvY" = (
@@ -62646,15 +62641,15 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "svQ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 6
-	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = -28
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -70073,10 +70068,12 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "vgd" = (
@@ -75134,6 +75131,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 6
 	},
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "wZd" = (
@@ -113518,7 +113516,7 @@ thn
 hGH
 fYI
 cvX
-cvY
+irA
 irA
 thn
 nuA

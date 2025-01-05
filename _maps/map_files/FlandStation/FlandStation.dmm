@@ -1983,12 +1983,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "azE" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 4
-	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Research Server Room";
 	req_one_access_txt = "30;70"
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 8
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/server)
@@ -11478,11 +11478,10 @@
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "cVw" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/iron/techmaint,
 /area/science/server)
 "cVB" = (
@@ -13811,8 +13810,8 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "dGp" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 10
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 1
 	},
 /turf/open/floor/vault,
 /area/science/server)
@@ -16371,8 +16370,9 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/vault,
 /area/science/server)
 "epc" = (
@@ -26986,6 +26986,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
+	dir = 9
 	},
 /turf/open/floor/vault,
 /area/science/server)
@@ -53786,6 +53789,7 @@
 /area/engine/atmos)
 "nJU" = (
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/techmaint,
 /area/science/server)
 "nKa" = (
@@ -56674,7 +56678,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "ozV" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
 	dir = 8
 	},
 /turf/open/floor/circuit/green,
@@ -76604,6 +76608,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal/incinerator)
+"tFJ" = (
+/obj/machinery/rnd/server,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
+/turf/open/floor/iron/techmaint,
+/area/science/server)
 "tFZ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 6
@@ -80530,6 +80542,9 @@
 "uEa" = (
 /obj/machinery/rnd/server,
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/iron/techmaint,
 /area/science/server)
 "uEn" = (
@@ -88550,7 +88565,8 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "wvB" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
 /turf/open/floor/vault,
 /area/science/server)
 "wvE" = (
@@ -89454,11 +89470,8 @@
 /area/maintenance/starboard/aft)
 "wIx" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/server)
@@ -93634,7 +93647,7 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "xAs" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green,
 /area/science/server)
 "xAt" = (
@@ -129893,7 +129906,7 @@ uwE
 noj
 gDL
 yfq
-uEa
+tFJ
 nJU
 nJU
 uEa

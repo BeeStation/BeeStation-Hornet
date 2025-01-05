@@ -27890,9 +27890,6 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 9
-	},
 /turf/open/floor/plating,
 /area/science/server)
 "dHt" = (
@@ -28044,10 +28041,8 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "dIF" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -28278,14 +28273,14 @@
 /area/science/storage)
 "dKe" = (
 /obj/machinery/rnd/server,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "dKg" = (
 /obj/machinery/rnd/server,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
@@ -47770,13 +47765,12 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
 "jrN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /obj/machinery/camera/directional/east{
 	c_tag = "Science - Server Room";
 	name = "science camera"
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -50732,7 +50726,10 @@
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "koj" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 8;
+	initialize_directions = 8
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -53220,6 +53217,9 @@
 "lkM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/science/server)
 "lkU" = (
@@ -59455,7 +59455,6 @@
 /turf/open/floor/iron/dark,
 /area/library)
 "nja" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -60215,8 +60214,8 @@
 	},
 /area/security/main)
 "nuG" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
 "nuO" = (
@@ -66043,13 +66042,15 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/structure/table,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
-/obj/item/clipboard,
-/obj/item/wrench,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/science/server)
 "prw" = (
@@ -68476,6 +68477,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "qhn" = (
@@ -72803,9 +72805,11 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "rwl" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/science/server)
 "rwp" = (
@@ -87246,9 +87250,6 @@
 /turf/open/space,
 /area/space/nearstation)
 "vZo" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 6
-	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
 	req_one_access_txt = "30;70"
@@ -87260,6 +87261,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/open/floor/iron/dark,
 /area/science/server)
 "vZx" = (
