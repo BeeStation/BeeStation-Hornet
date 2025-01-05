@@ -579,6 +579,7 @@
 		hazards.pixel_x = light_xoffset
 		hazards.pixel_y = light_yoffset
 		. += hazards
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /**
  * Corrects the current state of the door, based on its activity.
