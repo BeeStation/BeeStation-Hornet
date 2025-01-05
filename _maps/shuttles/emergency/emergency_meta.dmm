@@ -1040,11 +1040,6 @@
 	dir = 8
 	},
 /area/shuttle/escape)
-"Li" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Ls" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -1301,21 +1296,21 @@ aa
 ad
 ad
 ad
-Li
-Li
-Li
+ac
+ac
+ac
 ad
 ad
 ad
-Li
-Li
-Li
+ac
+ac
+ac
 ad
 ad
 ad
 "}
 (4,1,1) = {"
-Li
+ac
 EG
 al
 aw
@@ -1329,10 +1324,10 @@ RM
 RM
 bd
 DK
-Li
+ac
 "}
 (5,1,1) = {"
-Li
+ac
 TI
 am
 aq
@@ -1349,7 +1344,7 @@ bQ
 bf
 "}
 (6,1,1) = {"
-Li
+ac
 Qj
 an
 ax
@@ -1366,7 +1361,7 @@ bQ
 bf
 "}
 (7,1,1) = {"
-Li
+ac
 Rg
 ao
 bZ
@@ -1380,7 +1375,7 @@ ad
 ZQ
 by
 by
-Li
+ac
 "}
 (8,1,1) = {"
 ad
@@ -1417,7 +1412,7 @@ bD
 ad
 "}
 (10,1,1) = {"
-Li
+ac
 cO
 bY
 LY
@@ -1431,7 +1426,7 @@ cl
 df
 bU
 bE
-Li
+ac
 "}
 (11,1,1) = {"
 ad
@@ -1442,13 +1437,13 @@ aE
 aT
 ar
 bN
-Li
+ac
 bi
 nd
 SV
 bU
 bF
-Li
+ac
 "}
 (12,1,1) = {"
 rl
@@ -1510,16 +1505,16 @@ ph
 aT
 ar
 bN
-Li
+ac
 sb
 bk
 Vs
 bl
 bI
-Li
+ac
 "}
 (16,1,1) = {"
-Li
+ac
 aT
 bV
 aP
@@ -1533,10 +1528,10 @@ bl
 ve
 jb
 bJ
-Li
+ac
 "}
 (17,1,1) = {"
-Li
+ac
 aT
 bV
 bN
@@ -1544,7 +1539,7 @@ MO
 aT
 ar
 bN
-Li
+ac
 cW
 mV
 wj
@@ -1553,7 +1548,7 @@ bK
 ad
 "}
 (18,1,1) = {"
-Li
+ac
 aT
 bV
 bN
@@ -1561,7 +1556,7 @@ bL
 aT
 ar
 bN
-Li
+ac
 bj
 wu
 bl
@@ -1635,7 +1630,7 @@ bw
 as
 be
 ca
-Li
+ac
 "}
 (23,1,1) = {"
 ad
@@ -1652,7 +1647,7 @@ be
 re
 be
 bP
-Li
+ac
 "}
 (24,1,1) = {"
 ad
@@ -1674,17 +1669,17 @@ ad
 (25,1,1) = {"
 ad
 ad
-Li
-Li
+ac
+ac
 ad
-Li
-Li
+ac
+ac
 ad
 ad
 ad
-Li
-Li
-Li
+ac
+ac
+ac
 ad
 ad
 "}
