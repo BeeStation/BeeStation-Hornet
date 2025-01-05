@@ -173,28 +173,26 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		stashed_air.copy_from(air)
 		var/stashed_state = excited
 		var/datum/excited_group/stashed_group = excited_group
-		. = ..()
+		. = ..() //If path == type this will return us, don't bank on making a new type
 		if (!.) // changeturf failed or didn't do anything
-			QDEL_NULL(stashed_air)
 			return
-		var/turf/open/newTurf = .
-		newTurf.air.copy_from(stashed_air)
-		QDEL_NULL(stashed_air)
-		newTurf.excited = stashed_state
-		newTurf.excited_group = stashed_group
+		var/turf/open/new_turf = .
+		new_turf.air.copy_from(stashed_air)
+		new_turf.excited = stashed_state
+		new_turf.excited_group = stashed_group
 		#ifdef VISUALIZE_ACTIVE_TURFS
 		if(stashed_state)
-			newTurf.add_atom_colour(COLOR_VIBRANT_LIME, TEMPORARY_COLOUR_PRIORITY)
+			new_turf.add_atom_colour(COLOR_VIBRANT_LIME, TEMPORARY_COLOUR_PRIORITY)
 		#endif
 		if(stashed_group)
 			if(stashed_group.should_display || SSair.display_all_groups)
-				stashed_group.display_turf(newTurf)
+				stashed_group.display_turf(new_turf)
 	else
 		if(excited || excited_group)
 			SSair.remove_from_active(src) //Clean up wall excitement, and refresh excited groups
 		if(ispath(path,/turf/closed))
 			flags |= CHANGETURF_RECALC_ADJACENT
-		. = ..()
+		return ..()
 
 /turf/closed/ChangeTurf(path, list/new_baseturfs, flags)
 	if(ispath(path,/turf/open))
