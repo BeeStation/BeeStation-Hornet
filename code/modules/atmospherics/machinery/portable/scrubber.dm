@@ -204,8 +204,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/living/user, obj/item/tool)
-	. = ..()
-	if(default_unfasten_wrench(user, tool))
+	if(default_unfasten_wrench(user, tool, 0))
 		if(!movable)
 			on = FALSE
 		return TRUE
