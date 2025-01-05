@@ -99,10 +99,9 @@
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
-	//owner.client?.stat_panel.send_message("check_spells") we are missing this from code
+
 /datum/action/spell/Remove(mob/living/remove_from)
 
-	//remove_from.client?.stat_panel.send_message("check_spells")
 	UnregisterSignal(remove_from, list(
 		COMSIG_MOB_AFTER_EXIT_JAUNT,
 		COMSIG_MOB_ENTER_JAUNT,
