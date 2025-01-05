@@ -29,7 +29,8 @@
 
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
-		SET_MOLES(gas_type, air_contents, ((6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C))))
+		var/datum/gas_mixture/our_mix = return_air()
+		SET_MOLES(gas_type, our_mix, ((6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C))))
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
@@ -125,9 +126,8 @@
 	if((num < 0.005 || num > THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
 		turn_off(user)
 		return
-
 	if(use_fuel)
-		assume_air_moles(air_contents, num)
+		remove_air(num)
 
 	return TRUE
 
@@ -161,7 +161,7 @@
 		return
 
 	if(use_fuel)
-		assume_air_moles(air_contents, num)
+		remove_air(num)
 
 	return TRUE
 
@@ -333,12 +333,13 @@
 	animate(who, transform = null, time = 2)
 
 /obj/item/tank/jetpack/combustion/populate_gas()
+	var/datum/gas_mixture/our_mix = return_air()
 	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
-	var/datum/gas_mixture/temp_air_contents = return_air()
-
-	SET_MOLES(/datum/gas/plasma, temp_air_contents, moles_full*(1-ideal_o2_percent))
-	SET_MOLES(/datum/gas/oxygen, temp_air_contents, moles_full*ideal_o2_percent)
+	our_mix.assert_gas(/datum/gas/plasma)
+	our_mix.assert_gas(/datum/gas/oxygen)
+	SET_MOLES(/datum/gas/plasma, our_mix, moles_full*(1-ideal_o2_percent))
+	SET_MOLES(/datum/gas/oxygen, our_mix, moles_full*ideal_o2_percent)
 
 
 /obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
@@ -401,17 +402,14 @@
 	slot_flags = null
 	gas_type = null
 	full_speed = FALSE
-	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 
 /obj/item/tank/jetpack/suit/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
-	temp_air_contents = air_contents
 
 /obj/item/tank/jetpack/suit/Destroy()
 	tank = null
-	QDEL_NULL(temp_air_contents)
 	. = ..()
 
 /obj/item/tank/jetpack/suit/attack_self()
@@ -444,7 +442,6 @@
 	if(!isnull(tank))
 		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
 		tank = null
-	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
 	..()
 
