@@ -57,8 +57,8 @@
 /// 1: The target to receive the trait
 /// 2: The key of the trait
 /// 3: The source of the trait
-/// 4: The priority of the trait value
-/// 5: The value stored in the trait
+/// 4: The value stored in the trait
+/// 5: The priority of the trait value
 #define ADD_VALUE_TRAIT(_target, _trait, source, _trait_value, _trait_priority) do { \
 		if (!_target.status_traits) { \
 			_target.status_traits = list(); \
