@@ -24,10 +24,6 @@
 		new /datum/spacevine_controller(T, list(pick(subtypesof(/datum/spacevine_mutation))), rand(10,100), rand(1,6)) //spawn a controller at turf with randomized stats and a single random mutation
 		message_admins("Event spacevine has been spawned in [ADMIN_VERBOSEJMP(T)].")
 
-/obj/structure/spacevine/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)
-
 /datum/spacevine_mutation
 	var/name = ""
 	var/severity = 1
@@ -573,14 +569,10 @@
 	if(!i && prob(100/severity))
 		qdel(src)
 
-/obj/structure/spacevine/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return TRUE
-
-/obj/structure/spacevine/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+/obj/structure/spacevine/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	var/override = 0
-	var/volume = air.return_volume()
 	for(var/datum/spacevine_mutation/SM in mutations)
-		override += SM.process_temperature(src, exposed_temperature, volume)
+		override += SM.process_temperature(src, exposed_temperature, exposed_volume)
 	if(!override)
 		qdel(src)
 
