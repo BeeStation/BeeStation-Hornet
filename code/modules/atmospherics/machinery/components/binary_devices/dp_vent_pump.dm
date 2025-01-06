@@ -82,7 +82,7 @@
 
 		loc.assume_air(removed)
 
-		var/datum/pipeline/parent1 = parents[1]
+		var/datum/pipenet/parent1 = parents[1]
 		parent1.update = TRUE
 
 	else //external -> output
@@ -106,7 +106,7 @@
 
 		air2.merge(removed)
 
-		var/datum/pipeline/parent2 = parents[2]
+		var/datum/pipenet/parent2 = parents[2]
 		parent2.update = TRUE
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/welder_act(mob/living/user, obj/item/I)
