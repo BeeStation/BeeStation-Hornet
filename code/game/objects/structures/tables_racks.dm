@@ -593,13 +593,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/optable/Initialize(mapload)
 	. = ..()
 	initial_link()
-
-/obj/structure/table/optable/ComponentInitialize()
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(table_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+	RemoveElement(/datum/element/climbable)
 
 /obj/structure/table/optable/Destroy()
 	. = ..()
@@ -627,15 +621,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 				computer = found_computer
 				break
 
-/obj/structure/table/optable/tablepush(mob/living/user, mob/living/pushed_mob)
-	pushed_mob.forceMove(loc)
-	if(!isanimal(pushed_mob) || iscat(pushed_mob))
-		pushed_mob.set_resting(TRUE, TRUE)
-	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
+/obj/structure/table/optable/post_buckle_mob(mob/living/M)
 	get_patient()
 
-/obj/structure/table/optable/proc/table_entered()
-	SIGNAL_HANDLER
+/obj/structure/table/optable/post_unbuckle_mob(mob/living/M)
 	get_patient()
 
 /obj/structure/table/optable/proc/get_patient()
@@ -660,7 +649,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	SIGNAL_HANDLER
 	if (!patient)
 		return
-	if (patient.resting)
+	if (patient.buckled)
 		ADD_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
 	else
 		REMOVE_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
@@ -673,7 +662,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	get_patient()
 	if(!patient)
 		return FALSE
-	if (!patient.resting)
+	if (!patient.buckled)
 		return FALSE
 	if(ishuman(patient) || ismonkey(patient))
 		return TRUE
