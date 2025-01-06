@@ -46,11 +46,15 @@
 		icon_state = pump_direction ? "vent_out" : "vent_in"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/process_atmos()
-	..()
-	if(welded || !is_operational || !isopenturf(loc))
-		return FALSE
 	if(!on)
+		return FALSE
+	if(welded || !is_operational)
+		return FALSE
+
+	var/turf/location = get_turf(loc)
+	if(isclosedturf(location))
 		return
+
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
 
@@ -65,30 +69,45 @@
 		if(pressure_checks&ATMOS_INTERNAL_BOUND)
 			pressure_delta = min(pressure_delta, (air1.return_pressure() - input_pressure_min))
 
-		if(pressure_delta > 0)
-			if(air1.return_temperature() > 0)
-				var/transfer_moles = (pressure_delta*environment.volume)/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
+		if(pressure_delta <= 0)
+			return
+		if(air1.temperature <= 0)
+			return
+		var/transfer_moles = (pressure_delta*environment.volume)/(air1.temperature * R_IDEAL_GAS_EQUATION)
 
-				loc.assume_air_moles(air1, transfer_moles)
+		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
+		//Removed can be null if there is no atmosphere in air1
+		if(!removed)
+			return
 
+		loc.assume_air(removed)
 
-				var/datum/pipenet/parent1 = parents[1]
-				parent1.update = TRUE
+		var/datum/pipeline/parent1 = parents[1]
+		parent1.update = TRUE
 
 	else //external -> output
-		if(environment.return_pressure() > 0)
-			var/our_multiplier = air2.return_volume() / (environment.return_temperature() * R_IDEAL_GAS_EQUATION)
-			var/moles_delta = 10000 * our_multiplier
-			if(pressure_checks&ATMOS_EXTERNAL_BOUND)
-				moles_delta = min(moles_delta, (environment_pressure - output_pressure_max) * environment.return_volume() / (environment.return_temperature() * R_IDEAL_GAS_EQUATION))
-			if(pressure_checks&ATMOS_INTERNAL_BOUND)
-				moles_delta = min(moles_delta, (input_pressure_min - air2.return_pressure()) * our_multiplier)
+		var/pressure_delta = 10000
 
-			if(moles_delta > 0)
-				loc.transfer_air(air2, moles_delta)
+		if(pressure_checks&ATMOS_EXTERNAL_BOUND)
+			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
+		if(pressure_checks&ATMOS_INTERNAL_BOUND)
+			pressure_delta = min(pressure_delta, (output_pressure_max - air2.return_pressure()))
 
-				var/datum/pipenet/parent2 = parents[2]
-				parent2.update = TRUE
+		if(pressure_delta <= 0)
+			return
+		if(environment.temperature <= 0)
+			return
+		var/transfer_moles = (pressure_delta*air2.volume)/(environment.temperature * R_IDEAL_GAS_EQUATION)
+
+		var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+		//removed can be null if there is no air in the location
+		if(!removed)
+			return
+
+		air2.merge(removed)
+
+		var/datum/pipeline/parent2 = parents[2]
+		parent2.update = TRUE
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/welder_act(mob/living/user, obj/item/I)
 	if(!I.tool_start_check(user, amount=0))

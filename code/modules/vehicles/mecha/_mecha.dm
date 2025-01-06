@@ -417,7 +417,12 @@
 
 		if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 			if(internal_tank)
-				assume_air_ratio(internal_tank.return_air(), DT_PROB_RATE(0.05, delta_time))
+				var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+				var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(SPT_PROB_RATE(0.05, delta_time))
+				if(loc)
+					loc.assume_air(leaked_gas)
+				else
+					qdel(leaked_gas)
 
 		if(internal_damage & MECHA_INT_SHORT_CIRCUIT)
 			if(get_charge())
@@ -429,15 +434,6 @@
 		if(cabin_air && cabin_air.return_volume() > 0)
 			var/delta = cabin_air.return_temperature() - T20C
 			cabin_air.temperature = (cabin_air.return_temperature() - clamp(round(delta / 8, 0.1), -5, 5) * delta_time)
-
-	if(internal_tank)
-		if(internal_damage & MECHA_INT_TANK_BREACH && cabin_air) //remove some air from cabin_air
-			var/datum/gas_mixture/leaked_gas = cabin_air.remove_ratio(DT_PROB_RATE(0.05, delta_time))
-			if(loc)
-				loc.assume_air(leaked_gas)
-			else
-				qdel(leaked_gas)
-
 
 	for(var/mob/living/occupant as anything in occupants)
 		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.

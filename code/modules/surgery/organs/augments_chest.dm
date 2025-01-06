@@ -197,10 +197,12 @@
 		return 1
 
 	// Priority 3: use internals tank.
-	var/obj/item/tank/I = owner.internal
-	var/datum/gas_mixture/I_air = I.return_air()
-	if(I && I_air && I_air.total_moles() >= num && use_fuel)
-		T.assume_air_moles(I_air, num)
+	var/datum/gas_mixture/internal_mix = owner.internal.return_air()
+	if(internal_mix && internal_mix.total_moles() > num)
+		var/datum/gas_mixture/removed = internal_mix.remove(num)
+		if(removed.total_moles() > 0.005)
+			T.assume_air(removed)
+			ion_trail.generate_effect()
 
 	toggle(silent = TRUE)
 	return 0
