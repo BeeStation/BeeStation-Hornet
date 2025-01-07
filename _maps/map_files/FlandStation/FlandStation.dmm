@@ -8684,7 +8684,9 @@
 /area/chapel/office)
 "ckh" = (
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firedoor/closed{
+	alarm_type = null
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "ckp" = (
@@ -28893,7 +28895,9 @@
 /area/security/warden)
 "hsU" = (
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/door/firedoor/closed,
+/obj/machinery/door/firedoor/closed{
+	alarm_type = null
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -38404,7 +38408,6 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -55715,7 +55718,6 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
