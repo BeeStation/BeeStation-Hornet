@@ -730,7 +730,7 @@
 	},
 /obj/item/pen,
 /obj/machinery/button/door{
-	pixel_y = 20;
+	pixel_y = 18;
 	name = "Privacy Shutters";
 	id = "serversh"
 	},
@@ -804,6 +804,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -5169,6 +5173,10 @@
 	req_one_access_txt = "1;4"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -5241,7 +5249,7 @@
 /obj/machinery/button/door{
 	name = "Mixing Room 2 Vent";
 	id = "toxmix_vent2";
-	pixel_y = -4;
+	pixel_y = -6;
 	pixel_x = 24;
 	req_access_txt = "8"
 	},
@@ -5391,7 +5399,8 @@
 /obj/machinery/button/door{
 	pixel_x = 24;
 	id = "cargol";
-	desc = "Loading bay shutters"
+	desc = "Loading bay shutters";
+	pixel_y = -6
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -5871,13 +5880,6 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/north,
-/obj/machinery/button/door{
-	id = "robo";
-	name = "Mech Bay Shutters";
-	req_access_txt = "29";
-	pixel_y = 24;
-	pixel_x = 8
-	},
 /turf/open/floor/iron/stairs/left{
 	dir = 4
 	},
@@ -5942,10 +5944,11 @@
 	},
 /obj/machinery/light/directional/west,
 /obj/machinery/button/door{
-	pixel_x = -27;
+	pixel_x = -24;
 	id = "robob";
 	name = "Mech Bay Shutters";
-	req_access_txt = "29"
+	req_access_txt = "29";
+	pixel_y = -6
 	},
 /obj/effect/turf_decal/trimline/black/filled/line{
 	dir = 8
@@ -6367,6 +6370,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-5"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/warden)
@@ -8989,12 +8996,24 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/radio/intercom/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "2-9"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-5"
+	},
+/obj/machinery/button/flasher{
+	id = "hopflash";
+	pixel_x = -8;
+	pixel_y = 36;
+	req_access_txt = "28"
+	},
+/obj/machinery/button/door{
+	id = "hopblast";
+	name = "Lockdown Blast Doors";
+	pixel_x = -8;
+	pixel_y = 24;
+	req_access_txt = "57"
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -9961,6 +9980,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/machinery/computer/security/telescreen/prison{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 1
 	},
@@ -10294,7 +10317,8 @@
 	id = "robof";
 	name = "Mech Bay Shutters";
 	pixel_x = 24;
-	req_access_txt = "29"
+	req_access_txt = "29";
+	pixel_y = 6
 	},
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
@@ -10353,6 +10377,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -10691,7 +10719,8 @@
 /obj/machinery/button/door{
 	id = "telelab";
 	name = "Test Chamber Blast Doors";
-	pixel_y = 25
+	pixel_y = 24;
+	pixel_x = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -11364,7 +11393,8 @@
 	id = "construction";
 	name = "Auxiliary Construction Shutters";
 	pixel_y = -24;
-	req_access_txt = "32;47;48"
+	req_access_txt = "32;47;48";
+	pixel_x = 8
 	},
 /turf/open/floor/iron/smooth,
 /area/hallway/upper/primary/port)
@@ -13226,6 +13256,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
+"deV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/brig/medbay)
 "deZ" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Preparation Room";
@@ -14505,6 +14543,9 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/door/poddoor/preopen{
+	id = "courtR"
+	},
 /turf/open/floor/carpet/grimy,
 /area/security/courtroom)
 "dwl" = (
@@ -16146,10 +16187,11 @@
 /area/hallway/primary/starboard)
 "dSC" = (
 /obj/machinery/button/door{
-	pixel_x = 27;
+	pixel_x = 24;
 	id = "robob";
 	name = "Mech Bay Shutters";
-	req_access_txt = "29"
+	req_access_txt = "29";
+	pixel_y = -6
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
@@ -17140,6 +17182,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "egt" = (
@@ -20711,9 +20754,32 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/security/telescreen/prison{
-	dir = 4;
-	pixel_x = -32
+/obj/machinery/button/door{
+	id = "Prisongate";
+	name = "Prison Wing Lockdown";
+	pixel_x = -23;
+	pixel_y = -6;
+	req_access_txt = "3"
+	},
+/obj/machinery/button/door{
+	id = "brigentrance";
+	name = "Brig Lockdown Control";
+	pixel_x = -23;
+	pixel_y = 6;
+	req_access_txt = "3"
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -37;
+	pixel_y = 4
+	},
+/obj/item/radio/intercom{
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	freerange = 1;
+	name = "Prison intercom";
+	pixel_x = -37;
+	pixel_y = -10;
+	prison_radio = 1
 	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 4
@@ -20873,7 +20939,8 @@
 	id = "cargo";
 	name = "Cargo Public Access Shutters";
 	req_access_txt = "31";
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 6
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -22705,11 +22772,15 @@
 /area/construction)
 "fEU" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/railing/corner{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
-/area/science/robotics/mechbay)
+/area/security/main)
 "fEW" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -23566,6 +23637,27 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"fRc" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "secentry"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
+/turf/open/floor/iron/textured_half,
+/area/security/brig)
 "fRh" = (
 /obj/effect/turf_decal/trimline/purple/filled/line,
 /turf/open/floor/iron/white,
@@ -24106,6 +24198,10 @@
 	},
 /obj/item/storage/secure/briefcase,
 /obj/machinery/light/directional/west,
+/obj/machinery/button/door/directional/south{
+	name = "Arrivals Checkpoint lockdown";
+	id = "arrivals access"
+	},
 /turf/open/floor/iron/checker/other,
 /area/hallway/secondary/entry)
 "fXb" = (
@@ -24251,7 +24347,9 @@
 	dir = 6
 	},
 /obj/machinery/vending/wardrobe/chem_wardrobe,
-/obj/machinery/light_switch/directional/east,
+/obj/machinery/light_switch/directional/east{
+	pixel_y = 6
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
@@ -26714,6 +26812,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "gxJ" = (
@@ -27092,7 +27191,8 @@
 /obj/machinery/button/door{
 	pixel_y = -24;
 	id = "disposal";
-	req_access_txt = "50"
+	req_access_txt = "50";
+	pixel_x = 8
 	},
 /obj/effect/turf_decal/edges/borderfloor/corner1,
 /obj/machinery/camera/directional/south,
@@ -27335,6 +27435,10 @@
 	},
 /obj/machinery/light/directional/south,
 /obj/effect/landmark/start/assistant,
+/obj/machinery/flasher{
+	id = "hopflash";
+	pixel_y = -28
+	},
 /turf/open/floor/iron/smooth_half,
 /area/hallway/primary/port)
 "gFT" = (
@@ -28311,6 +28415,10 @@
 /area/hallway/secondary/entry)
 "gQM" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "gRe" = (
@@ -29157,7 +29265,8 @@
 /obj/machinery/button/door{
 	pixel_x = -24;
 	desc = "Loading bay shutters";
-	id = "cargol"
+	id = "cargol";
+	pixel_y = -6
 	},
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -30853,6 +30962,10 @@
 "hxY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "hyb" = (
@@ -30894,7 +31007,8 @@
 	id = "foodcommissaryshutters";
 	name = "Commissary Shutters Control";
 	req_access_txt = null;
-	pixel_x = 24
+	pixel_x = 24;
+	pixel_y = 6
 	},
 /obj/machinery/requests_console/auto_name/directional/south,
 /turf/open/floor/iron/checker,
@@ -32812,7 +32926,8 @@
 	id = "robof";
 	name = "Mech Bay Shutters";
 	pixel_x = -24;
-	req_access_txt = "29"
+	req_access_txt = "29";
+	pixel_y = 6
 	},
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 8
@@ -34637,6 +34752,7 @@
 	dir = 4;
 	name = "Emergency Air Storage valve"
 	},
+/obj/effect/landmark/blobstart,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine/atmos)
 "iqW" = (
@@ -36811,8 +36927,14 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/button/door{
-	name = "shutter button";
-	id = "court"
+	name = "Hallway shutter button";
+	id = "court";
+	pixel_y = -2
+	},
+/obj/machinery/button/door{
+	name = "Riot shutter button";
+	id = "courtR";
+	pixel_y = 7
 	},
 /turf/open/floor/carpet/royalblack,
 /area/security/courtroom)
@@ -40759,6 +40881,9 @@
 	name = "Courtroom";
 	req_access_txt = "42"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "courtR"
+	},
 /turf/open/floor/carpet/grimy,
 /area/security/courtroom)
 "jTD" = (
@@ -42466,6 +42591,9 @@
 	pixel_y = 24;
 	req_access_txt = "24"
 	},
+/obj/item/radio/intercom/directional/north{
+	pixel_y = 33
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/chief)
 "knJ" = (
@@ -42546,6 +42674,13 @@
 	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "robo";
+	name = "Mech Bay Shutters";
+	req_access_txt = "29";
+	pixel_y = 24;
+	pixel_x = 8
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
@@ -43850,20 +43985,8 @@
 /turf/open/floor/wood,
 /area/library/lounge)
 "kGm" = (
-/obj/machinery/button/door{
-	id = "hopblast";
-	name = "Lockdown Blast Doors";
-	pixel_x = 6;
-	pixel_y = 32;
-	req_access_txt = "57"
-	},
-/obj/machinery/button/flasher{
-	id = "hopflash";
-	pixel_x = -6;
-	pixel_y = 32;
-	req_access_txt = "28"
-	},
 /obj/machinery/pdapainter,
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "kGJ" = (
@@ -45539,7 +45662,8 @@
 /obj/machinery/button/door{
 	pixel_y = 24;
 	id = "disposal";
-	req_access_txt = "50"
+	req_access_txt = "50";
+	pixel_x = 8
 	},
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
@@ -45625,6 +45749,15 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"lcd" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/smooth,
+/area/construction/mining/aux_base)
 "lcw" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/mask/breath{
@@ -47847,6 +47980,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "lEA" = (
@@ -48176,6 +48313,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"lIt" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "lIy" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/machinery/door/window/westleft{
@@ -52362,7 +52508,8 @@
 	id = "qm_warehouse";
 	name = "Warehouse Door Control";
 	pixel_y = 24;
-	req_access_txt = "31"
+	req_access_txt = "31";
+	pixel_x = 8
 	},
 /turf/open/floor/monotile/steel,
 /area/quartermaster/storage)
@@ -55478,7 +55625,8 @@
 /obj/machinery/light/directional/north,
 /obj/machinery/button/door/directional/north{
 	id = "rdpriv";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	pixel_x = 8
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hor)
@@ -58347,6 +58495,10 @@
 	id = "Prisongate";
 	name = "Prison Blast Door"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "odN" = (
@@ -59424,6 +59576,7 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/structure/railing,
 /obj/machinery/light/small/directional/north,
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -61807,7 +61960,8 @@
 	pixel_x = -24;
 	name = "Toxins Storage Shutters";
 	id = "toxins";
-	req_access_txt = "8"
+	req_access_txt = "8";
+	pixel_y = 6
 	},
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 4
@@ -64398,7 +64552,8 @@
 	id = "qm_warehouse";
 	name = "Warehouse Door Control";
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access_txt = "31";
+	pixel_x = 8
 	},
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark/smooth_large,
@@ -65054,6 +65209,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "courtR"
+	},
 /turf/open/floor/carpet/grimy,
 /area/security/courtroom)
 "pJf" = (
@@ -65110,6 +65268,10 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/south,
+/obj/machinery/flasher{
+	id = "hopflash";
+	pixel_y = -28
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "pJZ" = (
@@ -65711,8 +65873,8 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "brigentrance";
-	name = "Brig Blast Door"
+	id = "Prisongate";
+	name = "Prison Blast Door"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/iron/dark/textured_half{
@@ -68157,7 +68319,7 @@
 	name = "Mixing Room 1 Vent";
 	id = "toxmix_vent";
 	pixel_x = 24;
-	pixel_y = 6;
+	pixel_y = 8;
 	req_access_txt = "8"
 	},
 /obj/machinery/button/ignition/incinerator/toxmix{
@@ -68430,7 +68592,8 @@
 	id = "robo";
 	name = "Mech Bay Shutters";
 	req_access_txt = "29";
-	pixel_y = -8
+	pixel_y = -24;
+	pixel_x = 8
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
@@ -71527,6 +71690,11 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"rpm" = (
+/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/quartermaster/warehouse)
 "rpx" = (
 /obj/machinery/teleport/hub,
 /turf/open/floor/vault/rock,
@@ -73342,8 +73510,10 @@
 	id = "construction";
 	name = "Auxiliary Construction Shutters";
 	req_access_txt = "32;47;48";
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 24
 	},
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron/smooth,
 /area/construction/mining/aux_base)
 "rPr" = (
@@ -74897,7 +75067,8 @@
 	name = "Commissary Door Lock";
 	normaldoorcontrol = 1;
 	pixel_y = 24;
-	specialfunctions = 4
+	specialfunctions = 4;
+	pixel_x = 8
 	},
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -77030,7 +77201,7 @@
 /obj/machinery/button/door{
 	id = "bridged";
 	name = "Window lockdown button";
-	pixel_y = 6
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/bridge)
@@ -79266,6 +79437,7 @@
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 8
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine/atmos)
 "tlk" = (
@@ -81301,6 +81473,10 @@
 /obj/structure/desk_bell{
 	pixel_x = 10
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
 /turf/open/floor/plating,
 /area/security/warden)
 "tJr" = (
@@ -81650,7 +81826,8 @@
 	id = "cargo";
 	name = "Cargo Public Access Shutters";
 	req_access_txt = "31";
-	pixel_x = 24
+	pixel_x = 24;
+	pixel_y = 6
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -82169,6 +82346,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
+"tTJ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/main)
 "tTS" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -83335,6 +83523,10 @@
 	cycle_id = "secentry"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
 /turf/open/floor/iron/textured_half,
 /area/security/brig)
 "uhq" = (
@@ -83435,6 +83627,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -83671,6 +83867,12 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/security/brig)
+"ulb" = (
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/iron,
+/area/quartermaster/miningdock)
 "ull" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
@@ -83840,6 +84042,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-9"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/warden)
@@ -86653,6 +86859,10 @@
 /area/space/nearstation)
 "uVJ" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Courtroom Shutters";
+	id = "courtR"
+	},
 /turf/open/floor/plating,
 /area/security/courtroom)
 "uVK" = (
@@ -87313,7 +87523,8 @@
 /obj/machinery/button/door{
 	id = "telelab";
 	name = "Test Chamber Blast Doors";
-	pixel_y = -25
+	pixel_y = -24;
+	pixel_x = 8
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -87726,6 +87937,10 @@
 	id_tag = "prisonereducation";
 	name = "Prison Acess";
 	req_one_access_txt = "1;4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/security/brig/medbay)
@@ -90069,7 +90284,8 @@
 	pixel_x = 24;
 	name = "Toxins Storage Shutters";
 	id = "toxins";
-	req_access_txt = "8"
+	req_access_txt = "8";
+	pixel_y = 6
 	},
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -91323,10 +91539,6 @@
 "vWY" = (
 /obj/effect/turf_decal/arrows{
 	dir = 8
-	},
-/obj/machinery/flasher{
-	id = "hopflash";
-	pixel_y = -28
 	},
 /turf/open/floor/iron/smooth_half,
 /area/hallway/primary/port)
@@ -97096,6 +97308,10 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
+"xsx" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/quartermaster/warehouse)
 "xsM" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/fifty,
@@ -99043,7 +99259,8 @@
 /obj/machinery/button/door{
 	pixel_x = -24;
 	id = "evashutter2";
-	name = "E.V.A. Storage Shutter Control"
+	name = "E.V.A. Storage Shutter Control";
+	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
@@ -124620,7 +124837,7 @@ oeu
 vpD
 vpD
 vpD
-vpD
+lcd
 eIc
 gbv
 sSm
@@ -130079,7 +130296,7 @@ fda
 orc
 ycp
 qCG
-fEU
+uur
 kob
 rSv
 mgi
@@ -135123,7 +135340,7 @@ nzj
 nzj
 qfk
 qfk
-ivP
+tTJ
 qfk
 phD
 eYM
@@ -137265,7 +137482,7 @@ man
 iNC
 kXT
 nYC
-muw
+rpm
 pGc
 dCR
 kHr
@@ -138037,7 +138254,7 @@ aMt
 kXT
 cGu
 huP
-muw
+xsx
 dqB
 kXT
 rgz
@@ -138738,7 +138955,7 @@ oRN
 iZR
 gxv
 btQ
-oRN
+fRc
 qjN
 tSw
 rss
@@ -138823,7 +139040,7 @@ qNW
 gyy
 gyy
 qCJ
-gyy
+ulb
 gyy
 ipL
 xSY
@@ -139256,7 +139473,7 @@ phD
 juX
 lEz
 uMj
-hxY
+lIt
 juX
 juX
 hcw
@@ -139745,7 +139962,7 @@ vcV
 hyT
 hyT
 hyT
-ivP
+tTJ
 tZt
 kle
 okb
@@ -140259,7 +140476,7 @@ nzj
 nzj
 nzj
 hyT
-ajz
+fEU
 kZW
 cSw
 oYq
@@ -142060,7 +142277,7 @@ vcV
 nzj
 nzj
 hyT
-ajz
+fEU
 jXo
 rmK
 aWM
@@ -142589,7 +142806,7 @@ lot
 khn
 oef
 erK
-gds
+deV
 gUe
 qSH
 sWE
@@ -143103,7 +143320,7 @@ kMN
 lDv
 vrL
 lXr
-gds
+deV
 iRe
 aBI
 qfZ
