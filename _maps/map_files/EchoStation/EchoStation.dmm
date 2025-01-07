@@ -4805,6 +4805,15 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
+"cfs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/yellow/visible{
+	dir = 8
+	},
+/turf/open/floor/iron/textured_half{
+	dir = 1
+	},
+/area/engine/atmos)
 "cfv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/fax/cargo,
@@ -6072,6 +6081,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
 	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
@@ -9895,6 +9907,9 @@
 	dir = 4;
 	name = "N2O to Pure"
 	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -12662,9 +12677,8 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/asteroid/paradise/surface)
 "gcg" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/smooth_large,
+/obj/machinery/atmospherics/components/unary/thermomachine/heater,
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "gcq" = (
 /obj/machinery/light_switch{
@@ -17051,6 +17065,9 @@
 	pixel_x = -5;
 	pixel_y = -5
 	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "inR" = (
@@ -21118,6 +21135,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasma/reinforced,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "ksw" = (
@@ -28972,6 +28990,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -30882,6 +30903,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_corner,
 /area/engine/atmos)
 "pnX" = (
@@ -33342,7 +33366,6 @@
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -57
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/atmos)
 "qHP" = (
@@ -33796,6 +33819,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -33948,6 +33974,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "qXE" = (
@@ -35245,6 +35274,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "rBl" = (
@@ -36777,6 +36809,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "sol" = (
@@ -38703,6 +38738,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible/layer2,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "top" = (
@@ -40681,6 +40719,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -40737,6 +40778,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
 	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
@@ -44187,6 +44231,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/west,
+/obj/structure/window/plasma/reinforced,
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
 	},
@@ -56393,7 +56438,7 @@ umI
 bTj
 xpo
 uqk
-mZm
+cfs
 mZm
 gKe
 vKr
@@ -56650,7 +56695,7 @@ rBg
 amR
 jpL
 jpL
-jpL
+gcg
 syO
 mVu
 iLq
@@ -58964,9 +59009,9 @@ oHz
 fru
 pob
 fFL
-gcg
-gcg
-gcg
+bhQ
+bhQ
+bhQ
 vsL
 tHO
 vqI
