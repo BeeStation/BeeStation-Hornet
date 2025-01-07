@@ -194,7 +194,11 @@
 			if(!check_tools(a, R, contents))
 				return "missing tool."
 			var/list/parts = del_reqs(R, a)
-			var/atom/movable/I = new R.result (get_turf(a.loc))
+			var/atom/movable/I
+			if(ispath(R.result, /obj/item/food))
+				I = new R.result (get_turf(a.loc))
+			else
+				I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)
 			if(send_feedback)
 				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
@@ -217,6 +221,7 @@
 		else
 			result.forceMove(user.drop_location())
 		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
+		TR.on_craft_completion(user, result)
 	else
 		to_chat(user, "<span class='warning'>Construction failed[result]</span>")
 	busy = FALSE

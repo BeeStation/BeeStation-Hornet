@@ -15,6 +15,8 @@
 				to_chat(user, "<span class='warning'>[src] is already at maximum fuel load.</span>")
 				return FALSE
 			else if(length(fuel_rods) == 0)
+				fuel_rods += attacked_item
+				attacked_item.forceMove(src)
 				activate(user) //That was the first fuel rod. Let's heat it up.
 			else  // Not the first fuel rod? Play the sound.
 				playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
@@ -58,10 +60,10 @@
 			return TRUE
 	if(attacked_item.tool_behaviour == TOOL_SCREWDRIVER)
 		if(power >= SAFE_POWER_LEVEL)
-			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of \the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
 			return FALSE
 		if (length(fuel_rods) > 0)
-			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!</span>")
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of \the [src] while it still has fuel rods inside!</span>")
 			return FALSE
 		default_deconstruction_screwdriver(user, "reactor", "reactor_open", attacked_item)
 		update_appearance()
@@ -69,19 +71,19 @@
 	if(attacked_item.tool_behaviour == TOOL_CROWBAR)
 		if(panel_open)
 			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
+				to_chat(user, "<span class='notice'>You can't deconstruct \the [src] while it's still above [SAFE_POWER_LEVEL]% power!")
 				return FALSE
 			if (length(fuel_rods) > 0)
-				to_chat(user, "<span class='notice'>You can't deconstruct [src] while it still has fuel rods inside!</span>")
+				to_chat(user, "<span class='notice'>You can't deconstruct \the [src] while it still has fuel rods inside!</span>")
 				return FALSE
 			disassemble(attacked_item)
 			return TRUE
 		else
 			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above [SAFE_POWER_LEVEL]% power!")
+				to_chat(user, "<span class='notice'>You can't remove any fuel rods while \the [src] is above [SAFE_POWER_LEVEL]% power!")
 				return FALSE
 			if (length(fuel_rods) == 0)
-				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!</span>")
+				to_chat(user, "<span class='notice'>\the [src] is empty of fuel rods!</span>")
 				return FALSE
 			removeFuelRod(user, src)
 			update_appearance()
@@ -91,6 +93,7 @@
 		STORE_IN_BUFFER(heldmultitool.parent, src)
 		. = TRUE
 		to_chat(user, "<span class='notice'>You download the link from the nuclear reactor.</span>")
+		return TRUE
 	return ..()
 
 /*
@@ -173,7 +176,6 @@ Arguments:
 	RegisterSignal(linked_moderator, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
 	START_PROCESSING(SSmachines, src)
 	desired_reate_of_reaction = 1
-	can_unwrench = 0
 	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
 	playsound(loc, startup_sound, 50)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
@@ -234,7 +236,6 @@ Arguments:
 		linked_moderator.update_appearance()
 	STOP_PROCESSING(SSmachines, src)
 	rate_of_reaction = 0
-	can_unwrench = 1
 	desired_reate_of_reaction = 0
 	temperature = 0
 	soundloop.stop()
@@ -409,7 +410,7 @@ Arguments:
 		return
 	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_TIME_DELAY)
 		if(critical_threshold_proximity > emergency_point)
-			radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity_percent()]%", common_channel)
+			radio.talk_into(src, "[emergency_alert] Integrity at: [get_integrity_percent()]%", common_channel)
 			lastwarning = REALTIMEOFDAY
 			if(!has_reached_emergency)
 				investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINES)
@@ -422,7 +423,7 @@ Arguments:
 			send_radio_explanation()
 			start_alarm()
 		else if (critical_threshold_proximity < critical_threshold_proximity_archived)// Phew, we're safe, damage going down
-			radio.talk_into(src, "[safe_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
+			radio.talk_into(src, "[safe_alert] Integrity at: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY
 			end_alarm()
 
@@ -451,13 +452,14 @@ Arguments:
 	final_countdown = TRUE
 	var/speaking = "[emergency_alert] The RBMK has reached critical integrity failure. Emergency control rods lowered."
 	radio.talk_into(src, speaking, common_channel, language = get_selected_language())
-
+	var/mutable_appearance/reactor_overlay = mutable_appearance('icons/obj/machines/rbmkparts.dmi', "nuclearwaste_green")
 	notify_ghosts(
 		"The [src] has begun melting down!",
 		source = src,
 		header = "Meltdown Incoming",
 		ghost_sound = 'sound/machines/warning-buzzer.ogg',
 		notify_volume = 75,
+		alert_overlay = reactor_overlay
 	)
 
 	for(var/i in REACTOR_COUNTDOWN_TIME to 0 step -10)

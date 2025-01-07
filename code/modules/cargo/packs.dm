@@ -77,7 +77,7 @@
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
 					/obj/item/clothing/head/soft/cargo,
-					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
+					/obj/item/clothing/mask/bandana/skull/black)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
 
@@ -1138,7 +1138,7 @@
 
 /datum/supply_pack/engineering/fuel_rods
 	name = "Uranium Fuel Rod Crate"
-	desc = "A five nuclear reactor grade fuel rod crate. Don't forget to wear radiation protection!"
+	desc = "A five nuclear reactor grade fuel rod crate. Warning: Due to budget constraints, this crate is not lead-lined! Wear radiation protection around this crate."
 	cost = 3000
 	max_supply = 2
 	access_budget = ACCESS_ENGINE

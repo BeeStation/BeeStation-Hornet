@@ -116,11 +116,11 @@ Charged extracts:
 
 /obj/item/slimecross/charged/bluespace
 	colour = "bluespace"
-	effect_desc = "Makes a bluespace polycrystal."
+	effect_desc = "Makes a bluespace crystal."
 
 /obj/item/slimecross/charged/bluespace/do_effect(mob/user)
 	new /obj/item/stack/ore/bluespace_crystal/refined(get_turf(user), 10)
-	user.visible_message("<span class='notice'>[src] produces several sheets of polycrystal!</span>")
+	user.visible_message("<span class='notice'>[src] produces several sheets of crystal!</span>")
 	..()
 
 /obj/item/slimecross/charged/sepia

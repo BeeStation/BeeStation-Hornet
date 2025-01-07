@@ -64,7 +64,6 @@
 	if(visualsOnly)
 		return
 	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Bounty Hunter"
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -146,3 +145,25 @@
 		gloves = /obj/item/clothing/gloves/combat
 	else if(prob(30))
 		gloves = /obj/item/clothing/gloves/fingerless
+
+
+//ids and ert code
+
+/obj/item/card/id/advanced/bountyhunter
+	assignment = "Bounty Hunter"
+	//icon_state = "card_flames" //oh SHIT
+	//trim = /datum/id_trim/bounty_hunter
+
+/datum/outfit/bounty/armor/ert
+	id = /obj/item/card/id/silver/bounty/ert
+
+/datum/outfit/bounty/hook/ert
+	id = /obj/item/card/id/silver/bounty/ert
+
+/datum/outfit/bounty/synth/ert
+	id = /obj/item/card/id/silver/bounty/ert
+
+/*
+/obj/item/card/id/advanced/bountyhunter/ert
+	trim = /datum/id_trim/centcom/bounty_hunter
+*/

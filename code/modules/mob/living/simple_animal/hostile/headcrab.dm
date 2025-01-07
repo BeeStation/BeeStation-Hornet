@@ -61,11 +61,11 @@
 	time++
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
-		Remove(owner)
+		Remove(owner.loc)
 		qdel(src)
 
 /obj/item/organ/body_egg/changeling_egg/proc/Pop()
-	var/mob/living/carbon/monkey/M = new(owner)
+	var/mob/living/carbon/monkey/M = new(owner.loc)
 
 	for(var/obj/item/organ/I in src)
 		I.Insert(M, 1)

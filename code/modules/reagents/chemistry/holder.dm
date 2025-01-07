@@ -628,7 +628,7 @@
 				var/touch_protection = 0
 				if(method == VAPOR)
 					var/mob/living/L = A
-					touch_protection = L.get_permeability_protection()
+					touch_protection = L.getarmor(null, BIO) * 0.01
 				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection, affecting)
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, show_message)

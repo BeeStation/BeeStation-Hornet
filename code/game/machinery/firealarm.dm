@@ -20,7 +20,7 @@
 	icon_state = "fire0"
 	max_integrity = 250
 	integrity_failure = 0.4
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_firealarm
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -41,6 +41,12 @@
 	var/locked = FALSE //Are we locked?
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
+
+
+/datum/armor/machinery_firealarm
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()

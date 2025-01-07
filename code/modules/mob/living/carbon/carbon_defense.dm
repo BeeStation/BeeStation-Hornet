@@ -78,6 +78,7 @@
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
+		var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
@@ -102,18 +103,26 @@
 			to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
-		//dismemberment
-		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.is_sharp(), 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
-		if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
-			dismemberthreshold -= 50
-		if(I.is_sharp())
-			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
-			if(stat == DEAD)
-				dismemberthreshold = dismemberthreshold / 3
-		if(I.force >= dismemberthreshold && I.force >= 10)
-			if(affecting.dismember(I.damtype))
-				I.add_mob_blood(src)
-				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
+		var/dismember_limb = FALSE
+		var/weapon_sharpness = I.is_sharp()
+
+		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
+			dismember_limb = TRUE
+			//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
+			//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
+
+		else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && stat == DEAD))
+			//Delimbing cannot normally occur with blunt weapons
+			//You also aren't cutting someone's arm off with a scalpel unless they're already dead
+
+			if(limb_damage >= affecting.max_damage)
+				dismember_limb = TRUE
+				//You can only cut a limb off if it is already damaged enough to be fully disabled
+
+		if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || stat != CONSCIOUS) && affecting.dismember(I.damtype))
+			I.add_mob_blood(src)
+			playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
+
 		return TRUE //successful attack
 
 /mob/living/carbon/send_item_attack_message(obj/item/I, mob/living/user, hit_area, obj/item/bodypart/hit_bodypart)

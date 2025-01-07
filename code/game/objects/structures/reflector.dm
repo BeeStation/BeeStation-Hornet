@@ -242,7 +242,7 @@
 	anchored = TRUE
 
 /obj/structure/reflector/box/auto_reflect(obj/projectile/P)
-	P.set_angle(rotation_angle)
+	P.set_angle_centered(rotation_angle)
 	return ..()
 
 /obj/structure/reflector/ex_act()

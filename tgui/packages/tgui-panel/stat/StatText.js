@@ -18,7 +18,7 @@ export const StatText = (props, context) => {
   }
   return (
     <div className="StatBorder">
-      <Box>
+      <Flex direction="row" wrap>
         {statPanelData
           ? Object.keys(statPanelData)
             .filter((x) => x !== null)
@@ -40,16 +40,25 @@ export const StatText = (props, context) => {
                     />
                   )) ||
                   (statPanelData[key].type === STAT_ATOM && (
-                    <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} />
+                    <StatTextAtom
+                      atom_ref={key}
+                      atom_name={statPanelData[key].text}
+                      atom_tag={statPanelData[key].tag}
+                      atom_icon={statPanelData[key].image}
+                    />
                   )) ||
                   (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                  (statPanelData[key].type === STAT_BLANK && <br />))
+                  (statPanelData[key].type === STAT_BLANK && (
+                    <Flex.Item width="100%">
+                      <br />
+                    </Flex.Item>
+                  )))
             )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
           <StatTextVerb key={verb} title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
         ))}
-      </Box>
+      </Flex>
     </div>
   );
 };
@@ -101,7 +110,7 @@ const StatTagToClassName = (text) => {
 export const StatTextText = (props, context) => {
   const { title, text } = props;
   return (
-    <Flex.Item mt={1}>
+    <Flex.Item mt={1} width="100%">
       <b>{title}: </b>
       {text}
     </Flex.Item>
@@ -111,7 +120,7 @@ export const StatTextText = (props, context) => {
 export const StatTextButton = (props, context) => {
   const { title, text, action_id, params = [], multirow = false, buttons = [] } = props;
   return (
-    <Flex.Item mt={1}>
+    <Flex.Item mt={1} width="100%">
       <Button
         width="100%"
         overflowX="hidden"
@@ -189,13 +198,14 @@ const storeAtomRef = (value) => {
 const retrieveAtomRef = () => janky_storage;
 
 export const StatTextAtom = (props, context) => {
-  const { atom_name, atom_ref, atom_tag } = props;
+  const { atom_name, atom_ref, atom_tag, atom_icon } = props;
 
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={0.5}>
+    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? '33%' : '50%'}>
       <Button
+        height="100%"
         pl={0}
         width="100%"
         overflowX="hidden"
@@ -245,10 +255,18 @@ export const StatTextAtom = (props, context) => {
         color="transparent">
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
-            <Flex.Item basis={6} mr={2}>
-              <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
+            {Byond.BYOND_MAJOR >= 515 ? (
+              <Flex.Item mr={1}>
+                <img width="32px" height="32px" src={atom_icon} />
+              </Flex.Item>
+            ) : (
+              <Flex.Item basis={6} mr={2}>
+                <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
+              </Flex.Item>
+            )}
+            <Flex.Item grow={1} className="StatWordWrap">
+              {capitalize(atom_name)}
             </Flex.Item>
-            <Flex.Item grow={1}>{capitalize(atom_name)}</Flex.Item>
           </Flex>
         </div>
       </Button>
@@ -257,7 +275,11 @@ export const StatTextAtom = (props, context) => {
 };
 
 export const StatTextDivider = (props, context) => {
-  return <Divider />;
+  return (
+    <Flex.Item width="100%">
+      <Divider />
+    </Flex.Item>
+  );
 };
 
 export const StatTextVerb = (props, context) => {
