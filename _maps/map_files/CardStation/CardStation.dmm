@@ -23639,13 +23639,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/xenobiology)
-"fRV" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "First done by Spocky on a Shiptest ship as far as i know. They are purely visual - BarteG";
-	name = "Cardstation - Fake holes"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
 "fRX" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -55536,6 +55529,11 @@
 	dir = 8;
 	icon_state = "box_corners"
 	},
+/mob/living/simple_animal/bot/mulebot{
+	beacon_freq = 1400;
+	home_destination = "QM #1";
+	suffix = "#1"
+	},
 /turf/open/floor/monotile/steel,
 /area/quartermaster/sorting)
 "nws" = (
@@ -69560,15 +69558,12 @@
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "qOF" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 9
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "First done by Spocky on a Shiptest ship as far as i know. They are purely visual - BarteG";
+	name = "Cardstation - Fake holes"
 	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 1
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/maintenance/department/medical/central)
 "qOG" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/disposalpipe/segment{
@@ -81142,6 +81137,11 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8;
 	icon_state = "box_corners"
+	},
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #2";
+	suffix = "#2";
+	beacon_freq = 1400
 	},
 /turf/open/floor/monotile/steel,
 /area/quartermaster/sorting)
@@ -120854,7 +120854,7 @@ umf
 tKk
 lxj
 tKk
-qOF
+uLJ
 uLJ
 nzj
 nzj
@@ -145707,7 +145707,7 @@ lha
 pHK
 oqm
 slK
-fRV
+qOF
 xTj
 jAn
 hDo
