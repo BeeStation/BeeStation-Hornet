@@ -5848,7 +5848,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/mapping_helpers/atmos_auto_connect,
-/turf/open/floor/iron/dark/telecomms,
+/turf/open/floor/iron/dark,
 /area/tcommsat/relay)
 "bGs" = (
 /obj/effect/turf_decal/tile/red{
@@ -33175,7 +33175,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/telecomms,
+/turf/open/floor/iron/dark,
 /area/tcommsat/relay)
 "kIy" = (
 /obj/structure/cable/yellow{
@@ -56323,7 +56323,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/dark,
 /area/tcommsat/relay)
 "snl" = (
 /obj/effect/turf_decal/delivery,
@@ -62459,7 +62459,7 @@
 "und" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
 /obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron/dark/telecomms,
+/turf/open/floor/iron/dark,
 /area/tcommsat/relay)
 "unf" = (
 /obj/effect/spawner/lootdrop/maintenance,
