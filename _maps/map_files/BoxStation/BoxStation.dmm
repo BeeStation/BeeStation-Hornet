@@ -24843,6 +24843,7 @@
 	chamber_id = "engine"
 	},
 /obj/effect/mapping_helpers/airalarm/unlocked,
+/obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "gEE" = (
@@ -60665,14 +60666,6 @@
 /obj/machinery/vending/medical,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
-"vjg" = (
-/obj/effect/landmark/start/assistant,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/structure/chair/stool/directional/west,
-/turf/open/floor/iron,
-/area/crew_quarters/locker)
 "vjl" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
