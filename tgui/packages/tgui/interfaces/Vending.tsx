@@ -1,4 +1,5 @@
 import { classes } from 'common/react';
+import { capitalizeAll } from 'common/string';
 import { useBackend, useLocalState } from 'tgui/backend';
 import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from 'tgui/components';
 import { Window } from 'tgui/layouts';
@@ -213,7 +214,7 @@ const VendingRow = (props, context) => {
       <Table.Cell collapsing>
         <ProductImage product={product} />
       </Table.Cell>
-      <Table.Cell bold>{product.name.replace(/^\w/, (c) => c.toUpperCase())}</Table.Cell>
+      <Table.Cell bold>{capitalizeAll(product.name)}</Table.Cell>
       <Table.Cell>{!!productStock?.colorable && <ProductColorSelect disabled={disabled} product={product} />}</Table.Cell>
       <Table.Cell collapsing textAlign="right">
         <ProductStock custom={custom} product={product} remaining={remaining} />

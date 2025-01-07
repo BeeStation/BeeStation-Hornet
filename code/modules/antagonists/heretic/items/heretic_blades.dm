@@ -9,7 +9,7 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_LARGE
 	force = 24

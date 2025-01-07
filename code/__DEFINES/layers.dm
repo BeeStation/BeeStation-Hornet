@@ -1,27 +1,11 @@
 //Defines for atom layers and planes
 //KEEP THESE IN A NICE ACSCENDING ORDER, PLEASE
 
-//NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
-#define LOWEST_EVER_PLANE -200
 
-#define CLICKCATCHER_PLANE -99
+//KEEP THESE IN A NICE ACSCENDING ORDER, PLEASE
 
-#define PLANE_SPACE -95
-#define PLANE_SPACE_PARALLAX -90
-
-#define GRAVITY_PULSE_PLANE -89
-#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
-
-//#define ZMIMIC_MIN_PLANE -80
-// ZMIMIC: -----------  -80 to -70
-// Highest plane used by zmimic, occupies up to -ZMIMIC_MAX_DEPTH
-#define ZMIMIC_MAX_PLANE -70
-/// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
-#define ZMIMIC_MAX_DEPTH 10
-
-#define FLOOR_PLANE -7
-#define GAME_PLANE -4
-#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
+///cinematics are "below" the splash screen
+#define CINEMATIC_LAYER -1
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -100,6 +84,54 @@
 #define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
 	// maybe it should be custom layer category like 'UI_LAYER 6'
 
+///1000 is an unimportant number, it's just to normalize copied layers
+#define RADIAL_LAYER 1000
+
+#define RADIAL_BACKGROUND_LAYER 0
+#define RADIAL_CONTENT_LAYER 1000
+
+/**
+ * Planes
+ */
+
+//NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
+#define LOWEST_EVER_PLANE -200
+
+#define CLICKCATCHER_PLANE -99
+
+#define PLANE_SPACE -95
+#define PLANE_SPACE_PARALLAX -90
+
+#define GRAVITY_PULSE_PLANE -89
+#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
+
+//---------- Z-MIMIC -------------
+//#define ZMIMIC_MIN_PLANE -80
+// ZMIMIC: -----------  -80 to -70
+// Highest plane used by zmimic, occupies up to -ZMIMIC_MAX_DEPTH
+#define ZMIMIC_MAX_PLANE -70
+/// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
+#define ZMIMIC_MAX_DEPTH 10
+
+//---------- ABSTRACT LIGHTING -------------
+// Layering order of these is not particularly meaningful.
+// Important part is the seperation of the planes for control via plane_master
+// We put these below the standard planes because if they are rendered without a plane-master (RenderIcon)
+// then we want them to be as hidden as possible.
+
+///This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas
+#define EMISSIVE_PLANE -50
+#define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
+
+/// The plane for managing the global starlight effect
+#define STARLIGHT_PLANE -45
+
+//---------- STANDARD -------------
+
+#define FLOOR_PLANE -7
+#define GAME_PLANE -4
+#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
+
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60
@@ -115,9 +147,6 @@
 #define LIGHTING_PLANE 100
 #define LIGHTING_PLANE_ADDITIVE 101
 
-/// The plane for managing the global starlight effect
-#define STARLIGHT_PLANE 105
-
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
 #define O_LIGHTING_VISUAL_LAYER 110
@@ -128,13 +157,6 @@
 
 ///visibility + hiding of things outside of light source range
 #define BYOND_LIGHTING_PLANE 130
-//---------- EMISSIVES -------------
-//Layering order of these is not particularly meaningful.
-//Important part is the seperation of the planes for control via plane_master
-
-///This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas
-#define EMISSIVE_PLANE 150
-#define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
 ///---------------- MISC -----------------------
 
@@ -183,17 +205,8 @@
 #define ABOVE_HUD_PLANE 1100
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
 
-///1000 is an unimportant number, it's just to normalize copied layers
-#define RADIAL_LAYER 1000
-
-#define RADIAL_BACKGROUND_LAYER 0
-#define RADIAL_CONTENT_LAYER 1000
-
 ///Plane of the "splash" icon used that shows on the lobby screen. Nothing should ever be above this.
 #define SPLASHSCREEN_PLANE 9999
-
-///cinematics are "below" the splash screen
-#define CINEMATIC_LAYER -1
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
