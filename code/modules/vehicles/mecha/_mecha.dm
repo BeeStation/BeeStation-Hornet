@@ -1126,11 +1126,6 @@
 		return cabin_air.remove(amount)
 	return ..()
 
-/obj/vehicle/sealed/mecha/remove_air_ratio(ratio)
-	if(use_internal_tank)
-		return cabin_air.remove_ratio(ratio)
-	return ..()
-
 /obj/vehicle/sealed/mecha/return_air()
 	if(use_internal_tank)
 		return cabin_air

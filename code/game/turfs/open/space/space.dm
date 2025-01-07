@@ -107,9 +107,6 @@
 /turf/open/space/remove_air(amount)
 	return null
 
-/turf/open/space/remove_air_ratio(amount)
-	return null
-
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)
 
