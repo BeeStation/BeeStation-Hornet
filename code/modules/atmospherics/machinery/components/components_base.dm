@@ -102,7 +102,7 @@
 	update_parents()
 
 /obj/machinery/atmospherics/components/on_deconstruction()
-	relocate_airs()
+	relocate_airs(airs)
 	return ..()
 
 /obj/machinery/atmospherics/components/rebuild_pipes()
