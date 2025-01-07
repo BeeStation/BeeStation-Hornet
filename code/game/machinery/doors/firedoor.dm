@@ -38,7 +38,7 @@
 
 
 	var/boltslocked = TRUE
-	///List of areas we handle. See CalculateAffectingAreas()
+	///List of areas we handle. See calculate_affecting_areas()
 	var/list/affecting_areas
 	///For the few times we affect only the area we're actually in. Set during Init. If we get moved, we don't update, but this is consistant with fire alarms and also kinda funny so call it intentional.
 	var/area/my_area
@@ -78,7 +78,7 @@
 	. = ..()
 	id_tag = assign_random_name()
 	soundloop = new(src, FALSE)
-	CalculateAffectingAreas()
+	calculate_affecting_areas()
 	my_area = get_area(src)
 	if(name == initial(name))
 		update_name()
@@ -135,7 +135,7 @@
  * This proc builds a list of areas we are in and areas we border
  * and writes it to affecting_areas.
  */
-/obj/machinery/door/firedoor/proc/CalculateAffectingAreas()
+/obj/machinery/door/firedoor/proc/calculate_affecting_areas()
 	var/list/new_affecting_areas = get_adjacent_open_areas(src) | get_area(src)
 	if(compare_list(new_affecting_areas, affecting_areas))
 		return //No changes needed
@@ -216,7 +216,7 @@
 // If a turf adjacent to us changes, recalc our affecting areas when it's done yeah?
 /obj/machinery/door/firedoor/proc/adjacent_change(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
 	SIGNAL_HANDLER
-	post_change_callbacks += CALLBACK(src, PROC_REF(CalculateAffectingAreas))
+	post_change_callbacks += CALLBACK(src, PROC_REF(calculate_affecting_areas))
 	post_change_callbacks += CALLBACK(src, PROC_REF(process_results), changed) //check the atmosphere of the changed turf so we don't hold onto alarm if a wall is built
 
 /obj/machinery/door/firedoor/proc/check_atmos(turf/checked_turf)
