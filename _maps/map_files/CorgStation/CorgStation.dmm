@@ -60415,10 +60415,6 @@
 /area/medical/genetics)
 "tEJ" = (
 /obj/machinery/telecomms/receiver/preset_exploration,
-/obj/machinery/airalarm{
-	pixel_y = 24;
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
@@ -62462,6 +62458,7 @@
 /area/engine/atmos)
 "und" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/relay)
 "unf" = (
