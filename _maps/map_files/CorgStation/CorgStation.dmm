@@ -9351,13 +9351,6 @@
 "cQS" = (
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
-"cRh" = (
-/obj/machinery/airalarm{
-	pixel_y = 24;
-	dir = 1
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/tcommsat/server)
 "cRu" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
@@ -27918,7 +27911,6 @@
 	name = "Xenobiology Kill Room";
 	req_access_txt = "47"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "iWh" = (
@@ -95027,7 +95019,7 @@ xPm
 aLq
 ibW
 dZs
-cRh
+rvb
 rvb
 rvb
 gpM
