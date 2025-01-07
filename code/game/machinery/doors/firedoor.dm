@@ -64,20 +64,6 @@
 	///Keeps track of if we're playing the alarm sound loop (as only one firelock per group should be). Used during power changes.
 	var/is_playing_alarm = FALSE
 
-
-
-
-/datum/armor/door_firedoor
-	melee = 30
-	bullet = 30
-	laser = 20
-	energy = 20
-	bomb = 10
-	rad = 100
-	fire = 95
-	acid = 70
-
-
 /datum/armor/door_firedoor
 	melee = 30
 	bullet = 30
@@ -488,7 +474,7 @@
 
 	var/obj/item/card/id/id_card = attacked_item.GetID()
 	if(istype(id_card))
-		if((alarm_type != FIRELOCK_ALARM_TYPE_GENERIC) || check_access(id_card))
+		if((alarm_type == FIRELOCK_ALARM_TYPE_GENERIC) || check_access(id_card))
 			playsound(src, 'sound/machines/beep.ogg', 50, 1)
 			open()
 			return
