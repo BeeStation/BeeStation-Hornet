@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 		//recompute fire doors affecting areas
 		for(var/obj/machinery/door/firedoor/FD as anything in merged_area.firedoors)
-			FD.CalculateAffectingAreas()
+			FD.calculate_affecting_areas()
 
 		//no more turfs in this area. Time to clean up
 		if(!merged_area.has_contained_turfs())

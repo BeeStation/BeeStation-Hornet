@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	for(var/I in turfs_to_check)
 		var/turf/T = I
 		for(var/obj/machinery/door/firedoor/FD in T)
-			FD.CalculateAffectingAreas()
+			FD.calculate_affecting_areas()
 
 	QUEUE_SMOOTH_NEIGHBORS(src)
 

@@ -218,7 +218,7 @@
 	if(A.firedoors)
 		for(var/D in A.firedoors)
 			var/obj/machinery/door/firedoor/FD = D
-			FD.CalculateAffectingAreas()
+			FD.calculate_affecting_areas()
 	A.update_areasize()
 	return TRUE
 
