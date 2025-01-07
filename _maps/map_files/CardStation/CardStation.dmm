@@ -9605,6 +9605,11 @@
 /obj/machinery/light/floor,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"ckO" = (
+/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/quartermaster/warehouse)
 "ckU" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
@@ -11910,6 +11915,14 @@
 	dir = 1
 	},
 /area/hallway/upper/primary/port)
+"cNU" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/brig/medbay)
 "cOh" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/fire{
@@ -15489,17 +15502,6 @@
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/ai_monitored/turret_protected/aisat_interior)
-"dGT" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "brigentrance";
-	name = "Brig Blast Door"
-	},
-/turf/open/floor/plating,
-/area/security/main)
 "dGV" = (
 /obj/structure/table/glass/plasma,
 /obj/item/reagent_containers/cup/glass/bottle/champagne{
@@ -22781,11 +22783,16 @@
 /turf/open/floor/carpet/purple,
 /area/construction)
 "fEU" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/iron,
-/area/quartermaster/miningdock)
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/main)
 "fEW" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -30949,8 +30956,8 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
 /obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
+	id = "brigentrance";
+	name = "Brig Blast Door"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
@@ -36894,6 +36901,12 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/science/robotics/lab)
+"iPP" = (
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/iron,
+/area/quartermaster/miningdock)
 "iPZ" = (
 /obj/effect/turf_decal/siding/green{
 	dir = 1
@@ -43093,6 +43106,10 @@
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron/tech,
 /area/quartermaster/office)
+"kui" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/quartermaster/warehouse)
 "kuy" = (
 /obj/structure/displaycase/trophy,
 /obj/machinery/light/small/directional/east,
@@ -43272,14 +43289,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
-"kwB" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/turf/open/floor/plating,
-/area/security/brig/medbay)
 "kwN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -51969,11 +51978,6 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
-"mDV" = (
-/obj/effect/landmark/event_spawn,
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/quartermaster/warehouse)
 "mDZ" = (
 /obj/effect/turf_decal/trimline/white/corner{
 	dir = 1
@@ -54866,27 +54870,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
-"nmy" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrig";
-	name = "Brig";
-	req_access_txt = "63"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "secentry"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id = "brigentrance";
-	name = "Brig Blast Door"
-	},
-/turf/open/floor/iron/textured_half,
-/area/security/brig)
 "nmL" = (
 /obj/item/banhammer,
 /obj/structure/disposalpipe/trunk,
@@ -63165,15 +63148,6 @@
 	},
 /turf/open/floor/iron/edge,
 /area/hallway/primary/starboard)
-"pjF" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "brigentrance";
-	name = "Brig Blast Door"
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "pjW" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -65052,6 +65026,15 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"pHx" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/smooth,
+/area/construction/mining/aux_base)
 "pHB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75106,6 +75089,15 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/chapel)
+"sgQ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "sgR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -81707,21 +81699,6 @@
 /obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
-"tMg" = (
-/obj/effect/spawner/structure/window/reinforced/prison,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "tMm" = (
 /obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/siding/wood{
@@ -82401,6 +82378,17 @@
 /obj/structure/girder,
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
+"tTV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
+/turf/open/floor/plating,
+/area/security/main)
 "tUa" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 1
@@ -82690,10 +82678,6 @@
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"tWP" = (
-/obj/effect/landmark/blobstart,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/quartermaster/warehouse)
 "tWR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -84461,15 +84445,6 @@
 /obj/structure/dresser,
 /turf/open/floor/carpet/cyan,
 /area/crew_quarters/dorms)
-"urm" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 8
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
-/turf/open/floor/iron/smooth,
-/area/construction/mining/aux_base)
 "urp" = (
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -97352,6 +97327,27 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/engine_room)
+"xsW" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "secentry"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id = "brigentrance";
+	name = "Brig Blast Door"
+	},
+/turf/open/floor/iron/textured_half,
+/area/security/brig)
 "xsX" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -98725,17 +98721,6 @@
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat_interior)
-"xKg" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "brigentrance";
-	name = "Brig Blast Door"
-	},
-/turf/open/floor/plating,
-/area/security/main)
 "xKm" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -124858,7 +124843,7 @@ oeu
 vpD
 vpD
 vpD
-urm
+pHx
 eIc
 gbv
 sSm
@@ -135361,7 +135346,7 @@ nzj
 nzj
 qfk
 qfk
-dGT
+fEU
 qfk
 phD
 eYM
@@ -137503,7 +137488,7 @@ man
 iNC
 kXT
 nYC
-mDV
+ckO
 pGc
 dCR
 kHr
@@ -138275,7 +138260,7 @@ aMt
 kXT
 cGu
 huP
-tWP
+kui
 dqB
 kXT
 rgz
@@ -138976,7 +138961,7 @@ oRN
 iZR
 gxv
 btQ
-nmy
+xsW
 qjN
 tSw
 rss
@@ -139061,7 +139046,7 @@ qNW
 gyy
 gyy
 qCJ
-fEU
+iPP
 gyy
 ipL
 xSY
@@ -139494,7 +139479,7 @@ phD
 juX
 lEz
 uMj
-pjF
+hxY
 juX
 juX
 hcw
@@ -139983,7 +139968,7 @@ vcV
 hyT
 hyT
 hyT
-dGT
+fEU
 tZt
 kle
 okb
@@ -140270,7 +140255,7 @@ eLl
 juX
 odB
 juX
-tMg
+odB
 pJf
 bdZ
 nUq
@@ -140497,7 +140482,7 @@ nzj
 nzj
 nzj
 hyT
-xKg
+tTV
 kZW
 cSw
 oYq
@@ -141036,7 +141021,7 @@ hty
 rPN
 juX
 pSG
-hxY
+sgQ
 juX
 juX
 aex
@@ -142298,7 +142283,7 @@ vcV
 nzj
 nzj
 hyT
-xKg
+tTV
 jXo
 rmK
 aWM
@@ -142827,7 +142812,7 @@ lot
 khn
 oef
 erK
-kwB
+cNU
 gUe
 qSH
 sWE
@@ -143341,7 +143326,7 @@ kMN
 lDv
 vrL
 lXr
-kwB
+cNU
 iRe
 aBI
 qfZ
