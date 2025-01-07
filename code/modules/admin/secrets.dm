@@ -113,23 +113,27 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	var/ok = 0
 	switch(action)
 		if("admin_log")
-			var/dat = "<B>Admin Log<HR></B>"
+			var/dat
 			for(var/l in GLOB.admin_log)
 				dat += "<li>[l]</li>"
 			if(!GLOB.admin_log.len)
 				dat += "No one has done anything this round!"
-			usr << browse(dat, "window=admin_log")
+			var/datum/browser/browser = new(usr, "admin_log", "Admin Logs", 600, 500)
+			browser.set_content(dat)
+			browser.open()
 
 		if("mentor_log") // hippie start -- access mentor log
 			admin_datum.MentorLogSecret() // hippie end
 
 		if("show_admins")
-			var/dat = "<B>Current admins:</B><HR>"
+			var/dat
 			if(GLOB.admin_datums)
 				for(var/ckey in GLOB.admin_datums)
 					var/datum/admins/D = GLOB.admin_datums[ckey]
 					dat += "[ckey] - [D.rank.name]<br>"
-				usr << browse(dat, "window=showadmins;size=600x500")
+				var/datum/browser/browser = new(usr, "showadmins", "Current admins", 600, 500)
+				browser.set_content(dat)
+				browser.open()
 
 		if("tdomereset")
 			if(!check_rights(R_ADMIN))
