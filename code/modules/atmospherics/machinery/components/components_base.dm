@@ -364,8 +364,6 @@
 	var/turf/local_turf = get_turf(src)
 	for(var/i in 1 to device_type)
 		var/datum/gas_mixture/air = airs[i]
-		if(!air)
-			continue
 		if(!nodes[i] || (istype(nodes[i], /obj/machinery/atmospherics/components/unary/portables_connector) && !portable_device_connected(i)))
 			if(!to_release)
 				to_release = air
