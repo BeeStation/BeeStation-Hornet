@@ -19,6 +19,8 @@
 /datum/action/cooldown/bloodsucker/fortitude/ActivatePower(trigger_flags)
 	. = ..()
 	if(!.)
+		return
+
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, "<span class='notice'>Your flesh has become as hard as steel!</span>")
 	// Traits & Effects

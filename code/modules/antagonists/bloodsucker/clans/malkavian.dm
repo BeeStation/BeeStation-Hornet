@@ -58,7 +58,7 @@
 
 /datum/bloodsucker_clan/malkavian/on_final_death(datum/antagonist/bloodsucker/source)
 	var/obj/item/soulstone/bloodsucker/stone = new /obj/item/soulstone/bloodsucker(get_turf(bloodsuckerdatum.owner.current))
-	stone.init_shade(bloodsuckerdatum.owner.current, message_user = FALSE)
+	INVOKE_ASYNC(stone, TYPE_PROC_REF(/obj/item/soulstone/bloodsucker, init_shade), bloodsuckerdatum.owner.current)
 
 	return DONT_DUST
 
