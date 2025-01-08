@@ -30,11 +30,11 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
-	var/screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name)))]</span>"
+	var/screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(format_text(name))))]</span>"
 	var/datum/screentip_cache/cache = GLOB.screentips_cache["[type]"]
 	if (cache)
 #ifdef DEBUG
-		screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(name) + "(Using Cache)"))]</span>"
+		screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(format_text(name)) + " (Using Cache)"))]</span>"
 #endif
 		if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
 			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.attack_hand]</span>"
