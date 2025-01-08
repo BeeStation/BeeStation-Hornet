@@ -12418,7 +12418,7 @@
 /area/engine/atmos)
 "bJa" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -15053,8 +15053,8 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bYy" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bYz" = (
@@ -21237,7 +21237,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible,
 /turf/open/space,
 /area/space/nearstation)
 "dhe" = (

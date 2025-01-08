@@ -3662,7 +3662,7 @@
 /turf/closed/wall,
 /area/maintenance/central)
 "aIO" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/closed/wall,
 /area/engine/atmos)
 "aJk" = (
@@ -3736,7 +3736,7 @@
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aKm" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/closed/wall/rust,
 /area/engine/atmos)
 "aKu" = (
@@ -10843,8 +10843,8 @@
 "cjm" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible{
+	dir = 8
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -50167,7 +50167,7 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "oqE" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/closed/wall,
@@ -79944,7 +79944,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
 "xIV" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/closed/wall/rust,

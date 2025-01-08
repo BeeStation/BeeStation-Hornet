@@ -17234,10 +17234,10 @@
 /area/medical/virology)
 "dEo" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "dEq" = (
@@ -55466,7 +55466,7 @@
 /area/quartermaster/miningdock)
 "tdq" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "tdv" = (
@@ -64280,8 +64280,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer2,
+/obj/machinery/atmospherics/pipe/bridge_pipe/dark/visible/layer4,
+/obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible/layer2,
 /turf/open/space,
 /area/space/nearstation)
 "wEJ" = (
@@ -65207,7 +65207,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer4,
+/obj/machinery/atmospherics/pipe/bridge_pipe/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "wZO" = (

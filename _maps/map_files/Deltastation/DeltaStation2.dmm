@@ -53485,9 +53485,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "lqu" = (
@@ -54340,7 +54340,7 @@
 /area/medical/morgue)
 "lDX" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -84981,7 +84981,7 @@
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
 "vpd" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,

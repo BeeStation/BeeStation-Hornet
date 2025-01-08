@@ -36565,13 +36565,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"lPt" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "lPz" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -41645,7 +41638,7 @@
 /area/security/brig/medbay)
 "nra" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -50346,13 +50339,6 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
-"qoU" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/turf/open/floor/iron/dark,
-/area/engine/atmos)
 "qoV" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -59863,13 +59849,13 @@
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
 "tvv" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Nitrogen Outlet"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer4,
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "tvz" = (
@@ -71564,7 +71550,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Oxygen Outlet"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -72656,7 +72642,7 @@
 /area/engine/atmos)
 "xFs" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "xFx" = (
@@ -90617,11 +90603,11 @@ anT
 anT
 aPf
 rfG
-qoU
+uyQ
 lTh
 vFJ
 mTg
-lPt
+uyQ
 qJp
 kRJ
 mCA

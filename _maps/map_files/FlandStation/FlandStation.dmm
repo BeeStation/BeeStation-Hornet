@@ -9184,7 +9184,7 @@
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
 "crD" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
@@ -54901,7 +54901,7 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
 "obK" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "obP" = (
