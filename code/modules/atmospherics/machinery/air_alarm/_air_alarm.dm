@@ -272,7 +272,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 	))
 	data["envData"] += list(list(
 		"name" = "Temperature",
-		"value" = "[round(temp, 0.01)] Kelvin / [round(temp, 0.01) - T0C] Celcius",
+		"value" = "[round(temp, 0.01)] Kelvin / [round(temp, 0.01) - T0C] Celsius",
 		"danger" = tlv_collection["temperature"].check_value(temp),
 	))
 	if(total_moles)
