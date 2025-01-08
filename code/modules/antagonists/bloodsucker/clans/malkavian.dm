@@ -58,8 +58,7 @@
 
 /datum/bloodsucker_clan/malkavian/on_final_death(datum/antagonist/bloodsucker/source)
 	var/obj/item/soulstone/bloodsucker/stone = new /obj/item/soulstone/bloodsucker(get_turf(bloodsuckerdatum.owner.current))
-	if(!stone.transfer_soul("FORCE", bloodsuckerdatum.owner.current)) //Something went wrong
-		qdel(stone)
+	stone.init_shade(victim = bloodsuckerdatum.owner.current, message_user = FALSE)
 
 	return DONT_DUST
 

@@ -1971,7 +1971,6 @@
 #include "code\modules\antagonists\bloodsucker\moodlets_bloodsucker.dm"
 #include "code\modules\antagonists\bloodsucker\names_bloodsucker.dm"
 #include "code\modules\antagonists\bloodsucker\objectives_bloodsucker.dm"
-#include "code\modules\antagonists\bloodsucker\soulstone_bloodsucker.dm"
 #include "code\modules\antagonists\bloodsucker\clans\_clan.dm"
 #include "code\modules\antagonists\bloodsucker\clans\assignclan.dm"
 #include "code\modules\antagonists\bloodsucker\clans\clan_flavortext.dm"
