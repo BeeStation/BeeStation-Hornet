@@ -714,6 +714,13 @@
 				isdisabled += " and "
 		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>")
 
+		if (LB.skin_health < LB.skin_max_health && LB.bone_health < LB.bone_max_health)
+			to_chat(src, "\t <span class='warning'>The bones inside your [LB.name] ache and the skin appears damaged.</span>")
+		else if (LB.skin_health < LB.skin_max_health)
+			to_chat(src, "\t <span class='warning'>The skin on your [LB.name] looks slightly damaged.</span>")
+		else if (LB.bone_health < LB.bone_max_health)
+			to_chat(src, "\t <span class='warning'>Your [LB.name] aches and the bone is likely damage.</span>")
+
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())
 				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")

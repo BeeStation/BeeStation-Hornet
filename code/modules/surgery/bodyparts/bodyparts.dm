@@ -56,6 +56,8 @@
 	var/brute_reduction = 0 //Subtracted to brute damage taken
 	var/burn_reduction = 0	//Subtracted to burn damage taken
 
+
+
 	//Coloring and proper item icon update
 	var/skin_tone = ""
 	var/should_draw_greyscale = TRUE //Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
@@ -65,6 +67,12 @@
 
 	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
 	var/dismemberable = 1 //whether it can be dismembered with a weapon.
+	/// Does dismemberment require the mob to be dead?
+	var/dismemberment_requires_death = FALSE
+
+	/// Effectiveness of the limb
+	/// Pairs of limbs together make up 100%
+	var/effectiveness = 50
 
 	var/px_x = 0
 	var/px_y = 0
@@ -87,17 +95,19 @@
 	var/list/organ_slots = null
 
 	/// Amount of health the skin has before it starts to take skin injuries
-	var/skin_max_health = 40
-	var/skin_health = 40
+	var/skin_max_health = 30
+	var/skin_health = 30
 	/// Amount of penetration that the skin will reduce an attack by
 	var/skin_penetration_resistance = 5
 	// The amount of damage that will be deleted when the damage reaches bones
-	var/bone_deflection = 20
+	var/bone_deflection = 15
 	/// The amount of health that bones have before the user takes bones injuries
 	var/bone_max_health = 40
 	var/bone_health = 40
 	/// The amount of penetration that the bones reduce an attack by
 	var/bone_penetration_resistance = 40
+	/// Injury status effects applied to this limb
+	var/list/injuries = null
 
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
@@ -660,49 +670,60 @@
 	qdel(src)
 
 /obj/item/bodypart/proc/run_limb_injuries(damage, damage_flag, penetration_power)
+	var/current_damage = damage
 	if (!owner)
 		return
+	// Deal with armour, the penetration power gets flat reduced by the relevant armour stat
+	var/armour = owner.run_armor_check(body_zone, damage_flag, silent = TRUE)
+	penetration_power -= armour
+	// Deal with base damage
+	current_damage = damage
 	if (penetration_power < INJURY_PENETRATION_MINIMUM)
 		return
 	if (penetration_power < 0)
-		damage += penetration_power
-	if (damage < 0)
+		current_damage += penetration_power
+	if (current_damage < 0)
 		return
 	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
-	var/blunt_damage = (damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
-	var/sharp_damage = damage * proportion
+	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+	var/sharp_damage = current_damage * proportion
 	skin_health -= sharp_damage
 	if (damage_flag == FIRE || damage_flag == LASER || damage_flag == ACID || damage_flag == BOMB)
 		skin_health -= blunt_damage
 	if (skin_health < 0)
+		message_admins("Injury gained: Broken skin")
+		check_effectiveness()
 	// Reduce penetration
 	penetration_power -= skin_penetration_resistance
-	// Deflection
-	damage -= damage_deflection
+	// Deflection - Permanently reduces damage
+	damage -= bone_deflection
+	current_damage = damage
 	if (penetration_power < INJURY_PENETRATION_MINIMUM)
 		return
 	if (penetration_power < 0)
-		damage += penetration_power
-	if (damage < 0)
+		current_damage += penetration_power
+	if (current_damage < 0)
 		return
 	// Bone health
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
-	blunt_damage = (damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	bone_health -= blunt_damage
+	if (bone_health <= 0)
+		check_effectiveness()
+		if (!(locate(/datum/injury/broken_bone) in injuries))
+			LAZYADD(injuries, new /datum/injury/broken_bone)
 	// Bone pentration
 	penetration_power -= bone_penetration_resistance
+	current_damage = damage
 	if (penetration_power < INJURY_PENETRATION_MINIMUM)
 		return
 	if (penetration_power < 0)
-		damage += penetration_power
-	if (damage < 0)
+		current_damage += penetration_power
+	if (current_damage < 0)
 		return
 	// Organ damage
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
-	sharp_damage = damage * proportion
-	// Enough to delimb
-	if (penetration_power > 0 && dismemberable && damage_flag == MELEE)
-		drop_limb(FALSE, TRUE)
+	sharp_damage = current_damage * proportion
 	// Damage organs
 	for (var/slot in organ_slots)
 		var/obj/item/organ/organ = owner.getorganslot(slot)
@@ -710,7 +731,25 @@
 			continue
 		if (!prob(organ.organ_size))
 			continue
-		organ.take_damage(sharp_damage)
+		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
+	// If the penetration power is still high, then lose the limb
+	// The head cannot be delimbed if the most is alive since it causes instant death
+	if (((penetration_power > 0 && prob(50 + penetration_power)) || bone_health <= 0) && dismemberable && damage_flag == MELEE && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
+		dismember()
+
+/obj/item/bodypart/proc/check_effectiveness()
+	effectiveness = initial(effectiveness)
+	if (bone_health <= 0)
+		effectiveness -= 0.5 * initial(effectiveness)
+	if (skin_health <= 0)
+		effectiveness -= 0.25 * initial(effectiveness)
+	update_effectiveness()
+
+/obj/item/bodypart/proc/update_effectiveness()
+	return
+
+/obj/item/bodypart/proc/clear_effectiveness_modifiers()
+	return
 
 /obj/item/bodypart/chest
 	name = BODY_ZONE_CHEST
@@ -725,6 +764,7 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
 	is_dimorphic = TRUE
+	dismemberable = FALSE
 	organ_slots = list(
 		ORGAN_SLOT_APPENDIX,
 		ORGAN_SLOT_WINGS,
@@ -830,7 +870,6 @@
 		else
 			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
 
-
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
 /obj/item/bodypart/l_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
@@ -838,14 +877,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_ARM trait.
 /obj/item/bodypart/l_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/l_arm/set_disabled(new_disabled)
 	. = ..()
@@ -865,6 +902,18 @@
 	if(owner.hud_used)
 		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
+
+/obj/item/bodypart/l_arm/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/l_arm, TRUE, modifier)
+
+/obj/item/bodypart/l_arm/clear_effectiveness_modifiers()
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/l_arm)
+
+/datum/actionspeed_modifier/l_arm
+	variable = TRUE
 
 /obj/item/bodypart/l_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -937,7 +986,6 @@
 		else
 			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
 
-
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_ARM trait.
 /obj/item/bodypart/r_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
@@ -945,14 +993,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_ARM trait.
 /obj/item/bodypart/r_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/r_arm/set_disabled(new_disabled)
 	. = ..()
@@ -972,6 +1018,18 @@
 	if(owner.hud_used)
 		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
+
+/obj/item/bodypart/r_arm/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/r_arm, TRUE, modifier)
+
+/obj/item/bodypart/r_arm/clear_effectiveness_modifiers()
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/r_arm)
+
+/datum/actionspeed_modifier/r_arm
+	variable = TRUE
 
 /obj/item/bodypart/r_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -1056,7 +1114,6 @@
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
 
-
 /obj/item/bodypart/l_leg/set_disabled(new_disabled)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -1070,6 +1127,17 @@
 	else if(!bodypart_disabled)
 		owner.set_usable_legs(owner.usable_legs + 1)
 
+/obj/item/bodypart/l_leg/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/l_leg, TRUE, modifier)
+
+/obj/item/bodypart/l_leg/clear_effectiveness_modifiers()
+	owner.remove_movespeed_modifier(/datum/actionspeed_modifier/r_arm)
+
+/datum/movespeed_modifier/l_leg
+	variable = TRUE
 
 /obj/item/bodypart/l_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -1155,7 +1223,6 @@
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
 
-
 /obj/item/bodypart/r_leg/set_disabled(new_disabled)
 	. = ..()
 	if(isnull(.) || !owner)
@@ -1169,6 +1236,17 @@
 	else if(!bodypart_disabled)
 		owner.set_usable_legs(owner.usable_legs + 1)
 
+/obj/item/bodypart/r_leg/update_effectiveness()
+	// If greater than 50, becomes negative
+	// If less than 50, becomes positive
+	var/modifier = (50 - effectiveness) / 50
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/r_leg, TRUE, modifier)
+
+/obj/item/bodypart/r_leg/clear_effectiveness_modifiers()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/r_leg)
+
+/datum/movespeed_modifier/r_leg
+	variable = TRUE
 
 /obj/item/bodypart/r_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'

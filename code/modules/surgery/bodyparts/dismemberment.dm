@@ -83,6 +83,7 @@
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(TRUE)
 	C.remove_bodypart(src)
+	clear_effectiveness_modifiers()
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -272,6 +273,7 @@
 	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, C, special)
 	moveToNullspace()
 	set_owner(C)
+	update_effectiveness()
 	C.add_bodypart(src)
 	if(held_index)
 		if(held_index > C.hand_bodyparts.len)
@@ -299,6 +301,7 @@
 	synchronize_bodytypes(C)
 	if(is_creating)
 		update_limb(is_creating = TRUE)
+
 	update_bodypart_damage_state()
 
 	C.updatehealth()

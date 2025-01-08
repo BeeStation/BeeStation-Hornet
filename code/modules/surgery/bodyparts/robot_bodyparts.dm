@@ -28,6 +28,7 @@
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -55,6 +56,7 @@
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -82,6 +84,7 @@
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -109,6 +112,7 @@
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -134,6 +138,7 @@
 
 	brute_reduction = 5
 	burn_reduction = 4
+	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -334,6 +339,7 @@
 	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 /obj/item/bodypart/r_arm/robot/surplus
@@ -342,6 +348,7 @@
 	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 /obj/item/bodypart/l_leg/robot/surplus
@@ -350,6 +357,7 @@
 	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 /obj/item/bodypart/r_leg/robot/surplus
@@ -358,6 +366,7 @@
 	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
+	effectiveness = 40
 	max_damage = 20
 
 

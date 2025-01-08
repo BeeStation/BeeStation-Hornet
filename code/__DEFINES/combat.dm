@@ -309,3 +309,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define ENERGY_SHIELD_INVISIBLE (1 << 2)
 /// Energy shield will take max damage when EMP'd
 #define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)
+
+/// Amount of damage needed before the slowdown starts
+#define DAMAGE_SLOWDOWN_START 40
+/// Amount of slowdown the player has when at 100 damage
+#define DAMAGE_SLOWDOWN_CRIT 0.8
+/// Multiplier to slowdown when the mob is flying
+#define DAMAGE_SLOWDOWN_FLYING_MULTIPLIER 0.333
