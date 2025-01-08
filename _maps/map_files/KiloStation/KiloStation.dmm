@@ -29869,7 +29869,9 @@
 "hLd" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	hide = 0
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "hLz" = (
@@ -39651,7 +39653,8 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
+	dir = 4;
+	hide = 0
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -81070,7 +81073,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 1
+	dir = 1;
+	hide = 0
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
