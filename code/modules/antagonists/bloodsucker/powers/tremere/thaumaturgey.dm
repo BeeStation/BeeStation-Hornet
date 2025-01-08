@@ -175,7 +175,7 @@
 	righthand_file = 'icons/bloodsuckers/bs_rightinhand.dmi'
 	block_power = 75
 
-/obj/item/shield/bloodsucker/Initialize()
+/obj/item/shield/bloodsucker/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, BLOODSUCKER_TRAIT)
 

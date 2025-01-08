@@ -153,7 +153,7 @@
 /datum/action/cooldown/bloodsucker/proc/ActivatePower(trigger_flags)
 	active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
-		RegisterSignal(owner, COMSIG_LIVING_LIFE, .proc/UsePower)
+		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
 
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
 	UpdateButtonIcon()

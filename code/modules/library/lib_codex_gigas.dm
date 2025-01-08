@@ -43,7 +43,7 @@
 	///Boolean on whether the book is currently being used, so you can only use it on one person at a time.
 	var/in_use = FALSE
 
-/obj/item/book/kindred/Initialize()
+/obj/item/book/kindred/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/stationloving, FALSE, TRUE)
 

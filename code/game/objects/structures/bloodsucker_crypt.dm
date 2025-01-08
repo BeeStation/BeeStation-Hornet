@@ -399,7 +399,7 @@
 	var/mutable_appearance/armrest
 
 // Add rotating and armrest
-/obj/structure/bloodsucker/bloodthrone/Initialize()
+/obj/structure/bloodsucker/bloodthrone/Initialize(mapload)
 	AddComponent(/datum/component/simple_rotation)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
