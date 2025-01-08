@@ -16,7 +16,8 @@
 
 /// Must have nobody around to see the cloak
 /datum/action/cooldown/bloodsucker/cloak/can_use(mob/living/carbon/user, trigger_flags)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	for(var/mob/living/watchers in view(9, owner) - owner)
 		owner.balloon_alert(owner, "you can only vanish unseen.")
@@ -24,20 +25,22 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/cloak/ActivatePower(trigger_flags)
-	..()
+	. = ..()
 	var/mob/living/user = owner
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 
 /datum/action/cooldown/bloodsucker/cloak/UsePower(seconds_per_tick)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 
 	animate(owner, alpha = max(25, owner.alpha - min(75, 10 + 5 * level_current)), time = 1.5 SECONDS)
 
 /datum/action/cooldown/bloodsucker/cloak/ContinueActive(mob/living/user, mob/living/target)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	if(user.stat != CONSCIOUS)
 		to_chat(owner, "<span class='warning'>Your cloak failed because you fell unconcious!</span>")

@@ -10,7 +10,7 @@
 		but gain Blood Magic instead, powers you level up overtime."
 
 /datum/bloodsucker_clan/tremere/New(mob/living/carbon/user)
-	..()
+	. = ..()
 	bloodsuckerdatum.remove_nondefault_powers(return_levels = TRUE)
 	for(var/datum/action/cooldown/bloodsucker/power as anything in bloodsuckerdatum.all_bloodsucker_powers)
 		if((initial(power.purchase_flags) & TREMERE_CAN_BUY) && initial(power.level_current) == 1)
@@ -23,7 +23,7 @@
 	return ..()
 
 /datum/bloodsucker_clan/tremere/handle_clan_life(datum/antagonist/bloodsucker/source)
-	..()
+	. = ..()
 	var/area/current_area = get_area(bloodsuckerdatum.owner.current)
 	if(istype(current_area, /area/chapel))
 		to_chat(bloodsuckerdatum.owner.current, "<span class='warning'>You don't belong in holy areas! The Faith burns you!</span>")

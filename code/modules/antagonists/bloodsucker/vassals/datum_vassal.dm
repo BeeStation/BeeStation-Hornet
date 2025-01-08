@@ -31,7 +31,7 @@
 	return "Master : [master.owner.name]"
 
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
-	..()
+	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.apply_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
@@ -44,7 +44,7 @@
 	set_antag_hud(current_mob, vassal_hud_name)
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
-	..()
+	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
@@ -98,13 +98,13 @@
 	return ..()
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
-	..()
+	. = ..()
 	for(var/datum/action/cooldown/bloodsucker/all_powers as anything in powers)
 		all_powers.Remove(old_body)
 		all_powers.Grant(new_body)
 
 /datum/antagonist/vassal/greet()
-	..()
+	. = ..()
 	if(silent)
 		return
 

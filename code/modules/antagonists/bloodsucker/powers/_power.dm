@@ -37,7 +37,7 @@
 
 // Modify description to add cost.
 /datum/action/cooldown/bloodsucker/New(Target)
-	..()
+	. = ..()
 	if(bloodcost > 0)
 		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
 	if(constant_bloodcost > 0)
@@ -53,7 +53,7 @@
 	return next_use_time <= world.time
 
 /datum/action/cooldown/bloodsucker/Grant(mob/user)
-	..()
+	. = ..()
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(owner)
 	if(bloodsuckerdatum)
 		bloodsuckerdatum_power = bloodsuckerdatum
@@ -136,7 +136,7 @@
 
 /datum/action/cooldown/bloodsucker/UpdateButtonIcon(force = FALSE)
 	background_icon_state = active ? background_icon_state_on : background_icon_state_off
-	..()
+	. = ..()
 
 /datum/action/cooldown/bloodsucker/proc/pay_cost()
 	// Vassals can sometimes get a power

@@ -29,7 +29,7 @@
 	var/blood_drink_type = BLOODSUCKER_DRINK_NORMAL
 
 /datum/bloodsucker_clan/New(datum/antagonist/bloodsucker/owner_datum)
-	..()
+	. = ..()
 	src.bloodsuckerdatum = owner_datum
 
 	RegisterSignal(bloodsuckerdatum, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(handle_clan_life))

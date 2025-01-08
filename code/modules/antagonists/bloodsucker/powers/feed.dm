@@ -28,7 +28,8 @@
 	var/silent_feed = TRUE
 
 /datum/action/cooldown/bloodsucker/feed/can_use(mob/living/carbon/user, trigger_flags)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	if(target_ref) //already sucking blood.
 		return FALSE

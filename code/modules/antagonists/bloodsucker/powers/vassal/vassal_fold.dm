@@ -18,7 +18,8 @@
 	var/datum/weakref/target_ref
 
 /datum/action/cooldown/bloodsucker/vassal_blood/can_use(mob/living/carbon/user, trigger_flags)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	var/datum/antagonist/vassal/revenge/revenge_vassal = owner.mind.has_antag_datum(/datum/antagonist/ex_vassal)
 	if(revenge_vassal)
@@ -44,7 +45,7 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/vassal_blood/ActivatePower(trigger_flags, var/altclick = FALSE)
-	..()
+	. = ..()
 	var/datum/antagonist/vassal/revenge/revenge_vassal = owner.mind.has_antag_datum(/datum/antagonist/vassal/revenge)
 
 	if(target_ref)

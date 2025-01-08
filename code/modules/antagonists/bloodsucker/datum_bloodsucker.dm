@@ -118,7 +118,7 @@
  * while on_gain is called ONCE per ANTAG, this is called ONCE per BODY.
  */
 /datum/antagonist/bloodsucker/apply_innate_effects(mob/living/mob_override)
-	..()
+	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))

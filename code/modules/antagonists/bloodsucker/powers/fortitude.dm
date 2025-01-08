@@ -17,7 +17,8 @@
 	var/fortitude_resist // So we can raise and lower your brute resist based on what your level_current WAS.
 
 /datum/action/cooldown/bloodsucker/fortitude/ActivatePower(trigger_flags)
-	..()
+	. = ..()
+	if(!.)
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, "<span class='notice'>Your flesh has become as hard as steel!</span>")
 	// Traits & Effects
@@ -35,7 +36,8 @@
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 
 /datum/action/cooldown/bloodsucker/fortitude/UsePower(seconds_per_tick)
-	if(!..() || !active)
+	. = ..()
+	if(!. || !active)
 		return
 
 	/// We don't want people using fortitude being able to use vehicles

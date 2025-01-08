@@ -49,12 +49,14 @@
 	cooldown_time = 35 SECONDS
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/CheckValidTarget(atom/target_atom)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	return isliving(target_atom)
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/CheckCanTarget(atom/target_atom)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 	var/mob/living/selected_target = target_atom
 	if(!selected_target.mind)
@@ -95,7 +97,8 @@
 
 // The advanced version
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/advanced/CheckCanTarget(atom/target_atom)
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 
 	var/mob/living/selected_target = target_atom
@@ -105,7 +108,7 @@
 	return TRUE
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/FireTargetedPower(atom/target_atom)
-	..()
+	. = ..()
 	var/mob/living/target = target_atom
 	var/mob/living/user = owner
 	if(target.stat >= SOFT_CRIT && user.Adjacent(target) && level_current >= 4)

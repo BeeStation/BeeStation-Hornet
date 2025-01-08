@@ -84,7 +84,7 @@
 	cooldown_time = 8 SECONDS
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/thaumaturgy/ActivatePower(trigger_flags)
-	..()
+	. = ..()
 	owner.balloon_alert(owner, "you start thaumaturgy")
 	if(level_current >= 2) // Only if we're at least level 2.
 		var/obj/item/shield/bloodsucker/new_shield = new
@@ -105,7 +105,7 @@
 	return ..()
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/thaumaturgy/FireTargetedPower(atom/target_atom)
-	..()
+	. = ..()
 
 	var/mob/living/user = owner
 	owner.balloon_alert(owner, "you fire a blood bolt!")
@@ -176,7 +176,7 @@
 	block_power = 75
 
 /obj/item/shield/bloodsucker/Initialize()
-	..()
+	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, BLOODSUCKER_TRAIT)
 
 /obj/item/shield/bloodsucker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
