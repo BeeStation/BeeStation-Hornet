@@ -6,8 +6,8 @@
 
 /datum/component/decomposition
 	dupe_mode = COMPONENT_DUPE_UNIQUE
-	/// Makes sure food only starts decomposing if a player's EVER picked it up before
-	var/handled = FALSE
+	/// Makes sure maploaded food only starts decomposing if a player's EVER picked it up before
+	var/handled = TRUE
 	/// Used to stop food in someone's hand & in storage slots from decomposing.
 	var/protected = FALSE
 	/// Used to stop the timer & check for the examine proc
@@ -54,6 +54,7 @@
 	time_remaining = original_time
 
 	handle_movement()
+
 
 /datum/component/decomposition/UnregisterFromParent()
 	UnregisterSignal(parent, list(
