@@ -42,6 +42,14 @@
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
 
 		usr.ClickOn(src, params)
+	// When clicked on, queue a screentips update
+	if (usr.client.hovered_atom)
+		usr.client.hovered_atom = src
+		return
+	// Holds a hard-reference for a single frame
+	usr.client.hovered_atom = src
+	usr.client.screentip_next = SSscreentips.head
+	SSscreentips.head = usr.client
 
 /atom/DblClick(location,control,params)
 	if(flags_1 & INITIALIZED_1)
