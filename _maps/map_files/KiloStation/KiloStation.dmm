@@ -26345,11 +26345,11 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "gFj" = (
-/obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/reagent_dispensers/watertank/high,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "gFB" = (
@@ -61788,11 +61788,11 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "sdO" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
 /obj/machinery/meter,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "sem" = (
