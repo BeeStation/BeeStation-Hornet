@@ -554,6 +554,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 				icon_state = "alarm_b2"
 			if(AIR_ALARM_BUILD_NO_CIRCUIT)
 				icon_state = "alarm_b1"
+		return ..()
+
+	icon_state = "alarmp"
 	return ..()
 
 /obj/machinery/airalarm/update_overlays()
