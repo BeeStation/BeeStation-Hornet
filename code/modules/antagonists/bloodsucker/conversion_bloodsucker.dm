@@ -68,11 +68,6 @@
 	vassaldatum.master = src
 	conversion_target.mind.add_antag_datum(vassaldatum)
 
-	//Add to the bloodsucker's team # Taken from wizard.dm
-	if(!bloodsucker_team)
-		create_bloodsucker_team()
-	vassaldatum.bloodsucker_team = bloodsucker_team
-
 	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	return TRUE

@@ -1,7 +1,11 @@
-#define VASSAL_SCAN_MIN_DISTANCE 5
-#define VASSAL_SCAN_MAX_DISTANCE 500
-/// 2s update time.
-#define VASSAL_SCAN_PING_TIME 20
+/*
+	* when a bloodsucker views a vassal that is not their own, the vassal icon is gray
+	* however, when a bloodsucker views their own vassal, the icon is red (except for special vassals)
+	*
+	* when a vassal views another vassal that has the same master as their own, the icon is red (except for special vassals)
+	* vassals cannot see other bloodsucker's vassals.
+	* TODO: when a bloodsucker breaks the masquerade, all vassals are revealed to all bloodsuckers
+*/
 
 /datum/antagonist/vassal
 	name = "\improper Vassal"
@@ -31,17 +35,22 @@
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.apply_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
-	add_antag_hud(ANTAG_HUD_BLOODSUCKER, vassal_hud_name, current_mob)
 	current_mob.faction |= FACTION_BLOODSUCKER
 
 	bloodsucker_team = master.bloodsucker_team
+	bloodsucker_team.add_member(current_mob.mind)
+
+	bloodsucker_team.hud.join_hud(current_mob)
+	set_antag_hud(current_mob, vassal_hud_name)
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
-	remove_antag_hud(ANTAG_HUD_BLOODSUCKER, current_mob)
+	bloodsucker_team.remove_member(current_mob.mind)
+	bloodsucker_team.hud.leave_hud(current_mob)
+	set_antag_hud(current_mob, null)
 	current_mob.faction -= FACTION_BLOODSUCKER
 
 /datum/antagonist/vassal/on_gain()
@@ -103,7 +112,7 @@
 	to_chat(owner, "<span class='boldannounce'>The power of [master.owner.current.p_their()] immortal blood compels you to obey [master.owner.current.p_them()] in all things, even offering your own life to prolong theirs.\n\
 		You are not required to obey any other Bloodsucker, for only [master.owner.current] is your master. The laws of Nanotrasen do not apply to you now; only your vampiric master's word must be obeyed.</span>") // if only there was a /p_theirs() proc...
 	owner.current.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "You, becoming the mortal servant of <b>[master.owner.current]</b>, a bloodsucking vampire!<br>"
+	antag_memory += "You are the mortal servant of <b>[master.owner.current]</b>, a bloodsucking vampire!<br>"
 	/// Message told to your Master.
 	to_chat(master.owner, "<span class='userdanger'>[owner.current] has become addicted to your immortal blood. [owner.current.p_they(TRUE)] [owner.current.p_are()] now your undying servant</span>")
 	master.owner.current.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)

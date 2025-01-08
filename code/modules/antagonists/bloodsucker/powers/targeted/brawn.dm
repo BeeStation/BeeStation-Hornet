@@ -4,9 +4,9 @@
 	button_icon_state = "power_strength"
 	power_explanation = "Brawn:\n\
 		Click any person to bash into them, break restraints you have or knocking a grabber down. Only one of these can be done per use.\n\
-		Punching a Cyborg will heavily EMP them in addition to deal damage.\n\
-		At level 3, you get the ability to break closets open, additionally can both break restraints AND knock a grabber down in the same use.\n\
-		At level 4, you get the ability to bash airlocks open, as long as they aren't bolted.\n\
+		Punching a Cyborg will EMP and deal high damage.\n\
+		At level 3, you get the ability to break closets open, and additionally you can break restraints.\n\
+		At level 4, you get the ability to bash airlocks open.\n\
 		Higher levels will increase the damage and knockdown when punching someone."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
@@ -48,16 +48,12 @@
 		addtimer(CALLBACK(src, PROC_REF(break_closet), user, closet), 1)
 		used = TRUE
 
-	// Remove both Handcuffs & Legcuffs
-	var/obj/cuffs = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-	var/obj/legcuffs = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
-	if(!used && (istype(cuffs) || istype(legcuffs)))
+	if(!used)
+		user.uncuff()
 		user.visible_message(
 			"<span class='warning'>[user] discards their restraints like it's nothing!</span>",
 			"<span class='warning'>We break through our restraints!</span>",
 		)
-		user.clear_cuffs(cuffs, TRUE)
-		user.clear_cuffs(legcuffs, TRUE)
 		used = TRUE
 
 	// Remove Straightjackets
@@ -110,7 +106,8 @@
 /datum/action/cooldown/bloodsucker/targeted/brawn/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/user = owner
-	// Target Type: Mob
+
+	// Living Targets
 	if(isliving(target_atom))
 		var/mob/living/target = target_atom
 		var/mob/living/carbon/carbonuser = user
@@ -127,7 +124,7 @@
 		owner.balloon_alert(owner, "you punch [target]!")
 		playsound(get_turf(target), 'sound/weapons/punch4.ogg', 60, 1, -1)
 		user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(target.zone_selected))
+		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(target.get_combat_bodyzone()))
 		target.apply_damage(hitStrength, BRUTE, affecting)
 		// Knockback
 		var/send_dir = get_dir(owner, target)
@@ -137,7 +134,7 @@
 		// Target Type: Cyborg (Also gets the effects above)
 		if(issilicon(target))
 			target.emp_act(EMP_HEAVY)
-	// Target Type: Locker
+	// Lockers
 	else if(istype(target_atom, /obj/structure/closet) && level_current >= 3)
 		var/obj/structure/closet/target_closet = target_atom
 		user.balloon_alert(user, "you prepare to bash [target_closet] open...")
@@ -147,7 +144,7 @@
 		target_closet.visible_message("<span class='danger'>[target_closet] breaks open as [user] bashes it!</span>")
 		addtimer(CALLBACK(src, PROC_REF(break_closet), user, target_closet), 1)
 		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
-	// Target Type: Door
+	// Airlocks
 	else if(istype(target_atom, /obj/machinery/door) && level_current >= 4)
 		var/obj/machinery/door/target_airlock = target_atom
 		playsound(get_turf(user), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -1)
@@ -169,20 +166,11 @@
 	return isliving(target_atom) || istype(target_atom, /obj/machinery/door) || istype(target_atom, /obj/structure/closet)
 
 /datum/action/cooldown/bloodsucker/targeted/brawn/CheckCanTarget(atom/target_atom)
-	// DEFAULT CHECKS (Distance)
 	. = ..()
-	if(!.) // Disable range notice for Brawn.
+	if(!.)
 		return FALSE
-	// Must outside Closet to target anyone!
-	if(!isturf(owner.loc))
+
+	// Can't be in a locker when targeting someone
+	if(istype(owner.loc, /obj/structure/closet))
 		return FALSE
-	// Target Type: Living
-	if(isliving(target_atom))
-		return TRUE
-	// Target Type: Door
-	else if(istype(target_atom, /obj/machinery/door))
-		return TRUE
-	// Target Type: Locker
-	else if(istype(target_atom, /obj/structure/closet))
-		return TRUE
-	return FALSE
+	return isliving(target_atom) || istype(target_atom, /obj/machinery/door) || istype(target_atom, /obj/structure/closet)

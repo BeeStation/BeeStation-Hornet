@@ -101,17 +101,16 @@
 		TRAIT_RESISTHIGHPRESSURE,
 	)
 
-
-// Taken from wizard.dm
 /datum/antagonist/bloodsucker/proc/create_bloodsucker_team()
 	var/static/count = 0
 	bloodsucker_team = new(owner)
-	bloodsucker_team.name = "Bloodsucker team No.[++count]" // only displayed to admins
+	bloodsucker_team.hud = new/datum/atom_hud/antag()
+	bloodsucker_team.name = "Bloodsucker team #[++count]" // only displayed to admins
 	bloodsucker_team.master_bloodsucker = src
-	add_antag_hud(ANTAG_HUD_BLOODSUCKER, antag_hud_name, owner.current)
 
 /datum/team/bloodsucker
 	name = "bloodsucker team"
+	var/datum/atom_hud/antag/hud
 	var/datum/antagonist/bloodsucker/master_bloodsucker
 /**
  * Apply innate effects is everything given to the mob
@@ -123,9 +122,12 @@
 	var/mob/living/current_mob = mob_override || owner.current
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
-	handle_clown_mutation(current_mob, mob_override ? null : "As a vampiric clown, you are no longer a danger to yourself. Your clownish nature has been subdued by your thirst for blood.")
+	handle_clown_mutation(current_mob, mob_override ? null : "Your clownish nature has been subdued by your thirst for blood.")
 
 	add_antag_hud(ANTAG_HUD_BLOODSUCKER, antag_hud_name, current_mob)
+	create_bloodsucker_team()
+	bloodsucker_team.hud.join_hud(current_mob)
+
 	current_mob.faction |= FACTION_BLOODSUCKER
 
 	if(current_mob.hud_used)
@@ -159,6 +161,9 @@
 		QDEL_NULL(sunlight_display)
 
 	remove_antag_hud(ANTAG_HUD_BLOODSUCKER, current_mob)
+	bloodsucker_team.hud.leave_hud(current_mob)
+	set_antag_hud(current_mob, null)
+
 	current_mob.faction -= FACTION_BLOODSUCKER
 
 /datum/antagonist/bloodsucker/proc/on_hud_created(datum/source)
@@ -494,20 +499,3 @@
 			gourmand_objective.owner = owner
 			gourmand_objective.name = "Optional Objective"
 			objectives += gourmand_objective
-
-// For the malkavian clan final death
-/datum/antagonist/shaded_bloodsucker
-	name = "\improper Shaded Bloodsucker"
-	antagpanel_category = "Bloodsucker"
-	show_in_roundend = FALSE
-	banning_key = ROLE_BLOODSUCKER
-
-/datum/antagonist/shaded_bloodsucker/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/current_mob = mob_override || owner.current
-	add_antag_hud(ANTAG_HUD_BLOODSUCKER, "bloodsucker", current_mob)
-
-/datum/antagonist/shaded_bloodsucker/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/current_mob = mob_override || owner.current
-	remove_antag_hud(ANTAG_HUD_BLOODSUCKER, current_mob)

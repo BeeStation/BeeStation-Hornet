@@ -84,4 +84,3 @@
 	// Alert vassal that their master is dead
 	to_chat(owner.current, "<span class='cultlarge'>Your master has succumbed to final death! Avenge your Bloodsucker's death by recruiting their ex-vassals and continuing their operations.</span>")
 	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/tendril_destroyed.ogg', 30)
-	ui_interact()

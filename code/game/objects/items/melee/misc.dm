@@ -1030,7 +1030,7 @@
 	if(.)
 		return
 	// Invalid Target, or not targetting the chest?
-	if(check_zone(user.zone_selected) != BODY_ZONE_CHEST)
+	if(check_zone(user.get_combat_bodyzone()) != BODY_ZONE_CHEST)
 		return
 	if(target == user)
 		return
@@ -1052,7 +1052,7 @@
 	)
 	playsound(get_turf(target), 'sound/effects/splat.ogg', 40, 1)
 	if(tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
-		target.apply_damage(max(10, force * 1.2), BRUTE, BODY_ZONE_CHEST, wound_bonus = 0, sharpness = TRUE)
+		target.apply_damage(max(10, force * 1.2), BRUTE, BODY_ZONE_CHEST)
 	if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
 		return
 	if(!target.mind)

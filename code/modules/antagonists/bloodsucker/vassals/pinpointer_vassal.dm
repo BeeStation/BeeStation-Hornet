@@ -12,8 +12,8 @@
 /datum/status_effect/agent_pinpointer/vassal_edition
 	id = "agent_pinpointer"
 	alert_type = /atom/movable/screen/alert/status_effect/agent_pinpointer/vassal_edition
-	minimum_range = VASSAL_SCAN_MIN_DISTANCE
-	tick_interval = VASSAL_SCAN_PING_TIME
+	minimum_range = 5
+	tick_interval = 20
 	duration = -1
 	range_fuzz_factor = 0
 

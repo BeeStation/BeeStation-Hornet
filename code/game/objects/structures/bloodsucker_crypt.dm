@@ -264,8 +264,8 @@
 		bloodsuckerdatum.make_vassal(target)
 		// Find Mind Implant & Destroy
 		for(var/obj/item/implant/implant as anything in target.implants)
-			if(istype(implant, /obj/item/implant/mindshield) && implant.removed(target, silent = TRUE))
-				qdel(implant)
+			if(istype(implant, /obj/item/implant/mindshield))
+				implant.Destroy()
 		SEND_SIGNAL(bloodsuckerdatum, BLOODSUCKER_MADE_VASSAL, user, target)
 
 /obj/structure/bloodsucker/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target)
@@ -363,7 +363,7 @@
 	lit = !lit
 	if(lit)
 		desc = initial(desc)
-		set_light(l_outer_range = 2, l_power = 3, l_color = "#66FFFF")
+		set_light(l_range = 2, l_power = 3, l_color = "#66FFFF")
 		START_PROCESSING(SSobj, src)
 	else
 		desc = "Despite not being lit, it makes your skin crawl."
@@ -467,20 +467,20 @@
 	target.pixel_y -= 2
 
 // The speech itself
-/obj/structure/bloodsucker/bloodthrone/proc/handle_speech(datum/source, mob/speech_args)
+/obj/structure/bloodsucker/bloodthrone/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/mob/living/carbon/human/user = source
 	var/rendered = "<span class='cultlarge'><b>[user.real_name]:</b> [message]</span>"
-	user.log_talk(message, LOG_SAY, tag=ROLE_BLOODSUCKER)
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	user.log_talk(message, LOG_SAY, tag = ROLE_BLOODSUCKER)
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(user)
 	for(var/datum/antagonist/vassal/receiver as anything in bloodsuckerdatum.vassals)
 		if(!receiver.owner.current)
 			continue
 		var/mob/receiver_mob = receiver.owner.current
 		to_chat(receiver_mob, rendered)
-	to_chat(user, rendered) // tell yourself, too.
+	to_chat(user, rendered)
 
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(dead_mob, user)

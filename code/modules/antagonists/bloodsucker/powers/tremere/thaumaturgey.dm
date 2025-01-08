@@ -112,12 +112,12 @@
 	to_chat(user, "<span class='warning'>You fire a blood bolt!</span>")
 	user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target_atom, user))
-	var/obj/projectile/magic/arcane_barrage/bloodsucker/magic_9ball = new(user.loc)
-	magic_9ball.bloodsucker_power = src
-	magic_9ball.firer = user
-	magic_9ball.def_zone = ran_zone(user.zone_selected)
-	magic_9ball.preparePixelProjectile(target_atom, user)
-	INVOKE_ASYNC(magic_9ball, TYPE_PROC_REF(/obj/projectile, fire))
+	var/obj/projectile/magic/arcane_barrage/bloodsucker/bolt = new(user.loc)
+	bolt.bloodsucker_power = src
+	bolt.firer = user
+	bolt.def_zone = ran_zone(user.get_combat_bodyzone())
+	bolt.preparePixelProjectile(target_atom, user)
+	INVOKE_ASYNC(bolt, TYPE_PROC_REF(/obj/projectile, fire))
 	playsound(user, 'sound/magic/wand_teleport.ogg', 60, TRUE)
 	power_activated_sucessfully()
 

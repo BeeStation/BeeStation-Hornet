@@ -22,7 +22,7 @@
 		unset_click_ability(remove_from)
 
 /datum/action/cooldown/bloodsucker/targeted/Trigger(trigger_flags, atom/target)
-	if(active && can_deactivate())
+	if(active)
 		DeactivatePower()
 		return FALSE
 	if(!can_pay_cost(owner) || !can_use(owner, trigger_flags))
@@ -43,13 +43,10 @@
 	active = FALSE
 	UpdateButtonIcon()
 	unset_click_ability(owner)
-//	..() // we don't want to pay cost here
 
 /// Check if target is VALID (wall, turf, or character?)
 /datum/action/cooldown/bloodsucker/targeted/proc/CheckValidTarget(atom/target_atom)
-	if(target_atom == owner)
-		return FALSE
-	return TRUE
+	return !(target_atom == owner)
 
 /// Check if valid target meets conditions
 /datum/action/cooldown/bloodsucker/targeted/proc/CheckCanTarget(atom/target_atom)

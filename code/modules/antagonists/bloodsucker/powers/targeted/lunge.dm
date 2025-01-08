@@ -28,12 +28,15 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	// Are we being grabbed?
+
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_AGGRESSIVE)
 		owner.balloon_alert(user, "grabbed!")
 		return FALSE
 	if(user.pulling)
 		owner.balloon_alert(user, "grabbing someone!")
+		return FALSE
+	if(datum_flags & DF_ISPROCESSING)
+		owner.balloon_alert(user, "already lunging!")
 		return FALSE
 	return TRUE
 
@@ -45,22 +48,17 @@
 	return isliving(target_atom)
 
 /datum/action/cooldown/bloodsucker/targeted/lunge/CheckCanTarget(atom/target_atom)
-	// Default Checks
 	. = ..()
 	if(!.)
 		return FALSE
-	// Check: Turf
-	var/mob/living/turf_target = target_atom
-	if(!isturf(turf_target.loc))
+
+	if(!isturf(target_atom.loc))
 		return FALSE
 	// Check: can the Bloodsucker even move?
 	var/mob/living/user = owner
 	if(user.body_position == LYING_DOWN || HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
 	return TRUE
-
-/datum/action/cooldown/bloodsucker/targeted/lunge/can_deactivate()
-	return !(datum_flags & DF_ISPROCESSING) //only if you aren't lunging
 
 /datum/action/cooldown/bloodsucker/targeted/lunge/FireTargetedPower(atom/target_atom)
 	. = ..()

@@ -60,7 +60,7 @@
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/cooldown/bloodsucker/Trigger(trigger_flags, atom/target)
-	if(active && can_deactivate()) // Active? DEACTIVATE AND END!
+	if(active)
 		DeactivatePower()
 		return FALSE
 	if(!can_pay_cost() || !can_use())
@@ -75,7 +75,7 @@
 /datum/action/cooldown/bloodsucker/proc/upgrade_power()
 	level_current++
 	// Decrease cooldown time
-	if(power_flags & !BP_AM_STATIC_COOLDOWN) // cooldown_time / 16 * (level_current - 1)
+	if(power_flags & !BP_AM_STATIC_COOLDOWN)
 		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
 /datum/action/cooldown/bloodsucker/proc/can_pay_cost()
@@ -134,25 +134,21 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/bloodsucker/proc/can_deactivate()
-	return TRUE
-
 /datum/action/cooldown/bloodsucker/UpdateButtonIcon(force = FALSE)
 	background_icon_state = active ? background_icon_state_on : background_icon_state_off
 	..()
 
 /datum/action/cooldown/bloodsucker/proc/pay_cost()
-	// Non-bloodsuckers will pay in other ways.
+	// Vassals can sometimes get a power
 	if(!bloodsuckerdatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
 			living_owner.blood_volume -= bloodcost
 		return
 	// Bloodsuckers in a Frenzy don't have enough Blood to pay it, so just don't.
-	if(bloodsuckerdatum_power.frenzied)
-		return
-	bloodsuckerdatum_power.bloodsucker_blood_volume -= bloodcost
-	bloodsuckerdatum_power.update_hud()
+	if(!bloodsuckerdatum_power.frenzied)
+		bloodsuckerdatum_power.bloodsucker_blood_volume -= bloodcost
+		bloodsuckerdatum_power.update_hud()
 
 /datum/action/cooldown/bloodsucker/proc/ActivatePower(trigger_flags)
 	active = TRUE
@@ -191,10 +187,9 @@
 
 /// Checks to make sure this power can stay active
 /datum/action/cooldown/bloodsucker/proc/ContinueActive(mob/living/user, mob/living/target)
-	if(!user)
-		return FALSE
 	if(!constant_bloodcost > 0 || bloodsuckerdatum_power.bloodsucker_blood_volume > 0)
 		return TRUE
+	return FALSE
 
 /// Used to unlearn Single-Use Powers
 /datum/action/cooldown/bloodsucker/proc/remove_after_use()
