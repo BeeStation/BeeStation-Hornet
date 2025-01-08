@@ -34,7 +34,8 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/asteroid/lobstrosity/lava
-	name = "tropical lobstrosity"
+	name = "lava lobstrosity"
+	weather_immunities = list("lava","ash")
 	desc = "A marvel of evolution gone wrong, the sulfur lakes of lavaland have given them a vibrant, red hued shell. Beware its charge."
 	icon_state = "lobstrosity"
 	icon_living = "lobstrosity"
