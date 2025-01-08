@@ -1,8 +1,8 @@
 //"Don't leave food on the floor, that's how we get ants"
 
-#define DECOMPOSITION_TIME 10 MINUTES
-#define DECOMPOSITION_TIME_RAW 5 MINUTES
-#define DECOMPOSITION_TIME_GROSS 7 MINUTES
+#define DECOMPOSITION_TIME (10 MINUTES)
+#define DECOMPOSITION_TIME_RAW (5 MINUTES)
+#define DECOMPOSITION_TIME_GROSS (7 MINUTES)
 
 /datum/component/decomposition
 	dupe_mode = COMPONENT_DUPE_UNIQUE
@@ -72,7 +72,7 @@
 
 	var/turf/open/open_turf = food.loc
 
-	if(!istype(open_turf) || istype(open_turf, /turf/open/lava) || istype(open_turf, /turf/open/floor/plating/asteroid/basalt)) //Are we actually in a valid open turf?
+	if(!istype(open_turf) || islava(open_turf) || istype(open_turf, /turf/open/floor/plating/asteroid)) //Are we actually in a valid open turf?
 		remove_timer()
 		return
 
