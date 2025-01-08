@@ -249,3 +249,9 @@
 
 	ui_update()
 	update_icon()
+
+/**
+ * Returns if this is ready to be detonated. Checks if both tanks are in place.
+ */
+/obj/item/transfer_valve/proc/ready()
+	return tank_one && tank_two

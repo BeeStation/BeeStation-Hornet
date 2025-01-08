@@ -58,7 +58,7 @@
 		if("makecup")
 			if(beaker)
 				return
-			beaker = new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+			beaker = new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 			visible_message("<span class='notice'>[src] dispenses a bluespace beaker.</span>")
 			. = TRUE
 		if("amount")

@@ -1,0 +1,6 @@
+author: wikimody
+delete-after: true
+changes:
+  - balance: Changed damage of nanite armblade 15 -> 20
+  - balance: Changed damage of burning green extract armblade 15 -> 20
+  - balance: Changed damage of hydraulic armblade 18 -> 20

@@ -12,7 +12,7 @@
 	subcategory = CAT_EGG
 
 /datum/crafting_recipe/food/omelette
-	name = "Omelette"
+	name = "Omelette du fromage"
 	result = /obj/item/food/omelette
 	reqs = list(
 		/obj/item/food/egg = 2,
@@ -43,7 +43,7 @@
 	name = "Egg bowl"
 	result = /obj/item/food/salad/eggbowl
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/grown/carrot = 1,

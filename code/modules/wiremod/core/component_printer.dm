@@ -45,7 +45,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2, //this doesn't make any sense, yet i wasn't allowed to fix it.
+		/obj/item/reagent_containers/cup/beaker = 2, //this doesn't make any sense, yet i wasn't allowed to fix it.
 	)
 
 /// Module duplicator, allows you to save and recreate module components.
@@ -268,5 +268,5 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 	)

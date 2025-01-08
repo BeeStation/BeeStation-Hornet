@@ -2,7 +2,7 @@
 	name = "Unknown"
 	real_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	COOLDOWN_DECLARE(special_emote_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
@@ -38,6 +38,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/mechanical_repair)
+	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
@@ -54,6 +55,7 @@
 	QDEL_NULL(physiology)
 	QDEL_LIST(bioware)
 	GLOB.suit_sensors_list -= src
+	GLOB.human_list -= src
 	return ..()
 
 
@@ -137,6 +139,12 @@
 		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
 
+/mob/living/carbon/human/reset_perspective(atom/new_eye, force_reset = FALSE)
+	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases, like Dullahans preventing perspective changes when they're looking through their head.
+		update_fullscreen()
+		return
+	return ..()
+
 /mob/living/carbon/human/Topic(href, href_list)
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
@@ -156,33 +164,31 @@
 
 ///////HUDs///////
 	if(href_list["hud"])
-		if(!ishuman(usr))
+		if(!ishuman(usr) && !isobserver(usr))
 			return
+		var/mob/human_or_ghost_user = usr
 		var/mob/living/carbon/human/human_user = usr
 		var/perpname = get_face_name(get_id_name(""))
-		if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
+		if(!HAS_TRAIT(human_or_ghost_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_or_ghost_user, TRAIT_MEDICAL_HUD))
 			return
 		if((text2num(href_list["examine_time"]) + 1 MINUTES) < world.time)
-			to_chat(human_user, "<span class='notice'>It's too late to use this now!</span>")
+			to_chat(human_or_ghost_user, "<span class='notice'>It's too late to use this now!</span>")
 			return
-		var/datum/data/record/target_record = find_record("name", perpname, GLOB.data_core.general)
+		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(href_list["photo_front"] || href_list["photo_side"])
 			if(!target_record)
 				return
-			if(!human_user.canUseHUD())
-				return
-			if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
+			if(ishuman(human_or_ghost_user))
+				if(!human_user.canUseHUD())
+					return
+			if(!HAS_TRAIT(human_or_ghost_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_or_ghost_user, TRAIT_MEDICAL_HUD))
 				return
 			var/obj/item/photo/photo_from_record = null
-			if(href_list["photo_front"])
-				photo_from_record = target_record.fields["photo_front"]
-			else if(href_list["photo_side"])
-				photo_from_record = target_record.fields["photo_side"]
 			if(photo_from_record)
-				photo_from_record.show(human_user)
+				photo_from_record.show(human_or_ghost_user)
 			return
 
-		if(href_list["hud"] == "m")
+		if(ishuman(human_user) && href_list["hud"] == "m")
 			if(!HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 				return
 			if(href_list["evaluation"])
@@ -225,182 +231,125 @@
 					to_chat(human_user, "<span class='danger'>Patient has signs of suffocation, emergency treatment may be required!</span>")
 				if(getToxLoss() > 20)
 					to_chat(human_user, "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>")
-			if(!human_user.wear_id) //You require access from here on out.
-				to_chat(human_user, "<span class='warning'>ERROR: Invalid access</span>")
+			if(href_list["physical_status"])
+				var/physical_status = tgui_input_list(human_user, "Specify a new physical status for this person.", "Medical HUD", PHYSICAL_STATUSES(), target_record.physical_status)
+				if(!physical_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
+					return
+
+				target_record.physical_status = physical_status
 				return
-			var/list/access = human_user.wear_id.GetAccess()
-			if(!(ACCESS_MEDICAL in access))
-				to_chat(human_user, "<span class='warning'>ERROR: Invalid access</span>")
-				return
-			if(href_list["p_stat"])
-				var/health_status = input(human_user, "Specify a new physical status for this person.", "Medical HUD", target_record.fields["p_stat"]) in list("Active", "Physically Unfit", "*Unconscious*", "*Deceased*", "Cancel")
-				if(!target_record)
+
+			if(href_list["mental_status"])
+				var/mental_status = tgui_input_list(human_user, "Specify a new mental status for this person.", "Medical HUD", MENTAL_STATUSES(), target_record.mental_status)
+				if(!mental_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 					return
-				if(!human_user.canUseHUD())
-					return
-				if(!HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
-					return
-				if(health_status && health_status != "Cancel")
-					target_record.fields["p_stat"] = health_status
-				return
-			if(href_list["m_stat"])
-				var/health_status = input(human_user, "Specify a new mental status for this person.", "Medical HUD", target_record.fields["m_stat"]) in list("Stable", "*Watch*", "*Unstable*", "*Insane*", "Cancel")
-				if(!target_record)
-					return
-				if(!human_user.canUseHUD())
-					return
-				if(!HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
-					return
-				if(health_status && health_status != "Cancel")
-					target_record.fields["m_stat"] = health_status
+
+				target_record.mental_status = mental_status
 				return
 			return //Medical HUD ends here.
 
 		if(href_list["hud"] == "s")
-			if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-				return
-			if(human_user.stat || human_user == src) //|| !human_user.canmove || human_user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
-				return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
-			// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
 			var/allowed_access = null
-			var/obj/item/clothing/glasses/hud/security/user_glasses = human_user.glasses
-			if(istype(user_glasses) && (user_glasses.obj_flags & EMAGGED))
-				allowed_access = "@%&ERROR_%$*"
-			else //Implant and standard glasses check access
-				if(human_user.wear_id)
-					var/list/access = human_user.wear_id.GetAccess()
-					if(ACCESS_SEC_RECORDS in access)
-						allowed_access = human_user.get_authentification_name()
-
-			if(!allowed_access)
-				to_chat(human_user, "<span class='warning'>ERROR: Invalid access.</span>")
+			if(!HAS_TRAIT(human_or_ghost_user, TRAIT_SECURITY_HUD))
 				return
+			if(ishuman(human_or_ghost_user))
+				if(human_user.stat || human_user == src) //|| !human_user.canmove || human_user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
+					return   //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
+				// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
+				var/obj/item/clothing/glasses/hud/security/user_glasses = human_user.glasses
+				if(istype(user_glasses) && (user_glasses.obj_flags & EMAGGED))
+					allowed_access = "@%&ERROR_%$*"
+				else //Implant and standard glasses check access
+					if(human_user.wear_id)
+						var/list/access = human_user.wear_id.GetAccess()
+						if(ACCESS_SEC_RECORDS in access)
+							allowed_access = human_user.get_authentification_name()
 
+				if(!allowed_access)
+					to_chat(human_user, "<span class='warning'>ERROR: Invalid access.</span>")
+					return
 			if(!perpname)
 				to_chat(human_user, "<span class='warning'>ERROR: Can not identify target.</span>")
 				return
-			target_record = find_record("name", perpname, GLOB.data_core.security)
+			target_record = find_record(perpname, GLOB.manifest.general)
 			if(!target_record)
 				to_chat(human_user, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
-			if(href_list["status"])
-				var/setcriminal = input(human_user, "Specify a new criminal status for this person.", "Security HUD", target_record.fields["criminal"]) in list("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged", "Cancel")
-				if(setcriminal != "Cancel")
-					if(!target_record)
-						return
-					if(!human_user.canUseHUD())
-						return
-					if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-						return
-					investigate_log("[key_name(src)] has been set from <strong>[target_record.fields["criminal"]]</strong> to <strong>[setcriminal]</strong> by [key_name(human_user)]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
-					target_record.fields["criminal"] = setcriminal
-					sec_hud_set_security_status()
+			if(ishuman(human_or_ghost_user) && href_list["status"])
+				var/new_status = tgui_input_list(human_user, "Specify a new criminal status for this person.", "Security HUD", WANTED_STATUSES(), target_record.wanted_status)
+				if(!new_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
+					return
+
+				if(new_status == WANTED_ARREST)
+					var/datum/crime_record/new_crime = new(author = human_user, details = "Set by SecHUD.")
+					target_record.crimes += new_crime
+					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+
+				investigate_log("has been set from [target_record.wanted_status] to [new_status] via HUD by [key_name(human_user)].", INVESTIGATE_RECORDS)
+				target_record.wanted_status = new_status
+				update_matching_security_huds(target_record.name)
 				return
 
 			if(href_list["view"])
-				if(!human_user.canUseHUD())
-					return
+				if(ishuman(human_or_ghost_user))
+					if(!human_user.canUseHUD())
+						return
 				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
-				to_chat(human_user, "<b>Name:</b> [target_record.fields["name"]]	<b>Criminal Status:</b> [target_record.fields["criminal"]]")
-				for(var/datum/data/crime/c in target_record.fields["crim"])
-					to_chat(human_user, "<b>Crime:</b> [c.crimeName]")
-					if (c.crimeDetails)
-						to_chat(human_user, "<b>Details:</b> [c.crimeDetails]")
-					else
-						to_chat(human_user, "<b>Details:</b> <A href='?src=[REF(src)];hud=s;add_details=1;cdataid=[c.dataId]'>\[Add details]</A>")
-					to_chat(human_user, "Added by [c.author] at [c.time]")
-					to_chat(human_user, "----------")
-				to_chat(human_user, "<b>Notes:</b> [target_record.fields["notes"]]")
-				return
+				var/sec_record_message = ""
+				sec_record_message += "<b>Name:</b> [target_record.name]"
+				sec_record_message += "\n<b>Criminal Status:</b> [target_record.wanted_status]"
+				sec_record_message += "\n<b>Citations:</b> [length(target_record.citations)]"
+				sec_record_message += "\n<b>Note:</b> [target_record.security_note || "None"]"
+				sec_record_message += "\n<b>Rapsheet:</b> [length(target_record.crimes)] incidents"
+				if(length(target_record.crimes))
+					for(var/datum/crime_record/crime in target_record.crimes)
+						if(!crime.valid)
+							sec_record_message += "<span class='notice'>\n-- REDACTED --</span>"
+							continue
 
-			if(href_list["add_citation"])
-				var/maxFine = CONFIG_GET(number/maxfine)
-				var/t1 = stripped_input("Please input citation crime:", "Security HUD", "", null)
-				var/fine = FLOOR(input("Please input citation fine, up to [maxFine]:", "Security HUD", 50) as num|null, 1)
-				if(!target_record || !t1 || !fine || !allowed_access)
-					return
-				if(!human_user.canUseHUD())
-					return
-				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-					return
-				if(fine < 0)
-					to_chat(human_user, "<span class='warning'>You're pretty sure that's not how money works.</span>")
-					return
-				fine = min(fine, maxFine)
-
-				var/datum/data/crime/crime = GLOB.data_core.createCrimeEntry(t1, "", allowed_access, station_time_timestamp(), fine)
-				for (var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
-					if(tablet.saved_identification == target_record.fields["name"])
-						var/message = "You have been fined [fine] credits for '[t1]'. Fines may be paid at security."
-						var/datum/signal/subspace/messaging/tablet_msg/signal = new(src, list(
-							"name" = "Security Citation",
-							"job" = "Citation Server",
-							"message" = message,
-							"targets" = list(tablet),
-							"automated" = TRUE
-						))
-						signal.send_to_receivers()
-						human_user.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
-				GLOB.data_core.addCitation(target_record.fields["id"], crime)
-				investigate_log("[key_name(human_user)] has added a citation '<strong>[t1]</strong>' ([fine] credits) to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
+						sec_record_message += "\n<b>Crime:</b> [crime.name]"
+						sec_record_message += "\n<b>Details:</b> [crime.details]"
+						sec_record_message += "\nAdded by [crime.author] at [crime.time]"
+						to_chat(human_user, "\n----------")
+				to_chat(human_user, sec_record_message)
 				return
+			if(ishuman(human_or_ghost_user))
+				if(href_list["add_citation"])
+					var/max_fine = CONFIG_GET(number/maxfine)
+					var/citation_name = tgui_input_text(human_user, "Citation crime", "Security HUD", max_length = MAX_MESSAGE_LEN)
+					var/fine = tgui_input_number(human_user, "Citation fine", "Security HUD", 50, max_fine, 5)
+					if(!fine || !target_record || !citation_name || !allowed_access || !isnum(fine) || fine > max_fine || fine <= 0 || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
+						return
 
-			if(href_list["add_crime"])
-				var/t1 = stripped_input("Please input crime name:", "Security HUD", "", null)
-				if(!target_record || !t1 || !allowed_access)
-					return
-				if(!human_user.canUseHUD())
-					return
-				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-					return
-				var/crime = GLOB.data_core.createCrimeEntry(t1, null, allowed_access, station_time_timestamp())
-				GLOB.data_core.addCrime(target_record.fields["id"], crime)
-				investigate_log("[key_name(human_user)] has added a crime '<strong>[t1]</strong>' to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
-				to_chat(human_user, "<span class='notice'>Successfully added a crime.</span>")
-				return
+					var/datum/crime_record/citation/new_citation = new(name = citation_name, author = allowed_access, fine = fine)
 
-			if(href_list["add_details"])
-				var/t1 = stripped_input(human_user, "Please input crime details:", "Secure. records", "", null)
-				if(!target_record || !t1 || !allowed_access)
+					target_record.citations += new_citation
+					new_citation.alert_owner(usr, src, target_record.name, "You have been fined [fine] credits for '[citation_name]'. Fines may be paid at security.")
+					investigate_log("New Citation: <strong>[citation_name]</strong> Fine: [fine] | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 					return
-				if(!human_user.canUseHUD())
-					return
-				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-					return
-				if(href_list["cdataid"])
-					GLOB.data_core.addCrimeDetails(target_record.fields["id"], href_list["cdataid"], t1)
-					investigate_log("[key_name(human_user)] has set crime details '[t1]' to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
-					to_chat(human_user, "<span class='notice'>Successfully added details.</span>")
-				return
 
-			if(href_list["view_comment"])
-				if(!human_user.canUseHUD())
-					return
-				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-					return
-				to_chat(human_user, "<b>Comments/Log:</b>")
-				var/counter = 1
-				while(target_record.fields["com_[counter]"])
-					to_chat(human_user, target_record.fields["com_[counter]"])
-					to_chat(human_user, "----------")
-					counter++
-				return
+				if(href_list["add_crime"])
+					var/crime_name = tgui_input_text(human_user, "Crime name", "Security HUD", max_length = MAX_MESSAGE_LEN)
+					if(!target_record || !crime_name || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
+						return
 
-			if(href_list["add_comment"])
-				var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
-				if (!target_record || !t1 || !allowed_access)
+					var/datum/crime_record/new_crime = new(name = crime_name, author = allowed_access)
+
+					target_record.crimes += new_crime
+					investigate_log("New Crime: <strong>[crime_name]</strong> | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					to_chat(human_user, "<span class='notice'>Successfully added a crime.</span>")
+
 					return
-				if(!human_user.canUseHUD())
+
+				if(href_list["add_note"])
+					var/new_note = tgui_input_text(human_user, "Security note", "Security Records", max_length = MAX_MESSAGE_LEN, multiline = TRUE)
+					if(!target_record || !new_note || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
+						return
+
+					target_record.security_note = new_note
+
 					return
-				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
-					return
-				var/counter = 1
-				while(target_record.fields["com_[counter]"])
-					counter++
-				target_record.fields["com_[counter]"] = "Made by [allowed_access] on [station_time_timestamp()] [time2text(world.realtime, "MMM DD")], [GLOB.year_integer+YEAR_OFFSET]<BR>[t1]"
-				to_chat(human_user, "<span class='notice'>Successfully added comment.</span>")
-				return
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
 
 
@@ -494,18 +443,16 @@
 	//Check for arrest warrant
 	if(judgment_criteria & JUDGE_RECORDCHECK)
 		var/perpname = get_face_name(get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R && R.fields["criminal"])
-			switch(R.fields["criminal"])
-				if("Arrest")
+		var/datum/record/crew/target = find_record(perpname, GLOB.manifest.general)
+		if(target)
+			switch(target.wanted_status)
+				if(WANTED_ARREST)
 					threatcount += 5
-				if("Incarcerated")
+				if(WANTED_PRISONER)
 					threatcount += 2
-				if("Paroled")
+				if(WANTED_PAROLE)
 					threatcount += 2
-				if("Monitor")
-					threatcount += 1
-				if("Search")
+				if(WANTED_SUSPECT)
 					threatcount += 2
 
 	//Check for dresscode violations
@@ -758,11 +705,14 @@
 		to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
 		return TRUE
 
-/mob/living/carbon/human/replace_records_name(oldname,newname) // Only humans have records right now, move this up if changed.
-	for(var/list/L in list(GLOB.data_core.general,GLOB.data_core.medical,GLOB.data_core.security,GLOB.data_core.locked))
-		var/datum/data/record/R = find_record("name", oldname, L)
-		if(R)
-			R.fields["name"] = newname
+/mob/living/carbon/human/replace_records_name(oldname, newname) // Only humans have records right now, move this up if changed.
+	var/datum/record/crew/crew_record = find_record(oldname, GLOB.manifest.general)
+	var/datum/record/locked/locked_record = find_record(oldname, GLOB.manifest.locked)
+
+	if(crew_record)
+		crew_record.name = newname
+	if(locked_record)
+		locked_record.name = newname
 
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
@@ -1349,9 +1299,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton
-
-/mob/living/carbon/human/species/supersoldier
-	race = /datum/species/human/supersoldier
 
 /mob/living/carbon/human/species/vampire
 	race = /datum/species/vampire

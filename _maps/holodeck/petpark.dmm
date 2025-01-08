@@ -118,7 +118,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "X" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 

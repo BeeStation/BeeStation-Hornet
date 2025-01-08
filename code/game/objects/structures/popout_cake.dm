@@ -41,7 +41,7 @@
 		to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 		return
 
-	if(obj_integrity <= integrity_failure)
+	if(atom_integrity <= integrity_failure)
 		to_chat(user, "<span class='warning'>The [src] is too damaged to hold anyone inside!</span>")
 		return
 

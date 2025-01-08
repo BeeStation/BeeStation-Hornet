@@ -14,6 +14,7 @@
 	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "oven_off"
 	density = TRUE
+	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	layer = BELOW_OBJ_LAYER
@@ -33,7 +34,8 @@
 /obj/machinery/oven/Initialize(mapload)
 	. = ..()
 	oven_loop = new(src)
-	add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
+	if(mapload)
+		add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
 
 /obj/machinery/oven/Destroy()
 	QDEL_NULL(oven_loop)
@@ -62,6 +64,7 @@
 	..()
 	if(!used_tray) //Are we actually working?
 		set_smoke_state(OVEN_SMOKE_STATE_NONE)
+		update_appearance(UPDATE_ICON)
 		return
 	///We take the worst smoke state, so if something is burning we always know.
 	var/worst_cooked_food_state = 0
@@ -101,6 +104,7 @@
 		oven_tray.vis_flags |= VIS_HIDE
 	vis_contents += oven_tray
 	oven_tray.flags_1 |= IS_ONTOP_1
+	oven_tray.vis_flags |= VIS_INHERIT_PLANE
 	oven_tray.pixel_y = OVEN_TRAY_Y_OFFSET
 	oven_tray.pixel_x = OVEN_TRAY_X_OFFSET
 
@@ -111,11 +115,13 @@
 ///Called when the tray is moved out of the oven in some way
 /obj/machinery/oven/proc/ItemMoved(obj/item/oven_tray, atom/OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
+
 	tray_removed_from_oven(oven_tray)
 
 /obj/machinery/oven/proc/tray_removed_from_oven(obj/item/oven_tray)
 	SIGNAL_HANDLER
 	oven_tray.flags_1 &= ~IS_ONTOP_1
+	oven_tray.vis_flags &= ~VIS_INHERIT_PLANE
 	vis_contents -= oven_tray
 	used_tray = null
 	UnregisterSignal(oven_tray, COMSIG_MOVABLE_MOVED)
@@ -137,6 +143,11 @@
 		if(used_tray)
 			begin_processing()
 			used_tray.vis_flags |= VIS_HIDE
+
+			// yeah yeah i figure you don't need connect loc for just baking trays
+			for(var/obj/item/baked_item in used_tray.contents)
+				SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PLACED_IN, src, user)
+
 	update_appearance()
 	update_baking_audio()
 	return TRUE

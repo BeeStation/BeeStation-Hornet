@@ -19,6 +19,8 @@
 
 	///if FALSE, broadcasting and listening dont matter and this radio shouldnt do anything
 	VAR_PRIVATE/on = TRUE
+	/// Previous vlaue of on for when you are EMPed
+	VAR_PRIVATE/previous_on = TRUE
 	///the "default" radio frequency this radio is set to, listens and transmits to this frequency by default. wont work if the channel is encrypted
 	VAR_PRIVATE/frequency = FREQ_COMMON
 
@@ -284,8 +286,8 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels && channels.len > 0)
-		if(channel == MODE_DEPARTMENT)
+	if(channel && channels)
+		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
 		if(istype(talking_movable, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
@@ -378,7 +380,10 @@
 	return FALSE
 
 /obj/item/radio/ui_state(mob/user)
-	return GLOB.inventory_state
+	if(issilicon(user))
+		return GLOB.inventory_state
+	else
+		return GLOB.hands_state
 
 /obj/item/radio/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -391,6 +396,7 @@
 /obj/item/radio/ui_data(mob/user)
 	var/list/data = list()
 
+	data["enabled"] = on
 	data["broadcasting"] = broadcasting
 	data["listening"] = listening
 	data["frequency"] = frequency
@@ -426,6 +432,11 @@
 				. = TRUE
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
+		if ("enable")
+			if (obj_flags & EMPED)
+				return FALSE
+			set_on(!on)
+			. = TRUE
 		if("listen")
 			set_listening(!listening)
 			. = TRUE
@@ -483,6 +494,9 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
+	if (!emped)
+		previous_on = on
+	obj_flags |= OBJ_EMPED
 	emped++ //There's been an EMP; better count it
 	var/curremp = emped //Remember which EMP this was
 	if (listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
@@ -503,14 +517,33 @@
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
 		return FALSE
+	obj_flags &= ~OBJ_EMPED
 	emped = FALSE
-	set_on(TRUE)
+	set_on(previous_on)
 	return TRUE
 
 /obj/item/radio/proc/get_specific_hearers()
 	if(istype(loc, /obj/item/implant))
 		var/obj/item/implant/radio_implant = loc
 		return radio_implant.imp_in
+
+/obj/item/radio/add_strip_actions(datum/strip_context/context)
+	if (on)
+		context.add_power_off_action("The radio is on", "toggle")
+	else
+		context.add_power_on_action("The radio is off", "toggle")
+
+/obj/item/radio/perform_strip_actions(action_key, mob/actor)
+	set waitfor = FALSE
+
+	switch (action_key)
+		if ("toggle")
+			if (obj_flags & EMPED)
+				return
+			// Strip, silently
+			add_fingerprint(actor)
+			if (do_after(actor, 1 SECONDS, loc))
+				set_on(!on)
 
 ///////////////////////////////
 //////////Borg Radios//////////

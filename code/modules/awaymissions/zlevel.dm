@@ -11,13 +11,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "awaymission
 		load_new_z_level(map, "Away Mission")
 		to_chat(world, "<span class='boldannounce'>Away mission loaded.</span>")
 
-/proc/reset_gateway_spawns(reset = FALSE)
-	for(var/obj/machinery/gateway/G in GLOB.machines)
-		if(reset)
-			G.randomspawns = GLOB.awaydestinations
-		else
-			G.randomspawns.Add(GLOB.awaydestinations)
-
 /obj/effect/landmark/awaystart
 	name = "away mission spawn"
 	desc = "Randomly picked away mission spawn points."

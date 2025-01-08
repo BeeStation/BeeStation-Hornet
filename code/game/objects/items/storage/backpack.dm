@@ -45,8 +45,13 @@
 	item_state = "holdingpack"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/backpack_holding
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
+
+
+/datum/armor/backpack_holding
+	fire = 60
+	acid = 50
 
 /obj/item/storage/backpack/holding/clown
 	name = "bag of honking"
@@ -81,8 +86,20 @@
 	worn_icon_state = "baguette"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/backpack_hammerspace
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
+
+
+/datum/armor/backpack_hammerspace
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/item/storage/backpack/hammerspace/ComponentInitialize()
 	. = ..()
@@ -366,7 +383,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 15
-	STR.cant_hold = typecacheof(list(/obj/item/storage/backpack/satchel/flat)) //muh recursive backpacks
+	STR.set_holdable(null, list(/obj/item/storage/backpack/satchel/flat)) //muh recursive backpacks
 
 /obj/item/storage/backpack/satchel/flat/PopulateContents()
 	var/datum/supply_pack/costumes_toys/randomised/contraband/C = new
@@ -416,11 +433,11 @@
 	STR.max_combined_w_class = 32
 	STR.max_items = 32
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/mail,
 		/obj/item/small_delivery,
 		/obj/item/paper,
-		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/reagent_containers/condiment/milk,
 		/obj/item/food/bread/plain
 		)
 	)
@@ -731,7 +748,7 @@
 	new /obj/item/gun/ballistic/automatic/pistol/APS(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka(src)
 	new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
 	new /obj/item/storage/firstaid/tactical(src)
 
@@ -749,3 +766,13 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/implanter/sad_trombone(src)
+
+/obj/item/storage/backpack/duffelbag/syndie/macho
+	desc = "Become the ultimate Macho Man!"
+
+/obj/item/storage/backpack/duffelbag/syndie/macho/PopulateContents()
+	new /obj/item/storage/belt/champion/wrestling(src)
+	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/implanter/adrenalin(src)
+	new /obj/item/clothing/mask/luchador/rudos(src)
+

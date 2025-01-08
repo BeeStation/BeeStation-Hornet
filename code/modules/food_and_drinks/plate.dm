@@ -91,13 +91,13 @@
 	base_icon_state = "plate_shard"
 	force = 5
 	throwforce = 5
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	/// How many variants of shard there are
 	var/variants = 5
 
 /obj/item/plate_shard/Initialize(mapload)
 	. = ..()
 
-	AddComponent(/datum/component/caltrop, min_damage = force)
+	AddComponent(/datum/component/caltrop, _min_damage = force)
 
 	icon_state = "[base_icon_state][pick(1,variants)]"

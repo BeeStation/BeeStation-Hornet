@@ -150,6 +150,7 @@
 	desc = "An alien organ that twists and writhes when exposed to light."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart-on"
+	visual = TRUE
 	color = "#1C1C1C"
 	var/respawn_progress = 0
 	var/obj/item/light_eater/blade
@@ -224,7 +225,7 @@
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
 
 /obj/item/light_eater/Initialize(mapload)

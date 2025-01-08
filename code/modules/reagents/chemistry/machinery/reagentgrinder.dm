@@ -31,7 +31,7 @@
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/food/grown)
 	holdingitems = list()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 	beaker.desc += " May contain blended dust. Don't breathe this in!"
 
 /obj/machinery/reagentgrinder/constructed/Initialize(mapload)
@@ -263,50 +263,44 @@
 /obj/machinery/reagentgrinder/proc/stop_operating()
 	operating = FALSE
 
-/obj/machinery/reagentgrinder/proc/juice()
+/obj/machinery/reagentgrinder/proc/juice(mob/user)
 	power_change()
 	if(!beaker || machine_stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
 	operate_for(50, juicing = TRUE)
-	for(var/obj/item/i in holdingitems)
+	for(var/obj/item/juiced_item in holdingitems)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
-		var/obj/item/I = i
-		if(I.juice_results)
-			juice_item(I)
+		if(juiced_item.juice_results)
+			juice_item(juiced_item, user)
 
-/obj/machinery/reagentgrinder/proc/juice_item(obj/item/I) //Juicing results can be found in respective object definitions
-	if(I.on_juice(src) == -1)
-		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [I], and transfers it back to storage.</span>")
+/obj/machinery/reagentgrinder/proc/juice_item(obj/item/juiced_item, mob/user) //Juicing results can be found in respective object definitions
+	if(!juiced_item.juice(beaker, user))
+		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [juiced_item], and transfers it back to storage.</span>")
 		return
-	beaker.reagents.add_reagent_list(I.juice_results)
-	remove_object(I)
+	remove_object(juiced_item)
 
 /obj/machinery/reagentgrinder/proc/grind(mob/user)
 	power_change()
 	if(!beaker || machine_stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
 	operate_for(60)
-	for(var/i in holdingitems)
+	for(var/obj/item/grinded_item in holdingitems)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
-		var/obj/item/I = i
-		if(I.grind_results || I.is_grindable())
-			if(istype(I, /obj/item/reagent_containers))
-				var/obj/item/reagent_containers/p = I
-				if(!p.prevent_grinding)
-					grind_item(p, user)
+		if(grinded_item.grind_results || grinded_item.is_grindable())
+			if(istype(grinded_item, /obj/item/reagent_containers))
+				var/obj/item/reagent_containers/beaker = grinded_item
+				if(!beaker.prevent_grinding)
+					grind_item(beaker, user)
 			else
-				grind_item(I, user)
+				grind_item(grinded_item, user)
 
-/obj/machinery/reagentgrinder/proc/grind_item(obj/item/I, mob/user) //Grind results can be found in respective object definitions
-	if(I.on_grind(src) == -1) //Call on_grind() to change amount as needed, and stop grinding the item if it returns -1
-		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to grind up [I], and transfers it back to storage.</span>")
+/obj/machinery/reagentgrinder/proc/grind_item(obj/item/grinded_item, mob/user) //Grind results can be found in respective object definitions
+	if(!grinded_item.grind(beaker, user))
+		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage.</span>")
 		return
-	beaker.reagents.add_reagent_list(I.grind_results)
-	if(I.reagents)
-		I.reagents.trans_to(beaker, I.reagents.total_volume, transfered_by = user)
-	remove_object(I)
+	remove_object(grinded_item)
 
 /obj/machinery/reagentgrinder/proc/mix(mob/user)
 	//For butter and other things that would change upon shaking or mixing

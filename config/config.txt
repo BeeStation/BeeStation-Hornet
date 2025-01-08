@@ -601,10 +601,10 @@ CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 VOTE_AUTOTRANSFER_ENABLED
 
 ## Percentage of votes required to call shuttle before decay is applied, value 0-1.
-AUTOTRANSFER_PERCENTAGE 0.75
+AUTOTRANSFER_PERCENTAGE 0.7
 
 ## Time until decay starts to reduce the required percentage of votes to leave (In deciseconds)
-AUTOTRANSFER_DECAY_START 36000
+AUTOTRANSFER_DECAY_START 24000
 
 ## How much is subtracted from the percentage above every time the vote ticks (ticks are every five minutes)
 AUTOTRANSFER_DECAY_AMOUNT 0.025

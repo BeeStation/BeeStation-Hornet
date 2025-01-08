@@ -19,23 +19,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"aw" = (
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
-	},
-/obj/structure/reagent_dispensers/watertank,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/machinery/airalarm/directional/east{
-	req_access = null;
-	req_access_txt = "181"
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
 "az" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
@@ -85,7 +68,7 @@
 	},
 /obj/item/gun/energy/e_gun/mini,
 /obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large{
+/obj/item/gun/energy/recharge/ebow/large{
 	pixel_y = -8;
 	pin = /obj/item/firing_pin
 	},
@@ -623,6 +606,23 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/delivery/white,
 /turf/open/floor/iron/ridged/steel,
+/area/shuttle/hunter)
+"CZ" = (
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/machinery/airalarm/directional/east{
+	req_access = null;
+	req_access_txt = "181"
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "De" = (
 /obj/structure/lattice/catwalk/over,
@@ -1217,7 +1217,7 @@ nn
 (9,1,1) = {"
 Lo
 nn
-aw
+CZ
 sS
 nn
 jl

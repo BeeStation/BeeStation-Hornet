@@ -49,7 +49,7 @@
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -77,7 +77,6 @@
 		/obj/item/airlock_painter,
 		/obj/item/shuttle_creator
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/botanical
 	name = "botanical belt"
@@ -90,10 +89,10 @@
 /obj/item/storage/belt/botanical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/reagent_containers/spray,
-		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
-		/obj/item/reagent_containers/glass/bottle,//fertilizer bottles
+		/obj/item/reagent_containers/cup/beaker,//those will usually be used for fertilizer
+		/obj/item/reagent_containers/cup/bottle,//fertilizer bottles
 		/obj/item/reagent_containers/syringe,//blood samples for pod cloning
 		/obj/item/reagent_containers/dropper,//on request by forums users
 		/obj/item/plant_analyzer,
@@ -110,7 +109,6 @@
 		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/utility/chief
 	name = "\improper Chief Engineer's toolbelt" //"the Chief Engineer's toolbelt", because "Chief Engineer's toolbelt" is not a proper noun
@@ -119,43 +117,89 @@
 	item_state = "utility_ce"
 	worn_icon_state = "utility_ce"
 
+/obj/item/storage/belt/utility/chief/full
+	preload = TRUE
+
 /obj/item/storage/belt/utility/chief/full/PopulateContents()
-	new /obj/item/powertool/hand_drill(src)
-	new /obj/item/powertool/jaws_of_life(src)
-	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
-	new /obj/item/extinguisher/mini(src)
-	new /obj/item/analyzer/ranged(src)
+	SSwardrobe.provide_type(/obj/item/powertool/hand_drill, src)
+	SSwardrobe.provide_type(/obj/item/powertool/jaws_of_life, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool/experimental, src)//This can be changed if this is too much
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
+	SSwardrobe.provide_type(/obj/item/analyzer/ranged, src)
 	//much roomier now that we've managed to remove two tools
 
+/obj/item/storage/belt/utility/chief/full/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/powertool/hand_drill
+	to_preload += /obj/item/powertool/jaws_of_life
+	to_preload += /obj/item/weldingtool/experimental
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	to_preload += /obj/item/extinguisher/mini
+	to_preload += /obj/item/analyzer/ranged
+	return to_preload
+
 /obj/item/storage/belt/utility/full/PopulateContents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL,pick("red","yellow","orange"))
+
+/obj/item/storage/belt/utility/full/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	return to_preload
 
 /obj/item/storage/belt/utility/full/engi/PopulateContents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool/largetank, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL, pick("red","yellow","orange"))
 
+/obj/item/storage/belt/utility/full/engi/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool/largetank
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	return to_preload
 
 /obj/item/storage/belt/utility/atmostech/PopulateContents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/t_scanner(src)
-	new /obj/item/extinguisher/mini(src)
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/t_scanner, src)
+	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
+
+/obj/item/storage/belt/utility/atmostech/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/t_scanner
+	to_preload += /obj/item/extinguisher/mini
+	return to_preload
 
 /obj/item/storage/belt/utility/servant
 	var/slab = null
@@ -168,7 +212,7 @@
 /obj/item/storage/belt/utility/servant/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -196,7 +240,6 @@
 		/obj/item/clockwork/clockwork_slab,
 		/obj/item/clockwork/replica_fabricator
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/utility/servant/PopulateContents()
 	if(slab)
@@ -224,12 +267,12 @@
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -277,7 +320,6 @@
 		/obj/item/plunger,
 		/obj/item/extrapolator
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/medical/ert
 	name = "emergency response medical belt"
@@ -287,15 +329,27 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold[/obj/item/gun/medbeam] = TRUE
+	preload = TRUE
 
 /obj/item/storage/belt/medical/ert/PopulateContents()
-	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/surgical_drapes(src)
-	new /obj/item/scalpel/advanced(src)
-	new /obj/item/retractor/advanced(src)
-	new /obj/item/surgicaldrill/advanced(src)
-	new /obj/item/reagent_containers/medspray/sterilizine(src)
-	new /obj/item/gun/medbeam(src)
+	SSwardrobe.provide_type(/obj/item/healthanalyzer/advanced)
+	SSwardrobe.provide_type(/obj/item/surgical_drapes)
+	SSwardrobe.provide_type(/obj/item/scalpel/advanced)
+	SSwardrobe.provide_type(/obj/item/retractor/advanced)
+	SSwardrobe.provide_type(/obj/item/surgicaldrill/advanced)
+	SSwardrobe.provide_type(/obj/item/reagent_containers/medspray/sterilizine)
+	SSwardrobe.provide_type(/obj/item/gun/medbeam)
+
+/obj/item/storage/belt/medical/ert/get_types_to_preload()
+	var/list/to_preload = list()
+	to_preload += /obj/item/healthanalyzer/advanced
+	to_preload += /obj/item/surgical_drapes
+	to_preload += /obj/item/scalpel/advanced
+	to_preload += /obj/item/retractor/advanced
+	to_preload += /obj/item/surgicaldrill/advanced
+	to_preload += /obj/item/reagent_containers/medspray/sterilizine
+	to_preload += /obj/item/gun/medbeam
+	return to_preload
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -308,7 +362,7 @@
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
 		/obj/item/melee/classic_baton/police,
@@ -329,7 +383,6 @@
 		/obj/item/club,
 		/obj/item/shield/riot/tele
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/security/full/PopulateContents()
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
@@ -337,7 +390,7 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
@@ -348,7 +401,7 @@
 	new /obj/item/restraints/handcuffs/cable(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
@@ -369,7 +422,7 @@
 /obj/item/storage/belt/mining/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -392,7 +445,7 @@
 		/obj/item/stack/sheet/bone,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/cup/glass/bottle,
 		/obj/item/stack/medical,
 		/obj/item/knife/combat/survival,
 		/obj/item/tank/internals/emergency_oxygen,
@@ -404,7 +457,8 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/cup/glass/bottle,
 		/obj/item/organ/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -414,13 +468,12 @@
 		/obj/item/skeleton_key,
 		/obj/item/discovery_scanner,
 		/obj/item/gun/energy/e_gun/mini/exploration,
-		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/gun/energy/recharge/kinetic_accelerator,
 		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,
 		/obj/item/research_disk_pinpointer
 		))
-	STR.can_hold = can_hold
 
 
 /obj/item/storage/belt/mining/vendor
@@ -454,10 +507,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/soulstone
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/soulstone/full/PopulateContents()
 	for(var/i in 1 to 6)
@@ -483,10 +535,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/clothing/mask/luchador
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/military
 	name = "chest rig"
@@ -514,37 +565,36 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_SMALL
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/food,
-		/obj/item/reagent_containers/food/drinks
+		/obj/item/reagent_containers/cup/glass
 		))
-	STR.can_hold = can_hold
 	var/amount = 5
 	var/rig_snacks
 	while(contents.len <= amount)
 		rig_snacks = pick(list(
 		/obj/item/food/candy,
-		/obj/item/reagent_containers/food/drinks/dry_ramen,
+		/obj/item/food/cheesiehonkers,
+		/obj/item/food/cheesynachos,
+		/obj/item/food/cubannachos,
 		/obj/item/food/chips,
+		/obj/item/food/donkpocket,
 		/obj/item/food/sosjerky,
 		/obj/item/food/syndicake,
 		/obj/item/food/spacetwinkie,
-		/obj/item/food/cheesiehonkers,
 		/obj/item/food/nachos,
-		/obj/item/food/cheesynachos,
-		/obj/item/food/cubannachos,
 		/obj/item/food/nugget,
 		/obj/item/food/spaghetti/pastatomato,
 		/obj/item/food/rofflewaffles,
-		/obj/item/food/donkpocket,
-		/obj/item/reagent_containers/food/drinks/soda_cans/cola,
-		/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind,
-		/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
-		/obj/item/reagent_containers/food/drinks/soda_cans/starkist,
-		/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
-		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,
-		/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
-		/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola
+		/obj/item/reagent_containers/cup/glass/drinkingglass/filled/nuka_cola,
+		/obj/item/reagent_containers/cup/glass/dry_ramen,
+		/obj/item/reagent_containers/cup/soda_cans/cola,
+		/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
+		/obj/item/reagent_containers/cup/soda_cans/lemon_lime,
+		/obj/item/reagent_containers/cup/soda_cans/pwr_game,
+		/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind,
+		/obj/item/reagent_containers/cup/soda_cans/space_up,
+		/obj/item/reagent_containers/cup/soda_cans/starkist,
 		))
 		new rig_snacks(src)
 
@@ -595,17 +645,16 @@
 	STR.max_items = 30
 	STR.display_numerical_stacking = TRUE
 	STR.max_combined_w_class = 60
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/grenade,
 		/obj/item/screwdriver,
 		/obj/item/lighter,
 		/obj/item/multitool,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+		/obj/item/reagent_containers/cup/glass/bottle/molotov,
 		/obj/item/grenade/plastic/c4,
 		/obj/item/food/grown/cherry_bomb,
 		/obj/item/food/grown/firelemon
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/grenade/full/PopulateContents()
 	var/static/items_inside = list(
@@ -640,10 +689,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/gun/magic/wand
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/wands/full/PopulateContents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -667,11 +715,12 @@
 /obj/item/storage/belt/janitor/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/grenade/chem_grenade,
 		/obj/item/lightreplacer,
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
+		/obj/item/reagent_containers/cup/bucket,
 		/obj/item/soap,
 		/obj/item/holosign_creator/janibarrier,
 		/obj/item/forcefield_projector,
@@ -682,7 +731,6 @@
 		/obj/item/paint/paint_remover,
 		/obj/item/pushbroom
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
 	new /obj/item/lightreplacer(src)
@@ -690,6 +738,7 @@
 	new /obj/item/soap/nanotrasen(src)
 	new /obj/item/holosign_creator/janibarrier(src)
 	new /obj/item/melee/flyswatter(src)
+	new /obj/item/reagent_containers/cup/bucket(src)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
@@ -703,10 +752,9 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 18
 	STR.display_numerical_stacking = TRUE
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/ammo_casing/shotgun
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/bandolier/western
 	name = "sheriff's bandolier"
@@ -716,10 +764,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 21
-	var/static/list/can_western_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/ammo_casing/c38
 		))
-	STR.can_hold = can_western_hold
 
 /obj/item/storage/belt/bandolier/western/filled/PopulateContents()
 	for(var/i in 1 to 21)
@@ -738,13 +785,12 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 15
 	STR.display_numerical_stacking = TRUE
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/ammo_casing/caseless/arrow/wood,
 		/obj/item/ammo_casing/caseless/arrow/ash,
 		/obj/item/ammo_casing/caseless/arrow/bone,
 		/obj/item/ammo_casing/caseless/arrow/bronze
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -839,10 +885,9 @@
 	STR.max_items = 1
 	STR.rustle_sound = FALSE
 	STR.max_w_class = WEIGHT_CLASS_BULKY
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/melee/sabre
 		))
-	STR.can_hold = can_hold
 
 /obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
@@ -894,10 +939,9 @@
 	MTR.max_items = 1
 	MTR.rustle_sound = FALSE
 	MTR.max_w_class = WEIGHT_CLASS_BULKY
-	var/static/list/can_hold = typecacheof(list(
+	MTR.set_holdable(list(
 		/obj/item/melee/sabre/mime
 		))
-	MTR.can_hold = can_hold
 
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)

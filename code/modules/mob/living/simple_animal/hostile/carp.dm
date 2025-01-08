@@ -243,10 +243,10 @@
 /mob/living/simple_animal/hostile/carp/advanced
 	name = "advanced space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
-	maxHealth = 40
-	health = 40
+	maxHealth = 80
+	health = 80
 	gold_core_spawnable = NO_SPAWN
-	obj_damage = 15
+	obj_damage = 25
 
 /mob/living/simple_animal/hostile/carp/advanced/examine(mob/user)
 	. = ..()

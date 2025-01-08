@@ -25,8 +25,8 @@
 
 	var/static/list/generic_goodies = list(
 		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
-		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game			= 10,
-		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy	= 10,
+		/obj/item/reagent_containers/cup/soda_cans/pwr_game			= 10,
+		/obj/item/reagent_containers/cup/soda_cans/monkey_energy	= 10,
 		/obj/item/food/cheesiehonkers 			= 10,
 		/obj/item/food/candy						= 10,
 		/obj/item/food/chips						= 10,
@@ -51,8 +51,8 @@
 			/obj/item/book/granter/spell/mimery_blockade,
 			/obj/item/gun/ballistic/rifle/boltaction/enchanted,
 			/obj/item/melee/classic_baton/police/telescopic,
-			/obj/item/reagent_containers/glass/bottle/random_virus/minor,
-			/obj/item/reagent_containers/glass/bottle/random_virus,
+			/obj/item/reagent_containers/cup/bottle/random_virus/minor,
+			/obj/item/reagent_containers/cup/bottle/random_virus,
 			/obj/item/gun/ballistic/revolver/nagant
 		)
 
@@ -190,10 +190,10 @@
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
-		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
-		if(R) // datacore is primary
-			color = get_chatcolor_by_hud(R.fields["hud"])
-		else if(this_job.title) // when they have no datacore, roundstart job will be base
+		var/datum/record/crew/R = find_record(recipient.name, GLOB.manifest.general)
+		if(R) // manifest is primary
+			color = get_chatcolor_by_hud(R.hud)
+		else if(this_job.title) // when they have no manifest, roundstart job will be base
 			color = get_chatcolor_by_hud(this_job.title)
 		if(!color)
 			color = COLOR_WHITE

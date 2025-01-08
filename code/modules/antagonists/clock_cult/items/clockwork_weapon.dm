@@ -19,7 +19,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
@@ -99,7 +99,7 @@
 	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	armour_penetration = 6
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
@@ -140,7 +140,7 @@
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
+/obj/item/clockwork/weapon/brass_sword/attack_atom(obj/O, mob/living/user)
 	..()
 	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return

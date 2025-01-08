@@ -14,7 +14,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = ISWEAPON
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 40, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/melee_powerfist
 	resistance_flags = FIRE_PROOF
 	var/click_delay = 1.5
 	var/fisto_setting = 1
@@ -22,6 +22,11 @@
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 	var/baseforce = 20
 
+
+
+/datum/armor/melee_powerfist
+	fire = 100
+	acid = 40
 
 /obj/item/melee/powerfist/examine(mob/user)
 	. = ..()

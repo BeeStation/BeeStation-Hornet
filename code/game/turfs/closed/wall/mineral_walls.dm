@@ -352,10 +352,20 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/////////////////////Lavaland Base Syndicate Explosive Walls /////////////////////
+
+/turf/closed/wall/mineral/plastitanium/explosive
+	var/obj/item/bombcore/large/syndicate_base/bombcore
+
+/turf/closed/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	bombcore = new /obj/item/bombcore/large/syndicate_base(src)
+
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
-	bombcore.installed = TRUE
 	bombcore.detonate()
+
+/turf/closed/wall/mineral/plastitanium/explosive/Destroy()
+	qdel(bombcore)
 	..()
 
 //have to copypaste this code

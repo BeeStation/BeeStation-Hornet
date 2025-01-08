@@ -37,24 +37,6 @@
 	for(var/i in 1 to created_volume)
 		new /obj/item/food/chocolatebar(location)
 
-/datum/chemical_reaction/food/hot_cocoa
-	name = "Hot Cocoa"
-	id = /datum/reagent/consumable/cocoa/hot_cocoa
-	results = list(/datum/reagent/consumable/cocoa/hot_cocoa = 5)
-	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/cocoa = 1)
-
-/datum/chemical_reaction/food/coffee
-	name = "Coffee"
-	id = /datum/reagent/consumable/coffee
-	results = list(/datum/reagent/consumable/coffee = 5)
-	required_reagents = list(/datum/reagent/toxin/coffeepowder = 1, /datum/reagent/water = 5)
-
-/datum/chemical_reaction/food/tea
-	name = "Tea"
-	id = /datum/reagent/consumable/tea
-	results = list(/datum/reagent/consumable/tea = 5)
-	required_reagents = list(/datum/reagent/toxin/teapowder = 1, /datum/reagent/water = 5)
-
 /datum/chemical_reaction/food/soysauce
 	name = "Soy Sauce"
 	id = /datum/reagent/consumable/soysauce

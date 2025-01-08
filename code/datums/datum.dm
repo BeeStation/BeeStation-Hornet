@@ -73,9 +73,10 @@
 #endif
 
 /**
-  * Topic signals
-  */
-
+ * Called when a href for this datum is clicked
+ *
+ * Sends a [COMSIG_TOPIC] signal
+ */
 /datum/Topic(href, href_list[])
 	..()
 	SEND_SIGNAL(src, COMSIG_TOPIC, usr, href_list)
@@ -271,6 +272,13 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
+
+///Generate a tag for this /datum, if it implements one
+///Should be called as early as possible, best would be in New, to avoid weakref mistargets
+///Really just don't use this, you don't need it, global lists will do just fine MOST of the time
+///We really only use it for mobs to make id'ing people easier
+/datum/proc/GenerateTag()
+	datum_flags |= DF_USE_TAG
 
 /// Return text from this proc to provide extra context to hard deletes that happen to it
 /// Optional, you should use this for cases where replication is difficult and extra context is required

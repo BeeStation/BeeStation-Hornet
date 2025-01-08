@@ -281,7 +281,7 @@
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/atom/Tsec = drop_location()
 
-	new /obj/item/reagent_containers/glass/bucket(Tsec)
+	new /obj/item/reagent_containers/cup/bucket(Tsec)
 
 	new /obj/item/assembly/prox_sensor(Tsec)
 
@@ -445,9 +445,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
 	if (..())
-		return
-	if(!(bot_core.allowed(usr) || usr.has_unlimited_silicon_privilege) || locked)
-		return
+		return TRUE
 	switch(action)
 		if("clean_blood")
 			blood = !blood

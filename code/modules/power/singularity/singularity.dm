@@ -11,7 +11,7 @@
 	plane = MASSIVE_OBJ_PLANE
 	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	energy = 100 //How strong are we?
@@ -354,9 +354,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
 		if(G?.active)
 			return 0
-	else if(locate(/obj/machinery/shieldwallgen) in T)
-		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S?.active)
+	else if(locate(/obj/machinery/power/shieldwallgen) in T)
+		var/obj/machinery/power/shieldwallgen/S = locate(/obj/machinery/power/shieldwallgen) in T
+		if(S?.shieldstate)
 			return 0
 	return 1
 
@@ -429,3 +429,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 		"down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
 		"left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
 		"right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))
+
+/// The immobile, close pulling singularity
+/obj/anomaly/singularity/stationary
+	move_self = FALSE
+
+/obj/anomaly/singularity/stationary/Initialize(mapload)
+	. = ..()
+	var/datum/component/singularity/singularity = singularity_component.resolve()
+	singularity?.grav_pull = TRUE
+
+/obj/anomaly/singularity/stationary/process(delta_time)
+	if(DT_PROB(0.5, delta_time))
+		mezzer()

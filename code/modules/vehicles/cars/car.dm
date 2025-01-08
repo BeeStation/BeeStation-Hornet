@@ -101,7 +101,7 @@
 	M.forceMove(src)
 	add_occupant(M, VEHICLE_CONTROL_KIDNAPPED)
 
-/obj/vehicle/sealed/car/obj_destruction(damage_flag)
+/obj/vehicle/sealed/car/atom_destruction(damage_flag)
 	explosion(loc, 0, 1, 2, 3, 0)
 	log_message("[src] exploded due to destruction", LOG_ATTACK)
 	return ..()

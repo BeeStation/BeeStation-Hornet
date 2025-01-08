@@ -111,10 +111,10 @@
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/barf_food(atom/A, hard = FALSE)
 	if (stat == DEAD)
 		return
-	if(!istype(A, /obj/item/reagent_containers/food))
+	if(!istype(A, /obj/item/food))
 		return
 	var/turf/currentTurf = get_turf(src)
-	var/obj/item/reagent_containers/food/consumed = A
+	var/obj/item/food/consumed = A
 	consumed.forceMove(currentTurf)
 	var/destination = get_edge_target_turf(currentTurf, pick(GLOB.alldirs)) //Pick a random direction to toss them in
 	var/throwRange = hard ? rand(2,8) : 1
@@ -174,7 +174,7 @@
 		"vomit" = CALLBACK(src, PROC_REF(vomit_prestart), 25)), 20)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
-	var/obj/item/reagent_containers/food/tasty = locate() in get_turf(src)
+	var/obj/item/food/tasty = locate() in get_turf(src)
 	if (tasty)
 		feed(tasty)
 

@@ -68,7 +68,11 @@
   */
 /atom/movable/proc/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && istype(M) && istype(user))
-		return user_buckle_mob(M, user)
+		return user_buckle_mob(M, user, check_loc = FALSE)
+
+// Mobs have custom behaviour for buckling
+/mob/mouse_buckle_handling(mob/living/M, mob/living/user)
+	return FALSE
 
 /**
   * Returns TRUE if there are mobs buckled to this atom and FALSE otherwise
@@ -88,9 +92,13 @@
   * force - Set to TRUE to ignore src's can_buckle and M's can_buckle_to
   * check_loc - Set to FALSE to allow buckling from adjacent turfs, or TRUE if buckling is only allowed with src and M on the same turf.
   */
-/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, needs_anchored = FALSE)
 	if(!buckled_mobs)
 		buckled_mobs = list()
+
+	if(!anchored && needs_anchored)
+		to_chat(M, "<span class='warning'>Secure [src] first!</span>")
+		return FALSE
 
 	if(!is_buckle_possible(M, force, check_loc))
 		return FALSE
@@ -116,9 +124,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
-	/*
 	M.set_glide_size(glide_size)
-	*/
 
 	//Something has unbuckled us
 	if(!M.buckled)
@@ -129,7 +135,7 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
-/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, needs_anchored = FALSE)
 	. = ..()
 	if(.)
 		if(resistance_flags & ON_FIRE) //Sets the mob on fire if you buckle them to a burning atom/movableect
@@ -155,7 +161,7 @@
 	buckled_mob.set_buckled(null)
 	buckled_mob.set_anchored(initial(buckled_mob.anchored))
 	buckled_mob.clear_alert("buckled")
-	//buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
+	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
 	buckled_mobs -= buckled_mob
 	if(anchored)
 		REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)

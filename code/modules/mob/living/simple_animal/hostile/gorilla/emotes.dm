@@ -8,4 +8,5 @@
 	message = "oogas"
 	message_param = "oogas at %t"
 	sound = 'sound/creatures/gorilla.ogg'
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 

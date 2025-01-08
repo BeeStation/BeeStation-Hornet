@@ -225,7 +225,7 @@
 			to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
 		return TRUE
 
-	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag))
+	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/cup/rag))
 		var/cleanspeed = 50
 		if(istype(O, /obj/item/soap))
 			var/obj/item/soap/used_soap = O
@@ -275,7 +275,7 @@
 
 /obj/machinery/microwave/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(usr)))
-		cook()
+		cook(user)
 
 /obj/machinery/microwave/ui_interact(mob/user)
 	. = ..()
@@ -316,7 +316,7 @@
 	ingredients.Cut()
 	open()
 
-/obj/machinery/microwave/proc/cook()
+/obj/machinery/microwave/proc/cook(mob/user)
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(operating || broken > 0 || panel_open || !anchored || dirty == 100)
@@ -328,13 +328,13 @@
 		return
 
 	if(prob(max((5 / efficiency) - 5, dirty * 5))) //a clean unupgraded microwave has no risk of failure
-		muck()
+		muck(user)
 		return
 	for(var/obj/O in ingredients)
-		if(istype(O, /obj/item/reagent_containers/food) || istype(O, /obj/item/grown))
+		if(istype(O, /obj/item/food) || istype(O, /obj/item/grown))
 			continue
 		if(prob(min(dirty * 5, 100)))
-			start_can_fail()
+			start_can_fail(user)
 			return
 		break
 	start()
@@ -347,32 +347,32 @@
 	soundloop.start()
 	update_icon()
 
-/obj/machinery/microwave/proc/spark()
+/obj/machinery/microwave/proc/spark(mob/user)
 	visible_message("<span class='warning'>Sparks fly around [src]!</span>")
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(2, 1, src)
-	s.start()
+	s.start(user)
 
 #define MICROWAVE_NORMAL 0
 #define MICROWAVE_MUCK 1
 #define MICROWAVE_PRE 2
 
-/obj/machinery/microwave/proc/start()
+/obj/machinery/microwave/proc/start(mob/user)
 	wzhzhzh()
-	loop(MICROWAVE_NORMAL, 10)
+	loop(MICROWAVE_NORMAL, 10, user)
 
-/obj/machinery/microwave/proc/start_can_fail()
+/obj/machinery/microwave/proc/start_can_fail(mob/user)
 	wzhzhzh()
-	loop(MICROWAVE_PRE, 4)
+	loop(MICROWAVE_PRE, 4, user)
 
-/obj/machinery/microwave/proc/muck()
+/obj/machinery/microwave/proc/muck(mob/user)
 	wzhzhzh()
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	dirty_anim_playing = TRUE
 	update_icon()
-	loop(MICROWAVE_MUCK, 4)
+	loop(MICROWAVE_MUCK, 4, user)
 
-/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
+/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2), mob/user) // standard wait is 10
 	if(machine_stat & (NOPOWER|BROKEN))
 		operating = FALSE
 		if(type == MICROWAVE_PRE)
@@ -382,7 +382,7 @@
 	if(!time)
 		switch(type)
 			if(MICROWAVE_NORMAL)
-				loop_finish()
+				loop_finish(user)
 			if(MICROWAVE_MUCK)
 				muck_finish()
 			if(MICROWAVE_PRE)
@@ -392,8 +392,9 @@
 	use_power(500)
 	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
-/obj/machinery/microwave/proc/loop_finish()
+/obj/machinery/microwave/proc/loop_finish(mob/user)
 	operating = FALSE
+
 
 	var/iron = 0
 	for(var/obj/item/O in ingredients)
@@ -408,12 +409,15 @@
 		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dump_inventory_contents()
+		dump_inventory_contents(user)
 
 	after_finish_loop()
 
-/obj/machinery/microwave/dump_inventory_contents()
+/obj/machinery/microwave/dump_inventory_contents(mob/user)
 	. = ..()
+	if(user && user.mind)
+		for(var/obj/item/result as anything in ingredients)
+			ADD_TRAIT(result, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
 	ingredients.Cut()
 
 /obj/machinery/microwave/proc/pre_fail()

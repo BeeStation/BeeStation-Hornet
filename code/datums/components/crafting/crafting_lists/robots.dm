@@ -39,7 +39,7 @@
 	result = /mob/living/simple_animal/bot/cleanbot
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/glass/bucket = 1,
+		/obj/item/reagent_containers/cup/bucket = 1,
 		/obj/item/assembly/prox_sensor = 1,
 		/obj/item/bodypart/r_arm/robot = 1
 		)

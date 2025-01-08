@@ -90,7 +90,7 @@
 	var/datum/dynamic_ruleset/rule = sent_rule
 	if(mid_round_budget >= rule.cost)
 		spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
-	else if((rule.flags & LATEGAME_RULESET) && is_lategame())
+	else if(is_lategame())
 		rule.lategame_spawned = TRUE
 	else
 		CRASH("execute_midround_latejoin_rule was somehow called with an invalid state - cost is too high, but it's also not a lategame execution?")

@@ -48,7 +48,7 @@
 
 	var/turf/T = get_turf(A)
 
-	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart))
+	if(istype(A, /obj/item/reagent_containers/cup/bucket) || istype(A, /obj/structure/janitorialcart))
 		return
 
 	if(T)
@@ -125,6 +125,6 @@
 	throw_speed = 4
 	attack_verb_continuous = list("mops", "stabs", "shanks", "jousts")
 	attack_verb_simple = list("mop", "stab", "shank", "joust")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	embedding = list("armour_block" = 40)

@@ -10,7 +10,7 @@
 			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
 			/obj/item/bodypart = "BODYPART",
 			/obj/item/book/manual = "MANUAL",
-			/obj/item/reagent_containers/food/drinks = "DRINK", //longest paths comes first
+			/obj/item/reagent_containers/cup/glass = "DRINK", //longest paths comes first
 			/obj/item/food = "FOOD",
 			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 			/obj/machinery/atmospherics = "ATMOS_MECH",

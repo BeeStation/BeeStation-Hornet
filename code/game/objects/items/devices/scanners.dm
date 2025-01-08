@@ -252,7 +252,7 @@ GENE SCANNER
 				trauma_text += trauma_desc
 			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
 		if(length(C.last_mind?.quirks))
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.last_mind.get_quirk_string()].</span>"
+			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_quirk_string()].</span>"
 	if(advanced)
 		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
 
@@ -1267,7 +1267,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	if(user.get_active_held_item() != src)
 		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
 		return
-	var/obj/item/reagent_containers/glass/bottle/culture_bottle = new(user.drop_location())
+	var/obj/item/reagent_containers/cup/bottle/culture_bottle = new(user.drop_location())
 	culture_bottle.name = "[disease.name] culture bottle"
 	culture_bottle.desc = "A small bottle. Contains [disease.agent] culture in synthblood medium."
 	culture_bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)

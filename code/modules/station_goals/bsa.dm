@@ -139,7 +139,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/ex_power = 3
 	var/ready
 
-	var/power_used_per_shot = 5000000
+	var/power_used_per_shot = 20 MEGAWATT
 	var/obj/item/stock_parts/cell/cell
 	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
@@ -162,6 +162,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/winding_up = FALSE // if true, sparks will be generated in the bullseye
 
 	var/last_charge_quarter = 0
+
+	var/firing = FALSE
 
 
 
@@ -207,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src, 5000000)
+	cell = new /obj/item/stock_parts/cell(src, 20 MEGAWATT)
 	cell.charge = 0
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
@@ -243,14 +245,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 		add_overlay("[base_battery_icon_state]_100")
 		charge_sound = 'sound/machines/apc/PowerUp_001.ogg'
 	if(charge_quarter > last_charge_quarter)
-		playsound(get_turf(src), charge_sound, 25, 1)
+		playsound(get_turf(src), charge_sound, 25, TRUE)
 
 
 /obj/machinery/power/bsa/full/proc/charge_up(mob/user, turf/bullseye)
 	if(!cell.use(power_used_per_shot))
 		return FALSE
+	firing = TRUE
 	var/sound/charge_up = sound(select_sound)
-	playsound(get_turf(src), charge_up, 50, 1)
+	playsound(get_turf(src), charge_up, 50, 1, pressure_affected = FALSE)
 	var/timerid = addtimer(CALLBACK(src, PROC_REF(fire), user, bullseye), select_sound_length, TIMER_STOPPABLE)
 	winding_up = TRUE
 	var/list/turfs = spiral_range_turfs(ex_power * 2, bullseye)
@@ -265,7 +268,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
 	winding_up = FALSE
-	playsound(get_turf(src), fire_sound, 50, 1, world.maxx)
+	playsound(get_turf(src), fire_sound, 100, 1, world.maxx, pressure_affected = FALSE, ignore_walls = TRUE)
+	// we shake camera of every mob with client on the same zlevel as cannon, explosion itself handles shaking camera on target zlevel
+	for(var/mob/M in GLOB.mob_living_list)
+		if(!M.client || !compare_z(M.get_virtual_z_level(), get_virtual_z_level()))
+			continue
+		shake_camera(M, 15, 1)
+
 	var/turf/point = get_front_turf()
 	var/turf/target = get_target_turf()
 	var/atom/movable/blocker
@@ -295,6 +304,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	else
 		message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)] but it was blocked by [blocker] at [ADMIN_VERBOSEJMP(target)].")
 		log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)] but it was blocked by [blocker] at [AREACOORD(target)].")
+	firing = FALSE
 
 
 /obj/machinery/power/bsa/full/proc/reload()
@@ -307,12 +317,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	ui_update()
 
 /obj/machinery/power/bsa/full/process(delta_time)
-	if(cell.percent() >= 100 || terminal.surplus() < 1)
+	var/excess = terminal.surplus()
+	if(cell.percent() >= 100 || excess < idle_power_usage) // do we have full charge or is there not enough power for basic charging?
 		return
-	terminal.add_load(idle_power_usage)
-	var/charge = clamp(terminal.surplus() * delta_time, 0, active_power_usage)
-	terminal.add_load(charge)
-	cell.give(charge * charge_efficiency)
+	var/avail_power = excess - idle_power_usage
+	var/power = clamp(avail_power, 0, active_power_usage)
+	var/avail_charge = power * charge_efficiency
+	terminal.add_load(power + idle_power_usage)
+	cell.give(avail_charge)
 	update_appearance(UPDATE_OVERLAYS)
 	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
 	ui_update()
@@ -341,8 +353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 	var/datum/weakref/cannon_ref
 	var/notice
-	var/target
-	var/area_aim = FALSE //should also show areas for targeting
+	var/datum/weakref/target_ref
 
 
 /obj/machinery/computer/bsa_control/ui_state(mob/user)
@@ -353,10 +364,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
-		//Missing updates for: target GPS name changes
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
+	var/datum/component/gps/target = target_ref?.resolve()
 	var/list/data = list()
 	data["ready"] = cannon ? cannon.ready : FALSE
 	data["connected"] = cannon
@@ -364,10 +376,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	data["unlocked"] = GLOB.bsa_unlock
 	data["charge"] = cannon ? cannon.cell.charge : 0
 	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
-	if(target)
-		data["target"] = get_target_name()
+	data["formatted_charge"] = cannon ? display_power(cannon.cell.charge) : "0 W"
+	data["targets"] = get_available_targets()
+	if(target_ref?.resolve())
+		data["target_ref"] = FAST_REF(target)
+		data["target_name"] = get_target_name()
 	else
-		data["target"] = null
+
+		data["target_ref"] = null
+		data["target_name"] = null
+		target_ref = null
 	return data
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
@@ -380,34 +398,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 		if("fire")
 			fire(usr)
 			. = TRUE
-		if("recalibrate")
-			calibrate(usr)
+		if("set_target")
+			var/datum/component/gps/target = locate(params["chosen_target"])
+			target_ref = WEAKREF(target)
 			. = TRUE
 	if(.)
 		update_icon()
 
-/obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
-	if(!GLOB.bsa_unlock)
-		return
+/obj/machinery/computer/bsa_control/proc/get_available_targets()
 	var/list/targets = list()
 	// Find all active GPS
 	for(var/datum/component/gps/G in GLOB.GPS_list)
 		if(G.tracking)
-			targets[G.gpstag] = G
-
-	if(area_aim)
-		targets += GLOB.teleportlocs
-	var/victim = tgui_input_list(user, "Select target", "Artillery Targeting", targets)
-	if(isnull(victim))
-		return
-	if(isnull(targets[victim]))
-		return
-	target = targets[victim]
-	var/datum/component/gps/log_target = target
-	log_game("[key_name(user)] has aimed the bluespace artillery strike (BSA) at [get_area_name(log_target.parent)].")
+			targets[FAST_REF(G)] = G.gpstag
+	return targets
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
+	var/target = target_ref?.resolve()
 	if(istype(target, /area))
 		return get_area_name(target, TRUE)
 	else if(istype(target, /datum/component/gps))
@@ -415,6 +423,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
+	var/target = target_ref?.resolve()
 	if(istype(target, /area))
 		return pick(get_area_turfs(target))
 	else if(istype(target, /datum/component/gps))
@@ -424,14 +433,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
+	var/target = target_ref?.resolve()
+	if(!target)
+		notice = "Target lost!"
+		return
 	if(!cannon)
 		notice = "No Cannon Exists!"
 		return
 	if(cannon.cell.percent() < 100)
 		notice = "Cannon doesn't have enough charge!"
 		return
+	if(cannon.firing)
+		notice = "Cannon is already firing!"
+		return
 	notice = null
 	cannon.charge_up(user, get_impact_turf())
+	ui_update()
 
 /obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
 	var/obj/machinery/power/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
