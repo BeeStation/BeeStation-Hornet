@@ -26,9 +26,21 @@
 	var/sound
 	/// Volume to play the sound at
 	var/sound_volume = 50
-	/// Whether to vary the pitch of the sound played
+	/// Do we vary the pitch of the sound played
 	var/vary = FALSE
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
+	/// The cooldown between the uses of the emote.
+	var/cooldown = 0.5 SECONDS
+	/// How long is the shared emote cooldown triggered by this emote?
+	var/general_emote_audio_cooldown = 7 SECONDS
+	/// How long is the specific emote cooldown triggered by this emote?
+	var/specific_emote_audio_cooldown = 10 SECONDS
+	/// Every time a emote is made, it increases this counter by one. When the integer equals cooldown_integer_ceiling, the mob is forced into a cooldown period
+	var/cooldown_integer = 0
+	/// Maximum amount of emotes that can be made
+	var/cooldown_integer_ceiling = 3
+	/// Does this emote's sound ignore walls?
+	var/sound_wall_ignore = FALSE
 
 	// Animated emote stuff
 	// ~~~~~~~~~~~~~~~~~~~
@@ -61,20 +73,29 @@
 	if(!name)
 		name = key
 
+/**
+ * Handles the modifications and execution of emotes.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * params - Parameters added after the emote.
+ * * type_override - Override to the current emote_type.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ */
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
-	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
 
 	if((emote_type & EMOTE_ANIMATED) && emote_length > 0)
 		var/image/I = image(overlay_icon, user, overlay_icon_state, ABOVE_MOB_LAYER, 0, overlay_x_offset, overlay_y_offset)
 		flick_overlay_view(I, user, emote_length)
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional))
-		playsound(user, tmp_sound, sound_volume, vary)
+	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
+		run_cooldown_integer(user)
+		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
-	var/msg = select_message_type(user, intentional)
+	var/msg = select_message_type(user, message, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
 
@@ -86,7 +107,7 @@
 			I.trigger(key, L)
 
 	if(!msg)
-		return TRUE
+		return
 
 	user.log_message(msg, LOG_EMOTE)
 
@@ -124,7 +145,7 @@
 				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE)
 			else if(is_visual)
 				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_VISUAL)
-		return TRUE // Early exit so no dchat message
+		return // Early exit so no dchat message
 
 	// The emote has some important information, and should always be shown to the user
 	else if(is_important)
@@ -168,6 +189,51 @@
 			if(!ghost?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight))
 				continue
 			to_chat(ghost, "<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
+	return
+
+/datum/emote/proc/run_cooldown_integer(mob/user)
+	//If we do one audible emote, then do nothing, we eventually should purge our list
+	cooldown_integer_window(user)
+	cooldown_integer += 1
+	//debug
+	//user.balloon_alert(user, "[cooldown_integer]")
+	check_cooldown_integer(user)
+
+/datum/emote/proc/check_cooldown_integer(mob/user)
+	if(cooldown_integer >= cooldown_integer_ceiling)
+		to_chat(user, "<span class='warning'>[name] emote limit reached</span>")
+		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
+		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
+		//We used up all our usable emotes, now we set the integer back to zero and wait the long wait
+		cooldown_integer = initial(cooldown_integer)
+
+/datum/emote/proc/cooldown_integer_window(mob/user)
+	if(TIMER_COOLDOWN_CHECK(user, COOLDOWN_EMOTE_WINDOW))
+		TIMER_COOLDOWN_START(user, COOLDOWN_EMOTE_WINDOW, 4 SECONDS)
+	else
+		//We did a few emotes, but didnt use them all up, reset our integer
+		cooldown_integer = initial(cooldown_integer)
+
+/**
+ * For handling emote cooldown, return true to allow the emote to happen.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
+ */
+/datum/emote/proc/check_cooldown(mob/user, intentional)
+	if(!intentional)
+		return TRUE
+
+	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
+		return FALSE
+
+	if(!user.emotes_used)
+		user.emotes_used = list()
+
+	user.emotes_used[src] = world.time
 	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)
@@ -182,8 +248,8 @@
 		message = replacetext(message, "%s", user.p_s())
 	return message
 
-/datum/emote/proc/select_message_type(mob/user, intentional)
-	. = message
+/datum/emote/proc/select_message_type(mob/user, msg, intentional)
+	. = msg
 	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
 		return "makes a [pick("strong ", "weak ", "")]noise."
 	if(user.mind?.miming && message_mime)
@@ -205,10 +271,12 @@
 	else if((isanimal(user) || isbasicmob(user)) && message_simple)
 		. = message_simple
 
+	return .
+
 /datum/emote/proc/select_param(mob/user, params)
 	return replacetext(message_param, "%t", params)
 
-/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
+/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
 	. = TRUE
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
@@ -237,6 +305,37 @@
 		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
 			return FALSE
 
+/**
+ * Check to see if the user should play a sound when performing the emote.
+ *
+ * Arguments:
+ * * user - Person that is doing the emote.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns a bool about whether or not the user should play a sound when performing the emote.
+ */
+/datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
+	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
+		if(ishuman(user))
+			var/mob/living/carbon/human/loud_mouth = user
+			if(loud_mouth.mind?.miming) // vow of silence prevents outloud noises
+				return FALSE
+			if(!loud_mouth.getorganslot(ORGAN_SLOT_TONGUE))
+				return FALSE
+
+	if(only_forced_audio && intentional)
+		return FALSE
+	return TRUE
+
+/**
+* Allows the intrepid coder to send a basic emote
+* Takes text as input, sends it out to those who need to know after some light parsing
+* If you need something more complex, make it into a datum emote
+* Arguments:
+* * text - The text to send out
+*
+* Returns TRUE if it was able to run the emote, FALSE otherwise.
+*/
 /mob/proc/manual_emote(text) //Just override the song and dance
 	. = TRUE
 	if(stat != CONSCIOUS)

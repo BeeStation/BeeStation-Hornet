@@ -345,7 +345,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/verb/wipe_core()
 	set name = "Wipe Core"
-	set category = "OOC"
+	set category = "AI Commands"
 	set desc = "Wipe your core. This is functionally equivalent to cryo, freeing up your job slot."
 
 	if(stat)
@@ -629,19 +629,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	if(incapacitated())
 		return
+	var/mob/user = src
 	var/input
-	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+	var/list/hologram_choice = list("Crew Member","Unique","Animal")
+	switch(tgui_alert(user, "Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?", "Choices", hologram_choice))
 		if("Crew Member")
 			var/list/personnel_list = list()
 
-			for(var/datum/record/crew/record in GLOB.manifest.locked)//Look in data core locked.
+			for(var/datum/record/locked/record in GLOB.manifest.locked)//Look in data core locked.
 				personnel_list["[record.name]: [record.rank]"] = record.character_appearance//Pull names, rank, and image.
 
 			if(!length(personnel_list))
 				alert("No suitable records found. Aborting.")
 				return
-			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in sort_list(personnel_list)
+			if(length(personnel_list))
+				input = tgui_input_list(user, "Select a crew member", "AI Hologram Selection", sort_list(personnel_list))
 				var/mutable_appearance/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -667,7 +669,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			"spider" = 'icons/mob/animal.dmi'
 			)
 
-			input = input("Please select a hologram:") as null|anything in sort_list(icon_list)
+			input = tgui_input_list(user, "Please select a hologram:", "Animal Choice", sort_list(icon_list))
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -687,7 +689,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				"horror" = 'icons/mob/ai.dmi'
 				)
 
-			input = input("Please select a hologram:") as null|anything in sort_list(icon_list)
+			input = tgui_input_list(user, "Please select a hologram", "Hologram Choice", sort_list(icon_list))
 			if(input)
 				qdel(holo_icon)
 				switch(input)

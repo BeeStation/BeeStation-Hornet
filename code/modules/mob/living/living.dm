@@ -1336,6 +1336,7 @@
 		buckled.unbuckle_mob(src, force = TRUE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
+	refresh_gravity()
 	. = ..()
 	if(.)
 		if(client)

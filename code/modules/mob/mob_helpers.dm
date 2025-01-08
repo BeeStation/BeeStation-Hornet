@@ -102,12 +102,12 @@
 		switch(rand(1, 20))
 			if(1)
 				newletter += "'"
-			if(10)
+			if(2)
 				newletter += "[newletter]"
-			if(20)
+			if(3)
 				newletter += "[newletter][newletter]"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(4 to 20)
+				pass()
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -151,8 +151,8 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(6 to 15)
+				pass()
 		. += newletter
 	return sanitize(.)
 
@@ -195,8 +195,8 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(6 to 15)
+				pass()
 		. += newletter
 	return sanitize(.)
 

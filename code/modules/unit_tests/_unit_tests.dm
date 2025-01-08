@@ -16,6 +16,7 @@
 #include "armour_checks.dm"
 #include "asset_smart_cache.dm"
 #include "async.dm"
+#include "autowiki.dm"
 #include "bloody_footprints.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
@@ -28,6 +29,7 @@
 */
 #include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "emoting.dm"
 #include "enumerables.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
@@ -42,6 +44,7 @@
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
 #include "keybinding_init.dm"
+#include "language_transfer.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "missing_icons.dm"

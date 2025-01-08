@@ -1,5 +1,5 @@
 /obj/item/melee/transforming
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = 0
 	var/active = FALSE
 	var/force_on = 30 //force when active

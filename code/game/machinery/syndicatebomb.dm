@@ -399,6 +399,12 @@
 	range_light = 20
 	range_flame = 20
 
+// Special bomb core for inside the lavaland syndicate base walls. Players should not be able to interact with this.
+/obj/item/bombcore/large/syndicate_base
+	installed = TRUE
+	anchored = TRUE
+	invisibility = INVISIBILITY_OBSERVER
+
 /obj/item/bombcore/miniature
 	name = "small bomb core"
 	w_class = WEIGHT_CLASS_SMALL

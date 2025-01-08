@@ -2472,6 +2472,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
+/datum/uplink_item/role_restricted/tc_rod
+	name = "Telecrystal Fuel Rod"
+	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
+			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
+			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
+			much to overload the reactor with these..."
+	item = /obj/item/fuel_rod/material/telecrystal
+	cost = 7
+	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 
 // Pointless
 /datum/uplink_item/badass
@@ -2587,11 +2596,3 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
 
-/datum/uplink_item/device_tools/tc_rod
-	name = "Telecrystal Fuel Rod"
-	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
-			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
-			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
-			much to overload the reactor with these..."
-	item = /obj/item/fuel_rod/material/telecrystal
-	cost = 7

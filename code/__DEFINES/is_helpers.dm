@@ -18,7 +18,7 @@ GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are
 
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
-#define isfilter(thing) (!hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
+#define isfilter(thing) (!islist(thing) && hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
 
 GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA-F]{6})|([0-9a-fA-F]{3}))$"))
 #define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))

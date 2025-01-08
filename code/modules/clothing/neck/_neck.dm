@@ -198,34 +198,6 @@
 	desc = "In nomine Patris, et Filii, et Spiritus Sancti."
 	icon_state = "cross"
 
-/obj/item/clothing/neck/neckerchief
-	worn_icon = "empty_bandana"
-	w_class = WEIGHT_CLASS_TINY
-	var/sourceBandanaType
-
-/obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = ..()
-	if(!isinhands)
-		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/clothing/mask.dmi', icon_state, item_layer)
-		realOverlay.pixel_y = -3
-		. += realOverlay
-
-/obj/item/clothing/neck/neckerchief/AltClick(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
-			to_chat(user, "<span class='warning'>You can't untie [src] while wearing it!</span>")
-			return
-		if(user.is_holding(src))
-			var/obj/item/clothing/mask/bandana/newBand = new sourceBandanaType(user)
-			var/currentHandIndex = user.get_held_index_of_item(src)
-			var/oldName = src.name
-			qdel(src)
-			user.put_in_hand(newBand, currentHandIndex)
-			user.visible_message("[user] unties [oldName] back into a [newBand.name]", "You untie [oldName] back into a [newBand.name]")
-		else
-			to_chat(user, "<span class='warning'>You must be holding [src] in order to untie it!")
-
 /////////////////
 //DONATOR ITEMS//
 /////////////////
