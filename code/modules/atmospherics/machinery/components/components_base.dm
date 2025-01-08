@@ -102,10 +102,7 @@
 	update_parents()
 
 /obj/machinery/atmospherics/components/on_deconstruction()
-	for(var/i in 1 to device_type)
-		if(!airs[i])
-			continue
-		relocate_airs(airs[i])
+	relocate_airs()
 	return ..()
 
 /obj/machinery/atmospherics/components/rebuild_pipes()
