@@ -101,6 +101,17 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		return FALSE
 	. = ..()
 
+/turf/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION(VV_HK_UPDATE_ACTIVE_TURF, "Update Turf Air")
+
+/turf/vv_do_topic(href_list)
+	. = ..()
+	if(href_list[VV_HK_UPDATE_ACTIVE_TURF])
+		if(isspaceturf(src))
+			return
+		air_update_turf(TRUE, FALSE)
+
 /turf/Initialize(mapload)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")

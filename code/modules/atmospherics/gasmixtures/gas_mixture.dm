@@ -768,6 +768,3 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		log_admin("[key_name(usr)] modified gas mixture [REF(src)]: Changed temperature to [new_temperature].")
 		message_admins("[key_name(usr)] modified gas mixture [REF(src)]: Changed temperature to [new_temperature].")
 		temperature = new_temperature
-	if(href_list[VV_HK_UPDATE_ACTIVE_TURF])
-		var/turf/turf = get_turf(src)
-		turf.air_update_turf(TRUE, FALSE)
