@@ -3669,7 +3669,7 @@
 /turf/closed/wall,
 /area/engine/atmos)
 "aJk" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 6
 	},
 /turf/closed/wall/r_wall,
