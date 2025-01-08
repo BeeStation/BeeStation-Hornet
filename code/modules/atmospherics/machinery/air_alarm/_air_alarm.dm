@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	check_enviroment()
 
 /obj/machinery/airalarm/process()
-	if(!COOLDOWN_FINISHED(src, warning_cooldown))
+	if(!COOLDOWN_FINISHED(src, warning_cooldown) || (machine_stat & (NOPOWER|BROKEN)) || shorted || (buildstage != AIR_ALARM_BUILD_COMPLETE))
 		return
 
 	speak(warning_message)
