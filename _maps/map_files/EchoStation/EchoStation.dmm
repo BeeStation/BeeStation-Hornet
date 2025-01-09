@@ -2252,9 +2252,20 @@
 /area/hallway/primary/central)
 "aUF" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/machinery/computer/atmos_control{
-	dir = 4
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 5
 	},
+/obj/item/clipboard{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/clothing/suit/hazardvest{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/pen/fourcolor,
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/atmos)
 "aUN" = (
@@ -3704,19 +3715,14 @@
 	},
 /area/crew_quarters/fitness/recreation)
 "bCt" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/pipe_dispenser,
-/obj/item/pipe_dispenser{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/computer/atmos_control/tank/mix_tank{
+	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 8
@@ -6648,9 +6654,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/computer/atmos_control/tank/mix_tank{
-	dir = 4
-	},
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/dark/smooth_half,
 /area/engine/atmos)
 "ddW" = (
@@ -8213,6 +8219,7 @@
 /area/asteroid/paradise/surface/water)
 "dQA" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
+/obj/machinery/air_sensor/atmos/air_tank,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "dQC" = (
@@ -8997,9 +9004,6 @@
 /obj/machinery/telecomms/server/presets/security,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
-"eqp" = (
-/turf/closed/mineral/random/air,
-/area/engine/atmos)
 "eqC" = (
 /obj/effect/turf_decal/trimline/dark/warning{
 	dir = 4
@@ -9342,6 +9346,9 @@
 "eyu" = (
 /turf/closed/wall,
 /area/maintenance/department/crew_quarters/bar)
+"eyA" = (
+/turf/open/floor/plating/asteroid/planetary,
+/area/engine/atmos)
 "eyN" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/sign/departments/minsky/engineering/telecommmunications{
@@ -9825,9 +9832,6 @@
 "eKX" = (
 /turf/closed/wall,
 /area/chapel/office)
-"eLv" = (
-/turf/open/lava/smooth,
-/area/engine/atmos)
 "eLz" = (
 /obj/machinery/hydroponics/constructable,
 /obj/structure/sign/painting/library{
@@ -11339,7 +11343,6 @@
 /area/bridge)
 "fto" = (
 /obj/structure/window/plasma/reinforced,
-/obj/machinery/air_sensor/atmos/air_tank,
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden/layer2,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
@@ -13220,6 +13223,9 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
+"gnj" = (
+/turf/closed/mineral/random/air,
+/area/engine/atmos)
 "gnL" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating,
@@ -13397,6 +13403,11 @@
 /obj/structure/table/reinforced,
 /obj/item/origami/paperfrog{
 	pixel_y = 5
+	},
+/obj/item/pipe_dispenser,
+/obj/item/pipe_dispenser{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
@@ -16950,9 +16961,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
-"ikk" = (
-/turf/open/floor/plating/asteroid/planetary,
-/area/engine/atmos)
 "ikr" = (
 /obj/structure/railing{
 	dir = 1
@@ -21944,6 +21952,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/eva)
+"kMN" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/iron/dark/smooth_half,
+/area/engine/atmos)
 "kMR" = (
 /obj/structure/disposalpipe/multiz/down{
 	dir = 4
@@ -24023,20 +24038,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = 4;
-	pixel_y = 5
+/obj/machinery/computer/atmos_control{
+	dir = 8
 	},
-/obj/item/clothing/suit/hazardvest{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/clipboard{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/pen/fourcolor,
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
@@ -24888,6 +24892,10 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
+"mlX" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/engine/atmos)
 "mma" = (
 /obj/item/toy/beach_ball/holoball,
 /obj/effect/turf_decal/bot,
@@ -26633,6 +26641,9 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
+"neV" = (
+/turf/open/lava/smooth,
+/area/engine/atmos)
 "nfC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/numbers,
@@ -31841,9 +31852,6 @@
 "pNv" = (
 /turf/closed/wall/rust,
 /area/quartermaster/sorting)
-"pNA" = (
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
 "pNI" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -32219,6 +32227,9 @@
 "pVY" = (
 /turf/closed/wall,
 /area/engine/engineering)
+"pWf" = (
+/turf/closed/indestructible/rock/bedrock,
+/area/engine/atmos)
 "pWj" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -32725,6 +32736,10 @@
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"qjR" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/engine/atmos)
 "qjT" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/plating,
@@ -32910,6 +32925,9 @@
 /obj/effect/landmark/start/lawyer,
 /turf/open/floor/plating,
 /area/library/abandoned)
+"qqP" = (
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/engine/atmos)
 "qrw" = (
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 4;
@@ -35934,10 +35952,6 @@
 	dir = 1
 	},
 /area/engine/engineering)
-"rQl" = (
-/obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
 "rQE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -36393,10 +36407,6 @@
 	dir = 4
 	},
 /area/hallway/primary/aft)
-"sct" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
 "scw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -38256,6 +38266,10 @@
 	},
 /turf/open/openspace,
 /area/hallway/primary/fore)
+"tcB" = (
+/obj/structure/flora/ash/stem_shroom,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/engine/atmos)
 "tcM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -39370,10 +39384,6 @@
 	},
 /turf/open/floor/iron/large,
 /area/engine/engineering)
-"tBg" = (
-/obj/structure/flora/ash/stem_shroom,
-/turf/open/floor/plating/asteroid/basalt/planetary,
-/area/engine/atmos)
 "tBk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/wooden,
@@ -48397,9 +48407,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"xVp" = (
-/turf/closed/indestructible/rock/bedrock,
-/area/engine/atmos)
 "xVu" = (
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/lattice/catwalk/over,
@@ -57313,13 +57320,13 @@ mhc
 uUQ
 vWk
 tHO
-eqp
-eqp
-eqp
-eqp
-eqp
-eqp
-eqp
+gnj
+gnj
+gnj
+gnj
+gnj
+gnj
+gnj
 jsp
 jsp
 jsp
@@ -57570,14 +57577,14 @@ bgv
 cAo
 gtj
 tHO
-ikk
-ikk
+eyA
+eyA
 uNg
 tvA
-ikk
-ikk
-eqp
-xVp
+eyA
+eyA
+gnj
+pWf
 jsp
 jsp
 jsp
@@ -57827,15 +57834,15 @@ eCZ
 uUQ
 tOc
 tHO
-ikk
+eyA
 hQo
 xvL
 mBw
 uNg
-ikk
-ikk
-xVp
-xVp
+eyA
+eyA
+pWf
+pWf
 jsp
 jsp
 jsp
@@ -58084,15 +58091,15 @@ rzx
 kRE
 jQJ
 tHO
-ikk
-ikk
-ikk
+eyA
+eyA
+eyA
 qIa
-ikk
-ikk
-ikk
+eyA
+eyA
+eyA
 uNg
-xVp
+pWf
 jsp
 jsp
 jsp
@@ -58342,14 +58349,14 @@ nCN
 mYN
 dYC
 xhk
-tBg
-pNA
-pNA
-pNA
-ikk
+tcB
+qqP
+qqP
+qqP
+eyA
 uNg
 uNg
-xVp
+pWf
 jsp
 jsp
 jsp
@@ -58599,14 +58606,14 @@ pob
 tHO
 uli
 uNg
-sct
-eLv
-eLv
-tBg
-sct
-ikk
-ikk
-xVp
+qjR
+neV
+neV
+tcB
+qjR
+eyA
+eyA
+pWf
 jsp
 jsp
 jsp
@@ -58855,15 +58862,15 @@ rRV
 ppM
 oPf
 tHO
-ikk
-sct
-eLv
-eLv
-eLv
-pNA
-ikk
-ikk
-eqp
+eyA
+qjR
+neV
+neV
+neV
+qqP
+eyA
+eyA
+gnj
 jsp
 jsp
 jsp
@@ -59112,15 +59119,15 @@ bhQ
 bhQ
 vsL
 tHO
-ikk
-pNA
-rQl
-pNA
-pNA
-tBg
-ikk
-ikk
-eqp
+eyA
+qqP
+mlX
+qqP
+qqP
+tcB
+eyA
+eyA
+gnj
 jsp
 jsp
 jsp
@@ -59369,15 +59376,15 @@ bhQ
 qHe
 sqD
 tHO
-ikk
-ikk
+eyA
+eyA
 uNg
-ikk
-ikk
-ikk
-ikk
+eyA
+eyA
+eyA
+eyA
 uNg
-eqp
+gnj
 jsp
 jsp
 jsp
@@ -59620,21 +59627,21 @@ hmo
 ehW
 tqq
 pob
-fFL
+kMN
 jdF
 bhQ
 bhQ
 qZc
 tHO
-ikk
+eyA
 uNg
 uNg
 uNg
-ikk
-ikk
-eqp
-eqp
-eqp
+eyA
+eyA
+gnj
+gnj
+gnj
 vqI
 jsp
 jsp
@@ -59883,13 +59890,13 @@ oVl
 rtW
 iQZ
 tHO
-eqp
+gnj
 qmX
-eqp
-eqp
-eqp
-eqp
-eqp
+gnj
+gnj
+gnj
+gnj
+gnj
 vqI
 vqI
 vqI
