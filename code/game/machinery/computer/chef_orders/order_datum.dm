@@ -166,3 +166,7 @@
 	category_index = CATEGORY_SAUCES_REAGENTS
 	item_instance = /obj/item/reagent_containers/condiment/soysauce
 	cost_per_order = 15
+
+#undef CATEGORY_FRUITS_VEGGIES
+#undef CATEGORY_MILK_EGGS
+#undef CATEGORY_SAUCES_REAGENTS
