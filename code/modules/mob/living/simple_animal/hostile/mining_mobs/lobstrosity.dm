@@ -2,7 +2,7 @@
   *	Lobstrosities, the poster boy of charging AI mobs. Drops crab meat and bones.
   * Outside of charging, it's intended behavior is that it is generally slow moving, but makes up for that with a knockdown attack to score additional hits.
   */
-/mob/living/simple_animal/hostile/asteroid/lobstrosity
+/mob/living/simple_animal/hostile/asteroid/lobstrosity //Keeping this here, might be useful for when some mapper wants to port icebox/make their ice own map.
 	name = "arctic lobstrosity"
 	desc = "A marvel of evolution gone wrong, the frosty ice produces underground lakes where these ill tempered seafood gather. Beware its charge."
 	icon = 'icons/mob/lavaland/lobstrosity.dmi'
