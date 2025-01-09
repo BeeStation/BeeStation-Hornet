@@ -10,13 +10,13 @@
 	var/static/list/order_datums = list()
 	var/list/grocery_list = list()
 
-	var/obj/item/radio/headset/headset_cargo/radio
+	var/obj/item/radio/radio
 	var/radio_channel = RADIO_CHANNEL_SUPPLY
 
 /obj/machinery/computer/chef_order/Initialize()
 	. = ..()
 	radio = new(src)
-	radio.frequency = RADIO_CHANNEL_SUPPLY
+	radio.set_frequency(FREQ_SUPPLY)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
