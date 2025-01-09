@@ -8490,6 +8490,12 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/crew_quarters/dorms)
+"dYC" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/engine/atmos)
 "dYY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -8929,6 +8935,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -14835,6 +14844,9 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "hdY" = (
@@ -15692,6 +15704,9 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "hAx" = (
@@ -16262,6 +16277,12 @@
 "hQk" = (
 /turf/open/floor/plating/rust,
 /area/science/mixing)
+"hQo" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "hRb" = (
 /obj/effect/landmark/start/shaft_miner,
 /obj/effect/turf_decal/stripes/line{
@@ -20711,6 +20732,9 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible/layer4{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -25415,6 +25439,12 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
+"mBw" = (
+/obj/machinery/atmospherics/components/binary/circulator/cold{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "mBN" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
@@ -26324,15 +26354,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "mYN" = (
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/machinery/portable_atmospherics/canister,
 /obj/item/wallframe/extinguisher_cabinet{
 	pixel_x = 31;
 	pixel_y = 1
 	},
-/turf/open/floor/iron/smooth_corner{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
+/turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "mZk" = (
 /obj/structure/window/reinforced{
@@ -27404,6 +27433,9 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "nCT" = (
@@ -27950,6 +27982,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -32785,6 +32820,10 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/science/server)
+"qmX" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/closed/mineral/random/air,
+/area/asteroid/paradise)
 "qns" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
@@ -33378,6 +33417,12 @@
 /obj/structure/railing/corner,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"qIa" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "qId" = (
 /obj/structure/ladder,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -37531,6 +37576,9 @@
 	dir = 1;
 	name = "Port to Filter"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "sJC" = (
@@ -39076,6 +39124,13 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
+"tvA" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 6
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "tww" = (
 /obj/machinery/light{
 	dir = 8
@@ -41874,6 +41929,10 @@
 "uNa" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/hallway/primary/fore)
+"uNg" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "uNj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -46618,6 +46677,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating/asteroid/planetary,
 /area/quartermaster/storage)
+"xhk" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "xhX" = (
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
@@ -47244,6 +47307,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
+"xvL" = (
+/obj/structure/frame/machine,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "xwm" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/stripes/line{
@@ -47706,6 +47774,9 @@
 	name = "Air to Mix"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "xIl" = (
@@ -57472,12 +57543,12 @@ bgv
 cAo
 gtj
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+blO
+uNg
+tvA
+blO
+blO
 vqI
 jsp
 jsp
@@ -57729,13 +57800,13 @@ eCZ
 uUQ
 tOc
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+hQo
+xvL
+mBw
+uNg
+blO
+blO
 jsp
 jsp
 jsp
@@ -57986,14 +58057,14 @@ rzx
 kRE
 jQJ
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+blO
+blO
+qIa
+blO
+blO
+blO
+uNg
 jsp
 jsp
 jsp
@@ -58242,15 +58313,15 @@ hAu
 hdU
 nCN
 mYN
-uli
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+dYC
+xhk
+sLz
+sLz
+sLz
+sLz
+blO
+uNg
+uNg
 jsp
 jsp
 jsp
@@ -58500,14 +58571,14 @@ pob
 pob
 tHO
 uli
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+uNg
+sLz
+bXA
+bXA
+sLz
+sLz
+blO
+blO
 jsp
 jsp
 jsp
@@ -58757,14 +58828,14 @@ rRV
 ppM
 oPf
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+sLz
+bXA
+bXA
+bXA
+sLz
+blO
+blO
 vqI
 jsp
 jsp
@@ -59014,14 +59085,14 @@ bhQ
 bhQ
 vsL
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+sLz
+sLz
+sLz
+sLz
+sLz
+blO
+blO
 vqI
 jsp
 jsp
@@ -59271,14 +59342,14 @@ bhQ
 qHe
 sqD
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+blO
+uNg
+blO
+blO
+blO
+blO
+uNg
 vqI
 jsp
 jsp
@@ -59528,12 +59599,12 @@ bhQ
 bhQ
 qZc
 tHO
-vqI
-vqI
-vqI
-vqI
-vqI
-vqI
+blO
+uNg
+uNg
+uNg
+blO
+blO
 vqI
 vqI
 vqI
@@ -59786,7 +59857,7 @@ rtW
 iQZ
 tHO
 vqI
-vqI
+qmX
 vqI
 vqI
 vqI
