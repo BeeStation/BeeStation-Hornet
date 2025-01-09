@@ -10,7 +10,7 @@
 	var/static/list/order_datums = list()
 	var/list/grocery_list = list()
 
-	var/obj/item/radio/headset/headset_cargoradio
+	var/obj/item/radio/headset/headset_cargo/radio
 	var/radio_channel = RADIO_CHANNEL_SUPPLY
 
 /obj/machinery/computer/chef_order/Initialize()
