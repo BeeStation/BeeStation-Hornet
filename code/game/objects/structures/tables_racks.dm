@@ -35,6 +35,7 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = 1
 	var/last_bump = 0
+	var/can_climb = TRUE
 	custom_materials = list(/datum/material/iron = 2000)
 	max_integrity = 100
 	integrity_failure = 0.33
@@ -45,7 +46,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	. = ..()
 	if(_buildstack)
 		buildstack = _buildstack
-	AddElement(/datum/element/climbable)
+	if(can_climb)
+		AddElement(/datum/element/climbable)
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
@@ -585,22 +587,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
-	can_buckle = 1
-	buckle_lying = NO_BUCKLE_LYING
-	buckle_requires_restraints = 1
+	can_buckle = TRUE
+	buckle_lying = 90
+	can_climb = FALSE
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
 /obj/structure/table/optable/Initialize(mapload)
 	. = ..()
 	initial_link()
-
-/obj/structure/table/optable/ComponentInitialize()
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(table_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/table/optable/Destroy()
 	. = ..()
@@ -628,23 +623,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 				computer = found_computer
 				break
 
-/obj/structure/table/optable/tablepush(mob/living/user, mob/living/pushed_mob)
-	pushed_mob.forceMove(loc)
-	if(!isanimal(pushed_mob) || iscat(pushed_mob))
-		pushed_mob.set_resting(TRUE, TRUE)
-	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
+/obj/structure/table/optable/post_buckle_mob(mob/living/M)
 	get_patient()
 
-/obj/structure/table/optable/proc/table_entered()
-	SIGNAL_HANDLER
+/obj/structure/table/optable/post_unbuckle_mob(mob/living/M)
 	get_patient()
 
 /obj/structure/table/optable/proc/get_patient()
-	var/mob/living/carbon/M = locate(/mob/living/carbon) in loc
-	if(M)
-		set_patient(M)
-	else
+	if (!has_buckled_mobs())
 		set_patient(null)
+		return FALSE
+	var/mob/living/carbon/M = buckled_mobs[1]
+	set_patient(M)
 
 /obj/structure/table/optable/proc/set_patient(new_patient)
 	if(patient)
@@ -661,7 +651,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	SIGNAL_HANDLER
 	if (!patient)
 		return
-	if (patient.resting)
+	if (patient.buckled)
 		ADD_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
 	else
 		REMOVE_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
@@ -674,7 +664,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	get_patient()
 	if(!patient)
 		return FALSE
-	if (!patient.resting)
+	if (!patient.buckled)
 		return FALSE
 	if(ishuman(patient) || ismonkey(patient))
 		return TRUE

@@ -427,7 +427,7 @@
 
 /obj/item/dualsaber/toy/on_wield(obj/item/source, mob/living/carbon/user)
 	. = ..()
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	bleed_force = 0
 
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -459,7 +459,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
 	item_flags = ISWEAPON
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 
 /*
@@ -1173,7 +1173,7 @@
 	card_throwforce = 12
 	card_throw_speed = 6
 	embedding = list("pain_mult" = 1, "embed_chance" = 80, "max_damage_mult" = 8, "fall_chance" = 0, "embed_chance_turf_mod" = 15, "armour_block" = 60) //less painful than throwing stars
-	card_sharpness = IS_SHARP
+	card_sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	card_throw_range = 7
 	card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
