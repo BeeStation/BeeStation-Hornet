@@ -85,8 +85,6 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
-	if(!SSsupply.shoppinglist.len)
-		return
 
 	var/list/empty_turfs = list()
 	for(var/place in shuttle_areas)
@@ -95,6 +93,21 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			if(T.is_blocked_turf())
 				continue
 			empty_turfs += T
+
+	//quickly and greedily handle chef's grocery runs first, there are a few reasons why this isn't attached to the rest of cargo...
+	//but the biggest reason is that the chef requires produce to cook and do their job, and if they are using this system they
+	//already got let down by the botanists. So to open a new chance for cargo to also screw them over any more than is necessary is bad.
+	if(SSsupply.chef_groceries.len)
+		var/obj/structure/closet/crate/freezer/grocery_crate = new(pick_n_take(empty_turfs))
+		grocery_crate.name = "kitchen produce freezer"
+		investigate_log("Chef's [SSsupply.chef_groceries.len] sized produce order arrived. Cost was deducted from orderer, not cargo.", INVESTIGATE_CARGO)
+		for(var/datum/orderable_item/item as anything in SSsupply.chef_groceries)//every order
+			for(var/amt in 1 to SSsupply.chef_groceries[item])//every order amount
+				new item.item_instance.type(grocery_crate)
+		SSsupply.chef_groceries.Cut() //This lets the console know it can order another round.
+
+	if(!SSsupply.shoppinglist.len)
+		return
 
 	var/value = 0
 	var/purchases = 0
