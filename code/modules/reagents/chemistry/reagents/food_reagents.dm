@@ -309,13 +309,13 @@
 	M.adjust_bodytemperature(cooling, 50)
 	..()
 
-/datum/reagent/consumable/frostoil/reaction_turf(turf/turf, reac_volume)
+/datum/reagent/consumable/frostoil/reaction_turf(turf/T, reac_volume)
 	if(reac_volume >= 5)
-		for(var/mob/living/simple_animal/slime/slime_animal in turf)
+		for(var/mob/living/simple_animal/slime/slime_animal in T)
 			slime_animal.adjustToxLoss(rand(15,30))
 	if(reac_volume >= 1) // Make Freezy Foam and anti-fire grenades!
-		if(isopenturf(turf))
-			var/turf/open/exposed_open_turf = turf
+		if(isopenturf(T))
+			var/turf/open/exposed_open_turf = T
 			exposed_open_turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
 			var/temperature = exposed_open_turf.air.temperature
 			var/heat_capacity = exposed_open_turf.air.heat_capacity()
