@@ -635,14 +635,15 @@
 	if(!(COOLDOWN_FINISHED(src, charge_cooldown)) || !has_gravity() || !target.has_gravity())
 		return FALSE
 	Shake(3, 3, 1 SECONDS)
-	addtimer(CALLBACK(src, .proc/handle_charge_target, target), 1.5 SECONDS, TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(handle_charge_target), 1.5 SECONDS, TIMER_STOPPABLE))
+
 
 /**
   * Proc that throws the mob at the target after the windup.
   */
 /mob/living/simple_animal/hostile/proc/handle_charge_target(var/atom/target)
 	charge_state = TRUE
-	throw_at(target, charge_distance, 1, src, FALSE, TRUE, callback = CALLBACK(src, .proc/charge_end))
+	throw_at(target, charge_distance, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(charge_end)))
 	COOLDOWN_START(src, charge_cooldown, charge_frequency)
 	return TRUE
 
