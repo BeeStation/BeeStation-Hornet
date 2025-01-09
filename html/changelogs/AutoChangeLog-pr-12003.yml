@@ -1,5 +1,0 @@
-author: BarteG44
-delete-after: true
-changes:
-  - tweak: removed OOC joke from plants' names on Delta
-  - bugfix: fixed door access on some airlocks and windoors on Delta
