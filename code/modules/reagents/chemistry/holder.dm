@@ -114,14 +114,14 @@
 /// Remove an amount of reagents without caring about what they are
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
-	var/total_transfered = 0
+	var/total_removed = 0
 	var/current_list_element = 1
 	var/initial_list_length = cached_reagents.len //stored here because removing can cause some reagents to be deleted, ergo length change.
 
 	current_list_element = rand(1, cached_reagents.len)
 
-	while(total_transfered != amount)
-		if(total_transfered >= amount)
+	while(total_removed != amount)
+		if(total_removed >= amount)
 			break
 		if(total_volume <= 0 || !cached_reagents.len)
 			break
@@ -130,25 +130,24 @@
 			current_list_element = 1
 
 		var/datum/reagent/R = cached_reagents[current_list_element]
-		var/remove_amt = min(amount-total_transfered,round(amount/rand(2,initial_list_length),round(amount/10,0.01))) //double round to keep it at a somewhat even spread relative to amount without getting funky numbers.
+		var/remove_amt = min(amount-total_removed,round(amount/rand(2,initial_list_length),round(amount/10,0.01))) //double round to keep it at a somewhat even spread relative to amount without getting funky numbers.
 		//min ensures we don't go over amount.
 		remove_reagent(R.type, remove_amt)
 
 		current_list_element++
-		total_transfered += remove_amt
+		total_removed += remove_amt
 		update_total()
 
 	handle_reactions()
-	return total_transfered //this should be amount unless the loop is prematurely broken, in which case it'll be lower. It shouldn't ever go OVER amount.
+	return total_removed //this should be amount unless the loop is prematurely broken, in which case it'll be lower. It shouldn't ever go OVER amount.
 
 /// Removes all reagents from this holder
 /datum/reagents/proc/remove_all(amount = 1)
 	var/list/cached_reagents = reagent_list
 	if(total_volume > 0)
 		var/part = amount / total_volume
-		for(var/reagent in cached_reagents)
-			var/datum/reagent/R = reagent
-			remove_reagent(R.type, R.volume * part)
+		for(var/datum/reagent/reagent as anything in cached_reagents)
+			remove_reagent(reagent.type, reagent.volume * part)
 
 		update_total()
 		handle_reactions()
@@ -632,10 +631,12 @@
 					R.metabolizing = FALSE
 					R.on_mob_end_metabolize(mob_consumer)
 				R.on_mob_delete(mob_consumer)
+
 			//Clear from relevant lists
 			addiction_list -= R
 			reagent_list -= R
 			qdel(R)
+			update_total()
 			if(my_atom)
 				my_atom.on_reagent_change(DEL_REAGENT)
 
@@ -643,12 +644,11 @@
 /datum/reagents/proc/update_total()
 	var/list/cached_reagents = reagent_list
 	total_volume = 0
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		if(R.volume < 0.1)
-			del_reagent(R.type)
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		if(reagent.volume < 0.1)
+			del_reagent(reagent.type)
 		else
-			total_volume += R.volume
+			total_volume += reagent.volume
 
 
 /// Removes all reagents
@@ -814,7 +814,6 @@
 
 /// Remove a specific reagent
 /datum/reagents/proc/remove_reagent(reagent, amount, safety)//Added a safety check for the trans_id_to
-
 	if(isnull(amount))
 		amount = 0
 		CRASH("null amount passed to reagent code")
@@ -826,21 +825,19 @@
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
-
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if (R.type == reagent)
+	for(var/datum/reagent/cached_reagent as anything in cached_reagents)
+		if (cached_reagent.type == reagent)
 			//clamp the removal amount to be between current reagent amount
 			//and zero, to prevent removing more than the holder has stored
-			amount = clamp(amount, 0, R.volume)
-			R.volume -= amount
+			amount = clamp(amount, 0, cached_reagent.volume)
+			cached_reagent.volume -= amount
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
 				handle_reactions()
 			if(my_atom)
 				my_atom.on_reagent_change(REM_REAGENT)
-			return TRUE
 
+			return TRUE
 	return FALSE
 
 /*

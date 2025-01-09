@@ -187,17 +187,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 /obj/item/reagent_containers/on_reagent_change(changetype)
 	update_icon()
 
-/obj/item/reagent_containers/update_icon(dont_fill = FALSE)
-	if(!fill_icon_thresholds || dont_fill)
-		return ..()
-
-	cut_overlays()
+/obj/item/reagent_containers/update_overlays()
+	. = ..()
+	if(!fill_icon_thresholds)
+		return
 
 	if(!reagents.total_volume)
 		if(label_icon && (name != initial(name) || desc != initial(desc)))
 			var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
-			add_overlay(label)
-		return ..()
+			. += label
+		return
 	var/fill_name = fill_icon_state ? fill_icon_state : icon_state
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
 
@@ -209,11 +208,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 			filling.icon_state = "[fill_name][fill_icon_thresholds[i]]"
 
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
-	add_overlay(filling)
+	. += filling
 	if(label_icon && (name != initial(name) || desc != initial(desc)))
 		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
-		add_overlay(label)
-	return ..()
+		. += label
 
 /obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	// Always attempt to isolate diseases from reagent containers, if possible.
