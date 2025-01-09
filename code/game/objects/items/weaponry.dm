@@ -1034,7 +1034,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "hydraulic_blade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 18
+	force = 20
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
