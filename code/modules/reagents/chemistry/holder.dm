@@ -639,6 +639,7 @@
 			update_total()
 			if(my_atom)
 				my_atom.on_reagent_change(DEL_REAGENT)
+	return 1
 
 /// Updates [/datum/reagents/var/total_volume]
 /datum/reagents/proc/update_total()
@@ -650,6 +651,8 @@
 		else
 			total_volume += reagent.volume
 
+	return 0
+
 
 /// Removes all reagents
 /datum/reagents/proc/clear_reagents()
@@ -658,6 +661,7 @@
 		del_reagent(reagent.type)
 	if(my_atom)
 		my_atom.on_reagent_change(CLEAR_REAGENTS)
+	return 0
 
 //Checks if the reaction is valid for IPC
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
@@ -853,14 +857,17 @@ Needs metabolizing takes into consideration if the chemical is metabolizing when
 		if (R.type == reagent)
 			if(!amount)
 				if(needs_metabolizing && !R.metabolizing)
-					return FALSE
+					return
 				return R
 			else
 				if(round(R.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
 					if(needs_metabolizing && !R.metabolizing)
-						return FALSE
+						return
 					return R
-	return FALSE
+				else
+					return
+
+	return
 
 /// Get the amount of this reagen
 /datum/reagents/proc/get_reagent_amount(reagent)
