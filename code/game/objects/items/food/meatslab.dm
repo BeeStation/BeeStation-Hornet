@@ -312,6 +312,9 @@
 /obj/item/food/meat/slab/spider/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/spider, rand(40 SECONDS, 70 SECONDS), TRUE, TRUE)
 
+/obj/item/food/meat/slab/spider/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
+
 /obj/item/food/meat/slab/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
