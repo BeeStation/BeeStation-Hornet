@@ -529,7 +529,7 @@
 						if(cached_my_atom.type == C.required_container)
 							matching_container = 1
 					if (isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
-						return
+						matching_container = FALSE
 					if(!C.required_other)
 						matching_other = 1
 
@@ -638,7 +638,6 @@
 			qdel(R)
 			if(my_atom)
 				my_atom.on_reagent_change(DEL_REAGENT)
-	return 1
 
 /// Updates [/datum/reagents/var/total_volume]
 /datum/reagents/proc/update_total()
@@ -651,17 +650,14 @@
 		else
 			total_volume += R.volume
 
-	return 0
 
 /// Removes all reagents
 /datum/reagents/proc/clear_reagents()
 	var/list/cached_reagents = reagent_list
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		del_reagent(R.type)
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		del_reagent(reagent.type)
 	if(my_atom)
 		my_atom.on_reagent_change(CLEAR_REAGENTS)
-	return 0
 
 //Checks if the reaction is valid for IPC
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
@@ -860,17 +856,14 @@ Needs metabolizing takes into consideration if the chemical is metabolizing when
 		if (R.type == reagent)
 			if(!amount)
 				if(needs_metabolizing && !R.metabolizing)
-					return
+					return FALSE
 				return R
 			else
 				if(round(R.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
 					if(needs_metabolizing && !R.metabolizing)
-						return
+						return FALSE
 					return R
-				else
-					return
-
-	return
+	return FALSE
 
 /// Get the amount of this reagen
 /datum/reagents/proc/get_reagent_amount(reagent)
@@ -879,7 +872,6 @@ Needs metabolizing takes into consideration if the chemical is metabolizing when
 		var/datum/reagent/R = _reagent
 		if (R.type == reagent)
 			return round(R.volume, CHEMICAL_QUANTISATION_LEVEL)
-
 	return 0
 
 /// Get a comma separated string of every reagent name in this holder
