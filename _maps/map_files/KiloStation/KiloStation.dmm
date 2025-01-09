@@ -56635,11 +56635,11 @@
 /area/medical/cryo)
 "qnN" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/icecream_vat,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/food_cart,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "qoh" = (
@@ -59959,7 +59959,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/food_cart,
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "rrW" = (

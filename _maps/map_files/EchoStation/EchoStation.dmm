@@ -122,6 +122,17 @@
 	pixel_x = -6;
 	pixel_y = -1
 	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/food/dough{
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/item/food/dough{
+	pixel_x = 4
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "acw" = (
@@ -27705,17 +27716,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/food/dough{
-	pixel_x = 4
-	},
-/obj/item/food/dough{
-	pixel_x = 9;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_x = -5;
-	pixel_y = 9
+/obj/machinery/computer/chef_order{
+	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)

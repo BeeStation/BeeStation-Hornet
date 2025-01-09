@@ -50224,14 +50224,14 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "nSl" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
 /obj/machinery/button/door{
 	id = "kitchenhydro";
 	name = "Service Shutter Control";
 	pixel_y = -24;
 	req_access_txt = "28"
+	},
+/obj/machinery/computer/chef_order{
+	dir = 1
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -72349,6 +72349,8 @@
 	pixel_y = 6
 	},
 /obj/item/food/mint,
+/obj/item/hand_labeler,
+/obj/item/stack/package_wrap,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "vOs" = (

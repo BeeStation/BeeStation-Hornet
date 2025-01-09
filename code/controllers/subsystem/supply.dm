@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(supply)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME
 	var/list/supply_packs = list()
+	var/list/chef_groceries = list()
 	var/list/shoppinglist = list()
 	var/list/requestlist = list()
 	var/list/orderhistory = list()

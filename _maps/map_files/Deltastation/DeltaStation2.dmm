@@ -9562,8 +9562,10 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blr" = (
-/obj/machinery/food_cart,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bls" = (
@@ -44528,6 +44530,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
 /obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/food_cart,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "iiu" = (

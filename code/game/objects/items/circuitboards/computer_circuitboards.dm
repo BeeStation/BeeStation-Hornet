@@ -438,6 +438,10 @@
 
 //Service
 
+/obj/item/circuitboard/computer/chef_order
+	name = "Produce Orders Console (Computer Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/computer/chef_order
 
 //Supply
 
