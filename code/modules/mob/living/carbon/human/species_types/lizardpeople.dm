@@ -6,9 +6,17 @@
 	bodyflag = FLAG_LIZARD
 	default_color = "00FF00"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
-	mutant_bodyparts = list("tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None",
-						"frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "body_size" = "Normal")
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_REPTILE
+	mutant_bodyparts = list(
+		"tail_lizard" = "Smooth",
+		"snout" = "Round",
+		"horns" = "None",
+		"frills" = "None",
+		"spines" = "None",
+		"body_markings" ="None",
+		"legs" = "Normal Legs",
+		"body_size" = "Normal",
+	)
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5

@@ -833,7 +833,7 @@
 			var/qname = initial(T.name)
 			options[has_quirk(T) ? "[qname] (Remove)" : "[qname] (Add)"] = T
 
-		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in options
+		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in sort_list(options)
 		if(result)
 			if(result == "Clear")
 				for(var/datum/quirk/q in mind.quirks)

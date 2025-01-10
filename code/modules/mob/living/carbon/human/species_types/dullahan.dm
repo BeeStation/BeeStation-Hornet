@@ -14,7 +14,7 @@
 		TRAIT_NOBREATH,
 		TRAIT_NONECRODISEASE,
 	)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
+	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
 	use_skintones = TRUE
 	mutantbrain = /obj/item/organ/brain/dullahan

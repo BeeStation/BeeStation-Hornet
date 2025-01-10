@@ -9,7 +9,7 @@
 	species_traits = list(NOBLOOD,NOZOMBIE,NOTRANSSTING)
 	inherent_traits = list(TRAIT_TOXIMMUNE,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,TRAIT_EASYDISMEMBER,\
 	TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH,TRAIT_NOCLONELOSS, TRAIT_FAST_CUFF_REMOVAL)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
+	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/zombie
 	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
@@ -104,7 +104,7 @@
 	id = "memezombiesfast"
 	armor = 0
 	speedmod = 0
-	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
+	inherent_biotypes = MOB_ORGANIC|MOB_UNDEAD|MOB_HUMANOID //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	mutanthands = /obj/item/zombie_hand/infectious
 
