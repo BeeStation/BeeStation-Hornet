@@ -429,7 +429,7 @@
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
-	if(isvampire(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
+	if(IS_BLOODSUCKER(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
 		if(prob(min(25,current_cycle)))
 			to_chat(M, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 			M.Paralyze(10)

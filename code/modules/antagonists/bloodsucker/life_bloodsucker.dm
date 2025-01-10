@@ -182,7 +182,7 @@
 	if(source.stat != DEAD) // weirdness shield
 		return
 	if(gibbed)
-		final_death()
+		INVOKE_ASYNC(src, PROC_REF(final_death))
 		return
 
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))

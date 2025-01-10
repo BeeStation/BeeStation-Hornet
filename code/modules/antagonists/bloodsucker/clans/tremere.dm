@@ -80,3 +80,13 @@
 	..()
 	to_chat(bloodsuckerdatum.owner.current, "<span class='danger'>You have now gained an additional Rank to spend!</span>")
 	bloodsuckerdatum.bloodsucker_level_unspent++
+
+// Batform for special vassals
+/obj/effect/proc_holder/spell/targeted/shapeshift/bat
+	name = "Bat Form"
+	desc = "Take on the shape a space bat."
+	invocation = "SQUEAAAAK!"
+	charge_max = 50
+	cooldown_min = 50
+	convert_damage = FALSE
+	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat/vampire
