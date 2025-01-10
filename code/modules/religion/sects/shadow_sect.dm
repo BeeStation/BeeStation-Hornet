@@ -1,4 +1,5 @@
 // Shadow sect - Original code by DingoDongler
+
 /datum/religion_sect/shadow_sect
 	starter = FALSE
 	name = "Shadow"
@@ -6,7 +7,7 @@
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
-	favor = 100 //Starts off with enough favor to make an obelisk
+	favor = 0
 	max_favor = 50000
 	desired_items = list(
 		/obj/item/flashlight)
@@ -17,38 +18,52 @@
 		/datum/religion_rites/shadow_blessing,
 		/datum/religion_rites/shadow_eyes,
 		/datum/religion_rites/final_darkness)
+
+
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1
 	var/light_power = 0
 	var/list/obelisks = list()
 	var/faithful_used = FALSE
+
+
 /datum/religion_sect/shadow_sect/is_available(mob/user)
 	if(isshadow(user))
 		return TRUE
 	return FALSE
+
+
 //Shadow sect doesn't heal
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
+
+
 /datum/religion_sect/shadow_sect/on_sacrifice(obj/item/N, mob/living/L)
 	if(!istype(N, /obj/item/flashlight))
 		return
-	adjust_favor(5, L)
-	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 5 favor in the process.</span>")
+	adjust_favor(10, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
 	qdel(N)
 	return TRUE
+
+
 /datum/religion_sect/shadow_sect/on_select(atom/religious_tool, mob/living/user)
 	. = ..()
 	if(!religious_tool || !user)
 		return
 	religious_tool.AddComponent(/datum/component/dark_favor, user)
-/datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
-	. = ..()
-	if(is_special_character(chap))
-		to_chat(chap,  "<span class='big notice'>As you are an antagonist role, you are free to spread darkness across the station.</span>")
-		if(chap.mind.is_murderbone())
-			to_chat(chap,  "<span class='big notice'>As you have a murderbone objective, Faithsworn will spawn with the Final Darkness rite.</span>")
-	else
-		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")
+
+
+///datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
+//	. = ..()
+//	if(is_special_character(chap))
+//		to_chat(chap,  "<span class='big notice'>As you are an antagonist role, you are free to spread darkness across the station.</span>")
+//		if(chap.mind.is_murderbone())
+//			to_chat(chap,  "<span class='big notice'>As you have a murderbone objective, Faithsworn will spawn with the Final Darkness rite.</span>")
+//	else
+//		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")
+
+
 // Shadow sect construction
 /obj/structure/destructible/religion/shadow_obelisk
 	name = "Shadow Obelisk"
@@ -61,9 +76,13 @@
 	var/last_heal = 0
 	var/spread_delay = 45
 	var/last_spread = 0
+
+
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+
 /obj/structure/destructible/religion/shadow_obelisk/process(delta_time)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!sect.faithful_used)
@@ -121,6 +140,8 @@
 				// Are we in space or something? No black turfs or
 				// convertable turfs?
 				last_spread = world.time + spread_delay*2
+
+
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
 		if(user.mind?.holy_role == NONE)
@@ -134,6 +155,8 @@
 	if(I.tool_behaviour == TOOL_WRENCH)
 		return
 	return ..()
+
+
 // Favor generator component. Used on the altar and obelisks
 /datum/component/dark_favor //Original code by DingoDongler
 	var/mob/living/creator
@@ -143,9 +166,13 @@
 		return
 	creator = L
 	START_PROCESSING(SSobj, src)
+
+
 /datum/component/dark_favor/Destroy() //Original code by DingoDongler
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
+
+
 /datum/component/dark_favor/process(delta_time) //Original code by DingoDongler
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
@@ -157,6 +184,8 @@
 	var/light_amount = T.get_lumcount()
 	var/favor_gained = max(1 - light_amount, 0) * delta_time
 	sect.adjust_favor(favor_gained, creator)
+
+
 /**** Shadow rites ****/ //Original code by DingoDongler
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
 /datum/religion_rites/shadow_conversion
@@ -169,6 +198,8 @@
 		"... And make you one with it ...")
 	invoke_msg = "... And let you be born again!"
 	favor_cost = 1200
+
+
 /datum/religion_rites/shadow_conversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
@@ -185,6 +216,8 @@
 			return FALSE
 		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
 	return ..()
+
+
 /datum/religion_rites/shadow_conversion/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	if(!ismovable(religious_tool))
@@ -203,6 +236,8 @@
 	rite_target.set_species(/datum/species/shadow)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE
+
+
 /datum/religion_rites/shadow_obelisk
 	name = "Obelisk Manifestation"
 	desc = "Creates an obelisk that generates favor when in a dark area."
@@ -213,6 +248,8 @@
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 100 //Sect starts with 100 favor to begin
+
+
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
 	var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
@@ -222,6 +259,8 @@
 	obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
+
+
 /datum/religion_rites/expand_shadows
 	name = "Shadow Expansion"
 	desc = "Grow the reach of shadows extending from the altar, and any obelisks."
@@ -232,12 +271,16 @@
 		"... Encompass it all in darkness ...")
 	invoke_msg = "Shadows, reach your tendrils from my altar, and extend thy domain."
 	favor_cost = 175
+
+
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if((sect.light_power <= -5) || (sect.light_reach >= 10))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
 		return FALSE
 	return ..()
+
+
 /datum/religion_rites/expand_shadows/invoke_effect(mob/living/user, atom/religious_tool)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -248,6 +291,8 @@
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+
+
 /datum/religion_rites/shadow_blessing
 	name = "Shadow Blessing"
 	desc = "Bless someone with the power of shadows, and make them immune to all magic."
@@ -260,6 +305,8 @@
 		"... That their powers will not work apon us any more...",)
 	invoke_msg = "Bless thy brethen, and grant them immunity!"
 	favor_cost = 8000
+
+
 /datum/religion_rites/shadow_blessing/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
@@ -276,6 +323,8 @@
 			return FALSE
 		to_chat(user,"<span class='warning'>You're going to bless yourself with this ritual.</span>")
 	return ..()
+
+
 /datum/religion_rites/shadow_blessing/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	if(!ismovable(religious_tool))
@@ -297,6 +346,8 @@
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
 	return TRUE
+
+
 /datum/religion_rites/shadow_eyes
 	name = "Grant Shadow Eyes"
 	desc = "Grants either the caster, or the buckled person, shadow eyes that give night vision."
@@ -307,6 +358,8 @@
 		"... Show us the way ...")
 	invoke_msg = "... Let the darkness be our guide!!"
 	favor_cost = 1000
+
+
 /datum/religion_rites/shadow_eyes/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
@@ -320,6 +373,8 @@
 	else
 		to_chat(user,"<span class='warning'>You're going to grant the eyes to yourself with this ritual.</span>")
 	return ..()
+
+
 /datum/religion_rites/shadow_eyes/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	var/obj/item/organ/eyes/night_vision/organ = new()
@@ -339,6 +394,8 @@
 	organ.Insert(rite_target)
 	rite_target.visible_message("<span class='notice'>[organ] have been merged into [rite_target] by the rite of [name]!</span>")
 	return TRUE
+
+
 /datum/religion_rites/final_darkness
 	name = "Final Darkness"
 	desc = "The endgame, Activates the obelisk heal and summons Faithsworn entities from every obelisk in existence. THIS IS ONE USE ONLY."
@@ -349,6 +406,8 @@
 		"... Destroy those who defy us ...")
 	invoke_msg = "... Let the darkness come and fight!!"
 	favor_cost = 50000
+
+
 /datum/religion_rites/final_darkness/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.faithful_used)
@@ -364,6 +423,8 @@
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	priority_announce("May our lord, [GLOB.deity], have mercy on your soul as darkness reigns apon you all.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
 	addtimer(CALLBACK(lisk, TYPE_PROC_REF(/obj/structure/destructible/religion/shadow_obelisk, final_darkness_activate)), 100)
+
+
 /obj/structure/destructible/religion/shadow_obelisk/proc/final_darkness_activate()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
@@ -374,4 +435,6 @@
 			faithful.AddComponent(/datum/component/dark_favor, faithful)
 			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
 		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+
+
 #undef DARKNESS_INVERSE_COLOR
