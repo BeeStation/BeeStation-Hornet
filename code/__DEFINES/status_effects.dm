@@ -123,6 +123,9 @@
 
 #define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
+//Deals with covering the target in ants.
+#define STATUS_EFFECT_ANTS /datum/status_effect/ants
+
 //---------//
 // NEUTRAL //
 //---------//
