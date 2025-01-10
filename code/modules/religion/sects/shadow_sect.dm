@@ -1,4 +1,4 @@
-// Shadow sect - Original code by DingoDongler
+// Shadow sect - Original code by DingoDongler, Remade by Wikimody
 
 /datum/religion_sect/shadow_sect
 	starter = FALSE
@@ -186,8 +186,10 @@
 	sect.adjust_favor(favor_gained, creator)
 
 
-/**** Shadow rites ****/ //Original code by DingoDongler
+/**** Shadow rites ****/ //Original code by DingoDongler, Remade by Wikimody
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
+
+
 /datum/religion_rites/shadow_conversion
 	name = "Shadowperson Conversion"
 	desc = "Converts a humanoid into a shadowperson, a race blessed by darkness."
