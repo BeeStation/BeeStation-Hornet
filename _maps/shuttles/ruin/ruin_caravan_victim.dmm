@@ -249,7 +249,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "damaged4"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "lC" = (
@@ -451,7 +451,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "damaged5"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "yf" = (
@@ -484,7 +484,7 @@
 "Ax" = (
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
+	burnt = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Bu" = (
@@ -493,7 +493,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "damaged1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "BB" = (
@@ -521,7 +521,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
+	burnt = 1
 	},
 /area/shuttle/caravan/freighter1)
 "El" = (
@@ -840,12 +840,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter1)
-"Ov" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/shuttle/caravan/freighter1)
 "OC" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/titanium{
@@ -906,7 +900,7 @@
 "Su" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Td" = (
@@ -1006,7 +1000,7 @@
 /obj/item/stack/sheet/plasteel/twenty,
 /obj/item/stack/sheet/plasteel/twenty,
 /turf/open/floor/iron/airless{
-	icon_state = "damaged5"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "WZ" = (
@@ -1181,7 +1175,7 @@ El
 El
 CU
 xz
-Ov
+Su
 Td
 Jp
 "}
