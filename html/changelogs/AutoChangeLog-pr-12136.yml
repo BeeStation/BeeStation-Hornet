@@ -1,0 +1,9 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - rscadd: Added many new dried meat types.
+  - balance: It is now easier to make meat product.
+  - balance: You can now juice organs to get liquid gibs. Brains are an explicit exception.
+  - bugfix: You can now dry meat into healthy jerky again.
+  - bugfix: Fixed diona meat being cooked into a meat stake instead of a vegetable.
+  - imageadd: Added some icons and images
