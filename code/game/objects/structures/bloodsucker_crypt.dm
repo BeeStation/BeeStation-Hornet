@@ -92,9 +92,10 @@
 	can_buckle = TRUE
 	buckle_lying = 180
 	ghost_desc = "This is a Vassal rack, which allows Bloodsuckers to thrall crewmembers into loyal minions."
-	bloodsucker_desc = "This is the Vassal rack, which allows you to thrall crewmembers into loyal minions in your service.\n\
+	bloodsucker_desc = "This is the Vassal rack, which allows you to thrall crewmembers into loyal minions in your service. This costs blood to do.\n\
 		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Click on the persuasion rack to unbuckle them.\n\
-		To convert into a Vassal, repeatedly click on the persuasion rack, without being on help intent. The time required scales with the tool in your off hand, (sharp tools are better!). This costs Blood to do.\n\
+		To convert into a Vassal, repeatedly click on the persuasion rack while not on help intent.\n\
+		The conversion time is decreased depending on how sharp the tool in you offhand is, if you have one.\n\
 		Vassals can be turned into special ones by continuing to torture them once converted."
 	vassal_desc = "This is the vassal rack, which allows your master to thrall crewmembers into their minions.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
@@ -188,8 +189,7 @@
 	return TRUE
 
 /obj/structure/bloodsucker/vassalrack/attack_hand(mob/user, list/modifiers)
-	if(!..())
-		return FALSE
+	..()
 	if(!has_buckled_mobs())
 		return FALSE
 

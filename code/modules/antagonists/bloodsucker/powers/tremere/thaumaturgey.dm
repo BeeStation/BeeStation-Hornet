@@ -177,7 +177,7 @@
 
 /obj/item/shield/bloodsucker/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_BLOODSUCKER)
 
 /obj/item/shield/bloodsucker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = owner.mind.has_antag_datum(/datum/antagonist/bloodsucker)

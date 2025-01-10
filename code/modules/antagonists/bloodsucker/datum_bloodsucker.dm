@@ -6,7 +6,6 @@
 	required_living_playtime = 4
 	ui_name = "AntagInfoBloodsucker"
 	hijack_speed = 0.5
-	var/antag_hud_name = "bloodsucker"
 	/// How much blood we have, starting off at default blood levels.
 	var/bloodsucker_blood_volume = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
@@ -124,7 +123,7 @@
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	handle_clown_mutation(current_mob, mob_override ? null : "Your clownish nature has been subdued by your thirst for blood.")
 
-	add_antag_hud(ANTAG_HUD_BLOODSUCKER, antag_hud_name, current_mob)
+	add_antag_hud(ANTAG_HUD_BLOODSUCKER, "bloodsucker", current_mob)
 	create_bloodsucker_team()
 	bloodsucker_team.hud.join_hud(current_mob)
 
@@ -254,8 +253,8 @@
 		user_species.punchdamage += 2
 
 	//Give Bloodsucker Traits
-	old_body?.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
-	new_body.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
+	old_body?.remove_traits(bloodsucker_traits, TRAIT_BLOODSUCKER)
+	new_body.add_traits(bloodsucker_traits, TRAIT_BLOODSUCKER)
 
 /datum/antagonist/bloodsucker/greet()
 	. = ..()
@@ -380,7 +379,7 @@
 		user_species.punchdamage += 2
 		user.dna?.remove_all_mutations()
 	//Give Bloodsucker Traits
-	user.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
+	user.add_traits(bloodsucker_traits, TRAIT_BLOODSUCKER)
 	//Clear Addictions
 	user.reagents.addiction_list = new()
 	owner.remove_quirk(/datum/quirk/junkie)
@@ -420,7 +419,7 @@
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits -= TRAIT_DRINKSBLOOD
 	// Remove all bloodsucker traits
-	user.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
+	user.remove_traits(bloodsucker_traits, TRAIT_BLOODSUCKER)
 	// Update Health
 	owner.current.setMaxHealth(initial(owner.current.maxHealth))
 	// Language

@@ -39,8 +39,8 @@
 	user.apply_status_effect(/datum/status_effect/masquerade)
 
 	// Handle Traits
-	user.remove_traits(bloodsuckerdatum_power.bloodsucker_traits, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(user, TRAIT_MASQUERADE, BLOODSUCKER_TRAIT)
+	user.remove_traits(bloodsuckerdatum_power.bloodsucker_traits, TRAIT_BLOODSUCKER)
+	ADD_TRAIT(user, TRAIT_MASQUERADE, TRAIT_BLOODSUCKER)
 	// Handle organs
 	var/obj/item/organ/heart/vampheart = user.getorgan(/obj/item/organ/heart)
 	vampheart?.Restart()
@@ -59,8 +59,8 @@
 		diseases.cure()
 
 	// Handle Traits
-	user.add_traits(bloodsuckerdatum_power.bloodsucker_traits, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(user, TRAIT_MASQUERADE, BLOODSUCKER_TRAIT)
+	user.add_traits(bloodsuckerdatum_power.bloodsucker_traits, TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(user, TRAIT_MASQUERADE, TRAIT_BLOODSUCKER)
 
 	// Handle organs
 	var/obj/item/organ/heart/vampheart = user.getorganslot(ORGAN_SLOT_HEART)

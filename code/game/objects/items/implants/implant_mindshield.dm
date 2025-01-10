@@ -45,7 +45,7 @@
 
 		var/datum/antagonist/vassal/vassal = IS_VASSAL(target)
 		if(vassal)
-			if(IS_FAVORITE_VASSAL(target))
+			if(vassal.special_type)
 				if(!silent)
 					target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
 				return FALSE

@@ -25,16 +25,14 @@
 	to_chat(owner.current, "<span class='cultboldtalic'>You have broken the Masquerade!</span>")
 	to_chat(owner.current, "<span class='warning'>Bloodsucker Tip: When you break the Masquerade, you become open for termination by fellow Bloodsuckers, and your Vassals are no longer completely loyal to you, as other Bloodsuckers can steal them for themselves!</span>")
 	broke_masquerade = TRUE
-	antag_hud_name = "masquerade_broken"
-	set_antag_hud(owner.current, antag_hud_name)
+	set_antag_hud(owner.current, "masquerade_broken")
 	SEND_GLOBAL_SIGNAL(COMSIG_BLOODSUCKER_BROKE_MASQUERADE, src)
 
 ///This is admin-only of reverting a broken masquerade, sadly it doesn't remove the Malkavian objectives yet.
 /datum/antagonist/bloodsucker/proc/fix_masquerade(mob/admin)
 	if(!broke_masquerade)
 		return
-	antag_hud_name = "bloodsucker"
-	set_antag_hud(owner.current, antag_hud_name)
+	set_antag_hud(owner.current, "bloodsucker")
 	to_chat(owner.current, "<span class='cultboldtalic'>You have re-entered the Masquerade.</span>")
 	broke_masquerade = FALSE
 
@@ -88,6 +86,26 @@
 	if(!owner || !owner.current || !owner.current.client || (cost_rank && bloodsucker_level_unspent <= 0))
 		return
 	SEND_SIGNAL(src, BLOODSUCKER_RANK_UP, target, cost_rank, blood_cost)
+
+/// Do I have a stake in my heart?
+/datum/antagonist/bloodsucker/proc/check_staked()
+	var/obj/item/bodypart/chosen_bodypart = owner.current.get_bodypart(BODY_ZONE_CHEST)
+	if(!chosen_bodypart)
+		return FALSE
+	for(var/obj/item/embedded_stake in chosen_bodypart.embedded_objects)
+		if(istype(embedded_stake, /obj/item/stake))
+			return TRUE
+	return FALSE
+
+/// You can't go to sleep in a coffin with a stake in you.
+/datum/antagonist/bloodsucker/proc/can_stake_kill()
+	if(owner.current.IsSleeping())
+		return TRUE
+	if(owner.current.stat >= UNCONSCIOUS)
+		return TRUE
+	if(HAS_TRAIT(owner.current, TRAIT_TORPOR))
+		return TRUE
+	return FALSE
 
 /**
  * CARBON INTEGRATION

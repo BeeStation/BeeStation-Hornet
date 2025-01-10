@@ -24,11 +24,11 @@
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, "<span class='notice'>Your flesh has become as hard as steel!</span>")
 	// Traits & Effects
-	ADD_TRAIT(owner, TRAIT_PIERCEIMMUNE, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_NODISMEMBER, BLOODSUCKER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_BLOODSUCKER)
+	ADD_TRAIT(owner, TRAIT_NODISMEMBER, TRAIT_BLOODSUCKER)
+	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_BLOODSUCKER)
 	if(level_current >= 4)
-		ADD_TRAIT(owner, TRAIT_STUNIMMUNE, BLOODSUCKER_TRAIT) // They'll get stun resistance + this, who cares.
+		ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_BLOODSUCKER) // They'll get stun resistance + this, who cares.
 	var/mob/living/carbon/human/bloodsucker_user = owner
 	if(IS_BLOODSUCKER(owner) || IS_VASSAL(owner))
 		fortitude_resist = max(0.3, 0.7 - level_current * 0.1)
@@ -53,13 +53,13 @@
 	var/mob/living/carbon/human/bloodsucker_user = owner
 	if(IS_BLOODSUCKER(owner) || IS_VASSAL(owner))
 		bloodsucker_user.physiology.brute_mod /= fortitude_resist
-		if(!HAS_TRAIT_FROM(bloodsucker_user, TRAIT_STUNIMMUNE, BLOODSUCKER_TRAIT))
+		if(!HAS_TRAIT_FROM(bloodsucker_user, TRAIT_STUNIMMUNE, TRAIT_BLOODSUCKER))
 			bloodsucker_user.physiology.stamina_mod /= fortitude_resist
 	// Remove Traits & Effects
-	REMOVE_TRAIT(owner, TRAIT_PIERCEIMMUNE, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner, TRAIT_NODISMEMBER, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(owner, TRAIT_NODISMEMBER, TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_BLOODSUCKER)
 
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 	owner.balloon_alert(owner, "fortitude turned off.")

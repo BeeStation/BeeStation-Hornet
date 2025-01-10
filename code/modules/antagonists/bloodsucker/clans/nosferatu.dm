@@ -16,7 +16,7 @@
 		if(istype(power, /datum/action/cooldown/bloodsucker/masquerade) || istype(power, /datum/action/cooldown/bloodsucker/veil))
 			bloodsuckerdatum.RemovePower(power)
 
-	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, TRAIT_BLOODSUCKER)
 	bloodsuckerdatum.owner.add_quirk(/datum/quirk/badback)
 	bloodsuckerdatum.owner.current.ventcrawler = VENTCRAWLER_ALWAYS
 
@@ -25,7 +25,7 @@
 		bloodsuckerdatum.RemovePower(power)
 	bloodsuckerdatum.give_starting_powers()
 
-	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, TRAIT_BLOODSUCKER)
 	bloodsuckerdatum.owner.remove_quirk(/datum/quirk/badback)
 	bloodsuckerdatum.owner.current.ventcrawler = VENTCRAWLER_NONE
 	return ..()
@@ -37,6 +37,6 @@
 
 /datum/bloodsucker_clan/nosferatu/on_favorite_vassal(datum/antagonist/bloodsucker/source, datum/antagonist/vassal/vassaldatum)
 	vassaldatum.owner.current.ventcrawler = VENTCRAWLER_NUDE
-	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_DISFIGURED, TRAIT_BLOODSUCKER)
 
 	to_chat(vassaldatum.owner.current, "<span class='notice'>Additionally, you can now ventcrawl while naked, and are permanently disfigured.</span>")

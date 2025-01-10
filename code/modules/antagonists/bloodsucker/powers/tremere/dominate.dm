@@ -129,16 +129,16 @@
 	if(IS_CURATOR(target))
 		to_chat(target, "<span class='notice'>You feel you something crawling under your skin, but it passes.</span>")
 		return
-	if(HAS_TRAIT_FROM(target, TRAIT_MUTE, BLOODSUCKER_TRAIT))
+	if(HAS_TRAIT_FROM(target, TRAIT_MUTE, TRAIT_BLOODSUCKER))
 		owner.balloon_alert(owner, "[target] is already in some form of hypnotic gaze.")
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/mesmerized = target
 		owner.balloon_alert(owner, "successfully mesmerized [mesmerized].")
 		if(level_current >= 2)
-			ADD_TRAIT(target, TRAIT_MUTE, BLOODSUCKER_TRAIT)
+			ADD_TRAIT(target, TRAIT_MUTE, TRAIT_BLOODSUCKER)
 		if(level_current >= 3)
-			target.become_blind(BLOODSUCKER_TRAIT)
+			target.become_blind(TRAIT_BLOODSUCKER)
 		mesmerized.Immobilize(power_time)
 		mesmerized.next_move = world.time + power_time
 		mesmerized.notransform = TRUE
@@ -150,8 +150,8 @@
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/proc/end_mesmerize(mob/living/user, mob/living/target)
 	target.notransform = FALSE
-	target.cure_blind(BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(target, TRAIT_MUTE, BLOODSUCKER_TRAIT)
+	target.cure_blind(TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(target, TRAIT_MUTE, TRAIT_BLOODSUCKER)
 	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
 
@@ -181,15 +181,15 @@
 	var/living_time
 	if(level_current == 4)
 		living_time = 5 MINUTES
-		ADD_TRAIT(target, TRAIT_MUTE, BLOODSUCKER_TRAIT)
-		ADD_TRAIT(owner, TRAIT_DEAF, BLOODSUCKER_TRAIT)
+		ADD_TRAIT(target, TRAIT_MUTE, TRAIT_BLOODSUCKER)
+		ADD_TRAIT(owner, TRAIT_DEAF, TRAIT_BLOODSUCKER)
 	else if(level_current == 5)
 		living_time = 8 MINUTES
 	addtimer(CALLBACK(src, PROC_REF(end_possession), target), living_time)
 
 /datum/action/cooldown/bloodsucker/targeted/tremere/proc/end_possession(mob/living/user)
-	REMOVE_TRAIT(user, TRAIT_MUTE, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(user, TRAIT_DEAF, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(user, TRAIT_DEAF, TRAIT_BLOODSUCKER)
 	user.mind.remove_antag_datum(/datum/antagonist/vassal)
 	to_chat(user, "<span class='warning'>You feel the Blood of your Master run out!</span>")
 	user.death()

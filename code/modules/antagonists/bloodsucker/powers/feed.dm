@@ -61,8 +61,8 @@
 	target_ref = null
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
-	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, FEED_TRAIT)
-	REMOVE_TRAIT(user, TRAIT_MUTE, FEED_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, TRAIT_FEED)
+	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_FEED)
 	return ..()
 
 /datum/action/cooldown/bloodsucker/feed/ActivatePower(trigger_flags)
@@ -120,8 +120,8 @@
 		bloodsuckerdatum_power.give_masquerade_infraction()
 		break
 
-	ADD_TRAIT(owner, TRAIT_MUTE, FEED_TRAIT)
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, FEED_TRAIT)
+	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
 	return ..()
 
 /datum/action/cooldown/bloodsucker/feed/UsePower(seconds_per_tick)

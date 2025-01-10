@@ -73,7 +73,7 @@
 		return
 	var/in_torpor = is_in_torpor()
 	// Don't heal if I'm staked or on Masquerade (+ not in a Coffin). Masqueraded Bloodsuckers in a Coffin however, will heal.
-	if(owner.current.am_staked())
+	if(check_staked())
 		return FALSE
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		return FALSE
@@ -176,12 +176,23 @@
 //			DEATH
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/datum/antagonist/bloodsucker/proc/on_death(mob/living/source)
+/datum/antagonist/bloodsucker/proc/on_death(mob/living/source, gibbed)
 	SIGNAL_HANDLER
 
 	if(source.stat != DEAD) // weirdness shield
 		return
-	INVOKE_ASYNC(src, PROC_REF(handle_death))
+	if(gibbed)
+		final_death()
+		return
+
+	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+	RegisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(handle_death))
+
+/datum/antagonist/bloodsucker/proc/on_revive(mob/living/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
+	UnregisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK)
 
 /datum/antagonist/bloodsucker/proc/handle_death()
 	var/static/handling_death = FALSE
@@ -203,7 +214,7 @@
 		final_death()
 		return
 	// Staked while "Temp Death" or Asleep
-	if(owner.current.StakeCanKillMe() && owner.current.am_staked())
+	if(can_stake_kill() && check_staked())
 		final_death()
 		return
 	// Temporary Death? Convert to Torpor.
@@ -262,6 +273,11 @@
 
 /// Gibs the Bloodsucker, roundremoving them.
 /datum/antagonist/bloodsucker/proc/final_death()
+	var/static/handeled_final_death = FALSE
+	if(handeled_final_death)
+		return
+	handeled_final_death = TRUE
+
 	var/mob/living/carbon/user = owner.current
 
 	// Free vassals
@@ -270,7 +286,9 @@
 		vassal.owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 		if(vassal.special_type == REVENGE_VASSAL)
 			continue
-		vassal.owner.add_antag_datum(/datum/antagonist/ex_vassal)
+		var/datum/antagonist/ex_vassal/ex_vassal = new /datum/antagonist/ex_vassal
+		ex_vassal.bloodsucker_team = bloodsucker_team
+		vassal.owner.add_antag_datum(ex_vassal)
 		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
 
 	// If we have no body, end here.

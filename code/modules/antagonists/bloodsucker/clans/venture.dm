@@ -23,7 +23,7 @@
 		if(bloodsuckerdatum.bloodsucker_level < VENTRUE_MAX_LEVEL)
 			return ..()
 		return FALSE
-	var/datum/antagonist/vassal/favorite/vassaldatum = target.mind.has_antag_datum(/datum/antagonist/vassal/favorite)
+	var/datum/antagonist/vassal/favorite/vassaldatum = IS_FAVORITE_VASSAL(target)
 	if(!vassaldatum)
 		return FALSE
 	// Purchase Power Prompt
@@ -60,32 +60,30 @@
 	vassaldatum.vassal_level++
 	switch(vassaldatum.vassal_level)
 		if(2)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_MUTE, BLOODSUCKER_TRAIT)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_AGEUSIA, BLOODSUCKER_TRAIT)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_MUTE, TRAIT_BLOODSUCKER)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOBREATH, TRAIT_BLOODSUCKER)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_AGEUSIA, TRAIT_BLOODSUCKER)
 			to_chat(target, "<span class='notice'>Your blood begins to feel cold, and as a mote of ash lands upon your tongue, you stop breathing...</span>")
 		if(3)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOCRITDAMAGE, BLOODSUCKER_TRAIT)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOSOFTCRIT, BLOODSUCKER_TRAIT)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOCRITDAMAGE, TRAIT_BLOODSUCKER)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOSOFTCRIT, TRAIT_BLOODSUCKER)
 			to_chat(target, "<span class='notice'>You feel your Master's blood reinforce you, strengthening you up.</span>")
 		if(4)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_VIRUSIMMUNE, BLOODSUCKER_TRAIT)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_SLEEPIMMUNE, TRAIT_BLOODSUCKER)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_VIRUSIMMUNE, TRAIT_BLOODSUCKER)
 			to_chat(target, "<span class='notice'>You feel your Master's blood begin to protect you from bacteria.</span>")
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
 				human_target.skin_tone = "albino"
 		if(5)
-			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOHARDCRIT, BLOODSUCKER_TRAIT)
+			ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_NOHARDCRIT, TRAIT_BLOODSUCKER)
 			to_chat(target, "<span class='notice'>You feel yourself able to take cuts and stabbings like it's nothing.</span>")
 		if(6 to INFINITY)
-			if(!target.mind.has_antag_datum(/datum/antagonist/bloodsucker))
-				to_chat(target, "<span class='notice'>You feel your heart stop pumping for the last time as you begin to thirst for blood, you feel... dead.</span>")
+			to_chat(target, "<span class='notice'>You feel your heart stop pumping for the last time as you begin to thirst for blood, you feel... dead.</span>")
 
-				target.mind.remove_antag_datum(/datum/antagonist/vassal/favorite)
-				target.mind.make_bloodsucker(bloodsuckerdatum.owner)
-				SEND_SIGNAL(bloodsuckerdatum.owner, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
-			vassaldatum.set_vassal_level(target)
+			target.mind.remove_antag_datum(/datum/antagonist/vassal/favorite)
+			target.mind.make_bloodsucker(bloodsuckerdatum.owner)
+			SEND_SIGNAL(bloodsuckerdatum.owner, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
 
 	finalize_spend_rank(bloodsuckerdatum, cost_rank, blood_cost)
 	vassaldatum.LevelUpPowers()

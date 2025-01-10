@@ -1,12 +1,3 @@
-/*
-	* when a bloodsucker views a vassal that is not their own, the vassal icon is gray
-	* however, when a bloodsucker views their own vassal, the icon is red (except for special vassals)
-	*
-	* when a vassal views another vassal that has the same master as their own, the icon is red (except for special vassals)
-	* vassals cannot see other bloodsucker's vassals.
-	* TODO: when a bloodsucker breaks the masquerade, all vassals are revealed to all bloodsuckers
-*/
-
 /datum/antagonist/vassal
 	name = "\improper Vassal"
 	roundend_category = "vassals"
@@ -33,7 +24,6 @@
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	current_mob.apply_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
 	current_mob.faction |= FACTION_BLOODSUCKER
 
@@ -46,7 +36,6 @@
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	current_mob.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 
 	bloodsucker_team.remove_member(current_mob.mind)
 	bloodsucker_team.hud.leave_hud(current_mob)
@@ -71,7 +60,7 @@
 	var/datum/objective/bloodsucker/vassal/vassal_objective = new
 	vassal_objective.owner = owner
 	objectives += vassal_objective
-	/// Give Vampire Language & Hud
+	/// Give Vampire Language
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE)
 	owner.current.grant_language(/datum/language/vampiric)
 	return ..()
@@ -80,28 +69,27 @@
 	UnregisterSignal(owner.current, COMSIG_PARENT_EXAMINE)
 	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 	//Free them from their Master
-	if(master && master.owner)
+	if(master?.owner)
 		if(special_type && master.special_vassals[special_type])
 			master.special_vassals[special_type] -= src
 		master.vassals -= src
 		owner.enslaved_to = null
-	//Remove ALL Traits, as long as its from BLOODSUCKER_TRAIT's source.
+
 	for(var/all_status_traits in owner.current.status_traits)
-		REMOVE_TRAIT(owner.current, all_status_traits, BLOODSUCKER_TRAIT)
-	//Remove Recuperate Power
-	while(powers.len)
-		var/datum/action/cooldown/bloodsucker/power = pick(powers)
+		REMOVE_TRAIT(owner.current, all_status_traits, TRAIT_BLOODSUCKER)
+
+	for(var/datum/action/cooldown/bloodsucker/power as anything in powers)
 		powers -= power
 		power.Remove(owner.current)
-	//Remove Language
+
 	owner.current.remove_language(/datum/language/vampiric)
 	return ..()
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	for(var/datum/action/cooldown/bloodsucker/all_powers as anything in powers)
-		all_powers.Remove(old_body)
-		all_powers.Grant(new_body)
+	for(var/datum/action/cooldown/bloodsucker/power as anything in powers)
+		power.Remove(old_body)
+		power.Grant(new_body)
 
 /datum/antagonist/vassal/greet()
 	. = ..()
@@ -134,13 +122,10 @@
 	var/list/datum/mind/possible_vampires = list()
 	for(var/datum/antagonist/bloodsucker/bloodsuckerdatums in GLOB.antagonists)
 		var/datum/mind/vamp = bloodsuckerdatums.owner
-		if(!vamp)
-			continue
-		if(!vamp.current)
-			continue
-		if(vamp.current.stat == DEAD)
+		if(!vamp || !vamp?.current || vamp?.current?.stat == DEAD)
 			continue
 		possible_vampires += vamp
+
 	if(!length(possible_vampires))
 		message_admins("[key_name_admin(usr)] tried vassalizing [key_name_admin(new_owner)], but there were no bloodsuckers!")
 		return

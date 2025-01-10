@@ -1057,10 +1057,9 @@
 		return
 	if(!target.mind)
 		return
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = target.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(target)
 	if(bloodsuckerdatum)
-		// If DEAD or TORPID... Kill Bloodsucker!
-		if(target.StakeCanKillMe())
+		if(bloodsuckerdatum?.can_stake_kill())
 			bloodsuckerdatum.final_death()
 		else
 			to_chat(target, "<span class='userdanger'>You have been staked! Your powers are useless while it remains in place.</span>")

@@ -144,35 +144,31 @@
  * Traits
  */
 /// Falsifies Health analyzer blood levels
-#define TRAIT_MASQUERADE "masquerade"
+#define TRAIT_MASQUERADE "trait_masquerade"
 /// Your body is literal room temperature. Does not make you immune to the temp
-#define TRAIT_COLDBLOODED "coldblooded"
+#define TRAIT_COLDBLOODED "trait_coldblooded"
 
 /**
  * Sources
  */
-#define BLOODSUCKER_TRAIT "bloodsucker_trait"
+#define TRAIT_BLOODSUCKER "trait_bloodsucker"
 /// Source trait while Feeding
-#define FEED_TRAIT "feed_trait"
+#define TRAIT_FEED "trait_feed"
 /// Source trait during a Frenzy
-#define FRENZY_TRAIT "frenzy_trait"
+#define TRAIT_FRENZY "trait_frenzy"
 /// Source trait for bloodsuckers in torpor.
-#define TORPOR_TRAIT "torpor_trait"
+#define TRAIT_TORPOR "trait_torpor"
 /// Source trait for bloodsucker mesmerization.
-#define MESMERIZED_TRAIT "mesmerized_trait"
+#define TRAIT_MESMERIZED "trait_mesmerized"
 
 /**
  * Macros
  */
-///Whether a mob is a Bloodsucker
 #define IS_BLOODSUCKER(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/bloodsucker))
-///Whether a mob is a Vassal
 #define IS_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal))
-///Whether a mob is a Favorite Vassal
 #define IS_FAVORITE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/favorite))
-///Whether a mob is a Revenge Vassal
 #define IS_REVENGE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/revenge))
-///Whether a mob is a curator
+#define IS_EX_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ex_vassal))
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)
 
 //Used in bloodsucker_life.dm

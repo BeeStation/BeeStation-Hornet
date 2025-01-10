@@ -109,15 +109,15 @@
 	if(!isliving(user))
 		return FALSE
 	// Torpor?
-	if((check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(user, TRAIT_NODEATH))
+	if((check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(user, TRAIT_TORPOR))
 		to_chat(user, "<span class='warning'>Not while you're in Torpor.</span>")
 		return FALSE
 	// Frenzy?
-	if((check_flags & BP_CANT_USE_IN_FRENZY) && (bloodsuckerdatum_power?.frenzied))
+	if((check_flags & BP_CANT_USE_IN_FRENZY) && bloodsuckerdatum_power?.frenzied)
 		to_chat(user, "<span class='warning'>You cannot use powers while in a Frenzy!</span>")
 		return FALSE
 	// Stake?
-	if((check_flags & BP_CANT_USE_WHILE_STAKED) && user.am_staked())
+	if((check_flags & BP_CANT_USE_WHILE_STAKED) && bloodsuckerdatum_power?.check_staked())
 		to_chat(user, "<span class='warning'>You have a stake in your chest! Your powers are useless.</span>")
 		return FALSE
 	// Conscious? -- We use our own (AB_CHECK_CONSCIOUS) here so we can control it more, like the error message.
@@ -125,7 +125,7 @@
 		to_chat(user, "<span class='warning'>You can't do this while you are unconcious!</span>")
 		return FALSE
 	// Incapacitated?
-	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && (user.incapacitated(IGNORE_RESTRAINTS, IGNORE_GRAB)))
+	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && user.incapacitated(IGNORE_RESTRAINTS, IGNORE_GRAB))
 		to_chat(user, "<span class='warning'>Not while you're incapacitated!</span>")
 		return FALSE
 	// Constant Cost (out of blood)

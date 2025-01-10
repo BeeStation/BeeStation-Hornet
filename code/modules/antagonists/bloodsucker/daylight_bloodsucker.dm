@@ -63,7 +63,7 @@
 		return
 
 	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin)) // Coffins offer the BEST protection
-		if(owner.current.am_staked() && COOLDOWN_FINISHED(src, bloodsucker_spam_sol_burn))
+		if(check_staked() && COOLDOWN_FINISHED(src, bloodsucker_spam_sol_burn))
 			to_chat(owner.current, "<span class='userdanger'>You are staked! Remove the offending weapon from your heart before sleeping.</span>")
 			COOLDOWN_START(src, bloodsucker_spam_sol_burn, BLOODSUCKER_SPAM_SOL) //This should happen twice per Sol
 		if(!is_in_torpor())
@@ -122,7 +122,7 @@
 	var/total_burn = user.getFireLoss_nonProsthetic()
 	var/total_damage = total_brute + total_burn
 	/// Checks - Not daylight & Has more than 10 Brute/Burn & not already in Torpor
-	if(!SSsunlight.sunlight_active && total_damage >= 10 && !HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TORPOR_TRAIT))
+	if(!SSsunlight.sunlight_active && total_damage >= 10 && !HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TRAIT_TORPOR))
 		torpor_begin()
 
 /datum/antagonist/bloodsucker/proc/check_end_torpor()
@@ -145,14 +145,14 @@
 /datum/antagonist/bloodsucker/proc/is_in_torpor()
 	if(QDELETED(owner.current))
 		return FALSE
-	return HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TORPOR_TRAIT)
+	return HAS_TRAIT_FROM(owner.current, TRAIT_NODEATH, TRAIT_TORPOR)
 
 /datum/antagonist/bloodsucker/proc/torpor_begin()
 	var/mob/living/current = owner.current
 
-	REMOVE_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
-	REMOVE_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
-	current.add_traits(torpor_traits, TORPOR_TRAIT)
+	REMOVE_TRAIT(current, TRAIT_SLEEPIMMUNE, TRAIT_BLOODSUCKER)
+	REMOVE_TRAIT(current, TRAIT_NOBREATH, TRAIT_BLOODSUCKER)
+	current.add_traits(torpor_traits, TRAIT_TORPOR)
 	current.jitteriness = 0
 
 	DisableAllPowers()
@@ -164,12 +164,12 @@
 	current.grab_ghost()
 
 	if(!HAS_TRAIT(current, TRAIT_MASQUERADE))
-		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
-		ADD_TRAIT(current, TRAIT_NOBREATH, BLOODSUCKER_TRAIT)
+		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, TRAIT_BLOODSUCKER)
+		ADD_TRAIT(current, TRAIT_NOBREATH, TRAIT_BLOODSUCKER)
 
-	current.remove_traits(torpor_traits, TORPOR_TRAIT)
+	current.remove_traits(torpor_traits, TRAIT_TORPOR)
 	if(!HAS_TRAIT(current, TRAIT_MASQUERADE))
-		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, BLOODSUCKER_TRAIT)
+		ADD_TRAIT(current, TRAIT_SLEEPIMMUNE, TRAIT_BLOODSUCKER)
 
 	heal_vampire_organs()
 

@@ -57,15 +57,15 @@
 	SEND_SIGNAL(bloodsuckerdatum, BLOODSUCKER_ENTERS_FRENZY)
 
 	// Give the other Frenzy effects
-	ADD_TRAIT(owner, TRAIT_MUTE, FRENZY_TRAIT)
-	ADD_TRAIT(owner, TRAIT_DEAF, FRENZY_TRAIT)
+	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
+	ADD_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
 	if(!HAS_TRAIT(owner, TRAIT_DISCOORDINATED))
 		was_tooluser = TRUE
-		ADD_TRAIT(owner, TRAIT_DISCOORDINATED, FRENZY_TRAIT)
+		ADD_TRAIT(owner, TRAIT_DISCOORDINATED, TRAIT_FRENZY)
 
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
-	bloodsuckerdatum.frenzygrab.teach(user, TRUE)
 	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
+	bloodsuckerdatum.frenzygrab.teach(user, TRUE)
 	user.Jitter(60 SECONDS)
 	user.uncuff()
 	bloodsuckerdatum.frenzied = TRUE
@@ -74,10 +74,10 @@
 /datum/status_effect/frenzy/on_remove()
 	var/mob/living/carbon/human/user = owner
 	owner.balloon_alert(owner, "you come back to your senses.")
-	REMOVE_TRAIT(owner, TRAIT_MUTE, FRENZY_TRAIT)
-	REMOVE_TRAIT(owner, TRAIT_DEAF, FRENZY_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
+	REMOVE_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
 	if(was_tooluser)
-		REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED, FRENZY_TRAIT)
+		REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED, TRAIT_FRENZY)
 		was_tooluser = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 	bloodsuckerdatum.frenzygrab.remove(user)

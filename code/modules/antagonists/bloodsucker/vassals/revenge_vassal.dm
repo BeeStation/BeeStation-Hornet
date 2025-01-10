@@ -60,8 +60,10 @@
 	show_in_roundend = TRUE
 	for(var/datum/objective/all_objectives as anything in objectives)
 		objectives -= all_objectives
+
 	BuyPower(new /datum/action/cooldown/bloodsucker/vassal_blood)
 	BuyPower(new /datum/action/cooldown/bloodsucker/vassal_checkstatus)
+	BuyPower(new /datum/action/cooldown/bloodsucker/vassal_fold)
 	for(var/datum/action/cooldown/bloodsucker/master_powers as anything in bloodsuckerdatum.powers)
 		if(master_powers.purchase_flags & BLOODSUCKER_DEFAULT_POWER)
 			continue
@@ -80,6 +82,7 @@
 	var/datum/action/antag_info/info_button = new(src)
 	info_button.Grant(owner.current)
 	info_button_ref = WEAKREF(info_button)
+	INVOKE_ASYNC(src, PROC_REF(ui_interact), owner.current)
 
 	// Alert vassal that their master is dead
 	to_chat(owner.current, "<span class='cultlarge'>Your master has succumbed to final death! Avenge your Bloodsucker's death by recruiting their ex-vassals and continuing their operations.</span>")

@@ -1722,27 +1722,3 @@
 /mob/living/proc/on_handsblocked_end()
 	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
 	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)
-
-//
-//	Bloodsucker functionality
-//
-
-/// Do I have a stake in my heart?
-/mob/living/proc/am_staked()
-	var/obj/item/bodypart/chosen_bodypart = get_bodypart(BODY_ZONE_CHEST)
-	if(!chosen_bodypart)
-		return FALSE
-	for(var/obj/item/embedded_stake in chosen_bodypart.embedded_objects)
-		if(istype(embedded_stake, /obj/item/stake))
-			return TRUE
-	return FALSE
-
-/// You can't go to sleep in a coffin with a stake in you.
-/mob/living/proc/StakeCanKillMe()
-	if(IsSleeping())
-		return TRUE
-	if(stat >= UNCONSCIOUS)
-		return TRUE
-	if(HAS_TRAIT(src, TRAIT_NODEATH))
-		return TRUE
-	return FALSE

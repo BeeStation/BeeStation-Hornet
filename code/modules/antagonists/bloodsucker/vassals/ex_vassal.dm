@@ -16,6 +16,14 @@
 	///Timer we have to live
 	COOLDOWN_DECLARE(blood_timer)
 
+/datum/antagonist/ex_vassal/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	set_antag_hud(owner.current, vassal_hud_name)
+
+/datum/antagonist/ex_vassal/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	set_antag_hud(owner.current, null)
+
 /datum/antagonist/ex_vassal/on_removal()
 	if(revenge_vassal)
 		revenge_vassal.ex_vassals -= src
@@ -35,8 +43,8 @@
  */
 /datum/antagonist/ex_vassal/proc/return_to_fold(datum/antagonist/vassal/revenge/mike_ehrmantraut)
 	revenge_vassal = mike_ehrmantraut // what did john fulp willard mean by this
-	mike_ehrmantraut.ex_vassals += src
-	bloodsucker_team = mike_ehrmantraut.bloodsucker_team
+	revenge_vassal.ex_vassals += src
+
 	bloodsucker_team.add_member(owner.current.mind)
 	bloodsucker_team.hud.join_hud(owner.current)
 	set_antag_hud(owner.current, vassal_hud_name)
@@ -52,31 +60,5 @@
 	if(!COOLDOWN_FINISHED(src, blood_timer))
 		return
 	to_chat(owner.current, "<span class='cultbold'>You are out of blood!</span>")
-	to_chat(revenge_vassal.owner.current, "<span class='cultbold'>[owner.current] has ran out of blood and has left the fold!</span>")
+	to_chat(revenge_vassal.owner.current, "<span class='cultbold'>[owner.current] has ran out of blood and has permanently left the fold!</span>")
 	owner.remove_antag_datum(/datum/antagonist/ex_vassal)
-
-
-/*
- * Bloodsucker Blood
- * Slighty darker than normal blood
- * Artificially made, this must be fed to ex-vassals to keep them on their high.
- */
-/datum/reagent/blood/bloodsucker
-	color = "#960000"
-
-/datum/reagent/blood/bloodsucker/on_mob_metabolize(mob/living/living)
-	var/datum/antagonist/ex_vassal/former_vassal = living.mind.has_antag_datum(/datum/antagonist/ex_vassal)
-	if(former_vassal)
-		to_chat(living, "<span class='cult'>You feel the blood restore you... You feel safe.</span>")
-		COOLDOWN_RESET(former_vassal, blood_timer)
-		COOLDOWN_START(former_vassal, blood_timer, 10 MINUTES)
-	return ..()
-
-
-/obj/item/reagent_containers/blood/OMinus/bloodsucker
-	unique_blood = /datum/reagent/blood/bloodsucker
-
-/obj/item/reagent_containers/blood/OMinus/bloodsucker/examine(mob/user)
-	. = ..()
-	if(user.mind.has_antag_datum(/datum/antagonist/ex_vassal) || user.mind.has_antag_datum(/datum/antagonist/vassal/revenge))
-		. += "<span class='notice'>Seems to be just about the same color as your old Master's...</span>"

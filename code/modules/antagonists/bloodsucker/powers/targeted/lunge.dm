@@ -143,18 +143,13 @@
 
 	owner.balloon_alert(owner, "you lunge at [target]!")
 	if(target.stat == DEAD)
-		target.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
 		playsound(get_turf(target), 'sound/effects/splat.ogg', 40, TRUE)
 		owner.visible_message(
 			"<span class='warning'>[owner] tears into [target]'s chest!</span>",
 			"<span class='warning'>You tear into [target]'s chest!</span>",
 		)
-
-		for(var/obj/item/organ/organ as anything in target.internal_organs)
-			if(organ.zone == BODY_ZONE_CHEST)
-				organ.Remove(target)
-				organ.forceMove(get_turf(target))
-
+		var/obj/item/bodypart/chest/chest = target.get_bodypart(BODY_ZONE_CHEST)
+		chest.dismember()
 	else
 		target.grabbedby(owner)
 		target.grippedby(owner, instant = TRUE)
@@ -164,5 +159,5 @@
 			target.Paralyze(0.1)
 
 /datum/action/cooldown/bloodsucker/targeted/lunge/DeactivatePower()
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_BLOODSUCKER)
 	return ..()

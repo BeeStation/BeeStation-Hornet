@@ -8,15 +8,15 @@
 	blood_drink_type = BLOODSUCKER_DRINK_INHUMANELY
 
 /datum/bloodsucker_clan/malkavian/on_enter_frenzy(datum/antagonist/bloodsucker/source)
-	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_STUNIMMUNE, FRENZY_TRAIT)
+	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
 
 /datum/bloodsucker_clan/malkavian/on_exit_frenzy(datum/antagonist/bloodsucker/source)
-	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_STUNIMMUNE, FRENZY_TRAIT)
+	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
 
 /datum/bloodsucker_clan/malkavian/New(datum/antagonist/bloodsucker/owner_datum)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_BLOODSUCKER_BROKE_MASQUERADE, PROC_REF(on_bloodsucker_broke_masquerade))
-	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_XRAY_VISION, BLOODSUCKER_TRAIT)
+	ADD_TRAIT(bloodsuckerdatum.owner.current, TRAIT_XRAY_VISION, TRAIT_BLOODSUCKER)
 	var/mob/living/carbon/carbon_owner = bloodsuckerdatum.owner.current
 	if(istype(carbon_owner))
 		carbon_owner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
@@ -28,7 +28,7 @@
 
 /datum/bloodsucker_clan/malkavian/Destroy(force)
 	UnregisterSignal(SSdcs, COMSIG_BLOODSUCKER_BROKE_MASQUERADE)
-	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_XRAY_VISION, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(bloodsuckerdatum.owner.current, TRAIT_XRAY_VISION, TRAIT_BLOODSUCKER)
 	var/mob/living/carbon/carbon_owner = bloodsuckerdatum.owner.current
 	if(istype(carbon_owner))
 		carbon_owner.cure_trauma_type(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)

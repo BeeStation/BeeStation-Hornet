@@ -112,13 +112,13 @@
 	if(IS_CURATOR(mesmerized_target))
 		to_chat(mesmerized_target, "<span class='notice'>You feel your eyes burn for a while, but it passes.</span>")
 		return
-	if(HAS_TRAIT_FROM(mesmerized_target, TRAIT_MUTE, BLOODSUCKER_TRAIT))
+	if(HAS_TRAIT_FROM(mesmerized_target, TRAIT_MUTE, TRAIT_BLOODSUCKER))
 		owner.balloon_alert(owner, "[mesmerized_target] is already in a hypnotic gaze.")
 		return
 	if(iscarbon(mesmerized_target))
 		owner.balloon_alert(owner, "successfully mesmerized [mesmerized_target].")
 		if(level_current >= 2)
-			ADD_TRAIT(mesmerized_target, TRAIT_MUTE, BLOODSUCKER_TRAIT)
+			ADD_TRAIT(mesmerized_target, TRAIT_MUTE, TRAIT_BLOODSUCKER)
 		mesmerized_target.Immobilize(power_time)
 		mesmerized_target.next_move = world.time + power_time // <--- Use direct change instead. We want an unmodified delay to their next move // mesmerized_target.changeNext_move(power_time) // check click.dm
 		mesmerized_target.notransform = TRUE // <--- Fuck it. We tried using next_move, but they could STILL resist. We're just doing a hard freeze.
@@ -131,7 +131,7 @@
 
 /datum/action/cooldown/bloodsucker/targeted/mesmerize/proc/end_mesmerize(mob/living/user, mob/living/target)
 	target.notransform = FALSE
-	REMOVE_TRAIT(target, TRAIT_MUTE, BLOODSUCKER_TRAIT)
+	REMOVE_TRAIT(target, TRAIT_MUTE, TRAIT_BLOODSUCKER)
 	// They Woke Up! (Notice if within view)
 	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
