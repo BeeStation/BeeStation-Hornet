@@ -120,23 +120,23 @@
 		on_overlay.color = overlay_color
 		add_overlay(on_overlay)
 
-/obj/machinery/atmospherics/miner/process_atmos() //TODO figure out delta_time for this
+/obj/machinery/atmospherics/miner/process(delta_time)
 	update_power()
 	check_operation()
 	if(active && !broken)
 		if(isnull(spawn_id))
 			return FALSE
 		if(do_use_power(active_power_usage))
-			mine_gas()
+			mine_gas(delta_time)
 
 /obj/machinery/atmospherics/miner/proc/mine_gas(delta_time = 2)
 	var/turf/open/O = get_turf(src)
 	if(!isopenturf(O))
 		return FALSE
 	var/datum/gas_mixture/merger = new
-	SET_MOLES(spawn_id, merger, spawn_mol * delta_time)
-
-	merger.temperature = (spawn_temp)
+	merger.assert_gas(spawn_id)
+	merger.gases[spawn_id][MOLES] = spawn_mol * delta_time
+	merger.temperature = spawn_temp
 	O.assume_air(merger)
 
 /obj/machinery/atmospherics/miner/attack_silicon(mob/living/silicon/user)
