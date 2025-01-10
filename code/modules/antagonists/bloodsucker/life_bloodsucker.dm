@@ -282,14 +282,12 @@
 
 	// Free vassals
 	for(var/datum/antagonist/vassal/vassal in vassals)
-		// Skip over any Bloodsucker Vassals, they're too far gone to have all their stuff taken away from them
-		vassal.owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
 		if(vassal.special_type == REVENGE_VASSAL)
 			continue
+		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
 		var/datum/antagonist/ex_vassal/ex_vassal = new /datum/antagonist/ex_vassal
 		ex_vassal.bloodsucker_team = bloodsucker_team
 		vassal.owner.add_antag_datum(ex_vassal)
-		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
 
 	// If we have no body, end here.
 	if(!user)
