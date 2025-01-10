@@ -32077,10 +32077,8 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/photobooth/security,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "kla" = (
