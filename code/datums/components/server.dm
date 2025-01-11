@@ -68,5 +68,5 @@
 	var/datum/gas_mixture/environment = turf.return_air()
 
 	temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
-
+	return TRUE
 #undef SPARK_COOLDOWN_TIME
