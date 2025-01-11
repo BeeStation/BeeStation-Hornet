@@ -125,7 +125,7 @@
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	handle_clown_mutation(current_mob, mob_override ? null : "Your clownish nature has been subdued by your thirst for blood.")
 
-	add_antag_hud(ANTAG_HUD_VAMPIRE, "vampire", current_mob)
+	set_antag_hud(current_mob, "vampire")
 	create_vampire_team()
 	vampire_team.hud.join_hud(current_mob)
 
@@ -161,7 +161,6 @@
 		QDEL_NULL(vamprank_display)
 		QDEL_NULL(sunlight_display)
 
-	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 	vampire_team.hud.leave_hud(current_mob)
 	set_antag_hud(current_mob, null)
 
