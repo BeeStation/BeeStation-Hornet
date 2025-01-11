@@ -620,7 +620,7 @@
   * If the method is INGEST the mob tastes the reagents.
   * If the method is VAPOR it incorporates permiability protection.
   */
-/mob/living/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
+/mob/living/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE, obj/item/bodypart/affecting)
 	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
@@ -630,4 +630,4 @@
 	var/touch_protection = (method == VAPOR) ? getarmor(null, BIO) * 0.01 : 0
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
-		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection)
+		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)

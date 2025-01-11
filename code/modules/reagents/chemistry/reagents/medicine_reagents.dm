@@ -442,7 +442,7 @@
 			show_message = FALSE
 		if(method == PATCH)
 			//you could be targeting a limb that doesnt exist while applying the patch, so lets avoid a runtime
-			if(affecting?.heal_damage(brute = reac_volume, burn = reac_volume))
+			if(affecting.heal_damage(brute = reac_volume, burn = reac_volume))
 				M.update_damage_overlays()
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
