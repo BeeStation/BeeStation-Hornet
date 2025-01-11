@@ -7,7 +7,7 @@
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
-	favor = 0
+	favor = 400 // real number is 0 this is for testing
 	max_favor = 50000
 	desired_items = list(
 		/obj/item/flashlight)
@@ -48,7 +48,8 @@
 	icon_state = "shadow-obelisk"
 	anchored = FALSE
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
-
+	var/max_integrity = 500
+	var/damage_deflection = 10
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
