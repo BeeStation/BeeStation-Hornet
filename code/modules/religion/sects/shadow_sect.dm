@@ -54,6 +54,7 @@
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Initialize()
+	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!proximity_monitor)
 		proximity_monitor = new(src, sect.light_reach)
