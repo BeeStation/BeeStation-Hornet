@@ -65,7 +65,7 @@
 		user.do_attack_animation(src)
 		return
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
-		if (!archoned)
+		if (!anchored)
 			anchored = !anchored
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -99,8 +99,6 @@
 	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
 		return
 	var/atom/P = parent
-	if(!p.archoned)
-		return
 	var/turf/T = P.loc
 	if(!istype(T))
 		return
