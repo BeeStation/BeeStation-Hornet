@@ -1830,6 +1830,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/starboard)
 "axJ" = (
@@ -2337,6 +2338,21 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"aEu" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/hallway/primary/port)
 "aEK" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/security/glass{
@@ -3060,6 +3076,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
 "aLo" = (
@@ -3645,6 +3667,9 @@
 	id = 2;
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
 "aRn" = (
@@ -4014,6 +4039,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
@@ -4449,6 +4477,9 @@
 	id = 2;
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "baT" = (
@@ -4590,6 +4621,12 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "bdm" = (
@@ -4600,6 +4637,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "bdq" = (
@@ -10147,6 +10185,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "cIg" = (
@@ -11277,6 +11316,9 @@
 	id = 2;
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/central)
 "cUG" = (
@@ -11883,6 +11925,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/central)
 "ddP" = (
@@ -15246,6 +15294,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/central)
 "eaL" = (
@@ -17920,6 +17974,9 @@
 	id = 2;
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "eKW" = (
@@ -18195,6 +18252,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
@@ -19011,6 +19074,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/lobby)
@@ -21491,6 +21557,9 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "fCM" = (
@@ -21812,6 +21881,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "fGg" = (
@@ -26555,6 +26630,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "gNZ" = (
@@ -28442,6 +28523,9 @@
 	id = 2;
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/crew_quarters/dorms)
 "hoi" = (
@@ -29243,6 +29327,9 @@
 	dir = 1
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
 "hBg" = (
@@ -32274,6 +32361,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/stairs/right{
 	dir = 1
 	},
@@ -32612,6 +32702,9 @@
 	},
 /obj/structure/railing{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/stairs/left{
 	dir = 1
@@ -35677,6 +35770,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
@@ -41199,6 +41295,12 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
 "kBu" = (
@@ -41776,6 +41878,9 @@
 	id = 2;
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "kIC" = (
@@ -41786,6 +41891,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "kIE" = (
@@ -45454,6 +45560,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
 "lAv" = (
@@ -45889,6 +46001,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
@@ -48075,6 +48190,9 @@
 	id = 2;
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/starboard)
 "mnu" = (
@@ -48488,6 +48606,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/starboard)
@@ -48916,6 +49037,9 @@
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
 "mzh" = (
@@ -50717,6 +50841,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "mXu" = (
@@ -54404,6 +54529,12 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/crew_quarters/dorms)
 "nZg" = (
@@ -56283,6 +56414,9 @@
 	dir = 1
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
 "owF" = (
@@ -57867,6 +58001,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
@@ -61100,6 +61240,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
 "pMb" = (
@@ -61375,6 +61516,12 @@
 	id = 2;
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/lobby)
 "pQv" = (
@@ -61382,6 +61529,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/central)
@@ -64436,6 +64586,9 @@
 	id = 2;
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/crew_quarters/dorms)
 "qEF" = (
@@ -64521,6 +64674,9 @@
 	dir = 4
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "qFR" = (
@@ -65033,6 +65189,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/central)
@@ -65961,6 +66120,30 @@
 	burnt = 1
 	},
 /area/maintenance/starboard/central)
+"qXq" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/hallway/primary/fore)
 "qXv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -66996,6 +67179,9 @@
 	dir = 10
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "rno" = (
@@ -68280,6 +68466,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/starboard)
 "rEa" = (
@@ -69311,6 +69503,9 @@
 	dir = 1
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/starboard)
 "rPy" = (
@@ -71602,6 +71797,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/stairs/right{
 	dir = 8
 	},
@@ -72902,6 +73104,9 @@
 	id = 2;
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "sMk" = (
@@ -72936,6 +73141,9 @@
 	dir = 1
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "sMz" = (
@@ -75691,6 +75899,12 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/stairs/medium{
 	dir = 1
 	},
@@ -76228,6 +76442,12 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "tDI" = (
@@ -76737,6 +76957,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "tKO" = (
@@ -77071,6 +77292,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
 "tPg" = (
@@ -77102,6 +77324,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "emmd";
 	name = "Emergency Medical Lockdown Shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/medbay/lobby)
@@ -77783,6 +78008,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
@@ -80501,6 +80732,12 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
 "uGP" = (
@@ -81968,6 +82205,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
 "vau" = (
@@ -83459,6 +83697,12 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
 "vqS" = (
@@ -83731,6 +83975,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
 "vtr" = (
@@ -83747,6 +83992,12 @@
 	dir = 8
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/stairs/left{
 	dir = 4
 	},
@@ -84231,6 +84482,9 @@
 "vwR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/stairs/medium{
 	dir = 4
@@ -86239,6 +86493,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
 "vTg" = (
@@ -86703,6 +86963,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/stairs/right{
 	dir = 4
 	},
@@ -86752,6 +87013,9 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/stairs/medium{
 	dir = 8
@@ -86989,6 +87253,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
@@ -87472,6 +87742,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/starboard)
 "wlc" = (
@@ -89007,6 +89283,11 @@
 "wGA" = (
 /obj/machinery/door/firedoor,
 /obj/structure/railing,
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	dir = 1;
+	id = 3
+	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/stairs/left{
 	dir = 8
 	},
@@ -90269,6 +90550,9 @@
 	dir = 1
 	},
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "wVq" = (
@@ -91237,6 +91521,9 @@
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
 	id = 2;
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/fore)
@@ -92378,6 +92665,9 @@
 	id = 2;
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
 "xqJ" = (
@@ -92902,6 +93192,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/science/lobby)
 "xvW" = (
@@ -94983,6 +95279,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "xPP" = (
@@ -95223,6 +95525,7 @@
 	dir = 1;
 	id = 3
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/central)
 "xSV" = (
@@ -96759,6 +97062,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/port)
 "ylJ" = (
@@ -121833,7 +122142,7 @@ hVJ
 xvj
 xvj
 oww
-wdS
+qXq
 vtm
 oMd
 woY
@@ -126973,7 +127282,7 @@ lMx
 dux
 vhU
 oww
-wdS
+qXq
 vtm
 thk
 nAD
@@ -127528,7 +127837,7 @@ lAj
 gko
 fCp
 bSx
-ylD
+aEu
 wUF
 eHX
 gko
