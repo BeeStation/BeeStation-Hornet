@@ -14,7 +14,7 @@
 	var/background_icon_state_on = "vamp_power_on"
 	var/background_icon_state_off = "vamp_power_off"
 
-	/// The text that appears when using the help verb, meant to explain how the Power changes when ranking up.
+	/// A sort of tutorial text found in the Antagonist tab.
 	var/power_explanation = ""
 	///The owner's stored Bloodsucker datum
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum_power

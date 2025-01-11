@@ -2,7 +2,7 @@
 	name = "Reconvert Ex-Vassal"
 	desc = "Bring an Ex-Vassal back into the fold."
 	button_icon_state = "power_torpor"
-	power_explanation = "Help Vassal:\nUse this power while you are grabbing an ex-Vassal to bring them back into the fold."
+	power_explanation = "Use this power while you are grabbing an ex-Vassal to bring them back into the fold."
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = NONE

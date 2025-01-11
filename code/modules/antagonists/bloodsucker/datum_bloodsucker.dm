@@ -66,6 +66,8 @@
 	var/atom/movable/screen/bloodsucker/rank_counter/vamprank_display
 	///Sunlight timer HUD
 	var/atom/movable/screen/bloodsucker/sunlight_counter/sunlight_display
+	///Used in life_bloodsucker.dm to stop final_death being called multiple times
+	var/has_succumb_to_final_death = FALSE
 
 	/// Static typecache of all bloodsucker powers.
 	var/static/list/all_bloodsucker_powers = typecacheof(/datum/action/cooldown/bloodsucker, ignore_root_path = TRUE)

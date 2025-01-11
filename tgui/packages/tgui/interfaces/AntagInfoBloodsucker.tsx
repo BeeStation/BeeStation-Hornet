@@ -56,7 +56,7 @@ const ObjectivePrintout = (props: any, context: any) => {
 export const AntagInfoBloodsucker = (props: any, context: any) => {
   const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
-    <Window width={620} height={580} theme="spookyconsole">
+    <Window width={620} height={580} theme="syndicate">
       <Window.Content>
         <Tabs>
           <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 1} onClick={() => setTab(1)}>
@@ -169,11 +169,14 @@ const BloodsuckerClan = (props: any, context: any) => {
                   <Box
                     as="img"
                     height="20rem"
-                    opacity={0.25}
+                    opacity={0.5}
                     src={resolveAsset(`bloodsucker.${ClanInfo.clan_icon}.png`)}
                     style={{
                       '-ms-interpolation-mode': 'nearest-neighbor',
                       'position': 'absolute',
+                      'top': '50%',
+                      'left': '50%',
+                      'transform': 'translate(-50%, -50%)',
                     }}
                   />
                   <Stack.Item fontSize="20px" textAlign="center">
@@ -213,7 +216,19 @@ const PowerSection = (props: any, context: any) => {
         />
       }>
       <Stack>
-        <Stack.Item grow>
+        <Box
+          as="img"
+          height="15rem"
+          src={resolveAsset(`bloodsucker.${selectedPower.power_icon}.png`)}
+          style={{
+            '-ms-interpolation-mode': 'nearest-neighbor',
+            'position': 'absolute',
+            'top': '57%',
+            'left': '17%',
+            'transform': 'translate(-50%, -50%)',
+          }}
+        />
+        <Stack.Item minWidth="15rem">
           <Dropdown
             displayText={selectedPower.power_name}
             selected={selectedPower.power_name}
@@ -221,15 +236,6 @@ const PowerSection = (props: any, context: any) => {
             options={power.map((powers) => powers.power_name)}
             onSelected={(powerName: string) => setSelectedPower(power.find((p) => p.power_name === powerName) || power[0])}
           />
-          {selectedPower && (
-            <Box
-              position="absolute"
-              height="12rem"
-              as="img"
-              src={resolveAsset(`bloodsucker.${selectedPower.power_icon}.png`)}
-            />
-          )}
-          <Divider Vertical />
         </Stack.Item>
         <Stack.Divider />
         <Stack.Item scrollable grow={1} fontSize="16px">

@@ -15,7 +15,7 @@ export const KindredBook = (props, context) => {
   const { data } = useBackend<Data>(context);
   const { clans } = data;
   return (
-    <Window width={410} height={460} theme="spookyconsole">
+    <Window width={410} height={460} theme="syndicate">
       <Window.Content scrollable>
         <Section title="Bloodsucker Clans">
           <Table mb={2}>

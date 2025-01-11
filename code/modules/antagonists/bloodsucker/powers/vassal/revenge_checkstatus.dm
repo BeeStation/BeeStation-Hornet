@@ -2,7 +2,7 @@
 	name = "Check Vassals"
 	desc = "Check each ex vassal's status"
 	button_icon_state = "power_mez"
-	power_explanation = "Check Status:\nUse this power to check the health and location of all vassals brought into the fold"
+	power_explanation = "Use this power to check the health and location of all allied vassals"
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = NONE

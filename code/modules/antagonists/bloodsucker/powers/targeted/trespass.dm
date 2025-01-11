@@ -2,9 +2,9 @@
 	name = "Trespass"
 	desc = "Become mist and advance two tiles in one direction. Useful for skipping past doors and barricades."
 	button_icon_state = "power_tres"
-	power_explanation = "Trespass:\n\
-		Click anywhere from 1-2 tiles away from you to teleport.\n\
-		This power goes through all obstacles except Walls.\n\
+	power_explanation = "\
+		Click anywhere from 1-2 tiles away from you to teleport. \
+		This power goes through all obstacles except Walls. \
 		Higher levels decrease the sound played from using the Power, and increase the speed of the transition."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
@@ -35,14 +35,11 @@
 
 
 /datum/action/cooldown/bloodsucker/targeted/trespass/CheckCanTarget(atom/target_atom)
-	// NOTE: Do NOT use ..()! We don't want to check distance or anything.
-
-	// Get clicked tile
 	var/final_turf = isturf(target_atom) ? target_atom : get_turf(target_atom)
 
 	// Are either tiles WALLS?
 	var/turf/from_turf = get_turf(owner)
-	var/this_dir // = get_dir(from_turf, target_turf)
+	var/this_dir
 	for(var/i = 1 to 2)
 		// Keep Prev Direction if we've reached final turf
 		if(from_turf != final_turf)

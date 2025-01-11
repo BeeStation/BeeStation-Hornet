@@ -182,7 +182,7 @@
 	if(source.stat != DEAD) // weirdness shield
 		return
 	if(gibbed)
-		CALLBACK(src, PROC_REF(final_death)).Invoke()
+		INVOKE_ASYNC(src, PROC_REF(final_death))
 		return
 
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
@@ -273,10 +273,9 @@
 
 /// Gibs the Bloodsucker, roundremoving them.
 /datum/antagonist/bloodsucker/proc/final_death()
-	var/static/handled_final_death = FALSE
-	if(handled_final_death)
+	if(has_succumb_to_final_death)
 		return
-	handled_final_death = TRUE
+	has_succumb_to_final_death = TRUE
 
 	var/mob/living/carbon/user = owner.current
 

@@ -11,15 +11,14 @@
 	name = "Mesmerize"
 	desc = "Dominate the mind of a mortal who can see your eyes."
 	button_icon_state = "power_mez"
-	power_explanation = "Mesmerize:\n\
-		Click any player to attempt to mesmerize them.\n\
-		You cannot wear anything covering your face, and both parties must be facing eachother. Obviously, both parties need to not be blind. \n\
-		If your target is already mesmerized or a Monster Hunter, the Power will fail.\n\
-		Once mesmerized, the target will be unable to move for a certain amount of time, scaling with level.\n\
-		At level 2, your target will additionally be muted.\n\
-		At level 3, you will be able to use the power through items covering your face.\n\
-		At level 5, you will be able to mesmerize regardless of your target's direction.\n\
-		Higher levels will increase the time of the mesmerize's freeze."
+	power_explanation = "\
+		Click any player to attempt to mesmerize them, and freeze them in place. \
+		You cannot wear anything covering your face, and both parties must be facing eachother. \
+		If your target is already mesmerized or a Curator, you will fail. \
+		Once mesmerized, the target will be unable to move for a certain amount of time, scaling your rank. \
+		At level 2, your target will additionally be muted. \
+		At level 3, you will be able to use the power through masks and helmets. \
+		At level 5, you will be able to mesmerize regardless of your target's direction."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = BLOODSUCKER_CAN_BUY|VASSAL_CAN_BUY

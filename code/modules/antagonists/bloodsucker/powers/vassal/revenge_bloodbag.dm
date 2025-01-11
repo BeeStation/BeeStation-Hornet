@@ -2,7 +2,7 @@
 	name = "Create Blood"
 	desc = "Convert a blood bag into Vampiric Blood."
 	button_icon_state = "power_bleed"
-	power_explanation = "Create Blood:\nUse this power with a bloodbag inhand to fill it with Vampiric Blood which is used to reset ex-vassal deconversion timers."
+	power_explanation = "Use this power with a bloodbag inhand to fill it with Vampiric Blood which is used to reset ex-vassal deconversion timers."
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = NONE

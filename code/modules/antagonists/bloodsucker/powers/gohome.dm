@@ -12,10 +12,9 @@
 	name = "Vanishing Act"
 	desc = "As dawn aproaches, disperse into mist and return directly to your Lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
 	button_icon_state = "power_gohome"
-	power_explanation = "Vanishing Act: \n\
-		Activating Vanishing Act will, after a short delay, teleport the user to their Claimed Coffin. \n\
-		The power will cancel out if the Claimed Coffin is somehow destroyed. \n\
-		Immediately after activating, lights around the user will begin to flicker. \n\
+	power_explanation = "\
+		Activating Vanishing Act will, after a short delay, teleport you to your Claimed Coffin. \
+		Immediately after activating, lights around the user will begin to flicker. \
 		Once the user teleports to their coffin, in their place will be a Rat or Bat."
 	power_flags = BP_AM_TOGGLE|BP_AM_SINGLEUSE|BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_STAKED
