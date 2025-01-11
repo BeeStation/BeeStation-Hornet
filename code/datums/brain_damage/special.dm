@@ -397,7 +397,7 @@
 			continue
 		if(!isliving(nearby_viewers) || !nearby_viewers.mind)
 			continue
-		if(IS_BLOODSUCKER(nearby_viewers) || IS_VASSAL(nearby_viewers))
+		if(IS_VAMPIRE(nearby_viewers) || IS_VASSAL(nearby_viewers))
 			continue
 		if(nearby_viewers.has_unlimited_silicon_privilege || nearby_viewers.is_blind())
 			continue

@@ -260,7 +260,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
-	if(mind && IS_BLOODSUCKER(src)) // bloodsuckers should not be affected by blood
+	if(mind && IS_VAMPIRE(src)) // vampires should not be affected by blood
 		return FALSE
 
 	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLOOD))

@@ -160,7 +160,7 @@
 	return ..()
 
 /obj/item/clothing/neck/necklace/memento_mori/proc/memento(mob/living/carbon/human/user)
-	if(IS_BLOODSUCKER(user))
+	if(IS_VAMPIRE(user))
 		to_chat(user, "<span class='warning'>The Memento notices your undead soul, and refuses to react..</span>")
 		return
 

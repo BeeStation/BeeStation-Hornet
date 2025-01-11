@@ -13,7 +13,7 @@ type Objective = {
   reward: number;
 };
 
-type BloodsuckerInformation = {
+type VampireInformation = {
   power: PowerInfo[];
 };
 
@@ -90,7 +90,7 @@ const VassalInfo = () => {
 };
 
 const PowerSection = (props: any, context: any) => {
-  const { act, data } = useBackend<BloodsuckerInformation>(context);
+  const { act, data } = useBackend<VampireInformation>(context);
   const { power } = data;
   if (!power) {
     return <Section minHeight="220px" />;
@@ -114,12 +114,7 @@ const PowerSection = (props: any, context: any) => {
             onSelected={(powerName: string) => setSelectedPower(power.find((p) => p.power_name === powerName) || power[0])}
           />
           {selectedPower && (
-            <Box
-              position="absolute"
-              height="12rem"
-              as="img"
-              src={resolveAsset(`bloodsucker.${selectedPower.power_icon}.png`)}
-            />
+            <Box position="absolute" height="12rem" as="img" src={resolveAsset(`vampire.${selectedPower.power_icon}.png`)} />
           )}
           <Divider Vertical />
         </Stack.Item>

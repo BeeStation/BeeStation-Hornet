@@ -328,24 +328,24 @@
 
 #undef TRAITOR_DESC_DETAILS
 
-/datum/role_preference/antagonist/bloodsucker
-	name = "Bloodsucker"
+/datum/role_preference/antagonist/vampire
+	name = "Vampire"
 	description = "After your death, you awaken to see yourself as an undead monster.\nScrape by Space Station 13, or take it over, vassalizing your way!"
-	antag_datum = /datum/antagonist/bloodsucker
-	preview_outfit = /datum/outfit/bloodsucker
+	antag_datum = /datum/antagonist/vampire
+	preview_outfit = /datum/outfit/vampire
 
-/datum/role_preference/antagonist/bloodsucker/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/bloodsucker)
+/datum/role_preference/antagonist/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
 	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
 
 	return finish_preview_icon(icon)
 
-/datum/role_preference/midround_living/bloodsucker
+/datum/role_preference/midround_living/vampire
 	name = "Vampiric Accident"
 	description = "After your death, you awaken to see yourself as an undead monster.\nScrape by Space Station 13, or take over it, vassalizing your way!"
-	antag_datum = /datum/antagonist/bloodsucker
-	use_icon = /datum/role_preference/antagonist/bloodsucker
+	antag_datum = /datum/antagonist/vampire
+	use_icon = /datum/role_preference/antagonist/vampire
 
-/datum/outfit/bloodsucker
-	name = "Bloodsucker outfit (Preview only)"
+/datum/outfit/vampire
+	name = "Vampire outfit (Preview only)"
 	suit = /obj/item/clothing/suit/costume/dracula

@@ -27,9 +27,9 @@
 	name = "black coffin"
 	desc = "For those departed who are not so dear."
 	icon_state = "blackcoffin"
-	icon = 'icons/bloodsuckers/vamp_obj.dmi'
-	open_sound = 'sound/bloodsuckers/coffin_open.ogg'
-	close_sound = 'sound/bloodsuckers/coffin_close.ogg'
+	icon = 'icons/vampires/vamp_obj.dmi'
+	open_sound = 'sound/vampires/coffin_open.ogg'
+	close_sound = 'sound/vampires/coffin_close.ogg'
 	breakout_time = 30 SECONDS
 	pry_lid_timer = 20 SECONDS
 	resistance_flags = NONE
@@ -50,9 +50,9 @@
 	name = "secure coffin"
 	desc = "For those too scared of having their place of rest disturbed."
 	icon_state = "securecoffin"
-	icon = 'icons/bloodsuckers/vamp_obj.dmi'
-	open_sound = 'sound/bloodsuckers/coffin_open.ogg'
-	close_sound = 'sound/bloodsuckers/coffin_close.ogg'
+	icon = 'icons/vampires/vamp_obj.dmi'
+	open_sound = 'sound/vampires/coffin_open.ogg'
+	close_sound = 'sound/vampires/coffin_close.ogg'
 	breakout_time = 35 SECONDS
 	pry_lid_timer = 35 SECONDS
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
@@ -76,7 +76,7 @@
 	name = "meat coffin"
 	desc = "When you're ready to meat your maker, the steaks can never be too high."
 	icon_state = "meatcoffin"
-	icon = 'icons/bloodsuckers/vamp_obj.dmi'
+	icon = 'icons/vampires/vamp_obj.dmi'
 	resistance_flags = FIRE_PROOF
 	open_sound = 'sound/effects/footstep/slime1.ogg'
 	close_sound = 'sound/effects/footstep/slime1.ogg'
@@ -99,7 +99,7 @@
 	name = "metal coffin"
 	desc = "A big metal sardine can inside of another big metal sardine can, in space."
 	icon_state = "metalcoffin"
-	icon = 'icons/bloodsuckers/vamp_obj.dmi'
+	icon = 'icons/vampires/vamp_obj.dmi'
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	open_sound = 'sound/effects/pressureplate.ogg'
 	close_sound = 'sound/effects/pressureplate.ogg'
@@ -123,9 +123,9 @@
 
 /// NOTE: This can be any coffin that you are resting AND inside of.
 /obj/structure/closet/crate/coffin/proc/claim_coffin(mob/living/claimant, area/current_area)
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = claimant.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	var/datum/antagonist/vampire/vampiredatum = claimant.mind.has_antag_datum(/datum/antagonist/vampire)
 	// Successfully claimed?
-	if(bloodsuckerdatum.claim_coffin(src, current_area))
+	if(vampiredatum.claim_coffin(src, current_area))
 		resident = claimant
 		anchored = TRUE
 		START_PROCESSING(SSprocessing, src)
@@ -165,15 +165,15 @@
 	if(!resident || !resident.mind)
 		return
 	// Unclaiming
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = resident.mind.has_antag_datum(/datum/antagonist/bloodsucker)
-	if(bloodsuckerdatum && bloodsuckerdatum.coffin == src)
-		bloodsuckerdatum.coffin = null
-		bloodsuckerdatum.bloodsucker_lair_area = null
-	for(var/obj/structure/bloodsucker/bloodsucker_structure in get_area(src))
-		if(bloodsucker_structure.owner == resident)
-			bloodsucker_structure.unbolt()
+	var/datum/antagonist/vampire/vampiredatum = resident.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vampiredatum && vampiredatum.coffin == src)
+		vampiredatum.coffin = null
+		vampiredatum.vampire_lair_area = null
+	for(var/obj/structure/vampire/vampire_structure in get_area(src))
+		if(vampire_structure.owner == resident)
+			vampire_structure.unbolt()
 	if(manual)
-		to_chat(resident, "<span class='cultitalic'>You have unclaimed your coffin! This also unclaims all your other Bloodsucker structures!</span>")
+		to_chat(resident, "<span class='cultitalic'>You have unclaimed your coffin! This also unclaims all your other Vampire structures!</span>")
 	else
 		to_chat(resident, "<span class='cultitalic'>You sense that the link with your coffin and your sacred lair has been broken! You will need to seek another.</span>")
 	// Remove resident. Because this objec (GC?) we need to give them a way to see they don't have a home anymore.
@@ -198,11 +198,11 @@
 		return FALSE
 	// Only the User can put themself into Torpor. If already in it, you'll start to heal.
 	if(user in src)
-		var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
-		if(!bloodsuckerdatum)
+		var/datum/antagonist/vampire/vampiredatum = user.mind.has_antag_datum(/datum/antagonist/vampire)
+		if(!vampiredatum)
 			return FALSE
 		var/area/current_area = get_area(src)
-		if(!bloodsuckerdatum.coffin && !resident)
+		if(!vampiredatum.coffin && !resident)
 			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [current_area] will be your lair.", "Claim Lair", list("Yes", "No")))
 				if("Yes")
 					claim_coffin(user, current_area)
@@ -210,12 +210,12 @@
 					return
 		LockMe(user)
 		//Level up if possible.
-		if(!bloodsuckerdatum.my_clan)
+		if(!vampiredatum.my_clan)
 			to_chat(user, "<span class='notice'>You must enter a Clan to rank up.</span>")
 		else
-			bloodsuckerdatum.SpendRank()
+			vampiredatum.SpendRank()
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the oppertunity to do so.
-		bloodsuckerdatum.check_begin_torpor()
+		vampiredatum.check_begin_torpor()
 	return TRUE
 
 /// You cannot weld or deconstruct an owned coffin. Only the owner can destroy their own coffin.

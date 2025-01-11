@@ -20,20 +20,20 @@
  *	# Archives of the Kindred:
  *
  *	A book that can only be used by Curators.
- *	When used on a player, after a short timer, will reveal if the player is a Bloodsucker, including their real name and Clan.
- *	This book should not work on Bloodsuckers using the Masquerade ability.
- *	If it reveals a Bloodsucker, the Curator will then be able to tell they are a Bloodsucker on examine (Like a Vassal).
+ *	When used on a player, after a short timer, will reveal if the player is a Vampire, including their real name and Clan.
+ *	This book should not work on Vampires using the Masquerade ability.
+ *	If it reveals a Vampire, the Curator will then be able to tell they are a Vampire on examine (Like a Vassal).
  *	Reading it normally will allow Curators to read what each Clan does, with some extra flavor text ones.
  *
- *	Regular Bloodsuckers won't have any negative effects from the book, while everyone else will get burns/eye damage.
+ *	Regular Vampires won't have any negative effects from the book, while everyone else will get burns/eye damage.
  */
 /obj/item/book/kindred
 	name = "\improper Archive of the Kindred"
 	title = "the Archive of the Kindred"
 	desc = "Cryptic documents explaining hidden truths behind Undead beings. It is said only Curators can decipher what they really mean."
-	icon = 'icons/bloodsuckers/vamp_obj.dmi'
-	lefthand_file = 'icons/bloodsuckers/bs_leftinhand.dmi'
-	righthand_file = 'icons/bloodsuckers/bs_rightinhand.dmi'
+	icon = 'icons/vampires/vamp_obj.dmi'
+	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
+	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
 	icon_state = "kindred_book"
 	author = "dozens of generations of Curators"
 	unique = TRUE
@@ -53,7 +53,7 @@
 	if(!user.can_read(src) || in_use || (target == user) || !ismob(target))
 		return
 	if(!IS_CURATOR(user))
-		if(IS_BLOODSUCKER(user))
+		if(IS_VAMPIRE(user))
 			to_chat(user, "<span class='notice'>[src] seems to be too complicated for you. It would be best to leave this for someone else to take.</span>")
 			return
 		to_chat(user, "<span class='warning'>[src] burns your hands as you try to use it!</span>")
@@ -68,20 +68,20 @@
 		return
 	in_use = FALSE
 
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(target)
-	// Are we a Bloodsucker | Are we on Masquerade. If one is true, they will fail.
-	if(IS_BLOODSUCKER(target) && !HAS_TRAIT(target, TRAIT_MASQUERADE))
-		if(bloodsuckerdatum.broke_masquerade)
-			to_chat(user, "<span class='warning'>[target], also known as '[bloodsuckerdatum.return_full_name()]', is indeed a Bloodsucker, but you already knew this.</span>")
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(target)
+	// Are we a Vampire | Are we on Masquerade. If one is true, they will fail.
+	if(IS_VAMPIRE(target) && !HAS_TRAIT(target, TRAIT_MASQUERADE))
+		if(vampiredatum.broke_masquerade)
+			to_chat(user, "<span class='warning'>[target], also known as '[vampiredatum.return_full_name()]', is indeed a Vampire, but you already knew this.</span>")
 			return
-		to_chat(user, "<span class='warning'>[target], also known as '[bloodsuckerdatum.return_full_name()]', [bloodsuckerdatum.my_clan ? "is part of the [bloodsuckerdatum.my_clan]!" : "is not part of a clan."] You quickly note this information down, memorizing it.</span>")
-		bloodsuckerdatum.break_masquerade()
+		to_chat(user, "<span class='warning'>[target], also known as '[vampiredatum.return_full_name()]', [vampiredatum.my_clan ? "is part of the [vampiredatum.my_clan]!" : "is not part of a clan."] You quickly note this information down, memorizing it.</span>")
+		vampiredatum.break_masquerade()
 	else
-		to_chat(user, "<span class='notice'>You fail to draw any conclusions to [target] being a Bloodsucker.</span>")
+		to_chat(user, "<span class='notice'>You fail to draw any conclusions to [target] being a Vampire.</span>")
 
 /obj/item/book/kindred/attack_self(mob/living/user)
 	if(!IS_CURATOR(user))
-		if(IS_BLOODSUCKER(user))
+		if(IS_VAMPIRE(user))
 			to_chat(user, "<span class='notice'>[src] seems to be too complicated for you. It would be best to leave this for someone else to take.</span>")
 		else
 			to_chat(user, "<span class='warning'>You feel your eyes unable to read the boring texts...</span>")
@@ -97,7 +97,7 @@
 /obj/item/book/kindred/ui_static_data(mob/user)
 	var/data = list()
 
-	for(var/datum/bloodsucker_clan/clans as anything in subtypesof(/datum/bloodsucker_clan))
+	for(var/datum/vampire_clan/clans as anything in subtypesof(/datum/vampire_clan))
 		var/clan_data = list()
 		clan_data["clan_name"] = initial(clans.name)
 		clan_data["clan_desc"] = initial(clans.description)

@@ -25,7 +25,7 @@
 	drag_slowdown = 0
 	imacrate = TRUE
 	breakout_time = 20 SECONDS
-	var/mob/living/resident //The bloodsucker owner of this crate (or coffin)
+	var/mob/living/resident //The vampire owner of this crate (or coffin)
 	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree

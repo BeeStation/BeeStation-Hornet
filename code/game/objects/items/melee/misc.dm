@@ -1006,11 +1006,11 @@
 /obj/item/stake
 	name = "wooden stake"
 	desc = "A simple wooden stake carved to a sharp point."
-	icon = 'icons/bloodsuckers/stakes.dmi'
+	icon = 'icons/vampires/stakes.dmi'
 	icon_state = "wood"
 	item_state = "wood"
-	lefthand_file = 'icons/bloodsuckers/bs_leftinhand.dmi'
-	righthand_file = 'icons/bloodsuckers/bs_rightinhand.dmi'
+	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
+	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
 	slot_flags = ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -1057,10 +1057,10 @@
 		return
 	if(!target.mind)
 		return
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(target)
-	if(bloodsuckerdatum)
-		if(bloodsuckerdatum?.can_stake_kill())
-			bloodsuckerdatum.final_death()
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(target)
+	if(vampiredatum)
+		if(vampiredatum?.can_stake_kill())
+			vampiredatum.final_death()
 		else
 			to_chat(target, "<span class='userdanger'>You have been staked! Your powers are useless while it remains in place.</span>")
 			target.balloon_alert(target, "you have been staked!")

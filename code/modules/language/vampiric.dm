@@ -1,6 +1,6 @@
 /datum/language/vampiric
 	name = "Blah-Sucker"
-	desc = "The native language of the Bloodsucker elders, learned intuitively by Fledglings as they pass from death into immortality."
+	desc = "The native language of the Vampire elders, learned intuitively by Fledglings as they pass from death into immortality."
 	key = "l"
 	space_chance = 40
 	default_priority = 90
@@ -17,5 +17,5 @@
 		"t'","k'","t'","k'","th'","tz'"
 		)
 
-	icon_state = "bloodsucker"
-	icon = 'icons/bloodsuckers/vampiric.dmi'
+	icon_state = "vampire"
+	icon = 'icons/vampires/vampiric.dmi'

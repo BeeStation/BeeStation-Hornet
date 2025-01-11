@@ -46,7 +46,7 @@
 	name = "mysterious old shard"
 	old_shard = TRUE
 
-/obj/item/soulstone/bloodsucker
+/obj/item/soulstone/vampire
 	theme = THEME_WIZARD
 	required_role = /datum/antagonist/vassal
 

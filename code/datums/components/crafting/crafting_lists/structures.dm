@@ -169,7 +169,7 @@
 
 /datum/crafting_recipe/vassalrack
 	name = "Persuasion Rack"
-	result = /obj/structure/bloodsucker/vassalrack
+	result = /obj/structure/vampire/vassalrack
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/wood = 3,
@@ -182,7 +182,7 @@
 
 /datum/crafting_recipe/candelabrum
 	name = "Candelabrum"
-	result = /obj/structure/bloodsucker/candelabrum
+	result = /obj/structure/vampire/candelabrum
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 3,
@@ -195,7 +195,7 @@
 
 /datum/crafting_recipe/bloodthrone
 	name = "Blood Throne"
-	result = /obj/structure/bloodsucker/bloodthrone
+	result = /obj/structure/vampire/bloodthrone
 	tools = list(TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/cotton/cloth = 3,

@@ -17,7 +17,7 @@ export const KindredBook = (props, context) => {
   return (
     <Window width={410} height={460} theme="syndicate">
       <Window.Content scrollable>
-        <Section title="Bloodsucker Clans">
+        <Section title="Vampire Clans">
           <Table mb={2}>
             <Table.Row>
               Written by generations of Curators, this holds all information we the Curators know about the undead threat that
