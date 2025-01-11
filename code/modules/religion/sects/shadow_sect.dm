@@ -1,5 +1,3 @@
-// Shadow sect - Original code by DingoDongler, Remade by Wikimody
-
 /datum/religion_sect/shadow_sect
 	starter = FALSE
 	name = "Shadow"
@@ -7,13 +5,14 @@
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
-	favor = 400 // real number is 0 this is for testing
+	favor = 10000 // real number is 0 this is for testing
 	max_favor = 50000
 	desired_items = list(
 		/obj/item/flashlight)
 	rites_list = list(
-		/datum/religion_rites/expand_shadows,
 		/datum/religion_rites/shadow_obelisk,
+		/datum/religion_rites/expand_shadows,
+		/datum/religion_rites/nigth_vision_aura,
 		/datum/religion_rites/shadow_conversion
 	)
 
@@ -50,12 +49,40 @@
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
 	max_integrity = 300
 	damage_deflection = 10
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	var/datum/proximity_monitor/proximity_monitor
+
+
+/obj/structure/destructible/religion/shadow_obelisk/Initialize()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!proximity_monitor)
+		proximity_monitor = new(src, sect.light_reach)
+
+
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
+	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exited))
+
+
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.obelisk_number = sect.obelisk_number - 1
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/on_entered(datum/source, atom/movable/AM)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if (ismob(AM))
+		return
+	if (sect.night_vision_active)
+		ADD_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/on_exited(datum/source, atom/movable/AM)
+	if (ismob(AM))
+		return
+	if (HAS_TRAIT_FROM(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT))
+		REMOVE_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
@@ -76,6 +103,9 @@
 		return
 	return ..()
 
+//if(locate(/obj/structure/destructible/religion/shadow_obelisk) in range(6,get_turf()))
+//		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
+//		return
 
 // Favor generator component. Used on the altar and obelisks
 /datum/component/dark_favor
@@ -106,6 +136,20 @@
 	var/light_amount = T.get_lumcount()
 	var/favor_gained = max(1 - light_amount, 0) * delta_time
 	sect.adjust_favor(favor_gained, creator)
+
+
+
+
+
+
+
+/obj/structure/structure/destructible/religion/shadow_obelisk/proc/on_mob_enter(mob/living/affected_mob)
+
+
+/obj/structure/structure/destructible/religion/shadow_obelisk/proc/on_mob_effect(mob/living/affected_mob)
+	return
+
+/obj/structure/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
 
 
 /**** Shadow rites ****/
@@ -215,7 +259,29 @@
 	sect.light_power -= 1
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
-		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+		if (D.anchored)
+			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+			D.proximity_monitor.set_range(sect.light_reach)
+
+
+/datum/religion_rites/nigth_vision_aura
+	name = "Provide nigth vision"
+	desc = "Grands obelisc aura of night vision, with lets people see in darknes. Any aditional casting will turn it on or off."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list(
+		"Spread out...",
+		"... Seep into them ...",
+		"... Infuse their sight ...")
+	invoke_msg = "Shadows, reach your tendrils from my altar, and grand thy sight to people."
+	favor_cost = 1000
+
+/datum/religion_rites/nigth_vision_aura/invoke_effect(mob/living/user, atom/religious_tool)
+	. = ..()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
+		for(var/mob/each_mob in range(D,sect.light_reach))
+			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+
 
 
 
