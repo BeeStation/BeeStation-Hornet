@@ -138,20 +138,6 @@
 	sect.adjust_favor(favor_gained, creator)
 
 
-
-
-
-
-
-/obj/structure/structure/destructible/religion/shadow_obelisk/proc/on_mob_enter(mob/living/affected_mob)
-
-
-/obj/structure/structure/destructible/religion/shadow_obelisk/proc/on_mob_effect(mob/living/affected_mob)
-	return
-
-/obj/structure/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
-
-
 /**** Shadow rites ****/
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
 
