@@ -61,7 +61,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
 
-	if(pump_direction) //input -> external
+	if(pump_direction == ATMOS_DIRECTION_RELEASING) //input -> external
 		var/pressure_delta = 10000
 
 		if(pressure_checks&ATMOS_EXTERNAL_BOUND)
@@ -85,7 +85,7 @@
 		var/datum/pipenet/parent1 = parents[1]
 		parent1.update = TRUE
 
-	else //external -> output
+	else //(ATMOS_DIRECTION_SIPHONING) external -> output
 		var/pressure_delta = 10000
 
 		if(pressure_checks&ATMOS_EXTERNAL_BOUND)

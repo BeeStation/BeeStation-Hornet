@@ -84,6 +84,7 @@
 					if(pump?.on)
 						pump.on = FALSE
 						pump.update_icon()
+
 			if(AIRLOCK_STATE_PRESSURIZE)
 				if(target_state == AIRLOCK_STATE_INOPEN)
 					var/sensor_pressure = sensor_pressure()
@@ -108,13 +109,13 @@
 						if(pump.pump_direction == ATMOS_DIRECTION_SIPHONING)
 							pump.pressure_checks |= ATMOS_EXTERNAL_BOUND
 							pump.pump_direction = ATMOS_DIRECTION_RELEASING
-						else if(pump.pump_direction == ATMOS_DIRECTION_RELEASING)
+						else if(!pump.on)
 							pump.on = TRUE
-
-						pump.update_icon()
+							pump.update_icon()
 				else
 					state = AIRLOCK_STATE_CLOSED
 					process_again = TRUE
+
 			if(AIRLOCK_STATE_CLOSED)
 				if(target_state == AIRLOCK_STATE_OUTOPEN)
 					var/obj/machinery/door/airlock/interior_airlock = interior_door_ref.resolve()
@@ -143,7 +144,8 @@
 
 					if (!pump.on)
 						pump.on = TRUE
-						pump.update_appearance(UPDATE_ICON)
+						pump.update_icon()
+
 			if(AIRLOCK_STATE_DEPRESSURIZE)
 				var/target_pressure = ONE_ATMOSPHERE*0.05
 				if(sanitize_external)
@@ -177,7 +179,9 @@
 					if(pump.pump_direction == ATMOS_DIRECTION_RELEASING)
 						pump.pressure_checks &= ~ATMOS_EXTERNAL_BOUND
 						pump.pump_direction = ATMOS_DIRECTION_SIPHONING
-						pump.update_appearance(UPDATE_ICON)
+					else if(!pump.on)
+						pump.on = TRUE
+						pump.update_icon()
 
 			if(AIRLOCK_STATE_OUTOPEN) //state 2
 				if(target_state != AIRLOCK_STATE_OUTOPEN)
@@ -198,10 +202,14 @@
 					var/obj/machinery/atmospherics/components/binary/dp_vent_pump/pump = pump_ref.resolve()
 					if (isnull(pump))
 						continue
+
 					if (pump.on)
 						pump.on = FALSE
-						pump.update_appearance(UPDATE_ICON)
+						pump.update_icon()
+
 	processing = state != target_state
+
+	update_icon()
 
 /obj/machinery/airlock_controller/ui_data(mob/user)
 	var/list/data = list()
