@@ -15982,6 +15982,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "dpg" = (
@@ -20468,7 +20471,6 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "eKG" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Brig Shuttle Airlock";
 	req_one_access_txt = "63"
@@ -24527,7 +24529,6 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
 "fXG" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Departure Shuttle Airlock"
 	},
@@ -30827,6 +30828,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -38528,7 +38532,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "kzl" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Ferry Shuttle Airlock"
 	},
@@ -46192,6 +46195,9 @@
 	req_access_txt = "13"
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal)
 "ndS" = (
@@ -50421,6 +50427,9 @@
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -55237,6 +55246,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -59030,6 +59042,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "rhW" = (
@@ -61709,7 +61724,6 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "sbN" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Brig Shuttle Airlock";
 	req_one_access_txt = "63"
@@ -65049,6 +65063,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/engine,
 /area/tcommsat/server)
 "tdi" = (
@@ -66084,6 +66099,9 @@
 /area/maintenance/port/fore)
 "txH" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -70433,7 +70451,6 @@
 /turf/closed/wall,
 /area/maintenance/port/aft)
 "uSM" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Departure Shuttle Airlock"
 	},
@@ -75360,10 +75377,10 @@
 /area/engine/break_room)
 "wuV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -75901,6 +75918,9 @@
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal)
@@ -78223,7 +78243,6 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "xiD" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Ferry Shuttle Airlock"
 	},
