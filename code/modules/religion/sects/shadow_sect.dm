@@ -34,8 +34,8 @@
 /datum/religion_sect/shadow_sect/on_sacrifice(obj/item/N, mob/living/L)
 	if(!istype(N, /obj/item/flashlight))
 		return
-	adjust_favor(10, L)
-	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	adjust_favor(20, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 20 favor in the process.</span>")
 	qdel(N)
 	return TRUE
 
