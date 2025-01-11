@@ -188,7 +188,7 @@
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 	RegisterSignal(src, COMSIG_BLOODSUCKER_ON_LIFETICK, PROC_REF(handle_death))
 
-/datum/antagonist/bloodsucker/proc/on_revive(mob/living/source)
+/datum/antagonist/bloodsucker/proc/on_revive()
 	SIGNAL_HANDLER
 
 	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
