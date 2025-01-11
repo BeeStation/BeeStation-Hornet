@@ -59,6 +59,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AirlockController", src)
+		ui.set_autoupdate(TRUE) //When we click button, we change UI buttons.
 		ui.open()
 
 /obj/machinery/airlock_controller/process(delta_time)
