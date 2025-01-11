@@ -43,8 +43,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	ConsumeTile()
 
 /obj/structure/blob/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
-
 	if (!isovermind(user))
 		return .
 

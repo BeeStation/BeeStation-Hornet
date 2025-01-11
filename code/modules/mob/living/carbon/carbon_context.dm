@@ -1,6 +1,4 @@
 /mob/living/carbon/add_context_self(datum/source, datum/screentip_context/context, mob/user)
-	. = ..()
-
 	/*
 	if (!isnull(context.held_item))
 		context.add_ctrl_shift_click_item_action("Offer item")

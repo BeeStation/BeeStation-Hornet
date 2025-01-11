@@ -20,7 +20,6 @@
 	var/is_gas_flowing = FALSE
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize target temperature")
 

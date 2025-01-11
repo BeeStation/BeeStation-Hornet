@@ -29,7 +29,6 @@
 	pipe_state = "volumepump"
 
 /obj/machinery/atmospherics/components/binary/volume_pump/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize transfer rate")
 

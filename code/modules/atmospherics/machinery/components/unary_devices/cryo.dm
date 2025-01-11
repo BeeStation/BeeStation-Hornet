@@ -82,7 +82,6 @@
 		. += "<span class='notice'>The status display reads: Efficiency at <b>[efficiency*100]%</b>.</span>"
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("[state_open ? "Close" : "Open"] door")
 

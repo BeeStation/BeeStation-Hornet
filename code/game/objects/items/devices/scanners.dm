@@ -164,6 +164,7 @@ GENE SCANNER
 	else
 		to_chat(user, "<span class='notice'>You switch the health analyzer to check physical health.</span>")
 		scanmode = 0
+	refresh_holder_screentips()
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
@@ -189,6 +190,13 @@ GENE SCANNER
 
 	add_fingerprint(user)
 
+/obj/item/healthanalyzer/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+	if (isliving(target))
+		if(scanmode == 0)
+			context.add_left_click_action("Scan Health")
+		else if(scanmode == 1)
+			context.add_left_click_action("Scan Chemicals")
+	context.add_attack_self_action("Switch Mode")
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)

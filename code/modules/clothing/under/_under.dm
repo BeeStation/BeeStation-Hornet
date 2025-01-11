@@ -59,8 +59,6 @@
 	update_sensors(NO_SENSORS)
 
 /obj/item/clothing/under/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
-
 	//if(isnull(held_item) && has_sensor == HAS_SENSORS)
 	//	context.add_right_click_action("Toggle suit sensors")
 

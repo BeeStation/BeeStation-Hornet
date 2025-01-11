@@ -1668,7 +1668,6 @@
 	return new /datum/wires/airlock(src, wire_security_level)
 
 /obj/machinery/door/airlock/add_context_self(datum/screentip_context/context, mob/user)
-	..()
 	if (machine_stat & BROKEN)
 		return
 	if (!hasPower())

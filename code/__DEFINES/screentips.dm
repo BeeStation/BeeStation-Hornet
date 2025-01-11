@@ -34,6 +34,8 @@ GLOBAL_VAR_INIT(hint_rolling_pin, "<span style='font-size: 1px'>.</span>\icon[GL
 // Auto-tips: Developer QOL
 // ============================
 
+GLOBAL_LIST_EMPTY(screentip_contextless_items)
+
 GLOBAL_LIST_INIT(screentips_cache, init_autotips())
 
 #define SCREENTIP_ATTACK_HAND(type, message) /datum/screentip_cache##type/attack_hand = "\n" + "<span class='maptext'><span style='line-height: 0.35; color:" + SCREEN_TIP_NORMAL + "'><center>%LMB% " + message + "</center></span></span>"

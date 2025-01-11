@@ -6,16 +6,17 @@ SUBSYSTEM_DEF(screentips)
 	flags = SS_NO_INIT | SS_TICKER
 	// Head of the scanning loop
 	var/client/head = null
+	/// Diagnostics/Performance tracking: Keep track of how many atoms had to dereference their user
+	var/deleted_hovered_atoms = 0
+	var/caches_generated = 0
 
 /datum/controller/subsystem/screentips/fire(resumed)
 	while (head != null && !MC_TICK_CHECK)
-		if (QDELETED(head.hovered_atom) || head.screentip_last_process == times_fired)
-			head.hovered_atom = null
+		if (QDELETED(head.hovered_atom))
 			head = head.screentip_next
 			continue
 		head.hovered_atom.on_mouse_enter(head)
-		head.hovered_atom = null
-		head.screentip_last_process = times_fired
+		head.hover_queued = FALSE
 		head = head.screentip_next
 
 /datum/controller/subsystem/screentips/proc/on_client_disconnected(client/target)

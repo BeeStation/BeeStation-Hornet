@@ -1,5 +1,3 @@
-#define IMAGE_FOR_PATH(typepath) "<span class='small-icon'><img class=icon src=\ref[initial(typepath.icon)] iconstate='[initial(typepath.icon_state)]'></span>"
-
 /datum/screentip_context
 	var/mob/user
 	var/obj/item/held_item
@@ -11,10 +9,13 @@
 	var/shift_left_mouse_context
 	var/alt_left_mouse_context
 	var/ctrl_shift_left_mouse_context
+	var/cache_enabled = FALSE
+	var/relevant_type = null
 
 /// Indicates that this screentip does not depend on any external state, and only state provided
 /// by this context object itself.
 /datum/screentip_context/proc/use_cache()
+	cache_enabled = TRUE
 
 /// Used in if statements to determine if the mob examining this object is of a certain type
 /// as certain mobs may have specific interactions with things
@@ -22,6 +23,7 @@
 /datum/screentip_context/proc/accept_mob_type(mob_type)
 	if (istype(user, mob_type))
 		relevant = TRUE
+		relevant_type = mob_type
 		return TRUE
 	return FALSE
 
@@ -30,6 +32,7 @@
 /datum/screentip_context/proc/accept_silicons()
 	if (issilicon(user))
 		relevant = TRUE
+		relevant_type = /mob/living/silicon
 		return TRUE
 	return FALSE
 
@@ -38,6 +41,7 @@
 /datum/screentip_context/proc/accept_animals()
 	if (isanimal(user))
 		relevant = TRUE
+		relevant_type = /mob/living/simple_animal
 		return TRUE
 	return FALSE
 
@@ -65,6 +69,8 @@
 /datum/screentip_context/proc/add_left_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_attack_self_action(action_text)
 
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
 	if (held_item?.tool_behaviour == tool)
