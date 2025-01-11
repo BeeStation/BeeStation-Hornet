@@ -61271,6 +61271,11 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/iron/dark,
 /area/teleporter)
+"viR" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical,
+/turf/open/floor/iron/techmaint,
+/area/security/brig)
 "vjg" = (
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -100035,7 +100040,7 @@ anF
 aiX
 iiK
 iiK
-flQ
+viR
 ikG
 aiX
 ndP
