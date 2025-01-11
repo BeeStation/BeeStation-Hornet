@@ -30,7 +30,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
-	register_context()
 	if(owner_overmind)
 		overmind = owner_overmind
 		var/area/Ablob = get_area(src)

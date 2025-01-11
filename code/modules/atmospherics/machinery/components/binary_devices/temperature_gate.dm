@@ -19,10 +19,6 @@
 	//Check if the gas is moving from one pipenet to the other
 	var/is_gas_flowing = FALSE
 
-/obj/machinery/atmospherics/components/binary/temperature_gate/Initialize(mapload)
-	. = ..()
-	register_context()
-
 /obj/machinery/atmospherics/components/binary/temperature_gate/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")

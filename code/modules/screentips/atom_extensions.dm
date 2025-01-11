@@ -62,9 +62,6 @@
 		context.user = null
 		context.held_item = null
 
-/// Indicates that this atom uses contexts, in any form
-/atom/proc/register_context()
-
 /// Add context tips
 /atom/proc/add_context_self(datum/screentip_context/context, mob/user)
 	return

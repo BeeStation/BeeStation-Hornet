@@ -57,7 +57,6 @@
 	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
 		has_sensor = HAS_SENSORS
 	update_sensors(NO_SENSORS)
-	register_context()
 
 /obj/item/clothing/under/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()

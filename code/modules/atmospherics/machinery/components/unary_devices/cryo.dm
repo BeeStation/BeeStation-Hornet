@@ -58,8 +58,6 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-	register_context()
-
 /obj/machinery/atmospherics/components/unary/cryo_cell/set_occupant(atom/movable/new_occupant)
 	. = ..()
 	update_icon()

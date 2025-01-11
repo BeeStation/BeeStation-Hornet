@@ -28,10 +28,6 @@
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "volumepump"
 
-/obj/machinery/atmospherics/components/binary/volume_pump/Initialize(mapload)
-	. = ..()
-	register_context()
-
 /obj/machinery/atmospherics/components/binary/volume_pump/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")

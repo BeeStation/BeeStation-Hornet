@@ -40,7 +40,6 @@
 	initialize_directions = dir
 	RefreshParts()
 	update_appearance()
-	register_context()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()

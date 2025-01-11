@@ -239,7 +239,6 @@
 			log_mapping("Duplicate APC created at [AREACOORD(src)] [area.type]. Original at [AREACOORD(area.apc)] [area.type].")
 		area.apc = src
 
-	register_context()
 	update_appearance()
 
 	make_terminal()

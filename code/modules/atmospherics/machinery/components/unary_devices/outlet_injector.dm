@@ -23,10 +23,6 @@
 	layer = GAS_SCRUBBER_LAYER
 	pipe_state = "injector"
 
-
-/obj/machinery/atmospherics/components/unary/outlet_injector/Initialize(mapload)
-	register_context()
-
 /obj/machinery/atmospherics/components/unary/outlet_injector/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")

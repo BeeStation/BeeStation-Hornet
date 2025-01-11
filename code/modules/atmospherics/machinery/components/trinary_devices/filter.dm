@@ -14,10 +14,6 @@
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "filter"
 
-/obj/machinery/atmospherics/components/trinary/filter/Initialize(mapload)
-	. = ..()
-	register_context()
-
 /obj/machinery/atmospherics/components/trinary/filter/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")

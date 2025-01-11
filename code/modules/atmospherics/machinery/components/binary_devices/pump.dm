@@ -32,7 +32,6 @@
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/atmos_pump,
 	))
-	register_context()
 
 /obj/machinery/atmospherics/components/binary/pump/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
