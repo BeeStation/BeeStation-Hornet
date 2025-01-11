@@ -184,6 +184,7 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
+#define FIRE_PRIORITY_SCREENTIPS	5	// Don't spend a lot of time on this
 #define FIRE_PRIORITY_STAT			10
 #define FIRE_PRIORITY_AMBIENCE		10
 #define FIRE_PRIORITY_IDLE_NPC		10
@@ -191,7 +192,6 @@
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_VIS			10
 #define FIRE_PRIORITY_ZCOPY			10
-#define FIRE_PRIORITY_SCREENTIPS	10	// Don't spend a lot of time on this
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_DATABASE 16
 #define FIRE_PRIORITY_PARALLAX		18
