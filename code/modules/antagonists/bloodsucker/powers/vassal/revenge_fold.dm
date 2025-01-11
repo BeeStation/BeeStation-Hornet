@@ -15,10 +15,14 @@
 		return FALSE
 
 	var/mob/living/target = owner.pulling
+	var/datum/antagonist/ex_vassal/former_vassal = IS_EX_VASSAL(target)
 	if(!isliving(target))
 		return FALSE
-	if(!IS_EX_VASSAL(target))
+	if(!former_vassal)
 		owner.balloon_alert(owner, "not a former vassal!")
+		return FALSE
+	if(former_vassal?.revenge_vassal)
+		owner.balloon_alert(owner, "already converted!")
 		return FALSE
 	return TRUE
 

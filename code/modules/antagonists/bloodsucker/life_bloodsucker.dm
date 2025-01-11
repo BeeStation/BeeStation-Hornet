@@ -182,7 +182,7 @@
 	if(source.stat != DEAD) // weirdness shield
 		return
 	if(gibbed)
-		INVOKE_ASYNC(src, PROC_REF(final_death))
+		CALLBACK(src, PROC_REF(final_death)).Invoke()
 		return
 
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
@@ -273,10 +273,10 @@
 
 /// Gibs the Bloodsucker, roundremoving them.
 /datum/antagonist/bloodsucker/proc/final_death()
-	var/static/handeled_final_death = FALSE
-	if(handeled_final_death)
+	var/static/handled_final_death = FALSE
+	if(handled_final_death)
 		return
-	handeled_final_death = TRUE
+	handled_final_death = TRUE
 
 	var/mob/living/carbon/user = owner.current
 
@@ -284,10 +284,11 @@
 	for(var/datum/antagonist/vassal/vassal in vassals)
 		if(vassal.special_type == REVENGE_VASSAL)
 			continue
-		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
-		var/datum/antagonist/ex_vassal/ex_vassal = new /datum/antagonist/ex_vassal
+		var/datum/antagonist/ex_vassal/ex_vassal = new()
 		ex_vassal.bloodsucker_team = bloodsucker_team
 		vassal.owner.add_antag_datum(ex_vassal)
+
+		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
 
 	// If we have no body, end here.
 	if(!user)
